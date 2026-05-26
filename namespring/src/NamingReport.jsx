@@ -2,8 +2,7 @@
 import { NameStatRepository } from '@seed/database/name-stat-repository';
 import NamingResultRenderer from './NamingResultRenderer';
 import { buildRenderMetricsFromNamingResult } from './naming-result-render-metrics';
-import { HOME_CARD_COLOR_THEME, buildTileStyle } from './theme/card-color-theme';
-import { getElementToneClass, getMetaToneClass, getPolarityToneClass } from './theme/report-ui-theme';
+import { getElementToneClass, getPolarityToneClass } from './theme/report-ui-theme';
 import {
   CollapsibleCard,
   CollapsibleMiniCard,
@@ -208,15 +207,11 @@ function YearlySeriesChart({
 
   const toneClass = tone === 'indigo'
     ? {
-        border: 'border-[var(--ns-tone-indigo-border)]',
-        bg: 'bg-[var(--ns-tone-indigo-bg)]/20',
         title: 'text-[var(--ns-tone-indigo-text)]',
         line: 'var(--ns-tone-indigo-line)',
         area: 'var(--ns-tone-indigo-area)',
       }
     : {
-        border: 'border-[var(--ns-tone-warn-border)]',
-        bg: 'bg-[var(--ns-tone-warn-bg)]/20',
         title: 'text-[var(--ns-tone-warn-text)]',
         line: 'var(--ns-tone-amber-line)',
         area: 'var(--ns-tone-amber-area)',
@@ -231,7 +226,6 @@ function YearlySeriesChart({
       title={title}
       subtitle={subtitle}
       tone={tone === 'indigo' ? 'indigo' : 'warn'}
-      className={`${toneClass.border} ${toneClass.bg}`}
     >
       {sorted.length ? (
         <>
@@ -283,9 +277,13 @@ function MiniCardBox({
 }
 
 function MetaInfoCard({ title, value, tone = 'default' }) {
-  const toneClass = tone === 'default'
-    ? `${getNestedMiniCardClass('surface')} text-[var(--ns-muted)]`
-    : getMetaToneClass(tone);
+  const toneClass = tone === 'emerald'
+    ? getNestedMiniCardClass('success')
+    : tone === 'blue'
+      ? getNestedMiniCardClass('info')
+      : tone === 'amber'
+        ? getNestedMiniCardClass('warn')
+        : getNestedMiniCardClass('surface');
 
   return (
     <CollapsibleMiniCard title={title} open hideToggle className={toneClass}>
@@ -337,8 +335,6 @@ const CARD_TONE = {
   hanja: REPORT_HOME_CARD_TONE_MAP.naming,
   hangul: REPORT_HOME_CARD_TONE_MAP.info,
 };
-const SUMMARY_CARD_STYLE = buildTileStyle(HOME_CARD_COLOR_THEME.report);
-const SUMMARY_INNER_BORDER_STYLE = { borderColor: HOME_CARD_COLOR_THEME.report.border };
 
 function SummaryBadges({ items }) {
   return (
@@ -364,7 +360,6 @@ function GenderRatioPie({ maleRatio, femaleRatio, maleBirths, femaleBirths }) {
     <MiniCardBox
       title="성별 사용 비율"
       tone="indigo"
-      className="border-[var(--ns-tone-indigo-border)] bg-[var(--ns-tone-indigo-bg)]/20"
     >
       {hasData ? (
         <div className="flex items-center justify-center gap-5">
@@ -602,28 +597,24 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
 
   return (
     <>
-    <div ref={reportRootRef} data-pdf-root="true" className="mt-4 ns-section-stack ns-section-stack--loose animate-in fade-in slide-in-from-bottom-6 duration-700">
+    <div ref={reportRootRef} data-pdf-root="true" className="nr-report-root mt-4 ns-section-stack ns-section-stack--loose animate-in fade-in slide-in-from-bottom-6 duration-700">
       <section
         data-pdf-force-foreign-object="true"
-        className="ns-report-surface p-4 md:p-5 relative overflow-hidden"
-        style={SUMMARY_CARD_STYLE}
+        className="ns-report-surface nr-summary-card"
       >
-        <div className="relative z-10 ns-split-row md:items-end">
+        <div className="nr-summary-card__head">
           <div>
-            <p className="text-[11px] tracking-[0.22em] text-[var(--ns-muted)] font-black mb-3">이름 평가 요약</p>
-            <h2 className="text-3xl md:text-4xl font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">{fullNameHangul}</h2>
-            <p className="text-lg md:text-xl text-[var(--ns-muted)] font-semibold mt-1 break-keep whitespace-normal">{fullNameHanja}</p>
+            <p className="nr-summary-card__kicker">이름 평가 요약</p>
+            <h2 className="nr-summary-card__name">{fullNameHangul}</h2>
+            <p className="nr-summary-card__hanja">{fullNameHanja}</p>
           </div>
-          <div className="text-left md:text-right">
-            <p className="text-sm text-[var(--ns-muted)] font-bold mb-1">종합 점수</p>
-            <div className="text-5xl md:text-6xl font-black text-[var(--ns-accent-text)] leading-none">{scoreText}</div>
-            <p className="text-sm text-[var(--ns-muted)] font-semibold mt-2">{getScoreGrade(score)}</p>
+          <div className="nr-summary-card__score">
+            <p>종합 점수</p>
+            <strong>{scoreText}</strong>
+            <span>{getScoreGrade(score)}</span>
           </div>
         </div>
-        <div
-          className="ns-saju-visual relative z-10 mt-4 h-44 md:h-52 border"
-          style={SUMMARY_INNER_BORDER_STYLE}
-        >
+        <div className="ns-saju-visual nr-summary-card__visual">
         <NamingResultRenderer
           renderMetrics={nameCardRenderMetrics}
           birthDateTime={shareUserInfo?.birthDateTime ?? null}
@@ -644,19 +635,19 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
       >
 
         {popularityState.loading ? (
-          <div className="rounded-2xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)]/20 p-4 text-sm font-semibold text-[var(--ns-muted)]">
+          <div className="nr-status-note">
             인기도 통계를 불러오는 중입니다...
           </div>
         ) : null}
 
         {!popularityState.loading && popularityState.error ? (
-          <div className="rounded-2xl border border-[var(--ns-tone-danger-border)] bg-[var(--ns-tone-danger-bg)]/20 p-4 text-sm font-semibold text-[var(--ns-tone-danger-text)]">
+          <div className="nr-status-note nr-status-note--danger">
             {popularityState.error}
           </div>
         ) : null}
 
         {!popularityState.loading && !popularityState.error && !popularityState.found ? (
-          <div className="rounded-2xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)]/20 p-4 text-sm font-semibold text-[var(--ns-muted)]">
+          <div className="nr-status-note">
             현재 이름에 대한 통계 데이터가 없습니다.
           </div>
         ) : null}
@@ -666,7 +657,6 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
               <MiniCardBox
                 title="인기도 및 인기 추세"
                 tone="info"
-                className="border-[var(--ns-tone-info-border)] bg-[var(--ns-tone-info-bg)]/20"
               >
               <div className="flex flex-wrap items-center gap-2 text-sm break-keep">
                 <span className="font-black text-[var(--ns-tone-info-text)]">
@@ -684,7 +674,6 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
               <MiniCardBox
                 title="유사 이름 리스트"
                 tone="success"
-                className="border-[var(--ns-tone-success-border)] bg-[var(--ns-tone-success-bg)]/20"
               >
               {popularityState.similarNames.length ? (
                 <div className="flex flex-wrap gap-1.5">
@@ -759,7 +748,7 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
               ? entry.suitable_career.map((item) => replaceNamePlaceholder(item, fullNameHangul)).join(', ')
               : '';
             return (
-              <article key={`life-flow-${idx}`} className="rounded-2xl border border-[var(--ns-tone-warn-border)] bg-gradient-to-r from-[var(--ns-tone-warn-bg)] via-[var(--ns-surface-soft)] to-[var(--ns-report-grad-end)] p-2.5 md:p-3 space-y-2">
+              <article key={`life-flow-${idx}`} className="nr-flow-card nr-flow-card--warn">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div className="min-w-0">
                     <p className="text-sm font-black text-[var(--ns-accent-text)]">{lifePhaseLabel(frame?.type)} · {frameTypeLabel(frame?.type)} ({frame?.strokeSum}수)</p>
@@ -771,13 +760,13 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
                   </div>
                 </div>
 
-                <div className="rounded-xl border border-[var(--ns-tone-warn-border)] bg-[var(--ns-tone-warn-bg)]/20 px-2.5 py-2">
+                <div className="nr-inline-panel nr-inline-panel--warn">
                   <p className="text-sm text-[var(--ns-muted)] leading-relaxed break-keep whitespace-normal">{summaryText}</p>
                 </div>
                 <button
                   type="button"
                   onClick={() => toggleLifeDetail(idx)}
-                  className="w-full rounded-xl border border-[var(--ns-tone-warn-border)] bg-[var(--ns-tone-warn-bg)]/20 px-2.5 py-2 text-sm font-black text-[var(--ns-tone-warn-text)] text-left flex items-center justify-between"
+                  className="nr-detail-button nr-detail-button--warn"
                 >
                   <span>상세 해석</span>
                   <svg
@@ -793,20 +782,20 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
                 {isOpen ? (
                   <div className="space-y-3">
                     {entry?.detailed_explanation ? (
-                      <div className="rounded-xl border border-[var(--ns-tone-warn-border)] bg-[var(--ns-tone-warn-bg)]/20 px-2.5 py-2">
+                      <div className="nr-inline-panel nr-inline-panel--warn">
                         <p className="text-sm text-[var(--ns-muted)] leading-relaxed break-keep whitespace-normal">{detailedText}</p>
                       </div>
                     ) : null}
 
                     <div className="space-y-2.5 text-sm">
                       {entry?.positive_aspects ? (
-                        <div className="rounded-xl border border-[var(--ns-tone-success-border)] bg-[var(--ns-tone-success-bg)]/20 text-[var(--ns-tone-success-text)] px-2.5 py-2">
+                        <div className="nr-inline-panel nr-inline-panel--success">
                           <p className="text-xs font-black mb-1">강점</p>
                           <p className="leading-relaxed font-semibold break-keep whitespace-normal">{positiveText}</p>
                         </div>
                       ) : null}
                       {entry?.caution_points ? (
-                        <div className="rounded-xl border border-[var(--ns-tone-danger-border)] bg-[var(--ns-tone-danger-bg)]/20 text-[var(--ns-tone-danger-text)] px-2.5 py-2">
+                        <div className="nr-inline-panel nr-inline-panel--danger">
                           <p className="text-xs font-black mb-1">유의점</p>
                           <p className="leading-relaxed font-semibold break-keep whitespace-normal">{cautionText}</p>
                         </div>
@@ -862,8 +851,8 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
             ]}
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-            <div className="rounded-xl border border-[var(--ns-tone-success-border)] bg-[var(--ns-tone-success-bg)]/20 p-3 font-black text-[var(--ns-tone-success-text)]">길흉 점수: {fourFrameLuckScore.toFixed(1)}</div>
-            <div className="rounded-xl border border-[var(--ns-tone-cyan-border)] bg-[var(--ns-tone-cyan-bg)]/20 p-3 font-black text-[var(--ns-tone-cyan-text)]">최종 점수: {fourFrameScore.toFixed(1)}</div>
+            <div className="nr-score-pill nr-score-pill--success">길흉 점수: {fourFrameLuckScore.toFixed(1)}</div>
+            <div className="nr-score-pill nr-score-pill--cyan">최종 점수: {fourFrameScore.toFixed(1)}</div>
           </div>
           <div className="space-y-2">
             {frameBlocks.map((frame, idx) => {
@@ -871,7 +860,7 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
               const pol = polarityLabel(frame?.energy?.polarity);
               const detail = getFrameDetailScores(frameBlocks, idx);
               return (
-                <div key={`f-row-${idx}`} className="rounded-xl border border-[var(--ns-tone-success-border)] bg-gradient-to-r from-[var(--ns-tone-success-bg)] via-[var(--ns-surface-soft)] to-[var(--ns-report-grad-end)] px-3 py-3 text-sm space-y-2">
+                <div key={`f-row-${idx}`} className="nr-row-card nr-row-card--success">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <span className="font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">{frameTypeLabel(frame?.type)} ({frame?.strokeSum}수)</span>
                     <div className="flex gap-1.5 shrink-0">
@@ -880,9 +869,9 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
                     </div>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px] font-black">
-                    <div className="rounded-lg border border-[var(--ns-tone-success-border)] bg-[var(--ns-tone-success-bg)]/20 px-2 py-1 text-[var(--ns-tone-success-text)]">음양 {detail.polarity.toFixed(1)}</div>
-                    <div className="rounded-lg border border-[var(--ns-tone-cyan-border)] bg-[var(--ns-tone-cyan-bg)]/20 px-2 py-1 text-[var(--ns-tone-cyan-text)]">오행 {detail.element.toFixed(1)}</div>
-                    <div className="rounded-lg border border-[var(--ns-tone-success-border)] bg-[var(--ns-tone-success-bg)]/20 px-2 py-1 text-[var(--ns-tone-success-text)]">최종 {detail.final.toFixed(1)}</div>
+                    <div className="nr-row-score nr-row-score--success">음양 {detail.polarity.toFixed(1)}</div>
+                    <div className="nr-row-score nr-row-score--cyan">오행 {detail.element.toFixed(1)}</div>
+                    <div className="nr-row-score nr-row-score--success">최종 {detail.final.toFixed(1)}</div>
                   </div>
                 </div>
               );
@@ -912,16 +901,16 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
             ]}
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
-            <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)]/20 p-3 font-black text-[var(--ns-text)]">음양 점수: {hanjaPolarityScore.toFixed(1)}</div>
-            <div className="rounded-xl border border-[var(--ns-tone-neutral-border)] bg-[var(--ns-tone-neutral-bg)]/20 p-3 font-black text-[var(--ns-tone-neutral-text)]">오행 점수: {hanjaElementScore.toFixed(1)}</div>
-            <div className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)]/20 p-3 font-black text-[var(--ns-accent-text)]">최종 점수: {hanjaScore.toFixed(1)}</div>
+            <div className="nr-score-pill">음양 점수: {hanjaPolarityScore.toFixed(1)}</div>
+            <div className="nr-score-pill nr-score-pill--neutral">오행 점수: {hanjaElementScore.toFixed(1)}</div>
+            <div className="nr-score-pill nr-score-pill--accent">최종 점수: {hanjaScore.toFixed(1)}</div>
           </div>
           <div className="space-y-2">
             {hanjaBlocks.map((block, idx) => {
               const el = normalizeElement(block?.energy?.element || block?.entry?.resource_element);
               const pol = polarityLabel(block?.energy?.polarity);
               return (
-                <div key={`j-row-${idx}`} className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-[var(--ns-border)] bg-gradient-to-r from-[var(--ns-surface-soft)]/70 via-[var(--ns-surface)]/70 to-[var(--ns-surface)] px-3 py-2 text-sm">
+                <div key={`j-row-${idx}`} className="nr-row-card">
                   <span className="font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">{block?.entry?.hanja || '-'} ({block?.entry?.strokes ?? '-'}획)</span>
                   <div className="flex gap-1.5 shrink-0">
                     <span className={`px-2 py-0.5 rounded-full border text-[11px] font-black ${el ? getElementSoftClass(el) : 'bg-[var(--ns-surface-soft)]/20 text-[var(--ns-text)] border-[var(--ns-border)]'}`}>{el ? ELEMENT_LABEL[el] : '-'}</span>
@@ -955,16 +944,16 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
             ]}
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
-            <div className="rounded-xl border border-[var(--ns-tone-cyan-border)] bg-[var(--ns-tone-cyan-bg)]/20 p-3 font-black text-[var(--ns-tone-cyan-text)]">음양 점수: {hangulPolarityScore.toFixed(1)}</div>
-            <div className="rounded-xl border border-[var(--ns-tone-info-border)] bg-[var(--ns-tone-info-bg)]/20 p-3 font-black text-[var(--ns-tone-info-text)]">오행 점수: {hangulElementScore.toFixed(1)}</div>
-            <div className="rounded-xl border border-[var(--ns-tone-cyan-border)] bg-[var(--ns-tone-cyan-bg)]/20 p-3 font-black text-[var(--ns-tone-cyan-text)]">최종 점수: {hangulScore.toFixed(1)}</div>
+            <div className="nr-score-pill nr-score-pill--cyan">음양 점수: {hangulPolarityScore.toFixed(1)}</div>
+            <div className="nr-score-pill nr-score-pill--info">오행 점수: {hangulElementScore.toFixed(1)}</div>
+            <div className="nr-score-pill nr-score-pill--cyan">최종 점수: {hangulScore.toFixed(1)}</div>
           </div>
           <div className="space-y-2">
             {hangulBlocks.map((block, idx) => {
               const el = normalizeElement(block?.energy?.element);
               const pol = polarityLabel(block?.energy?.polarity);
               return (
-                <div key={`h-row-${idx}`} className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-[var(--ns-tone-cyan-border)] bg-gradient-to-r from-[var(--ns-tone-cyan-bg)] via-[var(--ns-surface-soft)] to-[var(--ns-report-grad-end)] px-3 py-2 text-sm">
+                <div key={`h-row-${idx}`} className="nr-row-card nr-row-card--cyan">
                   <span className="font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">{block?.entry?.hangul || '-'} ({block?.entry?.nucleus || '-'})</span>
                   <div className="flex gap-1.5 shrink-0">
                     <span className={`px-2 py-0.5 rounded-full border text-[11px] font-black ${el ? getElementSoftClass(el) : 'bg-[var(--ns-surface-soft)]/20 text-[var(--ns-text)] border-[var(--ns-border)]'}`}>{el ? ELEMENT_LABEL[el] : '-'}</span>

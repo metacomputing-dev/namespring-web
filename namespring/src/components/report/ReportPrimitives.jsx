@@ -4,6 +4,92 @@ export function cx(...values) {
   return values.filter(Boolean).join(' ');
 }
 
+function elementTextClassName(value) {
+  const key = String(value || '').trim().toLowerCase();
+  if (key === 'wood') return 'ns-element-text--wood';
+  if (key === '목') return 'ns-element-text--wood';
+  if (key === 'fire') return 'ns-element-text--fire';
+  if (key === '화') return 'ns-element-text--fire';
+  if (key === 'earth') return 'ns-element-text--earth';
+  if (key === '토') return 'ns-element-text--earth';
+  if (key === 'metal') return 'ns-element-text--metal';
+  if (key === '금') return 'ns-element-text--metal';
+  if (key === 'water') return 'ns-element-text--water';
+  if (key === '수') return 'ns-element-text--water';
+  return 'ns-element-text--neutral';
+}
+
+const ELEMENT_LABEL_BY_KEY = {
+  WOOD: '목',
+  FIRE: '화',
+  EARTH: '토',
+  METAL: '금',
+  WATER: '수',
+};
+
+const STEM_HANJA_BY_HANGUL = {
+  갑: '甲',
+  을: '乙',
+  병: '丙',
+  정: '丁',
+  무: '戊',
+  기: '己',
+  경: '庚',
+  신: '辛',
+  임: '壬',
+  계: '癸',
+};
+
+const BRANCH_HANJA_BY_HANGUL = {
+  자: '子',
+  축: '丑',
+  인: '寅',
+  묘: '卯',
+  진: '辰',
+  사: '巳',
+  오: '午',
+  미: '未',
+  신: '申',
+  유: '酉',
+  술: '戌',
+  해: '亥',
+};
+
+const STEM_HANGUL_BY_HANJA = Object.fromEntries(Object.entries(STEM_HANJA_BY_HANGUL).map(([hangul, hanja]) => [hanja, hangul]));
+const BRANCH_HANGUL_BY_HANJA = Object.fromEntries(Object.entries(BRANCH_HANJA_BY_HANGUL).map(([hangul, hanja]) => [hanja, hangul]));
+
+function normalizeElementKey(value) {
+  const raw = String(value ?? '').trim();
+  const upper = raw.toUpperCase();
+  if (raw === '목' || upper === 'WOOD' || upper === 'WOODEN') return 'WOOD';
+  if (raw === '화' || upper === 'FIRE') return 'FIRE';
+  if (raw === '토' || upper === 'EARTH') return 'EARTH';
+  if (raw === '금' || upper === 'METAL') return 'METAL';
+  if (raw === '수' || upper === 'WATER') return 'WATER';
+  return upper;
+}
+
+function formatElementLabel(value) {
+  const key = normalizeElementKey(value);
+  return ELEMENT_LABEL_BY_KEY[key] || String(value || '-');
+}
+
+function formatGanjiSymbol(part, type) {
+  const rawSymbol = String(part?.symbol ?? part?.large ?? part ?? '').trim();
+  const hangul = String(part?.hangul ?? '').trim();
+  const hanja = String(part?.hanja ?? '').trim();
+  if (hangul && hanja && hangul !== hanja) return `${hangul}(${hanja})`;
+
+  const raw = rawSymbol || hangul || hanja || '-';
+  if (raw.length === 1) {
+    const hanjaByHangul = type === 'branch' ? BRANCH_HANJA_BY_HANGUL : STEM_HANJA_BY_HANGUL;
+    const hangulByHanja = type === 'branch' ? BRANCH_HANGUL_BY_HANJA : STEM_HANGUL_BY_HANJA;
+    if (hanjaByHangul[raw]) return `${raw}(${hanjaByHangul[raw]})`;
+    if (hangulByHanja[raw]) return `${hangulByHanja[raw]}(${raw})`;
+  }
+  return raw;
+}
+
 export function HomeIcon({ className = 'h-5 w-5' }) {
   return (
     <svg viewBox="0 0 20 20" fill="none" className={className} aria-hidden="true">
@@ -174,7 +260,10 @@ export function PillarTable({ columns = [], rows = [], className = '' }) {
           {rows.map((row, rowIndex) => (
             <tr key={`pillar-row-${rowIndex}`}>
               {row.map((cell, cellIndex) => (
-                <td key={`${rowIndex}-${cellIndex}`}>
+                <td
+                  key={`${rowIndex}-${cellIndex}`}
+                  className={typeof cell === 'object' && cell?.elementKey ? elementTextClassName(cell.elementKey) : undefined}
+                >
                   {typeof cell === 'object' && cell ? (
                     <>
                       {cell.large ? <span className="ns-pillar-table__hanja">{cell.large}</span> : null}
@@ -187,6 +276,66 @@ export function PillarTable({ columns = [], rows = [], className = '' }) {
               ))}
             </tr>
           ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export function SajuPillarTable({ columns = [], className = '', compact = false, ariaLabel = '사주팔자 4기둥' }) {
+  const normalizedColumns = columns.slice(0, 4).map((column, index) => ({
+    key: column?.key || `pillar-${index}`,
+    label: column?.label || ['년주', '월주', '일주', '시주'][index],
+    stem: column?.stem || null,
+    branch: column?.branch || null,
+  }));
+  while (normalizedColumns.length < 4) {
+    const index = normalizedColumns.length;
+    normalizedColumns.push({
+      key: `pillar-empty-${index}`,
+      label: ['년주', '월주', '일주', '시주'][index],
+      stem: null,
+      branch: null,
+    });
+  }
+
+  const renderCell = (column, type) => {
+    const part = column[type] || {};
+    const elementKey = normalizeElementKey(part?.elementKey || part?.element || '');
+    return (
+      <td key={`${column.key}-${type}`} className={elementTextClassName(elementKey)}>
+        <div className="ns-saju-pillar-cell">
+          <span className="ns-saju-pillar-cell__symbol">{formatGanjiSymbol(part, type)}</span>
+          <span className="ns-saju-pillar-cell__element">{formatElementLabel(elementKey)}</span>
+        </div>
+      </td>
+    );
+  };
+
+  return (
+    <div className={cx('ns-table-wrap ns-saju-pillars', compact ? 'ns-saju-pillars--compact' : '', className)}>
+      <table className="ns-pillar-table ns-saju-pillar-table" aria-label={ariaLabel}>
+        <colgroup>
+          <col className="ns-saju-pillar-table__axis-col" />
+          {normalizedColumns.map((column) => <col key={`${column.key}-col`} />)}
+        </colgroup>
+        <thead>
+          <tr>
+            <th scope="col">구분</th>
+            {normalizedColumns.map((column) => (
+              <th key={`${column.key}-head`} scope="col">{column.label}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">천간</th>
+            {normalizedColumns.map((column) => renderCell(column, 'stem'))}
+          </tr>
+          <tr>
+            <th scope="row">지지</th>
+            {normalizedColumns.map((column) => renderCell(column, 'branch'))}
+          </tr>
         </tbody>
       </table>
     </div>
