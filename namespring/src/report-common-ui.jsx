@@ -133,7 +133,7 @@ export function useReportActions({
       window.print();
     } catch (error) {
       console.error('Print save failed', error);
-      alert('인쇄 준비에 실패했습니다. 잠시 후 다시 시도해 주세요.');
+      alert('PDF 저장 준비에 실패했습니다. 잠시 후 다시 시도해 주세요.');
       window.removeEventListener('afterprint', handleAfterPrint);
       restoreState();
       return;
@@ -208,28 +208,28 @@ export function ReportActionButtons({
   };
 
   return (
-    <div data-pdf-exclude="true" className="flex gap-4 pt-2">
+    <div data-pdf-exclude="true" className="ns-report-actions">
       <button
         type="button"
         onClick={onSavePdf}
         disabled={isPdfSaving}
-        className="flex-1 py-4 bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-2xl font-black text-[var(--ns-muted)] hover:bg-[var(--ns-surface-soft)] active:scale-95 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+        className="ns-report-action ns-report-action--secondary"
       >
-        {isPdfSaving ? '인쇄 준비 중...' : 'PDF로 저장하기'}
+        {isPdfSaving ? '저장 준비 중' : 'PDF 저장'}
       </button>
       <button
         type="button"
         onClick={onShare}
-        className="flex-1 py-4 bg-[var(--ns-share-btn-bg)] text-[var(--ns-share-btn-text)] border border-[var(--ns-share-btn-border)] rounded-2xl font-black shadow-lg hover:brightness-95 active:scale-95 transition-all"
+        className="ns-report-action ns-report-action--primary"
       >
         공유하기
       </button>
       <button
         type="button"
         onClick={handleBack}
-        className="flex-1 py-4 bg-[var(--ns-surface)] border border-[var(--ns-border)] rounded-2xl font-black text-[var(--ns-muted)] hover:bg-[var(--ns-surface-soft)] active:scale-95 transition-all"
+        className="ns-report-action ns-report-action--secondary"
       >
-        뒤로가기
+        돌아가기
       </button>
     </div>
   );
@@ -238,11 +238,11 @@ export function ReportActionButtons({
 export function ReportPrintOverlay({ isPdfSaving }) {
   if (!isPdfSaving) return null;
   return (
-    <div data-pdf-exclude="true" className="fixed inset-0 z-[120] bg-black/35 backdrop-blur-[2px] p-4 flex items-center justify-center">
-      <div className="w-full max-w-xs rounded-2xl border border-[var(--ns-border)] bg-[var(--ns-surface)] p-5 shadow-2xl text-center">
-        <div className="mx-auto h-10 w-10 rounded-full border-4 border-[var(--ns-primary)] border-t-transparent animate-spin" />
-        <h3 className="mt-3 text-base font-black text-[var(--ns-accent-text)]">인쇄 준비 중</h3>
-        <p className="mt-1 text-sm font-semibold text-[var(--ns-muted)]">인쇄 창에서 PDF로 저장해 주세요.</p>
+    <div data-pdf-exclude="true" className="ns-report-modal-backdrop">
+      <div className="ns-report-modal-card ns-report-modal-card--center">
+        <div className="ns-report-spinner" aria-hidden="true" />
+        <h3>저장 준비 중</h3>
+        <p>인쇄 창에서 PDF로 저장해 주세요.</p>
       </div>
     </div>
   );
@@ -259,30 +259,33 @@ export function ReportShareDialog({
   return (
     <div
       data-pdf-exclude="true"
-      className="fixed inset-0 z-[100] bg-black/35 backdrop-blur-[2px] p-4 flex items-center justify-center"
+      className="ns-report-modal-backdrop"
       onClick={onClose}
     >
       <div
-        className="w-full max-w-sm rounded-2xl border border-[var(--ns-border)] bg-[var(--ns-surface)] p-4 shadow-2xl"
+        className="ns-report-modal-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="report-share-dialog-title"
         onClick={(event) => event.stopPropagation()}
       >
-        <h3 className="text-base font-black text-[var(--ns-accent-text)]">공유 링크</h3>
-        <p className="text-xs font-semibold text-[var(--ns-muted)] mt-1">아래 주소를 복사해 공유하세요.</p>
-        <div className="mt-3 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-3 py-2 text-xs text-[var(--ns-text)] break-all">
+        <h3 id="report-share-dialog-title">공유 링크</h3>
+        <p>아래 주소를 복사해 다시 열어보세요.</p>
+        <div className="ns-report-share-link">
           {shareLink}
         </div>
-        <div className="mt-3 flex gap-2">
+        <div className="ns-report-dialog-actions">
           <button
             type="button"
             onClick={onCopy}
-            className="flex-1 py-2.5 rounded-xl bg-[var(--ns-primary)] text-[var(--ns-accent-text)] font-black text-sm hover:brightness-95 transition-all"
+            className="ns-report-action ns-report-action--primary ns-report-action--compact"
           >
-            {isLinkCopied ? '복사됨' : '클립보드에 복사'}
+            {isLinkCopied ? '복사됨' : '링크 복사'}
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2.5 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] text-[var(--ns-muted)] font-black text-sm"
+            className="ns-report-action ns-report-action--secondary ns-report-action--compact"
           >
             닫기
           </button>
@@ -323,7 +326,7 @@ export function ReportScrollTopFab() {
         document.body.scrollTo({ top: 0, behavior: 'smooth' });
         document.getElementById('root')?.scrollTo({ top: 0, behavior: 'smooth' });
       }}
-      aria-label="최상단으로 이동"
+      aria-label="맨 위로 이동"
       className="ns-scroll-top-fab w-12 h-12 rounded-full border border-[var(--ns-border)] bg-[var(--ns-surface)] text-[var(--ns-muted)] shadow-xl inline-flex items-center justify-center"
     >
       <svg viewBox="0 0 20 20" fill="none" className="w-5 h-5" aria-hidden="true">

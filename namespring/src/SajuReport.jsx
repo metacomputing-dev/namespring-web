@@ -10,11 +10,14 @@ import {
   ReportShareDialog,
   useReportActions,
 } from './report-common-ui';
+import { SajuPillarTable } from './components/report/ReportPrimitives';
 
 const ELEMENT_CODE_ORDER = ['WOOD', 'FIRE', 'EARTH', 'METAL', 'WATER'];
 const POSITION_ORDER = ['YEAR', 'MONTH', 'DAY', 'HOUR'];
 const POSITION_LABEL = { YEAR: '년주', MONTH: '월주', DAY: '일주', HOUR: '시주' };
 const POSITION_KEY_BY_CODE = { YEAR: 'year', MONTH: 'month', DAY: 'day', HOUR: 'hour' };
+const CHEONGAN_RELATION_STATUS_LABELS = ['합', '충', '극'];
+const JIJI_RELATION_STATUS_LABELS = ['합', '충', '형', '파', '해', '원진'];
 
 const STEM_ELEMENT_BY_CODE = {
   GAP: 'WOOD',
@@ -70,6 +73,20 @@ function elementCardClass(value) {
   return getElementToneClass(toElementKey(value));
 }
 
+function normalizeRelationStatusLabel(value) {
+  const raw = String(value ?? '').trim();
+  const upper = raw.toUpperCase();
+  if (!raw) return '';
+  if (upper.includes('CHUNG') || raw.includes('충')) return '충';
+  if (upper.includes('HYEONG') || raw.includes('형')) return '형';
+  if (upper.includes('HAE') || raw.includes('해')) return '해';
+  if (upper.includes('WONJIN') || raw.includes('원진')) return '원진';
+  if (upper.includes('PA') || raw.includes('파')) return '파';
+  if (upper.includes('GEUK') || raw.includes('극')) return '극';
+  if (upper.includes('HAP') || raw.includes('합')) return '합';
+  return raw;
+}
+
 function asNumber(value, fallback = 0) {
   const n = Number(value);
   return Number.isFinite(n) ? n : fallback;
@@ -116,6 +133,28 @@ function InfoCard({ title, value }) {
     <div className="ns-report-panel ns-report-panel--sunken">
       <p className="text-[11px] font-black text-[var(--ns-muted)] mb-1">{title}</p>
       <p className="text-sm text-[var(--ns-text)] break-keep whitespace-normal">{value || '-'}</p>
+    </div>
+  );
+}
+
+function RelationStatusChips({ labels, detected }) {
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {labels.map((label) => {
+        const isDetected = detected.has(label);
+        return (
+          <span
+            key={label}
+            className={`inline-flex min-h-7 items-center rounded-full border px-2.5 py-1 text-[11px] font-black leading-tight break-keep ${
+              isDetected
+                ? 'border-[var(--ns-border)] bg-[var(--ns-surface-soft)] text-[var(--ns-accent-text)]'
+                : 'border-[var(--ns-border)] bg-[var(--ns-surface)]/55 text-[var(--ns-muted)]'
+            }`}
+          >
+            {label} {isDetected ? '있음' : '없음'}
+          </span>
+        );
+      })}
     </div>
   );
 }
@@ -210,6 +249,14 @@ function SajuReport({ report, shareUserInfo = null }) {
 
   const cheonganRelations = Array.isArray(report?.cheonganRelations) ? report.cheonganRelations : [];
   const jijiRelations = Array.isArray(report?.jijiRelations) ? report.jijiRelations : [];
+  const cheonganRelationStatus = useMemo(
+    () => new Set(cheonganRelations.map((item) => normalizeRelationStatusLabel(item?.type)).filter(Boolean)),
+    [cheonganRelations]
+  );
+  const jijiRelationStatus = useMemo(
+    () => new Set(jijiRelations.map((item) => normalizeRelationStatusLabel(item?.type)).filter(Boolean)),
+    [jijiRelations]
+  );
   const shinsalHits = Array.isArray(report?.shinsalHits) ? report.shinsalHits : [];
   const sajuRenderMetrics = useMemo(
     () => buildRenderMetricsFromSajuReport(report, {
@@ -332,41 +379,24 @@ function SajuReport({ report, shareUserInfo = null }) {
         open={openCards.pillars}
         onToggle={() => toggleCard('pillars')}
       >
-        <div className="space-y-3">
-          <div>
-            <p className="text-[11px] font-black text-[var(--ns-muted)] mb-1.5">천간</p>
-            <div className="grid grid-cols-4 gap-1.5">
-              {pillarGridCells.map((cell) => (
-                <div key={`stem-${cell.positionCode}`} className={`rounded-xl border px-2 py-2 ${elementCardClass(cell.stem.element)}`}>
-                  <p className="text-[10px] font-black opacity-80">{cell.positionLabel}</p>
-                  <p className="text-sm leading-tight font-black mt-0.5">
-                    {cell.stem.hangul}
-                    <span className="text-[10px] font-semibold ml-0.5">({cell.stem.hanja})</span>
-                  </p>
-                  <p className="text-[10px] font-black mt-1">{elementLabel(cell.stem.element)} 오행</p>
-                  <p className="text-[10px] opacity-75">{cell.stem.code}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <p className="text-[11px] font-black text-[var(--ns-muted)] mb-1.5">지지</p>
-            <div className="grid grid-cols-4 gap-1.5">
-              {pillarGridCells.map((cell) => (
-                <div key={`branch-${cell.positionCode}`} className={`rounded-xl border px-2 py-2 ${elementCardClass(cell.branch.element)}`}>
-                  <p className="text-[10px] font-black opacity-80">{cell.positionLabel}</p>
-                  <p className="text-sm leading-tight font-black mt-0.5">
-                    {cell.branch.hangul}
-                    <span className="text-[10px] font-semibold ml-0.5">({cell.branch.hanja})</span>
-                  </p>
-                  <p className="text-[10px] font-black mt-1">{elementLabel(cell.branch.element)} 오행</p>
-                  <p className="text-[10px] opacity-75">{cell.branch.code}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <SajuPillarTable
+          columns={pillarGridCells.map((cell) => ({
+            key: cell.positionCode,
+            label: cell.positionLabel,
+            stem: {
+              symbol: cell.stem.hangul,
+              hangul: cell.stem.hangul,
+              hanja: cell.stem.hanja,
+              element: cell.stem.element,
+            },
+            branch: {
+              symbol: cell.branch.hangul,
+              hangul: cell.branch.hangul,
+              hanja: cell.branch.hanja,
+              element: cell.branch.element,
+            },
+          }))}
+        />
       </CollapsibleCard>
 
       <CollapsibleCard
@@ -517,6 +547,7 @@ function SajuReport({ report, shareUserInfo = null }) {
         <div className="space-y-3">
           <section className="space-y-2">
             <p className="text-sm font-black text-[var(--ns-accent-text)]">천간 관계</p>
+            <RelationStatusChips labels={CHEONGAN_RELATION_STATUS_LABELS} detected={cheonganRelationStatus} />
             {cheonganRelations.length ? cheonganRelations.map((item, index) => (
               <div key={`cg-${index}`} className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)]/20 px-3 py-2.5">
                 <p className="text-sm font-black text-[var(--ns-text)]">{item?.type || '-'}</p>
@@ -528,13 +559,16 @@ function SajuReport({ report, shareUserInfo = null }) {
                   <p className="text-xs text-[var(--ns-muted)] mt-1 break-keep whitespace-normal">
                     점수: base {formatNumber(item.score.baseScore, 2)}, adj {formatNumber(item.score.adjacencyBonus, 2)}, mult {formatNumber(item.score.outcomeMultiplier, 2)}, final {formatNumber(item.score.finalScore, 2)}
                   </p>
-                ) : null}
+                ) : (
+                  <p className="text-xs text-[var(--ns-muted)] mt-1 break-keep whitespace-normal">점수: 엔진 점수 없음</p>
+                )}
               </div>
             )) : <p className="text-sm text-[var(--ns-muted)]">천간 관계 정보가 없습니다.</p>}
           </section>
 
           <section className="space-y-2">
             <p className="text-sm font-black text-[var(--ns-accent-text)]">지지 관계</p>
+            <RelationStatusChips labels={JIJI_RELATION_STATUS_LABELS} detected={jijiRelationStatus} />
             {jijiRelations.length ? jijiRelations.map((item, index) => (
               <div key={`jj-${index}`} className="rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)]/20 px-3 py-2.5">
                 <p className="text-sm font-black text-[var(--ns-text)]">{item?.type || '-'}</p>
@@ -545,6 +579,9 @@ function SajuReport({ report, shareUserInfo = null }) {
                 {item?.reasoning ? <p className="text-xs text-[var(--ns-muted)] mt-1 break-keep whitespace-normal">{item.reasoning}</p> : null}
               </div>
             )) : <p className="text-sm text-[var(--ns-muted)]">지지 관계 정보가 없습니다.</p>}
+            <p className="text-[11px] font-semibold text-[var(--ns-muted)] break-keep whitespace-normal">
+              지지 관계는 현재 엔진 출력에 별도 점수 필드가 없어 관계 결과와 해석만 표시합니다.
+            </p>
           </section>
         </div>
       </CollapsibleCard>

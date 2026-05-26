@@ -181,6 +181,7 @@ function NamingResultRenderer({
   gender = '',
   isSolarCalendar = true,
   isBirthTimeUnknown = false,
+  showIdentityOverlay = true,
 }) {
   const meadowGradientId = useId();
   const moonMaskId = useId();
@@ -388,7 +389,7 @@ function NamingResultRenderer({
               <FireSprite />
             </div>
           ))}
-        </div>
+          </div>
       </div>
 
       {Array.from({ length: metalCount }).map((_, i) => (
@@ -406,7 +407,8 @@ function NamingResultRenderer({
           ))}
         </div>
 
-        <div className="absolute right-6 bottom-5 text-right shrink-0" style={glowStyle}>
+        {showIdentityOverlay ? (
+          <div className="absolute right-6 bottom-5 text-right shrink-0" style={glowStyle}>
           <p className={`text-xl md:text-2xl font-black ${textColorClass}`}>
             {appliedSummary.displayHangul}
             {appliedSummary.displayHanja ? ` (${appliedSummary.displayHanja})` : ''}
@@ -428,7 +430,8 @@ function NamingResultRenderer({
           {appliedSummary.score ? (
             <p className={`text-sm font-bold mt-1 ${textColorClass}`}>종합 점수 {appliedSummary.score}</p>
           ) : null}
-        </div>
+          </div>
+        ) : null}
       </div>
     </div>
   );

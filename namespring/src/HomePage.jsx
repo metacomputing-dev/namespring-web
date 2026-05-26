@@ -12,17 +12,17 @@ import {
   InfoList,
   LeafMark,
   PageHeading,
-  PillarTable,
   ReportCard,
   ScoreRing,
   SearchIcon,
+  SajuPillarTable,
   StatusPanel,
   cx,
 } from './components/report/ReportPrimitives';
 import { buildRenderMetricsFromSajuReport } from './naming-result-render-metrics';
 
-const PILLAR_COLUMNS = ['시주', '일주', '월주', '년주'];
-const PILLAR_KEYS = ['hour', 'day', 'month', 'year'];
+const PILLAR_COLUMNS = ['년주', '월주', '일주', '시주'];
+const PILLAR_KEYS = ['year', 'month', 'day', 'hour'];
 const ELEMENT_LABELS = {
   WOOD: '목',
   FIRE: '화',
@@ -62,20 +62,131 @@ const BRANCH_ELEMENT_BY_CODE = {
   HAE: 'WATER',
 };
 
+const stemVisualMap = {
+  GAP: { label: '갑', hanja: '甲', tone: 'wood', icon: 'sprout', description: '갑목 · 곧게 뻗는 시작' },
+  EUL: { label: '을', hanja: '乙', tone: 'wood', icon: 'sprout', description: '을목 · 부드러운 생장' },
+  BYEONG: { label: '병', hanja: '丙', tone: 'fire', icon: 'sun', description: '병화 · 밝게 드러나는 빛' },
+  JEONG: { label: '정', hanja: '丁', tone: 'fire', icon: 'flame', description: '정화 · 오래 머무는 불씨' },
+  MU: { label: '무', hanja: '戊', tone: 'earth', icon: 'mountain', description: '무토 · 너른 대지의 힘' },
+  GI: { label: '기', hanja: '己', tone: 'earth', icon: 'soil', description: '기토 · 안정의 흙' },
+  GYEONG: { label: '경', hanja: '庚', tone: 'metal', icon: 'blade', description: '경금 · 단단한 결단' },
+  SIN: { label: '신', hanja: '辛', tone: 'metal', icon: 'mineral', description: '신금 · 정제된 감각' },
+  IM: { label: '임', hanja: '壬', tone: 'water', icon: 'wave', description: '임수 · 큰 물의 흐름' },
+  GYE: { label: '계', hanja: '癸', tone: 'water', icon: 'drop', description: '계수 · 고요한 물기' },
+};
+
+const stemKeyByHangul = {
+  갑: 'GAP',
+  을: 'EUL',
+  병: 'BYEONG',
+  정: 'JEONG',
+  무: 'MU',
+  기: 'GI',
+  경: 'GYEONG',
+  신: 'SIN',
+  임: 'IM',
+  계: 'GYE',
+};
+
+const stemKeyByHanja = {
+  甲: 'GAP',
+  乙: 'EUL',
+  丙: 'BYEONG',
+  丁: 'JEONG',
+  戊: 'MU',
+  己: 'GI',
+  庚: 'GYEONG',
+  辛: 'SIN',
+  壬: 'IM',
+  癸: 'GYE',
+};
+
+const elementVisualMap = {
+  WOOD: { label: '목', hanja: '木', tone: 'wood', icon: 'leaf', description: '목의 성장 기운' },
+  FIRE: { label: '화', hanja: '火', tone: 'fire', icon: 'sun', description: '화의 밝은 확장' },
+  EARTH: { label: '토', hanja: '土', tone: 'earth', icon: 'mountain', description: '토의 중심 기운' },
+  METAL: { label: '금', hanja: '金', tone: 'metal', icon: 'mineral', description: '금의 맑은 결' },
+  WATER: { label: '수', hanja: '水', tone: 'water', icon: 'wave', description: '수의 흐르는 감각' },
+};
+
+const yinYangVisualMap = {
+  YANG: { label: '양', hanja: '陽', tone: 'yang', icon: 'yang', description: '양 · 바깥으로 밝히는 흐름' },
+  YIN: { label: '음', hanja: '陰', tone: 'yin', icon: 'yin', description: '음 · 안으로 모으는 흐름' },
+};
+
 function normalizeElement(value) {
   const raw = String(value ?? '').trim();
   const upper = raw.toUpperCase();
-  if (raw === '목' || upper === 'WOOD') return 'WOOD';
-  if (raw === '화' || upper === 'FIRE') return 'FIRE';
-  if (raw === '토' || upper === 'EARTH') return 'EARTH';
-  if (raw === '금' || upper === 'METAL') return 'METAL';
-  if (raw === '수' || upper === 'WATER') return 'WATER';
+  if (!raw) return '';
+  if (raw.includes('목') || raw.includes('木') || upper === 'WOOD') return 'WOOD';
+  if (raw.includes('화') || raw.includes('火') || upper === 'FIRE') return 'FIRE';
+  if (raw.includes('토') || raw.includes('土') || upper === 'EARTH') return 'EARTH';
+  if (raw.includes('금') || raw.includes('金') || upper === 'METAL') return 'METAL';
+  if (raw.includes('수') || raw.includes('水') || upper === 'WATER') return 'WATER';
   return upper;
 }
 
-function elementLabel(value) {
+function normalizeStemKey(value) {
+  const raw = String(value ?? '').trim();
+  const upper = raw.toUpperCase();
+  if (!raw) return '';
+  if (stemVisualMap[upper]) return upper;
+
+  for (const [hangul, key] of Object.entries(stemKeyByHangul)) {
+    if (raw.includes(hangul)) return key;
+  }
+
+  for (const [hanja, key] of Object.entries(stemKeyByHanja)) {
+    if (raw.includes(hanja)) return key;
+  }
+
+  return '';
+}
+
+function normalizePolarityKey(value) {
+  const raw = String(value ?? '').trim();
+  const upper = raw.toUpperCase();
+  if (!raw) return '';
+  if (upper === 'YIN' || raw.includes('음') || raw.includes('陰')) return 'YIN';
+  if (upper === 'YANG' || raw.includes('양') || raw.includes('陽')) return 'YANG';
+  return '';
+}
+
+function getStemVisual(value) {
+  const key = normalizeStemKey(value);
+  return stemVisualMap[key] || {
+    label: value || '-',
+    hanja: '',
+    tone: 'neutral',
+    icon: 'seal',
+    description: '일간 기준점',
+  };
+}
+
+function getElementVisual(value) {
   const key = normalizeElement(value);
-  return ELEMENT_LABELS[key] || value || '-';
+  return elementVisualMap[key] || {
+    label: value || '-',
+    hanja: '',
+    tone: 'neutral',
+    icon: 'element',
+    description: '오행 기준점',
+  };
+}
+
+function getYinYangVisual(value) {
+  const key = normalizePolarityKey(value);
+  return yinYangVisualMap[key] || {
+    label: value || '-',
+    hanja: '',
+    tone: 'neutral',
+    icon: 'duality',
+    description: '음양 흐름',
+  };
+}
+
+function elementLabel(value) {
+  return getElementVisual(value).label;
 }
 
 function resolvePillarElement(part, type) {
@@ -95,12 +206,14 @@ function resolvePillarElement(part, type) {
 
 function getPillarPart(part, type) {
   if (!part) return { large: '-', small: '-' };
-  const main = part.hanja || part.hangul || part.code || '-';
-  const detail = [
-    part.hangul && part.hanja ? part.hangul : '',
-    elementLabel(resolvePillarElement(part, type)),
-  ].filter(Boolean).join(' · ');
-  return { large: main, small: detail || '-' };
+  const elementKey = resolvePillarElement(part, type);
+  return {
+    symbol: part.hangul || part.hanja || '-',
+    hangul: part.hangul || '',
+    hanja: part.hanja || '',
+    element: elementKey,
+    elementKey,
+  };
 }
 
 function getTenGod(part) {
@@ -111,13 +224,14 @@ function getTenGod(part) {
     || '-';
 }
 
-function buildPillarRows(report) {
+function buildPillarColumns(report) {
   const pillars = PILLAR_KEYS.map((key) => report?.pillars?.[key] || {});
-  return [
-    pillars.map((pillar) => getTenGod(pillar?.stem)),
-    pillars.map((pillar) => getPillarPart(pillar?.stem, 'stem')),
-    pillars.map((pillar) => getPillarPart(pillar?.branch, 'branch')),
-  ];
+  return pillars.map((pillar, index) => ({
+    key: PILLAR_KEYS[index],
+    label: PILLAR_COLUMNS[index],
+    stem: getPillarPart(pillar?.stem, 'stem'),
+    branch: getPillarPart(pillar?.branch, 'branch'),
+  }));
 }
 
 function formatBirthDate(birthDateTime) {
@@ -156,6 +270,115 @@ function getBalanceScore(metrics) {
   const spreadPenalty = Math.min(36, (max - min) * 9);
   const missingPenalty = values.filter((value) => value === 0).length * 8;
   return Math.max(40, Math.min(96, Math.round(92 - spreadPenalty - missingPenalty)));
+}
+
+function DaymasterVisualIcon({ icon }) {
+  if (icon === 'sprout' || icon === 'leaf') {
+    return (
+      <svg className={`ns-daymaster-icon ns-daymaster-icon--${icon}`} viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M16 25V8" />
+        <path d="M16 14C11 10 8 11 6 16c5 2 8 1 10-2Z" />
+        <path d="M16 17c5-5 8-5 10 0-4 3-7 3-10 0Z" />
+      </svg>
+    );
+  }
+
+  if (icon === 'sun' || icon === 'flame') {
+    return (
+      <svg className={`ns-daymaster-icon ns-daymaster-icon--${icon}`} viewBox="0 0 32 32" aria-hidden="true">
+        <circle cx="16" cy="16" r="5.5" />
+        <path d="M16 4v4" />
+        <path d="M16 24v4" />
+        <path d="M4 16h4" />
+        <path d="M24 16h4" />
+        <path d="M7.5 7.5l2.8 2.8" />
+        <path d="M21.7 21.7l2.8 2.8" />
+        <path d="M24.5 7.5l-2.8 2.8" />
+        <path d="M10.3 21.7l-2.8 2.8" />
+      </svg>
+    );
+  }
+
+  if (icon === 'soil' || icon === 'mountain') {
+    return (
+      <svg className={`ns-daymaster-icon ns-daymaster-icon--${icon}`} viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M5 23h22" />
+        <path d="M8 18h16" />
+        <path d="M11 13h10" />
+        <path d="M8 23l8-13 8 13" />
+      </svg>
+    );
+  }
+
+  if (icon === 'blade' || icon === 'mineral') {
+    return (
+      <svg className={`ns-daymaster-icon ns-daymaster-icon--${icon}`} viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M16 5l9 7-4 14H11L7 12l9-7Z" />
+        <path d="M7 12h18" />
+        <path d="M16 5l-5 21" />
+        <path d="M16 5l5 21" />
+      </svg>
+    );
+  }
+
+  if (icon === 'wave' || icon === 'drop') {
+    return (
+      <svg className={`ns-daymaster-icon ns-daymaster-icon--${icon}`} viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M16 5c5 6 8 10 8 14a8 8 0 0 1-16 0c0-4 3-8 8-14Z" />
+        <path d="M9 21c3-2 5-2 8 0s5 2 8 0" />
+      </svg>
+    );
+  }
+
+  if (icon === 'yang') {
+    return (
+      <svg className="ns-daymaster-icon ns-daymaster-icon--yang" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M7 21a9 9 0 0 1 18 0" />
+        <path d="M16 5v4" />
+        <path d="M7 10l3 3" />
+        <path d="M25 10l-3 3" />
+        <path d="M4 21h24" />
+      </svg>
+    );
+  }
+
+  if (icon === 'yin') {
+    return (
+      <svg className="ns-daymaster-icon ns-daymaster-icon--yin" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M22 7a10 10 0 1 0 0 18 8 8 0 1 1 0-18Z" />
+        <path d="M8 23c3-2 5-2 8 0s5 2 8 0" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg className="ns-daymaster-icon ns-daymaster-icon--seal" viewBox="0 0 32 32" aria-hidden="true">
+      <circle cx="16" cy="16" r="9" />
+      <path d="M11 16h10" />
+      <path d="M16 11v10" />
+    </svg>
+  );
+}
+
+function DaymasterSummaryCard({ label, visual, variant }) {
+  const displayValue = visual?.label || '-';
+  const tone = visual?.tone || 'neutral';
+
+  return (
+    <article className={cx('ns-report-panel ns-daymaster-summary', `ns-daymaster-summary--${variant}`, `ns-daymaster-summary--${tone}`)}>
+      <div className="ns-daymaster-summary__mark" aria-hidden="true">
+        <DaymasterVisualIcon icon={visual?.icon || variant} />
+      </div>
+      <div className="ns-daymaster-summary__copy">
+        <p className="ns-kicker">{label}</p>
+        <p className="ns-daymaster-summary__value">
+          {displayValue}
+          {visual?.hanja ? <span>{visual.hanja}</span> : null}
+        </p>
+        {visual?.description ? <p className="ns-daymaster-summary__hint">{visual.description}</p> : null}
+      </div>
+    </article>
+  );
 }
 
 function HomeTile({ item, onClick }) {
@@ -229,6 +452,9 @@ function SajuPreviewCard({ entryUserInfo, report, metrics, isLoading, error }) {
 
   const balanceScore = getBalanceScore(metrics);
   const fullName = `${entryUserInfo?.lastNameText || ''}${entryUserInfo?.firstNameText || ''}`.trim() || '이름';
+  const dayMasterStemVisual = getStemVisual(report?.dayMaster?.stem);
+  const dayMasterElementVisual = getElementVisual(report?.dayMaster?.element);
+  const dayMasterPolarityVisual = getYinYangVisual(report?.dayMaster?.polarity);
 
   return (
     <ReportCard
@@ -260,21 +486,24 @@ function SajuPreviewCard({ entryUserInfo, report, metrics, isLoading, error }) {
           </div>
           <InfoList items={infoItems} />
         </div>
-        <div className="grid gap-3">
-          <PillarTable columns={PILLAR_COLUMNS} rows={buildPillarRows(report)} />
-          <div className="grid gap-3 sm:grid-cols-3">
-            <div className="ns-report-panel">
-              <p className="ns-kicker text-xs">일간</p>
-              <p className="mt-1 text-lg font-extrabold text-[var(--color-ink)]">{report?.dayMaster?.stem || '-'}</p>
-            </div>
-            <div className="ns-report-panel">
-              <p className="ns-kicker text-xs">오행</p>
-              <p className="mt-1 text-lg font-extrabold text-[var(--color-ink)]">{elementLabel(report?.dayMaster?.element)}</p>
-            </div>
-            <div className="ns-report-panel">
-              <p className="ns-kicker text-xs">음양</p>
-              <p className="mt-1 text-lg font-extrabold text-[var(--color-ink)]">{report?.dayMaster?.polarity || '-'}</p>
-            </div>
+        <div className="ns-saju-preview-stack grid">
+          <SajuPillarTable columns={buildPillarColumns(report)} />
+          <div className="ns-daymaster-grid grid sm:grid-cols-3">
+            <DaymasterSummaryCard
+              label="일간"
+              visual={dayMasterStemVisual}
+              variant="stem"
+            />
+            <DaymasterSummaryCard
+              label="오행"
+              visual={dayMasterElementVisual}
+              variant="element"
+            />
+            <DaymasterSummaryCard
+              label="음양"
+              visual={dayMasterPolarityVisual}
+              variant="polarity"
+            />
           </div>
         </div>
       </div>
@@ -309,9 +538,9 @@ function HomePage({ entryUserInfo, onLoadSajuReport, onOpenCombinedReport, onOpe
     },
     {
       number: '03',
-      title: '개발자에게 커피 한 잔',
-      subtitle: '응원 결제',
-      description: '단건 900원 결제로 이름봄의 지속적인 개선을 응원합니다.',
+      title: '통합 리포트 완성',
+      subtitle: '심화 해석 열기',
+      description: '무료 요약 뒤의 이름 조합, 관계, 재물 흐름을 이어서 확인합니다.',
       icon: MenuCoffeeIcon,
       tone: 'earth',
       onClick: onOpenSupport,
