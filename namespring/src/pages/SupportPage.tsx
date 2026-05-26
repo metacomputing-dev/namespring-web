@@ -21,13 +21,13 @@ export default function SupportPage() {
     setFormErrorMessage("");
 
     if (!paymentReady) {
-      setFormErrorMessage("Payment is disabled in this environment.");
+      setFormErrorMessage("현재 환경에서는 결제를 시작할 수 없습니다.");
       return;
     }
 
     const normalizedEmail = normalizeOptionalEmail(email);
     if (normalizedEmail && !isValidEmail(normalizedEmail)) {
-      setEmailErrorMessage("Please enter a valid email format.");
+      setEmailErrorMessage("이메일 형식을 확인해 주세요.");
       return;
     }
 
@@ -41,7 +41,7 @@ export default function SupportPage() {
         customerEmail: order.customerEmail,
       });
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Unable to start payment.";
+      const message = error instanceof Error ? error.message : "결제를 시작할 수 없습니다.";
       setFormErrorMessage(message);
     } finally {
       setIsSubmitting(false);
@@ -51,16 +51,16 @@ export default function SupportPage() {
   return (
     <PaymentPageLayout
       title={SUPPORT_PRODUCT_NAME}
-      subtitle="로그인 없이 한 번만 결제할 수 있습니다."
+      subtitle="무료 요약 뒤의 심화 해석을 이어서 열어봅니다. 결제는 한 번만 진행됩니다."
     >
       <div className="ns-section-stack">
-        <div className="ns-report-surface p-4">
+        <div className="ns-payment-summary">
           <div className="grid gap-1 sm:flex sm:items-center sm:justify-between sm:gap-3">
-            <p className="font-bold text-[var(--color-accent)]">{SUPPORT_PRODUCT_NAME}</p>
+            <p className="font-bold text-[var(--color-accent)]">통합 리포트 완성</p>
             <p className="text-lg font-black text-[var(--color-accent)] sm:text-right">{SUPPORT_AMOUNT.toLocaleString()} KRW</p>
           </div>
-          <p className="mt-2 text-xs font-semibold text-[var(--color-ink-3)]">
-            이메일은 선택 입력입니다. 결제 확인 외의 보상은 제공되지 않습니다.
+          <p className="mt-2 text-xs font-semibold leading-relaxed text-[var(--color-ink-3)]">
+            이메일은 선택 입력입니다. 결제 확인과 리포트 재접속 안내가 필요할 때만 사용합니다.
           </p>
         </div>
 
@@ -80,7 +80,7 @@ export default function SupportPage() {
               isSubmitting || !paymentReady ? "ns-button-disabled" : "",
             ].join(" ")}
           >
-            {isSubmitting ? "처리 중" : "커피 한 잔 결제하기"}
+            {isSubmitting ? "결제 준비 중" : "내 해석 완성하기"}
           </button>
         </form>
 

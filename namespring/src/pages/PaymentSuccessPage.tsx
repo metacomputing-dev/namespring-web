@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import type { ConfirmPaymentResponse } from "../../shared/types/payment";
+import { PREMIUM_ACCESS_STORAGE_KEY } from "../../shared/types/payment";
 import PaymentPageLayout from "../components/PaymentPageLayout";
 import { confirmPayment } from "../lib/payments";
 
@@ -44,6 +45,9 @@ export default function PaymentSuccessPage() {
           orderId,
           amount,
         });
+        try {
+          window.sessionStorage.setItem(PREMIUM_ACCESS_STORAGE_KEY, "paid");
+        } catch {}
         setState({ type: "success", data: confirmed });
       } catch (error) {
         const message = error instanceof Error ? error.message : "결제 확인에 실패했습니다.";
@@ -73,11 +77,11 @@ export default function PaymentSuccessPage() {
   }
 
   return (
-    <PaymentPageLayout title="감사합니다" subtitle="후원이 정상적으로 접수되었습니다.">
+    <PaymentPageLayout title="해석이 열렸습니다" subtitle="결제가 정상적으로 확인되었습니다.">
       <div className="ns-section-stack">
         <div className="ns-report-panel ns-report-panel--sunken">
           <p className="text-sm font-semibold leading-relaxed text-[var(--color-ink-2)]">
-            결제에 따른 별도 보상은 제공되지 않지만, 서비스 개선에 큰 도움이 됩니다.
+            같은 브라우저에서 통합 리포트를 다시 열면 잠겨 있던 심화 영역을 이어서 읽을 수 있습니다.
           </p>
         </div>
         <div className="ns-report-surface p-4">

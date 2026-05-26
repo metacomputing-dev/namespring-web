@@ -38,16 +38,16 @@ export default function PaymentFailPage() {
       code: failInfo.code ?? undefined,
       message: failInfo.message ?? undefined,
     }).catch(() => {
-      // Suppress client-side reporting errors to keep fail page visible.
+      // Keep the fail page visible even when client-side reporting fails.
     });
   }, [failInfo.code, failInfo.message, failInfo.orderId]);
 
   return (
-    <PaymentPageLayout title="결제 실패" subtitle="결제가 완료되지 않았습니다.">
+    <PaymentPageLayout title="결제가 완료되지 않았습니다" subtitle="원하면 리포트로 돌아가 다시 시도할 수 있습니다.">
       <div className="ns-section-stack">
         <div className="ns-report-panel ns-report-panel--sunken">
           <p className="text-sm font-semibold leading-relaxed text-[var(--color-ink-2)]">
-            후원 페이지에서 다시 시도해 주세요.
+            결제는 진행되지 않았습니다. 입력한 리포트 결과는 브라우저에 남아 있으면 다시 이어볼 수 있습니다.
           </p>
         </div>
 
