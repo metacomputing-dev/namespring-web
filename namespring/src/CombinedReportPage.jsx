@@ -12,6 +12,7 @@ function CombinedReportPage({
   onBackCandidates,
   onOpenNamingReport,
   onOpenSajuReport,
+  onOpenPremium,
 }) {
   const [report, setReport] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -61,16 +62,6 @@ function CombinedReportPage({
         title="통합 평가 보고서"
         description="사주 평가와 성명학 평가를 함께 묶은 종합 보고서입니다."
         className="ns-page-heading--compact"
-        action={(
-          <button
-            type="button"
-            onClick={onBackHome}
-            className="ns-secondary-button"
-            aria-label="홈으로"
-          >
-            홈으로
-          </button>
-        )}
       />
       <div className={REPORT_PAGE_CLASS.container}>
 
@@ -101,6 +92,7 @@ function CombinedReportPage({
             fortuneReport={report}
             onOpenNamingReport={onOpenNamingReport}
             onOpenSajuReport={onOpenSajuReport}
+            onOpenPremium={onOpenPremium}
             shareUserInfo={entryUserInfo}
           />
         ) : null}

@@ -373,7 +373,7 @@ function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSp
           )}
 
           {!isLoading && !error && (
-            <ul className="mt-3 grid gap-2">
+            <ul className="mt-3 grid gap-2 xl:grid-cols-2">
               {sortedCandidates.map((candidate, index) => {
                 const popularityRank = getPopularityRank(candidate);
                 const candidateKey = getCandidateKey(candidate);
@@ -392,7 +392,7 @@ function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSp
                       <button
                         type="button"
                         onClick={() => onOpenCombinedReport?.(candidate)}
-                        className="flex-1 min-w-0 text-left rounded-lg px-2 py-1 transition-colors hover:bg-[var(--ns-surface)]/20"
+                        className="ns-candidate-card__button flex-1 min-w-0 text-left rounded-lg px-2 py-1 transition-colors hover:bg-[var(--ns-surface)]/20"
                       >
                         <div className="flex flex-wrap items-center justify-between gap-2">
                           <p className="text-sm md:text-base font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">

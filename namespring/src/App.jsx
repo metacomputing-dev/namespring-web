@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useCallback, useLayoutEffect } from 'react';
 import { SeedTs } from "@seed/seed";
 import { HanjaRepository } from '@seed/database/hanja-repository';
 import { SpringEngine } from '@spring/spring-engine';
@@ -106,6 +106,14 @@ function loadInitialAppState() {
     entryUserInfo: storedEntryUserInfo,
     page: storedEntryUserInfo ? 'home' : 'entry',
   };
+}
+
+function scrollAppToTop() {
+  if (typeof window === 'undefined') return;
+  window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  document.documentElement?.scrollTo?.({ top: 0, left: 0, behavior: 'auto' });
+  document.body?.scrollTo?.({ top: 0, left: 0, behavior: 'auto' });
+  document.getElementById('root')?.scrollTo?.({ top: 0, left: 0, behavior: 'auto' });
 }
 
 function normalizePage(page, hasEntryUserInfo) {
@@ -335,6 +343,12 @@ function App() {
   const recommendResultCacheRef = useRef(new Map());
   const currentNameReportCacheRef = useRef(new Map());
 
+  useLayoutEffect(() => {
+    scrollAppToTop();
+    const frame = window.requestAnimationFrame(scrollAppToTop);
+    return () => window.cancelAnimationFrame(frame);
+  }, [page]);
+
   // DB Initialization
   useEffect(() => {
     hanjaRepo.init().then(() => setIsDbReady(true));
@@ -465,6 +479,18 @@ function App() {
     }
   };
 
+  const openSupportPage = () => {
+    const externalSupportUrl = buildAbsoluteSupportUrl(runtimeConfig.paymentAppOrigin);
+    if (externalSupportUrl) {
+      const externalOrigin = new URL(externalSupportUrl).origin;
+      if (externalOrigin !== window.location.origin) {
+        window.location.assign(externalSupportUrl);
+        return;
+      }
+    }
+    navigate('/support');
+  };
+
   const getView = () => {
     if (showSplash) {
       return { key: 'splash', node: <SplashScreen /> };
@@ -543,17 +569,7 @@ function App() {
               onLoadSajuReport={handleLoadSajuReportAsync}
               onOpenCombinedReport={handleOpenCombinedReportFromHome}
               onOpenNamingCandidates={() => navigateToPage('naming-candidates')}
-              onOpenSupport={() => {
-                const externalSupportUrl = buildAbsoluteSupportUrl(runtimeConfig.paymentAppOrigin);
-                if (externalSupportUrl) {
-                  const externalOrigin = new URL(externalSupportUrl).origin;
-                  if (externalOrigin !== window.location.origin) {
-                    window.location.assign(externalSupportUrl);
-                    return;
-                  }
-                }
-                navigate('/support');
-              }}
+              onOpenSupport={openSupportPage}
               onOpenEntry={(userInfoFromHome) => {
                 const normalized = normalizeEntryUserInfo(userInfoFromHome || entryUserInfo);
                 if (normalized) {
@@ -600,6 +616,7 @@ function App() {
               onBackCandidates={() => navigateToPage('naming-candidates')}
               onOpenNamingReport={() => navigateToPage('report')}
               onOpenSajuReport={() => navigateToPage('saju-report')}
+              onOpenPremium={openSupportPage}
             />
           </AppBackground>
         ),
