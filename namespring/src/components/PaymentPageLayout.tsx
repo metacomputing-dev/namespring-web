@@ -14,7 +14,7 @@ export default function PaymentPageLayout({ title, subtitle, children }: Payment
   return (
     <ReportShell activeNav="support" size="narrow">
       <PageHeading
-        kicker="Support"
+        kicker="Payment"
         title={title}
         description={subtitle}
         className="ns-page-heading--compact"
@@ -25,7 +25,7 @@ export default function PaymentPageLayout({ title, subtitle, children }: Payment
 
           <div className="border-t border-[var(--ns-border)] pt-4">
             <Link className="ns-secondary-button w-full" to={withBasePath("/")}>
-              홈으로 돌아가기
+              처음으로 돌아가기
             </Link>
           </div>
         </div>

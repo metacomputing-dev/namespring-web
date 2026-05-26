@@ -1,6 +1,7 @@
-export const SUPPORT_PRODUCT_NAME = "\uAC1C\uBC1C\uC790\uC5D0\uAC8C \uCEE4\uD53C \uC0AC\uC8FC\uAE30";
+export const SUPPORT_PRODUCT_NAME = "\uC774\uB984\uBD04 \uD1B5\uD569 \uB9AC\uD3EC\uD2B8 \uC644\uC131\uD558\uAE30";
 export const SUPPORT_ORDER_NAME = SUPPORT_PRODUCT_NAME;
 export const SUPPORT_AMOUNT = 900;
+export const PREMIUM_ACCESS_STORAGE_KEY = "namespring_premium_access";
 
 export const PAYMENT_STATUSES = ["READY", "PAID", "FAILED", "CANCELED", "REFUNDED"] as const;
 
