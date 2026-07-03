@@ -26,6 +26,7 @@ import type {
   TieredSelectedFragmentEvidence,
   TieredSelectedFragments,
   TaggedParagraph,
+  ParagraphToken,
   TieredMatrixMeta,
   TieredNameFrameEvidence,
   TieredNamingEvidence,
@@ -40,6 +41,8 @@ import { buildPeriodMeta, periodFortuneElement } from './period-meta-builder.js'
 import { loadGlossary } from './glossary-loader.js';
 import { buildTagGlossary } from './tag-inliner.js';
 import { resolveNumericalEvidence, type NumericalEvidenceContext } from './numerical-evidence.js';
+import { enhanceStandardDepth, type StandardDepthEnhancementContext } from './standard-depth-enhancer.js';
+import { sanitizeTieredMatrixForMinorAudience } from './minor-audience-sanitizer.js';
 import {
   BRANCH_BY_CODE,
   ELEMENT_CONTROLLED_BY,
@@ -388,8 +391,10 @@ function buildMinorExpertFallback(feature: FeatureVector): ExpertFortuneText | n
 function buildMinorFallbackCell(
   feature: FeatureVector,
   category: 'overall' | TieredCategoryId,
+  period: TieredPeriodKind,
   periodLabel: string,
   grade: ReturnType<typeof gradeCell>,
+  readerAgeBand?: FeatureVector['ageBand'],
 ): TieredFortune | null {
   const brief = buildMinorBriefFallback(feature, category, periodLabel);
   const standard = buildMinorStandardFallback(feature, category, periodLabel);
@@ -399,11 +404,92 @@ function buildMinorFallbackCell(
     meaningfulness: 'limited',
     stars: grade.stars,
     brief,
-    standard,
+    standard: enhanceStandardDepth(standard, {
+      category,
+      period,
+      periodLabel,
+      feature,
+      stars: grade.stars,
+      meaningfulness: 'limited',
+      ...(readerAgeBand ? { readerAgeBand } : {}),
+    }),
     expert,
   };
 }
 
+function polishStudyDocumentExpertText(value: string): string {
+  let out = normalizeRenderedText(value);
+  out = out
+    .replace(/학습\/문서운/g, '기록·문서운')
+    .replace(/학업·시험에서는/g, '자료·기록 해석에서는')
+    .replace(/학업·시험/g, '자료·기록')
+    .replace(/학습으로 또렷이 풀리는 시기예요/g, '자료를 읽고 정리하는 힘으로 드러나는 시기예요')
+    .replace(/학습으로 또렷이 풀리는/g, '자료를 읽고 정리하는 힘으로 드러나는')
+    .replace(/학습으로 또렷이/g, '자료 정리로 또렷이')
+    .replace(/젊은 시기의 일진은/g, '오늘의 기록·문서운은')
+    .replace(/젊은 시기의 한 주는/g, '이번 주 기록·문서운은')
+    .replace(/젊은 시기의 한 달은/g, '이번 달 기록·문서운은')
+    .replace(/젊은 시기의 한 해는/g, '올해 기록·문서운은')
+    .replace(/젊은 시기의 자료·기록 해석에서는/g, '어린 시기와 학창 시절의 자료·기록 해석에서는')
+    .replace(/오늘 남긴 확인 기준이 다음 자료 정리의 키가 돼요/g, '오늘 남긴 표시가 다음 자료를 찾는 기준이 돼요')
+    .replace(/이번 주 남긴 확인 기준이 다음 자료 정리의 키가 돼요/g, '이번 주 남긴 표시가 다음 자료를 찾는 기준이 돼요')
+    .replace(/한 달 동안 남긴 확인 기준이 다음 자료 정리의 키가 돼요/g, '한 달 동안 남긴 표시와 질문이 다음 자료를 찾는 기준이 돼요')
+    .replace(/한 해 동안 남긴 확인 기준이 다음 기록 기준의 키가 돼요/g, '한 해 동안 남긴 표시와 보관 위치가 다음 기록을 정리할 기준이 돼요')
+    .replace(/오늘 한 페이지의 깊이가 일주일 뒤의 든든함을 만들어요/g, '오늘 남긴 한 줄 표시가 일주일 뒤 다시 찾을 힘을 만들어요')
+    .replace(/이번 주 한 페이지의 깊이가 다음 달의 든든함을 만들어요/g, '이번 주 남긴 자료 이름과 질문 표시가 다음 달 확인을 든든하게 만들어요')
+    .replace(/이번 달 한 단원의 깊이가 다음 분기의 든든함을 만들어요/g, '이번 달 남긴 자료 이름과 질문 표시가 다음 분기의 확인을 든든하게 만들어요')
+    .replace(/올해 한 트랙의 깊이가 다음 몇 년의 든든함을 만들어요/g, '올해 정한 보관 위치와 확인 순서가 다음 몇 년의 기록 관리를 든든하게 만들어요')
+    .replace(/첫 자격·시험 한 번이 다음 10년의 방향을 정해 주는 시기라, 너무 많은 갈래보다는 한두 방향에 집중하는 페이스가 잘 맞아요\./g, '처음 익힌 보관 위치와 질문 표시가 다음 10년의 기록 습관으로 이어지기 쉬운 시기라, 너무 많은 갈래보다 한두 기준을 반복하는 페이스가 잘 맞아요.')
+    .replace(/오늘 한 단원의 깊이가 다음 시험의 키가 돼요/g, '오늘 남긴 표시가 다음 자료를 찾는 기준이 돼요')
+    .replace(/이번 주 한 단원의 깊이가 다음 시험의 키가 돼요/g, '이번 주 남긴 표시가 다음 자료를 찾는 기준이 돼요')
+    .replace(/한 해의 한 트랙이 다음 시험·자격의 키가 돼요/g, '한 해 동안 남긴 표시와 보관 위치가 다음 기록을 정리할 기준이 돼요')
+    .replace(/한 달의 한 단원이 다음 시험·자격의 키가 돼요/g, '한 달 동안 남긴 표시와 질문이 다음 자료를 찾는 기준이 돼요')
+    .replace(/학교 과정보다 자기 호기심이 끄는 분야/g, '정해진 양식보다 직접 확인한 자료 흐름')
+    .replace(/한 분야에 집중할 여유/g, '자료와 도구를 한곳에 모을 여유')
+    .replace(/지식 입력과 결과물 산출/g, '자료 확인과 기록 정리')
+    .replace(/지식 입력/g, '자료 확인')
+    .replace(/커리큘럼/g, '검토 순서')
+    .replace(/문서 산출/g, '기록 정리')
+    .replace(/산출 속도/g, '기록으로 옮기는 속도')
+    .replace(/문서 결과물의 생산성/g, '문서를 차근히 완성하는 힘')
+    .replace(/월간 산출물/g, '월간 기록물')
+    .replace(/기획과 재해석/g, '분류와 재확인')
+    .replace(/기본 이해/g, '기본 자료 확인')
+    .replace(/정리한 내용을 실행 가능한 문장/g, '확인한 내용을 실행 가능한 기록')
+    .replace(/학문·시험/g, '문서·자격')
+    .replace(/자기 자료에 더 깊이 들어가는 시간/g, '자료의 출처와 보관 기준을 더 깊이 확인하는 시간')
+    .replace(/자기 호기심이 끄는 분야에서 더 깊이 들어가는 흐름/g, '직접 확인한 자료 흐름을 더 깊이 정리하는 흐름')
+    .replace(/환경과 도구가 잘 맞춰져 있어, 자료와 도구를 한곳에 모을 여유/g, '환경과 도구가 잘 맞춰져 있어, 자료와 기록을 한곳에 모을 여유')
+    .replace(/글·발표·기록으로 자기 학습을 드러내지/g, '글·메모·파일명으로 확인한 내용을 드러내지')
+    .replace(/학습이 글·메모로 자연스럽게 남는 흐름이에요/g, '확인한 내용이 글·메모로 자연스럽게 남는 흐름이에요')
+    .replace(/글·발표·기록으로 자기 학습이 또렷해지는 기회/g, '글·메모·파일명으로 확인한 내용이 또렷해지는 기회')
+    .replace(/기본 자료 확인를/g, '기본 자료를 확인하고')
+    .replace(/기본 자료 확인을 잡고/g, '기본 자료를 확인하고')
+    .replace(/검토 순서을/g, '검토 순서를');
+  return normalizeRenderedText(out);
+}
+
+function plainTextFromPolishedTokens(tokens: readonly ParagraphToken[]): string {
+  return normalizeRenderedText(tokens
+    .map((token) => token.kind === 'text' ? token.value : `#${token.label}`)
+    .join('')
+    .replace(/\s{2,}/g, ' '));
+}
+
+function polishStudyDocumentExpertParagraphs(
+  fragment: NarrativeFragment,
+  paragraphs: readonly TaggedParagraph[],
+): readonly TaggedParagraph[] {
+  if (fragment.axis.category !== 'study_document') return paragraphs;
+
+  return paragraphs.map((paragraph) => {
+    const tokens = paragraph.tokens.map((token) => token.kind === 'text'
+      ? { ...token, value: polishStudyDocumentExpertText(token.value) }
+      : token);
+    const plainText = polishStudyDocumentExpertText(plainTextFromPolishedTokens(tokens));
+    return { tokens, plainText };
+  });
+}
 function buildExpertText(
   fragment: NarrativeFragment | null,
   rendered: readonly TaggedParagraph[],
@@ -415,8 +501,9 @@ function buildExpertText(
   // splitter already drops fully-empty paragraphs, so this filter is
   // belt-and-braces — typical case is `rendered` already valid.
   const paragraphs = rendered.filter((p) => p.tokens.length > 0);
+  const polishedParagraphs = polishStudyDocumentExpertParagraphs(fragment, paragraphs);
   return {
-    paragraphs: paragraphs.length ? paragraphs : EMPTY_PARAGRAPHS,
+    paragraphs: polishedParagraphs.length ? polishedParagraphs : EMPTY_PARAGRAPHS,
     ...(numericalEvidence ? { numericalEvidence } : {}),
   };
 }
@@ -424,10 +511,11 @@ function buildExpertText(
 function buildStandardText(
   fragment: NarrativeFragment | null,
   rendered: readonly TaggedParagraph[],
+  enhancementContext: StandardDepthEnhancementContext,
 ): StandardFortuneText {
   if (!fragment) return PLACEHOLDER_STANDARD;
   const paragraphs = rendered.filter((p) => p.tokens.length > 0);
-  return {
+  const standard: StandardFortuneText = {
     paragraphs: paragraphs.length ? paragraphs : EMPTY_PARAGRAPHS,
     ...(fragment.livingTips && fragment.livingTips.length
       ? { livingTips: fragment.livingTips.map((text) => normalizeRenderedText(text)) }
@@ -436,6 +524,7 @@ function buildStandardText(
       ? { cautions: fragment.cautions.map((text) => normalizeRenderedText(text)) }
       : {}),
   };
+  return enhanceStandardDepth(standard, enhancementContext);
 }
 
 function selectedFragmentEvidence(fragment: NarrativeFragment | null): TieredSelectedFragmentEvidence | undefined {
@@ -481,6 +570,7 @@ function buildCell(
   fortuneElement: FeatureVector['dayMasterElement'],
   fragmentSelection?: Pick<SelectionContext, 'preferGatingDimensions'>,
   gradeOverride?: CellGrade,
+  readerAgeBand?: FeatureVector['ageBand'],
 ): TieredFortune {
   const ctx: RenderContext = { seedKey, periodLabel, feature };
   const selectionCtx: SelectionContext = fragmentSelection?.preferGatingDimensions?.length
@@ -511,9 +601,23 @@ function buildCell(
   const hasAnyFragment = Boolean(briefFrag || standardFrag || expertFrag);
 
   const brief = briefRender ? deriveBrief(briefRender, briefFrag) : PLACEHOLDER_BRIEF;
+  const standardEnhancementContext: StandardDepthEnhancementContext = {
+    category,
+    period,
+    periodLabel,
+    feature,
+    stars: grade.stars,
+    meaningfulness: grade.meaningfulness,
+    ...(readerAgeBand ? { readerAgeBand } : {}),
+  };
   const standard = standardFrag
-    ? buildStandardText(standardFrag, standardRender)
-    : (hasAnyFragment ? (buildMinorStandardFallback(feature, category, periodLabel) ?? PLACEHOLDER_STANDARD) : PLACEHOLDER_STANDARD);
+    ? buildStandardText(standardFrag, standardRender, standardEnhancementContext)
+    : (hasAnyFragment
+      ? enhanceStandardDepth(
+        buildMinorStandardFallback(feature, category, periodLabel) ?? PLACEHOLDER_STANDARD,
+        standardEnhancementContext,
+      )
+      : PLACEHOLDER_STANDARD);
   const expert = expertFrag
     ? buildExpertText(expertFrag, expertRender, {
       feature,
@@ -524,7 +628,7 @@ function buildCell(
 
   // Cell with no fragment matches at all becomes 'na'.
   if (!hasAnyFragment) {
-    const minorFallback = buildMinorFallbackCell(feature, category, periodLabel, grade);
+    const minorFallback = buildMinorFallbackCell(feature, category, period, periodLabel, grade, readerAgeBand);
     if (minorFallback) return minorFallback;
     return {
       meaningfulness: 'na',
@@ -554,6 +658,7 @@ function buildPeriodScoped(
   periodLabelOverride?: string,
   fragmentSelection?: Pick<SelectionContext, 'preferGatingDimensions'>,
   fortuneElementOverride?: ElementCode | null,
+  readerAgeBand?: FeatureVector['ageBand'],
 ): PeriodScopedFortunes {
   const meta = buildPeriodMeta(period, targetDate);
   const periodLabel = periodLabelOverride ?? meta.label;
@@ -579,6 +684,7 @@ function buildPeriodScoped(
     fortuneElement,
     fragmentSelection,
     overallGrade,
+    readerAgeBand,
   );
 
   const byCategory = {} as Record<TieredCategoryId, TieredFortune>;
@@ -597,6 +703,7 @@ function buildPeriodScoped(
       fortuneElement,
       fragmentSelection,
       categoryGrade,
+      readerAgeBand,
     );
   }
 
@@ -616,6 +723,7 @@ function buildAgeBandScoped(
   feature: FeatureVector,
   seedKey: string,
   targetDate: Date,
+  readerAgeBand?: FeatureVector['ageBand'],
 ): AgeBandScopedFortunes {
   const fortuneElement = lifeFortuneElementForAge(saju, band.representativeAge) ?? feature.dayMasterElement;
   const scoped = buildPeriodScoped(
@@ -627,6 +735,7 @@ function buildAgeBandScoped(
     band.label,
     { preferGatingDimensions: ['agePhase', 'ageBand'] },
     fortuneElement,
+    readerAgeBand,
   );
   return {
     ...scoped,
@@ -645,11 +754,12 @@ function buildLifeByAgeBand(
   targetDate: Date,
   registry: FragmentRegistry,
   seedKey: string,
+  readerAgeBand?: FeatureVector['ageBand'],
 ): Record<TieredLifeStageBand, AgeBandScopedFortunes> {
   const byAgeBand = {} as Record<TieredLifeStageBand, AgeBandScopedFortunes>;
   for (const band of LIFE_STAGE_BANDS) {
     const feature = buildFeatureVectorForAge(saju, birth, targetDate, band.representativeAge);
-    byAgeBand[band.key] = buildAgeBandScoped(saju, band, registry, feature, seedKey, targetDate);
+    byAgeBand[band.key] = buildAgeBandScoped(saju, band, registry, feature, seedKey, targetDate, readerAgeBand);
   }
   return byAgeBand;
 }
@@ -715,7 +825,7 @@ export function buildTieredMatrix(
   for (const period of PERIOD_ORDER) {
     const scoped = buildPeriodScoped(period, registry, feature, seedKey, targetDate);
     periods[period] = period === 'life'
-      ? { ...scoped, byAgeBand: buildLifeByAgeBand(saju, birth, targetDate, registry, seedKey) }
+      ? { ...scoped, byAgeBand: buildLifeByAgeBand(saju, birth, targetDate, registry, seedKey, feature.ageBand) }
       : scoped;
   }
 
@@ -733,11 +843,15 @@ export function buildTieredMatrix(
     aiGeneratedFragmentCount: registry.totalFragmentCount,
   };
 
-  return {
+  const matrix: FortuneTieredMatrix = {
     schemaVersion: 'spring-ts.tiered-matrix.v1',
     periods,
     glossary,
     ...(namingEvidence ? { namingEvidence } : {}),
     meta,
   };
+
+  return feature.ageBand === '0-9' || feature.ageBand === '10-19'
+    ? sanitizeTieredMatrixForMinorAudience(matrix)
+    : matrix;
 }

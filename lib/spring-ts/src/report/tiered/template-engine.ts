@@ -70,6 +70,63 @@ export function normalizeRenderedText(value: string): string {
 
 function normalizeRenderedParagraph(value: string): string {
   let out = value;
+  out = out.replace(/편요/g, '편해요');
+  out = out.replace(/분위기가 부요/g, '분위기가 부드러워져요');
+  out = out.replace(/마음의 피로가 덜요/g, '마음의 피로가 덜해요');
+  out = out.replace(/서로의 말투와 약속을 천천요/g, '서로의 말투와 약속을 천천히 살펴요');
+  out = out.replace(/필요한 내용을 쉽게 찾을 수요/g, '필요한 내용을 쉽게 찾을 수 있어요');
+  out = out.replace(/기준 금액을 먼저 정하면요/g, '기준 금액을 먼저 정하면 좋아요');
+  out = out.replace(/꾸준히 지키는 힘이 가요/g, '꾸준히 지키는 힘이 중요해요');
+  out = out.replace(/시야가 넓어지요/g, '시야가 넓어져요');
+  out = out.replace(/혼자 정리하는 시간을 가지요/g, '혼자 정리하는 시간을 가져 보세요');
+  out = out.replace(/한쪽 방식만 고집하지요/g, '한쪽 방식만 고집하지 않아도 돼요');
+  out = out.replace(/다녀온 뒤 다시 붙을 리듬/g, '돌아온 뒤 이어 갈 리듬');
+  out = out.replace(/짧고 잔잔한 이동/g, '무리 없는 짧은 이동');
+  out = out.replace(/작은 표시 하나/g, '작은 단서 하나');
+  out = out.replace(/표시 하나/g, '단서 하나');
+  out = out.replace(/자기 격에 맞는 길로 큰 흐름이 모이는 자리가 자주 등장해요/g, '자기 격에 맞는 방향이 선명해지는 시기가 자주 등장해요');
+  out = out.replace(/자기 격에 맞는 길로 흐름이 모이는 흐름이고/g, '자기 격에 맞는 방향이 선명해지는 시기이고');
+  out = out.replace(/학문·시험의 흐름이 부드럽게 자리 잡는 흐름이에요/g, '학문·시험의 기회가 부드럽게 자리 잡아요');
+  out = out.replace(/가르치고 배우는 자리가 한 흐름으로 잘 어울리는 모양이에요/g, '가르치고 배우는 일이 자연스럽게 어울리는 모양이에요');
+  out = out.replace(/평생을 통해 배움이 결실로 이어지는 흐름이에요/g, '평생 배움이 결실로 이어지는 구조예요');
+  out = out.replace(/큰 시험·논문·자격증 같은 결정 시기가 한 흐름으로 부드러워져요/g, '큰 시험·논문·자격증 같은 결정도 더 안정적으로 이어져요');
+  out = out.replace(/흐름의 막힌 자리를 풀어 주는 자리가 보이고/g, '막힌 흐름을 풀 단서가 생기고');
+  out = out.replace(/모자란 자리를 자연스레 받쳐 주는 호흡이 함께 흘러요/g, '부족한 부분을 자연스럽게 받쳐 줘요');
+  out = out.replace(/돈의 흐름은 정재의 고정 흐름과/g, '재물 근거는 정재의 고정성과');
+  out = out.replace(/편재의 변동 흐름/g, '편재의 변동성');
+  out = out.replace(/함께 살펴 두는 자리에서 단단해지고/g, '함께 볼 때 단단해지고');
+  out = out.replace(/자산 자리가 한 흐름으로 모이고/g, '자산 방향이 한쪽으로 모이고');
+  out = out.replace(/자산 흐름이 한 단계 깊어지는 자리가 보여요/g, '자산 판단이 한 단계 또렷해져요');
+  out = out.replace(/돈의 흐름은/g, '재물 근거는');
+  out = out.replace(/의 고정 흐름과/g, '의 고정성과');
+  out = out.replace(/의 변동 흐름/g, '의 변동성');
+  out = out.replace(/약한 자리를 메우는 결이 함께 작동해요/g, '약한 부분을 보완하는 힘이 함께 작동해요');
+  out = out.replace(/약한 자리를 메우는 흐름이 함께 작동해요/g, '약한 부분을 보완하는 힘이 함께 작동해요');
+  out = out.replace(/자기 자리를 단단히 다지기 좋은 흐름이고/g, '자기 기반을 단단히 다지기 좋고');
+  out = out.replace(/자리의 정점에 가까워지는 흐름이에요/g, '책임의 무게가 정점에 가까워져요');
+  out = out.replace(/평생을 통해 정점의 흐름이 만들어지는 시기예요/g, '평생 쌓은 힘이 정점에 가까워지는 시기예요');
+  out = out.replace(/평생을 통해 정점의 결이 만들어지는 시기예요/g, '평생 쌓은 힘이 정점에 가까워지는 시기예요');
+  out = out.replace(/자리·책임의 무게가 자산이 되는 흐름이고/g, '오래 맡아 온 책임이 자산으로 남고');
+  out = out.replace(/직업 자리의 큰 그림이 한 리듬으로 이어지는 흐름이에요/g, '일과 책임의 큰 그림도 한 줄기로 이어져요');
+  out = out.replace(/직업 결의 큰 그림이 한 결로 이어지는 흐름이에요/g, '일과 책임의 큰 그림도 한 줄기로 이어져요');
+  out = out.replace(/자리의 결이 강하게 자라지만/g, '추진력이 강해지지만');
+  out = out.replace(/큰 결정엔 한 박자 차분한 흐름이 좋아요/g, '큰 결정은 한 박자 차분히 보는 편이 좋아요');
+  out = out.replace(/자기 흐름을 알고 가는 일이/g, '자기 기준을 알고 가는 일이');
+  out = out.replace(/짧은 외출이 자기 컨디션을/g, '짧은 외출이 컨디션을');
+  out = out.replace(/가까운 회복 흐름이 다정하게 닿아 주는 흐름을 만들어 줘요/g, '가까운 회복 도움을 살피는 근거가 돼요');
+  out = out.replace(/천의의 자리는 가까운 회복 도움을/g, '천의의 신호는 가까운 회복 도움을');
+  out = out.replace(/이동의 흐름은 #역마의 자극과/g, '이동 근거는 #역마의 자극과');
+  out = out.replace(/이동의 흐름은 역마의 자극과/g, '이동 근거는 역마의 자극과');
+  out = out.replace(/함께 살아나는 자리에서/g, '함께 살아날 때');
+  out = out.replace(/시험·연구 흐름이 부드럽게 자리 잡는 모양이라, 자기 흐름을 차분히 따라가는 페이스가 잘 어울려요/g, '깊이 읽고 정리할 기회가 부드럽게 이어지는 모양이라, 차분한 속도가 잘 어울려요');
+  out = out.replace(/글·문서의 흐름이 부드럽게 자리 잡는 흐름이고/g, '글·문서의 정리력이 부드럽게 살아나고');
+  out = out.replace(/평생의 자리·책임의 무게가 한 방향으로 이어지는 리듬이고/g, '오래 맡아 온 책임이 한 방향으로 이어지는 리듬이고');
+  out = out.replace(/자기 흐름의 평온함이 자산이 되는 호흡이에요/g, '삶의 안정감이 자산으로 남아요');
+  out = out.replace(/자기 흐름을 단단히 다지기 좋은 흐름이고/g, '자기 기반을 단단히 다지기 좋고');
+  out = out.replace(/새 거래·이동의 흐름이 도드라져요/g, '새 거래나 이동 가능성이 도드라져요');
+  out = out.replace(/새 거래·이동의 결이 도드라져요/g, '새 거래나 이동 가능성이 도드라져요');
+  out = out.replace(/여유가 중요\./g, '여유가 중요해요.');
+  out = out.replace(/것이 중요\./g, '것이 중요해요.');
   out = out.replace(/(나무|불|흙|쇠|물) 타고난 중심 기운에/g, '$1 기운을 타고난 사람에게');
   out = out.replace(/(나무|불|흙|쇠|물) 타고난 중심 기운의/g, '$1 기운을 타고난 사람의');
   out = out.replace(/(나무|불|흙|쇠|물) 타고난 중심 기운/g, '$1 기운을 타고난 사람의 흐름');
@@ -97,10 +154,10 @@ function normalizeRenderedParagraph(value: string): string {
   out = out.replace(/자리의 결/g, '자리의 방향');
   out = out.replace(/자기 결(?!과|정)/g, '자기 흐름');
   out = out.replace(/평생의 결/g, '평생의 흐름');
-  out = out.replace(/한 달의 결/g, '한 달의 방향');
+  out = out.replace(/한 달의 결(?!정)/g, '한 달의 방향');
   out = out.replace(/이번 달의 결/g, '이번 달의 흐름');
-  out = out.replace(/오늘의 직업 결/g, '오늘의 직업 흐름');
-  out = out.replace(/인생 전체의 직업 결/g, '인생 전체의 직업 방향');
+  out = out.replace(/오늘의 직업 결/g, '오늘 일과 책임');
+  out = out.replace(/인생 전체의 직업 결/g, '인생 전체의 일의 방향');
   out = out.replace(/결이 한결/g, '흐름이 한층');
   out = out.replace(/자기 결과 다른 흐름/g, '자기 속도와 다른 흐름');
   out = out.replace(/흐름 흐름/g, '흐름');
@@ -260,7 +317,7 @@ function normalizeRenderedParagraph(value: string): string {
   out = out.replace(/#편관의 결/g, '#편관의 압박');
   out = out.replace(/#공망의 결/g, '#공망의 신호');
   out = out.replace(/#삼형의 결/g, '#삼형의 신호');
-  out = out.replace(/학업 흐름/g, '학업운');
+  out = out.replace(/학업 흐름/g, '배움 흐름');
   out = out.replace(/차분히 깊어지는 흐름/g, '차분히 깊어지는 힘');
   out = out.replace(/함께 보이는 흐름/g, '함께 보이는 신호');
   out = out.replace(/표현 흐름/g, '표현력');
@@ -385,8 +442,13 @@ function normalizeRenderedParagraph(value: string): string {
   out = out.replace(/여러 자리에서 오는 신호/g, '여러 쪽에서 오는 신호');
   out = out.replace(/쌓이는 자리에서/g, '쌓일 때');
   out = out.replace(/차 한 잔의 자리/g, '차 한 잔의 시간');
+  out = out.replace(/시간를/g, '시간을');
+  out = out.replace(/마음 편한 사람과 산책을/g, '마음 편한 사람과 산책하기');
+  out = out.replace(/푹 자는 시간을 잘 챙겨요/g, '잠들기 전 쉬는 시간을 챙겨요');
   out = out.replace(/산책 자리/g, '산책 시간');
   out = out.replace(/회식·과음 자리/g, '회식·과음 약속');
+  out = out.replace(/회식·과음 약속는/g, '회식·과음 약속은');
+  out = out.replace(/기대하는 점과 불편한 점을 짧고 말하면/g, '기대하는 점과 불편한 점을 짧게 말하면');
   out = out.replace(/가벼운 자리가 회복의 자리예요/g, '가벼운 시간이 회복에 좋아요');
   out = out.replace(/잠 자리/g, '잠자리');
   out = out.replace(/푹 자는 자리가/g, '푹 자는 시간이');
@@ -404,6 +466,7 @@ function normalizeRenderedParagraph(value: string): string {
   out = out.replace(/단계적으로 접근하는 흐름/g, '단계적으로 접근하는 방식');
   out = out.replace(/한 달이라는 자리는/g, '한 달은');
   out = out.replace(/산책 시간를/g, '산책 시간을');
+  out = out.replace(/산책 시간가/g, '산책 시간이');
   out = out.replace(/회복 자리를 사이사이에/g, '회복 시간을 사이사이에');
   out = out.replace(/한 번 푹 쉬는 자리를/g, '한 번 푹 쉬는 시간을');
   out = out.replace(/분기마다 한 번 푹 쉬는 자리를/g, '분기마다 한 번 푹 쉬는 시간을');
@@ -434,7 +497,7 @@ function normalizeRenderedParagraph(value: string): string {
   out = out.replace(/받은 자리를 단단히 받쳐/g, '맡은 역할을 단단히 받쳐');
   out = out.replace(/큰 자리만 좇기보다는 한 자리에서의 마무리가 다음 자리의 신뢰가/g, '큰 역할만 좇기보다는 지금 맡은 일을 제대로 마무리하는 태도가 다음 신뢰가');
   out = out.replace(/한 자리에서 길게 머문 만큼 후반의 자리도/g, '한 역할에 오래 머문 만큼 후반의 기반도');
-  out = out.replace(/한 자리에서 자기 색을/g, '한 분야에서 자기 색을');
+  out = out.replace(/한 자리에서 자기 색을/g, '한 분야에서 자기 방식을');
   out = out.replace(/후반의 자리도 길게/g, '후반의 역할도 길게');
   out = out.replace(/자기 자리에서의 작은 결정이 다음 자리의 폭을/g, '지금 역할에서의 작은 결정이 다음 단계의 폭을');
   out = out.replace(/인생의 자리를 잡아 주는 흐름/g, '인생의 기준을 잡아 주는 흐름');
@@ -608,6 +671,7 @@ function normalizeRenderedParagraph(value: string): string {
   out = out.replace(/쌓아가는/g, '쌓아 가는');
   out = out.replace(/만들어줘요/g, '만들어 줘요');
   out = out.replace(/회복기지/g, '회복 기반');
+  out = out.replace(/회복 기반로/g, '회복 기반으로');
   out = out.replace(/회복 기반가/g, '회복 기반이');
   out = out.replace(/자기 자리의 방향/g, '자기 역할의 방향');
   out = out.replace(/다음 주의 자리 폭/g, '다음 주 선택의 폭');
@@ -811,7 +875,7 @@ function substituteGyeolInParagraph(paragraph: string): string {
 }
 
 function startsWithParticle(value: string): boolean {
-  return /^(은|는|이|가|을|를|의|도|만|부터|까지|처럼|보다|으로|로|에서|에게|께|와|과|이나|나|이라|라|이에요|예요|입니다|입니다만|,|\.|!|\?|\)|\])/u.test(value.trimStart());
+  return /^(은|는|이|가|을|를|의|도|만|부터|까지|처럼|보다|으로|로|에서|에게|께|에|와|과|이나|나|이라|라|이에요|예요|입니다|입니다만|,|\.|!|\?|\)|\])/u.test(value.trimStart());
 }
 
 function endsWithWhitespace(value: string): boolean {
@@ -993,6 +1057,9 @@ function normalizeParticlesAfterTags(tokens: ParagraphToken[]): ParagraphToken[]
     const next = out[i + 1];
     if (current.kind !== 'tag' || next.kind !== 'text') continue;
     next.value = normalizeParticleForLabel(current.label, next.value);
+    if (next.value && !startsWithParticle(next.value) && !/^\s/u.test(next.value)) {
+      next.value = ` ${next.value}`;
+    }
   }
   return out;
 }
