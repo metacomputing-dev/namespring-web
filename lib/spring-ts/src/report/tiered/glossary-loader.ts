@@ -12,7 +12,12 @@
  */
 
 import type { GlossaryEntry, TagId } from '../types.js';
-import { normalizeRenderedText } from './template-engine.js';
+
+/** Whitespace-only cleanup. Glossary prose is authored and reviewed at the
+ *  source — there is deliberately no rewrite pipeline here (WYSIWYG). */
+function cleanGlossaryText(value: string): string {
+  return value.replace(/[ \t]+/g, ' ').trim();
+}
 
 declare global {
   interface ImportMeta {
@@ -73,8 +78,8 @@ function normalizeGlossaryEntry(entry: GlossaryEntry): GlossaryEntry | null {
     label: entry.label,
     hashLabel: entry.hashLabel,
     category: entry.category,
-    brief: normalizeRenderedText(entry.brief ?? ''),
-    detailed: normalizeRenderedText(entry.detailed ?? ''),
+    brief: cleanGlossaryText(entry.brief ?? ''),
+    detailed: cleanGlossaryText(entry.detailed ?? ''),
     ...(entry.classicalSource ? { classicalSource: entry.classicalSource } : {}),
     related: Array.isArray(entry.related) ? entry.related : [],
   };
