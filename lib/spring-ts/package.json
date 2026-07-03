@@ -42,6 +42,7 @@
     "test:tiered-shape": "npx tsx test/integration/tiered-matrix-shape.test.ts",
     "test:article-gate": "npx tsx test/integration/article-quality-gate.test.ts",
     "test:article-renderer": "npx tsx test/integration/article-renderer.test.ts",
+    "bench:tiered": "npx tsx tools/bench-tiered-matrix.ts",
     "test:tiered-feature-vector": "npx tsx test/integration/tiered-feature-vector.test.ts",
     "test:tiered-name-frame-evidence": "npx tsx test/integration/tiered-name-frame-evidence.test.ts",
     "test:tiered-determinism": "npx tsx test/integration/tiered-matrix-determinism.test.ts",
