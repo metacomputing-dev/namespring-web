@@ -73,7 +73,7 @@
         "yongshinAlignment": ["neutral"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "추진력으로 한 트랙을 마무리할 만한 주예요." }
+        { "kind": "text", "value": "추진력으로 자료 묶음을 마무리할 만한 주예요." }
       ],
       "hook": "마지막 한 주 정리가 자산이에요.",
       "tags": [],
