@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "spring-ts.article-bundle.v1",
+  "bundleId": "expression_children.stages",
+  "articles": [
+    {
+      "schemaVersion": "spring-ts.article.v1",
+      "articleId": "expression_children.stage-teen.stage-teen.any.a",
+      "category": "expression_children",
+      "period": "life",
+      "audience": "stage-teen",
+      "band": "any",
+      "summary": "{{periodLabel}} 구간은 표현의 자기 검열이 생기기 쉬운 때예요.",
+      "body": [
+        "{{periodLabel}} 구간의 표현은 실력보다 시선과의 싸움이 커지는 때예요. 어릴 때는 아무렇지 않던 그리기와 노래가 남의 눈을 의식하는 순간 부끄러운 일이 되기 쉽고, 여기서 표현을 접어 버리면 그 습관이 꽤 오래가요. 표현이 줄어드는 게 이상한 게 아니라 이 나이의 통과 의례에 가까워요.",
+        "이 구간의 사주 해석은 표현력의 크기보다 검열의 두께를 봐요. 잘해야 한다는 생각이 두꺼워질수록 꺼내는 횟수가 줄고, 횟수가 줄면 실력도 같이 멈추는 순환이라, 과제는 하나로 좁혀져요. 평가와 무관한 표현 공간을 하나 지켜 내는 거예요.",
+        "성적이나 대회와 상관없는 낙서장, 비공개 계정, 혼자 찍어 보는 영상처럼 아무도 채점하지 않는 판을 하나 두면 검열이 자랄 틈이 줄어요. 공개 발표는 준비된 것부터 조금씩 늘리고, 반응은 참고만 하는 연습을 이 구간에 해 두면 다음 구간의 표현이 훨씬 자유로워져요."
+      ],
+      "expert": [
+        "생애 밴드 해석에서 이 구간은 #{siksang}의 사회화 구간으로 읽어요. 표현 기능이 또래 평가와 처음 정면으로 만나는 배치라 위축이 기본값처럼 따라오는데, #{sanggwan}의 개성 욕구를 채점 없는 판에서 풀어 주면 위축과 성장의 균형이 맞아요."
+      ],
+      "livingTips": ["채점 없는 낙서장 하나 두기", "공개는 준비된 것부터 차례로"],
+      "cautions": ["놀림 한 번으로 표현을 접지 않는 게 관건이에요."],
+      "aiGenerated": true,
+      "sourceNote": "article-rewrite-2026-07"
+    },
+    {
+      "schemaVersion": "spring-ts.article.v1",
+      "articleId": "expression_children.stage-early.stage-early.any.a",
+      "category": "expression_children",
+      "period": "life",
+      "audience": "stage-early",
+      "band": "any",
+      "summary": "{{periodLabel}} 구간은 일과 표현의 관계를 설계하는 때예요.",
+      "body": [
+        "{{periodLabel}} 구간의 표현은 생계와 처음으로 얽히는 시기예요. 발표와 보고서, 기획안처럼 일 안의 표현이 급격히 늘고, 좋아서 하던 창작은 바쁘다는 이유로 밀려나기 쉬워요. 이 구간의 설계에 따라 표현이 업무 기술로만 남을지 삶의 자산으로 남을지가 갈려요.",
+        "이 구간을 사주로 읽을 때는 표현력이 소비되는 곳과 충전되는 곳의 비율을 봐요. 일의 표현은 실력을 올리지만 소모가 크고, 자기 창작은 돈이 안 되어도 충전이 돼요. 한쪽으로만 기울면 실력은 늘어도 감각이 마르는 시기라, 두 축을 다 쥐는 게 과제예요.",
+        "일 쪽에서는 발표와 글쓰기 실력을 의식적으로 키워 두면 어느 직군에서든 값을 해요. 동시에 일과 무관한 창작 시간을 일주일에 한 칸이라도 지켜 두는 거예요. 이 구간에 만들어 둔 포트폴리오나 기록 채널은 다음 전환기에 예상 밖의 문이 되어 주기도 해요."
+      ],
+      "expert": [
+        "이 구간은 #{siksang}이 직업 기능으로 옮겨 앉는 밴드로 읽어요. #{sikshin}의 실무 산출이 빠르게 자라는 대신 #{sanggwan}의 자기 목소리는 눌리기 쉬운 배치라, 충전용 창작 시간을 따로 지키는 조언에 초점을 맞췄어요."
+      ],
+      "livingTips": ["주 한 칸 창작 시간 지키기", "발표와 글 실력에 투자하기"],
+      "cautions": ["바쁘다는 이유로 창작을 다 끊지 않기로 해요."],
+      "aiGenerated": true,
+      "sourceNote": "article-rewrite-2026-07"
+    },
+    {
+      "schemaVersion": "spring-ts.article.v1",
+      "articleId": "expression_children.stage-mid.stage-mid.any.a",
+      "category": "expression_children",
+      "period": "life",
+      "audience": "stage-mid",
+      "band": "any",
+      "summary": "{{periodLabel}} 구간은 쌓인 경험이 표현의 재료가 되는 때예요.",
+      "body": [
+        "{{periodLabel}} 구간의 표현은 만드는 힘보다 담을 이야기가 커지는 시기예요. 이십 년 가까이 쌓인 일과 관계의 경험이 그 자체로 콘텐츠가 되는 구간이라, 젊은 감각을 흉내 내기보다 자기 경험을 정리해 내놓는 쪽이 힘이 세요.",
+        "사주에서 이 밴드는 표현의 방향이 받기에서 주기로 도는 구간으로 읽어요. 배우던 사람이 가르치는 사람이 되고, 감상만 하던 사람이 후배의 결과물에 답을 보태는 사람이 되는 거예요. 이 전환을 받아들이면 표현의 무대가 오히려 넓어져요.",
+        "사내 강의든 블로그 연재든 노하우를 정리해 나누는 창구를 하나 열어 보면 좋아요. 다만 자기 창작의 시간은 나누는 일에 다 내주지 말고 따로 지켜야 해요. 미뤄 둔 그림이나 악기를 다시 잡기에도 손과 눈이 아직 충분히 유연한 구간이고, 가르치며 정리한 언어가 자기 작품으로 돌아오는 선순환도 이 밴드의 재미예요."
+      ],
+      "expert": [
+        "이 밴드는 #{sikshin}의 산출이 경험과 결합해 밀도가 오르는 구간으로 읽어요. 나눔과 지도로 표현이 확장되는 한편 #{sanggwan}의 자기 목소리가 뒷전이 되기 쉬운 배치라, 개인 창작 시간을 따로 확보하는 조언을 붙였어요. #{munchanggwiin}이 받치는 명식이라면 기록형 나눔의 성과가 특히 좋아요."
+      ],
+      "livingTips": ["노하우 나눌 창구 하나 열기", "미뤄 둔 취미 하나 다시 잡기"],
+      "cautions": ["나누는 일에 창작 시간을 다 내주지 않기로 해요."],
+      "aiGenerated": true,
+      "sourceNote": "article-rewrite-2026-07"
+    },
+    {
+      "schemaVersion": "spring-ts.article.v1",
+      "articleId": "expression_children.stage-senior.stage-senior.any.a",
+      "category": "expression_children",
+      "period": "life",
+      "audience": "stage-senior",
+      "band": "any",
+      "summary": "{{periodLabel}} 구간은 표현이 다시 나를 향해 돌아오는 때예요.",
+      "body": [
+        "{{periodLabel}} 구간의 표현은 증명의 부담이 걷히고 즐거움이 남는 시기예요. 실적을 위한 발표도 평가를 위한 결과물도 줄어드는 대신, 무엇을 만들지 스스로 정하는 자유가 커져요. 미뤄 온 표현의 목록을 꺼내기에 이만한 구간이 없어요.",
+        "사주에서 이 밴드는 표현 기능이 성과의 도구에서 생활의 활력으로 바뀌는 구간으로 읽어요. 손을 써서 만들고 목소리를 내는 활동이 몸과 마음의 컨디션을 함께 끌어올리는 시기라, 창작이 곧 건강 관리가 되기도 해요. 잘 만들어야 한다는 부담을 덜어 낸 만큼 오래 즐길 여유가 들어서죠.",
+        "글쓰기 교실, 사진 동호회, 합창단처럼 정기 모임이 있는 창작 활동이 특히 잘 맞아요. 함께 만드는 판은 꾸준함을 지켜 주고 새로운 관계도 데려와요. 배우자나 친구에게 결과물을 보여 주는 작은 발표의 재미도 이 구간부터 본격적으로 누릴 수 있어요."
+      ],
+      "expert": [
+        "이 밴드는 #{siksang}이 성취 축에서 활력 축으로 옮겨 가는 구간으로 읽어요. 정기성이 있는 창작 모임이 #{sikshin}의 생산 리듬을 지켜 주는 배치라 동호회형 활동을 권했고, #{yongshin} 보완과 겹치는 취미일수록 컨디션이 오르는 효과가 뚜렷해요."
+      ],
+      "livingTips": ["정기 모임 있는 창작 고르기", "완성작은 가까운 이에게 공개"],
+      "cautions": ["잘해야 한다는 옛 기준은 내려놓아도 돼요."],
+      "aiGenerated": true,
+      "sourceNote": "article-rewrite-2026-07"
+    },
+    {
+      "schemaVersion": "spring-ts.article.v1",
+      "articleId": "expression_children.stage-elder.stage-elder.any.a",
+      "category": "expression_children",
+      "period": "life",
+      "audience": "stage-elder",
+      "band": "any",
+      "summary": "{{periodLabel}} 구간은 살아온 이야기가 가장 큰 작품이 되는 때예요.",
+      "body": [
+        "{{periodLabel}} 구간의 표현은 새것을 만드는 일보다 살아온 것을 꺼내 놓는 일에 가까워요. 지나온 시간 자체가 이야기의 곳간이라, 기억을 꺼내 말하고 적는 모든 행위가 이 구간의 창작이 돼요. 대단한 형식을 갖출 필요는 전혀 없어요.",
+        "사주에서 이 밴드의 표현은 정리와 전달의 기능으로 읽어요. 흩어진 기억이 이야기로 정리될 때 마음의 안정이 함께 오고, 그 이야기를 들어 줄 사람이 있을 때 활력이 붙는 구간이에요. 표현이 느는 시기가 아니라 표현이 귀해지는 시기라고 하는 게 맞아요.",
+        "하루 한 줄의 회고, 옛 사진에 설명 붙이기, 손주나 젊은 가족에게 옛날이야기 들려주기 같은 작은 형식이면 충분해요. 목소리 녹음이나 짧은 글로 남겨 두면 가족에게는 무엇과도 바꾸기 어려운 유산이 돼요. 서두를 것 없이 기억나는 것부터 꺼내면 돼요."
+      ],
+      "expert": [
+        "이 밴드는 #{siksang}이 회고와 전승의 기능으로 완성되는 구간으로 읽어요. #{sikshin}의 산출 속도는 느려져도 이야기의 밀도는 최고점에 이르는 배치라, 기록과 구술처럼 문턱 낮은 형식을 권했어요. 들어 주는 가족의 반응이 곧 창작의 연료가 되는 구간이에요."
+      ],
+      "livingTips": ["하루 한 줄 회고 남기기", "옛 사진에 설명 붙여 보기"],
+      "cautions": ["기억이 안 나는 날은 건너뛰어도 괜찮아요."],
+      "aiGenerated": true,
+      "sourceNote": "article-rewrite-2026-07"
+    }
+  ]
+}
