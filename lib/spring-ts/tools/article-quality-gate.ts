@@ -54,6 +54,7 @@ interface Violation {
 }
 
 const violations: Violation[] = [];
+let glossaryTextById = new Map<string, string>();
 
 function fail(articleId: string, rule: string, detail: string): void {
   violations.push({ articleId, rule, detail });
@@ -85,6 +86,16 @@ const BANNED_PHRASES: readonly string[] = [
 
 /** Standalone noun 결 + particle (결정/결과/결실 etc. stay legal). */
 const STANDALONE_GYEOL = /(?:^|[\s"'‘“(])결(?:이|을|은|는|에|의|로)(?=[\s,.!?"'’”)]|$)/u;
+
+/** Minor-audience safety (audiences teen/child/stage-teen): adult-topic
+ *  vocabulary must not appear anywhere in the article, and referenced
+ *  glossary entries must not carry adult-topic definitions (glossary
+ *  entries of used tags ship inside the minor's report payload). */
+const MINOR_AUDIENCES = new Set(['teen', 'child', 'stage-teen']);
+const MINOR_BANNED_WORDS: readonly string[] = [
+  '연애', '결혼', '배우자', '투자', '보증', '전성기', '음주', '술자리', '이혼',
+];
+const MINOR_BANNED_GLOSSARY_PATTERN = /연애|결혼|배우자|투자|보증/u;
 
 function countOccurrences(haystack: string, needle: string): number {
   let count = 0;
@@ -123,22 +134,30 @@ const SLOT_PATTERN = /\{\{([^{}]*)\}\}/gu;
 const TAG_PATTERN = /#\{([^{}]*)\}/gu;
 const STRAY_BRACE = /\{\{|\}\}|#\{/u;
 
-function loadGlossaryIds(): Set<string> {
+interface GlossaryInfo {
+  ids: Set<string>;
+  text: Map<string, string>;
+}
+
+function loadGlossaryInfo(): GlossaryInfo {
   const ids = new Set<string>();
-  if (!fs.existsSync(GLOSSARY_DIR)) return ids;
+  const text = new Map<string, string>();
+  if (!fs.existsSync(GLOSSARY_DIR)) return { ids, text };
   for (const file of fs.readdirSync(GLOSSARY_DIR).filter((f) => f.endsWith('.json'))) {
     try {
       const bundle = JSON.parse(fs.readFileSync(path.join(GLOSSARY_DIR, file), 'utf-8')) as {
-        entries?: Array<{ id?: string }>;
+        entries?: Array<{ id?: string; label?: string; brief?: string; detailed?: string }>;
       };
       for (const entry of bundle.entries ?? []) {
-        if (entry?.id) ids.add(entry.id);
+        if (!entry?.id) continue;
+        ids.add(entry.id);
+        text.set(entry.id, `${entry.label ?? ''} ${entry.brief ?? ''} ${entry.detailed ?? ''}`);
       }
     } catch {
       // unreadable glossary bundles are reported by other suites
     }
   }
-  return ids;
+  return { ids, text };
 }
 
 function checkSlotsAndTags(
@@ -318,6 +337,28 @@ function checkArticle(article: GateArticle, glossaryIds: Set<string>): void {
   if (STANDALONE_GYEOL.test(joined)) {
     fail(id, 'vocab-gyeol', '명사 단독 결 사용');
   }
+
+  // -- minor-audience safety ----------------------------------------------------
+  if (MINOR_AUDIENCES.has(article.audience)) {
+    const everything = [
+      article.summary, article.hook ?? '',
+      ...article.body, ...article.expert,
+      ...(article.livingTips ?? []), ...(article.cautions ?? []),
+    ].join('\n');
+    for (const word of MINOR_BANNED_WORDS) {
+      if (everything.includes(word)) {
+        fail(id, 'minor-banned-word', `'${word}'`);
+      }
+    }
+    for (const paragraph of article.expert) {
+      for (const match of paragraph.matchAll(TAG_PATTERN)) {
+        const glossaryText = glossaryTextById.get(match[1]) ?? '';
+        if (MINOR_BANNED_GLOSSARY_PATTERN.test(glossaryText)) {
+          fail(id, 'minor-unsafe-tag', `#{${match[1]}} 글로서리 정의에 성인 어휘 포함`);
+        }
+      }
+    }
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -376,7 +417,9 @@ export interface GateResult {
 
 export function runArticleQualityGate(articlesDir: string = ARTICLES_DIR): GateResult {
   violations.length = 0;
-  const glossaryIds = loadGlossaryIds();
+  const glossaryInfo = loadGlossaryInfo();
+  const glossaryIds = glossaryInfo.ids;
+  glossaryTextById = glossaryInfo.text;
   const articles: GateArticle[] = [];
   const seenIds = new Map<string, string>();
   let bundleCount = 0;

@@ -467,6 +467,28 @@ function buildAgeBandScoped(
   };
 }
 
+function placeholderAgeBandScoped(
+  band: LifeStageBandSpec,
+  feature: FeatureVector,
+  targetDate: Date,
+): AgeBandScopedFortunes {
+  const meta = buildPeriodMeta('life', targetDate);
+  const byCategory = {} as Record<TieredCategoryId, TieredFortune>;
+  for (const cat of CATEGORY_ORDER) byCategory[cat] = placeholderCell();
+  return {
+    periodKind: 'life',
+    periodLabel: band.label,
+    periodMeta: meta.meta,
+    overall: placeholderCell(),
+    byCategory,
+    ageBand: band.key,
+    selectorAgeBand: feature.ageBand,
+    startAge: band.startAge,
+    endAge: band.endAge,
+    representativeAge: band.representativeAge,
+  };
+}
+
 function buildLifeByAgeBand(
   saju: SajuSummary,
   birth: BirthInfo,
@@ -474,10 +496,20 @@ function buildLifeByAgeBand(
   registry: ArticleRegistry,
   glossary: Readonly<Record<TagId, GlossaryEntry>>,
   seedKey: string,
+  subjectIsMinor: boolean,
 ): Record<TieredLifeStageBand, AgeBandScopedFortunes> {
   const byAgeBand = {} as Record<TieredLifeStageBand, AgeBandScopedFortunes>;
   for (const band of LIFE_STAGE_BANDS) {
     const feature = buildFeatureVectorForAge(saju, birth, targetDate, band.representativeAge);
+    // Minor subjects only receive their own life-stage band; adult-stage
+    // guidance (투자·이직·결혼 등) is not rendered into a minor's payload.
+    // This replaces the retired minor-audience-sanitizer with an
+    // authoring-time guarantee (see ARTICLE_STYLE_CONTRACT §6).
+    const stageAudience = stageAudienceForLifeBand(band.key);
+    if (subjectIsMinor && stageAudience !== 'stage-teen') {
+      byAgeBand[band.key] = placeholderAgeBandScoped(band, feature, targetDate);
+      continue;
+    }
     byAgeBand[band.key] = buildAgeBandScoped(saju, band, registry, glossary, feature, seedKey, targetDate);
   }
   return byAgeBand;
@@ -548,11 +580,12 @@ export function buildTieredMatrix(
   const allGlossaryEntries = loadGlossary();
   const seedKey = buildSelectionSeed(birth, targetDate);
 
+  const subjectIsMinor = deriveAudience(feature.ageBand) !== 'adult';
   const periods = {} as Record<TieredPeriodKind, PeriodScopedFortunes>;
   for (const period of PERIOD_ORDER) {
     const scoped = buildPeriodScoped(period, registry, allGlossaryEntries, feature, seedKey, targetDate);
     periods[period] = period === 'life'
-      ? { ...scoped, byAgeBand: buildLifeByAgeBand(saju, birth, targetDate, registry, allGlossaryEntries, seedKey) }
+      ? { ...scoped, byAgeBand: buildLifeByAgeBand(saju, birth, targetDate, registry, allGlossaryEntries, seedKey, subjectIsMinor) }
       : scoped;
   }
 
