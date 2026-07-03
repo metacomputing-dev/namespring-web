@@ -46,6 +46,28 @@ function textOf(value: unknown): string {
   return JSON.stringify(value ?? '');
 }
 
+function findFirstMatchPath(value: unknown, pattern: RegExp, path = '$'): string | undefined {
+  if (typeof value === 'string') {
+    pattern.lastIndex = 0;
+    const match = value.match(pattern)?.[0];
+    return match ? `${path}: ${match}` : undefined;
+  }
+  if (Array.isArray(value)) {
+    for (let i = 0; i < value.length; i += 1) {
+      const found = findFirstMatchPath(value[i], pattern, `${path}[${i}]`);
+      if (found) return found;
+    }
+    return undefined;
+  }
+  if (value && typeof value === 'object') {
+    for (const [key, child] of Object.entries(value as Record<string, unknown>)) {
+      const found = findFirstMatchPath(child, pattern, `${path}.${key}`);
+      if (found) return found;
+    }
+  }
+  return undefined;
+}
+
 const engine = new SpringEngine();
 const repos: any[] = [(engine as any).hanjaRepo, (engine as any).fourFrameRepo];
 for (const repo of repos) { if (repo) (repo as any).wasmUrl = WASM_PATH; }
@@ -127,7 +149,7 @@ const leeReport: any = await engine.getFortuneReport({
 
 const minorRomance = minorReport?.categoryFortunes?.romance;
 const minorRomanceText = textOf(minorRomance);
-const minorServiceText = textOf({
+const minorServicePayload = {
   categoryFortunes: minorReport?.categoryFortunes,
   dailyFortune: minorReport?.dailyFortune,
   weeklyFortune: minorReport?.weeklyFortune,
@@ -135,7 +157,8 @@ const minorServiceText = textOf({
   yearlyFortune: minorReport?.yearlyFortune,
   lifeStageFortune: minorReport?.lifeStageFortune,
   tieredMatrix: minorReport?.tieredMatrix,
-});
+};
+const minorServiceText = textOf(minorServicePayload);
 check('minor relationship card is relabeled away from dating and marriage',
   minorRomance?.title === '친구/관계운',
   String(minorRomance?.title));
@@ -144,10 +167,10 @@ check('minor relationship card avoids adult relationship wording',
   minorRomanceText.match(/연애|결혼|새 관계|만남 운|액세서리가 만남/)?.[0]);
 check('minor tiered relationship output avoids adult dating and marriage terms',
   !/연애|결혼|배우자궁|처궁|만남 운|액세서리가 만남/.test(minorServiceText),
-  minorServiceText.match(/연애|결혼|배우자궁|처궁|만남 운|액세서리가 만남/)?.[0]);
+  findFirstMatchPath(minorServicePayload, /연애|결혼|배우자궁|처궁|만남 운|액세서리가 만남/));
 check('minor visible output avoids adult financial and peak-life wording',
   !/큰 계약|투자|보증|전성기/.test(minorServiceText),
-  minorServiceText.match(/큰 계약|투자|보증|전성기/)?.[0]);
+  findFirstMatchPath(minorServicePayload, /큰 계약|투자|보증|전성기/));
 
 const leeText = textOf(leeReport);
 check('input Hangul display name is preserved for Lee surname',
