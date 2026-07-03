@@ -239,7 +239,7 @@
         "gender": ["female"]
       },
       "templateTokens": [
-        { "kind": "text", "value": "나를 지치게 하는 반복을 줄여보세요." }
+        { "kind": "text", "value": "나를 지치게 하는 반복을 줄여 보세요." }
       ],
       "tags": [],
       "aiGenerated": true,

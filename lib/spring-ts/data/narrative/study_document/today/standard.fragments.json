@@ -129,7 +129,7 @@
       "axis": { "category": "study_document", "period": "today", "depth": "standard" },
       "gating": { "dayMasterStrength": ["STRONG", "EXTREME_STRONG"] },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 추진력으로 미뤄 둔 자격·서류 일을 한 번에 마무리하기 좋은 흐름이에요. 시작과 끝을 같은 자리에서 정리하면 가벼워져요.\n\n단단한 흙 위에 빠르게 한 자리를 마무리하는 그림을 떠올려 보면 좋아요. 속도가 무기인 날이에요.\n\n잘 풀리는 면은, 한 번 결심하면 끝까지 가는 자리예요. 외부 도움 없이도 스스로 결과를 만들어 내요.\n\n살짝 주의할 점은, 빠른 만큼 검토 한 단계를 건너뛰는 면이에요. 서명 전 한 번의 점검이 마무리의 차이를 만들어요.\n\n속도와 정확함이 함께 가는 페이스가 가장 잘 맞아요." }
+        { "kind": "text", "value": "오늘은 미뤄 둔 자격·서류 일을 한 번에 끝내기보다 확인할 칸을 줄이기 좋은 흐름이에요. 시작할 자료와 마무리할 자료를 나누면 훨씬 가벼워져요.\n\n단단한 폴더에 오늘 볼 기준 문서를 세우는 그림을 떠올려 보면 좋아요. 빠른 처리보다 빠뜨리기 쉬운 칸을 먼저 보는 날이에요.\n\n잘 풀리는 면은, 한 번 정한 검토 순서를 끝까지 가져가는 힘이에요. 혼자 다 증명하기보다 확인할 항목을 눈에 보이게 남기면 결과가 더 안정돼요.\n\n살짝 주의할 점은, 빠른 만큼 검토 한 단계를 건너뛰는 면이에요. 서명 전 한 번의 점검이 마무리의 차이를 만들어요.\n\n처리 속도와 확인 기준이 함께 갈 때 오늘의 문서가 든든해져요." }
       ],
       "tags": [],
       "livingTips": [
@@ -163,14 +163,14 @@
       "axis": { "category": "study_document", "period": "today", "depth": "standard" },
       "gating": { "dayMasterStrength": ["BALANCED"] },
       "templateTokens": [
-        { "kind": "text", "value": "오늘은 균형 있는 흐름이라, 어떤 자리든 무리하지 않으면 한 단계 진행되는 날이에요.\n\n잘 다진 들판이 한쪽으로 기울지 않고 고르게 자리 잡는 그림을 떠올려 보면 좋아요. 한쪽에 쏠리지 않는 자리라, 무엇이 급한지 또렷이 보여요.\n\n잘 풀리는 면은, 우선순위를 정하기 좋은 자리예요. 오늘 해야 할 한 가지와 미뤄도 되는 한 가지가 잘 구분돼요.\n\n살짝 주의할 점은, 균형이 좋은 만큼 큰 도전을 미루는 면이에요. 익숙한 자리에서 한 발만 더 나가 보면 새로운 모양이 보여요.\n\n오늘의 한 자리가 며칠 뒤의 흐름을 가볍게 해 줘요." }
+        { "kind": "text", "value": "오늘은 자료 이름, 날짜, 보관 위치를 차분히 맞춰 보기 좋은 날이에요.\n\n잘 다진 들판처럼 한쪽으로 쏠리지 않게 자료를 펼쳐 보면 무엇이 급한지 또렷해져요.\n\n잘 풀리는 면은, 우선순위를 정하기 좋은 날이라는 점이에요. 오늘 확인할 자료와 나중에 넘겨도 되는 자료가 잘 구분돼요.\n\n살짝 주의할 점은, 정리할 범위를 넓히다가 기본 항목을 놓치는 면이에요. 이름, 날짜, 제출처만 다시 맞춰도 다음 확인이 쉬워져요.\n\n오늘 남긴 한 줄 표시가 며칠 뒤 다시 찾을 길을 가볍게 해 줘요." }
       ],
       "tags": [],
       "livingTips": [
-        "오늘의 한 가지를 정해요",
-        "익숙함에서 한 발만 더 나가요"
+        "오늘 확인할 자료 하나를 정해요",
+        "파일 이름과 날짜를 맞춰요"
       ],
-      "cautions": ["미뤄도 되는 일과 섞지 않아요"],
+      "cautions": ["나중에 볼 자료와 오늘 제출할 자료를 섞지 않아요"],
       "aiGenerated": true,
       "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-05-02", "quoteShort": null, "humanInterpretation": "AI-derived standard fragment for study_document.today balanced. Display-only.", "copyrightNote": "No source prose copied; original.", "authorityTruthEligible": false }
     },
