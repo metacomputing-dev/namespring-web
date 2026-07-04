@@ -121,11 +121,20 @@
 
 - [x] 정찰: 출력 스키마·프론트 소비 필드·의존 관계 확정
 - [x] Phase 0: 브랜치 + WIP 체크포인트 커밋 + 구 루프 은퇴 선언(PLAN_PHASES_RETIRED.md)
-- [ ] Phase 1: 아티클 스키마·레지스트리·렌더러·게이트 구현, build-tiered-matrix 통합
-- [ ] Phase 2a: wealth 모범 코퍼스 직접 저작 + 엔드투엔드 검증(typecheck/벤치/샘플/게이트)
-- [ ] Phase 2b: 나머지 10개 카테고리 에이전트 팬아웃 저작 + 게이트 통과
-- [ ] Phase 3a: 구 파이프라인·구 데이터 제거, 임포트 정리
-- [ ] Phase 3b: 테스트 트리아지, 스위트 그린
+- [x] Phase 1: 아티클 스키마·레지스트리·렌더러·게이트 구현, build-tiered-matrix 통합
+- [x] Phase 2a: wealth 모범 코퍼스 직접 저작 + 엔드투엔드 검증(typecheck/벤치/샘플/게이트)
+- [x] Phase 2b: 나머지 10개 카테고리 에이전트 팬아웃 저작 + 게이트 통과 (330편, 게이트 위반 0)
+- [x] Phase 3a: 구 파이프라인·구 데이터 제거, 임포트 정리
+- [x] Phase 3b: 테스트 트리아지, 스위트 그린 (2026-07-04)
+      - shape 테스트 아티클 코퍼스에 맞게 갱신(fragmentCount≥330, stage-scoped trace id)
+      - progressive-disclosure: fragment 시대 awkward-join 블록리스트(400여 구절) 은퇴,
+        런타임 계약(brief 평문/standard 무태그/expert 태그/문장 간격)만 유지
+      - service-visible: '검진'(의료 인접) 소스 6개 파일 수정 + 게이트 `vocab-medical-adjacent` 추가
+      - build-tiered-matrix: brief/standard selectedFragments.tags = [] (per-tier 트레이스 정합)
+      - NO_AI_POLICY: 66개 번들에 비권위 sourceTier 추가 → `ci:no-ai-policy` 통과
+      - package.json: test:integration 체인에서 죽은 참조 제거, article/feature-vector 테스트 추가;
+        삭제 도구 참조 스크립트 28개 정리; acceptance-manifest 동기화
+      - 참고: `test:hanja-pool`은 브랜치와 무관한 선반영 실패(브랜치가 naming 코드 미변경, main에서도 동일)
 - [ ] 최종: 벤치마크 before/after, 유료 UI 샘플 재생성, 결과 보고
 
 ## 6. 리스크와 대응

@@ -87,6 +87,11 @@ const BANNED_PHRASES: readonly string[] = [
 /** Standalone noun 결 + particle (결정/결과/결실 etc. stay legal). */
 const STANDALONE_GYEOL = /(?:^|[\s"'‘“(])결(?:이|을|은|는|에|의|로)(?=[\s,.!?"'’”)]|$)/u;
 
+/** Medical-adjacent wording banned service-wide (fortune/naming product must
+ *  not read as clinical advice). Scanned across every article text field so
+ *  it also covers livingTips/cautions, matching the service-visible guard. */
+const MEDICAL_ADJACENT: readonly string[] = ['검진'];
+
 /** Minor-audience safety (audiences teen/child/stage-teen): adult-topic
  *  vocabulary must not appear anywhere in the article, and referenced
  *  glossary entries must not carry adult-topic definitions (glossary
@@ -336,6 +341,16 @@ function checkArticle(article: GateArticle, glossaryIds: Set<string>): void {
   }
   if (STANDALONE_GYEOL.test(joined)) {
     fail(id, 'vocab-gyeol', '명사 단독 결 사용');
+  }
+  const allText = [
+    article.summary, article.hook ?? '',
+    ...article.body, ...article.expert,
+    ...(article.livingTips ?? []), ...(article.cautions ?? []),
+  ].join('\n');
+  for (const word of MEDICAL_ADJACENT) {
+    if (allText.includes(word)) {
+      fail(id, 'vocab-medical-adjacent', `'${word}'`);
+    }
   }
 
   // -- minor-audience safety ----------------------------------------------------

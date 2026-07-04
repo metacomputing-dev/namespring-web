@@ -1,26 +1,9 @@
 {
-  "_comment_purpose": "Source of truth for the set of ci:* gates that must be exercised at acceptance time. Consumed by tools/check_acceptance_completeness.mjs (wired as ci:acceptance-completeness in package.json). Phase 13 Agent A5 found that P12-A5 acceptance silently omitted ci:narrative-orphan-tags (a P12-A3-wired gate); this manifest exists so the check fails fast when a new ci:* script is added without being explicitly declared accepted or exempt.",
-  "_comment_policy": "Every ci:* script in package.json MUST appear in either accepted[] or exempt[]. accepted[] = gates run as part of P*-A* acceptance / local CI. exempt[] = gates that cannot run from a worktree-local npm run (e.g. require GITHUB_EVENT_PATH or PR body); each exemption MUST carry a justification.",
+  "_comment_purpose": "Source of truth for the set of ci:* gates that must be exercised at acceptance time. Consumed by tools/check_acceptance_completeness.mjs (wired as ci:acceptance-completeness in package.json). Every ci:* script MUST appear here so acceptance cannot silently omit a gate.",
+  "_comment_policy": "Every ci:* script in package.json MUST appear in either accepted[] or exempt[]. accepted[] = gates run as part of acceptance / local CI. exempt[] = gates that cannot run from a worktree-local npm run (e.g. require GITHUB_EVENT_PATH or PR body); each exemption MUST carry a justification. The article-engine rewrite (2026-07) retired the fragment-era narrative/samples/hook density gates along with their tools; their entries were removed here to keep the manifest in sync with package.json.",
   "accepted": [
     "ci:no-ai-policy",
-    "ci:narrative-density",
-    "ci:narrative-tuple-density",
-    "ci:narrative-daymaster-tuple-density",
-    "ci:narrative-cell-axis",
-    "ci:narrative-voice",
-    "ci:narrative-truncated-endings",
-    "ci:narrative-tag-label-alignment",
-    "ci:narrative-orphan-tags",
-    "ci:acceptance-completeness",
-    "ci:samples-stale",
-    "ci:post-processor-grammar",
-    "ci:hook-coverage",
-    "ci:hook-concentration",
-    "ci:brief-tier-placeholder",
-    "ci:standard-paragraph-floor",
-    "ci:flow-cluster",
-    "ci:gyeol-cluster",
-    "ci:livingtips-period-consistency"
+    "ci:acceptance-completeness"
   ],
   "exempt": [
     {
