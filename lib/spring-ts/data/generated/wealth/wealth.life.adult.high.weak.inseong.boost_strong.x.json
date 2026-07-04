@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "wealth.life.adult.high.weak.inseong.boost_strong.x",
+  "category": "wealth",
+  "period": "life",
+  "audience": "adult",
+  "band": "high",
+  "caseAxes": {
+    "gangyak": "weak",
+    "gyeokgukFamily": "inseong",
+    "nameEffect": "boost_strong",
+    "gender": null
+  },
+  "summary": "타고난 힘이 여린 편이라, 돈도 배우고 기대며 다질 때 커져요.",
+  "hook": "돈의 뿌리부터 세워요",
+  "body": [
+    "{{dayMasterName}} 기운을 타고난 편인데 힘의 결이 여린 쪽이라, 돈도 한 번에 크게 벌이기보다 배우고 기대며 다질 때 오래 남아요. {{periodLabel}}에는 수입을 키우는 욕심보다 지출의 뿌리와 기준을 먼저 세울수록 마음이 편해져요.",
+    "본래 문서와 배움, 조언을 통해 힘을 얻는 사람이라 재물 관리도 혼자 감으로 밀어붙일수록 쉽게 지쳐요. 가계부, 계약서, 정산 내역처럼 눈에 보이는 자료를 곁에 두면 흩어지던 판단이 차분히 모여요.",
+    "다행히 이름이 지금 필요한 {{yongshinName}} 기운을 여러 글자에 걸쳐 큼직하게 채워 줘요. 그래서 돈을 모으는 기본기, 필요한 도움을 받는 태도, 오래 갈 습관을 세울 때 이름의 받침이 비교적 또렷하게 느껴져요.",
+    "큰 결정을 서두르기보다 고정지출과 저축 기준을 먼저 정해 보세요. 믿을 만한 사람에게 조건을 한 번 더 물어보고, 기록을 남겨 두면 좋은 기회가 와도 흔들리지 않고 받아낼 수 있어요."
+  ],
+  "expert": [
+    "{{dayMasterName}} 일간이 신약한 구조라 재물 판단에서는 먼저 일간을 세우는 순서를 봐야 해요. 격국은 #{jeongin}과 #{inseong} 계열이라 배우고 수용하며 문서로 근거를 확보할 때 힘이 붙고, 재물성인 #{jaeseong}은 그 뒤에 안정적으로 다루는 편이 맞아요.",
+    "이름의 #{yongshin} 자원오행이 combinedDistribution에서 필요한 {{yongshinName}} 기운을 여러 자로 크게 보강해요. 그래서 평문에서는 큰돈을 바로 벌이는 말보다 기록, 조언, 기반 만들기를 통해 재물 그릇을 키우는 방향으로 풀었어요."
+  ],
+  "livingTips": [
+    "고정지출부터 차근히 적어 보기",
+    "계약 조건은 한 번 더 물어보기",
+    "저축 기준을 먼저 정해 두기"
+  ],
+  "cautions": [
+    "혼자 감으로 큰 결정을 밀어붙이면 쉽게 지쳐요.",
+    "도움받는 일을 약함으로 여기지 않는 편이 좋아요."
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}
