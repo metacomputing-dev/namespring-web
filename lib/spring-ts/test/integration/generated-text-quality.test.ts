@@ -66,6 +66,11 @@ const whitelisted = validatePlainTextQuality({
 });
 check('단어 내 을 (가을) 는 통과', whitelisted.length === 0, JSON.stringify(whitelisted));
 
+const verbForm = validatePlainTextQuality({
+  body: ['오늘 매듭지을 것을 하나만 정하고 거기에 손을 모으면, 저녁이 한결 가벼워져요. 인연을 이을 자리도 자연히 열려요.'],
+});
+check('ㅅ불규칙 관형형 (매듭지을/이을) 통과', verbForm.length === 0, JSON.stringify(verbForm));
+
 // ── 3. skeleton: domain-swap stamps collapse to one skeleton ────────────────
 check('도메인 치환 summary 는 같은 골격',
   summarySkeleton('타고난 힘이 단단한 편이라, 가족 관계는 차분히 다질 때 좋아요.')

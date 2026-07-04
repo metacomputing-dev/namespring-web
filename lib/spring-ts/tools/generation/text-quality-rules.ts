@@ -90,8 +90,15 @@ const DOMAIN_WORDS: readonly string[] = [
   '진로 감각', '기록과 준비', '표현과 창의력', '긴장과 회복', '이동과 변화',
 ];
 
-// Nouns whose final syllable is a vowel + '을' as part of the WORD (not josa).
-const VOWEL_EUL_WORD_WHITELIST: readonly string[] = ['가을', '마을', '노을'];
+// vowel+을 sequences that are legitimate words, NOT a broken josa:
+// nouns (가을/마을/노을) and ㅅ-불규칙 verb relative forms (짓다→지을 —
+// includes compounds like 매듭지을). Tradeoff: a genuine "공부을" error also
+// ends in 부+을 and is forgiven; acceptable because regenerated text is
+// LLM-written (조사 errors there are rare) while false rejections are costly.
+const VOWEL_EUL_ALLOWED: readonly string[] = [
+  '가을', '마을', '노을',
+  '지을', '이을', '나을', '부을', '그을', '저을',
+];
 
 // ── helpers ────────────────────────────────────────────────────────────────
 
@@ -181,7 +188,7 @@ export function validatePlainTextQuality(article: GeneratedTextLike): readonly T
       const prev = m[1];
       if (!isHangulSyllable(prev)) continue;
       if (m[2] === '을' && !hasBatchim(prev)) {
-        if (!VOWEL_EUL_WORD_WHITELIST.includes(`${prev}을`)) push('josa-vowel-harmony', `…${prev}을`);
+        if (!VOWEL_EUL_ALLOWED.includes(`${prev}을`)) push('josa-vowel-harmony', `…${prev}을`);
       } else if (m[2] === '를' && hasBatchim(prev)) {
         push('josa-vowel-harmony', `…${prev}를`);
       }
