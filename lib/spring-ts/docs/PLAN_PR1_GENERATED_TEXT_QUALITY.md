@@ -225,8 +225,10 @@ fixture는 **테스트 파일에 동결된 문자열**(라이브 corpus를 읽�
 
 ### 운영 규칙 (모든 세션 공통 — 위반 금지)
 
-1. **원본 트리 `F:\Projects\metaintelligence\namespring-web` 절대 불변** — dirty 상태는 사용자
-   작업물. stash/reset/checkout 금지. 모든 작업은 `C:\tmp\namespring-pr1-text-quality`.
+1. **작업장 = `F:\Projects\metaintelligence\namespring-web`, branch `codex/pr1-text-quality`**
+   (2026-07-05 갱신). 임시 워크트리 `C:\tmp\namespring-pr1-text-quality`는 제거됨. Codex의
+   `codex/nightly-copy-quality-loop`(구 fragments 대상 작업 + 미커밋 52파일)은 사용자 지시로
+   폐기됨 — 마지막 커밋 b7ef9a39b, 필요 시 reflog로 복구 가능.
 2. 커밋은 웨이브/단계 단위로 잘게. `git add`는 항상 경로 명시(`git add -A` 금지).
 3. **테스트 통과만으로 문장 품질을 승인하지 않는다.** 웨이브마다 무작위 표본(번들 3개 이상)을
    반드시 정독하고 §9에 소감·문제를 기록.
