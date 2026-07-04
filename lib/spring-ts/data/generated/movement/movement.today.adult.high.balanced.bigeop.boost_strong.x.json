@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "movement.today.adult.high.balanced.bigeop.boost_strong.x",
+  "category": "movement",
+  "period": "today",
+  "audience": "adult",
+  "band": "high",
+  "caseAxes": {
+    "gangyak": "balanced",
+    "gyeokgukFamily": "bigeop",
+    "nameEffect": "boost_strong",
+    "gender": null
+  },
+  "summary": "타고난 힘이 고른 편이라, 이동과 변화는 차분히 다질 때 좋아요.",
+  "body": [
+    "당신은 {{dayMasterName}} 기운을 타고난 결이 고른 쪽이라, 이동과 변화는 한 번에 크게 밀기보다 차분히 다질 때 오래 남아요. {{periodLabel}}에는 기회가 비교적 잘 살아나는 구간이에요. 이사, 출장, 여행, 새 동네 적응처럼 손에 잡히는 장면부터 살피면 선택이 가벼워져요.",
+    "곁의 사람과 기준을 나누고 함께 움직일 때 힘이 붙는 편이에요 그래서 이동도 감으로만 처리하기보다 동선과 준비물을 미리 확인하는 일이 잘 맞아요. 작은 기준을 눈앞에 두면 마음이 급해져도 다시 돌아올 곳이 생겨요.",
+    "다행히 이름이 지금 필요한 {{yongshinName}} 기운을 여러 글자에 걸쳐 크게 채워 줘요. 그래서 이동의 기본기를 세울 때 이름의 받침이 비교적 또렷하게 느껴져요.",
+    "동선과 준비물을 미리 확인하는 일을 오늘의 첫걸음으로 삼아 보세요. 너무 많은 일을 한꺼번에 바꾸지 않아도 괜찮아요. 한 가지 기준이 분명해지면 새로운 장소에서도 덜 헤매고 편안히 움직여요."
+  ],
+  "expert": [
+    "{{dayMasterName}} 일간은 중화 쪽이라 한쪽 기운에 기대기보다 균형을 유지하며 해당 영역을 다루는 편이 자연스러워요 비겁 계열(비견·겁재격)는 자립·경쟁·동료로 나를 세우는 구조. 주체적으로 밀고 나가는 전략이 맞음. 이 판단을 #{yongshin}·#{sikshin}·#{bigyeon} 축과 함께 보아 평문에서는 이동과 변화의 속도와 기준을 조절하는 글로 풀었어요.",
+    "이름의 #{yongshin} 자원오행이 combinedDistribution에서 필요한 {{yongshinName}} 기운을 여러 자로 크게 보강해요. 그래서 평문에서는 생활 기준을 세울 때 이름의 받침이 또렷하다고 풀었어요. 강약과 이름 신호가 같은 방향일 때는 받침을 쓰고, 어긋날 때는 과장을 피하는 방식으로 요약과 본문을 맞췄어요."
+  ],
+  "livingTips": [
+    "이동 순서를 미리 적어 보기",
+    "준비물을 전날 챙겨 두기",
+    "믿을 만한 사람에게 물어보기"
+  ],
+  "cautions": [
+    "익숙하지 않은 길에서는 속도를 조금 낮춰요",
+    "좋은 신호가 있어도 무리한 속도는 줄이는 편이 좋아요."
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}
