@@ -51,6 +51,7 @@ import {
   type ArticleSlotValues,
 } from './article-renderer.js';
 import { gradeCell, gradeToStars } from './cell-grader.js';
+import { buildPersonalReading } from './personal-reading.js';
 import { buildPeriodMeta, periodFortuneElement } from './period-meta-builder.js';
 import { loadGlossary } from './glossary-loader.js';
 import { buildTagGlossary } from './tag-inliner.js';
@@ -599,6 +600,19 @@ export function buildTieredMatrix(
   const glossary = buildTagGlossary({ periods }, allGlossaryEntries);
   const namingEvidence = buildNamingEvidence(options.namingReport);
 
+  // A1 cross-cell synthesis — one plain-language profile from the person's
+  // measured category grades (life period = structural, uses the day-master
+  // element). Jargon-free; names the person's strong/weak life areas.
+  const lifeByCategory = periods.life?.byCategory;
+  const categoryStars: Partial<Record<TieredCategoryId, number | null>> = {};
+  if (lifeByCategory) {
+    for (const cat of CATEGORY_ORDER) categoryStars[cat] = lifeByCategory[cat]?.stars ?? null;
+  }
+  const personalReading = buildPersonalReading({
+    categoryStars,
+    strengthPlain: buildSlotValues('', feature).strengthPlain,
+  });
+
   const meta: TieredMatrixMeta = {
     schemaVersion: 'spring-ts.tiered-matrix.v1',
     generatedAt: new Date().toISOString(),
@@ -614,6 +628,7 @@ export function buildTieredMatrix(
     periods,
     glossary,
     ...(namingEvidence ? { namingEvidence } : {}),
+    ...(personalReading ? { personalReading } : {}),
     meta,
   };
 }
