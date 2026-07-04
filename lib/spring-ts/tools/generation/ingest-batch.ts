@@ -35,7 +35,7 @@ function toArticle(c: GenerationCase, g: GeneratedArticle): Record<string, unkno
     schemaVersion: 'spring-ts.article.v1',
     articleId: c.caseId,
     category: c.category, period: c.period, audience: c.audience, band: c.band,
-    caseAxes: { gangyak: c.gangyak, yongshin: c.yongshin, nameReinforce: c.nameReinforce },
+    caseAxes: { gangyak: c.gangyak, gyeokgukFamily: c.gyeokgukFamily, nameEffect: c.nameEffect, gender: c.gender },
     summary: g.summary,
     ...(g.hook ? { hook: g.hook } : {}),
     body: g.body, expert: g.expert,
