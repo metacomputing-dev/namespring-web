@@ -23,6 +23,7 @@ async function main(): Promise<void> {
   const files = argv.filter((a) => !a.startsWith('--'));
   const modelArg = argv.find((a) => a.startsWith('--model='))?.slice('--model='.length);
   const tag = argv.find((a) => a.startsWith('--tag='))?.slice('--tag='.length);
+  const thinkingOff = argv.includes('--thinking=off'); // Sonnet 5 과잉사고(예산 소진) 대응
   if (files.length === 0 || !modelArg || !tag) {
     console.error('usage: submit-batch.ts <batchFile...> --model=sonnet|opus --tag=<wave-tag>');
     process.exit(2);
@@ -52,7 +53,7 @@ async function main(): Promise<void> {
       params: {
         model: model.id,
         max_tokens: maxTokensFor(b.caseIds.length),
-        ...(model.thinking ? { thinking: model.thinking } : {}),
+        ...(thinkingOff ? { thinking: { type: 'disabled' as const } } : model.thinking ? { thinking: model.thinking } : {}),
         output_config: { format: BATCH_OUTPUT_FORMAT },
         messages: [{ role: 'user' as const, content: b.prompt }],
       },
