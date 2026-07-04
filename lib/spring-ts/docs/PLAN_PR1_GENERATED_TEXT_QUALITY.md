@@ -212,8 +212,21 @@ fixture는 **테스트 파일에 동결된 문자열**(라이브 corpus를 읽�
 | 5 | 번들 하네스 4종 (§6) | ✅ 2026-07-04 | prepare/prompt/run.wf/ingest |
 | 6 | 파일럿: overall 번들 일부 생성→정독→게이트 통과율 기록 | ✅ 2026-07-04 | 아래 파일럿 결과 참조 |
 | 7 | 웨이브 w1: overall 전체 (180 번들) | 🔄 **33/180 완료** (2026-07-04 세션 종료 시점) | ~500편 재생성·커밋. summary 고유율 0.4%→31.2%. first-pass율: 파일럿 100% / 배치1 94.6% / 배치2 83.8% (리젝은 게이트가 전부 차단 — 문단 재사용·분량 미달). **다음 액션**: ① `npx tsx tools/generation/prepare-bundles.ts --keys=overall.adult.strong.bigeop.adverse.x` 재생성(잔여 리젝 11편) ② `prepare-bundles.ts overall --count 16` 반복 (남은 147번들 ≈ 9배치, 배치당 ~35분/2.9M tokens) |
-| 8 | 웨이브 w2+: wealth→health→career→나머지 | ⬜ | |
+| 7b | **배치 API 모델 A/B** (동일 12번들×180편, 6카테고리) | 🔄 2026-07-05 진행 중 | 아래 "배치 파일럿 A/B" 참조. **완료 시 액션**: `fetch-batch.ts <id>` 이미 백그라운드 폴링 중 → 결과 나오면 `ingest-bundles.ts <results> --source=regen-pilot-<tag> --dry-run`으로 채점 → `compare-results.mjs`로 동일 번들 정독 → 승자 확정 후 dry-run 없이 ingest·커밋 |
+| 8 | 웨이브 w2+: 전량 배치 집행 (승자 모델, 남은 ~2,150 번들) | ⬜ | 카테고리별 prepare→submit→fetch→ingest. 예산: Opus ~$500 / Fable ~$1,000 / Sonnet ~$190 (충전 $100 → 분할 집행 필요할 수 있음) |
 | 9 | 전량 완료 후: audit before/after, pack 재실행, F3 승격 | ⬜ | |
+
+### 배치 파일럿 A/B (2026-07-05, 동일 12번들 = 180편; 결과는 29일 보존, ID로 언제든 회수)
+
+| 모델 | 배치 ID | 상태 | 게이트 통과 |
+|---|---|---|---|
+| Sonnet 5 (thinking on) | `msgbatch_01P3eoA4PrVd7zgXLLuBrfe7` | 완료 | **0/45** (9번들 max_tokens 절단 — thinking이 예산 소진; 성공분도 body 80자 미달) |
+| Sonnet 5 (thinking off) | `msgbatch_011eenEUqeqwUWPSaHDyK9Bf` | 완료 | **7/180 (3.9%)** — expert 분량 미달, 평문 '비겁' 누출, 태그 말미 나열(해요체 위반), 태그 날조(`#{silhaeng}` 등) |
+| Opus 4.8 | `msgbatch_011RcKwo4LQ5N7AJJ35Dq38c` | 처리 중 | (워크플로 실적: first-pass 84~100%, 정독 합격) |
+| Fable 5 | `msgbatch_01QoWreL3D5iMtdDXfEL6TnQ` | 처리 중 | max_tokens 64K(상시 thinking 예산) |
+
+판정 기준: ①게이트 first-pass율 ②정독(문체·명리 정확성·태그 실재성) ③전량 비용. Sonnet은
+현재 스코어로는 탈락 유력 — 되살리려면 Sonnet 전용 프롬프트 재설계 필요(분량 강조·태그 삽입 방식).
 
 ### 파일럿 결과 (2026-07-04, overall 번들 2개 = 30편)
 
