@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "wealth.life.adult.high.weak.inseong.boost_mild.x",
+  "category": "wealth",
+  "period": "life",
+  "audience": "adult",
+  "band": "high",
+  "caseAxes": {
+    "gangyak": "weak",
+    "gyeokgukFamily": "inseong",
+    "nameEffect": "boost_mild",
+    "gender": null
+  },
+  "summary": "타고난 힘이 여린 편이라, 돈은 작은 받침을 살려 다질 때 좋아요.",
+  "hook": "작은 받침을 돈으로 살려요",
+  "body": [
+    "{{dayMasterName}} 기운을 타고난 편인데 힘의 결이 여린 쪽이라, 재물은 빠르게 벌이는 방식보다 천천히 배우고 쌓는 방식에서 더 안정돼요. {{periodLabel}}에는 큰 승부보다 예산표 하나, 영수증 한 장처럼 작지만 확실한 기준이 오래 남아요.",
+    "본래 지식을 받아들이고 보호막을 만들 때 힘을 얻는 사람이라 돈 문제도 혼자 버티면 판단이 흐려지기 쉬워요. 상담, 강의, 문서 확인처럼 외부의 틀을 빌리면 선택의 크기를 무리 없이 줄일 수 있어요.",
+    "이름은 지금 필요한 {{yongshinName}} 기운을 한 글자쯤 완만하게 거들어 줘요. 크게 밀어 올리는 힘은 아니지만, 돈을 관리하는 습관을 세울 때 작은 받침이 되어 흔들림을 줄여 주는 쪽에 가까워요.",
+    "그래서 이 시기의 재물운은 한 번에 많이 얻는 그림보다 새는 돈을 막고 기준을 오래 가져가는 그림이 잘 맞아요. 오늘 정한 지출 한도와 기록 습관이 다음 선택을 부드럽게 받쳐 줘요."
+  ],
+  "expert": [
+    "{{dayMasterName}} 일간이 신약한 편이라 #{jaeseong}을 곧장 크게 쓰기보다 일간을 보강한 뒤 재물을 다루는 순서가 자연스러워요. 격국은 #{jeongin}과 #{inseong} 계열로, 문서·배움·보호의 축이 먼저 서야 재물 판단도 안정돼요.",
+    "이름의 #{yongshin} 자원오행은 combinedDistribution에서 필요한 {{yongshinName}} 기운을 한 자 정도 완만히 보강해요. 그래서 평문에서는 이름이 전부 해결한다고 쓰지 않고, 작은 받침을 실제 기록과 기준으로 살리는 방향을 제안했어요."
+  ],
+  "livingTips": [
+    "이번 달 지출 한도 적어 두기",
+    "영수증과 계약서 모아 보기",
+    "도움받을 사람을 미리 정하기"
+  ],
+  "cautions": [
+    "작은 보탬을 과신해 큰 결정을 서두르진 마세요.",
+    "돈 문제를 혼자만 끌어안으면 판단이 무거워져요."
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}
