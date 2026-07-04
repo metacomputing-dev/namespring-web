@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "romance.life.adult.high.weak.jaeseong.boost_mild.male",
+  "category": "romance",
+  "period": "life",
+  "audience": "adult",
+  "band": "high",
+  "caseAxes": {
+    "gangyak": "weak",
+    "gyeokgukFamily": "jaeseong",
+    "nameEffect": "boost_mild",
+    "gender": "male"
+  },
+  "summary": "타고난 기운이 여린 편이라, 서두르기보다 살림과 마음을 차근차근 채우며 인연을 다지면 좋아요.",
+  "hook": "여린 만큼, 다져서 오래가요",
+  "body": [
+    "타고난 기운이 조금 여린 편이라, 연애도 속도로 밀어붙이기보다 기반을 다지며 가는 쪽이 잘 맞아요. {{periodLabel}} 동안에는 서두르는 마음을 한 박자 늦추고, 나부터 채워 두는 게 오래갈 인연을 만드는 지름길이에요.",
+    "당신은 현실과 살림을 다루고 굴리는 감각이 좋은 사람이라, 관계에서도 실속 있게 챙기고 함께 꾸려 가는 모습이 매력으로 드러나요. 마음만 앞세우기보다 생활을 같이 그려 볼 때 상대도 당신을 든든하게 느껴요.",
+    "다만 여린 기운을 혼자 힘으로만 메우려 들면 금세 지쳐요. 곁의 손을 빌리고, {{currentSeasonName}}의 결에 맞춰 {{yongshinName:을를}} 생활 속에서 조금씩 채워 두면 마음의 여유가 생겨요. 그 여유가 인연을 부드럽게 이어 줘요.",
+    "이름도 지금 당신에게 필요한 기운을 한 글자쯤 거들어 주는 편이라, 큰 흐름을 바꾸진 않아도 은근히 등을 받쳐 줘요. 이름에만 기대기보다 생활의 다짐과 함께 가면, 배우자 인연도 조바심 없이 무르익어요."
+  ],
+  "expert": [
+    "일간 {{dayMasterName:이가}} 뿌리가 얕아 #{gishin} 부담이 있는 신약 사주라, 급히 발산하기보다 인성·비겁의 도움으로 채우고 다지는 방향이 정법이에요. 격국은 #{jaeseong} 중심의 #{jeongjaegyeok} 구조라, 현실·재화를 굴리고 관리하는 전략으로 자신을 세우는 편이 잘 맞아요. 건명의 romance에서 재성은 배우자 자리이니, 실속을 함께 꾸리는 관계관이 자연스럽게 힘을 받아요.",
+    "쓸 기운, 즉 #{yongshin}은 {{yongshinName:이가}} 되는데, 이름의 자원오행(#{naeumElement})이 combinedDistribution에서 이를 한 자쯤 완만히 보강하는 정도예요. 판을 바꾸는 강한 보완은 아니고 은근한 거듦이라, 부족한 기운은 이름에만 맡기지 말고 {{currentSeasonName}}의 조후에 맞춰 생활에서 함께 채워 두면 신약의 기반이 서서히 단단해져요."
+  ],
+  "livingTips": [
+    "결정 전 하루 재워 두고 판단해요",
+    "살림·돈은 굴리며 함께 챙겨요",
+    "혼자 애쓰기보다 곁의 손을 빌려요"
+  ],
+  "cautions": [
+    "속도전은 손해예요, 기반부터 다져요",
+    "무리한 지출·약속은 잠시 미뤄요"
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}
