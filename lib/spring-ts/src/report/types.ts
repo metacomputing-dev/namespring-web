@@ -629,11 +629,30 @@ export interface TieredNamingEvidence {
 
 /** Top-level tiered matrix container. Attached to `FortuneReport.tieredMatrix`
  *  when `precisionConfig.surfaceTieredMatrix === true`. */
+/** A1 cross-cell synthesis — one plain-language profile composed from the
+ *  person's measured category grades (the 10-category star pattern). The grade
+ *  vector is a fingerprint, so this reads as "about ME" while exposing zero
+ *  saju jargon (general-tier plain language). Optional/additive: absent when
+ *  too few categories are graded. */
+export interface TieredPersonalReading {
+  readonly source: 'spring-ts.tiered.personalReading';
+  /** One plain-language sentence naming the high/low pattern. */
+  readonly headline: string;
+  /** 2-3 plain sentences elaborating the profile. Jargon-free. */
+  readonly paragraph: string;
+  /** Categories that graded high (⭐≥4), most-notable first. */
+  readonly highlights: readonly TieredCategoryId[];
+  /** Categories that graded low (⭐≤2), for optional gentle framing. */
+  readonly cautions: readonly TieredCategoryId[];
+}
+
 export interface FortuneTieredMatrix {
   readonly schemaVersion: 'spring-ts.tiered-matrix.v1';
   readonly periods: Readonly<Record<TieredPeriodKind, PeriodScopedFortunes>>;
   readonly glossary: TagGlossary;
   readonly namingEvidence?: TieredNamingEvidence;
+  /** A1 cross-cell synthesis reading (optional/additive). */
+  readonly personalReading?: TieredPersonalReading;
   readonly meta: TieredMatrixMeta;
 }
 
