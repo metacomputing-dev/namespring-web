@@ -30,8 +30,13 @@ export function loadRootEnv(): void {
 
 export interface ModelChoice {
   readonly id: string;
-  /** Opus needs an explicit adaptive-thinking opt-in; Sonnet 5 defaults to adaptive. */
+  /** Opus needs an explicit adaptive-thinking opt-in; Sonnet 5 defaults to
+   * adaptive; Fable 5 is always-on and REJECTS any thinking config (omit). */
   readonly thinking?: { type: 'adaptive' };
+  /** Fable 5: thinking cannot be disabled → --thinking=off must be rejected. */
+  readonly thinkingLocked?: boolean;
+  /** Extra max_tokens headroom for always-on thinking models. */
+  readonly generousBudget?: boolean;
   /** Pricing per MTok at Batch API rates (50% of standard), for estimates. */
   readonly batchInputPerM: number;
   readonly batchOutputPerM: number;
@@ -44,14 +49,18 @@ export function resolveModel(name: string): ModelChoice {
       return { id: 'claude-sonnet-5', batchInputPerM: 1.0, batchOutputPerM: 5.0 };
     case 'opus':
       return { id: 'claude-opus-4-8', thinking: { type: 'adaptive' }, batchInputPerM: 2.5, batchOutputPerM: 12.5 };
+    case 'fable':
+      return { id: 'claude-fable-5', thinkingLocked: true, generousBudget: true, batchInputPerM: 5.0, batchOutputPerM: 25.0 };
     default:
-      throw new Error(`unknown --model=${name} (use sonnet | opus)`);
+      throw new Error(`unknown --model=${name} (use sonnet | opus | fable)`);
   }
 }
 
-/** Output headroom per bundle: thinking + ~900 tokens/article, capped. */
-export function maxTokensFor(caseCount: number): number {
-  return Math.min(64000, 8000 + caseCount * 2500);
+/** Output headroom per bundle: articles + thinking, capped at the 64K-safe zone. */
+export function maxTokensFor(caseCount: number, generous = false): number {
+  return generous
+    ? Math.min(64000, 20000 + caseCount * 3000)
+    : Math.min(64000, 8000 + caseCount * 2500);
 }
 
 /** Structured-output format for one bundle. Counts/lengths enforced at ingest. */
