@@ -195,6 +195,6 @@ ${minor ? `6. **미성년 안전**: ${MINOR_BANNED} 등 금지, 나이에 맞는
 - livingTips 2~3(각 ≤30자) / cautions 1~2(각 ≤44자, 해요체).
 
 ## 출력
-StructuredOutput 도구로 { articles: [{ caseId, summary, hook?, body[], expert[], livingTips[], cautions[] }] }.
-articles는 요청한 caseId ${cases.length}개를 **모두, 정확한 id로** 포함해야 합니다.`;
+JSON만 반환: { "articles": [{ "caseId", "summary", "hook"?, "body": [], "expert": [], "livingTips": [], "cautions": [] }] }.
+articles는 요청한 caseId ${cases.length}개를 **모두, 정확한 id로** 포함해야 합니다. JSON 밖에 다른 텍스트를 쓰지 마세요.`;
 }
