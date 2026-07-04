@@ -12,7 +12,7 @@
  * post-hoc text rewriting — see PLAN_ARTICLE_REWRITE.md.
  */
 
-import type { SajuSummary, BirthInfo, NamingReport, NamingReportFrame, SourceTierMetadata } from '../../types.js';
+import type { SajuSummary, BirthInfo, NamingReport, NamingReportFrame, SajuCompatibility, SourceTierMetadata } from '../../types.js';
 import type {
   AgeBandScopedFortunes,
   BriefFortuneText,
@@ -52,6 +52,7 @@ import {
 } from './article-renderer.js';
 import { gradeCell, gradeToStars } from './cell-grader.js';
 import { buildPersonalReading } from './personal-reading.js';
+import { buildNameSajuReading } from './name-saju-reading.js';
 import { buildPeriodMeta, periodFortuneElement } from './period-meta-builder.js';
 import { loadGlossary } from './glossary-loader.js';
 import { buildTagGlossary } from './tag-inliner.js';
@@ -527,6 +528,9 @@ export interface BuildTieredMatrixOptions {
   readonly enabled?: boolean;
   readonly contentSource?: 'placeholder' | 'authored';
   readonly namingReport?: NamingReport | null;
+  /** Name↔saju compatibility (N1). Forwarded from SpringReport so the tiered
+   *  layer can surface a plain "이 이름이 부족한 기운을 채워 준다" sentence. */
+  readonly sajuCompatibility?: SajuCompatibility | null;
 }
 
 const NAME_FRAME_STAGE: Record<NamingReportFrame['type'], { stage: TieredNameFrameEvidence['stage']; label: string }> = {
@@ -608,9 +612,17 @@ export function buildTieredMatrix(
   if (lifeByCategory) {
     for (const cat of CATEGORY_ORDER) categoryStars[cat] = lifeByCategory[cat]?.stars ?? null;
   }
+  const readingSlots = buildSlotValues('', feature);
   const personalReading = buildPersonalReading({
     categoryStars,
-    strengthPlain: buildSlotValues('', feature).strengthPlain,
+    strengthPlain: readingSlots.strengthPlain,
+  });
+  // N1 — name↔saju reinforcement (grounded, plain, honest when the name carries
+  // none of the needed element). Only when a yongshin is actually resolved.
+  const nameSajuReading = buildNameSajuReading({
+    yongshinMatchCount: options.sajuCompatibility?.yongshinMatchCount,
+    yongshinName: readingSlots.yongshinName,
+    yongshinResolved: feature.yongshinElement !== null,
   });
 
   const meta: TieredMatrixMeta = {
@@ -629,6 +641,7 @@ export function buildTieredMatrix(
     glossary,
     ...(namingEvidence ? { namingEvidence } : {}),
     ...(personalReading ? { personalReading } : {}),
+    ...(nameSajuReading ? { nameSajuReading } : {}),
     meta,
   };
 }
