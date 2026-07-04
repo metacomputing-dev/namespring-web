@@ -965,6 +965,9 @@ function CombiedNamingReport({
   }, [lifePeriodOptions, selectedLifeFlowKey]);
   const nameDetails = asArray(nameCompatibility?.details).filter(Boolean);
   const personality = fortuneReport?.personality || {};
+  // A1/N1 — plain-language fingerprint readings (jargon-free). Optional/additive.
+  const tieredPersonalReading = fortuneReport?.tieredMatrix?.personalReading || null;
+  const tieredNameSajuReading = fortuneReport?.tieredMatrix?.nameSajuReading || null;
   const strengths = asArray(fortuneReport?.strengthsWeaknesses?.strengths);
   const weaknesses = asArray(fortuneReport?.strengthsWeaknesses?.weaknesses);
   const cautions = asArray(fortuneReport?.cautions?.cautions);
@@ -1111,6 +1114,16 @@ function CombiedNamingReport({
               description="사주팔자와 성향, 강점, 주의점을 한 문서 안에서 이어서 봅니다."
             >
               <SajuPillarsGrid pillars={overview?.pillars} />
+              {tieredPersonalReading ? (
+                <div className="cr-text-block cr-personal-reading">
+                  <h3>당신의 사주 프로필</h3>
+                  <p className="cr-personal-reading__headline">{tieredPersonalReading.headline}</p>
+                  <p>{tieredPersonalReading.paragraph}</p>
+                  {tieredNameSajuReading ? (
+                    <p className="cr-inline-note">{tieredNameSajuReading.sentence}</p>
+                  ) : null}
+                </div>
+              ) : null}
               <div className="cr-text-block">
                 <h3>사주팔자 요약</h3>
                 <p>{compactText(overview?.overallSummary, '사주팔자 요약을 준비 중입니다.')}</p>
