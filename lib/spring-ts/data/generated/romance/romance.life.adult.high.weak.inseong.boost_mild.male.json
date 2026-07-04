@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "romance.life.adult.high.weak.inseong.boost_mild.male",
+  "category": "romance",
+  "period": "life",
+  "audience": "adult",
+  "band": "high",
+  "caseAxes": {
+    "gangyak": "weak",
+    "gyeokgukFamily": "inseong",
+    "nameEffect": "boost_mild",
+    "gender": "male"
+  },
+  "summary": "서두르기보다 기대고 채우며 기반을 다질수록 인연이 편안해지는, 여린 결이에요.",
+  "hook": "여린 결엔 기대는 힘이 무기예요",
+  "body": [
+    "타고난 기운이 여린 편이라, 연애에서도 속도를 내기보다 먼저 마음의 기반을 다지는 쪽이 잘 맞아요. 좋은 사람에게 기대고 배우며 천천히 채워 갈 때, 관계가 훨씬 편안하게 자리를 잡는 결이에요.",
+    "{{periodLabel}}에는 나를 아끼는 사람의 조언이나 도움을 열어 두는 게 유리해요. 혼자 밀어붙이기보다 곁의 사람에게 기대고 배우는 자세가, 오히려 인연을 단단하게 만들어 주는 시기예요.",
+    "다행히 이름이 지금 필요한 {{yongshinName}} 기운을 한 글자쯤 거들어 주고 있어요. 크게 채워 주는 정도는 아니지만, {{currentSeasonName}}의 흐름과 만나 부족한 자리를 살짝 메워 주는 든든한 뒷받침이 돼요.",
+    "조급함만 내려놓으면 흐름이 한결 순해져요. 상대에게 맞춰 주는 마음은 약함이 아니라 여린 기운을 채우는 나만의 방식이니, 그 결을 믿고 천천히 다가가면 관계가 깊어져요."
+  ],
+  "expert": [
+    "일간 {{dayMasterName}}{{yongshinName:이가}} 뿌리를 얻지 못해 신약으로 기울어, 재관을 직접 밀어붙이기보다 #{inseong}의 생조를 받아 채우고 다지는 전략이 정합적입니다. 정인·편인격 구조라 배우고 수용하며 자격·문서·보호로 힘을 얻는 자리예요. 건명이라 #{jaeseong}이 배우자성이 되는데, 신약에선 재를 감당할 그릇부터 두터워야 인연이 오래갑니다.",
+    "자원오행이 combinedDistribution에서 #{yongshin}을 한 자쯤 완만히 보강해, 이름이 부족한 자리를 살짝 거드는 수준으로 정직하게 평가돼요. 과다 보강은 아니라, #{jeongin}처럼 기대고 배우는 생활 속 조력을 함께 쓰는 편이 결과가 좋아요."
+  ],
+  "livingTips": [
+    "곁의 조언에 마음을 열어 두기",
+    "서두르기보다 기반부터 다지기",
+    "기대는 건 약함이 아니에요"
+  ],
+  "cautions": [
+    "조급하게 확답을 재촉하지 않기",
+    "여린 결을 혼자 다 채우려 무리 말기"
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}

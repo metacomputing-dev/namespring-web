@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "romance.life.adult.high.weak.jaeseong.adverse.male",
+  "category": "romance",
+  "period": "life",
+  "audience": "adult",
+  "band": "high",
+  "caseAxes": {
+    "gangyak": "weak",
+    "gyeokgukFamily": "jaeseong",
+    "nameEffect": "adverse",
+    "gender": "male"
+  },
+  "summary": "{{periodLabel}} 구간은 몰아치기보다 차근차근 쌓을 때 관계가 단단해지는 편이에요.",
+  "hook": "속도보다 기반을 다질 때",
+  "body": [
+    "{{periodLabel}} 시기의 마음은 타고나길 조금 여린 편이라, 한 번에 확 밀어붙이기보다 기반을 먼저 다지는 쪽이 잘 맞아요. 설렘이 클수록 서두르고 싶어지지만, {{currentSeasonName}}처럼 천천히 무르익도록 두면 오히려 오래가요. 곁에서 나를 채워 주는 사람과 함께하는 시간을 늘리는 게 이 시기의 힘이에요.",
+    "당신은 관계를 현실 속에서 살피고 다루는 감각이 좋은 편이에요. 상대의 형편과 일상을 함께 챙기고, 마음을 하나씩 쌓아 곁에 두고 지켜 가는 방식이 강점이 되는 자리라, 즉흥적인 불꽃보다 꾸준히 살피고 가꿔 가는 연애가 잘 어울려요.",
+    "다만 여린 기운은 혼자 힘으로만 밀고 나가면 금세 지쳐요. 나를 북돋아 주는 인연과 배움, 든든한 친구의 도움을 곁에 두는 편이 좋아요. {{yongshinName:이가}} 부족한 편이라, 그 기운을 생활에서 채우면 관계에도 한결 여유가 생겨요.",
+    "이름을 보면 이미 넉넉한 쪽에 무게가 실려 있는 편이에요. 그래서 이름이 부족한 기운을 대신 채워 주진 않으니, 그 부분은 생활 습관으로 직접 챙기는 편이 나아요. 부족한 걸 일상에서 메우면 타고난 강점이 관계에서 더 잘 살아나요."
+  ],
+  "expert": [
+    "명식이 신약으로 기울어 부억의 관점에서 {{yongshinName:은는}} #{inseong}·#{bigeob} 계열로 잡혀요. 일간 {{dayMasterName}}을 돕는 #{yongshin} 방향이라 발산보다 보강이 과제예요. 구조는 #{jaeseong}을 축으로 한 #{jeongjaegyeok} 계열이라 현실·재물을 관리하고 소유하는 전략이 맞고, 건명에서 이 재성 축은 배우자 자리와도 닿아요.",
+    "다만 자원오행이 #{gishin} 계열로 기울어 combinedDistribution의 과다를 더하는 쪽이에요. 그래서 이름이 부족한 용신을 보강해 주진 않으니, 부족분은 이름 밖 생활에서 채우는 편이 정직한 처방이에요."
+  ],
+  "livingTips": [
+    "속도보다 기반부터 다져 보기",
+    "나를 북돋는 사람 곁에 두기",
+    "부족한 기운은 생활 습관으로 챙기기"
+  ],
+  "cautions": [
+    "설렘이 크다고 서둘러 결정하진 말아요.",
+    "혼자 힘으로만 밀어붙이면 쉽게 지쳐요."
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}

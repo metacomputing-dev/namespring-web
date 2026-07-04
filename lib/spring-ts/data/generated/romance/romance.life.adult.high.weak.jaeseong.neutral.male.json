@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "romance.life.adult.high.weak.jaeseong.neutral.male",
+  "category": "romance",
+  "period": "life",
+  "audience": "adult",
+  "band": "high",
+  "caseAxes": {
+    "gangyak": "weak",
+    "gyeokgukFamily": "jaeseong",
+    "nameEffect": "neutral",
+    "gender": "male"
+  },
+  "summary": "타고난 기운이 여린 편이라, 현실을 굴리는 재능은 기반부터 다지며 감당할 만큼씩 쥐면 오래가요.",
+  "hook": "쥐기 전에 딛고 설 바닥부터",
+  "body": [
+    "{{dayMasterName}} 성향을 보면 손에 무언가를 쥐고 굴리고 관리하는 데 마음이 가는 편이에요. 현실을 챙기고 관계도 실속 있게 아끼는 결이라, 이 분야에서 상대를 든든하게 받쳐 주는 힘이 자연스럽게 나와요.",
+    "다만 타고난 기운 자체는 여린 편이라, 그 재능을 한꺼번에 다 떠안으면 힘에 부치기 쉬워요. 속도를 내기보다 딛고 설 바닥을 먼저 다지고, 감당할 만큼씩 나눠 쥐는 방식이 {{dayMasterName}}에게는 더 오래가는 길이에요.",
+    "혼자 다 지려 하기보다 곁의 도움을 받아 힘을 채우는 편이 잘 맞아요. 부족하다 싶은 {{yongshinName}} 기운은 {{currentSeasonName}} 무렵 생활 속에서 조금씩 채워 두면, 관계에서도 무리 없이 페이스를 지킬 수 있어요.",
+    "이름은 그 부족한 기운을 직접 담고 있진 않은 편이에요. 그러니 채움은 이름에 기대기보다, {{periodLabel}} 동안 쌓는 생활 습관과 사람의 도움으로 만들어 가는 쪽이 정직하고 확실해요."
+  ],
+  "expert": [
+    "이 명식은 #{jaeseong}을 삶의 축으로 삼는 #{jeongjaegyeok} 구조라, 현실을 관리하고 소유하는 전략이 본령이에요. 다만 일간이 신약해 재성을 온전히 감당할 힘이 아직 여려서, 굴리기 전에 #{bigeob}의 도움으로 뿌리를 세우는 순서가 먼저예요. #{yongshin}인 {{yongshinName:이가}} 힘을 받는 구간에 진도를 겹치면 부담이 덜해요.",
+    "romance는 건명에게 #{baeujagung}을 통해 읽는데, 재성을 상대를 현실적으로 아끼는 힘으로 쓰되 신약이라 다 떠안지 않는 절제가 관건이에요. 자원오행은 combinedDistribution에서 용신·기신 어느 쪽도 크게 건드리지 않는 중립이라, 이름이 채워 준다고 보지 않고 보완은 생활과 조력에서 찾았어요."
+  ],
+  "livingTips": [
+    "감당할 만큼씩 나눠 쥐기",
+    "혼자 다 지지 말고 도움 받기",
+    "바닥부터 다지고 속도 내기"
+  ],
+  "cautions": [
+    "한꺼번에 다 쥐면 힘에 부칠 수 있어요",
+    "이름이 부족분을 채워 주진 않아요"
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}
