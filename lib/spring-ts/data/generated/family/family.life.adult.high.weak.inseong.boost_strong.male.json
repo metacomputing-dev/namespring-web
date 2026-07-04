@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "family.life.adult.high.weak.inseong.boost_strong.male",
+  "category": "family",
+  "period": "life",
+  "audience": "adult",
+  "band": "high",
+  "caseAxes": {
+    "gangyak": "weak",
+    "gyeokgukFamily": "inseong",
+    "nameEffect": "boost_strong",
+    "gender": "male"
+  },
+  "summary": "타고난 힘이 여린 편이라, 집안일도 배우고 기대며 다질 때 오래 단단해져요.",
+  "hook": "가정의 뿌리부터 세워요",
+  "body": [
+    "{{dayMasterName}} 기운을 타고난 편인데 힘의 결이 여린 쪽이라, 집안에서의 자리도 혼자 다 짊어지기보다 배우고 기대며 다질 때 오래가요. {{periodLabel}}에는 무리해서 앞장서기보다 가족과 역할을 나누고 기준을 함께 세울수록 마음이 한결 편해져요.",
+    "본래 배움과 조언, 돌봄을 통해 힘을 얻는 사람이라 가정을 혼자 감으로 끌고 가려 하면 쉽게 지쳐요. 부모나 어른의 경험, 먼저 겪은 사람의 이야기를 곁에 두면 흔들리던 판단이 차분히 모이고, 아이와의 관계에서도 여유가 생겨요.",
+    "다행히 이름이 지금 필요한 {{yongshinName:을를}} 여러 글자에 걸쳐 큼직하게 채워 줘요. 그래서 가족을 챙기는 기본기, 도움을 청하는 태도, 오래 갈 습관을 세울 때 이름의 받침이 비교적 또렷하게 느껴지는 편이에요.",
+    "큰 결정을 서두르기보다 집안의 역할과 약속을 먼저 정해 보세요. 믿을 만한 어른에게 한 번 더 물어보고 함께 정한 것을 기록으로 남겨 두면, 가정에 변화가 와도 흔들리지 않고 자리를 지킬 수 있어요."
+  ],
+  "expert": [
+    "{{dayMasterName}} 일간이 신약한 구조라 가정사에서도 먼저 일간을 세우는 순서를 봐요. 격국은 #{jeongin}과 #{inseong} 계열이라 배우고 수용하며 문서·조언으로 근거를 확보할 때 힘이 붙고, 건명에게 자식·책임의 자리인 #{gwanseong}은 인성의 응원을 받은 뒤 안정적으로 감당하는 편이 맞아요.",
+    "이름의 #{yongshin} 자원오행이 combinedDistribution에서 필요한 {{yongshinName:을를}} 여러 자로 크게 보강해요. 그래서 평문에서는 혼자 앞장서 다 짊어지라는 말 대신, 배움·조언·기반 만들기로 가정의 그릇을 키우는 #{buaekYongshin} 방향으로 풀었어요."
+  ],
+  "livingTips": [
+    "집안 역할을 가족과 나눠 정하기",
+    "먼저 겪은 어른에게 물어보기",
+    "함께 정한 약속은 기록해 두기"
+  ],
+  "cautions": [
+    "혼자 감으로 다 짊어지면 쉽게 지쳐요.",
+    "도움 청하는 일을 약함으로 여기지 않는 편이 좋아요."
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}

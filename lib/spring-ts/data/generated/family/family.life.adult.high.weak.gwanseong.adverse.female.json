@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "family.life.adult.high.weak.gwanseong.adverse.female",
+  "category": "family",
+  "period": "life",
+  "audience": "adult",
+  "band": "high",
+  "caseAxes": {
+    "gangyak": "weak",
+    "gyeokgukFamily": "gwanseong",
+    "nameEffect": "adverse",
+    "gender": "female"
+  },
+  "summary": "타고난 기운이 여린 편이라, 속도보다 기반을 먼저 다지면 자리가 오래가는 흐름이에요.",
+  "hook": "여린 만큼, 기대어 채워요",
+  "body": [
+    "{{periodLabel}} 무렵의 당신은 타고난 기운이 조금 여린 편이라, 혼자 앞만 보고 달리기보다 단단한 바탕을 먼저 만드는 쪽이 훨씬 잘 맞아요. 조급하게 속도를 내는 대신, 곁의 든든한 사람과 충분한 쉼으로 자신을 채워 두면 가정 안에서 맡은 자리가 한결 안정돼요.",
+    "당신은 책임과 규율로 자기 자리를 만들어 가는 결이 뚜렷한 편이에요. 가정 안에서 맡은 역할과 약속을 성실히 지켜 낼수록 남편이나 아이와의 관계, 그리고 집안에서의 위치가 자연스럽게 단단해져요. 다만 그 자리를 여린 기운으로 홀로 떠받치려 하면 금세 지치기 쉬워요.",
+    "그래서 이 시기엔 잘하려는 마음을 조금 내려놓고, 기댈 곳을 먼저 마련하는 편이 나아요. 믿을 만한 가족이나 오랜 사람에게 솔직히 도움을 청하고, {{currentSeasonName}}의 리듬에 맞춰 몸과 마음을 충분히 회복시키면 무리 없이 흐름을 이어 갈 수 있어요.",
+    "한 가지 담담하게 짚자면, 당신에게 채움이 필요한 {{yongshinName}} 기운은 이름이 직접 담아 주진 않는 편이에요. 그러니 부족한 쪽은 이름에 기대기보다 생활 속에서 스스로 챙기는 게 나아요. 규칙적인 쉼과 곁 사람의 도움으로 채워 두면 여린 기운도 든든하게 받쳐져요."
+  ],
+  "expert": [
+    "이 사주는 {{dayMasterName}} 일간이 신약한 국면이라, 설기·극제보다 인성과 비겁으로 일간을 부조하는 방향이 정법이에요. #{yongshin}은 #{jeongin} 계열로, 여린 일간을 생조해 관성을 감당할 힘을 실어 주는 자리예요.",
+    "격국은 #{jeonggwangyeok} 구조라 #{gwanseong}으로 지위와 책임을 세우는 전략이 맞지만, 신약한 만큼 #{inseong}의 통관·생조가 전제돼야 관성이 부담이 아닌 자산이 돼요. 다만 성명의 자원오행이 #{gishin} 계열로 combinedDistribution의 과다를 더하는 편이라, 부족한 {{yongshinName}} 기운은 이름 밖 생활에서 보완하도록 권해요."
+  ],
+  "livingTips": [
+    "곁의 사람에게 먼저 도움 청하기",
+    "무리한 속도 대신 규칙적인 쉼",
+    "맡은 약속은 작게 나눠 지키기"
+  ],
+  "cautions": [
+    "여린 기운을 홀로 떠받치면 쉽게 지쳐요",
+    "부족한 쪽은 이름 아닌 생활에서 챙겨요"
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}
