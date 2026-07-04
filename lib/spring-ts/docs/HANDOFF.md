@@ -25,10 +25,15 @@
 - **축소 수식**: 전체 케이스공간 F(모든 사주/성명학 축) → 등가 클래스 K(저작 단위). 각 축 x는
   `role`: 조언 방향/구조가 바뀌면 **class**, 단어(오행명·대명사)만 바뀌면 **slot**, 희소·유무형이면 **callout**.
 - **클래스 축**(K): 기본셀(category·period·audience·band) × 강약coarse(3) × 격국family(6) × nameEffect(4) ×
-  성별(romance/family/career만 ×2). `nameEffect ∈ {boost_strong, boost_mild, neutral, adverse}` — 자원오행이
-  사주에 합산된 combinedDistribution의 **부호**(용신 채움=좋은 이름 vs 기신 역효과=**해로운 이름**). adverse면 "채워준다" 금지.
-- **런타임 κ**: `src/report/tiered/class-axes.ts:computeClassId(cell, feature, sajuCompat)` → classId. 없으면 null→base 폴백.
-  `build-tiered-matrix.ts` buildCell이 **생성 클래스 글 우선 → 없으면 base**. 출력 shape 동일 → 프론트(`namespring/src/CombiedNamingReport.jsx`) 무변경.
+  성별(romance/family/career만 ×2).
+  - 격국 family 정식 id(파일명·κ와 반드시 일치): **`inseong · siksang · jaeseong · gwanseong · bigeop · special`**
+    (비겁 계열은 `bigeop`, 오타 `bigyeon` 아님). class-axes.ts:15 참조.
+  - `nameEffect ∈ {boost_strong, boost_mild, neutral, adverse}` — 자원오행이 사주에 합산된 combinedDistribution의
+    **부호**(용신 채움=좋은 이름 vs 기신 역효과=**해로운 이름**). adverse면 "채워준다" 금지.
+  - caseId 포맷 = `category.period.audience.band.강약.격국family.nameEffect.성별(x/male/female)`.
+- **런타임 κ**: `src/report/tiered/class-axes.ts` 의 **6인자** `computeClassId(category, period, audience, band, feature, compat)`
+  → classId. 미해석/성별중립이면 null→base 폴백. `build-tiered-matrix.ts` buildCell이 **생성 클래스 글 우선 → 없으면
+  base**. 출력 shape 동일 → 프론트(`namespring/src/CombiedNamingReport.jsx`) 무변경.
 
 ## 3. 현재 상태 (사실)
 
@@ -53,14 +58,21 @@
 
 **핵심**: 생성(케이스 프롬프트 → 아티클 JSON)만 모델이 하고, 나머지(prepare/validate/ingest)는 순수 Node라 공용.
 
+**배치 파일 구조**(prepare-batch 출력, `data/generation/batches/<name>.batch.json`):
+`{ "schema": <ARTICLE_OUTPUT_SCHEMA>, "items": [ { "caseId": "...", "prompt": "..." }, ... ] }`.
+- **스키마는 별도 제작하지 말 것** — 배치 파일 최상위 `schema` 필드를 그대로 쓴다.
+- 스키마 `required` = summary·body·expert·livingTips·cautions (**hook은 선택, required 아님**).
+- 결과 형식은 `{ "generated": [ { "caseId":"...", "article": {…} }, … ] }` (키 이름 정확히).
+
 ### 4.1 Claude Code 생성 루프 (Workflow)
 ```bash
 npx tsx tools/generation/prepare-batch.ts <category> <start> <count>   # ≤800/배치
 # Workflow({ scriptPath:".../run-fileread.wf.js",
 #   args:{ batchFile:"lib/spring-ts/data/generation/batches/<name>.batch.json",
-#          caseIds:[...], schema:<ARTICLE_OUTPUT_SCHEMA from batch> } })
-# 반환 result.generated → results.json 저장 후:
+#          caseIds:[...], schema:<배치파일의 schema 필드 그대로> } })
+# 반환 result.generated → results.json({generated:[...]}) 저장 후:
 npx tsx tools/generation/ingest-batch.ts <results.json>
+git checkout -- metrics/    # 자기검증/일부 test가 tracked metrics 변조 → 반드시 되돌리고 push
 ```
 
 ### 4.2 Codex / GPT-5.5 생성 루프 (Workflow 없이)
@@ -68,12 +80,14 @@ Codex는 `run-fileread.wf.js`를 못 쓴다. 대신:
 ```
 1) npx tsx tools/generation/prepare-batch.ts <category> <start> <count>
 2) 배치 파일 items[].prompt 각각을 GPT-5.5에 넣어 아티클 JSON을 받는다
-   (StructuredOutput/JSON 모드로 { summary, hook?, body[], expert[], livingTips[], cautions[] }).
-   반드시 pairing-contract.md 규칙 준수(평문 용어 금지, nameEffect 정직성, 해요체, hook ≤24).
-3) 결과를 { "generated":[ {"caseId":..., "article":{...}}, ... ] } 로 모아 results.json 작성
+   (JSON 모드; 배치 파일의 schema 필드를 그대로 스키마로 사용;
+    { summary, hook?, body[], expert[], livingTips[], cautions[] }).
+   반드시 pairing-contract.md 준수(평문 용어 금지, nameEffect 정직성, 해요체, hook 선택·≤24).
+3) 결과를 { "generated":[ {"caseId":"<원 caseId>", "article":{...}}, ... ] } 로 모아 results.json 작성
 4) npx tsx tools/generation/ingest-batch.ts <results.json>   # 검증·저장, 리젝은 재생성
+5) git checkout -- metrics/  (§4.1과 동일)
 ```
-검증기가 품질을 동일하게 게이팅하므로 두 모델 산출이 정합적으로 수렴한다.
+검증기가 구조·분량·해요체·용어금지·정직성을 공통 게이팅한다. 단 **톤·온기는 검증 안 되므로 §5의 캘리브레이션 필수**.
 
 ## 5. Claude ↔ Codex 분업 (겹침 0)
 
@@ -81,12 +95,20 @@ Codex는 `run-fileread.wf.js`를 못 쓴다. 대신:
 공유 도구(`tools/generation/*`, `src/report/tiered/*`)는 **동결**. 변경은 Claude만(한 소유자), Codex는 필요 시 플래그.
 
 ### 소유권 표 (클래스 수 균형, 조정 가능)
-| 소유 | 카테고리 | 클래스 |
+| 소유 | 카테고리 | 남은 클래스 |
 |---|---|---|
-| **Claude** | romance(2700, 48완료→2652), family(2700), career(2700), overall(1620) | ~9,672 |
+| **Claude** | romance(2700, **48완료→2652**), family(2700), career(2700), overall(1620) | ~9,672 |
 | **Codex(GPT-5.5)** | wealth, health, academic, study_document, expression_children, health_stress, movement | 7×1620 = 11,340 |
 
 > 성별민감 3분야(romance/family/career)는 Claude가 소유(romance 골든 샘플 있어 문체 일관성 유리).
+
+### 병렬 안전 규칙 (반드시)
+- **배치는 positional 형식만**: `prepare-batch.ts <category> <start> <count>` → 파일명 `<category>-<start>-<count>.batch.json`.
+  `--ids` 는 출력명이 `ids-<count>.batch.json`(개수만)이라 두 에이전트가 같은 크기 배치 만들면 **로컬 파일명 충돌** → 병렬 금지.
+- **공유 도구/문서 동결**: `tools/generation/*`, `src/report/tiered/*`, `docs/*`, `package.json` 변경은 **Claude만**. Codex는 시작 전 `git pull`.
+- **metrics 되돌리기**: 자기검증/테스트가 tracked `lib/spring-ts/metrics/*.json`(7개)을 변조 → push 전 `git checkout -- metrics/` 필수(안 하면 브랜치 충돌).
+- **Codex 캘리브레이션 게이트**: 검증기는 톤·온기를 못 잡는다. Codex는 **첫 10~20건을 골든 샘플(§1.6)과 나란히 리뷰**해 문체가
+  수렴하는지 확인한 뒤 bulk로. 필요하면 expert-prompt에 골든 1편을 few-shot로 덧붙여 style 고정.
 
 ### git 전략 (동시 push 경쟁 회피)
 - 각자 **자기 브랜치**: `gen/claude-<cat>`, `gen/codex-<cat>`. 산출 경로가 disjoint라 PR 브랜치로 **머지 시 충돌 0**(자동).
@@ -104,13 +126,14 @@ Codex는 `run-fileread.wf.js`를 못 쓴다. 대신:
 ```bash
 cd lib/spring-ts
 npm run typecheck && npm run test:tiered-class-axes && npm run test:tiered-shape && npm run bench:tiered  # 전부 그린?
+git checkout -- metrics/                                  # 위 test가 tracked metrics 변조 → 되돌리기
 npx tsx tools/generation/prepare-batch.ts wealth 0 2      # 배치 2건 생성되나?
 # 위 2건을 생성→ingest 해보고 data/generated/wealth/ 에 파일 2개 뜨면 파이프라인 OK.
 ```
 
 ## 7. 함정(Gotchas) — 새 세션이 재발견하지 말 것
 - **Workflow args는 문자열로 전달됨** → 하네스에서 `JSON.parse`. (run-fileread.wf.js에 반영됨.)
-- **expert-prompt.ts는 템플릿 리터럴** → 프롬프트 텍스트에 백틱(`) 넣지 말 것(빌드 깨짐).
+- **expert-prompt.ts는 백틱 템플릿 리터럴** → 프롬프트 텍스트에 **생백틱 금지**, 코드/토큰 감쌀 땐 이스케이프 백틱(`\``) 사용(생백틱은 빌드 깨짐).
 - **정직성 검증은 관대하게 설계**: nameEffect neutral/adverse의 "채워주지 않는다"류 부정문을 위반으로 오탐하지
   않도록 문장단위+넓은 부정마커. 에이전트는 대개 정직하게 씀(오탐이 진짜 위반보다 많았음).
 - hook은 **선택·≤24자**(넘으면 생략). 모든 문장 **해요체**. 슬롯 조사는 `{{yongshinName:을를}}`(조사만 슬롯 금지).
