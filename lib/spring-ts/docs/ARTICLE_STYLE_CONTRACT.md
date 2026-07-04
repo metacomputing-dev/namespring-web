@@ -145,6 +145,10 @@
 
 - 문법: `#{tagId}` — 렌더러가 글로서리 라벨로 치환해 `#라벨` 칩으로 표시된다.
 - body(standard)에는 태그 금지 — 일상어로 풀어 쓴다.
+- **일반 tier(summary·hook·body·livingTips·cautions)에는 사주 전문 용어(평문)도 금지.** `#{태그}`뿐 아니라
+  "용신·격국·십성·재성·정관·오행·신살·대운·역마·도화…" 같은 한자 개념어를 일반 문장에 쓰지 않는다. 사용자가 처음 보는
+  글은 전문 지식 없이 읽혀야 하고, 용어는 **expert 문단에서만** 쓴다. 오행 **이름**(나무/불/흙/쇠/물)은 평문이라 허용
+  (예: "부족한 물 기운을 채워 주는"은 OK, "용신 물을 채워 주는"은 금지). 게이트 `jargon-in-general`이 강제.
 - 자주 쓰는 태그: `#{yongshin}`(용신) `#{heeshin}`(희신) `#{gishin}`(기신) `#{johuYongshin}`(조후용신)
   `#{jeongjae}`(정재) `#{pyeonjae}`(편재) `#{jeonggwan}`(정관) `#{pyeongwan}`(편관)
   `#{jeongin}`(정인) `#{pyeonin}`(편인) `#{sikshin}`(식신) `#{sanggwan}`(상관)

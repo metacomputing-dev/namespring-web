@@ -4,6 +4,18 @@
 > "핀셋으로 콕 찝는" 문장을 줄 수 있는가, 아니면 경우의 수가 많아 불가능한가? 개선 여지는?**
 > 관련: [PLAN_ARTICLE_REWRITE.md](../PLAN_ARTICLE_REWRITE.md), [CONTENT_ENGINE_CONSISTENCY.md](./CONTENT_ENGINE_CONSISTENCY.md), [ARTICLE_STYLE_CONTRACT.md](./ARTICLE_STYLE_CONTRACT.md)
 
+## 0. 절대 원칙 — 사용자가 보는 일반 문장은 평문 (사주 용어 금지)
+
+**요약(brief)·본문(standard)·개요는 사용자가 처음 보는 일반 tier다. 여기에는 사주 전문 용어
+(용신·격국·십성·재성·정관·오행·신살…)가 들어가면 안 된다.** 전문 용어와 `#{태그}`는 사용자가
+"자세히/전문가 근거"를 눌러야 나오는 **expert tier 전용**이다.
+
+- 게이트가 강제: `#{태그}`는 body 금지(기존) + **평문 사주 용어도 일반 tier 금지(신규 `jargon-in-general`)**.
+- **오행 "이름"(나무·불·흙·쇠·물)은 평문이라 일반 tier 허용** — 슬롯 `{{yongshinName}}`이 "물"로 렌더되는 것은 OK.
+  금지되는 것은 개념 **용어** 자체("용신"·"격국"·"정재" 같은 한자어). 즉 "부족한 **물** 기운을 채워 주는"은 OK,
+  "**용신** 물을 채워 주는"은 금지.
+- 따라서 아래 모든 개인화 레버는 **일반 tier에 노출할 땐 평문으로 번역**하고, 용어가 필요하면 expert tier에 둔다.
+
 ## 1. 현재 판정 — 유료 수준 O, 외계어 X (실측 검증)
 
 - **외계어(워드샐러드) 없음**: 조각 조립+정규식 4겹 땜질 아키텍처를 폐기하고 **완결 아티클**로 교체.
@@ -62,15 +74,15 @@
   현재 각 셀은 고립돼 읽힌다. 이미 계산된 165개 별점을 종합해 **"당신은 재물·건강은 낮게, 학업·표현은
   높게 짜인 배치"** 같은 한 사람 전체 프로필 문장을 만든다. 100% 실측 grade 기반, 결정적, 외계어 위험 0.
   → "이거 완전 내 얘기네" 순간을 가장 싸게 만든다. (구현: grade 분포 → 규칙 기반 문장 조립, 슬롯 수준.)
-- **A2. FeatureVector 슬롯 확장**
-  `{{gyeokgukName}}`(예: 정인격), `{{deficientElementName}}`(부족 오행), `{{dayMasterStrengthLabel}}`,
-  `{{yongshinCount}}` 슬롯 추가 → 저자가 조건절로 녹임("당신 사주는 {{gyeokgukName}}이라…").
-  그 사람의 **실제 격국·부족오행을 이름으로 호명** = 핀셋 체감↑. 결정적·안전.
-  ⚠ 가드: 절대 상태 단정 금지 규칙([CONTENT_ENGINE_CONSISTENCY.md](./CONTENT_ENGINE_CONSISTENCY.md) §3.2)을
-  깨지 않도록 슬롯은 조건절/서술로만. 강약 라벨은 특히 조심(모순 위험).
+- **A2. FeatureVector 슬롯 확장** (일반 tier는 평문, 용어는 expert)
+  일반 tier용 **평문 슬롯**: `{{deficientElementName}}`(부족 오행 이름=나무/불/…), `{{dayMasterName}}` 등 →
+  본문에 "당신에게 부족한 **불** 기운이 이 시기엔 채워지는 배치라…"처럼 오행 **이름**으로 평문 서술.
+  격국·강약 같은 **용어**(정인격/신강)는 **expert tier에서만** 슬롯으로("이 사주는 {{gyeokgukName}}이라…").
+  그 사람의 실제 격국·부족오행을 근거로 삼되 일반 tier는 평문, expert는 용어. 결정적·안전.
+  ⚠ 가드: 절대 상태 단정 금지([CONTENT_ENGINE_CONSISTENCY.md](./CONTENT_ENGINE_CONSISTENCY.md) §3.2)·강약 라벨 모순 주의.
 - **A3. 실제 숫자를 prose에 녹이기**
-  용신 개수·조화 등급을 별도 블록뿐 아니라 본문 문장에 슬롯으로 ("용신 {{yongshinName}}이 {{yongshinCount}}개라…").
-  구체성↑, 결정적·안전.
+  일반 tier(평문): "당신에게 부족한 **물** 기운이 사주에 {{waterCount}}개뿐이라…". expert tier(용어):
+  "용신 {{yongshinName}}이 {{yongshinCount}}개…". 구체성↑, 결정적·안전.
 
 ### Tier B — 통제된 코퍼스 확장 (A로 부족하면, 외계어 위험 낮음)
 
@@ -104,7 +116,8 @@
 
 ## 7. 불변 가드레일 (어떤 강화도 이걸 깨면 안 됨)
 
-- 아티클 게이트 통과(분량·해요체·상한어휘·조사·중복·미성년 안전·의료어).
+- 아티클 게이트 통과(분량·해요체·상한어휘·조사·중복·미성년 안전·의료어·**일반 tier 사주 용어 금지**).
+- **일반 tier(요약·본문·개요)는 평문** — 사주 용어(용신·격국·십성·재성…)는 expert tier 전용. 오행 이름(물/불)은 평문 OK. §0 참조, 게이트 `jargon-in-general` 강제.
 - **절대 사주상태 단정 금지** — 개인 feature와 모순 방지([CONTENT_ENGINE_CONSISTENCY.md](./CONTENT_ENGINE_CONSISTENCY.md) §3.2). 슬롯도 조건절/서술로만.
 - 요약↔본문↔전문가 **pairing 유지**.
 - **런타임 LLM 금지** — 오프라인 AI-보조 저작 + 사람 리뷰 + `aiGenerated:true` 마킹.
@@ -137,10 +150,12 @@ tiered 콘텐츠에는 거의 안 쓰인다.** (매핑: 2026-07-04, 작명 엔�
 ### 8.3 이름 기반 레버 (§5의 A/B 확장)
 
 - **N1. 이름↔사주 보강 문장 (A1 개요와 결합)** ⭐ 최고 ROI
-  `sajuCompatibility`를 buildTieredMatrix에 넘기고, 개요에 한 문장:
-  *"당신 이름은 용신 {{yongshinName}}을 {{nameYongshinMatchCount}}자 담아 부족한 {{yongshinName}}을 채워 주는 배치라,
-  {{yongshinName}}이 유리한 시기에는 이득이 배가돼요."* 100% 실측(yongshinMatchCount·balance) 기반, 외계어 위험 0.
-  → **"내 이름이 내 사주에 이렇게 작용하는구나"** = 결제 욕구를 가장 직접 건드리는 지점.
+  `sajuCompatibility`를 buildTieredMatrix에 넘기고, 개요에 **평문** 한 문장(§0 원칙 — "용신" 같은 용어 금지,
+  오행 이름 물/불은 OK):
+  *"당신 이름은 사주에 부족한 {{yongshinName}} 기운을 {{nameYongshinMatchCount}}글자나 담고 있어서,
+  {{yongshinName}}이 힘을 받는 시기엔 그 덕을 남들보다 크게 봐요."* 100% 실측(yongshinMatchCount·balance) 기반, 외계어 위험 0.
+  (expert tier에서만 "용신/보강" 용어로 근거를 밝힘.)
+  → **"내 이름이 내 운에 이렇게 작용하는구나"** = 결제 욕구를 가장 직접 건드리는 지점.
 - **N2. 사격(원형이정)으로 생애밴드 셀 강화**
   사격은 이미 생애단계 매핑됨(원=초년, 형=청년, 이=장년, 정=총운) + 각 격의 길흉(luckyLevel)이 계산됨.
   byAgeBand 생애밴드 셀에 "이 시기 이름 사격은 {{frameLuckLabel}}" 같은 이름-고유 근거를 더할 수 있다.

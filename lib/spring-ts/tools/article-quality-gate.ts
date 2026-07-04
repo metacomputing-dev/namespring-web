@@ -92,6 +92,20 @@ const STANDALONE_GYEOL = /(?:^|[\s"'‘“(])결(?:이|을|은|는|에|의|로)(
  *  it also covers livingTips/cautions, matching the service-visible guard. */
 const MEDICAL_ADJACENT: readonly string[] = ['검진'];
 
+/** Saju technical vocabulary must stay OUT of the user-facing general tier
+ *  (summary/hook/body/livingTips/cautions). Only the expert tier may carry
+ *  jargon + #{tags}; the general tier speaks plain Korean. Listed terms are
+ *  unambiguous saju jargon — homonyms (세운=세우다, 상관=상관없이, 편인=~편인지,
+ *  관성=일관성/慣性, 인성=人性, 음양, 정관=定款, 정인=情人) are deliberately
+ *  excluded to avoid false positives. */
+const SAJU_JARGON_GENERAL: readonly string[] = [
+  '오행', '용신', '희신', '기신', '구신', '격국', '십성', '십신',
+  '정재', '편재', '재성', '편관', '식신', '식상', '겁재', '비겁',
+  '신살', '상생', '상극', '조후', '대운', '배우자궁', '자식궁',
+  '부모궁', '형제궁', '조상궁', '천이궁', '역마', '도화', '홍염',
+  '문창귀인', '학당', '득령', '득지', '득세', '원형이정',
+];
+
 /** Minor-audience safety (audiences teen/child/stage-teen): adult-topic
  *  vocabulary must not appear anywhere in the article, and referenced
  *  glossary entries must not carry adult-topic definitions (glossary
@@ -350,6 +364,18 @@ function checkArticle(article: GateArticle, glossaryIds: Set<string>): void {
   for (const word of MEDICAL_ADJACENT) {
     if (allText.includes(word)) {
       fail(id, 'vocab-medical-adjacent', `'${word}'`);
+    }
+  }
+  // Saju jargon must stay in the expert tier only; the user-facing general
+  // tier (summary/hook/body/tips/cautions) speaks plain Korean.
+  const generalText = [
+    article.summary, article.hook ?? '',
+    ...article.body,
+    ...(article.livingTips ?? []), ...(article.cautions ?? []),
+  ].join('\n');
+  for (const term of SAJU_JARGON_GENERAL) {
+    if (generalText.includes(term)) {
+      fail(id, 'jargon-in-general', `일반 tier에 사주 용어 '${term}' (expert 전용)`);
     }
   }
 
