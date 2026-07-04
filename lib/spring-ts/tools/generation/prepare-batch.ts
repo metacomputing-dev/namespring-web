@@ -19,6 +19,12 @@ import { ARTICLE_OUTPUT_SCHEMA, buildExpertPrompt } from './expert-prompt.js';
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const MANIFEST_DIR = path.resolve(HERE, '../../data/generation/manifest');
 const BATCH_DIR = path.resolve(HERE, '../../data/generation/batches');
+const GENERATED_DIR = path.resolve(HERE, '../../data/generated');
+
+/** A class is "done" when its article already exists under data/generated/. */
+function isDone(c: GenerationCase): boolean {
+  return fs.existsSync(path.join(GENERATED_DIR, c.category, `${c.caseId}.json`));
+}
 
 function readShard(category: string): GenerationCase[] {
   const file = path.join(MANIFEST_DIR, `${category}.manifest.jsonl`);
@@ -35,22 +41,30 @@ function readAllCases(): GenerationCase[] {
 
 function main(): void {
   const argv = process.argv.slice(2);
+  const includeDone = argv.includes('--all');       // re-generate even done classes
+  const positional = argv.filter((a) => !a.startsWith('--'));
   let cases: GenerationCase[] = [];
   let name = 'batch';
   const idsArg = argv.find((a) => a.startsWith('--ids='));
   if (idsArg) {
+    // --ids is for targeted (re)generation → NEVER skips done.
     const ids = new Set(idsArg.slice('--ids='.length).split(',').filter(Boolean));
     cases = readAllCases().filter((c) => ids.has(c.caseId));
     name = `ids-${cases.length}`;
   } else {
-    const [category, startStr, countStr] = argv;
+    const [category, startStr, countStr] = positional;
     if (!category || startStr === undefined || countStr === undefined) {
-      console.error('usage: prepare-batch.ts <category> <start> <count> | --ids=a,b,c');
+      console.error('usage: prepare-batch.ts <category> <start> <count> [--all] | --ids=a,b,c');
       process.exit(2);
     }
     const start = Number(startStr); const count = Number(countStr);
-    cases = readShard(category).slice(start, start + count);
+    const shard = readShard(category);
+    // Resumable by default: skip classes already generated under data/generated/.
+    const pool = includeDone ? shard : shard.filter((c) => !isDone(c));
+    const doneCount = shard.length - shard.filter((c) => !isDone(c)).length;
+    cases = pool.slice(start, start + count);
     name = `${category}-${start}-${count}`;
+    console.log(`[${category}] 총 ${shard.length} · 완료 ${doneCount} · 남음 ${shard.length - doneCount}${includeDone ? ' (--all: 완료분 포함)' : ''}`);
   }
   const items = cases.map((c) => ({ caseId: c.caseId, prompt: buildExpertPrompt(c) }));
   fs.mkdirSync(BATCH_DIR, { recursive: true });
