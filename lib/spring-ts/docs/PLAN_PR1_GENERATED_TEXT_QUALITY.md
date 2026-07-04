@@ -205,7 +205,7 @@ fixture는 **테스트 파일에 동결된 문자열**(라이브 corpus를 읽�
 | 4 | audit 도구 + 기준선 저장 | ✅ 2026-07-04 | 번들 1800/3780 위반, `npm run audit:generated` |
 | 5 | 번들 하네스 4종 (§6) | ✅ 2026-07-04 | prepare/prompt/run.wf/ingest |
 | 6 | 파일럿: overall 번들 일부 생성→정독→게이트 통과율 기록 | ✅ 2026-07-04 | 아래 파일럿 결과 참조 |
-| 7 | 웨이브 w1: overall 전체 (180 번들) | 🔄 2/180 + 16 실행 중 | 배치 `bundles-overall-0-16.batch.json`, Workflow run `wf_c5a08598-7ed` (2026-07-04 세션). 완료 시: extract → ingest `--source=regen-2026-07-w1` → 정독 → `git add lib/spring-ts/data/generated/overall/` |
+| 7 | 웨이브 w1: overall 전체 (180 번들) | 🔄 18/180 완료 + 16 실행 중 | 완료 272편(커밋됨). 배치1: 227/240 first-pass, 리젝 13은 전부 한 번들(파일럿 문단 재사용 → cross-bundle 게이트 검출) → --keys 재생성 15/15 통과. 실행 중: 다음 16번들(siksang 잔여+special+strong 강약), run `wf_c934627b-5ec` (2026-07-04 세션). 완료 시: extract → ingest `--source=regen-2026-07-w1` → 정독 표본 → `git add .../generated/overall/` |
 | 8 | 웨이브 w2+: wealth→health→career→나머지 | ⬜ | |
 | 9 | 전량 완료 후: audit before/after, pack 재실행, F3 승격 | ⬜ | |
 
