@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "romance.life.adult.high.weak.jaeseong.adverse.female",
+  "category": "romance",
+  "period": "life",
+  "audience": "adult",
+  "band": "high",
+  "caseAxes": {
+    "gangyak": "weak",
+    "gyeokgukFamily": "jaeseong",
+    "nameEffect": "adverse",
+    "gender": "female"
+  },
+  "summary": "타고난 기운이 여린 편이라, 관계에선 나부터 채우고 다진 뒤 상대에게 내주는 순서가 잘 맞아요.",
+  "hook": "먼저 나를 채우고서",
+  "body": [
+    "{{periodLabel}} 연애운은 속도보다 기반이에요. 타고난 기운이 여린 편이라 상대에게 먼저 맞추다 보면 금세 지치기 쉬워요. 마음을 쏟기 전에 내 일상과 컨디션부터 단단히 다져 두면, 관계가 훨씬 오래 편안하게 이어져요.",
+    "당신은 현실을 잘 챙기는 결이라, 좋아하는 사람에게도 살뜰히 챙겨 주고 싶어 해요. 그 마음이 큰 힘이지만, 여린 편이니 다 내주기보다 내 몫을 남겨 두는 균형이 필요해요. 받는 것도 연습이라고 생각하면 관계가 한결 수월해져요.",
+    "이름을 보면 이미 넉넉한 쪽에 무게가 실려 있어, 지금 부족한 {{yongshinName}} 기운까지 이름이 채워 주지는 않는 편이에요. 그러니 그 기운은 이름 밖 생활에서 챙기는 게 나아요. 규칙적인 리듬, 쉬어 가는 시간, 가까운 사람의 손길이 그 자리를 메워 줘요.",
+    "{{currentSeasonName}}엔 급히 밀어붙이기보다, 자주 만나며 신뢰를 쌓는 만남이 잘 풀려요. 조건을 재기보다 함께 있을 때 편안한지를 기준으로 두면, 당신의 여린 결이 오히려 오래가는 다정함으로 자리 잡아요."
+  ],
+  "expert": [
+    "이 명식은 #{buaekYongshin} 관점에서 일간 {{dayMasterName}}{{yongshinName:을를}} 채워 다지는 방향이 정격이며, #{yongshin}{{yongshinName:이가}} 부족한 신약 구조예요. 삶의 축은 #{jaeseong}이 잡은 #{jeongjaegyeok} 계열이라 현실·자원을 굴려 소유하는 전략이 맞지만, 곤명 연애에서 관성(배우자)을 감당하려면 재성만 키우기보다 일간의 기반을 먼저 세워야 관계가 지속돼요.",
+    "다만 자원오행은 이미 넉넉한 쪽으로 기울어 combinedDistribution의 과다를 더하는 자리라, 이름이 #{yongshin}{{yongshinName:을를}} 보강해 주지는 않아요. 그러니 부족분은 이름이 아니라 생활 리듬·환경·관계의 도움으로 채우는 편이 정직한 처방이에요."
+  ],
+  "livingTips": [
+    "내 컨디션부터 챙긴 뒤 마음 쏟기",
+    "다 내주지 말고 받는 것도 연습",
+    "자주 만나며 신뢰를 천천히 쌓기"
+  ],
+  "cautions": [
+    "여린 편이니 상대에 다 맞추다 지치지 않게",
+    "부족한 기운은 이름 아닌 생활에서 챙기기"
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}

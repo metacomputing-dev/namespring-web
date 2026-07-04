@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "romance.life.adult.high.weak.special.adverse.female",
+  "category": "romance",
+  "period": "life",
+  "audience": "adult",
+  "band": "high",
+  "caseAxes": {
+    "gangyak": "weak",
+    "gyeokgukFamily": "special",
+    "nameEffect": "adverse",
+    "gender": "female"
+  },
+  "summary": "타고난 기운이 여린 편이라, {{periodLabel}}엔 밀어붙이기보다 결이 맞는 사람 곁에서 천천히 채워 가면 좋아요.",
+  "hook": "센 흐름을 타고 가요",
+  "body": [
+    "당신은 한쪽 기운이 유난히 크게 실려 있는 편이에요. 그 큰 흐름을 억지로 거스르면 힘만 빠지고, 오히려 그 결을 순순히 타고 갈 때 인연도 일도 자연스럽게 풀리는 자리예요. {{currentSeasonName}}엔 그 방향을 거스르지 않는 게 요령이에요.",
+    "다만 타고난 기운 자체는 여린 편이라, 혼자 다 감당하려 들면 금세 지쳐요. 속도를 내기보다 기반을 다지고, 곁에서 나를 북돋아 주는 사람에게 기꺼이 기대는 편이 훨씬 오래가요. 연애도 나를 채워 주는 사람일 때 편안해져요.",
+    "특히 {{yongshinName}} 기운이 조금 아쉬운 편인데, 이름은 이미 넉넉한 쪽에 무게가 실려 있어서 부족한 결은 이름이 대신 채우진 못해요. 그러니 그 {{yongshinName}} 결은 생활 속에서 스스로 챙겨 주는 편이 나아요.",
+    "곁을 내주는 인연을 살피되, 급히 결론 내진 마세요. {{periodLabel}}엔 나를 편하게 받쳐 주는 사람인지, 흐름이 서로 잘 맞는지를 천천히 보면 돼요. 여린 나를 다그치지 않고 기다려 주는 결이면, 그 인연은 오래 남아요."
+  ],
+  "expert": [
+    "일간이 무근에 가까운 가전왕·가종 계열이라, 억부로 왕신에 맞서기보다 대세에 순응하는 편이 정론이에요. #{jeonwanggyeok} 구조에선 왕신을 거스르는 오행이 오히려 병이 되니 #{yongshin}은 왕한 세력을 설기·순행시키는 자리로 잡습니다. 다만 뿌리가 얕아 완전한 진종은 아니라, 신약의 방향대로 인성·비겁의 부조로 기반을 받쳐 주는 #{inseong} 보강을 겸해야 오래가요.",
+    "곤명 romance라 배우자성인 #{gwanseong}의 자리와 조후를 함께 봐야 하는데, 관을 감당할 근이 얕아 관을 억지로 취하기보다 인성으로 관인상생의 통로를 여는 편이 안전해요. 자원오행은 combinedDistribution에서 이미 왕한 쪽으로 기울어 #{gishin} 계열을 더하니, 부족한 용신 오행은 이름 밖 생활에서 보완하도록 정직하게 처방합니다."
+  ],
+  "livingTips": [
+    "결정은 하루 묵혔다 내려요",
+    "받쳐 주는 사람에게 기대 봐요",
+    "{{yongshinName}} 결을 생활로 챙겨요"
+  ],
+  "cautions": [
+    "혼자 다 지려 하면 금세 지쳐요.",
+    "큰 흐름을 억지로 거스르진 마세요."
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}

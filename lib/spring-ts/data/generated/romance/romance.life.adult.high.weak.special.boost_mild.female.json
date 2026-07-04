@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "romance.life.adult.high.weak.special.boost_mild.female",
+  "category": "romance",
+  "period": "life",
+  "audience": "adult",
+  "band": "high",
+  "caseAxes": {
+    "gangyak": "weak",
+    "gyeokgukFamily": "special",
+    "nameEffect": "boost_mild",
+    "gender": "female"
+  },
+  "summary": "여린 편이라 혼자 밀기보다 흐름에 올라타 곁의 손을 빌리면 잘 풀리는 해예요.",
+  "hook": "밀지 말고 올라타요",
+  "body": [
+    "타고난 기운이 여린 편이라, {{periodLabel}}엔 혼자 앞장서 끌고 가기보다 이미 세게 흐르는 결에 몸을 맡기는 편이 훨씬 수월해요. 거스르려 애쓸수록 지치니, 큰 물길을 거스르지 말고 그 위에 올라탄다는 마음이면 오히려 멀리 가요.",
+    "특히 관계에선 속도를 내 밀어붙이기보다, 곁에서 챙겨 주고 배워 갈 사람의 손을 편히 빌리는 게 잘 맞아요. 기대는 걸 약함으로 여기지 마세요. 여린 나를 받쳐 줄 인연에 기대는 것이 이 자리에선 가장 든든한 길이라, 함께일 때 기반이 채워져요.",
+    "다행히 이름이 지금 필요한 그 기운을 한 글자쯤 거들어 줘서, 부족한 자리를 조용히 메워 주는 편이에요. 크게 채워 주진 않아도 방향은 맞게 잡아 주니, 나머지 부족분은 {{currentSeasonName}} 생활 속에서 천천히 채워 가면 넉넉해요."
+  ],
+  "expert": [
+    "신약한 사주라 억지로 세우기보다 #{bigeob}·#{inseong}의 조력을 받아 채우는 방향이 정석이에요. 다만 이 명식은 한쪽으로 크게 쏠린 #{jeonwanggyeok} 계열이라, 부억으로 맞서기보다 왕한 세력에 순응하는 대세가 맞아요. {{yongshinName}} 계열 #{yongshin}이 관계의 기반이 되고, 곤명이라 #{gwanseong}이 배우자 자리를 함께 밝혀요.",
+    "이름의 자원오행이 combinedDistribution에서 #{yongshin}을 한 자쯤 완만히 보강해, 부족분을 과장 없이 조용히 거들어요. 큰 보강은 아니니 방향은 이름이, 세부는 생활이 함께 채우는 짜임이에요."
+  ],
+  "livingTips": [
+    "큰 결정은 곁의 조언을 먼저 구하기",
+    "혼자 밀기보다 함께 갈 사람 찾기",
+    "무리한 속도전은 한 박자 늦추기"
+  ],
+  "cautions": [
+    "기대는 걸 약함으로 자책하지 마세요",
+    "흐름을 거스른 무리수는 피하는 편이 나아요"
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}

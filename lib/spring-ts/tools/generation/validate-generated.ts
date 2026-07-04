@@ -108,10 +108,20 @@ export function validateGenerated(a: GeneratedArticle, c: GenerationCase): { ok:
   // -- CASE DIRECTION CONSISTENCY (pairing, v2) --
   // strength adjective must appear in the plain tier (the class fixes 강약).
   if (!general.includes(s.strengthPlain)) v.push(`강약 평문 '${s.strengthPlain}' 미반영`);
-  // honesty: an adverse/neutral name must NOT claim it fills the needed element.
-  if ((c.nameEffect === 'adverse' || c.nameEffect === 'neutral')
-    && /이름[^.]{0,24}(채워 주|채워 준|크게 담|크게 채|보강해 줘|보강해 주)/u.test(all)) {
-    v.push(`nameEffect=${c.nameEffect}인데 이름 채움/보강 주장(정직성 위반)`);
+  // honesty: an adverse/neutral name must NOT POSITIVELY claim it fills the
+  // needed element. Checked per sentence so a NEGATED mention ("이름이 채워
+  // 주지는 않는다" / "채워 준다기보다") is NOT a violation.
+  if (c.nameEffect === 'adverse' || c.nameEffect === 'neutral') {
+    const FILL = /(채워 주|채워 준다|채워 줘|크게 담|크게 채|보강해 주|보강해 준다)/u;
+    // Broad negation net: 안-negation, imperative 마세요/말-, and comparatives —
+    // Korean negation is varied, so err toward NOT flagging honest hedges.
+    const NEG = /(않|없|아니|보다|대신|뿐|못|마세|마요|말자|말라|말고|기보다|건 아|리 없)/u;
+    for (const sent of all.split(/(?<=[.!?요죠])\s+/u)) {
+      if (sent.includes('이름') && FILL.test(sent) && !NEG.test(sent)) {
+        v.push(`nameEffect=${c.nameEffect}인데 이름 채움 주장(정직성 위반)`);
+        break;
+      }
+    }
   }
 
   return { ok: v.length === 0, violations: v };

@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "romance.life.adult.high.weak.special.boost_strong.male",
+  "category": "romance",
+  "period": "life",
+  "audience": "adult",
+  "band": "high",
+  "caseAxes": {
+    "gangyak": "weak",
+    "gyeokgukFamily": "special",
+    "nameEffect": "boost_strong",
+    "gender": "male"
+  },
+  "summary": "타고난 기운이 여린 편이라, 혼자 밀어붙이기보다 큰 흐름에 올라타 채워 가는 {{periodLabel}}이에요.",
+  "hook": "흐름에 올라타는 인연",
+  "body": [
+    "타고난 기운이 여린 편이라, 연애도 내 힘만으로 끌고 가려 하면 금세 지치기 쉬운 사람이에요. 대신 이미 크게 흐르고 있는 결을 거스르지 않고 그 물결에 올라타면, 여린 기운이 오히려 부드럽게 채워지며 관계가 안정돼요.",
+    "이 사람은 한쪽으로 크게 쏠린 구조라, 억지로 균형을 맞추려 애쓸수록 어긋나요. 상대가 이끄는 속도, 인연이 흘러가는 방향을 존중하며 함께 실려 가는 편이 훨씬 자연스럽고, {{currentSeasonName}}엔 그 흐름이 한결 또렷하게 느껴질 거예요.",
+    "다행히 이름이 지금 부족한 {{yongshinName}} 기운을 여러 글자로 든든히 채워 주는 편이라, 마음이 흔들릴 때 기댈 바닥이 이미 마련돼 있어요. 서두르지 말고 곁의 사람에게 도움을 청하며 기반을 다지면, 인연도 그 위에서 천천히 깊어져요.",
+    "{{periodLabel}}엔 새 인연을 억지로 만들기보다, 이미 곁에 흐르는 관계를 한 뼘 더 신뢰하는 게 맞아요. 내가 앞장서 방향을 정하기보다 상대와 나란히 걸으며 속도를 맞추면, 여린 결이 든든한 관계로 자리 잡아요."
+  ],
+  "expert": [
+    "일간 {{dayMasterName}}{{yongshinName:이가}} 뿌리가 얕아 #{yongshin}을 향해 채워 다지는 방향이 정도인데, 사주가 한쪽 기운으로 크게 쏠려 억부로 균형을 잡기보다 대세를 좇는 #{jeonwanggyeok} 구조로 풀립니다. 거스르지 않고 왕한 기운을 따라 흐르는 종세(從勢) 전략이 이 명(命)에 맞아요.",
+    "건명(乾命)이라 이 자리의 인연은 #{jaeseong}으로 살피는데, 신약할수록 재를 홀로 감당하기 벅차 #{bigyeon}의 도움과 곁의 조력이 곧 자산이 됩니다. 다행히 자원오행이 사주에 합산돼 이룬 combinedDistribution에서 {{yongshinName}} 계열을 여러 자로 크게 보강해, 이름이 부족한 용신을 정직하게 받쳐 주는 배치예요."
+  ],
+  "livingTips": [
+    "결정은 상대와 속도를 맞춰 함께 내려요",
+    "혼자 짊어지지 말고 곁에 도움을 청해요",
+    "이미 흐르는 인연을 한 뼘 더 믿어요"
+  ],
+  "cautions": [
+    "내 뜻대로 관계를 끌고 가려 하면 되레 어긋나요",
+    "여린 때일수록 무리한 큰 결정은 한 박자 미뤄요"
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}
