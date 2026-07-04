@@ -103,9 +103,11 @@ function toStored(c: GenerationCase, g: GeneratedArticle, sourceNote: string): R
 function main(): void {
   const resultsPath = process.argv[2];
   const sourceArg = process.argv.find((a) => a.startsWith('--source='));
-  if (!resultsPath || !sourceArg) { console.error('usage: ingest-bundles.ts <results.json> --source=regen-2026-07-w1'); process.exit(2); }
+  const dryRun = process.argv.includes('--dry-run');
+  if (!resultsPath || !sourceArg) { console.error('usage: ingest-bundles.ts <results.json> --source=regen-2026-07-w1 [--dry-run]'); process.exit(2); }
   const sourceNote = sourceArg.slice('--source='.length);
   if (!sourceNote.startsWith('regen-')) { console.error('--source must start with "regen-" (resume detection depends on it)'); process.exit(2); }
+  if (dryRun) console.log('== DRY RUN: 게이트 판정만, 파일 저장 없음 ==');
 
   const parsed = JSON.parse(fs.readFileSync(resultsPath, 'utf-8')) as { results?: BundleResult[] };
   const manifest = loadManifest();
@@ -174,9 +176,11 @@ function main(): void {
     // write survivors (and feed the cross-bundle index for later bundles)
     for (const { c, g } of passing) {
       if (rejectIds.has(g.caseId)) continue;
-      const dir = path.join(OUT_DIR, c.category);
-      fs.mkdirSync(dir, { recursive: true });
-      fs.writeFileSync(path.join(dir, `${c.caseId}.json`), JSON.stringify(toStored(c, g, sourceNote), null, 2), 'utf-8');
+      if (!dryRun) {
+        const dir = path.join(OUT_DIR, c.category);
+        fs.mkdirSync(dir, { recursive: true });
+        fs.writeFileSync(path.join(dir, `${c.caseId}.json`), JSON.stringify(toStored(c, g, sourceNote), null, 2), 'utf-8');
+      }
       ok += 1;
       for (const p of [...g.body, ...g.expert]) {
         const key = paragraphKey(p);
