@@ -10,6 +10,8 @@
  */
 import {
   bundleDiversityViolations,
+  crossBundleDuplicateViolations,
+  paragraphKey,
   summarySkeleton,
   validatePlainTextQuality,
 } from '../../tools/generation/text-quality-rules.js';
@@ -155,6 +157,21 @@ const DIVERSE_BUNDLE = [
 const diverseViolations = bundleDiversityViolations(DIVERSE_BUNDLE);
 check('diverse bundle 위반 0', diverseViolations.length === 0,
   diverseViolations.map((v) => `${v.rule}:${v.detail}`).join(' | '));
+
+// ── 6. cross-bundle duplicate paragraph ─────────────────────────────────────
+const SHARED_P = '오늘의 이름 기운은 넉넉한 자리만 더 채우는 셈이어서, 모자란 몫은 하루의 사소한 선택들로 메워 가는 게 솔직한 처방이에요.';
+const crossIndex = { paragraphs: new Map([[paragraphKey(SHARED_P), 'overall.today.adult.mid.balanced.bigeop.adverse.x']]) };
+const crossHit = crossBundleDuplicateViolations(
+  { caseId: 'overall.today.adult.mid.balanced.inseong.adverse.x', body: [SHARED_P], expert: [] },
+  crossIndex,
+);
+check('다른 번들과 동일 문단 → cross-bundle-duplicate-paragraph',
+  crossHit.some((v) => v.rule === 'cross-bundle-duplicate-paragraph'));
+const crossSelf = crossBundleDuplicateViolations(
+  { caseId: 'overall.today.adult.mid.balanced.bigeop.adverse.x', body: [SHARED_P], expert: [] },
+  crossIndex,
+);
+check('자기 자신의 문단은 통과', crossSelf.length === 0);
 
 console.log(`\n${pass} passed, ${fail} failed`);
 if (fail > 0) process.exit(1);

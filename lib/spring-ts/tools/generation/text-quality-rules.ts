@@ -233,6 +233,44 @@ export function validatePlainTextQuality(article: GeneratedTextLike): readonly T
   return violations;
 }
 
+// ── cross-bundle: adjacent bundles must not share paragraphs ────────────────
+// Different agents given near-identical case specs converge on the same
+// sentences (observed in wave 1: identical cautions/expert across 격국
+// variants). One person never sees two bundles of a category, but a user
+// comparing NAME CANDIDATES sees adjacent nameEffect bundles — exact
+// paragraph reuse across bundles reads as copy-paste.
+
+/** Normalized paragraph key (slots masked) for the cross-bundle index. */
+export function paragraphKey(paragraph: string): string {
+  return maskSlots(normalizeSpaces(paragraph));
+}
+
+export interface CrossBundleIndex {
+  /** paragraphKey → first owning caseId (regen articles already on disk). */
+  readonly paragraphs: ReadonlyMap<string, string>;
+}
+
+export function crossBundleDuplicateViolations(
+  article: GeneratedTextLike & { readonly caseId?: string },
+  index: CrossBundleIndex,
+): readonly TextQualityViolation[] {
+  const violations: TextQualityViolation[] = [];
+  for (const p of [...(article.body ?? []), ...(article.expert ?? [])]) {
+    const key = paragraphKey(p);
+    if (key.length < 20) continue;
+    const owner = index.paragraphs.get(key);
+    if (owner && owner !== (article.caseId ?? article.articleId)) {
+      violations.push({
+        rule: 'cross-bundle-duplicate-paragraph',
+        detail: `"${key.slice(0, 40)}…" already in ${owner}`,
+        articleId: article.caseId ?? article.articleId,
+        caseIds: [owner],
+      });
+    }
+  }
+  return violations;
+}
+
 // ── layer 2: bundle (sibling cells one person sees together) ───────────────
 
 const NGRAM_LEN = 12;
