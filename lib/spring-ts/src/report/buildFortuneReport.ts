@@ -258,6 +258,7 @@ export function buildFortuneReport(
           () => buildTieredMatrix(saju, birth, targetDate, {
             enabled: true,
             namingReport: springReport?.namingReport ?? null,
+            sajuCompatibility: springReport?.sajuCompatibility ?? null,
           }),
           undefined,
           'tieredMatrix',

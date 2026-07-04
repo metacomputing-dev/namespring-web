@@ -646,6 +646,20 @@ export interface TieredPersonalReading {
   readonly cautions: readonly TieredCategoryId[];
 }
 
+/** N1 name↔saju reinforcement — one grounded plain-language sentence about how
+ *  the name supports the chart's needed element. Jargon-free, conditioned on the
+ *  real `yongshinMatchCount` (honest when zero). Optional/additive: absent when
+ *  no name/compatibility data is available or the yongshin is unresolved. */
+export interface TieredNameSajuReading {
+  readonly source: 'spring-ts.tiered.nameSajuReading';
+  /** One plain sentence about the name's timing benefit. No jargon. */
+  readonly sentence: string;
+  /** Does the name carry the needed (yongshin) element at all? */
+  readonly reinforces: boolean;
+  /** How many name characters carry the needed element. */
+  readonly yongshinMatchCount: number;
+}
+
 export interface FortuneTieredMatrix {
   readonly schemaVersion: 'spring-ts.tiered-matrix.v1';
   readonly periods: Readonly<Record<TieredPeriodKind, PeriodScopedFortunes>>;
@@ -653,6 +667,8 @@ export interface FortuneTieredMatrix {
   readonly namingEvidence?: TieredNamingEvidence;
   /** A1 cross-cell synthesis reading (optional/additive). */
   readonly personalReading?: TieredPersonalReading;
+  /** N1 name↔saju reinforcement sentence (optional/additive). */
+  readonly nameSajuReading?: TieredNameSajuReading;
   readonly meta: TieredMatrixMeta;
 }
 
