@@ -272,6 +272,19 @@ function arrayLength(value: unknown): number {
   return Array.isArray(value) ? value.length : 0;
 }
 
+/** Parse a raw deficient/excessive element list (Korean/Hanja/English/stem
+ *  labels) into canonical engine codes, de-duplicated and order-preserving.
+ *  Unresolvable entries are dropped so downstream naming stays clean. */
+function parseElementList(value: unknown): readonly ElementCode[] {
+  if (!Array.isArray(value)) return [];
+  const out: ElementCode[] = [];
+  for (const raw of value) {
+    const code = toElement(raw);
+    if (code && !out.includes(code)) out.push(code);
+  }
+  return out;
+}
+
 function elementDistributionCount(
   distribution: SajuSummary['elementDistribution'] | undefined,
   element: ElementCode,
@@ -366,6 +379,13 @@ export interface FeatureVector {
   readonly deficientElementCount: number;
   /** Count of 과다 오행 (excessive elements). */
   readonly excessiveElementCount: number;
+  /** Deficient five-element identities (parsed to engine codes) — parallel to
+   *  deficientElementCount but usable to NAME the element in plain Korean
+   *  (물/불/…). Empty when the chart reports none. Enables conditional
+   *  "부족한 물 기운" phrasing without the jargon term 부족오행. */
+  readonly deficientElements: readonly ElementCode[];
+  /** Excessive five-element identities (parsed to engine codes). */
+  readonly excessiveElements: readonly ElementCode[];
   /** Count of 천간 (heavenly-stem) relations. */
   readonly cheonganRelationCount: number;
   /** Count of 지지 (earthly-branch) relations. */
@@ -442,6 +462,8 @@ function buildFeatureVectorInternal(
     shinsalCount: arrayLength(saju.shinsalHits),
     deficientElementCount: arrayLength(saju.deficientElements),
     excessiveElementCount: arrayLength(saju.excessiveElements),
+    deficientElements: parseElementList(saju.deficientElements),
+    excessiveElements: parseElementList(saju.excessiveElements),
     cheonganRelationCount: arrayLength(saju.cheonganRelations),
     jijiRelationCount: arrayLength(saju.jijiRelations),
     birthMonth: birthMonth ?? 0,

@@ -23,14 +23,48 @@ const SEASON_NAME_KO: Record<string, string> = {
   spring: '봄', summer: '여름', autumn: '가을', winter: '겨울',
 };
 
+/** Plain-language rendering of 신강/신약 for the general tier — the jargon term
+ *  itself stays expert-only. Short adjective form so an author writes
+ *  "타고난 기운이 {{strengthPlain}} 편이라…" with no josa needed. BALANCED is
+ *  the safe fallback (used when the engine could not band the strength). */
+const STRENGTH_PLAIN_KO: Record<string, string> = {
+  EXTREME_STRONG: '아주 단단한',
+  STRONG: '단단한',
+  BALANCED: '고른',
+  WEAK: '여린',
+  EXTREME_WEAK: '아주 여린',
+};
+
+/** Count of a given five-element in the chart. Defaults to 0 (never NaN) so a
+ *  `{{yongshinCount}}` slot always renders a clean integer. */
+function elementCount(feature: FeatureVector, element: string | null): number {
+  switch (element) {
+    case 'WOOD': return feature.woodCount ?? 0;
+    case 'FIRE': return feature.fireCount ?? 0;
+    case 'EARTH': return feature.earthCount ?? 0;
+    case 'METAL': return feature.metalCount ?? 0;
+    case 'WATER': return feature.waterCount ?? 0;
+    default: return 0;
+  }
+}
+
 export interface ArticleSlotValues {
   readonly periodLabel: string;
   readonly dayMasterName: string;
   readonly yongshinName: string;
   readonly currentSeasonName: string;
+  /** 신강/신약 in plain adjective form (단단한/여린/고른…). Always valid. */
+  readonly strengthPlain: string;
+  /** How many of the day-master element are in the chart, as a string. */
+  readonly dayMasterCount: string;
+  /** How many of the yongshin element are in the chart, as a string. */
+  readonly yongshinCount: string;
 }
 
-const SLOT_NAMES = ['periodLabel', 'dayMasterName', 'yongshinName', 'currentSeasonName'] as const;
+const SLOT_NAMES = [
+  'periodLabel', 'dayMasterName', 'yongshinName', 'currentSeasonName',
+  'strengthPlain', 'dayMasterCount', 'yongshinCount',
+] as const;
 export type ArticleSlotName = typeof SLOT_NAMES[number];
 
 export function isArticleSlotName(value: string): value is ArticleSlotName {
@@ -46,6 +80,9 @@ export function buildSlotValues(periodLabel: string, feature: FeatureVector): Ar
     dayMasterName: (feature.dayMasterElement && ELEMENT_NAME_KO[feature.dayMasterElement]) || '중심 기운',
     yongshinName: (feature.yongshinElement && ELEMENT_NAME_KO[feature.yongshinElement]) || '보완 기운',
     currentSeasonName: SEASON_NAME_KO[feature.currentSeason] ?? '이 계절',
+    strengthPlain: STRENGTH_PLAIN_KO[feature.dayMasterStrength] ?? '고른',
+    dayMasterCount: String(elementCount(feature, feature.dayMasterElement)),
+    yongshinCount: String(elementCount(feature, feature.yongshinElement)),
   };
 }
 
