@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "family.life.adult.high.weak.special.boost_strong.male",
+  "category": "family",
+  "period": "life",
+  "audience": "adult",
+  "band": "high",
+  "caseAxes": {
+    "gangyak": "weak",
+    "gyeokgukFamily": "special",
+    "nameEffect": "boost_strong",
+    "gender": "male"
+  },
+  "summary": "타고난 힘이 여린 편이라, 집안에선 흐름을 거스르기보다 큰 물결에 실어 다질 때 오래 단단해져요.",
+  "hook": "큰 흐름에 나를 실어요",
+  "body": [
+    "{{dayMasterName}} 기운을 타고났는데 힘의 결이 제법 여린 쪽이라, 집안에서의 자리도 혼자 버티며 맞서기보다 이미 크게 흐르는 방향에 나를 실을 때 훨씬 편해져요. {{periodLabel}}에는 무리해서 판을 뒤집으려 하기보다 가장 든든한 흐름을 찾아 그 결을 따라갈수록 마음이 놓여요.",
+    "한쪽으로 크게 쏠린 특수한 짜임이라, 억지로 균형을 맞추려 애쓰기보다 큰 흐름을 인정하고 그 편에 서는 편이 잘 맞아요. 가정에서도 내가 다 옳게 끌고 가려 하기보다 집안의 큰 방향에 힘을 보태면, 여린 기운이 오히려 그 물결을 타고 크게 자라나요.",
+    "다행히 이름이 지금 필요한 {{yongshinName:을를}} 여러 글자에 걸쳐 큼직하게 채워 줘요. 그래서 흐름에 몸을 맡길 용기, 어른과 가족에게 기대는 태도, 오래 갈 습관을 세울 때 이름의 받침이 꽤 또렷하게 느껴지는 편이에요.",
+    "아빠로서 아이와 집안을 책임지는 자리는 혼자 짊어져 세우기보다, 먼저 흐름을 타고 힘을 채운 뒤에 감당할 때 한결 가벼워져요. {{currentSeasonName}}에는 큰 결정을 서두르기보다 집안의 방향을 함께 확인하고, 정한 것을 기록으로 남겨 두면 변화가 와도 자리를 지킬 수 있어요."
+  ],
+  "expert": [
+    "{{dayMasterName}} 일간이 신약해 스스로 버티는 힘이 약하니, 맞서기보다 대세에 순응하는 #{jeonwanggyeok} 계열의 특수 구조로 봐요. 이때는 억부로 눌러 균형을 잡기보다 #{gyeokgukYongshin} 원리에 따라 사주가 쏠린 방향, 곧 #{inseong}의 결을 #{yongshin}으로 삼아 그 흐름을 크게 도와주는 편이 맞아요.",
+    "이름의 자원오행이 combinedDistribution에서 필요한 {{yongshinName:을를}} 여러 자로 크게 보강해, 종하는 대세를 더욱 또렷하게 실어 줘요. 그래서 평문에서는 혼자 앞장서 균형을 세우라는 말 대신 큰 흐름에 나를 맡기라고 풀었고, 건명에게 자식·책임의 자리인 #{gwanseong}도 그 흐름 위에서 자연스레 감당하도록 뒀어요."
+  ],
+  "livingTips": [
+    "판을 뒤집기보다 큰 흐름에 힘 보태기",
+    "먼저 겪은 어른에게 방향 물어보기",
+    "함께 정한 약속은 기록해 두기"
+  ],
+  "cautions": [
+    "혼자 맞서 다 버티려 하면 쉽게 지쳐요.",
+    "흐름에 기대는 일을 약함으로 여기지 않는 편이 좋아요."
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}
