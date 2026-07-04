@@ -1,57 +1,55 @@
 /**
- * case-schema.ts -- The unit of the no-sharing generation plan.
+ * case-schema.ts -- The unit of the clustered generation plan (v2).
  *
- * A GenerationCase is ONE fully-branched archetype: a base cell
- * (category, period, audience, band) crossed with the personal saju/name
- * branch axes (강약 × 용신 × 이름보완). Each case maps to exactly one complete,
- * expert-authored article (summary + 3-4 body paragraphs + 1-2 expert
- * paragraphs + tips/cautions), where the plain (general) tier and the expert
- * tier are a consistent PAIR — no discrepancy (see pairing-contract.md).
+ * A GenerationCase is ONE equivalence CLASS (canonical archetype), not a raw
+ * full-case: the reduction formula (docs/REDUCTION_FORMULA.md) maps the full
+ * dimension product F → K via role(x) ∈ {class, slot, callout}. Only class
+ * dimensions vary between cases; slots/callouts are filled at runtime.
  *
- * The manifest (all cases) is the durable data structure. Parallel OPUS
- * 사주명리+성명학 expert agents consume one case's GenerationSpec and return an
- * Article that the validator checks against that spec.
+ * Class dimensions: category, period, audience, band (base cell) × 강약(coarse3)
+ * × 격국family(6) × nameEffect(4: 자원오행 통합의 부호까지) × gender(민감분야만).
+ * Each class → one complete, expert-authored article, plain↔expert paired
+ * (pairing-contract.md).
  */
 
-export type StrengthBand = 'EXTREME_WEAK' | 'WEAK' | 'BALANCED' | 'STRONG' | 'EXTREME_STRONG';
-export type ElementCode = 'WOOD' | 'FIRE' | 'EARTH' | 'METAL' | 'WATER';
-/** How strongly the person's NAME (자원오행 → combinedDistribution) carries the
- *  element the chart most needs (용신). Grounded in SajuCompatibility. */
-export type NameReinforce = 'strong' | 'weak' | 'none';
+export type StrengthCoarse = 'weak' | 'balanced' | 'strong';
+export type GyeokgukFamily = 'inseong' | 'siksang' | 'jaeseong' | 'gwanseong' | 'bigeop' | 'special';
+/** 자원오행이 사주 오행에 합산된 결과의 부호까지 담는 통합 축(감사 반영). */
+export type NameEffect = 'boost_strong' | 'boost_mild' | 'neutral' | 'adverse';
+export type Gender = 'male' | 'female';
 
-/** One fully-branched archetype. */
 export interface GenerationCase {
   readonly caseId: string;
-  // ── base cell axes (already report selection axes) ──
+  // ── base cell (already report selection axes) ──
   readonly category: string;
   readonly period: string;
   readonly audience: string;
   readonly band: string;
-  // ── personal branch axes (the no-sharing personalization) ──
-  readonly gangyak: StrengthBand;
-  /** Yongshin element; null when handled as a slot (minor audiences). */
-  readonly yongshin: ElementCode | null;
-  readonly nameReinforce: NameReinforce;
+  // ── class branch axes (the clustered personalization) ──
+  readonly gangyak: StrengthCoarse;
+  readonly gyeokgukFamily: GyeokgukFamily;
+  readonly nameEffect: NameEffect;
+  /** Only set for gender-sensitive categories (romance/family/career); else null. */
+  readonly gender: Gender | null;
   readonly spec: GenerationSpec;
 }
 
-/** Everything the expert agent needs to write the correct paired article. */
+/** Everything the OPUS expert needs to write the correct paired article. */
 export interface GenerationSpec {
-  /** Human brief: what saju/name situation this archetype represents. */
   readonly archetype: string;
-  /** 신강/신약 in orthodox term (expert tier). */
+  /** 강약 orthodox term + plain adjective. */
   readonly strengthTerm: string;
-  /** 신강/신약 as a plain adjective (general tier translation). */
   readonly strengthPlain: string;
-  /** Plain element name of the yongshin (물/불/…) or null (slot). */
-  readonly yongshinKo: string | null;
-  /** Plain description of the name↔saju reinforcement. */
-  readonly nameReinforceKo: string;
-  /** Advice DIRECTION forced by strength (신강=쓰기/발산, 신약=채우기/보강). */
   readonly adviceDirection: string;
-  /** Audience safety posture. */
+  /** 격국 family term + what it means for life strategy. */
+  readonly gyeokgukTerm: string;
+  readonly gyeokgukMeaning: string;
+  /** Plain + expert description of the name↔saju integration, sign-aware. */
+  readonly nameEffectPlain: string;
+  readonly nameEffectExpert: string;
+  /** Honesty flag: is the name harmful (adverse)? Then never say "채워 준다". */
+  readonly nameIsAdverse: boolean;
+  readonly genderTerm: string | null;
   readonly audienceSafety: 'adult' | 'minor';
-  /** Expert tags the expert paragraph SHOULD anchor on (glossary ids), so the
-   *  plain tier and the expert tier stay a consistent pair. */
   readonly suggestedExpertTags: readonly string[];
 }

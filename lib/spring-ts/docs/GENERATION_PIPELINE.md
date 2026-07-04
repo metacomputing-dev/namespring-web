@@ -4,15 +4,17 @@
 > 병렬 OPUS 사주명리+성명학 전문가가 생성한다. 평문 tier와 전문가 tier는 **괴리 0의 짝**이다.
 > 아키텍처 배경: [PLAN_PERSONALIZATION_PLAIN.md](./PLAN_PERSONALIZATION_PLAIN.md).
 
-## 1. 경우의 수 (열거 완료)
+## 1. 경우의 수 (v2 — 축소 수식 반영, 열거 완료)
 
-- **총 13,365 케이스** = 330 기본 셀 × 개인 분기.
-  - 성인 셀(band high/mid/low): **강약(5) × 용신오행(5) × 이름보완(3) = 75/셀** → 165셀 × 75 = 12,375
-  - 미성년/생애 셀(band any): **강약(3) × 이름보완(2) = 6/셀**(용신=슬롯) → 165셀 × 6 = 990
-- 각 케이스 = `data/generation/manifest/<category>.manifest.jsonl`의 한 줄. 좌표 + 생성 스펙(강약·용신·이름보완·조언방향·안전·권장태그).
+축소 전략 수식: [REDUCTION_FORMULA.md](./REDUCTION_FORMULA.md). 모든 차원은 **매핑**에서 고려하되
+**저작은 등가 클래스만**. 클래스 축 = 기본셀(category·period·audience·band) × 강약coarse(3) ×
+격국family(6) × nameEffect(4, 자원오행 통합의 부호 포함) × 성별(romance·family·career만 ×2).
 
-> 분기 축은 조정 가능하다(generate-manifest.ts 상단 상수). 더 촘촘히(격국19·부족오행·사격 추가) 하면
-> 케이스 수가 커지고, 성긴 축(용신을 슬롯화)이면 작아진다. **no-sharing 원칙**: 각 최종 경우 = 자기 완결글.
+- **총 21,060 클래스** (v2). 카테고리당 1,620 / 성별민감 3분야는 2,700.
+- 각 클래스 = `data/generation/manifest/<category>.manifest.jsonl` 한 줄: 좌표 + 스펙(강약·격국·nameEffect·성별·조언방향·안전·태그).
+- **nameEffect**가 감사 핵심 반영: `boost_strong/boost_mild/neutral/adverse` — 자원오행이 용신을 채우는지(좋은 이름) vs 기신을 키우는지(**해로운 이름**)를 구분. adverse면 "채워 준다" 금지(정직성).
+
+> 슬롯(런타임): 용신오행명·일간·계절·성별대명사. 콜아웃: 신살·사격·12운성(후속).
 
 ## 2. 데이터 구조 (durable)
 
@@ -36,24 +38,28 @@ data/generated/<category>/<caseId>.json              # 검증 통과 완결글(�
 | 수집·검증 | `tools/generation/ingest-batch.ts` | 케이스 정합 검증→통과분 저장 |
 | 검증기 | `tools/generation/validate-generated.ts` | 분량·해요체·평문·태그 + 강약/용신/이름보완 방향 정합 |
 
-## 4. 실행 (전체 13,365 = 배치 ~17회)
+## 4. 실행 (전체 21,060 = 배치 ~30회, 배치당 ≤800)
 
 ```bash
-# 1) 매니페스트(1회)
+# 1) 매니페스트 v2(1회)
 npx tsx tools/generation/generate-manifest.ts
 
-# 2) 카테고리별 배치 준비 (예: wealth 0~800)
-npx tsx tools/generation/prepare-batch.ts wealth 0 800
-#    또는 특정 케이스: --ids=<caseId>,<caseId>
+# 2) 카테고리별 배치 준비 (프롬프트까지 빌드)
+npx tsx tools/generation/prepare-batch.ts romance 0 800   # 또는 --ids=a,b,c
 
-# 3) 생성 (Workflow, args = 배치 JSON). 에이전트 상한 1000/워크플로 → 배치 ≤ ~800.
-#    Workflow({ scriptPath: "tools/generation/run-batch.wf.js", args: <batch.json 내용> })
+# 3) 생성 (Workflow, 파일-read 하네스). 에이전트가 배치 파일을 직접 읽으므로 args는 작음.
+#    Workflow({ scriptPath: ".../run-fileread.wf.js",
+#      args: { batchFile:"lib/spring-ts/data/generation/batches/<name>.batch.json",
+#              caseIds:[...], schema:<ARTICLE_OUTPUT_SCHEMA> } })
+#    ⚠ args는 문자열로 전달됨 → 하네스가 JSON.parse 처리(내장). 상한 1000/워크플로 → 배치 ≤ ~800.
 #    반환 { generated:[{caseId, article}] } 를 results.json 으로 저장.
 
-# 4) 수집·검증→저장
+# 4) 수집·검증→저장 (페어링·nameEffect 부호 정합 검사)
 npx tsx tools/generation/ingest-batch.ts <results.json>
 #    리젝된 케이스는 재생성(3으로).
 ```
+
+> 하네스 2종: `run-fileread.wf.js`(권장, args 작음·대량) / `run-batch.wf.js`(args에 프롬프트 인라인).
 
 ## 5. 런타임 배관 (후속)
 

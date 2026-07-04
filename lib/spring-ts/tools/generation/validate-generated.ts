@@ -105,13 +105,14 @@ export function validateGenerated(a: GeneratedArticle, c: GenerationCase): { ok:
   if (all.includes('검진')) v.push('medical 검진');
   if (s.audienceSafety === 'minor') for (const w of MINOR_BANNED) if (all.includes(w)) v.push(`minor '${w}'`);
 
-  // -- CASE DIRECTION CONSISTENCY (pairing) --
-  // strength adjective must appear in the plain tier (the case fixes 강약).
+  // -- CASE DIRECTION CONSISTENCY (pairing, v2) --
+  // strength adjective must appear in the plain tier (the class fixes 강약).
   if (!general.includes(s.strengthPlain)) v.push(`강약 평문 '${s.strengthPlain}' 미반영`);
-  // yongshin element name must appear when the case fixes it.
-  if (s.yongshinKo && !general.includes(s.yongshinKo)) v.push(`용신 오행 '${s.yongshinKo}' 미반영`);
-  // honesty: nameReinforce=none must not claim the name fills the element.
-  if (c.nameReinforce === 'none' && /이름[^.]{0,20}(채워|채운|담고 있|보강)/u.test(all)) v.push('이름보완 none인데 채움 주장');
+  // honesty: an adverse/neutral name must NOT claim it fills the needed element.
+  if ((c.nameEffect === 'adverse' || c.nameEffect === 'neutral')
+    && /이름[^.]{0,24}(채워 주|채워 준|크게 담|크게 채|보강해 줘|보강해 주)/u.test(all)) {
+    v.push(`nameEffect=${c.nameEffect}인데 이름 채움/보강 주장(정직성 위반)`);
+  }
 
   return { ok: v.length === 0, violations: v };
 }
