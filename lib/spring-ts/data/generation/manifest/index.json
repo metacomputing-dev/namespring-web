@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "spring-ts.generation-manifest.v1",
+  "baseCells": 330,
+  "totalCases": 13365,
+  "perCategory": {
+    "academic": 1215,
+    "career": 1215,
+    "expression_children": 1215,
+    "family": 1215,
+    "health": 1215,
+    "health_stress": 1215,
+    "movement": 1215,
+    "overall": 1215,
+    "romance": 1215,
+    "study_document": 1215,
+    "wealth": 1215
+  },
+  "axes": {
+    "adult": "강약(5) × 용신(5) × 이름보완(3) = 75 per cell",
+    "minor": "강약(3) × 이름보완(2) = 6 per cell (용신=slot)"
+  }
+}
