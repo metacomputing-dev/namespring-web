@@ -55,5 +55,29 @@ tier에는 그 **뜻을 평문으로 번역**해 담는다.
 ## 4. 회귀 방어 (매 단계)
 
 `npm run typecheck && npm run test:article-gate && npm run test:article-renderer && npm run test:tiered-shape
-&& npm run test:tiered-feature-vector && npm run test:tiered-determinism && npm run test:tiered-isolation
-&& npm run bench:tiered` — 전부 그린이어야 커밋.
+&& npm run test:tiered-feature-vector && npm run test:tiered-personal-reading && npm run test:tiered-name-saju-reading
+&& npm run test:tiered-determinism && npm run test:tiered-isolation && npm run bench:tiered` — 전부 그린이어야 커밋.
+
+## 5. 진행 현황 (PR #648 보완 커밋)
+
+| 단계 | 상태 | 커밋 | 내용 |
+|---|---|---|---|
+| S1 슬롯 | ✅ | `feat(tiered): plain-language fingerprint slots` | `{{strengthPlain}}`·`{{dayMasterCount}}`·`{{yongshinCount}}` + FeatureVector 부족/과다 오행 정체 |
+| S2 A1 | ✅ | `feat(tiered): A1 cross-cell personal reading` | 165 grade→평문 프로필(`personalReading`), 강약+강/약 카테고리 한 문장 |
+| S3 N1 | ✅ | `feat(tiered): N1 name↔saju reinforcement` | `sajuCompatibility` 배관 + 이름↔사주 실측 조건부 평문(`nameSajuReading`) |
+| S4 콘텐츠 | 🟡 시연 | `content(overall): weave plain fingerprint slots` | overall/thisYear 성인 3밴드에 강약 평문+용신 개수. 5개 강약값 렌더 검증 |
+| 프론트 배선 | ✅ | `feat(web): surface A1/N1 plain readings` | "당신의 사주 프로필" 블록으로 A1/N1 실제 서비스 노출 |
+
+### S4 코퍼스 롤아웃 (남은 작업 — 동일 패턴·검증 반복)
+
+강약 평문은 **서술적 색채**로만(조언이 강약 방향에 의존 X → 5개 값 전부 참). 용신 개수는
+**중립 사실 문장**("힘이 되는 {{yongshinName}} 기운은 {{yongshinCount}}개라…", 0개에서도 일관).
+카테고리별로 게이트+pairing+bench 그린 확인하며 확장:
+
+- [x] overall/thisYear (성인 3밴드) — 시연
+- [ ] overall/{today,thisWeek,thisMonth,life,stages}
+- [ ] wealth·health·career·romance·family·academic·study_document·expression_children·health_stress·movement
+- [ ] teen/child/stage-* 밴드 (미성년 안전어휘 게이트 동시 준수)
+
+> A1 `personalReading`이 이미 매 리포트에 강약 평문을 중앙에서 전달하므로, 본문 강약 weave는
+> **중복이 아니라 문맥별 풍미**다. 급하지 않게 사람 리뷰와 함께 점진 확장한다.
