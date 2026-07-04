@@ -191,7 +191,11 @@ fixture는 **테스트 파일에 동결된 문자열**(라이브 corpus를 읽�
 ## 8. 후속 작업 (이 PR 범위 아님 — 잊지 말 것)
 
 - **F1**: 화면 조립 반복 — `nameCompatibility.summary`가 히어로/요약/이름평가 3곳 재사용되는 문제
-  (frontend `CombiedNamingReport.jsx` 계열). 별점 문구 다양화 포함.
+  (frontend `CombiedNamingReport.jsx` 계열). 별점 문구 다양화 포함. **2026-07-05 실물 UI에서 확인**:
+  통합 보고서 한 페이지에 "이름 적합도는 별 3개 수준이에요" 3회 노출.
+- **F1b**: audit에 **페이지(분야 간) 시뮬레이션** 추가 — 같은 사람·같은 기간의 6개 노출 분야
+  (overall·wealth·health·academic·romance·family) summary 조합에서 골격/n-gram 반복 검사.
+  분야 간 반복은 현 게이트(번들 내·분야 내 번들 간)의 사각지대.
 - **F2**: `data/articles/*/stages.articles.json` base 생애단계 문구(“40~49세 책임의 정점…”)가
   성인 전 연령대에 동일 노출되는 문제 — stage generated 번들이 채워지면 자연 완화되나 base 개선 필요.
 - **F3**: 전량 재생성 완료 후 `validate-generated.ts`의 corpus-wide 빈도 감사(카테고리당 동일
@@ -243,8 +247,8 @@ fixture는 **테스트 파일에 동결된 문자열**(라이브 corpus를 읽�
 | **S1a** | S0 리젝 10번들 재생성 + overall 앞 45번들 | 55 | ~$38 | 🔄 `msgbatch_0134jC6v8aPwQgYUDbZCK4TY` 폴링 중 |
 | **S1b** | overall 잔여 (S1a 이후 ~102번들, 소번들 위주) | ~102 | ~$40 | ⬜ ⚠ 진입 전 잔액 확인(누적 지출 ~$75 예상) — **충전 필요 시점** |
 | **S2** | wealth + health (유료 관심 최상위) | 360 | ~$210 | ⬜ |
-| **S3** | career + romance + family (성별 축 포함) | 756 | ~$430 | ⬜ |
-| **S4** | academic + study_document + expression_children + health_stress + movement | 900 | ~$460 | ⬜ |
+| **S3** | academic + romance + family — **2026-07-05 재편: 오픈 UI(통합 보고서)에 노출되는 6분야 우선** (overall·wealth·health·academic·romance·family) | 684 | ~$390 | ⬜ |
+| **S4** | 미노출 5분야: career + study_document + expression_children + health_stress + movement — **오픈 범위 확대 시 집행(보류 가능)** | 972 | ~$500 | ⬜ 보류 |
 | **S5** | 마무리: 리젝 잔여 소탕, Opus산 overall 33번들 Fable 통일(옵션 ~$28), audit before/after, `pack-generated.ts`, 최종 정독, 단일 PR | — | ~$50 | ⬜ |
 
 총 예상 ~$1,270 (재시도 20% 포함). S0 통과율이 80%를 크게 넘으면 하향.
