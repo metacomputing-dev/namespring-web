@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "career.thisWeek.adult.high.strong.gwanseong.boost_strong.female",
+  "category": "career",
+  "period": "thisWeek",
+  "audience": "adult",
+  "band": "high",
+  "caseAxes": {
+    "gangyak": "strong",
+    "gyeokgukFamily": "gwanseong",
+    "nameEffect": "boost_strong",
+    "gender": "female"
+  },
+  "summary": "진로 감각은 단단한 힘에 맞춰 천천히 정리할 때 좋아요.",
+  "body": [
+    "당신은 {{dayMasterName}} 기운의 결이 단단한 쪽이라, 진로 감각은 속도를 먼저 고르는 게 좋아요. {{periodLabel}}에는 기회가 비교적 잘 살아나는 구간이에요. 맡은 일의 마무리, 협업, 이력 정리, 제안 검토 중 하나를 작게 잡으면 오늘의 선택이 덜 복잡해져요.",
+    "규칙과 책임을 분명히 세울 때 흔들림이 줄어드는 편이에요. 이 결은 진로 감각을 감으로만 넘기기보다 맡은 역할과 다음 준비를 작게 정리하는 일로 풀 때 안정돼요. 오늘 할 수 있는 기준이 보이면 다음 선택도 덜 흔들려요.",
+    "다행히 이름이 지금 필요한 {{yongshinName}} 기운을 여러 글자에 걸쳐 크게 채워 줘요. 그래서 진로 감각의 기본기를 세울 때 이름의 받침이 비교적 또렷하게 느껴져요.",
+    "오늘 할 일을 하나만 정해 보세요. 기준이 작으면 이어 가기 쉬워요. 작은 실행이 쌓이면 다음 선택도 편해져요. 오늘 하나만 분명해져도 다음 선택 앞에서 덜 흔들리고 방향을 잡아요."
+  ],
+  "expert": [
+    "{{dayMasterName}} 일간은 신강 쪽이라 이미 힘이 충분하므로 발산과 절제를 함께 보며 해당 영역을 다루는 편이 자연스러워요. 관성 계열(정관·편관격)는 규칙과 책임을 분명히 세우며 흔들림을 줄이는 구조예요. 이 판단을 #{yongshin}·#{jeonggwan}·#{gwanseong} 축과 함께 보아 평문에서는 진로 감각의 속도와 기준을 조절하는 글로 풀었어요.",
+    "이름의 #{yongshin} 자원오행이 combinedDistribution에서 필요한 {{yongshinName}} 기운을 여러 자로 크게 보강해요. 그래서 평문에서는 생활 기준을 세울 때 이름의 받침이 또렷하다고 풀었어요. 그래서 이름효과가 좋을 때도 과장하지 않고, 중립이나 어긋남에서는 생활 기준을 앞세웠어요."
+  ],
+  "livingTips": [
+    "맡은 일 하나를 끝까지 정리하기",
+    "도움이 필요한 부분 표시하기",
+    "결과보다 순서부터 적어 보기"
+  ],
+  "cautions": [
+    "급하게 역할을 넓히면 부담이 커질 수 있어요",
+    "좋은 신호가 있어도 무리한 속도는 줄이는 편이 좋아요."
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}

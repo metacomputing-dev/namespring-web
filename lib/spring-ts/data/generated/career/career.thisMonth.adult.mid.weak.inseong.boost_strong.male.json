@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "career.thisMonth.adult.mid.weak.inseong.boost_strong.male",
+  "category": "career",
+  "period": "thisMonth",
+  "audience": "adult",
+  "band": "mid",
+  "caseAxes": {
+    "gangyak": "weak",
+    "gyeokgukFamily": "inseong",
+    "nameEffect": "boost_strong",
+    "gender": "male"
+  },
+  "summary": "타고난 힘이 여린 편이라, 진로 감각은 차분히 다질 때 좋아요.",
+  "body": [
+    "당신은 {{dayMasterName}} 기운을 보면 타고난 힘이 여린 편이에요. 그래서 진로 감각은 크게 바꾸기보다 가까운 장면부터 정리할 때 편해요. {{periodLabel}}에는 기준을 점검하고 안정시키기 좋은 구간이에요. 맡은 일의 마무리, 협업, 이력 정리, 제안 검토 같은 장면을 차례로 살피면 기준이 분명해져요.",
+    "배우고 받아들이며 보호막을 만들 때 힘을 얻는 편이에요. 그래서 진로 감각도 감으로만 처리하기보다 맡은 역할과 다음 준비를 작게 정리하는 일이 잘 맞아요. 작은 기준을 눈앞에 두면 마음이 급해져도 다시 돌아올 곳이 생겨요.",
+    "이름 안에는 지금 필요한 {{yongshinName}} 기운이 여러 글자에 걸쳐 또렷하게 들어와요. 그래서 진로 감각은 기준을 잡을 때 든든한 받침처럼 작용해요. 작은 실행과 함께 볼 때 더 안정돼요.",
+    "오늘은 맡은 역할과 다음 준비를 작게 정리하는 일에 힘을 두면 좋아요. 큰 결론보다 반복 가능한 기준이 먼저예요. 그 기준이 잡히면 다음 선택 앞에서 덜 흔들리고 방향을 잡아요."
+  ],
+  "expert": [
+    "{{dayMasterName}} 일간은 신약 쪽이라 일간을 먼저 세운 뒤 해당 영역을 다루는 순서가 자연스러워요. 인성 계열(정인·편인격)는 배우고 받아들이며 보호와 문서의 힘을 쓰는 구조예요. 이 판단을 #{yongshin}·#{jeonggwan}·#{inseong} 축과 함께 보아 평문에서는 진로 감각의 속도와 기준을 조절하는 글로 풀었어요.",
+    "이름의 #{yongshin} 자원오행이 combinedDistribution에서 필요한 {{yongshinName}} 기운을 여러 자로 크게 보강해요. 그래서 평문에서는 생활 기준을 세울 때 이름의 받침이 또렷하다고 풀었어요. 그래서 이름효과가 좋을 때도 과장하지 않고, 중립이나 어긋남에서는 생활 기준을 앞세웠어요."
+  ],
+  "livingTips": [
+    "오늘 끝낼 일 하나만 고르기",
+    "제안은 하루 두고 다시 보기",
+    "믿을 만한 사람에게 물어보기"
+  ],
+  "cautions": [
+    "인정받고 싶은 마음만으로 무리한 역할을 잡진 마세요",
+    "좋은 신호가 있어도 무리한 속도는 줄이는 편이 좋아요."
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}
