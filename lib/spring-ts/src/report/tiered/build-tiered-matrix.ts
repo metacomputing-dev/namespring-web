@@ -53,6 +53,8 @@ import {
 import { gradeCell, gradeToStars } from './cell-grader.js';
 import { buildPersonalReading } from './personal-reading.js';
 import { buildNameSajuReading } from './name-saju-reading.js';
+import { computeClassId } from './class-axes.js';
+import { getGeneratedArticle } from './generated-registry.js';
 import { buildPeriodMeta, periodFortuneElement } from './period-meta-builder.js';
 import { loadGlossary } from './glossary-loader.js';
 import { buildTagGlossary } from './tag-inliner.js';
@@ -342,11 +344,17 @@ function buildCell(
   periodLabel: string,
   fortuneElement: ElementCode | null,
   grade: CellGrade,
+  sajuCompat: SajuCompatibility | null | undefined,
   audienceOverride?: ArticleAudience,
 ): TieredFortune {
   const audience = audienceOverride ?? deriveAudience(feature.ageBand);
   const band = bandFromStars(grade.stars);
-  const article = selectArticle(registry, category, period, audience, band, seedKey);
+  // Class-first selection (κ): the person's generated class article when it
+  // exists, else the base pool. Graceful fallback keeps the report intact as
+  // generation fills in — the frontend improves without any FE change.
+  const classId = computeClassId(category, period, audience, band, feature, sajuCompat);
+  const article = (classId ? getGeneratedArticle(category, classId) : null)
+    ?? selectArticle(registry, category, period, audience, band, seedKey);
   if (!article) return placeholderCell();
 
   const slots: ArticleSlotValues = buildSlotValues(periodLabel, feature);
@@ -390,6 +398,7 @@ function buildPeriodScoped(
   feature: FeatureVector,
   seedKey: string,
   targetDate: Date,
+  sajuCompat: SajuCompatibility | null | undefined,
   periodLabelOverride?: string,
   fortuneElementOverride?: ElementCode | null,
   audienceOverride?: ArticleAudience,
@@ -415,6 +424,7 @@ function buildPeriodScoped(
     periodLabel,
     fortuneElement,
     overallGrade,
+    sajuCompat,
     audienceOverride,
   );
 
@@ -431,6 +441,7 @@ function buildPeriodScoped(
       periodLabel,
       fortuneElement,
       categoryGrade,
+      sajuCompat,
       audienceOverride,
     );
   }
@@ -452,6 +463,7 @@ function buildAgeBandScoped(
   feature: FeatureVector,
   seedKey: string,
   targetDate: Date,
+  sajuCompat: SajuCompatibility | null | undefined,
 ): AgeBandScopedFortunes {
   const fortuneElement = lifeFortuneElementForAge(saju, band.representativeAge) ?? feature.dayMasterElement;
   const scoped = buildPeriodScoped(
@@ -461,6 +473,7 @@ function buildAgeBandScoped(
     feature,
     seedKey,
     targetDate,
+    sajuCompat,
     band.label,
     fortuneElement,
     stageAudienceForLifeBand(band.key),
@@ -506,6 +519,7 @@ function buildLifeByAgeBand(
   glossary: Readonly<Record<TagId, GlossaryEntry>>,
   seedKey: string,
   subjectIsMinor: boolean,
+  sajuCompat: SajuCompatibility | null | undefined,
 ): Record<TieredLifeStageBand, AgeBandScopedFortunes> {
   const byAgeBand = {} as Record<TieredLifeStageBand, AgeBandScopedFortunes>;
   for (const band of LIFE_STAGE_BANDS) {
@@ -519,7 +533,7 @@ function buildLifeByAgeBand(
       byAgeBand[band.key] = placeholderAgeBandScoped(band, feature, targetDate);
       continue;
     }
-    byAgeBand[band.key] = buildAgeBandScoped(saju, band, registry, glossary, feature, seedKey, targetDate);
+    byAgeBand[band.key] = buildAgeBandScoped(saju, band, registry, glossary, feature, seedKey, targetDate, sajuCompat);
   }
   return byAgeBand;
 }
@@ -593,11 +607,12 @@ export function buildTieredMatrix(
   const seedKey = buildSelectionSeed(birth, targetDate);
 
   const subjectIsMinor = deriveAudience(feature.ageBand) !== 'adult';
+  const sajuCompat = options.sajuCompatibility ?? null;
   const periods = {} as Record<TieredPeriodKind, PeriodScopedFortunes>;
   for (const period of PERIOD_ORDER) {
-    const scoped = buildPeriodScoped(period, registry, allGlossaryEntries, feature, seedKey, targetDate);
+    const scoped = buildPeriodScoped(period, registry, allGlossaryEntries, feature, seedKey, targetDate, sajuCompat);
     periods[period] = period === 'life'
-      ? { ...scoped, byAgeBand: buildLifeByAgeBand(saju, birth, targetDate, registry, allGlossaryEntries, seedKey, subjectIsMinor) }
+      ? { ...scoped, byAgeBand: buildLifeByAgeBand(saju, birth, targetDate, registry, allGlossaryEntries, seedKey, subjectIsMinor, sajuCompat) }
       : scoped;
   }
 
