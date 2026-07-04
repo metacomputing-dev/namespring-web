@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "expression_children.life.adult.low.weak.jaeseong.boost_strong.x",
+  "category": "expression_children",
+  "period": "life",
+  "audience": "adult",
+  "band": "low",
+  "caseAxes": {
+    "gangyak": "weak",
+    "gyeokgukFamily": "jaeseong",
+    "nameEffect": "boost_strong",
+    "gender": null
+  },
+  "summary": "타고난 힘이 여린 편이라, 표현과 창의력은 차분히 다질 때 좋아요.",
+  "body": [
+    "당신은 {{dayMasterName}} 기운을 타고난 결이 여린 쪽이라, 표현과 창의력은 한 번에 크게 밀기보다 차분히 다질 때 오래 남아요. {{periodLabel}}에는 속도와 크기를 줄여 손실을 막는 구간이에요. 글, 발표, 취미 창작, 결과물 공유처럼 손에 잡히는 장면부터 살피면 선택이 가벼워져요.",
+    "현실의 수치와 물건을 직접 다룰 때 감각이 살아나는 편이에요 그래서 표현도 감으로만 처리하기보다 생각을 작은 결과물 하나로 꺼내 보는 일이 잘 맞아요. 작은 기준을 눈앞에 두면 마음이 급해져도 다시 돌아올 곳이 생겨요.",
+    "다행히 이름이 지금 필요한 {{yongshinName}} 기운을 여러 글자에 걸쳐 크게 채워 줘요. 그래서 표현의 기본기를 세울 때 이름의 받침이 비교적 또렷하게 느껴져요.",
+    "생각을 작은 결과물 하나로 꺼내 보는 일을 오늘의 첫걸음으로 삼아 보세요. 너무 많은 일을 한꺼번에 바꾸지 않아도 괜찮아요. 한 가지 기준이 분명해지면 표현이 부담보다 즐거운 경험으로 남아요."
+  ],
+  "expert": [
+    "{{dayMasterName}} 일간은 신약 쪽이라 일간을 먼저 세운 뒤 해당 영역을 다루는 순서가 자연스러워요 재성 계열(정재·편재격)는 재물·현실을 다루고 관리하는 구조. 굴리고 소유하는 전략이 맞음. 이 판단을 #{yongshin}·#{sikshin}·#{jaeseong} 축과 함께 보아 평문에서는 표현과 창의력의 속도와 기준을 조절하는 글로 풀었어요.",
+    "이름의 #{yongshin} 자원오행이 combinedDistribution에서 필요한 {{yongshinName}} 기운을 여러 자로 크게 보강해요. 그래서 평문에서는 생활 기준을 세울 때 이름의 받침이 또렷하다고 풀었어요. 강약과 이름 신호가 같은 방향일 때는 받침을 쓰고, 어긋날 때는 과장을 피하는 방식으로 요약과 본문을 맞췄어요."
+  ],
+  "livingTips": [
+    "짧은 글 하나 완성해 보기",
+    "결과물을 믿는 사람과 나누기",
+    "믿을 만한 사람에게 물어보기"
+  ],
+  "cautions": [
+    "완벽하게 보이려다 시작을 늦추진 마세요",
+    "좋은 신호가 있어도 무리한 속도는 줄이는 편이 좋아요."
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}
