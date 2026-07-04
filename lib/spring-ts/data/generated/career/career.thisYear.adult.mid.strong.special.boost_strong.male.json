@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "career.thisYear.adult.mid.strong.special.boost_strong.male",
+  "category": "career",
+  "period": "thisYear",
+  "audience": "adult",
+  "band": "mid",
+  "caseAxes": {
+    "gangyak": "strong",
+    "gyeokgukFamily": "special",
+    "nameEffect": "boost_strong",
+    "gender": "male"
+  },
+  "summary": "진로 감각은 서두르기보다 작은 기준부터 세울 때 좋아요.",
+  "body": [
+    "당신은 {{dayMasterName}} 기운의 결이 단단한 쪽이라, 진로 감각은 속도를 먼저 고르는 게 좋아요. {{periodLabel}}에는 기준을 점검하고 안정시키기 좋은 구간이에요. 맡은 일의 마무리, 협업, 이력 정리, 제안 검토 중 하나를 작게 잡으면 오늘의 선택이 덜 복잡해져요.",
+    "한 가지 방식에 묶이기보다 순서를 새로 짤 때 길이 보이는 편이에요. 이 결은 진로 감각을 감으로만 넘기기보다 맡은 역할과 다음 준비를 작게 정리하는 일로 풀 때 안정돼요. 오늘 할 수 있는 기준이 보이면 다음 선택도 덜 흔들려요.",
+    "이름은 지금 필요한 {{yongshinName}} 기운을 크게 보태는 편이에요. 진로 감각을 다질 때 혼자 밀기보다 이름의 도움을 함께 볼 수 있어요. 생활 기준과 같이 쓰면 더 안정돼요.",
+    "오늘 할 일을 하나만 정해 보세요. 기준이 작으면 이어 가기 쉬워요. 작은 실행이 쌓이면 다음 선택도 편해져요. 오늘 하나만 분명해져도 다음 선택 앞에서 덜 흔들리고 방향을 잡아요."
+  ],
+  "expert": [
+    "{{dayMasterName}} 일간은 신강 쪽으로 보아 이미 힘이 충분하므로 발산과 절제를 함께 보며 해당 영역을 다루는 편이 자연스러워요. 특수 계열(종·화기·전왕격)는 한 가지 방식에 묶이지 않고 상황에 맞게 순서를 새로 짜는 구조예요. 이 흐름을 #{yongshin}·#{jeonggwan} 축과 맞춰, 평문에서는 진로 감각을 생활 장면과 기준으로 번역했어요.",
+    "이름의 #{yongshin} 자원오행이 combinedDistribution에서 필요한 {{yongshinName}} 기운을 여러 자로 크게 보강해요. 그래서 평문에서는 생활 기준을 세울 때 이름의 받침이 또렷하다고 풀었어요. 이름 신호는 보조 근거로만 두고, 평문에서는 실제로 조절할 수 있는 행동으로 낮춰 설명했어요."
+  ],
+  "livingTips": [
+    "최근 한 일을 짧게 기록하기",
+    "다음 역할에 필요한 것을 적기",
+    "일정표에 작은 마감 넣기"
+  ],
+  "cautions": [
+    "인정받고 싶은 마음만으로 무리한 역할을 잡진 마세요",
+    "괜찮은 신호라도 한 번에 넓히진 마세요."
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}

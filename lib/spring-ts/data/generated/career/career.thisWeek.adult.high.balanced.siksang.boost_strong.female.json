@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "career.thisWeek.adult.high.balanced.siksang.boost_strong.female",
+  "category": "career",
+  "period": "thisWeek",
+  "audience": "adult",
+  "band": "high",
+  "caseAxes": {
+    "gangyak": "balanced",
+    "gyeokgukFamily": "siksang",
+    "nameEffect": "boost_strong",
+    "gender": "female"
+  },
+  "summary": "타고난 힘이 고른 편이라, 진로 감각은 차분히 다질 때 좋아요.",
+  "body": [
+    "당신은 {{dayMasterName}} 기운을 보면 타고난 힘이 고른 편이에요. 그래서 진로 감각은 크게 바꾸기보다 가까운 장면부터 정리할 때 편해요. {{periodLabel}}에는 기회가 비교적 잘 살아나는 구간이에요. 맡은 일의 마무리, 협업, 이력 정리, 제안 검토 같은 장면을 차례로 살피면 기준이 분명해져요.",
+    "만들고 표현해 밖으로 내보낼 때 길이 열리는 편이에요. 그래서 진로 감각도 감으로만 처리하기보다 맡은 역할과 다음 준비를 작게 정리하는 일이 잘 맞아요. 작은 기준을 눈앞에 두면 마음이 급해져도 다시 돌아올 곳이 생겨요.",
+    "이름은 지금 필요한 {{yongshinName}} 기운을 크게 보태는 편이에요. 진로 감각을 다질 때 혼자 밀기보다 이름의 도움을 함께 볼 수 있어요. 생활 기준과 같이 쓰면 더 안정돼요.",
+    "오늘은 맡은 역할과 다음 준비를 작게 정리하는 일에 힘을 두면 좋아요. 큰 결론보다 반복 가능한 기준이 먼저예요. 그 기준이 잡히면 다음 선택 앞에서 덜 흔들리고 방향을 잡아요."
+  ],
+  "expert": [
+    "{{dayMasterName}} 일간은 중화 쪽으로 보아 한쪽 기운에 기대기보다 균형을 유지하며 해당 영역을 다루는 편이 자연스러워요. 식상 계열(식신·상관격)는 만들고 표현해 밖으로 내보내며 결과를 여는 구조예요. 이 흐름을 #{yongshin}·#{jeonggwan}·#{siksang} 축과 맞춰, 평문에서는 진로 감각을 생활 장면과 기준으로 번역했어요.",
+    "이름의 #{yongshin} 자원오행이 combinedDistribution에서 필요한 {{yongshinName}} 기운을 여러 자로 크게 보강해요. 그래서 평문에서는 생활 기준을 세울 때 이름의 받침이 또렷하다고 풀었어요. 이름 신호는 보조 근거로만 두고, 평문에서는 실제로 조절할 수 있는 행동으로 낮춰 설명했어요."
+  ],
+  "livingTips": [
+    "오늘 끝낼 일 하나만 고르기",
+    "제안은 하루 두고 다시 보기",
+    "믿을 만한 사람에게 물어보기"
+  ],
+  "cautions": [
+    "새 책임은 감당할 시간을 보고 정해요",
+    "좋은 흐름도 작은 기준으로 써야 오래가요."
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}

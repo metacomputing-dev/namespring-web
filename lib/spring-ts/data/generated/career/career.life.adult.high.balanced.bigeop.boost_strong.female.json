@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "career.life.adult.high.balanced.bigeop.boost_strong.female",
+  "category": "career",
+  "period": "life",
+  "audience": "adult",
+  "band": "high",
+  "caseAxes": {
+    "gangyak": "balanced",
+    "gyeokgukFamily": "bigeop",
+    "nameEffect": "boost_strong",
+    "gender": "female"
+  },
+  "summary": "진로 감각은 고른 힘에 맞춰 천천히 정리할 때 좋아요.",
+  "body": [
+    "당신은 {{dayMasterName}} 기운의 결이 고른 쪽이라, 진로 감각은 속도를 먼저 고르는 게 좋아요. {{periodLabel}}에는 기회가 비교적 잘 살아나는 구간이에요. 맡은 일의 마무리, 협업, 이력 정리, 제안 검토 중 하나를 작게 잡으면 오늘의 선택이 덜 복잡해져요.",
+    "곁의 사람과 기준을 나누고 함께 움직일 때 힘이 붙는 편이에요. 이 결은 진로 감각을 감으로만 넘기기보다 맡은 역할과 다음 준비를 작게 정리하는 일로 풀 때 안정돼요. 오늘 할 수 있는 기준이 보이면 다음 선택도 덜 흔들려요.",
+    "이름은 지금 필요한 {{yongshinName}} 기운을 크게 보태는 편이에요. 진로 감각을 다질 때 혼자 밀기보다 이름의 도움을 함께 볼 수 있어요. 생활 기준과 같이 쓰면 더 안정돼요.",
+    "오늘 할 일을 하나만 정해 보세요. 기준이 작으면 이어 가기 쉬워요. 작은 실행이 쌓이면 다음 선택도 편해져요. 오늘 하나만 분명해져도 다음 선택 앞에서 덜 흔들리고 방향을 잡아요."
+  ],
+  "expert": [
+    "{{dayMasterName}} 일간은 중화 쪽이라 한쪽 기운에 기대기보다 균형을 유지하며 해당 영역을 다루는 편이 자연스러워요. 비겁 계열(비견·겁재격)는 곁의 사람과 기준을 나누며 함께 힘을 만드는 구조예요. 이 판단을 #{yongshin}·#{jeonggwan}·#{bigyeon} 축과 함께 보아 평문에서는 진로 감각의 속도와 기준을 조절하는 글로 풀었어요.",
+    "이름의 #{yongshin} 자원오행이 combinedDistribution에서 필요한 {{yongshinName}} 기운을 여러 자로 크게 보강해요. 그래서 평문에서는 생활 기준을 세울 때 이름의 받침이 또렷하다고 풀었어요. 그래서 이름효과가 좋을 때도 과장하지 않고, 중립이나 어긋남에서는 생활 기준을 앞세웠어요."
+  ],
+  "livingTips": [
+    "맡은 일 하나를 끝까지 정리하기",
+    "도움이 필요한 부분 표시하기",
+    "결과보다 순서부터 적어 보기"
+  ],
+  "cautions": [
+    "인정받고 싶은 마음만으로 무리한 역할을 잡진 마세요",
+    "좋은 흐름도 작은 기준으로 써야 오래가요."
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}

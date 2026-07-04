@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "career.life.adult.mid.balanced.jaeseong.adverse.male",
+  "category": "career",
+  "period": "life",
+  "audience": "adult",
+  "band": "mid",
+  "caseAxes": {
+    "gangyak": "balanced",
+    "gyeokgukFamily": "jaeseong",
+    "nameEffect": "adverse",
+    "gender": "male"
+  },
+  "summary": "타고난 힘이 고른 편이라, 진로 감각은 차분히 다질 때 좋아요.",
+  "body": [
+    "당신은 {{dayMasterName}} 기운의 결이 고른 쪽이라, 진로 감각은 속도를 먼저 고르는 게 좋아요. {{periodLabel}}에는 기준을 점검하고 안정시키기 좋은 구간이에요. 맡은 일의 마무리, 협업, 이력 정리, 제안 검토 중 하나를 작게 잡으면 오늘의 선택이 덜 복잡해져요.",
+    "현실의 수치와 물건을 직접 다룰 때 감각이 살아나는 편이에요. 이 결은 진로 감각을 감으로만 넘기기보다 맡은 역할과 다음 준비를 작게 정리하는 일로 풀 때 안정돼요. 오늘 할 수 있는 기준이 보이면 다음 선택도 덜 흔들려요.",
+    "이름이 해결책이 되기보다는 조절이 필요한 신호로 보여요. 부족한 {{yongshinName}} 기운은 진로 감각을 다루는 실제 선택에서 챙기는 편이 안정돼요. 이름 신호에 끌려가기보다 실행 기준을 먼저 두면 좋아요.",
+    "오늘 할 일을 하나만 정해 보세요. 기준이 작으면 이어 가기 쉬워요. 작은 실행이 쌓이면 다음 선택도 편해져요. 오늘 하나만 분명해져도 다음 선택 앞에서 덜 흔들리고 방향을 잡아요."
+  ],
+  "expert": [
+    "{{dayMasterName}} 일간은 중화 쪽으로 보아 한쪽 기운에 기대기보다 균형을 유지하며 해당 영역을 다루는 편이 자연스러워요. 재성 계열(정재·편재격)는 현실의 수치와 자원을 직접 다루며 감각을 세우는 구조예요. 이 흐름을 #{yongshin}·#{jeonggwan}·#{jaeseong}·#{gishin} 축과 맞춰, 평문에서는 진로 감각을 생활 장면과 기준으로 번역했어요.",
+    "이름의 #{gishin} 자원오행은 combinedDistribution에서 이미 많은 쪽을 더 키우는 신호예요. 그래서 평문에서는 이름을 해결책으로 보지 않고 생활에서 필요한 {{yongshinName}} 쪽을 보완하라고 썼어요. 이름 신호는 보조 근거로만 두고, 평문에서는 실제로 조절할 수 있는 행동으로 낮춰 설명했어요."
+  ],
+  "livingTips": [
+    "오늘 끝낼 일 하나만 고르기",
+    "제안은 하루 두고 다시 보기",
+    "믿을 만한 사람에게 물어보기"
+  ],
+  "cautions": [
+    "급하게 역할을 넓히면 부담이 커질 수 있어요",
+    "이름에만 기대기보다 생활 기준을 먼저 세워요."
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}

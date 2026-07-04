@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "career.thisMonth.adult.mid.weak.siksang.boost_strong.female",
+  "category": "career",
+  "period": "thisMonth",
+  "audience": "adult",
+  "band": "mid",
+  "caseAxes": {
+    "gangyak": "weak",
+    "gyeokgukFamily": "siksang",
+    "nameEffect": "boost_strong",
+    "gender": "female"
+  },
+  "summary": "타고난 힘이 여린 편이라, 진로 감각은 차분히 다질 때 좋아요.",
+  "body": [
+    "당신은 {{dayMasterName}} 기운을 보면 타고난 힘이 여린 편이에요. 그래서 진로 감각은 크게 바꾸기보다 가까운 장면부터 정리할 때 편해요. {{periodLabel}}에는 기준을 점검하고 안정시키기 좋은 구간이에요. 맡은 일의 마무리, 협업, 이력 정리, 제안 검토 같은 장면을 차례로 살피면 기준이 분명해져요.",
+    "만들고 표현해 밖으로 내보낼 때 길이 열리는 편이에요. 그래서 진로 감각도 감으로만 처리하기보다 맡은 역할과 다음 준비를 작게 정리하는 일이 잘 맞아요. 작은 기준을 눈앞에 두면 마음이 급해져도 다시 돌아올 곳이 생겨요.",
+    "다행히 이름이 지금 필요한 {{yongshinName}} 기운을 여러 글자에 걸쳐 크게 채워 줘요. 그래서 진로 감각의 기본기를 세울 때 이름의 받침이 비교적 또렷하게 느껴져요.",
+    "오늘은 맡은 역할과 다음 준비를 작게 정리하는 일에 힘을 두면 좋아요. 큰 결론보다 반복 가능한 기준이 먼저예요. 그 기준이 잡히면 다음 선택 앞에서 덜 흔들리고 방향을 잡아요."
+  ],
+  "expert": [
+    "#{yongshin}·#{jeonggwan}·#{siksang} 축을 함께 보면 {{dayMasterName}} 일간의 신약 성향과 식상 계열(식신·상관격)의 쓰임을 같이 읽게 돼요. 일간을 먼저 세운 뒤 해당 영역을 다루는 순서가 자연스러워요. 만들고 표현해 밖으로 내보내며 결과를 여는 구조예요. 그래서 평문에서는 진로 감각의 속도와 기준을 과장 없이 풀었어요.",
+    "이름의 #{yongshin} 자원오행이 combinedDistribution에서 필요한 {{yongshinName}} 기운을 여러 자로 크게 보강해요. 그래서 평문에서는 생활 기준을 세울 때 이름의 받침이 또렷하다고 풀었어요. 강약과 이름 신호가 같은 방향일 때는 받침을 쓰고, 어긋날 때는 과장을 피하는 방식으로 요약과 본문을 맞췄어요."
+  ],
+  "livingTips": [
+    "최근 한 일을 짧게 기록하기",
+    "다음 역할에 필요한 것을 적기",
+    "일정표에 작은 마감 넣기"
+  ],
+  "cautions": [
+    "새 책임은 감당할 시간을 보고 정해요",
+    "좋은 신호가 있어도 무리한 속도는 줄이는 편이 좋아요."
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}

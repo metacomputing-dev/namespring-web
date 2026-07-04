@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "career.thisYear.adult.low.strong.bigeop.boost_strong.male",
+  "category": "career",
+  "period": "thisYear",
+  "audience": "adult",
+  "band": "low",
+  "caseAxes": {
+    "gangyak": "strong",
+    "gyeokgukFamily": "bigeop",
+    "nameEffect": "boost_strong",
+    "gender": "male"
+  },
+  "summary": "진로 감각은 서두르기보다 작은 기준부터 세울 때 좋아요.",
+  "body": [
+    "당신은 {{dayMasterName}} 기운을 보면 타고난 힘이 단단한 편이에요. 그래서 진로 감각은 크게 바꾸기보다 가까운 장면부터 정리할 때 편해요. {{periodLabel}}에는 속도와 크기를 줄여 손실을 막는 구간이에요. 맡은 일의 마무리, 협업, 이력 정리, 제안 검토 같은 장면을 차례로 살피면 기준이 분명해져요.",
+    "곁의 사람과 기준을 나누고 함께 움직일 때 힘이 붙는 편이에요. 그래서 진로 감각은 바로 결론 내리기보다 맡은 역할과 다음 준비를 작게 정리하는 일부터 잡는 흐름이 맞아요. 기준이 작아도 눈앞에 있으면 급한 마음을 붙잡기 쉬워요.",
+    "이름 안에는 지금 필요한 {{yongshinName}} 기운이 여러 글자에 걸쳐 또렷하게 들어와요. 그래서 진로 감각은 기준을 잡을 때 든든한 받침처럼 작용해요. 작은 실행과 함께 볼 때 더 안정돼요.",
+    "오늘은 맡은 역할과 다음 준비를 작게 정리하는 일에 힘을 두면 좋아요. 큰 결론보다 반복 가능한 기준이 먼저예요. 그 기준이 잡히면 다음 선택 앞에서 덜 흔들리고 방향을 잡아요."
+  ],
+  "expert": [
+    "#{yongshin}·#{jeonggwan}·#{bigyeon} 축을 함께 보면 {{dayMasterName}} 일간의 신강 성향과 비겁 계열(비견·겁재격)의 쓰임을 같이 읽게 돼요. 이미 힘이 충분하므로 발산과 절제를 함께 보며 해당 영역을 다루는 편이 자연스러워요. 곁의 사람과 기준을 나누며 함께 힘을 만드는 구조예요. 그래서 평문에서는 진로 감각의 속도와 기준을 과장 없이 풀었어요.",
+    "이름의 #{yongshin} 자원오행이 combinedDistribution에서 필요한 {{yongshinName}} 기운을 여러 자로 크게 보강해요. 그래서 평문에서는 생활 기준을 세울 때 이름의 받침이 또렷하다고 풀었어요. 그래서 이름효과가 좋을 때도 과장하지 않고, 중립이나 어긋남에서는 생활 기준을 앞세웠어요."
+  ],
+  "livingTips": [
+    "최근 한 일을 짧게 기록하기",
+    "제안은 하루 두고 다시 보기",
+    "일정표에 작은 마감 넣기"
+  ],
+  "cautions": [
+    "새 책임은 감당할 시간을 보고 정해요",
+    "좋은 흐름도 작은 기준으로 써야 오래가요."
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}

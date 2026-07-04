@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "career.thisMonth.adult.mid.balanced.inseong.boost_strong.male",
+  "category": "career",
+  "period": "thisMonth",
+  "audience": "adult",
+  "band": "mid",
+  "caseAxes": {
+    "gangyak": "balanced",
+    "gyeokgukFamily": "inseong",
+    "nameEffect": "boost_strong",
+    "gender": "male"
+  },
+  "summary": "진로 감각은 서두르기보다 작은 기준부터 세울 때 좋아요.",
+  "body": [
+    "당신은 {{dayMasterName}} 기운을 타고난 결이 고른 쪽이라, 진로 감각은 한 번에 크게 밀기보다 차분히 다질 때 오래 남아요. {{periodLabel}}에는 기준을 점검하고 안정시키기 좋은 구간이에요. 맡은 일의 마무리, 협업, 이력 정리, 제안 검토처럼 손에 잡히는 장면부터 살피면 선택이 가벼워져요.",
+    "배우고 받아들이며 보호막을 만들 때 힘을 얻는 편이에요. 그래서 진로 감각은 바로 결론 내리기보다 맡은 역할과 다음 준비를 작게 정리하는 일부터 잡는 흐름이 맞아요. 기준이 작아도 눈앞에 있으면 급한 마음을 붙잡기 쉬워요.",
+    "다행히 이름이 지금 필요한 {{yongshinName}} 기운을 여러 글자에 걸쳐 크게 채워 줘요. 그래서 진로 감각의 기본기를 세울 때 이름의 받침이 비교적 또렷하게 느껴져요.",
+    "맡은 역할과 다음 준비를 작게 정리하는 일을 오늘의 첫걸음으로 삼아 보세요. 너무 많은 일을 한꺼번에 바꾸지 않아도 괜찮아요. 한 가지 기준이 분명해지면 다음 선택 앞에서 덜 흔들리고 방향을 잡아요."
+  ],
+  "expert": [
+    "#{yongshin}·#{jeonggwan}·#{inseong} 축을 함께 보면 {{dayMasterName}} 일간의 중화 성향과 인성 계열(정인·편인격)의 쓰임을 같이 읽게 돼요. 한쪽 기운에 기대기보다 균형을 유지하며 해당 영역을 다루는 편이 자연스러워요. 배우고 받아들이며 보호와 문서의 힘을 쓰는 구조예요. 그래서 평문에서는 진로 감각의 속도와 기준을 과장 없이 풀었어요.",
+    "이름의 #{yongshin} 자원오행이 combinedDistribution에서 필요한 {{yongshinName}} 기운을 여러 자로 크게 보강해요. 그래서 평문에서는 생활 기준을 세울 때 이름의 받침이 또렷하다고 풀었어요. 강약과 이름 신호가 같은 방향일 때는 받침을 쓰고, 어긋날 때는 과장을 피하는 방식으로 요약과 본문을 맞췄어요."
+  ],
+  "livingTips": [
+    "최근 한 일을 짧게 기록하기",
+    "다음 역할에 필요한 것을 적기",
+    "일정표에 작은 마감 넣기"
+  ],
+  "cautions": [
+    "인정받고 싶은 마음만으로 무리한 역할을 잡진 마세요",
+    "괜찮은 신호라도 한 번에 넓히진 마세요."
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}
