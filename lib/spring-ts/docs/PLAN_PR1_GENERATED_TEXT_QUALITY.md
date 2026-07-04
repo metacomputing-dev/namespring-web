@@ -139,11 +139,13 @@ npx tsx tools/generation/prepare-bundles.ts <category> --offset 0 --count 30
 #      { schema, bundles:[{bundleKey, caseIds:[...], prompt}] }
 
 # 2) 생성 (Workflow — 메인 세션에서 실행; 번들당 OPUS 에이전트 1개)
-#    Workflow({ scriptPath: "lib/spring-ts/tools/generation/run-bundles.wf.js",
-#               args: { batchFile: "lib/spring-ts/data/generation/batches/<name>.batch.json" } })
+#    Workflow({ scriptPath: "<worktree>/lib/spring-ts/tools/generation/run-bundles.wf.js",
+#               args: { batchFile: "<절대경로>.batch.json",   ← 에이전트 cwd가 다르므로 절대경로
+#                       bundleKeys: [...],                    ← prepare-bundles가 출력한 목록
+#                       schema: <배치 파일의 .schema> } })
 #    반환 { results:[{bundleKey, articles:[{caseId, ...article}]}] }
-#    ⚠ Workflow는 fs 접근 불가 → 반환값은 <temp>/tasks/<taskId>.output 의 .result 에 있음.
-#      extract 후 results.json으로 저장 (메모리 gen-session-coordination 참조).
+#    ⚠ Workflow는 fs 접근 불가 → 반환값은 <session-temp>/tasks/<taskId>.output 의 .result.
+#      node tools/generation/extract-workflow-result.mjs <output파일> <results.json> 으로 추출.
 
 # 3) 검증·저장 (개별 게이트 + 번들 다양성 게이트 통과분만)
 npx tsx tools/generation/ingest-bundles.ts <results.json> --source=regen-2026-07-w1
@@ -193,14 +195,28 @@ fixture는 **테스트 파일에 동결된 문자열**(라이브 corpus를 읽�
 |---|---|---|---|
 | 0 | 진단·측정 (§1) | ✅ 2026-07-04 | 수치 §1, Claude Fable 5 세션에서 실측 |
 | 1 | 마스터플랜 문서 | ✅ 2026-07-04 | 이 문서 |
-| 2 | text-quality-rules.ts 재작성 | ⬜ | |
-| 3 | validate-generated 연결 + 테스트 | ⬜ | |
-| 4 | audit 도구 + 기준선 저장 | ⬜ | |
-| 5 | 번들 하네스 4종 (§6) | ⬜ | |
-| 6 | 파일럿: overall 번들 일부 생성→정독→게이트 통과율 기록 | ⬜ | |
+| 2 | text-quality-rules.ts 재작성 | ✅ 2026-07-04 | 규칙 7+5종, 테스트 20/20 |
+| 3 | validate-generated 연결 + 테스트 | ✅ 2026-07-04 | `npm run test:generated-quality` |
+| 4 | audit 도구 + 기준선 저장 | ✅ 2026-07-04 | 번들 1800/3780 위반, `npm run audit:generated` |
+| 5 | 번들 하네스 4종 (§6) | ✅ 2026-07-04 | prepare/prompt/run.wf/ingest |
+| 6 | 파일럿: overall 번들 일부 생성→정독→게이트 통과율 기록 | ✅ 2026-07-04 | 아래 파일럿 결과 참조 |
 | 7 | 웨이브 w1: overall 전체 (180 번들) | ⬜ | |
 | 8 | 웨이브 w2+: wealth→health→career→나머지 | ⬜ | |
 | 9 | 전량 완료 후: audit before/after, pack 재실행, F3 승격 | ⬜ | |
+
+### 파일럿 결과 (2026-07-04, overall 번들 2개 = 30편)
+
+- **게이트 first-pass 30/30 (100%)** — 개별 규칙 + 번들 다양성 전부 통과, sourceNote `regen-2026-07-w1`.
+- 정독 판정: 유료 기준 도달. summary 문형 전부 상이, adverse 정직성 정확("메워 주지는 않아요"
+  + 생활 처방), 기간 렌즈 분리(오늘=하루 시야/주=요일 리듬/달=프로젝트/해=계절), expert는
+  #{태그} 근거 역할 수행.
+- 비용 실측: 번들 2개 병렬 = **에이전트 토큰 ~379k, 벽시계 ~34분** (OPUS, 에이전트당 67~118 tool
+  calls — 배치 파일 read 오버헤드 큼). 전량 외삽: ~2,470 번들 ≈ 토큰 ~470M, 벽시계 16-병렬로
+  ~40~80시간 → **멀티 세션 필수**, 카테고리 웨이브로 쪼개 진행.
+- 정독에서 찾은 개선 2건 → 프롬프트 다양성 계약 7·8항으로 반영(2026-07-04):
+  ① adverse 번들에서 body 마지막 문단이 전부 "이름은 ~아니니 생활에서" 구조로 수렴 → 이름
+  이야기의 위치·비중을 편마다 달리하도록 지시.
+  ② 일부 expert가 저자 판단 과정("~라고 짚었어요/새겼어요") 서술 → 사주 배치 자체 서술로 제한.
 
 ### 운영 규칙 (모든 세션 공통 — 위반 금지)
 
