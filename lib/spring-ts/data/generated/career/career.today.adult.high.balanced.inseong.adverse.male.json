@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "career.today.adult.high.balanced.inseong.adverse.male",
+  "category": "career",
+  "period": "today",
+  "audience": "adult",
+  "band": "high",
+  "caseAxes": {
+    "gangyak": "balanced",
+    "gyeokgukFamily": "inseong",
+    "nameEffect": "adverse",
+    "gender": "male"
+  },
+  "summary": "진로 감각은 서두르기보다 작은 기준부터 세울 때 좋아요.",
+  "body": [
+    "당신은 {{dayMasterName}} 기운을 타고난 결이 고른 쪽이라, 진로 감각은 한 번에 크게 밀기보다 차분히 다질 때 오래 남아요. {{periodLabel}}에는 기회가 비교적 잘 살아나는 구간이에요. 맡은 일의 마무리, 협업, 이력 정리, 제안 검토처럼 손에 잡히는 장면부터 살피면 선택이 가벼워져요.",
+    "배우고 받아들이며 보호막을 만들 때 힘을 얻는 편이에요. 그래서 진로 감각은 바로 결론 내리기보다 맡은 역할과 다음 준비를 작게 정리하는 일부터 잡는 흐름이 맞아요. 기준이 작아도 눈앞에 있으면 급한 마음을 붙잡기 쉬워요.",
+    "이름은 이미 넉넉한 쪽에 무게가 실린 편이에요. 부족한 {{yongshinName}} 기운은 이름보다 생활 속 선택으로 살피며, 진로 감각의 속도를 낮추는 편이 좋아요. 작은 기준을 반복하는 쪽이 더 안정돼요.",
+    "오늘은 맡은 역할과 다음 준비를 작게 정리하는 일에 힘을 두면 좋아요. 큰 결론보다 반복 가능한 기준이 먼저예요. 그 기준이 잡히면 다음 선택 앞에서 덜 흔들리고 방향을 잡아요."
+  ],
+  "expert": [
+    "{{dayMasterName}} 일간은 중화 쪽이라 한쪽 기운에 기대기보다 균형을 유지하며 해당 영역을 다루는 편이 자연스러워요. 인성 계열(정인·편인격)는 배우고 받아들이며 보호와 문서의 힘을 쓰는 구조예요. 이 판단을 #{yongshin}·#{jeonggwan}·#{inseong}·#{gishin} 축과 함께 보아 평문에서는 진로 감각의 속도와 기준을 조절하는 글로 풀었어요.",
+    "이름의 #{gishin} 자원오행은 combinedDistribution에서 이미 많은 쪽을 더 키우는 신호예요. 그래서 평문에서는 이름을 해결책으로 보지 않고 생활에서 필요한 {{yongshinName}} 쪽을 보완하라고 썼어요. 그래서 이름효과가 좋을 때도 과장하지 않고, 중립이나 어긋남에서는 생활 기준을 앞세웠어요."
+  ],
+  "livingTips": [
+    "오늘 끝낼 일 하나만 고르기",
+    "도움이 필요한 부분 표시하기",
+    "결과보다 순서부터 적어 보기"
+  ],
+  "cautions": [
+    "새 책임은 감당할 시간을 보고 정해요",
+    "부족한 부분은 행동 기준으로 보완해요."
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}

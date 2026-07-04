@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "career.thisYear.adult.high.weak.siksang.adverse.male",
+  "category": "career",
+  "period": "thisYear",
+  "audience": "adult",
+  "band": "high",
+  "caseAxes": {
+    "gangyak": "weak",
+    "gyeokgukFamily": "siksang",
+    "nameEffect": "adverse",
+    "gender": "male"
+  },
+  "summary": "타고난 힘이 여린 편이라, 진로 감각은 차분히 다질 때 좋아요.",
+  "body": [
+    "당신은 {{dayMasterName}} 기운의 결이 여린 쪽이라, 진로 감각은 속도를 먼저 고르는 게 좋아요. {{periodLabel}}에는 기회가 비교적 잘 살아나는 구간이에요. 맡은 일의 마무리, 협업, 이력 정리, 제안 검토 중 하나를 작게 잡으면 오늘의 선택이 덜 복잡해져요.",
+    "만들고 표현해 밖으로 내보낼 때 길이 열리는 편이에요. 그래서 진로 감각도 감으로만 처리하기보다 맡은 역할과 다음 준비를 작게 정리하는 일이 잘 맞아요. 작은 기준을 눈앞에 두면 마음이 급해져도 다시 돌아올 곳이 생겨요.",
+    "이름은 이미 넉넉한 쪽에 무게가 실린 편이에요. 부족한 {{yongshinName}} 기운은 이름보다 생활 속 선택으로 살피며, 진로 감각의 속도를 낮추는 편이 좋아요. 작은 기준을 반복하는 쪽이 더 안정돼요.",
+    "오늘 할 일을 하나만 정해 보세요. 기준이 작으면 이어 가기 쉬워요. 작은 실행이 쌓이면 다음 선택도 편해져요. 오늘 하나만 분명해져도 다음 선택 앞에서 덜 흔들리고 방향을 잡아요."
+  ],
+  "expert": [
+    "#{yongshin}·#{jeonggwan}·#{siksang}·#{gishin} 축을 함께 보면 {{dayMasterName}} 일간의 신약 성향과 식상 계열(식신·상관격)의 쓰임을 같이 읽게 돼요. 일간을 먼저 세운 뒤 해당 영역을 다루는 순서가 자연스러워요. 만들고 표현해 밖으로 내보내며 결과를 여는 구조예요. 그래서 평문에서는 진로 감각의 속도와 기준을 과장 없이 풀었어요.",
+    "이름의 #{gishin} 자원오행은 combinedDistribution에서 이미 많은 쪽을 더 키우는 신호예요. 그래서 평문에서는 이름을 해결책으로 보지 않고 생활에서 필요한 {{yongshinName}} 쪽을 보완하라고 썼어요. 그래서 이름효과가 좋을 때도 과장하지 않고, 중립이나 어긋남에서는 생활 기준을 앞세웠어요."
+  ],
+  "livingTips": [
+    "오늘 끝낼 일 하나만 고르기",
+    "도움이 필요한 부분 표시하기",
+    "믿을 만한 사람에게 물어보기"
+  ],
+  "cautions": [
+    "급하게 역할을 넓히면 부담이 커질 수 있어요",
+    "부족한 부분은 행동 기준으로 보완해요."
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}
