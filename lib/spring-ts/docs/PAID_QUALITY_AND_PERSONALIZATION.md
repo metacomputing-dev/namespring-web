@@ -109,3 +109,56 @@
 - 요약↔본문↔전문가 **pairing 유지**.
 - **런타임 LLM 금지** — 오프라인 AI-보조 저작 + 사람 리뷰 + `aiGenerated:true` 마킹.
 - WYSIWYG — 런타임 텍스트 재작성 없이 소스에서 수정.
+
+## 8. 이름 기반 개인화 (음양오행·사격·수리) — 큰 미사용 연료
+
+사용자 지적대로 **이름 자체가 음양·오행·사격·수리 분석을 담고 있고, 그 대부분이 이미 계산돼 있으나
+tiered 콘텐츠에는 거의 안 쓰인다.** (매핑: 2026-07-04, 작명 엔진 5개 facet 전수 탐색.)
+
+### 8.1 엔진이 이미 계산하는 이름 파생 신호
+
+| 신호 | 무엇 | 어디서 | tiered에 흐르나 |
+|---|---|---|---|
+| **음령오행(발음오행)** | 초성→5행(ㄱㄲㅋ=목…ㅁㅂㅍ=수), 음절별 `element` | `HangulAnalysis.blocks[].element` | ❌ |
+| **음양(한글)** | 모음→양/음, `polarityScore` | `HangulAnalysis.blocks[].polarity` | ❌ |
+| **자원오행** | 한자 부수 유래 오행 | `HanjaAnalysis.blocks[].resourceElement` | ❌ |
+| **획수오행·수리** | 획수 끝자리→오행, `strokes` | `HanjaAnalysis.blocks[].strokeElement/strokes` | ❌ |
+| **사격(원형이정)** | 원/형/이/정 4격의 수리(strokeSum)·오행·음양·길흉(luckyLevel, 81수리) | `NamingReportFourFrame.frames[]` | ✅ `namingEvidence` 블록(생애단계 매핑: 원=초년…정=총운) |
+| **이름↔사주 보강도** ⭐ | `nameElements`(이름 오행), `yongshinMatchCount`(이름이 용신 몇 자 담나), `gishinMatchCount`, `affinityScore`, `combinedDistribution`(사주+이름 오행 합산), `breakdown.balance`(부족오행 채움 정도) | `SajuCompatibility`(types.ts:1086) | ❌ **buildTieredMatrix에 전달조차 안 됨** |
+
+### 8.2 결정적 배관 사실
+
+`buildFortuneReport.ts:258`이 `buildTieredMatrix`에 **`springReport.namingReport`만** 넘긴다.
+이름↔사주 보강도(`sajuCompatibility.yongshinMatchCount`, `combinedDistribution`, `breakdown.balance`)는
+`SpringReport` 레벨에서 **이미 계산돼 있으나** tiered 콘텐츠 층으로 **전달되지 않는다.**
+즉 "이 이름이 이 사람의 부족한 용신 오행을 채워 주는가"라는, 유료 개인화의 금맥이
+`name-compatibility-card`에서만 쓰이고 tiered 리포트에는 놀고 있다.
+
+### 8.3 이름 기반 레버 (§5의 A/B 확장)
+
+- **N1. 이름↔사주 보강 문장 (A1 개요와 결합)** ⭐ 최고 ROI
+  `sajuCompatibility`를 buildTieredMatrix에 넘기고, 개요에 한 문장:
+  *"당신 이름은 용신 {{yongshinName}}을 {{nameYongshinMatchCount}}자 담아 부족한 {{yongshinName}}을 채워 주는 배치라,
+  {{yongshinName}}이 유리한 시기에는 이득이 배가돼요."* 100% 실측(yongshinMatchCount·balance) 기반, 외계어 위험 0.
+  → **"내 이름이 내 사주에 이렇게 작용하는구나"** = 결제 욕구를 가장 직접 건드리는 지점.
+- **N2. 사격(원형이정)으로 생애밴드 셀 강화**
+  사격은 이미 생애단계 매핑됨(원=초년, 형=청년, 이=장년, 정=총운) + 각 격의 길흉(luckyLevel)이 계산됨.
+  byAgeBand 생애밴드 셀에 "이 시기 이름 사격은 {{frameLuckLabel}}" 같은 이름-고유 근거를 더할 수 있다.
+  이미 `namingEvidence`에 있으므로 셀과 연결만 하면 됨.
+- **N3. 이름 오행 슬롯**: `{{nameDominantElement}}`, `{{nameYongshinMatchCount}}`, `{{nameReinforcesYongshin}}`(bool)
+  → 저자가 조건절로 녹임. 결정적·안전.
+- **N4. 이름을 variant 시드에 추가** (§5 B2 구체화)
+  `buildSelectionSeed`에 이름 추가 → 셀당 variant가 2개 이상일 때 이름 다르면 다른 변형 선택.
+  (단독으로는 효과 작음. N1~N3와 함께여야 의미.)
+
+### 8.4 이름 개인화 가드레일 (추가)
+
+- 이름↔사주 주장은 **실측 `sajuCompatibility` 값에 근거**해야 함(임의 단정 금지). 예: yongshinMatchCount=0이면
+  "채워 준다"고 쓰면 안 됨 → 슬롯/조건 분기로 실제 값에 맞춰 서술.
+- **작명 카드와 중복·과장 금지.** tiered는 "시기 운"이 주제이므로, 이름 언급은 시기 해석을 **거드는 한 문장**으로 절제.
+- 학파 옵션(중국파는 발음오행 부차)과 무관하게, 콘텐츠는 **오행 사실**만 쓰고 점수 가중치는 안 씀.
+
+### 8.5 권장 (§6에 이어)
+
+이름 축을 넣는다면 **N1(이름↔사주 보강 문장)**이 A1·A2 다음으로 ROI가 크다 — 배관 한 번(+sajuCompatibility 전달)으로
+"내 이름 얘기"가 열린다. N2는 생애밴드 리포트에 이름 근거를 싸게 더한다. 순서: A1 → A2 → **N1** → B1 → N2 → B2.
