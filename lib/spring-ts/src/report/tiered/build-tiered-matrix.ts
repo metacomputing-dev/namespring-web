@@ -312,15 +312,22 @@ function placeholderCell(): TieredFortune {
 }
 
 function buildSelectedArticleTrace(article: Article, tags: readonly TagId[]): TieredSelectedFragments {
-  const evidence = {
+  const base = {
     fragmentId: article.articleId,
     gating: {
       audience: [article.audience],
       band: [article.band],
     } as Readonly<Record<string, readonly string[]>>,
-    tags,
   };
-  return { brief: evidence, standard: evidence, expert: evidence };
+  // brief/standard render no tags (tags are expert-only, enforced by the
+  // article gate), so their traces carry empty tag lists; only the expert
+  // trace mirrors the article's glossary tags — which is the sole tag field
+  // the frontend consumes.
+  return {
+    brief: { ...base, tags: [] },
+    standard: { ...base, tags: [] },
+    expert: { ...base, tags },
+  };
 }
 
 function buildCell(

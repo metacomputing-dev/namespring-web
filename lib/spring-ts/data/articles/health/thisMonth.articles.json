@@ -1,6 +1,11 @@
 {
   "schemaVersion": "spring-ts.article-bundle.v1",
   "bundleId": "health.thisMonth",
+  "sourceTier": {
+    "tier": "T1_MODEL_ASSISTED",
+    "sourceType": "model_generated",
+    "authorityTruthEligible": false
+  },
   "articles": [
     {
       "schemaVersion": "spring-ts.article.v1",
@@ -67,7 +72,7 @@
       ],
       "expert": [
         "이번 달은 #{gishin}의 부담이 앞서고 회복을 맡는 #{jeongin}이 힘을 아끼는 구도로 읽었어요. 이런 달의 관리 원칙은 보태기가 아니라 덜어내기라서, 일정의 빈칸과 익숙한 운동만 남기는 쪽으로 조언을 좁혔어요.",
-        "#{cheonui}는 몸을 살피고 돌보는 일과 인연이 깊은 별이에요. 이번 달 이 힘이 점검과 예약처럼 확인하는 행동에 실리는 배치라, 미뤄 둔 검진 날짜를 잡는 일이 사주 관점에서도 가장 시의적절한 선택이 돼요."
+        "#{cheonui}는 몸을 살피고 돌보는 일과 인연이 깊은 별이에요. 이번 달 이 힘이 점검과 예약처럼 확인하는 행동에 실리는 배치라, 미뤄 둔 점검 날짜를 잡는 일이 사주 관점에서도 가장 시의적절한 선택이 돼요."
       ],
       "livingTips": ["미룬 점검 예약 날짜 잡기", "운동은 익숙한 것만 유지", "계획표에 빈칸 남겨 두기"],
       "cautions": ["새 고강도 운동 등록은 다음 달로 미뤄요."],

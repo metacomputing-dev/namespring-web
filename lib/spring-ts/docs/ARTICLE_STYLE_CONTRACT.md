@@ -27,6 +27,11 @@
 {
   "schemaVersion": "spring-ts.article-bundle.v1",
   "bundleId": "wealth.today",
+  "sourceTier": {                                // NO_AI_POLICY: 번들 단위 provenance
+    "tier": "T1_MODEL_ASSISTED",                 // T3 미만(비권위)
+    "sourceType": "model_generated",             // AI 저작 provenance 마킹
+    "authorityTruthEligible": false              // 권위 진실 자격 없음
+  },
   "articles": [
     {
       "schemaVersion": "spring-ts.article.v1",
@@ -51,6 +56,9 @@
 - JSON은 UTF-8, 2칸 들여쓰기.
 - `articleId`는 전역 유일. 변형자는 a부터.
 - stages 파일: `period:"life"`, `audience:"stage-*"`, articleId는 `<cat>.stage-early.any.a`처럼 stage 키를 기간 자리에 쓴다.
+- **번들 `sourceTier` 필수(NO_AI_POLICY 게이트, `ci:no-ai-policy`).** `aiGenerated:true` 레코드는
+  비권위 provenance 메타데이터를 동반해야 한다. 번들 루트에 위 sourceTier 블록을 한 번 두면 그 안 모든
+  아티클이 상속받아 통과한다(`authorityTruthEligible:false`, `tier` T3 미만, `sourceType`은 AI provenance 마킹).
 
 ## 3. 분량 규칙 (게이트 강제)
 
@@ -88,6 +96,9 @@
 - 금지 문구: "타고난 중심 기운", "흐름의 색", "자기 격에 맞는", "한 흐름으로", "흐름이 모이는",
   "자리가 자주 등장", "결이 갈라", "점수 해석은", "해석을 덮기 전에", "다 읽은 뒤에는",
   "읽고 난 뒤에는", "하나만 남겨 보세요", "정리하면,", "덧붙이면,", "끝으로,", "쉬운 기준으로 보면".
+- **의료 인접 어휘 금지(0회, 전 필드·전 대상):** `검진`. 사주/작명 서비스는 임상 진단·검진 권유로 읽히면
+  안 된다. "건강을 함께 살피는 약속", "몸 돌보기", "정기 점검"처럼 생활 행동으로 표현한다.
+  (서비스 노출 가드 `service-visible-output` + 게이트 `vocab-medical-adjacent`가 이중 강제.)
 
 ## 6. 카테고리별 라벨·생활 장면 어휘·미성년 리프레이밍
 
@@ -95,7 +106,7 @@
 |---|---|---|---|---|
 | overall | 전체 흐름 | 하루/한 주의 리듬, 우선순위, 컨디션과 약속의 균형 | 학교 일과, 시험과 쉬는 시간, 친구 | 아이의 하루 리듬, 잠·식사·놀이 |
 | wealth | 돈과 물건 관리 | 고정지출, 구독, 충동구매, 정산, 큰 결제, 계약금 | 용돈 계획, 갖고 싶은 것과 필요한 것 | 용돈·저금통, 물건 아껴 쓰는 습관 |
-| health | 몸과 마음 | 잠, 식사 시간, 산책, 카페인, 어깨·허리, 검진 예약 | 수면 리듬, 급식·야식, 체육 후 회복 | 낮잠·이유식/식사, 손 씻기, 열·컨디션 신호 |
+| health | 몸과 마음 | 잠, 식사 시간, 산책, 카페인, 어깨·허리, 몸 돌보기 약속 | 수면 리듬, 급식·야식, 체육 후 회복 | 낮잠·이유식/식사, 손 씻기, 열·컨디션 신호 |
 | academic | 공부 흐름 | 자격증, 강의, 책 한 권, 정리 노트 | 수업 복습, 오답 정리, 시험 범위 | 그림책, 숫자·글자 놀이, 호기심 질문 |
 | romance | 관계와 마음 | 연락 온도, 만남 약속, 마음 표현, 관계의 속도 | 친구 사이의 마음, 서운함 말하기 | 애착, 부모와의 스킨십, 또래와 어울리기 |
 | family | 가족 관계 | 양가 안부, 집안일 분담, 가족 식사, 부모님 건강 | 부모님과 대화, 형제와 방·물건 | 보호자와의 루틴, 조부모 방문 |

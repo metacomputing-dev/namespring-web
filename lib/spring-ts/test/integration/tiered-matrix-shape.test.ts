@@ -91,8 +91,8 @@ check('meta.contentSource is authored',
   tm?.meta?.contentSource === 'authored', String(tm?.meta?.contentSource));
 check('meta.selectionSeed is non-empty string',
   typeof tm?.meta?.selectionSeed === 'string' && tm.meta.selectionSeed.length > 0);
-check('meta.fragmentCount includes Phase 2 authored corpus',
-  typeof tm?.meta?.fragmentCount === 'number' && tm.meta.fragmentCount >= 1800,
+check('meta.fragmentCount reflects full article corpus (>=330)',
+  typeof tm?.meta?.fragmentCount === 'number' && tm.meta.fragmentCount >= 330,
   String(tm?.meta?.fragmentCount));
 check('meta.aiGeneratedFragmentCount matches fragmentCount',
   tm?.meta?.aiGeneratedFragmentCount === tm?.meta?.fragmentCount,
@@ -173,9 +173,9 @@ if (tm) {
   check('life.byAgeBand.20-29.academic carries standard paragraphs for detail',
     Array.isArray(academic20s?.standard?.paragraphs) && academic20s.standard.paragraphs.length > 0,
     String(academic20s?.standard?.paragraphs?.length ?? 0));
-  check('life.byAgeBand.20-29.academic standard fragment is life scoped',
+  check('life.byAgeBand.20-29.academic standard trace is stage-scoped',
     typeof academic20s?.selectedFragments?.standard?.fragmentId === 'string' &&
-      academic20s.selectedFragments.standard.fragmentId.includes('.life.standard.20_29.'),
+      academic20s.selectedFragments.standard.fragmentId.startsWith('academic.stage-'),
     academic20s?.selectedFragments?.standard?.fragmentId);
 
   // Glossary integrity

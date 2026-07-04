@@ -1,6 +1,11 @@
 {
   "schemaVersion": "spring-ts.article-bundle.v1",
   "bundleId": "expression_children.thisYear",
+  "sourceTier": {
+    "tier": "T1_MODEL_ASSISTED",
+    "sourceType": "model_generated",
+    "authorityTruthEligible": false
+  },
   "articles": [
     {
       "schemaVersion": "spring-ts.article.v1",
