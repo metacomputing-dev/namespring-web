@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "family.life.stage-elder.any.weak.siksang.boost_strong.x",
+  "category": "family",
+  "period": "life",
+  "audience": "stage-elder",
+  "band": "any",
+  "caseAxes": {
+    "gangyak": "weak",
+    "gyeokgukFamily": "siksang",
+    "nameEffect": "boost_strong",
+    "gender": null
+  },
+  "summary": "이 시기는 여린 힘을 살려, 가족 관계를 차분히 다져요.",
+  "body": [
+    "이 시기는 {{dayMasterName}} 기운을 타고난 결이 여린 쪽이라, 가족 관계는 한 번에 크게 밀기보다 차분히 다질 때 오래 남아요. {{periodLabel}}에는 작은 기준을 세워 무리 없이 지나가기 좋은 구간이에요. 가족 안부, 집안 역할, 가까운 사람과의 거리처럼 손에 잡히는 장면부터 살피면 선택이 가벼워져요.",
+    "만들고 표현해 밖으로 내보낼 때 길이 열리는 편이에요. 그래서 가족 루틴도 감으로만 처리하기보다 가까운 사람과 역할을 작게 나누는 일이 잘 맞아요. 작은 기준을 눈앞에 두면 마음이 급해져도 다시 돌아올 곳이 생겨요.",
+    "다행히 이름이 지금 필요한 {{yongshinName}} 기운을 여러 글자에 걸쳐 크게 채워 줘요. 그래서 가족 루틴의 기본기를 세울 때 이름의 받침이 비교적 또렷하게 느껴져요.",
+    "가까운 사람과 역할을 작게 나누는 일을 오늘의 첫걸음으로 삼아 보세요. 너무 많은 일을 한꺼번에 바꾸지 않아도 괜찮아요. 한 가지 기준이 분명해지면 가족 사이의 부담이 줄고 마음이 편해져요."
+  ],
+  "expert": [
+    "{{dayMasterName}} 일간은 신약 쪽이라 일간을 먼저 세운 뒤 해당 영역을 다루는 순서가 자연스러워요. 식상 계열(식신·상관격)는 만들고 표현해 밖으로 내보내며 결과를 여는 구조예요. 이 판단을 #{yongshin}·#{jeongin}·#{siksang} 축과 함께 보아 평문에서는 가족 관계의 속도와 기준을 조절하는 글로 풀었어요.",
+    "이름의 #{yongshin} 자원오행이 combinedDistribution에서 필요한 {{yongshinName}} 기운을 여러 자로 크게 보강해요. 그래서 평문에서는 생활 기준을 세울 때 이름의 받침이 또렷하다고 풀었어요. 강약과 이름 신호가 같은 방향일 때는 받침을 쓰고, 어긋날 때는 과장을 피하는 방식으로 요약과 본문을 맞췄어요."
+  ],
+  "livingTips": [
+    "안부 연락을 짧게 먼저 하기",
+    "집안일 하나를 나눠 맡기",
+    "믿을 만한 사람에게 물어보기"
+  ],
+  "cautions": [
+    "혼자 다 감당하려 하면 마음이 쉽게 무거워져요",
+    "좋은 신호가 있어도 무리한 속도는 줄이는 편이 좋아요."
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}
