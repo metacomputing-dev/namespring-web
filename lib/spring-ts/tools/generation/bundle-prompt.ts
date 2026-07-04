@@ -71,6 +71,47 @@ const STAGE_LABEL: Record<string, string> = {
   'stage-elder': '80대 이상(돌봄·평온·정리)',
 };
 
+// ── per-bundle material palette ─────────────────────────────────────────────
+// Adjacent bundles (same category, neighboring 격국/nameEffect) get
+// near-identical case specs, and identical prompts make OPUS converge on the
+// same sentences across bundles (measured in wave 1). A deterministic palette
+// per bundleKey gives each bundle its own texture without touching facts.
+const MATERIAL_PALETTES: readonly string[] = [
+  '몸의 감각(호흡·자세·피로·컨디션)',
+  '공간과 물건(책상·집·정리·동선)',
+  '시간의 결(아침저녁·마감·달력·리듬)',
+  '사람 사이(대화·연락·거리감·협업)',
+  '말과 기록(메모·일기·말버릇·약속의 언어)',
+  '돈과 살림의 장면(장보기·구독·저금통·영수증)',
+  '길과 이동(출퇴근·산책·여행·환승)',
+  '취향과 몰입(취미·음악·음식·소소한 즐거움)',
+];
+const STYLE_NOTES: readonly string[] = [
+  '비유는 아끼고 담백한 문장으로.',
+  '계절과 날씨의 결을 한 스푼만 섞어서.',
+  '한두 편쯤은 부드러운 질문으로 열어도 좋게.',
+  '동사 중심의 움직이는 문장으로.',
+];
+
+function fnv1a(text: string): number {
+  let hash = 0x811c9dc5;
+  for (let i = 0; i < text.length; i += 1) {
+    hash ^= text.charCodeAt(i);
+    hash = Math.imul(hash, 0x01000193) >>> 0;
+  }
+  return hash;
+}
+
+function paletteFor(bundleKey: string): { materials: string[]; style: string } {
+  const h = fnv1a(bundleKey);
+  const first = h % MATERIAL_PALETTES.length;
+  const second = (first + 1 + ((h >>> 8) % (MATERIAL_PALETTES.length - 1))) % MATERIAL_PALETTES.length;
+  return {
+    materials: [MATERIAL_PALETTES[first], MATERIAL_PALETTES[second]],
+    style: STYLE_NOTES[(h >>> 16) % STYLE_NOTES.length],
+  };
+}
+
 export function buildBundlePrompt(cases: readonly GenerationCase[]): string {
   if (cases.length === 0) throw new Error('empty bundle');
   const c0 = cases[0];
@@ -90,6 +131,7 @@ export function buildBundlePrompt(cases: readonly GenerationCase[]): string {
     return `${i + 1}. \`${c.caseId}\` — ${lens}`;
   }).join('\n');
 
+  const palette = paletteFor(bundleKeyOfCase(c0));
   const genderLine = s.genderTerm
     ? `- 성별: **${s.genderTerm}** — 이 분야(${c0.category})는 성별에 따라 해석이 갈립니다. 평문에선 자연스럽게.`
     : '- 성별 분기 없음. 중립적으로.';
@@ -126,6 +168,9 @@ ${cellLines}
    끝나는 식의 고정 배치 금지. 어떤 편은 깊게, 어떤 편은 한 문장으로 스치게. (방향 자체는 불변.)
 8. 전문가 문단은 **사주의 배치 자체**를 서술하세요("~한 배치예요/구조예요"). 저자의 판단 과정
    ("~라고 보았어요/짚었어요/새겼어요/풀었어요")을 서술하는 문장은 금지.
+9. **이 번들의 지문(다른 번들과의 차별화)** — 구체 장면·조언 소재는 다음 팔레트를 우선 활용:
+   **${palette.materials.join(' + ')}**. 문체 결: ${palette.style} 흔한 정답(예: "기록해 보세요",
+   "산책해 보세요")을 이 팔레트의 구체 장면으로 바꿔 쓰세요. 사실·방향은 팔레트와 무관하게 정확히.
 
 ## 페어링·안전 규칙 (기존 계약 — 위반 시 리젝)
 1. **평문 tier(summary·body·tips·cautions)에 사주 용어 금지**: ${JARGON_BANNED} 등.

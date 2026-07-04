@@ -22,7 +22,13 @@ import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { GenerationCase } from './case-schema.js';
 import { validateGenerated, type GeneratedArticle } from './validate-generated.js';
-import { bundleDiversityViolations, type BundleArticleLike } from './text-quality-rules.js';
+import {
+  bundleDiversityViolations,
+  crossBundleDuplicateViolations,
+  paragraphKey,
+  type BundleArticleLike,
+  type CrossBundleIndex,
+} from './text-quality-rules.js';
 import { bundleKeyOfCase } from './bundle-prompt.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -59,6 +65,26 @@ function savedRegenSiblings(manifest: Map<string, GenerationCase>, bundleKey: st
   return out;
 }
 
+/** Paragraph index over every regen- article in a category (cross-bundle). */
+function buildCrossBundleIndex(category: string): { paragraphs: Map<string, string> } {
+  const paragraphs = new Map<string, string>();
+  const dir = path.join(OUT_DIR, category);
+  if (!fs.existsSync(dir)) return { paragraphs };
+  for (const f of fs.readdirSync(dir).filter((n) => n.endsWith('.json'))) {
+    try {
+      const a = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf-8')) as {
+        articleId?: string; sourceNote?: string; body?: string[]; expert?: string[];
+      };
+      if (typeof a.sourceNote !== 'string' || !a.sourceNote.startsWith('regen-')) continue;
+      for (const p of [...(a.body ?? []), ...(a.expert ?? [])]) {
+        const key = paragraphKey(p);
+        if (key.length >= 20 && !paragraphs.has(key)) paragraphs.set(key, a.articleId ?? f);
+      }
+    } catch { /* unreadable → skip */ }
+  }
+  return { paragraphs };
+}
+
 function toStored(c: GenerationCase, g: GeneratedArticle, sourceNote: string): Record<string, unknown> {
   return {
     schemaVersion: 'spring-ts.article.v1',
@@ -85,6 +111,7 @@ function main(): void {
   const manifest = loadManifest();
   let ok = 0; let rejectedCount = 0;
   const rerunKeys = new Set<string>();
+  const crossByCategory = new Map<string, { paragraphs: Map<string, string> }>();
 
   for (const bundle of parsed.results ?? []) {
     const rejected: Array<{ caseId: string; reasons: string[] }> = [];
@@ -125,13 +152,36 @@ function main(): void {
       }
     }
 
-    // write survivors
+    // layer 3: cross-bundle paragraph reuse (adjacent bundles of the same
+    // category must not share paragraphs — name-candidate comparison UX).
+    const category = bundle.bundleKey.split('.')[0];
+    const cross = crossByCategory.get(category) ?? buildCrossBundleIndex(category);
+    crossByCategory.set(category, cross);
+    for (const { g } of passing) {
+      if (rejectIds.has(g.caseId)) continue;
+      for (const v of crossBundleDuplicateViolations({ ...g, caseId: g.caseId }, cross as CrossBundleIndex)) {
+        const owner = v.caseIds?.[0];
+        const ownerCase = owner ? manifest.get(owner) : undefined;
+        if (ownerCase && bundleKeyOfCase(ownerCase) === bundle.bundleKey) continue; // sibling → layer 2's call
+        rejectIds.add(g.caseId);
+        const reason = `${v.rule}: ${v.detail}`;
+        const entry = rejected.find((r) => r.caseId === g.caseId);
+        if (entry) entry.reasons.push(reason);
+        else rejected.push({ caseId: g.caseId, reasons: [reason] });
+      }
+    }
+
+    // write survivors (and feed the cross-bundle index for later bundles)
     for (const { c, g } of passing) {
       if (rejectIds.has(g.caseId)) continue;
       const dir = path.join(OUT_DIR, c.category);
       fs.mkdirSync(dir, { recursive: true });
       fs.writeFileSync(path.join(dir, `${c.caseId}.json`), JSON.stringify(toStored(c, g, sourceNote), null, 2), 'utf-8');
       ok += 1;
+      for (const p of [...g.body, ...g.expert]) {
+        const key = paragraphKey(p);
+        if (key.length >= 20 && !cross.paragraphs.has(key)) cross.paragraphs.set(key, c.caseId);
+      }
     }
 
     // coverage: caseIds the agent never returned

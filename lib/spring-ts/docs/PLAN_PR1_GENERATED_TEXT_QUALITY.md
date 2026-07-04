@@ -115,6 +115,11 @@ docs/PLAN_PR1_GENERATED_TEXT_QUALITY.md     # 이 문서
 | `bundle-duplicate-paragraph` | 번들 내 body/expert 문단 exact 중복 | 0 허용 |
 | `bundle-ngram-stamp` | 정규화 문자 12-gram이 번들 내 4개 이상 셀에 등장 (스탬핑 신호) | <4셀 |
 | `bundle-duplicate-tip` | 번들 내 동일 livingTip | ≤2셀 |
+| `cross-bundle-duplicate-paragraph` | **번들 간** body/expert 문단 exact 재사용 (같은 카테고리의 regen 전체와 대조 — 이름 후보 비교 시 인접 nameEffect 번들이 나란히 노출되므로) | 0 허용 |
+
+> 웨이브1 실측 교훈: 인접 번들(격국·nameEffect만 다름)에 거의 동일한 스펙이 가니 서로 다른
+> 에이전트가 **같은 문장으로 수렴**한다. 방어 2중: ① 게이트(위 cross-bundle 규칙, ingest layer 3)
+> ② 프롬프트에 번들별 결정적 **소재 팔레트**(fnv1a(bundleKey)로 8종 중 2개 + 문체 결) 주입.
 
 skeleton 정규화: 공백 정규화 → `{{슬롯}}`→`<slot>` → 강약 형용사(여린/고른/단단한)→`<s>` →
 카테고리 도메인어(가족 관계/공부 흐름/…)→`<d>`. (구현이 진실이다 — 함수 `summarySkeleton` 참조.)
