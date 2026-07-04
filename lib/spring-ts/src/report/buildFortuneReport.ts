@@ -20,7 +20,7 @@ import { buildCautionsCard } from './cards/cautions-card.js';
 import { buildPeriodFortuneCard } from './cards/period-fortune-card.js';
 import { buildLifeStageFortuneCard } from './cards/life-stage-fortune-card.js';
 import { buildCategoryFortuneCards } from './cards/category-fortune-card.js';
-import { buildTieredMatrix } from './tiered/build-tiered-matrix.js';
+import { buildTieredMatrix, preloadGeneratedForReport } from './tiered/build-tiered-matrix.js';
 
 // Card types (re-imported for fallback construction)
 import type {
@@ -166,13 +166,13 @@ function buildReportUncertainties(saju: SajuSummary): readonly ReportUncertainty
 //  Public builder
 // ---------------------------------------------------------------------------
 
-export function buildFortuneReport(
+export async function buildFortuneReport(
   saju: SajuSummary,
   targetDate: Date,
   springReport: SpringReport | null,
   options?: FortuneReportOptions,
   birth?: BirthInfo,
-): FortuneReport {
+): Promise<FortuneReport> {
   const currentAge = computeCurrentAge(saju, targetDate);
 
   // ── 1. Name compatibility (only when spring report is available) ──
@@ -252,6 +252,12 @@ export function buildFortuneReport(
   // When enabled, build a 5×11 cell matrix from data/narrative/** seeds.
   // safeCall returns undefined fallback so a builder failure never crashes
   // the rest of the report.
+  // Browser: fetch the person's packed generated bundles before the (sync)
+  // matrix build so class-first selection finds them. Node: no-op.
+  if (options?.surfaceTieredMatrix === true && birth) {
+    await preloadGeneratedForReport(saju, birth, targetDate, springReport?.sajuCompatibility ?? null)
+      .catch(() => { /* leave on base fallback */ });
+  }
   const tieredMatrix: FortuneTieredMatrix | undefined =
     options?.surfaceTieredMatrix === true && birth
       ? safeCall(

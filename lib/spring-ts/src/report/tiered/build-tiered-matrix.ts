@@ -53,8 +53,8 @@ import {
 import { gradeCell, gradeToStars } from './cell-grader.js';
 import { buildPersonalReading } from './personal-reading.js';
 import { buildNameSajuReading } from './name-saju-reading.js';
-import { computeClassId } from './class-axes.js';
-import { getGeneratedArticle } from './generated-registry.js';
+import { computeClassId, packKeyFor, ALL_CATEGORIES } from './class-axes.js';
+import { getGeneratedArticle, preloadGeneratedForPerson } from './generated-registry.js';
 import { buildPeriodMeta, periodFortuneElement } from './period-meta-builder.js';
 import { loadGlossary } from './glossary-loader.js';
 import { buildTagGlossary } from './tag-inliner.js';
@@ -591,6 +591,26 @@ function buildNamingEvidence(namingReport: NamingReport | null | undefined): Tie
       };
     }),
   };
+}
+
+/**
+ * Browser preload — fetch the person's packed generated bundles (one per
+ * category) BEFORE buildTieredMatrix runs, so its synchronous selection finds
+ * the class articles in cache. Node is a no-op (registry reads fs on demand).
+ * Never throws — a failed fetch leaves that category on base fallback.
+ */
+export async function preloadGeneratedForReport(
+  saju: SajuSummary,
+  birth: BirthInfo,
+  targetDate: Date,
+  sajuCompat: SajuCompatibility | null | undefined,
+): Promise<void> {
+  const feature = buildFeatureVector(saju, birth, targetDate);
+  const entries = ALL_CATEGORIES.map((category) => ({
+    category,
+    packKey: packKeyFor(category, feature, sajuCompat),
+  }));
+  await preloadGeneratedForPerson(entries);
 }
 
 export function buildTieredMatrix(
