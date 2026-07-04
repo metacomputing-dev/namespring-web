@@ -29,6 +29,10 @@ async function main(): Promise<void> {
     process.exit(2);
   }
   const model = resolveModel(modelArg);
+  if (thinkingOff && model.thinkingLocked) {
+    console.error(`${model.id}: thinking is always on — --thinking=off would 400. Remove the flag.`);
+    process.exit(2);
+  }
   const bundles = readBundleBatchFiles(files);
   if (bundles.length === 0) { console.error('no bundles in input files'); process.exit(2); }
 
@@ -36,7 +40,7 @@ async function main(): Promise<void> {
   let inTokens = 0; let outTokens = 0;
   for (const b of bundles) {
     inTokens += estimateTokens(b.prompt);
-    outTokens += Math.round(maxTokensFor(b.caseIds.length) * 0.45); // articles+thinking, well under cap
+    outTokens += Math.round(maxTokensFor(b.caseIds.length, model.generousBudget) * 0.45); // articles+thinking, well under cap
   }
   const estCost = (inTokens / 1e6) * model.batchInputPerM + (outTokens / 1e6) * model.batchOutputPerM;
   console.log(`bundles: ${bundles.length} (articles: ${bundles.reduce((n, b) => n + b.caseIds.length, 0)})`);
@@ -52,7 +56,7 @@ async function main(): Promise<void> {
       custom_id: toCustomId(b.bundleKey),
       params: {
         model: model.id,
-        max_tokens: maxTokensFor(b.caseIds.length),
+        max_tokens: maxTokensFor(b.caseIds.length, model.generousBudget),
         ...(thinkingOff ? { thinking: { type: 'disabled' as const } } : model.thinking ? { thinking: model.thinking } : {}),
         output_config: { format: BATCH_OUTPUT_FORMAT },
         messages: [{ role: 'user' as const, content: b.prompt }],
