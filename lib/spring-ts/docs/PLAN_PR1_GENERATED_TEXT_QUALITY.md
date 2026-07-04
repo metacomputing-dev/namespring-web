@@ -143,14 +143,16 @@ npx tsx tools/generation/prepare-bundles.ts <category> --offset 0 --count 30
 #    → data/generation/batches/bundles-<category>-<offset>-<count>.batch.json
 #      { schema, bundles:[{bundleKey, caseIds:[...], prompt}] }
 
-# 2) 생성 (Workflow — 메인 세션에서 실행; 번들당 OPUS 에이전트 1개)
-#    Workflow({ scriptPath: "<worktree>/lib/spring-ts/tools/generation/run-bundles.wf.js",
-#               args: { batchFile: "<절대경로>.batch.json",   ← 에이전트 cwd가 다르므로 절대경로
-#                       bundleKeys: [...],                    ← prepare-bundles가 출력한 목록
-#                       schema: <배치 파일의 .schema> } })
-#    반환 { results:[{bundleKey, articles:[{caseId, ...article}]}] }
-#    ⚠ Workflow는 fs 접근 불가 → 반환값은 <session-temp>/tasks/<taskId>.output 의 .result.
-#      node tools/generation/extract-workflow-result.mjs <output파일> <results.json> 으로 추출.
+# 2) 생성 — ★정식 경로: Message Batches API (2026-07-05 전환. 세션 사용량과 분리,
+#    50% 할인, 전량을 배치 몇 번으로 처리. API 키는 레포 루트 .env — 절대 커밋 금지)
+npx tsx tools/generation/submit-batch.ts <batchFile...> --model=sonnet|opus --tag=<wave-tag>
+#    → apibatch-<id>.json 매니페스트 + 비용 추정 출력. custom_id=bundleKey(점→하이픈)
+npx tsx tools/generation/fetch-batch.ts <batchId> --wait
+#    → results-<batchId>.json (ingest 입력 형태) + 실패 번들 재실행 명령 출력
+#    보통 1시간 내 완료(최대 24h). 실패(리젝/절단/거부)는 --keys 재준비 → 다음 배치.
+#
+#    (레거시 대안: run-bundles.wf.js Workflow 하네스 — 세션 토큰 소모가 커서 배치 전환.
+#     extract-workflow-result.mjs로 결과 추출. 소량 긴급 재생성에만.)
 
 # 3) 검증·저장 (개별 게이트 + 번들 다양성 게이트 통과분만)
 npx tsx tools/generation/ingest-bundles.ts <results.json> --source=regen-2026-07-w1
@@ -170,8 +172,12 @@ git add lib/spring-ts/data/generated/<category>/   # ⚠ 절대 git add -A 금�
   thisMonth=한 달 프로젝트 / thisYear=연간 방향 / life=기질·긴 호흡), ④ 등급별 톤(high=기회 활용,
   mid=유지·정돈, low=방어·회복 — 단 공포 조장 금지), ⑤ 구체 장면·소재는 셀마다 다르게,
   ⑥ 기존 게이트 전 규칙(해요체·분량·평문 용어금지·태그 2~6·nameEffect 정직성).
-- **모델**: OPUS (기존 per-item 검증에서 first-pass 95%). 번들 15편 출력 ≈ 10~14k tokens — 가능 범위.
+- **모델**: Sonnet 5 vs Opus 4.8 파일럿 A/B로 결정(2026-07-05, 동일 12번들 양쪽 제출 —
+  게이트 통과율 + 정독 비교. Sonnet 인트로 배치 $1/$5 vs Opus $2.5/$12.5 → 전량 ~$190 vs ~$500).
+- **PR 전략(2026-07-05 사용자 결정)**: diff 크기로 쪼개지 않는다. 품질을 끝까지 올려 한 PR로
+  전달, 평가는 실사용으로. 웨이브별 커밋은 유지(진행 추적·롤백용).
 - 생성 후 `pack-generated.ts` 재실행 필요(브라우저 번들은 파생 자산, prod 빌드 전 필수).
+- **전량 규모 확정**: 2,196 번들(비민감 8카테고리×180 + 민감 3×252) = 21,060편.
 
 ## 7. 테스트 — `test/integration/generated-text-quality.test.ts`
 
