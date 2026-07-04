@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "family.life.adult.high.weak.special.boost_strong.female",
+  "category": "family",
+  "period": "life",
+  "audience": "adult",
+  "band": "high",
+  "caseAxes": {
+    "gangyak": "weak",
+    "gyeokgukFamily": "special",
+    "nameEffect": "boost_strong",
+    "gender": "female"
+  },
+  "summary": "타고난 기운이 여린 편이라 채우며 다지면 가정도 순하게 풀리는 흐름이에요.",
+  "hook": "여린 결이 대세를 타요",
+  "body": [
+    "타고난 기운이 여린 편이라, {{dayMasterName}} 자리를 홀로 버티려 애쓰기보다 곁의 힘을 받아 채워 두는 쪽이 훨씬 잘 맞아요. {{periodLabel}} 동안에는 무리해서 앞서기보다 기반을 넓히고 다지는 결로 가면, {{currentSeasonName}}의 결처럼 서두르지 않아도 자리가 단단해져요.",
+    "그런데 이 사주는 한쪽으로 크게 쏠린 결이라, 억지로 균형을 맞추려 들면 오히려 힘이 빠져요. 흐르는 대세를 거스르지 말고 그 결을 그대로 타는 편이 이 사람에게는 가장 자연스럽고 강한 길이에요. 쏠린 쪽을 약점으로 보지 말고 나만의 큰 무기로 여기면 좋아요.",
+    "고맙게도 이름이 지금 가장 필요한 {{yongshinName}} 기운을 여러 글자로 넉넉히 채워 줘요. 부족하기 쉬운 자리를 이름이 크게 받쳐 주니, 곁의 사람과 배우실 것, 기댈 자리를 마다하지 않으면 그 채움이 실제 힘으로 바뀌어요. 혼자 다 짊어지려는 버릇만 내려놓으면 돼요.",
+    "가정 안에서는 남편이나 아이의 자리가 이 사람의 기운을 크게 좌우하는 편이라, 그 인연을 잘 고르고 오래 다지는 것이 곧 자신을 세우는 일이 돼요. {{periodLabel}}에는 큰 결정을 혼자 서두르기보다, 믿을 사람과 함께 결을 맞춰 가면 가정도 나도 순하게 자리를 잡아요."
+  ],
+  "expert": [
+    "일간 {{dayMasterName}}이 뿌리를 얻지 못한 신약 사주로, 한 기운이 사주를 가득 채워 그 결을 거스르지 않고 따라가는 #{jeonwanggyeok} 구조예요. 억부로 맞서기보다 대세를 좇는 전략이 옳고, 이때 {{yongshinName}} 계열의 #{yongshin}을 살리는 방향이 핵심이에요. 곤명이라 family 자리에서는 관성(남편·자식) 궁이 일간의 성패를 크게 좌우하니, 그 인연의 결을 다지는 것이 곧 부신(扶身)이 돼요.",
+    "자원오행이 사주에 합산된 combinedDistribution에서 이름이 이 {{yongshinName}} 기운을 여러 자로 크게 보강해, 여린 일간을 받쳐 주는 #{inseong}·#{bigeob}의 결이 또렷이 살아나요. 이렇게 보강된 #{heeshin}까지 함께 작동하면 {{periodLabel}} 동안 대세를 탄 흐름이 결과로 잘 다듬어져요."
+  ],
+  "livingTips": [
+    "큰 결정은 믿을 사람과 함께 정해요",
+    "혼자 짊어지는 버릇을 조금 내려놔요",
+    "배우고 기대는 자리를 마다하지 않아요"
+  ],
+  "cautions": [
+    "억지로 반대 방향을 밀어붙이면 힘만 빠져요",
+    "가정의 인연은 서두르지 말고 오래 다져요"
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}

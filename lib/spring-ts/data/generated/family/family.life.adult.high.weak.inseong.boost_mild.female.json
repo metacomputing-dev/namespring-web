@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "family.life.adult.high.weak.inseong.boost_mild.female",
+  "category": "family",
+  "period": "life",
+  "audience": "adult",
+  "band": "high",
+  "caseAxes": {
+    "gangyak": "weak",
+    "gyeokgukFamily": "inseong",
+    "nameEffect": "boost_mild",
+    "gender": "female"
+  },
+  "summary": "타고난 기운이 여린 편이라, 배우고 기대며 천천히 채워 갈 때 가정이 편안해지는 흐름이에요.",
+  "hook": "채우며 기대는 힘이에요",
+  "body": [
+    "타고난 기운이 여린 편이라, 혼자 앞장서 밀어붙이기보다 배우고 곁을 두며 천천히 채워 갈 때 마음이 놓이는 결이에요. {{periodLabel}} 동안엔 무리해서 속도를 내기보다 기반을 다지는 쪽이 훨씬 잘 맞아요. 조급함만 내려놓아도 집안 공기가 한결 부드러워져요.",
+    "이런 결은 좋은 사람에게 배우고 도움을 청하는 걸 부끄러워하지 않을수록 오히려 단단해져요. 가족 안에서도 다 짊어지려 애쓰기보다, 남편과 아이에게 자연스럽게 기대고 나누면 관계가 훨씬 편안해지는 편이에요. 받는 것도 사랑의 한 방식이에요.",
+    "{{currentSeasonName}}엔 새 자격이나 배움, 문서로 남기는 약속처럼 나를 지켜 주는 울타리를 하나 더 마련해 두면 좋아요. 당장 큰 결실을 내려 서두르기보다, 채워 둔 것이 든든한 뒷심이 되어 주는 시기라고 보면 마음이 가벼워질 거예요.",
+    "다행히 이름이 부족한 {{yongshinName:을를}} 한 글자쯤 완만히 거들어 줘서, 기대고 채우는 흐름에 살며시 힘을 보태 주는 편이에요. 이름이 모든 걸 채워 주는 건 아니지만, 방향을 같은 쪽으로 살짝 밀어 준다고 여기면 좋아요."
+  ],
+  "expert": [
+    "일간 {{dayMasterName:을를}} 기준으로 월령과 통근이 온전치 못해 신약에 해당하고, 삶의 구조는 배움과 수용·문서·보호로 나를 세우는 #{jeongingyeok} 계열이에요. 그래서 억부의 이치상 #{yongshin}은 나를 생하고 보호하는 #{jeongin}·#{inseong}과 #{bigeob} 쪽에 놓여, 재관으로 발산하기보다 채우고 다지는 #{buaekYongshin} 전략이 정합해요.",
+    "곤명의 family 자리에선 관성이 남편·자식으로 드러나는데, 신약한 사주가 관을 감당하려면 먼저 #{inseong}으로 화살해 기운을 채워야 무리가 없어요. 이름의 자원오행은 combinedDistribution에서 필요한 #{yongshin} 오행을 한 자쯤 완만히 보강해, 과하지 않게 억부 방향을 거들어 주는 정도예요."
+  ],
+  "livingTips": [
+    "배운 걸 꾸준히 기록해 두기",
+    "도움 청하기를 미루지 않기",
+    "집안일은 나눠서 함께 하기"
+  ],
+  "cautions": [
+    "혼자 다 떠안다 지치지 않게 조심해요.",
+    "조급하게 큰 결과부터 내려 서두르지 마요."
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}
