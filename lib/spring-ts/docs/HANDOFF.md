@@ -63,6 +63,9 @@
 - **스키마는 별도 제작하지 말 것** — 배치 파일 최상위 `schema` 필드를 그대로 쓴다.
 - 스키마 `required` = summary·body·expert·livingTips·cautions (**hook은 선택, required 아님**).
 - 결과 형식은 `{ "generated": [ { "caseId":"...", "article": {…} }, … ] }` (키 이름 정확히).
+- **재개 자동화**: `prepare-batch <category> <start> <count>` 는 **이미 `data/generated/<category>/`에 있는 caseId를
+  자동 skip**(완료/남음 카운트를 출력). 그래서 `prepare-batch <cat> 0 <count>` 를 ingest 사이에 두고 반복 호출하면
+  남은 게 0이 될 때까지 매끄럽게 진행된다. (완료분까지 강제 재생성은 `--all`.)
 
 ### 4.1 Claude Code 생성 루프 (Workflow)
 ```bash
@@ -143,6 +146,53 @@ npx tsx tools/generation/prepare-batch.ts wealth 0 2      # 배치 2건 생성�
 - 브라우저용 생성물 lazy-load(현재 `generated-registry.ts`는 node만; 브라우저는 null→폴백).
 - 실제 갭(감사): **12운성 라벨**(일간×12지지 고정표, 트리비얼), 왕상휴수사 5분류, 삼재. `data/generated`와 무관.
 - κ 튜닝: 용신을 건강·재물에선 slot→class 승격 검토(발산/온기 등 오행별 이미지 중요 시).
+
+## 10. 킥오프 프롬프트 (새 세션에 그대로 붙여넣기)
+
+### 10.1 Claude Code (새 세션)
+```
+이 repo(branch claude/tiered-article-rewrite)의 사주+성명학 클래스 생성 작업을 이어서 한다.
+먼저 lib/spring-ts/docs/HANDOFF.md 를 정독하고, 그 §1 "먼저 읽기" 파일들과 골든 샘플
+data/generated/romance/romance.life.adult.high.weak.inseong.boost_strong.male.json 을 읽어라.
+그다음 HANDOFF §6 자기검증을 실행해 전부 그린인지 확인하라(끝나면 git checkout -- metrics/).
+
+담당 카테고리: family, career, romance(잔여), overall. (Codex가 나머지 7분야를 맡으니 절대 건드리지 마라.)
+공유 도구(tools/generation/*, src/report/tiered/*, docs/*, package.json)는 동결 — 변경은 Claude만.
+
+작업 루프(HANDOFF §4.1, Workflow 사용; prepare-batch는 완료분 자동 skip):
+  ① npx tsx tools/generation/prepare-batch.ts family 0 400
+  ② 배치 파일의 schema/caseIds로 tools/generation/run-fileread.wf.js Workflow 구동(병렬 OPUS, args는 JSON.parse됨)
+  ③ 반환 result.generated → results.json({generated:[...]}) 저장 → npx tsx tools/generation/ingest-batch.ts <results.json>
+  ④ git checkout -- metrics/ 후 자기 브랜치(gen/claude-family 등)에 커밋·푸시
+  ⑤ 리젝은 재생성. prepare-batch 반복 호출로 남은 게 0 될 때까지 카테고리별 진행.
+가드레일 HANDOFF §9 준수(평문 용어금지·nameEffect 정직성·미성년안전·검증 통과분만 저장). ultracode로 진행.
+```
+
+### 10.2 Codex / GPT-5.5 (새 세션)
+```
+You are continuing the saju+naming class-generation work in this repo
+(branch claude/tiered-article-rewrite). FIRST read lib/spring-ts/docs/HANDOFF.md in full,
+then the files it lists in §1 "먼저 읽기", and the golden sample
+data/generated/romance/romance.life.adult.high.weak.inseong.boost_strong.male.json.
+Run HANDOFF §6 self-verify to confirm green (then: git checkout -- metrics/). Do `git pull` first.
+
+Your categories: wealth, health, academic, study_document, expression_children, health_stress, movement.
+(Claude owns family/career/romance/overall — do NOT touch those dirs.)
+Shared tooling (tools/generation/*, src/report/tiered/*, docs/*, package.json) is FROZEN — do not
+modify; if a change is needed, flag it for Claude.
+
+Generation loop (HANDOFF §4.2 — you have no Claude Workflow; prepare-batch auto-skips done classes):
+  1) npx tsx tools/generation/prepare-batch.ts wealth 0 400
+  2) For each items[].prompt in the batch file, produce the article JSON with GPT-5.5, using the
+     batch file's top-level `schema` (required: summary/body/expert/livingTips/cautions; hook optional).
+     Obey pairing-contract.md EXACTLY: plain tier no saju jargon, nameEffect honesty (adverse/neutral
+     must NOT say the name "채워준다"), every sentence 해요체, hook ≤24 or omit, slots {{yongshinName:을를}}.
+  3) Assemble { "generated":[ {"caseId":"<orig caseId>","article":{...}}, ... ] } as results.json
+  4) npx tsx tools/generation/ingest-batch.ts <results.json>   (validates + stores; re-gen rejects)
+  5) git checkout -- metrics/ , then commit/push your own branch (gen/codex-wealth ...).
+CALIBRATION: review your first 10–20 outputs side-by-side with the golden sample before bulk,
+so tone/warmth converges to it. Repeat prepare-batch until each category's 남음 reaches 0.
+```
 
 ## 9. 불변 가드레일 (누구도 깨지 말 것)
 - 런타임 재작성 없음(WYSIWYG) · 런타임 LLM 없음(생성은 오프라인, `aiGenerated:true`) · 평문 tier 사주용어 금지 ·
