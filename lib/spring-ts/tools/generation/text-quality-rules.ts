@@ -31,6 +31,8 @@ export interface TextQualityViolation {
   readonly rule: string;
   readonly detail: string;
   readonly articleId?: string;
+  /** Bundle rules: the sibling cells involved (first = the one to keep). */
+  readonly caseIds?: readonly string[];
 }
 
 export interface BundleArticleLike {
@@ -260,12 +262,12 @@ export function bundleDiversityViolations(
   }
   for (const [s, ids] of exact) {
     if (ids.length > 1) {
-      violations.push({ rule: 'bundle-duplicate-summary', detail: `${ids.length}× "${s}" (${ids.join(', ')})` });
+      violations.push({ rule: 'bundle-duplicate-summary', detail: `${ids.length}× "${s}"`, caseIds: ids });
     }
   }
   for (const [sk, ids] of skeletons) {
     if (ids.length > 2) {
-      violations.push({ rule: 'bundle-summary-skeleton', detail: `${ids.length}× skeleton "${sk}" (${ids.join(', ')})` });
+      violations.push({ rule: 'bundle-summary-skeleton', detail: `${ids.length}× skeleton "${sk}"`, caseIds: ids });
     }
   }
 
@@ -282,7 +284,8 @@ export function bundleDiversityViolations(
     if (ids.length > 1) {
       violations.push({
         rule: 'bundle-duplicate-paragraph',
-        detail: `${ids.length}× "${p.slice(0, 40)}…" (${ids.join(', ')})`,
+        detail: `${ids.length}× "${p.slice(0, 40)}…"`,
+        caseIds: ids,
       });
     }
   }
@@ -309,7 +312,7 @@ export function bundleDiversityViolations(
   for (const [gram, cells] of offenders) {
     if (reported.some((r) => r.includes(gram.slice(0, 6)) || gram.includes(r.slice(0, 6)))) continue;
     reported.push(gram);
-    violations.push({ rule: 'bundle-ngram-stamp', detail: `"${gram}" in ${cells.size} cells` });
+    violations.push({ rule: 'bundle-ngram-stamp', detail: `"${gram}" in ${cells.size} cells`, caseIds: [...cells] });
     if (reported.length >= 5) break;
   }
 
@@ -325,7 +328,7 @@ export function bundleDiversityViolations(
   }
   for (const [t, cells] of tipCells) {
     if (cells.size > 2) {
-      violations.push({ rule: 'bundle-duplicate-tip', detail: `"${t}" in ${cells.size} cells` });
+      violations.push({ rule: 'bundle-duplicate-tip', detail: `"${t}" in ${cells.size} cells`, caseIds: [...cells] });
     }
   }
 
