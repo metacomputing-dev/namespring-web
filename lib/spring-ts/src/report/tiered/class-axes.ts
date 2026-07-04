@@ -67,11 +67,32 @@ export function computeClassId(
   feature: FeatureVector,
   compat: SajuCompatibility | null | undefined,
 ): string | null {
+  const key = packKeyFor(category, feature, compat);
+  if (!key) return null;
+  return [category, period, audience, band, key].join('.');
+}
+
+/** All 11 content categories (packed-bundle preload iterates these). */
+export const ALL_CATEGORIES: readonly string[] = [
+  'overall', 'wealth', 'health', 'academic', 'romance', 'family',
+  'career', 'study_document', 'expression_children', 'health_stress', 'movement',
+];
+
+/**
+ * The person-fixed axis key `강약.격국.nameEffect.성별` — the last 4 parts of
+ * every classId this person can match in `category`. The browser fetches ONE
+ * packed bundle per (category, key). null when a class axis is unresolvable.
+ */
+export function packKeyFor(
+  category: string,
+  feature: FeatureVector,
+  compat: SajuCompatibility | null | undefined,
+): string | null {
   const family = gyeokgukToFamily(feature.gyeokguk);
   if (!family) return null;
   const gender = genderToken(category, feature.gender);
   if (gender === null) return null;
   const gangyak = strengthToCoarse(feature.dayMasterStrength);
   const nameEffect = nameEffectFrom(compat);
-  return [category, period, audience, band, gangyak, family, nameEffect, gender].join('.');
+  return `${gangyak}.${family}.${nameEffect}.${gender}`;
 }

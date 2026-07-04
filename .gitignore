@@ -48,3 +48,4 @@ Thumbs.db
 /out/
 .vercel
 lib/spring-ts/data/generation/batches/
+namespring/public/generated-packed/

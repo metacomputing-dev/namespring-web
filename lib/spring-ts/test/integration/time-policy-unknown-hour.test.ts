@@ -141,7 +141,7 @@ check('unknown hour applies one-step confidence downgrade where possible',
   expectedDowngrade && anyChanged,
   `known=${JSON.stringify(probeKnownAxis)}, unknown=${JSON.stringify(probeUnknownAxis)}`);
 
-const report = buildFortuneReport(unknownResult.summary, new Date('2026-05-01T00:00:00+09:00'), null);
+const report = await buildFortuneReport(unknownResult.summary, new Date('2026-05-01T00:00:00+09:00'), null);
 const reportUncertainty = report.meta.uncertainties?.find((row) => row.id === 'unknown-hour');
 const overviewEvidence = report.overviewSummary.evidence?.find((row) => row.axis === 'inputTime');
 
