@@ -99,7 +99,9 @@
     "validate:jonheom-smc": "node tools/validate_jonheom_saju_master.mjs",
     "validate:korean-modern": "npx tsx tools/validate_korean_modern_authority.ts",
     "measure:alternative-rules": "npx tsx tools/measure_alternative_gyeokguk_rules.ts",
-    "validate:tyme4ts": "npx tsx tools/cross_validate_tyme4ts.ts"
+    "validate:tyme4ts": "npx tsx tools/cross_validate_tyme4ts.ts",
+    "test:generated-quality": "npx tsx test/integration/generated-text-quality.test.ts",
+    "audit:generated": "npx tsx tools/generation/audit-corpus-diversity.ts"
   },
   "dependencies": {
     "sql.js": "^1.14.0",
