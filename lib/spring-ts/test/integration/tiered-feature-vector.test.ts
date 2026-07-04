@@ -136,6 +136,12 @@ check('deficientElementCount counts deficient elements',
   feature40.deficientElementCount === 2, String(feature40.deficientElementCount));
 check('excessiveElementCount counts excessive elements',
   feature40.excessiveElementCount === 1, String(feature40.excessiveElementCount));
+check('deficientElements surfaces identities (not just count)',
+  JSON.stringify(feature40.deficientElements) === JSON.stringify(['EARTH', 'METAL']),
+  JSON.stringify(feature40.deficientElements));
+check('excessiveElements surfaces identities',
+  JSON.stringify(feature40.excessiveElements) === JSON.stringify(['WOOD']),
+  JSON.stringify(feature40.excessiveElements));
 check('cheonganRelationCount counts heavenly-stem relations',
   feature40.cheonganRelationCount === 3, String(feature40.cheonganRelationCount));
 check('jijiRelationCount counts earthly-branch relations',
@@ -180,6 +186,8 @@ check('minimal saju heeshinElementOrdinal is 0 when null',
   minimalFeature.heeshinElementOrdinal === 0);
 check('minimal saju gishinElementOrdinal is 0 when null',
   minimalFeature.gishinElementOrdinal === 0);
+check('minimal saju deficient/excessive element identities default to []',
+  minimalFeature.deficientElements.length === 0 && minimalFeature.excessiveElements.length === 0);
 
 console.log(`\nTiered feature vector axes: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);

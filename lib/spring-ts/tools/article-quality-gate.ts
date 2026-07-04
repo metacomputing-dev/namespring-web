@@ -27,7 +27,10 @@ const STAGES = ['stage-teen', 'stage-early', 'stage-mid', 'stage-senior', 'stage
 const AUDIENCES = ['adult', 'teen', 'child', ...STAGES] as const;
 const BANDS = ['high', 'mid', 'low', 'any'] as const;
 
-const SLOT_NAMES = new Set(['periodLabel', 'dayMasterName', 'yongshinName', 'currentSeasonName']);
+const SLOT_NAMES = new Set([
+  'periodLabel', 'dayMasterName', 'yongshinName', 'currentSeasonName',
+  'strengthPlain', 'dayMasterCount', 'yongshinCount',
+]);
 const JOSA_PAIRS = new Set(['이가', '은는', '을를', '과와', '으로로', '이라라']);
 
 interface GateArticle {
@@ -217,6 +220,9 @@ function checkSlotsAndTags(
 function approximateRendered(text: string): string {
   return text
     .replace(/\{\{periodLabel(?::[가-힣]+)?\}\}/gu, '이번 주')
+    // strengthPlain renders a short adjective; approximate with its LONGEST
+    // realistic value so the length gate stays conservative.
+    .replace(/\{\{strengthPlain\}\}/gu, '아주 단단한')
     .replace(/\{\{[A-Za-z]+:([가-힣]+)\}\}/gu, '나무가')
     .replace(/\{\{[A-Za-z]+\}\}/gu, '나무')
     .replace(/#\{[A-Za-z_][A-Za-z0-9_]*\}/gu, '#용신');

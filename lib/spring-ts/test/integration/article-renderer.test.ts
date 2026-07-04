@@ -49,6 +49,9 @@ const slots = {
   dayMasterName: '나무',
   yongshinName: '물',
   currentSeasonName: '봄',
+  strengthPlain: '단단한',
+  dayMasterCount: '2',
+  yongshinCount: '0',
 };
 check(
   '기본 슬롯 치환',
@@ -62,6 +65,16 @@ check(
 check(
   '알 수 없는 슬롯은 원문 유지',
   fillSlots('{{unknownSlot}} 그대로', slots) === '{{unknownSlot}} 그대로',
+);
+check(
+  '강약 평문 슬롯 치환 (신강/신약 → 평문)',
+  fillSlots('타고난 기운이 {{strengthPlain}} 편이에요.', slots)
+    === '타고난 기운이 단단한 편이에요.',
+);
+check(
+  '개수 슬롯 치환',
+  fillSlots('{{yongshinName}} 기운이 {{yongshinCount}}개예요.', slots)
+    === '물 기운이 0개예요.',
 );
 
 // --- feature-derived slot values ---------------------------------------------
@@ -78,6 +91,18 @@ check('currentSeasonName=봄', derived.currentSeasonName === '봄');
 const fallback = buildSlotValues('오늘', { dayMasterElement: null, yongshinElement: null, currentSeason: 'winter' } as never);
 check('일간 미해석 폴백', fallback.dayMasterName === '중심 기운');
 check('용신 미해석 폴백', fallback.yongshinName === '보완 기운');
+
+// plain fingerprint slots (S1): strength as plain adjective + element counts.
+check('강약 미지정 폴백=고른', derived.strengthPlain === '고른');
+check('개수 미지정 폴백=0', derived.dayMasterCount === '0' && derived.yongshinCount === '0');
+const derivedFull = buildSlotValues('오늘', {
+  dayMasterElement: 'WATER', yongshinElement: 'METAL', currentSeason: 'autumn',
+  dayMasterStrength: 'WEAK',
+  woodCount: 4, fireCount: 1, earthCount: 1, metalCount: 0, waterCount: 2,
+} as never);
+check('strengthPlain: WEAK → 여린', derivedFull.strengthPlain === '여린');
+check('dayMasterCount: WATER 2개', derivedFull.dayMasterCount === '2');
+check('yongshinCount: METAL 0개', derivedFull.yongshinCount === '0');
 
 // --- tag tokenisation ---------------------------------------------------------
 console.log('tag tokenisation');
