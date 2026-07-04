@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "spring-ts.article.v1",
+  "articleId": "romance.life.adult.high.weak.bigeop.neutral.female",
+  "category": "romance",
+  "period": "life",
+  "audience": "adult",
+  "band": "high",
+  "caseAxes": {
+    "gangyak": "weak",
+    "gyeokgukFamily": "bigeop",
+    "nameEffect": "neutral",
+    "gender": "female"
+  },
+  "summary": "타고난 기운이 여린 편이라, 연애도 서두르기보다 내 편을 곁에 두고 천천히 다져 가면 잘 풀려요.",
+  "hook": "여린 결, 내 편과 함께",
+  "body": [
+    "{{dayMasterName}} 기운을 타고난 당신은 속이 단단하기보다 여린 편이라, 혼자 무리해서 밀어붙이기보다 곁에 든든한 사람을 두고 채워 갈 때 한결 편해져요. 연애에서도 나를 알아주고 받쳐 주는 사람과 어울릴 때 당신 본래의 빛이 살아나요.",
+    "당신은 스스로 서고 함께 겨루며 나를 세우는 결이라, 기대기만 하기보다 내 몫을 지키며 나란히 가는 관계가 잘 맞아요. 마음이 가는 사람이 있어도 끌려가듯 맞추기보다, 내 리듬을 지키면서 주체적으로 다가서는 편이 오래가요.",
+    "{{periodLabel}}에는 결정을 서두르기보다 기반을 다지는 데 무게를 두면 좋아요. {{currentSeasonName}}의 흐름을 타고 마음 맞는 사람들과 자주 어울리면, 자연스레 인연의 폭도 넓어져요. 조급함만 내려놓으면 {{yongshinName:이가}} 채워지듯 관계도 차분히 무르익어요.",
+    "다만 당신 이름은 지금 필요한 그 기운을 직접 담고 있진 않은 편이라, 부족한 부분은 이름에 기대기보다 생활 속에서 챙기는 편이 나아요. 좋은 사람들과의 시간, 나를 다지는 습관이 그 자리를 대신 메워 줘요."
+  ],
+  "expert": [
+    "일간 {{dayMasterName}}이 뿌리를 얻지 못해 #{yongshin}은 나를 돕는 #{inseong}·#{bigeob} 계열로 잡혀요. 격은 #{bigeob}(비견·겁재격)이라, 신약이어도 같은 편의 기운으로 자립하며 나를 세우는 구조가 정합적이에요. 곤명의 연애·배우자 자리는 #{gwanseong}이 관장하는데, 신약에선 관을 감당할 힘부터 채워야 하니 서두름보다 기반 다지기가 우선이에요.",
+    "다만 이름의 자원오행은 combinedDistribution에서 #{yongshin}·#{gishin} 어느 쪽도 크게 건드리지 않는 중립이라, 이름이 부족한 기운을 채워 준다고 볼 근거는 약해요. 그러니 보완은 이름이 아니라 생활에서 취하는 편이 정직한 처방이에요."
+  ],
+  "livingTips": [
+    "결정은 하루 자고 나서 정해요",
+    "내 편이 되는 사람 곁에 두기",
+    "혼자 무리하는 일 하나 줄이기"
+  ],
+  "cautions": [
+    "여린 편이라 끌려가듯 맞추면 지쳐요",
+    "부족함은 이름 아닌 생활에서 채워요"
+  ],
+  "aiGenerated": true,
+  "sourceNote": "generation-2026-07"
+}
