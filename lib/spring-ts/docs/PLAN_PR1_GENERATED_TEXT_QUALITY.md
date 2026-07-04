@@ -212,9 +212,9 @@ fixture는 **테스트 파일에 동결된 문자열**(라이브 corpus를 읽�
 | 5 | 번들 하네스 4종 (§6) | ✅ 2026-07-04 | prepare/prompt/run.wf/ingest |
 | 6 | 파일럿: overall 번들 일부 생성→정독→게이트 통과율 기록 | ✅ 2026-07-04 | 아래 파일럿 결과 참조 |
 | 7 | 웨이브 w1: overall 전체 (180 번들) | 🔄 **33/180 완료** (2026-07-04 세션 종료 시점) | ~500편 재생성·커밋. summary 고유율 0.4%→31.2%. first-pass율: 파일럿 100% / 배치1 94.6% / 배치2 83.8% (리젝은 게이트가 전부 차단 — 문단 재사용·분량 미달). **다음 액션**: ① `npx tsx tools/generation/prepare-bundles.ts --keys=overall.adult.strong.bigeop.adverse.x` 재생성(잔여 리젝 11편) ② `prepare-bundles.ts overall --count 16` 반복 (남은 147번들 ≈ 9배치, 배치당 ~35분/2.9M tokens) |
-| 7b | **배치 API 모델 A/B** (동일 12번들×180편, 6카테고리) | 🔄 2026-07-05 진행 중 | 아래 "배치 파일럿 A/B" 참조. **완료 시 액션**: `fetch-batch.ts <id>` 이미 백그라운드 폴링 중 → 결과 나오면 `ingest-bundles.ts <results> --source=regen-pilot-<tag> --dry-run`으로 채점 → `compare-results.mjs`로 동일 번들 정독 → 승자 확정 후 dry-run 없이 ingest·커밋 |
-| 8 | 웨이브 w2+: 전량 배치 집행 (승자 모델, 남은 ~2,150 번들) | ⬜ | 카테고리별 prepare→submit→fetch→ingest. 예산: Opus ~$500 / Fable ~$1,000 / Sonnet ~$190 (충전 $100 → 분할 집행 필요할 수 있음) |
-| 9 | 전량 완료 후: audit before/after, pack 재실행, F3 승격 | ⬜ | |
+| 7b | 배치 API 모델 A/B | ✅ 2026-07-05 **Fable 5 확정** (사용자 결정 + 실측 일치) | 아래 A/B 최종표. Opus 배치는 사용자 지시로 취소 |
+| 8 | **단계별 전량 집행 (Fable 5, 점진)** | 🔄 S0 진행 중 | 아래 "단계별 집행 계획" 표 |
+| 9 | 전량 완료 후: audit before/after, pack 재실행, F3 승격, 단일 PR | ⬜ | PR은 품질 완성 후 한 번에(사용자 결정), 평가는 실사용 |
 
 ### 배치 파일럿 A/B (2026-07-05, 동일 12번들 = 180편; 결과는 29일 보존, ID로 언제든 회수)
 
@@ -225,8 +225,28 @@ fixture는 **테스트 파일에 동결된 문자열**(라이브 corpus를 읽�
 | Opus 4.8 | `msgbatch_011RcKwo4LQ5N7AJJ35Dq38c` | 처리 중 | (워크플로 실적: first-pass 84~100%, 정독 합격) |
 | Fable 5 | `msgbatch_01QoWreL3D5iMtdDXfEL6TnQ` | 처리 중 | max_tokens 64K(상시 thinking 예산) |
 
-판정 기준: ①게이트 first-pass율 ②정독(문체·명리 정확성·태그 실재성) ③전량 비용. Sonnet은
-현재 스코어로는 탈락 유력 — 되살리려면 Sonnet 전용 프롬프트 재설계 필요(분량 강조·태그 삽입 방식).
+**최종 판정 (2026-07-05)**: Sonnet 5 0%/3.9% — 탈락. Opus 4.8 배치 일회성 **0.7%(1/150)** —
+워크플로(84~100%)와 달리 배치에선 급락, 취소됨. **Fable 5 12.2% + 문체 최상** → 확정.
+공통 실패는 기계적 3종(짧은 맺음말 문단·강약 형용사 의역·expert 끝 태그 나열)으로 프롬프트
+강화 3건 반영 완료 → S0 재검증에서 통과율 회복 확인 예정. 교훈: **배치 일회성 호출은 에이전트
+루프와 전혀 다른 환경 — 프롬프트에 검증기 기준을 리터럴하게 명시해야 한다.**
+
+### 단계별 집행 계획 (Fable 5 배치, 2026-07-05 수립 — 사용자: 점진 진행)
+
+> 비용 실측 기준: 성인 번들(15편) ~$0.85, 소번들(5편) ~$0.35 (thinking 포함, 배치 요금).
+> 각 단계 공통 절차: prepare→submit→fetch→ingest→리젝 재배치 1회→**정독 표본 3번들**→커밋→이 표 갱신.
+> ⚠ 충전 $100 기준 S1 중반에 소진 — 단계 진입 전 잔액 확인, 필요 시 사용자에게 충전 요청.
+
+| 단계 | 범위 | 번들 | 예상 비용 | 상태 |
+|---|---|---|---|---|
+| **S0** | 강화 프롬프트 재검증 (동일 12번들) — 합격선: 게이트 ≥80% + 정독 합격 | 12 | ~$10 | 🔄 `msgbatch_017jnrrpuYfs19f4kFgZyRbb` 폴링 중 |
+| **S1** | overall 잔여 (첫 화면 히어로 = 최우선 노출) | 147 | ~$110 | ⬜ |
+| **S2** | wealth + health (유료 관심 최상위) | 360 | ~$210 | ⬜ |
+| **S3** | career + romance + family (성별 축 포함) | 756 | ~$430 | ⬜ |
+| **S4** | academic + study_document + expression_children + health_stress + movement | 900 | ~$460 | ⬜ |
+| **S5** | 마무리: 리젝 잔여 소탕, Opus산 overall 33번들 Fable 통일(옵션 ~$28), audit before/after, `pack-generated.ts`, 최종 정독, 단일 PR | — | ~$50 | ⬜ |
+
+총 예상 ~$1,270 (재시도 20% 포함). S0 통과율이 80%를 크게 넘으면 하향.
 
 ### 파일럿 결과 (2026-07-04, overall 번들 2개 = 30편)
 
