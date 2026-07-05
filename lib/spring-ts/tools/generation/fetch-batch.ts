@@ -58,7 +58,12 @@ async function main(): Promise<void> {
       continue;
     }
     const message = entry.result.message;
-    if (message.stop_reason === 'refusal') { failed.push({ bundleKey: key, reason: 'refusal' }); continue; }
+    if (message.stop_reason === 'refusal') {
+      // Fable 분류기 오탐(cyber 등) — 출력 전 거부는 과금 0, 재제출로 대부분 통과
+      const category = (message as { stop_details?: { category?: string | null } }).stop_details?.category ?? '?';
+      failed.push({ bundleKey: key, reason: `refusal (${category}) — 재제출 권장(무과금)` });
+      continue;
+    }
     const text = message.content.find((b) => b.type === 'text')?.text ?? '';
     if (message.stop_reason === 'max_tokens') {
       failed.push({ bundleKey: key, reason: `max_tokens truncation (${text.length} chars)` });
