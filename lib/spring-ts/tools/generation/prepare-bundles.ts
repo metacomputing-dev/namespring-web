@@ -49,6 +49,11 @@ function isRegenerated(c: GenerationCase): boolean {
 function main(): void {
   const argv = process.argv.slice(2);
   const includeDone = argv.includes('--all');
+  // --missing-only: 번들에서 미완(regen 아님) caseId만 프롬프트에 싣는다.
+  // 이미 완성된 편은 재생성·재과금·덮어쓰기에서 제외 — 매니페스트에 셀이
+  // 추가된 뒤(S4 stage 등급 확장) 신규분만 채울 때 사용. ingest 커버리지는
+  // 디스크의 regen 형제를 인정하므로 부분 결과도 그대로 통과한다.
+  const missingOnly = argv.includes('--missing-only');
   const keysArg = argv.find((a) => a.startsWith('--keys='));
   const num = (flag: string, dflt: number): number => {
     const i = argv.indexOf(flag);
@@ -75,10 +80,14 @@ function main(): void {
     entries = entries.slice(num('--offset', 0), num('--offset', 0) + num('--count', 20));
   }
 
-  const bundles = entries.map(([bundleKey, cases]) => {
-    const ordered = [...cases].sort((a, b) => a.caseId.localeCompare(b.caseId));
-    return { bundleKey, caseIds: ordered.map((c) => c.caseId), prompt: buildBundlePrompt(ordered) };
-  });
+  const bundles = entries
+    .map(([bundleKey, cases]) => {
+      const scoped = missingOnly ? cases.filter((c) => !isRegenerated(c)) : cases;
+      if (scoped.length === 0) return null;
+      const ordered = [...scoped].sort((a, b) => a.caseId.localeCompare(b.caseId));
+      return { bundleKey, caseIds: ordered.map((c) => c.caseId), prompt: buildBundlePrompt(ordered) };
+    })
+    .filter((b): b is NonNullable<typeof b> => b !== null);
 
   fs.mkdirSync(BATCH_DIR, { recursive: true });
   const name = keysArg ? `bundles-keys-${bundles.length}` : `bundles-${category}-${num('--offset', 0)}-${bundles.length}`;

@@ -21,6 +21,8 @@ import { buildPeriodFortuneCard } from './cards/period-fortune-card.js';
 import { buildLifeStageFortuneCard } from './cards/life-stage-fortune-card.js';
 import { buildCategoryFortuneCards } from './cards/category-fortune-card.js';
 import { buildTieredMatrix, preloadGeneratedForReport } from './tiered/build-tiered-matrix.js';
+import { buildLifeCurveCard, type LifeCurveCard } from './cards/life-curve-card.js';
+import { buildInsightFactsCard, type InsightFactsCard } from './cards/insight-facts-card.js';
 
 // Card types (re-imported for fallback construction)
 import type {
@@ -271,6 +273,23 @@ export async function buildFortuneReport(
         )
       : undefined;
 
+  // ── 11. Life curve (opt-in, tieredMatrix와 동일 조건) ──
+  // 0~100세 대운·세운 블렌드 커브. 별점(칩·카드)이 정본이고 커브는 시각화용
+  // 파생값이라는 규약은 life-curve-card.ts 참조.
+  const birthYearForCurve = birth?.year ?? saju.timeCorrection?.standardYear ?? null;
+  const lifeCurve: LifeCurveCard | undefined =
+    options?.surfaceTieredMatrix === true && birthYearForCurve
+      ? safeCall(() => buildLifeCurveCard(saju, birthYearForCurve, currentAge), null, 'lifeCurve') ?? undefined
+      : undefined;
+
+  // ── 12. Insight facts (opt-in + 성인 전용) ──
+  // 미성년 페이로드에는 싣지 않는다 — 성인성 신살 필터 규칙이 정의되기
+  // 전까지의 보수적 게이팅 (DESIGN_LIFEFLOW_INSIGHTS.md §Phase 2).
+  const insightFacts: InsightFactsCard | undefined =
+    options?.surfaceInsightFacts === true && currentAge >= 20
+      ? safeCall(() => buildInsightFactsCard(saju), null, 'insightFacts') ?? undefined
+      : undefined;
+
   // ── Meta ──
   const meta: ReportMeta = {
     version: '1.0.0',
@@ -294,5 +313,7 @@ export async function buildFortuneReport(
     categoryFortunes,
     meta,
     ...(tieredMatrix ? { tieredMatrix } : {}),
+    ...(lifeCurve ? { lifeCurve } : {}),
+    ...(insightFacts ? { insightFacts } : {}),
   };
 }

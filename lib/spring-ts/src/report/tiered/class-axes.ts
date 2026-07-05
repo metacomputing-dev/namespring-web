@@ -72,6 +72,56 @@ export function computeClassId(
   return [category, period, audience, band, key].join('.');
 }
 
+/** 미성년형 오디언스 — 매니페스트(generate-manifest.ts isMinor)가 축을 접는 대상. */
+function isMinorTypeAudience(audience: string): boolean {
+  return audience === 'child' || audience === 'teen' || audience.startsWith('stage-');
+}
+
+/**
+ * 미성년형 오디언스의 사람축 키. 매니페스트의 축 축소 규칙을 미러링한다:
+ * gender는 항상 'x', 강약은 weak|strong만(balanced 클래스 없음), nameEffect는
+ * adverse 클래스 없음. 축이 없는 조합은 null → 베이스 폴백 (adverse를 neutral로
+ * 뭉개는 매핑은 이름효과 정직성 위반이라 하지 않는다).
+ */
+export function minorPackKeyFor(
+  feature: FeatureVector,
+  compat: SajuCompatibility | null | undefined,
+): string | null {
+  const family = gyeokgukToFamily(feature.gyeokguk);
+  if (!family) return null;
+  const gangyak = strengthToCoarse(feature.dayMasterStrength);
+  if (gangyak === 'balanced') return null;
+  const nameEffect = nameEffectFrom(compat);
+  if (nameEffect === 'adverse') return null;
+  return `${gangyak}.${family}.${nameEffect}.x`;
+}
+
+/**
+ * 생성 클래스 조회 후보 목록 (순서대로 시도).
+ * - 성인 오디언스: [정확 classId] 1개.
+ * - 미성년형(child/teen/stage-*): 매니페스트 축 축소를 미러링한 키로
+ *   [요청 band, 'any' band] 2단 후보 — stage 코퍼스가 band별로 채워지기 전에는
+ *   'any'가, 채워진 뒤에는 정확 band가 잡힌다 (점진 충전과 호환).
+ */
+export function computeClassIdCandidates(
+  category: string,
+  period: string,
+  audience: string,
+  band: string,
+  feature: FeatureVector,
+  compat: SajuCompatibility | null | undefined,
+): string[] {
+  if (!isMinorTypeAudience(audience)) {
+    const id = computeClassId(category, period, audience, band, feature, compat);
+    return id ? [id] : [];
+  }
+  const key = minorPackKeyFor(feature, compat);
+  if (!key) return [];
+  const ids = [[category, period, audience, band, key].join('.')];
+  if (band !== 'any') ids.push([category, period, audience, 'any', key].join('.'));
+  return ids;
+}
+
 /** All 11 content categories (packed-bundle preload iterates these). */
 export const ALL_CATEGORIES: readonly string[] = [
   'overall', 'wealth', 'health', 'academic', 'romance', 'family',

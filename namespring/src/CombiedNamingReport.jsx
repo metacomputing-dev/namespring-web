@@ -237,8 +237,31 @@ function buildSummaryItems(fortuneReport, nameCompatibility) {
   ];
 }
 
-function buildLifeFlowPoints(periodOptions) {
-  const lifePeriods = asArray(periodOptions).filter((item) => item?.isLifeStage).slice(0, 10);
+function buildLifeFlowPoints(periodOptions, lifeCurve) {
+  // 엔진 커브(0~100세, 대운 0.6 + 세운 0.4 블렌드)가 있으면 연 단위 곡선.
+  // 점수 정본 규칙: 칩·분야 카드의 별점이 정본이고 이 곡선은 시각화용 파생값.
+  const curvePoints = asArray(lifeCurve?.points);
+  if (curvePoints.length) {
+    const firstIndexed = curvePoints.find((p) => Number.isFinite(p?.daeunIndex));
+    const fallbackIndex = Number.isFinite(firstIndexed?.daeunIndex) ? firstIndexed.daeunIndex : 0;
+    let prevDaeun = null;
+    return curvePoints.map((p) => {
+      const daeunIndex = Number.isFinite(p?.daeunIndex) ? p.daeunIndex : fallbackIndex;
+      const isBoundary = daeunIndex !== prevDaeun;
+      prevDaeun = daeunIndex;
+      return {
+        key: `life-daeun-${daeunIndex}`,
+        pointId: `age-${p.age}`,
+        label: Number(p.age) % 10 === 0 ? String(p.age) : '',
+        value: Number(p.score) || 0,
+        showDot: isBoundary,
+        fixedDomain: true,
+        isSelected: false,
+      };
+    });
+  }
+
+  const lifePeriods = asArray(periodOptions).filter((item) => item?.isLifeStage);
   if (!lifePeriods.length) {
     return TIERED_PERIOD_OPTIONS.map((item, index) => ({
       key: item.key,
@@ -252,7 +275,7 @@ function buildLifeFlowPoints(periodOptions) {
     const startAge = Number(item?.startAge);
     return {
       key: item.key,
-      label: Number.isFinite(startAge) ? `${startAge}대` : item.label.replace(/~\d+세$/u, '대').replace('세', ''),
+      label: Number.isFinite(startAge) ? `${startAge}세~` : item.label.replace(/~\d+세$/u, '대').replace('세', ''),
       value: value || 50,
       isSelected: false,
     };
@@ -404,18 +427,38 @@ function buildPeriodOptions(fortuneReport) {
       })
       .filter(Boolean);
     const lifePeriod = matrixPeriods.life;
+    // 정통 축: 개인별 대운(大運) 구간(byDaeun)이 있으면 그걸 선택 축으로 쓴다.
+    // 경계·라벨·본문 {{periodLabel}}이 전부 그 사람의 실제 대운을 따른다.
+    const byDaeun = asArray(lifePeriod?.byDaeun);
     const lifeStages = lifePeriod
-      ? LIFE_STAGE_PERIOD_OPTIONS.map((option) => {
-        const ageBandPeriod = lifePeriod.byAgeBand?.[option.ageBand];
-        return {
-          ...option,
+      ? (byDaeun.length
+        ? byDaeun.map((cell, index) => ({
+          key: `life-daeun-${index}`,
+          periodKind: 'life',
+          label: cell.ageLabel || cell.periodLabel,
+          ageBand: cell.ageBand,
+          startAge: Number(cell.startAge) || 0,
+          endAge: Number(cell.endAge) || 0,
+          isLifeStage: true,
           isMatrixPeriod: true,
-          period: ageBandPeriod || lifePeriod,
-          periodLabel: ageBandPeriod?.periodLabel || option.label,
-          selectorAgeBand: ageBandPeriod?.selectorAgeBand || '',
-          lifeStage: findLifeStage(fortuneReport?.lifeStageFortune, option.startAge, option.endAge),
-        };
-      })
+          period: cell,
+          periodLabel: cell.pillarDisplay
+            ? `${cell.ageLabel} · ${cell.pillarDisplay} 대운`
+            : (cell.ageLabel || cell.periodLabel),
+          selectorAgeBand: cell.selectorAgeBand || '',
+          lifeStage: findLifeStage(fortuneReport?.lifeStageFortune, cell.startAge, cell.endAge),
+        }))
+        : LIFE_STAGE_PERIOD_OPTIONS.map((option) => {
+          const ageBandPeriod = lifePeriod.byAgeBand?.[option.ageBand];
+          return {
+            ...option,
+            isMatrixPeriod: true,
+            period: ageBandPeriod || lifePeriod,
+            periodLabel: ageBandPeriod?.periodLabel || option.label,
+            selectorAgeBand: ageBandPeriod?.selectorAgeBand || '',
+            lifeStage: findLifeStage(fortuneReport?.lifeStageFortune, option.startAge, option.endAge),
+          };
+        }))
       : [];
     return [...basePeriods, ...lifeStages];
   }
@@ -445,13 +488,35 @@ function buildPeriodOptions(fortuneReport) {
     fortuneReport?.lifeFortuneOverview,
     categoryFortunes,
   );
-  const lifeStages = LIFE_STAGE_PERIOD_OPTIONS.map((option) => ({
-    ...option,
-    isMatrixPeriod: false,
-    period: lifePeriod,
-    periodLabel: option.label,
-    lifeStage: findLifeStage(fortuneReport?.lifeStageFortune, option.startAge, option.endAge),
-  }));
+  // 레거시 경로도 실제 대운 구간(lifeStageFortune.stages)을 1차 소스로 쓴다.
+  const legacyStages = asArray(fortuneReport?.lifeStageFortune?.stages)
+    .filter((stage) => Number.isFinite(Number(stage?.startAge)) && Number.isFinite(Number(stage?.endAge)));
+  const lifeStages = legacyStages.length
+    ? legacyStages.map((stage, index) => {
+      const startAge = Math.floor(Number(stage.startAge));
+      const endAge = Math.floor(Number(stage.endAge));
+      const ageLabel = `${startAge}세~${endAge}세`;
+      return {
+        key: `life-daeun-${index}`,
+        periodKind: 'life',
+        label: ageLabel,
+        ageBand: `${startAge}-${endAge}`,
+        startAge,
+        endAge,
+        isLifeStage: true,
+        isMatrixPeriod: false,
+        period: lifePeriod,
+        periodLabel: stage.pillarDisplay ? `${ageLabel} · ${stage.pillarDisplay} 대운` : ageLabel,
+        lifeStage: stage,
+      };
+    })
+    : LIFE_STAGE_PERIOD_OPTIONS.map((option) => ({
+      ...option,
+      isMatrixPeriod: false,
+      period: lifePeriod,
+      periodLabel: option.label,
+      lifeStage: findLifeStage(fortuneReport?.lifeStageFortune, option.startAge, option.endAge),
+    }));
   return [...basePeriods, ...lifeStages];
 }
 
@@ -507,6 +572,36 @@ function categoryDetailPanelId(key) {
 function getCategorySummary(categoryItems, id, fallback) {
   const item = asArray(categoryItems).find((category) => category?.id === id);
   return normalizeText(item?.summary) || fallback;
+}
+
+/**
+ * 전문 인사이트 — 엔진이 계산한 신살·공망·합충형파해 등의 원자료(fact) 중
+ * 해석(interpretation)이 충전된 항목만 렌더한다. 해석 파일이 비어 있는 초기
+ * 상태에서는 아무것도 그리지 않아 화면 무회귀. (성인 대상자에게만 카드가 실림)
+ */
+function InsightFactsSection({ insightFacts }) {
+  const interpreted = asArray(insightFacts?.facts).filter((fact) => fact?.interpretation?.text);
+  if (!interpreted.length) return null;
+  return (
+    <ReportSection
+      id="combined-insights"
+      title="전문 인사이트"
+      description="사주 원국에서 감지된 특별한 배치를 전문 관점으로 풀어드립니다."
+      className="cr-section--insights"
+    >
+      <div className="cr-note-list">
+        {interpreted.map((fact) => (
+          <article key={fact.factId} className="cr-insight-item">
+            <h3>{fact.label}{fact.detail ? ` · ${fact.detail}` : ''}</h3>
+            <p>{fact.interpretation.text}</p>
+            {fact.interpretation.expertText ? (
+              <p className="cr-insight-item__expert">{fact.interpretation.expertText}</p>
+            ) : null}
+          </article>
+        ))}
+      </div>
+    </ReportSection>
+  );
 }
 
 function PremiumReportSection({
@@ -734,8 +829,11 @@ function LifeFlowChart({ points, onSelect }) {
   const bottom = 42;
   const safePoints = asArray(points).length ? points : [{ key: 'empty', label: '-', value: 50 }];
   const values = safePoints.map((point) => Number(point.value) || 0);
-  const min = Math.min(...values);
-  const max = Math.max(...values);
+  // 커브 모드(fixedDomain)는 0~100 고정 스케일 — min-max 정규화가 평평한
+  // 곡선의 요동을 전고로 증폭하는 것을 막는다. 레거시 점들은 기존 정규화 유지.
+  const useFixedDomain = safePoints.some((point) => point.fixedDomain);
+  const min = useFixedDomain ? 0 : Math.min(...values);
+  const max = useFixedDomain ? 100 : Math.max(...values);
   const range = max - min || 1;
   const coords = safePoints.map((point, index) => {
     const x = padX + (index / Math.max(1, safePoints.length - 1)) * (width - padX * 2);
@@ -749,17 +847,34 @@ function LifeFlowChart({ points, onSelect }) {
     const cx = (previous.x + point.x) / 2;
     return `${result} C ${cx.toFixed(1)} ${previous.y.toFixed(1)}, ${cx.toFixed(1)} ${point.y.toFixed(1)}, ${point.x.toFixed(1)} ${point.y.toFixed(1)}`;
   }, '');
+  // 클릭·키보드 대상은 대운 경계 점만 (연 단위 100개 전부가 탭 스톱이 되는
+  // 것을 방지). showDot 미지정(레거시 10점)은 전부 대상.
+  const dotPoints = coords.filter((point) => point.showDot !== false);
+  const labelPoints = coords.filter((point) => point.label);
 
   return (
     <div className="cr-life-chart">
       <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label="나이대별 운의 흐름 그래프">
         <path d={path} fill="none" stroke="var(--color-wood)" strokeWidth="3" strokeLinecap="round" />
-        {coords.map((point) => (
+        {labelPoints.map((point) => (
+          <text
+            key={`label-${point.pointId || point.key}`}
+            x={point.x}
+            y={height - 12}
+            textAnchor="middle"
+            fill="var(--color-ink-3)"
+            fontSize="12"
+            fontWeight="800"
+          >
+            {point.label}
+          </text>
+        ))}
+        {dotPoints.map((point) => (
           <g
-            key={point.key}
+            key={`dot-${point.pointId || point.key}`}
             role="button"
             tabIndex={0}
-            aria-label={`${point.label} 운의 흐름 ${point.value}`}
+            aria-label={`${point.label || point.key} 운의 흐름 ${point.value}`}
             onClick={() => onSelect?.(point.key)}
             onKeyDown={(event) => {
               if (event.key === 'Enter' || event.key === ' ') {
@@ -777,9 +892,6 @@ function LifeFlowChart({ points, onSelect }) {
               stroke="var(--color-wood)"
               strokeWidth="2"
             />
-            <text x={point.x} y={height - 12} textAnchor="middle" fill="var(--color-ink-3)" fontSize="12" fontWeight="800">
-              {point.label}
-            </text>
           </g>
         ))}
       </svg>
@@ -958,11 +1070,11 @@ function CombiedNamingReport({
     [fortuneReport, nameCompatibility],
   );
   const lifeFlowPoints = useMemo(() => {
-    return buildLifeFlowPoints(lifePeriodOptions).map((point) => ({
+    return buildLifeFlowPoints(lifePeriodOptions, fortuneReport?.lifeCurve).map((point) => ({
       ...point,
-      isSelected: point.key === selectedLifeFlowKey,
+      isSelected: point.isSelected || point.key === selectedLifeFlowKey,
     }));
-  }, [lifePeriodOptions, selectedLifeFlowKey]);
+  }, [lifePeriodOptions, fortuneReport, selectedLifeFlowKey]);
   const nameDetails = asArray(nameCompatibility?.details).filter(Boolean);
   const personality = fortuneReport?.personality || {};
   // A1/N1 — plain-language fingerprint readings (jargon-free). Optional/additive.
@@ -1227,6 +1339,8 @@ function CombiedNamingReport({
                 ariaLabel="기간별 분야 해석"
               />
             </ReportSection>
+
+            <InsightFactsSection insightFacts={fortuneReport?.insightFacts} />
 
             <PremiumReportSection
               isUnlocked={isPremiumUnlocked}

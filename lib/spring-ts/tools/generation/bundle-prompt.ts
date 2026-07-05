@@ -125,8 +125,10 @@ export function buildBundlePrompt(cases: readonly GenerationCase[]): string {
   const isStages = c0.audience.startsWith('stage-');
 
   const cellLines = cases.map((c, i) => {
+    // stage 셀도 band가 지정되면(등급 확장 S4+) 대운 길흉 톤을 함께 싣는다.
+    // band 'any'(현행 S3 번들)는 종전과 동일 — 진행 중 생성에 무영향.
     const lens = isStages
-      ? `생애 단계: ${STAGE_LABEL[c.audience] ?? c.audience}`
+      ? `생애 단계: ${STAGE_LABEL[c.audience] ?? c.audience}${c.band && c.band !== 'any' ? ` / 대운 등급 ${c.band}: ${BAND_TONE[c.band] ?? ''}` : ''}`
       : `${PERIOD_LENS[c.period] ?? c.period} / 등급 ${c.band}: ${BAND_TONE[c.band] ?? ''}`;
     return `${i + 1}. \`${c.caseId}\` — ${lens}`;
   }).join('\n');

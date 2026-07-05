@@ -15,6 +15,7 @@
 import type { SajuSummary, BirthInfo, NamingReport, NamingReportFrame, SajuCompatibility, SourceTierMetadata } from '../../types.js';
 import type {
   AgeBandScopedFortunes,
+  DaeunScopedFortunes,
   BriefFortuneText,
   ElementCode,
   ExpertFortuneText,
@@ -53,7 +54,7 @@ import {
 import { gradeCell, gradeToStars } from './cell-grader.js';
 import { buildPersonalReading } from './personal-reading.js';
 import { buildNameSajuReading } from './name-saju-reading.js';
-import { computeClassId, packKeyFor, ALL_CATEGORIES } from './class-axes.js';
+import { computeClassIdCandidates, packKeyFor, minorPackKeyFor, ALL_CATEGORIES } from './class-axes.js';
 import { getGeneratedArticle, preloadGeneratedForPerson } from './generated-registry.js';
 import { buildPeriodMeta, periodFortuneElement } from './period-meta-builder.js';
 import { loadGlossary } from './glossary-loader.js';
@@ -352,8 +353,15 @@ function buildCell(
   // Class-first selection (κ): the person's generated class article when it
   // exists, else the base pool. Graceful fallback keeps the report intact as
   // generation fills in — the frontend improves without any FE change.
-  const classId = computeClassId(category, period, audience, band, feature, sajuCompat);
-  const article = (classId ? getGeneratedArticle(category, classId) : null)
+  // 미성년형(child/teen/stage-*) 오디언스는 매니페스트의 축 축소(gender 'x' 등)를
+  // 미러링한 후보 목록을 [요청 band → 'any'] 순으로 시도한다 (class-axes.ts).
+  const candidates = computeClassIdCandidates(category, period, audience, band, feature, sajuCompat);
+  let generated: Article | null = null;
+  for (const classId of candidates) {
+    generated = getGeneratedArticle(category, classId);
+    if (generated) break;
+  }
+  const article = generated
     ?? selectArticle(registry, category, period, audience, band, seedKey);
   if (!article) return placeholderCell();
 
@@ -538,6 +546,52 @@ function buildLifeByAgeBand(
   return byAgeBand;
 }
 
+/**
+ * 개인별 대운(大運) 구간 단위의 life 셀 목록 — 선택 칩의 정통 축.
+ * 각 대운을 합성 LifeStageBandSpec으로 바꿔 buildAgeBandScoped를 재사용한다:
+ * - periodLabel = 대운 나이 범위(floor) → 본문 {{periodLabel}}과 칩 라벨 일치.
+ * - representativeAge = 대운 중점(floor) — 채점 나이가 항상 구간 안에 든다.
+ *   10 미만은 10으로 클램프(생애단계 오디언스 매핑이 10-19부터 시작).
+ * - 미성년 게이팅은 byAgeBand와 동일(자기 단계 외 placeholder).
+ */
+function buildLifeByDaeun(
+  saju: SajuSummary,
+  birth: BirthInfo,
+  targetDate: Date,
+  registry: ArticleRegistry,
+  glossary: Readonly<Record<TagId, GlossaryEntry>>,
+  seedKey: string,
+  subjectIsMinor: boolean,
+  sajuCompat: SajuCompatibility | null | undefined,
+): readonly DaeunScopedFortunes[] {
+  const pillars = extractDaeunPillars(saju);
+  if (!pillars.length) return [];
+
+  return pillars.map((pillar, index) => {
+    const floorStart = Math.floor(pillar.startAge);
+    const floorEnd = Math.floor(pillar.endAge);
+    const repRaw = Math.floor((pillar.startAge + pillar.endAge) / 2);
+    const rep = Math.min(Math.max(repRaw, 10), 105);
+    const bandSpec = LIFE_STAGE_BANDS.find((b) => rep >= b.startAge && rep <= b.endAge)
+      ?? LIFE_STAGE_BANDS[LIFE_STAGE_BANDS.length - 1];
+    const ageLabel = `${floorStart}세~${floorEnd}세`;
+    const spec: LifeStageBandSpec = {
+      key: bandSpec.key,
+      label: ageLabel,
+      startAge: floorStart,
+      endAge: floorEnd,
+      representativeAge: rep,
+    };
+    const feature = buildFeatureVectorForAge(saju, birth, targetDate, rep);
+    const stageAudience = stageAudienceForLifeBand(bandSpec.key);
+    const pillarDisplay = `${STEM_BY_CODE[pillar.stem.trim().toUpperCase()]?.hangul ?? pillar.stem}${BRANCH_BY_CODE[pillar.branch.trim().toUpperCase()]?.hangul ?? pillar.branch}`;
+    const scoped = (subjectIsMinor && stageAudience !== 'stage-teen')
+      ? placeholderAgeBandScoped(spec, feature, targetDate)
+      : buildAgeBandScoped(saju, spec, registry, glossary, feature, seedKey, targetDate, sajuCompat);
+    return { ...scoped, daeunIndex: index, pillarDisplay, ageLabel };
+  });
+}
+
 export interface BuildTieredMatrixOptions {
   readonly enabled?: boolean;
   readonly contentSource?: 'placeholder' | 'authored';
@@ -606,10 +660,16 @@ export async function preloadGeneratedForReport(
   sajuCompat: SajuCompatibility | null | undefined,
 ): Promise<void> {
   const feature = buildFeatureVector(saju, birth, targetDate);
-  const entries = ALL_CATEGORIES.map((category) => ({
-    category,
-    packKey: packKeyFor(category, feature, sajuCompat),
-  }));
+  // 사람축 팩 + (다르면) 미성년형 축 팩. stage/child/teen 클래스는 gender 'x'
+  // 팩에 묶이므로, 성별 민감 분야(romance 등)에서는 사람 팩만 받으면
+  // 생애단계 셀이 브라우저에서 영구 미스가 된다 (class-axes.minorPackKeyFor).
+  const minorKey = minorPackKeyFor(feature, sajuCompat);
+  const entries = ALL_CATEGORIES.flatMap((category) => {
+    const primary = packKeyFor(category, feature, sajuCompat);
+    const list: Array<{ category: string; packKey: string | null }> = [{ category, packKey: primary }];
+    if (minorKey && minorKey !== primary) list.push({ category, packKey: minorKey });
+    return list;
+  });
   await preloadGeneratedForPerson(entries);
 }
 
@@ -632,7 +692,11 @@ export function buildTieredMatrix(
   for (const period of PERIOD_ORDER) {
     const scoped = buildPeriodScoped(period, registry, allGlossaryEntries, feature, seedKey, targetDate, sajuCompat);
     periods[period] = period === 'life'
-      ? { ...scoped, byAgeBand: buildLifeByAgeBand(saju, birth, targetDate, registry, allGlossaryEntries, seedKey, subjectIsMinor, sajuCompat) }
+      ? {
+        ...scoped,
+        byAgeBand: buildLifeByAgeBand(saju, birth, targetDate, registry, allGlossaryEntries, seedKey, subjectIsMinor, sajuCompat),
+        byDaeun: buildLifeByDaeun(saju, birth, targetDate, registry, allGlossaryEntries, seedKey, subjectIsMinor, sajuCompat),
+      }
       : scoped;
   }
 

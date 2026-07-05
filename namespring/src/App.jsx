@@ -289,6 +289,9 @@ function toFortuneReportRequest(userInfo, givenName) {
       precisionConfig: {
         ...(base.options?.precisionConfig || {}),
         surfaceTieredMatrix: true,
+        // 전문 인사이트 원자료(신살·공망·합충형파해 등) — 해석 파일이 채워진
+        // fact만 렌더되므로 충전 전에는 화면 변화 없음 (성인 대상자 전용).
+        surfaceInsightFacts: true,
       },
     },
   };
