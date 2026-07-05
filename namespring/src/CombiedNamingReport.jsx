@@ -495,7 +495,8 @@ function buildPeriodOptions(fortuneReport) {
     ? legacyStages.map((stage, index) => {
       const startAge = Math.floor(Number(stage.startAge));
       const endAge = Math.floor(Number(stage.endAge));
-      const ageLabel = `${startAge}세~${endAge}세`;
+      // 폐구간 표기: 다음 대운 시작 나이와 겹치지 않게 (25세~34세 / 35세~44세).
+      const ageLabel = `${startAge}세~${Math.max(startAge, endAge - 1)}세`;
       return {
         key: `life-daeun-${index}`,
         periodKind: 'life',

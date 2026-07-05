@@ -303,7 +303,9 @@ export function buildLifeStageFortuneCard(
     // Age range
     const flooredStartAge = floorAge(dp.startAge);
     const flooredEndAge = floorAge(dp.endAge);
-    const ageRange = `${flooredStartAge}세 ~ ${flooredEndAge}세`;
+    // 폐구간 표기: 다음 대운 시작 나이와 겹치지 않게 (25세~34세 / 35세~44세).
+    // startAge/endAge 필드는 구간 매칭용으로 원값(내림) 유지, 표시만 -1.
+    const ageRange = `${flooredStartAge}세 ~ ${Math.max(flooredStartAge, flooredEndAge - 1)}세`;
 
     // Check if this is the current stage
     if (

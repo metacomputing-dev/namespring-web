@@ -574,7 +574,8 @@ function buildLifeByDaeun(
     const rep = Math.min(Math.max(repRaw, 10), 105);
     const bandSpec = LIFE_STAGE_BANDS.find((b) => rep >= b.startAge && rep <= b.endAge)
       ?? LIFE_STAGE_BANDS[LIFE_STAGE_BANDS.length - 1];
-    const ageLabel = `${floorStart}세~${floorEnd}세`;
+    // 폐구간 표기: 다음 대운 시작 나이와 겹치지 않게 (25세~34세 / 35세~44세).
+    const ageLabel = `${floorStart}세~${Math.max(floorStart, floorEnd - 1)}세`;
     const spec: LifeStageBandSpec = {
       key: bandSpec.key,
       label: ageLabel,
