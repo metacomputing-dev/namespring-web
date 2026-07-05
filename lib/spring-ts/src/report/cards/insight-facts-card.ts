@@ -15,6 +15,8 @@
  */
 import type { SajuSummary } from '../../types.js';
 import { getInsightInterpretation, type InsightInterpretation } from '../tiered/insight-registry.js';
+import { SHINSAL_ENCYCLOPEDIA } from '../knowledge/shinsalEncyclopedia.js';
+import { STEM_BY_CODE, BRANCH_BY_CODE } from '../common/elementMaps.js';
 
 export type InsightFactKind =
   | 'shinsal' | 'gongmang' | 'stemRelation' | 'branchRelation'
@@ -39,8 +41,40 @@ export interface InsightFactsCard {
   readonly facts: readonly InsightFact[];
 }
 
-function withInterpretation(fact: Omit<InsightFact, 'interpretation'>): InsightFact {
-  const interpretation = getInsightInterpretation(fact.factId);
+/** 신살 백과(사주 평가 보고서의 저작 자산)를 한글명으로 조회하는 폴백 맵. */
+const SHINSAL_BY_KOREAN: ReadonlyMap<string, InsightInterpretation> = (() => {
+  const map = new Map<string, InsightInterpretation>();
+  for (const entry of Object.values(SHINSAL_ENCYCLOPEDIA)) {
+    if (!entry?.korean || !entry.meaning) continue;
+    map.set(entry.korean, {
+      factId: `shinsal.${entry.korean}`,
+      text: entry.meaning,
+      expertText: Array.isArray(entry.description) ? entry.description.join(' ') : undefined,
+    });
+  }
+  return map;
+})();
+
+/**
+ * 해석 조회 체인: ①insights 파일의 정확 factId → ②타입 레벨 폴백
+ * (예: `branchRelation.형`) → ③신살은 백과 자동 연결.
+ * 어디에도 없으면 interpretation 없이 방출(프론트가 렌더 생략).
+ */
+function withInterpretation(
+  fact: Omit<InsightFact, 'interpretation'>,
+  fallbackIds: readonly string[] = [],
+): InsightFact {
+  let interpretation = getInsightInterpretation(fact.factId);
+  for (const id of fallbackIds) {
+    if (interpretation) break;
+    interpretation = getInsightInterpretation(id);
+  }
+  if (!interpretation && fact.kind === 'shinsal') {
+    // 이름 변형 허용: 엔진 hit type '도화' ↔ 백과 '도화살' 류.
+    interpretation = SHINSAL_BY_KOREAN.get(fact.label)
+      ?? SHINSAL_BY_KOREAN.get(`${fact.label}살`)
+      ?? null;
+  }
   return interpretation ? { ...fact, interpretation } : fact;
 }
 
@@ -62,12 +96,12 @@ export function buildInsightFactsCard(saju: SajuSummary): InsightFactsCard | nul
   // ── 공망 ([지지, 지지] | null) ──
   if (Array.isArray(saju.gongmang) && saju.gongmang.length === 2) {
     facts.push(withInterpretation({
-      factId: 'gongmang',
+      factId: `gongmang.${[saju.gongmang[0], saju.gongmang[1]].sort().join('-')}`,
       kind: 'gongmang',
       label: '공망',
       members: [saju.gongmang[0], saju.gongmang[1]],
       detail: `${saju.gongmang[0]}, ${saju.gongmang[1]}`,
-    }));
+    }, ['gongmang']));
   }
 
   // ── 천간 관계 (합/충/극 — CheonganRelationSummary) ──
@@ -79,7 +113,7 @@ export function buildInsightFactsCard(saju: SajuSummary): InsightFactsCard | nul
       label: `천간 ${rel.type}`,
       members: rel.stems,
       detail: rel.note ?? undefined,
-    }));
+    }, [`stemRelation.${rel.type}`]));
   }
 
   // ── 지지 관계 (합/충/형/파/해/원진 — JijiRelationSummary) ──
@@ -91,7 +125,7 @@ export function buildInsightFactsCard(saju: SajuSummary): InsightFactsCard | nul
       label: `지지 ${rel.type}`,
       members: rel.branches,
       detail: rel.note ?? undefined,
-    }));
+    }, [`branchRelation.${rel.type}`]));
   }
 
   // ── 지장간 (tenGodAnalysis.byPosition[pos].hiddenStems — 런타임 파싱) ──
@@ -108,10 +142,11 @@ export function buildInsightFactsCard(saju: SajuSummary): InsightFactsCard | nul
         .map((h) => (h && typeof h === 'object' ? String((h as Record<string, unknown>).stem ?? '') : ''))
         .filter(Boolean);
       if (!names.length) continue;
+      const positionKo: Record<string, string> = { YEAR: '년주', MONTH: '월주', DAY: '일주', HOUR: '시주' };
       facts.push(withInterpretation({
         factId: `hiddenStems.${position}`,
         kind: 'hiddenStems',
-        label: `${position} 지장간`,
+        label: `${positionKo[position.toUpperCase()] ?? position} 지장간`,
         members: names,
       }));
     }
@@ -127,10 +162,12 @@ export function buildInsightFactsCard(saju: SajuSummary): InsightFactsCard | nul
       if (!p || typeof p !== 'object') continue;
       const pp = p as Record<string, unknown>;
       if (typeof pp.stem !== 'string' || typeof pp.branch !== 'string') continue;
+      const stemKo = STEM_BY_CODE[pp.stem.toUpperCase()]?.hangul ?? pp.stem;
+      const branchKo = BRANCH_BY_CODE[pp.branch.toUpperCase()]?.hangul ?? pp.branch;
       facts.push(withInterpretation({
         factId: `daeunPillar.${pp.stem}-${pp.branch}`,
         kind: 'daeunPillar',
-        label: `${i + 1}대운 ${pp.stem}${pp.branch}`,
+        label: `${i + 1}대운 ${stemKo}${branchKo}`,
         detail: typeof pp.startAge === 'number' && typeof pp.endAge === 'number'
           ? `${Math.floor(pp.startAge)}세~${Math.floor(pp.endAge)}세`
           : undefined,

@@ -1,5 +1,26 @@
 {
   "schemaVersion": "spring-ts.insights.v1",
   "domain": "hidden-stems",
-  "entries": []
+  "entries": [
+    {
+      "factId": "hiddenStems.YEAR",
+      "text": "년주 지지 속에 숨은 천간들이에요. 뿌리 세대에게 물려받은 잠재력의 결이 여기 담겨 있어요.",
+      "expertText": "년지 지장간은 초년 환경과 조상궁의 암장 기운으로, 겉으로 드러나기 전의 밑그림으로 읽어요."
+    },
+    {
+      "factId": "hiddenStems.MONTH",
+      "text": "월주 지지 속에 숨은 천간들이에요. 사회에서 발휘될 재능의 원석이 여기 묻혀 있어요.",
+      "expertText": "월지 지장간은 격국의 뿌리가 되는 핵심 암장으로, 투출 여부에 따라 쓰임이 크게 달라져요."
+    },
+    {
+      "factId": "hiddenStems.DAY",
+      "text": "일주 지지 속에 숨은 천간들이에요. 나의 가장 사적인 내면 풍경이 여기 담겨 있어요.",
+      "expertText": "일지 지장간은 배우자궁의 암장이자 본인의 심층 심리로, 드러난 성격과 속마음의 간극을 설명해 줘요."
+    },
+    {
+      "factId": "hiddenStems.HOUR",
+      "text": "시주 지지 속에 숨은 천간들이에요. 말년과 결실, 그리고 아직 피지 않은 가능성의 씨앗이에요.",
+      "expertText": "시지 지장간은 자녀궁·말년운의 암장으로, 인생 후반에 발현될 잠재 기운으로 읽어요."
+    }
+  ]
 }

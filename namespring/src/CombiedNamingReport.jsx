@@ -580,7 +580,17 @@ function getCategorySummary(categoryItems, id, fallback) {
  * 상태에서는 아무것도 그리지 않아 화면 무회귀. (성인 대상자에게만 카드가 실림)
  */
 function InsightFactsSection({ insightFacts }) {
-  const interpreted = asArray(insightFacts?.facts).filter((fact) => fact?.interpretation?.text);
+  const raw = asArray(insightFacts?.facts).filter((fact) => fact?.interpretation?.text);
+  // 같은 factId(예: 지살이 년주·일주 양쪽 히트)는 한 항목으로 병합 — 위치만 합산.
+  const byId = new Map();
+  raw.forEach((fact) => {
+    const prev = byId.get(fact.factId);
+    if (!prev) byId.set(fact.factId, { ...fact });
+    else if (fact.detail && prev.detail && !prev.detail.includes(fact.detail)) {
+      prev.detail = `${prev.detail} · ${fact.detail}`;
+    }
+  });
+  const interpreted = [...byId.values()];
   if (!interpreted.length) return null;
   return (
     <ReportSection

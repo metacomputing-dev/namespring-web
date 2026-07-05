@@ -379,6 +379,11 @@ export interface PrecisionConfig {
    *  display-only and never imported by scoring code. */
   readonly surfaceTieredMatrix?: boolean;
 
+  /** Surface `FortuneReport.insightFacts` — 미사용 엔진 출력(신살·공망·
+   *  합충형파해·지장간·대운 정체)의 정규화 방출. 성인 대상자 전용,
+   *  해석(insights registry)이 붙은 fact만 프론트가 렌더. Default off. */
+  readonly surfaceInsightFacts?: boolean;
+
   /** Evaluator mode for sajuPriority extraction (PR-K-8 declaration —
    *  spring-info/09_finalization/06_multi_axis_evaluator.md).
    *
