@@ -118,7 +118,15 @@ export function computeClassIdCandidates(
   const key = minorPackKeyFor(feature, compat);
   if (!key) return [];
   const ids = [[category, period, audience, band, key].join('.')];
-  if (band !== 'any') ids.push([category, period, audience, 'any', key].join('.'));
+  // 등급-텍스트 정합 보장: 생애단계(stage-*) 셀의 순풍/역풍(high/low) 구간은
+  // 등급 중립(any) 재생성으로 내려가지 않는다 — 셀렉터가 등급 인지 베이스
+  // 문안으로 폴백해, 표시되는 별점과 글의 톤이 항상 일치한다. 평탄(mid)만
+  // any(중립=평탄)로 폴백. S4 등급 충전 후에는 exact가 잡혀 개인화까지 회복.
+  // child/teen(미성년 기간 표면)은 등급 베이스가 없어 any 유지(비모순 확인됨).
+  const isStage = audience.startsWith('stage-');
+  if (band !== 'any' && (!isStage || band === 'mid')) {
+    ids.push([category, period, audience, 'any', key].join('.'));
+  }
   return ids;
 }
 
