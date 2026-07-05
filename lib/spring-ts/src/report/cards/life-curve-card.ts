@@ -148,7 +148,7 @@ export function buildLifeCurveCard(
       endAgeExact: p.endAge,
       pillarDisplay: el.display,
       stars: gradeToStarsShared(grade),
-      label: `${startAge}세~${endAge}세`,
+      label: `${startAge}세~${Math.max(startAge, endAge - 1)}세`, // 폐구간 표기 (겹침 방지)
     };
   });
 
