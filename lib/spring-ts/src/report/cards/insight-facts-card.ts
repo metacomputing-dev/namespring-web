@@ -43,6 +43,8 @@ export interface InsightFact {
   readonly highlight?: boolean;
   /** 엔진 가중 원값(신살 weightedScore 등) — 주요도 정렬의 입력. */
   readonly score?: number;
+  /** 주요도 0~1 (weightOf/100) — 프론트가 테두리·배경 농도에 매핑. */
+  readonly salience?: number;
 }
 
 export interface InsightFactsCard {
@@ -156,8 +158,12 @@ function markHighlights(facts: InsightFact[]): InsightFact[] {
   };
 
   return facts
-    .map((f, index) => ({ fact: chosen.has(f.factId) ? { ...f, highlight: true } : f, index }))
-    .sort((a, b) => (weightOf(b.fact) - weightOf(a.fact)) || (a.index - b.index))
+    .map((f, index) => {
+      const salience = Math.max(0, Math.min(1, weightOf(f) / 100));
+      const fact = chosen.has(f.factId) ? { ...f, highlight: true, salience } : { ...f, salience };
+      return { fact, index };
+    })
+    .sort((a, b) => ((b.fact.salience ?? 0) - (a.fact.salience ?? 0)) || (a.index - b.index))
     .map((x) => x.fact);
 }
 
