@@ -24,6 +24,38 @@
 각 카테고리 = prepare → 생성 → ingest → 리젝 재생성 1~2회 → 정독 → 커밋.
 (career 등 미노출 5분야는 보류 확정 — 착수 금지.)
 
+## 1.1 PR 머지 후 61번 재개 지침 (2026-07-05 Codex 수동 루프)
+
+현재 협업 방침: Claude가 S2 최종 reject 1개를 닫은 뒤, **S2 완결 + S3 romance 60번까지**를 커밋하고 PR로 올린다.
+그 PR이 검토·머지된 뒤 Codex는 **61번부터 재개**한다. PR 머지 전에는 61번을 시작하지 않는다.
+
+머지 후 첫 확인:
+
+```bash
+cd lib/spring-ts
+npx tsx tools/generation/manual-bundle-workbench.ts list romance --pending --limit 5
+```
+
+기대 상태:
+- 57번 `romance.adult.strong.gwanseong.adverse.female` = `regen-manual-20260705-0057` 15편
+- 58번 `romance.adult.strong.gwanseong.adverse.male` = `regen-manual-20260705-0058` 15편
+- 59번 `romance.adult.strong.gwanseong.boost_mild.female` = `regen-manual-20260705-0059` 15편
+- 60번 `romance.adult.strong.gwanseong.boost_mild.male` = `regen-manual-20260705-0060` 15편
+- 다음 pending 첫 항목 = **61번 `romance.adult.strong.gwanseong.boost_strong.female`**
+
+61번 해석 축:
+- 강약: `strong` — 평문에서는 "단단한" 결. 책임감·기준·결정력이 선명하되 사랑에서는 말투와 여지를 낮춰야 한다.
+- 격국: `gwanseong` — 약속·책임·관계의 형태를 세우는 구조. 연애에서는 신뢰가 장점, 통제감이 위험.
+- 이름 영향: `boost_strong` — 이름이 필요한 기운을 크게 보강한다. 다만 평문에서 "이름이 다 해결한다"는 식의 과장 금지. 좋은 이름의 받침이 있으므로 대화·약속·표현으로 살려야 한다.
+- 성별: `female` — 곤명. 57번 adverse female, 59번 boost_mild female과 문단 뼈대가 겹치지 않게 새 장면으로 쓴다.
+
+61번 작업 방식:
+1. `manual-bundle-workbench.ts export romance 61 --pending`으로 편집 폴더를 만든다.
+2. 15편을 한 번에 기계적으로 복제하지 말고, `life / thisYear / thisMonth / thisWeek / today`와 `high / mid / low`마다 장면을 다르게 쓴다.
+3. 금지 표현: `고른 거리감`, `고른 속도`, `숨을 고르는`, `밥과 잠`, `차분히 다질`, `손에 잡히는`, `오늘의 첫걸음`, 번역투 추상어.
+4. 평문에는 `오행`, `용신`, `관성`, `사주`, `성명`, `건명`, `곤명`, `신강`, `자원오행` 같은 전문어를 넣지 않는다. 전문어는 expert에만 둔다.
+5. dry-run 통과 후에도 watch 검색과 평문 전문어 누출 검사를 하고, 실제 샘플 3~5편을 읽은 뒤 import한다.
+
 ## 2. 실행 모드 (우선순위 체인)
 
 ### 모드 A — Claude Code 세션 + Fable 5 에이전트 (기본)
