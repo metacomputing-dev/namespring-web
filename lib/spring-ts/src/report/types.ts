@@ -392,6 +392,12 @@ export interface FortuneReport {
    *  Surfaced only when `precisionConfig.surfaceTieredMatrix === true`,
    *  otherwise undefined. NameSpring backward-compat preserved. */
   readonly tieredMatrix?: FortuneTieredMatrix;
+  /** 0~100세 대운·세운 블렌드 커브 — tieredMatrix와 같은 opt-in 조건에서만 실림.
+   *  점수 정본 규칙: 별점(칩·카드)이 정본, 커브는 시각화용 파생. */
+  readonly lifeCurve?: import('./cards/life-curve-card.js').LifeCurveCard;
+  /** 미사용 엔진 출력(신살·공망·관계·지장간·대운 정체)의 정규화 방출 —
+   *  surfaceInsightFacts opt-in + 성인 대상자 전용. 해석 없는 fact는 렌더 생략. */
+  readonly insightFacts?: import('./cards/insight-facts-card.js').InsightFactsCard;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -544,6 +550,17 @@ export interface AgeBandScopedFortunes {
   readonly byCategory: Readonly<Record<TieredCategoryId, TieredFortune>>;
 }
 
+/** A life-period cell group for one PERSONAL daeun(大運) segment.
+ *  byAgeBand(달력 10년)와 달리 경계·라벨이 개인 대운을 그대로 따른다 —
+ *  periodLabel도 대운 나이 범위라 본문 {{periodLabel}} 직조와 칩 라벨이 일치. */
+export interface DaeunScopedFortunes extends AgeBandScopedFortunes {
+  readonly daeunIndex: number;
+  /** 대운 간지 표시 (예: '갑자'). */
+  readonly pillarDisplay: string;
+  /** '13세~22세' — floor 표시 규약. */
+  readonly ageLabel: string;
+}
+
 /** All cells for one period of the matrix: total + 10 categories. */
 export interface PeriodScopedFortunes {
   readonly periodKind: TieredPeriodKind;
@@ -555,6 +572,9 @@ export interface PeriodScopedFortunes {
   readonly byCategory: Readonly<Record<TieredCategoryId, TieredFortune>>;
   /** Life-only: precomputed 10-year bands so UI period selection can switch content. */
   readonly byAgeBand?: Readonly<Record<TieredLifeStageBand, AgeBandScopedFortunes>>;
+  /** Life-only: 개인별 대운 구간 단위 셀 (정통 축 — UI 선택 칩의 1차 소스).
+   *  byAgeBand는 호환용으로 병존하며 점진 폐기 예정. */
+  readonly byDaeun?: readonly DaeunScopedFortunes[];
 }
 
 /** A single glossary entry behind an inline `#태그`.
@@ -696,6 +716,9 @@ export interface FortuneReportOptions {
   /** Surface the tiered fortune matrix (`FortuneReport.tieredMatrix`).
    *  Default unset / false. Mirrors `PrecisionConfig.surfaceTieredMatrix`. */
   readonly surfaceTieredMatrix?: boolean;
+  /** Surface `FortuneReport.insightFacts` (전문 인사이트 원자료).
+   *  Default unset / false. 성인 대상자에게만 빌드된다(미성년 페이로드 제외). */
+  readonly surfaceInsightFacts?: boolean;
   /** Report-wide selected doctrine lens and whether it affected scoring. */
   readonly schoolPreset?: SchoolPresetMetadata;
 }

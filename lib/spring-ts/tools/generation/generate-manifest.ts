@@ -87,8 +87,17 @@ function readBaseCells(): BaseCell[] {
   return [...cells.values()];
 }
 
-function isMinor(cell: BaseCell): boolean {
+/** 축 축소 대상(강약 2종·adverse 없음·gender 'x') — κ 축소수식의 클래스 억제.
+ *  성인 생애단계(stage-early~elder)도 축은 접는다 (런타임 class-axes가 미러링). */
+function hasCollapsedAxes(cell: BaseCell): boolean {
   return MINOR_AUDIENCES.has(cell.audience) || cell.audience.startsWith('stage-');
+}
+
+/** 미성년 어휘 안전(MINOR_BANNED) 대상 — 실제 미성년 오디언스만.
+ *  stage-early~elder는 성인 단계라 연애·결혼·투자 언급이 허용돼야 한다
+ *  (romance 생애단계 등급 글의 자기모순 방지 — DESIGN_LIFEFLOW_INSIGHTS.md). */
+function isMinor(cell: BaseCell): boolean {
+  return MINOR_AUDIENCES.has(cell.audience);
 }
 
 function buildSpec(cell: BaseCell, g: StrengthCoarse, fam: GyeokgukFamily, ne: NameEffect, gender: Gender | null): GenerationSpec {
@@ -110,10 +119,10 @@ function buildSpec(cell: BaseCell, g: StrengthCoarse, fam: GyeokgukFamily, ne: N
 }
 
 function* enumerate(cell: BaseCell): Generator<GenerationCase> {
-  const minor = isMinor(cell);
-  const strengths = minor ? MINOR_STRENGTHS : ADULT_STRENGTHS;
-  const nameEffects = minor ? MINOR_NAME_EFFECTS : ADULT_NAME_EFFECTS;
-  const genders: readonly (Gender | null)[] = (!minor && GENDER_SENSITIVE.has(cell.category)) ? ['male', 'female'] : [null];
+  const collapsed = hasCollapsedAxes(cell);
+  const strengths = collapsed ? MINOR_STRENGTHS : ADULT_STRENGTHS;
+  const nameEffects = collapsed ? MINOR_NAME_EFFECTS : ADULT_NAME_EFFECTS;
+  const genders: readonly (Gender | null)[] = (!collapsed && GENDER_SENSITIVE.has(cell.category)) ? ['male', 'female'] : [null];
   for (const g of strengths) {
     for (const fam of FAMILIES) {
       for (const ne of nameEffects) {

@@ -42,7 +42,12 @@ function isValidGenerated(value: unknown): value is Article {
     && typeof a.articleId === 'string'
     && Array.isArray(a.body) && a.body.every((p) => typeof p === 'string')
     && Array.isArray(a.expert) && a.expert.every((p) => typeof p === 'string')
-    && typeof a.summary === 'string';
+    && typeof a.summary === 'string'
+    // Provenance 게이트: LLM 재생성(3층 게이트 통과) 콘텐츠만 채택한다.
+    // 2026-07-04 이전의 템플릿 스탬핑 코퍼스(sourceNote 'generation-2026-07' 등)는
+    // 여기서 걸러져 베이스 풀로 폴백 — 재생성이 분야를 채울수록 자동 승격된다.
+    && typeof a.sourceNote === 'string'
+    && (a.sourceNote as string).startsWith('regen-');
 }
 
 const cache = new Map<string, Article | null>();       // node: per-file memo (key `cat/classId`)

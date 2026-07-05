@@ -529,6 +529,36 @@ export function getFortuneGrade(
   return 3;
 }
 
+/**
+ * 간지(천간+지지) 기둥 하나의 종합 등급 (1~5).
+ * 천간 오행으로 기본 등급을 잡고, 지지 오행이 용신이면 +1 / 기신이면 -1 보정.
+ * 대운·세운 공용 — life-stage 카드와 life-curve 카드가 같은 산식을 공유해야
+ * 별점과 커브가 서로 모순되지 않는다.
+ */
+export function getPillarGrade(
+  stemElement: ElementCode,
+  branchElement: ElementCode | null,
+  yongshin: ElementCode,
+  heeshin?: ElementCode | null,
+  gishin?: ElementCode | null,
+): number {
+  const base = getFortuneGrade(stemElement, yongshin, heeshin, gishin);
+  if (!branchElement) return base;
+  let adjusted = base;
+  if (branchElement === yongshin) adjusted += 1;
+  else if (gishin && branchElement === gishin) adjusted -= 1;
+  return Math.max(1, Math.min(5, Math.round(adjusted)));
+}
+
+/** 등급(1~5) → 별점. 계단 매핑(사실상 항등)을 한 곳으로 통일. */
+export function gradeToStarsShared(grade: number): 1 | 2 | 3 | 4 | 5 {
+  if (grade >= 5) return 5;
+  if (grade >= 4) return 4;
+  if (grade >= 3) return 3;
+  if (grade >= 2) return 2;
+  return 1;
+}
+
 
 // =============================================================================
 //  7. 운과 원국의 합충형파해 대조
