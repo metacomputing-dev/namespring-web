@@ -53,6 +53,37 @@ function slotViolations(text: string): string[] {
   return out;
 }
 
+const STRENGTH_PLAIN_PATTERNS: Readonly<Record<string, readonly RegExp[]>> = {
+  balanced: [
+    /(?:흐름|바탕|감정선|기류|상태|관계|리듬|기복|균형).{0,18}고른/u,
+    /고른.{0,18}(?:흐름|바탕|감정선|기류|상태|관계|리듬|기복|균형)/u,
+    /균형(?:이|은|을|감|적| 있게| 잡힌| 잡혀|을 유지|을 지키)/u,
+    /한쪽으로.{0,12}(?:치우치|쏠리)지/u,
+    /기복(?:이|은)?\s*(?:크지|적|덜|작)/u,
+    /(?:안정감|안정적|안정된|평탄|완만|무난|차분한 흐름|흔들림이 크지)/u,
+  ],
+  strong: [
+    /단단/u,
+    /힘(?:이|을)?\s*(?:실리|붙|강하|넘치|앞서|버티)/u,
+    /(?:추진력|주도권|기세|탄탄|적극성|밀어붙|밀고 나가|앞서가|강한 흐름|강하게)/u,
+  ],
+  weak: [
+    /여린/u,
+    /힘(?:이|을)?\s*(?:약하|빠지|부족|흩어지)/u,
+    /(?:쉽게 흔들|흔들리기 쉬|무리하면 지치|버겁|소모가 크|부담이 커|보완|받쳐(?:야|주|줄)|채우고|다져야|기반을 다지)/u,
+  ],
+};
+
+function hasStrengthPlainEvidence(text: string, c: GenerationCase): boolean {
+  const normalized = text.replace(/\s+/gu, ' ').trim();
+  const patterns = STRENGTH_PLAIN_PATTERNS[c.gangyak] ?? [];
+  if (patterns.some((pattern) => pattern.test(normalized))) return true;
+
+  // Fallback for future manifest values: require the manifest's own plain
+  // signal only when no semantic pattern is defined for that strength axis.
+  return patterns.length === 0 && normalized.includes(c.spec.strengthPlain);
+}
+
 export function validateGenerated(a: GeneratedArticle, c: GenerationCase): { ok: boolean; violations: string[] } {
   const v: string[] = [];
   const s = c.spec;
@@ -111,8 +142,12 @@ export function validateGenerated(a: GeneratedArticle, c: GenerationCase): { ok:
   if (s.audienceSafety === 'minor') for (const w of MINOR_BANNED) if (all.includes(w)) v.push(`minor '${w}'`);
 
   // -- CASE DIRECTION CONSISTENCY (pairing, v2) --
-  // strength adjective must appear in the plain tier (the class fixes 강약).
-  if (!general.includes(s.strengthPlain)) v.push(`강약 평문 '${s.strengthPlain}' 미반영`);
+  // The class fixes 강약. The plain tier must show that direction by meaning,
+  // not by mechanically injecting one fixed adjective.
+  const strengthPlainText = [a.summary, a.hook ?? '', ...a.body].join('\n');
+  if (!hasStrengthPlainEvidence(strengthPlainText, c)) {
+    v.push(`강약 평문 방향 미반영(${c.gangyak}/${s.strengthTerm})`);
+  }
   // honesty: an adverse/neutral name must NOT POSITIVELY claim it fills the
   // needed element. Checked per sentence so a NEGATED mention ("이름이 채워
   // 주지는 않는다" / "채워 준다기보다") is NOT a violation.

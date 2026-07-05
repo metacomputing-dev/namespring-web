@@ -117,6 +117,103 @@ const stampedVerdict = validateGenerated(STAMPED as never, {
 } as GenerationCase);
 check('stamped article: validateGenerated 리젝', !stampedVerdict.ok);
 
+// ── 4b. 강약 평문 게이트: 단어 강제 대신 의미 근거 ───────────────────────
+function caseWithStrength(
+  gangyak: GenerationCase['gangyak'],
+  strengthTerm: string,
+  strengthPlain: string,
+  adviceDirection: string,
+): GenerationCase {
+  return {
+    ...GOOD_CASE,
+    caseId: 'wealth.thisWeek.adult.mid.' + gangyak + '.jaeseong.boost_mild.x',
+    gangyak,
+    spec: {
+      ...GOOD_CASE.spec,
+      archetype: 'wealth/thisWeek/adult/mid × ' + strengthTerm + ' × 재성 × boost_mild',
+      strengthTerm,
+      strengthPlain,
+      adviceDirection,
+    },
+  } as GenerationCase;
+}
+
+function strengthArticle(summary: string, body: string[], expert: string) {
+  return {
+    summary,
+    body,
+    expert: [expert],
+    livingTips: ['결제일 달력에 옮기기', '공동 비용 기준 정하기'],
+    cautions: ['남는 돈은 하루 보관하고 결정해요.'],
+  };
+}
+
+const BALANCED_SEMANTIC_CASE = caseWithStrength(
+  'balanced', '중화', '고른', '한쪽으로 치우치지 않게 흐름을 살피기',
+);
+const BALANCED_SEMANTIC = strengthArticle(
+  '이번 주 돈 흐름은 한쪽으로 치우치지 않을 때 편안해져요.',
+  [
+    '이번 주에는 들어오는 돈과 나가는 돈의 폭이 크게 벌어지지 않는 편이에요. 그래서 큰 승부보다 날짜별 지출을 나누어 보는 쪽이 잘 맞아요. 카드 결제일, 회비, 장보기 값을 따로 적어 두면 마음이 덜 급해져요.',
+    '돈 이야기를 꺼낼 때는 금액보다 기준을 먼저 말해 보세요. 무엇을 아끼고 무엇은 써도 되는지 분리하면 대화가 부드러워져요. 가족이나 동료와 비용을 나눌 일도 작은 표 하나로 정리하면 충분해요.',
+    '이름이 필요한 쪽을 살짝 거드는 자리라 돈의 흐름을 무리하게 키우지 않아도 돼요. 이번 주 목표는 더 많이 벌겠다는 압박보다 새는 곳을 조용히 막는 일이에요. 남은 돈의 쓰임을 정하면 다음 선택도 담담해져요.',
+    '마감 없는 돈 문제는 미루기 쉬워요. 주말 전에 십 분만 정해 계좌 이름을 훑어 보세요. 목적이 흐릿한 돈에 이름을 붙이면 쓰임도 차분하게 정해져요.',
+  ],
+  '중화에 가까운 일간이 재성을 만나는 주간이라, 돈을 크게 밀기보다 균형을 살피는 태도가 어울려요. #{yongshin} 흐름이 한쪽 쏠림을 덜고, #{jaeseong} 구조는 수입과 지출의 현실 감각을 확인하게 해요. 이름의 자원도 필요한 쪽을 과장 없이 거드는 정도로 읽어요.',
+);
+const balancedSemanticVerdict = validateGenerated(BALANCED_SEMANTIC as never, BALANCED_SEMANTIC_CASE);
+check('balanced: exact 고른 없이 의미 표현 통과', balancedSemanticVerdict.ok,
+  balancedSemanticVerdict.violations.join(' | '));
+
+const MISLEADING_GOREUN = strengthArticle(
+  '이번 주 돈 문제는 숨을 고른 뒤 차례대로 살펴요.',
+  [
+    '지출이 몰려 보이면 먼저 숨을 고른 뒤 영수증을 시간순으로 놓아 보세요. 오전에 쓴 돈과 저녁에 쓴 돈을 나누면 충동과 필요가 조금씩 갈라져요. 당장 줄일 항목 하나만 표시해도 충분해요.',
+    '대화를 시작할 때는 말을 고른 뒤 금액과 날짜를 함께 말해 보세요. 상대에게 책임을 넘기기보다 이번에 바꿀 행동을 먼저 정하면 부담이 줄어요. 작은 약속 하나가 다음 결정을 가볍게 해요.',
+    '이름은 필요한 쪽을 살짝 거드는 정도라 생활의 선택이 더 중요해요. 이번 주에는 새 계획을 늘리기보다 이미 정한 결제 규칙을 지켜 보세요. 손이 가는 항목을 하나 줄이면 마음도 덜 분주해져요.',
+    '메모장에는 줄일 것과 남길 것을 따로 써 보세요. 줄일 항목이 하나뿐이어도 괜찮아요. 눈으로 구분해 두면 다음 소비가 조금 늦춰져요.',
+  ],
+  '중화에 가까운 일간이 재성을 만나는 주간이라, 돈을 크게 밀기보다 균형을 살피는 태도가 어울려요. #{yongshin} 흐름이 한쪽 쏠림을 덜고, #{jaeseong} 구조는 수입과 지출의 현실 감각을 확인하게 해요. 이름의 자원도 필요한 쪽을 과장 없이 거드는 정도로 읽어요.',
+);
+const misleadingGoreunVerdict = validateGenerated(MISLEADING_GOREUN as never, BALANCED_SEMANTIC_CASE);
+check('balanced: 숨을 고른 뒤는 중화 근거로 불인정',
+  !misleadingGoreunVerdict.ok && misleadingGoreunVerdict.violations.some((v) => v.includes('강약 평문 방향 미반영')),
+  misleadingGoreunVerdict.violations.join(' | '));
+
+const STRONG_SEMANTIC_CASE = caseWithStrength(
+  'strong', '신강', '단단한', '힘이 앞서므로 직접 잡되 과열을 줄이기',
+);
+const STRONG_SEMANTIC = strengthArticle(
+  '이번 주 돈 문제는 추진력이 붙을 때 바로 정리해요.',
+  [
+    '이번 주에는 미뤄 둔 정산을 꺼내면 힘이 실리는 편이에요. 숫자가 한눈에 보이면 판단도 빨라져요. 작은 환불 요청이나 미납 확인처럼 바로 끝낼 수 있는 일부터 처리해 보세요.',
+    '제안이 들어오면 끌려가기보다 조건을 직접 확인해 보세요. 필요한 자료를 먼저 챙기는 태도가 돈의 방향을 잡아 줘요. 말로만 들은 약속은 메시지나 문서로 남기면 좋아요.',
+    '이름이 필요한 쪽을 살짝 거들어 주는 자리라 움직일 때 더 매끄러워요. 다만 속도가 붙어도 한 번에 큰 금액을 걸 필요는 없어요. 이번 주의 힘은 크게 베팅하는 데보다 결정해야 할 일을 끝내는 데 쓰는 편이 좋아요.',
+    '주말에는 끝낸 일을 표시해 두세요. 완료 표시가 보이면 다음 선택에도 자신감이 붙어요. 돈을 더 쓰라는 신호가 아니라 미뤄 둔 판단을 정리하라는 신호로 받아들이면 좋아요.',
+  ],
+  '신강한 일간이 재성을 만나는 주간이라, 돈 문제에서도 끌려가기보다 조건을 직접 쥐는 편이 자연스러워요. #{yongshin} 흐름은 과열을 누그러뜨리고, #{jaeseong} 구조는 계약과 지출의 기준을 분명히 세우게 해요. 이름의 자원도 필요한 쪽을 완만하게 거드는 정도로 읽어요.',
+);
+const strongSemanticVerdict = validateGenerated(STRONG_SEMANTIC as never, STRONG_SEMANTIC_CASE);
+check('strong: exact 단단한 없이 의미 표현 통과', strongSemanticVerdict.ok,
+  strongSemanticVerdict.violations.join(' | '));
+
+const WEAK_SEMANTIC_CASE = caseWithStrength(
+  'weak', '신약', '여린', '무리한 확장보다 받침을 만들기',
+);
+const WEAK_SEMANTIC = strengthArticle(
+  '이번 주 돈 문제는 쉽게 흔들릴 수 있어 먼저 줄여요.',
+  [
+    '이번 주에는 작은 지출도 겹치면 쉽게 흔들릴 수 있어요. 그래서 새 약속을 잡기 전 이미 정한 비용부터 확인하는 편이 좋아요. 통장 잔액보다 예정된 빠져나갈 돈을 먼저 보면 판단이 차분해져요.',
+    '피곤한 날에는 할인 문구가 더 크게 보일 수 있어요. 바로 결제하지 말고 장바구니에만 담아 두면 욕심과 필요가 분리돼요. 다음 날에도 떠오르는 물건만 다시 살펴보세요.',
+    '이름이 필요한 쪽을 살짝 거드는 자리라 완전히 혼자 버티라는 뜻은 아니에요. 도움을 받을 수 있는 자동이체 알림이나 예산 표를 곁에 두면 좋아요. 이번 주는 크게 늘리기보다 지출의 받침을 만드는 데 초점을 둬요.',
+    '가까운 사람과 비용을 나눌 때도 먼저 한도를 말해 보세요. 부탁을 거절해야 하는 순간이 와도 부드럽게 설명할 수 있어요. 금액의 선을 세우면 관계의 부담도 줄어요.',
+  ],
+  '신약한 일간이 재성을 만나는 주간이라, 벌이를 키우기보다 새는 돈을 줄이고 근기를 받치는 편이 순리예요. #{yongshin} 흐름이 일간을 돕고, #{jaeseong} 구조는 현실의 금액과 책임을 차분하게 보게 해요. 이름의 자원도 필요한 쪽을 완만하게 거드는 정도로 읽어요.',
+);
+const weakSemanticVerdict = validateGenerated(WEAK_SEMANTIC as never, WEAK_SEMANTIC_CASE);
+check('weak: exact 여린 없이 의미 표현 통과', weakSemanticVerdict.ok,
+  weakSemanticVerdict.violations.join(' | '));
+
 // ── 5. bundle diversity ─────────────────────────────────────────────────────
 const mk = (id: string, summary: string, body: string[], tips: string[]) => ({
   caseId: id, summary, body, expert: [], livingTips: tips,

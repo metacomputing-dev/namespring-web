@@ -251,7 +251,7 @@ fixture는 **테스트 파일에 동결된 문자열**(라이브 corpus를 읽�
 | **S2b** | health 178 + 소탕 65 = 243번들 | 243 | 실측 $153 | ✅ 91.2% (2,094/2,295), 거부 0 |
 | **S2c** | S2 최종 소탕 (85번들) | 85 | 실측 $70 | ✅ 91% (1,014/1,115) — **API 크레딧 지출 종료(잔여 ~$5)** |
 | **S2d** | S2 잔여 101편(45번들) — ★세션 에이전트 1차 실전 (Fable 상속, itemsDir 모드) | 45 | 세션 사용량 | 🔄 Workflow run `wf_709f9b26-80f` — 완료 시 **S2 완전 종결 → S3 romance 착수** |
-| **S3** | **romance → family → academic** (사용자 지정 순서). ★실행 모드 전환: API 배치 대신 **세션 에이전트**(Fable 5 상속 → 한도 시 Opus → Codex 인계) — [S3_CONTINUATION_PLAYBOOK.md](./S3_CONTINUATION_PLAYBOOK.md) 참조 | 682 | 세션 사용량 (API $0) | ⬜ S2c 종결 후 착수 |
+| **S3** | **romance → family → academic** (사용자 지정 순서). ★실행 모드 전환: API 배치 대신 **세션 에이전트**(Fable 5 상속 → 한도 시 Opus → Codex 인계) — [S3_CONTINUATION_PLAYBOOK.md](./S3_CONTINUATION_PLAYBOOK.md) 참조 | 682 | 세션 사용량 (API $0) | 🔄 romance 현재 regen 47번들/705편 완료(prepare 기준; 기존 Fable 2번들 포함), 그중 Codex 수동 45번들/675편 ingest(`regen-s3-codex-r1`~`r11`, r11 2번들은 `regen-s3-codex-r11-fix1`로 재보정) — 사용자 피드백 반영: 소량 재보정, 번역투·추상 결합 표현 제거, Codex 직접 작성·정독 후 반영 |
 | **S4** | 미노출 5분야: career + study_document + expression_children + health_stress + movement — **오픈 범위 확대 시 집행(보류 가능)** | 972 | ~$500 | ⬜ **보류 확정** (2026-07-05 사용자: 추후 여유 시 작업) |
 | **S5** | 마무리: 리젝 잔여 소탕, Opus산 overall 33번들 Fable 통일(옵션 ~$28), audit before/after, `pack-generated.ts`, 최종 정독, 단일 PR | — | ~$50 | ⬜ |
 

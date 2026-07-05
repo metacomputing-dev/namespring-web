@@ -48,9 +48,9 @@ export function buildExpertPrompt(c: GenerationCase): string {
 ${genderLine}
 
 ## 페어링·안전 규칙 (하나라도 어기면 리젝)
-1. **평문 tier(summary·body·tips·cautions)에 사주 용어 금지**: ${JARGON_BANNED} 등. 오행 **이름**(나무·불·흙·쇠·물)·평문 형용사만.
+1. **평문 tier(summary·body·tips·cautions)에 사주 용어 금지**: ${JARGON_BANNED} 등. 오행 **이름**(나무·불·흙·쇠·물)과 강약의 쉬운 평문 표현만.
 2. **전문가 tier(expert)만 용어·#{태그}** (글로서리 id 2~6개; 권장: ${s.suggestedExpertTags.map((t) => `#{${t}}`).join(', ')} + 격국·강약 근거).
-3. **모순 0**: 평문·전문가가 같은 방향. 강약(${s.strengthTerm}=${s.adviceDirection.split('(')[0]})과 격국 전략을 둘 다 지킴.
+3. **모순 0**: 평문·전문가가 같은 방향. 강약(${s.strengthTerm}=${s.adviceDirection.split('(')[0]})과 격국 전략을 둘 다 지킴. 강약은 "${s.strengthPlain}"을 억지로 반복하지 말고, 의미가 맞는 생활어로 자연스럽게 드러내세요.
 4. **이름 정직성**: ${nameHonesty}
 5. **절대 단정 완화**(평문은 "~한 편이라"), 요약↔본문↔전문가 pairing 유지.
 ${minor ? `6. **미성년 안전**: ${MINOR_BANNED} 등 금지, 나이에 맞는 언어.` : '6. 성인: 실행 가능한 조언, 불안 조장 금지.'}
