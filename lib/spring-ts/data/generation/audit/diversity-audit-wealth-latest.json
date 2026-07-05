@@ -1,0 +1,228 @@
+{
+  "generatedAt": "2026-07-05T01:07:54.558Z",
+  "scope": "wealth",
+  "files": 1620,
+  "perCategory": {
+    "wealth": {
+      "files": "1620",
+      "summaryUnique": "1523/1620 (94.0%)",
+      "bodyUnique": "5483/5854 (93.7%)",
+      "expertUnique": "1561/1735 (90.0%)",
+      "tipsUnique": "3394/3800 (89.3%)"
+    }
+  },
+  "total": {
+    "summaryUnique": 1523,
+    "summaryTotal": 1620,
+    "bodyUnique": 5483,
+    "bodyTotal": 5854,
+    "expertUnique": 1561,
+    "expertTotal": 1735,
+    "tipsUnique": 3394,
+    "tipsTotal": 3800
+  },
+  "topSummaries": [
+    [
+      "타고난 힘이 여린 편이라, 돈 관리는 차분히 다질 때 좋아요.",
+      43
+    ],
+    [
+      "타고난 힘이 단단한 편이라, 돈 관리는 차분히 다질 때 좋아요.",
+      24
+    ],
+    [
+      "타고난 힘이 고른 편이라, 돈 관리는 차분히 다질 때 좋아요.",
+      12
+    ],
+    [
+      "아이가 단단한 편이라, 돈 관리도 작게 다질 때 좋아요.",
+      8
+    ],
+    [
+      "아이가 여린 편이라, 돈 관리도 작게 다질 때 좋아요.",
+      7
+    ],
+    [
+      "이 시기는 단단한 힘을 살려, 돈 관리을 차분히 다져요.",
+      4
+    ],
+    [
+      "이 시기는 여린 힘을 살려, 돈 관리을 차분히 다져요.",
+      3
+    ],
+    [
+      "올해는 상반기에 씨를 뿌리고 하반기에 거두는 큰 호흡이 어울려요.",
+      3
+    ],
+    [
+      "올해는 상반기에 심고 하반기에 거두는 큰 호흡이 어울리는 해예요.",
+      2
+    ],
+    [
+      "고른 기운 위에 스스로 길을 내는 힘이, 재물의 평생 밑천이 되어 줘요.",
+      1
+    ]
+  ],
+  "topGrams": [
+    [
+      "기운을타고난결이",
+      99
+    ],
+    [
+      "당신은□기운을타",
+      73
+    ],
+    [
+      "라돈관리는한번에",
+      63
+    ],
+    [
+      "는한번에크게밀기",
+      63
+    ],
+    [
+      "크게밀기보다차분",
+      63
+    ],
+    [
+      "보다차분히다질때",
+      63
+    ],
+    [
+      "히다질때오래남아",
+      63
+    ],
+    [
+      "오래남아요□에는",
+      63
+    ],
+    [
+      "고난결이여린쪽이",
+      51
+    ],
+    [
+      "여린쪽이라돈관리",
+      51
+    ],
+    [
+      "돈의기준을적고작",
+      49
+    ],
+    [
+      "을적고작은지출부",
+      49
+    ],
+    [
+      "은지출부터확인하",
+      49
+    ],
+    [
+      "준을적고작은지출",
+      46
+    ],
+    [
+      "작은지출부터확인",
+      46
+    ],
+    [
+      "기준을적고작은지",
+      46
+    ],
+    [
+      "고작은지출부터확",
+      46
+    ],
+    [
+      "출부터확인하는일",
+      46
+    ],
+    [
+      "의기준을적고작은",
+      41
+    ],
+    [
+      "적고작은지출부터",
+      41
+    ]
+  ],
+  "defectRuleHits": {
+    "burned-phrase": 1253,
+    "missing-period-runon": 101,
+    "josa-after-paren": 101,
+    "spec-constant-verbatim": 101,
+    "formal-fragment": 202,
+    "burned-expert-meta": 404,
+    "code-identifier": 80,
+    "generic-summary-frame": 101,
+    "josa-vowel-harmony": 7
+  },
+  "bundleSimulation": {
+    "bundles": 324,
+    "violatingBundles": 20,
+    "ruleHits": {
+      "bundle-duplicate-summary": 20,
+      "bundle-summary-skeleton": 10,
+      "bundle-duplicate-paragraph": 116,
+      "bundle-duplicate-tip": 30,
+      "bundle-ngram-stamp": 25
+    },
+    "worst": [
+      {
+        "key": "wealth.adult.strong.bigeop.boost_strong.x",
+        "violations": 17,
+        "sample": "7× \"타고난 힘이 단단한 편이라, 돈 관리는 차분히 다질 때 좋아요.\""
+      },
+      {
+        "key": "wealth.adult.weak.inseong.boost_strong.x",
+        "violations": 17,
+        "sample": "7× \"타고난 힘이 여린 편이라, 돈 관리는 차분히 다질 때 좋아요.\""
+      },
+      {
+        "key": "wealth.adult.weak.jaeseong.adverse.x",
+        "violations": 17,
+        "sample": "5× \"타고난 힘이 여린 편이라, 돈 관리는 차분히 다질 때 좋아요.\""
+      },
+      {
+        "key": "wealth.adult.weak.siksang.boost_strong.x",
+        "violations": 17,
+        "sample": "5× \"타고난 힘이 여린 편이라, 돈 관리는 차분히 다질 때 좋아요.\""
+      },
+      {
+        "key": "wealth.adult.weak.gwanseong.boost_strong.x",
+        "violations": 16,
+        "sample": "4× \"타고난 힘이 여린 편이라, 돈 관리는 차분히 다질 때 좋아요.\""
+      },
+      {
+        "key": "wealth.adult.balanced.inseong.boost_mild.x",
+        "violations": 11,
+        "sample": "3× \"타고난 힘이 고른 편이라, 돈 관리는 차분히 다질 때 좋아요.\""
+      },
+      {
+        "key": "wealth.adult.weak.bigeop.boost_mild.x",
+        "violations": 11,
+        "sample": "3× \"타고난 힘이 여린 편이라, 돈 관리는 차분히 다질 때 좋아요.\""
+      },
+      {
+        "key": "wealth.adult.weak.inseong.neutral.x",
+        "violations": 11,
+        "sample": "3× \"타고난 힘이 여린 편이라, 돈 관리는 차분히 다질 때 좋아요.\""
+      },
+      {
+        "key": "wealth.adult.weak.jaeseong.neutral.x",
+        "violations": 11,
+        "sample": "3× \"타고난 힘이 여린 편이라, 돈 관리는 차분히 다질 때 좋아요.\""
+      },
+      {
+        "key": "wealth.adult.strong.siksang.adverse.x",
+        "violations": 10,
+        "sample": "3× \"타고난 힘이 단단한 편이라, 돈 관리는 차분히 다질 때 좋아요.\""
+      }
+    ]
+  },
+  "provenance": {
+    "regen-s1c-f5": 15,
+    "regen-s0-f5": 15,
+    "regen-s2-f5": 1489,
+    "generation-2026-07": 101
+  }
+}

@@ -1,50 +1,42 @@
 {
-  "generatedAt": "2026-07-04T13:23:45.020Z",
+  "generatedAt": "2026-07-05T00:53:42.524Z",
   "scope": "overall",
   "files": 1620,
   "perCategory": {
     "overall": {
       "files": "1620",
-      "summaryUnique": "506/1620 (31.2%)",
-      "bodyUnique": "1783/6232 (28.6%)",
-      "expertUnique": "917/3131 (29.3%)",
-      "tipsUnique": "1439/4808 (29.9%)"
+      "summaryUnique": "1616/1620 (99.8%)",
+      "bodyUnique": "5784/5801 (99.7%)",
+      "expertUnique": "2021/2029 (99.6%)",
+      "tipsUnique": "3995/4109 (97.2%)"
     }
   },
   "total": {
-    "summaryUnique": 506,
+    "summaryUnique": 1616,
     "summaryTotal": 1620,
-    "bodyUnique": 1783,
-    "bodyTotal": 6232,
-    "expertUnique": 917,
-    "expertTotal": 3131,
-    "tipsUnique": 1439,
-    "tipsTotal": 4808
+    "bodyUnique": 5784,
+    "bodyTotal": 5801,
+    "expertUnique": 2021,
+    "expertTotal": 2029,
+    "tipsUnique": 3995,
+    "tipsTotal": 4109
   },
   "topSummaries": [
     [
-      "타고난 힘이 여린 편이라, 전체 흐름은 차분히 다질 때 좋아요.",
-      450
-    ],
-    [
-      "타고난 힘이 단단한 편이라, 전체 흐름은 차분히 다질 때 좋아요.",
-      310
-    ],
-    [
-      "아이가 단단한 편이라, 전체 흐름도 작게 다질 때 좋아요.",
-      90
-    ],
-    [
-      "아이가 여린 편이라, 전체 흐름도 작게 다질 때 좋아요.",
-      90
-    ],
-    [
       "이 시기는 단단한 힘을 살려, 전체 흐름을 차분히 다져요.",
-      90
+      2
     ],
     [
       "이 시기는 여린 힘을 살려, 전체 흐름을 차분히 다져요.",
-      90
+      2
+    ],
+    [
+      "타고난 힘이 여린 편이라, 전체 흐름은 차분히 다질 때 좋아요.",
+      2
+    ],
+    [
+      "주중엔 조금씩 내보내고 주말엔 몸을 쉬게 하는 리듬이 이번 주와 잘 맞아요.",
+      2
     ],
     [
       "결이 고른 사람이라, 좋은 자리에서도 자기 속도를 지키면 멀리 가요.",
@@ -61,165 +53,119 @@
     [
       "기운이 고른 편이라, 밀 때와 나눌 때를 스스로 정하며 살면 오래 강해져요.",
       1
+    ],
+    [
+      "고른 기운을 지녔으니, 자리를 넓히는 힘은 규칙에서 나와요.",
+      1
+    ],
+    [
+      "타고난 결이 고른 사람이라, 맡은 자리를 넓게 쓰면 멀리 가요.",
+      1
     ]
   ],
   "topGrams": [
     [
-      "기운을타고난결이",
-      976
+      "요이름의자원오행",
+      64
     ],
     [
-      "당신은□기운을타",
-      580
+      "이름의자원오행이",
+      40
     ],
     [
-      "우선순위를작게정",
-      574
+      "이름의자원오행은",
+      30
     ],
     [
-      "를작게정리하는일",
-      574
+      "에해당하는□기운",
+      29
     ],
     [
-      "오늘의우선순위를",
-      566
+      "△에해당하는□기",
+      26
     ],
     [
-      "선순위를작게정리",
-      566
+      "계절이바뀔때마다",
+      24
     ],
     [
-      "고난결이여린쪽이",
-      558
+      "타고난힘이여린편",
+      20
     ],
     [
-      "여린쪽이라전체흐",
-      558
+      "는정도면충분해요",
+      19
     ],
     [
-      "라전체흐름은한번",
-      558
+      "요월요일과화요일",
+      19
     ],
     [
-      "름은한번에크게밀",
-      558
+      "이에요이름의자원",
+      17
     ],
     [
-      "에크게밀기보다차",
-      558
+      "원오행은용신과기",
+      17
     ],
     [
-      "기보다차분히다질",
-      558
+      "요△에해당하는□",
+      16
     ],
     [
-      "분히다질때오래남",
-      558
+      "지도않는자리에있",
+      16
     ],
     [
-      "때오래남아요□에",
-      558
+      "이한결가벼워져요",
+      16
     ],
     [
-      "의우선순위를작게",
-      554
+      "올해는크게오르내",
+      16
     ],
     [
-      "위를작게정리하는",
-      554
+      "게오르내리지않는",
+      16
     ],
     [
-      "늘의우선순위를작",
-      546
+      "기운을여러글자로",
+      14
     ],
     [
-      "순위를작게정리하",
-      546
+      "용신과기신어느쪽",
+      14
     ],
     [
-      "이라전체흐름은한",
-      490
+      "예요이름의자원오",
+      14
     ],
     [
-      "흐름은한번에크게",
-      490
+      "고난힘이여린편이",
+      14
     ]
   ],
   "defectRuleHits": {
-    "burned-phrase": 13923,
-    "missing-period-runon": 1120,
-    "josa-after-paren": 1120,
-    "spec-constant-verbatim": 1120,
-    "formal-fragment": 2240,
-    "burned-expert-meta": 4480,
-    "code-identifier": 790,
-    "generic-summary-frame": 1120
+    "burned-phrase": 100,
+    "missing-period-runon": 8,
+    "josa-after-paren": 8,
+    "spec-constant-verbatim": 8,
+    "formal-fragment": 16,
+    "burned-expert-meta": 32,
+    "generic-summary-frame": 8,
+    "code-identifier": 5
   },
   "bundleSimulation": {
     "bundles": 324,
-    "violatingBundles": 111,
-    "ruleHits": {
-      "bundle-duplicate-summary": 111,
-      "bundle-summary-skeleton": 111,
-      "bundle-duplicate-paragraph": 744,
-      "bundle-ngram-stamp": 555,
-      "bundle-duplicate-tip": 333
-    },
-    "worst": [
-      {
-        "key": "overall.adult.strong.bigeop.adverse.x",
-        "violations": 18,
-        "sample": "10× \"타고난 힘이 단단한 편이라, 전체 흐름은 차분히 다질 때 좋아요.\""
-      },
-      {
-        "key": "overall.adult.strong.inseong.boost_strong.x",
-        "violations": 18,
-        "sample": "15× \"타고난 힘이 단단한 편이라, 전체 흐름은 차분히 다질 때 좋아요.\""
-      },
-      {
-        "key": "overall.adult.strong.inseong.neutral.x",
-        "violations": 18,
-        "sample": "15× \"타고난 힘이 단단한 편이라, 전체 흐름은 차분히 다질 때 좋아요.\""
-      },
-      {
-        "key": "overall.adult.strong.jaeseong.adverse.x",
-        "violations": 18,
-        "sample": "15× \"타고난 힘이 단단한 편이라, 전체 흐름은 차분히 다질 때 좋아요.\""
-      },
-      {
-        "key": "overall.adult.strong.jaeseong.boost_mild.x",
-        "violations": 18,
-        "sample": "15× \"타고난 힘이 단단한 편이라, 전체 흐름은 차분히 다질 때 좋아요.\""
-      },
-      {
-        "key": "overall.adult.strong.jaeseong.boost_strong.x",
-        "violations": 18,
-        "sample": "15× \"타고난 힘이 단단한 편이라, 전체 흐름은 차분히 다질 때 좋아요.\""
-      },
-      {
-        "key": "overall.adult.strong.jaeseong.neutral.x",
-        "violations": 18,
-        "sample": "15× \"타고난 힘이 단단한 편이라, 전체 흐름은 차분히 다질 때 좋아요.\""
-      },
-      {
-        "key": "overall.adult.strong.siksang.adverse.x",
-        "violations": 18,
-        "sample": "15× \"타고난 힘이 단단한 편이라, 전체 흐름은 차분히 다질 때 좋아요.\""
-      },
-      {
-        "key": "overall.adult.strong.siksang.boost_mild.x",
-        "violations": 18,
-        "sample": "15× \"타고난 힘이 단단한 편이라, 전체 흐름은 차분히 다질 때 좋아요.\""
-      },
-      {
-        "key": "overall.adult.strong.siksang.boost_strong.x",
-        "violations": 18,
-        "sample": "15× \"타고난 힘이 단단한 편이라, 전체 흐름은 차분히 다질 때 좋아요.\""
-      }
-    ]
+    "violatingBundles": 0,
+    "ruleHits": {},
+    "worst": []
   },
   "provenance": {
-    "regen-2026-07-w1": 500,
-    "generation-2026-07": 1120
+    "regen-2026-07-w1": 495,
+    "regen-s1c-f5": 220,
+    "regen-s1b-f5": 614,
+    "regen-s1a-f5": 283,
+    "generation-2026-07": 8
   }
 }
