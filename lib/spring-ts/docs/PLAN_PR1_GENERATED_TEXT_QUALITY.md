@@ -249,7 +249,8 @@ fixture는 **테스트 파일에 동결된 문자열**(라이브 corpus를 읽�
 | **S1b** | overall 잔여 107 + 리젝 12 = 119번들 | 119 | 실측 $51.7 | ✅ **94.9% (655/690)** — overall 종결(고유율 0.4%→99.8%). child/stage 정독 합격 |
 | **S2** | wealth 178번들 + 리젝 15 = 193번들 | 193 | 실측 $121 | ✅ **93.2% (1,626/1,745), 거부 0** — wealth 고유율 0.6%→94%(리젝 소탕 후 ~99%). 잔여 리젝 119편 |
 | **S2b** | health 178 + 소탕 65 = 243번들 | 243 | 실측 $153 | ✅ 91.2% (2,094/2,295), 거부 0 |
-| **S2c** | S2 최종 소탕 (리젝 201편, 85번들) | 85 | ~$59 | 🔄 `msgbatch_01K7VTgGgyRKfKmVxsFv6c6Q` — 완료 시 **S2 완전 종결** |
+| **S2c** | S2 최종 소탕 (85번들) | 85 | 실측 $70 | ✅ 91% (1,014/1,115) — **API 크레딧 지출 종료(잔여 ~$5)** |
+| **S2d** | S2 잔여 101편(45번들) — ★세션 에이전트 1차 실전 (Fable 상속, itemsDir 모드) | 45 | 세션 사용량 | 🔄 Workflow run `wf_709f9b26-80f` — 완료 시 **S2 완전 종결 → S3 romance 착수** |
 | **S3** | **romance → family → academic** (사용자 지정 순서). ★실행 모드 전환: API 배치 대신 **세션 에이전트**(Fable 5 상속 → 한도 시 Opus → Codex 인계) — [S3_CONTINUATION_PLAYBOOK.md](./S3_CONTINUATION_PLAYBOOK.md) 참조 | 682 | 세션 사용량 (API $0) | ⬜ S2c 종결 후 착수 |
 | **S4** | 미노출 5분야: career + study_document + expression_children + health_stress + movement — **오픈 범위 확대 시 집행(보류 가능)** | 972 | ~$500 | ⬜ **보류 확정** (2026-07-05 사용자: 추후 여유 시 작업) |
 | **S5** | 마무리: 리젝 잔여 소탕, Opus산 overall 33번들 Fable 통일(옵션 ~$28), audit before/after, `pack-generated.ts`, 최종 정독, 단일 PR | — | ~$50 | ⬜ |
