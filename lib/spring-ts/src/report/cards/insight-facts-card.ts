@@ -41,6 +41,8 @@ export interface InsightFact {
   readonly group?: InsightGroup;
   /** 가중치 기반 큐레이션 상위 항목 (기본 노출 대상, 최대 6개). */
   readonly highlight?: boolean;
+  /** 엔진 가중 원값(신살 weightedScore 등) — 주요도 정렬의 입력. */
+  readonly score?: number;
 }
 
 export interface InsightFactsCard {
@@ -117,7 +119,46 @@ function markHighlights(facts: InsightFact[]): InsightFact[] {
     chosen.add(f.factId);
   }
 
-  return facts.map((f) => (chosen.has(f.factId) ? { ...f, highlight: true } : f));
+  // ── 주요도 정렬 가중치 (하이라이트 선정과 별개 — 전 항목의 표시 순서) ──
+  // 겹침 관계 > 천간충 > 삼합 > 방합 > 공망 > 지지충 > 형 > 천간합 > 육합 >
+  // 원진 > 해 > A급 신살(weightedScore 비례) > 파 > B/C급 신살 > 지장간(월>일>년>시).
+  const weightOf = (f: InsightFact): number => {
+    if (f.kind === 'branchRelation') {
+      const key = memberKey(f);
+      if (key && (pairCount.get(key) ?? 0) >= 2) return 100;
+      if (f.label.includes('삼합')) return 85;
+      if (f.label.includes('방합')) return 80;
+      if (f.label.includes('충')) return 70;
+      if (f.label.includes('형')) return 65;
+      if (f.label.includes('육합')) return 55;
+      if (f.label.includes('원진')) return 50;
+      if (f.label.includes('해')) return 46;
+      if (f.label.includes('파')) return 42;
+      return 35;
+    }
+    if (f.kind === 'stemRelation') {
+      if (f.label.includes('충')) return 90;
+      if (f.label.includes('합')) return 58;
+      return 35;
+    }
+    if (f.kind === 'gongmang') return 75;
+    if (f.kind === 'shinsal') {
+      const base = f.score ?? (f.grade === 'A' ? 100 : f.grade === 'B' ? 50 : 25);
+      return base * 0.45; // A(100)→45, B(50)→22.5 — 구조 신호(관계·공망)보다 아래
+    }
+    if (f.kind === 'hiddenStems') {
+      const order: Record<string, number> = {
+        'hiddenStems.MONTH': 20, 'hiddenStems.DAY': 18, 'hiddenStems.YEAR': 16, 'hiddenStems.HOUR': 14,
+      };
+      return order[f.factId] ?? 12;
+    }
+    return 5; // daeunPillar 등 — 말미, 원 순서 유지
+  };
+
+  return facts
+    .map((f, index) => ({ fact: chosen.has(f.factId) ? { ...f, highlight: true } : f, index }))
+    .sort((a, b) => (weightOf(b.fact) - weightOf(a.fact)) || (a.index - b.index))
+    .map((x) => x.fact);
 }
 
 /** 신살 백과(사주 평가 보고서의 저작 자산)를 한글명으로 조회하는 폴백 맵. */
@@ -169,6 +210,7 @@ export function buildInsightFactsCard(saju: SajuSummary): InsightFactsCard | nul
       label: hit.type,
       detail: hit.position ? `${hit.position}` : undefined,
       grade: typeof hit.grade === 'string' ? hit.grade : undefined,
+      score: typeof hit.weightedScore === 'number' ? hit.weightedScore : undefined,
       group: shinsalGroup(hit.type),
     }));
   }
