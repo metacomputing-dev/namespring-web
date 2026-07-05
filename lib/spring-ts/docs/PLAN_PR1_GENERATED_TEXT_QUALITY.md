@@ -246,8 +246,8 @@ fixture는 **테스트 파일에 동결된 문자열**(라이브 corpus를 읽�
 | **S0** | 강화 프롬프트 재검증 (동일 12번들) — 합격선: 게이트 ≥80% + 정독 합격 | 12 | ~$10 | ✅ **80.6% (145/180) + 정독 합격**, ingest·커밋 e5b744a96. 잔여 리젝은 경계선 유형 → 하한 여유 지시 추가 |
 | **S1a** | S0 리젝 10번들 재생성 + overall 앞 45번들 | 55 | ~$38 | 🔄 `msgbatch_0134jC6v8aPwQgYUDbZCK4TY` 폴링 중 |
 | **S1c** | S1a 소탕: 리젝 25 + 거부 5 = 30번들 | 30 | 실측 $28.4 | ✅ 91.6% (403/440), 거부 5건 전부 재제출 해소. 잔여 리젝 원인=이름효과 표현 수렴 → 규칙 7 확장 |
-| **S1b** | overall 잔여 107 + S1c 리젝 12 = 119번들 | 119 | ~$52 | 🔄 `msgbatch_01WZUzCwrZpqHfdUqCHrXVxy` 폴링 중. 완료 시 overall 100% + S1 종결 |
-| **S2** | wealth + health (유료 관심 최상위) | 360 | ~$210 | ⬜ |
+| **S1b** | overall 잔여 107 + 리젝 12 = 119번들 | 119 | 실측 $51.7 | ✅ **94.9% (655/690)** — overall 종결(고유율 0.4%→99.8%). child/stage 정독 합격 |
+| **S2** | wealth 178번들 + 잔여 리젝 15번들 (health는 후속 분할) | 193 | ~$108 | 🔄 `msgbatch_018Be1jkAEQMaCSz7V8SgmUz` 폴링 중 |
 | **S3** | academic + romance + family — **2026-07-05 재편: 오픈 UI(통합 보고서)에 노출되는 6분야 우선** (overall·wealth·health·academic·romance·family) | 684 | ~$390 | ⬜ |
 | **S4** | 미노출 5분야: career + study_document + expression_children + health_stress + movement — **오픈 범위 확대 시 집행(보류 가능)** | 972 | ~$500 | ⬜ **보류 확정** (2026-07-05 사용자: 추후 여유 시 작업) |
 | **S5** | 마무리: 리젝 잔여 소탕, Opus산 overall 33번들 Fable 통일(옵션 ~$28), audit before/after, `pack-generated.ts`, 최종 정독, 단일 PR | — | ~$50 | ⬜ |
