@@ -248,7 +248,7 @@ fixture는 **테스트 파일에 동결된 문자열**(라이브 corpus를 읽�
 | **S1b** | overall 잔여 (S1a 이후 ~102번들, 소번들 위주) | ~102 | ~$40 | ⬜ ⚠ 진입 전 잔액 확인(누적 지출 ~$75 예상) — **충전 필요 시점** |
 | **S2** | wealth + health (유료 관심 최상위) | 360 | ~$210 | ⬜ |
 | **S3** | academic + romance + family — **2026-07-05 재편: 오픈 UI(통합 보고서)에 노출되는 6분야 우선** (overall·wealth·health·academic·romance·family) | 684 | ~$390 | ⬜ |
-| **S4** | 미노출 5분야: career + study_document + expression_children + health_stress + movement — **오픈 범위 확대 시 집행(보류 가능)** | 972 | ~$500 | ⬜ 보류 |
+| **S4** | 미노출 5분야: career + study_document + expression_children + health_stress + movement — **오픈 범위 확대 시 집행(보류 가능)** | 972 | ~$500 | ⬜ **보류 확정** (2026-07-05 사용자: 추후 여유 시 작업) |
 | **S5** | 마무리: 리젝 잔여 소탕, Opus산 overall 33번들 Fable 통일(옵션 ~$28), audit before/after, `pack-generated.ts`, 최종 정독, 단일 PR | — | ~$50 | ⬜ |
 
 총 예상 ~$1,270 (재시도 20% 포함). S0 통과율이 80%를 크게 넘으면 하향.
