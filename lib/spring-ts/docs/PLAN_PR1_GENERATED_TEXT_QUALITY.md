@@ -248,8 +248,9 @@ fixture는 **테스트 파일에 동결된 문자열**(라이브 corpus를 읽�
 | **S1c** | S1a 소탕: 리젝 25 + 거부 5 = 30번들 | 30 | 실측 $28.4 | ✅ 91.6% (403/440), 거부 5건 전부 재제출 해소. 잔여 리젝 원인=이름효과 표현 수렴 → 규칙 7 확장 |
 | **S1b** | overall 잔여 107 + 리젝 12 = 119번들 | 119 | 실측 $51.7 | ✅ **94.9% (655/690)** — overall 종결(고유율 0.4%→99.8%). child/stage 정독 합격 |
 | **S2** | wealth 178번들 + 리젝 15 = 193번들 | 193 | 실측 $121 | ✅ **93.2% (1,626/1,745), 거부 0** — wealth 고유율 0.6%→94%(리젝 소탕 후 ~99%). 잔여 리젝 119편 |
-| **S2b** | health 178번들 + wealth/이전 리젝 소탕 | ~215 | ~$130 | ⬜ **⚠ 잔액 ~$28 — 충전 대기** |
-| **S3** | academic + romance + family — **2026-07-05 재편: 오픈 UI(통합 보고서)에 노출되는 6분야 우선** (overall·wealth·health·academic·romance·family) | 684 | ~$390 | ⬜ |
+| **S2b** | health 178 + 소탕 65 = 243번들 | 243 | 실측 $153 | ✅ 91.2% (2,094/2,295), 거부 0 |
+| **S2c** | S2 최종 소탕 (리젝 201편, 85번들) | 85 | ~$59 | 🔄 `msgbatch_01K7VTgGgyRKfKmVxsFv6c6Q` — 완료 시 **S2 완전 종결** |
+| **S3** | **romance → family → academic** (사용자 지정 순서). ★실행 모드 전환: API 배치 대신 **세션 에이전트**(Fable 5 상속 → 한도 시 Opus → Codex 인계) — [S3_CONTINUATION_PLAYBOOK.md](./S3_CONTINUATION_PLAYBOOK.md) 참조 | 682 | 세션 사용량 (API $0) | ⬜ S2c 종결 후 착수 |
 | **S4** | 미노출 5분야: career + study_document + expression_children + health_stress + movement — **오픈 범위 확대 시 집행(보류 가능)** | 972 | ~$500 | ⬜ **보류 확정** (2026-07-05 사용자: 추후 여유 시 작업) |
 | **S5** | 마무리: 리젝 잔여 소탕, Opus산 overall 33번들 Fable 통일(옵션 ~$28), audit before/after, `pack-generated.ts`, 최종 정독, 단일 PR | — | ~$50 | ⬜ |
 
