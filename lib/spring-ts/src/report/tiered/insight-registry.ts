@@ -39,14 +39,57 @@ function isValidEntry(value: unknown): value is InsightInterpretation {
 
 let cached: Map<string, InsightInterpretation> | null = null;
 
+function isBrowserRuntime(): boolean {
+  return typeof window !== 'undefined' && typeof document !== 'undefined';
+}
+function isNodeRuntime(): boolean {
+  return !isBrowserRuntime() && typeof process !== 'undefined' && Boolean(process.versions?.node);
+}
+
+// Node(테스트·SSR): fs 직독 — import.meta.glob은 Vite 전용이라 여기선 안 잡힌다.
+// generated-registry와 동일한 top-level 조건부 import 패턴.
+const nodeBuiltins = isNodeRuntime()
+  ? await (async () => {
+    const [fs, path, url] = await Promise.all([import('node:fs'), import('node:path'), import('node:url')]);
+    return { fs, path, fileURLToPath: url.fileURLToPath };
+  })()
+  : null;
+
+function loadFromFs(map: Map<string, InsightInterpretation>): void {
+  if (!nodeBuiltins) return;
+  try {
+    const dir = nodeBuiltins.path.resolve(
+      nodeBuiltins.path.dirname(nodeBuiltins.fileURLToPath(import.meta.url)),
+      '../../../data/articles/insights',
+    );
+    if (!nodeBuiltins.fs.existsSync(dir)) return;
+    for (const f of nodeBuiltins.fs.readdirSync(dir)) {
+      if (!f.endsWith('.insights.json')) continue;
+      try {
+        const mod: unknown = JSON.parse(nodeBuiltins.fs.readFileSync(nodeBuiltins.path.join(dir, f), 'utf-8'));
+        if (!isValidFile(mod)) continue;
+        for (const entry of mod.entries) {
+          if (isValidEntry(entry)) map.set(entry.factId, entry);
+        }
+      } catch { /* skip malformed file */ }
+    }
+  } catch { /* leave empty */ }
+}
+
 function loadAll(): Map<string, InsightInterpretation> {
   if (cached) return cached;
   const map = new Map<string, InsightInterpretation>();
 
+  if (nodeBuiltins) {
+    loadFromFs(map);
+    cached = map;
+    return map;
+  }
+
   let modules: Record<string, unknown> = {};
   try {
-    // Vite(브라우저)와 vitest 모두 지원. 파일 4~5개 소량이라 eager 인라인해도
-    // 번들 영향이 미미하다 — 충전이 커지면 pack 방식으로 전환한다(설계 문서 참조).
+    // Vite(브라우저): eager 인라인. 파일 소량이라 번들 영향 미미 —
+    // 충전이 커지면 pack 방식으로 전환한다(설계 문서 참조).
     modules = import.meta.glob('../../../data/articles/insights/*.insights.json', {
       eager: true,
     }) as Record<string, unknown>;

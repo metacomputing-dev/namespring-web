@@ -2897,6 +2897,8 @@ export class SpringEngine {
       // Default unset / false = no `tieredMatrix` field, NameSpring
       // backward-compat preserved.
       surfaceTieredMatrix: pc?.surfaceTieredMatrix === true,
+      // 전문 인사이트 원자료 (precisionConfig.surfaceInsightFacts). Default off.
+      surfaceInsightFacts: pc?.surfaceInsightFacts === true,
     }, request.birth);
   }
 
