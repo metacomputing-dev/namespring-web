@@ -608,8 +608,8 @@ function insightSalienceStyle(groupKey, salience) {
   const rgb = INSIGHT_GROUP_RGB[groupKey] || INSIGHT_GROUP_RGB.tension;
   const s = Number.isFinite(salience) ? Math.max(0, Math.min(1, salience)) : 0.5;
   return {
-    '--ins-border': `rgba(${rgb}, ${(0.18 + s * 0.62).toFixed(3)})`,
-    '--ins-bg': `rgba(${rgb}, ${(0.02 + s * 0.13).toFixed(3)})`,
+    '--ins-border': `rgba(${rgb}, ${(0.10 + s * 0.90).toFixed(3)})`,
+    '--ins-bg': `rgba(${rgb}, ${(0.02 + s * 0.26).toFixed(3)})`,
   };
 }
 
@@ -647,7 +647,7 @@ function InsightFactsSection({ insightFacts }) {
           <article
             key={fact.factId}
             className="cr-insight-item cr-insight-item--highlight"
-            style={{ borderLeftColor: `rgba(47, 107, 79, ${(0.35 + (fact.salience ?? 0.5) * 0.65).toFixed(3)})` }}
+            style={{ borderLeftColor: `rgba(47, 107, 79, ${(0.22 + (fact.salience ?? 0.5) * 0.78).toFixed(3)})` }}
           >
             <p className="cr-insight-item__headline">{fact.interpretation.text}</p>
             {fact.interpretation.expertText ? (
