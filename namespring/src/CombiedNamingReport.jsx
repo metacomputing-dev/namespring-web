@@ -579,7 +579,21 @@ function getCategorySummary(categoryItems, id, fallback) {
  * 해석(interpretation)이 충전된 항목만 렌더한다. 해석 파일이 비어 있는 초기
  * 상태에서는 아무것도 그리지 않아 화면 무회귀. (성인 대상자에게만 카드가 실림)
  */
+const INSIGHT_GROUP_ORDER = [
+  { key: 'boon', title: '도움의 신호', desc: '귀인과 합 — 힘이 되어 주는 배치' },
+  { key: 'tension', title: '완급의 신호', desc: '살·충·형 — 속도를 챙기면 무기가 되는 배치' },
+  { key: 'space', title: '여백의 신호', desc: '공망·지장간 — 비움과 잠재의 배치' },
+];
+
+function insightChips(fact) {
+  const chips = [`#${(fact.label || '').replace(/\s+/g, '')}`];
+  if (fact.members?.length) chips.push(fact.members.join('·'));
+  else if (fact.detail) chips.push(fact.detail);
+  return chips;
+}
+
 function InsightFactsSection({ insightFacts }) {
+  const [expanded, setExpanded] = useState(false);
   const raw = asArray(insightFacts?.facts).filter((fact) => fact?.interpretation?.text);
   // 같은 factId(예: 지살이 년주·일주 양쪽 히트)는 한 항목으로 병합 — 위치만 합산.
   const byId = new Map();
@@ -592,24 +606,71 @@ function InsightFactsSection({ insightFacts }) {
   });
   const interpreted = [...byId.values()];
   if (!interpreted.length) return null;
+
+  // 엔진이 가중치로 고른 하이라이트(최대 6) = 기본 노출. 나머지는 접힘.
+  const highlights = interpreted.filter((fact) => fact.highlight);
+  const rest = interpreted.filter((fact) => !fact.highlight);
+  const lead = highlights.length ? highlights : interpreted.slice(0, 4);
+  const folded = highlights.length ? rest : interpreted.slice(4);
+
   return (
     <ReportSection
       id="combined-insights"
       title="전문 인사이트"
-      description="사주 원국에서 감지된 특별한 배치를 전문 관점으로 풀어드립니다."
+      description="원국에서 특히 눈에 띄는 배치를 골라 풀어드립니다. 전문용어는 태그로만 달아 두었어요."
       className="cr-section--insights"
     >
-      <div className="cr-note-list">
-        {interpreted.map((fact) => (
-          <article key={fact.factId} className="cr-insight-item">
-            <h3>{fact.label}{fact.detail ? ` · ${fact.detail}` : ''}</h3>
-            <p>{fact.interpretation.text}</p>
+      <div className="cr-insight-highlights">
+        {lead.map((fact) => (
+          <article key={fact.factId} className="cr-insight-item cr-insight-item--highlight">
+            <p className="cr-insight-item__headline">{fact.interpretation.text}</p>
             {fact.interpretation.expertText ? (
               <p className="cr-insight-item__expert">{fact.interpretation.expertText}</p>
             ) : null}
+            <div className="cr-insight-item__chips" aria-label="전문태그">
+              {insightChips(fact).map((chip) => (
+                <span key={`${fact.factId}-${chip}`}>{chip}</span>
+              ))}
+            </div>
           </article>
         ))}
       </div>
+
+      {folded.length ? (
+        <div className="cr-insight-rest">
+          <button
+            type="button"
+            className="cr-insight-toggle"
+            aria-expanded={expanded}
+            onClick={() => setExpanded((v) => !v)}
+          >
+            {expanded ? '원국 신호 접기' : `원국 신호 전체 보기 (${folded.length})`}
+          </button>
+          {expanded ? (
+            <div className="cr-insight-groups">
+              {INSIGHT_GROUP_ORDER.map((group) => {
+                const items = folded.filter((fact) => (fact.group || 'tension') === group.key);
+                if (!items.length) return null;
+                return (
+                  <div key={group.key} className="cr-insight-group">
+                    <h4>{group.title}</h4>
+                    <p className="cr-insight-group__desc">{group.desc}</p>
+                    {items.map((fact) => (
+                      <article key={fact.factId} className="cr-insight-item">
+                        <h5>
+                          {fact.label}
+                          {fact.detail ? <span className="cr-insight-item__where"> · {fact.detail}</span> : null}
+                        </h5>
+                        <p>{fact.interpretation.text}</p>
+                      </article>
+                    ))}
+                  </div>
+                );
+              })}
+            </div>
+          ) : null}
+        </div>
+      ) : null}
     </ReportSection>
   );
 }

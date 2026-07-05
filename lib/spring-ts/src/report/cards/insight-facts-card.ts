@@ -22,6 +22,9 @@ export type InsightFactKind =
   | 'shinsal' | 'gongmang' | 'stemRelation' | 'branchRelation'
   | 'hiddenStems' | 'daeunPillar';
 
+/** 독자 중심 그룹 — 나열이 아니라 읽는 결로 묶는다. */
+export type InsightGroup = 'boon' | 'tension' | 'space';
+
 export interface InsightFact {
   /** 안정적 조회 키 — 해석 파일의 entries[].factId와 정확 일치로 매칭. */
   readonly factId: string;
@@ -34,11 +37,87 @@ export interface InsightFact {
   readonly grade?: string;
   /** 매칭된 해석 (없으면 렌더 생략 대상). */
   readonly interpretation?: InsightInterpretation;
+  /** 도움(boon) / 긴장(tension) / 여백(space) — 프론트 그룹핑용. */
+  readonly group?: InsightGroup;
+  /** 가중치 기반 큐레이션 상위 항목 (기본 노출 대상, 최대 6개). */
+  readonly highlight?: boolean;
 }
 
 export interface InsightFactsCard {
   readonly title: string;
   readonly facts: readonly InsightFact[];
+}
+
+/** 신살 한글명 → 길신 여부 (백과 type 'auspicious' 기준 + 이름 휴리스틱 폴백). */
+const AUSPICIOUS_BY_KOREAN: ReadonlySet<string> = (() => {
+  const set = new Set<string>();
+  for (const entry of Object.values(SHINSAL_ENCYCLOPEDIA)) {
+    if (entry?.korean && entry.type === 'auspicious') set.add(entry.korean);
+  }
+  return set;
+})();
+
+function shinsalGroup(label: string): InsightGroup {
+  if (AUSPICIOUS_BY_KOREAN.has(label) || AUSPICIOUS_BY_KOREAN.has(`${label}살`)) return 'boon';
+  if (/귀인|천덕|월덕|덕수|천월덕|천의|천사|록신|반안|장성|홍란|천희|금여|복성|학당|문창|문곡/.test(label)) return 'boon';
+  return 'tension';
+}
+
+function relationGroup(type: string): InsightGroup {
+  return /합/.test(type) ? 'boon' : 'tension';
+}
+
+/**
+ * 큐레이션: 실제 상담처럼 "특기할 것"만 기본 노출로 올린다 (최대 6개, 결정적).
+ * 우선순위 — ①겹침 관계(같은 지지쌍에 형·해 등 이중 신호) ②천간충
+ * ③삼합/방합(국 형성) ④공망 ⑤A급 신살(최대 3개). 해석 없는 fact는 제외.
+ */
+function markHighlights(facts: InsightFact[]): InsightFact[] {
+  const memberKey = (f: InsightFact): string | null =>
+    f.members && f.members.length >= 2 ? [...f.members].sort().join('-') : null;
+
+  // 같은 멤버 조합에 관계 신호가 2개 이상 겹치는 지지쌍 찾기 (예: 인사 형+해)
+  const pairCount = new Map<string, number>();
+  for (const f of facts) {
+    if (f.kind !== 'branchRelation' || !f.interpretation) continue;
+    const key = memberKey(f);
+    if (key) pairCount.set(key, (pairCount.get(key) ?? 0) + 1);
+  }
+
+  const priorityOf = (f: InsightFact): number => {
+    if (!f.interpretation) return -1;
+    if (f.kind === 'branchRelation') {
+      const key = memberKey(f);
+      if (key && (pairCount.get(key) ?? 0) >= 2) return 100;
+      if (f.label.includes('삼합')) return 85;
+      if (f.label.includes('방합')) return 80;
+      if (f.label.includes('충')) return 70;
+      return 0;
+    }
+    if (f.kind === 'stemRelation') return f.label.includes('충') ? 90 : 60;
+    if (f.kind === 'gongmang') return 75;
+    if (f.kind === 'shinsal') return f.grade === 'A' ? 40 : 0;
+    return 0;
+  };
+
+  const ranked = facts
+    .map((f, index) => ({ f, index, priority: priorityOf(f) }))
+    .filter((x) => x.priority > 0)
+    .sort((a, b) => (b.priority - a.priority) || (a.index - b.index));
+
+  const chosen = new Set<string>();
+  let shinsalCount = 0;
+  for (const { f } of ranked) {
+    if (chosen.size >= 6) break;
+    if (chosen.has(f.factId)) continue;
+    if (f.kind === 'shinsal') {
+      if (shinsalCount >= 3) continue; // 신살이 하이라이트를 도배하지 않게
+      shinsalCount += 1;
+    }
+    chosen.add(f.factId);
+  }
+
+  return facts.map((f) => (chosen.has(f.factId) ? { ...f, highlight: true } : f));
 }
 
 /** 신살 백과(사주 평가 보고서의 저작 자산)를 한글명으로 조회하는 폴백 맵. */
@@ -90,6 +169,7 @@ export function buildInsightFactsCard(saju: SajuSummary): InsightFactsCard | nul
       label: hit.type,
       detail: hit.position ? `${hit.position}` : undefined,
       grade: typeof hit.grade === 'string' ? hit.grade : undefined,
+      group: shinsalGroup(hit.type),
     }));
   }
 
@@ -101,6 +181,7 @@ export function buildInsightFactsCard(saju: SajuSummary): InsightFactsCard | nul
       label: '공망',
       members: [saju.gongmang[0], saju.gongmang[1]],
       detail: `${saju.gongmang[0]}, ${saju.gongmang[1]}`,
+      group: 'space',
     }, ['gongmang']));
   }
 
@@ -113,6 +194,7 @@ export function buildInsightFactsCard(saju: SajuSummary): InsightFactsCard | nul
       label: `천간 ${rel.type}`,
       members: rel.stems,
       detail: rel.note ?? undefined,
+      group: relationGroup(rel.type),
     }, [`stemRelation.${rel.type}`]));
   }
 
@@ -125,6 +207,7 @@ export function buildInsightFactsCard(saju: SajuSummary): InsightFactsCard | nul
       label: `지지 ${rel.type}`,
       members: rel.branches,
       detail: rel.note ?? undefined,
+      group: relationGroup(rel.type),
     }, [`branchRelation.${rel.type}`]));
   }
 
@@ -148,6 +231,7 @@ export function buildInsightFactsCard(saju: SajuSummary): InsightFactsCard | nul
         kind: 'hiddenStems',
         label: `${positionKo[position.toUpperCase()] ?? position} 지장간`,
         members: names,
+        group: 'space',
       }));
     }
   }
@@ -176,5 +260,5 @@ export function buildInsightFactsCard(saju: SajuSummary): InsightFactsCard | nul
   }
 
   if (facts.length === 0) return null;
-  return { title: '전문 인사이트 원자료', facts };
+  return { title: '전문 인사이트 원자료', facts: markHighlights(facts) };
 }
