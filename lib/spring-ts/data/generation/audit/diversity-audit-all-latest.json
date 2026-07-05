@@ -1,21 +1,21 @@
 {
-  "generatedAt": "2026-07-04T10:20:02.416Z",
+  "generatedAt": "2026-07-05T01:12:06.121Z",
   "scope": "all",
   "files": 21060,
   "perCategory": {
     "academic": {
       "files": "1620",
-      "summaryUnique": "7/1620 (0.4%)",
-      "bodyUnique": "34/6480 (0.5%)",
-      "expertUnique": "40/3240 (1.2%)",
-      "tipsUnique": "6/4860 (0.1%)"
+      "summaryUnique": "37/1620 (2.3%)",
+      "bodyUnique": "136/6462 (2.1%)",
+      "expertUnique": "70/3211 (2.2%)",
+      "tipsUnique": "66/4830 (1.4%)"
     },
     "career": {
       "files": "2700",
-      "summaryUnique": "15/2700 (0.6%)",
-      "bodyUnique": "78/10800 (0.7%)",
-      "expertUnique": "120/5400 (2.2%)",
-      "tipsUnique": "23/8100 (0.3%)"
+      "summaryUnique": "45/2700 (1.7%)",
+      "bodyUnique": "187/10789 (1.7%)",
+      "expertUnique": "148/5371 (2.8%)",
+      "tipsUnique": "83/8070 (1.0%)"
     },
     "expression_children": {
       "files": "1620",
@@ -33,10 +33,10 @@
     },
     "health": {
       "files": "1620",
-      "summaryUnique": "7/1620 (0.4%)",
-      "bodyUnique": "34/6480 (0.5%)",
-      "expertUnique": "40/3240 (1.2%)",
-      "tipsUnique": "6/4860 (0.1%)"
+      "summaryUnique": "37/1620 (2.3%)",
+      "bodyUnique": "131/6457 (2.0%)",
+      "expertUnique": "69/3210 (2.1%)",
+      "tipsUnique": "70/4834 (1.4%)"
     },
     "health_stress": {
       "files": "1620",
@@ -54,17 +54,17 @@
     },
     "overall": {
       "files": "1620",
-      "summaryUnique": "7/1620 (0.4%)",
-      "bodyUnique": "34/6480 (0.5%)",
-      "expertUnique": "40/3240 (1.2%)",
-      "tipsUnique": "6/4860 (0.1%)"
+      "summaryUnique": "1619/1620 (99.9%)",
+      "bodyUnique": "5783/5783 (100.0%)",
+      "expertUnique": "2022/2022 (100.0%)",
+      "tipsUnique": "4023/4107 (98.0%)"
     },
     "romance": {
       "files": "2700",
-      "summaryUnique": "53/2700 (2.0%)",
-      "bodyUnique": "217/10799 (2.0%)",
-      "expertUnique": "132/5400 (2.4%)",
-      "tipsUnique": "141/8099 (1.7%)"
+      "summaryUnique": "83/2700 (3.1%)",
+      "bodyUnique": "314/10776 (2.9%)",
+      "expertUnique": "161/5370 (3.0%)",
+      "tipsUnique": "207/8075 (2.6%)"
     },
     "study_document": {
       "files": "1620",
@@ -75,21 +75,21 @@
     },
     "wealth": {
       "files": "1620",
-      "summaryUnique": "9/1620 (0.6%)",
-      "bodyUnique": "42/6480 (0.6%)",
-      "expertUnique": "44/3240 (1.4%)",
-      "tipsUnique": "12/4860 (0.2%)"
+      "summaryUnique": "1523/1620 (94.0%)",
+      "bodyUnique": "5483/5854 (93.7%)",
+      "expertUnique": "1561/1735 (90.0%)",
+      "tipsUnique": "3394/3800 (89.3%)"
     }
   },
   "total": {
-    "summaryUnique": 133,
+    "summaryUnique": 3377,
     "summaryTotal": 21060,
-    "bodyUnique": 573,
-    "bodyTotal": 84239,
-    "expertUnique": 576,
-    "expertTotal": 42120,
-    "tipsUnique": 194,
-    "tipsTotal": 63179
+    "bodyUnique": 12171,
+    "bodyTotal": 82841,
+    "expertUnique": 4195,
+    "expertTotal": 39279,
+    "tipsUnique": 7783,
+    "tipsTotal": 61256
   },
   "topSummaries": [
     [
@@ -110,7 +110,7 @@
     ],
     [
       "진로 감각은 서두르기보다 작은 기준부터 세울 때 좋아요.",
-      761
+      752
     ],
     [
       "타고난 힘이 고른 편이라, 가족 관계는 차분히 다질 때 좋아요.",
@@ -118,7 +118,7 @@
     ],
     [
       "타고난 힘이 고른 편이라, 관계와 마음은 차분히 다질 때 좋아요.",
-      720
+      690
     ],
     [
       "타고난 힘이 단단한 편이라, 공부 흐름은 차분히 다질 때 좋아요.",
@@ -136,160 +136,166 @@
   "topGrams": [
     [
       "기운을타고난결이",
-      17737
+      14790
     ],
     [
       "당신은□기운을타",
-      13644
+      11463
     ],
     [
       "번에크게밀기보다",
-      7651
+      6919
     ],
     [
       "밀기보다차분히다",
-      7651
+      6919
     ],
     [
       "차분히다질때오래",
-      7651
+      6919
     ],
     [
       "질때오래남아요□",
-      7651
+      6919
     ],
     [
       "고난결이단단한쪽",
-      6626
+      5546
     ],
     [
       "고난결이여린쪽이",
-      6543
-    ],
-    [
-      "에크게밀기보다차",
-      5633
-    ],
-    [
-      "기보다차분히다질",
-      5633
-    ],
-    [
-      "분히다질때오래남",
-      5633
-    ],
-    [
-      "때오래남아요□에",
-      5633
+      5480
     ],
     [
       "에잡히는장면부터",
-      5489
+      4636
     ],
     [
       "장면부터살피면선",
-      5489
+      4636
     ],
     [
       "살피면선택이가벼",
-      5489
+      4636
     ],
     [
       "요그래서평문에서",
-      5326
-    ],
-    [
-      "그래서평문에서는",
-      5295
+      4497
     ],
     [
       "어요이름의△자원",
-      5285
+      4479
+    ],
+    [
+      "그래서평문에서는",
+      4475
+    ],
+    [
+      "해당영역을다루는",
+      4418
     ],
     [
       "이름의△자원오행",
-      5223
+      4401
     ],
     [
       "요이름의△자원오",
-      5202
+      4394
+    ],
+    [
+      "었어요이름의△자",
+      4272
+    ],
+    [
+      "는편이에요그래서",
+      4183
+    ],
+    [
+      "풀었어요이름의△",
+      4168
     ]
   ],
   "defectRuleHits": {
-    "burned-phrase": 245519,
-    "missing-period-runon": 15612,
-    "josa-after-paren": 20080,
-    "spec-constant-verbatim": 12958,
-    "formal-fragment": 25962,
-    "burned-expert-meta": 80439,
-    "code-identifier": 15322,
-    "generic-summary-frame": 20896,
-    "josa-vowel-harmony": 810
+    "burned-phrase": 205022,
+    "missing-period-runon": 12385,
+    "josa-after-paren": 16836,
+    "spec-constant-verbatim": 9761,
+    "formal-fragment": 19568,
+    "burned-expert-meta": 67452,
+    "code-identifier": 12942,
+    "generic-summary-frame": 17639,
+    "josa-vowel-harmony": 367
   },
   "bundleSimulation": {
     "bundles": 3780,
-    "violatingBundles": 1800,
+    "violatingBundles": 1524,
     "ruleHits": {
-      "bundle-duplicate-summary": 2118,
-      "bundle-summary-skeleton": 2023,
-      "bundle-duplicate-paragraph": 14729,
-      "bundle-ngram-stamp": 9000,
-      "bundle-duplicate-tip": 6087
+      "bundle-duplicate-summary": 1838,
+      "bundle-summary-skeleton": 1733,
+      "bundle-duplicate-paragraph": 12742,
+      "bundle-ngram-stamp": 7545,
+      "bundle-duplicate-tip": 5220
     },
     "worst": [
       {
         "key": "career.adult.balanced.special.neutral.female",
         "violations": 41,
-        "sample": "3× \"타고난 힘이 고른 편이라, 진로 감각은 차분히 다질 때 좋아요.\" (career.life.adult.high.balanced.specia"
+        "sample": "3× \"타고난 힘이 고른 편이라, 진로 감각은 차분히 다질 때 좋아요.\""
       },
       {
         "key": "career.adult.strong.siksang.boost_mild.female",
         "violations": 41,
-        "sample": "7× \"진로 감각은 단단한 힘에 맞춰 천천히 정리할 때 좋아요.\" (career.life.adult.high.strong.siksang.boos"
+        "sample": "7× \"진로 감각은 단단한 힘에 맞춰 천천히 정리할 때 좋아요.\""
       },
       {
         "key": "career.adult.balanced.bigeop.boost_strong.female",
         "violations": 40,
-        "sample": "6× \"진로 감각은 고른 힘에 맞춰 천천히 정리할 때 좋아요.\" (career.life.adult.high.balanced.bigeop.boos"
+        "sample": "6× \"진로 감각은 고른 힘에 맞춰 천천히 정리할 때 좋아요.\""
       },
       {
         "key": "career.adult.balanced.gwanseong.neutral.female",
         "violations": 40,
-        "sample": "5× \"진로 감각은 서두르기보다 작은 기준부터 세울 때 좋아요.\" (career.life.adult.high.balanced.gwanseong."
+        "sample": "5× \"진로 감각은 서두르기보다 작은 기준부터 세울 때 좋아요.\""
       },
       {
         "key": "career.adult.balanced.inseong.boost_mild.female",
         "violations": 40,
-        "sample": "7× \"타고난 힘이 고른 편이라, 진로 감각은 차분히 다질 때 좋아요.\" (career.life.adult.high.balanced.inseon"
+        "sample": "7× \"타고난 힘이 고른 편이라, 진로 감각은 차분히 다질 때 좋아요.\""
       },
       {
         "key": "career.adult.balanced.siksang.boost_mild.male",
         "violations": 40,
-        "sample": "8× \"진로 감각은 서두르기보다 작은 기준부터 세울 때 좋아요.\" (career.life.adult.high.balanced.siksang.bo"
+        "sample": "8× \"진로 감각은 서두르기보다 작은 기준부터 세울 때 좋아요.\""
       },
       {
         "key": "career.adult.balanced.siksang.neutral.female",
         "violations": 40,
-        "sample": "6× \"타고난 힘이 고른 편이라, 진로 감각은 차분히 다질 때 좋아요.\" (career.life.adult.high.balanced.siksan"
+        "sample": "6× \"타고난 힘이 고른 편이라, 진로 감각은 차분히 다질 때 좋아요.\""
       },
       {
         "key": "career.adult.balanced.special.boost_mild.female",
         "violations": 40,
-        "sample": "5× \"타고난 힘이 고른 편이라, 진로 감각은 차분히 다질 때 좋아요.\" (career.life.adult.high.balanced.specia"
+        "sample": "5× \"타고난 힘이 고른 편이라, 진로 감각은 차분히 다질 때 좋아요.\""
       },
       {
         "key": "career.adult.strong.bigeop.neutral.female",
         "violations": 40,
-        "sample": "5× \"진로 감각은 단단한 힘에 맞춰 천천히 정리할 때 좋아요.\" (career.life.adult.high.strong.bigeop.neutr"
+        "sample": "5× \"진로 감각은 단단한 힘에 맞춰 천천히 정리할 때 좋아요.\""
       },
       {
         "key": "career.adult.strong.gwanseong.boost_strong.male",
         "violations": 40,
-        "sample": "4× \"진로 감각은 서두르기보다 작은 기준부터 세울 때 좋아요.\" (career.life.adult.high.strong.gwanseong.bo"
+        "sample": "4× \"진로 감각은 서두르기보다 작은 기준부터 세울 때 좋아요.\""
       }
     ]
   },
   "provenance": {
-    "generation-2026-07": 21060
+    "regen-s1c-f5": 265,
+    "regen-s1b-f5": 547,
+    "generation-2026-07": 17801,
+    "regen-s1a-f5": 296,
+    "regen-s0-f5": 30,
+    "regen-s2-f5": 1626,
+    "regen-2026-07-w1": 495
   }
 }

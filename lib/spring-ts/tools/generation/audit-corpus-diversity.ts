@@ -21,6 +21,7 @@ import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   bundleDiversityViolations,
+  summarySkeleton,
   validatePlainTextQuality,
   type BundleArticleLike,
 } from './text-quality-rules.js';
@@ -130,6 +131,66 @@ function main(): void {
     };
   }
 
+  // ── page simulation (F1b): 통합 보고서 한 화면에는 같은 사람·같은 기간·같은
+  // 등급의 노출 6분야 summary 카드가 나란히 보인다. 분야 간 반복은 번들 게이트의
+  // 사각지대이므로 여기서 계측한다. regen 글이 2개 미만인 페이지는 건너뜀. ──
+  const EXPOSED = ['overall', 'wealth', 'health', 'academic', 'romance', 'family'];
+  const SENSITIVE = new Set(['romance', 'family']);
+  const summaryById = new Map<string, { summary: string; regen: boolean }>();
+  for (const category of categories) {
+    const dir = path.join(GENERATED_DIR, category);
+    for (const f of fs.readdirSync(dir).filter((n) => n.endsWith('.json'))) {
+      const a = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf-8')) as StoredArticle;
+      if (a.articleId && a.summary) {
+        summaryById.set(a.articleId, { summary: a.summary, regen: (a.sourceNote ?? '').startsWith('regen-') });
+      }
+    }
+  }
+  let pagesChecked = 0; let pagesViolating = 0;
+  const pageRuleHits = new Map<string, number>();
+  const pageWorst: string[] = [];
+  const AUD_BANDS: Array<[string, string[], string[], string[]]> = [
+    ['adult', ['weak', 'balanced', 'strong'], ['boost_strong', 'boost_mild', 'neutral', 'adverse'], ['high', 'mid', 'low']],
+    ['teen', ['weak', 'strong'], ['boost_strong', 'boost_mild', 'neutral'], ['any']],
+    ['child', ['weak', 'strong'], ['boost_strong', 'boost_mild', 'neutral'], ['any']],
+  ];
+  const FAMILIES = ['inseong', 'siksang', 'jaeseong', 'gwanseong', 'bigeop', 'special'];
+  const PERIODS = ['today', 'thisWeek', 'thisMonth', 'thisYear', 'life'];
+  for (const [aud, gangyaks, effects, bandsList] of AUD_BANDS) {
+    for (const g of gangyaks) for (const gk of FAMILIES) for (const ne of effects) for (const gender of ['male', 'female']) {
+      for (const period of PERIODS) for (const band of bandsList) {
+        const page: Array<{ cat: string; summary: string }> = [];
+        let regenCount = 0;
+        for (const cat of EXPOSED) {
+          const id = `${cat}.${period}.${aud}.${band}.${g}.${gk}.${ne}.${SENSITIVE.has(cat) ? gender : 'x'}`;
+          const hit = summaryById.get(id);
+          if (!hit) continue;
+          page.push({ cat, summary: hit.summary });
+          if (hit.regen) regenCount += 1;
+        }
+        if (regenCount < 2 || page.length < 2) continue;
+        pagesChecked += 1;
+        const exact = new Map<string, string[]>(); const skel = new Map<string, string[]>();
+        for (const { cat, summary } of page) {
+          const sNorm = summary.replace(/\s+/gu, ' ').trim();
+          exact.set(sNorm, [...(exact.get(sNorm) ?? []), cat]);
+          const sk = summarySkeleton(sNorm);
+          skel.set(sk, [...(skel.get(sk) ?? []), cat]);
+        }
+        let bad = false;
+        for (const [sNorm, cats] of exact) if (cats.length > 1) {
+          bad = true; pageRuleHits.set('page-duplicate-summary', (pageRuleHits.get('page-duplicate-summary') ?? 0) + 1);
+          if (pageWorst.length < 5) pageWorst.push(`[${aud}.${g}.${gk}.${ne}.${gender}·${period}/${band}] ${cats.join('+')}: "${sNorm.slice(0, 50)}"`);
+        }
+        for (const [sk, cats] of skel) if (cats.length > 2) {
+          bad = true; pageRuleHits.set('page-summary-skeleton', (pageRuleHits.get('page-summary-skeleton') ?? 0) + 1);
+          if (pageWorst.length < 5) pageWorst.push(`[${aud}.${g}.${gk}.${ne}.${gender}·${period}/${band}] skeleton×${cats.length} (${cats.join('+')}): "${sk.slice(0, 50)}"`);
+        }
+        if (bad) pagesViolating += 1;
+      }
+    }
+  }
+
   // bundle simulation
   const bundleRuleHits = new Map<string, number>();
   let violatingBundles = 0;
@@ -159,6 +220,10 @@ function main(): void {
     console.log(`- ${rule}: ${count}`);
     for (const s of ruleSamples.get(rule) ?? []) console.log(`    · ${s}`);
   }
+  console.log(`\n## page simulation (F1b — 노출 6분야 summary 조합, regen≥2만): ${pagesViolating}/${pagesChecked} pages violate`);
+  for (const [rule, count] of [...pageRuleHits.entries()].sort((a, b) => b[1] - a[1])) console.log(`- ${rule}: ${count}`);
+  for (const w of pageWorst) console.log(`    · ${w}`);
+
   console.log(`\n## bundle simulation (person-view): ${violatingBundles}/${bundles.size} bundles violate`);
   for (const [rule, count] of [...bundleRuleHits.entries()].sort((a, b) => b[1] - a[1])) console.log(`- ${rule}: ${count}`);
   console.log('\n### worst bundles');
