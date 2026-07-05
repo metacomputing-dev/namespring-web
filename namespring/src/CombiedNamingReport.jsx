@@ -601,6 +601,18 @@ function insightChipText(fact) {
   return fact.label || fact.factId;
 }
 
+const INSIGHT_GROUP_RGB = { boon: '47, 107, 79', tension: '176, 108, 38', space: '90, 96, 120' };
+
+/** 주요도(salience 0~1) → 테두리·배경 농도. 글자는 항상 진하게(가독성·비활성 오독 방지). */
+function insightSalienceStyle(groupKey, salience) {
+  const rgb = INSIGHT_GROUP_RGB[groupKey] || INSIGHT_GROUP_RGB.tension;
+  const s = Number.isFinite(salience) ? Math.max(0, Math.min(1, salience)) : 0.5;
+  return {
+    '--ins-border': `rgba(${rgb}, ${(0.18 + s * 0.62).toFixed(3)})`,
+    '--ins-bg': `rgba(${rgb}, ${(0.02 + s * 0.13).toFixed(3)})`,
+  };
+}
+
 function InsightFactsSection({ insightFacts }) {
   const [expanded, setExpanded] = useState(false);
   const [selectedFactId, setSelectedFactId] = useState(null);
@@ -632,7 +644,11 @@ function InsightFactsSection({ insightFacts }) {
     >
       <div className="cr-insight-highlights">
         {lead.map((fact) => (
-          <article key={fact.factId} className="cr-insight-item cr-insight-item--highlight">
+          <article
+            key={fact.factId}
+            className="cr-insight-item cr-insight-item--highlight"
+            style={{ borderLeftColor: `rgba(47, 107, 79, ${(0.35 + (fact.salience ?? 0.5) * 0.65).toFixed(3)})` }}
+          >
             <p className="cr-insight-item__headline">{fact.interpretation.text}</p>
             {fact.interpretation.expertText ? (
               <p className="cr-insight-item__expert">{fact.interpretation.expertText}</p>
@@ -674,6 +690,7 @@ function InsightFactsSection({ insightFacts }) {
                             type="button"
                             aria-pressed={isSelected}
                             className={`cr-insight-chip cr-insight-chip--${group.key}${isSelected ? ' is-selected' : ''}`}
+                            style={insightSalienceStyle(group.key, fact.salience)}
                             onClick={() => setSelectedFactId(isSelected ? null : fact.factId)}
                           >
                             {insightChipText(fact)}

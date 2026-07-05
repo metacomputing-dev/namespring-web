@@ -3222,8 +3222,8 @@ textarea:focus-visible {
   margin: 8px 0 4px;
 }
 .cr-insight-chip {
-  border: 1px solid var(--color-line, #ddd8c8);
-  background: var(--color-paper-2, #fbfaf4);
+  border: 1px solid var(--ins-border, var(--color-line, #ddd8c8));
+  background: var(--ins-bg, var(--color-paper-2, #fbfaf4));
   border-radius: 999px;
   padding: 7px 14px;
   font-size: 12.5px;
@@ -3233,9 +3233,9 @@ textarea:focus-visible {
   line-height: 1;
   transition: background 0.15s ease, border-color 0.15s ease;
 }
-.cr-insight-chip--boon { border-color: rgba(47, 107, 79, 0.35); color: #2f6b4f; }
-.cr-insight-chip--tension { border-color: rgba(176, 108, 38, 0.35); color: #8a5a1e; }
-.cr-insight-chip--space { border-color: rgba(90, 96, 120, 0.35); color: #565c74; }
+.cr-insight-chip--boon { color: #2f6b4f; }
+.cr-insight-chip--tension { color: #8a5a1e; }
+.cr-insight-chip--space { color: #565c74; }
 .cr-insight-chip--boon.is-selected { background: rgba(47, 107, 79, 0.12); border-color: #2f6b4f; }
 .cr-insight-chip--tension.is-selected { background: rgba(176, 108, 38, 0.12); border-color: #b06c26; }
 .cr-insight-chip--space.is-selected { background: rgba(90, 96, 120, 0.12); border-color: #565c74; }
