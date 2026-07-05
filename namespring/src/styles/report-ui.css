@@ -3201,3 +3201,68 @@ textarea:focus-visible {
   font-size: 13px;
   line-height: 1.6;
 }
+
+/* ── 전문 인사이트: 칩 클라우드 + 근접 상세 패널 ────────────────────── */
+.cr-insight-group h4 {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.cr-insight-group h4 .cr-insight-group__desc {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--color-ink-3, #6f6d63);
+  margin: 0;
+}
+.cr-insight-chiprow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 4px;
+}
+.cr-insight-chip {
+  border: 1px solid var(--color-line, #ddd8c8);
+  background: var(--color-paper-2, #fbfaf4);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--color-ink-2, #45443e);
+  cursor: pointer;
+  line-height: 1;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.cr-insight-chip--boon { border-color: rgba(47, 107, 79, 0.35); color: #2f6b4f; }
+.cr-insight-chip--tension { border-color: rgba(176, 108, 38, 0.35); color: #8a5a1e; }
+.cr-insight-chip--space { border-color: rgba(90, 96, 120, 0.35); color: #565c74; }
+.cr-insight-chip--boon.is-selected { background: rgba(47, 107, 79, 0.12); border-color: #2f6b4f; }
+.cr-insight-chip--tension.is-selected { background: rgba(176, 108, 38, 0.12); border-color: #b06c26; }
+.cr-insight-chip--space.is-selected { background: rgba(90, 96, 120, 0.12); border-color: #565c74; }
+.cr-insight-chip:hover { background: rgba(0, 0, 0, 0.04); }
+.cr-insight-detail {
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin: 8px 0 4px;
+  background: var(--color-paper-2, #fbfaf4);
+  border: 1px solid var(--color-line, #ddd8c8);
+}
+.cr-insight-detail--boon { border-left: 3px solid #2f6b4f; }
+.cr-insight-detail--tension { border-left: 3px solid #b06c26; }
+.cr-insight-detail--space { border-left: 3px solid #565c74; }
+.cr-insight-detail h5 { margin: 0 0 6px; font-size: 13.5px; }
+.cr-insight-detail p { margin: 0 0 6px; font-size: 13.5px; line-height: 1.65; }
+.cr-insight-detail .cr-insight-item__expert { margin: 0; }
+.cr-insight-hint {
+  margin: 2px 0 0;
+  font-size: 11.5px;
+  color: var(--color-ink-3, #8b887a);
+  text-align: center;
+}
+@media (max-width: 640px) {
+  .cr-insight-item { padding: 13px 14px; }
+  .cr-insight-item__headline { font-size: 14px; }
+  .cr-insight-chip { padding: 8px 13px; font-size: 12px; }
+  .cr-insight-chiprow { gap: 7px; }
+  .cr-insight-detail { padding: 11px 13px; }
+}

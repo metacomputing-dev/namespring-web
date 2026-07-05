@@ -592,8 +592,18 @@ function insightChips(fact) {
   return chips;
 }
 
+/** 접힌 목록의 칩 라벨 — 관계는 고전 표기(병임충·인사형)로 압축. */
+function insightChipText(fact) {
+  if (fact.kind === 'stemRelation' || fact.kind === 'branchRelation') {
+    const typeWord = (fact.label || '').replace(/^(천간|지지)\s*/u, '');
+    return `${(fact.members || []).join('')}${typeWord}`;
+  }
+  return fact.label || fact.factId;
+}
+
 function InsightFactsSection({ insightFacts }) {
   const [expanded, setExpanded] = useState(false);
+  const [selectedFactId, setSelectedFactId] = useState(null);
   const raw = asArray(insightFacts?.facts).filter((fact) => fact?.interpretation?.text);
   // 같은 factId(예: 지살이 년주·일주 양쪽 히트)는 한 항목으로 병합 — 위치만 합산.
   const byId = new Map();
@@ -651,22 +661,42 @@ function InsightFactsSection({ insightFacts }) {
               {INSIGHT_GROUP_ORDER.map((group) => {
                 const items = folded.filter((fact) => (fact.group || 'tension') === group.key);
                 if (!items.length) return null;
+                const selected = items.find((fact) => fact.factId === selectedFactId) || null;
                 return (
                   <div key={group.key} className="cr-insight-group">
-                    <h4>{group.title}</h4>
-                    <p className="cr-insight-group__desc">{group.desc}</p>
-                    {items.map((fact) => (
-                      <article key={fact.factId} className="cr-insight-item">
+                    <h4>{group.title}<span className="cr-insight-group__desc"> — {group.desc}</span></h4>
+                    <div className="cr-insight-chiprow" role="group" aria-label={group.title}>
+                      {items.map((fact) => {
+                        const isSelected = fact.factId === selectedFactId;
+                        return (
+                          <button
+                            key={fact.factId}
+                            type="button"
+                            aria-pressed={isSelected}
+                            className={`cr-insight-chip cr-insight-chip--${group.key}${isSelected ? ' is-selected' : ''}`}
+                            onClick={() => setSelectedFactId(isSelected ? null : fact.factId)}
+                          >
+                            {insightChipText(fact)}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    {selected ? (
+                      <article className={`cr-insight-detail cr-insight-detail--${group.key}`}>
                         <h5>
-                          {fact.label}
-                          {fact.detail ? <span className="cr-insight-item__where"> · {fact.detail}</span> : null}
+                          {selected.label}
+                          {selected.detail ? <span className="cr-insight-item__where"> · {selected.detail}</span> : null}
                         </h5>
-                        <p>{fact.interpretation.text}</p>
+                        <p>{selected.interpretation.text}</p>
+                        {selected.interpretation.expertText ? (
+                          <p className="cr-insight-item__expert">{selected.interpretation.expertText}</p>
+                        ) : null}
                       </article>
-                    ))}
+                    ) : null}
                   </div>
                 );
               })}
+              <p className="cr-insight-hint">신호를 누르면 풀이가 열립니다.</p>
             </div>
           ) : null}
         </div>
