@@ -2261,6 +2261,12 @@ textarea:focus-visible {
   padding: var(--space-sm);
 }
 
+/* 60갑자 리드 문장 — 본문 요약 위에서 그 대운 고유의 결을 먼저 연다. */
+.cr-period-summary p.cr-daeun-lead {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
 .cr-life-chart {
   min-width: 0;
 }

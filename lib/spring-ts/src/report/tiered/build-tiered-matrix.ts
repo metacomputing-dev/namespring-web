@@ -57,6 +57,7 @@ import { buildNameSajuReading } from './name-saju-reading.js';
 import { computeClassIdCandidates, packKeyFor, minorPackKeyFor, ALL_CATEGORIES } from './class-axes.js';
 import { getGeneratedArticle, preloadGeneratedForPerson } from './generated-registry.js';
 import { buildPeriodMeta, periodFortuneElement } from './period-meta-builder.js';
+import { getInsightInterpretation } from './insight-registry.js';
 import { loadGlossary } from './glossary-loader.js';
 import { buildTagGlossary } from './tag-inliner.js';
 import {
@@ -589,7 +590,12 @@ function buildLifeByDaeun(
     const scoped = (subjectIsMinor && stageAudience !== 'stage-teen')
       ? placeholderAgeBandScoped(spec, feature, targetDate)
       : buildAgeBandScoped(saju, spec, registry, glossary, feature, seedKey, targetDate, sajuCompat);
-    return { ...scoped, daeunIndex: index, pillarDisplay, ageLabel };
+    // 60갑자 리드 — factId는 정본 코드(elementMaps)로 정규화한다.
+    // saju-ts가 지지 申을 SIN으로 방출하므로(정본은 SIN_BRANCH) 원시 코드 그대로 쓰면 미스가 난다.
+    const stemCode = STEM_BY_CODE[pillar.stem.trim().toUpperCase()]?.code ?? pillar.stem.trim().toUpperCase();
+    const branchCode = BRANCH_BY_CODE[pillar.branch.trim().toUpperCase()]?.code ?? pillar.branch.trim().toUpperCase();
+    const daeunLead = getInsightInterpretation(`daeunLead.${stemCode}-${branchCode}`)?.text;
+    return { ...scoped, daeunIndex: index, pillarDisplay, ageLabel, ...(daeunLead ? { daeunLead } : {}) };
   });
 }
 
