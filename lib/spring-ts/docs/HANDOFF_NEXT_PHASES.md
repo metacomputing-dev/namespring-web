@@ -129,9 +129,25 @@ npm run audit:generated                       # 코퍼스 다양성 감사
   - **엔진의 신살 `position`은 "그 기둥에 신살이 위치"가 아니라 "어느 지지를 기준(base)으로 산출했는가"다.** 최성수 검증: 년지 인(寅) 기준 도화=卯인데 卯는 시주에 있음에도 position은 '년주'로 보고(=산출 기준이 년지).
   - 결과: 일간 기준 신살(귀인 대부분·양인·홍염·비인·록신)은 position이 전부 **`기타`** → 궁위 세분 영구 미발현. 월지 기준 귀인(천덕·월덕·천의)은 **`월주` 고정**. 12신살은 **`년주`·`일주`만**(년지·일지 기준) → 월주·시주 엔트리는 죽은 데이터. 24개 사주 프로브로 확증.
   - 그래서 4궁 세분(`shinsal.<이름>.<기둥>`) 전제가 성립 안 함. `shinsal-positions.insights.json`·`preferredIds` 인프라·캡처 전부 원복.
-- **재도입 선행 조건**: 엔진(saju-ts/어댑터)이 신살의 **실제 위치(located pillar)**를 방출하도록 바꾼 뒤라야 궁위 세분이 의미를 가진다. 지금 구조로는 불가.
 - **⚠ 프론트 표시 주의(기존 이슈, 이 PR 밖)**: 인사이트 카드가 `detail`에 position('년주'/'일주'/'기타')을 그대로 노출하는데, 위 계약상 이는 궁위가 아니라 산출 기준이라 사용자가 "그 기둥에 있다"로 오독할 여지가 있다. 별도 검토 대상.
-- **여전히 유효한 고도화 후보(파일 추가만으로 자동 반영)**: 타입 레벨 해석 자체의 보강(신살·관계·공망 문장 품질), 미해석 잔여. 위치·궁위 축은 위 선행 조건 전까지 보류.
+- **여전히 유효한 고도화 후보(파일 추가만으로 자동 반영)**: 타입 레벨 해석 자체의 보강(신살·관계·공망 문장 품질), 미해석 잔여. 위치·궁위 축은 아래 후속 PR 전까지 보류.
+
+#### 작업 5-후속 (별도 PR 예정) — 귀인 궁위 세분 + 극 노출: 엔진 레벨 스펙
+
+> 2026-07-06 조사 결과. **이건 데이터 추가가 아니라 엔진(saju-ts) 변경**이다. PR #649에는 얹지 말고 별도 브랜치에서.
+
+**(A) 귀인 궁위 세분 — 실제 위치(seat pillar)는 이미 계산돼 있으나 버려진다:**
+- 정확한 지점: `lib/saju-ts/src/compat/springLegacy.ts` `normalizeLegacyOutput`(~L1043) — `const position = relationPositionFromBasedOn(hit.basedOn)`. 여기서 **산출 기준(basedOn: YEAR/DAY/MONTH_BRANCH/OTHER)**을 position에 넣고, 신살 detection이 이미 들고 있는 **`matchedPillars`(앉은 기둥 배열, `shinsal.ts` L430~ `matchedPillarsForBranchTarget`)를 버린다.**
+- 천을귀인 등 귀인은 카탈로그상 target이 **지지(日干→2지지, `shinsalBaseCatalog.ts` L30~)**라 `matchedPillars`가 유도된다 → 실제 위치 확보 가능. (단 런타임 확증은 아직: 제 프로브가 stale dist를 쳐서 미확인 — 아래 절차 1번에서 재빌드 후 확인.)
+- **런타임 구조**: 브라우저=Vite alias로 saju-ts **src 직접 컴파일**(src 수정이 반영됨), Node/tsx=**빌드된 `saju-ts/dist`**(gitignore, `npm run build`=tsc 재빌드 필요). 검증 스크립트는 dist를 치므로 재빌드 필수.
+- **가중치 무영향(리스크 축소)**: 이 경로 `positionMultiplier=1` 하드코딩(L1046)이라 position을 바꿔도 신살 가중치는 안 변한다.
+- **★안전 설계(권장)**: `position`(=basedOn)을 **바꾸지 말 것** — dedup 키 `type|position`과 전 소비자(cautions-card·life-fortune-overview-card·category-fortune-card·insight-facts-card·feature-selector)에 파급. 대신 **새 필드 `seatPillars: ('year'|'month'|'day'|'hour')[]`를 추가**(saju-ts hit → 어댑터 `ShinsalHitSummary` → SajuSummary)하고, **인사이트 카드가 귀인·일간 기준 신살(basedOn=OTHER)에 한해서만** 그걸로 궁위 세분(`shinsal.<이름>@<기둥>` 신규 factId + preferredIds 재도입). 12신살은 전통대로 base 유지(seat로 바꾸면 비정통).
+
+**(B) 극(剋) 조합 — 그 전에 극이 아예 안 뜬다:**
+- 6개 사주 프로브 결과 인사이트에 나오는 천간 관계는 **합·충뿐, 극은 0건**. `relations.insights.json`의 `stemRelation.극` 타입 레벨 항목도 사실상 죽어 있다.
+- 즉 극조합 콘텐츠 추가는 무의미 — **엔진이 극 관계를 방출하도록 하는 게 선행**(어댑터 `extractCheonganRelations` + saju-ts 관계 산출 확인). 이것도 엔진 레벨.
+
+**후속 PR 절차**: ① saju-ts dist 재빌드 후 귀인 `matchedPillars` 실측 확인 → ② `seatPillars` 필드 추가(saju-ts src + 어댑터) → ③ 인사이트 카드 귀인 한정 궁위 세분(신규 factId, position/dedup 무접촉) → ④ 귀인 궁위 콘텐츠 저작(seat가 의미 있는 별만) → ⑤ 전 신살 소비자 회귀 + 프리뷰 + 명리 검증. 극은 별개 축으로 (A) 이후 검토.
 
 ### 작업 6 — F1: 별점 요약 문구 프론트 조립 반복 해소 ✅ 완료 (2026-07-06, PR #649에 포함)
 
