@@ -58,7 +58,7 @@ npm run audit:generated                       # 코퍼스 다양성 감사
 
 ### 작업 1 — romance 재생성 완결 (진행 중인 것 이어받기)
 
-- **현황 확인**: `node -e` 로 `data/generated/romance`에서 sourceNote `regen-` 비율 측정 (마지막 실측 ~33%, 이후 진행분 있을 수 있음).
+- **현황 확인(2026-07-06 실측)**: `data/generated/romance` regen 900편 = **60번들/2,700편(33%)**. 내역 — 실제 S3 romance 58번들/870편(`regen-s3-codex-r1~r11` 675 + `regen-manual-*` 195) + S1 부수 2번들/30편(`regen-s1b/s1c-f5`). **잔여 1,800편(`generation-2026-07` 구 스탬핑)**. 재확인 명령은 `node -e`로 sourceNote 분포.
 - **절차**: `docs/S3_CONTINUATION_PLAYBOOK.md` 모드 C-1(배치 API 오케스트레이션) 또는 C-2(자체 생성). 명령 시퀀스는 플레이북 §2 그대로: `prepare-bundles romance` → 생성 → `ingest-bundles --source=regen-s3-*` → 리젝 `--keys` 재생성 루프.
 - **완료 판정**: romance 2,700파일 전부 regen- + `audit:generated` romance 고유율 95%+ + 표본 3번들 정독(톤 앵커=플레이북 §3) + 커밋.
 - **주의**: gender 민감 분야(male/female 축) — 번들 수가 2배.
@@ -75,7 +75,8 @@ npm run audit:generated                       # 코퍼스 다양성 감사
 
 ### 작업 2 — family·academic 재생성 (romance와 동일 절차)
 
-- family(2,700, gender 민감) → academic(1,980) 순. 나머지는 작업 1과 동일.
+- family(2,700, gender 민감) → academic(1,620) 순. 나머지는 작업 1과 동일.
+- **착수 현황(2026-07-06 실측)**: 둘 다 **0%**. academic dir에 `regen-` 30편이 있으나 전부 `regen-s1b/s1c-f5`(S1 overall 웨이브 부수분)라 academic 재생성 작업분이 아님. family는 `generation-2026-07`(구 스탬핑) 2,700편 그대로.
 - **완료 판정**: 두 분야 전 파일 regen- → **이 시점에 노출 6분야 전부 100%** → `pack-generated.ts` 재실행 후 프리뷰에서 기간별 카드가 재생성 텍스트인지 dump-report-trace로 확인.
 
 > **투입 프롬프트**: 작업 1 프롬프트에서 분야명만 family/academic으로 교체.
