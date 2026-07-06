@@ -226,7 +226,11 @@ function buildSummaryItems(fortuneReport, nameCompatibility) {
       key: 'name-harmony',
       number: '02',
       title: '이름과의 조화',
-      body: compactText(nameCompatibility?.summary, '이름과 사주의 조화 분석을 준비 중입니다.'),
+      // F1: summary(별점 문구)는 히어로가 정본 1회 노출 — 여기는 N1 평문(이름이 채우는 기운)을 쓴다.
+      body: compactText(
+        fortuneReport?.tieredMatrix?.nameSajuReading?.sentence || nameCompatibility?.summary,
+        '이름과 사주의 조화 분석을 준비 중입니다.',
+      ),
     },
     {
       key: 'watch-point',
@@ -732,7 +736,11 @@ function PremiumReportSection({
   onOpenPremium,
 }) {
   const periodLabel = selectedPeriod?.periodLabel || selectedPeriod?.label || '선택한 기간';
-  const nameDetail = asArray(nameCompatibility?.details).find((line) => normalizeText(line))
+  // F1: 첫 줄(종합 점수 해설)은 이름 평가 섹션 도입부가 쓰므로, 여기는 용신 해설
+  // 우선 → 둘째 줄 이후 → summary 순으로 골라 같은 문장이 페이지에 반복되지 않게 한다.
+  const details = asArray(nameCompatibility?.details);
+  const nameDetail = details.find((line) => normalizeText(line) && String(line).includes('용신'))
+    || details.slice(1).find((line) => normalizeText(line))
     || compactText(nameCompatibility?.summary, '이름과 사주의 조화가 이어지는 지점을 더 자세히 읽을 수 있습니다.');
   const threads = [
     {
@@ -1175,7 +1183,8 @@ function CombiedNamingReport({
   const selectedLifePeriodStars = selectedLifePeriodOverall?.stars || selectedLifePeriod?.lifeStage?.stars || null;
   const selectedLifePeriodSummary = cellSummary(selectedLifePeriodOverall, '') || selectedLifePeriod?.lifeStage?.summary || '';
   // 60갑자 리드 — 같은 버킷×등급으로 본문이 겹치는 인접 대운을 그 간지 고유의 글로 열어 준다.
-  const selectedLifePeriodLead = compactText(selectedLifePeriod?.period?.daeunLead, '');
+  // 1~2문장이 한 단위로 저작돼 있어 firstSentence 절단(compactText)을 쓰지 않는다.
+  const selectedLifePeriodLead = normalizeText(selectedLifePeriod?.period?.daeunLead);
   const selectedLifeFlowKey = selectedLifePeriod?.key || selectedLifePeriodKey;
   const nameCompatibility = fortuneReport?.nameCompatibility;
   const nameParts = useMemo(() => getNamePartsFromUserInfo(shareUserInfo), [shareUserInfo]);
@@ -1325,16 +1334,17 @@ function CombiedNamingReport({
             >
               <div className="cr-text-block">
                 <h3>이름 적합도 결과</h3>
-                <p>{compactText(nameCompatibility?.summary, '이름 적합도 분석 결과를 준비 중입니다.')}</p>
+                {/* F1: 별점 summary 재사용 대신 상세 근거의 첫 줄(종합 점수 해설)을 도입부로 승격. */}
+                <p>{compactText(nameDetails[0] || nameCompatibility?.summary, '이름 적합도 분석 결과를 준비 중입니다.')}</p>
               </div>
               <div className="cr-evidence-grid">
                 <ScoreMetricCard label="종합" value={scoreNumber(nameCompatibility?.overallScore)} caption={scoreStateLabel(nameCompatibility?.overallScore)} />
                 <ScoreMetricCard label="사주 궁합" value={scoreNumber(nameCompatibility?.sajuCompatibilityScore)} caption="사주와의 연결" />
                 <ScoreMetricCard label="이름 분석" value={scoreNumber(nameCompatibility?.nameAnalysisScore)} caption="성명학 기준" />
               </div>
-              {nameDetails.length ? (
+              {nameDetails.length > 1 ? (
                 <div className="cr-note-list" aria-label="이름 평가 상세 근거">
-                  {nameDetails.slice(0, 4).map((line, index) => (
+                  {nameDetails.slice(1, 5).map((line, index) => (
                     <p key={`name-detail-${index}`}>{line}</p>
                   ))}
                 </div>
