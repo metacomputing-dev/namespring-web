@@ -1174,6 +1174,8 @@ function CombiedNamingReport({
   const selectedLifePeriodOverall = selectedLifePeriod?.period?.overall || null;
   const selectedLifePeriodStars = selectedLifePeriodOverall?.stars || selectedLifePeriod?.lifeStage?.stars || null;
   const selectedLifePeriodSummary = cellSummary(selectedLifePeriodOverall, '') || selectedLifePeriod?.lifeStage?.summary || '';
+  // 60갑자 리드 — 같은 버킷×등급으로 본문이 겹치는 인접 대운을 그 간지 고유의 글로 열어 준다.
+  const selectedLifePeriodLead = compactText(selectedLifePeriod?.period?.daeunLead, '');
   const selectedLifeFlowKey = selectedLifePeriod?.key || selectedLifePeriodKey;
   const nameCompatibility = fortuneReport?.nameCompatibility;
   const nameParts = useMemo(() => getNamePartsFromUserInfo(shareUserInfo), [shareUserInfo]);
@@ -1397,6 +1399,7 @@ function CombiedNamingReport({
                   <div>
                     <p className="cr-eyebrow">선택 나이대</p>
                     <h3>{selectedLifePeriod.periodLabel || selectedLifePeriod.label}</h3>
+                    {selectedLifePeriodLead ? <p className="cr-daeun-lead">{selectedLifePeriodLead}</p> : null}
                     {selectedLifePeriodSummary ? <p>{selectedLifePeriodSummary}</p> : null}
                   </div>
                   {selectedLifePeriodStars ? <StarRating score={toStars(selectedLifePeriodStars)} /> : null}

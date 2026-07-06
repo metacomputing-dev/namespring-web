@@ -559,6 +559,9 @@ export interface DaeunScopedFortunes extends AgeBandScopedFortunes {
   readonly pillarDisplay: string;
   /** '13세~22세' — floor 표시 규약. */
   readonly ageLabel: string;
+  /** 60갑자별 저작 리드 문장 (daeun-leads.insights.json). 같은 버킷×등급으로
+   *  본문이 겹치는 인접 대운도 이 리드로 그 간지 고유의 글로 읽힌다. 없으면 생략. */
+  readonly daeunLead?: string;
 }
 
 /** All cells for one period of the matrix: total + 10 categories. */
