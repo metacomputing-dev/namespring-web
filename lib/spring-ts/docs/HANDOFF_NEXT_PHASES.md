@@ -97,7 +97,7 @@ npm run audit:generated                       # 코퍼스 다양성 감사
 > fragmentId가 8토큰 재생성 classId이고 전부 정합✓인지 증빙해줘.
 > ```
 
-### 작업 4 — 대운 구간별 본문 차별화 (60갑자 리드 문장) ✅ 완료 (2026-07-06, `codex/pr2-daeun-leads-f1`)
+### 작업 4 — 대운 구간별 본문 차별화 (60갑자 리드 문장) ✅ 완료 (2026-07-06, PR #649에 포함)
 
 > **완료됨.** 60건 전량 저작(`data/articles/insights/daeun-leads.insights.json`) + 엔진 훅
 > (`buildLifeByDaeun` → `daeunLead`, 申=SIN→SIN_BRANCH 정규화) + 프론트 렌더.
@@ -128,7 +128,7 @@ npm run audit:generated                       # 코퍼스 다양성 감사
 - 후보: 신살×기둥 위치별 세분화(factId에 위치 포함하려면 카드 방출 확장 필요 — 현재는 `shinsal.<이름>`), 미해석 잔여(daeunPillar는 작업 4가 대체), 극(stemRelation.극) 조합별.
 - **완료 판정**: dump-report-trace의 "해석 부착" 수 증가 + 프리뷰 확인.
 
-### 작업 6 — F1: 별점 요약 문구 프론트 조립 반복 해소 ✅ 완료 (2026-07-06, `codex/pr2-daeun-leads-f1`)
+### 작업 6 — F1: 별점 요약 문구 프론트 조립 반복 해소 ✅ 완료 (2026-07-06, PR #649에 포함)
 
 - 기간 카드 상단의 별점·요약 강조 문구가 프론트에서 고정 조립되는 부분의 다양화. 진단은 플랜 문서 F1 항목 참조. (엔진 콘텐츠가 아니라 프론트 표현 계층.)
 - **완료됨.** `nameCompatibility.summary` 3곳 재사용 해소 — 히어로 정본 1회, 총평은 N1 평문, 이름 평가는 상세 근거 1행 승격. 프리뷰 실측: 별점 문구 3회 → 1회. (F1b 분야 간 audit 시뮬레이션은 미착수 — 작업 7 후보.)
