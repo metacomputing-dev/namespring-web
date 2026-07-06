@@ -182,18 +182,16 @@ const SHINSAL_BY_KOREAN: ReadonlyMap<string, InsightInterpretation> = (() => {
 })();
 
 /**
- * 해석 조회 체인: ⓪세분 해석(preferredIds — 예: `shinsal.도화.일주`) →
- * ①insights 파일의 정확 factId → ②타입 레벨 폴백(예: `branchRelation.형`)
- * → ③신살은 백과 자동 연결.
+ * 해석 조회 체인: ①insights 파일의 정확 factId → ②타입 레벨 폴백
+ * (예: `branchRelation.형`) → ③신살은 백과 자동 연결.
  * 어디에도 없으면 interpretation 없이 방출(프론트가 렌더 생략).
  */
 function withInterpretation(
   fact: Omit<InsightFact, 'interpretation'>,
   fallbackIds: readonly string[] = [],
-  preferredIds: readonly string[] = [],
 ): InsightFact {
-  let interpretation: InsightInterpretation | null = null;
-  for (const id of [...preferredIds, fact.factId, ...fallbackIds]) {
+  let interpretation = getInsightInterpretation(fact.factId);
+  for (const id of fallbackIds) {
     if (interpretation) break;
     interpretation = getInsightInterpretation(id);
   }
@@ -210,18 +208,8 @@ export function buildInsightFactsCard(saju: SajuSummary): InsightFactsCard | nul
   const facts: InsightFact[] = [];
 
   // ── 신살 (ShinsalHitSummary: type/position/grade/weightedScore) ──
-  const shinsalHits = (saju.shinsalHits ?? []).filter((hit) => Boolean(hit?.type));
-  const shinsalTypeCount = new Map<string, number>();
-  for (const hit of shinsalHits) {
-    shinsalTypeCount.set(hit.type, (shinsalTypeCount.get(hit.type) ?? 0) + 1);
-  }
-  for (const hit of shinsalHits) {
-    // 위치 세분 해석(`shinsal.<이름>.<기둥>`)은 단일 히트일 때만 시도한다 —
-    // 같은 신살이 여러 기둥에 뜨면 프론트가 factId 병합으로 위치를 합산하므로
-    // 위치 특정 문장이 오독이 된다(타입 레벨 해석 유지). factId는 안정 키라 불변.
-    const positionIds = hit.position && shinsalTypeCount.get(hit.type) === 1
-      ? [`shinsal.${hit.type}.${hit.position}`]
-      : [];
+  for (const hit of saju.shinsalHits ?? []) {
+    if (!hit?.type) continue;
     facts.push(withInterpretation({
       factId: `shinsal.${hit.type}`,
       kind: 'shinsal',
@@ -230,7 +218,7 @@ export function buildInsightFactsCard(saju: SajuSummary): InsightFactsCard | nul
       grade: typeof hit.grade === 'string' ? hit.grade : undefined,
       score: typeof hit.weightedScore === 'number' ? hit.weightedScore : undefined,
       group: shinsalGroup(hit.type),
-    }, [], positionIds));
+    }));
   }
 
   // ── 공망 ([지지, 지지] | null) ──
