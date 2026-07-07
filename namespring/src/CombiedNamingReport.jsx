@@ -215,22 +215,23 @@ function buildSummaryItems(fortuneReport, nameCompatibility) {
   const firstCaution = asArray(cautions?.cautions)[0];
   const firstStrength = asArray(strengths?.strengths)[0];
 
+  // NS-D: lead the summary with the name-first item, saju flow follows as basis.
   return [
     {
-      key: 'saju-flow',
-      number: '01',
-      title: '사주 흐름',
-      body: compactText(overview?.overallSummary, '사주 흐름 요약을 준비 중입니다.'),
-    },
-    {
       key: 'name-harmony',
-      number: '02',
+      number: '01',
       title: '이름과의 조화',
       // F1: summary(별점 문구)는 히어로가 정본 1회 노출 — 여기는 N1 평문(이름이 채우는 기운)을 쓴다.
       body: compactText(
         fortuneReport?.tieredMatrix?.nameSajuReading?.sentence || nameCompatibility?.summary,
         '이름과 사주의 조화 분석을 준비 중입니다.',
       ),
+    },
+    {
+      key: 'saju-flow',
+      number: '02',
+      title: '사주 흐름',
+      body: compactText(overview?.overallSummary, '사주 흐름 요약을 준비 중입니다.'),
     },
     {
       key: 'watch-point',
@@ -1352,45 +1353,6 @@ function CombiedNamingReport({
             </ReportSection>
 
             <ReportSection
-              id="combined-saju"
-              title="사주 평가"
-              description="사주팔자와 성향, 강점, 주의점을 한 문서 안에서 이어서 봅니다."
-            >
-              <SajuPillarsGrid pillars={overview?.pillars} />
-              {tieredPersonalReading ? (
-                <div className="cr-text-block cr-personal-reading">
-                  <h3>당신의 사주 프로필</h3>
-                  <p className="cr-personal-reading__headline">{tieredPersonalReading.headline}</p>
-                  <p>{tieredPersonalReading.paragraph}</p>
-                  {tieredNameSajuReading ? (
-                    <p className="cr-inline-note">{tieredNameSajuReading.sentence}</p>
-                  ) : null}
-                </div>
-              ) : null}
-              <div className="cr-text-block">
-                <h3>사주팔자 요약</h3>
-                <p>{compactText(overview?.overallSummary, '사주팔자 요약을 준비 중입니다.')}</p>
-              </div>
-              <div className="cr-two-column">
-                <div className="cr-text-block">
-                  <h3>성격과 강점</h3>
-                  <p>{compactText(personality?.summary, '성향 분석을 준비 중입니다.')}</p>
-                  {strengths.slice(0, 2).map((item, index) => (
-                    <p key={`strength-${index}`} className="cr-inline-note">{item?.text || item?.reason || '-'}</p>
-                  ))}
-                </div>
-                <div className="cr-text-block">
-                  <h3>보완과 주의</h3>
-                  {(weaknesses.length ? weaknesses : cautions).slice(0, 2).map((item, index) => (
-                    <p key={`watch-${index}`} className="cr-inline-note">
-                      {item?.text || item?.signal || item?.response || '-'}
-                    </p>
-                  ))}
-                </div>
-              </div>
-            </ReportSection>
-
-            <ReportSection
               id="combined-life-flow"
               title="나이대별 흐름"
               description="긴 흐름을 먼저 보고, 포인트를 선택해 해당 나이대의 기운을 읽습니다."
@@ -1470,6 +1432,45 @@ function CombiedNamingReport({
                 onToggleDetail={toggleCategoryDetail}
                 ariaLabel="기간별 분야 해석"
               />
+            </ReportSection>
+
+            <ReportSection
+              id="combined-saju"
+              title="사주 평가"
+              description="사주팔자와 성향, 강점, 주의점을 한 문서 안에서 이어서 봅니다."
+            >
+              <SajuPillarsGrid pillars={overview?.pillars} />
+              {tieredPersonalReading ? (
+                <div className="cr-text-block cr-personal-reading">
+                  <h3>당신의 사주 프로필</h3>
+                  <p className="cr-personal-reading__headline">{tieredPersonalReading.headline}</p>
+                  <p>{tieredPersonalReading.paragraph}</p>
+                  {tieredNameSajuReading ? (
+                    <p className="cr-inline-note">{tieredNameSajuReading.sentence}</p>
+                  ) : null}
+                </div>
+              ) : null}
+              <div className="cr-text-block">
+                <h3>사주팔자 요약</h3>
+                <p>{compactText(overview?.overallSummary, '사주팔자 요약을 준비 중입니다.')}</p>
+              </div>
+              <div className="cr-two-column">
+                <div className="cr-text-block">
+                  <h3>성격과 강점</h3>
+                  <p>{compactText(personality?.summary, '성향 분석을 준비 중입니다.')}</p>
+                  {strengths.slice(0, 2).map((item, index) => (
+                    <p key={`strength-${index}`} className="cr-inline-note">{item?.text || item?.reason || '-'}</p>
+                  ))}
+                </div>
+                <div className="cr-text-block">
+                  <h3>보완과 주의</h3>
+                  {(weaknesses.length ? weaknesses : cautions).slice(0, 2).map((item, index) => (
+                    <p key={`watch-${index}`} className="cr-inline-note">
+                      {item?.text || item?.signal || item?.response || '-'}
+                    </p>
+                  ))}
+                </div>
+              </div>
             </ReportSection>
 
             <InsightFactsSection insightFacts={fortuneReport?.insightFacts} />
