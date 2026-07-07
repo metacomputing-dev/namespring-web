@@ -374,15 +374,19 @@ function computeCurrentAge(shareUserInfo) {
   return age >= 0 && age < 200 ? age : null;
 }
 
-// NS-A: pick the life-stage option whose age span contains the given age.
+// NS-A: pick the life-stage option the age falls into — the band with the
+// largest startAge that is still <= age. This stays correct across both band
+// conventions (daeun spans and 10-year fallback) and avoids picking the earlier
+// band when the age sits exactly on a boundary.
 function findAgeBandPeriodKey(lifePeriodOptions, age) {
   if (!Number.isFinite(age)) return '';
-  const match = asArray(lifePeriodOptions).find((item) => {
+  let best = null;
+  asArray(lifePeriodOptions).forEach((item) => {
     const start = Number(item?.startAge);
-    const end = Number(item?.endAge);
-    return Number.isFinite(start) && Number.isFinite(end) && age >= start && age <= end;
+    if (!Number.isFinite(start) || start > age) return;
+    if (!best || start > Number(best.startAge)) best = item;
   });
-  return match?.key || '';
+  return best?.key || '';
 }
 
 function legacyPeriodToCell(card) {
