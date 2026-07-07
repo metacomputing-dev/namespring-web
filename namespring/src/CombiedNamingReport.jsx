@@ -1169,6 +1169,8 @@ function CombiedNamingReport({
   });
   const [selectedPeriodKey, setSelectedPeriodKey] = useState('today');
   const [selectedLifePeriodKey, setSelectedLifePeriodKey] = useState('');
+  // NS-E: split the two fortune tracks into tabs; 'current' = 기간별, 'life' = 연령대별.
+  const [fortuneTrack, setFortuneTrack] = useState('current');
   const [activeDetail, setActiveDetail] = useState(null);
   const [isDetailOpen, setIsDetailOpen] = useState(true);
   const [expertTagState, setExpertTagState] = useState({ status: 'idle', tags: [] });
@@ -1262,6 +1264,12 @@ function CombiedNamingReport({
     expertTagRequestRef.current += 1;
     setExpertTagState({ status: 'idle', tags: [] });
     setIsDetailOpen(true);
+  };
+
+  const selectFortuneTrack = (track) => {
+    if (track === fortuneTrack) return;
+    setFortuneTrack(track);
+    closeCategoryDetail();
   };
 
   const openCategoryDetail = (periodOption, categoryItem) => {
@@ -1379,85 +1387,107 @@ function CombiedNamingReport({
             </ReportSection>
 
             <ReportSection
-              id="combined-life-flow"
-              title="나이대별 흐름"
-              description="긴 흐름을 먼저 보고, 포인트를 선택해 해당 나이대의 기운을 읽습니다."
-              className="cr-section--life-flow"
+              id="combined-fortune"
+              title="운세"
+              description="현재의 흐름과 평생의 흐름을 나눠서 봅니다. 탭을 눌러 전환하세요."
+              className="cr-section--fortune"
             >
-              <div className="cr-life-flow">
-                <div>
-                  <h3>나이대별 운의 흐름</h3>
-                  <p>그래프의 포인트를 선택하면 해당 나이대 흐름으로 전환됩니다.</p>
-                </div>
-                <LifeFlowChart points={lifeFlowPoints} onSelect={selectLifePeriod} />
+              <div className="cr-fortune-tabs" role="tablist" aria-label="운세 종류 선택">
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={fortuneTrack === 'current'}
+                  onClick={() => selectFortuneTrack('current')}
+                  className="cr-fortune-tab"
+                >
+                  <span>현재 운세</span>
+                  <small>오늘 · 이번주 · 이번달 · 올해</small>
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={fortuneTrack === 'life'}
+                  onClick={() => selectFortuneTrack('life')}
+                  className="cr-fortune-tab"
+                >
+                  <span>평생 운세</span>
+                  <small>나이대별 흐름</small>
+                </button>
               </div>
 
-              {selectedLifePeriod ? (
-                <div className="cr-period-summary cr-period-summary--life">
-                  <div>
-                    <p className="cr-eyebrow cr-eyebrow--node">선택 나이대</p>
-                    <h3>{selectedLifePeriod.periodLabel || selectedLifePeriod.label}</h3>
-                    {selectedLifePeriodLead ? <p className="cr-daeun-lead">{selectedLifePeriodLead}</p> : null}
-                    {selectedLifePeriodSummary ? <p>{selectedLifePeriodSummary}</p> : null}
+              {fortuneTrack === 'current' ? (
+                <div className="cr-fortune-panel" role="tabpanel" aria-label="현재 운세">
+                  <div className="cr-period-tabs" role="tablist" aria-label="기간 선택">
+                    {primaryPeriodOptions.map((periodOption) => {
+                      const isSelected = selectedPeriod?.key === periodOption.key;
+                      return (
+                        <button
+                          key={periodOption.key}
+                          type="button"
+                          role="tab"
+                          aria-selected={isSelected}
+                          onClick={() => selectPeriod(periodOption.key)}
+                          className="cr-period-tab"
+                        >
+                          <span>{periodOption.label}</span>
+                          <small>{periodOption.periodLabel}</small>
+                        </button>
+                      );
+                    })}
                   </div>
-                  {selectedLifePeriodStars ? <StarRating score={toStars(selectedLifePeriodStars)} /> : null}
+
+                  {selectedPeriod ? (
+                    <div className="cr-period-summary">
+                      <div>
+                        <p className="cr-eyebrow">선택 기간</p>
+                        <h3>{selectedPeriod.periodLabel || selectedPeriod.label}</h3>
+                        {selectedPeriodSummary ? <p>{selectedPeriodSummary}</p> : null}
+                      </div>
+                      {selectedPeriodStars ? <StarRating score={toStars(selectedPeriodStars)} /> : null}
+                    </div>
+                  ) : null}
+
+                  <CategoryInsightList
+                    periodOption={selectedPeriod}
+                    categoryItems={selectedCategoryItems}
+                    activeDetail={activeDetail}
+                    expertTagState={expertTagState}
+                    onToggleDetail={toggleCategoryDetail}
+                    ariaLabel="기간별 분야 해석"
+                  />
                 </div>
-              ) : null}
-
-              <CategoryInsightList
-                periodOption={selectedLifePeriod}
-                categoryItems={selectedLifeCategoryItems}
-                activeDetail={activeDetail}
-                expertTagState={expertTagState}
-                onToggleDetail={toggleCategoryDetail}
-                ariaLabel="나이대별 분야 해석"
-              />
-            </ReportSection>
-
-            <ReportSection
-              id="combined-periods"
-              title="기간별 운세"
-              description="오늘부터 올해까지의 흐름을 선택해 분야별 해석으로 이어갑니다."
-              className="cr-section--periods"
-            >
-              <div className="cr-period-tabs" role="tablist" aria-label="기간 선택">
-                {primaryPeriodOptions.map((periodOption) => {
-                  const isSelected = selectedPeriod?.key === periodOption.key;
-                  return (
-                    <button
-                      key={periodOption.key}
-                      type="button"
-                      role="tab"
-                      aria-selected={isSelected}
-                      onClick={() => selectPeriod(periodOption.key)}
-                      className="cr-period-tab"
-                    >
-                      <span>{periodOption.label}</span>
-                      <small>{periodOption.periodLabel}</small>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {selectedPeriod ? (
-                <div className="cr-period-summary">
-                  <div>
-                    <p className="cr-eyebrow">선택 기간</p>
-                    <h3>{selectedPeriod.periodLabel || selectedPeriod.label}</h3>
-                    {selectedPeriodSummary ? <p>{selectedPeriodSummary}</p> : null}
+              ) : (
+                <div className="cr-fortune-panel" role="tabpanel" aria-label="평생 운세">
+                  <div className="cr-life-flow">
+                    <div>
+                      <h3>나이대별 운의 흐름</h3>
+                      <p>그래프의 포인트를 선택하면 해당 나이대 흐름으로 전환됩니다.</p>
+                    </div>
+                    <LifeFlowChart points={lifeFlowPoints} onSelect={selectLifePeriod} />
                   </div>
-                  {selectedPeriodStars ? <StarRating score={toStars(selectedPeriodStars)} /> : null}
-                </div>
-              ) : null}
 
-              <CategoryInsightList
-                periodOption={selectedPeriod}
-                categoryItems={selectedCategoryItems}
-                activeDetail={activeDetail}
-                expertTagState={expertTagState}
-                onToggleDetail={toggleCategoryDetail}
-                ariaLabel="기간별 분야 해석"
-              />
+                  {selectedLifePeriod ? (
+                    <div className="cr-period-summary cr-period-summary--life">
+                      <div>
+                        <p className="cr-eyebrow cr-eyebrow--node">선택 나이대</p>
+                        <h3>{selectedLifePeriod.periodLabel || selectedLifePeriod.label}</h3>
+                        {selectedLifePeriodLead ? <p className="cr-daeun-lead">{selectedLifePeriodLead}</p> : null}
+                        {selectedLifePeriodSummary ? <p>{selectedLifePeriodSummary}</p> : null}
+                      </div>
+                      {selectedLifePeriodStars ? <StarRating score={toStars(selectedLifePeriodStars)} /> : null}
+                    </div>
+                  ) : null}
+
+                  <CategoryInsightList
+                    periodOption={selectedLifePeriod}
+                    categoryItems={selectedLifeCategoryItems}
+                    activeDetail={activeDetail}
+                    expertTagState={expertTagState}
+                    onToggleDetail={toggleCategoryDetail}
+                    ariaLabel="나이대별 분야 해석"
+                  />
+                </div>
+              )}
             </ReportSection>
 
             <ReportSection
