@@ -2281,6 +2281,18 @@ textarea:focus-visible {
   cursor: pointer;
 }
 
+/* NS-B: scale the node from its own center so hover/focus reads as clickable. */
+.cr-life-chart__point circle {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 140ms ease;
+}
+
+.cr-life-chart__point:hover circle,
+.cr-life-chart__point:focus-visible circle {
+  transform: scale(1.35);
+}
+
 .cr-life-chart__point:focus-visible {
   outline: none;
 }
@@ -2288,6 +2300,43 @@ textarea:focus-visible {
 .cr-life-chart__point:focus-visible circle {
   stroke: var(--color-focus);
   stroke-width: 3;
+}
+
+/* NS-B: gentle pulse marks the currently selected age band on the timeline. */
+.cr-life-chart__point--selected circle {
+  animation: cr-node-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes cr-node-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.18); }
+}
+
+/* NS-B: tie the selected age card to the timeline node via a matching swatch. */
+.cr-eyebrow--node {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-accent);
+}
+
+.cr-eyebrow--node::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--color-accent);
+  border: 2px solid var(--color-wood);
+  box-sizing: border-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cr-life-chart__point circle {
+    transition: none;
+  }
+  .cr-life-chart__point--selected circle {
+    animation: none;
+  }
 }
 
 .cr-category-grid {

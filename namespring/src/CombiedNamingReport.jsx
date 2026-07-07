@@ -365,6 +365,26 @@ function findLifeStage(lifeStageFortune, startAge, endAge) {
   }) || null;
 }
 
+// NS-A: derive the viewer's current age from the birth year so the matching
+// age band can be pre-selected on first render.
+function computeCurrentAge(shareUserInfo) {
+  const birthYear = Number(shareUserInfo?.birthDateTime?.year);
+  if (!Number.isFinite(birthYear) || birthYear <= 0) return null;
+  const age = new Date().getFullYear() - birthYear;
+  return age >= 0 && age < 200 ? age : null;
+}
+
+// NS-A: pick the life-stage option whose age span contains the given age.
+function findAgeBandPeriodKey(lifePeriodOptions, age) {
+  if (!Number.isFinite(age)) return '';
+  const match = asArray(lifePeriodOptions).find((item) => {
+    const start = Number(item?.startAge);
+    const end = Number(item?.endAge);
+    return Number.isFinite(start) && Number.isFinite(end) && age >= start && age <= end;
+  });
+  return match?.key || '';
+}
+
 function legacyPeriodToCell(card) {
   if (!card) return null;
   const good = asArray(card.goodActions).map((item) => normalizeText(item?.text)).filter(Boolean);
@@ -1010,7 +1030,7 @@ function LifeFlowChart({ points, onSelect }) {
                 onSelect?.(point.key);
               }
             }}
-            className="cr-life-chart__point"
+            className={`cr-life-chart__point${point.isSelected ? ' cr-life-chart__point--selected' : ''}`}
           >
             <circle
               cx={point.x}
@@ -1163,10 +1183,16 @@ function CombiedNamingReport({
     () => periodOptions.filter((item) => item.isLifeStage),
     [periodOptions],
   );
+  // NS-A: default the life-flow selection to the viewer's actual age band.
+  const defaultLifePeriodKey = useMemo(
+    () => findAgeBandPeriodKey(lifePeriodOptions, computeCurrentAge(shareUserInfo)),
+    [lifePeriodOptions, shareUserInfo],
+  );
   const selectedPeriod = primaryPeriodOptions.find((item) => item.key === selectedPeriodKey)
     || primaryPeriodOptions[0]
     || null;
   const selectedLifePeriod = lifePeriodOptions.find((item) => item.key === selectedLifePeriodKey)
+    || lifePeriodOptions.find((item) => item.key === defaultLifePeriodKey)
     || lifePeriodOptions[0]
     || null;
   const selectedCategoryItems = useMemo(
@@ -1367,9 +1393,9 @@ function CombiedNamingReport({
               </div>
 
               {selectedLifePeriod ? (
-                <div className="cr-period-summary">
+                <div className="cr-period-summary cr-period-summary--life">
                   <div>
-                    <p className="cr-eyebrow">선택 나이대</p>
+                    <p className="cr-eyebrow cr-eyebrow--node">선택 나이대</p>
                     <h3>{selectedLifePeriod.periodLabel || selectedLifePeriod.label}</h3>
                     {selectedLifePeriodLead ? <p className="cr-daeun-lead">{selectedLifePeriodLead}</p> : null}
                     {selectedLifePeriodSummary ? <p>{selectedLifePeriodSummary}</p> : null}
