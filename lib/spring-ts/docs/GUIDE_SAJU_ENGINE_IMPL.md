@@ -12,8 +12,11 @@
 | 39ed2a89e | 로드맵 정본(ROADMAP_SAJU_ENGINE.md) 신설 |
 | 3bf08cf5c | **A12 수정**(비-liChun 세운 정합, 기본 바이트 동일) + **P0-2 부분**(vitest include 6디렉토리) |
 | f792c7765 | **PR-10-1**: 왕상휴수사 조견(core/seasonalStates.ts) + summary.seasonalStates(additive) + seasonal 비대칭 감쇠 knob(기본 off) |
+| 07aeaaf33 | **PR-10-2**: 궁위 pairs 인접/원격 차등 손상 knob(root.positional, 기본 off) — 동일 지지 과감쇠 해소 |
 
-검증 기대치 변경: **saju-ts vitest 191/191** (기존 178 → A12 +5, 왕상휴수 +7, include 확장 +1).
+검증 기대치 변경: **saju-ts vitest 198/198** (기존 178 → A12 +5, 왕상휴수 +7, positional +7, include 확장 +1).
+이 세션의 knob 2종(seasonal·positional)은 모두 **기본 off로 랜딩** — 다음 세션의 최우선 후보는
+§1 절차로 두 knob의 기본화 계측(개별 + 조합 1회)이다.
 
 ### 0.1 일운(9-6) 선행 검증 — 완료, 결과 기록
 
@@ -55,7 +58,15 @@ npm run test:tiered-shape                             # 1378
 - 부속(선택): summary.seasonalStates의 springLegacy 재방출 + 해석 저작은 콘텐츠 축(CT-3와 함께).
   재방출 시 deepSerialize 스프레드로 스냅샷 표면에 즉시 등장함을 잊지 말 것(스냅샷 재캡처 동반).
 
-## 3. PR-10-2: 궁위 pairs 기반 감쇠 세분 [난이도 중상 — 설계 확정본]
+## 3. PR-10-2: 궁위 pairs 기반 감쇠 세분 ✅ 구현 완료 (07aeaaf33) — 기본화 계측만 잔여
+
+> 아래 설계는 커밋 07aeaaf33으로 구현됐다. 차이점: 값-detection 특성상 위치별 '해소' 차이는
+> 원리상 불발이라 해소는 값 수준 유지, 차등은 **인접/원격 거리(d1 1.0/d2 0.5/d3 0.25)**에만
+> 적용했다(자평 인접성 통설 — 동일 지지 과감쇠는 원격 완화로 해소됨). knob는
+> `strength.interaction.root.positional.enabled`(기본 off). 잔여: §1 절차로 기본화 계측.
+> 계측 시 seasonal(§2)과 함께 켠 조합도 1회 측정할 것(곱 결합 — eff = 1-(1-f)·scale·mult).
+
+### 원 설계 메모 (구현 전 기록 — 참조용)
 
 **문제**: `computeBranchInteractionFactors`(facts.ts)의 1차 감쇠가 값 매칭이라 동일 지지가
 2개 있으면(예: 午 2개, 그중 1개만 子午충 당사자) 둘 다 감쇠됨(과감쇠).
