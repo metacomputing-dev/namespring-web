@@ -162,6 +162,8 @@ cd ../spring-ts && npx tsx tools/baseline_snapshot.ts verify
 
 ## 6. 다음 작업 후보
 
+> **2026-07-09 갱신: 우선순위 정본은 `ROADMAP_SAJU_ENGINE.md`다.** 아래 목록은 이 문서 작성 시점의 후보 스냅샷이며, 새 세션은 로드맵 문서의 §0 착수 절차와 §9 진행 표를 따르라.
+
 ### 6.1 바로 할 수 있는 운영 작업
 
 1. 브랜치를 push하고 PR을 연다.
