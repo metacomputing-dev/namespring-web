@@ -71,6 +71,35 @@ export const BURNED_EXPERT_PHRASES: readonly string[] = [
   '글로 풀었어요',
 ];
 
+// Grammatically valid but unnatural in customer-facing Korean. These usually
+// come from leaking internal axes (band/strength/nameEffect) into prose.
+export const UNNATURAL_PLAIN_PHRASES: readonly string[] = [
+  '낮은 흐름',
+  '높은 흐름',
+  '중간 흐름',
+  '고른 결',
+  '고른 흐름',
+  '고른 기운',
+  '고른 거리감',
+  '고른 리듬',
+  '고른 장점',
+  '고른 성향',
+  '고른 힘',
+  '이름의 결',
+  '성명의 결',
+  '관계 리듬',
+  '집안 흐름',
+  '가족운은',
+  '기운을 지키',
+];
+
+export const UNNATURAL_PLAIN_PATTERNS: readonly RegExp[] = [
+  /(?:낮은|높은|중간)\s+흐름/u,
+  /(?:고른|균형\s*있는)\s+(?:결|기운|흐름|거리감|리듬|장점|성향|힘)/u,
+  /(?:이름|성명)의\s+결/u,
+  /(?:관계|생활|집안)\s+리듬/u,
+];
+
 // Manifest spec constants that the stamped corpus pasted verbatim.
 const SPEC_CONSTANT_FRAGMENTS: readonly string[] = [
   '전략이 맞음',
@@ -223,6 +252,15 @@ export function validatePlainTextQuality(article: GeneratedTextLike): readonly T
     // burned-phrase (all tiers) + expert meta language.
     for (const phrase of BURNED_PHRASES) {
       if (masked.includes(phrase)) push('burned-phrase', `[${tier}] ${phrase}`);
+    }
+    if (tier !== 'expert') {
+      for (const phrase of UNNATURAL_PLAIN_PHRASES) {
+        if (masked.includes(phrase)) push('unnatural-plain-phrase', `[${tier}] ${phrase}`);
+      }
+      for (const pattern of UNNATURAL_PLAIN_PATTERNS) {
+        const match = masked.match(pattern);
+        if (match) push('unnatural-plain-pattern', `[${tier}] ${match[0]}`);
+      }
     }
     if (tier === 'expert') {
       for (const phrase of BURNED_EXPERT_PHRASES) {

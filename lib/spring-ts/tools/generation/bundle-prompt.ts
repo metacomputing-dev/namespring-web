@@ -13,7 +13,7 @@
  * and band tone per cell, no paragraph/sentence reuse between cells.
  */
 import type { GenerationCase } from './case-schema.js';
-import { BURNED_EXPERT_PHRASES, BURNED_PHRASES } from './text-quality-rules.js';
+import { BURNED_EXPERT_PHRASES, BURNED_PHRASES, UNNATURAL_PLAIN_PHRASES } from './text-quality-rules.js';
 
 const JARGON_BANNED =
   '오행·용신·희신·기신·구신·격국·십성·정재·편재·재성·편관·식신·상관·겁재·비겁·신살·상생·상극·조후·대운·득령·득지·원형이정·역마·도화';
@@ -93,6 +93,49 @@ const STYLE_NOTES: readonly string[] = [
   '동사 중심의 움직이는 문장으로.',
 ];
 
+const PERIOD_PLAIN_HINTS: Record<string, readonly string[]> = {
+  today: ['바로 답하지 않고 한 번 숨 고르기', '오늘 해야 할 일 하나만 고르기', '말을 짧고 부드럽게 시작하기'],
+  thisWeek: ['연락 시간과 부탁 범위 정하기', '주중에는 짧게 확인하고 주말에는 여유 두기', '한 번의 실천으로 신뢰 만들기'],
+  thisMonth: ['이번 달 일정과 역할을 미리 나누기', '돈과 시간을 숫자로 확인하기', '중간 점검 뒤 약속을 작게 조정하기'],
+  thisYear: ['상반기와 하반기의 역할을 나누어 보기', '반복되는 책임을 구조화하기', '계절이 바뀔 때 관계 기준 점검하기'],
+  life: ['오래 반복된 역할을 다시 나누기', '지속 가능한 거리와 도움의 범위 정하기', '평생의 관계에서 무리한 책임 덜기'],
+};
+
+const BAND_PLAIN_HINTS: Record<string, readonly string[]> = {
+  high: ['먼저 연락하거나 제안하기', '좋은 분위기를 밀어붙이지 않고 상대 속도 확인하기', '작은 호의를 실제 일정으로 옮기기'],
+  mid: ['크게 바꾸기보다 약속을 지키기', '말의 순서와 기준을 차분히 정하기', '무난함을 방치하지 않고 작게 관리하기'],
+  low: ['바로 결론 내리지 않고 시간을 두기', '대화의 양과 맡는 일을 줄이기', '쉬고 정리한 뒤 필요한 말만 꺼내기'],
+  any: ['상황에 맞는 작은 행동 하나 고르기', '추상적인 조언보다 생활 장면으로 풀기'],
+};
+
+const STRENGTH_PLAIN_HINTS: Record<string, readonly string[]> = {
+  balanced: ['한쪽 편으로 치우치지 않기', '역할과 감정을 따로 정리하기', '안정감과 기준을 함께 보여 주기'],
+  strong: ['주도권을 잡되 상대 선택권 남기기', '속도를 낮추고 듣는 시간을 두기', '강한 추진력을 작은 행동으로 나누기'],
+  weak: ['무리해서 떠맡지 않기', '도움과 휴식을 먼저 확보하기', '부담을 작게 쪼개서 처리하기'],
+};
+
+const NAME_EFFECT_PLAIN_HINTS: Record<string, readonly string[]> = {
+  boost_strong: ['이름 이야기는 짧게 두고 실제 행동을 중심에 두기', '좋은 보완이 있더라도 과장하지 않기'],
+  boost_mild: ['이름은 작은 참고로만 언급하기', '생활 선택이 더 큰 변화를 만든다고 쓰기'],
+  neutral: ['이름만으로 달라진다고 말하지 않기', '생활 기준과 관계 방식으로 보완하기'],
+  adverse: ['이름이 해결책이라고 쓰지 않기', '부족한 부분은 생활 습관과 관계 기준으로 보완한다고 쓰기'],
+};
+
+const CATEGORY_PLAIN_HINTS: Record<string, readonly string[]> = {
+  family: ['안부 연락', '명절과 방문 일정', '돌봄과 생활비', '오래된 서운함', '부탁을 거절하는 말투', '가족 안의 역할 분담'],
+  career: ['업무 우선순위', '회의와 보고', '일정 조율', '동료와 역할 나누기', '무리한 일정 줄이기'],
+  money: ['지출 기준', '자동이체와 청구서', '큰 결제 전 하루 두기', '현금 흐름 확인', '가족과 돈 이야기 분리하기'],
+  love: ['연락 빈도', '만남 약속', '감정 표현의 속도', '서운함을 말하는 순서', '상대의 생활 리듬 존중하기'],
+  health: ['수면', '식사', '가벼운 산책', '무리한 일정 줄이기', '몸 상태를 기록하기'],
+};
+
+const PLAIN_KOREAN_EXAMPLES = [
+  ['낮은 흐름에서는 오래 묵은 서운함을 한 자리에서 풀려고 하면 말이 거칠어질 수 있어요.', '마음이 예민한 날에는 오래된 서운함을 한꺼번에 꺼내지 않는 편이 좋아요.'],
+  ['{{dayMasterName}}의 고른 결을 지키는 일이 먼저예요.', '오늘은 한쪽 편을 들기보다 말을 천천히 고르는 태도가 더 도움이 돼요.'],
+  ['이름의 결은 필요한 {{yongshinName}}을 채워 주기보다 과제를 남겨요.', '이름만으로 해결된다고 보기보다는 생활 습관과 관계 기준을 함께 조정하는 편이 좋아요.'],
+  ['이번 주 가족운은 고른 리듬을 지키면 무난해요.', '이번 주에는 정해진 시간에 짧게 연락하는 습관이 관계를 편안하게 만들어요.'],
+] as const;
+
 function fnv1a(text: string): number {
   let hash = 0x811c9dc5;
   for (let i = 0; i < text.length; i += 1) {
@@ -110,6 +153,37 @@ function paletteFor(bundleKey: string): { materials: string[]; style: string } {
     materials: [MATERIAL_PALETTES[first], MATERIAL_PALETTES[second]],
     style: STYLE_NOTES[(h >>> 16) % STYLE_NOTES.length],
   };
+}
+
+function pickHints(source: readonly string[], seed: string, count: number): string[] {
+  if (source.length <= count) return [...source];
+  const start = fnv1a(seed) % source.length;
+  return Array.from({ length: count }, (_, i) => source[(start + i) % source.length]);
+}
+
+function plainHintsForCase(c: GenerationCase): string {
+  const parts = [
+    ...pickHints(PERIOD_PLAIN_HINTS[c.period] ?? [c.period], `${c.caseId}:period`, 2),
+    ...pickHints(BAND_PLAIN_HINTS[c.band] ?? BAND_PLAIN_HINTS.any, `${c.caseId}:band`, 2),
+    ...pickHints(STRENGTH_PLAIN_HINTS[c.gangyak] ?? [], `${c.caseId}:strength`, 1),
+    ...pickHints(NAME_EFFECT_PLAIN_HINTS[c.nameEffect] ?? [], `${c.caseId}:name`, 1),
+    ...pickHints(CATEGORY_PLAIN_HINTS[c.category] ?? [], `${c.caseId}:category`, 2),
+  ];
+  return [...new Set(parts)].join(' / ');
+}
+
+function plainKoreanContract(): string {
+  return [
+    '## Plain Korean Contract (summary/body/livingTips/cautions)',
+    '- Do not translate internal axes directly. Write customer-facing Korean as concrete daily scenes.',
+    '- Forbidden in plain tiers: ' + UNNATURAL_PLAIN_PHRASES.map((p) => `"${p}"`).join(', ') + '.',
+    '- The case line gives 생활어 소재. Use those materials; do not write band/strength/nameEffect labels as prose.',
+    '- Keep 사주 terms and tags only in expert. Plain tiers should sound like a Korean 상담 리포트, not an internal scoring memo.',
+    ...PLAIN_KOREAN_EXAMPLES.flatMap(([bad, good], i) => [
+      `${i + 1}. bad: ${bad}`,
+      `   good: ${good}`,
+    ]),
+  ].join('\n');
 }
 
 export function buildBundlePrompt(cases: readonly GenerationCase[]): string {
@@ -133,6 +207,10 @@ export function buildBundlePrompt(cases: readonly GenerationCase[]): string {
     return `${i + 1}. \`${c.caseId}\` — ${lens}`;
   }).join('\n');
 
+  const plainCellHints = cases.map((c, i) =>
+    `${i + 1}. \`${c.caseId}\`: ${plainHintsForCase(c)}`
+  ).join('\n');
+
   const palette = paletteFor(bundleKeyOfCase(c0));
   const genderLine = s.genderTerm
     ? `- 성별: **${s.genderTerm}** — 이 분야(${c0.category})는 성별에 따라 해석이 갈립니다. 평문에선 자연스럽게.`
@@ -155,6 +233,12 @@ ${genderLine}
 
 ## 써야 할 ${cases.length}편 (caseId를 정확히 그대로 반환)
 ${cellLines}
+
+## 생활어 소재 (plain tiers only)
+summary/body/livingTips/cautions는 아래 소재만 사용해 일상 장면으로 쓰세요. period/band/gangyak/nameEffect 값을 한국어로 직역하지 마세요.
+${plainCellHints}
+
+${plainKoreanContract()}
 
 ## 다양성 계약 (하나라도 어기면 그 편은 리젝 후 재작성)
 1. **summary ${cases.length}개는 문형이 전부 달라야 합니다** — 어순, 종결, 문장 구조가 서로 다르게.

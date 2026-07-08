@@ -55,6 +55,20 @@ for (const rule of [
   'burned-expert-meta',       // 평문에서는 … 글로 풀었어요
 ]) check(`stamped article trips ${rule}`, stampedRules.has(rule), [...stampedRules].join(','));
 
+const unnaturalPlain = validatePlainTextQuality({
+  summary: '오늘은 가족 관계를 차분히 보는 편이 좋아요',
+  body: [
+    '낮은 흐름에서는 오래 묵은 서운함을 한 자리에서 풀려고 하면 말이 거칠어질 수 있어요. 지금은 고른 결을 지키는 일이 먼저예요.',
+  ],
+  expert: [],
+  livingTips: [],
+  cautions: [],
+}).map((v) => v.rule);
+check('plain tier internal-axis prose trips unnatural-plain-phrase',
+  unnaturalPlain.includes('unnatural-plain-phrase'), unnaturalPlain.join(','));
+check('plain tier internal-axis prose trips unnatural-plain-pattern',
+  unnaturalPlain.includes('unnatural-plain-pattern'), unnaturalPlain.join(','));
+
 // ── 2. josa vowel harmony ───────────────────────────────────────────────────
 const vowelJosa = validatePlainTextQuality({
   summary: '이 시기는 여린 힘을 살려, 이동과 변화을 차분히 다져요.',
