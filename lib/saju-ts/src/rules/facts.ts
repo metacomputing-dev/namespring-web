@@ -2869,14 +2869,24 @@ function buildCatalogFacts(args: {
 
   const monthBranchStemFacts: Record<
     string,
-    { targets: StemIdx[]; target: StemIdx | null; present: StemIdx[]; count: number; matchedPillars: Array<'year' | 'month' | 'day' | 'hour'> }
+    { targets: StemIdx[]; target: StemIdx | null; present: StemIdx[]; count: number; matchedPillars: Array<'year' | 'month' | 'day' | 'hour'>; scopePillars?: Array<'year' | 'month' | 'day' | 'hour'> }
   > = {};
 
   for (const [k, spec] of Object.entries(catalog.monthBranchStem)) {
     const targets = (spec.byBranch[monthBranch] ?? []) as StemIdx[];
-    const { present, count } = presentStemsAndCount(targets, chartStems);
-    const matchedPillars = matchedPillarsForStemTargets(targets, pillars);
-    monthBranchStemFacts[k] = { targets, target: (targets[0] ?? null) as StemIdx | null, present, count, matchedPillars };
+    // 유파 scope(monthDeokScope·catalogScopes) 적용 — 기본은 4주 전체 (감사 A8:
+    // 헬퍼가 정의만 되고 미호출이라 shinsal.virtueStrict 팩이 완전 no-op이었다).
+    const scope = scopeForMonthBranchStemKey(k);
+    const { present, count } = presentStemsAndCount(targets, stemsOf(scope));
+    const matchedPillars = intersectScope(scope, matchedPillarsForStemTargets(targets, pillars));
+    monthBranchStemFacts[k] = {
+      targets,
+      target: (targets[0] ?? null) as StemIdx | null,
+      present,
+      count,
+      matchedPillars,
+      ...(scope.length < ALL_PILLARS.length ? { scopePillars: scope } : {}),
+    };
   }
 
   // Computed: 德秀贵人(덕수귀인) — month-group based stems.
@@ -2900,33 +2910,37 @@ function buildCatalogFacts(args: {
         .map((h) => stemIdxFromHanja(h))
         .filter((x): x is StemIdx => x != null),
     );
-    const { present, count } = presentStemsAndCount(targets, chartStems);
-    const matchedPillars = matchedPillarsForStemTargets(targets, pillars);
+    const scope = scopeForMonthBranchStemKey('DEOK_SU_GUI_IN');
+    const { present, count } = presentStemsAndCount(targets, stemsOf(scope));
+    const matchedPillars = intersectScope(scope, matchedPillarsForStemTargets(targets, pillars));
     monthBranchStemFacts.DEOK_SU_GUI_IN = {
       targets,
       target: (targets[0] ?? null) as StemIdx | null,
       present,
       count,
       matchedPillars,
+      ...(scope.length < ALL_PILLARS.length ? { scopePillars: scope } : {}),
     };
   }
 
   // --- month-branch → branch tables
   const monthBranchBranchFacts: Record<
     string,
-    { targets: BranchIdx[]; target: BranchIdx | null; present: BranchIdx[]; count: number; matchedPillars: Array<'year' | 'month' | 'day' | 'hour'> }
+    { targets: BranchIdx[]; target: BranchIdx | null; present: BranchIdx[]; count: number; matchedPillars: Array<'year' | 'month' | 'day' | 'hour'>; scopePillars?: Array<'year' | 'month' | 'day' | 'hour'> }
   > = {};
 
   for (const [k, spec] of Object.entries(catalog.monthBranchBranch)) {
     const targets = (spec.byBranch[monthBranch] ?? []) as BranchIdx[];
-    const { present, count } = presentBranchesAndCount(targets, chartBranches);
-    const matchedPillars = matchedPillarsForBranchTargets(targets, pillars);
+    const scope = scopeForMonthBranchBranchKey(k);
+    const { present, count } = presentBranchesAndCount(targets, branchesOf(scope));
+    const matchedPillars = intersectScope(scope, matchedPillarsForBranchTargets(targets, pillars));
     monthBranchBranchFacts[k] = {
       targets,
       target: (targets[0] ?? null) as BranchIdx | null,
       present,
       count,
       matchedPillars,
+      ...(scope.length < ALL_PILLARS.length ? { scopePillars: scope } : {}),
     };
   }
 
@@ -2935,14 +2949,16 @@ function buildCatalogFacts(args: {
   if (!monthBranchBranchFacts.CHEON_UI) {
     const target = mod(monthBranch - 1, 12) as BranchIdx;
     const targets = [target] as BranchIdx[];
-    const { present, count } = presentBranchesAndCount(targets, chartBranches);
-    const matchedPillars = matchedPillarsForBranchTargets(targets, pillars);
+    const scope = scopeForMonthBranchBranchKey('CHEON_UI');
+    const { present, count } = presentBranchesAndCount(targets, branchesOf(scope));
+    const matchedPillars = intersectScope(scope, matchedPillarsForBranchTargets(targets, pillars));
     monthBranchBranchFacts.CHEON_UI = {
       targets,
       target,
       present,
       count,
       matchedPillars,
+      ...(scope.length < ALL_PILLARS.length ? { scopePillars: scope } : {}),
     };
   }
 

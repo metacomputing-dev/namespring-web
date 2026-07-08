@@ -480,6 +480,11 @@ function applyQualityModel(args: {
 
   const scoresAdjusted: Record<string, number> = {};
   const conditionsTrace: NonNullable<ShinsalResult['rules']['conditions']> = [];
+  // 12신살 년지·일지 병용 등에서 동일 (name, target) detection이 앵커별로 중복
+  // 방출되면 점수가 2배 계상된다 (감사 A10). 병용의 의미는 '어느 기준으로든
+  // 성립'이지 '두 배 강함'이 아니므로, 점수 집계만 target 단위로 1회 계상한다
+  // (detection 자체는 양 앵커 표시를 위해 그대로 둔다).
+  const scoreSeen = new Set<string>();
 
   for (let i = 0; i < detections.length; i++) {
     const d0 = detections[i]!;
@@ -577,11 +582,21 @@ function applyQualityModel(args: {
       conditionPenalty: combinedPenalty || undefined,
     };
 
-    // Accumulate adjusted scores
+    // Accumulate adjusted scores (동일 name+target은 1회만 — 감사 A10)
     const base = detectionBaseWeight(d);
     const key = `shinsal.${d.name}`;
     const contrib = base * qualityWeight;
-    scoresAdjusted[key] = (scoresAdjusted[key] ?? 0) + contrib;
+    const dupKey = [
+      d.name,
+      d.targetKind,
+      d.targetBranch ?? '',
+      d.targetStem ?? '',
+      Array.isArray(d.targetBranches) ? [...d.targetBranches].sort((a, b) => a - b).join(',') : '',
+    ].join('|');
+    if (!scoreSeen.has(dupKey)) {
+      scoreSeen.add(dupKey);
+      scoresAdjusted[key] = (scoresAdjusted[key] ?? 0) + contrib;
+    }
 
     // Trace
     if (!exclude.has(d.name)) {
