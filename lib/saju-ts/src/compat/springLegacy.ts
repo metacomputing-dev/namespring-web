@@ -1547,6 +1547,8 @@ function normalizeLegacyOutput(
         : '격국 후보를 확정하기 어려워 추가 검토가 필요합니다.',
       candidates: gyeokgukCandidates,
       jonggyeokCandidates,
+      // PR-6 (additive): 격국 성패 — 상신·순용/역용·성격/파격 (rules.facts에서 통과).
+      seongpae: (bundle.report?.facts?.['rules.facts'] as any)?.month?.gyeok?.seongpae ?? null,
     },
     ohaengDistribution,
     deficientElements,

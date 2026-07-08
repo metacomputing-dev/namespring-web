@@ -23,6 +23,7 @@ import { DEFAULT_SHINSAL_DAMAGE_RELATIONS } from './packs/conditionsBasePack.js'
 import { DEFAULT_CLIMATE_MODEL, computeClimateScores, mergeClimateModel } from './climate.js';
 import type { JohooTemplateResult } from './johooTemplate.js';
 import { computeJohooTemplate } from './johooTemplate.js';
+import { computeGyeokgukSeongpae } from './gyeokgukSeongpae.js';
 import type { SeasonGroup } from './season.js';
 import { seasonGroupOfMonthBranch } from './season.js';
 
@@ -250,6 +251,12 @@ export interface RuleFacts {
        * strategies.gyeokguk.bigyeopGyeok === 'legacy' 이면 null (비견격/겁재격 표기 유지).
        */
       bigyeopSubtype?: 'GEONROK' | 'YANGIN' | 'WOLGEOB' | null;
+
+      /**
+       * PR-6: 격국 성패(成敗) — 상신(相神)·순용/역용·성격/파격 판정 (additive).
+       * 격국 점수·품질에는 미개입(점수 통합은 별도 계측 항목 — E-2 로드맵).
+       */
+      seongpae?: import('./gyeokgukSeongpae.js').SeongpaeResult | null;
 
       /** Optional “会支” support info (삼합/방합) used when no stem is exposed. */
       support?: { type: 'SAMHAP' | 'BANGHAP'; element: Element; members: BranchIdx[] } | null;
@@ -3614,6 +3621,15 @@ export function buildRuleFacts(args: {
     byType,
   });
 
+  // PR-6: 격국 성패(상신·순용/역용·성격/파격) — additive 판정 표면.
+  const gyeokSeongpae = computeGyeokgukSeongpae({
+    gyeokTenGod,
+    bigyeopSubtype,
+    dayStem,
+    otherStems: [pillars.year.stem, pillars.month.stem, pillars.hour.stem],
+    monthBroken: monthGyeokQuality.broken,
+  });
+
   const climateBase = computeClimateFacts(config, pillars.month.branch);
   const johooTemplate = computeJohooTemplate(config, {
     dayStem,
@@ -3679,7 +3695,7 @@ export function buildRuleFacts(args: {
       mainTenGod: monthMainTG,
       hiddenStems: monthHiddenStems,
       mainHiddenStemVisible: monthMainVisible,
-      gyeok: { stem: gyeokStem, tenGod: gyeokTenGod, method: gyeokMethod, selectionRule, bigyeopSubtype, support: groupSupport, candidates: monthGyeokCandidates, quality: monthGyeokQuality },
+      gyeok: { stem: gyeokStem, tenGod: gyeokTenGod, method: gyeokMethod, selectionRule, bigyeopSubtype, seongpae: gyeokSeongpae, support: groupSupport, candidates: monthGyeokCandidates, quality: monthGyeokQuality },
       saryeong: saryeong
         ? {
             scheme: saryeong.scheme,

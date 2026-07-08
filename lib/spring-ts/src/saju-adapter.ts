@@ -1837,6 +1837,10 @@ function extractGyeokguk(gyeokgukResult: any) {
     reasoning:     cleanAdapterText(String(gyeokgukResult?.reasoning ?? '')),
     candidates:    extractGyeokgukCandidates(gyeokgukResult?.candidates),
     jonggyeokCandidates: extractJonggyeokCandidates(gyeokgukResult?.jonggyeokCandidates),
+    // PR-6 (additive): 격국 성패 — 상신·순용/역용·성격/파격 passthrough.
+    ...(gyeokgukResult?.seongpae && typeof gyeokgukResult.seongpae === 'object'
+      ? { seongpae: gyeokgukResult.seongpae }
+      : {}),
   };
 }
 

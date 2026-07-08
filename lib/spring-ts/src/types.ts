@@ -716,6 +716,19 @@ export interface GyeokgukSummary {
   readonly reasoning: string;
   readonly candidates?: readonly GyeokgukCandidateSummary[];
   readonly jonggyeokCandidates?: readonly JonggyeokCandidateSummary[];
+  /** PR-6: 격국 성패(成敗) 판정 — 상신·순용/역용·성격/파격 (additive). */
+  readonly seongpae?: GyeokgukSeongpaeSummary | null;
+}
+
+/** PR-6: 격국 성패 판정 상세 (자평진전 순용/역용 계열). */
+export interface GyeokgukSeongpaeSummary {
+  readonly verdict: 'SEONGGYEOK' | 'PAGYEOK' | 'PAJUNG_YUGU' | 'SEONGJUNG_YUPA' | 'UNDETERMINED';
+  readonly usage: 'SUNYONG' | 'YEOKYONG';
+  readonly sangshin: string | null;
+  readonly sangshinStemHanja: string | null;
+  readonly pagyeokFactor: string | null;
+  readonly gueung: string | null;
+  readonly reasons: readonly string[];
 }
 
 /** Source-tier metadata matching test/baseline/schema/sourceTier.schema.json. */
