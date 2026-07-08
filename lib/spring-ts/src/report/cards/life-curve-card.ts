@@ -17,6 +17,7 @@ import type { SajuSummary } from '../../types.js';
 import type { ElementCode } from '../types.js';
 import { getPillarGrade, gradeToStarsShared } from '../common/fortuneCalculator.js';
 import { STEM_BY_CODE, BRANCH_BY_CODE } from '../common/elementMaps.js';
+import { daeunDisplayOffset } from '../common/daeun-display.js';
 
 export interface LifeCurvePoint {
   /** 출생 기준 경과 연수 (만 나이 근사). */
@@ -30,7 +31,7 @@ export interface LifeCurvePoint {
 
 export interface LifeCurveDaeunSegment {
   readonly index: number;
-  /** 표시용 내림 나이 (life-stage 카드와 동일 규약). */
+  /** 표시용 정수 나이 — 반올림 유파 표기 오프셋 반영 (감사 B11; life-stage 카드와 동일 규약). */
   readonly startAge: number;
   readonly endAge: number;
   /** 커브 전환점용 원본 소수 나이 (三日一歲 산출값 그대로). */
@@ -119,6 +120,8 @@ export function buildLifeCurveCard(
   const gishin = toElementCode(saju.yongshin?.gishin);
 
   const daeunPillars = extractDaeunPillars(saju);
+  // 감사 B11: 표기용 정수 대운수(반올림 유파) 오프셋 — 라벨에만 적용, 시간 로직은 연속값.
+  const displayOffset = daeunDisplayOffset((saju as Record<string, unknown>)['daeunInfo']);
   // saeunPillars는 SajuSummary 인덱스 시그니처 경유 (어댑터가 런타임에 부착).
   const saeun = new Map<number, { stem: string; branch: string }>();
   const saeunRaw = (saju as Record<string, unknown>)['saeunPillars'];
@@ -138,8 +141,8 @@ export function buildLifeCurveCard(
   const daeunSegments: LifeCurveDaeunSegment[] = daeunPillars.map((p, index) => {
     const el = pillarElements(p.stem, p.branch);
     const grade = el.stem ? getPillarGrade(el.stem, el.branch, yongshin, heeshin, gishin) : 3;
-    const startAge = Math.floor(p.startAge);
-    const endAge = Math.floor(p.endAge);
+    const startAge = Math.floor(p.startAge) + displayOffset;
+    const endAge = Math.floor(p.endAge) + displayOffset;
     return {
       index,
       startAge,

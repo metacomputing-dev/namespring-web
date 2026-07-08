@@ -28,6 +28,7 @@ import type {
 import type { ElementCode } from '../types.js';
 
 import { getFortuneGrade } from '../common/fortuneCalculator.js';
+import { daeunDisplayOffset } from '../common/daeun-display.js';
 import {
   STEM_BY_CODE,
   BRANCH_BY_CODE,
@@ -276,6 +277,8 @@ export function buildLifeStageFortuneCard(
 
   // Sort pillars by startAge to ensure correct order
   const sortedPillars = [...daeunInfo.pillars].sort((a, b) => a.startAge - b.startAge);
+  // 감사 B11: 표기용 정수 대운수(반올림 유파) 오프셋 — 라벨·stages 나이에만 적용.
+  const displayOffset = daeunDisplayOffset((saju as Record<string, unknown>)['daeunInfo']);
 
   for (let i = 0; i < sortedPillars.length; i++) {
     const dp = sortedPillars[i];
@@ -300,11 +303,10 @@ export function buildLifeStageFortuneCard(
     const branchHangul = branchInfo?.hangul ?? branchCode;
     const pillarDisplay = `${stemHangul}${branchHangul}`;
 
-    // Age range
-    const flooredStartAge = floorAge(dp.startAge);
-    const flooredEndAge = floorAge(dp.endAge);
+    // Age range — 표기용 정수(반올림 유파 오프셋 반영, 감사 B11).
+    const flooredStartAge = floorAge(dp.startAge) + displayOffset;
+    const flooredEndAge = floorAge(dp.endAge) + displayOffset;
     // 폐구간 표기: 다음 대운 시작 나이와 겹치지 않게 (25세~34세 / 35세~44세).
-    // startAge/endAge 필드는 구간 매칭용으로 원값(내림) 유지, 표시만 -1.
     const ageRange = `${flooredStartAge}세 ~ ${Math.max(flooredStartAge, flooredEndAge - 1)}세`;
 
     // Check if this is the current stage

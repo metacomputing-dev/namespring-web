@@ -58,6 +58,7 @@ import { computeClassIdCandidates, packKeyFor, minorPackKeyFor, ALL_CATEGORIES }
 import { getGeneratedArticle, preloadGeneratedForPerson } from './generated-registry.js';
 import { buildPeriodMeta, periodFortuneElement } from './period-meta-builder.js';
 import { getInsightInterpretation } from './insight-registry.js';
+import { daeunDisplayOffset } from '../common/daeun-display.js';
 import { loadGlossary } from './glossary-loader.js';
 import { buildTagGlossary } from './tag-inliner.js';
 import {
@@ -568,9 +569,14 @@ function buildLifeByDaeun(
   const pillars = extractDaeunPillars(saju);
   if (!pillars.length) return [];
 
+  // 감사 B11: 표기용 정수 대운수(반올림 유파) 오프셋 — ageLabel/startAge/endAge에만
+  // 적용. rep(채점 나이)는 연속값 기반 유지 — display 기반으로 바꾸면 밴드/오디언스/
+  // fragment 선택이 흔들려 텍스트가 나이 표기 이상으로 변한다.
+  const displayOffset = daeunDisplayOffset((saju as Record<string, unknown>)['daeunInfo']);
+
   return pillars.map((pillar, index) => {
-    const floorStart = Math.floor(pillar.startAge);
-    const floorEnd = Math.floor(pillar.endAge);
+    const floorStart = Math.floor(pillar.startAge) + displayOffset;
+    const floorEnd = Math.floor(pillar.endAge) + displayOffset;
     const repRaw = Math.floor((pillar.startAge + pillar.endAge) / 2);
     const rep = Math.min(Math.max(repRaw, 10), 105);
     const bandSpec = LIFE_STAGE_BANDS.find((b) => rep >= b.startAge && rep <= b.endAge)

@@ -17,6 +17,7 @@ import type { SajuSummary } from '../../types.js';
 import { getInsightInterpretation, type InsightInterpretation } from '../tiered/insight-registry.js';
 import { SHINSAL_ENCYCLOPEDIA } from '../knowledge/shinsalEncyclopedia.js';
 import { STEM_BY_CODE, BRANCH_BY_CODE } from '../common/elementMaps.js';
+import { daeunDisplayOffset } from '../common/daeun-display.js';
 
 export type InsightFactKind =
   | 'shinsal' | 'gongmang' | 'stemRelation' | 'branchRelation'
@@ -315,6 +316,8 @@ export function buildInsightFactsCard(saju: SajuSummary): InsightFactsCard | nul
 
   // ── 대운 정체 (daeunInfo — 현재 대운 간지; 신규 계산 없이 원값만) ──
   const daeunRaw = (saju as Record<string, unknown>)['daeunInfo'];
+  // 감사 B11: 표기용 정수 대운수(반올림 유파) 오프셋.
+  const displayOffset = daeunDisplayOffset(daeunRaw);
   const pillars = daeunRaw && typeof daeunRaw === 'object'
     ? (daeunRaw as Record<string, unknown>)['pillars']
     : null;
@@ -330,7 +333,7 @@ export function buildInsightFactsCard(saju: SajuSummary): InsightFactsCard | nul
         kind: 'daeunPillar',
         label: `${i + 1}대운 ${stemKo}${branchKo}`,
         detail: typeof pp.startAge === 'number' && typeof pp.endAge === 'number'
-          ? `${Math.floor(pp.startAge)}세~${Math.floor(pp.endAge)}세`
+          ? `${Math.floor(pp.startAge) + displayOffset}세~${Math.floor(pp.endAge) + displayOffset}세`
           : undefined,
       }));
     }
