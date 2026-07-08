@@ -109,7 +109,14 @@ npm run test:tiered-shape                             # 1378
 맞출 것(들어있다면 '당사자'의 정의를 "관계 성립에 필요한 최소 집합"으로 좁힐지 결정 필요 —
 보수적으로는 pillarIndexes 전체를 당사자로 봐도 현행보다 정밀함).
 
-## 4. PR-12-4: 음양 균형 노출 — 5층 배선 exemplar [난이도 하 — 이 레시피가 12-x 공통 본보기]
+## 4. PR-12-4: 음양 균형 노출 ✅ 완료 (e7e12fdd7) — 이 커밋이 12-x 공통 본보기
+
+> 완료됨. 12계열 후속(12-1 용신 methodBreakdown, 12-2 격국 basis, 12-3 시간 카드 등)은
+> **커밋 e7e12fdd7의 diff를 그대로 본보기**로 삼아라: api/types.ts(View)+engine.ts(산출)
+> +springLegacy(additive 키)+saju-adapter(extractor)+spring-ts types(Summary 필드)
+> +test:adapter-* 신설(package.json script 포함). saju-ts 기대치 200/200으로 갱신됨.
+
+### 원 레시피 (참조용)
 
 PR-12 계열(용신 methodBreakdown·격국 basis·시간 카드 등)은 전부 같은 5층 패턴이다.
 음양이 가장 작으므로 이것을 먼저 그대로 따라 하면 패턴이 손에 익는다.
