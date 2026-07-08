@@ -205,7 +205,10 @@ const JIJI_RELATION_NOTE_KO_LABEL: Record<string, string> = {
   PA: '\uC9C0\uC9C0 \uD30C \uAD00\uACC4',
   WONJIN: '\uC9C0\uC9C0 \uC6D0\uC9C4 \uAD00\uACC4',
   HYEONG: '\uC9C0\uC9C0 \uD615 \uAD00\uACC4',
+  JA_HYEONG: '\uC9C0\uC9C0 \uC790\uD615 \uAD00\uACC4',
+  SAMHYEONG: '\uC9C0\uC9C0 \uC0BC\uD615 \uAD00\uACC4',
   HAP: '\uC9C0\uC9C0 \uD569 \uAD00\uACC4',
+  YUKHAP: '\uC9C0\uC9C0 \uC721\uD569 \uAD00\uACC4',
   SAMHAP: '\uC9C0\uC9C0 \uC0BC\uD569 \uAD00\uACC4',
   BANGHAP: '\uC9C0\uC9C0 \uBC29\uD569 \uAD00\uACC4',
 };
@@ -215,7 +218,10 @@ const JIJI_RELATION_OUTCOME_KO_LABEL: Record<string, string> = {
   PA: '\uD30C',
   WONJIN: '\uC6D0\uC9C4',
   HYEONG: '\uD615',
+  JA_HYEONG: '\uC790\uD615',
+  SAMHYEONG: '\uC0BC\uD615',
   HAP: '\uD569',
+  YUKHAP: '\uC721\uD569',
   SAMHAP: '\uC0BC\uD569',
   BANGHAP: '\uBC29\uD569',
 };
@@ -226,12 +232,15 @@ const CHEONGAN_RELATION_NOTE_KO_LABEL: Record<string, string> = {
 };
 const RELATION_TYPE_KO_LABEL: Record<string, string> = {
   HAP: '\uD569',
+  YUKHAP: '\uC721\uD569',
   CHUNG: '\uCDA9',
   GEUK: '\uADF9',
   HAE: '\uD574',
   PA: '\uD30C',
   WONJIN: '\uC6D0\uC9C4',
   HYEONG: '\uD615',
+  JA_HYEONG: '\uC790\uD615',
+  SAMHYEONG: '\uC0BC\uD615',
   SAMHAP: '\uC0BC\uD569',
   BANGHAP: '\uBC29\uD569',
 };
@@ -1443,15 +1452,16 @@ export function extractSaju(rawSajuOutput: any): SajuSummary {
  *  `analyzePalaces` (PR-Q-4) on the summary's four pillars. Returns undefined
  *  when day pillar is unresolvable. */
 function computePalaceSummary(pillars: SajuSummary['pillars']): import('./types.js').PalaceSummary | undefined {
-  // Lazy import — saju-ts's `analyzePalaces` is only loaded when the opt-in
-  // is active. Avoids paying the cost on every analyzeSaju call.
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const sajuTsCore = require('../../saju-ts/src/index.js') as {
+  // 캐시된 sajuModule 재사용 — 기존 require() 경로는 ESM(tsx/Vite)에서 정의되지
+  // 않아 throw → analyzeSaju 외곽 catch가 전체를 emptySaju로 만들었다 (감사 A5).
+  // analyzeSaju가 loadSajuModule()을 이미 await했으므로 이 시점엔 캐시가 차 있다.
+  const sajuTsCore = sajuModule as unknown as {
     analyzePalaces: (input: any) => any;
     stemIdxFromHanja: (h: string) => number | null;
     branchIdxFromHanja: (h: string) => number | null;
     stemHanja: (idx: number) => string;
-  };
+  } | null;
+  if (!sajuTsCore) return undefined;
 
   const day = pillars.day;
   if (!day) return undefined;
@@ -1502,10 +1512,11 @@ function computePalaceSummary(pillars: SajuSummary['pillars']): import('./types.
  *  `analyzeNaeum` (PR-Q-6) on the summary's four pillars (using ganzhi
  *  hanja strings). Returns undefined when day pillar is unresolvable. */
 function computeNaeumSummary(pillars: SajuSummary['pillars']): import('./types.js').NaeumSummary | undefined {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const sajuTsCore = require('../../saju-ts/src/index.js') as {
+  // 캐시된 sajuModule 재사용 (감사 A5 — computePalaceSummary와 동일한 require() 붕괴 수정).
+  const sajuTsCore = sajuModule as unknown as {
     analyzeNaeum: (input: any) => any;
-  };
+  } | null;
+  if (!sajuTsCore) return undefined;
 
   const day = pillars.day;
   if (!day) return undefined;
@@ -2056,6 +2067,9 @@ function extractDaeunInfo(rawSajuOutput: any) {
     firstDaeunStartAge:     Number(daeunInfoRaw.firstDaeunStartAge)    || 0,
     firstDaeunStartMonths:  Number(daeunInfoRaw.firstDaeunStartMonths) || 0,
     boundaryMode:           String(daeunInfoRaw.boundaryMode ?? ''),
+    boundaryUtcMs:          Number.isFinite(daeunInfoRaw.boundaryUtcMs) ? Number(daeunInfoRaw.boundaryUtcMs) : null,
+    deltaDays:              Number.isFinite(daeunInfoRaw.deltaDays) ? Number(daeunInfoRaw.deltaDays) : null,
+    formula:                toNullableString(daeunInfoRaw.formula),
     warnings:               ensureArray(daeunInfoRaw.warnings).map((warning) => cleanAdapterText(String(warning))),
     pillars: ensureArray(daeunInfoRaw.daeunPillars).map((pillarData: any) => ({
       stem:     String(pillarData.pillar?.cheongan ?? ''),

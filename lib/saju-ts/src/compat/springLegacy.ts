@@ -74,27 +74,34 @@ const COMPOSITE_CLASSICAL_FEATURE_WEIGHTS = {
   sourceTierBoost: 0.05,
   stabilityAcrossModes: 0.05,
 } as const;
-const JIJI_RELATION_NOTES: Record<string, string> = {
+// export: 방출 타입↔라벨 전수 일치 테스트(springLegacy.test.ts)가 소비 (감사 A3).
+export const JIJI_RELATION_NOTES: Record<string, string> = {
   CHUNG: '지지 충(沖) 관계',
   HAE: '지지 해(害) 관계',
   PA: '지지 파(破) 관계',
   WONJIN: '지지 원진(怨嗔) 관계',
   HYEONG: '지지 형(刑) 관계',
+  JA_HYEONG: '지지 자형(自刑) 관계',
+  SAMHYEONG: '지지 삼형(三刑) 관계',
   HAP: '지지 합(合) 관계',
+  YUKHAP: '지지 육합(六合) 관계',
   SAMHAP: '지지 삼합(三合) 관계',
   BANGHAP: '지지 방합(方合) 관계',
 };
-const JIJI_RELATION_OUTCOMES: Record<string, string> = {
+export const JIJI_RELATION_OUTCOMES: Record<string, string> = {
   CHUNG: '충(沖)',
   HAE: '해(害)',
   PA: '파(破)',
   WONJIN: '원진(怨嗔)',
   HYEONG: '형(刑)',
+  JA_HYEONG: '자형(自刑)',
+  SAMHYEONG: '삼형(三刑)',
   HAP: '합(合)',
+  YUKHAP: '육합(六合)',
   SAMHAP: '삼합(三合)',
   BANGHAP: '방합(方合)',
 };
-const CHEONGAN_RELATION_NOTES: Record<string, string> = {
+export const CHEONGAN_RELATION_NOTES: Record<string, string> = {
   HAP: '천간 합(合) 관계',
   CHUNG: '천간 충(沖) 관계',
   GEUK: '천간 극(剋) 관계',
@@ -287,16 +294,20 @@ function parseOffsetToken(token: string): number | null {
   const s = token.trim().toUpperCase().replace('UTC', 'GMT');
   if (s === 'GMT' || s === 'GMT+0' || s === 'GMT+00' || s === 'GMT+00:00') return 0;
 
-  const m = s.match(/GMT([+-])(\d{1,2})(?::?(\d{2}))?$/);
+  // 초 성분까지 허용 — 1908-04 이전 서울 LMT는 'GMT+8:27:52'로 온다 (감사 A15a).
+  const m = s.match(/GMT([+-])(\d{1,2})(?::?(\d{2}))?(?::(\d{2}))?$/);
   if (!m) return null;
 
   const sign = m[1] === '-' ? -1 : 1;
   const hh = Number(m[2]);
   const mm = Number(m[3] ?? 0);
-  if (!Number.isFinite(hh) || !Number.isFinite(mm)) return null;
+  const ss = Number(m[4] ?? 0);
+  if (!Number.isFinite(hh) || !Number.isFinite(mm) || !Number.isFinite(ss)) return null;
 
-  return sign * (hh * 60 + mm);
+  return sign * Math.round(hh * 60 + mm + ss / 60);
 }
+
+let warnedOffsetFallback = false;
 
 function offsetAtUtcMs(utcMs: number, timeZone: string): number {
   try {
@@ -309,10 +320,56 @@ function offsetAtUtcMs(utcMs: number, timeZone: string): number {
     }).formatToParts(new Date(utcMs));
 
     const zoneName = parts.find((p) => p.type === 'timeZoneName')?.value ?? 'GMT+00:00';
-    return parseOffsetToken(zoneName) ?? 540;
+    const parsed = parseOffsetToken(zoneName);
+    if (parsed == null && !warnedOffsetFallback) {
+      warnedOffsetFallback = true;
+      // 무경고 +09:00 폴백은 약 32분 오차를 침묵시킨다 — 최소한 한 번은 드러낸다 (감사 A15a).
+      console.warn(`[saju-ts/springLegacy] failed to parse tz offset token "${zoneName}" (${timeZone}); falling back to +09:00`);
+    }
+    return parsed ?? 540;
   } catch {
+    if (!warnedOffsetFallback) {
+      warnedOffsetFallback = true;
+      console.warn(`[saju-ts/springLegacy] Intl offset lookup failed for tz "${timeZone}"; falling back to +09:00`);
+    }
     return 540;
   }
+}
+
+function longZoneNameAtUtcMs(utcMs: number, timeZone: string): string {
+  try {
+    const parts = new Intl.DateTimeFormat('en-US', { timeZone, timeZoneName: 'long' })
+      .formatToParts(new Date(utcMs));
+    return parts.find((p) => p.type === 'timeZoneName')?.value ?? '';
+  } catch {
+    return '';
+  }
+}
+
+const DST_SCAN_STEP_MS = 30 * 24 * 60 * 60 * 1000;
+
+/**
+ * 서머타임(DST) 보정분 실측 (감사 A9).
+ *
+ * 1) ICU long name이 'Standard'면 0, 'Daylight/Summer'면 DST 확정.
+ * 2) 이름이 오프셋 문자열이면(한국 1961년 이전 구간은 ICU 표시명 부재) 전후
+ *    각 ±270일 표본으로 판정: DST는 일시적 초과라 양쪽 모두 낮은 표준
+ *    오프셋이 보이고, 표준 자오선 변경(1954/1961)은 한쪽에만 보인다.
+ *    → 초과분 = offset - max(전측 최소, 후측 최소).
+ */
+function dstMinutesAtUtcMs(utcMs: number, timeZone: string): number {
+  const name = longZoneNameAtUtcMs(utcMs, timeZone);
+  if (/standard/i.test(name)) return 0;
+  const isNamedDst = /daylight|summer/i.test(name);
+  const offset = offsetAtUtcMs(utcMs, timeZone);
+  let minBefore = offset;
+  let minAfter = offset;
+  for (let k = 1; k <= 9; k++) {
+    minBefore = Math.min(minBefore, offsetAtUtcMs(utcMs - k * DST_SCAN_STEP_MS, timeZone));
+    minAfter = Math.min(minAfter, offsetAtUtcMs(utcMs + k * DST_SCAN_STEP_MS, timeZone));
+  }
+  const excess = Math.max(0, offset - Math.max(minBefore, minAfter));
+  return isNamedDst ? (excess || 60) : excess;
 }
 
 function resolveOffsetMinutes(timeZone: string, civil: CivilDateTime): number {
@@ -900,12 +957,56 @@ function normalizePositionKey(position: 'year' | 'month' | 'day' | 'hour'): 'YEA
   return 'HOUR';
 }
 
+// 일간을 돕는 십성 (비겁 + 인성). engine 철자 기준 (GEOB_JAE — legacy 별칭 GYEOB_JAE 아님).
+const DEUK_SUPPORT_TEN_GODS = new Set(['BI_GYEON', 'GEOB_JAE', 'JEONG_IN', 'PYEON_IN']);
+// 통근(같은 오행) = 비견/겁재.
+const DEUK_COMPANION_TEN_GODS = new Set(['BI_GYEON', 'GEOB_JAE']);
+const DEUK_ROOT_GRADE: Record<string, number> = { MAIN: 1, MIDDLE: 0.6, RESIDUAL: 0.3 };
+
+/**
+ * 실제 득령/득지/득세 판정 (감사 A1 — 기존에는 십성 점수 재라벨이었다).
+ *
+ * - 득령(0|1): 월지 본기 십성이 비겁·인성인가 (월령을 얻음).
+ * - 득지(0~1): 일지 지장간 통근(비견·겁재) 강도 — 본기 1 > 중기 0.6 > 여기 0.3.
+ * - 득세(0~7): 일간 제외 7글자(년·월·시 천간 + 4지지 본기) 중 비겁·인성 개수.
+ */
+function computeDeukScores(
+  tenGods: any,
+  hiddenStemTenGods: any,
+): { deukryeong: number; deukji: number; deukse: number } {
+  const listOf = (pos: string): any[] =>
+    Array.isArray(hiddenStemTenGods?.[pos]) ? hiddenStemTenGods[pos] : [];
+  const mainOf = (pos: string): any => {
+    const list = listOf(pos);
+    return list.find((e: any) => e?.role === 'MAIN') ?? list[0];
+  };
+
+  const deukryeong = DEUK_SUPPORT_TEN_GODS.has(String(mainOf('month')?.tenGod ?? '')) ? 1 : 0;
+
+  let deukji = 0;
+  for (const e of listOf('day')) {
+    if (!DEUK_COMPANION_TEN_GODS.has(String(e?.tenGod ?? ''))) continue;
+    deukji = Math.max(deukji, DEUK_ROOT_GRADE[String(e?.role ?? '')] ?? 0.3);
+  }
+
+  let deukse = 0;
+  for (const key of ['yearStem', 'monthStem', 'hourStem'] as const) {
+    if (DEUK_SUPPORT_TEN_GODS.has(String(tenGods?.[key] ?? ''))) deukse += 1;
+  }
+  for (const pos of ['year', 'month', 'day', 'hour'] as const) {
+    if (DEUK_SUPPORT_TEN_GODS.has(String(mainOf(pos)?.tenGod ?? ''))) deukse += 1;
+  }
+
+  return { deukryeong, deukji, deukse };
+}
+
 function normalizeLegacyOutput(
   bundle: AnalysisBundle,
   standard: CivilDateTime,
   daeunCount?: number,
   saeunStartYear?: number | null,
   saeunYearCount?: number,
+  timeZone?: string,
 ) {
   const facts = bundle.report?.facts as Record<string, unknown>;
   const correction = (facts?.['time.trueSolarCorrection'] ?? {}) as TrueSolarCorrectionView;
@@ -920,6 +1021,12 @@ function normalizeLegacyOutput(
         min: toInt(adjustedFact.time.min, standard.min),
       }
     : addMinutes(standard, Math.round(Number(correction.totalCorrectionMinutes ?? 0)));
+
+  // 서머타임 보정 실측치 — 기존에는 0 하드코딩으로 미보정 서비스처럼 표기됐다 (감사 A9).
+  const tz = timeZone ?? DEFAULT_TIMEZONE;
+  const offsetAtBirth = resolveOffsetMinutes(tz, standard);
+  const birthUtcMs = Date.UTC(standard.y, standard.m - 1, standard.d, standard.h, standard.min, 0) - offsetAtBirth * 60_000;
+  const dstCorrectionMinutes = dstMinutesAtUtcMs(birthUtcMs, tz);
 
   const pillars = getSummaryPillars(bundle);
   const yearStemCode = stemCodeFromIdx(pillars.year.stem.idx);
@@ -1003,6 +1110,7 @@ function normalizeLegacyOutput(
   const tenGods = bundle.summary?.tenGods as any;
   const hiddenStems = bundle.summary?.hiddenStems as any;
   const hiddenStemTenGods = bundle.summary?.tenGodsHiddenStems as any;
+  const deuk = computeDeukScores(tenGods, hiddenStemTenGods);
   const byPosition: Record<string, any> = {};
 
   for (const pos of ['year', 'month', 'day', 'hour'] as const) {
@@ -1118,7 +1226,7 @@ function normalizeLegacyOutput(
       adjustedDay: adjusted.d,
       adjustedHour: adjusted.h,
       adjustedMinute: adjusted.min,
-      dstCorrectionMinutes: 0,
+      dstCorrectionMinutes,
       longitudeCorrectionMinutes: Number(correction.longitudeCorrectionMinutes ?? 0),
       equationOfTimeMinutes: Number(correction.equationOfTimeMinutes ?? 0),
     },
@@ -1129,15 +1237,16 @@ function normalizeLegacyOutput(
       score: {
         totalSupport: support,
         totalOppose: pressure,
-        deukryeong: Number(components.companions ?? 0),
-        deukji: Number(components.resources ?? 0),
-        deukse: Number(components.companions ?? 0) + Number(components.resources ?? 0),
+        deukryeong: deuk.deukryeong,
+        deukji: deuk.deukji,
+        deukse: deuk.deukse,
       },
       details: [
         `강약 판정: ${strengthLevelKo}`,
         `강약 지수: ${strengthIndex.toFixed(3)}`,
         `생조 합: ${support.toFixed(3)}`,
         `극설 합: ${pressure.toFixed(3)}`,
+        `득령 ${deuk.deukryeong ? '○' : '×'} · 득지 ${deuk.deukji > 0 ? '○' : '×'} · 득세 ${deuk.deukse}/7`,
       ],
     },
     yongshinResult: {
@@ -1149,7 +1258,10 @@ function normalizeLegacyOutput(
       agreement: 'RANKING',
       consensus: yongshinConsensus,
       recommendations: yongshinRanking.slice(0, 3).map((entry: { element: string; score: number }, i: number) => ({
-        type: i === 0 ? 'JOHU' : 'RANKING',
+        // 이 브리지의 기본 정책은 climate weight 0(조후 비활성) — 랭킹은 순수
+        // 억부(balance+role) 산출이므로 'EOKBU'가 정직한 라벨이다 (감사 A2.
+        // 설정이 다양해지면 실제 지배 방법에서 유도할 것).
+        type: i === 0 ? 'EOKBU' : 'RANKING',
         primaryElement: entry.element,
         secondaryElement: yongshinRanking[i + 1]?.element ?? null,
         confidence: confidenceToPoints(Math.max(0, Math.min(1, Number(entry.score)))),
@@ -1186,7 +1298,13 @@ function normalizeLegacyOutput(
       isForward: String(fortune?.start?.direction ?? 'FORWARD') !== 'BACKWARD',
       firstDaeunStartAge: Number(fortune?.start?.startAgeYears ?? 0),
       firstDaeunStartMonths: Number(fortune?.start?.startAgeParts?.months ?? 0),
-      boundaryMode: String((bundle.report?.facts as any)?.['policy.calendar']?.dayBoundary ?? ''),
+      // 대운 기산 절기 id (기존에는 무관한 일경계 정책 dayBoundary가 들어갔다 — 감사 A15d).
+      boundaryMode: String(fortune?.start?.boundary?.id ?? ''),
+      boundaryUtcMs: fortune?.start?.boundary?.utcMs ?? null,
+      deltaDays: Number.isFinite(fortune?.start?.deltaMs)
+        ? roundTo(Number(fortune.start.deltaMs) / 86_400_000, 3)
+        : null,
+      formula: String(fortune?.start?.formula ?? ''),
       warnings: [],
       daeunPillars,
     },
@@ -1240,5 +1358,6 @@ export function analyzeSaju(
     options?.daeunCount,
     options?.saeunStartYear,
     options?.saeunYearCount,
+    tz,
   );
 }

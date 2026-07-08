@@ -19,7 +19,8 @@ export interface DetectedRelation {
   members: BranchIdx[]; // sorted
 }
 
-const RELATION_ORDER: readonly RelationType[] = [
+/** 방출 가능한 지지 관계 타입 전수 (라벨 커버리지 테스트가 소비). */
+export const RELATION_ORDER: readonly RelationType[] = [
   'CHUNG',
   'YUKHAP',
   'HYEONG',

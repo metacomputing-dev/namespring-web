@@ -598,8 +598,11 @@ export interface StrengthSummary {
   readonly isStrong: boolean;
   readonly totalSupport: number;
   readonly totalOppose: number;
+  /** 득령 여부 (0|1): 월지 본기 십성이 비겁·인성인가. (과거에는 비겁 점수 합의 재라벨이었다 — 감사 A1) */
   readonly deukryeong: number;
+  /** 득지 강도 (0~1): 일지 지장간 통근(비견·겁재) — 본기 1 > 중기 0.6 > 여기 0.3. */
   readonly deukji: number;
+  /** 득세 개수 (0~7): 일간 제외 7글자(년·월·시 천간 + 4지지 본기) 중 비겁·인성 개수. */
   readonly deukse: number;
   readonly details: string[];
 }
@@ -838,7 +841,14 @@ export interface DaeunInfoSummary {
   readonly isForward: boolean;
   readonly firstDaeunStartAge: number;
   readonly firstDaeunStartMonths: number;
+  /** 대운 기산 절기 id (예: 'LICHUN'). 과거에는 무관한 일경계 정책 문자열이 들어갔다. */
   readonly boundaryMode: string;
+  /** 기산 절기의 UTC ms — 절기 경계 부재 시 null. */
+  readonly boundaryUtcMs?: number | null;
+  /** 출생→기산 절기까지 일수 (소수 3자리). */
+  readonly deltaDays?: number | null;
+  /** 대운수 산출 공식 문자열 (예: 'startAgeYears = (Δdays / 3)  // 三日一歲'). */
+  readonly formula?: string | null;
   readonly warnings: readonly string[];
   readonly pillars: readonly DaeunPillarSummary[];
 }
