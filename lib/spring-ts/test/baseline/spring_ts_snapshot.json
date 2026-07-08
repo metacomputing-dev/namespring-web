@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "capturedAt": "2026-07-08T08:04:39.003Z",
+  "capturedAt": "2026-07-08T10:37:24.049Z",
   "targetDate": "2026-04-30T00:00:00.000Z",
   "fixtureCount": 15,
   "results": [
@@ -286,33 +286,33 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 75.9,
-            "fullHangul": "박수진",
-            "fullHanja": "朴修辰",
+            "finalScore": 74,
+            "fullHangul": "박수인",
+            "fullHanja": "朴修忍",
             "rank": 1
           },
           {
-            "finalScore": 74.6,
-            "fullHangul": "박구혜",
-            "fullHanja": "朴舊蹊",
+            "finalScore": 73.8,
+            "fullHangul": "박해주",
+            "fullHanja": "朴奚走",
             "rank": 2
           },
           {
-            "finalScore": 74,
-            "fullHangul": "박로희",
-            "fullHanja": "朴潞嬉",
+            "finalScore": 73.8,
+            "fullHangul": "박수자",
+            "fullHanja": "朴修孜",
             "rank": 3
           },
           {
             "finalScore": 73.8,
-            "fullHangul": "박정미",
-            "fullHanja": "朴炡美",
+            "fullHangul": "박진주",
+            "fullHanja": "朴津走",
             "rank": 4
           },
           {
-            "finalScore": 73.7,
-            "fullHangul": "박구자",
-            "fullHanja": "朴舊孜",
+            "finalScore": 73.8,
+            "fullHangul": "박사주",
+            "fullHanja": "朴唆走",
             "rank": 5
           }
         ],
@@ -626,13 +626,13 @@
             "rank": 3
           },
           {
-            "finalScore": 73.4,
+            "finalScore": 73.5,
             "fullHangul": "조혜진",
             "fullHanja": "趙蹊辰",
             "rank": 4
           },
           {
-            "finalScore": 73.4,
+            "finalScore": 73.5,
             "fullHangul": "조혜신",
             "fullHanja": "趙蹊辰",
             "rank": 5
@@ -865,15 +865,15 @@
             "rank": 2
           },
           {
-            "finalScore": 76.6,
-            "fullHangul": "이지영",
-            "fullHanja": "李旨玲",
+            "finalScore": 76.7,
+            "fullHangul": "이린영",
+            "fullHanja": "李璘瑛",
             "rank": 3
           },
           {
             "finalScore": 76.6,
-            "fullHangul": "이린영",
-            "fullHanja": "李璘瑛",
+            "fullHangul": "이지영",
+            "fullHanja": "李旨玲",
             "rank": 4
           },
           {
@@ -1098,13 +1098,13 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 85.3,
+            "finalScore": 85.2,
             "fullHangul": "박수신",
             "fullHanja": "朴修辰",
             "rank": 1
           },
           {
-            "finalScore": 85.2,
+            "finalScore": 85.1,
             "fullHangul": "박구대",
             "fullHanja": "朴舊旲",
             "rank": 2
