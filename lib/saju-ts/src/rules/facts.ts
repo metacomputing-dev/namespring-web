@@ -2859,7 +2859,7 @@ const TWELVE_SAL_OFFSET: Record<TwelveSalKey, number> = {
   CHEON_SAL: 11,
 };
 
-function twelveSalStartOf(anchorBranch: BranchIdx): BranchIdx {
+export function twelveSalStartOf(anchorBranch: BranchIdx): BranchIdx {
   // start = 地살(地殺) 지지
   // base = (branch % 4):
   //  0(申子辰군)→申(8), 1(巳酉丑군)→巳(5), 2(寅午戌군)→寅(2), 3(亥卯未군)→亥(11)
