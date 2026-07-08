@@ -287,8 +287,13 @@ export interface RuleFacts {
           alignmentRank: number;
           rootScore: number;
           rootNorm: number;
+          /** 해소 前 원 카운트 (스키마 불변 — 해소는 damageResolved로만 표현). */
           damageByType: Record<string, number>;
           damageRelations: DetectedRelation[];
+          /** PR-5 (감사 B510) additive: 탐합망충 해소 前 damage 합. */
+          damageRaw?: number;
+          /** PR-5 additive: 해소된 관계와 해소자·잔존 계수. */
+          damageResolved?: Array<{ relation: DetectedRelation; via: DetectedRelation[]; residualFactor: number }>;
         };
       };
     };
@@ -2135,6 +2140,22 @@ function computeTransformations(
 const DEFAULT_GYEOK_QUALITY_POLICY = {
   // Damage weights (파격 요인) — count of relations involving 月支
   damageWeights: { CHUNG: 1.0, HAE: 0.7, PA: 0.7, WONJIN: 0.5, HYEONG: 0.8 },
+  // 탐합망충(貪合忘沖) — 충 당사자가 유효한 합에 묶이면 damage 잔존 계수를 곱한다 [감사 B510, PR-5]
+  tanhap: {
+    enabled: true, // PR-5 기본 on (판정 변경 — 계측 절차 동반). false = 현행과 바이트 동일(kill switch).
+    /** 해소 대상 damage 관계. ['CHUNG','HYEONG']=탐합망형까지(자평진전 회합해형, 이설) — config로만. */
+    targetTypes: ['CHUNG'] as RelationType[],
+    /**
+     * 잔존 계수: 0=완전 해소, 0.5=절반, 1=무효.
+     * SAMHAP 0.0 — '온전한 삼합국은 충으로 깨지지 않는다'(주류).
+     * YUKHAP/BANHAP 0.5 — 육합 해소는 인접 조건이 주류인데 궁위 인접성 미배선(감사
+     * B524·B538)이라 절반 감쇠 보수값. 궁위 랜딩 후 인접=0.0/원격=0.7 세분 예정.
+     * BANGHAP 미포함 = 방합의 해충 불인정(다수설).
+     */
+    resolvers: { SAMHAP: 0.0, YUKHAP: 0.5, BANHAP: 0.5 } as Partial<Record<RelationType, number>>,
+    /** 합신(제3지) 자체가 충을 맞으면 해소자 불인정 (1-pass 가드, 재귀 금지). */
+    resolverMustBeClean: true,
+  },
   // Clarity aggregation weights (청탁) — normalized internally
   clarityWeights: { gap: 0.25, alignment: 0.2, method: 0.2, purity: 0.2, root: 0.15 },
   // Thresholds for classification flags
@@ -2170,9 +2191,18 @@ function computeMonthGyeokQuality(args: {
   const { config, monthBranch, gyeokStem, gyeokTenGod, gyeokMethod, monthGyeokCandidates, branches, hiddenStemPolicy, tenGodScoresRanking, detectedRelations, byType } = args;
 
   const raw: any = (config.strategies as any)?.gyeokguk?.quality ?? {};
+  const rawTan: any = raw.tanhap ?? {};
   const policy = {
     enabled: raw.enabled ?? DEFAULT_GYEOK_QUALITY_POLICY.enabled,
     damageWeights: { ...DEFAULT_GYEOK_QUALITY_POLICY.damageWeights, ...(raw.damageWeights ?? {}) },
+    tanhap: {
+      enabled: rawTan.enabled ?? DEFAULT_GYEOK_QUALITY_POLICY.tanhap.enabled,
+      targetTypes: Array.isArray(rawTan.targetTypes)
+        ? (rawTan.targetTypes.filter((t: any) => typeof t === 'string') as RelationType[])
+        : DEFAULT_GYEOK_QUALITY_POLICY.tanhap.targetTypes,
+      resolvers: { ...DEFAULT_GYEOK_QUALITY_POLICY.tanhap.resolvers, ...(rawTan.resolvers ?? {}) },
+      resolverMustBeClean: rawTan.resolverMustBeClean ?? DEFAULT_GYEOK_QUALITY_POLICY.tanhap.resolverMustBeClean,
+    },
     clarityWeights: { ...DEFAULT_GYEOK_QUALITY_POLICY.clarityWeights, ...(raw.weights ?? raw.clarityWeights ?? {}) },
     qingThreshold: typeof raw.qingThreshold === 'number' ? raw.qingThreshold : DEFAULT_GYEOK_QUALITY_POLICY.qingThreshold,
     integrityThreshold: typeof raw.integrityThreshold === 'number' ? raw.integrityThreshold : DEFAULT_GYEOK_QUALITY_POLICY.integrityThreshold,
@@ -2241,21 +2271,51 @@ function computeMonthGyeokQuality(args: {
   }
   const rootFactor = policy.rootNorm > 0 ? clamp01(rootScore / policy.rootNorm) : 0;
 
-  // --- Damage: relations involving month branch (破格 요인)
-  const countInvolving = (t: RelationType): number => (byType[t] ?? []).filter((m) => (m as BranchIdx[]).includes(monthBranch)).length;
-  const cnt = {
-    CHUNG: countInvolving('CHUNG'),
-    HAE: countInvolving('HAE'),
-    PA: countInvolving('PA'),
-    WONJIN: countInvolving('WONJIN'),
-    HYEONG: (['HYEONG', 'JA_HYEONG', 'SAMHYEONG'] as RelationType[]).reduce((acc, t) => acc + countInvolving(t), 0),
+  // --- Damage: relations involving month branch (破格 요인) + 탐합망충 해소 [감사 B510, PR-5]
+  // per-relation 루프로 통합 — tanhap.enabled=false면 residual≡1이라 현행과 수치 동일
+  // (byType은 detectedRelations에서 1:1 구축이므로 카운트 집합 동일 = kill switch 동치성).
+  const DAMAGE_REL_TYPES: readonly RelationType[] = ['CHUNG', 'HAE', 'PA', 'WONJIN', 'HYEONG', 'JA_HYEONG', 'SAMHYEONG'];
+  const damageRelations = detectedRelations.filter(
+    (r) => (r.members as BranchIdx[]).includes(monthBranch) && DAMAGE_REL_TYPES.includes(r.type),
+  );
+  const weightKeyOf = (t: RelationType): string => (t === 'JA_HYEONG' || t === 'SAMHYEONG') ? 'HYEONG' : t;
+
+  const tan = policy.tanhap;
+  const chungGroups = (byType.CHUNG ?? []) as BranchIdx[][];
+  const resolveOf = (rel: DetectedRelation): { residual: number; via: DetectedRelation[] } => {
+    if (!tan.enabled || !tan.targetTypes.includes(rel.type)) return { residual: 1, via: [] };
+    let residual = 1;
+    const via: DetectedRelation[] = [];
+    for (const hap of detectedRelations) {
+      const rf = (tan.resolvers as any)[hap.type];
+      if (typeof rf !== 'number') continue;
+      if (!hap.members.some((m) => (rel.members as BranchIdx[]).includes(m))) continue;
+      if (tan.resolverMustBeClean) {
+        // 합신(충 당사자 외 제3지)이 자체 충을 맞으면 해소자 불인정.
+        // 합 그룹은 충 쌍 양쪽을 동시 포함 불가(거리 산술)라 rel 자신 제외 로직 불요.
+        const thirds = hap.members.filter((m) => !(rel.members as BranchIdx[]).includes(m));
+        if (thirds.some((m) => chungGroups.some((g) => g.includes(m)))) continue;
+      }
+      via.push(hap);
+      residual = Math.min(residual, clamp01(rf));
+    }
+    return { residual, via };
   };
+
   const w = policy.damageWeights as any;
-  const damage = (cnt.CHUNG * (typeof w.CHUNG === 'number' ? w.CHUNG : 0)) +
-    (cnt.HAE * (typeof w.HAE === 'number' ? w.HAE : 0)) +
-    (cnt.PA * (typeof w.PA === 'number' ? w.PA : 0)) +
-    (cnt.WONJIN * (typeof w.WONJIN === 'number' ? w.WONJIN : 0)) +
-    (cnt.HYEONG * (typeof w.HYEONG === 'number' ? w.HYEONG : 0));
+  const cnt: Record<string, number> = { CHUNG: 0, HAE: 0, PA: 0, WONJIN: 0, HYEONG: 0 };
+  const damageResolved: Array<{ relation: DetectedRelation; via: DetectedRelation[]; residualFactor: number }> = [];
+  let damageRaw = 0;
+  let damage = 0;
+  for (const rel of damageRelations) {
+    const wk = weightKeyOf(rel.type);
+    cnt[wk] = (cnt[wk] ?? 0) + 1; // damageByType는 해소 前 원 카운트 유지 (스키마 불변)
+    const base = typeof w[wk] === 'number' ? w[wk] : 0;
+    const { residual, via } = resolveOf(rel);
+    damageRaw += base;
+    damage += base * residual;
+    if (residual < 1) damageResolved.push({ relation: rel, via, residualFactor: residual });
+  }
   const integrity = clamp01(1 / (1 + Math.max(0, damage)));
   const broken = damage >= policy.brokenDamageThreshold;
 
@@ -2279,12 +2339,6 @@ function computeMonthGyeokQuality(args: {
 
   const multiplier = clamp01(integrity * (0.5 + 0.5 * clarity));
 
-  const damageRelations = detectedRelations.filter(
-    (r) =>
-      (r.members as BranchIdx[]).includes(monthBranch) &&
-      (r.type === 'CHUNG' || r.type === 'HAE' || r.type === 'PA' || r.type === 'WONJIN' || r.type === 'HYEONG' || r.type === 'JA_HYEONG' || r.type === 'SAMHYEONG'),
-  );
-
   const reasons: string[] = [];
   reasons.push(`method:${gyeokMethod}`);
   if (mixed) reasons.push(`mixedVisible:${visibleKinds}`);
@@ -2292,6 +2346,15 @@ function computeMonthGyeokQuality(args: {
   if (alignmentRank > 1) reasons.push(`alignmentRank:${alignmentRank}`);
   if (rootFactor >= 0.7) reasons.push('root:strong');
   if (damage > 0) reasons.push(`damage:${damage.toFixed(2)}`);
+  if (damageResolved.length > 0) {
+    reasons.push(`damageRaw:${damageRaw.toFixed(2)}`);
+    for (const d of damageResolved) {
+      // 탐합망충 해소 기록 — 예: "탐합망충해소:CHUNG(0-6)→x0.50@YUKHAP"
+      reasons.push(
+        `탐합망충해소:${d.relation.type}(${d.relation.members.join('-')})→x${d.residualFactor.toFixed(2)}@${d.via.map((v) => v.type).join('+')}`,
+      );
+    }
+  }
   reasons.push(`qingZhuo:${qingZhuo}`);
 
   return {
@@ -2310,6 +2373,8 @@ function computeMonthGyeokQuality(args: {
       rootNorm: policy.rootNorm,
       damageByType: cnt as any,
       damageRelations,
+      // PR-5 (감사 B510) additive: 해소 前 damage와 해소 내역 (계측·서사 재료).
+      ...(damageResolved.length > 0 ? { damageRaw, damageResolved } : {}),
     },
   };
 }

@@ -742,20 +742,20 @@
         "type": "건록격",
         "category": "일반",
         "baseTenGod": "비견",
-        "confidence": 0.241923
+        "confidence": 0.282244
       },
       "candidates": [
         {
           "type": "건록격",
           "category": "일반",
           "baseTenGod": "비견",
-          "score": 0.241923,
-          "confidence": 0.241923,
+          "score": 0.282244,
+          "confidence": 0.282244,
           "compositeClassical": {
-            "score": 0.052701,
-            "confidence": 0.052701,
+            "score": 0.075046,
+            "confidence": 0.075046,
             "status": "trace_only",
-            "breakerPenalty": 0.342308,
+            "breakerPenalty": 0.322308,
             "selectedByComposite": false,
             "topFeatures": [
               "stemTransparency",
@@ -781,10 +781,10 @@
           "score": 0.65,
           "confidence": 0.65,
           "compositeClassical": {
-            "score": 0.378255,
-            "confidence": 0.378255,
+            "score": 0.4006,
+            "confidence": 0.4006,
             "status": "low_confidence_evidence",
-            "breakerPenalty": 0.312308,
+            "breakerPenalty": 0.292308,
             "selectedByComposite": false,
             "topFeatures": [
               "monthMainMatch",
@@ -809,10 +809,10 @@
           "score": 0.55,
           "confidence": 0.55,
           "compositeClassical": {
-            "score": 0.082701,
-            "confidence": 0.082701,
+            "score": 0.105046,
+            "confidence": 0.105046,
             "status": "trace_only",
-            "breakerPenalty": 0.312308,
+            "breakerPenalty": 0.292308,
             "selectedByComposite": false,
             "topFeatures": [
               "stemTransparency",
@@ -841,7 +841,7 @@
             "score": 0,
             "confidence": 0,
             "status": "trace_only",
-            "breakerPenalty": 0.312308,
+            "breakerPenalty": 0.292308,
             "selectedByComposite": false,
             "topFeatures": [
               "seasonalCommand",

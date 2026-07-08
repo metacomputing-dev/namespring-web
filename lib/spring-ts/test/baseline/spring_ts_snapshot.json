@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "capturedAt": "2026-07-08T10:37:24.049Z",
+  "capturedAt": "2026-07-08T10:47:42.892Z",
   "targetDate": "2026-04-30T00:00:00.000Z",
   "fixtureCount": 15,
   "results": [
@@ -843,7 +843,7 @@
           "yongshinHeeshin": "METAL",
           "gyeokgukType": "건록격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.24192307692307694,
+          "gyeokgukConfidence": 0.28224358974358976,
           "deficientElements": [
             "METAL"
           ],

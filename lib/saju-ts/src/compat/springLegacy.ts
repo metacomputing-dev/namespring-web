@@ -1221,6 +1221,41 @@ function normalizeLegacyOutput(
     };
   });
 
+  // PR-5 (감사 B510): resolvedJijiRelations 죽은 배관 소생 — 하드코딩 [] 대체.
+  // 어댑터는 이 목록이 비어있지 않으면 jijiRelations 대신 '전체 목록'으로 쓰므로
+  // (saju-adapter extractJijiRelations), 해소 부분집합이 아니라 전 관계에 해소
+  // 여부를 부착해 방출한다. 해소 판정 소스는 신강약 상호작용의 chart-wide 해소
+  // 목록(details.delingdiShi.interaction.resolved — 충/형만 해당).
+  const strengthInteraction = (bundle.report?.facts?.['rules.facts'] as any)?.strength?.details?.delingdiShi?.interaction;
+  const resolvedKeys = new Set<string>(
+    Array.isArray(strengthInteraction?.resolved)
+      ? strengthInteraction.resolved.map(
+          (r: any) => `${r?.type}:${(Array.isArray(r?.members) ? [...r.members] : []).sort((a: number, b: number) => a - b).join('-')}`,
+        )
+      : [],
+  );
+  const resolvedJijiRelations = resolvedKeys.size > 0
+    ? branchRelations.map((relation: any) => {
+        const type = String(relation?.type ?? '');
+        const memberIdxs = Array.isArray(relation?.members)
+          ? relation.members.map((m: any) => Number(m?.idx)).filter((n: number) => Number.isFinite(n))
+          : [];
+        const key = `${type}:${[...memberIdxs].sort((a, b) => a - b).join('-')}`;
+        const isResolved = resolvedKeys.has(key);
+        return {
+          hit: {
+            type,
+            members: memberIdxs.map((m: number) => branchCodeFromIdx(m)),
+            note: relationNoteForType(type, JIJI_RELATION_NOTES),
+          },
+          outcome: isResolved ? '해소' : relationOutcomeForType(type),
+          reasoning: isResolved
+            ? '탐합망충(貪合忘沖) — 당사자가 유효한 합에 묶여 손상이 해소되었습니다.'
+            : null,
+        };
+      })
+    : [];
+
   const tenGods = bundle.summary?.tenGods as any;
   const hiddenStems = bundle.summary?.hiddenStems as any;
   const hiddenStemTenGods = bundle.summary?.tenGodsHiddenStems as any;
@@ -1437,7 +1472,7 @@ function normalizeLegacyOutput(
     cheonganRelations,
     scoredCheonganRelations: [],
     jijiRelations,
-    resolvedJijiRelations: [],
+    resolvedJijiRelations,
     tenGodAnalysis: {
       dayMaster: dayStemCode,
       byPosition,
