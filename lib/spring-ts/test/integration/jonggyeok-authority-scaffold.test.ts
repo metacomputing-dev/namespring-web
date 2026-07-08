@@ -1,13 +1,13 @@
 /**
  * test/integration/jonggyeok-authority-scaffold.test.ts
  *
- * [PR-7 틀] 종격 승격 검증 스캐폴드.
+ * PR-7/9 scaffold for jonggyeok authority intake.
  *
- * 1. jonggyeok.calibrated 프리셋(임계 ±0.55 재보정)이 옵트인으로 실제 동작하는지 —
- *    교리 T1 픽스처(대표 위해 케이스 fix-jong-04 종재격)에서 CONG_* 격이 발화한다.
- * 2. 기본 경로 불변 — 프리셋 없이 동일 명식은 종격 미선택(리스크 신호만).
- * 3. 권위 코퍼스(jonggyeok_authority_cases.json) 스키마 게이트 — 케이스가 추가되면
- *    자동으로 calibrated 판정 일치 검증이 활성화된다 (승격 기준: 20건+, 80%+).
+ * The authority corpus may contain either birth-time rows or pillar-only rows.
+ * Public classical/chart sources usually publish four pillars without a
+ * birth timestamp, so pillar-only rows are validated as sourced intake. Engine
+ * match-rate promotion is enforced only after at least 20 birth-time rows are
+ * available.
  *
  * Run: npm run test:jonggyeok-authority
  */
@@ -39,11 +39,51 @@ import { SpringEngine } from '../../src/index.js';
 let pass = 0;
 let fail = 0;
 function check(label: string, cond: boolean, evidence?: string): void {
-  if (cond) { pass += 1; console.log(`  PASS ${label}${evidence ? ` (${evidence})` : ''}`); }
-  else { fail += 1; console.log(`  FAIL ${label}${evidence ? ` (${evidence})` : ''}`); }
+  if (cond) {
+    pass += 1;
+    console.log(`  PASS ${label}${evidence ? ` (${evidence})` : ''}`);
+  } else {
+    fail += 1;
+    console.log(`  FAIL ${label}${evidence ? ` (${evidence})` : ''}`);
+  }
 }
 
-console.log('종격 승격 스캐폴드 (PR-7 틀)\n');
+const AUTHORITY_TYPES = new Set([
+  'CONG_CAI',
+  'CONG_GUAN',
+  'CONG_SHA',
+  'CONG_ER',
+  'CONG_YIN',
+  'CONG_BI',
+  'ZHUAN_WANG',
+  'HUA_QI',
+]);
+const SOURCE_TIERS = new Set(['T3_AUTHORED_INTERPRETATION', 'T4_PRIMARY_TEXT', 'T5_OFFICIAL']);
+const GANJI_RE = /^[\u7532\u4E59\u4E19\u4E01\u620A\u5DF1\u5E9A\u8F9B\u58EC\u7678][\u5B50\u4E11\u5BC5\u536F\u8FB0\u5DF3\u5348\u672A\u7533\u9149\u620C\u4EA5]$/u;
+
+function isString(value: unknown): value is string {
+  return typeof value === 'string' && value.trim().length > 0;
+}
+
+function pillarTokens(value: unknown): string[] {
+  if (typeof value === 'string') return value.trim().split(/\s+/).filter(Boolean);
+  if (value && typeof value === 'object') {
+    const obj = value as Record<string, unknown>;
+    return ['year', 'month', 'day', 'hour'].map((key) => String(obj[key] ?? '').trim());
+  }
+  return [];
+}
+
+function hasValidBirth(value: unknown): boolean {
+  if (!value || typeof value !== 'object') return false;
+  const birth = value as Record<string, unknown>;
+  return Number.isInteger(birth.year) &&
+    Number.isInteger(birth.month) &&
+    Number.isInteger(birth.day) &&
+    Number.isInteger(birth.hour);
+}
+
+console.log('jonggyeok authority scaffold (PR-7/9)\n');
 
 const engine = new SpringEngine();
 for (const repo of [(engine as any).hanjaRepo, (engine as any).fourFrameRepo]) {
@@ -51,14 +91,6 @@ for (const repo of [(engine as any).hanjaRepo, (engine as any).fourFrameRepo]) {
 }
 await engine.init();
 
-// ── 1. calibrated 프리셋 실측 한계 핀 (교리 대표 위해 케이스: fix-jong-04 종재격) ──
-// 실측 발견(2026-07-08): weakThreshold를 -0.55로 낮춰도 potential 램프 수식
-// ((threshold - s) / (threshold + 1) — 임계→-1 구간 정규화)이 극단 교리 명식
-// (idx≈-0.63)의 factor를 ~0.19로 눌러 CONG 게이트(0.6)에 도달 불가.
-// = 감사 B5가 완전 승격을 반려한 실체는 '임계값'이 아니라 '램프 수식 구조'다.
-// 승격에는 (a) potential 램프 재설계 또는 (b) DSL 게이트 인하가 필요하며,
-// 어느 쪽이든 권위 코퍼스(아래 스캐폴드) 확보가 선행이다. 이 테스트는 그 한계를
-// 핀해 두고, 수식/게이트가 재설계되면 의도적으로 깨지도록 한다.
 const doctrinal = JSON.parse(fs.readFileSync(path.resolve(SPRING_TS_ROOT, 'test/fixtures/jonggyeok_cases.json'), 'utf-8'));
 const jong04 = doctrinal.fixtures.find((f: any) => f.id === 'fix-jong-04');
 
@@ -68,52 +100,88 @@ const calibrated: any = await engine.getSajuReport({
   options: { precisionConfig: { sajuSchoolId: 'jonggyeok.calibrated' } } as any,
 });
 const calType = String(calibrated.gyeokgukResult?.type ?? calibrated.gyeokguk?.type ?? '');
-check('calibrated 임계 재보정 단독으로는 CONG_* 미발화 (램프 수식 한계 — 실측 핀)',
+check('calibrated threshold does not prematurely promote fix-jong-04 to CONG_*',
   !calType.startsWith('CONG_'),
-  `type=${calType} — 재설계 시 이 핀을 갱신할 것`);
-check('calibrated 프리셋이 유효한 격국을 산출한다 (옵트인 무붕괴)',
+  `type=${calType}`);
+check('calibrated preset still produces a gyeokguk type',
   calType.length > 0);
 
-// ── 2. 기본 경로 불변 ──
 const base: any = await engine.getSajuReport({ birth: jong04.birth, surname: jong04.surname });
 const baseType = String(base.gyeokgukResult?.type ?? base.gyeokguk?.type ?? '');
-check('기본 경로: 종격 미선택 유지 (리스크 신호+감쇠만)',
+check('default path keeps jonggyeok unselected for risk-only case',
   !baseType.startsWith('CONG_'),
   `type=${baseType}`);
-check('기본 경로: 종격 리스크 신호는 유지 (HIGH)',
+check('default path still reports HIGH jonggyeok risk',
   (base.yongshin as any)?.jonggyeokRisk?.level === 'HIGH');
 
-// ── 3. 권위 코퍼스 게이트 ──
 const authority = JSON.parse(fs.readFileSync(path.resolve(SPRING_TS_ROOT, 'test/fixtures/jonggyeok_authority_cases.json'), 'utf-8'));
-check('권위 코퍼스 스키마: _meta.intakeRequirements 존재',
+check('authority corpus schema has _meta.intakeRequirements.sourceTier',
   !!authority._meta?.intakeRequirements?.sourceTier);
-check('권위 코퍼스 스키마: cases 배열',
+check('authority corpus schema has cases array',
   Array.isArray(authority.cases));
+check('authority corpus has 20+ cases',
+  Array.isArray(authority.cases) && authority.cases.length >= 20,
+  `cases=${authority.cases?.length ?? 'n/a'}`);
 
-if (authority.cases.length === 0) {
-  console.log('  INFO 권위 코퍼스 0건 — 판정 일치 검증은 케이스 축적 후 자동 활성 (승격 기준: 20건+, 일치율 80%+)');
-} else {
-  let matched = 0;
-  for (const c of authority.cases) {
-    const tier = c?.sourceTier?.tier ?? '';
-    check(`${c.id}: sourceTier T3 이상 + authorityTruthEligible`,
-      (tier === 'T3_AUTHORED_INTERPRETATION' || tier === 'T4_PRIMARY_TEXT' || tier === 'T5_OFFICIAL')
-        && c?.sourceTier?.authorityTruthEligible === true,
-      tier);
-    const sj: any = await engine.getSajuReport({
-      birth: c.birth,
-      surname: c.surname ?? [{ hangul: '김', hanja: '金' }],
-      options: { precisionConfig: { sajuSchoolId: 'jonggyeok.calibrated' } } as any,
-    });
-    const t = String(sj.gyeokgukResult?.type ?? '');
-    if (t.startsWith(String(c.expectedJonggyeokType))) matched += 1;
+let matched = 0;
+let engineComparable = 0;
+let pillarOnly = 0;
+
+for (const c of authority.cases ?? []) {
+  const tier = c?.sourceTier?.tier ?? '';
+  const tokens = pillarTokens(c?.pillars);
+  const validBirth = hasValidBirth(c?.birth);
+  const validPillars = tokens.length === 4 && tokens.every((token) => GANJI_RE.test(token));
+
+  check(`${c.id}: id and label are present`,
+    isString(c?.id) && isString(c?.label));
+  check(`${c.id}: expected jonggyeok type is supported`,
+    AUTHORITY_TYPES.has(String(c?.expectedJonggyeokType ?? '')),
+    String(c?.expectedJonggyeokType ?? ''));
+  check(`${c.id}: expected yongshin element is present`,
+    isString(c?.expectedYongshinElement),
+    String(c?.expectedYongshinElement ?? ''));
+  check(`${c.id}: sourceTier T3+ and authorityTruthEligible`,
+    SOURCE_TIERS.has(tier) && c?.sourceTier?.authorityTruthEligible === true,
+    tier);
+  check(`${c.id}: sourceUrl is anchored`,
+    typeof c?.sourceTier?.sourceUrl === 'string' && c.sourceTier.sourceUrl.startsWith('http'),
+    String(c?.sourceTier?.sourceUrl ?? ''));
+  check(`${c.id}: quoteShort is absent or short`,
+    c?.sourceTier?.quoteShort == null || (typeof c.sourceTier.quoteShort === 'string' && c.sourceTier.quoteShort.length <= 80));
+  check(`${c.id}: has birth or four pillar ganji`,
+    validBirth || validPillars,
+    validBirth ? 'birth' : tokens.join(' '));
+
+  if (!validBirth) {
+    if (validPillars) pillarOnly += 1;
+    continue;
   }
-  const rate = matched / authority.cases.length;
-  console.log(`  INFO calibrated 판정 일치율: ${matched}/${authority.cases.length} (${(rate * 100).toFixed(0)}%)`);
-  check('승격 기준 참고치(80%)와의 대조는 20건 이상에서만 게이트', authority.cases.length < 20 || rate >= 0.8);
+
+  engineComparable += 1;
+  const sj: any = await engine.getSajuReport({
+    birth: c.birth,
+    surname: c.surname ?? [{ hangul: '\uAE40', hanja: '\u91D1' }],
+    options: { precisionConfig: { sajuSchoolId: 'jonggyeok.calibrated' } } as any,
+  });
+  const type = String(sj.gyeokgukResult?.type ?? sj.gyeokguk?.type ?? '');
+  if (type.startsWith(String(c.expectedJonggyeokType))) matched += 1;
+}
+
+check('authority corpus currently includes pillar-only intake rows',
+  pillarOnly > 0,
+  `pillarOnly=${pillarOnly}`);
+
+if (engineComparable >= 20) {
+  const rate = matched / engineComparable;
+  console.log(`  INFO calibrated engine match: ${matched}/${engineComparable} (${(rate * 100).toFixed(0)}%)`);
+  check('promotion gate: 20+ engine-comparable rows have 80%+ calibrated match',
+    rate >= 0.8);
+} else {
+  console.log(`  INFO calibrated engine match deferred: ${engineComparable} birth rows, ${pillarOnly} pillar-only rows`);
 }
 
 engine.close();
 
-console.log(`\n종격 승격 스캐폴드: ${pass} PASS / ${fail} FAIL`);
+console.log(`\njonggyeok authority scaffold: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);
