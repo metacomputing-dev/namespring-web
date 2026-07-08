@@ -238,6 +238,8 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
           ranking: ys.ranking,
           strengthIndex: ys.base.strengthIndex,
           consensus: ys.consensus,
+          // [감사 A2·B6] 실제 지배 방법 — 레거시 추천 1위 type 유도용.
+          primaryMethod: ys.primaryMethod,
         };
 
         const gg = results.get('rules.gyeokguk') as GyeokgukResult;

@@ -364,6 +364,11 @@ export interface YongshinView {
   ranking: Array<{ element: string; score: number }>;
   strengthIndex: number;
   consensus?: YongshinConsensusView;
+  /**
+   * [감사 A2·B6] best 오행에 가장 크게 기여한 방법군 (base 항 기준).
+   * 'EOKBU' | 'JOHU' | 'BYEONGYAK' | 'TONGGWAN' | 'JONGHWA'.
+   */
+  primaryMethod?: string;
 }
 
 export type YongshinConsensusConflictLevelView = 'none' | 'low' | 'medium' | 'high';

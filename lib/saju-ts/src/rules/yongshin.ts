@@ -161,6 +161,13 @@ export interface YongshinResult {
   ranking: Array<{ element: Element; score: number }>;
   scores: Record<Element, number>;
   consensus: YongshinConsensusScoreboard;
+  /**
+   * [감사 A2·B6] best 오행에 가장 크게 기여한 방법군 (base 항 합 기준, DSL 가산 제외).
+   * EOKBU=balance+role, JOHU=climate+johooTemplate, BYEONGYAK=medicine,
+   * TONGGWAN=tongguan, JONGHWA=follow+transformations+oneElement.
+   * 동률이면 앞선 순서(EOKBU 우선) — 결정적. 레거시 추천 1위 type 유도용.
+   */
+  primaryMethod: 'EOKBU' | 'JOHU' | 'BYEONGYAK' | 'TONGGWAN' | 'JONGHWA';
   base: {
     deficiency: Record<Element, number>;
     role: Record<Element, { role: YongshinRole; preference: number }>;
@@ -301,16 +308,22 @@ export interface YongshinResult {
 }
 
 const DEFAULT_POLICY: YongshinPolicy = {
-  weights: { balance: 1, role: 1, climate: 0, medicine: 0, tongguan: 0, follow: 0, johooTemplate: 0, transformations: 0, oneElement: 0 },
+  // [감사 B6] 기본 = 억부 주(主) + 조후 보정(climate 0.25 ≈ 평시 상대 영향 16%).
+  // 주류 관행(억부 ~70% + 조후 ~20%, 조후위급 시 우선)에 정렬. 순수 억부(climate 0)는
+  // weights.climate=0 명시로 복귀 가능. climate.enabled/climateUrgency.enabled/weights.climate
+  // 세 값은 한 세트다 — enabled 없이 weight만 주면 게이트에 막히고, weight 0이면 urgency가 no-op.
+  weights: { balance: 1, role: 1, climate: 0.25, medicine: 0, tongguan: 0, follow: 0, johooTemplate: 0, transformations: 0, oneElement: 0 },
   target: 'uniform',
   tieBreakOrder: [...ELEMENT_ORDER],
   ruleSet: DEFAULT_YONGSHIN_RULESET,
   climate: {
-    enabled: false,
+    enabled: true,
     model: DEFAULT_CLIMATE_MODEL,
   },
+  // 조후위급(调候为急): |env|가 threshold를 넘는 극단월(子·丑·午)에서만 climate를
+  // 곱 부스트하고 나머지 방법을 소폭 축소한다.
   climateUrgency: {
-    enabled: false,
+    enabled: true,
     threshold: 0.6,
     maxBoost: 1.0,
     reduceOthers: 0.25,
@@ -1245,6 +1258,15 @@ methodSelectorOut = out;
     climateUrgencyOut = urgPolicy.enabled ? { magnitude: climateMagnitude, threshold: urgencyThreshold, factor: urgencyFactor } : undefined;
   }
 
+  // [감사 A2·B6] 방법군별 기여 캡처 — best의 실제 지배 방법(primaryMethod) 유도 재료.
+  const methodTerms: Record<Element, { EOKBU: number; JOHU: number; BYEONGYAK: number; TONGGWAN: number; JONGHWA: number }> = {
+    WOOD: { EOKBU: 0, JOHU: 0, BYEONGYAK: 0, TONGGWAN: 0, JONGHWA: 0 },
+    FIRE: { EOKBU: 0, JOHU: 0, BYEONGYAK: 0, TONGGWAN: 0, JONGHWA: 0 },
+    EARTH: { EOKBU: 0, JOHU: 0, BYEONGYAK: 0, TONGGWAN: 0, JONGHWA: 0 },
+    METAL: { EOKBU: 0, JOHU: 0, BYEONGYAK: 0, TONGGWAN: 0, JONGHWA: 0 },
+    WATER: { EOKBU: 0, JOHU: 0, BYEONGYAK: 0, TONGGWAN: 0, JONGHWA: 0 },
+  };
+
   for (const e of ELEMENT_ORDER) {
     const r = roleOf(e, facts.dayMaster.element);
     const pref = lerp(weakPref[r], strongPref[r], t);
@@ -1261,6 +1283,14 @@ methodSelectorOut = out;
     const oneElementTerm = (effectiveWeights as any).oneElement * (oneElementScores[e] ?? 0);
 
     baseScores[e] = balanceTerm + roleTerm + climateTerm + medicineTerm + tongguanTerm + followTerm + templateTerm + transformationTerm + oneElementTerm;
+
+    methodTerms[e] = {
+      EOKBU: balanceTerm + roleTerm,
+      JOHU: climateTerm + templateTerm,
+      BYEONGYAK: medicineTerm,
+      TONGGWAN: tongguanTerm,
+      JONGHWA: followTerm + transformationTerm + oneElementTerm,
+    };
   }
 
   // Apply DSL adjustments (optional)
@@ -1283,6 +1313,9 @@ methodSelectorOut = out;
 
   const ranking = order.map((e) => ({ element: e, score: finalScores[e] }));
   const best = ranking[0]?.element ?? 'WOOD';
+  // [감사 A2·B6] best에 가장 크게 기여한 방법군. 동률이면 EOKBU 우선(결정적).
+  const mt = methodTerms[best];
+  const primaryMethod = (['EOKBU', 'JOHU', 'BYEONGYAK', 'TONGGWAN', 'JONGHWA'] as const).reduce((a, b) => (mt[b] > mt[a] ? b : a));
   const consensus = buildYongshinConsensus({
     facts,
     ranking,
@@ -1300,6 +1333,7 @@ methodSelectorOut = out;
     ranking,
     scores: finalScores,
     consensus,
+    primaryMethod,
     base: {
       deficiency,
       role: roleInfo,

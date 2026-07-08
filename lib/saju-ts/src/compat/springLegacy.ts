@@ -56,6 +56,16 @@ const TEN_GOD_ALIASES: Record<string, string> = {
   GEOB_JAE: 'GYEOB_JAE',
   SIK_SHIN: 'SIK_SIN',
 };
+// [감사 A2·B6] 엔진 primaryMethod → 레거시 추천 type 코드.
+// 기본 정책(억부 1.0 + 조후 0.25)에서 실제 발생 값은 EOKBU/JOHU 둘뿐이고,
+// BYEONGYAK(병약)·TONGGWAN(통관)·ILHAENG(전왕/종화)은 스쿨팩 경유 방어선이다.
+const LEGACY_YONGSHIN_TYPE: Record<string, string> = {
+  EOKBU: 'EOKBU',
+  JOHU: 'JOHU',
+  BYEONGYAK: 'BYEONGYAK',
+  TONGGWAN: 'TONGGWAN',
+  JONGHWA: 'ILHAENG',
+};
 const GYEOKGUK_BASE_SIPSEONG_KEYS = new Set([
   'JEONG_GWAN', 'PYEON_GWAN',
   'JEONG_JAE', 'PYEON_JAE',
@@ -1308,10 +1318,10 @@ function normalizeLegacyOutput(
       agreement: 'RANKING',
       consensus: yongshinConsensus,
       recommendations: yongshinRanking.slice(0, 3).map((entry: { element: string; score: number }, i: number) => ({
-        // 이 브리지의 기본 정책은 climate weight 0(조후 비활성) — 랭킹은 순수
-        // 억부(balance+role) 산출이므로 'EOKBU'가 정직한 라벨이다 (감사 A2.
-        // 설정이 다양해지면 실제 지배 방법에서 유도할 것).
-        type: i === 0 ? 'EOKBU' : 'RANKING',
+        // 1위 type은 엔진이 산출한 실제 지배 방법(primaryMethod)에서 유도한다 (감사 A2·B6).
+        // 기본 정책(억부 1.0 + 조후 0.25)에서는 EOKBU 또는 JOHU만 나온다.
+        // primaryMethod 부재(구 dist 등) 시 EOKBU 폴백 — 기본 정책 최빈값.
+        type: i === 0 ? (LEGACY_YONGSHIN_TYPE[String(yongshin?.primaryMethod ?? '')] ?? 'EOKBU') : 'RANKING',
         primaryElement: entry.element,
         secondaryElement: yongshinRanking[i + 1]?.element ?? null,
         confidence: confidenceToPoints(Math.max(0, Math.min(1, Number(entry.score)))),

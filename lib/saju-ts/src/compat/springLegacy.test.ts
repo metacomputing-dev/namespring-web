@@ -37,8 +37,20 @@ describe('normalizeLegacyOutput 정직성 (감사 A1/A2/A9/A15d)', () => {
     }
   });
 
-  it('용신 추천 1위 type이 JOHU가 아니라 실제 산출 방법(EOKBU)이다', () => {
+  it('용신 추천 1위 type이 실제 지배 방법(primaryMethod)에서 유도된다 — 辰월 중립 기후는 EOKBU', () => {
+    // 1986-04-19는 辰월(조후 기여 ±0.02 수준) — 조후 기본화(감사 B6) 후에도 억부 지배.
     expect(output.yongshinResult.recommendations[0]?.type).toBe('EOKBU');
+  });
+
+  it('한겨울(子월) 출생도 1위 type이 유도된 방법 코드다 (EOKBU 또는 JOHU)', () => {
+    // 조후 기본 개입(climate 0.25 + 조후위급) 하에서 극단월은 JOHU가 나올 수 있다.
+    // 어느 쪽이 지배하든 하드코딩 'RANKING'/'JOHU' 시절과 달리 유도 값이어야 한다.
+    const winter: any = analyzeSaju(createBirthInput({
+      birthYear: 1990, birthMonth: 1, birthDay: 5,
+      birthHour: 12, birthMinute: 0, gender: 'MALE',
+    }));
+    expect(['EOKBU', 'JOHU']).toContain(winter.yongshinResult.recommendations[0]?.type);
+    expect(winter.yongshinResult.recommendations[1]?.type).toBe('RANKING');
   });
 
   it('득령은 0|1, 득지는 0~1, 득세는 0~7 범위의 실제 판정값이다', () => {
