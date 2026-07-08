@@ -496,7 +496,12 @@ function applyQualityModel(args: {
     let condAssertionsFailed: Array<{ ruleId: string; explain?: string }> = [];
     let condScores: Record<string, number> = {};
 
-    if (typeof d.qualityWeight !== 'number' && !exclude.has(d.name)) {
+    // 카테고리/이름별 오버라이드·enabled·applyToNames를 detection 단위로 해석한다
+    // (감사 A7 — resolveQualityModelForDetection이 정의만 되고 미호출이라
+    //  sanmingtonghui 팩의 conditions.enabled=false 등이 전부 무효였다).
+    const { model: resolvedModel, applyConditions } = resolveQualityModelForDetection(qm, d0);
+
+    if (applyConditions && !exclude.has(d.name)) {
       const targetBranches = inferTargetBranches(facts, d);
 
       const det = {
@@ -515,10 +520,10 @@ function applyQualityModel(args: {
         policy: {
           shinsal: {
             conditions: {
-              weights: qm.weights,
-              combine: qm.combine,
-              weakThreshold: qm.weakThreshold,
-              invalidateThreshold: qm.invalidateThreshold,
+              weights: resolvedModel.weights,
+              combine: resolvedModel.combine,
+              weakThreshold: resolvedModel.weakThreshold,
+              invalidateThreshold: resolvedModel.invalidateThreshold,
             },
           },
         },
@@ -547,17 +552,17 @@ function applyQualityModel(args: {
       }
 
       qualityReasons = penaltyParts.map((p) => p.key);
-      combinedPenalty = combinePenalty(penaltyParts.map((p) => p.value), qm.combine);
+      combinedPenalty = combinePenalty(penaltyParts.map((p) => p.value), resolvedModel.combine);
       qualityWeight = clamp01(1 - combinedPenalty);
-      invalidated = qualityWeight <= (qm.invalidateThreshold ?? 0);
+      invalidated = qualityWeight <= (resolvedModel.invalidateThreshold ?? 0);
     }
 
     // Label quality
-    const weakThreshold = qm.weakThreshold ?? 1;
+    const weakThreshold = resolvedModel.weakThreshold ?? 1;
     const quality: 'FULL' | 'WEAK' = qualityWeight < weakThreshold ? 'WEAK' : 'FULL';
 
     // Normalize invalidation in one place (also covers excluded / explicit qualityWeight cases)
-    const invT = qm.invalidateThreshold ?? 0;
+    const invT = resolvedModel.invalidateThreshold ?? 0;
     invalidated = invalidated || qualityWeight <= invT;
 
     d = {
