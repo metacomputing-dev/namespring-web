@@ -71,7 +71,7 @@
 | lib/saju-ts | `npm run typecheck` / `npm run build` | PASS |
 | lib/saju-ts | `npm test` (vitest) | 178+ (전부 PASS) |
 | lib/spring-ts | `npm run typecheck` / `npm run build` | PASS |
-| lib/spring-ts | `npx tsx tools/baseline_snapshot.ts verify` | 15/15 (P0-3 이후 17/17) |
+| lib/spring-ts | `npx tsx tools/baseline_snapshot.ts verify` | **17/17** (P0-3, 75c3cdef5부터) |
 | lib/spring-ts | `npm run test:namespring-compat` | 208/0 |
 | lib/spring-ts | `npm run test:tiered-shape` | 1378/0 |
 | lib/spring-ts | `npm run test:service-visible-output` | 13/0 |
@@ -224,7 +224,7 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 |---|---|---|---|---|
 | P0-1 PR 오픈 | ⬜ | | | 사용자 확인 후 |
 | P0-2 테스트 체인 무결성 | ✅(부분) | 3bf08cf5c | 2026-07-09 | vitest include 6디렉토리 추가 완료. jonggyeok-authority 체인 포함 여부는 미결 |
-| P0-3 baseline 픽스처 보강 | ⬜ | | | capture 단독 창 |
+| P0-3 baseline 픽스처 보강 | ✅ | 75c3cdef5 | 2026-07-09 | 17/17(야자시 창 fix-16 + 음력 윤달 fix-17). 픽스처 수 하드코딩 2곳 동적화(baseline-metrics·quality-gate) |
 | 9-1 운-원국 관계 | ⬜ | | | |
 | 9-2 대운↔세운 | ⬜ | | | 9-1 후 |
 | 9-3 교운 일시 | ⬜ | | | D2 선행 |
@@ -233,8 +233,8 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 | 9-6 일운 정합 | 🔶 검증완료 | — | 2026-07-09 | 이원 경로 49,319건 대조 불일치 0(수식 동치·KASI 453건 양쪽 100%). 배선은 상품 요구(D3) 확정 시 — GUIDE §0.1 |
 | 9-7 명식판 상문·조객 | ⬜ | | | D4 선행 |
 | 9-8 thisYear·개두/절각 | ⬜ | | | |
-| 10-1 왕상휴수 | 🔶 틀 완료 | f792c7765 | 2026-07-09 | 조견 60칸+summary 노출+비대칭 감쇠 knob(기본 off) 랜딩. 기본화 계측만 잔여 — GUIDE §2 |
-| 10-2 감쇠 세분 | 🔶 틀 완료 | 07aeaaf33 | 2026-07-09 | positional knob(인접 d1/격위 d2 0.5/원격 d3 0.25, 기본 off) 랜딩. 기본화 계측만 잔여 — GUIDE §1·§3 |
+| 10-1 왕상휴수 | ✅ 기본 on | f792c7765 → 8401cfbab | 2026-07-09 | 계측: 단독 완전 무파급(15픽스처·경계723·종격111·합의241 불변). measure_default_change HEAD~1↔HEAD=UNCHANGED, main↔HEAD=IMPROVEMENT(5/0/10) 유지 |
+| 10-2 감쇠 세분 | ✅ 기본 on | 07aeaaf33 → 8401cfbab | 2026-07-09 | 계측: 유일 이동 = fix-14 이름 후보 finalScore +0.1×2(순위 불변, EPS 0.5 이내). 판정 필드 전 픽스처 불변 |
 | 10-3 pressure 합거 | ⬜ | | | 계측 |
 | 10-4 성패 점수 통합 | ⬜ | | | 계측 |
 | 10-5 성패 v1 | ⬜ | | | 계측 |

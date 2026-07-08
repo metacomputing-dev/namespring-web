@@ -15,8 +15,24 @@
 | 07aeaaf33 | **PR-10-2**: 궁위 pairs 인접/원격 차등 손상 knob(root.positional, 기본 off) — 동일 지지 과감쇠 해소 |
 
 검증 기대치 변경: **saju-ts vitest 198/198** (기존 178 → A12 +5, 왕상휴수 +7, positional +7, include 확장 +1).
-이 세션의 knob 2종(seasonal·positional)은 모두 **기본 off로 랜딩** — 다음 세션의 최우선 후보는
-§1 절차로 두 knob의 기본화 계측(개별 + 조합 1회)이다.
+
+### 0.2 후속 세션 실행분 (2026-07-09 — 같은 날 2차)
+
+| 커밋 | 내용 |
+|---|---|
+| 8401cfbab | **두 knob 기본 on**(seasonal+positional). 계측: seasonal 단독 완전 무파급, positional 추가 시 유일 이동 = fix-14 이름 후보 finalScore +0.1×2(순위 불변). measure_default_change HEAD~1↔HEAD=UNCHANGED(0/0/15), main↔HEAD=**IMPROVEMENT(5/0/10) 유지**. knob 계약 테스트 4건을 opt-out 방향으로 반전 |
+| 75c3cdef5 | **P0-3 완료**: baseline 17픽스처(fix-16 야자시 창 23:40, fix-17 음력 윤달 2004-윤2-15). 픽스처 수 하드코딩 2곳 동적화(baseline-metrics:121·156, quality-gate:78) |
+
+갱신된 검증 기대치: baseline verify **17/17**, test:baseline-metrics **37/0**, test:quality-gate **20/0**.
+§1·§2·§3의 "기본화 계측" 항목은 완료됨 — knob 관련 잔여 작업 없음.
+
+⚠ 운영 함정 (이 세션에서 실제 밟음): **리포 루트에서 `npx vitest run`을 실행하지 마라** —
+양쪽 lib의 테스트가 뒤섞여 실패하고, saju-ts `tests/precision/**/__snapshots__/*.snap`이
+EOL/내용 오염될 수 있다. 반드시 `lib/saju-ts`에서 실행. 오염 시 `git restore`로 복원하고
+`npx vitest run tests/precision`(50/50)으로 확인.
+
+CT-4(종격 birth-time 후보 수집)는 리서치 에이전트가 `lib/spring-ts/tmp/ct4-jonggyeok-birth-candidates.md`
+초안을 작성 중/완료 상태일 수 있다 — intake 전 반드시 출처 실재 검증을 거쳐라(fixture 직접 반입 금지).
 
 ### 0.1 일운(9-6) 선행 검증 — 완료, 결과 기록
 
