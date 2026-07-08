@@ -226,7 +226,7 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 | P0-2 테스트 체인 무결성 | ✅(부분) | 3bf08cf5c | 2026-07-09 | vitest include 6디렉토리 추가 완료. jonggyeok-authority 체인 포함 여부는 미결 |
 | P0-3 baseline 픽스처 보강 | ✅ | 75c3cdef5 | 2026-07-09 | 17/17(야자시 창 fix-16 + 음력 윤달 fix-17). 픽스처 수 하드코딩 2곳 동적화(baseline-metrics·quality-gate) |
 | 9-1 운-원국 관계 | ✅ | 8c310a014 | 2026-07-09 | canonical fortune.relations node; springLegacy relationsWithNatal; adapter/report evidence. Natal-only relations and scoring unchanged. Verified: saju-ts 202/0, baseline 17/0, compat 208/0, tiered-shape 1378/0, service-visible 13/0, adapter-daewoon 24/0, transit-luck-report 12/0 |
-| 9-2 대운↔세운 | ⬜ | | | 9-1 후 |
+| 9-2 대운↔세운 | ✅ | ade45f9c0 | 2026-07-09 | decade-year fortune relations in fortune.relations.decadeYears; saeun relationsWithDecade; yearly report evidence. Pre-start years omitted; natal scoring unchanged. Verified: saju-ts 204/0, baseline 17/0, compat 208/0, tiered-shape 1378/0, service-visible 13/0, adapter-daewoon 25/0, transit-luck-report 13/0 |
 | 9-3 교운 일시 | ⬜ | | | D2 선행 |
 | 9-4 나이 표기 옵션 | ⬜ | | | |
 | 9-5 A12 yearBoundary | ✅ | 3bf08cf5c | 2026-07-09 | 기본(liChun) 바이트 동일 확인(회귀 가드 테스트). 비-liChun만 세운 분절 변경. saju-ts 184/0·baseline 15/15·calendar-policy 14/0·compat 208/0 |
