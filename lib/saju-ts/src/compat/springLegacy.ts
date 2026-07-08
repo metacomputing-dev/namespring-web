@@ -167,6 +167,7 @@ export interface LegacySajuOptions {
   daeunCount?: number;
   saeunStartYear?: number | null;
   saeunYearCount?: number;
+  wolunStartYear?: number | null;
   wolunMonthCount?: number;
 }
 
@@ -509,6 +510,14 @@ function orderedBanghapGroup(branchIdx: number): number[] {
   return [mod(start, 12), mod(start + 1, 12), mod(start + 2, 12)];
 }
 
+function entryStemIdx(entry: any): unknown {
+  return entry?.pillar?.stem?.idx ?? entry?.pillar?.stem;
+}
+
+function entryBranchIdx(entry: any): unknown {
+  return entry?.pillar?.branch?.idx ?? entry?.pillar?.branch;
+}
+
 export function buildTransitShinsalForBranch(anchorBranchIdx: unknown, targetBranchIdx: unknown) {
   const anchor = branchIdxFromUnknown(anchorBranchIdx);
   const target = branchIdxFromUnknown(targetBranchIdx);
@@ -534,8 +543,8 @@ export function buildTransitShinsalForBranch(anchorBranchIdx: unknown, targetBra
 }
 
 function luckPillarAnnotations(entry: any, dayStemIdx: number, yearBranchIdx: number, lifeStagePolicy: any) {
-  const stemIdx = stemIdxFromUnknown(entry?.pillar?.stem?.idx);
-  const branchIdx = branchIdxFromUnknown(entry?.pillar?.branch?.idx);
+  const stemIdx = stemIdxFromUnknown(entryStemIdx(entry));
+  const branchIdx = branchIdxFromUnknown(entryBranchIdx(entry));
   const lifeStage = lifeStageOf(dayStemIdx as any, branchIdx as any, lifeStagePolicy ?? DEFAULT_TRANSIT_LIFE_STAGE_POLICY).stage;
 
   return {
@@ -1126,6 +1135,7 @@ function normalizeLegacyOutput(
   daeunCount?: number,
   saeunStartYear?: number | null,
   saeunYearCount?: number,
+  wolunStartYear?: number | null,
   wolunMonthCount?: number,
   timeZone?: string,
 ) {
@@ -1494,26 +1504,36 @@ function normalizeLegacyOutput(
   const gongmangVoidBranches = extractGongmangVoidBranches(bundle);
 
   const fortune = bundle.summary?.fortune as any;
+  const timeline = (facts?.['fortune.timeline'] ?? null) as any;
   const decades = Array.isArray(fortune?.decades) ? fortune.decades : [];
-  const yearsAll = Array.isArray(fortune?.years) ? fortune.years : [];
-  const monthsAll = Array.isArray(fortune?.months) ? fortune.months : [];
+  const needsExpandedYears = typeof saeunStartYear === 'number' || typeof saeunYearCount === 'number';
+  const needsExpandedMonths = typeof wolunStartYear === 'number' || typeof wolunMonthCount === 'number';
+  const yearsAll = needsExpandedYears && Array.isArray(timeline?.years)
+    ? timeline.years
+    : Array.isArray(fortune?.years) ? fortune.years : [];
+  const monthsAll = needsExpandedMonths && Array.isArray(timeline?.months)
+    ? timeline.months
+    : Array.isArray(fortune?.months) ? fortune.months : [];
   const yearsFiltered = typeof saeunStartYear === 'number'
     ? yearsAll.filter((y: any) => Number(y?.solarYear) >= saeunStartYear)
     : yearsAll;
   const years = typeof saeunYearCount === 'number' && saeunYearCount > 0
     ? yearsFiltered.slice(0, saeunYearCount)
     : yearsFiltered;
-  const months = typeof wolunMonthCount === 'number' && wolunMonthCount > 0
-    ? monthsAll.slice(0, wolunMonthCount)
+  const monthsFiltered = typeof wolunStartYear === 'number'
+    ? monthsAll.filter((m: any) => Number(m?.solarYear) >= wolunStartYear)
     : monthsAll;
+  const months = typeof wolunMonthCount === 'number' && wolunMonthCount > 0
+    ? monthsFiltered.slice(0, wolunMonthCount)
+    : monthsFiltered;
   const dayStemIdxForTransit = stemIdxFromUnknown(pillars.day.stem.idx);
   const yearBranchIdxForTransit = branchIdxFromUnknown(pillars.year.branch.idx);
   const lifeStagePolicy = (facts?.['policy.lifeStages'] ?? DEFAULT_TRANSIT_LIFE_STAGE_POLICY) as any;
   const daeunPillars = (typeof daeunCount === 'number' && daeunCount > 0 ? decades.slice(0, daeunCount) : decades)
     .map((entry: any) => ({
       pillar: {
-        cheongan: stemCodeFromIdx(entry?.pillar?.stem?.idx),
-        jiji: branchCodeFromIdx(entry?.pillar?.branch?.idx),
+        cheongan: stemCodeFromIdx(entryStemIdx(entry)),
+        jiji: branchCodeFromIdx(entryBranchIdx(entry)),
       },
       startAge: Number(entry?.startAgeYears ?? 0),
       endAge: Number(entry?.endAgeYears ?? 0),
@@ -1524,8 +1544,8 @@ function normalizeLegacyOutput(
   const saeunPillars = years.map((entry: any) => ({
     year: Number(entry?.solarYear ?? 0),
     pillar: {
-      cheongan: stemCodeFromIdx(entry?.pillar?.stem?.idx),
-      jiji: branchCodeFromIdx(entry?.pillar?.branch?.idx),
+      cheongan: stemCodeFromIdx(entryStemIdx(entry)),
+      jiji: branchCodeFromIdx(entryBranchIdx(entry)),
     },
     startUtcMs: Number.isFinite(entry?.startUtcMs) ? Number(entry.startUtcMs) : null,
     endUtcMs: Number.isFinite(entry?.endUtcMs) ? Number(entry.endUtcMs) : null,
@@ -1539,8 +1559,8 @@ function normalizeLegacyOutput(
     monthOrder: Number(entry?.monthOrder ?? 0),
     startJie: String(entry?.startJie ?? ''),
     pillar: {
-      cheongan: stemCodeFromIdx(entry?.pillar?.stem?.idx),
-      jiji: branchCodeFromIdx(entry?.pillar?.branch?.idx),
+      cheongan: stemCodeFromIdx(entryStemIdx(entry)),
+      jiji: branchCodeFromIdx(entryBranchIdx(entry)),
     },
     startUtcMs: Number.isFinite(entry?.startUtcMs) ? Number(entry.startUtcMs) : null,
     endUtcMs: Number.isFinite(entry?.endUtcMs) ? Number(entry.endUtcMs) : null,
@@ -1744,6 +1764,7 @@ export function analyzeSaju(
     options?.daeunCount,
     options?.saeunStartYear,
     options?.saeunYearCount,
+    options?.wolunStartYear,
     options?.wolunMonthCount,
     tz,
   );

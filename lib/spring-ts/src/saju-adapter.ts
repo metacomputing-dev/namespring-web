@@ -1382,12 +1382,35 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
       };
     }
     if (options?.sajuConfig) config = { ...config, ...options.sajuConfig };
+
+    const wolunStartYear = options?.sajuOptions?.wolunStartYear;
+    if (typeof wolunStartYear === 'number') {
+      const requestedMonthCount = typeof options?.sajuOptions?.wolunMonthCount === 'number'
+        ? options.sajuOptions.wolunMonthCount
+        : 24;
+      const yearsToCover = Math.max(2, wolunStartYear - birthYear + 2);
+      const requiredMaxMonths = Math.max(24, yearsToCover * 12 + requestedMonthCount);
+      const strategies = (config.strategies ?? {}) as Record<string, any>;
+      const fortune = (strategies.fortune ?? {}) as Record<string, any>;
+      const existingMaxMonths = Number(fortune.maxMonths);
+      config.strategies = {
+        ...strategies,
+        fortune: {
+          ...fortune,
+          maxMonths: Number.isFinite(existingMaxMonths)
+            ? Math.max(existingMaxMonths, requiredMaxMonths)
+            : requiredMaxMonths,
+        },
+      };
+    }
+
     const finalConfig = Object.keys(config).length > 0 ? config : undefined;
 
     const sajuOpts = options?.sajuOptions ? {
       daeunCount:      options.sajuOptions.daeunCount,
       saeunStartYear:  options.sajuOptions.saeunStartYear,
       saeunYearCount:  options.sajuOptions.saeunYearCount,
+      wolunStartYear:  options.sajuOptions.wolunStartYear,
       wolunMonthCount: options.sajuOptions.wolunMonthCount,
     } : undefined;
 

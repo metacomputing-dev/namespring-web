@@ -38,7 +38,7 @@ import {
 import { springEvaluateName, SAJU_FRAME } from './spring-evaluator.js';
 import { analyzeSaju, analyzeSajuSafe, buildSajuContext, collectElements } from './saju-adapter.js';
 import type {
-  SpringRequest, SpringResponse, SpringCandidate, SajuSummary,
+  SpringRequest, SpringResponse, SpringCandidate, SajuSummary, SpringOptions,
   SajuReport, NamingReport, NamingReportFrame, SpringReport, SpringCandidateSummary,
   NameCharInput, CharDetail, NameGenderTendency, BirthInfo, NamingScoreVector,
   CandidateStrengthProfile, NameElementStrategy,
@@ -74,6 +74,43 @@ const DEFAULT_USE_SURNAME_HANJA_IN_PURE = false;
 const ENABLE_HANJA_NAME_EVALUATION = true;
 const ENABLE_FOURFRAME_NAME_EVALUATION = true;
 const FULL_POOL_ID_BASE = 900_000;
+
+function parseFortuneTargetDate(raw: string | undefined): Date {
+  const parsed = raw ? new Date(raw) : new Date();
+  return Number.isNaN(parsed.getTime()) ? new Date() : parsed;
+}
+
+function hasOwnKey(obj: object, key: string): boolean {
+  return Object.prototype.hasOwnProperty.call(obj, key);
+}
+
+function optionsForFortuneTarget(options: SpringOptions | undefined, targetDate: Date): SpringOptions {
+  const targetYear = targetDate.getFullYear();
+  const inputSajuOptions = options?.sajuOptions ?? {};
+  const sajuOptions: {
+    daeunCount?: number;
+    saeunStartYear?: number | null;
+    saeunYearCount?: number;
+    wolunStartYear?: number | null;
+    wolunMonthCount?: number;
+  } = { ...inputSajuOptions };
+
+  if (!hasOwnKey(inputSajuOptions, 'saeunStartYear')) {
+    sajuOptions.saeunStartYear = targetYear - 1;
+  }
+  if (!hasOwnKey(inputSajuOptions, 'saeunYearCount')) {
+    sajuOptions.saeunYearCount = 4;
+  }
+  if (!hasOwnKey(inputSajuOptions, 'wolunStartYear')) {
+    sajuOptions.wolunStartYear = targetYear - 1;
+  }
+  if (!hasOwnKey(inputSajuOptions, 'wolunMonthCount')) {
+    sajuOptions.wolunMonthCount = 24;
+  }
+
+  return { ...(options ?? {}), sajuOptions };
+}
+
 const UNSAFE_HANJA_MEANING_PATTERNS = [
   /장물/,
   /뇌물/,
@@ -2839,15 +2876,19 @@ export class SpringEngine {
   async getFortuneReport(request: FortuneReportRequest): Promise<FortuneReport> {
     await this.init();
 
-    // 1. Run saju analysis
+    // 1. Parse target date, then request the surrounding transit rows.
+    const targetDate = parseFortuneTargetDate(request.targetDate);
+    const reportOptions = optionsForFortuneTarget(request.options, targetDate);
+
+    // 2. Run saju analysis
     const sajuReport = await this.getSajuReport({
       birth: request.birth,
       surname: request.surname ?? [],
-      options: request.options,
+      options: reportOptions,
     });
     const saju: SajuSummary = sajuReport;
 
-    // 2. Optionally run spring report if name is provided
+    // 3. Optionally run spring report if name is provided
     let springReport: SpringReport | null = null;
     if (request.givenName && request.givenName.length > 0) {
       try {
@@ -2857,7 +2898,7 @@ export class SpringEngine {
             surname: request.surname ?? [],
             givenName: request.givenName,
             mode: 'evaluate',
-            options: request.options,
+            options: reportOptions,
           },
           sajuReport,
         );
@@ -2867,19 +2908,11 @@ export class SpringEngine {
       }
     }
 
-    // 3. Parse target date
-    const parsedTargetDate = request.targetDate
-      ? new Date(request.targetDate)
-      : new Date();
-    const targetDate = Number.isNaN(parsedTargetDate.getTime())
-      ? new Date()
-      : parsedTargetDate;
-
     // 4. Build the fortune report
     // PR-Q-12 (Phase M-D6): fortuneCascadeMode default flips
     // 'simple' → 'jie_based'. saju-ts 의 정확한 절기 boundary 사용 — 60 일 / 년
     // (16%) 정확도 회복. Callers can opt out via explicit 'simple'.
-    const pc = request.options?.precisionConfig;
+    const pc = reportOptions.precisionConfig;
     const fortuneCascadeMode = pc?.fortuneCascadeMode ?? 'jie_based';
     return buildFortuneReport(saju, targetDate, springReport, {
       fortuneCascadeMode: fortuneCascadeMode === 'jie_based' || fortuneCascadeMode === 'full_5layer'
@@ -2887,7 +2920,7 @@ export class SpringEngine {
         : 'simple',
       narrativeStyle: pc?.narrativeStyle,
       readingFocus: pc?.readingFocus,
-      schoolPreset: this.resolveSchoolPresetMeta(request.options),
+      schoolPreset: this.resolveSchoolPresetMeta(reportOptions),
       // PR-Q-16 (Phase K-1 PR-B): surfaceSubDomains default flips
       // false → true. Each CategoryFortuneCard now carries 1-3 sub-domain
       // rows (saju_master/event_domain_map.py doctrine). Callers can opt

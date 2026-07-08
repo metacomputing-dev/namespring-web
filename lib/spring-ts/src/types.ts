@@ -436,6 +436,7 @@ export interface SajuRequestOptions {
   readonly daeunCount?: number;
   readonly saeunStartYear?: number | null;
   readonly saeunYearCount?: number;
+  readonly wolunStartYear?: number | null;
   readonly wolunMonthCount?: number;
 }
 

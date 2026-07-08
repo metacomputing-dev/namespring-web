@@ -30,6 +30,11 @@ import type { ElementCode } from '../types.js';
 import { getFortuneGrade } from '../common/fortuneCalculator.js';
 import { daeunDisplayOffset } from '../common/daeun-display.js';
 import {
+  luckAnnotationFeatures,
+  luckAnnotationHighlights,
+  type LuckPillarAnnotationsForReport,
+} from '../common/transit-luck-metadata.js';
+import {
   STEM_BY_CODE,
   BRANCH_BY_CODE,
   ELEMENT_GENERATES,
@@ -119,7 +124,7 @@ function adjustGradeForBranch(
 //  Daeun pillar interface for runtime access
 // ---------------------------------------------------------------------------
 
-interface DaeunPillar {
+interface DaeunPillar extends LuckPillarAnnotationsForReport {
   readonly stem: string;
   readonly branch: string;
   readonly startAge: number;
@@ -154,6 +159,12 @@ function extractDaeunInfo(saju: SajuSummary): DaeunInfo | null {
       startAge: typeof pp.startAge === 'number' ? pp.startAge : 0,
       endAge: typeof pp.endAge === 'number' ? pp.endAge : 0,
       order: typeof pp.order === 'number' ? pp.order : 0,
+      tenGod: typeof pp.tenGod === 'string' ? pp.tenGod : undefined,
+      lifeStage: typeof pp.lifeStage === 'string' ? pp.lifeStage : undefined,
+      lifeStageKo: typeof pp.lifeStageKo === 'string' ? pp.lifeStageKo : undefined,
+      transitShinsal: pp.transitShinsal && typeof pp.transitShinsal === 'object'
+        ? pp.transitShinsal as LuckPillarAnnotationsForReport['transitShinsal']
+        : undefined,
     });
   }
 
@@ -319,7 +330,10 @@ export function buildLifeStageFortuneCard(
     }
 
     const summary = makeStageSummary(stemEl, branchEl, grade, flooredStartAge, flooredEndAge);
-    const highlights = makeHighlights(stemEl, branchEl, grade, yongshinElement);
+    const highlights = [
+      ...makeHighlights(stemEl, branchEl, grade, yongshinElement),
+      ...luckAnnotationHighlights(dp),
+    ];
 
     stages.push({
       ageRange,
@@ -341,6 +355,7 @@ export function buildLifeStageFortuneCard(
   // the current stage (or first stage when current is unknown).
   const focusIndex = currentStageIndex ?? 0;
   const focusStage = stages[focusIndex];
+  const focusPillar = sortedPillars[focusIndex];
   if (focusStage) {
     const supporting: string[] = [
       `현재 시기: ${focusStage.ageRange}`,
@@ -351,6 +366,7 @@ export function buildLifeStageFortuneCard(
     if (yongshinEl) {
       supporting.push(`용신: ${elementKo(yongshinEl)}`);
     }
+    supporting.push(...luckAnnotationFeatures(focusPillar));
     evidence.push({
       axis: 'daewoon',
       claim: focusStage.summary || `${focusStage.ageRange}에는 ${focusStage.pillarDisplay} 대운에 따라 흐름이 잡혀요.`,

@@ -35,6 +35,10 @@ import {
   checkFortuneRelations,
 } from '../common/fortuneCalculator.js';
 import type { FortuneGanzhi } from '../common/fortuneCalculator.js';
+import {
+  luckAnnotationFeatures,
+  type LuckPillarAnnotationsForReport,
+} from '../common/transit-luck-metadata.js';
 
 import {
   ELEMENT_GENERATES,
@@ -179,6 +183,53 @@ function gradeToStars(grade: number): StarRating {
 interface PeriodPillar {
   readonly ganzhi: FortuneGanzhi;
   readonly label: string;
+  readonly annotations?: LuckPillarAnnotationsForReport;
+}
+
+interface LuckPillarRow extends LuckPillarAnnotationsForReport {
+  readonly year?: number;
+  readonly stem?: string;
+  readonly branch?: string;
+  readonly startUtcMs?: number | null;
+  readonly endUtcMs?: number | null;
+}
+
+function finiteNumber(value: unknown): number | null {
+  const n = Number(value);
+  return Number.isFinite(n) ? n : null;
+}
+
+function findLuckRowCoveringDate(rows: readonly LuckPillarRow[] | undefined, targetMs: number): LuckPillarRow | null {
+  if (!Array.isArray(rows)) return null;
+  for (const row of rows) {
+    const start = finiteNumber(row.startUtcMs);
+    const end = finiteNumber(row.endUtcMs);
+    if (start !== null && end !== null && targetMs >= start && targetMs < end) return row;
+  }
+  return null;
+}
+
+function pillarFromLuckRow(row: LuckPillarRow | null | undefined, label: string): PeriodPillar | null {
+  if (!row) return null;
+  const stemInfo = STEM_BY_CODE[row.stem?.toUpperCase?.() ?? ''];
+  const branchInfo = BRANCH_BY_CODE[row.branch?.toUpperCase?.() ?? ''];
+  if (!stemInfo || !branchInfo) return null;
+
+  return {
+    ganzhi: {
+      ganzhiIndex: 0,
+      stemIndex: stemInfo.index,
+      branchIndex: branchInfo.index,
+      stem: stemInfo,
+      branch: branchInfo,
+      ganzhiHangul: `${stemInfo.hangul}${branchInfo.hangul}`,
+      ganzhiHanja: `${stemInfo.hanja}${branchInfo.hanja}`,
+      stemElement: stemInfo.element,
+      branchElement: branchInfo.element,
+    },
+    label,
+    annotations: row,
+  };
 }
 
 function computePillarForPeriod(
@@ -190,40 +241,27 @@ function computePillarForPeriod(
   const year = targetDate.getFullYear();
 
   if (periodKind === 'yearly') {
-    // Try saeunPillars first
-    const saeunPillars = saju.saeunPillars as
-      | Array<{ year: number; stem: string; branch: string }>
-      | undefined;
-    if (Array.isArray(saeunPillars)) {
-      const match = saeunPillars.find((p) => p.year === year);
-      if (match) {
-        const stemInfo = STEM_BY_CODE[match.stem?.toUpperCase?.()];
-        const branchInfo = BRANCH_BY_CODE[match.branch?.toUpperCase?.()];
-        if (stemInfo && branchInfo) {
-          return {
-            ganzhi: {
-              ganzhiIndex: 0, // not critical for grading
-              stemIndex: stemInfo.index,
-              branchIndex: branchInfo.index,
-              stem: stemInfo,
-              branch: branchInfo,
-              ganzhiHangul: `${stemInfo.hangul}${branchInfo.hangul}`,
-              ganzhiHanja: `${stemInfo.hanja}${branchInfo.hanja}`,
-              stemElement: stemInfo.element,
-              branchElement: branchInfo.element,
-            },
-            label: `${year}년`,
-          };
-        }
-      }
-    }
-    // Fallback: compute from formula
+    const targetMs = targetDate.getTime();
+    const saeunPillars = saju.saeunPillars as readonly LuckPillarRow[] | undefined;
+    const match = findLuckRowCoveringDate(saeunPillars, targetMs)
+      ?? (Array.isArray(saeunPillars) ? saeunPillars.find((p) => p.year === year) ?? null : null);
+    const fromSaeun = pillarFromLuckRow(match, `${year}년`);
+    if (fromSaeun) return fromSaeun;
+
     const yf = getYearlyFortune(year);
     return { ganzhi: yf, label: `${year}년` };
   }
 
   if (periodKind === 'monthly') {
     const solarMonth = targetDate.getMonth() + 1;
+    const targetMs = targetDate.getTime();
+    const wolunPillars = (saju as Record<string, unknown>).wolunPillars as readonly LuckPillarRow[] | undefined;
+    const fromWolun = pillarFromLuckRow(
+      findLuckRowCoveringDate(wolunPillars, targetMs),
+      `${year}년 ${solarMonth}월`,
+    );
+    if (fromWolun) return fromWolun;
+
     const day = targetDate.getDate();
     const mode = options?.fortuneCascadeMode === 'jie_based' ? 'jie_based' as const : 'simple' as const;
     const mf = getMonthlyFortuneSolar(year, solarMonth, { day, mode });
@@ -968,6 +1006,7 @@ export function buildPeriodFortuneCard(
   ];
   if (yongshinKo) periodSupporting.push(`용신: ${yongshinKo}`);
   if (gishinKo) periodSupporting.push(`기신: ${gishinKo}`);
+  periodSupporting.push(...luckAnnotationFeatures(pillarResult?.annotations));
 
   evidence.push({
     axis: 'period',
