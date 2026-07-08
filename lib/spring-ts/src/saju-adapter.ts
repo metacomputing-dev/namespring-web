@@ -1556,6 +1556,7 @@ export function extractSaju(rawSajuOutput: any): SajuSummary {
     hapHwaEvaluations:    extractHapHwaEvaluations(rawSajuOutput),
     jijiRelations:        extractJijiRelations(rawSajuOutput),
     sibiUnseong:          extractSibiUnseong(rawSajuOutput),
+    yinYangBalance:       extractYinYangBalance(rawSajuOutput),
     gongmang:             extractGongmang(rawSajuOutput),
     tenGodAnalysis:       extractTenGodAnalysis(rawSajuOutput.tenGodAnalysis, dayStemCode),
     shinsalHits:          extractShinsalHits(rawSajuOutput),
@@ -2169,6 +2170,25 @@ function extractSibiUnseong(rawSajuOutput: any) {
       : Object.entries(rawSajuOutput.sibiUnseong)
     ).map(([key, value]: [any, any]) => [String(key), String(value)]),
   );
+}
+
+// ---------------------------------------------------------------------------
+//  YinYang balance (PR-12-4 / 감사 C6)
+// ---------------------------------------------------------------------------
+
+function extractYinYangBalance(rawSajuOutput: any) {
+  const raw = rawSajuOutput.yinYangBalance;
+  if (!raw || typeof raw !== 'object') return undefined;
+  const num = (v: any): number => (Number.isFinite(Number(v)) ? Number(v) : 0);
+  const pair = (v: any) => ({ yang: num(v?.yang), yin: num(v?.yin) });
+  const dominant = raw.dominant === 'YANG' || raw.dominant === 'YIN' ? raw.dominant : 'EVEN';
+  return {
+    yang: num(raw.yang),
+    yin: num(raw.yin),
+    stems: pair(raw.stems),
+    branches: pair(raw.branches),
+    dominant,
+  };
 }
 
 // ---------------------------------------------------------------------------

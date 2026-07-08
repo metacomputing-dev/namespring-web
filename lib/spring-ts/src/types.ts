@@ -563,7 +563,18 @@ export interface SajuSummary {
   readonly inputUncertainty?: SajuInputUncertainty;
   /** 감사 B1: 음력 입력 변환 기록. calendarType='lunar' 요청에서만 채워진다(사용자 검증용). */
   readonly lunarConversion?: LunarConversionSummary;
+  /** PR-12-4 (감사 C6): 음양 균형 — 8글자 체(體) 기준 개수 집계 (additive). */
+  readonly yinYangBalance?: YinYangBalanceSummary;
   readonly [key: string]: unknown;
+}
+
+/** PR-12-4 (감사 C6): 음양 균형 개수 — 지지는 체(體) 기준(子寅辰午申戌=양). */
+export interface YinYangBalanceSummary {
+  readonly yang: number;
+  readonly yin: number;
+  readonly stems: { readonly yang: number; readonly yin: number };
+  readonly branches: { readonly yang: number; readonly yin: number };
+  readonly dominant: 'YANG' | 'YIN' | 'EVEN';
 }
 
 /** 감사 B1: 음력 입력 → 양력 변환 기록. 사용자 검증용 additive 필드 —
