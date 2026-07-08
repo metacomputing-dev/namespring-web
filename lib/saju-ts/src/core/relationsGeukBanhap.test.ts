@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { detectStemRelations, isStemGeuk } from './stemRelations.js';
-import { detectBranchRelations, isWangji } from './branchRelations.js';
+import { detectBranchRelations, gwimunPartner, isWangji } from './branchRelations.js';
 
 // 천간 인덱스: 0갑 1을 2병 3정 4무 5기 6경 7신 8임 9계
 // 지지 인덱스: 0子 1丑 2寅 3卯 4辰 5巳 6午 7未 8申 9酉 10戌 11亥
@@ -43,6 +43,18 @@ describe('지지 반합(BANHAP) 탐지 (감사 B3)', () => {
   it('왕지 없는 생지+고지(가합: 申辰)는 불인정', () => {
     const rels = detectBranchRelations([8, 4, 2, 5]); // 申辰寅巳
     expect(rels.some((r) => r.type === 'BANHAP')).toBe(false);
+  });
+
+  it('귀문 6조합 파트너 맵이 대합적이고(子酉·丑午·寅未·卯申·辰亥·巳戌) 탐지된다', () => {
+    const pairs: Array<[number, number]> = [[0, 9], [1, 6], [2, 7], [3, 8], [4, 11], [5, 10]];
+    for (const [a, b] of pairs) {
+      expect(gwimunPartner(a), `${a}→${b}`).toBe(b);
+      expect(gwimunPartner(b), `${b}→${a}`).toBe(a);
+    }
+    // 子酉는 원진이 아닌 귀문 전용 조합 — GWIMUN으로만 잡혀야 한다
+    const rels = detectBranchRelations([0, 9, 2, 5]); // 子酉寅巳
+    expect(rels.some((r) => r.type === 'GWIMUN' && r.members.join('-') === '0-9')).toBe(true);
+    expect(rels.some((r) => r.type === 'WONJIN' && r.members.join('-') === '0-9')).toBe(false);
   });
 
   it('삼합 3자 완전체가 있으면 SAMHAP만 보고하고 반합은 억제한다', () => {

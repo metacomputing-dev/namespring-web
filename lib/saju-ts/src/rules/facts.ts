@@ -541,6 +541,9 @@ export interface RuleFacts {
     jaesal: { year: BranchIdx; day: BranchIdx };
     hongluan: { year: BranchIdx };
     cheonhui: { year: BranchIdx };
+    /** 고신(孤辰)·과숙(寡宿) 타깃 지지 — 년지 기준이 주류, day 앵커는 이설 병용용 데이터만 제공. */
+    gosin: { year: BranchIdx; day: BranchIdx };
+    gwasuk: { year: BranchIdx; day: BranchIdx };
     gongmang: { day: [BranchIdx, BranchIdx] };
 
     /** Special/seasonal day markers (e.g., 天赦日). */
@@ -2544,6 +2547,21 @@ function shinsalJaesalOf(branch: BranchIdx): BranchIdx {
   return twelveSalOf(branch).JAESAL;
 }
 
+/** 방합(계절)군 index: 亥子丑=0, 寅卯辰=1, 巳午未=2, 申酉戌=3. */
+function seasonalTrioIndexOf(branch: BranchIdx): number {
+  return Math.floor(mod(branch + 1, 12) / 3);
+}
+
+function shinsalGosinOf(anchorBranch: BranchIdx): BranchIdx {
+  // 孤辰(고신): 방합군 기준 다음 계절의 생지 — 亥子丑→寅, 寅卯辰→巳, 巳午未→申, 申酉戌→亥 (감사 B8).
+  return ([2, 5, 8, 11] as const)[seasonalTrioIndexOf(anchorBranch)]! as BranchIdx;
+}
+
+function shinsalGwasukOf(anchorBranch: BranchIdx): BranchIdx {
+  // 寡宿(과숙): 방합군 기준 이전 계절의 고지 — 亥子丑→戌, 寅卯辰→丑, 巳午未→辰, 申酉戌→未 (감사 B8).
+  return ([10, 1, 4, 7] as const)[seasonalTrioIndexOf(anchorBranch)]! as BranchIdx;
+}
+
 function shinsalHongluanOf(yearBranch: BranchIdx): BranchIdx {
   // 紅鸞: year-branch anchored mapping. Pattern is a simple reverse sequence: 0(子)→3(卯), 1(丑)→2(寅), ...
   return mod(3 - yearBranch, 12) as BranchIdx;
@@ -3092,6 +3110,7 @@ export function buildRuleFacts(args: {
     HAE_SAL: (byType.HAE ?? []).map((m) => relPayload('HAE_SAL', 'HAE', m as BranchIdx[])),
     PA_SAL: (byType.PA ?? []).map((m) => relPayload('PA_SAL', 'PA', m as BranchIdx[])),
     WONJIN_SAL: (byType.WONJIN ?? []).map((m) => relPayload('WONJIN_SAL', 'WONJIN', m as BranchIdx[])),
+    GWIMUN_SAL: (byType.GWIMUN ?? []).map((m) => relPayload('GWIMUN_SAL', 'GWIMUN', m as BranchIdx[])),
     GEOKGAK_SAL: geokgakUnique.map((m) =>
       relPayload('GEOKGAK_SAL', geokgakMode === 'anyPair' ? 'GEOKGAK_ANY_PAIR' : 'GEOKGAK_DAY_HOUR', m as BranchIdx[]),
     ),
@@ -3335,6 +3354,8 @@ export function buildRuleFacts(args: {
       jaesal: { year: twelveSalYear.JAESAL, day: twelveSalDay.JAESAL },
       hongluan: { year: shinsalHongluanOf(pillars.year.branch) },
       cheonhui: { year: shinsalCheonhuiOf(pillars.year.branch) },
+      gosin: { year: shinsalGosinOf(pillars.year.branch), day: shinsalGosinOf(pillars.day.branch) },
+      gwasuk: { year: shinsalGwasukOf(pillars.year.branch), day: shinsalGwasukOf(pillars.day.branch) },
       gongmang: { day: shinsalGongmangOfDayPillar(pillars.day) },
 
       specialDays: {

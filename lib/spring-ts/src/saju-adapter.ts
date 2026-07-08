@@ -204,6 +204,7 @@ const JIJI_RELATION_NOTE_KO_LABEL: Record<string, string> = {
   HAE: '\uC9C0\uC9C0 \uD574 \uAD00\uACC4',
   PA: '\uC9C0\uC9C0 \uD30C \uAD00\uACC4',
   WONJIN: '\uC9C0\uC9C0 \uC6D0\uC9C4 \uAD00\uACC4',
+  GWIMUN: '\uC9C0\uC9C0 \uADC0\uBB38 \uAD00\uACC4',
   HYEONG: '\uC9C0\uC9C0 \uD615 \uAD00\uACC4',
   JA_HYEONG: '\uC9C0\uC9C0 \uC790\uD615 \uAD00\uACC4',
   SAMHYEONG: '\uC9C0\uC9C0 \uC0BC\uD615 \uAD00\uACC4',
@@ -218,6 +219,7 @@ const JIJI_RELATION_OUTCOME_KO_LABEL: Record<string, string> = {
   HAE: '\uD574',
   PA: '\uD30C',
   WONJIN: '\uC6D0\uC9C4',
+  GWIMUN: '\uADC0\uBB38',
   HYEONG: '\uD615',
   JA_HYEONG: '\uC790\uD615',
   SAMHYEONG: '\uC0BC\uD615',
@@ -240,6 +242,7 @@ const RELATION_TYPE_KO_LABEL: Record<string, string> = {
   HAE: '\uD574',
   PA: '\uD30C',
   WONJIN: '\uC6D0\uC9C4',
+  GWIMUN: '\uADC0\uBB38',
   HYEONG: '\uD615',
   JA_HYEONG: '\uC790\uD615',
   SAMHYEONG: '\uC0BC\uD615',
@@ -254,6 +257,9 @@ const SHINSAL_TYPE_KO_LABEL: Record<string, string> = {
   HAE_SAL: '해살',
   PA_SAL: '파살',
   WONJIN_SAL: '원진살',
+  GWIMUN_SAL: '귀문관살',
+  GOSIN_SAL: '고신살',
+  GWASUK_SAL: '과숙살',
   GEOKGAK_SAL: '격각살',
   // 12신살 (twelve sal)
   JI_SAL: '지살',
@@ -1897,10 +1903,15 @@ function extractShinsalHits(rawSajuOutput: any) {
   const sourceHits   = weightedHits.length > 0 ? weightedHits : ensureArray(rawSajuOutput.shinsalHits);
   const isWeighted   = weightedHits.length > 0;
 
+  const SEAT_VALUES = new Set(['year', 'month', 'day', 'hour']);
+
   return sourceHits.map((item: any) => {
     const hitData    = isWeighted ? item.hit : item;
     const baseWeight = isWeighted ? Number(item.baseWeight) || 0 : 0;
     const gradeCode = String(hitData?.grade || '') || (isWeighted ? gradeFromWeight(baseWeight) : 'C');
+    const seatPillars = ensureArray(hitData?.seatPillars).filter(
+      (p: unknown): p is 'year' | 'month' | 'day' | 'hour' => typeof p === 'string' && SEAT_VALUES.has(p),
+    );
     return {
       type:               formatShinsalTypeDisplay(hitData?.type),
       position:           formatShinsalPositionDisplay(hitData?.position),
@@ -1908,6 +1919,9 @@ function extractShinsalHits(rawSajuOutput: any) {
       baseWeight,
       positionMultiplier: isWeighted ? Number(item.positionMultiplier) || 0 : 0,
       weightedScore:      isWeighted ? Number(item.weightedScore)      || 0 : 0,
+      basedOn:            hitData?.basedOn != null ? String(hitData.basedOn) : undefined,
+      seatPillars,
+      count:              isWeighted && Number.isFinite(item.count) ? Number(item.count) : undefined,
     };
   });
 }

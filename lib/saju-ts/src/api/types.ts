@@ -413,13 +413,13 @@ export interface JonggyeokCandidateView {
 
 export interface ShinsalView {
   name: string;
-  basedOn: 'YEAR_BRANCH' | 'DAY_BRANCH' | 'MONTH_BRANCH' | 'OTHER';
+  basedOn: 'YEAR_BRANCH' | 'DAY_BRANCH' | 'MONTH_BRANCH' | 'DAY_STEM' | 'YEAR_STEM' | 'OTHER';
   targetBranch: BranchView;
 }
 
 export interface ShinsalHitView {
   name: string;
-  basedOn: 'YEAR_BRANCH' | 'DAY_BRANCH' | 'MONTH_BRANCH' | 'OTHER';
+  basedOn: 'YEAR_BRANCH' | 'DAY_BRANCH' | 'MONTH_BRANCH' | 'DAY_STEM' | 'YEAR_STEM' | 'OTHER';
   targetKind: 'BRANCH' | 'STEM' | 'NONE';
   targetBranch?: BranchView;
   targetStem?: StemView;

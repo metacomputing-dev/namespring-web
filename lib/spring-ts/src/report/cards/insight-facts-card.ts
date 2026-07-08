@@ -20,7 +20,7 @@ import { STEM_BY_CODE, BRANCH_BY_CODE } from '../common/elementMaps.js';
 
 export type InsightFactKind =
   | 'shinsal' | 'gongmang' | 'stemRelation' | 'branchRelation'
-  | 'hiddenStems' | 'daeunPillar';
+  | 'hiddenStems' | 'sibiUnseong' | 'daeunPillar';
 
 /** 독자 중심 그룹 — 나열이 아니라 읽는 결로 묶는다. */
 export type InsightGroup = 'boon' | 'tension' | 'space';
@@ -147,6 +147,12 @@ function markHighlights(facts: InsightFact[]): InsightFact[] {
     if (f.kind === 'shinsal') {
       const base = f.score ?? (f.grade === 'A' ? 100 : f.grade === 'B' ? 50 : 25);
       return base * 0.45; // A(100)→45, B(50)→22.5 — 구조 신호(관계·공망)보다 아래
+    }
+    if (f.kind === 'sibiUnseong') {
+      // 만세력 표준 표기지만 개별 통변 강도는 중간 — 관계·공망 아래, 지장간 위.
+      const order: Record<string, number> = { day: 28, month: 26, hour: 24, year: 22 };
+      const pos = f.factId.split('.').pop() ?? '';
+      return order[pos] ?? 22;
     }
     if (f.kind === 'hiddenStems') {
       const order: Record<string, number> = {
@@ -281,6 +287,29 @@ export function buildInsightFactsCard(saju: SajuSummary): InsightFactsCard | nul
         members: names,
         group: 'space',
       }));
+    }
+  }
+
+  // ── 12운성 (sibiUnseong: {기둥: 한글 운성} — springLegacy 배관, 감사 C1) ──
+  const sibi = (saju as Record<string, unknown>)['sibiUnseong'];
+  if (sibi && typeof sibi === 'object') {
+    const posKo: Record<string, string> = { year: '년주', month: '월주', day: '일주', hour: '시주' };
+    // 왕성한 국면은 boon, 스러지는 국면은 tension, 잉태·양육 국면은 space.
+    const stageGroup: Record<string, InsightGroup> = {
+      장생: 'boon', 관대: 'boon', 건록: 'boon', 제왕: 'boon',
+      목욕: 'tension', 쇠: 'tension', 병: 'tension', 사: 'tension', 묘: 'tension', 절: 'tension',
+      태: 'space', 양: 'space',
+    };
+    for (const pos of ['year', 'month', 'day', 'hour'] as const) {
+      const stage = (sibi as Record<string, unknown>)[pos];
+      if (typeof stage !== 'string' || !stage) continue;
+      facts.push(withInterpretation({
+        factId: `sibiUnseong.${stage}.${pos}`,
+        kind: 'sibiUnseong',
+        label: `${posKo[pos]} ${stage}`,
+        detail: '12운성',
+        group: stageGroup[stage] ?? 'space',
+      }, [`sibiUnseong.${stage}`]));
     }
   }
 

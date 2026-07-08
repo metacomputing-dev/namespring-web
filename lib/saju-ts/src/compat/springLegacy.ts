@@ -80,6 +80,7 @@ export const JIJI_RELATION_NOTES: Record<string, string> = {
   HAE: '지지 해(害) 관계',
   PA: '지지 파(破) 관계',
   WONJIN: '지지 원진(怨嗔) 관계',
+  GWIMUN: '지지 귀문(鬼門) 관계',
   HYEONG: '지지 형(刑) 관계',
   JA_HYEONG: '지지 자형(自刑) 관계',
   SAMHYEONG: '지지 삼형(三刑) 관계',
@@ -94,6 +95,7 @@ export const JIJI_RELATION_OUTCOMES: Record<string, string> = {
   HAE: '해(害)',
   PA: '파(破)',
   WONJIN: '원진(怨嗔)',
+  GWIMUN: '귀문(鬼門)',
   HYEONG: '형(刑)',
   JA_HYEONG: '자형(自刑)',
   SAMHYEONG: '삼형(三刑)',
@@ -103,6 +105,22 @@ export const JIJI_RELATION_OUTCOMES: Record<string, string> = {
   BANHAP: '반합(半合)',
   BANGHAP: '방합(方合)',
 };
+/** 12운성 코드 → 만세력 표준 한글 표기 (감사 C1 — sibiUnseong 노출용). */
+const LIFE_STAGE_KO: Record<string, string> = {
+  JANG_SAENG: '장생',
+  MOK_YOK: '목욕',
+  GWAN_DAE: '관대',
+  GEON_ROK: '건록',
+  JE_WANG: '제왕',
+  SWOE: '쇠',
+  BYEONG: '병',
+  SA: '사',
+  MYO: '묘',
+  JEOL: '절',
+  TAE: '태',
+  YANG: '양',
+};
+
 export const CHEONGAN_RELATION_NOTES: Record<string, string> = {
   HAP: '천간 합(合) 관계',
   CHUNG: '천간 충(沖) 관계',
@@ -1113,6 +1131,18 @@ function normalizeLegacyOutput(
   const hiddenStems = bundle.summary?.hiddenStems as any;
   const hiddenStemTenGods = bundle.summary?.tenGodsHiddenStems as any;
   const deuk = computeDeukScores(tenGods, hiddenStemTenGods);
+
+  // 12운성 — 엔진이 항상 계산하는데 legacy 변환에서 통째로 버려지던 것을 배선 (감사 C1).
+  // adapter extractSibiUnseong이 기대하는 {기둥: 한글 운성} 형태로 방출한다.
+  const lifeStages = bundle.summary?.lifeStages as any;
+  const sibiUnseong = lifeStages
+    ? Object.fromEntries(
+        (['year', 'month', 'day', 'hour'] as const)
+          .filter((pos) => lifeStages[pos] != null)
+          .map((pos) => [pos, LIFE_STAGE_KO[String(lifeStages[pos])] ?? String(lifeStages[pos])]),
+      )
+    : null;
+
   const byPosition: Record<string, any> = {};
 
   for (const pos of ['year', 'month', 'day', 'hour'] as const) {
@@ -1142,30 +1172,48 @@ function normalizeLegacyOutput(
   }
 
   const shinsalHitsRaw = Array.isArray(bundle.summary?.shinsalHits) ? bundle.summary.shinsalHits : [];
+  const SEAT_ORDER = ['year', 'month', 'day', 'hour'] as const;
+  type SeatPillar = (typeof SEAT_ORDER)[number];
   const weightedByKey = new Map<string, {
-    hit: { type: string; position: string; grade: string };
+    hit: { type: string; position: string; grade: string; basedOn: string; seatPillars: SeatPillar[] };
     baseWeight: number;
     positionMultiplier: number;
     weightedScore: number;
+    count: number;
   }>();
   for (const hit of shinsalHitsRaw) {
     const type = String(hit?.name ?? '');
+    // position은 산출 기준(basedOn)의 축약이지 앉은 궁위가 아니다 — 궁위는 seatPillars.
+    // dedupe 키·position 의미는 소비자 하위호환을 위해 불변 유지 (감사 C2/A4).
     const position = relationPositionFromBasedOn(hit?.basedOn);
+    const basedOn = String(hit?.basedOn ?? 'OTHER');
+    const seatPillars = (Array.isArray(hit?.matchedPillars) ? hit.matchedPillars : [])
+      .filter((p: unknown): p is SeatPillar => SEAT_ORDER.includes(p as SeatPillar));
     const grade = gradeFromQualityWeight(hit?.qualityWeight);
     const qualityWeight = Number(hit?.qualityWeight ?? 0.6);
     const positionMultiplier = 1;
     const baseWeight = Math.max(0, Math.min(100, Math.round(qualityWeight * 100)));
     const weightedScore = baseWeight * positionMultiplier;
     const payload = {
-      hit: { type, position, grade },
+      hit: { type, position, grade, basedOn, seatPillars },
       baseWeight,
       positionMultiplier,
       weightedScore,
+      count: 1,
     };
     const dedupeKey = `${type}|${position}`;
     const existing = weightedByKey.get(dedupeKey);
-    if (!existing || weightedScore > existing.weightedScore) {
+    if (!existing) {
       weightedByKey.set(dedupeKey, payload);
+    } else {
+      // 같은 키 중복 발동: 높은 점수 페이로드를 유지하되 앉은 기둥은 합집합,
+      // 발동 횟수는 count로 보존 (기존에는 소거되어 소실 — 감사 C2/A15).
+      const winner = weightedScore > existing.weightedScore ? payload : existing;
+      winner.hit.seatPillars = SEAT_ORDER.filter(
+        (p) => existing.hit.seatPillars.includes(p) || seatPillars.includes(p),
+      );
+      winner.count = existing.count + 1;
+      weightedByKey.set(dedupeKey, winner);
     }
   }
   const weightedShinsalHits = [...weightedByKey.values()];
@@ -1295,6 +1343,7 @@ function normalizeLegacyOutput(
     shinsalHits,
     weightedShinsalHits,
     shinsalComposites: [],
+    sibiUnseong,
     gongmangVoidBranches,
     daeunInfo: {
       isForward: String(fortune?.start?.direction ?? 'FORWARD') !== 'BACKWARD',

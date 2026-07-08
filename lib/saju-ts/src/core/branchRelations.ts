@@ -11,6 +11,7 @@ export type RelationType =
   | 'HAE'
   | 'PA'
   | 'WONJIN'
+  | 'GWIMUN'   // 귀문관살(鬼門關殺) 쌍 — 원진과 4조합 겹치나 별개 신살 (다수설 병기)
   | 'SAMHAP'
   | 'BANHAP'   // 반합(半合): 왕지 포함 삼합 2자 (주의: BANGHAP=방합과 다름)
   | 'BANGHAP';
@@ -30,6 +31,7 @@ export const RELATION_ORDER: readonly RelationType[] = [
   'HAE',
   'PA',
   'WONJIN',
+  'GWIMUN',
   'SAMHAP',
   'BANHAP',
   'BANGHAP',
@@ -76,6 +78,17 @@ export function paPartner(i: BranchIdx): BranchIdx {
 export function wonjinPartner(i: BranchIdx): BranchIdx {
   const yang = branchYinYang(i) === 'YANG';
   return yang ? mod(i + 7, 12) : mod(i + 5, 12);
+}
+
+/**
+ * 귀문관살(鬼門關殺) 6조합 (다수설): 子酉·丑午·寅未·卯申·辰亥·巳戌.
+ * 원진과 丑午·卯申·辰亥·巳戌 4조합이 겹치지만 별개 신살로 병기하는 것이
+ * 다수설이며, 子酉·寅未는 귀문 전용 조합이다 (감사 B9).
+ */
+const GWIMUN_PARTNER: readonly number[] = [9, 6, 7, 8, 11, 10, 1, 2, 3, 0, 5, 4];
+
+export function gwimunPartner(i: BranchIdx): BranchIdx {
+  return GWIMUN_PARTNER[mod(i, 12)]! as BranchIdx;
 }
 
 // --- Punishment (刑)
@@ -153,6 +166,7 @@ export function detectBranchRelations(branches: BranchIdx[]): DetectedRelation[]
       if (haePartner(a) === b) rels.push({ type: 'HAE', members: [a, b].sort((x, y) => x - y) });
       if (paPartner(a) === b) rels.push({ type: 'PA', members: [a, b].sort((x, y) => x - y) });
       if (wonjinPartner(a) === b) rels.push({ type: 'WONJIN', members: [a, b].sort((x, y) => x - y) });
+      if (a !== b && gwimunPartner(a) === b) rels.push({ type: 'GWIMUN', members: [a, b].sort((x, y) => x - y) });
 
       // Punishment (刑)
       if (a === b && isJaHyeongBranch(a)) rels.push({ type: 'JA_HYEONG', members: [a, b] });

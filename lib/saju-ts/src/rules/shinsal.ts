@@ -15,7 +15,9 @@ import type {
 } from './packs/shinsalConditionsBasePack.js';
 import { DEFAULT_SHINSAL_QUALITY_MODEL } from './packs/shinsalConditionsBasePack.js';
 
-export type ShinsalBasedOn = 'YEAR_BRANCH' | 'DAY_BRANCH' | 'MONTH_BRANCH' | 'OTHER';
+// DAY_STEM/YEAR_STEM: 천간 기준 신살(귀인류·양인·홍염 등) — 과거 'OTHER' 하드코딩으로 산출
+// 기준이 소실됐다 (감사 C3). springLegacy position 매핑에서는 하위호환을 위해 OTHER로 유지된다.
+export type ShinsalBasedOn = 'YEAR_BRANCH' | 'DAY_BRANCH' | 'MONTH_BRANCH' | 'DAY_STEM' | 'YEAR_STEM' | 'OTHER';
 export type ShinsalTargetKind = 'BRANCH' | 'STEM' | 'NONE';
 
 export interface ShinsalDetection {
@@ -135,7 +137,9 @@ function buildPolicy(config: EngineConfig): ShinsalPolicy {
 }
 
 function parseBasedOn(x: any): ShinsalBasedOn {
-  return x === 'YEAR_BRANCH' || x === 'DAY_BRANCH' || x === 'MONTH_BRANCH' ? x : 'OTHER';
+  return x === 'YEAR_BRANCH' || x === 'DAY_BRANCH' || x === 'MONTH_BRANCH' || x === 'DAY_STEM' || x === 'YEAR_STEM'
+    ? x
+    : 'OTHER';
 }
 
 function parseMatchedPillars(x: any): Array<'year' | 'month' | 'day' | 'hour'> | undefined {

@@ -815,11 +815,18 @@ export interface HiddenStemTenGod {
 /** A divine-sha (shinsal) hit and its weighted score. */
 export interface ShinsalHitSummary {
   readonly type: string;
+  /** ⚠ 산출 기준(basedOn)의 축약이지 앉은 궁위가 아니다 — 궁위는 seatPillars를 볼 것. */
   readonly position: string;
   readonly grade: string;
   readonly baseWeight: number;
   readonly positionMultiplier: number;
   readonly weightedScore: number;
+  /** 산출 기준 원값: YEAR_BRANCH | DAY_BRANCH | MONTH_BRANCH | DAY_STEM | YEAR_STEM | OTHER. */
+  readonly basedOn?: string;
+  /** 실제 앉은 기둥(궁위) — 근묘화실 통변의 전제 (감사 C2, HANDOFF 작업 5-후속 스펙). */
+  readonly seatPillars?: readonly ('year' | 'month' | 'day' | 'hour')[];
+  /** 같은 (type, position) 키로 합쳐진 발동 횟수 (예: 도화 2개). */
+  readonly count?: number;
 }
 
 /** A single 대운 (10-year luck cycle) pillar entry. */

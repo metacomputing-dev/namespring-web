@@ -153,7 +153,9 @@ export function buildCatalogDayStemRules(
       emit: {
         name,
         category: d.category ?? null,
-        basedOn: 'OTHER',
+        // 산출 기준(일간/년간)을 보존한다 (감사 C3 — 과거 'OTHER' 하드코딩으로 소실.
+        // springLegacy position 매핑은 하위호환을 위해 여전히 OTHER로 축약된다).
+        basedOn: which === 'dayStem' ? 'DAY_STEM' : 'YEAR_STEM',
         targetBranches: v(`${basePath}.present`),
         matchedPillars: v(`${basePath}.matchedPillars`),
       } as any,
