@@ -32,27 +32,35 @@ cd lib/spring-ts && npx tsx tmp/probe-saju-summary-surface.ts
 cd lib/spring-ts && npx tsx tmp/probe-optin-naeum-palace.ts
 ```
 
-## D. PR-1 상세: 아웃풋 정직성 핫픽스 (진행 중)
+## D. PR-1 상세: 아웃풋 정직성 핫픽스 ✅ 완료 (2026-07-08)
 
-원칙: 결과 판정(신강약 레벨·용신 오행·격국)은 불변, **표기가 거짓인 것만** 고친다. 단 A1은 필드 값 자체가 실값으로 바뀌므로 스냅샷 갱신이 나올 수 있음 — 값 변경은 '가짜→실값'이라는 정당화와 함께 기록.
+원칙: 결과 판정(신강약 레벨·용신 오행·격국)은 불변, **표기가 거짓인 것만** 고친다. 판정 필드 불변은 baseline 대조로 확인됨(아래 검증 기록).
 
-| 항목 | 내용 | 위치(감사 시점) | 상태 |
-|---|---|---|---|
-| A1 | 득령/득지/득세 가짜 매핑(비겁합/인성합/그 합) → 실제 판정 배선. 엔진 facts의 deLingDiShi 분해(facts.ts 2330~2419 참조)를 판정 모델과 무관하게 항상 산출해 매핑하는 방식 권장 | springLegacy.ts:1132-1134 | ☐ |
-| A2 | 용신 추천 1위 type 무조건 'JOHU' → 실제 지배 방법('EOKBU' 등) 산출 | springLegacy.ts:1151-1152 | ☐ |
-| A3 | 육합(YUKHAP)·자형(JA_HYEONG)·삼형(SAMHYEONG) 라벨 키 추가 + 방출 타입↔라벨 테이블 전수 일치 테스트 | springLegacy.ts:77-96, saju-adapter.ts:202-237 | ☐ |
-| A5 | surfaceNaeum/surfacePalace의 require() ESM 붕괴 → 정적 import로 수정 (켜면 emptySaju 전체 붕괴하는 버그) | saju-adapter.ts:1449, 1506 | ☐ |
-| A6 | palace.ts 본기 선택 오류(`hidden[hidden.length-1]` → role==='MAIN') + 12지지 본기 조견표 테스트 | palace.ts:132 | ☐ |
-| A9 | dstCorrectionMinutes=0 하드코딩 → 실제 오프셋-540 산출 | springLegacy.ts:1121 | ☐ |
-| A15a | 1908년 이전 오프셋 정규식(초 성분) 수정, 실패 시 무경고 540 폴백 제거 | springLegacy.ts:290, 312-315 | ☐ |
-| A15b | jie 폴백이 조작된 LICHUN 경계 반환 → null/sentinel화 | fortune/compute.ts:156-168 | ☐ |
-| A15c | GONGMANG_DAY 영구 불발화 죽은 룰 제거 | defaultRuleSets.ts:323 | ☐ |
-| A15d | daeunInfo.boundaryMode에 일경계 정책 오주입 → 실제 대운 경계 정보로 | springLegacy.ts:1186-1192 | ☐ |
-| A15e | 午 월률 주석 자기모순 정정(丙10己10丁11=31 특수 명시) | wollyulData.ts:63-67 | ☐ |
-| A15f | EoT 'precise'가 calendar 정밀도 미상속 → 배선 (고품질 기본 원칙) | trueSolarTime.ts:120-122, solar.ts:630-634 | ☐ |
-| A15g | stale 주석 현행화(calTimeAdapter 사문화, solar/solarTerms/nutation 주석) | calTimeAdapter.ts, solar.ts:468, solarTerms.ts:270 | ☐ |
+| 항목 | 내용 | 상태 |
+|---|---|---|
+| A1 | 득령/득지/득세 가짜 매핑 → 실제 판정(월지 본기 십성 0\|1 / 일지 통근 본기1>중기0.6>여기0.3 / 7글자 비겁·인성 개수 0~7). springLegacy `computeDeukScores` 신설, details에 득령·득지·득세 라인 추가, spring-ts 타입 문서 갱신 | ✅ 79042afdc |
+| A2 | 용신 추천 1위 type 'JOHU' → 'EOKBU' (기본 정책이 climate 0 순수 억부. 설정 다양화 시 실제 지배 방법 유도로 확장) | ✅ 79042afdc |
+| A3 | 육합/자형/삼형 라벨 키 추가(springLegacy + 어댑터 3테이블) + RELATION_ORDER export + 전수 일치 테스트(springLegacy.test.ts, vitest include에 compat 추가) | ✅ 79042afdc |
+| A5 | require() ESM 붕괴 → 캐시된 sajuModule 재사용. opt-in 납음/12궁 정상 동작 런타임 확증 | ✅ 79042afdc |
+| A6 | palace.ts 본기 선택(role==='MAIN') + 12지지 본기 조견표 테스트(palace.test.ts) | ✅ ed78a0638 |
+| A9 | dstCorrectionMinutes 실측(ICU long name + 전후 ±270일 표본 max(전측min,후측min) 초과분 — 1954 자오선 하향 전환 오판 방지). 1988=60/1957=60/1954.1=0 테스트 | ✅ 79042afdc |
+| A15a | 초 단위 오프셋(GMT+8:27:52) 파싱 + 540 폴백 시 console.warn 1회 | ✅ 79042afdc |
+| A15b | jie 폴백 boundary null화 (FortuneStart/View 타입 nullable) | ✅ 053b1f9ec |
+| A15c | GONGMANG_DAY 죽은 룰 제거 (년주 기준 공망은 PR-2/B13 별도 축) | ✅ 053b1f9ec |
+| A15d | boundaryMode=기산 절기 id + boundaryUtcMs/deltaDays/formula additive (어댑터·DaeunInfoSummary 포함) | ✅ 79042afdc |
+| A15e | 午 월률 주석 정정 (10-10-11 합31 특수 배분 명시, 주류 이설 병기) | ✅ 053b1f9ec |
+| A15f | EoT 'precise'에 calendar.solarPrecision/aberrationModel 상속 배선 | ✅ 6539bed60 |
+| A15g | stale 주석 4곳 현행화 + calTimeAdapter 사문화 명시 | ✅ 6539bed60 |
 
-완료 시 상태 칸을 ✅로 갱신하고 커밋 해시를 병기할 것. **positionMultiplier 정리는 PR-2로 이월**(신살 표면 변경과 결합).
+**positionMultiplier 정리는 PR-2로 이월**(신살 표면 변경과 결합).
+
+### PR-1 검증 기록 (2026-07-08)
+
+- saju-ts: tsc 0err, vitest 19파일 80테스트(신규 palace 3 + springLegacy 10 포함) 전부 통과, dist 재빌드 완료.
+- spring-ts: tsc 0err, namespring-compat 202, boundary-goldens 723, jonggyeok 93, yongshin-consensus 241, tiered-shape 1378, service-visible-output 13, presets/time-policy/calendar-policy/adapter-* 전부 통과.
+- **baseline snapshot**: 5/5(cb3b85138) 이후 미갱신 + buildFortuneReport async 전환(7/4)으로 도구가 Promise를 캡처(fortuneReport 커버리지 사망) → **PR-1 이전부터 15/15 실패 상태였음**. 도구에 await 배선 후 재캡처(3d65a56cf). 판정 필드(신강약/용신/격국)와 별점·성격 특성 수는 구 baseline과 완전 일치 = PR-1 판정 무영향 확증. 이름 점수 +0.1~0.3은 5/5 이후 main 드리프트.
+- 런타임 프로브(tmp/probe-pr1-surface.ts): dst 60/0, rec[0].type=EOKBU, 득령득지득세 실값(신강 케이스 령1·세6 / 신약 케이스 령0·세1로 정합), boundaryMode=XIAOSHU/LIXIA, 관계 note 전부 채워짐.
+- ⚠ 기존 결함 발견(무관, 별도 작업 제안됨): `test:hanja-pool` 1건("curated generator keeps DB pool output" count=0)이 **main에서도 실패** — test:integration 체인이 이를 통과시키는 것도 점검 필요.
 
 ## E. PR-2~4 요약 (착수 시 감사 보고서 §2·부록 B에서 상세 확인)
 
