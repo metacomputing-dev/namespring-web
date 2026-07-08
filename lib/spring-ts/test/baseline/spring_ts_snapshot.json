@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "capturedAt": "2026-07-08T10:47:42.892Z",
+  "capturedAt": "2026-07-08T22:48:00.087Z",
   "targetDate": "2026-04-30T00:00:00.000Z",
   "fixtureCount": 15,
   "results": [
@@ -1098,13 +1098,13 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 85.2,
+            "finalScore": 85.3,
             "fullHangul": "박수신",
             "fullHanja": "朴修辰",
             "rank": 1
           },
           {
-            "finalScore": 85.1,
+            "finalScore": 85.2,
             "fullHangul": "박구대",
             "fullHanja": "朴舊旲",
             "rank": 2

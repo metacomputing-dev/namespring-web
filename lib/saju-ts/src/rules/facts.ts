@@ -2511,8 +2511,9 @@ function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
         : (['YUKHAP', 'SAMHAP'] as RelationType[]), // 반합의 해충력은 이설 커서 기본 제외 (hui 파국 판정과의 순환 방지)
       samePairHapResolves: rootRaw.samePairHapResolves !== false, // 巳申 동일쌍 합+형 → 형합 유정
       positional: {
-        // 기본 off — 인접/원격 차등은 판정 변경(감사 B524). GUIDE §1 계측 후 기본화 별도.
-        enabled: rootRaw.positional?.enabled === true,
+        // PR-10-2 기본 on (감사 B524) — 인접/원격 차등. validate:default-change 계측(GUIDE §1)
+        // 통과 후 기본화. enabled:false로 완전 opt-out.
+        enabled: rootRaw.positional?.enabled !== false,
         // 인접(d=1) 완전 성립 / 한 칸 건너(d=2) 절반 / 원격 년-시(d=3) 1/4 —
         // 자평 실무 인접성 통설의 보수 개시값 (계측 후 조정 전제).
         distanceScales: {
@@ -2542,9 +2543,9 @@ function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
       jaenghapFactor: num(bindRaw.jaenghapFactor, 0.75), // 쟁합·투합은 합력 분산 → 감쇠 완화
     },
     seasonal: {
-      // 기본 off — 왕상휴수 비대칭 감쇠는 판정 변경(감사 B434). validate:default-change
-      // 계측 후 기본화는 별도 커밋 결정. enabled === true 명시 opt-in 전용.
-      enabled: enabled && seasonalRaw.enabled === true,
+      // PR-10-1 기본 on (감사 B434) — 왕상휴수 비대칭 감쇠. validate:default-change
+      // 계측(GUIDE §1) 통과 후 기본화. enabled:false로 완전 opt-out.
+      enabled: enabled && seasonalRaw.enabled !== false,
       // 왕한 오행의 뿌리는 충·형 손상을 30% 경감, 사(死)한 오행은 30% 가중 —
       // "왕상한 쪽이 덜 상한다"는 통설의 보수적 개시값 (계측 후 조정 전제).
       multipliers: {

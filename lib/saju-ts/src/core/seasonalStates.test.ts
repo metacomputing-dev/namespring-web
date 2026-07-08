@@ -104,21 +104,21 @@ describe('비대칭 뿌리 손상 knob (기본 off)', () => {
     expect(factors[2]).toBe(1);
   });
 
-  it('엔진 계약: 기본 설정과 seasonal:{enabled:false} 명시는 강약 판정 동일', () => {
-    const req: any = { birth: { instant: '1986-04-19T05:45:00+09:00', calendar: 'gregorian' }, sex: 'M' };
-    const base = createEngine({}).analyze(req);
-    const off = createEngine({
-      strategies: { strength: { interaction: { seasonal: { enabled: false } } } },
-    } as any).analyze(req);
-    expect(off.summary?.strength).toEqual(base.summary?.strength);
-  });
-
-  it('엔진 계약: opt-in 시 뿌리 손상 명식에서 강약 스코어가 이동한다 (寅巳형, 辰월)', () => {
+  it('엔진 계약: 기본 on — enabled:true 명시와 기본 설정의 강약 판정 동일', () => {
     const req: any = { birth: { instant: '1986-04-19T05:45:00+09:00', calendar: 'gregorian' }, sex: 'M' };
     const base = createEngine({}).analyze(req);
     const on = createEngine({
       strategies: { strength: { interaction: { seasonal: { enabled: true } } } },
     } as any).analyze(req);
-    expect(on.summary?.strength).not.toEqual(base.summary?.strength);
+    expect(on.summary?.strength).toEqual(base.summary?.strength);
+  });
+
+  it('엔진 계약: opt-out(enabled:false) 시 뿌리 손상 명식에서 강약 스코어가 이동한다 (寅巳형, 辰월)', () => {
+    const req: any = { birth: { instant: '1986-04-19T05:45:00+09:00', calendar: 'gregorian' }, sex: 'M' };
+    const base = createEngine({}).analyze(req);
+    const off = createEngine({
+      strategies: { strength: { interaction: { seasonal: { enabled: false } } } },
+    } as any).analyze(req);
+    expect(off.summary?.strength).not.toEqual(base.summary?.strength);
   });
 });
