@@ -98,6 +98,19 @@ cd lib/spring-ts && npx tsx tmp/probe-optin-naeum-palace.ts
   - 검증(일괄): saju-ts 27파일 151테스트, tsc 0err 양쪽, compat 202, 경계골든 723, jonggyeok 111, consensus 241, tiered-shape 1378, class-axes 12, scoring 34, borderline 7/7, time-policy 11, presets 13, snapshot 15/15, lunar-calendar 36, kasi-lunar-api 5, calendar-policy 14. dump-report-trace·probe-summary-surface 불변.
 - **후속 감사 후보**: graph/·schools 팩 전수·DSL 컴파일러·migrations·음양 균형(YinYangScore 소비자 0곳)·육친/묘고/개두절각 축 (감사 보고서 부록 C).
 
+## E-2. PR-5~7 로드맵 — 판정 깊이 축 (2026-07-08 사용자 확정)
+
+> PR-1~4 종결 시점의 갭 평가에서 확정한 다음 단계. 원칙: **콘텐츠 저작·코퍼스 생성이 무거운 부분은 틀(스키마·배관·옵션)까지만 잡고 기본값은 보수적으로** — 채움은 별도 세션. 판정 변경은 PR-3 절차(dump-report-trace before/after + snapshot 재캡처 + validate:default-change + κ 정합) 그대로.
+
+| PR | 항목 | 내용 | 근거 감사 항목 |
+|---|---|---|---|
+| **PR-5** | 합충의 판정 반영 | 관계 탐지 결과를 판정에 주입: ① 충/형 손상 → 통근(得地) 감쇠 ② 삼합/반합 회국 → 세력 보정 ③ 탐합망충(합이 충 해소) → 격국 damage 감산 ④ 천간합 합거/쟁합 판정. 관계 궁위(어느 기둥끼리) 기반 필요. 오행 분포(부족/과다) 반영은 κ nameEffect 파급이 커서 **옵션 틀만**(기본 off) | 부록 B 448·510·524·531·538 (미검증 — 착수 전 개별 확인) |
+| **PR-6** | 격국 성패(成敗) | 상신(相神) 식별 + 순용/역용 + 성격/파격 룰 테이블(월지격 십성 × 투출 십성). basis 노출. 성패별 해석 텍스트 저작은 **틀만**(kind·factId 스키마) | 부록 B 617 (상신 체계 부재) |
+| **PR-7** | 종격 완전 승격 | followPotential weakThreshold(-0.78 도달불가) 재보정 파라미터화 + 승격 게이트 옵션 + 교리 검증 코퍼스 수집 스캐폴드. **검증 코퍼스 확보 전 기본값 불변**(현 리스크 신호+감쇠 유지) | B5 잔여 (PR-3 ③에서 반려한 완전 승격) |
+| 후속 | 운(運) 통합 판정 | 교운 일시 표기, 대운-원국 합충 재평가, 운 신살(삼재·상문·조객), 월운/일운 노출 | 부록 B 259·266·728, C5 |
+| 후속 | 대규모 외부 오라클 | 상용 만세력 대비 명식 4주 대량 대조 파이프라인 + deLingDiShi ±0.15 임계 분포 재캘리브레이션 | §3-2 파급 검토, B7 함정 3 |
+| 후속 | 설명가능성 노출 | 용신 methodBreakdown(C4)·격국 basis·시간 보정 카드(C7)·야자시 시두법(JOJA_SPLIT 실구현 또는 경고) | C4·C7, 부록 B 196 |
+
 ## F. 새 세션 착수 프롬프트
 
 > **PR-1~4 전부 완료** (D·E절). 엔진 무결성 감사 축의 계획 작업은 종결 — 남은 것은 선택 후속뿐:
