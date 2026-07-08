@@ -210,6 +210,7 @@ const JIJI_RELATION_NOTE_KO_LABEL: Record<string, string> = {
   HAP: '\uC9C0\uC9C0 \uD569 \uAD00\uACC4',
   YUKHAP: '\uC9C0\uC9C0 \uC721\uD569 \uAD00\uACC4',
   SAMHAP: '\uC9C0\uC9C0 \uC0BC\uD569 \uAD00\uACC4',
+  BANHAP: '\uC9C0\uC9C0 \uBC18\uD569 \uAD00\uACC4',
   BANGHAP: '\uC9C0\uC9C0 \uBC29\uD569 \uAD00\uACC4',
 };
 const JIJI_RELATION_OUTCOME_KO_LABEL: Record<string, string> = {
@@ -223,6 +224,7 @@ const JIJI_RELATION_OUTCOME_KO_LABEL: Record<string, string> = {
   HAP: '\uD569',
   YUKHAP: '\uC721\uD569',
   SAMHAP: '\uC0BC\uD569',
+  BANHAP: '\uBC18\uD569',
   BANGHAP: '\uBC29\uD569',
 };
 const CHEONGAN_RELATION_NOTE_KO_LABEL: Record<string, string> = {
@@ -242,6 +244,7 @@ const RELATION_TYPE_KO_LABEL: Record<string, string> = {
   JA_HYEONG: '\uC790\uD615',
   SAMHYEONG: '\uC0BC\uD615',
   SAMHAP: '\uC0BC\uD569',
+  BANHAP: '\uBC18\uD569',
   BANGHAP: '\uBC29\uD569',
 };
 const SHINSAL_TYPE_KO_LABEL: Record<string, string> = {

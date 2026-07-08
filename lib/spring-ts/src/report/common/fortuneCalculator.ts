@@ -768,12 +768,18 @@ export function checkFortuneRelations(
     if (matchingNatal.length >= 1) {
       const allMembers = [fIdx, ...matchingNatal.map(n => n.index)];
       const isFull = [a, b, c].every(x => allMembers.includes(x));
+
+      // 부분(반합) 성립엔 왕지(子午卯酉) 포함이 주류 조건 — 왕지 없는 생지+고지(가합)는
+      // 불인정. 원국 반합 탐지(saju-ts BANHAP)와 규칙 통일 (감사 B3).
+      const hasWangji = allMembers.some(i => i % 3 === 0);
+      if (!isFull && !hasWangji) continue;
+
       const branchCodes: BranchCode[] = [fortuneBranch, ...matchingNatal.map(n => n.code)];
 
       const memberNames = allMembers.map(i => `${bName(i)}(${BRANCHES[i]?.hanja})`).join('·');
       const desc = isFull
         ? `삼합(三合) 완성: ${memberNames} → ${ELEMENT_KOREAN_SHORT[samhap.result]}(${ELEMENT_HANJA[samhap.result]})국`
-        : `삼합(三合) 부분: ${memberNames} (${ELEMENT_KOREAN_SHORT[samhap.result]}국 지향)`;
+        : `삼합(三合) 반합: ${memberNames} (${ELEMENT_KOREAN_SHORT[samhap.result]}국 지향)`;
 
       results.push({
         type: 'SAMHAP',

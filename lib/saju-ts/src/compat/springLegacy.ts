@@ -86,6 +86,7 @@ export const JIJI_RELATION_NOTES: Record<string, string> = {
   HAP: '지지 합(合) 관계',
   YUKHAP: '지지 육합(六合) 관계',
   SAMHAP: '지지 삼합(三合) 관계',
+  BANHAP: '지지 반합(半合) 관계',
   BANGHAP: '지지 방합(方合) 관계',
 };
 export const JIJI_RELATION_OUTCOMES: Record<string, string> = {
@@ -99,6 +100,7 @@ export const JIJI_RELATION_OUTCOMES: Record<string, string> = {
   HAP: '합(合)',
   YUKHAP: '육합(六合)',
   SAMHAP: '삼합(三合)',
+  BANHAP: '반합(半合)',
   BANGHAP: '방합(方合)',
 };
 export const CHEONGAN_RELATION_NOTES: Record<string, string> = {

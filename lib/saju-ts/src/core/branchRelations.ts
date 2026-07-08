@@ -12,6 +12,7 @@ export type RelationType =
   | 'PA'
   | 'WONJIN'
   | 'SAMHAP'
+  | 'BANHAP'   // 반합(半合): 왕지 포함 삼합 2자 (주의: BANGHAP=방합과 다름)
   | 'BANGHAP';
 
 export interface DetectedRelation {
@@ -30,6 +31,7 @@ export const RELATION_ORDER: readonly RelationType[] = [
   'PA',
   'WONJIN',
   'SAMHAP',
+  'BANHAP',
   'BANGHAP',
 ] as const;
 
@@ -129,8 +131,14 @@ function tripleKey(xs: number[]): string {
   return [...xs].sort((a, b) => a - b).join('-');
 }
 
+/** 왕지(旺支) 여부 — 子(0)·卯(3)·午(6)·酉(9). */
+export function isWangji(i: BranchIdx): boolean {
+  return mod(i, 12) % 3 === 0;
+}
+
 export function detectBranchRelations(branches: BranchIdx[]): DetectedRelation[] {
   const bs = branches.map((b) => mod(b, 12));
+  const set = new Set(bs);
 
   const rels: DetectedRelation[] = [];
 
@@ -149,6 +157,16 @@ export function detectBranchRelations(branches: BranchIdx[]): DetectedRelation[]
       // Punishment (刑)
       if (a === b && isJaHyeongBranch(a)) rels.push({ type: 'JA_HYEONG', members: [a, b] });
       if (a !== b && isHyeongPair(a, b)) rels.push({ type: 'HYEONG', members: [a, b].sort((x, y) => x - y) });
+
+      // 반합(半合) — 같은 삼합군 2자 + 왕지 포함(생지반합·묘지반합)이 주류 성립 조건.
+      // 왕지 없는 생지+고지(가합)는 불인정. 삼합 3자 완전체가 있으면 SAMHAP만 보고하고
+      // 부분집합 반합은 억제한다 (감사 B3 — 운 경로 fortuneCalculator와 규칙 통일).
+      if (a !== b && (mod(a - b, 12) === 4 || mod(a - b, 12) === 8) && (isWangji(a) || isWangji(b))) {
+        const group = samhapGroup(a);
+        if (!group.every((x) => set.has(x))) {
+          rels.push({ type: 'BANHAP', members: [a, b].sort((x, y) => x - y) });
+        }
+      }
     }
   }
 
@@ -158,7 +176,6 @@ export function detectBranchRelations(branches: BranchIdx[]): DetectedRelation[]
   );
 
   // Triple relations: 삼합, 방합 (only if all 3 are present)
-  const set = new Set(bs);
   const tripleRels: DetectedRelation[] = [];
   for (const b of bs) {
     const s = samhapGroup(b);
