@@ -637,6 +637,27 @@
     },
 
     {
+      "id": "jonggyeok.calibrated",
+      "name": "종격 승격(실측 재보정, 실험)",
+      "description": "[PR-7 틀] follow 팩의 승격 임계 재보정 실험 프로필(weakThreshold ±0.78→±0.55). ⚠ 실측(2026-07-08): 임계 재보정 단독으로는 potential 램프 수식((threshold-s)/(threshold+1))이 극단 교리 명식(idx≈-0.63)의 factor를 ~0.19로 눌러 CONG 게이트(0.6)에 여전히 미달 — 완전 승격에는 램프 재설계 또는 게이트 인하 + 권위 코퍼스(T3+, test/fixtures/jonggyeok_authority_cases.json) 확보가 선행이다(감사 B5 반려 사유의 실체). 기본 경로는 리스크 신호+확신 감쇠(PR-3 ③) 유지.",
+      "extends": "follow",
+      "aliases": ["jonggyeokCalibrated", "종격승격", "종격보정"],
+      "sources": ["docs/27_jonggyeok_condition_pack.md"],
+      "overlay": {
+        "strategies": {
+          "yongshin": {
+            "follow": {
+              "enabled": true,
+              "weakThreshold": -0.55,
+              "strongThreshold": 0.55,
+              "minDominanceRatio": 2.2
+            }
+          }
+        }
+      }
+    },
+
+    {
       "id": "shinsal.virtueStrict",
       "name": "신살: 천덕/월덕 “일상견(日上見)” 엄격",
       "description": "천덕/월덕(및 합) 계열을 “일간/일지 중심”으로 판정한다. (고전 문구: 须要日上见)",
