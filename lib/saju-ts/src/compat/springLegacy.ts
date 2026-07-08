@@ -1,6 +1,7 @@
 import { createEngine } from '../api/engine.js';
 import { defaultConfig } from '../api/config.js';
 import type { AnalysisBundle, EngineConfig, SajuRequest } from '../api/types.js';
+import { detectStemRelations } from '../core/stemRelations.js';
 
 const STEM_CODES = ['GAP', 'EUL', 'BYEONG', 'JEONG', 'MU', 'GI', 'GYEONG', 'SIN', 'IM', 'GYE'] as const;
 const BRANCH_CODES = ['JA', 'CHUK', 'IN', 'MYO', 'JIN', 'SA', 'O', 'MI', 'SIN', 'YU', 'SUL', 'HAE'] as const;
@@ -1201,12 +1202,93 @@ function normalizeLegacyOutput(
   const { deficientElements, excessiveElements } = extractDeficientAndExcessive(ohaengDistribution);
 
   const stemRelations = Array.isArray(bundle.summary?.stemRelations) ? bundle.summary.stemRelations : [];
-  const cheonganRelations = stemRelations.map((relation: any) => ({
-    type: String(relation?.type ?? ''),
-    members: Array.isArray(relation?.members) ? relation.members.map((m: any) => stemCodeFromIdx(m?.idx)) : [],
-    resultOhaeng: relation?.resultElement ? String(relation.resultElement) : null,
-    note: relationNoteForType(String(relation?.type ?? ''), CHEONGAN_RELATION_NOTES),
-  }));
+
+  // PR-5 (감사 B531): 천간합 상태 판정 — 합화(化) 성립/기반(합이불화)/쟁합/요합.
+  // summary.stemRelations는 궁위가 없으므로 4천간에서 재탐지(detectStemRelations의
+  // pairs/pillarIndexes)해 인스턴스별 상태를 만든다. 판정 재료는 transformations
+  // (합화 factor — 격국 HUA_QI와 동일 소스라 자기모순 없음).
+  const summaryPillarsForHap = getSummaryPillars(bundle);
+  const chartStems = (['year', 'month', 'day', 'hour'] as const).map(
+    (pos) => Number((summaryPillarsForHap as any)[pos]?.stem?.idx ?? 0),
+  );
+  const ruleFactsForHap = (bundle.report?.facts?.['rules.facts'] as any) ?? {};
+  const tfCandidates: any[] = Array.isArray(ruleFactsForHap?.patterns?.transformations?.candidates)
+    ? ruleFactsForHap.patterns.transformations.candidates
+    : [];
+  const tfBest = ruleFactsForHap?.patterns?.transformations?.best ?? null;
+  const POS_NAMES = ['year', 'month', 'day', 'hour'] as const;
+  const HAP_STATE_KO: Record<string, string> = {
+    HUA: '합화(化) 성립',
+    HAPGEO: '합이불화 — 기반(묶임)',
+    JAENGHAP: '쟁합 — 합화 불성립',
+    YOHAP: '원격 요합 — 약화',
+  };
+  const stemHapEvaluations: Array<{
+    stems: [number, number];
+    positions: [(typeof POS_NAMES)[number], (typeof POS_NAMES)[number]];
+    state: 'HUA' | 'HAPGEO' | 'JAENGHAP' | 'YOHAP';
+    resultElement: string | null;
+    huaSignal: number;
+    dayMasterInvolved: boolean;
+  }> = [];
+  const hapStateByPair = new Map<string, string>();
+  for (const rel of detectStemRelations(chartStems as any)) {
+    if (rel.type !== 'HAP' || !rel.pairs?.length) continue;
+    const [lo, hi] = rel.members;
+    const cand = tfCandidates.find(
+      (c: any) => (c?.stems?.a === lo && c?.stems?.b === hi) || (c?.stems?.a === hi && c?.stems?.b === lo),
+    );
+    const huaSignal = clamp01(Number(cand?.factor ?? 0));
+    // best 외 쌍에 HUA를 주면 격국 HUA_QI(단일 best)와 모순 — 후보 중 최대 factor
+    // 쌍만 HUA 후보로 인정한다 (tfBest.pair 표기 형식에 의존하지 않는 판정).
+    const maxFactor = tfCandidates.reduce((mx: number, c: any) => Math.max(mx, Number(c?.factor ?? 0)), 0);
+    const isBestPair = huaSignal > 0 && huaSignal >= maxFactor - 1e-9 && !!tfBest;
+    const jaenghap = rel.pairs.length >= 2; // 쟁합·투합 (甲2+己1 등) — pairs가 중복도
+    for (const [i, j] of rel.pairs) {
+      const gap = Math.abs(i - j);
+      let state: 'HUA' | 'HAPGEO' | 'JAENGHAP' | 'YOHAP';
+      if (jaenghap) state = 'JAENGHAP'; // 쟁합 시 합화 불성립 (주류)
+      else if (huaSignal > 0 && isBestPair && gap === 1) state = 'HUA'; // 인접 + 합화 신호
+      else if (gap >= 2) state = 'YOHAP'; // 원격 요합 — 약화
+      else state = 'HAPGEO'; // 합이불화 = 기반 (현대 주류 다수)
+      stemHapEvaluations.push({
+        stems: [chartStems[i]!, chartStems[j]!] as [number, number],
+        positions: [POS_NAMES[i]!, POS_NAMES[j]!],
+        state,
+        resultElement: rel.resultElement ? String(rel.resultElement) : null,
+        huaSignal,
+        dayMasterInvolved: i === 2 || j === 2,
+      });
+    }
+    // 표시 축(cheonganRelations)은 쌍 타입당 1건이므로 대표 state를 붙인다
+    // (쟁합이면 전체가 JAENGHAP이라 well-defined, 그 외엔 첫 인스턴스 state).
+    const repState = jaenghap ? 'JAENGHAP' : stemHapEvaluations[stemHapEvaluations.length - rel.pairs.length]!.state;
+    hapStateByPair.set(`${lo}-${hi}`, repState);
+  }
+
+  const cheonganRelations = stemRelations.map((relation: any) => {
+    const type = String(relation?.type ?? '');
+    const memberIdxs: number[] = Array.isArray(relation?.members)
+      ? relation.members.map((m: any) => Number(m?.idx)).filter((n: number) => Number.isFinite(n))
+      : [];
+    const pairKey = [...memberIdxs].sort((a, b) => a - b).join('-');
+    const hapState = type === 'HAP' ? hapStateByPair.get(pairKey) : undefined;
+    return {
+      // 기존 4필드 불변 (감사 A3 라벨 계약)
+      type,
+      members: memberIdxs.map((m) => stemCodeFromIdx(m)),
+      resultOhaeng: relation?.resultElement ? String(relation.resultElement) : null,
+      note: relationNoteForType(type, CHEONGAN_RELATION_NOTES),
+      // PR-5 additive (감사 B531): 합 상태 — 합화 성립 여부 표기 정직성.
+      ...(hapState
+        ? {
+            hapState,
+            hapStateKo: HAP_STATE_KO[hapState] ?? hapState,
+            resultConfirmed: hapState === 'HUA',
+          }
+        : {}),
+    };
+  });
 
   const branchRelations = Array.isArray(bundle.summary?.relations) ? bundle.summary.relations : [];
   const jijiRelations = branchRelations.map((relation: any) => {
@@ -1471,6 +1553,27 @@ function normalizeLegacyOutput(
     excessiveElements,
     cheonganRelations,
     scoredCheonganRelations: [],
+    // PR-5 (감사 B531): 합화 평가 죽은 배관 소생 — 어댑터 extractHapHwaEvaluations가
+    // 대기 중이던 스키마(stem1/2, position1/2, resultOhaeng, state, confidence,
+    // reasoning, dayMasterInvolved)에 맞춰 인스턴스(궁위) 단위로 방출.
+    hapHwaEvaluations: stemHapEvaluations.map((ev) => ({
+      stem1: stemCodeFromIdx(ev.stems[0]),
+      stem2: stemCodeFromIdx(ev.stems[1]),
+      position1: normalizePositionKey(ev.positions[0]),
+      position2: normalizePositionKey(ev.positions[1]),
+      resultOhaeng: ev.resultElement ?? '',
+      state: ev.state,
+      confidence: roundTo(ev.state === 'HUA' ? ev.huaSignal : clamp01(1 - ev.huaSignal), 3),
+      reasoning:
+        ev.state === 'HUA'
+          ? `천간합이 화(化) 조건을 충족해 ${OHAENG_KO_LABEL[ev.resultElement ?? ''] ?? ev.resultElement}(으)로 화합니다.`
+          : ev.state === 'JAENGHAP'
+            ? '같은 천간이 둘 이상 합을 다투는 쟁합(爭合)이라 합화가 성립하지 않습니다.'
+            : ev.state === 'YOHAP'
+              ? '떨어진 기둥끼리의 요합(遙合)이라 합의 작용이 약합니다.'
+              : '합이불화(合而不化) — 화 조건 미충족으로 두 천간이 서로 묶입니다(기반).',
+      dayMasterInvolved: ev.dayMasterInvolved,
+    })),
     jijiRelations,
     resolvedJijiRelations,
     tenGodAnalysis: {

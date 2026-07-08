@@ -2091,6 +2091,14 @@ function extractCheonganRelations(rawSajuOutput: any) {
       stems:         toStringArray(relation.members).map(formatStemDisplay),
       resultElement: relation.resultOhaeng != null ? formatElementDisplay(relation.resultOhaeng) : null,
       note:          String(relation.note ?? CHEONGAN_RELATION_NOTE_KO_LABEL[typeCode] ?? ''),
+      // PR-5 (감사 B531) additive: 합 상태 — 합화 성립/기반/쟁합/요합 표기 정직성.
+      ...(relation.hapState
+        ? {
+            hapState: String(relation.hapState),
+            hapStateKo: String(relation.hapStateKo ?? relation.hapState),
+            resultConfirmed: relation.resultConfirmed === true,
+          }
+        : {}),
       score: scoreData ? {
         baseScore:          Number(scoreData.baseScore)          || 0,
         adjacencyBonus:     Number(scoreData.adjacencyBonus)     || 0,

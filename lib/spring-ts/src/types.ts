@@ -810,6 +810,12 @@ export interface CheonganRelationSummary {
   readonly resultElement: string | null;
   readonly note: string;
   readonly score: CheonganRelationScore | null;
+  /** PR-5 (감사 B531): 합 상태 — 'HUA' | 'HAPGEO' | 'JAENGHAP' | 'YOHAP' (HAP만). */
+  readonly hapState?: string;
+  /** 합 상태 한글 표기 (예: '합이불화 — 기반(묶임)'). */
+  readonly hapStateKo?: string;
+  /** resultElement(화기 오행)를 확정 표기해도 되는지 — 합화(HUA) 성립 시에만 true. */
+  readonly resultConfirmed?: boolean;
 }
 
 /** Numeric breakdown of a heavenly-stem relation's score. */
