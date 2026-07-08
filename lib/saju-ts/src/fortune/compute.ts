@@ -3,6 +3,7 @@ import type { JieBoundariesAround, JieTermId, SolarTermMethod, SolarTermInstant 
 import { getJieBoundaries, getLiChunUtcMs, jieTermMonthOrder } from '../calendar/solarTerms.js';
 import type { LocalDate } from '../calendar/iso.js';
 import type { LocalDateTime } from '../calendar/iso.js';
+import { computeLunarNewYearBoundary } from '../calendar/lunarNewYear.js';
 import { addDays, calcDayPillar, calcMonthPillarFromOrder, effectiveDayDate } from '../calendar/pillars.js';
 import type { PillarIdx, StemIdx } from '../core/cycle.js';
 import { pillar as makePillar, stemYinYang } from '../core/cycle.js';
@@ -269,15 +270,27 @@ export function computeFortuneTimeline(args: {
     decades.push(rec);
   }
 
-  // --- Years (歲運) by LiChun solar year boundary
-  const liChunThisLocalYearUtcMs = getLiChunUtcMs(localYear, solarTermMethod);
-  const baseSolarYear = calendar.yearBoundary === 'liChun' && parsedUtcMs < liChunThisLocalYearUtcMs ? localYear - 1 : localYear;
+  // --- Years (歲運) segmented by the configured year boundary.
+  // A12: natal year pillar (calcYearPillarFromLiChunUtc) honors calendar.yearBoundary
+  // (liChun/lunarNewYear/jan1), so 세운 labels and segments must follow the same rule —
+  // otherwise under non-liChun configs the 세운 row containing birth disagrees with the
+  // natal year pillar. Default (liChun) behavior is byte-identical to the previous code.
+  const yearStartUtcMs = (y: number): number => {
+    if (calendar.yearBoundary === 'lunarNewYear') {
+      return computeLunarNewYearBoundary(y, birthLocalDateTime.offsetMinutes, solarTermMethod).boundaryUtcMs;
+    }
+    if (calendar.yearBoundary === 'jan1') {
+      return localToUtcMs({ y, m: 1, d: 1 }, { h: 0, min: 0 }, birthLocalDateTime.offsetMinutes);
+    }
+    return getLiChunUtcMs(y, solarTermMethod);
+  };
+  const baseSolarYear = parsedUtcMs < yearStartUtcMs(localYear) ? localYear - 1 : localYear;
 
   const years: YearLuck[] = [];
   for (let k = 0; k < policy.maxYears; k++) {
     const y = baseSolarYear + k;
-    const startUtcMs = getLiChunUtcMs(y, solarTermMethod);
-    const endUtcMs = getLiChunUtcMs(y + 1, solarTermMethod);
+    const startUtcMs = yearStartUtcMs(y);
+    const endUtcMs = yearStartUtcMs(y + 1);
 
     years.push({
       kind: 'YEAR',
@@ -291,19 +304,23 @@ export function computeFortuneTimeline(args: {
   }
 
   // --- Months (月運) segments by jie boundaries
+  // Months are always jie-based regardless of calendar.yearBoundary (월주·월운은 절기 기준),
+  // so the enumeration anchor uses the liChun-adjusted year — not the year-boundary-adjusted
+  // baseSolarYear above. Identical under the default (liChun) config.
   let months: MonthLuck[] | undefined;
   if (policy.maxMonths > 0) {
+    const jieBaseSolarYear = parsedUtcMs < getLiChunUtcMs(localYear, solarTermMethod) ? localYear - 1 : localYear;
     const spanYears = Math.ceil(policy.maxMonths / 12) + 2;
     const terms: SolarTermInstant[] = [];
-    for (let y = baseSolarYear; y <= baseSolarYear + spanYears; y++) {
+    for (let y = jieBaseSolarYear; y <= jieBaseSolarYear + spanYears; y++) {
       terms.push(...getJieBoundaries(y, solarTermMethod));
     }
     terms.sort((a, b) => a.utcMs - b.utcMs);
 
-    const startIdx = terms.findIndex((t) => t.year === baseSolarYear && t.id === 'LICHUN');
+    const startIdx = terms.findIndex((t) => t.year === jieBaseSolarYear && t.id === 'LICHUN');
     if (startIdx >= 0) {
       months = [];
-      let solarYearCursor = baseSolarYear;
+      let solarYearCursor = jieBaseSolarYear;
 
       for (let i = 0; i < policy.maxMonths; i++) {
         const a = terms[startIdx + i];
