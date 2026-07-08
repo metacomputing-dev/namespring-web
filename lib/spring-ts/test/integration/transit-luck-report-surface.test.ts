@@ -89,11 +89,17 @@ check('yearly fortune evidence includes transit life stage',
 check('yearly fortune evidence includes twelve-sal',
   yearlyFeatures.some((feature) => feature.startsWith('12신살:')),
   JSON.stringify(yearlyFeatures));
+check('yearly fortune evidence includes natal relation',
+  yearlyFeatures.some((feature) => feature.startsWith('원국 지지 관계:') || feature.startsWith('원국 천간 관계:')),
+  JSON.stringify(yearlyFeatures));
 check('monthly fortune evidence includes wolun ten-god',
   monthlyFeatures.some((feature) => feature.startsWith('운 십성:')),
   JSON.stringify(monthlyFeatures));
 check('monthly fortune evidence includes wolun life stage',
   monthlyFeatures.some((feature) => feature.startsWith('12운성:')),
+  JSON.stringify(monthlyFeatures));
+check('monthly fortune evidence includes natal relation',
+  monthlyFeatures.some((feature) => feature.startsWith('원국 지지 관계:') || feature.startsWith('원국 천간 관계:')),
   JSON.stringify(monthlyFeatures));
 check('life-stage evidence includes daewoon annotations',
   lifeStageFeatures.some((feature) => feature.startsWith('운 십성:')) &&

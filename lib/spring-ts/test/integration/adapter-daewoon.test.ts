@@ -45,6 +45,13 @@ function check(label: string, cond: boolean, evidence?: string): void {
   }
 }
 
+function hasNatalRelations(row: any): boolean {
+  const relations = row?.relationsWithNatal;
+  return !!relations && (
+    (Array.isArray(relations.stemRelations) && relations.stemRelations.length > 0) ||
+    (Array.isArray(relations.branchRelations) && relations.branchRelations.length > 0)
+  );
+}
 function hasLuckAnnotations(row: any): boolean {
   return typeof row?.tenGod === 'string' &&
     typeof row?.lifeStage === 'string' &&
@@ -91,6 +98,8 @@ if (ctx.output) {
           typeof firstPillar.startAge === 'number' &&
           typeof firstPillar.endAge === 'number');
         check('daeunInfo.pillars[0] has PR-8 luck annotations', hasLuckAnnotations(firstPillar));
+        check('daeunInfo.pillars has PR-9 natal relation annotations',
+          ctx.output.daeunInfo.pillars.some((pillar: any) => hasNatalRelations(pillar)));
       }
     }
   } else {
@@ -107,6 +116,8 @@ if (ctx.output) {
       typeof firstSaeun.stem === 'string' &&
       typeof firstSaeun.branch === 'string');
     check('saeunPillars[0] has PR-8 luck annotations', hasLuckAnnotations(firstSaeun));
+    check('saeunPillars includes PR-9 natal relation annotations',
+      ctx.output.saeunPillars!.some((pillar: any) => hasNatalRelations(pillar)));
   } else {
     check('SajuOutputSummary.saeunPillars is undefined when source is empty', ctx.output.saeunPillars === undefined);
   }
@@ -123,6 +134,8 @@ if (ctx.output) {
       typeof firstWolun.stem === 'string' &&
       typeof firstWolun.branch === 'string' &&
       hasLuckAnnotations(firstWolun));
+    check('wolunPillars includes PR-9 natal relation annotations',
+      wolunOutput!.some((pillar: any) => hasNatalRelations(pillar)));
   } else {
     check('SajuOutputSummary.wolunPillars is undefined when source is empty', wolunOutput === undefined);
   }

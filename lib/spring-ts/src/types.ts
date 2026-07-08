@@ -921,11 +921,24 @@ export interface TransitShinsalSummary {
   readonly jogaek: boolean;
 }
 
+export interface LuckPillarRelationSummary {
+  readonly type: string;
+  readonly members: readonly string[];
+  readonly natalPositions: readonly ('year' | 'month' | 'day' | 'hour' | string)[];
+  readonly luckPosition: 'luck' | string;
+  readonly resultElement?: string | null;
+}
+
+export interface LuckPillarRelationsWithNatalSummary {
+  readonly stemRelations: readonly LuckPillarRelationSummary[];
+  readonly branchRelations: readonly LuckPillarRelationSummary[];
+}
 export interface LuckPillarAnnotationSummary {
   readonly tenGod?: string;
   readonly lifeStage?: string;
   readonly lifeStageKo?: string;
   readonly transitShinsal?: TransitShinsalSummary;
+  readonly relationsWithNatal?: LuckPillarRelationsWithNatalSummary;
 }
 
 export interface DaeunPillarSummary extends LuckPillarAnnotationSummary {

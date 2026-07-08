@@ -39,6 +39,8 @@ import { scorePillars } from '../core/scoring.js';
 import type { FortuneTimeline } from '../fortune/types.js';
 import { readFortunePolicy } from '../fortune/policy.js';
 import { computeFortuneTimeline } from '../fortune/compute.js';
+import type { FortuneRelationsTimeline } from '../fortune/relations.js';
+import { buildFortuneRelations } from '../fortune/relations.js';
 
 import type { RuleFacts, StrengthFacts } from '../rules/facts.js';
 import { buildRuleFacts } from '../rules/facts.js';
@@ -571,6 +573,22 @@ export function buildGraph(): Graph {
           natalMonthPillar: m,
           policy,
         });
+      },
+    }),
+  );
+
+  nodes.push(
+    n<FortuneRelationsTimeline>({
+      id: 'fortune.relations',
+      deps: ['pillars.year', 'pillars.month', 'pillars.day', 'pillars.hour', 'fortune.timeline'],
+      explain: '운 기둥이 원국 4주와 맺는 천간/지지 관계를 별도 표면으로 산출한다.',
+      compute: (_ctx, get) => {
+        const y = get<PillarIdx>('pillars.year');
+        const m = get<PillarIdx>('pillars.month');
+        const d = get<PillarIdx>('pillars.day');
+        const h = get<PillarIdx>('pillars.hour');
+        const timeline = get<FortuneTimeline>('fortune.timeline');
+        return buildFortuneRelations([y, m, d, h], timeline);
       },
     }),
   );

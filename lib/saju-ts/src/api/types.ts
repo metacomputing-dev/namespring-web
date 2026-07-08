@@ -363,6 +363,38 @@ export interface DayLuckView {
   approxEndAgeYears: number;
 }
 
+export interface FortuneStemRelationView {
+  type: StemRelationType;
+  members: StemView[];
+  resultElement?: string;
+  natalPositions: Array<'year' | 'month' | 'day' | 'hour'>;
+  luckPosition: 'luck';
+}
+
+export interface FortuneBranchRelationView {
+  type: RelationType;
+  members: BranchView[];
+  natalPositions: Array<'year' | 'month' | 'day' | 'hour'>;
+  luckPosition: 'luck';
+}
+
+export interface FortuneRelationEntryView {
+  luckKind: 'DECADE' | 'YEAR' | 'MONTH' | 'DAY';
+  index?: number;
+  solarYear?: number;
+  monthOrder?: number;
+  localDate?: { y: number; m: number; d: number };
+  pillar: PillarView;
+  stemRelations: FortuneStemRelationView[];
+  branchRelations: FortuneBranchRelationView[];
+}
+
+export interface FortuneRelationsSummaryView {
+  decades: FortuneRelationEntryView[];
+  years: FortuneRelationEntryView[];
+  months?: FortuneRelationEntryView[];
+  days?: FortuneRelationEntryView[];
+}
 export interface FortuneSummaryView {
   start: FortuneStartView;
   decades: DecadeLuckView[];
@@ -374,6 +406,9 @@ export interface FortuneSummaryView {
 
   /** Optional: 일운(정책 dayBoundary 기반). Potentially large; summary includes a prefix. */
   days?: DayLuckView[];
+
+  /** Optional: 운 기둥이 원국 4주와 맺는 천간/지지 관계(PR-9-1, additive). */
+  relations?: FortuneRelationsSummaryView;
 }
 
 export interface StrengthView {

@@ -2229,11 +2229,32 @@ function extractPalaceAnalysis(rawSajuOutput: any) {
 //  Daeun info (major luck cycles)
 // ---------------------------------------------------------------------------
 
+function extractLuckRelationsWithNatal(raw: any) {
+  const source = raw?.relationsWithNatal;
+  if (!source || typeof source !== 'object') return undefined;
+  const normalizeHit = (hit: any) => {
+    const members = ensureArray(hit?.members).map(String).filter(Boolean);
+    const natalPositions = ensureArray(hit?.natalPositions).map(String).filter(Boolean);
+    if (!hit?.type || members.length === 0 || natalPositions.length === 0) return null;
+    return {
+      type: String(hit.type),
+      members,
+      natalPositions,
+      luckPosition: String(hit.luckPosition ?? 'luck'),
+      ...(hit.resultElement || hit.resultOhaeng ? { resultElement: String(hit.resultElement ?? hit.resultOhaeng) } : {}),
+    };
+  };
+  const stemRelations = ensureArray(source.stemRelations).map(normalizeHit).filter(Boolean);
+  const branchRelations = ensureArray(source.branchRelations).map(normalizeHit).filter(Boolean);
+  if (stemRelations.length === 0 && branchRelations.length === 0) return undefined;
+  return { stemRelations, branchRelations };
+}
 function withLuckPillarAnnotations<T extends Record<string, unknown>>(out: T, raw: any): T {
   const tenGod = toNullableString(raw?.tenGod);
   const lifeStage = toNullableString(raw?.lifeStage);
   const lifeStageKo = toNullableString(raw?.lifeStageKo);
   const transitShinsal = raw?.transitShinsal ? deepSerialize(raw.transitShinsal) : null;
+  const relationsWithNatal = extractLuckRelationsWithNatal(raw);
 
   return {
     ...out,
@@ -2241,6 +2262,7 @@ function withLuckPillarAnnotations<T extends Record<string, unknown>>(out: T, ra
     ...(lifeStage ? { lifeStage } : {}),
     ...(lifeStageKo ? { lifeStageKo } : {}),
     ...(transitShinsal ? { transitShinsal } : {}),
+    ...(relationsWithNatal ? { relationsWithNatal } : {}),
   };
 }
 
