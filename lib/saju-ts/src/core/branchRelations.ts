@@ -18,7 +18,18 @@ export type RelationType =
 
 export interface DetectedRelation {
   type: RelationType;
-  members: BranchIdx[]; // sorted
+  members: BranchIdx[]; // sorted — 지지 '값' (기존 소비자 계약, 불변)
+  /**
+   * additive (감사 B538): 참여 기둥 인덱스 전체 — 입력 배열 기준(관례상
+   * 0=년 1=월 2=일 3=시). dedupe·오름차순.
+   */
+  pillarIndexes?: number[];
+  /**
+   * additive (감사 B538): pair 관계 한정 — 값-dedupe로 접히기 전 성립 기둥쌍
+   * 목록. length가 곧 중복도(예: 午2+子1 충 → pairs 2건). 각 쌍은 i<j 보장.
+   * 인접성 판정(|i-j|===1)은 소비 측에서 파생 계산한다 (감사 B524).
+   */
+  pairs?: Array<[number, number]>;
 }
 
 /** 방출 가능한 지지 관계 타입 전수 (라벨 커버리지 테스트가 소비). */
@@ -153,24 +164,43 @@ export function detectBranchRelations(branches: BranchIdx[]): DetectedRelation[]
   const bs = branches.map((b) => mod(b, 12));
   const set = new Set(bs);
 
-  const rels: DetectedRelation[] = [];
+  // pair 관계: 값-dedupe(members·건수·정렬 불변)를 유지하되, 접힌 인스턴스의
+  // 기둥쌍을 pairs/pillarIndexes에 병렬 보존한다 (감사 B538 additive).
+  // Map 삽입 순서 = 기존 uniqByKey의 첫-등장 순서와 동일.
+  const pairMap = new Map<string, DetectedRelation>();
+  const pushPair = (type: RelationType, a: number, b: number, i: number, j: number): void => {
+    const key = `${type}:${pairKey(a, b)}`;
+    const existing = pairMap.get(key);
+    if (existing) {
+      existing.pairs!.push([i, j]);
+      if (!existing.pillarIndexes!.includes(i)) existing.pillarIndexes!.push(i);
+      if (!existing.pillarIndexes!.includes(j)) existing.pillarIndexes!.push(j);
+      existing.pillarIndexes!.sort((x, y) => x - y);
+      return;
+    }
+    pairMap.set(key, {
+      type,
+      members: type === 'JA_HYEONG' ? [a, b] : [a, b].sort((x, y) => x - y),
+      pillarIndexes: [i, j],
+      pairs: [[i, j]],
+    });
+  };
 
-  // Pair relations
   for (let i = 0; i < bs.length; i++) {
     for (let j = i + 1; j < bs.length; j++) {
       const a = bs[i];
       const b = bs[j];
 
-      if (chungPartner(a) === b) rels.push({ type: 'CHUNG', members: [a, b].sort((x, y) => x - y) });
-      if (yukhapPartner(a) === b) rels.push({ type: 'YUKHAP', members: [a, b].sort((x, y) => x - y) });
-      if (haePartner(a) === b) rels.push({ type: 'HAE', members: [a, b].sort((x, y) => x - y) });
-      if (paPartner(a) === b) rels.push({ type: 'PA', members: [a, b].sort((x, y) => x - y) });
-      if (wonjinPartner(a) === b) rels.push({ type: 'WONJIN', members: [a, b].sort((x, y) => x - y) });
-      if (a !== b && gwimunPartner(a) === b) rels.push({ type: 'GWIMUN', members: [a, b].sort((x, y) => x - y) });
+      if (chungPartner(a) === b) pushPair('CHUNG', a, b, i, j);
+      if (yukhapPartner(a) === b) pushPair('YUKHAP', a, b, i, j);
+      if (haePartner(a) === b) pushPair('HAE', a, b, i, j);
+      if (paPartner(a) === b) pushPair('PA', a, b, i, j);
+      if (wonjinPartner(a) === b) pushPair('WONJIN', a, b, i, j);
+      if (a !== b && gwimunPartner(a) === b) pushPair('GWIMUN', a, b, i, j);
 
       // Punishment (刑)
-      if (a === b && isJaHyeongBranch(a)) rels.push({ type: 'JA_HYEONG', members: [a, b] });
-      if (a !== b && isHyeongPair(a, b)) rels.push({ type: 'HYEONG', members: [a, b].sort((x, y) => x - y) });
+      if (a === b && isJaHyeongBranch(a)) pushPair('JA_HYEONG', a, b, i, j);
+      if (a !== b && isHyeongPair(a, b)) pushPair('HYEONG', a, b, i, j);
 
       // 반합(半合) — 같은 삼합군 2자 + 왕지 포함(생지반합·묘지반합)이 주류 성립 조건.
       // 왕지 없는 생지+고지(가합)는 불인정. 삼합 3자 완전체가 있으면 SAMHAP만 보고하고
@@ -178,25 +208,29 @@ export function detectBranchRelations(branches: BranchIdx[]): DetectedRelation[]
       if (a !== b && (mod(a - b, 12) === 4 || mod(a - b, 12) === 8) && (isWangji(a) || isWangji(b))) {
         const group = samhapGroup(a);
         if (!group.every((x) => set.has(x))) {
-          rels.push({ type: 'BANHAP', members: [a, b].sort((x, y) => x - y) });
+          pushPair('BANHAP', a, b, i, j);
         }
       }
     }
   }
 
-  const pairDeduped = uniqByKey(
-    rels.filter((r) => r.members.length === 2),
-    (r) => `${r.type}:${pairKey(r.members[0], r.members[1])}`,
-  );
+  const pairDeduped = [...pairMap.values()];
 
   // Triple relations: 삼합, 방합 (only if all 3 are present)
+  // pillarIndexes = 그룹 3값이 등장하는 모든 기둥 인덱스 (값별 세분은 후속 additive).
+  const pillarsOfValues = (values: BranchIdx[]): number[] => {
+    const vs = new Set<number>(values as number[]);
+    const out: number[] = [];
+    for (let i = 0; i < bs.length; i++) if (vs.has(bs[i]!)) out.push(i);
+    return out;
+  };
   const tripleRels: DetectedRelation[] = [];
   for (const b of bs) {
     const s = samhapGroup(b);
-    if (s.every((x) => set.has(x))) tripleRels.push({ type: 'SAMHAP', members: s });
+    if (s.every((x) => set.has(x))) tripleRels.push({ type: 'SAMHAP', members: s, pillarIndexes: pillarsOfValues(s) });
 
     const f = banghapGroup(b);
-    if (f.every((x) => set.has(x))) tripleRels.push({ type: 'BANGHAP', members: f });
+    if (f.every((x) => set.has(x))) tripleRels.push({ type: 'BANGHAP', members: f, pillarIndexes: pillarsOfValues(f) });
   }
 
   // 삼형(三刑) full-set indicators
@@ -205,7 +239,9 @@ export function detectBranchRelations(branches: BranchIdx[]): DetectedRelation[]
     [1, 7, 10], // 丑未戌
   ];
   for (const trio of samhyeongTrio) {
-    if (trio.every((x) => set.has(x))) tripleRels.push({ type: 'SAMHYEONG', members: [...trio].sort((a, b) => a - b) });
+    if (trio.every((x) => set.has(x))) {
+      tripleRels.push({ type: 'SAMHYEONG', members: [...trio].sort((a, b) => a - b), pillarIndexes: pillarsOfValues(trio) });
+    }
   }
 
   const tripleDeduped = uniqByKey(tripleRels, (r) => `${r.type}:${tripleKey(r.members)}`);
