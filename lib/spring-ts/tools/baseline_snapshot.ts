@@ -61,6 +61,9 @@ interface Fixture {
     hour: number | null;
     minute: number;
     gender: 'male' | 'female' | 'neutral';
+    /** P0-3: 음력 입력 픽스처(fix-17)용 — SpringEngine birth 입력에 그대로 통과. */
+    calendarType?: 'solar' | 'lunar';
+    isLeapMonth?: boolean;
   };
   surname: Array<{ hangul: string; hanja?: string }>;
   givenName: Array<{ hangul: string; hanja?: string }>;

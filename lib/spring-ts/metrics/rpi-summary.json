@@ -17,7 +17,7 @@
       "status": "PASS",
       "pass": 8,
       "fail": 0,
-      "na": 7
+      "na": 9
     },
     "B_legalHanjaData": {
       "maxPoints": 15,
@@ -34,7 +34,7 @@
       "score": 0,
       "status": "INSUFFICIENT_TRUTH",
       "reason": "Current baseline fixtures have no T3+ authority-truth D1 denominator.",
-      "insufficientTruthCount": 15,
+      "insufficientTruthCount": 17,
       "engineRuleFailureCount": 0
     },
     "D_tenGodPositionWeighting": {
@@ -45,7 +45,7 @@
       "observedEngineDivergence": {
         "defaultFixtures": {
           "diverged": 0,
-          "total": 15
+          "total": 17
         },
         "jonggyeokFixtures": {
           "diverged": 0,
@@ -53,7 +53,7 @@
         },
         "combined": {
           "diverged": 0,
-          "total": 24
+          "total": 26
         },
         "source": "test/integration/md8-tengod-divergence.test.ts"
       },
@@ -237,28 +237,28 @@
         "modeB": "positional_weighted_v2",
         "note": "v2 is opt-in; this artifact compares PR-5.1 default behavior with the PR-5.2 candidate mode.",
         "defaultFixtures": {
-          "total": 15,
-          "v1V2Diverged": 9,
+          "total": 17,
+          "v1V2Diverged": 10,
           "simpleVsV1Diverged": 0,
           "totalAbsDelta": {
-            "saju": 1.6,
-            "total": 0.4
+            "saju": 1.7,
+            "total": 0.5
           },
           "rows": [
             {
               "id": "fix-01",
               "label": "1986-04-19 male — 戊土 일간 (README example)",
               "simple": {
-                "total": 56.2,
-                "saju": 35.6
+                "total": 56.1,
+                "saju": 35.4
               },
               "v1": {
-                "total": 56.2,
-                "saju": 35.6
+                "total": 56.1,
+                "saju": 35.4
               },
               "v2": {
-                "total": 56.2,
-                "saju": 35.6
+                "total": 56.1,
+                "saju": 35.4
               },
               "simpleVsV1Delta": {
                 "total": 0,
@@ -321,16 +321,16 @@
               "id": "fix-04",
               "label": "1965-08-08 19:00 female — 丙火 일간, 종왕 후보 (강한 火)",
               "simple": {
-                "total": 57.6,
-                "saju": 35
+                "total": 58.7,
+                "saju": 40
               },
               "v1": {
-                "total": 57.6,
-                "saju": 35
+                "total": 58.7,
+                "saju": 40
               },
               "v2": {
-                "total": 57.6,
-                "saju": 35.1
+                "total": 58.7,
+                "saju": 40.1
               },
               "simpleVsV1Delta": {
                 "total": 0,
@@ -345,11 +345,11 @@
               "id": "fix-05",
               "label": "2005-12-25 06:00 male — 겨울 조후 case (한랭)",
               "simple": {
-                "total": 61,
+                "total": 60.9,
                 "saju": 68.2
               },
               "v1": {
-                "total": 61,
+                "total": 60.9,
                 "saju": 68.2
               },
               "v2": {
@@ -361,7 +361,7 @@
                 "saju": 0
               },
               "delta": {
-                "total": 0,
+                "total": 0.1,
                 "saju": 0
               }
             },
@@ -394,15 +394,15 @@
               "label": "1957-02-04 male — 입춘 boundary",
               "simple": {
                 "total": 64.8,
-                "saju": 45.4
+                "saju": 45.5
               },
               "v1": {
                 "total": 64.8,
-                "saju": 45.4
+                "saju": 45.5
               },
               "v2": {
                 "total": 64.6,
-                "saju": 44.8
+                "saju": 44.9
               },
               "simpleVsV1Delta": {
                 "total": 0,
@@ -418,22 +418,22 @@
               "label": "2020-08-23 female — 처서 boundary",
               "simple": {
                 "total": 57.6,
-                "saju": 54.9
+                "saju": 55.2
               },
               "v1": {
                 "total": 57.6,
-                "saju": 54.9
+                "saju": 55.2
               },
               "v2": {
-                "total": 57.6,
-                "saju": 55.1
+                "total": 57.7,
+                "saju": 55.4
               },
               "simpleVsV1Delta": {
                 "total": 0,
                 "saju": 0
               },
               "delta": {
-                "total": 0,
+                "total": 0.1,
                 "saju": 0.2
               }
             },
@@ -449,7 +449,7 @@
                 "saju": 48.4
               },
               "v2": {
-                "total": 62.1,
+                "total": 62,
                 "saju": 48.4
               },
               "simpleVsV1Delta": {
@@ -457,7 +457,7 @@
                 "saju": 0
               },
               "delta": {
-                "total": 0.1,
+                "total": 0,
                 "saju": 0
               }
             },
@@ -604,15 +604,63 @@
                 "total": 0,
                 "saju": 0
               }
+            },
+            {
+              "id": "fix-16",
+              "label": "2003-05-10 23:40 male — 야자시 창(정자시설+경도보정, 시계 23:32 이후 자시) 경계",
+              "simple": {
+                "total": 57.9,
+                "saju": 42.9
+              },
+              "v1": {
+                "total": 57.9,
+                "saju": 42.9
+              },
+              "v2": {
+                "total": 57.9,
+                "saju": 43
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0.1
+              }
+            },
+            {
+              "id": "fix-17",
+              "label": "음력 2004-윤2-15 10:00 female — 음력 윤달 입력 변환(calendarType=lunar)",
+              "simple": {
+                "total": 61.1,
+                "saju": 45.9
+              },
+              "v1": {
+                "total": 61.1,
+                "saju": 45.9
+              },
+              "v2": {
+                "total": 61.1,
+                "saju": 45.9
+              },
+              "simpleVsV1Delta": {
+                "total": 0,
+                "saju": 0
+              },
+              "delta": {
+                "total": 0,
+                "saju": 0
+              }
             }
           ]
         },
         "jonggyeokFixtures": {
           "total": 9,
-          "v1V2Diverged": 5,
+          "v1V2Diverged": 4,
           "simpleVsV1Diverged": 0,
           "totalAbsDelta": {
-            "saju": 0.7,
+            "saju": 0.5,
             "total": 0.1
           },
           "rows": [
@@ -747,15 +795,15 @@
               "expectedJonggyeokType": "CONG_SHA",
               "simple": {
                 "total": 60.2,
-                "saju": 31.4
+                "saju": 31.3
               },
               "v1": {
                 "total": 60.2,
-                "saju": 31.4
+                "saju": 31.3
               },
               "v2": {
                 "total": 60.2,
-                "saju": 31.3
+                "saju": 31.2
               },
               "simpleVsV1Delta": {
                 "total": 0,
@@ -772,15 +820,15 @@
               "expectedJonggyeokType": "CONG_ER",
               "simple": {
                 "total": 61.7,
-                "saju": 69.7
+                "saju": 69.6
               },
               "v1": {
                 "total": 61.7,
-                "saju": 69.7
+                "saju": 69.6
               },
               "v2": {
                 "total": 61.7,
-                "saju": 69.7
+                "saju": 69.6
               },
               "simpleVsV1Delta": {
                 "total": 0,
@@ -805,7 +853,7 @@
               },
               "v2": {
                 "total": 64.1,
-                "saju": 16
+                "saju": 16.1
               },
               "simpleVsV1Delta": {
                 "total": 0,
@@ -813,7 +861,7 @@
               },
               "delta": {
                 "total": -0.1,
-                "saju": -0.3
+                "saju": -0.2
               }
             },
             {
@@ -830,7 +878,7 @@
               },
               "v2": {
                 "total": 60.8,
-                "saju": 62.6
+                "saju": 62.5
               },
               "simpleVsV1Delta": {
                 "total": 0,
@@ -838,7 +886,7 @@
               },
               "delta": {
                 "total": 0,
-                "saju": 0.1
+                "saju": 0
               }
             }
           ]
@@ -859,7 +907,7 @@
       "status": "PASS",
       "pass": 12,
       "fail": 0,
-      "na": 3
+      "na": 5
     },
     "G_validationGovernance": {
       "maxPoints": 10,
@@ -874,45 +922,45 @@
     "totals": {
       "pass": 15,
       "fail": 0,
-      "na": 0,
-      "total": 15
+      "na": 2,
+      "total": 17
     },
     "dimensions": {
       "D1": {
         "pass": 0,
         "fail": 0,
-        "na": 15,
+        "na": 17,
         "status": "N/A"
       },
       "D2": {
         "pass": 0,
         "fail": 0,
-        "na": 15,
+        "na": 17,
         "status": "N/A"
       },
       "D3": {
         "pass": 12,
         "fail": 0,
-        "na": 3,
+        "na": 5,
         "status": "PASS"
       },
       "D4": {
         "pass": 0,
         "fail": 0,
-        "na": 15,
+        "na": 17,
         "status": "N/A"
       },
       "D5": {
         "pass": 8,
         "fail": 0,
-        "na": 7,
+        "na": 9,
         "status": "PASS"
       }
     },
     "exitCode": 0
   },
   "truthSeparation": {
-    "insufficientSourceTruthCount": 15,
+    "insufficientSourceTruthCount": 17,
     "authorityMatchCount": 0,
     "engineRuleFailureCount": 0
   },
@@ -924,7 +972,7 @@
     "observedEngineDivergence": {
       "defaultFixtures": {
         "diverged": 0,
-        "total": 15
+        "total": 17
       },
       "jonggyeokFixtures": {
         "diverged": 0,
@@ -932,7 +980,7 @@
       },
       "combined": {
         "diverged": 0,
-        "total": 24
+        "total": 26
       },
       "source": "test/integration/md8-tengod-divergence.test.ts"
     },
@@ -1132,28 +1180,28 @@
       "modeB": "positional_weighted_v2",
       "note": "v2 is opt-in; this artifact compares PR-5.1 default behavior with the PR-5.2 candidate mode.",
       "defaultFixtures": {
-        "total": 15,
-        "v1V2Diverged": 9,
+        "total": 17,
+        "v1V2Diverged": 10,
         "simpleVsV1Diverged": 0,
         "totalAbsDelta": {
-          "saju": 1.6,
-          "total": 0.4
+          "saju": 1.7,
+          "total": 0.5
         },
         "rows": [
           {
             "id": "fix-01",
             "label": "1986-04-19 male — 戊土 일간 (README example)",
             "simple": {
-              "total": 56.2,
-              "saju": 35.6
+              "total": 56.1,
+              "saju": 35.4
             },
             "v1": {
-              "total": 56.2,
-              "saju": 35.6
+              "total": 56.1,
+              "saju": 35.4
             },
             "v2": {
-              "total": 56.2,
-              "saju": 35.6
+              "total": 56.1,
+              "saju": 35.4
             },
             "simpleVsV1Delta": {
               "total": 0,
@@ -1216,16 +1264,16 @@
             "id": "fix-04",
             "label": "1965-08-08 19:00 female — 丙火 일간, 종왕 후보 (강한 火)",
             "simple": {
-              "total": 57.6,
-              "saju": 35
+              "total": 58.7,
+              "saju": 40
             },
             "v1": {
-              "total": 57.6,
-              "saju": 35
+              "total": 58.7,
+              "saju": 40
             },
             "v2": {
-              "total": 57.6,
-              "saju": 35.1
+              "total": 58.7,
+              "saju": 40.1
             },
             "simpleVsV1Delta": {
               "total": 0,
@@ -1240,11 +1288,11 @@
             "id": "fix-05",
             "label": "2005-12-25 06:00 male — 겨울 조후 case (한랭)",
             "simple": {
-              "total": 61,
+              "total": 60.9,
               "saju": 68.2
             },
             "v1": {
-              "total": 61,
+              "total": 60.9,
               "saju": 68.2
             },
             "v2": {
@@ -1256,7 +1304,7 @@
               "saju": 0
             },
             "delta": {
-              "total": 0,
+              "total": 0.1,
               "saju": 0
             }
           },
@@ -1289,15 +1337,15 @@
             "label": "1957-02-04 male — 입춘 boundary",
             "simple": {
               "total": 64.8,
-              "saju": 45.4
+              "saju": 45.5
             },
             "v1": {
               "total": 64.8,
-              "saju": 45.4
+              "saju": 45.5
             },
             "v2": {
               "total": 64.6,
-              "saju": 44.8
+              "saju": 44.9
             },
             "simpleVsV1Delta": {
               "total": 0,
@@ -1313,22 +1361,22 @@
             "label": "2020-08-23 female — 처서 boundary",
             "simple": {
               "total": 57.6,
-              "saju": 54.9
+              "saju": 55.2
             },
             "v1": {
               "total": 57.6,
-              "saju": 54.9
+              "saju": 55.2
             },
             "v2": {
-              "total": 57.6,
-              "saju": 55.1
+              "total": 57.7,
+              "saju": 55.4
             },
             "simpleVsV1Delta": {
               "total": 0,
               "saju": 0
             },
             "delta": {
-              "total": 0,
+              "total": 0.1,
               "saju": 0.2
             }
           },
@@ -1344,7 +1392,7 @@
               "saju": 48.4
             },
             "v2": {
-              "total": 62.1,
+              "total": 62,
               "saju": 48.4
             },
             "simpleVsV1Delta": {
@@ -1352,7 +1400,7 @@
               "saju": 0
             },
             "delta": {
-              "total": 0.1,
+              "total": 0,
               "saju": 0
             }
           },
@@ -1499,15 +1547,63 @@
               "total": 0,
               "saju": 0
             }
+          },
+          {
+            "id": "fix-16",
+            "label": "2003-05-10 23:40 male — 야자시 창(정자시설+경도보정, 시계 23:32 이후 자시) 경계",
+            "simple": {
+              "total": 57.9,
+              "saju": 42.9
+            },
+            "v1": {
+              "total": 57.9,
+              "saju": 42.9
+            },
+            "v2": {
+              "total": 57.9,
+              "saju": 43
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0.1
+            }
+          },
+          {
+            "id": "fix-17",
+            "label": "음력 2004-윤2-15 10:00 female — 음력 윤달 입력 변환(calendarType=lunar)",
+            "simple": {
+              "total": 61.1,
+              "saju": 45.9
+            },
+            "v1": {
+              "total": 61.1,
+              "saju": 45.9
+            },
+            "v2": {
+              "total": 61.1,
+              "saju": 45.9
+            },
+            "simpleVsV1Delta": {
+              "total": 0,
+              "saju": 0
+            },
+            "delta": {
+              "total": 0,
+              "saju": 0
+            }
           }
         ]
       },
       "jonggyeokFixtures": {
         "total": 9,
-        "v1V2Diverged": 5,
+        "v1V2Diverged": 4,
         "simpleVsV1Diverged": 0,
         "totalAbsDelta": {
-          "saju": 0.7,
+          "saju": 0.5,
           "total": 0.1
         },
         "rows": [
@@ -1642,15 +1738,15 @@
             "expectedJonggyeokType": "CONG_SHA",
             "simple": {
               "total": 60.2,
-              "saju": 31.4
+              "saju": 31.3
             },
             "v1": {
               "total": 60.2,
-              "saju": 31.4
+              "saju": 31.3
             },
             "v2": {
               "total": 60.2,
-              "saju": 31.3
+              "saju": 31.2
             },
             "simpleVsV1Delta": {
               "total": 0,
@@ -1667,15 +1763,15 @@
             "expectedJonggyeokType": "CONG_ER",
             "simple": {
               "total": 61.7,
-              "saju": 69.7
+              "saju": 69.6
             },
             "v1": {
               "total": 61.7,
-              "saju": 69.7
+              "saju": 69.6
             },
             "v2": {
               "total": 61.7,
-              "saju": 69.7
+              "saju": 69.6
             },
             "simpleVsV1Delta": {
               "total": 0,
@@ -1700,7 +1796,7 @@
             },
             "v2": {
               "total": 64.1,
-              "saju": 16
+              "saju": 16.1
             },
             "simpleVsV1Delta": {
               "total": 0,
@@ -1708,7 +1804,7 @@
             },
             "delta": {
               "total": -0.1,
-              "saju": -0.3
+              "saju": -0.2
             }
           },
           {
@@ -1725,7 +1821,7 @@
             },
             "v2": {
               "total": 60.8,
-              "saju": 62.6
+              "saju": 62.5
             },
             "simpleVsV1Delta": {
               "total": 0,
@@ -1733,7 +1829,7 @@
             },
             "delta": {
               "total": 0,
-              "saju": 0.1
+              "saju": 0
             }
           }
         ]

@@ -5,18 +5,68 @@
     {
       "id": "fix-01",
       "label": "1986-04-19 male — 戊土 일간 (README example)",
-      "axis": ["normal", "yang-earth", "spring"],
-      "birth": { "year": 1986, "month": 4, "day": 19, "hour": 5, "minute": 45, "gender": "male" },
-      "surname": [{ "hangul": "최", "hanja": "崔" }],
-      "givenName": [{ "hangul": "성", "hanja": "成" }, { "hangul": "수", "hanja": "秀" }]
+      "axis": [
+        "normal",
+        "yang-earth",
+        "spring"
+      ],
+      "birth": {
+        "year": 1986,
+        "month": 4,
+        "day": 19,
+        "hour": 5,
+        "minute": 45,
+        "gender": "male"
+      },
+      "surname": [
+        {
+          "hangul": "최",
+          "hanja": "崔"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "성",
+          "hanja": "成"
+        },
+        {
+          "hangul": "수",
+          "hanja": "秀"
+        }
+      ]
     },
     {
       "id": "fix-02",
       "label": "1992-09-15 female — 壬水 일간, 가을",
-      "axis": ["normal", "yang-water", "autumn"],
-      "birth": { "year": 1992, "month": 9, "day": 15, "hour": 12, "minute": 0, "gender": "female" },
-      "surname": [{ "hangul": "김", "hanja": "金" }],
-      "givenName": [{ "hangul": "지", "hanja": "智" }, { "hangul": "은", "hanja": "恩" }],
+      "axis": [
+        "normal",
+        "yang-water",
+        "autumn"
+      ],
+      "birth": {
+        "year": 1992,
+        "month": 9,
+        "day": 15,
+        "hour": 12,
+        "minute": 0,
+        "gender": "female"
+      },
+      "surname": [
+        {
+          "hangul": "김",
+          "hanja": "金"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "지",
+          "hanja": "智"
+        },
+        {
+          "hangul": "은",
+          "hanja": "恩"
+        }
+      ],
       "disagreementNotes": [
         {
           "field": "sajuReport.gyeokgukType",
@@ -30,10 +80,35 @@
     {
       "id": "fix-03",
       "label": "2000-01-01 00:30 male — 子時 boundary edge",
-      "axis": ["jaza-edge", "yang-water", "winter"],
-      "birth": { "year": 2000, "month": 1, "day": 1, "hour": 0, "minute": 30, "gender": "male" },
-      "surname": [{ "hangul": "이", "hanja": "李" }],
-      "givenName": [{ "hangul": "민", "hanja": "敏" }, { "hangul": "준", "hanja": "俊" }],
+      "axis": [
+        "jaza-edge",
+        "yang-water",
+        "winter"
+      ],
+      "birth": {
+        "year": 2000,
+        "month": 1,
+        "day": 1,
+        "hour": 0,
+        "minute": 30,
+        "gender": "male"
+      },
+      "surname": [
+        {
+          "hangul": "이",
+          "hanja": "李"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "민",
+          "hanja": "敏"
+        },
+        {
+          "hangul": "준",
+          "hanja": "俊"
+        }
+      ],
       "disagreementNotes": [
         {
           "field": "sajuReport.gyeokgukType",
@@ -54,10 +129,35 @@
     {
       "id": "fix-04",
       "label": "1965-08-08 19:00 female — 丙火 일간, 종왕 후보 (강한 火)",
-      "axis": ["jonggwang-candidate", "yang-fire", "summer"],
-      "birth": { "year": 1965, "month": 8, "day": 8, "hour": 19, "minute": 0, "gender": "female" },
-      "surname": [{ "hangul": "박", "hanja": "朴" }],
-      "givenName": [{ "hangul": "영", "hanja": "英" }, { "hangul": "희", "hanja": "姬" }],
+      "axis": [
+        "jonggwang-candidate",
+        "yang-fire",
+        "summer"
+      ],
+      "birth": {
+        "year": 1965,
+        "month": 8,
+        "day": 8,
+        "hour": 19,
+        "minute": 0,
+        "gender": "female"
+      },
+      "surname": [
+        {
+          "hangul": "박",
+          "hanja": "朴"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "영",
+          "hanja": "英"
+        },
+        {
+          "hangul": "희",
+          "hanja": "姬"
+        }
+      ],
       "disagreementNotes": [
         {
           "field": "sajuReport.strengthLevel",
@@ -72,18 +172,68 @@
     {
       "id": "fix-05",
       "label": "2005-12-25 06:00 male — 겨울 조후 case (한랭)",
-      "axis": ["johu-winter", "yin-wood", "winter"],
-      "birth": { "year": 2005, "month": 12, "day": 25, "hour": 6, "minute": 0, "gender": "male" },
-      "surname": [{ "hangul": "정", "hanja": "鄭" }],
-      "givenName": [{ "hangul": "서", "hanja": "瑞" }, { "hangul": "준", "hanja": "俊" }]
+      "axis": [
+        "johu-winter",
+        "yin-wood",
+        "winter"
+      ],
+      "birth": {
+        "year": 2005,
+        "month": 12,
+        "day": 25,
+        "hour": 6,
+        "minute": 0,
+        "gender": "male"
+      },
+      "surname": [
+        {
+          "hangul": "정",
+          "hanja": "鄭"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "서",
+          "hanja": "瑞"
+        },
+        {
+          "hangul": "준",
+          "hanja": "俊"
+        }
+      ]
     },
     {
       "id": "fix-06",
       "label": "1978-06-15 14:00 female — 庚金 일간, 여름",
-      "axis": ["normal", "yang-metal", "summer"],
-      "birth": { "year": 1978, "month": 6, "day": 15, "hour": 14, "minute": 0, "gender": "female" },
-      "surname": [{ "hangul": "강", "hanja": "姜" }],
-      "givenName": [{ "hangul": "수", "hanja": "秀" }, { "hangul": "빈", "hanja": "彬" }],
+      "axis": [
+        "normal",
+        "yang-metal",
+        "summer"
+      ],
+      "birth": {
+        "year": 1978,
+        "month": 6,
+        "day": 15,
+        "hour": 14,
+        "minute": 0,
+        "gender": "female"
+      },
+      "surname": [
+        {
+          "hangul": "강",
+          "hanja": "姜"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "수",
+          "hanja": "秀"
+        },
+        {
+          "hangul": "빈",
+          "hanja": "彬"
+        }
+      ],
       "disagreementNotes": [
         {
           "field": "sajuReport.gyeokgukType",
@@ -97,10 +247,35 @@
     {
       "id": "fix-07",
       "label": "1957-02-04 male — 입춘 boundary",
-      "axis": ["jie-ipchun", "edge", "spring-onset"],
-      "birth": { "year": 1957, "month": 2, "day": 4, "hour": 12, "minute": 0, "gender": "male" },
-      "surname": [{ "hangul": "윤", "hanja": "尹" }],
-      "givenName": [{ "hangul": "태", "hanja": "泰" }, { "hangul": "호", "hanja": "鎬" }],
+      "axis": [
+        "jie-ipchun",
+        "edge",
+        "spring-onset"
+      ],
+      "birth": {
+        "year": 1957,
+        "month": 2,
+        "day": 4,
+        "hour": 12,
+        "minute": 0,
+        "gender": "male"
+      },
+      "surname": [
+        {
+          "hangul": "윤",
+          "hanja": "尹"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "태",
+          "hanja": "泰"
+        },
+        {
+          "hangul": "호",
+          "hanja": "鎬"
+        }
+      ],
       "disagreementNotes": [
         {
           "field": "sajuReport.gyeokgukType",
@@ -114,26 +289,101 @@
     {
       "id": "fix-08",
       "label": "2020-08-23 female — 처서 boundary",
-      "axis": ["jie-cheoseo", "yin-earth", "late-summer"],
-      "birth": { "year": 2020, "month": 8, "day": 23, "hour": 9, "minute": 0, "gender": "female" },
-      "surname": [{ "hangul": "조", "hanja": "趙" }],
-      "givenName": [{ "hangul": "하", "hanja": "夏" }, { "hangul": "은", "hanja": "恩" }]
+      "axis": [
+        "jie-cheoseo",
+        "yin-earth",
+        "late-summer"
+      ],
+      "birth": {
+        "year": 2020,
+        "month": 8,
+        "day": 23,
+        "hour": 9,
+        "minute": 0,
+        "gender": "female"
+      },
+      "surname": [
+        {
+          "hangul": "조",
+          "hanja": "趙"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "하",
+          "hanja": "夏"
+        },
+        {
+          "hangul": "은",
+          "hanja": "恩"
+        }
+      ]
     },
     {
       "id": "fix-09",
       "label": "1988-05-05 male — 입하 boundary",
-      "axis": ["jie-ipha", "edge", "summer-onset"],
-      "birth": { "year": 1988, "month": 5, "day": 5, "hour": 10, "minute": 0, "gender": "male" },
-      "surname": [{ "hangul": "최", "hanja": "崔" }],
-      "givenName": [{ "hangul": "명", "hanja": "明" }, { "hangul": "수", "hanja": "秀" }]
+      "axis": [
+        "jie-ipha",
+        "edge",
+        "summer-onset"
+      ],
+      "birth": {
+        "year": 1988,
+        "month": 5,
+        "day": 5,
+        "hour": 10,
+        "minute": 0,
+        "gender": "male"
+      },
+      "surname": [
+        {
+          "hangul": "최",
+          "hanja": "崔"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "명",
+          "hanja": "明"
+        },
+        {
+          "hangul": "수",
+          "hanja": "秀"
+        }
+      ]
     },
     {
       "id": "fix-10",
       "label": "2018-11-22 female — 소설 boundary",
-      "axis": ["jie-soseol", "winter-onset", "yin-water"],
-      "birth": { "year": 2018, "month": 11, "day": 22, "hour": 15, "minute": 0, "gender": "female" },
-      "surname": [{ "hangul": "한", "hanja": "韓" }],
-      "givenName": [{ "hangul": "서", "hanja": "瑞" }, { "hangul": "연", "hanja": "蓮" }],
+      "axis": [
+        "jie-soseol",
+        "winter-onset",
+        "yin-water"
+      ],
+      "birth": {
+        "year": 2018,
+        "month": 11,
+        "day": 22,
+        "hour": 15,
+        "minute": 0,
+        "gender": "female"
+      },
+      "surname": [
+        {
+          "hangul": "한",
+          "hanja": "韓"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "서",
+          "hanja": "瑞"
+        },
+        {
+          "hangul": "연",
+          "hanja": "蓮"
+        }
+      ],
       "disagreementNotes": [
         {
           "field": "sajuReport.gyeokgukType",
@@ -163,18 +413,68 @@
     {
       "id": "fix-11",
       "label": "1995-08-15 female — 시간미상 (unknown-hour)",
-      "axis": ["unknown-hour", "edge", "yin-fire"],
-      "birth": { "year": 1995, "month": 8, "day": 15, "hour": null, "minute": 0, "gender": "female" },
-      "surname": [{ "hangul": "이", "hanja": "李" }],
-      "givenName": [{ "hangul": "지", "hanja": "智" }, { "hangul": "혜", "hanja": "慧" }]
+      "axis": [
+        "unknown-hour",
+        "edge",
+        "yin-fire"
+      ],
+      "birth": {
+        "year": 1995,
+        "month": 8,
+        "day": 15,
+        "hour": null,
+        "minute": 0,
+        "gender": "female"
+      },
+      "surname": [
+        {
+          "hangul": "이",
+          "hanja": "李"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "지",
+          "hanja": "智"
+        },
+        {
+          "hangul": "혜",
+          "hanja": "慧"
+        }
+      ]
     },
     {
       "id": "fix-12",
       "label": "1991-03-20 male — borderline-strength (춘분 즈음, 중화 후보)",
-      "axis": ["borderline-strength", "edge", "yang-wood"],
-      "birth": { "year": 1991, "month": 3, "day": 20, "hour": 11, "minute": 30, "gender": "male" },
-      "surname": [{ "hangul": "정", "hanja": "鄭" }],
-      "givenName": [{ "hangul": "민", "hanja": "敏" }, { "hangul": "재", "hanja": "在" }],
+      "axis": [
+        "borderline-strength",
+        "edge",
+        "yang-wood"
+      ],
+      "birth": {
+        "year": 1991,
+        "month": 3,
+        "day": 20,
+        "hour": 11,
+        "minute": 30,
+        "gender": "male"
+      },
+      "surname": [
+        {
+          "hangul": "정",
+          "hanja": "鄭"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "민",
+          "hanja": "敏"
+        },
+        {
+          "hangul": "재",
+          "hanja": "在"
+        }
+      ],
       "disagreementNotes": [
         {
           "field": "sajuReport.strengthLevel",
@@ -189,29 +489,172 @@
     {
       "id": "fix-13",
       "label": "1989-07-23 male — borderline-strength practical tier (정재격, 여름 yongshin=WATER)",
-      "axis": ["borderline-strength", "practical-tier", "summer"],
-      "birth": { "year": 1989, "month": 7, "day": 23, "hour": 10, "minute": 0, "gender": "male" },
-      "surname": [{ "hangul": "김", "hanja": "金" }],
-      "givenName": [{ "hangul": "민", "hanja": "敏" }, { "hangul": "수", "hanja": "秀" }],
+      "axis": [
+        "borderline-strength",
+        "practical-tier",
+        "summer"
+      ],
+      "birth": {
+        "year": 1989,
+        "month": 7,
+        "day": 23,
+        "hour": 10,
+        "minute": 0,
+        "gender": "male"
+      },
+      "surname": [
+        {
+          "hangul": "김",
+          "hanja": "金"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "민",
+          "hanja": "敏"
+        },
+        {
+          "hangul": "수",
+          "hanja": "秀"
+        }
+      ],
       "expectedAxisStrengthTier": "practical"
     },
     {
       "id": "fix-14",
       "label": "1980-08-07 male — borderline-strength candidate tier (정관격, 가을 yongshin=WOOD)",
-      "axis": ["borderline-strength", "candidate-tier", "autumn"],
-      "birth": { "year": 1980, "month": 8, "day": 7, "hour": 4, "minute": 0, "gender": "male" },
-      "surname": [{ "hangul": "박", "hanja": "朴" }],
-      "givenName": [{ "hangul": "지", "hanja": "智" }, { "hangul": "현", "hanja": "賢" }],
+      "axis": [
+        "borderline-strength",
+        "candidate-tier",
+        "autumn"
+      ],
+      "birth": {
+        "year": 1980,
+        "month": 8,
+        "day": 7,
+        "hour": 4,
+        "minute": 0,
+        "gender": "male"
+      },
+      "surname": [
+        {
+          "hangul": "박",
+          "hanja": "朴"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "지",
+          "hanja": "智"
+        },
+        {
+          "hangul": "현",
+          "hanja": "賢"
+        }
+      ],
       "expectedAxisStrengthTier": "candidate"
     },
     {
       "id": "fix-15",
       "label": "1985-03-21 male — borderline-strength deferred tier (편관격, 춘분 yongshin=METAL)",
-      "axis": ["borderline-strength", "deferred-tier", "spring"],
-      "birth": { "year": 1985, "month": 3, "day": 21, "hour": 4, "minute": 0, "gender": "male" },
-      "surname": [{ "hangul": "이", "hanja": "李" }],
-      "givenName": [{ "hangul": "성", "hanja": "成" }, { "hangul": "민", "hanja": "敏" }],
+      "axis": [
+        "borderline-strength",
+        "deferred-tier",
+        "spring"
+      ],
+      "birth": {
+        "year": 1985,
+        "month": 3,
+        "day": 21,
+        "hour": 4,
+        "minute": 0,
+        "gender": "male"
+      },
+      "surname": [
+        {
+          "hangul": "이",
+          "hanja": "李"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "성",
+          "hanja": "成"
+        },
+        {
+          "hangul": "민",
+          "hanja": "敏"
+        }
+      ],
       "expectedAxisStrengthTier": "deferred"
+    },
+    {
+      "id": "fix-16",
+      "label": "2003-05-10 23:40 male — 야자시 창(정자시설+경도보정, 시계 23:32 이후 자시) 경계",
+      "axis": [
+        "yaza-window",
+        "boundary-hour",
+        "spring"
+      ],
+      "birth": {
+        "year": 2003,
+        "month": 5,
+        "day": 10,
+        "hour": 23,
+        "minute": 40,
+        "gender": "male"
+      },
+      "surname": [
+        {
+          "hangul": "최",
+          "hanja": "崔"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "성",
+          "hanja": "成"
+        },
+        {
+          "hangul": "수",
+          "hanja": "秀"
+        }
+      ]
+    },
+    {
+      "id": "fix-17",
+      "label": "음력 2004-윤2-15 10:00 female — 음력 윤달 입력 변환(calendarType=lunar)",
+      "axis": [
+        "lunar-input",
+        "leap-month",
+        "spring"
+      ],
+      "birth": {
+        "year": 2004,
+        "month": 2,
+        "day": 15,
+        "hour": 10,
+        "minute": 0,
+        "gender": "female",
+        "calendarType": "lunar",
+        "isLeapMonth": true
+      },
+      "surname": [
+        {
+          "hangul": "이",
+          "hanja": "李"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "성",
+          "hanja": "成"
+        },
+        {
+          "hangul": "민",
+          "hanja": "敏"
+        }
+      ]
     }
   ]
 }
