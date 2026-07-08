@@ -274,6 +274,13 @@ export interface PrecisionConfig {
    *  then `surfaceNaeum: true` produces no additional output. */
   readonly surfaceNaeum?: boolean;
 
+  /** 감사 B1: 음력→양력 변환 소스. 기본 'builtin'(내장 KASI/KARI 표준 테이블,
+   *  제품 보장 1900~2050, 오프라인 결정적). 'kasi' = Node 전용 옵트인 —
+   *  data.go.kr LrsrCldInfoService/getSpcifyLunCalInfo를 먼저 시도하고
+   *  실패(키 부재·네트워크·타임아웃·브라우저 런타임) 시 내장 테이블로 폴백하며
+   *  SajuSummary.lunarConversion.kasiFallback으로 표기한다. */
+  readonly lunarConversionSource?: 'builtin' | 'kasi';
+
   /** Surface johu (조후 / climate balance) on `SajuOutputSummary` and
    *  `OverviewSummaryCard` evidence rows when `true`. Off by default —
    *  consumers must opt-in.
@@ -552,7 +559,29 @@ export interface SajuSummary {
    *  `options.precisionConfig.surfaceNaeum === true`. */
   readonly naeum?: NaeumSummary;
   readonly inputUncertainty?: SajuInputUncertainty;
+  /** 감사 B1: 음력 입력 변환 기록. calendarType='lunar' 요청에서만 채워진다(사용자 검증용). */
+  readonly lunarConversion?: LunarConversionSummary;
   readonly [key: string]: unknown;
+}
+
+/** 감사 B1: 음력 입력 → 양력 변환 기록. 사용자 검증용 additive 필드 —
+ *  음력 입력일 때만 존재하며 양력 입력 리포트에는 나타나지 않는다. */
+export interface LunarConversionSummary {
+  readonly lunar: {
+    readonly year: number;
+    readonly month: number;
+    readonly day: number;
+    readonly isLeapMonth: boolean;
+  };
+  readonly solar: {
+    readonly year: number;
+    readonly month: number;
+    readonly day: number;
+  };
+  /** 실제 사용된 변환 소스. 'builtin' = 내장 KASI/KARI 표준 테이블(기본). */
+  readonly source: 'builtin' | 'kasi';
+  /** kasi 옵트인이었으나 실패해 내장 테이블로 폴백했음. */
+  readonly kasiFallback?: boolean;
 }
 
 /** The heavenly stem and earthly branch that form one pillar. */

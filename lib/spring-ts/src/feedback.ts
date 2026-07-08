@@ -80,6 +80,7 @@ export const FEEDBACK_FORBIDDEN_FIELDS = [
   'hangul',
   'hour',
   'ip',
+  'lunarConversion',
   'minute',
   'month',
   'name',
