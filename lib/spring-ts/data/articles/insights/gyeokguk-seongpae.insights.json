@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "spring-ts.insights.v1",
+  "domain": "gyeokgukSeongpae",
+  "entries": [
+    {
+      "factId": "gyeokgukSeongpae.SEONGGYEOK.SUNYONG",
+      "text": "격국의 흐름이 순하게 이어지는 성격이에요. 상신이 맡은 역할을 밀어 주면 장점이 자연스럽게 드러나요.",
+      "expertText": "성격·순용 — 월령의 쓰임과 상신이 같은 방향으로 서는 구조예요. 무리하게 꺾기보다 이미 잡힌 질서를 또렷하게 쓰는 쪽이 좋아요.",
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "ai_authored_insight_text", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-authored Korean narrative for display-only gyeokguk seongpae insight text.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "factId": "gyeokgukSeongpae.SEONGGYEOK.YEOKYONG",
+      "text": "격국은 성격 쪽으로 잡히지만 쓰임은 한 번 방향을 틀어 잡는 구조예요. 강점을 바로 밀기보다 조절 장치를 같이 두면 좋아요.",
+      "expertText": "성격·역용 — 격의 틀은 서 있으나 상신 운용은 제어와 전환을 함께 봐야 해요. 강한 축을 그대로 키우기보다 균형을 맞추는 해석이 필요해요.",
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "ai_authored_insight_text", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-authored Korean narrative for display-only gyeokguk seongpae insight text.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "factId": "gyeokgukSeongpae.PAGYEOK.SUNYONG",
+      "text": "격국의 길이 끊기기 쉬운 파격 신호예요. 결론을 무겁게 단정하기보다, 흐름을 막는 지점을 먼저 정리하면 돼요.",
+      "expertText": "파격·순용 — 쓰임 자체는 정방향이지만 파격 요인이 먼저 눈에 들어와요. 상신을 살리려면 방해 축을 낮추는 순서가 중요해요.",
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "ai_authored_insight_text", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-authored Korean narrative for display-only gyeokguk seongpae insight text.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "factId": "gyeokgukSeongpae.PAGYEOK.YEOKYONG",
+      "text": "파격 신호가 있어 바로 밀어붙이기보다 반대로 조절해야 하는 흐름이에요. 우회로를 잡으면 부담이 줄어요.",
+      "expertText": "파격·역용 — 격의 약점과 역용 운용이 함께 보이는 자리예요. 문제를 없애려 하기보다 쓰임을 바꿔 과열과 충돌을 낮추는 방식이 맞아요.",
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "ai_authored_insight_text", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-authored Korean narrative for display-only gyeokguk seongpae insight text.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "factId": "gyeokgukSeongpae.PAJUNG_YUGU.SUNYONG",
+      "text": "겉으로는 흔들림이 있어도 안쪽에 구응이 남아 있는 구조예요. 살릴 수 있는 연결고리를 차분히 잡으면 회복력이 생겨요.",
+      "expertText": "파중유구·순용 — 파격 요인 속에서도 구응이 남아 격을 다시 세울 여지가 있어요. 상신을 순하게 보강하면 약점이 전부로 굳지 않아요.",
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "ai_authored_insight_text", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-authored Korean narrative for display-only gyeokguk seongpae insight text.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "factId": "gyeokgukSeongpae.PAJUNG_YUGU.YEOKYONG",
+      "text": "흔들림 속에서도 살릴 끈이 있지만, 그 끈은 정면보다 우회해서 잡는 편이 좋아요. 조절이 곧 회복의 기술이에요.",
+      "expertText": "파중유구·역용 — 구응은 있으나 직접 보강보다 역용의 조율이 필요한 구조예요. 강한 곳을 누르고 필요한 곳을 살리는 순서가 핵심이에요.",
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "ai_authored_insight_text", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-authored Korean narrative for display-only gyeokguk seongpae insight text.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "factId": "gyeokgukSeongpae.SEONGJUNG_YUPA.SUNYONG",
+      "text": "좋은 틀이 먼저 보이지만 안쪽에 깨지는 지점도 함께 있어요. 장점을 믿되 점검표를 곁에 두면 흐름이 안정돼요.",
+      "expertText": "성중유파·순용 — 성격의 골격은 있으나 파격 요인이 숨어 있어요. 순용으로 밀 때도 방해 요소를 방치하지 않는 해석이 필요해요.",
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "ai_authored_insight_text", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-authored Korean narrative for display-only gyeokguk seongpae insight text.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "factId": "gyeokgukSeongpae.SEONGJUNG_YUPA.YEOKYONG",
+      "text": "성격의 장점과 파격의 긴장이 같이 보여요. 바로 확장하기보다 방향을 한 번 조절하고 움직이면 좋아요.",
+      "expertText": "성중유파·역용 — 격의 기본틀은 살아 있으나 역용으로 제어해야 할 파손 지점이 있어요. 강점과 리스크를 동시에 들고 가는 해석이 맞아요.",
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "ai_authored_insight_text", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-authored Korean narrative for display-only gyeokguk seongpae insight text.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "factId": "gyeokgukSeongpae.UNDETERMINED.SUNYONG",
+      "text": "성패가 한쪽으로 뚜렷하게 굳지 않은 상태예요. 순한 흐름을 참고하되, 실제 선택에서는 다른 근거와 함께 보는 게 좋아요.",
+      "expertText": "미정·순용 — 상신 운용은 정방향 힌트를 주지만 성패 판정 자체의 확신은 낮아요. 보조 근거로만 두고 다른 축과 교차 확인하세요.",
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "ai_authored_insight_text", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-authored Korean narrative for display-only gyeokguk seongpae insight text.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "factId": "gyeokgukSeongpae.UNDETERMINED.YEOKYONG",
+      "text": "성패가 아직 선명하지 않고, 쓰임도 조절 쪽으로 기울어요. 단정 대신 관찰과 보완의 순서로 읽는 편이 안전해요.",
+      "expertText": "미정·역용 — 판정 확신이 낮은 상태에서 역용 힌트가 함께 잡혀요. 결론보다 보정 방향을 제안하는 보조 정보로 다루는 것이 좋아요.",
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "ai_authored_insight_text", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-authored Korean narrative for display-only gyeokguk seongpae insight text.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+    }
+  ]
+}

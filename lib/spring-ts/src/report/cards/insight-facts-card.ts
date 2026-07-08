@@ -21,6 +21,7 @@ import { daeunDisplayOffset } from '../common/daeun-display.js';
 
 export type InsightFactKind =
   | 'shinsal' | 'gongmang' | 'stemRelation' | 'branchRelation'
+  | 'gyeokgukSeongpae' | 'stemHapState'
   | 'hiddenStems' | 'sibiUnseong' | 'daeunPillar';
 
 /** 독자 중심 그룹 — 나열이 아니라 읽는 결로 묶는다. */
@@ -72,6 +73,37 @@ function relationGroup(type: string): InsightGroup {
   return /합/.test(type) ? 'boon' : 'tension';
 }
 
+function seongpaeGroup(verdict: string): InsightGroup {
+  if (verdict === 'SEONGGYEOK' || verdict === 'PAJUNG_YUGU') return 'boon';
+  if (verdict === 'UNDETERMINED') return 'space';
+  return 'tension';
+}
+
+function seongpaeLabel(verdict: string): string {
+  const labels: Record<string, string> = {
+    SEONGGYEOK: '성격',
+    PAGYEOK: '파격',
+    PAJUNG_YUGU: '파중유구',
+    SEONGJUNG_YUPA: '성중유파',
+    UNDETERMINED: '미정',
+  };
+  return labels[verdict] ?? verdict;
+}
+
+function usageLabel(usage: string): string {
+  const labels: Record<string, string> = { SUNYONG: '순용', YEOKYONG: '역용' };
+  return labels[usage] ?? usage;
+}
+
+function hapStateGroup(state: string): InsightGroup {
+  return state === 'HUA' || state === 'HAPGEO' ? 'boon' : 'tension';
+}
+
+function seatPillarLabel(seat: string): string {
+  const labels: Record<string, string> = { year: '년주', month: '월주', day: '일주', hour: '시주' };
+  return labels[seat] ?? seat;
+}
+
 /**
  * 큐레이션: 실제 상담처럼 "특기할 것"만 기본 노출로 올린다 (최대 6개, 결정적).
  * 우선순위 — ①겹침 관계(같은 지지쌍에 형·해 등 이중 신호) ②천간충
@@ -101,6 +133,8 @@ function markHighlights(facts: InsightFact[]): InsightFact[] {
     }
     if (f.kind === 'stemRelation') return f.label.includes('충') ? 90 : 60;
     if (f.kind === 'gongmang') return 75;
+    if (f.kind === 'gyeokgukSeongpae') return 62;
+    if (f.kind === 'stemHapState') return 57;
     if (f.kind === 'shinsal') return f.grade === 'A' ? 40 : 0;
     return 0;
   };
@@ -145,6 +179,8 @@ function markHighlights(facts: InsightFact[]): InsightFact[] {
       return 35;
     }
     if (f.kind === 'gongmang') return 75;
+    if (f.kind === 'gyeokgukSeongpae') return 62;
+    if (f.kind === 'stemHapState') return 57;
     if (f.kind === 'shinsal') {
       const base = f.score ?? (f.grade === 'A' ? 100 : f.grade === 'B' ? 50 : 25);
       return base * 0.45; // A(100)→45, B(50)→22.5 — 구조 신호(관계·공망)보다 아래
@@ -214,6 +250,22 @@ function withInterpretation(
 export function buildInsightFactsCard(saju: SajuSummary): InsightFactsCard | null {
   const facts: InsightFact[] = [];
 
+  // ── 격국 성패 (PR-6: verdict + 순용/역용 + 상신 원값) ──
+  const seongpae = saju.gyeokguk?.seongpae;
+  if (seongpae?.verdict && seongpae?.usage) {
+    const detail = [
+      usageLabel(seongpae.usage),
+      seongpae.sangshin ? `상신 ${seongpae.sangshin}` : null,
+    ].filter(Boolean).join(' · ');
+    facts.push(withInterpretation({
+      factId: `gyeokgukSeongpae.${seongpae.verdict}.${seongpae.usage}`,
+      kind: 'gyeokgukSeongpae',
+      label: `격국 성패 ${seongpaeLabel(seongpae.verdict)}`,
+      detail: detail || undefined,
+      group: seongpaeGroup(seongpae.verdict),
+    }, [`gyeokgukSeongpae.${seongpae.verdict}`]));
+  }
+
   // ── 신살 (ShinsalHitSummary: type/position/grade/weightedScore) ──
   for (const hit of saju.shinsalHits ?? []) {
     if (!hit?.type) continue;
@@ -226,6 +278,21 @@ export function buildInsightFactsCard(saju: SajuSummary): InsightFactsCard | nul
       score: typeof hit.weightedScore === 'number' ? hit.weightedScore : undefined,
       group: shinsalGroup(hit.type),
     }));
+    for (const seat of hit.seatPillars ?? []) {
+      const fallbackIds = [
+        hit.type.includes('귀인') ? `shinsal.귀인@${seat}` : '',
+        `shinsal.${hit.type}`,
+      ].filter(Boolean);
+      facts.push(withInterpretation({
+        factId: `shinsal.${hit.type}@${seat}`,
+        kind: 'shinsal',
+        label: `${hit.type}(${seatPillarLabel(seat)})`,
+        detail: hit.position ? `${hit.position}` : undefined,
+        grade: typeof hit.grade === 'string' ? hit.grade : undefined,
+        score: typeof hit.weightedScore === 'number' ? hit.weightedScore : undefined,
+        group: shinsalGroup(hit.type),
+      }, fallbackIds));
+    }
   }
 
   // ── 공망 ([지지, 지지] | null) ──
@@ -251,6 +318,16 @@ export function buildInsightFactsCard(saju: SajuSummary): InsightFactsCard | nul
       detail: rel.note ?? undefined,
       group: relationGroup(rel.type),
     }, [`stemRelation.${rel.type}`]));
+    if (rel.hapState) {
+      facts.push(withInterpretation({
+        factId: `stemHapState.${rel.hapState}`,
+        kind: 'stemHapState',
+        label: rel.hapStateKo ? `천간합 ${rel.hapStateKo}` : '천간합 상태',
+        members: rel.stems,
+        detail: rel.resultConfirmed ? '합화 오행 확정' : '합화 오행은 확정하지 않음',
+        group: hapStateGroup(rel.hapState),
+      }));
+    }
   }
 
   // ── 지지 관계 (합/충/형/파/해/원진 — JijiRelationSummary) ──
@@ -264,6 +341,16 @@ export function buildInsightFactsCard(saju: SajuSummary): InsightFactsCard | nul
       detail: rel.note ?? undefined,
       group: relationGroup(rel.type),
     }, [`branchRelation.${rel.type}`]));
+    if (rel.outcome === '해소') {
+      facts.push(withInterpretation({
+        factId: 'branchRelation.resolved.해소',
+        kind: 'branchRelation',
+        label: `지지 ${rel.type} 해소`,
+        members: rel.branches,
+        detail: rel.reasoning ?? rel.note ?? undefined,
+        group: 'boon',
+      }));
+    }
   }
 
   // ── 지장간 (tenGodAnalysis.byPosition[pos].hiddenStems — 런타임 파싱) ──

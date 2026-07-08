@@ -82,3 +82,7 @@
 ## 진행 로그
 
 (Codex가 작업하며 여기에 기록)
+
+- 2026-07-08 Codex: 과제 4는 이번 실행에서 제외했다. Claude가 같은 공유 워킹트리에서 엔진 축(`lib/saju-ts/src`, `lib/spring-ts/src` 판정 코드)을 병행 작업 중이라 baseline fixture 보강 및 `baseline_snapshot.ts capture` 재캡처를 수행하면 엔진 변경과 경합할 수 있다.
+- 2026-07-08 Codex: 과제 3 구현 중 검증 단계에서 중단. `npx tsx test/integration/insight-registry-content.test.ts`, `npm run test:tiered-shape`, `npx tsx tools/baseline_snapshot.ts verify`, `tsx --no-cache test/integration/insight-registry-content.test.ts`가 모두 테스트 본문 실행 전에 global `tsx`/esbuild `spawn EPERM`으로 실패했다. 참고로 `npx tsc --noEmit`은 통과했지만, 지정 검증 명령의 PASS 수치를 확보하지 못해 과제 완료/커밋은 보류한다.
+- 2026-07-08 Codex: 중단된 과제 3을 재개해 샌드박스 밖에서 동일 `tsx` 검증을 재실행했다. `npx tsx test/integration/insight-registry-content.test.ts` 54 PASS / 0 FAIL, `npm run test:tiered-shape` 1378 PASS / 0 FAIL, `npx tsx tools/baseline_snapshot.ts verify` 15 PASS / 0 FAIL, `npm run test:namespring-compat` 202 PASS / 0 FAIL.

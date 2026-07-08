@@ -326,6 +326,27 @@
       "factId": "branchRelation.원진",
       "text": "두 지지가 이유 없이 서먹한 원진이에요. 다름을 인정하는 것부터가 화해의 시작이에요.",
       "expertText": "원진은 정서적 주파수의 어긋남으로, 시간을 들인 이해가 처방이에요."
+    },
+    {
+      "factId": "branchRelation.반합",
+      "text": "세 지지가 다 모이진 않았지만 한 방향으로 기운이 모이는 반합이에요. 완성 전 단계의 가능성으로 보면 좋아요.",
+      "expertText": "반합은 삼합국의 일부가 만나 같은 오행 쪽으로 끌리는 구조예요. 완성국처럼 단정하지 않고, 조건부 결집 신호로 읽어요.",
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "ai_authored_insight_text", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-authored Korean narrative for display-only branch relation insight text.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "factId": "branchRelation.귀문",
+      "text": "귀문은 마음이 예민하게 통하는 문처럼 작동해요. 감이 빨라지는 만큼 혼자 추측하지 말고 확인하는 습관이 필요해요.",
+      "expertText": "귀문 관계는 심리적 예민함과 몰입의 신호로 다루되 공포 서사로 단정하지 않아요. 연구·상담·창작 쪽 집중력으로 전환할 여지도 함께 봐요.",
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "ai_authored_insight_text", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-authored Korean narrative for display-only branch relation insight text.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "factId": "branchRelation.resolved.해소",
+      "text": "충돌 신호가 있어도 다른 합이 긴장을 풀어 주는 해소 흐름이에요. 부딪힘만 보지 말고 풀리는 길도 함께 보세요.",
+      "expertText": "해소 outcome은 지지 충·형 같은 긴장이 합 구조나 상호작용으로 완화된 상태예요. 원국의 갈등을 0으로 지우기보다 조절 가능한 긴장으로 읽어요.",
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "ai_authored_insight_text", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-authored Korean narrative for display-only resolved branch relation insight text.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
     }
   ]
 }
