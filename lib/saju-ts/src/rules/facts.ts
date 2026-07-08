@@ -2328,7 +2328,9 @@ function computeStrengthFacts(args: {
 }): StrengthFacts {
   const base = strengthFromTenGodScoresBase(args.tenGods);
 
-  const model = ((args.config.strategies as any)?.strength?.model ?? 'base') as string;
+  // [감사 B7] 기본 모델은 deLingDiShi(월지 가중). defaultConfig(api/config.ts)가 정본이며,
+  // 이 폴백은 normalizeConfig를 우회한 직접 호출 방어용이다. 'base'는 명시 opt-out.
+  const model = ((args.config.strategies as any)?.strength?.model ?? 'deLingDiShi') as string;
 
   // --- Model: deLingDiShi (得令/得地/得势)
   if (model === 'deLingDiShi' || model === 'delingdiShi' || model === 'delingsh' || model === 'deLing') {

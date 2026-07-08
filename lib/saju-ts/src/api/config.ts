@@ -31,6 +31,12 @@ export const defaultConfig: EngineConfig = {
     lifeStages: true,
     stemRelations: true,
   },
+  strategies: {
+    // [감사 B7] 신강약 기본 모델: 월지 가중 得令/得地/得势 (deLingDiShi).
+    // 월지 무가중 'base' 모델은 어느 학파도 채택하지 않는 이설 밖 동작이라 옵션으로 강등.
+    // 명시적으로 strategies.strength.model='base'를 주면 이전 동작으로 복귀한다.
+    strength: { model: 'deLingDiShi' },
+  },
 };
 
 function parsePresetIds(x: unknown): string[] {

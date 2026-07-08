@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "capturedAt": "2026-07-08T06:00:06.680Z",
+  "capturedAt": "2026-07-08T07:30:23.304Z",
   "targetDate": "2026-04-30T00:00:00.000Z",
   "fixtureCount": 15,
   "results": [
@@ -347,7 +347,7 @@
             "element": "WATER",
             "polarity": "음"
           },
-          "strengthLevel": "신약",
+          "strengthLevel": "중화(신약 경향)",
           "isStrong": false,
           "yongshinElement": "METAL",
           "yongshinHeeshin": "WATER",
@@ -375,19 +375,19 @@
             "rank": 2
           },
           {
-            "finalScore": 74,
+            "finalScore": 73.9,
             "fullHangul": "정정리",
             "fullHanja": "鄭井理",
             "rank": 3
           },
           {
-            "finalScore": 74,
+            "finalScore": 73.9,
             "fullHangul": "정소수",
             "fullHanja": "鄭少琇",
             "rank": 4
           },
           {
-            "finalScore": 73.4,
+            "finalScore": 73.3,
             "fullHangul": "정월수",
             "fullHanja": "鄭月琇",
             "rank": 5
@@ -452,15 +452,15 @@
             "rank": 1
           },
           {
-            "finalScore": 77.1,
-            "fullHangul": "강리영",
-            "fullHanja": "姜利穎",
+            "finalScore": 77.2,
+            "fullHangul": "강로희",
+            "fullHanja": "姜瀘稀",
             "rank": 2
           },
           {
             "finalScore": 77.1,
-            "fullHangul": "강로희",
-            "fullHanja": "姜瀘稀",
+            "fullHangul": "강리영",
+            "fullHanja": "姜利穎",
             "rank": 3
           },
           {
@@ -514,7 +514,7 @@
           "strengthLevel": "신강",
           "isStrong": true,
           "yongshinElement": "EARTH",
-          "yongshinHeeshin": "WOOD",
+          "yongshinHeeshin": "METAL",
           "gyeokgukType": "겁재격",
           "gyeokgukCategory": "일반",
           "gyeokgukConfidence": 0.5711111111111111,
@@ -527,39 +527,39 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 78.6,
-            "fullHangul": "윤장희",
-            "fullHanja": "尹薔稀",
+            "finalScore": 78.8,
+            "fullHangul": "윤수반",
+            "fullHanja": "尹隧磻",
             "rank": 1
           },
           {
-            "finalScore": 78.4,
-            "fullHangul": "윤수봉",
-            "fullHanja": "尹隧蓬",
+            "finalScore": 77.6,
+            "fullHangul": "윤정달",
+            "fullHanja": "尹珽獺",
             "rank": 2
           },
           {
-            "finalScore": 77.9,
-            "fullHangul": "윤희장",
-            "fullHanja": "尹稀薔",
+            "finalScore": 77.5,
+            "fullHangul": "윤해진",
+            "fullHanja": "尹邂璡",
             "rank": 3
           },
           {
-            "finalScore": 77.6,
-            "fullHangul": "윤수만",
-            "fullHanja": "尹隧挽",
+            "finalScore": 77,
+            "fullHangul": "윤달수",
+            "fullHanja": "尹獺琇",
             "rank": 4
           },
           {
-            "finalScore": 77.5,
-            "fullHangul": "윤탁희",
-            "fullHanja": "尹拓稀",
+            "finalScore": 76.9,
+            "fullHangul": "윤리규",
+            "fullHanja": "尹理奎",
             "rank": 5
           }
         ],
         "fortuneReport": {
           "overviewTitle": "총평 요약",
-          "dailyStars": 4,
+          "dailyStars": 2,
           "yearlyStars": 1,
           "lifeStars": 3,
           "personalityTraitCount": 6
@@ -768,7 +768,7 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 83.5,
+            "finalScore": 83.6,
             "fullHangul": "한소범",
             "fullHanja": "韓蕭帆",
             "rank": 1
@@ -786,13 +786,13 @@
             "rank": 3
           },
           {
-            "finalScore": 81.6,
+            "finalScore": 81.7,
             "fullHangul": "한수영",
             "fullHanja": "韓秀瑛",
             "rank": 4
           },
           {
-            "finalScore": 81.6,
+            "finalScore": 81.7,
             "fullHangul": "한사영",
             "fullHanja": "韓些瑛",
             "rank": 5
@@ -930,7 +930,7 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 78.8,
+            "finalScore": 78.9,
             "fullHangul": "정일정",
             "fullHanja": "鄭日淨",
             "rank": 1
@@ -1094,13 +1094,13 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 85.2,
+            "finalScore": 85.3,
             "fullHangul": "박수신",
             "fullHanja": "朴修辰",
             "rank": 1
           },
           {
-            "finalScore": 85.1,
+            "finalScore": 85.2,
             "fullHangul": "박구대",
             "fullHanja": "朴舊旲",
             "rank": 2
