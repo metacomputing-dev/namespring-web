@@ -52,6 +52,14 @@ function hasNatalRelations(row: any): boolean {
     (Array.isArray(relations.branchRelations) && relations.branchRelations.length > 0)
   );
 }
+
+function hasDecadeRelations(row: any): boolean {
+  const entries = row?.relationsWithDecade?.decadeRelations;
+  return Array.isArray(entries) && entries.some((entry: any) =>
+    (Array.isArray(entry?.stemRelations) && entry.stemRelations.length > 0) ||
+    (Array.isArray(entry?.branchRelations) && entry.branchRelations.length > 0),
+  );
+}
 function hasLuckAnnotations(row: any): boolean {
   return typeof row?.tenGod === 'string' &&
     typeof row?.lifeStage === 'string' &&
@@ -118,6 +126,8 @@ if (ctx.output) {
     check('saeunPillars[0] has PR-8 luck annotations', hasLuckAnnotations(firstSaeun));
     check('saeunPillars includes PR-9 natal relation annotations',
       ctx.output.saeunPillars!.some((pillar: any) => hasNatalRelations(pillar)));
+    check('saeunPillars includes PR-9 decade-year relation annotations',
+      ctx.output.saeunPillars!.some((pillar: any) => hasDecadeRelations(pillar)));
   } else {
     check('SajuOutputSummary.saeunPillars is undefined when source is empty', ctx.output.saeunPillars === undefined);
   }

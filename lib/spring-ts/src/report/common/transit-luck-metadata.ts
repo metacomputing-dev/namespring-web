@@ -20,12 +20,34 @@ export interface LuckRelationsWithNatalForReport {
   readonly stemRelations?: readonly LuckRelationForReport[];
   readonly branchRelations?: readonly LuckRelationForReport[];
 }
+
+export interface LuckPairRelationForReport {
+  readonly type?: string;
+  readonly members?: readonly string[];
+  readonly luckPositions?: readonly string[];
+  readonly resultElement?: string | null;
+}
+
+export interface LuckDecadeRelationForReport {
+  readonly decadeIndex?: number;
+  readonly decadePillar?: {
+    readonly cheongan?: string;
+    readonly jiji?: string;
+  };
+  readonly stemRelations?: readonly LuckPairRelationForReport[];
+  readonly branchRelations?: readonly LuckPairRelationForReport[];
+}
+
+export interface LuckRelationsWithDecadeForReport {
+  readonly decadeRelations?: readonly LuckDecadeRelationForReport[];
+}
 export interface LuckPillarAnnotationsForReport {
   readonly tenGod?: string;
   readonly lifeStage?: string;
   readonly lifeStageKo?: string;
   readonly transitShinsal?: TransitShinsalForReport;
   readonly relationsWithNatal?: LuckRelationsWithNatalForReport;
+  readonly relationsWithDecade?: LuckRelationsWithDecadeForReport;
 }
 
 const TEN_GOD_KO: Record<string, string> = {
@@ -134,6 +156,28 @@ function luckRelationFeatures(row: LuckPillarAnnotationsForReport | null | undef
 
   return features;
 }
+
+function decadeRelationLabel(entry: LuckDecadeRelationForReport | null | undefined): string {
+  const index = Number(entry?.decadeIndex);
+  return Number.isFinite(index) ? `${index + 1}대운` : '대운';
+}
+
+function luckDecadeRelationFeatures(row: LuckPillarAnnotationsForReport | null | undefined): string[] {
+  const entries = row?.relationsWithDecade?.decadeRelations;
+  const entry = Array.isArray(entries) ? entries[0] : undefined;
+  if (!entry) return [];
+
+  const features: string[] = [];
+  const branch = entry.branchRelations?.[0];
+  const branchType = relationTypeKo(branch?.type);
+  if (branchType) features.push(`대운-세운 지지 관계: ${decadeRelationLabel(entry)} ${branchType}`);
+
+  const stem = entry.stemRelations?.[0];
+  const stemType = relationTypeKo(stem?.type);
+  if (stemType) features.push(`대운-세운 천간 관계: ${decadeRelationLabel(entry)} ${stemType}`);
+
+  return features;
+}
 export function luckAnnotationFeatures(row: LuckPillarAnnotationsForReport | null | undefined): string[] {
   if (!row) return [];
 
@@ -160,6 +204,7 @@ export function luckAnnotationFeatures(row: LuckPillarAnnotationsForReport | nul
   if (shinsal?.jogaek) features.push('보조 신살: 조객');
 
   features.push(...luckRelationFeatures(row));
+  features.push(...luckDecadeRelationFeatures(row));
 
   return features;
 }

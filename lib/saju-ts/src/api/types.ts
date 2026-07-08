@@ -378,6 +378,29 @@ export interface FortuneBranchRelationView {
   luckPosition: 'luck';
 }
 
+export interface FortuneLuckPairStemRelationView {
+  type: StemRelationType;
+  members: StemView[];
+  resultElement?: string;
+  luckPositions: Array<'decade' | 'year'>;
+}
+
+export interface FortuneLuckPairBranchRelationView {
+  type: RelationType;
+  members: BranchView[];
+  luckPositions: Array<'decade' | 'year'>;
+}
+
+export interface FortuneDecadeYearRelationEntryView {
+  luckKind: 'DECADE_YEAR';
+  solarYear: number;
+  decadeIndex: number;
+  decadePillar: PillarView;
+  yearPillar: PillarView;
+  stemRelations: FortuneLuckPairStemRelationView[];
+  branchRelations: FortuneLuckPairBranchRelationView[];
+}
+
 export interface FortuneRelationEntryView {
   luckKind: 'DECADE' | 'YEAR' | 'MONTH' | 'DAY';
   index?: number;
@@ -394,6 +417,7 @@ export interface FortuneRelationsSummaryView {
   years: FortuneRelationEntryView[];
   months?: FortuneRelationEntryView[];
   days?: FortuneRelationEntryView[];
+  decadeYears: FortuneDecadeYearRelationEntryView[];
 }
 export interface FortuneSummaryView {
   start: FortuneStartView;

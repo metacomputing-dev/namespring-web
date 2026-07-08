@@ -55,7 +55,7 @@ for (const repo of repos) { if (repo) (repo as any).wasmUrl = WASM_PATH; }
 await engine.init();
 
 const report: any = await engine.getFortuneReport({
-  targetDate: '2026-05-04T00:00:00+09:00',
+  targetDate: '2025-05-04T00:00:00+09:00',
   birth: {
     year: 1986,
     month: 4,
@@ -78,7 +78,7 @@ const lifeStageHighlights = (report.lifeStageFortune?.stages ?? []).flatMap((sta
 );
 
 check('yearly fortune keeps target calendar label',
-  report.yearlyFortune?.periodLabel === '2026년',
+  report.yearlyFortune?.periodLabel === '2025년',
   String(report.yearlyFortune?.periodLabel));
 check('yearly fortune evidence includes transit ten-god',
   yearlyFeatures.some((feature) => feature.startsWith('운 십성:')),
@@ -91,6 +91,9 @@ check('yearly fortune evidence includes twelve-sal',
   JSON.stringify(yearlyFeatures));
 check('yearly fortune evidence includes natal relation',
   yearlyFeatures.some((feature) => feature.startsWith('원국 지지 관계:') || feature.startsWith('원국 천간 관계:')),
+  JSON.stringify(yearlyFeatures));
+check('yearly fortune evidence includes decade-year relation',
+  yearlyFeatures.some((feature) => feature.startsWith('대운-세운 지지 관계:') || feature.startsWith('대운-세운 천간 관계:')),
   JSON.stringify(yearlyFeatures));
 check('monthly fortune evidence includes wolun ten-god',
   monthlyFeatures.some((feature) => feature.startsWith('운 십성:')),

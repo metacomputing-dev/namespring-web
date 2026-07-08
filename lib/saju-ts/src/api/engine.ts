@@ -9,7 +9,7 @@ import { toBranchView, toHiddenStemTenGodView, toHiddenStemView, toPillarView, t
 import { packAnalysisBundleZip } from '../artifacts/analysisZip.js';
 import { ENGINE_NAME, ENGINE_VERSION } from '../meta/version.js';
 import type { FortuneTimeline } from '../fortune/types.js';
-import type { FortuneRelationEntry, FortuneRelationsTimeline } from '../fortune/relations.js';
+import type { DecadeYearRelationEntry, FortuneRelationEntry, FortuneRelationsTimeline } from '../fortune/relations.js';
 import type { StrengthFacts } from '../rules/facts.js';
 import type { YongshinResult } from '../rules/yongshin.js';
 import type { GyeokgukResult } from '../rules/gyeokguk.js';
@@ -80,6 +80,26 @@ function toFortuneRelationEntryView(entry: FortuneRelationEntry) {
       members: relation.members.map(toBranchView),
       natalPositions: relation.natalPositions,
       luckPosition: relation.luckPosition,
+    })),
+  };
+}
+function toFortuneDecadeYearRelationEntryView(entry: DecadeYearRelationEntry) {
+  return {
+    luckKind: entry.luckKind,
+    solarYear: entry.solarYear,
+    decadeIndex: entry.decadeIndex,
+    decadePillar: toPillarView(entry.decadePillar),
+    yearPillar: toPillarView(entry.yearPillar),
+    stemRelations: entry.stemRelations.map((relation) => ({
+      type: relation.type,
+      members: relation.members.map(toStemView),
+      resultElement: relation.resultElement,
+      luckPositions: relation.luckPositions,
+    })),
+    branchRelations: entry.branchRelations.map((relation) => ({
+      type: relation.type,
+      members: relation.members.map(toBranchView),
+      luckPositions: relation.luckPositions,
     })),
   };
 }
@@ -297,6 +317,7 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
             years: fortuneRelations.years.slice(0, 30).map(toFortuneRelationEntryView),
             months: fortuneRelations.months?.slice(0, 24).map(toFortuneRelationEntryView),
             days: fortuneRelations.days?.slice(0, 60).map(toFortuneRelationEntryView),
+            decadeYears: fortuneRelations.decadeYears.slice(0, 30).map(toFortuneDecadeYearRelationEntryView),
           },
         };
       }

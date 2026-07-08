@@ -75,4 +75,72 @@ describe('fortune.relations', () => {
       members: [0, 6],
     })]));
   });
+
+  it('surfaces decade-year relations for the active decade of each year', () => {
+    const natal = [pillar(1, 1), pillar(2, 2), pillar(3, 3), pillar(4, 4)] as const;
+    const timeline = {
+      policy: {} as any,
+      start: {} as any,
+      decades: [{
+        kind: 'DECADE',
+        index: 2,
+        startAgeYears: 21,
+        endAgeYears: 31,
+        pillar: pillar(0, 0), // Jia-Zi
+      }],
+      years: [{
+        kind: 'YEAR',
+        solarYear: 2030,
+        pillar: pillar(5, 6), // Ji-Wu
+        startUtcMs: 0,
+        endUtcMs: 1,
+        approxStartAgeYears: 24,
+        approxEndAgeYears: 25,
+      }],
+    } as FortuneTimeline;
+
+    const entry = buildFortuneRelations(natal, timeline).decadeYears[0]!;
+
+    expect(entry).toEqual(expect.objectContaining({
+      luckKind: 'DECADE_YEAR',
+      solarYear: 2030,
+      decadeIndex: 2,
+    }));
+    expect(entry.stemRelations).toEqual(expect.arrayContaining([expect.objectContaining({
+      type: 'HAP',
+      members: [0, 5],
+      luckPositions: ['decade', 'year'],
+    })]));
+    expect(entry.branchRelations).toEqual(expect.arrayContaining([expect.objectContaining({
+      type: 'CHUNG',
+      members: [0, 6],
+      luckPositions: ['decade', 'year'],
+    })]));
+  });
+
+  it('omits decade-year relations before the first decade is active', () => {
+    const natal = [pillar(1, 1), pillar(2, 2), pillar(3, 3), pillar(4, 4)] as const;
+    const timeline = {
+      policy: {} as any,
+      start: {} as any,
+      decades: [{
+        kind: 'DECADE',
+        index: 0,
+        startAgeYears: 3,
+        endAgeYears: 13,
+        pillar: pillar(0, 0),
+      }],
+      years: [{
+        kind: 'YEAR',
+        solarYear: 2000,
+        pillar: pillar(5, 6),
+        startUtcMs: 0,
+        endUtcMs: 1,
+        approxStartAgeYears: 0,
+        approxEndAgeYears: 1,
+      }],
+    } as FortuneTimeline;
+
+    expect(buildFortuneRelations(natal, timeline).decadeYears).toEqual([]);
+  });
 });

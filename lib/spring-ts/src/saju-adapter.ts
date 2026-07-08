@@ -2249,12 +2249,44 @@ function extractLuckRelationsWithNatal(raw: any) {
   if (stemRelations.length === 0 && branchRelations.length === 0) return undefined;
   return { stemRelations, branchRelations };
 }
+function extractLuckRelationsWithDecade(raw: any) {
+  const source = raw?.relationsWithDecade;
+  if (!source || typeof source !== 'object') return undefined;
+  const normalizeHit = (hit: any) => {
+    const members = ensureArray(hit?.members).map(String).filter(Boolean);
+    const luckPositions = ensureArray(hit?.luckPositions).map(String).filter(Boolean);
+    if (!hit?.type || members.length === 0) return null;
+    return {
+      type: String(hit.type),
+      members,
+      luckPositions: luckPositions.length ? luckPositions : ['decade', 'year'],
+      ...(hit.resultElement || hit.resultOhaeng ? { resultElement: String(hit.resultElement ?? hit.resultOhaeng) } : {}),
+    };
+  };
+  const decadeRelations = ensureArray(source.decadeRelations).map((entry: any) => {
+    const stemRelations = ensureArray(entry?.stemRelations).map(normalizeHit).filter(Boolean);
+    const branchRelations = ensureArray(entry?.branchRelations).map(normalizeHit).filter(Boolean);
+    if (stemRelations.length === 0 && branchRelations.length === 0) return null;
+    return {
+      decadeIndex: Number(entry?.decadeIndex ?? 0),
+      decadePillar: {
+        cheongan: String(entry?.decadePillar?.cheongan ?? ''),
+        jiji: String(entry?.decadePillar?.jiji ?? ''),
+      },
+      stemRelations,
+      branchRelations,
+    };
+  }).filter(Boolean);
+  if (decadeRelations.length === 0) return undefined;
+  return { decadeRelations };
+}
 function withLuckPillarAnnotations<T extends Record<string, unknown>>(out: T, raw: any): T {
   const tenGod = toNullableString(raw?.tenGod);
   const lifeStage = toNullableString(raw?.lifeStage);
   const lifeStageKo = toNullableString(raw?.lifeStageKo);
   const transitShinsal = raw?.transitShinsal ? deepSerialize(raw.transitShinsal) : null;
   const relationsWithNatal = extractLuckRelationsWithNatal(raw);
+  const relationsWithDecade = extractLuckRelationsWithDecade(raw);
 
   return {
     ...out,
@@ -2263,6 +2295,7 @@ function withLuckPillarAnnotations<T extends Record<string, unknown>>(out: T, ra
     ...(lifeStageKo ? { lifeStageKo } : {}),
     ...(transitShinsal ? { transitShinsal } : {}),
     ...(relationsWithNatal ? { relationsWithNatal } : {}),
+    ...(relationsWithDecade ? { relationsWithDecade } : {}),
   };
 }
 

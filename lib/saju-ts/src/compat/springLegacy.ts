@@ -560,6 +560,13 @@ function relationMemberCode(axis: 'STEM' | 'BRANCH', member: any): string {
   return axis === 'STEM' ? stemCodeFromIdx(idx) : branchCodeFromIdx(idx);
 }
 
+function pillarCodesFromUnknown(pillar: any) {
+  return {
+    cheongan: stemCodeFromIdx(pillar?.stem?.idx ?? pillar?.stem),
+    jiji: branchCodeFromIdx(pillar?.branch?.idx ?? pillar?.branch),
+  };
+}
+
 function formatFortuneRelationHit(axis: 'STEM' | 'BRANCH', relation: any) {
   const members = Array.isArray(relation?.members)
     ? relation.members.map((member: any) => relationMemberCode(axis, member)).filter(Boolean)
@@ -577,6 +584,22 @@ function formatFortuneRelationHit(axis: 'STEM' | 'BRANCH', relation: any) {
   };
 }
 
+function formatLuckPairRelationHit(axis: 'STEM' | 'BRANCH', relation: any) {
+  const members = Array.isArray(relation?.members)
+    ? relation.members.map((member: any) => relationMemberCode(axis, member)).filter(Boolean)
+    : [];
+  const luckPositions = Array.isArray(relation?.luckPositions)
+    ? relation.luckPositions.map((pos: any) => String(pos)).filter(Boolean)
+    : ['decade', 'year'];
+  if (!relation?.type || members.length === 0) return null;
+  return {
+    type: String(relation.type),
+    members,
+    luckPositions,
+    ...(axis === 'STEM' && relation.resultElement ? { resultOhaeng: String(relation.resultElement) } : {}),
+  };
+}
+
 function formatLuckRelationsWithNatal(entry: any) {
   if (!entry || typeof entry !== 'object') return undefined;
   const stemRelations = Array.isArray(entry.stemRelations)
@@ -589,7 +612,30 @@ function formatLuckRelationsWithNatal(entry: any) {
   return { stemRelations, branchRelations };
 }
 
-function relationEntries(source: any, key: 'decades' | 'years' | 'months') {
+function formatLuckRelationsWithDecade(entries: any[] | undefined) {
+  const decadeRelations = (Array.isArray(entries) ? entries : [])
+    .map((entry: any) => {
+      if (!entry || typeof entry !== 'object') return null;
+      const stemRelations = Array.isArray(entry.stemRelations)
+        ? entry.stemRelations.map((rel: any) => formatLuckPairRelationHit('STEM', rel)).filter(Boolean)
+        : [];
+      const branchRelations = Array.isArray(entry.branchRelations)
+        ? entry.branchRelations.map((rel: any) => formatLuckPairRelationHit('BRANCH', rel)).filter(Boolean)
+        : [];
+      if (stemRelations.length === 0 && branchRelations.length === 0) return null;
+      return {
+        decadeIndex: Number(entry.decadeIndex ?? 0),
+        decadePillar: pillarCodesFromUnknown(entry.decadePillar),
+        stemRelations,
+        branchRelations,
+      };
+    })
+    .filter(Boolean);
+  if (decadeRelations.length === 0) return undefined;
+  return { decadeRelations };
+}
+
+function relationEntries(source: any, key: 'decades' | 'years' | 'months' | 'decadeYears') {
   return Array.isArray(source?.[key]) ? source[key] : [];
 }
 function roundTo(value: unknown, digits: number): number {
@@ -1552,6 +1598,14 @@ function normalizeLegacyOutput(
   const monthRelationsByKey = new Map(
     relationEntries(relationTimeline, 'months').map((entry: any) => [`${Number(entry?.solarYear ?? 0)}:${Number(entry?.monthOrder ?? 0)}`, entry]),
   );
+  const decadeYearRelationsByYear = new Map<number, any[]>();
+  for (const entry of relationEntries(relationTimeline, 'decadeYears')) {
+    const year = Number(entry?.solarYear ?? 0);
+    if (!Number.isFinite(year) || year === 0) continue;
+    const existing = decadeYearRelationsByYear.get(year) ?? [];
+    existing.push(entry);
+    decadeYearRelationsByYear.set(year, existing);
+  }
   const decades = Array.isArray(fortune?.decades) ? fortune.decades : [];
   const needsExpandedYears = typeof saeunStartYear === 'number' || typeof saeunYearCount === 'number';
   const needsExpandedMonths = typeof wolunStartYear === 'number' || typeof wolunMonthCount === 'number';
@@ -1604,6 +1658,9 @@ function normalizeLegacyOutput(
     ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy),
     ...(formatLuckRelationsWithNatal(yearRelationsByYear.get(Number(entry?.solarYear ?? 0)))
       ? { relationsWithNatal: formatLuckRelationsWithNatal(yearRelationsByYear.get(Number(entry?.solarYear ?? 0))) }
+      : {}),
+    ...(formatLuckRelationsWithDecade(decadeYearRelationsByYear.get(Number(entry?.solarYear ?? 0)))
+      ? { relationsWithDecade: formatLuckRelationsWithDecade(decadeYearRelationsByYear.get(Number(entry?.solarYear ?? 0))) }
       : {}),
   }));
 

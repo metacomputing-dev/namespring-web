@@ -933,12 +933,34 @@ export interface LuckPillarRelationsWithNatalSummary {
   readonly stemRelations: readonly LuckPillarRelationSummary[];
   readonly branchRelations: readonly LuckPillarRelationSummary[];
 }
+
+export interface LuckPairRelationSummary {
+  readonly type: string;
+  readonly members: readonly string[];
+  readonly luckPositions: readonly ('decade' | 'year' | string)[];
+  readonly resultElement?: string | null;
+}
+
+export interface LuckDecadeYearRelationSummary {
+  readonly decadeIndex: number;
+  readonly decadePillar: {
+    readonly cheongan: string;
+    readonly jiji: string;
+  };
+  readonly stemRelations: readonly LuckPairRelationSummary[];
+  readonly branchRelations: readonly LuckPairRelationSummary[];
+}
+
+export interface LuckPillarRelationsWithDecadeSummary {
+  readonly decadeRelations: readonly LuckDecadeYearRelationSummary[];
+}
 export interface LuckPillarAnnotationSummary {
   readonly tenGod?: string;
   readonly lifeStage?: string;
   readonly lifeStageKo?: string;
   readonly transitShinsal?: TransitShinsalSummary;
   readonly relationsWithNatal?: LuckPillarRelationsWithNatalSummary;
+  readonly relationsWithDecade?: LuckPillarRelationsWithDecadeSummary;
 }
 
 export interface DaeunPillarSummary extends LuckPillarAnnotationSummary {
