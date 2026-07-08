@@ -267,8 +267,8 @@ function findBracketForLongitude(
  * Tolerance is fixed at ~1e-7° (≈ 0.0004″), well below the engine's
  * underlying solar-longitude precision.
  *
- * Note: not yet wired into the engine; an upcoming commit will let the
- * caller dispatch between bisection and this function via config.
+ * Production path: graphFactory가 solarTermMethod='newton'(제품 기본)일 때
+ * 이 함수를 호출한다 — bisection은 폴백 경로다.
  */
 function newtonLongitudeRoot(
   jd0: number,
