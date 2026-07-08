@@ -62,7 +62,10 @@ export const WOLLYUL_SEGMENTS: ReadonlyArray<readonly WollyulSegment[]> = [
   ],
   /* 6 午 */ [
     { stem: 2, days: 10, qi: 'CHO' },   // 丙 餘氣
-    { stem: 5, days: 10, qi: 'JUNG' },  // 己 中氣 (午의 특수: 31일이 아니라 31일)
+    { stem: 5, days: 10, qi: 'JUNG' },  // 己 中氣
+    // ⚠ 午는 丙10+己10+丁11=31일로 12지지 중 유일하게 nominal 합 30일 초과 (saju_master v9.2 채택값.
+    // 주류 이설은 10-9-11 합30 또는 10-10-10 합30 — 감사 A15e). classical 스킴의 午월 경계일에만
+    // 영향, scaled 스킴은 실제 월 길이로 정규화되므로 무영향.
     { stem: 3, days: 11, qi: 'JEONG' }, // 丁 正氣
   ],
   /* 7 未 */ [

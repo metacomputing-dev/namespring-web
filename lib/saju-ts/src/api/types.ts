@@ -283,7 +283,8 @@ export interface StemRelationView {
 
 export interface FortuneStartView {
   direction: 'FORWARD' | 'BACKWARD';
-  boundary: { id: string; utcMs: number };
+  /** null = solar-term boundaries unavailable (trivial fallback timeline). */
+  boundary: { id: string; utcMs: number } | null;
   deltaMs: number;
   startAgeYears: number;
   startAgeParts?: { years: number; months: number; days: number };

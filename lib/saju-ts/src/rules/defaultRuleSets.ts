@@ -320,7 +320,8 @@ const DEFAULT_SHINSAL_RULES: Rule[] = [
     pillars: [
       { pillar: 'year', id: 'GONGMANG_YEAR', explain: '연지가 일주旬空(공망)에 해당' },
       { pillar: 'month', id: 'GONGMANG_MONTH', explain: '월지가 일주旬空(공망)에 해당' },
-      { pillar: 'day', id: 'GONGMANG_DAY', explain: '일지가 일주旬空(공망)에 해당' },
+      // 일지는 자기 순(旬) 안에 있어 일주 기준 공망일 수 없다 — GONGMANG_DAY 는 영구 불발화 룰이라 제거.
+      // 일지 공망 판정은 년주 기준 공망(별도 축, 감사 B13)으로만 가능.
       { pillar: 'hour', id: 'GONGMANG_HOUR', explain: '시지가 일주旬空(공망)에 해당' },
     ],
   }),

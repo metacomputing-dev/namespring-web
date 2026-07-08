@@ -155,10 +155,12 @@ export function computeFortuneTimeline(args: {
 
   if (!jieBoundariesAround) {
     // If boundaries are not computed (policy doesn't need them), fall back to a trivial timeline.
+    // boundary is null — a fabricated LICHUN-at-birth value would be indistinguishable
+    // from a real solar-term instant downstream (감사 A15b).
     const direction = computeDirection(request.sex, natalYearPillar.stem, policy.directionRule);
     const start: FortuneStart = {
       direction,
-      boundary: { id: 'LICHUN', utcMs: parsedUtcMs },
+      boundary: null,
       deltaMs: 0,
       startAgeYears: 0,
       startUtcMsApprox: parsedUtcMs,

@@ -70,11 +70,15 @@ export interface FortunePolicy {
 export interface FortuneStart {
   direction: FortuneDirection;
 
-  /** The solar-term boundary used for 起運 (기산점). */
+  /**
+   * The solar-term boundary used for 起運 (기산점).
+   * `null` when solar-term boundaries were unavailable (trivial fallback
+   * timeline) — never fabricated from the birth instant.
+   */
   boundary: {
     id: JieTermId;
     utcMs: number;
-  };
+  } | null;
 
   /** Δt between birth and boundary (ms, always positive). */
   deltaMs: number;
