@@ -142,23 +142,23 @@
     {
       "id": "fix-03",
       "selected": {
-        "type": "편관격",
+        "type": "정재격",
         "category": "일반",
-        "baseTenGod": "편관",
-        "confidence": 0.538889
+        "baseTenGod": "정재",
+        "confidence": 0.346429
       },
       "candidates": [
         {
-          "type": "편관격",
+          "type": "정재격",
           "category": "일반",
-          "baseTenGod": "편관",
-          "score": 0.538889,
-          "confidence": 0.538889,
+          "baseTenGod": "정재",
+          "score": 0.346429,
+          "confidence": 0.346429,
           "compositeClassical": {
-            "score": 0.582252,
-            "confidence": 0.582252,
+            "score": 0.411829,
+            "confidence": 0.411829,
             "status": "low_confidence_evidence",
-            "breakerPenalty": 0.082,
+            "breakerPenalty": 0.242,
             "selectedByComposite": false,
             "topFeatures": [
               "monthMainMatch",

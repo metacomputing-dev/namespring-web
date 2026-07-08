@@ -198,9 +198,10 @@ export interface LegacySajuConfig {
 
   /**
    * Convenience switch for YAZA day-cut behavior.
-   * - false: MIDNIGHT_00
-   * - true:  yazaMode/dayCutMode or default YAZA_23_30_TO_01_30_NEXTDAY
-   * Default: false
+   * - false: MIDNIGHT_00 (자정설 옵션)
+   * - true:  dayCutMode/yazaMode or default YAZA_23_TO_01_NEXTDAY
+   * Default: true (감사 결정① — 정자시설이 기본. 주의: resolveDayCutMode는
+   * dayCutMode를 yazaMode보다 먼저 평가한다.)
    */
   yazaEnabled?: boolean;
   yazaMode?: LegacyYazaMode;
@@ -236,7 +237,9 @@ interface TrueSolarCorrectionView {
 
 const PRESET_CONFIGS: Record<string, LegacySajuConfig> = {
   KOREAN_MAINSTREAM: {
-    dayCutMode: 'YAZA_23_30_TO_01_30_NEXTDAY',
+    // 감사 결정①+A11: 경도 보정(기본 on)과 결합하는 정자시설은 23:00 모드(ziSplit23).
+    // 23:30 모드는 경도 보정 off 유파용 — 중첩 시 이중 보정(-62분)이 된다.
+    dayCutMode: 'YAZA_23_TO_01_NEXTDAY',
     includeEquationOfTime: false,
     lmtBaselineLongitude: 135,
   },
@@ -254,8 +257,10 @@ const PRESET_CONFIGS: Record<string, LegacySajuConfig> = {
 
 const DEFAULT_TRUE_SOLAR_TIME_ENABLED = false;
 const DEFAULT_LONGITUDE_CORRECTION_ENABLED = true;
-const DEFAULT_YAZA_ENABLED = false;
-const DEFAULT_YAZA_MODE: LegacyYazaMode = 'YAZA_23_30_TO_01_30_NEXTDAY';
+// 감사 결정① (2026-07-08): 기본 = 정자시설(ziSplit23, 23:00 모드).
+// 실무 약 80% 주류 정렬 — 자정설은 yazaEnabled=false 명시로 복귀.
+const DEFAULT_YAZA_ENABLED = true;
+const DEFAULT_YAZA_MODE: LegacyYazaMode = 'YAZA_23_TO_01_NEXTDAY';
 
 function toInt(v: unknown, fallback: number): number {
   const n = Number(v);
@@ -895,13 +900,17 @@ function pickEngineConfigPatch(legacy: LegacySajuConfig): Partial<EngineConfig> 
 function buildEngineConfig(
   legacy: LegacySajuConfig,
   timeZone: string,
-): { config: EngineConfig; dayCutShiftMinutes: number } {
+): { config: EngineConfig } {
   const dayCut = mapDayCutMode(resolveDayCutMode(legacy));
   const trueSolarTimeEnabled = legacy.trueSolarTimeEnabled ?? DEFAULT_TRUE_SOLAR_TIME_ENABLED;
   const includeEquationOfTime = legacy.includeEquationOfTime ?? true;
 
   let cfg = cloneConfig();
   cfg.calendar.dayBoundary = dayCut.dayBoundary;
+  // 감사 A11: YAZA_23_30의 -30분은 인스턴트가 아니라 일/시 경계 분류용 시프트로
+  // 엔진에 전달한다(graphFactory ForDay/ForHour). deepMerge 이전에 세팅해야
+  // legacy.calendar.dayCutShiftMinutes 수동 오버라이드가 살아있다.
+  cfg.calendar.dayCutShiftMinutes = dayCut.dayCutShiftMinutes;
   cfg.calendar.trueSolarTime.enabled = trueSolarTimeEnabled;
   cfg.calendar.trueSolarTime.equationOfTime = trueSolarTimeEnabled && includeEquationOfTime ? 'approx' : 'off';
   cfg.calendar.trueSolarTime.applyTo = 'dayAndHour';
@@ -911,7 +920,7 @@ function buildEngineConfig(
   };
 
   cfg = deepMerge(cfg, pickEngineConfigPatch(legacy));
-  return { config: cfg, dayCutShiftMinutes: dayCut.dayCutShiftMinutes };
+  return { config: cfg };
 }
 
 function inferStandardMeridian(offsetMinutes: number): number {
@@ -930,12 +939,13 @@ function effectiveLongitudeForLegacyLmt(
 function makeRequest(
   input: LegacyBirthInput,
   legacy: LegacySajuConfig,
-  dayCutShiftMinutes: number,
-): { request: SajuRequest; standard: CivilDateTime; analysisLocal: CivilDateTime } {
+): { request: SajuRequest; standard: CivilDateTime } {
   const standard = toCivilFromBirthInput(input);
-  const analysisLocal = addMinutes(standard, dayCutShiftMinutes);
+  // 감사 A11: 과거에는 YAZA_23_30의 -30분을 여기(민간시→인스턴트)에 적용해
+  // 입춘·절입 비교와 대운 기산까지 30분 당겨졌다. 시프트는 이제
+  // config.calendar.dayCutShiftMinutes로 엔진의 경계 분류 노드만 이동한다.
   const timeZone = input.timezone ?? DEFAULT_TIMEZONE;
-  const offsetMinutes = resolveOffsetMinutes(timeZone, analysisLocal);
+  const offsetMinutes = resolveOffsetMinutes(timeZone, standard);
   const stdMeridian = inferStandardMeridian(offsetMinutes);
   const rawLongitude = Number.isFinite(input.longitude) ? Number(input.longitude) : DEFAULT_LONGITUDE;
   const latitude = Number.isFinite(input.latitude) ? Number(input.latitude) : DEFAULT_LATITUDE;
@@ -948,7 +958,7 @@ function makeRequest(
     ? effectiveLongitudeForLegacyLmt(rawLongitude, baselineLongitude, stdMeridian)
     : rawLongitude;
 
-  const instant = civilToIsoInstant(analysisLocal, offsetMinutes);
+  const instant = civilToIsoInstant(standard, offsetMinutes);
   const sex: SajuRequest['sex'] = input.gender === 'FEMALE' ? 'F' : 'M';
 
   return {
@@ -962,7 +972,6 @@ function makeRequest(
       },
     },
     standard,
-    analysisLocal,
   };
 }
 
@@ -1490,8 +1499,8 @@ export function analyzeSaju(
 
   const legacy = normalizeLegacyConfig(rawConfig);
   const tz = normalizedInput.timezone ?? DEFAULT_TIMEZONE;
-  const { config, dayCutShiftMinutes } = buildEngineConfig(legacy, tz);
-  const { request, standard } = makeRequest(normalizedInput, legacy, dayCutShiftMinutes);
+  const { config } = buildEngineConfig(legacy, tz);
+  const { request, standard } = makeRequest(normalizedInput, legacy);
 
   const engine = createEngine(config);
   const bundle = engine.analyze(request);

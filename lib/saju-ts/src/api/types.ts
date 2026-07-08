@@ -64,6 +64,12 @@ export interface EngineConfig {
     monthBoundary: 'jieqi' | 'gregorianMonth';
     dayBoundary: 'midnight' | 'ziSplit23';
     hourBoundary: 'doubleHour';
+    /**
+     * 일/시 경계 분류용 로컬 시각 이동(분). UTC 인스턴트는 불변 —
+     * 년주(입춘)·월주(절입) 비교와 대운 기산에는 영향 없음 (감사 A11).
+     * YAZA_23_30(자시 23:30 개시) 등 고정 시프트 유파 전용. 기본 0.
+     */
+    dayCutShiftMinutes?: number;
 
     /**
      * Solar-term computation policy.

@@ -1,26 +1,23 @@
 /**
  * test/integration/yaza-opt-in.test.ts
  *
- * PR-Q-22 (Phase H-S1 closure) — yaza opt-in integration test.
+ * 일주 경계 정책 테스트 — 감사 결정① (2026-07-08) 이후.
  *
- * H-S1 default flip (yaza on) deferred per ~7/10 fixture impact diagnosis
- * (saju-adapter.ts:846-868). Per CLAUDE.md "strict immutability + opt-in"
- * policy, yaza wires as `options.sajuTimePolicy.yaza='on'` (NOT under
- * precisionConfig — pre-dates that namespace).
+ * 기본값 = 정자시설(yaza on, 23:00 모드 = 엔진 ziSplit23). 경도 보정(기본 on,
+ * 서울 -32.09분)과 결합하면 시계 기준 약 23:32~00:32 출생자의 일주가 자정설
+ * 대비 하루 뒤로 이동한다. 자정설은 `sajuTimePolicy.yaza='off'` 옵트아웃.
  *
- * This test asserts the wiring layer:
- *   1. Default `getSajuReport({})` = yaza off → produces a day pillar.
- *   2. Opt-in `sajuTimePolicy: { yaza: 'on', yazaMode: '23:00' }` accepts
- *      without crash → produces a day pillar.
- *   3. Non-boundary times (e.g., 05:45) yield same day pillar in both modes
- *      (yaza only affects 23:00-00:00 boundary times).
+ * 역사 기록: 과거 이 테스트가 관찰한 "engine wiring gap"(yaza='on'인데 일주
+ * 불변)의 실체는 (a) preset(KOREAN_MAINSTREAM)의 dayCutMode가 yazaMode보다
+ * 먼저 평가되어 그림자를 드리운 것 + (b) 23:30 시계 출생은 태양시 22:58로
+ * 창(태양시 23:00~) 밖이라 애초에 차이가 없는 케이스였다는 것. 어댑터가
+ * dayCutMode를 명시하고 창 안(23:45) 케이스로 검증하도록 재작성했다.
  *
- * Behavioral effect note (2026-05-01):
- *   Empirical observation: at 23:30 boundary, default and yaza='on' produce
- *   the SAME day pillar (戊午 vs 戊午) for 2000-01-01 male. This documents
- *   that the wiring exists but the saju-ts engine's day-boundary path may
- *   require additional config keys (e.g., dayCutMode) to activate the
- *   semantic shift. PR-H-S1 reactivation would investigate this gap.
+ * What is asserted:
+ *   1. 창 안(시계 23:45): 기본(정자시설) 일주 = 자정설 일주 + 1일 (다름).
+ *   2. 창 안(시계 00:30, fix-03 축): 기본 일주가 자정설과 다름.
+ *   3. 창 밖(05:45): 기본과 자정설 일주 동일.
+ *   4. 23:30 레거시 모드(경도 보정 off 유파용) 옵트인이 유효한 일주를 산출.
  */
 import path from 'node:path';
 import fs from 'node:fs';
@@ -64,65 +61,60 @@ function check(label: string, cond: boolean, evidence?: string): void {
   }
 }
 
-console.log('PR-Q-22 (Phase H-S1 closure) yaza opt-in\n');
+function dayPillarOf(sj: any): string {
+  return `${sj.pillars?.day?.stem?.hanja}${sj.pillars?.day?.branch?.hanja}`;
+}
 
-// 23:30 boundary edge: yaza='on' treats this as next day, default keeps same day.
-const boundary = {
-  birth: { year: 2000, month: 1, day: 1, hour: 23, minute: 30, gender: 'male' as const },
+const MIDNIGHT_OPTS = { sajuTimePolicy: { yaza: 'off' } } as any;
+
+console.log('일주 경계 정책 (감사 결정① — 기본 정자시설)\n');
+
+// (1) 창 안: 시계 23:45 → 태양시 약 23:13 (>= 23:00) → 정자시설은 익일 일주.
+const inWindowLate = {
+  birth: { year: 2000, month: 1, day: 1, hour: 23, minute: 45, gender: 'male' as const },
   surname: [{ hangul: '김', hanja: '金' }],
 };
+const lateDefault: any = await engine.getSajuReport(inWindowLate);
+const lateMidnight: any = await engine.getSajuReport({ ...inWindowLate, options: MIDNIGHT_OPTS });
+console.log(`  23:45 출생: 기본(정자시설)=${dayPillarOf(lateDefault)} vs 자정설=${dayPillarOf(lateMidnight)}`);
+check('창 안(23:45): 기본 일주가 자정설과 다르다 (익일 이동)',
+  dayPillarOf(lateDefault) !== dayPillarOf(lateMidnight) && dayPillarOf(lateDefault).length === 2,
+  `default=${dayPillarOf(lateDefault)}, midnight=${dayPillarOf(lateMidnight)}`);
 
-const sjDefault: any = await engine.getSajuReport(boundary);
-const sjYazaOn: any = await engine.getSajuReport({
-  ...boundary,
-  options: { sajuTimePolicy: { yaza: 'on', yazaMode: '23:00' } } as any,
-});
+// (2) 창 안: 시계 00:30 (fix-03 축) → 태양시 약 전일 23:58 → 정자시설은 당일(시계 날짜) 일주.
+const inWindowEarly = {
+  birth: { year: 2000, month: 1, day: 1, hour: 0, minute: 30, gender: 'male' as const },
+  surname: [{ hangul: '김', hanja: '金' }],
+};
+const earlyDefault: any = await engine.getSajuReport(inWindowEarly);
+const earlyMidnight: any = await engine.getSajuReport({ ...inWindowEarly, options: MIDNIGHT_OPTS });
+console.log(`  00:30 출생: 기본(정자시설)=${dayPillarOf(earlyDefault)} vs 자정설=${dayPillarOf(earlyMidnight)}`);
+check('창 안(00:30): 기본 일주가 자정설과 다르다',
+  dayPillarOf(earlyDefault) !== dayPillarOf(earlyMidnight) && dayPillarOf(earlyDefault).length === 2,
+  `default=${dayPillarOf(earlyDefault)}, midnight=${dayPillarOf(earlyMidnight)}`);
 
-const dayDefault = `${sjDefault.pillars?.day?.stem?.hanja}${sjDefault.pillars?.day?.branch?.hanja}`;
-const dayYazaOn = `${sjYazaOn.pillars?.day?.stem?.hanja}${sjYazaOn.pillars?.day?.branch?.hanja}`;
-
-console.log(`  23:30 boundary edge (yazaMode 23:00 cutoff):`);
-console.log(`    default day pillar: ${dayDefault}`);
-console.log(`    yaza='on'  day pillar: ${dayYazaOn}`);
-
-check(`default produces a day pillar`, !!dayDefault && dayDefault.length === 2);
-check(`yaza='on' produces a day pillar (no crash)`, !!dayYazaOn && dayYazaOn.length === 2);
-// Behavioral observation only — DO NOT assert difference. saju-ts engine's
-// day-boundary path may require additional config (dayCutMode) to activate
-// the semantic shift; documented in test header.
-console.log(`  (informational) yaza='on' effect: default=${dayDefault} vs yaza=${dayYazaOn} ${dayDefault === dayYazaOn ? '(identical — engine wiring gap)' : '(different)'}`);
-
-// fix-01 non-boundary: 1986-04-19 05:45 male
+// (3) 창 밖: 05:45 → 정책 무관 동일 일주.
 const nonBoundary = {
   birth: { year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male' as const },
   surname: [{ hangul: '최', hanja: '崔' }],
 };
-const nb1: any = await engine.getSajuReport(nonBoundary);
-const nb2: any = await engine.getSajuReport({
-  ...nonBoundary,
-  options: { sajuTimePolicy: { yaza: 'on', yazaMode: '23:00' } } as any,
-});
-const nb1Day = `${nb1.pillars?.day?.stem?.hanja}${nb1.pillars?.day?.branch?.hanja}`;
-const nb2Day = `${nb2.pillars?.day?.stem?.hanja}${nb2.pillars?.day?.branch?.hanja}`;
-console.log(`\n  fix-01 non-boundary (05:45 male):`);
-console.log(`    default day pillar: ${nb1Day}`);
-console.log(`    yaza='on'  day pillar: ${nb2Day}`);
+const nbDefault: any = await engine.getSajuReport(nonBoundary);
+const nbMidnight: any = await engine.getSajuReport({ ...nonBoundary, options: MIDNIGHT_OPTS });
+check('창 밖(05:45): 기본과 자정설 일주 동일',
+  dayPillarOf(nbDefault) === dayPillarOf(nbMidnight),
+  `default=${dayPillarOf(nbDefault)}, midnight=${dayPillarOf(nbMidnight)}`);
 
-check(`fix-01 non-boundary unchanged by yaza`,
-  nb1Day === nb2Day,
-  `default=${nb1Day}, yaza=${nb2Day}`);
-
-// 23:30 mode activation
-const yaza2330: any = await engine.getSajuReport({
-  ...boundary,
-  options: { sajuTimePolicy: { yaza: 'on', yazaMode: '23:30' } } as any,
+// (4) 23:30 레거시 모드 옵트인 (경도 보정 off 유파용 — 감사 A11: 시프트는 경계
+//     분류에만 적용되고 인스턴트는 불변이어야 한다).
+const legacy2330: any = await engine.getSajuReport({
+  ...inWindowLate,
+  options: { sajuTimePolicy: { yaza: 'on', yazaMode: '23:30', longitudeCorrection: 'off' } } as any,
 });
-const day2330 = `${yaza2330.pillars?.day?.stem?.hanja}${yaza2330.pillars?.day?.branch?.hanja}`;
-console.log(`\n  yazaMode='23:30':`);
-console.log(`    day pillar: ${day2330}`);
-check(`yazaMode='23:30' produces valid day pillar`, !!day2330 && day2330.length === 2);
+const day2330 = dayPillarOf(legacy2330);
+console.log(`  yazaMode='23:30'+경도보정 off: 일주=${day2330}`);
+check(`yazaMode='23:30' 옵트인이 유효한 일주를 산출`, !!day2330 && day2330.length === 2);
 
 engine.close();
 
-console.log(`\nYaza opt-in: ${pass} PASS / ${fail} FAIL`);
+console.log(`\nYaza 경계 정책: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);

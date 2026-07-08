@@ -37,17 +37,17 @@
       "disagreementNotes": [
         {
           "field": "sajuReport.gyeokgukType",
-          "spring_ts": "편관격",
+          "spring_ts": "정재격",
           "saju_master": "편재격",
-          "reason": "자시 boundary edge. saju_master self-flags as status='미정/혼잡' with confidence score 1.812. Different night-zi policies produce different month branches and therefore different 격국. PR-N-2 evidence: saju_master's chengbai rule diverges from published prose 7/11; spring-ts/saju-ts's classical 월지 정기 rule matches prose 11/11. Authority adjudication still required for this specific fixture.",
+          "reason": "자시 boundary edge. saju_master self-flags as status='미정/혼잡' with confidence score 1.812. 감사 결정①(2026-07-08) 정자시설 기본 전환으로 spring-ts 일주가 丁巳→戊午로 이동, 격국이 편관격→정재격으로 재판정(재성 계열로 saju_master와 근접). Authority adjudication still required for this specific fixture.",
           "pendingAuthority": true
         },
         {
           "field": "sajuReport.yongshinElement",
-          "spring_ts": "WOOD",
+          "spring_ts": "FIRE",
           "saju_master": "FIRE",
-          "reason": "Driven by the gyeokguk diff above; resolves once gyeokguk is adjudicated.",
-          "pendingAuthority": true
+          "reason": "감사 결정① 정자시설 전환 후 용신이 saju_master와 일치(FIRE)로 수렴 — 격국 축만 잔여 이견 (2026-07-08 현행화).",
+          "pendingAuthority": false
         }
       ]
     },

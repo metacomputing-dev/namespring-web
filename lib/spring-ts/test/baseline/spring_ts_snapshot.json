@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "capturedAt": "2026-07-08T07:56:24.411Z",
+  "capturedAt": "2026-07-08T08:04:39.003Z",
   "targetDate": "2026-04-30T00:00:00.000Z",
   "fixtureCount": 15,
   "results": [
@@ -185,58 +185,62 @@
         "sajuReport": {
           "sajuEnabled": true,
           "dayMaster": {
-            "stem": "정",
-            "element": "FIRE",
-            "polarity": "음"
+            "stem": "무",
+            "element": "EARTH",
+            "polarity": "양"
           },
-          "strengthLevel": "중화(신약 경향)",
-          "isStrong": false,
-          "yongshinElement": "WOOD",
-          "yongshinHeeshin": "FIRE",
-          "gyeokgukType": "편관격",
+          "strengthLevel": "중화(신강 경향)",
+          "isStrong": true,
+          "yongshinElement": "FIRE",
+          "yongshinHeeshin": "METAL",
+          "gyeokgukType": "정재격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.5388888888888889,
-          "deficientElements": [],
-          "excessiveElements": []
+          "gyeokgukConfidence": 0.3464285714285714,
+          "deficientElements": [
+            "METAL"
+          ],
+          "excessiveElements": [
+            "WATER"
+          ]
         },
         "candidatesTop5": [
           {
-            "finalScore": 74.9,
-            "fullHangul": "이왕수",
-            "fullHanja": "李往蓚",
+            "finalScore": 80.9,
+            "fullHangul": "이진영",
+            "fullHanja": "李璡瑛",
             "rank": 1
           },
           {
-            "finalScore": 74.9,
-            "fullHangul": "이왕수",
-            "fullHanja": "李旺蓚",
+            "finalScore": 80.6,
+            "fullHangul": "이선민",
+            "fullHanja": "李瑄珉",
             "rank": 2
           },
           {
-            "finalScore": 74.9,
-            "fullHangul": "이아수",
-            "fullHanja": "李亞蓚",
+            "finalScore": 79.7,
+            "fullHangul": "이선인",
+            "fullHanja": "李瑄璘",
             "rank": 3
           },
           {
-            "finalScore": 73.9,
-            "fullHangul": "이수왕",
-            "fullHanja": "李蓚往",
+            "finalScore": 79.7,
+            "fullHangul": "이주민",
+            "fullHanja": "李鑄珉",
             "rank": 4
           },
           {
-            "finalScore": 73.9,
-            "fullHangul": "이수왕",
-            "fullHanja": "李蓚旺",
+            "finalScore": 79.6,
+            "fullHangul": "이주민",
+            "fullHanja": "李鑄敃",
             "rank": 5
           }
         ],
         "fortuneReport": {
           "overviewTitle": "총평 요약",
-          "dailyStars": 5,
-          "yearlyStars": 4,
-          "lifeStars": 4,
-          "personalityTraitCount": 6
+          "dailyStars": 3,
+          "yearlyStars": 5,
+          "lifeStars": 3,
+          "personalityTraitCount": 7
         }
       }
     },

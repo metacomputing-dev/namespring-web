@@ -950,13 +950,15 @@ function toLegacySajuTimePolicyConfig(
 ): Record<string, unknown> {
   const policy = options?.sajuTimePolicy;
 
-  // Product defaults:
+  // Product defaults (감사 결정① 2026-07-08):
   // - true solar time: off
   // - longitude correction: on
-  // - yaza: off
+  // - day boundary: 정자시설 — yaza 기본 'on' + 23:00 모드(엔진 ziSplit23).
+  //   경도 보정과 결합하면 서울 기준 시계 약 23:32에 일주·자시가 개시된다.
+  //   자정설(구 기본)은 sajuTimePolicy.yaza='off'로 복귀 가능.
   const trueSolarTimeToggle = resolvePolicyToggle(policy?.trueSolarTime, 'off');
   const longitudeCorrectionToggle = resolvePolicyToggle(policy?.longitudeCorrection, 'on');
-  const yazaToggle = resolvePolicyToggle(policy?.yaza, 'off');
+  const yazaToggle = resolvePolicyToggle(policy?.yaza, 'on');
 
   const patch: Record<string, unknown> = {};
 
@@ -976,8 +978,19 @@ function toLegacySajuTimePolicyConfig(
   }
 
   patch.yazaEnabled = yazaToggle === 'on';
-  if (policy?.yazaMode === '23:00') patch.yazaMode = 'YAZA_23_TO_01_NEXTDAY';
-  else if (policy?.yazaMode === '23:30') patch.yazaMode = 'YAZA_23_30_TO_01_30_NEXTDAY';
+  if (yazaToggle === 'on') {
+    // 23:30 모드는 경도 보정 off 유파용 레거시 옵션 — 경도 보정과 중첩하면
+    // 이중 보정(-62분)이 된다 (감사 A11).
+    const legacyMode =
+      policy?.yazaMode === '23:30' ? 'YAZA_23_30_TO_01_30_NEXTDAY' : 'YAZA_23_TO_01_NEXTDAY';
+    patch.yazaMode = legacyMode;
+    // dayCutMode를 반드시 명시: resolveDayCutMode(springLegacy)가 dayCutMode를
+    // yazaMode보다 먼저 평가하므로, preset(KOREAN_MAINSTREAM)의 dayCutMode가
+    // 남아 있으면 여기서 고른 모드에 그림자를 드리운다.
+    patch.dayCutMode = legacyMode;
+  } else {
+    patch.dayCutMode = 'MIDNIGHT_00'; // 자정설 옵션 (yaza:'off')
+  }
 
   return patch;
 }
