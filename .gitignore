@@ -50,3 +50,6 @@ Thumbs.db
 lib/spring-ts/data/generation/batches/
 lib/spring-ts/tmp/manual-bundles/
 namespring/public/generated-packed/
+
+# top-level working docs — never commit
+/docs/
