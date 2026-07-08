@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "capturedAt": "2026-07-08T07:38:10.513Z",
+  "capturedAt": "2026-07-08T07:46:06.696Z",
   "targetDate": "2026-04-30T00:00:00.000Z",
   "fixtureCount": 15,
   "results": [
@@ -1011,31 +1011,31 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 79.5,
+            "finalScore": 79.1,
             "fullHangul": "김배서",
             "fullHanja": "金北抒",
             "rank": 1
           },
           {
-            "finalScore": 79.5,
+            "finalScore": 79.1,
             "fullHangul": "김사우",
             "fullHanja": "金事右",
             "rank": 2
           },
           {
-            "finalScore": 79.5,
+            "finalScore": 79.1,
             "fullHangul": "김사우",
             "fullHanja": "金祀右",
             "rank": 3
           },
           {
-            "finalScore": 79.5,
+            "finalScore": 79.1,
             "fullHangul": "김주영",
             "fullHanja": "金宙永",
             "rank": 4
           },
           {
-            "finalScore": 79.5,
+            "finalScore": 79.1,
             "fullHangul": "김주우",
             "fullHanja": "金宙右",
             "rank": 5

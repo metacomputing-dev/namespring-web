@@ -1106,6 +1106,62 @@ function normalizeLegacyOutput(
     ? gyeokguk.jonggyeokCandidates
     : [];
 
+  // --- 감사 B5: 종격(從格) 가능성 신호 — 억부 용신 신뢰도 게이트 ---
+  // 기본 경로는 patterns.follow 옵트인 꺼짐 + weights.follow=0이라 CONG_* 격이
+  // 구조적으로 발화하지 않는다. 극단 편중 명식에서 억부 용신을 무경고 확신
+  // 표기하지 않도록 리스크를 파생한다. 트리거 2갈래:
+  //  (1) jonggyeokCandidates에 candidate/selected 존재 (엔진 증거 표면)
+  //  (2) 강약 극단(|index|>=0.5) + 우세비>=2.2 (yongshin follow의 minDominanceRatio 기본 재사용)
+  //     - PRESSURE(극신약) 방향: 억부가 정반대(인성/비겁) 용신을 내는 대표 위해 → HIGH
+  //     - SUPPORT(극신강) 방향: 억부 설기 용신이 순세와 부분 호환 → INFO
+  // 상수 0.5/2.2는 base·deLingDiShi 두 강약 모델의 교리 종격 실측 대역(0.575~0.798)을
+  // 모두 커버하도록 보정됨(감사 B5 프로브). support-side는 candidates 표면이 침묵하므로
+  // (rootWeakness/dayMasterIsolation이 pressure-follow용 설계) 트리거 (2)가 본체다.
+  const PRESSURE_CONG_SUBTYPES = new Set(['cong_cai', 'cong_guan', 'cong_sha', 'cong_er']);
+  const SUPPORT_CONG_SUBTYPES = new Set(['cong_bi', 'cong_yin', 'zhuan_wang']);
+  const jonggyeokRisk = (() => {
+    const eps = 1e-9;
+    const cands = jonggyeokCandidates.filter((c: any) => c && typeof c.subtype === 'string');
+    const strong = cands.filter((c: any) => c.status === 'candidate' || c.status === 'selected');
+    const pressureDom = pressure / Math.max(eps, support);
+    const supportDom = support / Math.max(eps, pressure);
+    const pressureSignals = cands.filter(
+      (c: any) => PRESSURE_CONG_SUBTYPES.has(c.subtype) && c.status !== 'none',
+    );
+    const pressureExtreme = strengthIndex <= -0.5 && pressureDom >= 2.2 && pressureSignals.length > 0;
+    const supportExtreme = strengthIndex >= 0.5 && supportDom >= 2.2;
+    if (strong.length === 0 && !pressureExtreme && !supportExtreme) return undefined;
+
+    const level: 'HIGH' | 'INFO' = strong.length > 0 || pressureExtreme ? 'HIGH' : 'INFO';
+    const direction: 'PRESSURE' | 'SUPPORT' = strengthIndex < 0 ? 'PRESSURE' : 'SUPPORT';
+    const related =
+      strong.length > 0
+        ? strong
+        : direction === 'PRESSURE'
+          ? pressureSignals
+          : cands.filter((c: any) => SUPPORT_CONG_SUBTYPES.has(c.subtype) && c.status !== 'none');
+    return {
+      level,
+      direction,
+      strengthIndex: roundTo(strengthIndex, 3),
+      dominanceRatio: roundTo(direction === 'PRESSURE' ? pressureDom : supportDom, 2),
+      subtypes: related.map((c: any) => String(c.subtype)),
+      maxCandidateScore: roundTo(Math.max(0, ...cands.map((c: any) => Number(c.score) || 0)), 6),
+      // b-2: HIGH 리스크 시 finalConfidence를 동률 바닥(35점)으로 강등했는지 여부.
+      confidenceAttenuated: false,
+    };
+  })();
+  const yongshinWarnings: string[] =
+    jonggyeokRisk?.level === 'HIGH'
+      ? ['종격(從格) 가능성 — 억부 용신 신뢰도 낮음: 세력이 한쪽으로 크게 쏠린 명식으로, 종격 판정 시 용신이 달라질 수 있습니다.']
+      : jonggyeokRisk
+        ? ['전왕(專旺)·종왕 계열 가능성 — 극신강 편중 명식으로, 유파에 따라 순세(順勢) 용신이 우선될 수 있습니다.']
+        : [];
+  if (jonggyeokRisk?.level === 'HIGH' && yongshinConfidencePoints > 35) {
+    // b-2 실적용 여부: cap(35)이 실제로 값을 낮춘 경우만 true.
+    jonggyeokRisk.confidenceAttenuated = true;
+  }
+
   const totalDistribution = (bundle.summary?.elementDistribution as any)?.total ?? {};
   const ohaengDistribution = {
     WOOD: roundTo(totalDistribution.WOOD ?? 0, DISTRIBUTION_ROUND_DIGITS),
@@ -1314,9 +1370,17 @@ function normalizeLegacyOutput(
       finalHeesin: secondElement,
       gisin: worst,
       gusin: secondWorst,
-      finalConfidence: yongshinConfidencePoints,
+      // 감사 B5(b-2): HIGH 리스크(종격 가능성) 명식에서 억부 확신을
+      // 동률 바닥(scoreDiffConfidence 하한 35점)으로 강등.
+      finalConfidence:
+        jonggyeokRisk?.level === 'HIGH'
+          ? Math.min(yongshinConfidencePoints, 35)
+          : yongshinConfidencePoints,
       agreement: 'RANKING',
       consensus: yongshinConsensus,
+      // 감사 B5 (additive): 종격 가능성 신호. daeunInfo.warnings 선례를 따른다.
+      warnings: yongshinWarnings,
+      jonggyeokRisk,
       recommendations: yongshinRanking.slice(0, 3).map((entry: { element: string; score: number }, i: number) => ({
         // 1위 type은 엔진이 산출한 실제 지배 방법(primaryMethod)에서 유도한다 (감사 A2·B6).
         // 기본 정책(억부 1.0 + 조후 0.25)에서는 EOKBU 또는 JOHU만 나온다.

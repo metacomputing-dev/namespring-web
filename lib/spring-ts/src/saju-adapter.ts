@@ -1669,6 +1669,12 @@ function extractYongshin(yongshinResult: any) {
     confidence: confidenceToPoints(yongshinResult?.finalConfidence),
     agreement:  formatYongshinAgreementDisplay(yongshinResult?.agreement),
     consensus,
+    // 감사 B5 (additive): 종격 가능성 경고 + 구조화 리스크 신호 passthrough.
+    warnings: ensureArray(yongshinResult?.warnings).map((w: any) => String(w)),
+    jonggyeokRisk:
+      yongshinResult?.jonggyeokRisk && typeof yongshinResult.jonggyeokRisk === 'object'
+        ? yongshinResult.jonggyeokRisk
+        : undefined,
     recommendations: ensureArray(yongshinResult?.recommendations).map(
       ({ type, primaryElement, secondaryElement, confidence, reasoning }: any) => ({
         type:             formatYongshinTypeDisplay(type),
