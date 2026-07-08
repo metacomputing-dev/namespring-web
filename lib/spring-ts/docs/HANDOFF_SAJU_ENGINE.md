@@ -86,18 +86,21 @@ cd lib/spring-ts && npx tsx tmp/probe-optin-naeum-palace.ts
   - 검증(최종 일괄): saju-ts 21파일 84테스트, tsc 0err(양쪽), compat 202, boundary-goldens 723, jonggyeok 111, yongshin-consensus 241, tiered-shape 1378, class-axes 12, candidates 182, scoring 34, conflict-aware 10, borderline 7/7, time-policy 11, calendar-policy 9, presets 13, service-visible 13, life-stage-display 4, tiered-determinism 4, adapter-daewoon 15, quality_gate D3/D5 PASS(D1/D2/D4 N/A).
   - ⚠ 알려진 상태: `test:composite-quality-gate`의 "monthly_main default snapshot has no regression (main..HEAD)" 1건은 **의도적 기본값 변경 브랜치에서 설계상 FAIL**(measure_regression은 무파급 PR용 diff=0 검사 — PR-1 스냅샷 재캡처 시점부터 main과 다름). 머지 후 자동 해소. 공식 게이트는 위 validate:default-change(IMPROVEMENT)로 대체 기록.
   - 잔여 후속(판정 축 아님): quality_gate에 격명 동등 매핑(비견격≡건록격 등)을 넣었으므로 오라클 재감정은 불필요. fix-03 disagreementNotes 현행화 완료(용신은 saju_master와 수렴). BYEONGYAK 추천 type의 spring-ts 라벨 테이블 추가(스쿨팩 경유 시에만 노출)는 후속 정리 항목.
-- **PR-4 신뢰 인프라** (결정 ③ 실행): 내장 음양력 테이블(1900~2050, KASI 픽스처 `data/kasi-lunar-solar/`를 오라클로) + KASI API 옵션, 표준시 변천·서머타임 14구간 픽스처 테스트, 조견표 단정 테스트(12운성 120칸·지장간 12지지·신살 배속), 궁통보감 120셀 JSON.
+- **PR-4 신뢰 인프라 ✅ 완료 (2026-07-08, 결정③ 실행 — 전 항목 판정 무파급: snapshot 15/15·trace 불변)**:
+
+  | # | 항목 | 커밋 | 내용/검증 |
+  |---|---|---|---|
+  | ① | 음력 입력 (B1) | 7600346f6 | usingsky(MIT, KASI/KARI 표준) 클린 포팅(`spring-ts/src/calendar/korean-lunar-calendar.ts`, 제품 보장 1900~2050) + 어댑터 변환 배선(브리지 항상 SOLAR) + `SajuSummary.lunarConversion` additive + KASI API 옵트인(`precisionConfig.lunarConversionSource='kasi'`, getSpcifyLunCalInfo, 실패 시 내장 폴백). 검증: KASI 13케이스 오라클 양방향 + 설날 151/151·윤달 전 연도·추석 22/22 앵커(`data/kasi-lunar-solar/korean_lunar_anchor_cases.json`) + 55,122일 왕복 항등 + 목서버 5 + calendar-policy 14 재작성(음 2025 윤6/1 = 양 2025-07-25 4주 동일). ⚠ 프론트가 isLeapMonth 미전송(윤달 UI 공백) — lib 밖 제품 결정 후속 |
+  | ② | 표준시/서머타임 픽스처 (B10) | 2ea5ef5a0 | tzdb Rule ROK+Zone Asia/Seoul 정본 33픽스처(자오선 4전환 ±1일 + DST 12구간 중앙 + 무DST 대조 + 1987/88 정밀) + small-icu 카나리아 하드 실패. springLegacy 헬퍼 3건 테스트용 export. **감사의 '14구간'은 tzdata 기준 12구간이 정본(정정)** |
+  | ③ | 조견표 단정 테스트 | 92425647c | 12운성 120칸(+수토동궁 24칸+INDEPENDENT throw) · 지장간 12지지(이설 채택 주석 명시 회귀 핀) · 신살 배속(천을 구결 전량·록신·월덕/천덕·괴강/백호 60갑자 Set) · 12신살 144칸 · 양인 luNext/diWang 이설 · 공망 6순 12케이스 |
+  | ④ | 궁통보감 120셀 (B12) | 1db7a4b14 | 서락오 평주 계열 통용표 120셀(이중 저작 대조 확정, 이설 note) + johooTemplate monthTable 조회(셀 적중 시 간이 힌트 대체 — 이중 가산 금지) + qiongTongBaoJian 프리셋 실배선/표기 정정. **부수 수정: packLoader 잠복 버그** — 부모 alias 상속 + later-wins 인덱스로 `school.id='johoo.strict'` 조회가 자식(qiongTongBaoJian)에 가로채이던 것(신규 테스트가 검출) → alias 상속 제거 + id 우선 2-pass 인덱스 |
+
+  - 검증(일괄): saju-ts 27파일 151테스트, tsc 0err 양쪽, compat 202, 경계골든 723, jonggyeok 111, consensus 241, tiered-shape 1378, class-axes 12, scoring 34, borderline 7/7, time-policy 11, presets 13, snapshot 15/15, lunar-calendar 36, kasi-lunar-api 5, calendar-policy 14. dump-report-trace·probe-summary-surface 불변.
 - **후속 감사 후보**: graph/·schools 팩 전수·DSL 컴파일러·migrations·음양 균형(YinYangScore 소비자 0곳)·육친/묘고/개두절각 축 (감사 보고서 부록 C).
 
 ## F. 새 세션 착수 프롬프트
 
-> PR-1·2·3은 완료됐다(위 D·E절). 다음 작업 = **PR-4 신뢰 인프라** (E절 요약 + 감사 §4·결정③).
-
-```
-lib/spring-ts/docs/HANDOFF_SAJU_ENGINE.md를 읽고, 참조된 감사 보고서(AUDIT_SAJU_ENGINE_INTEGRITY.md)의 §1~§4를 읽어라.
-브랜치 feature/saju-engine-integrity-audit에서 E절의 PR-4 신뢰 인프라를 구현하라:
-내장 음양력 테이블(1900~2050, data/kasi-lunar-solar/ 픽스처를 오라클로) + KASI API 옵션(기본 내장),
-표준시 변천·서머타임 14구간 픽스처 테스트, 조견표 단정 테스트(12운성 120칸·지장간 12지지·신살 배속), 궁통보감 120셀 JSON.
-각 항목은 감사 보고서 부록 B에서 상세(현재/표준/권고/근거)를 확인한 후 착수하고, 항목 단위로 커밋하라.
-saju-ts src 수정 후 Node 검증 전 dist 재빌드 필수. 완료 시 C절 검증 도구 일괄 실행으로 회귀를 확인하라.
-```
+> **PR-1~4 전부 완료** (D·E절). 엔진 무결성 감사 축의 계획 작업은 종결 — 남은 것은 선택 후속뿐:
+> ① 콘텐츠 저작 축(PR-2 잔여 — 귀인 궁위 세분 factId + 신규 표면 해석 충전, HANDOFF_NEXT_PHASES 작업 5-후속)
+> ② 프론트 윤달(isLeapMonth) 입력 UI(lib 밖 제품 결정) ③ 후속 감사 후보(위) ④ 미검증 70건 개별 확인.
+> 착수 시 감사 보고서 부록 B·C에서 상세 확인 후 항목 단위 커밋 + C절 검증 관례를 그대로 따르라.
