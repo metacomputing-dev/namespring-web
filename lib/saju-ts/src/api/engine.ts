@@ -13,7 +13,8 @@ import type { StrengthFacts } from '../rules/facts.js';
 import type { YongshinResult } from '../rules/yongshin.js';
 import type { GyeokgukResult } from '../rules/gyeokguk.js';
 import type { ShinsalResult } from '../rules/shinsal.js';
-import type { PillarIdx } from '../core/cycle.js';
+import type { Element, PillarIdx } from '../core/cycle.js';
+import { ALL_ELEMENTS, SEASONAL_STATE_KO, monthCommandElement, seasonalStatesForMonth } from '../core/seasonalStates.js';
 import type { DetectedRelation } from '../core/branchRelations.js';
 import type { HiddenStem } from '../core/hiddenStems.js';
 import type { ElementDistribution } from '../core/elementDistribution.js';
@@ -129,6 +130,18 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
           month: toPillarView(month),
           day: toPillarView(day),
           hour: toPillarView(hour),
+        };
+
+        // PR-10-1 (감사 B434 선행): 왕상휴수사 — 월지 당령 기준 오행별 계절 상태.
+        // 순수 조견(월지만의 함수)이라 그래프 노드 없이 직접 산출한다. additive 표면 —
+        // springLegacy 재방출은 별도 결정(스냅샷 파급)이므로 여기서는 saju-ts summary까지만.
+        const states = seasonalStatesForMonth(month.branch);
+        const statesKo = {} as Record<Element, string>;
+        for (const el of ALL_ELEMENTS) statesKo[el] = SEASONAL_STATE_KO[states[el]];
+        summary.seasonalStates = {
+          command: monthCommandElement(month.branch),
+          states,
+          statesKo,
         };
       }
 

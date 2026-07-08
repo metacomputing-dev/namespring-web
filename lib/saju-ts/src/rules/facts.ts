@@ -15,6 +15,8 @@ import type { HiddenStemRole } from '../core/hiddenStems.js';
 import { hiddenStemsOfBranch } from '../core/hiddenStems.js';
 import { lifeStageOf } from '../core/lifeStage.js';
 import type { LifeStagePolicy } from '../core/lifeStage.js';
+import { seasonalStateOf } from '../core/seasonalStates.js';
+import type { SeasonalState } from '../core/seasonalStates.js';
 
 import type { NormalizedShinsalCatalog, RawShinsalCatalog } from './shinsalCatalog.js';
 import { mergeRawShinsalCatalog, normalizeShinsalCatalog } from './shinsalCatalog.js';
@@ -2466,6 +2468,12 @@ interface StrengthInteractionPolicy {
     factor: number;
     jaenghapFactor: number;
   };
+  /** PR-10-1 (감사 B434): 왕상휴수 연동 비대칭 뿌리 손상 — 기본 off (판정 변경, 계측 후 기본화 별도). */
+  seasonal: {
+    enabled: boolean;
+    /** 손상 강도 배율 — eff = 1 − (1 − f) × mult(state). mult<1 경감(왕상), >1 가중(수사). */
+    multipliers: Record<SeasonalState, number>;
+  };
 }
 
 function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
@@ -2475,6 +2483,7 @@ function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
   const rootRaw: any = raw.root ?? {};
   const huiRaw: any = raw.hui ?? {};
   const bindRaw: any = raw.stemBind ?? {};
+  const seasonalRaw: any = raw.seasonal ?? {};
   return {
     enabled,
     root: {
@@ -2515,14 +2524,30 @@ function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
       factor: num(bindRaw.factor, 0.5),
       jaenghapFactor: num(bindRaw.jaenghapFactor, 0.75), // 쟁합·투합은 합력 분산 → 감쇠 완화
     },
+    seasonal: {
+      // 기본 off — 왕상휴수 비대칭 감쇠는 판정 변경(감사 B434). validate:default-change
+      // 계측 후 기본화는 별도 커밋 결정. enabled === true 명시 opt-in 전용.
+      enabled: enabled && seasonalRaw.enabled === true,
+      // 왕한 오행의 뿌리는 충·형 손상을 30% 경감, 사(死)한 오행은 30% 가중 —
+      // "왕상한 쪽이 덜 상한다"는 통설의 보수적 개시값 (계측 후 조정 전제).
+      multipliers: {
+        WANG: num(seasonalRaw.multipliers?.WANG, 0.7),
+        SANG: num(seasonalRaw.multipliers?.SANG, 0.85),
+        HYU: num(seasonalRaw.multipliers?.HYU, 1.0),
+        SU: num(seasonalRaw.multipliers?.SU, 1.15),
+        SA: num(seasonalRaw.multipliers?.SA, 1.3),
+      },
+    },
   };
 }
 
-/** 충/형 손상 → 지지별 통근 감쇠 계수 (1.0 = 무손상). 탐합망충 해소 판정 포함. */
-function computeBranchInteractionFactors(
+/** 충/형 손상 → 지지별 통근 감쇠 계수 (1.0 = 무손상). 탐합망충 해소 판정 포함.
+ *  seasonal이 주어지고 enabled면 왕상휴수 비대칭(감사 B434)을 적용한다 — 기본 off. */
+export function computeBranchInteractionFactors(
   branches: BranchIdx[],
   byType: Partial<Record<RelationType, BranchIdx[][]>>,
   pol: StrengthInteractionPolicy['root'],
+  seasonal?: { pol: StrengthInteractionPolicy['seasonal']; monthBranch: BranchIdx },
 ): { factors: number[]; resolved: Array<{ type: RelationType; members: BranchIdx[] }> } {
   const factors = branches.map(() => 1);
   const resolved: Array<{ type: RelationType; members: BranchIdx[] }> = [];
@@ -2556,7 +2581,16 @@ function computeBranchInteractionFactors(
       }
       for (let i = 0; i < branches.length; i++) {
         // 값 매칭 (궁위 세분은 B538 pairs 소비로 후속 — 동일 지지 과감쇠 한계 문서화)
-        if ((g as number[]).includes(mod(branches[i]!, 12))) factors[i]! *= f;
+        if (!(g as number[]).includes(mod(branches[i]!, 12))) continue;
+        let eff = f;
+        if (seasonal?.pol.enabled) {
+          // 왕상휴수 비대칭 (감사 B434): 왕상한 오행의 뿌리는 손상을 덜 받고(mult<1),
+          // 수사(囚死)한 오행은 더 받는다(mult>1). eff = 1 − (1 − f) × mult.
+          const st = seasonalStateOf(branchElement(mod(branches[i]!, 12) as BranchIdx), seasonal.monthBranch);
+          const mult = seasonal.pol.multipliers[st] ?? 1;
+          eff = clamp01(1 - (1 - f) * mult);
+        }
+        factors[i]! *= eff;
       }
     }
   }
@@ -2689,11 +2723,13 @@ function computeStrengthFacts(args: {
     ];
 
     // PR-5 (감사 B448/B510): 충/형 손상 → 통근 감쇠 (탐합망충 해소 포함).
+    // PR-10-1 (감사 B434): seasonal opt-in 시 왕상휴수 비대칭 — 기본 off라 무전달과 동일.
     const interactionPol = readStrengthInteractionPolicy(pol);
     const rootDamage = computeBranchInteractionFactors(
       args.branches,
       args.relationsByType ?? {},
       interactionPol.root,
+      { pol: interactionPol.seasonal, monthBranch: args.monthBranch },
     );
 
     let same = 0;
