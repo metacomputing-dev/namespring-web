@@ -186,6 +186,7 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
             boundary: ft.start.boundary ? { id: ft.start.boundary.id, utcMs: ft.start.boundary.utcMs } : null,
             deltaMs: ft.start.deltaMs,
             startAgeYears: ft.start.startAgeYears,
+            startAgeDisplay: ft.start.startAgeDisplay,
             startAgeParts: ft.start.startAgeParts,
             startUtcMsApprox: ft.start.startUtcMsApprox,
             formula: ft.start.formula,

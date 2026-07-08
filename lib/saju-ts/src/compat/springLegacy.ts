@@ -1348,6 +1348,8 @@ function normalizeLegacyOutput(
     daeunInfo: {
       isForward: String(fortune?.start?.direction ?? 'FORWARD') !== 'BACKWARD',
       firstDaeunStartAge: Number(fortune?.start?.startAgeYears ?? 0),
+      // 표기용 정수 대운수 (반올림 유파 + 하한 1 — 감사 B11). 연속값과 병존.
+      firstDaeunStartAgeDisplay: Number(fortune?.start?.startAgeDisplay ?? Math.floor(Number(fortune?.start?.startAgeYears ?? 0))),
       firstDaeunStartMonths: Number(fortune?.start?.startAgeParts?.months ?? 0),
       // 대운 기산 절기 id (기존에는 무관한 일경계 정책 dayBoundary가 들어갔다 — 감사 A15d).
       boundaryMode: String(fortune?.start?.boundary?.id ?? ''),

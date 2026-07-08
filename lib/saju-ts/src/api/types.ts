@@ -287,6 +287,8 @@ export interface FortuneStartView {
   boundary: { id: string; utcMs: number } | null;
   deltaMs: number;
   startAgeYears: number;
+  /** 표기용 정수 대운수 (startAgeRounding 유파 + minStartAge 적용). */
+  startAgeDisplay?: number;
   startAgeParts?: { years: number; months: number; days: number };
   startUtcMsApprox?: number;
   formula: string;

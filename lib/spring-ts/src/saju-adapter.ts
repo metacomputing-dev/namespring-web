@@ -2082,6 +2082,9 @@ function extractDaeunInfo(rawSajuOutput: any) {
   return {
     isForward:              !!daeunInfoRaw.isForward,
     firstDaeunStartAge:     Number(daeunInfoRaw.firstDaeunStartAge)    || 0,
+    firstDaeunStartAgeDisplay: Number.isFinite(daeunInfoRaw.firstDaeunStartAgeDisplay)
+      ? Number(daeunInfoRaw.firstDaeunStartAgeDisplay)
+      : null,
     firstDaeunStartMonths:  Number(daeunInfoRaw.firstDaeunStartMonths) || 0,
     boundaryMode:           String(daeunInfoRaw.boundaryMode ?? ''),
     boundaryUtcMs:          Number.isFinite(daeunInfoRaw.boundaryUtcMs) ? Number(daeunInfoRaw.boundaryUtcMs) : null,

@@ -104,6 +104,52 @@ function startAgeYears(deltaMs: number, method: FortunePolicy['startAgeMethod'])
   return ratioDays(3, '三日一歲(fallback)');
 }
 
+/**
+ * 표기용 정수 대운수 (감사 B11). deltaDays 기반으로 유파별 반올림을 적용하고
+ * minStartAge 하한을 건다. 연속값(startAgeYears)은 별도로 병존한다.
+ */
+function daysPerYearOfMethod(method: FortunePolicy['startAgeMethod']): number {
+  if (method === 'threeDaysOneYear' || method === 'oneDayFourMonths') return 3;
+  if (typeof method === 'object' && method) {
+    const m: any = method;
+    if (m.kind === 'ratioDaysPerYear' && Number.isFinite(m.daysPerYear) && m.daysPerYear > 0) return m.daysPerYear;
+    if (m.kind === 'ratioMsPerYear' && Number.isFinite(m.msPerYear) && m.msPerYear > 0) return m.msPerYear / MS_PER_DAY;
+  }
+  return 3;
+}
+
+function startAgeDisplayOf(
+  startAgeYears: number,
+  policy: FortunePolicy,
+): number {
+  const rounding = policy.startAgeRounding ?? 'none';
+  const floorYears = Math.max(0, Math.floor(startAgeYears));
+  // 나머지를 해당 유파의 '일수'로 환산 (3일=1년 기본, 커스텀 환산비 지원).
+  const remDays = (startAgeYears - floorYears) * daysPerYearOfMethod(policy.startAgeMethod);
+
+  let display: number;
+  switch (rounding) {
+    case 'round1down2up':
+      // 나머지 1일 버림·2일 올림 (다수 관행) — 2일 이상이면 올림.
+      display = remDays >= 2 ? floorYears + 1 : floorYears;
+      break;
+    case 'threshold8months':
+      // 나머지를 1일=4개월로 환산해 8개월 초과 시 올림 (삼명통회 계열).
+      display = remDays * 4 > 8 ? floorYears + 1 : floorYears;
+      break;
+    case 'ceil':
+      display = Math.ceil(startAgeYears);
+      break;
+    case 'floor':
+    case 'none':
+    default:
+      display = floorYears;
+      break;
+  }
+
+  return Math.max(policy.minStartAge ?? 0, display);
+}
+
 function localToUtcMs(date: LocalDate, time: { h: number; min: number }, offsetMinutes: number): number {
   return Date.UTC(date.y, date.m - 1, date.d, time.h, time.min, 0) - offsetMinutes * 60_000;
 }
@@ -163,6 +209,7 @@ export function computeFortuneTimeline(args: {
       boundary: null,
       deltaMs: 0,
       startAgeYears: 0,
+      startAgeDisplay: startAgeDisplayOf(0, policy),
       startUtcMsApprox: parsedUtcMs,
       formula: 'startAgeYears = 0 (no solar-term boundaries available)',
     };
@@ -186,6 +233,7 @@ export function computeFortuneTimeline(args: {
     boundary: { id: boundary.id, utcMs: boundary.utcMs },
     deltaMs,
     startAgeYears: startAge,
+    startAgeDisplay: startAgeDisplayOf(startAge, policy),
     startAgeParts: parts,
     startUtcMsApprox,
     formula,
