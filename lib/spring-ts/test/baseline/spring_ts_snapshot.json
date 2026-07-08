@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "capturedAt": "2026-07-08T07:46:06.696Z",
+  "capturedAt": "2026-07-08T07:56:24.411Z",
   "targetDate": "2026-04-30T00:00:00.000Z",
   "fixtureCount": 15,
   "results": [
@@ -351,7 +351,7 @@
           "isStrong": false,
           "yongshinElement": "METAL",
           "yongshinHeeshin": "FIRE",
-          "gyeokgukType": "비견격",
+          "gyeokgukType": "건록격",
           "gyeokgukCategory": "일반",
           "gyeokgukConfidence": 0.2635135135135135,
           "deficientElements": [
@@ -432,7 +432,7 @@
           "isStrong": true,
           "yongshinElement": "METAL",
           "yongshinHeeshin": "WATER",
-          "gyeokgukType": "겁재격",
+          "gyeokgukType": "양인격",
           "gyeokgukCategory": "일반",
           "gyeokgukConfidence": 0.46666666666666673,
           "deficientElements": [
@@ -515,7 +515,7 @@
           "isStrong": true,
           "yongshinElement": "EARTH",
           "yongshinHeeshin": "METAL",
-          "gyeokgukType": "겁재격",
+          "gyeokgukType": "월겁격",
           "gyeokgukCategory": "일반",
           "gyeokgukConfidence": 0.5711111111111111,
           "deficientElements": [
@@ -837,7 +837,7 @@
           "isStrong": false,
           "yongshinElement": "FIRE",
           "yongshinHeeshin": "METAL",
-          "gyeokgukType": "비견격",
+          "gyeokgukType": "건록격",
           "gyeokgukCategory": "일반",
           "gyeokgukConfidence": 0.24192307692307694,
           "deficientElements": [

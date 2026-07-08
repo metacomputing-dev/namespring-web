@@ -181,6 +181,10 @@ const GYEOKGUK_CATEGORY_KO_LABEL: Record<string, string> = {
 const GYEOKGUK_KO_LABEL: Record<string, string> = {
   BI_GYEON: '비견격',
   GYEOB_JAE: '겁재격',
+  // 감사 B4: 월지 비겁의 주류 격명 (기본 모드). 누락 시 원시 코드 노출됨.
+  GEONROK: '건록격',
+  YANGIN: '양인격',
+  WOLGEOB: '월겁격',
   JEONG_GWAN: '정관격',
   PYEON_GWAN: '편관격',
   JEONG_JAE: '정재격',

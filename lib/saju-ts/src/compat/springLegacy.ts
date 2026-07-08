@@ -15,6 +15,10 @@ const OHAENG_KO_LABEL: Record<string, string> = {
 const GYEOKGUK_KO_LABEL: Record<string, string> = {
   BI_GYEON: '비견격',
   GYEOB_JAE: '겁재격',
+  // 감사 B4: 월지 비겁의 주류 격명 (기본 모드).
+  GEONROK: '건록격',
+  YANGIN: '양인격',
+  WOLGEOB: '월겁격',
   JEONG_GWAN: '정관격',
   PYEON_GWAN: '편관격',
   JEONG_JAE: '정재격',
@@ -544,11 +548,19 @@ function topTwo(values: Array<{ element: string; score: number }>): [string, str
   return [first, second];
 }
 
+// 감사 B4: 건록/양인/월겁의 기반 십성 유지 (건록=비견, 양인/월겁=겁재).
+const GYEOKGUK_BASE_SIPSEONG_ALIASES: Record<string, string> = {
+  GEONROK: 'BI_GYEON',
+  YANGIN: 'GYEOB_JAE',
+  WOLGEOB: 'GYEOB_JAE',
+};
+
 function deriveGyeokgukBaseSipseong(bestKeyCore: string): string | null {
   const normalized = String(bestKeyCore ?? '').trim().toUpperCase();
   if (!normalized) return null;
-  if (!GYEOKGUK_BASE_SIPSEONG_KEYS.has(normalized)) return null;
-  return normalizeTenGod(normalized);
+  const resolved = GYEOKGUK_BASE_SIPSEONG_ALIASES[normalized] ?? normalized;
+  if (!GYEOKGUK_BASE_SIPSEONG_KEYS.has(resolved)) return null;
+  return normalizeTenGod(resolved);
 }
 
 function clamp01(value: unknown): number {
@@ -813,11 +825,15 @@ function buildGyeokgukCandidates(bundle: AnalysisBundle, bestKeyCore: string, be
     });
   };
 
+  // 감사 B4: 건록/양인/월겁 키는 십성 인덱스(monthByType)에서 기반 십성으로 조회.
+  const monthCandidateForType = (type: string): any =>
+    monthByType.get(type) ?? monthByType.get(normalizeTenGod(GYEOKGUK_BASE_SIPSEONG_ALIASES[type] ?? type));
+
   for (const entry of ranking) {
     const type = normalizeGyeokgukKey(entry?.key);
     const score = Number(entry?.score);
     if (type !== selectedType && (!Number.isFinite(score) || score <= MIN_GYEOKGUK_CANDIDATE_SCORE)) continue;
-    addCandidate(type, entry?.score, monthByType.get(type));
+    addCandidate(type, entry?.score, monthCandidateForType(type));
   }
 
   for (const candidate of monthCandidates) {
@@ -827,7 +843,7 @@ function buildGyeokgukCandidates(bundle: AnalysisBundle, bestKeyCore: string, be
   }
 
   if (bestKeyCore && !seen.has(bestKeyCore)) {
-    addCandidate(bestKeyCore, bestScore, monthByType.get(bestKeyCore));
+    addCandidate(bestKeyCore, bestScore, monthCandidateForType(bestKeyCore));
   }
 
   return candidates.sort((a, b) => {

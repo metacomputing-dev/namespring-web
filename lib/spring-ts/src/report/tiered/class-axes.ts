@@ -30,6 +30,8 @@ const GYEOKGUK_FAMILY: Record<string, GyeokgukFamily> = {
   jeongjaegyeok: 'jaeseong', pyeonjaegyeok: 'jaeseong', jongjaegyeok: 'jaeseong',
   jeonggwangyeok: 'gwanseong', pyeongwangyeok: 'gwanseong', jonggwangyeok: 'gwanseong', jongsalgyeok: 'gwanseong',
   bigyeongyeok: 'bigeop', geobjaegyeok: 'bigeop', jongbigyeok: 'bigeop',
+  // 감사 B4: 건록/양인/월겁 → 비겁 family (기존 *.bigeop.* 코퍼스를 재생성 없이 그대로 탄다).
+  geonrokgyeok: 'bigeop', yangingyeok: 'bigeop', wolgeobgyeok: 'bigeop',
   hwagigyeok: 'special', jeonwanggyeok: 'special', jonggyeok: 'special',
 };
 

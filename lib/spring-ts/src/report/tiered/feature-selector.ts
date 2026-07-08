@@ -115,6 +115,10 @@ const GYEOKGUK_KO_TO_CANONICAL: Record<string, string> = {
   '종아격': 'jongagyeok',
   '종인격': 'jongingyeok',
   '종비격': 'jongbigyeok',
+  // 감사 B4: 건록/양인/월겁 — 글로서리 기존 id(geonrokgyeok/yangingyeok)와 일치.
+  '건록격': 'geonrokgyeok',
+  '양인격': 'yangingyeok',
+  '월겁격': 'wolgeobgyeok',
 };
 const GYEOKGUK_CODE_TO_CANONICAL: Record<string, string> = {
   JEONG_IN: 'jeongingyeok',
@@ -136,6 +140,10 @@ const GYEOKGUK_CODE_TO_CANONICAL: Record<string, string> = {
   CONG_ER: 'jongagyeok',
   CONG_YIN: 'jongingyeok',
   CONG_BI: 'jongbigyeok',
+  // 감사 B4
+  GEONROK: 'geonrokgyeok',
+  YANGIN: 'yangingyeok',
+  WOLGEOB: 'wolgeobgyeok',
 };
 
 const GYEOKGUK_ORDINAL: Record<string, number> = {
@@ -158,6 +166,10 @@ const GYEOKGUK_ORDINAL: Record<string, number> = {
   jongagyeok: 17,
   jongingyeok: 18,
   jongbigyeok: 19,
+  // 감사 B4
+  geonrokgyeok: 20,
+  yangingyeok: 21,
+  wolgeobgyeok: 22,
 };
 
 function ordinalOrZero(value: string | null, table: Record<string, number>): number {

@@ -227,6 +227,15 @@ export interface RuleFacts {
       method: 'MAIN_EXPOSED' | 'VISIBLE_HIDDEN' | 'GROUP_SUPPORTED' | 'MAIN_FALLBACK';
       selectionRule: GyeokgukSelectionRule;
 
+      /**
+       * 건록·양인·월겁 세분 (감사 B4).
+       * - GEONROK: 월지 격 십성=비견 (월지 비겁은 십신격으로 삼지 않는 자평진전 주류)
+       * - YANGIN : 월지 격 십성=겁재 && 양간 && 월지=제왕지(록+1; 甲卯·丙午·戊午·庚酉·壬子)
+       * - WOLGEOB: 그 외 겁재(음간 겁재월, 戊 일간 丑/未월 등)
+       * strategies.gyeokguk.bigyeopGyeok === 'legacy' 이면 null (비견격/겁재격 표기 유지).
+       */
+      bigyeopSubtype?: 'GEONROK' | 'YANGIN' | 'WOLGEOB' | null;
+
       /** Optional “会支” support info (삼합/방합) used when no stem is exposed. */
       support?: { type: 'SAMHAP' | 'BANGHAP'; element: Element; members: BranchIdx[] } | null;
 
@@ -3248,6 +3257,27 @@ export function buildRuleFacts(args: {
         ? (monthMainVisible ? 'MAIN_EXPOSED' : 'MAIN_FALLBACK')
         : monthMainVisible ? 'MAIN_EXPOSED' : (bestVisible ? 'VISIBLE_HIDDEN' : (bestGroup ? 'GROUP_SUPPORTED' : 'MAIN_FALLBACK'));
 
+  // --- 건록/양인/월겁 세분 (감사 B4)
+  // 록 조견표: 甲寅 乙卯 丙巳 丁午 戊巳 己午 庚申 辛酉 壬亥 癸子 (화토동궁; 신살 lokFallback와 동일).
+  // 격국 전용 고정 상수를 쓴다 — 신살 카탈로그(YANG_IN)는 사용자 오버라이드 가능하고
+  // 12운성 earthRule(수토동궁) 설정에 격국 판정이 끌려가면 안 되기 때문.
+  // 주의(스코프 한정): '병무오월 양인' 전통의 戊午월은 午 본기 丁이 무토의 정인이라
+  // 이 분기(비견/겁재)에 들어오지 않고 정인격 유지 — 십성 무관 제왕지 승격은 이설이 커서 미채택.
+  // 토 일간 잡기월(戊 일간 辰/戌월 등)의 본기 비견도 통칭 록겁 관례대로 GEONROK로 분류(엄밀 유파는 잡기격).
+  const GYEOKGUK_LOK_BRANCH: readonly number[] = [2, 3, 5, 6, 5, 6, 8, 9, 11, 0];
+  const bigyeopModeRaw = (config.strategies as any)?.gyeokguk?.bigyeopGyeok;
+  const bigyeopMode: 'classic' | 'legacy' = bigyeopModeRaw === 'legacy' ? 'legacy' : 'classic';
+  let bigyeopSubtype: 'GEONROK' | 'YANGIN' | 'WOLGEOB' | null = null;
+  if (bigyeopMode === 'classic') {
+    if (gyeokTenGod === 'BI_GYEON') {
+      bigyeopSubtype = 'GEONROK';
+    } else if (gyeokTenGod === 'GEOB_JAE') {
+      const dayIsYang = mod(dayStem, 2) === 0;
+      const jewangBranch = mod((GYEOKGUK_LOK_BRANCH[mod(dayStem, 10)] ?? 0) + 1, 12) as BranchIdx;
+      bigyeopSubtype = dayIsYang && pillars.month.branch === jewangBranch ? 'YANGIN' : 'WOLGEOB';
+    }
+  }
+
   const { normalized, sum } = normalizeVector(elementDistribution.total);
 
   const tenGodScoresRanking = rankTenGodScores(scoring.tenGods);
@@ -3332,7 +3362,7 @@ export function buildRuleFacts(args: {
       mainTenGod: monthMainTG,
       hiddenStems: monthHiddenStems,
       mainHiddenStemVisible: monthMainVisible,
-      gyeok: { stem: gyeokStem, tenGod: gyeokTenGod, method: gyeokMethod, selectionRule, support: groupSupport, candidates: monthGyeokCandidates, quality: monthGyeokQuality },
+      gyeok: { stem: gyeokStem, tenGod: gyeokTenGod, method: gyeokMethod, selectionRule, bigyeopSubtype, support: groupSupport, candidates: monthGyeokCandidates, quality: monthGyeokQuality },
       saryeong: saryeong
         ? {
             scheme: saryeong.scheme,
