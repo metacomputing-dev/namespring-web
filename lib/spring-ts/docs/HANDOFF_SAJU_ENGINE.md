@@ -64,7 +64,10 @@ cd lib/spring-ts && npx tsx tmp/probe-optin-naeum-palace.ts
 
 ## E. PR-2~4 요약 (착수 시 감사 보고서 §2·부록 B에서 상세 확인)
 
-- **PR-2 배관 복구**: 12운성 노출(springLegacy에 summary.lifeStages 매핑 + spring-ts 소비 카드 신설 — 렌더러도 없음에 주의), seatPillars(matchedPillars additive 통과, HANDOFF_NEXT_PHASES 작업 5-후속 스펙 승계), 천간 극(GEUK) 탐지 추가(stemRelations.ts, 같은 음양 상극 6쌍 — 충 4쌍 제외), 반합(왕지 필수 조건, fortuneCalculator와 규칙 통일), 귀문관살(6조합), 고신/과숙(방합군 조견표), 일간 기준 basedOn='DAY_STem' 추가.
+- **PR-2 배관 복구 ✅ 완료 (2026-07-08, 커밋 4dc8fb20d + 3dead84ae)**:
+  - 천간 극(GEUK) 6쌍 탐지 + 죽은 라벨 배관 소생 · 반합(BANHAP, 왕지 필수·완전체 억제·운 경로 규칙 통일) · 귀문관살(GWIMUN 관계 + GWIMUN_SAL) · 고신/과숙(년지 기준 룰, 일지 앵커는 facts만) · 12운성 노출(springLegacy sibiUnseong 배선 + insight-facts-card kind 신설 + 타입 레벨 해석 12건 저작 — 실측: 4기둥 팩트 전부 해석 부착) · seatPillars/count(궁위 합집합·발동 횟수, position/dedupe 불변) · basedOn 보존(DAY_STEM/YEAR_STEM).
+  - 검증: saju-ts 78 테스트, 호환 202, tiered-shape 1378, 경계골든 723, **baseline snapshot 15/15(판정·별점 불변)**, 런타임 프로브(극·반합·고신/과숙 발동, 천을귀인[day,hour]x2 병합 확인).
+  - **잔여(콘텐츠 저작 축, 별도 세션 권장)**: ① 귀인 궁위 세분 factId(`shinsal.<이름>@<기둥>`) + preferredIds — seatPillars 배관은 완료됐으므로 인사이트 카드 factId 확장 + 궁위별 해석 저작만 남음(HANDOFF_NEXT_PHASES 작업 5-후속 ③④⑤단계) ② 신규 표면(반합·귀문·고신/과숙·귀문살) 타입 레벨 해석 충전(branchRelation.반합/귀문, shinsal.귀문관살/고신살/과숙살 — 現在는 신살 백과 폴백에 걸리는 것만 노출).
 - **PR-3 판정 재정렬** (결정 4건의 ①②④ 실행): deLingDiShi 기본화+climateUrgency 활성, 정자시설 기본, 대운수 이원 표기, 건록/월겁/양인격, 종격 게이트(jonggyeokCandidates 연동), 신살 품질모델 배선(resolveQualityModelForDetection 미호출), 월덕/천덕 scope 배선, 12신살 이중 계상 dedupe, INDEPENDENT 12운성 명시 에러. **baseline snapshot·생성 코퍼스(κ) 파급 명시적 관리.**
 - **PR-4 신뢰 인프라** (결정 ③ 실행): 내장 음양력 테이블(1900~2050, KASI 픽스처 `data/kasi-lunar-solar/`를 오라클로) + KASI API 옵션, 표준시 변천·서머타임 14구간 픽스처 테스트, 조견표 단정 테스트(12운성 120칸·지장간 12지지·신살 배속), 궁통보감 120셀 JSON.
 - **후속 감사 후보**: graph/·schools 팩 전수·DSL 컴파일러·migrations·음양 균형(YinYangScore 소비자 0곳)·육친/묘고/개두절각 축 (감사 보고서 부록 C).
