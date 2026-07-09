@@ -1535,12 +1535,10 @@ function normalizeLegacyOutput(
     const pairKey = [...memberIdxs].sort((a, b) => a - b).join('-');
     const hapState = type === 'HAP' ? hapStateByPair.get(pairKey) : undefined;
     return {
-      // 기존 4필드 불변 (감사 A3 라벨 계약)
       type,
       members: memberIdxs.map((m) => stemCodeFromIdx(m)),
       resultOhaeng: relation?.resultElement ? String(relation.resultElement) : null,
       note: relationNoteForType(type, CHEONGAN_RELATION_NOTES),
-      // PR-5 additive (감사 B531): 합 상태 — 합화 성립 여부 표기 정직성.
       ...(hapState
         ? {
             hapState,
@@ -1548,6 +1546,41 @@ function normalizeLegacyOutput(
             resultConfirmed: hapState === 'HUA',
           }
         : {}),
+    };
+  });
+
+  const chartStemCodes = chartStems.map((stem) => stemCodeFromIdx(stem));
+  const minStemPositionGap = (members: string[]): number | null => {
+    const positions = members.map((member) => chartStemCodes
+      .map((stem, index) => stem === member ? index : -1)
+      .filter((index) => index >= 0));
+    if (positions.length < 2 || positions.some((items) => items.length === 0)) return null;
+    let min = Number.POSITIVE_INFINITY;
+    for (const a of positions[0]!) {
+      for (const b of positions[1]!) min = Math.min(min, Math.abs(a - b));
+    }
+    return Number.isFinite(min) ? min : null;
+  };
+  const scoredCheonganRelations = cheonganRelations.map((relation: any) => {
+    const type = String(relation?.type ?? '').toUpperCase();
+    const members = Array.isArray(relation?.members) ? relation.members.map(String) : [];
+    const gap = minStemPositionGap(members);
+    const state = String(relation?.hapState ?? '');
+    const baseScore = type === 'CHUNG' ? 70 : type === 'HAP' ? 60 : 40;
+    const outcomeMultiplier = type === 'HAP'
+      ? state === 'HUA' ? 1 : state === 'HAPGEO' ? 0.62 : state === 'JAENGHAP' ? 0.42 : state === 'YOHAP' ? 0.3 : 0.5
+      : type === 'CHUNG' ? 0.75 : 0.5;
+    const adjacencyBonus = gap === 1 ? 15 : gap === 2 ? 5 : 0;
+    const finalScore = roundTo(Math.min(100, baseScore * outcomeMultiplier + adjacencyBonus), 3);
+    return {
+      hit: { type, members },
+      score: {
+        baseScore,
+        adjacencyBonus,
+        outcomeMultiplier,
+        finalScore,
+        rationale: `type=${type};state=${state || 'NA'};positionGap=${gap ?? 'NA'}`,
+      },
     };
   });
 
@@ -1904,7 +1937,7 @@ function normalizeLegacyOutput(
     deficientElements,
     excessiveElements,
     cheonganRelations,
-    scoredCheonganRelations: [],
+    scoredCheonganRelations,
     // PR-5 (감사 B531): 합화 평가 죽은 배관 소생 — 어댑터 extractHapHwaEvaluations가
     // 대기 중이던 스키마(stem1/2, position1/2, resultOhaeng, state, confidence,
     // reasoning, dayMasterInvolved)에 맞춰 인스턴스(궁위) 단위로 방출.
