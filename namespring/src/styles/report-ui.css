@@ -2040,6 +2040,67 @@ textarea:focus-visible {
   gap: var(--space-sm);
 }
 
+/* NS-C/NS-I: collapsible section header + folded body. */
+.cr-section--collapsible > .cr-section__head {
+  margin: 0;
+}
+
+.cr-section__toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.cr-section__toggle .cr-eyebrow {
+  display: block;
+}
+
+.cr-section__title-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.cr-section__chevron {
+  flex: 0 0 auto;
+  align-self: center;
+  width: 0.72em;
+  height: 0.72em;
+  margin-inline-start: auto;
+  border-inline-end: 2px solid currentColor;
+  border-block-end: 2px solid currentColor;
+  transform: rotate(45deg);
+  opacity: 0.55;
+  transition: transform var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
+}
+
+.cr-section.is-collapsed .cr-section__chevron {
+  transform: rotate(-45deg);
+}
+
+.cr-section__toggle:hover .cr-section__chevron,
+.cr-section__toggle:focus-visible .cr-section__chevron {
+  opacity: 0.9;
+}
+
+.cr-section__toggle:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 4px;
+  border-radius: var(--radius-input);
+}
+
+.cr-section.is-collapsed > .cr-section__body {
+  display: none;
+}
+
 .cr-summary-item {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);

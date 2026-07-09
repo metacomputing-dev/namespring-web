@@ -671,6 +671,7 @@ function InsightFactsSection({ insightFacts }) {
       title="전문 인사이트"
       description="원국에서 특히 눈에 띄는 배치를 골라 풀어드립니다. 전문용어는 태그로만 달아 두었어요."
       className="cr-section--insights"
+      collapsedOnMobile
     >
       <div className="cr-insight-highlights">
         {lead.map((fact) => (
@@ -906,15 +907,69 @@ function ReportHero({ nameParts, birthLabel, genderLabel, nameCompatibility, ren
   );
 }
 
-function ReportSection({ id, eyebrow, title, description, children, className = '' }) {
+// NS-C/NS-I: sections fold on mobile to cut the report's scroll length.
+// The body stays in the DOM (hidden via CSS class, not unmounted) so PDF/print
+// capture and the print media override can still reveal every section.
+const SECTION_MOBILE_QUERY = '(max-width: 40rem)';
+
+function prefersMobileCollapse() {
+  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return false;
+  return window.matchMedia(SECTION_MOBILE_QUERY).matches;
+}
+
+function ReportSection({
+  id,
+  eyebrow,
+  title,
+  description,
+  children,
+  className = '',
+  collapsible = true,
+  collapsedOnMobile = false,
+}) {
+  // Detail-heavy sections start folded on narrow screens; core sections stay open.
+  const [open, setOpen] = useState(() => !(collapsible && collapsedOnMobile && prefersMobileCollapse()));
+
+  if (!collapsible) {
+    return (
+      <section id={id} className={`cr-section ${className}`}>
+        <div className="cr-section__head">
+          {eyebrow ? <p className="cr-eyebrow">{eyebrow}</p> : null}
+          <h2 className="cr-section__title">{title}</h2>
+          {description ? <p className="cr-section__description">{description}</p> : null}
+        </div>
+        <div className="cr-section__body">{children}</div>
+      </section>
+    );
+  }
+
+  const bodyId = `${id}-body`;
+  const titleId = `${id}-title`;
+
   return (
-    <section id={id} className={`cr-section ${className}`}>
+    <section
+      id={id}
+      className={`cr-section cr-section--collapsible ${className}${open ? '' : ' is-collapsed'}`}
+    >
       <div className="cr-section__head">
-        {eyebrow ? <p className="cr-eyebrow">{eyebrow}</p> : null}
-        <h2 className="cr-section__title">{title}</h2>
+        <h2 className="cr-section__title" id={titleId}>
+          <button
+            type="button"
+            className="cr-section__toggle ns-ripple"
+            aria-expanded={open}
+            aria-controls={bodyId}
+            onClick={() => setOpen((value) => !value)}
+          >
+            {eyebrow ? <span className="cr-eyebrow">{eyebrow}</span> : null}
+            <span className="cr-section__title-text">{title}</span>
+            <span className="cr-section__chevron" aria-hidden="true" />
+          </button>
+        </h2>
         {description ? <p className="cr-section__description">{description}</p> : null}
       </div>
-      <div className="cr-section__body">{children}</div>
+      <div id={bodyId} role="region" aria-labelledby={titleId} className="cr-section__body">
+        {children}
+      </div>
     </section>
   );
 }
@@ -1395,6 +1450,7 @@ function CombiedNamingReport({
               title="운세"
               description="현재의 흐름과 평생의 흐름을 나눠서 봅니다. 탭을 눌러 전환하세요."
               className="cr-section--fortune"
+              collapsedOnMobile
             >
               <div className="cr-fortune-tabs" role="tablist" aria-label="운세 종류 선택">
                 <button
@@ -1498,6 +1554,7 @@ function CombiedNamingReport({
               id="combined-saju"
               title="사주 평가"
               description="사주팔자와 성향, 강점, 주의점을 한 문서 안에서 이어서 봅니다."
+              collapsedOnMobile
             >
               <SajuPillarsGrid pillars={overview?.pillars} />
               {tieredPersonalReading ? (
