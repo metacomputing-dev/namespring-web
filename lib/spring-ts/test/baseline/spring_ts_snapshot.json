@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "capturedAt": "2026-07-09T01:51:41.301Z",
+  "capturedAt": "2026-07-09T02:03:31.928Z",
   "targetDate": "2026-04-30T00:00:00.000Z",
   "fixtureCount": 17,
   "results": [
@@ -679,7 +679,7 @@
           "yongshinHeeshin": "WOOD",
           "gyeokgukType": "편인격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.5167824074074074,
+          "gyeokgukConfidence": 0.5875,
           "deficientElements": [
             "WOOD",
             "WATER"
@@ -1086,7 +1086,7 @@
           "yongshinHeeshin": "EARTH",
           "gyeokgukType": "정관격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.27836538461538457,
+          "gyeokgukConfidence": 0.3340384615384615,
           "deficientElements": [
             "WOOD",
             "FIRE",

@@ -40,6 +40,25 @@ function analyzeWithSelectionRule(selectionRule?: GyeokgukSelectionRule, gyeokgu
   return { facts, result };
 }
 
+function analyzeHiddenSeongpae(gyeokgukOverrides: Record<string, unknown> = {}) {
+  const config = normalizeConfig({
+    strategies: { gyeokguk: gyeokgukOverrides },
+  });
+
+  const pillars = {
+    year: pillar(2, 0),
+    month: pillar(4, 4),
+    day: pillar(6, 4),
+    hour: pillar(8, 9),
+  };
+  const elementDistribution = elementDistributionFromPillars(
+    [pillars.year, pillars.month, pillars.day, pillars.hour],
+    { hiddenStemWeights: (config.weights as any)?.hiddenStems },
+  );
+  const scoring = scorePillars(pillars, DEFAULT_SCORE_POLICY);
+  return buildRuleFacts({ config, pillars, elementDistribution, scoring });
+}
+
 describe('gyeokguk selectionRule', () => {
   it('preserves the legacy default and exposes monthly_main/jungki_transparent as explicit selectors', () => {
     const defaultResult = analyzeWithSelectionRule();
@@ -60,6 +79,20 @@ describe('gyeokguk selectionRule', () => {
     expect(jungkiTransparent.facts.month.gyeok.tenGod).toBe('PYEON_IN');
     expect(jungkiTransparent.result.best).toBe('gyeokguk.PYEON_IN');
     expect(jungkiTransparent.result.basis.monthGyeokSelectionRule).toBe('jungki_transparent');
+  });
+
+  it('enables seongpae v1 by default while preserving explicit opt-out', () => {
+    const enabled = analyzeHiddenSeongpae();
+    const disabled = analyzeHiddenSeongpae({ seongpae: { enabled: false } });
+
+    expect(enabled.month.gyeok.seongpae).toMatchObject({
+      verdict: 'SEONGJUNG_YUPA',
+      sangshin: 'JEONG_JAE',
+      sangshinSource: 'MONTH_HIDDEN',
+    });
+    expect(disabled.month.gyeok.seongpae?.verdict).toBe('PAGYEOK');
+    expect(disabled.month.gyeok.seongpae?.sangshin).toBeNull();
+    expect(disabled.month.gyeok.seongpae?.sangshinSource).toBeUndefined();
   });
 
   it('applies seongpaeScore by default only to the selected month-gyeok score', () => {

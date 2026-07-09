@@ -3770,7 +3770,7 @@ export function buildRuleFacts(args: {
 
   // PR-6: 격국 성패(상신·순용/역용·성격/파격) — additive 판정 표면.
   const seongpaeStrategy: any = (config.strategies as any)?.gyeokguk?.seongpae ?? {};
-  const seongpaeV1Enabled = seongpaeStrategy.enabled === true || seongpaeStrategy.v1?.enabled === true;
+  const seongpaeV1Enabled = seongpaeStrategy.enabled !== false && seongpaeStrategy.v1?.enabled !== false;
   const hiddenSangshinStrategy: any = seongpaeStrategy.hiddenSangshin ?? {};
   const strengthCompareStrategy: any = seongpaeStrategy.strengthCompare ?? {};
   const gyeokSeongpae = computeGyeokgukSeongpae({
