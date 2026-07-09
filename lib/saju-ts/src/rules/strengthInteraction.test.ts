@@ -129,9 +129,9 @@ describe('pressure 축 천간합 기반(羈絆) 감쇠 (PR-10-3)', () => {
   // 丙子년 辛丑월 甲寅일 戊辰시 — 甲 일간에게 辛은 정관, 丙辛合으로 관성 투간이 묶인다.
   const CHART = { year: [2, 0], month: [7, 1], day: [0, 2], hour: [4, 4] } as const;
 
-  it('opt-in이면 묶인 정관 辛의 pressure 기여가 감쇠되어 index가 신강 방향으로 이동한다', () => {
-    const on = strengthOf(CHART, { stemBind: { applyToPressure: true } });
-    const off = strengthOf(CHART);
+  it('기본값이면 묶인 정관 辛의 pressure 기여가 감쇠되어 index가 신강 방향으로 이동한다', () => {
+    const on = strengthOf(CHART);
+    const off = strengthOf(CHART, { stemBind: { applyToPressure: false } });
 
     expect(on.pressure).toBeLessThan(off.pressure);
     expect(on.index).toBeGreaterThan(off.index);

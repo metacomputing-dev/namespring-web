@@ -2544,7 +2544,7 @@ function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
       // 합이불화 = 기반(묶임) — 역할 절반 상실 (감사 B531 표준: 현대 주류는 합화 거의 불인정).
       factor: num(bindRaw.factor, 0.5),
       jaenghapFactor: num(bindRaw.jaenghapFactor, 0.75), // 쟁합·투합은 합력 분산 → 감쇠 완화
-      applyToPressure: bindRaw.applyToPressure === true,
+      applyToPressure: bindRaw.applyToPressure !== false,
     },
     seasonal: {
       // PR-10-1 기본 on (감사 B434) — 왕상휴수 비대칭 감쇠. validate:default-change
