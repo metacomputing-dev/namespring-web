@@ -473,6 +473,9 @@ export function buildGraph(): Graph {
           heavenStemWeight: ed.heavenStemWeight,
           branchTotalWeight: ed.branchTotalWeight,
           hiddenStemWeights: w.hiddenStems,
+          positionWeights: ed.positionWeights,
+          heavenPositionWeights: ed.heavenPositionWeights,
+          branchPositionWeights: ed.branchPositionWeights,
         });
       },
     }),
