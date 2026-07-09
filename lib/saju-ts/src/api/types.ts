@@ -463,10 +463,29 @@ export interface YongshinView {
   strengthIndex: number;
   consensus?: YongshinConsensusView;
   /**
-   * [감사 A2·B6] best 오행에 가장 크게 기여한 방법군 (base 항 기준).
+   * [감사 A2/B6] best 오행에 가장 크게 기여한 방법군(base 점수 기준).
    * 'EOKBU' | 'JOHU' | 'BYEONGYAK' | 'TONGGWAN' | 'JONGHWA'.
    */
   primaryMethod?: string;
+  /** Additive explanation payload for why each yongshin method contributed. */
+  methodBreakdown?: YongshinMethodBreakdownView;
+}
+
+export interface YongshinMethodBreakdownView {
+  balance: {
+    deficiency: Record<string, number>;
+    role: Record<string, { role: string; preference: number }>;
+  };
+  climate?: Record<string, unknown>;
+  medicine?: Record<string, unknown>;
+  tongguan?: Record<string, unknown>;
+  follow?: Record<string, unknown>;
+  johooTemplate?: Record<string, unknown>;
+  transformations?: Record<string, unknown>;
+  oneElement?: Record<string, unknown>;
+  methodSelector?: Record<string, unknown>;
+  effectiveWeights: Record<string, number>;
+  climateUrgency?: Record<string, unknown>;
 }
 
 export type YongshinConsensusConflictLevelView = 'none' | 'low' | 'medium' | 'high';

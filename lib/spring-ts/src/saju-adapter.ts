@@ -1778,6 +1778,9 @@ function extractYongshin(yongshinResult: any) {
   const gishin = yongshinResult?.gisin;
   const gushin = yongshinResult?.gusin;
   const consensus = extractYongshinConsensus(yongshinResult?.consensus);
+  const methodBreakdown = yongshinResult?.methodBreakdown && typeof yongshinResult.methodBreakdown === 'object'
+    ? deepSerialize(yongshinResult.methodBreakdown)
+    : undefined;
   return {
     element:    normalizeElementCode(element) ?? String(element ?? ''),
     heeshin:    normalizeElementCode(heeshin) ?? toNullableString(heeshin),
@@ -1786,6 +1789,7 @@ function extractYongshin(yongshinResult: any) {
     confidence: confidenceToPoints(yongshinResult?.finalConfidence),
     agreement:  formatYongshinAgreementDisplay(yongshinResult?.agreement),
     consensus,
+    ...(methodBreakdown ? { methodBreakdown } : {}),
     // 감사 B5 (additive): 종격 가능성 경고 + 구조화 리스크 신호 passthrough.
     warnings: ensureArray(yongshinResult?.warnings).map((w: any) => String(w)),
     jonggyeokRisk:
@@ -2506,6 +2510,7 @@ export function buildSajuContext(
         gusin:           gusin ?? null,
         finalConfidence: confidenceToRatio(yongshinData.confidence),
         consensus:        yongshinConsensus,
+        methodBreakdown:  yongshinData.methodBreakdown,
         recommendations: yongshinData.recommendations.map(
           ({ type, primaryElement, secondaryElement, confidence, reasoning }) => ({
             type: normalizeYongshinTypeCode(type),

@@ -86,6 +86,15 @@ function finalIsNormalized(consensus: YongshinConsensusScoreboard): boolean {
   );
 }
 
+function methodBreakdownIsNormalized(value: any): boolean {
+  return !!value &&
+    typeof value === 'object' &&
+    !!value.balance &&
+    typeof value.balance.deficiency === 'object' &&
+    typeof value.balance.role === 'object' &&
+    typeof value.effectiveWeights === 'object';
+}
+
 const fixtures = readJson<{ fixtures: readonly BaselineFixture[] }>(FIXTURE_PATH).fixtures;
 const selectedBaseline = readJson<any>(BASELINE_SNAPSHOT_PATH);
 const selectedById = new Map<string, any>(
@@ -114,6 +123,11 @@ for (const fixture of fixtures) {
     summary.yongshin.consensus?.final.element === consensus?.final.element &&
       summary.yongshin.consensus?.final.conflictLevel === consensus?.final.conflictLevel);
 
+  const methodBreakdown = (summary.yongshin as any).methodBreakdown;
+  check(`${fixture.id}: method breakdown exists on yongshin summary`,
+    methodBreakdownIsNormalized(methodBreakdown),
+    methodBreakdown ? `keys=${Object.keys(methodBreakdown).join(',')}` : 'missing');
+
   if (!consensus) continue;
 
   for (const axisName of AXES) {
@@ -136,6 +150,8 @@ for (const fixture of fixtures) {
       context.output.yongshinConsensus === consensus);
     check(`${fixture.id}: SajuOutputSummary.yongshin surfaces consensus`,
       context.output.yongshin?.consensus === consensus);
+    check(`${fixture.id}: SajuOutputSummary.yongshin surfaces method breakdown`,
+      methodBreakdownIsNormalized((context.output.yongshin as any)?.methodBreakdown));
 
     const score = computeSajuNameScore(context.dist, ROOT_DIST, context.output);
     check(`${fixture.id}: scoring breakdown carries consensus conflict metadata`,

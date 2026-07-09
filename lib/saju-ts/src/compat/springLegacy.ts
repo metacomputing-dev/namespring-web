@@ -717,16 +717,76 @@ function gyeokgukKoLabel(code: unknown): string {
   return GYEOKGUK_KO_LABEL[canonical] ?? GYEOKGUK_KO_LABEL[normalized] ?? (normalized || '-');
 }
 
+function methodScore(record: any, element: string): number | null {
+  if (!record || typeof record !== 'object') return null;
+  return finiteNumberOrNull(record[element]);
+}
+
+function formatMethodScore(value: number | null): string | null {
+  return value === null ? null : value.toFixed(2);
+}
+
+function firstReason(value: any): string | null {
+  if (!Array.isArray(value)) return null;
+  const found = value.find((entry) => typeof entry === 'string' && entry.trim().length > 0);
+  return found ? String(found) : null;
+}
+
+function buildYongshinMethodEvidence(entry: { element: string; score: number }, primaryMethod: unknown, methodBreakdown: any): string | null {
+  if (!methodBreakdown || typeof methodBreakdown !== 'object') return null;
+  const element = String(entry.element ?? '').toUpperCase();
+  const method = String(primaryMethod ?? '').toUpperCase();
+
+  if (method === 'JOHU') {
+    const template = methodBreakdown.johooTemplate;
+    const reason = firstReason(template?.reasons);
+    if (String(template?.primary ?? '').toUpperCase() === element && reason) return `조후: ${reason}`;
+    const climateScore = formatMethodScore(methodScore(methodBreakdown.climate?.scores, element));
+    return climateScore ? `조후: 계절·한난조습 점수 ${climateScore} 반영` : null;
+  }
+
+  if (method === 'BYEONGYAK') {
+    const medicineScore = formatMethodScore(methodScore(methodBreakdown.medicine?.scores, element));
+    return medicineScore ? `병약: 과다한 오행을 덜어내는 점수 ${medicineScore} 반영` : null;
+  }
+
+  if (method === 'TONGGWAN') {
+    const intensity = formatMethodScore(finiteNumberOrNull(methodBreakdown.tongguan?.effectiveMaxIntensity ?? methodBreakdown.tongguan?.maxIntensity));
+    return intensity ? `통관: 충돌을 이어 주는 강도 ${intensity} 반영` : null;
+  }
+
+  if (method === 'JONGHWA') {
+    const follow = methodBreakdown.follow;
+    const potential = formatMethodScore(finiteNumberOrNull(follow?.potential ?? follow?.potentialRaw));
+    if (potential) return `종화: 한쪽 세력으로 따르는 잠재도 ${potential} 반영`;
+    const transformation = methodBreakdown.transformations?.best;
+    if (transformation?.pair && transformation?.resultElement) return `종화: ${transformation.pair} 합화 후보 반영`;
+    const oneElement = methodBreakdown.oneElement?.element;
+    return oneElement ? `종화: ${ohaengKoLabel(oneElement)} 단일 세력 신호 반영` : null;
+  }
+
+  const deficiency = formatMethodScore(methodScore(methodBreakdown.balance?.deficiency, element));
+  const preference = formatMethodScore(finiteNumberOrNull(methodBreakdown.balance?.role?.[element]?.preference));
+  if (deficiency && preference) return `억부: 부족도 ${deficiency}, 십신 선호 ${preference} 반영`;
+  if (deficiency) return `억부: 부족도 ${deficiency} 반영`;
+  if (preference) return `억부: 십신 선호 ${preference} 반영`;
+  return null;
+}
+
 function buildYongshinReasoning(
   rank: number,
   entry: { element: string; score: number },
   topElement: string,
+  methodBreakdown?: any,
+  primaryMethod?: unknown,
 ): string {
   const primaryLabel = ohaengKoLabel(entry.element);
   const topLabel = ohaengKoLabel(topElement || '상위');
   const confidencePoint = confidenceToPoints(Number(entry.score));
+  const evidence = rank === 0 ? buildYongshinMethodEvidence(entry, primaryMethod, methodBreakdown) : null;
+  const evidenceText = evidence ? ` ${evidence}.` : '';
   if (rank === 0) {
-    return `${primaryLabel} 기운이 가장 강해 용신 1순위입니다 (신뢰도 ${confidencePoint}점).`;
+    return `${primaryLabel} 기운이 가장 강해 용신 1순위입니다.${evidenceText} (신뢰도 ${confidencePoint}점).`;
   }
   if (rank === 1) {
     return `${primaryLabel} 기운은 ${topLabel} 기운을 보조하는 희신 후보입니다 (신뢰도 ${confidencePoint}점).`;
@@ -1804,6 +1864,7 @@ function normalizeLegacyOutput(
           : yongshinConfidencePoints,
       agreement: 'RANKING',
       consensus: yongshinConsensus,
+      methodBreakdown: yongshin?.methodBreakdown ?? null,
       // 감사 B5 (additive): 종격 가능성 신호. daeunInfo.warnings 선례를 따른다.
       warnings: yongshinWarnings,
       jonggyeokRisk,
@@ -1815,7 +1876,13 @@ function normalizeLegacyOutput(
         primaryElement: entry.element,
         secondaryElement: yongshinRanking[i + 1]?.element ?? null,
         confidence: confidenceToPoints(Math.max(0, Math.min(1, Number(entry.score)))),
-        reasoning: buildYongshinReasoning(i, entry, topElement),
+        reasoning: buildYongshinReasoning(
+          i,
+          entry,
+          topElement,
+          yongshin?.methodBreakdown,
+          i === 0 ? yongshin?.primaryMethod : undefined,
+        ),
       })),
     },
     gyeokgukResult: {

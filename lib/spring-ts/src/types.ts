@@ -659,6 +659,7 @@ export interface YongshinSummary {
   readonly agreement: string;
   readonly recommendations: YongshinRecommendation[];
   readonly consensus?: YongshinConsensusScoreboard;
+  readonly methodBreakdown?: Record<string, unknown>;
   /** 감사 B5: 종격 가능성 경고 문구 (springLegacy yongshinResult.warnings passthrough). */
   readonly warnings?: readonly string[];
   /** 감사 B5: 종격(從格) 리스크 신호 — 억부 용신 신뢰도 게이트의 구조화 근거. */
@@ -1508,4 +1509,5 @@ export interface SajuYongshinSummary {
   finalConfidence: number;
   recommendations: YongshinRecommendation[];
   consensus?: YongshinConsensusScoreboard;
+  methodBreakdown?: Record<string, unknown>;
 }
