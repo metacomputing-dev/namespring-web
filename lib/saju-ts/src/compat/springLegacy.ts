@@ -645,6 +645,27 @@ function roundTo(value: unknown, digits: number): number {
   return Math.round(n * scale) / scale;
 }
 
+function finiteNumberOrNull(value: unknown): number | null {
+  const n = Number(value);
+  return Number.isFinite(n) ? n : null;
+}
+
+function addYearsUtcApprox(utcMs: number, years: number): number {
+  const d = new Date(utcMs);
+  d.setUTCFullYear(d.getUTCFullYear() + years);
+  return d.getTime();
+}
+
+function approxDaeunUtcMs(entry: any, firstStartUtcMsApprox: number | null, decadeLengthYears: number, edge: 'start' | 'end'): number | null {
+  const direct = finiteNumberOrNull(edge === 'start' ? entry?.startUtcMs : entry?.endUtcMs);
+  if (direct !== null) return direct;
+  if (firstStartUtcMsApprox === null) return null;
+  const index = Number(entry?.index ?? 0);
+  if (!Number.isFinite(index)) return null;
+  const length = Number.isFinite(decadeLengthYears) && decadeLengthYears > 0 ? decadeLengthYears : 10;
+  return addYearsUtcApprox(firstStartUtcMsApprox, (edge === 'start' ? index : index + 1) * length);
+}
+
 function scoreDiffConfidence(top: number, second: number): number {
   if (!Number.isFinite(top) || !Number.isFinite(second)) return 0.5;
   const diff = top - second;
@@ -1607,6 +1628,8 @@ function normalizeLegacyOutput(
     decadeYearRelationsByYear.set(year, existing);
   }
   const decades = Array.isArray(fortune?.decades) ? fortune.decades : [];
+  const firstDaeunStartUtcMsApprox = finiteNumberOrNull(fortune?.start?.startUtcMsApprox ?? timeline?.start?.startUtcMsApprox);
+  const decadeLengthYears = Number(timeline?.policy?.decadeLengthYears ?? 10);
   const needsExpandedYears = typeof saeunStartYear === 'number' || typeof saeunYearCount === 'number';
   const needsExpandedMonths = typeof wolunStartYear === 'number' || typeof wolunMonthCount === 'number';
   const yearsAll = needsExpandedYears && Array.isArray(timeline?.years)
@@ -1639,6 +1662,12 @@ function normalizeLegacyOutput(
       startAge: Number(entry?.startAgeYears ?? 0),
       endAge: Number(entry?.endAgeYears ?? 0),
       order: Number(entry?.index ?? 0),
+      ...(approxDaeunUtcMs(entry, firstDaeunStartUtcMsApprox, decadeLengthYears, 'start') !== null
+        ? { approxStartUtcMs: approxDaeunUtcMs(entry, firstDaeunStartUtcMsApprox, decadeLengthYears, 'start') }
+        : {}),
+      ...(approxDaeunUtcMs(entry, firstDaeunStartUtcMsApprox, decadeLengthYears, 'end') !== null
+        ? { approxEndUtcMs: approxDaeunUtcMs(entry, firstDaeunStartUtcMsApprox, decadeLengthYears, 'end') }
+        : {}),
       ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy),
       ...(formatLuckRelationsWithNatal(decadeRelationsByIndex.get(Number(entry?.index ?? 0)))
         ? { relationsWithNatal: formatLuckRelationsWithNatal(decadeRelationsByIndex.get(Number(entry?.index ?? 0))) }

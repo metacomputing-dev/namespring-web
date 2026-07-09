@@ -2326,6 +2326,8 @@ function extractDaeunInfo(rawSajuOutput: any) {
       startAge: Number(pillarData.startAge)        || 0,
       endAge:   Number(pillarData.endAge)          || 0,
       order:    Number(pillarData.order)           || 0,
+      approxStartUtcMs: nullableNumber(pillarData.approxStartUtcMs),
+      approxEndUtcMs: nullableNumber(pillarData.approxEndUtcMs),
     }, pillarData)),
   };
 }

@@ -106,6 +106,10 @@ if (ctx.output) {
           typeof firstPillar.startAge === 'number' &&
           typeof firstPillar.endAge === 'number');
         check('daeunInfo.pillars[0] has PR-8 luck annotations', hasLuckAnnotations(firstPillar));
+        check('daeunInfo.pillars[0] has PR-9 approximate boundary UTC metadata',
+          typeof firstPillar.approxStartUtcMs === 'number' &&
+          typeof firstPillar.approxEndUtcMs === 'number' &&
+          firstPillar.approxEndUtcMs > firstPillar.approxStartUtcMs);
         check('daeunInfo.pillars has PR-9 natal relation annotations',
           ctx.output.daeunInfo.pillars.some((pillar: any) => hasNatalRelations(pillar)));
       }

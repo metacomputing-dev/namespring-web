@@ -969,6 +969,9 @@ export interface DaeunPillarSummary extends LuckPillarAnnotationSummary {
   readonly startAge: number;
   readonly endAge: number;
   readonly order: number;
+  /** Approximate UTC boundary for display/timeline only; continuous age remains authoritative. */
+  readonly approxStartUtcMs?: number | null;
+  readonly approxEndUtcMs?: number | null;
 }
 
 /** Daeun (대운, 10-year luck cycles) overview for a chart. Mirrors the
