@@ -2043,6 +2043,13 @@ textarea:focus-visible {
 /* NS-C/NS-I: collapsible section header + folded body. */
 .cr-section--collapsible > .cr-section__head {
   margin: 0;
+  /* Let the toggle span the section so the chevron anchors to the right edge;
+     the title text and description keep their own width caps for readability. */
+  max-width: none;
+}
+
+.cr-section--collapsible .cr-section__title {
+  max-width: none;
 }
 
 .cr-section__toggle {
