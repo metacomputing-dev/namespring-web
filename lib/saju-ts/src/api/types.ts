@@ -67,6 +67,8 @@ export interface EngineConfig {
     yearBoundary: 'liChun' | 'lunarNewYear' | 'jan1';
     monthBoundary: 'jieqi' | 'gregorianMonth';
     dayBoundary: 'midnight' | 'ziSplit23';
+    /** Optional day-boundary used only for deriving the hour-pillar stem. Defaults to dayBoundary. */
+    hourStemDayBoundary?: 'midnight' | 'ziSplit23';
     hourBoundary: 'doubleHour';
     /**
      * 일/시 경계 분류용 로컬 시각 이동(분). UTC 인스턴트는 불변 —

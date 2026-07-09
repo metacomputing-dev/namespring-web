@@ -179,6 +179,27 @@ describe('normalizeLegacyOutput 정직성 (감사 A1/A2/A9/A15d)', () => {
     expect(noDst.coreResult.dstCorrectionMinutes).toBe(0);
   });
 
+  it('implements JOJA_SPLIT as midnight day pillar plus next-day zi-hour stem basis', () => {
+    const lateZi = createBirthInput({
+      birthYear: 2000, birthMonth: 1, birthDay: 1,
+      birthHour: 23, birthMinute: 30, gender: 'MALE',
+    });
+    const midnight: any = analyzeSaju(lateZi, {
+      dayCutMode: 'MIDNIGHT_00', trueSolarTimeEnabled: false, longitudeCorrectionEnabled: false,
+    });
+    const yaza: any = analyzeSaju(lateZi, {
+      dayCutMode: 'YAZA_23_TO_01_NEXTDAY', trueSolarTimeEnabled: false, longitudeCorrectionEnabled: false,
+    });
+    const joja: any = analyzeSaju(lateZi, {
+      dayCutMode: 'JOJA_SPLIT', trueSolarTimeEnabled: false, longitudeCorrectionEnabled: false,
+    });
+    expect(joja.pillars.day).toEqual(midnight.pillars.day);
+    expect(joja.pillars.day).not.toEqual(yaza.pillars.day);
+    expect(joja.pillars.hour.jiji).toBe(midnight.pillars.hour.jiji);
+    expect(joja.pillars.hour.cheongan).toBe(yaza.pillars.hour.cheongan);
+    expect(joja.pillars.hour.cheongan).not.toBe(midnight.pillars.hour.cheongan);
+  });
+
   it('daeunInfo.boundaryMode는 일경계 정책이 아니라 절기 id다', () => {
     expect(output.daeunInfo.boundaryMode).not.toBe('midnight');
     expect(output.daeunInfo.boundaryMode).not.toBe('ziSplit23');

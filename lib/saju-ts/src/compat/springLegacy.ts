@@ -235,6 +235,7 @@ interface CivilDateTime {
 
 interface DayCutMapping {
   dayBoundary: EngineConfig['calendar']['dayBoundary'];
+  hourStemDayBoundary?: EngineConfig['calendar']['dayBoundary'];
   dayCutShiftMinutes: number;
 }
 
@@ -311,7 +312,7 @@ function mapDayCutMode(mode: LegacyDayCutMode | undefined): DayCutMapping {
     case 'MIDNIGHT_00':
       return { dayBoundary: 'midnight', dayCutShiftMinutes: 0 };
     case 'JOJA_SPLIT':
-      return { dayBoundary: 'midnight', dayCutShiftMinutes: 0 };
+      return { dayBoundary: 'midnight', hourStemDayBoundary: 'ziSplit23', dayCutShiftMinutes: 0 };
     case 'YAZA_23_TO_01_NEXTDAY':
       return { dayBoundary: 'ziSplit23', dayCutShiftMinutes: 0 };
     case 'YAZA_23_30_TO_01_30_NEXTDAY':
@@ -1245,6 +1246,7 @@ function buildEngineConfig(
 
   let cfg = cloneConfig();
   cfg.calendar.dayBoundary = dayCut.dayBoundary;
+  cfg.calendar.hourStemDayBoundary = dayCut.hourStemDayBoundary ?? dayCut.dayBoundary;
   // 감사 A11: YAZA_23_30의 -30분은 인스턴트가 아니라 일/시 경계 분류용 시프트로
   // 엔진에 전달한다(graphFactory ForDay/ForHour). deepMerge 이전에 세팅해야
   // legacy.calendar.dayCutShiftMinutes 수동 오버라이드가 살아있다.
