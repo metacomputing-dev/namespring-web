@@ -227,7 +227,7 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 | P0-3 baseline 픽스처 보강 | ✅ | 75c3cdef5 | 2026-07-09 | 17/17(야자시 창 fix-16 + 음력 윤달 fix-17). 픽스처 수 하드코딩 2곳 동적화(baseline-metrics·quality-gate) |
 | 9-1 운-원국 관계 | ✅ | 8c310a014 | 2026-07-09 | canonical fortune.relations node; springLegacy relationsWithNatal; adapter/report evidence. Natal-only relations and scoring unchanged. Verified: saju-ts 202/0, baseline 17/0, compat 208/0, tiered-shape 1378/0, service-visible 13/0, adapter-daewoon 24/0, transit-luck-report 12/0 |
 | 9-2 대운↔세운 | ✅ | ade45f9c0 | 2026-07-09 | decade-year fortune relations in fortune.relations.decadeYears; saeun relationsWithDecade; yearly report evidence. Pre-start years omitted; natal scoring unchanged. Verified: saju-ts 204/0, baseline 17/0, compat 208/0, tiered-shape 1378/0, service-visible 13/0, adapter-daewoon 25/0, transit-luck-report 13/0 |
-| 9-3 교운 일시 | ⬜ | | | D2 선행 |
+| 9-3 교운 일시 | ✅(approx) | 680494293 | 2026-07-09 | arithmetic approximate daeun boundaries only: daeunPillars approxStartUtcMs/approxEndUtcMs via startUtcMsApprox + decade length. D2 precision path still deferred. Verified: saju-ts 204/0, baseline 17/0, compat 208/0, tiered-shape 1378/0, service-visible 13/0, adapter-daewoon 26/0, transit-luck-report 13/0 |
 | 9-4 나이 표기 옵션 | ⬜ | | | |
 | 9-5 A12 yearBoundary | ✅ | 3bf08cf5c | 2026-07-09 | 기본(liChun) 바이트 동일 확인(회귀 가드 테스트). 비-liChun만 세운 분절 변경. saju-ts 184/0·baseline 15/15·calendar-policy 14/0·compat 208/0 |
 | 9-6 일운 정합 | 🔶 검증완료 | — | 2026-07-09 | 이원 경로 49,319건 대조 불일치 0(수식 동치·KASI 453건 양쪽 100%). 배선은 상품 요구(D3) 확정 시 — GUIDE §0.1 |
