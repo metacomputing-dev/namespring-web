@@ -245,6 +245,7 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 | 12-2 gyeokguk basis | ✅ | 25da007e9 | 2026-07-09 | Exposes selected pattern basis, month-gyeok quality/details, and score map through saju-ts API, springLegacy, spring-ts adapter/context. Verified: springLegacy 13/13, gyeokguk candidates 257/0, baseline 17/0, compat 208/0, service-visible 13/0 |
 | 12-4 음양 균형 노출 | ✅ | e7e12fdd7 | 2026-07-09 | 5층 배선 완료(SajuSummary.yinYangBalance, test:adapter-yinyang 5/0) — 12계열 exemplar. 소비 카드 저작은 CT-3와 협업 |
 | 12-5a scoredCheonganRelations | ✅ partial | 58b29a47f | 2026-07-09 | Revived cheongan relation score payloads in springLegacy and adapter-visible output. Verified: springLegacy 14/14, baseline 17/0, compat 208/0, service-visible 13/0. Remaining 12-5: shinsalComposites source decision and positionMultiplier policy |
+| 12-5b shinsal positionMultiplier | ✅ partial | 21c95cb0c | 2026-07-09 | Replaced the hardcoded 1.0 with seat-based multipliers from matchedPillars: day 1, month 0.85, year 0.7, hour 0.6. Verified: springLegacy 15/15, adapter-shinsal 14/0, baseline 17/0, compat 208/0, service-visible 13/0. Remaining 12-5: shinsalComposites source decision |
 | 12-1~12-10 잔여 설명가능성 | ⬜ | | | 항목별 커밋 — 12-4 커밋(e7e12fdd7)을 본보기로 |
 | 13 오라클·재캘리브레이션 | ⬜ | | | D5 선행 |
 | 14 신규 해석 축 | ⬜ | | | 육친 우선 |
