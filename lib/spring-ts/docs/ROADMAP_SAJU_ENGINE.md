@@ -237,7 +237,7 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 | 10-2 감쇠 세분 | ✅ 기본 on | 07aeaaf33 → 8401cfbab | 2026-07-09 | 계측: 유일 이동 = fix-14 이름 후보 finalScore +0.1×2(순위 불변, EPS 0.5 이내). 판정 필드 전 픽스처 불변 |
 | 10-3 pressure 합거 | ✅ 기본 on | 0915087d8 → a9f27f52b | 2026-07-09 | 관성 천간합은 visible officer pressure만 감쇠. opt-in knob 커밋 후 기본화. 계측: 판정 필드 불변, snapshot 이동은 candidatesTop5만(fix-05 -0.4, fix-07 후보 재배열/1위 +0.6, fix-09 +0.1×2). validate:default-change main↔HEAD=IMPROVEMENT(5/0/10 + added 2, regression 0). Verified: saju-ts 207/0, baseline 17/0, compat 208/0, tiered-shape 1379/0, service-visible 13/0, adapter-daewoon 31/0, yongshin-consensus 273/0, jonggyeok 111/0, boundary-goldens 723/0 |
 | 10-4 성패 점수 통합 | ✅ 기본 on | 893a3c0d4 → 13320a31c | 2026-07-09 | seongpae verdict(5단)을 월령 격국 score key에만 배율 반영. opt-in knob 커밋 후 기본화, opt-out 지원. 계측: baseline 17/0, compat 208/0, validate:default-change IMPROVEMENT(5/0/10 + added 2, regression 0), saju-ts 208/0, tiered-shape 1379/0, service-visible 13/0, adapter-daewoon 31/0, yongshin-consensus 273/0, jonggyeok 111/0, boundary-goldens 723/0 |
-| 10-5 성패 v1 | ⬜ | | | 계측 |
+| 10-5 성패 v1 | ✅ 기본 on | 18323386e → c132da72a | 2026-07-09 | 월지 지장간 회지 상신(MAIN/MIDDLE, minWeight 0.3) + 상신/파격요인 세력 비교(opt-out 지원). 기본 영향: fix-09 편인격 confidence 0.5168→0.5875, fix-14 정관격 0.2784→0.3340; 타입/용신/후보 순위 무변. Verified: saju-ts typecheck, seongpae/selection 19/0, baseline 17/0, compat 208/0, validate:default-change IMPROVEMENT(5/0/10 + added 2, regression 0), tiered-shape 1379/0, service-visible 13/0, adapter-daewoon 31/0, yongshin-consensus 273/0, jonggyeok 111/0, boundary-goldens 723/0 |
 | 10-6 위치 가중 | ⬜ | | | κ 계측 |
 | 10-7 통근 강도 계수 | ⬜ | | | |
 | 11 종격 승격 (a/b/c) | ⬜ | | | D6·CT-4 선행 |
