@@ -937,6 +937,8 @@ export interface ShinsalHitSummary {
   readonly seatPillars?: readonly ('year' | 'month' | 'day' | 'hour')[];
   /** 같은 (type, position) 키로 합쳐진 발동 횟수 (예: 도화 2개). */
   readonly count?: number;
+  readonly qualityReasons?: readonly string[];
+  readonly conditionPenalty?: number;
 }
 
 /** A single 대운 (10-year luck cycle) pillar entry. */

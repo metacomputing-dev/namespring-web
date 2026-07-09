@@ -1756,7 +1756,7 @@ function normalizeLegacyOutput(
   const SEAT_ORDER = SHINSAL_SEAT_ORDER;
   type SeatPillar = ShinsalSeatPillar;
   const weightedByKey = new Map<string, {
-    hit: { type: string; position: string; grade: string; basedOn: string; seatPillars: SeatPillar[] };
+    hit: { type: string; position: string; grade: string; basedOn: string; seatPillars: SeatPillar[]; qualityReasons?: string[]; conditionPenalty?: number };
     baseWeight: number;
     positionMultiplier: number;
     weightedScore: number;
@@ -1772,11 +1772,24 @@ function normalizeLegacyOutput(
       .filter((p: unknown): p is SeatPillar => SEAT_ORDER.includes(p as SeatPillar));
     const grade = gradeFromQualityWeight(hit?.qualityWeight);
     const qualityWeight = Number(hit?.qualityWeight ?? 0.6);
+    const qualityReasons = (Array.isArray(hit?.qualityReasons) ? hit.qualityReasons : [])
+      .map((reason: unknown) => String(reason))
+      .filter(Boolean);
+    const rawConditionPenalty = Number(hit?.conditionPenalty);
+    const conditionPenalty = Number.isFinite(rawConditionPenalty) ? roundTo(rawConditionPenalty, 3) : null;
     const positionMultiplier = shinsalPositionMultiplier(seatPillars, position);
     const baseWeight = Math.max(0, Math.min(100, Math.round(qualityWeight * 100)));
     const weightedScore = Math.round(baseWeight * positionMultiplier);
     const payload = {
-      hit: { type, position, grade, basedOn, seatPillars },
+      hit: {
+        type,
+        position,
+        grade,
+        basedOn,
+        seatPillars,
+        ...(qualityReasons.length ? { qualityReasons } : {}),
+        ...(conditionPenalty !== null ? { conditionPenalty } : {}),
+      },
       baseWeight,
       positionMultiplier,
       weightedScore,
@@ -1793,6 +1806,17 @@ function normalizeLegacyOutput(
       winner.hit.seatPillars = SEAT_ORDER.filter(
         (p) => existing.hit.seatPillars.includes(p) || seatPillars.includes(p),
       );
+      const mergedQualityReasons = [
+        ...new Set([...(existing.hit.qualityReasons ?? []), ...(payload.hit.qualityReasons ?? [])]),
+      ];
+      if (mergedQualityReasons.length) {
+        winner.hit.qualityReasons = mergedQualityReasons;
+      }
+      const mergedConditionPenalties = [existing.hit.conditionPenalty, payload.hit.conditionPenalty]
+        .filter((value): value is number => Number.isFinite(value));
+      if (mergedConditionPenalties.length) {
+        winner.hit.conditionPenalty = Math.max(...mergedConditionPenalties);
+      }
       winner.count = existing.count + 1;
       weightedByKey.set(dedupeKey, winner);
     }

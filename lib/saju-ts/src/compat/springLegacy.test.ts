@@ -80,6 +80,19 @@ describe('normalizeLegacyOutput 정직성 (감사 A1/A2/A9/A15d)', () => {
     }
   });
 
+  it('surfaces shinsal attenuation trace from condition scoring', () => {
+    const tracedHit = output.weightedShinsalHits.find((item: any) =>
+      Array.isArray(item.hit?.qualityReasons) &&
+      item.hit.qualityReasons.length > 0 &&
+      typeof item.hit?.conditionPenalty === 'number',
+    );
+    expect(tracedHit).toBeTruthy();
+    if (!tracedHit) throw new Error('expected at least one shinsal hit with attenuation trace');
+    expect(tracedHit.hit.qualityReasons).toEqual(expect.arrayContaining([expect.any(String)]));
+    expect(tracedHit.hit.conditionPenalty).toBeGreaterThan(0);
+    expect(tracedHit.hit.conditionPenalty).toBeLessThanOrEqual(1);
+  });
+
   it('does not surface unsupported shinsal composite pipe', () => {
     expect(Object.prototype.hasOwnProperty.call(output, 'shinsalComposites')).toBe(false);
   });

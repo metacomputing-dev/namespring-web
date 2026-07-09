@@ -2106,6 +2106,8 @@ function extractShinsalHits(rawSajuOutput: any) {
     const seatPillars = ensureArray(hitData?.seatPillars).filter(
       (p: unknown): p is 'year' | 'month' | 'day' | 'hour' => typeof p === 'string' && SEAT_VALUES.has(p),
     );
+    const qualityReasons = ensureArray(hitData?.qualityReasons).map(String).filter(Boolean);
+    const conditionPenalty = Number(hitData?.conditionPenalty);
     return {
       type:               formatShinsalTypeDisplay(hitData?.type),
       position:           formatShinsalPositionDisplay(hitData?.position),
@@ -2116,6 +2118,8 @@ function extractShinsalHits(rawSajuOutput: any) {
       basedOn:            hitData?.basedOn != null ? String(hitData.basedOn) : undefined,
       seatPillars,
       count:              isWeighted && Number.isFinite(item.count) ? Number(item.count) : undefined,
+      qualityReasons:     qualityReasons.length ? qualityReasons : undefined,
+      conditionPenalty:   Number.isFinite(conditionPenalty) ? conditionPenalty : undefined,
     };
   });
 }

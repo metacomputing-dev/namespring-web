@@ -80,6 +80,20 @@ if (ctx.output) {
       typeof first.grade === 'string');
     check('shinsalHits[0] has weighted score number',
       typeof first.weightedScore === 'number' && Number.isFinite(first.weightedScore));
+    const tracedSummary: SajuSummary = {
+      ...summary,
+      shinsalHits: [{
+        ...summary.shinsalHits[0],
+        qualityReasons: ['HAE', 'HYEONG'],
+        conditionPenalty: 0.5,
+      }],
+    } as SajuSummary;
+    const tracedCtx = buildSajuContext(tracedSummary);
+    const traced = tracedCtx.output?.shinsalHits?.[0];
+    check('shinsal attenuation trace passes through output',
+      Array.isArray(traced?.qualityReasons) &&
+      traced.qualityReasons.join(',') === 'HAE,HYEONG' &&
+      traced.conditionPenalty === 0.5);
   } else {
     check('SajuOutputSummary.shinsalHits is undefined when source is empty',
       ctx.output.shinsalHits === undefined);
