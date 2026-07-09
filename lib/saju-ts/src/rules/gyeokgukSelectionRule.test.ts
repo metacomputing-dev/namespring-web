@@ -62,12 +62,13 @@ describe('gyeokguk selectionRule', () => {
     expect(jungkiTransparent.result.basis.monthGyeokSelectionRule).toBe('jungki_transparent');
   });
 
-  it('applies seongpaeScore opt-in only to the selected month-gyeok score', () => {
-    const disabled = analyzeWithSelectionRule();
-    const enabled = analyzeWithSelectionRule(undefined, { seongpaeScore: { enabled: true } });
+  it('applies seongpaeScore by default only to the selected month-gyeok score', () => {
+    const enabled = analyzeWithSelectionRule();
+    const disabled = analyzeWithSelectionRule(undefined, { seongpaeScore: { enabled: false } });
 
-    expect(disabled.facts.month.gyeok.seongpae?.verdict).toBe('UNDETERMINED');
+    expect(enabled.facts.month.gyeok.seongpae?.verdict).toBe('UNDETERMINED');
     expect(disabled.result.scores['gyeokguk.PYEON_IN']).toBeCloseTo(1, 12);
+    expect(disabled.result.basis.seongpaeScoreAdjustment).toBeUndefined();
     expect(enabled.result.scores['gyeokguk.PYEON_IN']).toBeCloseTo(0.95, 12);
     expect(enabled.result.best).toBe(disabled.result.best);
 

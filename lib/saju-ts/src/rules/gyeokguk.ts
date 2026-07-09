@@ -274,7 +274,7 @@ const DEFAULT_POLICY: GyeokgukPolicy = {
     'gyeokguk.CONG_GE',
   ],
   seongpaeScore: {
-    enabled: false,
+    enabled: true,
     multipliers: { ...DEFAULT_SEONGPAE_SCORE_MULTIPLIERS },
   },
   competition: {
@@ -1061,7 +1061,7 @@ function buildPolicy(config: EngineConfig): GyeokgukPolicy {
     tieBreakOrder,
     competition: comp,
     seongpaeScore: {
-      enabled: seongpaeRaw.enabled === true,
+      enabled: seongpaeRaw.enabled !== false,
       multipliers: seongpaeMultipliers,
     },
   };
