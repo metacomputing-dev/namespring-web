@@ -2101,6 +2101,35 @@ textarea:focus-visible {
   display: none;
 }
 
+/* NS-F: shared ripple for selectable views (opt in with the ns-ripple class). */
+.ns-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ns-ripple__ink {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--ns-ripple, var(--color-ripple));
+  transform: scale(0);
+  opacity: 0.85;
+  pointer-events: none;
+  animation: ns-ripple-pop var(--dur-slow, 480ms) var(--ease-out) forwards;
+}
+
+@keyframes ns-ripple-pop {
+  to {
+    transform: scale(2.3);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ns-ripple__ink {
+    display: none;
+  }
+}
+
 .cr-summary-item {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
