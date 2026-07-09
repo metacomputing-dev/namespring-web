@@ -71,6 +71,15 @@ describe('normalizeLegacyOutput 정직성 (감사 A1/A2/A9/A15d)', () => {
     }
   });
 
+  it('applies shinsal position multipliers from matched seat pillars', () => {
+    expect(output.weightedShinsalHits.length).toBeGreaterThan(0);
+    const attenuatedHit = output.weightedShinsalHits.find((item: any) => item.positionMultiplier < 1);
+    expect(attenuatedHit?.hit?.seatPillars?.some((seat: string) => seat !== 'day')).toBe(true);
+    for (const item of output.weightedShinsalHits) {
+      expect(item.weightedScore).toBe(Math.round(item.baseWeight * item.positionMultiplier));
+    }
+  });
+
   it('한겨울(子월) 출생도 1위 type이 유도된 방법 코드다 (EOKBU 또는 JOHU)', () => {
     // 조후 기본 개입(climate 0.25 + 조후위급) 하에서 극단월은 JOHU가 나올 수 있다.
     // 어느 쪽이 지배하든 하드코딩 'RANKING'/'JOHU' 시절과 달리 유도 값이어야 한다.

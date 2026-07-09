@@ -810,6 +810,27 @@ function gradeFromQualityWeight(v: unknown): string {
   return 'C';
 }
 
+const SHINSAL_SEAT_ORDER = ['year', 'month', 'day', 'hour'] as const;
+type ShinsalSeatPillar = (typeof SHINSAL_SEAT_ORDER)[number];
+const SHINSAL_SEAT_MULTIPLIER: Record<ShinsalSeatPillar, number> = {
+  day: 1,
+  month: 0.85,
+  year: 0.7,
+  hour: 0.6,
+};
+
+function shinsalPositionMultiplier(seatPillars: readonly ShinsalSeatPillar[], position: string): number {
+  const seatMultipliers = seatPillars
+    .map((seat) => SHINSAL_SEAT_MULTIPLIER[seat])
+    .filter((value) => Number.isFinite(value));
+  if (seatMultipliers.length > 0) return Math.max(...seatMultipliers);
+  if (position === 'DAY') return SHINSAL_SEAT_MULTIPLIER.day;
+  if (position === 'MONTH') return SHINSAL_SEAT_MULTIPLIER.month;
+  if (position === 'YEAR') return SHINSAL_SEAT_MULTIPLIER.year;
+  if (position === 'HOUR') return SHINSAL_SEAT_MULTIPLIER.hour;
+  return 1;
+}
+
 function topTwo(values: Array<{ element: string; score: number }>): [string, string | null] {
   const first = values[0]?.element ?? '';
   const second = values[1]?.element ?? null;
@@ -1677,8 +1698,8 @@ function normalizeLegacyOutput(
   }
 
   const shinsalHitsRaw = Array.isArray(bundle.summary?.shinsalHits) ? bundle.summary.shinsalHits : [];
-  const SEAT_ORDER = ['year', 'month', 'day', 'hour'] as const;
-  type SeatPillar = (typeof SEAT_ORDER)[number];
+  const SEAT_ORDER = SHINSAL_SEAT_ORDER;
+  type SeatPillar = ShinsalSeatPillar;
   const weightedByKey = new Map<string, {
     hit: { type: string; position: string; grade: string; basedOn: string; seatPillars: SeatPillar[] };
     baseWeight: number;
@@ -1696,9 +1717,9 @@ function normalizeLegacyOutput(
       .filter((p: unknown): p is SeatPillar => SEAT_ORDER.includes(p as SeatPillar));
     const grade = gradeFromQualityWeight(hit?.qualityWeight);
     const qualityWeight = Number(hit?.qualityWeight ?? 0.6);
-    const positionMultiplier = 1;
+    const positionMultiplier = shinsalPositionMultiplier(seatPillars, position);
     const baseWeight = Math.max(0, Math.min(100, Math.round(qualityWeight * 100)));
-    const weightedScore = baseWeight * positionMultiplier;
+    const weightedScore = Math.round(baseWeight * positionMultiplier);
     const payload = {
       hit: { type, position, grade, basedOn, seatPillars },
       baseWeight,
