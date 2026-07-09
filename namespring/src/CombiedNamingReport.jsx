@@ -643,7 +643,7 @@ function insightSalienceStyle(groupKey, salience) {
   };
 }
 
-function InsightFactsSection({ insightFacts }) {
+function InsightFactsSection({ insightFacts, showExpertTerms = false }) {
   const [expanded, setExpanded] = useState(false);
   const [selectedFactId, setSelectedFactId] = useState(null);
   const raw = asArray(insightFacts?.facts).filter((fact) => fact?.interpretation?.text);
@@ -669,7 +669,7 @@ function InsightFactsSection({ insightFacts }) {
     <ReportSection
       id="combined-insights"
       title="전문 인사이트"
-      description="원국에서 특히 눈에 띄는 배치를 골라 풀어드립니다. 전문용어는 태그로만 달아 두었어요."
+      description="원국에서 특히 눈에 띄는 배치를 골라 풀어드립니다. ‘전문 용어 보기’를 켜면 원국 용어와 해설을 함께 볼 수 있어요."
       className="cr-section--insights"
       collapsedOnMobile
     >
@@ -681,14 +681,16 @@ function InsightFactsSection({ insightFacts }) {
             style={{ borderLeftColor: `rgba(47, 107, 79, ${(0.22 + (fact.salience ?? 0.5) * 0.78).toFixed(3)})` }}
           >
             <p className="cr-insight-item__headline">{fact.interpretation.text}</p>
-            {fact.interpretation.expertText ? (
+            {showExpertTerms && fact.interpretation.expertText ? (
               <p className="cr-insight-item__expert">{fact.interpretation.expertText}</p>
             ) : null}
-            <div className="cr-insight-item__chips" aria-label="전문태그">
-              {insightChips(fact).map((chip) => (
-                <span key={`${fact.factId}-${chip}`}>{chip}</span>
-              ))}
-            </div>
+            {showExpertTerms ? (
+              <div className="cr-insight-item__chips" aria-label="전문태그">
+                {insightChips(fact).map((chip) => (
+                  <span key={`${fact.factId}-${chip}`}>{chip}</span>
+                ))}
+              </div>
+            ) : null}
           </article>
         ))}
       </div>
@@ -736,7 +738,7 @@ function InsightFactsSection({ insightFacts }) {
                           {selected.detail ? <span className="cr-insight-item__where"> · {selected.detail}</span> : null}
                         </h5>
                         <p>{selected.interpretation.text}</p>
-                        {selected.interpretation.expertText ? (
+                        {showExpertTerms && selected.interpretation.expertText ? (
                           <p className="cr-insight-item__expert">{selected.interpretation.expertText}</p>
                         ) : null}
                       </article>
@@ -1106,7 +1108,7 @@ function LifeFlowChart({ points, onSelect }) {
   );
 }
 
-function CategoryInlineDetail({ id, detail, expertTagState }) {
+function CategoryInlineDetail({ id, detail, expertTagState, showExpertTerms = false }) {
   if (!detail) return null;
   const paragraphs = cellDetailParagraphs(detail.cell);
   const livingTips = cellLivingTips(detail.cell);
@@ -1138,7 +1140,7 @@ function CategoryInlineDetail({ id, detail, expertTagState }) {
           </div>
         ) : null}
       </div>
-      {expertTagState.status === 'loading' || expertTagState.tags.length ? (
+      {showExpertTerms && (expertTagState.status === 'loading' || expertTagState.tags.length) ? (
         <div className="cr-tag-panel">
           <p>전문태그</p>
           {expertTagState.status === 'loading' ? (
@@ -1163,6 +1165,7 @@ function CategoryInsightList({
   expertTagState,
   onToggleDetail,
   ariaLabel,
+  showExpertTerms = false,
 }) {
   if (!periodOption) return null;
 
@@ -1202,6 +1205,7 @@ function CategoryInsightList({
                 id={panelId}
                 detail={activeDetail}
                 expertTagState={expertTagState}
+                showExpertTerms={showExpertTerms}
               />
             ) : null}
           </article>
@@ -1534,6 +1538,7 @@ function CombiedNamingReport({
                     expertTagState={expertTagState}
                     onToggleDetail={toggleCategoryDetail}
                     ariaLabel="기간별 분야 해석"
+                    showExpertTerms={showExpertTerms}
                   />
                 </div>
               ) : (
@@ -1565,6 +1570,7 @@ function CombiedNamingReport({
                     expertTagState={expertTagState}
                     onToggleDetail={toggleCategoryDetail}
                     ariaLabel="나이대별 분야 해석"
+                    showExpertTerms={showExpertTerms}
                   />
                 </div>
               )}
@@ -1610,7 +1616,7 @@ function CombiedNamingReport({
               </div>
             </ReportSection>
 
-            <InsightFactsSection insightFacts={fortuneReport?.insightFacts} />
+            <InsightFactsSection insightFacts={fortuneReport?.insightFacts} showExpertTerms={showExpertTerms} />
 
             <PremiumReportSection
               isUnlocked={isPremiumUnlocked}
