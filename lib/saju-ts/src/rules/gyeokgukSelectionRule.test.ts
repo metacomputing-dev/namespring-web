@@ -7,9 +7,10 @@ import { DEFAULT_SCORE_POLICY, scorePillars } from '../core/scoring.js';
 import { buildRuleFacts, type GyeokgukSelectionRule } from './facts.js';
 import { computeGyeokguk } from './gyeokguk.js';
 
-function analyzeWithSelectionRule(selectionRule?: GyeokgukSelectionRule) {
+function analyzeWithSelectionRule(selectionRule?: GyeokgukSelectionRule, gyeokgukOverrides: Record<string, unknown> = {}) {
+  const gyeokgukStrategy = { ...(selectionRule ? { selectionRule } : {}), ...gyeokgukOverrides };
   const config = normalizeConfig({
-    strategies: selectionRule ? { gyeokguk: { selectionRule } } : {},
+    strategies: Object.keys(gyeokgukStrategy).length > 0 ? { gyeokguk: gyeokgukStrategy } : {},
     extensions: {
       ruleSpecs: {
         gyeokguk: {
@@ -59,5 +60,23 @@ describe('gyeokguk selectionRule', () => {
     expect(jungkiTransparent.facts.month.gyeok.tenGod).toBe('PYEON_IN');
     expect(jungkiTransparent.result.best).toBe('gyeokguk.PYEON_IN');
     expect(jungkiTransparent.result.basis.monthGyeokSelectionRule).toBe('jungki_transparent');
+  });
+
+  it('applies seongpaeScore opt-in only to the selected month-gyeok score', () => {
+    const disabled = analyzeWithSelectionRule();
+    const enabled = analyzeWithSelectionRule(undefined, { seongpaeScore: { enabled: true } });
+
+    expect(disabled.facts.month.gyeok.seongpae?.verdict).toBe('UNDETERMINED');
+    expect(disabled.result.scores['gyeokguk.PYEON_IN']).toBeCloseTo(1, 12);
+    expect(enabled.result.scores['gyeokguk.PYEON_IN']).toBeCloseTo(0.95, 12);
+    expect(enabled.result.best).toBe(disabled.result.best);
+
+    expect(enabled.result.basis.seongpaeScoreAdjustment).toMatchObject({
+      verdict: 'UNDETERMINED',
+      key: 'gyeokguk.PYEON_IN',
+      multiplier: 0.95,
+    });
+    expect(enabled.result.basis.seongpaeScoreAdjustment?.before).toBeCloseTo(1, 12);
+    expect(enabled.result.basis.seongpaeScoreAdjustment?.after).toBeCloseTo(0.95, 12);
   });
 });

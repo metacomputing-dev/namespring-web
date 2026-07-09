@@ -30,6 +30,8 @@ type ResolvedCompetitionPolicy = {
   signals: ResolvedCompetitionSignals;
 };
 
+type SeongpaeVerdictKey = NonNullable<RuleFacts['month']['gyeok']['seongpae']>['verdict'];
+
 export interface CompetitionKeyGroupSpec {
   /** Include keys that start with any of these prefixes. */
   prefixes?: string[];
@@ -61,6 +63,11 @@ export interface GyeokgukPolicy {
    *
    * This operates on the *score keys* emitted by the ruleset.
    */
+  seongpaeScore?: {
+    enabled: boolean;
+    multipliers: Record<SeongpaeVerdictKey, number>;
+  };
+
   competition?: {
     enabled: boolean;
     /** Names: 'follow' | 'transformations' | 'oneElement' | 'tenGod'. Unknown strings are ignored. */
@@ -92,6 +99,14 @@ export interface GyeokgukPolicy {
      */
     signals?: CompetitionSignalSelectors;
   };
+}
+
+export interface GyeokgukSeongpaeScoreAdjustment {
+  verdict: SeongpaeVerdictKey;
+  key: string;
+  multiplier: number;
+  before: number;
+  after: number;
 }
 
 export interface GyeokgukCompetition {
@@ -163,6 +178,8 @@ export interface GyeokgukResult {
   scores: Record<string, number>;
   /** Optional debug payload for special-frame competition (alias of basis.competition). */
   competition?: GyeokgukCompetition;
+  /** Optional debug payload for PR-10-4 seongpae verdict score integration. */
+  seongpaeScoreAdjustment?: GyeokgukSeongpaeScoreAdjustment;
   /** Evidence-only jonggyeok candidates. This never promotes the selected gyeokguk. */
   jonggyeokCandidates: JonggyeokCandidate[];
   basis: {
@@ -179,6 +196,8 @@ export interface GyeokgukResult {
 
     /** Optional debug payload for special-frame competition. */
     competition?: GyeokgukCompetition;
+    /** Optional debug payload for PR-10-4 seongpae verdict score integration. */
+    seongpaeScoreAdjustment?: GyeokgukSeongpaeScoreAdjustment;
   };
   rules: {
     matches: RuleMatch[];
@@ -217,6 +236,14 @@ const DEFAULT_COMP_SIGNALS: ResolvedCompetitionSignals = {
   tenGod: 'monthQuality',
 };
 
+const DEFAULT_SEONGPAE_SCORE_MULTIPLIERS: Record<SeongpaeVerdictKey, number> = {
+  SEONGGYEOK: 1.08,
+  PAJUNG_YUGU: 1.0,
+  SEONGJUNG_YUPA: 0.9,
+  PAGYEOK: 0.75,
+  UNDETERMINED: 0.95,
+};
+
 const DEFAULT_POLICY: GyeokgukPolicy = {
   ruleSet: DEFAULT_GYEOKGUK_RULESET,
   tieBreakOrder: [
@@ -246,6 +273,10 @@ const DEFAULT_POLICY: GyeokgukPolicy = {
     'gyeokguk.CONG_BI',
     'gyeokguk.CONG_GE',
   ],
+  seongpaeScore: {
+    enabled: false,
+    multipliers: { ...DEFAULT_SEONGPAE_SCORE_MULTIPLIERS },
+  },
   competition: {
     enabled: false,
     methods: ['follow', 'transformations', 'oneElement'],
@@ -300,6 +331,33 @@ function absSum(scores: Record<string, number>, keys: string[]): number {
 function safeTieIndex(tieBreakOrder: string[], key: string): number {
   const idx = tieBreakOrder.indexOf(key);
   return idx >= 0 ? idx : 1_000_000;
+}
+
+function monthGyeokScoreKey(facts: RuleFacts): string | null {
+  const key = facts.month.gyeok.bigyeopSubtype ?? facts.month.gyeok.tenGod;
+  return typeof key === 'string' && key.length > 0 ? `gyeokguk.${key}` : null;
+}
+
+function applySeongpaeScoreAdjustment(
+  scores: Record<string, number>,
+  facts: RuleFacts,
+  policy: GyeokgukPolicy,
+): GyeokgukSeongpaeScoreAdjustment | null {
+  const pol = policy.seongpaeScore;
+  const seongpae = facts.month.gyeok.seongpae;
+  if (!pol?.enabled || !seongpae?.verdict) return null;
+
+  const key = monthGyeokScoreKey(facts);
+  if (!key) return null;
+
+  const before = scores[key];
+  if (typeof before !== 'number' || !Number.isFinite(before) || before === 0) return null;
+
+  const multiplier = asNumber(pol.multipliers[seongpae.verdict], 1);
+  const after = before * multiplier;
+  scores[key] = after;
+
+  return { verdict: seongpae.verdict, key, multiplier, before, after };
 }
 
 function readTransformSignal(facts: RuleFacts, selector: TransformSignalSelector = 'auto'): number {
@@ -991,7 +1049,22 @@ function buildPolicy(config: EngineConfig): GyeokgukPolicy {
 
   comp = mergeCompetition(comp, raw.competition ?? {});
 
-  return { ...DEFAULT_POLICY, ruleSet: rs, tieBreakOrder, competition: comp };
+  const seongpaeRaw: any = raw.seongpaeScore ?? {};
+  const seongpaeMultipliers = {
+    ...DEFAULT_SEONGPAE_SCORE_MULTIPLIERS,
+    ...(seongpaeRaw.multipliers && typeof seongpaeRaw.multipliers === 'object' ? seongpaeRaw.multipliers : {}),
+  };
+
+  return {
+    ...DEFAULT_POLICY,
+    ruleSet: rs,
+    tieBreakOrder,
+    competition: comp,
+    seongpaeScore: {
+      enabled: seongpaeRaw.enabled === true,
+      multipliers: seongpaeMultipliers,
+    },
+  };
 }
 
 export function computeGyeokguk(config: EngineConfig, facts: RuleFacts): GyeokgukResult {
@@ -1004,6 +1077,7 @@ export function computeGyeokguk(config: EngineConfig, facts: RuleFacts): Gyeokgu
 
   // NOTE: we *mutate* the score map in-place for competition to keep allocations small.
   const scores = evalRes.scores;
+  const seongpaeScoreAdjustment = applySeongpaeScoreAdjustment(scores, facts, policy);
   const comp = applySpecialCompetition(scores, facts, policy);
 
   const ranking = [...Object.entries(scores)]
@@ -1022,6 +1096,7 @@ export function computeGyeokguk(config: EngineConfig, facts: RuleFacts): Gyeokgu
     ranking,
     scores,
     competition: comp ?? undefined,
+    seongpaeScoreAdjustment: seongpaeScoreAdjustment ?? undefined,
     jonggyeokCandidates,
     basis: {
       monthMainTenGod: facts.month.mainTenGod,
@@ -1030,6 +1105,7 @@ export function computeGyeokguk(config: EngineConfig, facts: RuleFacts): Gyeokgu
       monthGyeokSelectionRule: facts.month.gyeok.selectionRule,
       monthGyeokQuality: facts.month.gyeok.quality,
       competition: comp ?? undefined,
+      seongpaeScoreAdjustment: seongpaeScoreAdjustment ?? undefined,
     },
     rules: { matches: evalRes.matches, assertionsFailed: evalRes.assertionsFailed },
   };
