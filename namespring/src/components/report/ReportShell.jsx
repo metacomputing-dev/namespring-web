@@ -2,6 +2,54 @@ import React from 'react';
 import { withBasePath } from '../../lib/paths';
 import logoSvg from '../../assets/logo.svg';
 import { cx, EditIcon, HomeIcon } from './ReportPrimitives';
+import { useThemeMode } from '../../theme/theme-mode';
+
+function SunIcon({ className = 'h-5 w-5' }) {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" className={className} aria-hidden="true">
+      <circle cx="10" cy="10" r="3.4" stroke="currentColor" strokeWidth="1.6" />
+      <path
+        d="M10 2.4v2M10 15.6v2M2.4 10h2M15.6 10h2M4.6 4.6l1.4 1.4M14 14l1.4 1.4M15.4 4.6 14 6M6 14l-1.4 1.4"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function MoonIcon({ className = 'h-5 w-5' }) {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" className={className} aria-hidden="true">
+      <path
+        d="M16 11.4A6.4 6.4 0 0 1 8.6 4a6.4 6.4 0 1 0 7.4 7.4Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+// NS-G: manual light/dark switch, sits beside the home action in the masthead.
+function ThemeToggle() {
+  const { theme, toggle } = useThemeMode();
+  const isDark = theme === 'dark';
+  const label = isDark ? '라이트 모드로 전환' : '다크 모드로 전환';
+  return (
+    <button
+      type="button"
+      className="ns-icon-button"
+      onClick={toggle}
+      aria-label={label}
+      title={label}
+      aria-pressed={isDark}
+      data-pdf-exclude="true"
+    >
+      {isDark ? <SunIcon /> : <MoonIcon />}
+    </button>
+  );
+}
 
 const NAV_ITEMS = [
   { key: 'preview', label: '사주 미리보기' },
@@ -102,6 +150,7 @@ export default function ReportShell({
             </nav>
           ) : null}
           <div className="ns-masthead__actions">
+            <ThemeToggle />
             {resolvedActions.map((action) => (
               <HeaderAction key={action.label} action={action} />
             ))}
