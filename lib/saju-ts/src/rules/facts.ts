@@ -14,7 +14,7 @@ import type { TenGod } from '../core/tenGod.js';
 import type { HiddenStemRole } from '../core/hiddenStems.js';
 import { hiddenStemsOfBranch } from '../core/hiddenStems.js';
 import { lifeStageOf } from '../core/lifeStage.js';
-import type { LifeStagePolicy } from '../core/lifeStage.js';
+import type { LifeStage, LifeStagePolicy } from '../core/lifeStage.js';
 import { seasonalStateOf } from '../core/seasonalStates.js';
 import type { SeasonalState } from '../core/seasonalStates.js';
 
@@ -116,6 +116,11 @@ export interface StrengthFacts {
         score: number;
         normalized: number;
         factor: number;
+        lifeStageRoot?: {
+          enabled: boolean;
+          multipliers: Record<LifeStage, number>;
+          branches: Array<{ position: 'year' | 'month' | 'day' | 'hour'; branch: BranchIdx; stage: LifeStage; multiplier: number }>;
+        };
       };
       deShi: {
         sameElement: number;
@@ -2767,6 +2772,44 @@ function boundOfficerPressure(args: {
   return { officers: Math.max(0, args.officers - Math.min(args.officers, reduction)), binds };
 }
 
+type StrengthRootPosition = 'year' | 'month' | 'day' | 'hour';
+
+const STRENGTH_ROOT_POSITIONS: readonly StrengthRootPosition[] = ['year', 'month', 'day', 'hour'];
+
+const DEFAULT_LIFE_STAGE_ROOT_MULTIPLIERS: Record<LifeStage, number> = {
+  JANG_SAENG: 1.12,
+  MOK_YOK: 0.92,
+  GWAN_DAE: 1.08,
+  GEON_ROK: 1.22,
+  JE_WANG: 1.28,
+  SWOE: 0.9,
+  BYEONG: 0.78,
+  SA: 0.7,
+  MYO: 1.05,
+  JEOL: 0.6,
+  TAE: 0.88,
+  YANG: 0.98,
+};
+
+interface LifeStageRootPolicy {
+  enabled: boolean;
+  multipliers: Record<LifeStage, number>;
+}
+
+function nonNegativeFinite(v: any, d: number): number {
+  return typeof v === 'number' && Number.isFinite(v) && v >= 0 ? v : d;
+}
+
+function readLifeStageRootPolicy(pol: any): LifeStageRootPolicy {
+  const raw = pol?.lifeStageRoot ?? pol?.rootLifeStage ?? pol?.twelveStageRoot ?? {};
+  const custom = raw?.multipliers ?? raw?.stageMultipliers ?? {};
+  const multipliers = { ...DEFAULT_LIFE_STAGE_ROOT_MULTIPLIERS };
+  for (const stage of Object.keys(multipliers) as LifeStage[]) {
+    multipliers[stage] = nonNegativeFinite(custom?.[stage], multipliers[stage]);
+  }
+  return { enabled: raw?.enabled === true, multipliers };
+}
+
 function computeStrengthFacts(args: {
   config: EngineConfig;
   tenGods: TenGodScore;
@@ -2835,11 +2878,27 @@ function computeStrengthFacts(args: {
       args.relationsDetailed,
     );
 
+    const lifeStageRootPol = readLifeStageRootPolicy(pol);
+    const lifeStagePolicy = lifeStageRootPol.enabled ? readLifeStagePolicyFromConfig(args.config) : null;
+    const lifeStageRootBranches = lifeStageRootPol.enabled
+      ? STRENGTH_ROOT_POSITIONS.map((position, i) => {
+          const branch = mod(args.branches[i]!, 12) as BranchIdx;
+          const detail = lifeStageOf(args.dayMasterStem, branch, lifeStagePolicy!);
+          return {
+            position,
+            branch,
+            stage: detail.stage,
+            multiplier: lifeStageRootPol.multipliers[detail.stage] ?? 1,
+          };
+        })
+      : [];
+
     let same = 0;
     let res = 0;
     for (let i = 0; i < args.branches.length; i++) {
       const b = args.branches[i]!;
-      const bw = (branchWeights[i] ?? 1) * (rootDamage.factors[i] ?? 1);
+      const lifeStageMultiplier = lifeStageRootPol.enabled ? (lifeStageRootBranches[i]?.multiplier ?? 1) : 1;
+      const bw = (branchWeights[i] ?? 1) * (rootDamage.factors[i] ?? 1) * lifeStageMultiplier;
       for (const h of hiddenStemsOfBranch(b, args.hiddenStemPolicy ?? {})) {
         const el = stemElement(h.stem);
         if (el === dmEl) same += h.weight * bw;
@@ -2905,7 +2964,16 @@ function computeStrengthFacts(args: {
       details: {
         delingdiShi: {
           deLing: { monthElement: monthEl, dayMasterElement: dmEl, score: lingScore, factor: lingScale },
-          deDi: { sameElement: same, resourceElement: res, score: diScore, normalized: diNormed, factor: diScale },
+          deDi: {
+            sameElement: same,
+            resourceElement: res,
+            score: diScore,
+            normalized: diNormed,
+            factor: diScale,
+            lifeStageRoot: lifeStageRootPol.enabled
+              ? { enabled: true, multipliers: lifeStageRootPol.multipliers, branches: lifeStageRootBranches }
+              : undefined,
+          },
           deShi: { sameElement: shiSame, resourceElement: shiRes, score: shiScore, normalized: shiNormed, factor: shiScale, positionWeights: posW },
           adjusted: { support: supportAdj, pressure: pressureAdj, total: totalAdj },
           // PR-5 (감사 B448/B510/B531): 상호작용 보정 내역 — 계측·서사 재료 (additive).
