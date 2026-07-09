@@ -41,6 +41,13 @@ export interface LuckDecadeRelationForReport {
 export interface LuckRelationsWithDecadeForReport {
   readonly decadeRelations?: readonly LuckDecadeRelationForReport[];
 }
+export interface LuckStemBranchInteractionForReport {
+  readonly gaedoo?: boolean;
+  readonly geogak?: boolean;
+  readonly labels?: readonly string[];
+  readonly stemElement?: string;
+  readonly branchElement?: string;
+}
 export interface LuckPillarAnnotationsForReport {
   readonly tenGod?: string;
   readonly lifeStage?: string;
@@ -48,6 +55,7 @@ export interface LuckPillarAnnotationsForReport {
   readonly transitShinsal?: TransitShinsalForReport;
   readonly relationsWithNatal?: LuckRelationsWithNatalForReport;
   readonly relationsWithDecade?: LuckRelationsWithDecadeForReport;
+  readonly stemBranchInteraction?: LuckStemBranchInteractionForReport;
 }
 
 const TEN_GOD_KO: Record<string, string> = {
@@ -178,6 +186,17 @@ function luckDecadeRelationFeatures(row: LuckPillarAnnotationsForReport | null |
 
   return features;
 }
+function stemBranchInteractionFeatures(row: LuckPillarAnnotationsForReport | null | undefined): string[] {
+  const interaction = row?.stemBranchInteraction;
+  if (!interaction) return [];
+  const labels = Array.isArray(interaction.labels)
+    ? interaction.labels.map((label) => String(label).trim()).filter(Boolean)
+    : [
+      ...(interaction.gaedoo ? ['개두'] : []),
+      ...(interaction.geogak ? ['절각'] : []),
+    ];
+  return labels.length > 0 ? [`기둥 내부 상극: ${labels.join('/')}`] : [];
+}
 export function luckAnnotationFeatures(row: LuckPillarAnnotationsForReport | null | undefined): string[] {
   if (!row) return [];
 
@@ -205,6 +224,8 @@ export function luckAnnotationFeatures(row: LuckPillarAnnotationsForReport | nul
 
   features.push(...luckRelationFeatures(row));
   features.push(...luckDecadeRelationFeatures(row));
+
+    features.push(...stemBranchInteractionFeatures(row));
 
   return features;
 }

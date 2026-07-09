@@ -1,6 +1,8 @@
 import { createEngine } from '../api/engine.js';
 import { defaultConfig } from '../api/config.js';
 import type { AnalysisBundle, EngineConfig, SajuRequest } from '../api/types.js';
+import { branchElement, stemElement } from '../core/cycle.js';
+import { controls } from '../core/elements.js';
 import { detectStemRelations } from '../core/stemRelations.js';
 import { lifeStageOf } from '../core/lifeStage.js';
 import { mod } from '../core/mod.js';
@@ -504,6 +506,27 @@ function branchIdxFromUnknown(idx: unknown): number {
   return Number.isFinite(n) ? mod(Math.trunc(n), 12) : 0;
 }
 
+function buildStemBranchInteraction(stemIdxInput: unknown, branchIdxInput: unknown) {
+  const stemIdx = stemIdxFromUnknown(stemIdxInput);
+  const branchIdx = branchIdxFromUnknown(branchIdxInput);
+  const stemEl = stemElement(stemIdx);
+  const branchEl = branchElement(branchIdx);
+  const gaedoo = controls(stemEl, branchEl);
+  const geogak = controls(branchEl, stemEl);
+  if (!gaedoo && !geogak) return undefined;
+
+  return {
+    gaedoo,
+    geogak,
+    labels: [
+      ...(gaedoo ? ['개두'] : []),
+      ...(geogak ? ['절각'] : []),
+    ],
+    stemElement: stemEl,
+    branchElement: branchEl,
+  };
+}
+
 function orderedBanghapGroup(branchIdx: number): number[] {
   const d = mod(branchIdx - 2, 12);
   const start = 2 + 3 * Math.floor(d / 3);
@@ -546,12 +569,14 @@ function luckPillarAnnotations(entry: any, dayStemIdx: number, yearBranchIdx: nu
   const stemIdx = stemIdxFromUnknown(entryStemIdx(entry));
   const branchIdx = branchIdxFromUnknown(entryBranchIdx(entry));
   const lifeStage = lifeStageOf(dayStemIdx as any, branchIdx as any, lifeStagePolicy ?? DEFAULT_TRANSIT_LIFE_STAGE_POLICY).stage;
+  const stemBranchInteraction = buildStemBranchInteraction(stemIdx, branchIdx);
 
   return {
     tenGod: normalizeTenGod(tenGodOf(dayStemIdx as any, stemIdx as any)),
     lifeStage,
     lifeStageKo: LIFE_STAGE_KO[String(lifeStage)] ?? String(lifeStage),
     transitShinsal: buildTransitShinsalForBranch(yearBranchIdx, branchIdx),
+    ...(stemBranchInteraction ? { stemBranchInteraction } : {}),
   };
 }
 

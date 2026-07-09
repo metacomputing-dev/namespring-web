@@ -532,6 +532,8 @@ export interface TieredPeriodMeta {
   readonly branches?: ReadonlyArray<{ readonly position: string; readonly branch: string; readonly element: string }>;
   /** Free-form note describing the period anchor — e.g., "이번 달 戊辰 — 무토와 진토가 만나". */
   readonly relativeNote?: string;
+  /** Deterministic luck-pillar annotation evidence for the period anchor. */
+  readonly transitEvidence?: readonly string[];
 }
 
 /** A life-period cell group for one user-facing 10-year age band. */

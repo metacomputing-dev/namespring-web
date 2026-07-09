@@ -59,6 +59,7 @@ import {
   BRANCH_BY_CODE,
   getElementRelation,
 } from '../common/elementMaps.js';
+import { luckAnnotationFeatures, type LuckPillarAnnotationsForReport } from '../common/transit-luck-metadata.js';
 
 // ---------------------------------------------------------------------------
 //  Element helpers
@@ -83,6 +84,31 @@ function toElementCode(value: unknown): ElementCode | null {
   return STEM_TO_ELEMENT[upper] ?? null;
 }
 
+interface CategorySaeunRow extends LuckPillarAnnotationsForReport {
+  readonly year?: number;
+  readonly stem?: string;
+  readonly branch?: string;
+  readonly startUtcMs?: number | null;
+  readonly endUtcMs?: number | null;
+}
+
+function finiteNumber(value: unknown): number | null {
+  const n = Number(value);
+  return Number.isFinite(n) ? n : null;
+}
+
+function findCategorySaeunRow(saju: SajuSummary, targetDate: Date): CategorySaeunRow | null {
+  const rows = (saju as Record<string, unknown>).saeunPillars as readonly CategorySaeunRow[] | undefined;
+  if (!Array.isArray(rows)) return null;
+  const targetMs = targetDate.getTime();
+  for (const row of rows) {
+    const start = finiteNumber(row.startUtcMs);
+    const end = finiteNumber(row.endUtcMs);
+    if (start !== null && end !== null && targetMs >= start && targetMs < end) return row;
+  }
+  const year = targetDate.getFullYear();
+  return rows.find((p) => p.year === year) ?? null;
+}
 function elementKo(code: ElementCode): string {
   return ELEMENT_KO[code];
 }
@@ -616,24 +642,17 @@ export function buildCategoryFortuneCards(
 
   // Try saeunPillars first
   let fortuneEl: ElementCode = 'EARTH';
-
-  const saeunPillars = (saju as Record<string, unknown>).saeunPillars as
-    | Array<{ year: number; stem: string; branch: string }>
-    | undefined;
-  if (Array.isArray(saeunPillars)) {
-    const match = saeunPillars.find((p) => p.year === year);
-    if (match) {
-      const stemEl = toElementCode(match.stem);
-      if (stemEl) fortuneEl = stemEl;
-    }
+  const saeunRow = findCategorySaeunRow(saju, targetDate);
+  if (saeunRow) {
+    const stemEl = toElementCode(saeunRow.stem);
+    if (stemEl) fortuneEl = stemEl;
   }
 
-  if (fortuneEl === 'EARTH' && !saeunPillars) {
+  if (!saeunRow) {
     // Fallback: compute from formula
     const yf = getYearlyFortune(year);
     fortuneEl = yf.stemElement;
   }
-
   // Yongshin grade for the year
   const yongshinGrade = getFortuneGrade(fortuneEl, yongshinElement, heeshinElement, gishinElement);
 
@@ -697,6 +716,8 @@ export function buildCategoryFortuneCards(
     ];
     if (yongshinElement) supporting.push(`용신: ${elementKo(yongshinElement)}`);
     if (gishinElement) supporting.push(`기신: ${elementKo(gishinElement)}`);
+
+    if (saeunRow) supporting.push(...luckAnnotationFeatures(saeunRow));
 
     const evidence: EvidenceRow[] = [{
       axis: 'category',

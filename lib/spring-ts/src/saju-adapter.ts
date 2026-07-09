@@ -2287,6 +2287,7 @@ function withLuckPillarAnnotations<T extends Record<string, unknown>>(out: T, ra
   const transitShinsal = raw?.transitShinsal ? deepSerialize(raw.transitShinsal) : null;
   const relationsWithNatal = extractLuckRelationsWithNatal(raw);
   const relationsWithDecade = extractLuckRelationsWithDecade(raw);
+  const stemBranchInteraction = raw?.stemBranchInteraction ? deepSerialize(raw.stemBranchInteraction) : null;
 
   return {
     ...out,
@@ -2296,6 +2297,7 @@ function withLuckPillarAnnotations<T extends Record<string, unknown>>(out: T, ra
     ...(transitShinsal ? { transitShinsal } : {}),
     ...(relationsWithNatal ? { relationsWithNatal } : {}),
     ...(relationsWithDecade ? { relationsWithDecade } : {}),
+    ...(stemBranchInteraction ? { stemBranchInteraction } : {}),
   };
 }
 

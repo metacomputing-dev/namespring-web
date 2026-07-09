@@ -60,6 +60,15 @@ function hasDecadeRelations(row: any): boolean {
     (Array.isArray(entry?.branchRelations) && entry.branchRelations.length > 0),
   );
 }
+function hasStemBranchInteraction(row: any): boolean {
+  const interaction = row?.stemBranchInteraction;
+  return !!interaction &&
+    (interaction.gaedoo === true || interaction.geogak === true) &&
+    Array.isArray(interaction.labels) &&
+    interaction.labels.length > 0 &&
+    typeof interaction.stemElement === 'string' &&
+    typeof interaction.branchElement === 'string';
+}
 function hasLuckAnnotations(row: any): boolean {
   return typeof row?.tenGod === 'string' &&
     typeof row?.lifeStage === 'string' &&
@@ -119,6 +128,8 @@ if (ctx.output) {
           firstPillar.approxEndUtcMs > firstPillar.approxStartUtcMs);
         check('daeunInfo.pillars has PR-9 natal relation annotations',
           ctx.output.daeunInfo.pillars.some((pillar: any) => hasNatalRelations(pillar)));
+        check('daeunInfo.pillars includes PR-9-8 stem-branch interaction annotations',
+          ctx.output.daeunInfo.pillars.some((pillar: any) => hasStemBranchInteraction(pillar)));
       }
     }
   } else {
@@ -139,6 +150,8 @@ if (ctx.output) {
       ctx.output.saeunPillars!.some((pillar: any) => hasNatalRelations(pillar)));
     check('saeunPillars includes PR-9 decade-year relation annotations',
       ctx.output.saeunPillars!.some((pillar: any) => hasDecadeRelations(pillar)));
+    check('saeunPillars includes PR-9-8 stem-branch interaction annotations',
+      ctx.output.saeunPillars!.some((pillar: any) => hasStemBranchInteraction(pillar)));
   } else {
     check('SajuOutputSummary.saeunPillars is undefined when source is empty', ctx.output.saeunPillars === undefined);
   }
@@ -157,6 +170,8 @@ if (ctx.output) {
       hasLuckAnnotations(firstWolun));
     check('wolunPillars includes PR-9 natal relation annotations',
       wolunOutput!.some((pillar: any) => hasNatalRelations(pillar)));
+    check('wolunPillars includes PR-9-8 stem-branch interaction annotations',
+      wolunOutput!.some((pillar: any) => hasStemBranchInteraction(pillar)));
   } else {
     check('SajuOutputSummary.wolunPillars is undefined when source is empty', wolunOutput === undefined);
   }
