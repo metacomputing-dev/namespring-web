@@ -242,6 +242,7 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 | 10-7 통근 강도 계수 | ✅ opt-in / 기본 보류 | bec68276b | 2026-07-09 | `strategies.strength.lifeStageRoot.enabled=true`일 때 deDi 통근에 12운성 단계 배율(록/왕 > 장생 > 묘고 등)을 적용하고 evidence를 기록. 기본 off라 baseline 17/0, compat 208/0 불변. 기본 on은 강약·종격 판정 계측 후 결정 |
 | 11 종격 승격 (a/b/c) | ⬜ | | | D6·CT-4 선행 |
 | 12-1 yongshin methodBreakdown | ✅ | 5cebf5b88 | 2026-07-09 | 5-layer wiring complete: saju-ts API methodBreakdown, springLegacy reasoning evidence, spring-ts adapter/context passthrough. Verified: springLegacy 12/12, yongshin-consensus 307/0, baseline 17/0, compat 208/0, service-visible 13/0 |
+| 12-2 gyeokguk basis | ✅ | 25da007e9 | 2026-07-09 | Exposes selected pattern basis, month-gyeok quality/details, and score map through saju-ts API, springLegacy, spring-ts adapter/context. Verified: springLegacy 13/13, gyeokguk candidates 257/0, baseline 17/0, compat 208/0, service-visible 13/0 |
 | 12-4 음양 균형 노출 | ✅ | e7e12fdd7 | 2026-07-09 | 5층 배선 완료(SajuSummary.yinYangBalance, test:adapter-yinyang 5/0) — 12계열 exemplar. 소비 카드 저작은 CT-3와 협업 |
 | 12-1~12-10 잔여 설명가능성 | ⬜ | | | 항목별 커밋 — 12-4 커밋(e7e12fdd7)을 본보기로 |
 | 13 오라클·재캘리브레이션 | ⬜ | | | D5 선행 |
