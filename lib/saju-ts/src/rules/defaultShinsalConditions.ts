@@ -13,7 +13,7 @@ import type { RuleSet } from './dsl.js';
  *   then compute qualityWeight = 1 - penalty.
  *
  * Weights are supplied by the engine under:
- *   policy.shinsal.conditions.weights.{CHUNG|HAE|PA|WONJIN|HYEONG|GONGMANG}
+ *   policy.shinsal.conditions.weights.{CHUNG|HAE|PA|WONJIN|HYEONG|HAP|GONGMANG}
  *
  * The engine injects:
  * - det.targetBranches: BranchIdx[] context for the detection target.
@@ -39,8 +39,11 @@ export const DEFAULT_SHINSAL_CONDITIONS_RULESET: RuleSet = {
     {
       id: 'COND_HAE',
       when: {
-        op: 'overlap',
-        args: [{ var: 'det.targetBranches' }, { var: 'chart.relations.haeBranches' }],
+        op: 'and',
+        args: [
+          { op: 'ne', args: [{ var: 'det.name' }, 'GONGMANG'] },
+          { op: 'overlap', args: [{ var: 'det.targetBranches' }, { var: 'chart.relations.haeBranches' }] },
+        ],
       },
       score: { 'cond.penalty.HAE': { var: 'policy.shinsal.conditions.weights.HAE' } },
       explain: '타깃 지지가 지해(害)에 걸리면 약화(가중치).',
@@ -49,8 +52,11 @@ export const DEFAULT_SHINSAL_CONDITIONS_RULESET: RuleSet = {
     {
       id: 'COND_PA',
       when: {
-        op: 'overlap',
-        args: [{ var: 'det.targetBranches' }, { var: 'chart.relations.paBranches' }],
+        op: 'and',
+        args: [
+          { op: 'ne', args: [{ var: 'det.name' }, 'GONGMANG'] },
+          { op: 'overlap', args: [{ var: 'det.targetBranches' }, { var: 'chart.relations.paBranches' }] },
+        ],
       },
       score: { 'cond.penalty.PA': { var: 'policy.shinsal.conditions.weights.PA' } },
       explain: '타깃 지지가 파(破)에 걸리면 약화(가중치).',
@@ -59,8 +65,11 @@ export const DEFAULT_SHINSAL_CONDITIONS_RULESET: RuleSet = {
     {
       id: 'COND_WONJIN',
       when: {
-        op: 'overlap',
-        args: [{ var: 'det.targetBranches' }, { var: 'chart.relations.wonjinBranches' }],
+        op: 'and',
+        args: [
+          { op: 'ne', args: [{ var: 'det.name' }, 'GONGMANG'] },
+          { op: 'overlap', args: [{ var: 'det.targetBranches' }, { var: 'chart.relations.wonjinBranches' }] },
+        ],
       },
       score: { 'cond.penalty.WONJIN': { var: 'policy.shinsal.conditions.weights.WONJIN' } },
       explain: '타깃 지지가 원진(怨嗔)에 걸리면 약화(가중치).',
@@ -77,10 +86,26 @@ export const DEFAULT_SHINSAL_CONDITIONS_RULESET: RuleSet = {
       tags: ['COND', 'HYEONG'],
     },
     {
+      id: 'COND_GONGMANG_HAP',
+      when: {
+        op: 'and',
+        args: [
+          { op: 'eq', args: [{ var: 'det.name' }, 'GONGMANG'] },
+          { op: 'overlap', args: [{ var: 'det.targetBranches' }, { var: 'chart.relations.hapBranches' }] },
+        ],
+      },
+      score: { 'cond.penalty.HAP': { var: 'policy.shinsal.conditions.weights.HAP' } },
+      explain: 'Gongmang is attenuated when its void branch is resolved by yuk-hap, samhap, or banghap.',
+      tags: ['COND', 'GONGMANG', 'HAP', 'HAEGONG'],
+    },
+    {
       id: 'COND_GONGMANG',
       when: {
-        op: 'overlap',
-        args: [{ var: 'det.targetBranches' }, { var: 'shinsal.gongmang.day' }],
+        op: 'and',
+        args: [
+          { op: 'ne', args: [{ var: 'det.name' }, 'GONGMANG'] },
+          { op: 'overlap', args: [{ var: 'det.targetBranches' }, { var: 'shinsal.gongmang.day' }] },
+        ],
       },
       score: { 'cond.penalty.GONGMANG': { var: 'policy.shinsal.conditions.weights.GONGMANG' } },
       explain: '타깃 지지가 일주旬空(공망)에 해당하면 약화(가중치).',

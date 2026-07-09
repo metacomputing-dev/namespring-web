@@ -93,6 +93,36 @@ describe('normalizeLegacyOutput 정직성 (감사 A1/A2/A9/A15d)', () => {
     expect(tracedHit.hit.conditionPenalty).toBeLessThanOrEqual(1);
   });
 
+  it('attenuates gongmang when a void branch is resolved by clash or punishment', () => {
+    const hegong: any = analyzeSaju(createBirthInput({
+      birthYear: 2000, birthMonth: 1, birthDay: 1,
+      birthHour: 0, birthMinute: 30, gender: 'MALE',
+    }));
+    const gongmang = hegong.weightedShinsalHits.find((item: any) => item.hit?.type === 'GONGMANG');
+    expect(gongmang).toBeTruthy();
+    if (!gongmang) throw new Error('expected gongmang hit');
+    expect(gongmang.hit.grade).toBe('B');
+    expect(gongmang.hit.qualityReasons).toEqual(expect.arrayContaining(['CHUNG', 'HYEONG']));
+    expect(gongmang.hit.qualityReasons ?? []).not.toContain('GONGMANG');
+    expect(gongmang.hit.conditionPenalty).toBe(0.5);
+    expect(gongmang.baseWeight).toBe(50);
+  });
+
+  it('attenuates gongmang when a void branch is resolved by a branch combination', () => {
+    const hegong: any = analyzeSaju(createBirthInput({
+      birthYear: 1960, birthMonth: 1, birthDay: 20,
+      birthHour: 6, birthMinute: 0, gender: 'MALE',
+    }));
+    const gongmang = hegong.weightedShinsalHits.find((item: any) => item.hit?.type === 'GONGMANG');
+    expect(gongmang).toBeTruthy();
+    if (!gongmang) throw new Error('expected gongmang hit');
+    expect(gongmang.hit.grade).toBe('B');
+    expect(gongmang.hit.qualityReasons).toEqual(expect.arrayContaining(['HAP']));
+    expect(gongmang.hit.qualityReasons ?? []).not.toEqual(expect.arrayContaining(['PA', 'WONJIN', 'GONGMANG']));
+    expect(gongmang.hit.conditionPenalty).toBe(0.5);
+    expect(gongmang.baseWeight).toBe(50);
+  });
+
   it('does not surface unsupported shinsal composite pipe', () => {
     expect(Object.prototype.hasOwnProperty.call(output, 'shinsalComposites')).toBe(false);
   });

@@ -37,6 +37,8 @@ function defaultExplain(key: ShinsalDamageKey): string {
       return '타깃 지지가 원진(怨嗔)에 걸리면 약화(가중치).';
     case 'HYEONG':
       return '타깃 지지가 형(刑/自刑/三刑)에 걸리면 약화(가중치).';
+    case 'HAP':
+      return 'Void branch is resolved by a branch combination and attenuated.';
     case 'GONGMANG':
       return '타깃 지지가 일주旬空(공망)에 해당하면 약화(가중치).';
     default:
@@ -56,6 +58,8 @@ function relationVarForKey(key: ShinsalDamageKey): string {
       return 'chart.relations.wonjinBranches';
     case 'HYEONG':
       return 'chart.relations.hyeongBranches';
+    case 'HAP':
+      return 'chart.relations.hapBranches';
     case 'GONGMANG':
       return 'shinsal.gongmang.day';
     default:

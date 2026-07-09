@@ -180,6 +180,8 @@ export interface RuleFacts {
 
       /** 六合 (합) */
       yukhapBranches: BranchIdx[];
+      /** Branches involved in void-resolving 합: 육합/삼합/방합. */
+      hapBranches: BranchIdx[];
       /** 支破 (파) */
       paBranches: BranchIdx[];
       /** 怨嗔 (원진) */
@@ -3617,6 +3619,11 @@ export function buildRuleFacts(args: {
   const chungBranches = gatherBranches('CHUNG');
   const haeBranches = gatherBranches('HAE');
   const yukhapBranches = gatherBranches('YUKHAP');
+  const hapBranches = uniqueBranches([
+    ...yukhapBranches,
+    ...(((byType.SAMHAP ?? []).flatMap((m) => m)) as BranchIdx[]),
+    ...(((byType.BANGHAP ?? []).flatMap((m) => m)) as BranchIdx[]),
+  ]);
   const paBranches = gatherBranches('PA');
   const wonjinBranches = gatherBranches('WONJIN');
   const hyeongBranches = uniqueBranches(
@@ -3898,6 +3905,7 @@ export function buildRuleFacts(args: {
         chungBranches,
         haeBranches,
         yukhapBranches,
+        hapBranches,
         paBranches,
         wonjinBranches,
         hyeongBranches,

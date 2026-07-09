@@ -549,6 +549,7 @@ function applyQualityModel(args: {
           kk === 'PA' ||
           kk === 'WONJIN' ||
           kk === 'HYEONG' ||
+          kk === 'HAP' ||
           kk === 'GONGMANG'
         ) {
           const n = typeof v === 'number' ? v : Number(v);
