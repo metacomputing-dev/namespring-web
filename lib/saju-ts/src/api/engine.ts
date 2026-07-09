@@ -357,6 +357,16 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
         summary.gyeokguk = {
           best: gg.best,
           ranking: gg.ranking,
+          scores: gg.scores,
+          basis: {
+            monthMainTenGod: gg.basis.monthMainTenGod,
+            monthGyeokTenGod: gg.basis.monthGyeokTenGod,
+            monthGyeokMethod: gg.basis.monthGyeokMethod,
+            monthGyeokSelectionRule: gg.basis.monthGyeokSelectionRule,
+            monthGyeokQuality: gg.basis.monthGyeokQuality as Record<string, unknown> | undefined,
+            competition: gg.basis.competition as Record<string, unknown> | undefined,
+            seongpaeScoreAdjustment: gg.basis.seongpaeScoreAdjustment as Record<string, unknown> | undefined,
+          },
           jonggyeokCandidates: gg.jonggyeokCandidates,
         };
 

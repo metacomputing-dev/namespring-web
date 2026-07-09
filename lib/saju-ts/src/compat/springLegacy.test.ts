@@ -52,6 +52,14 @@ describe('normalizeLegacyOutput 정직성 (감사 A1/A2/A9/A15d)', () => {
     expect(String(top?.reasoning ?? '')).toContain('\uC5B5\uBD80:');
   });
 
+  it('surfaces gyeokguk basis and score map', () => {
+    const gyeokguk = output.gyeokgukResult;
+    expect(gyeokguk?.basis?.monthGyeokTenGod).toEqual(expect.any(String));
+    expect(gyeokguk?.basis?.monthGyeokMethod).toEqual(expect.any(String));
+    expect(gyeokguk?.basis?.monthGyeokQuality?.details).toEqual(expect.any(Object));
+    expect(Object.keys(gyeokguk?.scores ?? {}).some((key) => key.startsWith('gyeokguk.'))).toBe(true);
+  });
+
   it('한겨울(子월) 출생도 1위 type이 유도된 방법 코드다 (EOKBU 또는 JOHU)', () => {
     // 조후 기본 개입(climate 0.25 + 조후위급) 하에서 극단월은 JOHU가 나올 수 있다.
     // 어느 쪽이 지배하든 하드코딩 'RANKING'/'JOHU' 시절과 달리 유도 값이어야 한다.

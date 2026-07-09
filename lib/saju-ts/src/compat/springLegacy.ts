@@ -1890,6 +1890,8 @@ function normalizeLegacyOutput(
       category: isJonggyeok ? 'JONGGYEOK' : 'NORMAL',
       baseSipseong,
       confidence: Math.max(0, Math.min(1, bestScore)),
+      basis: (bundle.summary?.gyeokguk as any)?.basis ?? null,
+      scores: (bundle.summary?.gyeokguk as any)?.scores ?? {},
       reasoning: bestKeyCore
         ? `격국 후보 중 ${gyeokgukKoLabel(bestKeyCore)}이(가) 가장 유력합니다.`
         : '격국 후보를 확정하기 어려워 추가 검토가 필요합니다.',

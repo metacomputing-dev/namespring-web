@@ -730,8 +730,20 @@ export interface GyeokgukSummary {
   readonly reasoning: string;
   readonly candidates?: readonly GyeokgukCandidateSummary[];
   readonly jonggyeokCandidates?: readonly JonggyeokCandidateSummary[];
+  readonly basis?: GyeokgukBasisSummary;
+  readonly scores?: Readonly<Record<string, number>>;
   /** PR-6: 격국 성패(成敗) 판정 — 상신·순용/역용·성격/파격 (additive). */
   readonly seongpae?: GyeokgukSeongpaeSummary | null;
+}
+
+export interface GyeokgukBasisSummary {
+  readonly monthMainTenGod?: string;
+  readonly monthGyeokTenGod?: string;
+  readonly monthGyeokMethod?: string;
+  readonly monthGyeokSelectionRule?: string;
+  readonly monthGyeokQuality?: Record<string, unknown>;
+  readonly competition?: Record<string, unknown>;
+  readonly seongpaeScoreAdjustment?: Record<string, unknown>;
 }
 
 /** PR-6: 격국 성패 판정 상세 (자평진전 순용/역용 계열). */
@@ -1304,7 +1316,7 @@ export interface SajuOutputSummary {
      *  position-specific weights (천간 4.0, 지지 정기 1.8, 지장간 1.2/0.7/0.45). */
     byPosition?: Record<SajuPillarPosition, SajuTenGodPositionGroup>;
   };
-  gyeokguk?: { category: string; type: string; confidence: number };
+  gyeokguk?: SajuGyeokgukOutputSummary;
   deficientElements?: string[];
   excessiveElements?: string[];
   /** Per-axis judgment strength (PR9). Bins each axis's saju-engine
@@ -1501,6 +1513,14 @@ export interface SajuTenGodPositionGroup {
 }
 
 /** Yongshin details as returned by the saju calculator. */
+export interface SajuGyeokgukOutputSummary {
+  category: string;
+  type: string;
+  confidence: number;
+  basis?: GyeokgukBasisSummary;
+  scores?: Readonly<Record<string, number>>;
+}
+
 export interface SajuYongshinSummary {
   finalYongshin: string;
   finalHeesin: string | null;

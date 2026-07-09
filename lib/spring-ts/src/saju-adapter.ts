@@ -895,6 +895,16 @@ function extractNumericFields(source: any, keys: readonly string[]): Record<stri
   return result;
 }
 
+function extractNumericRecord(source: any): Record<string, number> | undefined {
+  if (!source || typeof source !== 'object' || Array.isArray(source)) return undefined;
+  const result: Record<string, number> = {};
+  for (const [key, value] of Object.entries(source)) {
+    const n = Number(value);
+    if (Number.isFinite(n)) result[key] = n;
+  }
+  return Object.keys(result).length > 0 ? result : undefined;
+}
+
 /**
  * Deep-serializes runtime Maps and Sets into plain JSON-safe objects/arrays.
  * This is needed because the saju-ts engine may return Map/Set instances.
@@ -1858,6 +1868,24 @@ function extractYongshinConsensus(value: any): YongshinConsensusScoreboard | und
 //  Gyeokguk: the structural pattern of the chart
 // ---------------------------------------------------------------------------
 
+function extractGyeokgukBasis(value: any) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined;
+  const out: Record<string, unknown> = {};
+  for (const key of ['monthMainTenGod', 'monthGyeokTenGod', 'monthGyeokMethod', 'monthGyeokSelectionRule'] as const) {
+    if (value[key] != null) out[key] = cleanAdapterText(String(value[key]));
+  }
+  if (value.monthGyeokQuality && typeof value.monthGyeokQuality === 'object') {
+    out.monthGyeokQuality = deepSerialize(value.monthGyeokQuality) as Record<string, unknown>;
+  }
+  if (value.competition && typeof value.competition === 'object') {
+    out.competition = deepSerialize(value.competition) as Record<string, unknown>;
+  }
+  if (value.seongpaeScoreAdjustment && typeof value.seongpaeScoreAdjustment === 'object') {
+    out.seongpaeScoreAdjustment = deepSerialize(value.seongpaeScoreAdjustment) as Record<string, unknown>;
+  }
+  return Object.keys(out).length > 0 ? out : undefined;
+}
+
 function extractGyeokguk(gyeokgukResult: any) {
   return {
     type:          formatGyeokgukTypeDisplay(gyeokgukResult?.type),
@@ -1867,6 +1895,8 @@ function extractGyeokguk(gyeokgukResult: any) {
     reasoning:     cleanAdapterText(String(gyeokgukResult?.reasoning ?? '')),
     candidates:    extractGyeokgukCandidates(gyeokgukResult?.candidates),
     jonggyeokCandidates: extractJonggyeokCandidates(gyeokgukResult?.jonggyeokCandidates),
+    basis: extractGyeokgukBasis(gyeokgukResult?.basis),
+    scores: extractNumericRecord(gyeokgukResult?.scores),
     // PR-6 (additive): 격국 성패 — 상신·순용/역용·성격/파격 passthrough.
     ...(gyeokgukResult?.seongpae && typeof gyeokgukResult.seongpae === 'object'
       ? { seongpae: gyeokgukResult.seongpae }
@@ -2527,6 +2557,8 @@ export function buildSajuContext(
         category:   normalizeGyeokgukCategoryCode(sajuSummary.gyeokguk.category ?? ''),
         type:       normalizeGyeokgukTypeCode(sajuSummary.gyeokguk.type ?? ''),
         confidence: Number(sajuSummary.gyeokguk.confidence) || 0,
+        basis:      sajuSummary.gyeokguk.basis,
+        scores:     sajuSummary.gyeokguk.scores,
       } : undefined,
       deficientElements: sajuSummary.deficientElements?.length
         ? normalizeElementCodeList(sajuSummary.deficientElements)

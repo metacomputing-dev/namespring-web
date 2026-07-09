@@ -517,7 +517,19 @@ export interface YongshinConsensusView {
 export interface GyeokgukView {
   best: string | null;
   ranking: Array<{ key: string; score: number }>;
+  scores?: Record<string, number>;
+  basis?: GyeokgukBasisView;
   jonggyeokCandidates?: JonggyeokCandidateView[];
+}
+
+export interface GyeokgukBasisView {
+  monthMainTenGod: string;
+  monthGyeokTenGod: string;
+  monthGyeokMethod: string;
+  monthGyeokSelectionRule: string;
+  monthGyeokQuality?: Record<string, unknown>;
+  competition?: Record<string, unknown>;
+  seongpaeScoreAdjustment?: Record<string, unknown>;
 }
 
 export interface JonggyeokCandidateView {
