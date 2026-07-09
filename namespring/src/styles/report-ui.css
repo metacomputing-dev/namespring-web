@@ -3267,6 +3267,15 @@ textarea:focus-visible {
   .ns-scroll-top-fab {
     display: none !important;
   }
+
+  /* NS-C: reveal every folded section so PDF/print captures the full report. */
+  .cr-section.is-collapsed > .cr-section__body {
+    display: grid !important;
+  }
+
+  .cr-section__chevron {
+    display: none !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
