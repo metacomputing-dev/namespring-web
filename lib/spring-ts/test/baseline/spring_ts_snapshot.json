@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "capturedAt": "2026-07-09T01:10:04.978Z",
+  "capturedAt": "2026-07-09T01:51:41.301Z",
   "targetDate": "2026-04-30T00:00:00.000Z",
   "fixtureCount": 17,
   "results": [
@@ -36,7 +36,7 @@
           "yongshinHeeshin": "WATER",
           "gyeokgukType": "식신격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.5212566844919787,
+          "gyeokgukConfidence": 0.562957219251337,
           "deficientElements": [
             "EARTH",
             "METAL"
@@ -118,7 +118,7 @@
           "yongshinHeeshin": "WOOD",
           "gyeokgukType": "정관격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.8700000000000001,
+          "gyeokgukConfidence": 0.9396000000000002,
           "deficientElements": [],
           "excessiveElements": []
         },
@@ -195,7 +195,7 @@
           "yongshinHeeshin": "METAL",
           "gyeokgukType": "정재격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.3464285714285714,
+          "gyeokgukConfidence": 0.25982142857142854,
           "deficientElements": [
             "METAL"
           ],
@@ -276,7 +276,7 @@
           "yongshinHeeshin": "FIRE",
           "gyeokgukType": "편관격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.33261538461538465,
+          "gyeokgukConfidence": 0.2993538461538462,
           "deficientElements": [
             "EARTH"
           ],
@@ -357,7 +357,7 @@
           "yongshinHeeshin": "FIRE",
           "gyeokgukType": "건록격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.2635135135135135,
+          "gyeokgukConfidence": 0.23716216216216215,
           "deficientElements": [
             "FIRE"
           ],
@@ -438,7 +438,7 @@
           "yongshinHeeshin": "WATER",
           "gyeokgukType": "양인격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.46666666666666673,
+          "gyeokgukConfidence": 0.35000000000000003,
           "deficientElements": [
             "WOOD",
             "METAL",
@@ -521,7 +521,7 @@
           "yongshinHeeshin": "METAL",
           "gyeokgukType": "월겁격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.5711111111111111,
+          "gyeokgukConfidence": 0.6168,
           "deficientElements": [
             "WOOD"
           ],
@@ -602,7 +602,7 @@
           "yongshinHeeshin": "EARTH",
           "gyeokgukType": "식신격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.875,
+          "gyeokgukConfidence": 0.65625,
           "deficientElements": [],
           "excessiveElements": []
         },
@@ -679,7 +679,7 @@
           "yongshinHeeshin": "WOOD",
           "gyeokgukType": "편인격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.5439814814814815,
+          "gyeokgukConfidence": 0.5167824074074074,
           "deficientElements": [
             "WOOD",
             "WATER"
@@ -761,7 +761,7 @@
           "yongshinHeeshin": "WOOD",
           "gyeokgukType": "편재격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.8033823529411764,
+          "gyeokgukConfidence": 0.6025367647058824,
           "deficientElements": [
             "WOOD",
             "METAL"
@@ -843,7 +843,7 @@
           "yongshinHeeshin": "METAL",
           "gyeokgukType": "건록격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.28224358974358976,
+          "gyeokgukConfidence": 0.2540192307692308,
           "deficientElements": [
             "METAL"
           ],
@@ -924,7 +924,7 @@
           "yongshinHeeshin": "METAL",
           "gyeokgukType": "편관격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.9199999999999999,
+          "gyeokgukConfidence": 0.9936,
           "deficientElements": [
             "WATER"
           ],
@@ -1005,7 +1005,7 @@
           "yongshinHeeshin": "WOOD",
           "gyeokgukType": "정재격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.9636538461538462,
+          "gyeokgukConfidence": 1,
           "deficientElements": [
             "WATER"
           ],
@@ -1086,7 +1086,7 @@
           "yongshinHeeshin": "EARTH",
           "gyeokgukType": "정관격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.3711538461538461,
+          "gyeokgukConfidence": 0.27836538461538457,
           "deficientElements": [
             "WOOD",
             "FIRE",
@@ -1169,7 +1169,7 @@
           "yongshinHeeshin": "WATER",
           "gyeokgukType": "편관격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.9750000000000001,
+          "gyeokgukConfidence": 1,
           "deficientElements": [
             "METAL",
             "WATER"
@@ -1251,7 +1251,7 @@
           "yongshinHeeshin": "FIRE",
           "gyeokgukType": "식신격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.32961538461538464,
+          "gyeokgukConfidence": 0.24721153846153848,
           "deficientElements": [
             "EARTH"
           ],
@@ -1330,7 +1330,7 @@
           "yongshinHeeshin": "WATER",
           "gyeokgukType": "식신격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.6133333333333333,
+          "gyeokgukConfidence": 0.6624,
           "deficientElements": [
             "EARTH"
           ],
