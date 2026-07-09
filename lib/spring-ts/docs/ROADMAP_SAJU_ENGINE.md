@@ -236,7 +236,7 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 | 10-1 왕상휴수 | ✅ 기본 on | f792c7765 → 8401cfbab | 2026-07-09 | 계측: 단독 완전 무파급(15픽스처·경계723·종격111·합의241 불변). measure_default_change HEAD~1↔HEAD=UNCHANGED, main↔HEAD=IMPROVEMENT(5/0/10) 유지 |
 | 10-2 감쇠 세분 | ✅ 기본 on | 07aeaaf33 → 8401cfbab | 2026-07-09 | 계측: 유일 이동 = fix-14 이름 후보 finalScore +0.1×2(순위 불변, EPS 0.5 이내). 판정 필드 전 픽스처 불변 |
 | 10-3 pressure 합거 | ✅ 기본 on | 0915087d8 → a9f27f52b | 2026-07-09 | 관성 천간합은 visible officer pressure만 감쇠. opt-in knob 커밋 후 기본화. 계측: 판정 필드 불변, snapshot 이동은 candidatesTop5만(fix-05 -0.4, fix-07 후보 재배열/1위 +0.6, fix-09 +0.1×2). validate:default-change main↔HEAD=IMPROVEMENT(5/0/10 + added 2, regression 0). Verified: saju-ts 207/0, baseline 17/0, compat 208/0, tiered-shape 1379/0, service-visible 13/0, adapter-daewoon 31/0, yongshin-consensus 273/0, jonggyeok 111/0, boundary-goldens 723/0 |
-| 10-4 성패 점수 통합 | ⬜ | | | 계측 |
+| 10-4 성패 점수 통합 | ✅ 기본 on | 893a3c0d4 → 13320a31c | 2026-07-09 | seongpae verdict(5단)을 월령 격국 score key에만 배율 반영. opt-in knob 커밋 후 기본화, opt-out 지원. 계측: baseline 17/0, compat 208/0, validate:default-change IMPROVEMENT(5/0/10 + added 2, regression 0), saju-ts 208/0, tiered-shape 1379/0, service-visible 13/0, adapter-daewoon 31/0, yongshin-consensus 273/0, jonggyeok 111/0, boundary-goldens 723/0 |
 | 10-5 성패 v1 | ⬜ | | | 계측 |
 | 10-6 위치 가중 | ⬜ | | | κ 계측 |
 | 10-7 통근 강도 계수 | ⬜ | | | |
