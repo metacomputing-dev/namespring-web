@@ -13,6 +13,9 @@ function run(args: {
   bigyeopSubtype?: 'GEONROK' | 'YANGIN' | 'WOLGEOB' | null;
   otherStems: number[];
   monthBroken?: boolean;
+  monthHiddenStems?: any[];
+  tenGodScores?: Record<string, number>;
+  policy?: any;
 }) {
   return computeGyeokgukSeongpae({
     gyeokTenGod: args.gyeokTenGod,
@@ -20,6 +23,9 @@ function run(args: {
     dayStem: 0 as StemIdx, // 甲 일간
     otherStems: args.otherStems as StemIdx[],
     monthBroken: args.monthBroken ?? false,
+    monthHiddenStems: args.monthHiddenStems as any,
+    tenGodScores: args.tenGodScores as any,
+    policy: args.policy,
   });
 }
 
@@ -88,5 +94,63 @@ describe('격국 성패 룰 테이블 (PR-6 — 자평진전 순용/역용)', ()
   it('상신·파격 요인 모두 무 → 미확정 (지장간·운 판정은 후속)', () => {
     const r = run({ gyeokTenGod: 'JEONG_IN', otherStems: [2, 2, 2] })!; // 식신만 — 정인격 상신(관살)·파격(재) 무
     expect(r.verdict).toBe('UNDETERMINED');
+  });
+  it('v1 hiddenSangshin is opt-in and leaves v0 hidden evidence ignored', () => {
+    const r = run({
+      gyeokTenGod: 'JEONG_IN',
+      otherStems: [2, 2, 2],
+      monthHiddenStems: [{ stem: 7, tenGod: 'JEONG_GWAN', role: 'MAIN', weight: 0.6 }],
+    })!;
+    expect(r.verdict).toBe('UNDETERMINED');
+    expect(r.sangshin).toBeNull();
+    expect(r.sangshinSource).toBeUndefined();
+  });
+  it('v1 hiddenSangshin recognizes a month hidden stem as secondary sangshin evidence', () => {
+    const r = run({
+      gyeokTenGod: 'JEONG_IN',
+      otherStems: [2, 2, 2],
+      monthHiddenStems: [{ stem: 7, tenGod: 'JEONG_GWAN', role: 'MAIN', weight: 0.6 }],
+      policy: { hiddenSangshin: { enabled: true } },
+    })!;
+    expect(r.verdict).toBe('SEONGGYEOK');
+    expect(r.sangshin).toBe('JEONG_GWAN');
+    expect(r.sangshinSource).toBe('MONTH_HIDDEN');
+    expect(r.sangshinHiddenRole).toBe('MAIN');
+  });
+
+  it('v1 hiddenSangshin ignores residual month hidden stems by default', () => {
+    const r = run({
+      gyeokTenGod: 'JEONG_IN',
+      otherStems: [2, 2, 2],
+      monthHiddenStems: [{ stem: 7, tenGod: 'JEONG_GWAN', role: 'RESIDUAL', weight: 0.1 }],
+      policy: { hiddenSangshin: { enabled: true } },
+    })!;
+    expect(r.verdict).toBe('UNDETERMINED');
+    expect(r.sangshin).toBeNull();
+  });
+
+  it('v1 strengthCompare is opt-in and leaves v0 mixed verdict unchanged', () => {
+    const r = run({
+      gyeokTenGod: 'JEONG_GWAN',
+      otherStems: [3, 5, 6],
+      tenGodScores: { SANG_GWAN: 3, JEONG_JAE: 0.4 },
+    })!;
+    expect(r.verdict).toBe('SEONGJUNG_YUPA');
+    expect(r.strengthComparison).toBeUndefined();
+  });
+  it('v1 strengthCompare downgrades when the breaker is decisively stronger than sangshin', () => {
+    const r = run({
+      gyeokTenGod: 'JEONG_GWAN',
+      otherStems: [3, 5, 6],
+      tenGodScores: { SANG_GWAN: 3, JEONG_JAE: 0.4 },
+      policy: { strengthCompare: { enabled: true, decisiveMargin: 0.4 } },
+    })!;
+    expect(r.verdict).toBe('PAGYEOK');
+    expect(r.pagyeokFactor).toBe('SANG_GWAN');
+    expect(r.strengthComparison).toMatchObject({
+      sangshin: 'JEONG_JAE',
+      breaker: 'SANG_GWAN',
+      decisive: true,
+    });
   });
 });

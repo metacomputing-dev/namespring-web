@@ -3769,12 +3769,29 @@ export function buildRuleFacts(args: {
   });
 
   // PR-6: 격국 성패(상신·순용/역용·성격/파격) — additive 판정 표면.
+  const seongpaeStrategy: any = (config.strategies as any)?.gyeokguk?.seongpae ?? {};
+  const seongpaeV1Enabled = seongpaeStrategy.enabled === true || seongpaeStrategy.v1?.enabled === true;
+  const hiddenSangshinStrategy: any = seongpaeStrategy.hiddenSangshin ?? {};
+  const strengthCompareStrategy: any = seongpaeStrategy.strengthCompare ?? {};
   const gyeokSeongpae = computeGyeokgukSeongpae({
     gyeokTenGod,
     bigyeopSubtype,
     dayStem,
     otherStems: [pillars.year.stem, pillars.month.stem, pillars.hour.stem],
     monthBroken: monthGyeokQuality.broken,
+    monthHiddenStems,
+    tenGodScores: scoring.tenGods,
+    policy: {
+      hiddenSangshin: {
+        enabled: seongpaeV1Enabled && hiddenSangshinStrategy.enabled !== false,
+        minWeight: typeof hiddenSangshinStrategy.minWeight === 'number' ? hiddenSangshinStrategy.minWeight : undefined,
+        allowResidual: hiddenSangshinStrategy.allowResidual === true,
+      },
+      strengthCompare: {
+        enabled: seongpaeV1Enabled && strengthCompareStrategy.enabled !== false,
+        decisiveMargin: typeof strengthCompareStrategy.decisiveMargin === 'number' ? strengthCompareStrategy.decisiveMargin : undefined,
+      },
+    },
   });
 
   const climateBase = computeClimateFacts(config, pillars.month.branch);
