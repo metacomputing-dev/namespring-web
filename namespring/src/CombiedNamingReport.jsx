@@ -1190,7 +1190,7 @@ function CategoryInsightList({
             <button
               type="button"
               onClick={() => onToggleDetail(periodOption, item)}
-              className="cr-category-card__action"
+              className="cr-category-card__action ns-ripple"
               aria-expanded={isOpen}
               aria-controls={panelId}
               disabled={!hasDetail}
@@ -1458,7 +1458,7 @@ function CombiedNamingReport({
                   role="tab"
                   aria-selected={fortuneTrack === 'current'}
                   onClick={() => selectFortuneTrack('current')}
-                  className="cr-fortune-tab"
+                  className="cr-fortune-tab ns-ripple"
                 >
                   <span>현재 운세</span>
                   <small>오늘 · 이번주 · 이번달 · 올해</small>
@@ -1468,7 +1468,7 @@ function CombiedNamingReport({
                   role="tab"
                   aria-selected={fortuneTrack === 'life'}
                   onClick={() => selectFortuneTrack('life')}
-                  className="cr-fortune-tab"
+                  className="cr-fortune-tab ns-ripple"
                 >
                   <span>평생 운세</span>
                   <small>나이대별 흐름</small>
@@ -1487,7 +1487,7 @@ function CombiedNamingReport({
                           role="tab"
                           aria-selected={isSelected}
                           onClick={() => selectPeriod(periodOption.key)}
-                          className="cr-period-tab"
+                          className="cr-period-tab ns-ripple"
                         >
                           <span>{periodOption.label}</span>
                           <small>{periodOption.periodLabel}</small>
@@ -1602,11 +1602,11 @@ function CombiedNamingReport({
             />
 
             <section className="cr-related-reports" aria-label="다른 보고서 보기">
-              <button type="button" onClick={onOpenNamingReport}>
+              <button type="button" className="ns-ripple" onClick={onOpenNamingReport}>
                 <strong>이름 평가 보고서</strong>
                 <span>성명학 중심 상세 결과를 확인합니다.</span>
               </button>
-              <button type="button" onClick={onOpenSajuReport}>
+              <button type="button" className="ns-ripple" onClick={onOpenSajuReport}>
                 <strong>사주 평가 보고서</strong>
                 <span>사주 중심 상세 결과를 확인합니다.</span>
               </button>

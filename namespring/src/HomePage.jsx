@@ -393,7 +393,7 @@ function HomeTile({ item, onClick }) {
       className={cx(
         'ns-menu-card group',
         item.tone ? `ns-menu-card--${item.tone}` : '',
-        !isClickable ? 'ns-menu-card--disabled' : '',
+        !isClickable ? 'ns-menu-card--disabled' : 'ns-ripple',
       )}
       aria-label={isClickable ? item.title : undefined}
       aria-disabled={!isClickable ? 'true' : undefined}
