@@ -140,6 +140,8 @@ export interface StrengthFacts {
         };
         /** 천간합 기반(羈絆)으로 감쇠된 투간 목록. */
         stemBinds: Array<{ pos: string; stem: StemIdx; factor: number }>;
+        /** Visible officer stems whose pressure contribution was reduced by hap binding. */
+        pressureStemBinds: Array<{ pos: string; stem: StemIdx; tenGod: TenGod; factor: number; reduction: number }>;
       };
     };
 
@@ -2473,6 +2475,7 @@ interface StrengthInteractionPolicy {
     enabled: boolean;
     factor: number;
     jaenghapFactor: number;
+    applyToPressure: boolean;
   };
   /** PR-10-1 (감사 B434): 왕상휴수 연동 비대칭 뿌리 손상 — 기본 off (판정 변경, 계측 후 기본화 별도). */
   seasonal: {
@@ -2541,6 +2544,7 @@ function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
       // 합이불화 = 기반(묶임) — 역할 절반 상실 (감사 B531 표준: 현대 주류는 합화 거의 불인정).
       factor: num(bindRaw.factor, 0.5),
       jaenghapFactor: num(bindRaw.jaenghapFactor, 0.75), // 쟁합·투합은 합력 분산 → 감쇠 완화
+      applyToPressure: bindRaw.applyToPressure === true,
     },
     seasonal: {
       // PR-10-1 기본 on (감사 B434) — 왕상휴수 비대칭 감쇠. validate:default-change
@@ -2734,6 +2738,35 @@ function stemHapBindFactor(
   return 1;
 }
 
+function boundOfficerPressure(args: {
+  dayMasterStem: StemIdx;
+  stems: Array<{ pos: 'year' | 'month' | 'hour'; stem: StemIdx }>;
+  transformations: any;
+  pol: StrengthInteractionPolicy['stemBind'];
+  officers: number;
+}): {
+  officers: number;
+  binds: Array<{ pos: string; stem: StemIdx; tenGod: TenGod; factor: number; reduction: number }>;
+} {
+  if (!args.pol.enabled || !args.pol.applyToPressure || args.officers <= 0) return { officers: args.officers, binds: [] };
+
+  let reduction = 0;
+  const binds: Array<{ pos: string; stem: StemIdx; tenGod: TenGod; factor: number; reduction: number }> = [];
+  for (const s0 of args.stems) {
+    const tenGod = tenGodOf(args.dayMasterStem, s0.stem);
+    if (tenGod !== 'JEONG_GWAN' && tenGod !== 'PYEON_GWAN') continue;
+
+    const factor = stemHapBindFactor(s0.stem, args.transformations, args.pol);
+    if (factor >= 1) continue;
+
+    const entryReduction = 1 - factor;
+    reduction += entryReduction;
+    binds.push({ pos: s0.pos, stem: s0.stem, tenGod, factor, reduction: entryReduction });
+  }
+
+  return { officers: Math.max(0, args.officers - Math.min(args.officers, reduction)), binds };
+}
+
 function computeStrengthFacts(args: {
   config: EngineConfig;
   tenGods: TenGodScore;
@@ -2849,9 +2882,16 @@ function computeStrengthFacts(args: {
     );
 
     const supportAdj = Math.max(0, base.support * (1 + lingFactor + diFactor + shiFactor + hui.supportBonus));
-    // 기존 pressure 불변 규칙을 회국(식·재·관 국)에서 처음 깬다 — 재국·관국 성립이
-    // 신약 방향으로 미는 것이 표준. applyToPressure=false로 복귀 가능.
-    const pressureAdj = Math.max(0, base.pressure * (1 + hui.pressureBonus));
+    const officerPressure = boundOfficerPressure({
+      dayMasterStem: args.dayMasterStem,
+      stems: stemsOther,
+      transformations: args.transformations,
+      pol: interactionPol.stemBind,
+      officers: base.components.officers,
+    });
+    // Hui pressure remains a pressure-side multiplier; stem bind only reduces visible officer stems.
+    const pressureBase = base.components.outputs + base.components.wealth + officerPressure.officers;
+    const pressureAdj = Math.max(0, pressureBase * (1 + hui.pressureBonus));
     const totalAdj = supportAdj + pressureAdj;
     const indexAdj = totalAdj <= 0 ? 0 : (supportAdj - pressureAdj) / totalAdj;
 
@@ -2875,6 +2915,7 @@ function computeStrengthFacts(args: {
                 resolved: rootDamage.resolved,
                 hui: { supportBonus: hui.supportBonus, pressureBonus: hui.pressureBonus, groups: hui.groups },
                 stemBinds,
+                pressureStemBinds: officerPressure.binds,
               }
             : undefined,
         },
