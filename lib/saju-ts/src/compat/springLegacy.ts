@@ -831,6 +831,60 @@ function shinsalPositionMultiplier(seatPillars: readonly ShinsalSeatPillar[], po
   return 1;
 }
 
+const JIE_TERM_IDS = new Set([
+  'XIAOHAN', 'LICHUN', 'JINGZHE', 'QINGMING', 'LIXIA', 'MANGZHONG',
+  'XIAOSHU', 'LIQIU', 'BAILU', 'HANLU', 'LIDONG', 'DAXUE',
+]);
+const JIE_PROXIMITY_NEAR_HOURS = 24;
+
+function buildJieProximity(facts: Record<string, unknown> | undefined) {
+  const birthUtcMs = Number(facts?.['time.utcMs']);
+  const around = facts?.['calendar.solarTermsAround'] as any;
+  const terms = Array.isArray(around?.terms) ? around.terms : [];
+  if (!Number.isFinite(birthUtcMs) || terms.length === 0) return null;
+
+  const jieTerms = terms
+    .filter((term: any) => JIE_TERM_IDS.has(String(term?.id)) && Number.isFinite(Number(term?.utcMs)))
+    .map((term: any) => ({ id: String(term.id), utcMs: Number(term.utcMs) }))
+    .sort((a: { utcMs: number }, b: { utcMs: number }) => a.utcMs - b.utcMs);
+
+  let previous: { id: string; utcMs: number } | null = null;
+  let next: { id: string; utcMs: number } | null = null;
+  for (const term of jieTerms) {
+    if (term.utcMs <= birthUtcMs) {
+      previous = term;
+    } else {
+      next = term;
+      break;
+    }
+  }
+  if (!previous || !next) return null;
+
+  const hoursSincePrevious = roundTo((birthUtcMs - previous.utcMs) / 3_600_000, 3);
+  const hoursUntilNext = roundTo((next.utcMs - birthUtcMs) / 3_600_000, 3);
+  const nearestDirection = hoursSincePrevious <= hoursUntilNext ? 'previous' : 'next';
+  const nearestHours = nearestDirection === 'previous' ? hoursSincePrevious : hoursUntilNext;
+  const nearestTerm = nearestDirection === 'previous' ? previous : next;
+
+  return {
+    birthUtcMs,
+    solarTermMethod: String(around?.method ?? ''),
+    previousTermId: previous.id,
+    previousUtcMs: previous.utcMs,
+    nextTermId: next.id,
+    nextUtcMs: next.utcMs,
+    hoursSincePrevious,
+    hoursUntilNext,
+    daysSincePrevious: roundTo(hoursSincePrevious / 24, 3),
+    daysUntilNext: roundTo(hoursUntilNext / 24, 3),
+    monthLengthDays: roundTo((next.utcMs - previous.utcMs) / 86_400_000, 3),
+    nearestTermId: nearestTerm.id,
+    nearestDirection,
+    nearestHours,
+    isNearBoundary: nearestHours <= JIE_PROXIMITY_NEAR_HOURS,
+  };
+}
+
 function topTwo(values: Array<{ element: string; score: number }>): [string, string | null] {
   const first = values[0]?.element ?? '';
   const second = values[1]?.element ?? null;
@@ -1351,6 +1405,7 @@ function normalizeLegacyOutput(
 ) {
   const facts = bundle.report?.facts as Record<string, unknown>;
   const correction = (facts?.['time.trueSolarCorrection'] ?? {}) as TrueSolarCorrectionView;
+  const jieProximity = buildJieProximity(facts);
   const adjustedFact = (facts?.['time.solarLocalDateTime'] ?? facts?.['time.localDateTimeForHour'] ?? null) as any;
 
   const adjusted = adjustedFact?.date && adjustedFact?.time
@@ -1886,6 +1941,7 @@ function normalizeLegacyOutput(
       longitudeCorrectionMinutes: Number(correction.longitudeCorrectionMinutes ?? 0),
       equationOfTimeMinutes: Number(correction.equationOfTimeMinutes ?? 0),
     },
+    jieProximity,
     strengthResult: {
       dayMasterElement: String((pillars as any)?.day?.stem?.element ?? ''),
       level: strengthLevelCode,

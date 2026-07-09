@@ -536,6 +536,7 @@ export interface CharDetail {
 export interface SajuSummary {
   readonly pillars: Record<'year' | 'month' | 'day' | 'hour', PillarSummary>;
   readonly timeCorrection: TimeCorrectionSummary;
+  readonly jieProximity?: JieProximitySummary;
   readonly dayMaster: DayMasterSummary;
   readonly strength: StrengthSummary;
   readonly yongshin: YongshinSummary;
@@ -625,6 +626,25 @@ export interface TimeCorrectionSummary {
   readonly dstCorrectionMinutes: number;
   readonly longitudeCorrectionMinutes: number;
   readonly equationOfTimeMinutes: number;
+}
+
+/** Birth-time proximity to the surrounding jie solar-term boundaries. */
+export interface JieProximitySummary {
+  readonly birthUtcMs: number;
+  readonly solarTermMethod: string;
+  readonly previousTermId: string;
+  readonly previousUtcMs: number;
+  readonly nextTermId: string;
+  readonly nextUtcMs: number;
+  readonly hoursSincePrevious: number;
+  readonly hoursUntilNext: number;
+  readonly daysSincePrevious: number;
+  readonly daysUntilNext: number;
+  readonly monthLengthDays: number;
+  readonly nearestTermId: string;
+  readonly nearestDirection: 'previous' | 'next';
+  readonly nearestHours: number;
+  readonly isNearBoundary: boolean;
 }
 
 /** The day master (il-gan): the stem of the day pillar. */
@@ -1373,6 +1393,7 @@ export interface SajuOutputSummary {
    *  documented fallback time, so hour-sensitive conclusions should be
    *  labeled and hedged even when the calculated chart is internally valid. */
   inputUncertainty?: SajuInputUncertainty;
+  jieProximity?: JieProximitySummary;
 }
 
 /** 12궁 palace analysis surfaced on SajuOutputSummary (PR-Q-5).

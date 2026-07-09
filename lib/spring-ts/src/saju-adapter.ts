@@ -25,7 +25,7 @@ import type {
   SajuPillarPosition, SajuTenGodPositionGroup,
   SajuAxisStrengthMap, SajuJudgmentStrength, SajuInputUncertaintyAxis,
   GyeokgukCandidateSummary, JonggyeokCandidateSummary, SourceTierMetadata,
-  YongshinConsensusScoreboard, LunarConversionSummary,
+  YongshinConsensusScoreboard, LunarConversionSummary, JieProximitySummary,
 } from './types.js';
 import { lunarToSolar } from './calendar/korean-lunar-calendar.js';
 import { kasiLunarToSolar } from './calendar/kasi-lunar-api.js';
@@ -353,6 +353,39 @@ function roundTo(value: unknown, digits: number): number {
   if (!Number.isFinite(n)) return 0;
   const scale = 10 ** digits;
   return Math.round(n * scale) / scale;
+}
+
+function extractJieProximity(raw: any): JieProximitySummary | undefined {
+  if (!raw || typeof raw !== 'object') return undefined;
+  const nearestDirection = raw.nearestDirection === 'previous' || raw.nearestDirection === 'next'
+    ? raw.nearestDirection
+    : undefined;
+  const numeric = {
+    birthUtcMs: Number(raw.birthUtcMs),
+    previousUtcMs: Number(raw.previousUtcMs),
+    nextUtcMs: Number(raw.nextUtcMs),
+    hoursSincePrevious: Number(raw.hoursSincePrevious),
+    hoursUntilNext: Number(raw.hoursUntilNext),
+    daysSincePrevious: Number(raw.daysSincePrevious),
+    daysUntilNext: Number(raw.daysUntilNext),
+    monthLengthDays: Number(raw.monthLengthDays),
+    nearestHours: Number(raw.nearestHours),
+  };
+  if (!nearestDirection || Object.values(numeric).some((value) => !Number.isFinite(value))) return undefined;
+  const previousTermId = String(raw.previousTermId ?? '');
+  const nextTermId = String(raw.nextTermId ?? '');
+  const nearestTermId = String(raw.nearestTermId ?? '');
+  if (!previousTermId || !nextTermId || !nearestTermId) return undefined;
+
+  return {
+    ...numeric,
+    solarTermMethod: String(raw.solarTermMethod ?? ''),
+    previousTermId,
+    nextTermId,
+    nearestTermId,
+    nearestDirection,
+    isNearBoundary: raw.isNearBoundary === true,
+  };
 }
 
 function stripWhitespace(value: string): string {
@@ -1554,6 +1587,7 @@ export function extractSaju(rawSajuOutput: any): SajuSummary {
 
     pillars,
     timeCorrection:       extractNumericFields(coreResult, TC_KEYS) as any,
+    jieProximity:         extractJieProximity(rawSajuOutput.jieProximity),
     dayMaster:            extractDayMaster(dayStemCode, rawSajuOutput.strengthResult),
     strength:             extractStrength(rawSajuOutput.strengthResult),
     yongshin:             extractYongshin(rawSajuOutput.yongshinResult),
@@ -2568,6 +2602,7 @@ export function buildSajuContext(
         : undefined,
       axisStrength: sajuSummary.axisStrength ?? deriveAxisStrength(sajuSummary),
       inputUncertainty: sajuSummary.inputUncertainty,
+      jieProximity: sajuSummary.jieProximity,
       // PR-H-A: surface the 천간/지지 relation arrays that SajuSummary already
       // carries. Adapter passthrough — the upstream engine is the source of
       // truth; we do not re-derive. When the source is empty/absent we leave
