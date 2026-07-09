@@ -1232,6 +1232,8 @@ function CombiedNamingReport({
   const [fortuneTrack, setFortuneTrack] = useState('current');
   const [activeDetail, setActiveDetail] = useState(null);
   const [isDetailOpen, setIsDetailOpen] = useState(true);
+  // NS-J: plain wording is the default; this toggle reveals the 원어/전문 용어.
+  const [showExpertTerms, setShowExpertTerms] = useState(false);
   const [expertTagState, setExpertTagState] = useState({ status: 'idle', tags: [] });
   const expertTagRequestRef = useRef(0);
 
@@ -1370,13 +1372,16 @@ function CombiedNamingReport({
 
   const prepareBeforePrint = useCallback(() => {
     const previousIsDetailOpen = isDetailOpen;
+    const previousShowExpertTerms = showExpertTerms;
     setIsDetailOpen(true);
-    return { previousIsDetailOpen };
-  }, [isDetailOpen]);
+    setShowExpertTerms(true); // NS-J: PDF/print captures the full expert layer.
+    return { previousIsDetailOpen, previousShowExpertTerms };
+  }, [isDetailOpen, showExpertTerms]);
 
   const restoreAfterPrint = useCallback((payload) => {
     if (!payload) return;
     setIsDetailOpen(payload.previousIsDetailOpen ?? true);
+    setShowExpertTerms(payload.previousShowExpertTerms ?? false);
   }, []);
 
   const {
@@ -1409,6 +1414,21 @@ function CombiedNamingReport({
 
         <div className="cr-document-grid cr-document-grid--single">
           <main className="cr-main-content" aria-label="통합 평가 본문">
+            {/* NS-J: report-wide switch between plain wording and 전문 용어(원어). */}
+            <div className="cr-term-toggle" data-pdf-exclude="true">
+              <button
+                type="button"
+                className="cr-term-toggle__btn ns-ripple"
+                aria-pressed={showExpertTerms}
+                onClick={() => setShowExpertTerms((value) => !value)}
+              >
+                {showExpertTerms ? '쉬운 말로 보기' : '전문 용어 보기'}
+              </button>
+              <span className="cr-term-toggle__hint">
+                {showExpertTerms ? '원국 용어와 해설을 함께 보고 있어요.' : '어려운 용어는 접어 두고 쉬운 말로 보여드려요.'}
+              </span>
+            </div>
+
             <ReportSection
               id="combined-summary"
               title="총평 요약"

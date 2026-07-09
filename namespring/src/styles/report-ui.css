@@ -2101,6 +2101,43 @@ textarea:focus-visible {
   display: none;
 }
 
+/* NS-J: plain / expert-term toggle control at the top of the report. */
+.cr-term-toggle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2xs) var(--space-sm);
+}
+
+.cr-term-toggle__btn {
+  flex: 0 0 auto;
+  border: var(--rule-thin) solid var(--color-rule-strong);
+  border-radius: var(--radius-pill, 999px);
+  background: var(--color-paper-2);
+  padding: var(--space-2xs) var(--space-md);
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+}
+
+.cr-term-toggle__btn[aria-pressed="true"] {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+.cr-term-toggle__btn:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.cr-term-toggle__hint {
+  color: var(--color-ink-3);
+  font-size: var(--text-sm);
+}
+
 /* NS-F: shared ripple for selectable views (opt in with the ns-ripple class). */
 .ns-ripple {
   position: relative;
