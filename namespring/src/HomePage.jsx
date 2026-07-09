@@ -9,7 +9,6 @@ import {
 } from './components/icons/IreumBomMenuIcons';
 import {
   EditIcon,
-  InfoList,
   LeafMark,
   PageHeading,
   ReportCard,
@@ -234,31 +233,6 @@ function buildPillarColumns(report) {
   }));
 }
 
-function formatBirthDate(birthDateTime) {
-  const year = Number(birthDateTime?.year);
-  const month = Number(birthDateTime?.month);
-  const day = Number(birthDateTime?.day);
-  if (!year || !month || !day) return '-';
-  return `${String(year).padStart(4, '0')}.${String(month).padStart(2, '0')}.${String(day).padStart(2, '0')}`;
-}
-
-function formatBirthTime(birthDateTime, isBirthTimeUnknown) {
-  if (isBirthTimeUnknown) return '시각 미상';
-  const hour = Number(birthDateTime?.hour);
-  const minute = Number(birthDateTime?.minute);
-  if (!Number.isFinite(hour) || !Number.isFinite(minute)) return '-';
-  return `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
-}
-
-function getBirthPlace(entryUserInfo) {
-  return String(
-    entryUserInfo?.birthPlace
-    || entryUserInfo?.birthLocation
-    || entryUserInfo?.birthLongitudeOption
-    || '서울',
-  ).trim();
-}
-
 function getBalanceScore(metrics) {
   const values = Object.values(metrics?.elementCounts || {})
     .map((value) => Number(value) || 0)
@@ -418,14 +392,6 @@ function HomeTile({ item, onClick }) {
 }
 
 function SajuPreviewCard({ entryUserInfo, report, metrics, isLoading, error }) {
-  const infoItems = useMemo(() => ([
-    { label: '생년월일', value: formatBirthDate(entryUserInfo?.birthDateTime) },
-    { label: '출생 시간', value: formatBirthTime(entryUserInfo?.birthDateTime, entryUserInfo?.isBirthTimeUnknown) },
-    { label: '출생 지역', value: getBirthPlace(entryUserInfo) },
-    { label: '성별', value: entryUserInfo?.gender === 'female' ? '여성' : '남성' },
-    { label: '음양 기준', value: entryUserInfo?.isSolarCalendar === false ? '음력' : '양력' },
-  ]), [entryUserInfo]);
-
   if (isLoading) {
     return (
       <StatusPanel tone="neutral" title="사주 요약을 준비하고 있습니다." icon={<LeafMark className="h-8 w-8" />}>
@@ -484,7 +450,6 @@ function SajuPreviewCard({ entryUserInfo, report, metrics, isLoading, error }) {
               </p>
             </div>
           </div>
-          <InfoList items={infoItems} />
         </div>
         <div className="ns-saju-preview-stack grid">
           <SajuPillarTable columns={buildPillarColumns(report)} />
