@@ -293,6 +293,7 @@ const SHINSAL_TYPE_KO_LABEL: Record<string, string> = {
   HAK_DANG_GUI_IN: '학당귀인',
   BI_IN_SAL: '비인살',
   YANG_IN: '양인',
+  EUM_IN: '\uC74C\uC778',
   LOK_SHIN: '록신',
   GUK_IN_GUI_IN: '국인귀인',
   CHEON_JU_GUI_IN: '천주귀인',

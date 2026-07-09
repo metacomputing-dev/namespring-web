@@ -105,6 +105,34 @@ describe('양인·비인·학당 (일간 파생 — 기본 luNext 모드)', () =
       expect(facts.shinsal.catalog.dayStem.YANG_IN?.targets, `양인(diWang) ${STEM_LABEL[s]}`).toEqual(YANGIN_DIWANG[s]);
     }
   });
+  it('yinYanginSplit=true emits EUM_IN for yin stems and keeps BI_IN derived', () => {
+    for (let s = 0; s < 10; s++) {
+      const facts = factsFor(
+        { year: [2, 2], month: [4, 4], day: [s, s % 2], hour: [6, 6] },
+        { shinsal: { yinYanginSplit: true } },
+      );
+
+      if (s % 2 === 1) {
+        expect(facts.shinsal.catalog.dayStem.YANG_IN?.targets, `YANG_IN yin ${STEM_LABEL[s]}`).toBeUndefined();
+        expect(facts.shinsal.catalog.dayStem.EUM_IN?.targets, `EUM_IN yin ${STEM_LABEL[s]}`).toEqual(YANGIN_LUNEXT[s]);
+        expect(facts.shinsal.catalog.dayStem.BI_IN_SAL?.targets, `BI_IN yin ${STEM_LABEL[s]}`).toEqual(BIIN_LUNEXT[s]);
+      } else {
+        expect(facts.shinsal.catalog.dayStem.YANG_IN?.targets, `YANG_IN yang ${STEM_LABEL[s]}`).toEqual(YANGIN_LUNEXT[s]);
+        expect(facts.shinsal.catalog.dayStem.EUM_IN?.targets, `EUM_IN yang ${STEM_LABEL[s]}`).toBeUndefined();
+      }
+    }
+  });
+
+  it('yinYanginSplit=true still follows yanginMode diWang targets', () => {
+    for (let s = 0; s < 10; s++) {
+      const facts = factsFor(
+        { year: [2, 2], month: [4, 4], day: [s, s % 2], hour: [6, 6] },
+        { shinsal: { yanginMode: 'diWang', yinYanginSplit: true } },
+      );
+      const splitKey = s % 2 === 1 ? 'EUM_IN' : 'YANG_IN';
+      expect(facts.shinsal.catalog.dayStem[splitKey]?.targets, `${splitKey} diWang ${STEM_LABEL[s]}`).toEqual(YANGIN_DIWANG[s]);
+    }
+  });
 });
 
 describe('공망 6순 표 (일주 기준 — 표준 旬空亡表)', () => {

@@ -23,6 +23,29 @@ describe('관계 타입 ↔ 라벨 테이블 전수 일치 (감사 A3)', () => {
   });
 });
 
+describe('shinsal strategy options', () => {
+  it('yinYanginSplit is opt-in and emits EUM_IN for yin-stem Yangin cases', () => {
+    const input = createBirthInput({
+      birthYear: 1980,
+      birthMonth: 1,
+      birthDay: 5,
+      birthHour: 12,
+      birthMinute: 0,
+      gender: 'MALE',
+    });
+    const base: any = analyzeSaju(input);
+    const split: any = analyzeSaju(input, { strategies: { shinsal: { yinYanginSplit: true } } });
+
+    const baseTypes = (base.shinsalHits ?? []).map((hit: any) => hit.type);
+    const splitTypes = (split.shinsalHits ?? []).map((hit: any) => hit.type);
+
+    expect(baseTypes).toContain('YANG_IN');
+    expect(baseTypes).not.toContain('EUM_IN');
+    expect(splitTypes).toContain('EUM_IN');
+    expect(splitTypes).not.toContain('YANG_IN');
+    expect(splitTypes).toContain('BI_IN_SAL');
+  });
+});
 describe('normalizeLegacyOutput 정직성 (감사 A1/A2/A9/A15d)', () => {
   // 1986-04-19 05:45 남 (핸드북 프리뷰 표준 케이스)
   const output: any = analyzeSaju(createBirthInput({
