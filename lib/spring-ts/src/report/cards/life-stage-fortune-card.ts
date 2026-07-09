@@ -28,7 +28,7 @@ import type {
 import type { ElementCode } from '../types.js';
 
 import { getFortuneGrade } from '../common/fortuneCalculator.js';
-import { daeunDisplayOffset } from '../common/daeun-display.js';
+import { daeunDisplayAgeRange, daeunDisplayOffset } from '../common/daeun-display.js';
 import {
   luckAnnotationFeatures,
   luckAnnotationHighlights,
@@ -130,6 +130,8 @@ interface DaeunPillar extends LuckPillarAnnotationsForReport {
   readonly startAge: number;
   readonly endAge: number;
   readonly order: number;
+  readonly displayStartAge?: number;
+  readonly displayEndAge?: number;
 }
 
 interface DaeunInfo {
@@ -315,8 +317,9 @@ export function buildLifeStageFortuneCard(
     const pillarDisplay = `${stemHangul}${branchHangul}`;
 
     // Age range — 표기용 정수(반올림 유파 오프셋 반영, 감사 B11).
-    const flooredStartAge = floorAge(dp.startAge) + displayOffset;
-    const flooredEndAge = floorAge(dp.endAge) + displayOffset;
+    const displayAges = daeunDisplayAgeRange(dp, displayOffset);
+    const flooredStartAge = displayAges.startAge;
+    const flooredEndAge = displayAges.endAge;
     // 폐구간 표기: 다음 대운 시작 나이와 겹치지 않게 (25세~34세 / 35세~44세).
     const ageRange = `${flooredStartAge}세 ~ ${Math.max(flooredStartAge, flooredEndAge - 1)}세`;
 

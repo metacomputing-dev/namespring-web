@@ -320,6 +320,8 @@ export interface FortuneStartView {
   startAgeYears: number;
   /** 표기용 정수 대운수 (startAgeRounding 유파 + minStartAge 적용). */
   startAgeDisplay?: number;
+  ageDisplay?: 'continuousFromBirth' | 'koreanCountingAge';
+  ageDisplayLabel?: string;
   startAgeParts?: { years: number; months: number; days: number };
   startUtcMsApprox?: number;
   formula: string;
@@ -329,6 +331,8 @@ export interface DecadeLuckView {
   index: number;
   startAgeYears: number;
   endAgeYears: number;
+  displayStartAge?: number;
+  displayEndAge?: number;
   pillar: PillarView;
   startUtcMs?: number;
   endUtcMs?: number;

@@ -176,6 +176,56 @@ function addYearsUtc(utcMs: number, years: number): number {
   return d.getTime();
 }
 
+function localYearAtUtc(utcMs: number, offsetMinutes: number): number {
+  return new Date(utcMs + offsetMinutes * 60_000).getUTCFullYear();
+}
+
+function yearBoundaryStartUtcMs(
+  y: number,
+  calendar: EngineConfig['calendar'],
+  offsetMinutes: number,
+  solarTermMethod: SolarTermMethod,
+): number {
+  if (calendar.yearBoundary === 'lunarNewYear') {
+    return computeLunarNewYearBoundary(y, offsetMinutes, solarTermMethod).boundaryUtcMs;
+  }
+  if (calendar.yearBoundary === 'jan1') {
+    return localToUtcMs({ y, m: 1, d: 1 }, { h: 0, min: 0 }, offsetMinutes);
+  }
+  return getLiChunUtcMs(y, solarTermMethod);
+}
+
+function yearLabelAtUtc(
+  utcMs: number,
+  calendar: EngineConfig['calendar'],
+  offsetMinutes: number,
+  solarTermMethod: SolarTermMethod,
+): number {
+  const y = localYearAtUtc(utcMs, offsetMinutes);
+  return utcMs < yearBoundaryStartUtcMs(y, calendar, offsetMinutes, solarTermMethod) ? y - 1 : y;
+}
+
+function ageDisplayLabelOf(mode: FortunePolicy['ageDisplay']): string {
+  return mode === 'koreanCountingAge'
+    ? 'Korean counting age by configured year boundary'
+    : 'Continuous age from birth';
+}
+
+function displayAgeAt(
+  ageYears: number,
+  utcMsApprox: number,
+  birthUtcMs: number,
+  calendar: EngineConfig['calendar'],
+  offsetMinutes: number,
+  solarTermMethod: SolarTermMethod,
+  policy: FortunePolicy,
+): number {
+  if (policy.ageDisplay !== 'koreanCountingAge') return startAgeDisplayOf(ageYears, policy);
+  const birthYear = yearLabelAtUtc(birthUtcMs, calendar, offsetMinutes, solarTermMethod);
+  const targetYear = yearLabelAtUtc(utcMsApprox, calendar, offsetMinutes, solarTermMethod);
+  return Math.max(1, targetYear - birthYear + 1);
+}
+
 function yearPillarOfSolarYear(y: number): PillarIdx {
   // Same formula as calcYearPillarFromLiChunUtc after applying LiChun boundary:
   // stem = (y-4) mod 10, branch = (y-4) mod 12
@@ -210,7 +260,9 @@ export function computeFortuneTimeline(args: {
       boundary: null,
       deltaMs: 0,
       startAgeYears: 0,
-      startAgeDisplay: startAgeDisplayOf(0, policy),
+      startAgeDisplay: displayAgeAt(0, parsedUtcMs, parsedUtcMs, calendar, birthLocalDateTime.offsetMinutes, solarTermMethod, policy),
+      ageDisplay: policy.ageDisplay,
+      ageDisplayLabel: ageDisplayLabelOf(policy.ageDisplay),
       startUtcMsApprox: parsedUtcMs,
       formula: 'startAgeYears = 0 (no solar-term boundaries available)',
     };
@@ -234,7 +286,9 @@ export function computeFortuneTimeline(args: {
     boundary: { id: boundary.id, utcMs: boundary.utcMs },
     deltaMs,
     startAgeYears: startAge,
-    startAgeDisplay: startAgeDisplayOf(startAge, policy),
+    startAgeDisplay: displayAgeAt(startAge, startUtcMsApprox, parsedUtcMs, calendar, birthLocalDateTime.offsetMinutes, solarTermMethod, policy),
+    ageDisplay: policy.ageDisplay,
+    ageDisplayLabel: ageDisplayLabelOf(policy.ageDisplay),
     startAgeParts: parts,
     startUtcMsApprox,
     formula,
@@ -252,19 +306,23 @@ export function computeFortuneTimeline(args: {
 
     const startAgeYears = startAge + i * decadeLen;
     const endAgeYears = startAgeYears + decadeLen;
+    const approxStartUtcMs = addYearsUtc(startUtcMsApprox, i * decadeLen);
+    const approxEndUtcMs = addYearsUtc(startUtcMsApprox, (i + 1) * decadeLen);
 
     const rec: DecadeLuck = {
       kind: 'DECADE',
       index: i,
       startAgeYears,
       endAgeYears,
+      displayStartAge: displayAgeAt(startAgeYears, approxStartUtcMs, parsedUtcMs, calendar, birthLocalDateTime.offsetMinutes, solarTermMethod, policy),
+      displayEndAge: displayAgeAt(endAgeYears, approxEndUtcMs, parsedUtcMs, calendar, birthLocalDateTime.offsetMinutes, solarTermMethod, policy),
       pillar,
     };
 
     if (policy.axis === 'utcByGregorianYear') {
-      // Interpret axis as “a human-friendly Gregorian timeline starting from the (approx) 起運 moment”.
-      rec.startUtcMs = addYearsUtc(startUtcMsApprox, i * decadeLen);
-      rec.endUtcMs = addYearsUtc(startUtcMsApprox, (i + 1) * decadeLen);
+      // Interpret axis as approximate human-friendly Gregorian timeline starting from the daeun moment.
+      rec.startUtcMs = approxStartUtcMs;
+      rec.endUtcMs = approxEndUtcMs;
     }
 
     decades.push(rec);
@@ -275,15 +333,7 @@ export function computeFortuneTimeline(args: {
   // (liChun/lunarNewYear/jan1), so 세운 labels and segments must follow the same rule —
   // otherwise under non-liChun configs the 세운 row containing birth disagrees with the
   // natal year pillar. Default (liChun) behavior is byte-identical to the previous code.
-  const yearStartUtcMs = (y: number): number => {
-    if (calendar.yearBoundary === 'lunarNewYear') {
-      return computeLunarNewYearBoundary(y, birthLocalDateTime.offsetMinutes, solarTermMethod).boundaryUtcMs;
-    }
-    if (calendar.yearBoundary === 'jan1') {
-      return localToUtcMs({ y, m: 1, d: 1 }, { h: 0, min: 0 }, birthLocalDateTime.offsetMinutes);
-    }
-    return getLiChunUtcMs(y, solarTermMethod);
-  };
+  const yearStartUtcMs = (y: number): number => yearBoundaryStartUtcMs(y, calendar, birthLocalDateTime.offsetMinutes, solarTermMethod);
   const baseSolarYear = parsedUtcMs < yearStartUtcMs(localYear) ? localYear - 1 : localYear;
 
   const years: YearLuck[] = [];

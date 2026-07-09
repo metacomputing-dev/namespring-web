@@ -2314,6 +2314,8 @@ function extractDaeunInfo(rawSajuOutput: any) {
     firstDaeunStartAgeDisplay: Number.isFinite(daeunInfoRaw.firstDaeunStartAgeDisplay)
       ? Number(daeunInfoRaw.firstDaeunStartAgeDisplay)
       : null,
+    ageDisplayMode:        toNullableString(daeunInfoRaw.ageDisplayMode),
+    ageDisplayLabel:       toNullableString(daeunInfoRaw.ageDisplayLabel),
     firstDaeunStartMonths:  Number(daeunInfoRaw.firstDaeunStartMonths) || 0,
     boundaryMode:           String(daeunInfoRaw.boundaryMode ?? ''),
     boundaryUtcMs:          Number.isFinite(daeunInfoRaw.boundaryUtcMs) ? Number(daeunInfoRaw.boundaryUtcMs) : null,
@@ -2326,6 +2328,8 @@ function extractDaeunInfo(rawSajuOutput: any) {
       startAge: Number(pillarData.startAge)        || 0,
       endAge:   Number(pillarData.endAge)          || 0,
       order:    Number(pillarData.order)           || 0,
+      displayStartAge: nullableNumber(pillarData.displayStartAge),
+      displayEndAge: nullableNumber(pillarData.displayEndAge),
       approxStartUtcMs: nullableNumber(pillarData.approxStartUtcMs),
       approxEndUtcMs: nullableNumber(pillarData.approxEndUtcMs),
     }, pillarData)),

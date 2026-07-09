@@ -969,6 +969,8 @@ export interface DaeunPillarSummary extends LuckPillarAnnotationSummary {
   readonly startAge: number;
   readonly endAge: number;
   readonly order: number;
+  readonly displayStartAge?: number | null;
+  readonly displayEndAge?: number | null;
   /** Approximate UTC boundary for display/timeline only; continuous age remains authoritative. */
   readonly approxStartUtcMs?: number | null;
   readonly approxEndUtcMs?: number | null;
@@ -985,6 +987,8 @@ export interface DaeunInfoSummary {
   readonly firstDaeunStartAge: number;
   /** 표기용 정수 대운수 — 반올림 유파(기본: 1일 버림·2일 올림) + 하한 1. 상용 만세력 표기와 정합 (감사 B11). */
   readonly firstDaeunStartAgeDisplay?: number | null;
+  readonly ageDisplayMode?: string | null;
+  readonly ageDisplayLabel?: string | null;
   readonly firstDaeunStartMonths: number;
   /** 대운 기산 절기 id (예: 'LICHUN'). 과거에는 무관한 일경계 정책 문자열이 들어갔다. */
   readonly boundaryMode: string;

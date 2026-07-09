@@ -1,5 +1,5 @@
 import type { EngineConfig } from '../api/types.js';
-import type { FortunePolicy, StartAgeMethodSpec, StartAgeRounding } from './types.js';
+import type { AgeDisplayMode, FortunePolicy, StartAgeMethodSpec, StartAgeRounding } from './types.js';
 
 const DEFAULT_POLICY: FortunePolicy = {
   directionRule: 'sex_yearStemYinYang',
@@ -13,10 +13,12 @@ const DEFAULT_POLICY: FortunePolicy = {
   maxYears: 120,
   maxMonths: 24,
   maxDays: 0,
+  ageDisplay: 'continuousFromBirth',
   axis: 'ageOnly',
 };
 
 const START_AGE_ROUNDINGS: readonly StartAgeRounding[] = ['round1down2up', 'threshold8months', 'floor', 'ceil', 'none'];
+const AGE_DISPLAY_MODES: readonly AgeDisplayMode[] = ['continuousFromBirth', 'koreanCountingAge'];
 
 function asNumber(x: unknown, fallback: number): number {
   return typeof x === 'number' && Number.isFinite(x) ? x : fallback;
@@ -53,6 +55,9 @@ export function readFortunePolicy(config: EngineConfig): FortunePolicy {
 
   const maxMonths = Math.max(0, Math.floor(asNumber(raw.maxMonths, DEFAULT_POLICY.maxMonths)));
   const maxDays = Math.max(0, Math.floor(asNumber(raw.maxDays, DEFAULT_POLICY.maxDays)));
+  const ageDisplay = AGE_DISPLAY_MODES.includes(raw.ageDisplay)
+    ? (raw.ageDisplay as AgeDisplayMode)
+    : DEFAULT_POLICY.ageDisplay;
 
   const decadeLengthYears = Math.max(1, Math.floor(asNumber(raw.decadeLengthYears, DEFAULT_POLICY.decadeLengthYears)));
   const firstDecadeOffsetSteps = Math.floor(asNumber(raw.firstDecadeOffsetSteps, DEFAULT_POLICY.firstDecadeOffsetSteps));
@@ -72,6 +77,7 @@ export function readFortunePolicy(config: EngineConfig): FortunePolicy {
     maxYears,
     maxMonths,
     maxDays,
+    ageDisplay,
     decadeLengthYears,
     firstDecadeOffsetSteps,
     startAgeMethod,

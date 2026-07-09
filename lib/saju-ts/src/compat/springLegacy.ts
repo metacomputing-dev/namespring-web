@@ -1630,6 +1630,8 @@ function normalizeLegacyOutput(
   const decades = Array.isArray(fortune?.decades) ? fortune.decades : [];
   const firstDaeunStartUtcMsApprox = finiteNumberOrNull(fortune?.start?.startUtcMsApprox ?? timeline?.start?.startUtcMsApprox);
   const decadeLengthYears = Number(timeline?.policy?.decadeLengthYears ?? 10);
+  const ageDisplayMode = String(fortune?.start?.ageDisplay ?? timeline?.policy?.ageDisplay ?? 'continuousFromBirth');
+  const ageDisplayLabel = String(fortune?.start?.ageDisplayLabel ?? (ageDisplayMode === 'koreanCountingAge' ? 'Korean counting age by configured year boundary' : 'Continuous age from birth'));
   const needsExpandedYears = typeof saeunStartYear === 'number' || typeof saeunYearCount === 'number';
   const needsExpandedMonths = typeof wolunStartYear === 'number' || typeof wolunMonthCount === 'number';
   const yearsAll = needsExpandedYears && Array.isArray(timeline?.years)
@@ -1662,6 +1664,8 @@ function normalizeLegacyOutput(
       startAge: Number(entry?.startAgeYears ?? 0),
       endAge: Number(entry?.endAgeYears ?? 0),
       order: Number(entry?.index ?? 0),
+      displayStartAge: Number(entry?.displayStartAge ?? Math.floor(Number(entry?.startAgeYears ?? 0))),
+      displayEndAge: Number(entry?.displayEndAge ?? Math.floor(Number(entry?.endAgeYears ?? 0))),
       ...(approxDaeunUtcMs(entry, firstDaeunStartUtcMsApprox, decadeLengthYears, 'start') !== null
         ? { approxStartUtcMs: approxDaeunUtcMs(entry, firstDaeunStartUtcMsApprox, decadeLengthYears, 'start') }
         : {}),
@@ -1846,6 +1850,8 @@ function normalizeLegacyOutput(
       firstDaeunStartAge: Number(fortune?.start?.startAgeYears ?? 0),
       // 표기용 정수 대운수 (반올림 유파 + 하한 1 — 감사 B11). 연속값과 병존.
       firstDaeunStartAgeDisplay: Number(fortune?.start?.startAgeDisplay ?? Math.floor(Number(fortune?.start?.startAgeYears ?? 0))),
+      ageDisplayMode,
+      ageDisplayLabel,
       firstDaeunStartMonths: Number(fortune?.start?.startAgeParts?.months ?? 0),
       // 대운 기산 절기 id (기존에는 무관한 일경계 정책 dayBoundary가 들어갔다 — 감사 A15d).
       boundaryMode: String(fortune?.start?.boundary?.id ?? ''),

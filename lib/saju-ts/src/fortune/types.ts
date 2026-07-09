@@ -40,6 +40,8 @@ export interface AgePartsApprox {
  */
 export type StartAgeRounding = 'round1down2up' | 'threshold8months' | 'floor' | 'ceil' | 'none';
 
+export type AgeDisplayMode = 'continuousFromBirth' | 'koreanCountingAge';
+
 export interface FortunePolicy {
   /** Direction policy for 大運 progression (순행/역행). */
   directionRule: 'sex_yearStemYinYang' | 'fixedForward' | 'fixedBackward';
@@ -74,6 +76,9 @@ export interface FortunePolicy {
   /** How many day segments (일운) to generate (0 = disabled). */
   maxDays: number;
 
+  /** Display-only age convention for luck-cycle labels. */
+  ageDisplay: AgeDisplayMode;
+
   /**
    * Timeline axis:
    * - ageOnly: report only ages; avoid pseudo precision for boundaries
@@ -107,6 +112,12 @@ export interface FortuneStart {
    */
   startAgeDisplay: number;
 
+  /** Display-only convention for the start age label. */
+  ageDisplay: AgeDisplayMode;
+
+  /** Human-readable label for the display-only age convention. */
+  ageDisplayLabel: string;
+
   /**
    * Approximate UTC instant when the first decade starts (birth + startAgeYears).
    *
@@ -127,6 +138,8 @@ export interface DecadeLuck {
   index: number; // 0-based
   startAgeYears: number;
   endAgeYears: number;
+  displayStartAge: number;
+  displayEndAge: number;
   pillar: PillarIdx;
   startUtcMs?: number;
   endUtcMs?: number;

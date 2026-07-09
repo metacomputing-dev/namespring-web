@@ -19,3 +19,24 @@ export function daeunDisplayOffset(daeunInfoRaw: unknown): number {
   if (typeof display !== 'number' || !Number.isFinite(display)) return 0;
   return Math.max(0, Math.min(1, Math.trunc(display - Math.max(0, Math.floor(first)))));
 }
+
+function finiteNumber(value: unknown): number | null {
+  const n = Number(value);
+  return Number.isFinite(n) ? n : null;
+}
+
+export function daeunDisplayAgeRange(pillarRaw: unknown, fallbackOffset: number): { startAge: number; endAge: number } {
+  if (!pillarRaw || typeof pillarRaw !== 'object') return { startAge: 0, endAge: 0 };
+  const pillar = pillarRaw as Record<string, unknown>;
+  const explicitStart = finiteNumber(pillar['displayStartAge']);
+  const explicitEnd = finiteNumber(pillar['displayEndAge']);
+  if (explicitStart !== null && explicitEnd !== null && explicitEnd >= explicitStart) {
+    return { startAge: Math.floor(explicitStart), endAge: Math.floor(explicitEnd) };
+  }
+  const startAge = finiteNumber(pillar['startAge']);
+  const endAge = finiteNumber(pillar['endAge']);
+  return {
+    startAge: Math.floor(startAge ?? 0) + fallbackOffset,
+    endAge: Math.floor(endAge ?? 0) + fallbackOffset,
+  };
+}

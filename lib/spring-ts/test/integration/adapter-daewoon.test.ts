@@ -97,6 +97,9 @@ if (ctx.output) {
     if (ctx.output.daeunInfo) {
       check('daeunInfo has isForward boolean', typeof ctx.output.daeunInfo.isForward === 'boolean');
       check('daeunInfo has firstDaeunStartAge number', typeof ctx.output.daeunInfo.firstDaeunStartAge === 'number');
+      check('daeunInfo exposes PR-9 age display convention',
+        ctx.output.daeunInfo.ageDisplayMode === 'continuousFromBirth' &&
+        typeof ctx.output.daeunInfo.ageDisplayLabel === 'string');
       check('daeunInfo has pillars array', Array.isArray(ctx.output.daeunInfo.pillars));
       const firstPillar = ctx.output.daeunInfo.pillars?.[0];
       if (firstPillar) {
@@ -106,6 +109,10 @@ if (ctx.output) {
           typeof firstPillar.startAge === 'number' &&
           typeof firstPillar.endAge === 'number');
         check('daeunInfo.pillars[0] has PR-8 luck annotations', hasLuckAnnotations(firstPillar));
+        check('daeunInfo.pillars[0] has PR-9 display age metadata',
+          typeof firstPillar.displayStartAge === 'number' &&
+          typeof firstPillar.displayEndAge === 'number' &&
+          firstPillar.displayEndAge > firstPillar.displayStartAge);
         check('daeunInfo.pillars[0] has PR-9 approximate boundary UTC metadata',
           typeof firstPillar.approxStartUtcMs === 'number' &&
           typeof firstPillar.approxEndUtcMs === 'number' &&

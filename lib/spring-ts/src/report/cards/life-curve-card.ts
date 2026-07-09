@@ -17,7 +17,7 @@ import type { SajuSummary } from '../../types.js';
 import type { ElementCode } from '../types.js';
 import { getPillarGrade, gradeToStarsShared } from '../common/fortuneCalculator.js';
 import { STEM_BY_CODE, BRANCH_BY_CODE } from '../common/elementMaps.js';
-import { daeunDisplayOffset } from '../common/daeun-display.js';
+import { daeunDisplayAgeRange, daeunDisplayOffset } from '../common/daeun-display.js';
 
 export interface LifeCurvePoint {
   /** 출생 기준 경과 연수 (만 나이 근사). */
@@ -76,6 +76,8 @@ interface DaeunPillarRuntime {
   readonly branch: string;
   readonly startAge: number;
   readonly endAge: number;
+  readonly displayStartAge?: number;
+  readonly displayEndAge?: number;
 }
 
 /** SajuSummary.daeunInfo는 인덱스 시그니처 경유 런타임 파싱 (어댑터 규약). */
@@ -94,6 +96,8 @@ function extractDaeunPillars(saju: SajuSummary): DaeunPillarRuntime[] {
       branch: pp.branch,
       startAge: typeof pp.startAge === 'number' ? pp.startAge : 0,
       endAge: typeof pp.endAge === 'number' ? pp.endAge : 0,
+      displayStartAge: typeof pp.displayStartAge === 'number' ? pp.displayStartAge : undefined,
+      displayEndAge: typeof pp.displayEndAge === 'number' ? pp.displayEndAge : undefined,
     });
   }
   return pillars.sort((a, b) => a.startAge - b.startAge);
@@ -141,8 +145,9 @@ export function buildLifeCurveCard(
   const daeunSegments: LifeCurveDaeunSegment[] = daeunPillars.map((p, index) => {
     const el = pillarElements(p.stem, p.branch);
     const grade = el.stem ? getPillarGrade(el.stem, el.branch, yongshin, heeshin, gishin) : 3;
-    const startAge = Math.floor(p.startAge) + displayOffset;
-    const endAge = Math.floor(p.endAge) + displayOffset;
+    const displayAges = daeunDisplayAgeRange(p, displayOffset);
+    const startAge = displayAges.startAge;
+    const endAge = displayAges.endAge;
     return {
       index,
       startAge,
