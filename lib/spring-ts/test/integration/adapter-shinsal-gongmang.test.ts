@@ -84,6 +84,9 @@ if (ctx.output) {
     check('SajuOutputSummary.shinsalHits is undefined when source is empty',
       ctx.output.shinsalHits === undefined);
   }
+  check('unsupported shinsalComposites is not surfaced',
+    !Object.prototype.hasOwnProperty.call(summary as any, 'shinsalComposites') &&
+      !Object.prototype.hasOwnProperty.call(ctx.output as any, 'shinsalComposites'));
 
   // — gongmang surface —
   if (summary.gongmang) {

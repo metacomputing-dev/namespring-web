@@ -1604,7 +1604,6 @@ export function extractSaju(rawSajuOutput: any): SajuSummary {
     gongmang:             extractGongmang(rawSajuOutput),
     tenGodAnalysis:       extractTenGodAnalysis(rawSajuOutput.tenGodAnalysis, dayStemCode),
     shinsalHits:          extractShinsalHits(rawSajuOutput),
-    shinsalComposites:    extractShinsalComposites(rawSajuOutput),
     palaceAnalysis:       extractPalaceAnalysis(rawSajuOutput),
     daeunInfo:            extractDaeunInfo(rawSajuOutput),
     saeunPillars:         extractSaeunPillars(rawSajuOutput),
@@ -2121,18 +2120,6 @@ function extractShinsalHits(rawSajuOutput: any) {
   });
 }
 
-// ---------------------------------------------------------------------------
-//  Shinsal composites
-// ---------------------------------------------------------------------------
-
-function extractShinsalComposites(rawSajuOutput: any) {
-  return ensureArray(rawSajuOutput.shinsalComposites).map((composite: any) => ({
-    patternName:     String(composite.patternName     ?? ''),
-    interactionType: String(composite.interactionType ?? ''),
-    interpretation:  String(composite.interpretation  ?? ''),
-    bonusScore:      Number(composite.bonusScore)     || 0,
-  }));
-}
 
 // ---------------------------------------------------------------------------
 //  Jiji relations (earthly branch interactions)
