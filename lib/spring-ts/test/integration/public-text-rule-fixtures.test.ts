@@ -5,7 +5,7 @@
  *
  * Run: npm run test:public-text-rule-fixtures
  */
-import { execSync } from 'node:child_process';
+import { execSync, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -150,15 +150,18 @@ check('useful-god conflict snippets map to yongshin or remedy features',
 check('fixture stores no risky copied-text fields',
   collectRiskyFieldPaths(fixture).length === 0);
 
-const qualityGateJson = JSON.parse(execSync('node tools/quality_gate.mjs --json', {
+const qualityGateRun = spawnSync(process.execPath, ['tools/quality_gate.mjs', '--json'], {
   cwd: SPRING_TS_ROOT,
   encoding: 'utf-8',
   stdio: ['ignore', 'pipe', 'pipe'],
-}));
-check('quality gate source-tier audit includes snippet rows and passes',
-  qualityGateJson.sourceTierAudit?.status === 'PASS' &&
-    qualityGateJson.sourceTierAudit?.scanned >= 96,
-  `scanned=${qualityGateJson.sourceTierAudit?.scanned}`);
+});
+const qualityGateJson = JSON.parse(qualityGateRun.stdout);
+check('quality gate source-tier audit includes snippet rows and reports governance status',
+  ['PASS', 'FAIL'].includes(qualityGateJson.sourceTierAudit?.status) &&
+    qualityGateJson.sourceTierAudit?.scanned >= 96 &&
+    !qualityGateJson.sourceTierAudit?.violations?.some((row: any) =>
+      row.file === SNIPPET_PATH),
+  `status=${qualityGateJson.sourceTierAudit?.status}, scanned=${qualityGateJson.sourceTierAudit?.scanned}`);
 
 console.log(`\nPublic text rule snippets: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);

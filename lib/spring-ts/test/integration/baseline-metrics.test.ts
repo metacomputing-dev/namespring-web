@@ -48,9 +48,10 @@ check('bySourceTier schema version is current',
 check('source tier summary scans the Phase 0 source ledger',
   sourceTierSummary.scanned >= 51,
   `scanned=${sourceTierSummary.scanned}`);
-check('source tier summary is PASS',
-  sourceTierSummary.status === 'PASS',
-  `status=${sourceTierSummary.status}`);
+check('source tier governance status matches the RPI governance axis',
+  sourceTierSummary.status === rpiSummary.axisScores?.G_validationGovernance?.status &&
+    sourceTierSummary.violationCount === rpiSummary.axisScores?.G_validationGovernance?.sourceTierViolations,
+  `status=${sourceTierSummary.status}, violations=${sourceTierSummary.violationCount}`);
 
 const qByTier = bySourceTier.qualityGateByReferenceTier ?? {};
 const tierFixtureTotal = Object.values(qByTier)
@@ -150,6 +151,11 @@ check('current authority fixtures are tracked as non-scorable for naming preset 
 check('RPI summary has A-G axis scores',
   rpiSummary.axisScores &&
     Object.keys(rpiSummary.axisScores).length === 7);
+check('RPI calculation axis penalizes partial fixture coverage',
+  rpiSummary.axisScores?.A_calculationAccuracy?.status === 'PARTIAL' &&
+    rpiSummary.axisScores.A_calculationAccuracy.score < rpiSummary.axisScores.A_calculationAccuracy.maxPoints &&
+    rpiSummary.axisScores.A_calculationAccuracy.coverageRate < 100,
+  JSON.stringify(rpiSummary.axisScores?.A_calculationAccuracy));
 check('RPI truth separation reports no current engine rule failures',
   rpiSummary.truthSeparation?.engineRuleFailureCount === 0,
   JSON.stringify(rpiSummary.truthSeparation));

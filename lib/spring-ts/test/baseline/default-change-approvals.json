@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "spring-ts.default-change-approval.v1",
+  "approvals": [
+    {
+      "fingerprint": "sha256:2b92727a02624e89362b88653e2051b2a8b2c9e88d8e8d5aae8437cda4c7b074",
+      "status": "pending",
+      "reviewedBy": null,
+      "reviewedAt": null,
+      "evidence": [],
+      "note": "Current origin/main..HEAD snapshot delta remains blocked. Promote to approved only after independent expert review of every changed judgement and output field."
+    }
+  ]
+}

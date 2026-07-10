@@ -2,8 +2,8 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
-    // src/golden.test.ts depends on docs/_golden/ which is not shipped
-    // in this library copy, so it is excluded.
+    // src/golden.test.ts is quarantined until an authority-reviewed
+    // docs/_golden/golden_cases.json is restored. Do not count it as coverage.
     include: [
       'src/api/**/*.test.ts',
       'src/artifacts/**/*.test.ts',

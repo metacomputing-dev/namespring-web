@@ -1,32 +1,16 @@
 {
   "schemaVersion": "spring-ts.source-tier-summary.v1",
-  "status": "PASS",
-  "scanned": 99,
-  "violationCount": 0,
-  "authorityTruthEligibleCount": 56,
-  "nonEligibleCount": 33,
+  "status": "FAIL",
+  "scanned": 118,
+  "violationCount": 25,
+  "authorityTruthEligibleCount": 30,
+  "nonEligibleCount": 88,
   "byTier": {
-    "T1_HYPOTHESIS": {
-      "recordCount": 8,
-      "authorityTruthEligible": 0,
-      "nonEligible": 8,
-      "files": [
-        "test/baseline/authority/_authority_intake_template/EXAMPLE_demonstration_only.json",
-        "test/baseline/authority/training_derived/td_01_jeonggwan_sinkang.json",
-        "test/baseline/authority/training_derived/td_02_jongjae_buwi.json",
-        "test/baseline/authority/training_derived/td_03_siksinsangaeng.json",
-        "test/baseline/authority/training_derived/td_04_insungtuchu_haksja.json",
-        "test/baseline/authority/training_derived/td_05_chunggeuk_hyungmyeong.json",
-        "test/baseline/authority/training_derived/td_06_johu_hanmyeong.json",
-        "test/fixtures/jonggyeok_cases.json"
-      ]
-    },
     "T3_AUTHORED_INTERPRETATION": {
-      "recordCount": 32,
-      "authorityTruthEligible": 26,
-      "nonEligible": 6,
+      "recordCount": 52,
+      "authorityTruthEligible": 0,
+      "nonEligible": 52,
       "files": [
-        "test/baseline/authority/_authority_intake_template/template.flat-case.json",
         "test/baseline/authority/chumyeongga/chu_32.json",
         "test/baseline/authority/chumyeongga/chu_37.json",
         "test/baseline/authority/figures/jeong_juyeong.json",
@@ -57,16 +41,47 @@
         "data/sources/phonetic.sources.json",
         "data/sources/phonetic.sources.json#sources[2].sourceTier:phonetic_flow_display_policy",
         "data/sources/phonetic.sources.json#sources[3].sourceTier:phonetic_score_separation_policy",
-        "data/sources/unihan.sources.json#sources[2].sourceTier:radical_element_hint_policy"
+        "data/sources/unihan.sources.json#sources[2].sourceTier:radical_element_hint_policy",
+        "test/fixtures/jonggyeok_authority_cases.json#_meta.sourceTier",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[0].sourceTier:auth-jong-001",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[1].sourceTier:auth-jong-002",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[2].sourceTier:auth-jong-003",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[3].sourceTier:auth-jong-004",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[4].sourceTier:auth-jong-005",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[5].sourceTier:auth-jong-006",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[6].sourceTier:auth-jong-007",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[7].sourceTier:auth-jong-008",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[8].sourceTier:auth-jong-009",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[9].sourceTier:auth-jong-010",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[10].sourceTier:auth-jong-011",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[11].sourceTier:auth-jong-012",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[12].sourceTier:auth-jong-013",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[13].sourceTier:auth-jong-014",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[14].sourceTier:auth-jong-015",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[15].sourceTier:auth-jong-016",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[16].sourceTier:auth-jong-017",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[17].sourceTier:auth-jong-018",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[18].sourceTier:auth-jong-019",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[19].sourceTier:auth-jong-020"
       ]
     },
     "T4_PRIMARY_TEXT": {
-      "recordCount": 12,
+      "recordCount": 22,
       "authorityTruthEligible": 9,
-      "nonEligible": 3,
+      "nonEligible": 13,
       "files": [
         "test/baseline/authority/classical/myeongri_jonheom_pillars.json",
         "test/baseline/authority/classical/public_text_rule_snippets.json",
+        "test/baseline/authority/classical/public_text_rule_snippets.json#snippets[0].sourceTier:stem_transparency_renyuan_touwang",
+        "test/baseline/authority/classical/public_text_rule_snippets.json#snippets[1].sourceTier:stem_transparency_toucai_guilu",
+        "test/baseline/authority/classical/public_text_rule_snippets.json#snippets[2].sourceTier:seasonal_command_month_order",
+        "test/baseline/authority/classical/public_text_rule_snippets.json#snippets[3].sourceTier:seasonal_command_de_ling",
+        "test/baseline/authority/classical/public_text_rule_snippets.json#snippets[4].sourceTier:special_frame_cong_cai",
+        "test/baseline/authority/classical/public_text_rule_snippets.json#snippets[5].sourceTier:special_frame_cong_sha",
+        "test/baseline/authority/classical/public_text_rule_snippets.json#snippets[6].sourceTier:special_frame_zhuan_wang",
+        "test/baseline/authority/classical/public_text_rule_snippets.json#snippets[7].sourceTier:useful_god_conflict_fire_water_wood_metal",
+        "test/baseline/authority/classical/public_text_rule_snippets.json#snippets[8].sourceTier:disease_remedy_remove_disease",
+        "test/baseline/authority/classical/public_text_rule_snippets.json#snippets[9].sourceTier:tongguan_bridge",
         "test/baseline/authority/jonheom/05_瞿鸿玑.json",
         "test/baseline/authority/jonheom/07_钱能训.json",
         "test/baseline/authority/jonheom/10_伍廷芳.json",
@@ -77,6 +92,20 @@
         "data/sources/classical-myeongri.sources.json#sources[0].sourceTier:yuanhai_ziping",
         "data/sources/classical-myeongri.sources.json#sources[1].sourceTier:ditian_sui_chanwei",
         "data/sources/classical-myeongri.sources.json#sources[2].sourceTier:sanming_tonghui"
+      ]
+    },
+    "T1_HYPOTHESIS": {
+      "recordCount": 7,
+      "authorityTruthEligible": 0,
+      "nonEligible": 7,
+      "files": [
+        "test/baseline/authority/training_derived/td_01_jeonggwan_sinkang.json",
+        "test/baseline/authority/training_derived/td_02_jongjae_buwi.json",
+        "test/baseline/authority/training_derived/td_03_siksinsangaeng.json",
+        "test/baseline/authority/training_derived/td_04_insungtuchu_haksja.json",
+        "test/baseline/authority/training_derived/td_05_chunggeuk_hyungmyeong.json",
+        "test/baseline/authority/training_derived/td_06_johu_hanmyeong.json",
+        "test/fixtures/jonggyeok_cases.json"
       ]
     },
     "T2_REFERENCE_IMPLEMENTATION": {
@@ -132,20 +161,10 @@
     }
   },
   "bySourceType": {
-    "training_derived": {
-      "recordCount": 8,
-      "authorityTruthEligible": 0,
-      "nonEligible": 8
-    },
-    "book": {
-      "recordCount": 1,
-      "authorityTruthEligible": 1,
-      "nonEligible": 0
-    },
     "modern_korean_myeongri_extract": {
       "recordCount": 11,
-      "authorityTruthEligible": 11,
-      "nonEligible": 0
+      "authorityTruthEligible": 0,
+      "nonEligible": 11
     },
     "classical_primary_text_pillars_only": {
       "recordCount": 1,
@@ -157,6 +176,11 @@
       "authorityTruthEligible": 0,
       "nonEligible": 1
     },
+    "classical_public_rule_snippet": {
+      "recordCount": 10,
+      "authorityTruthEligible": 0,
+      "nonEligible": 10
+    },
     "classical_primary_text": {
       "recordCount": 6,
       "authorityTruthEligible": 6,
@@ -164,8 +188,13 @@
     },
     "lecture_casebook": {
       "recordCount": 14,
-      "authorityTruthEligible": 14,
-      "nonEligible": 0
+      "authorityTruthEligible": 0,
+      "nonEligible": 14
+    },
+    "training_derived": {
+      "recordCount": 7,
+      "authorityTruthEligible": 0,
+      "nonEligible": 7
     },
     "reference_implementation": {
       "recordCount": 12,
@@ -296,6 +325,21 @@
       "recordCount": 1,
       "authorityTruthEligible": 0,
       "nonEligible": 1
+    },
+    "authority_corpus_scaffold_with_web_cases": {
+      "recordCount": 1,
+      "authorityTruthEligible": 0,
+      "nonEligible": 1
+    },
+    "web_authored_classical_case": {
+      "recordCount": 13,
+      "authorityTruthEligible": 0,
+      "nonEligible": 13
+    },
+    "web_authored_case_analysis": {
+      "recordCount": 7,
+      "authorityTruthEligible": 0,
+      "nonEligible": 7
     }
   }
 }

@@ -10,9 +10,9 @@
     "T2_REFERENCE_IMPLEMENTATION": {
       "fixtureCount": 12,
       "fixtureStatus": {
-        "PASS": 12,
+        "PASS": 5,
         "FAIL": 0,
-        "N/A": 0
+        "N/A": 7
       },
       "dimensionStatus": {
         "D1": {
@@ -26,9 +26,9 @@
           "N/A": 12
         },
         "D3": {
-          "PASS": 12,
+          "PASS": 0,
           "FAIL": 0,
-          "N/A": 0
+          "N/A": 12
         },
         "D4": {
           "PASS": 0,
@@ -761,8 +761,8 @@
         "fixtureCount": 17,
         "changedFromDefault": 17,
         "unchangedFromDefault": 0,
-        "averageTotalDelta": -1.0059,
-        "averageSajuDelta": -3.9765,
+        "averageTotalDelta": -1,
+        "averageSajuDelta": -3.9118,
         "minTotalDelta": -7.3,
         "maxTotalDelta": 0.6,
         "minSajuDelta": -27,
@@ -804,7 +804,7 @@
         "changedFromDefault": 17,
         "unchangedFromDefault": 0,
         "averageTotalDelta": -0.1,
-        "averageSajuDelta": -0.4118,
+        "averageSajuDelta": -0.3765,
         "minTotalDelta": -0.2,
         "maxTotalDelta": 0.1,
         "minSajuDelta": -0.8,
@@ -845,8 +845,8 @@
         "fixtureCount": 17,
         "changedFromDefault": 17,
         "unchangedFromDefault": 0,
-        "averageTotalDelta": -0.1588,
-        "averageSajuDelta": -0.6176,
+        "averageTotalDelta": -0.1529,
+        "averageSajuDelta": -0.5706,
         "minTotalDelta": -0.3,
         "maxTotalDelta": 0.1,
         "minSajuDelta": -1.2,
@@ -887,8 +887,8 @@
         "fixtureCount": 17,
         "changedFromDefault": 17,
         "unchangedFromDefault": 0,
-        "averageTotalDelta": -1.1412,
-        "averageSajuDelta": -4.5235,
+        "averageTotalDelta": -1.1294,
+        "averageSajuDelta": -4.4294,
         "minTotalDelta": -7.5,
         "maxTotalDelta": 0.7,
         "minSajuDelta": -27.9,
@@ -929,12 +929,12 @@
         "fixtureCount": 17,
         "changedFromDefault": 17,
         "unchangedFromDefault": 0,
-        "averageTotalDelta": 0.1412,
-        "averageSajuDelta": 0.5412,
+        "averageTotalDelta": 0.1235,
+        "averageSajuDelta": 0.5235,
         "minTotalDelta": -0.1,
         "maxTotalDelta": 0.3,
         "minSajuDelta": -0.4,
-        "maxSajuDelta": 1.1,
+        "maxSajuDelta": 1,
         "byReferenceTier": {
           "T2_REFERENCE_IMPLEMENTATION": {
             "fixtureCount": 12,
@@ -1239,32 +1239,32 @@
         "authorityTruthEligible": false,
         "scores": {
           "default": {
-            "total": 60.9,
-            "saju": 68.2
+            "total": 60.3,
+            "saju": 65.9
           },
           "korean": {
-            "total": 60.9,
-            "saju": 68.2
+            "total": 60.3,
+            "saju": 65.9
           },
           "chinese": {
-            "total": 60.5,
-            "saju": 66.3
+            "total": 59.8,
+            "saju": 64.1
           },
           "modern": {
-            "total": 60.7,
-            "saju": 67.4
-          },
-          "korean_modern": {
-            "total": 60.6,
-            "saju": 67
-          },
-          "classical_text": {
             "total": 60.1,
             "saju": 65.2
           },
+          "korean_modern": {
+            "total": 60,
+            "saju": 64.8
+          },
+          "classical_text": {
+            "total": 59.5,
+            "saju": 62.9
+          },
           "naming_safe": {
-            "total": 61.2,
-            "saju": 68.9
+            "total": 60.5,
+            "saju": 66.8
           }
         },
         "deltaVsDefault": {
@@ -1273,24 +1273,24 @@
             "saju": 0
           },
           "chinese": {
-            "total": -0.4,
-            "saju": -1.9
+            "total": -0.5,
+            "saju": -1.8
           },
           "modern": {
             "total": -0.2,
-            "saju": -0.8
+            "saju": -0.7
           },
           "korean_modern": {
             "total": -0.3,
-            "saju": -1.2
+            "saju": -1.1
           },
           "classical_text": {
             "total": -0.8,
             "saju": -3
           },
           "naming_safe": {
-            "total": 0.3,
-            "saju": 0.7
+            "total": 0.2,
+            "saju": 0.9
           }
         }
       },
@@ -1369,32 +1369,32 @@
         "authorityTruthEligible": false,
         "scores": {
           "default": {
-            "total": 64.8,
-            "saju": 45.5
+            "total": 67,
+            "saju": 55.8
           },
           "korean": {
-            "total": 64.8,
-            "saju": 45.5
+            "total": 67,
+            "saju": 55.8
           },
           "chinese": {
-            "total": 64.4,
-            "saju": 43.8
+            "total": 66.8,
+            "saju": 55
           },
           "modern": {
-            "total": 64.6,
-            "saju": 44.8
+            "total": 66.9,
+            "saju": 55.5
           },
           "korean_modern": {
-            "total": 64.5,
-            "saju": 44.5
+            "total": 66.8,
+            "saju": 55.4
           },
           "classical_text": {
-            "total": 64.1,
-            "saju": 42.7
+            "total": 66.6,
+            "saju": 54.5
           },
           "naming_safe": {
-            "total": 65,
-            "saju": 46.6
+            "total": 67.1,
+            "saju": 56.4
           }
         },
         "deltaVsDefault": {
@@ -1403,24 +1403,24 @@
             "saju": 0
           },
           "chinese": {
-            "total": -0.4,
-            "saju": -1.7
+            "total": -0.2,
+            "saju": -0.8
           },
           "modern": {
-            "total": -0.2,
-            "saju": -0.7
+            "total": -0.1,
+            "saju": -0.3
           },
           "korean_modern": {
-            "total": -0.3,
-            "saju": -1
+            "total": -0.2,
+            "saju": -0.4
           },
           "classical_text": {
-            "total": -0.7,
-            "saju": -2.8
+            "total": -0.4,
+            "saju": -1.3
           },
           "naming_safe": {
-            "total": 0.2,
-            "saju": 1.1
+            "total": 0.1,
+            "saju": 0.6
           }
         }
       },
@@ -1499,32 +1499,32 @@
         "authorityTruthEligible": false,
         "scores": {
           "default": {
-            "total": 62,
-            "saju": 48.4
+            "total": 62.1,
+            "saju": 48.5
           },
           "korean": {
-            "total": 62,
-            "saju": 48.4
+            "total": 62.1,
+            "saju": 48.5
           },
           "chinese": {
-            "total": 61.8,
-            "saju": 47.4
+            "total": 61.9,
+            "saju": 47.6
           },
           "modern": {
             "total": 62,
-            "saju": 48
+            "saju": 48.2
           },
           "korean_modern": {
-            "total": 61.9,
-            "saju": 47.8
+            "total": 62,
+            "saju": 48
           },
           "classical_text": {
             "total": 61.7,
-            "saju": 46.9
+            "saju": 47.1
           },
           "naming_safe": {
             "total": 62.2,
-            "saju": 49
+            "saju": 49.1
           }
         },
         "deltaVsDefault": {
@@ -1534,22 +1534,22 @@
           },
           "chinese": {
             "total": -0.2,
-            "saju": -1
+            "saju": -0.9
           },
           "modern": {
-            "total": 0,
-            "saju": -0.4
+            "total": -0.1,
+            "saju": -0.3
           },
           "korean_modern": {
             "total": -0.1,
-            "saju": -0.6
+            "saju": -0.5
           },
           "classical_text": {
-            "total": -0.3,
-            "saju": -1.5
+            "total": -0.4,
+            "saju": -1.4
           },
           "naming_safe": {
-            "total": 0.2,
+            "total": 0.1,
             "saju": 0.6
           }
         }
@@ -2077,7 +2077,7 @@
     ],
     "authorityFixtureCoverage": {
       "scorableAuthorityFixtures": 0,
-      "nonScorableAuthorityFixtures": 78,
+      "nonScorableAuthorityFixtures": 76,
       "pillarOnlyAuthorityFixtures": 75,
       "ruleSnippetCollections": 1,
       "note": "Authority casebooks are source-tiered, but current records are not full naming-score inputs with birth + surname + givenName."

@@ -2,22 +2,23 @@
   "schemaVersion": "spring-ts.rpi-summary.v1",
   "note": "Unmeasured or truth-insufficient axes score 0 in rawRpi and are also reported separately to avoid mixing missing truth with engine failure.",
   "rawRpi": {
-    "score": 45,
+    "score": 17.06,
     "maxPoints": 100
   },
   "measuredOnlyRpi": {
-    "score": 45,
-    "maxPoints": 60,
-    "percent": 75
+    "score": 17.06,
+    "maxPoints": 50,
+    "percent": 34.1
   },
   "axisScores": {
     "A_calculationAccuracy": {
       "maxPoints": 15,
-      "score": 15,
-      "status": "PASS",
+      "score": 7.06,
+      "status": "PARTIAL",
       "pass": 8,
       "fail": 0,
-      "na": 9
+      "na": 9,
+      "coverageRate": 47.1
     },
     "B_legalHanjaData": {
       "maxPoints": 15,
@@ -241,8 +242,8 @@
           "v1V2Diverged": 10,
           "simpleVsV1Diverged": 0,
           "totalAbsDelta": {
-            "saju": 1.7,
-            "total": 0.5
+            "saju": 1.8,
+            "total": 0.4
           },
           "rows": [
             {
@@ -345,23 +346,23 @@
               "id": "fix-05",
               "label": "2005-12-25 06:00 male — 겨울 조후 case (한랭)",
               "simple": {
-                "total": 60.9,
-                "saju": 68.2
+                "total": 60.3,
+                "saju": 65.9
               },
               "v1": {
-                "total": 60.9,
-                "saju": 68.2
+                "total": 60.3,
+                "saju": 65.9
               },
               "v2": {
-                "total": 61,
-                "saju": 68.2
+                "total": 60.3,
+                "saju": 65.9
               },
               "simpleVsV1Delta": {
                 "total": 0,
                 "saju": 0
               },
               "delta": {
-                "total": 0.1,
+                "total": 0,
                 "saju": 0
               }
             },
@@ -393,16 +394,16 @@
               "id": "fix-07",
               "label": "1957-02-04 male — 입춘 boundary",
               "simple": {
-                "total": 64.8,
-                "saju": 45.5
+                "total": 67,
+                "saju": 55.8
               },
               "v1": {
-                "total": 64.8,
-                "saju": 45.5
+                "total": 67,
+                "saju": 55.8
               },
               "v2": {
-                "total": 64.6,
-                "saju": 44.9
+                "total": 66.8,
+                "saju": 55.2
               },
               "simpleVsV1Delta": {
                 "total": 0,
@@ -441,16 +442,16 @@
               "id": "fix-09",
               "label": "1988-05-05 male — 입하 boundary",
               "simple": {
-                "total": 62,
-                "saju": 48.4
+                "total": 62.1,
+                "saju": 48.5
               },
               "v1": {
-                "total": 62,
-                "saju": 48.4
+                "total": 62.1,
+                "saju": 48.5
               },
               "v2": {
-                "total": 62,
-                "saju": 48.4
+                "total": 62.1,
+                "saju": 48.6
               },
               "simpleVsV1Delta": {
                 "total": 0,
@@ -458,7 +459,7 @@
               },
               "delta": {
                 "total": 0,
-                "saju": 0
+                "saju": 0.1
               }
             },
             {
@@ -657,11 +658,11 @@
         },
         "jonggyeokFixtures": {
           "total": 9,
-          "v1V2Diverged": 4,
+          "v1V2Diverged": 5,
           "simpleVsV1Diverged": 0,
           "totalAbsDelta": {
             "saju": 0.5,
-            "total": 0.1
+            "total": 0.2
           },
           "rows": [
             {
@@ -670,22 +671,22 @@
               "expectedJonggyeokType": "HUA_QI",
               "simple": {
                 "total": 62,
-                "saju": 54.8
+                "saju": 54.9
               },
               "v1": {
                 "total": 62,
-                "saju": 54.8
+                "saju": 54.9
               },
               "v2": {
-                "total": 62,
-                "saju": 54.8
+                "total": 62.1,
+                "saju": 54.9
               },
               "simpleVsV1Delta": {
                 "total": 0,
                 "saju": 0
               },
               "delta": {
-                "total": 0,
+                "total": 0.1,
                 "saju": 0
               }
             },
@@ -695,15 +696,15 @@
               "expectedJonggyeokType": "ZHUAN_WANG",
               "simple": {
                 "total": 57.9,
-                "saju": 42.1
+                "saju": 42.2
               },
               "v1": {
                 "total": 57.9,
-                "saju": 42.1
+                "saju": 42.2
               },
               "v2": {
                 "total": 57.9,
-                "saju": 42.1
+                "saju": 42.2
               },
               "simpleVsV1Delta": {
                 "total": 0,
@@ -903,26 +904,28 @@
     },
     "F_explainabilityUxSurface": {
       "maxPoints": 10,
-      "score": 10,
-      "status": "PASS",
-      "pass": 12,
+      "score": 0,
+      "status": "NOT_MEASURED",
+      "reason": "No card-surface fixture denominator available.",
+      "pass": 0,
       "fail": 0,
-      "na": 5
+      "na": 17,
+      "coverageRate": 0
     },
     "G_validationGovernance": {
       "maxPoints": 10,
-      "score": 10,
-      "status": "PASS",
-      "sourceTierScanned": 99,
-      "sourceTierViolations": 0
+      "score": 0,
+      "status": "FAIL",
+      "sourceTierScanned": 118,
+      "sourceTierViolations": 25
     }
   },
   "qualityGate": {
-    "overall": "PASS",
+    "overall": "FAIL",
     "totals": {
-      "pass": 15,
+      "pass": 8,
       "fail": 0,
-      "na": 2,
+      "na": 9,
       "total": 17
     },
     "dimensions": {
@@ -939,10 +942,10 @@
         "status": "N/A"
       },
       "D3": {
-        "pass": 12,
+        "pass": 0,
         "fail": 0,
-        "na": 5,
-        "status": "PASS"
+        "na": 17,
+        "status": "N/A"
       },
       "D4": {
         "pass": 0,
@@ -954,10 +957,10 @@
         "pass": 8,
         "fail": 0,
         "na": 9,
-        "status": "PASS"
+        "status": "PARTIAL"
       }
     },
-    "exitCode": 0
+    "exitCode": 1
   },
   "truthSeparation": {
     "insufficientSourceTruthCount": 17,
@@ -1184,8 +1187,8 @@
         "v1V2Diverged": 10,
         "simpleVsV1Diverged": 0,
         "totalAbsDelta": {
-          "saju": 1.7,
-          "total": 0.5
+          "saju": 1.8,
+          "total": 0.4
         },
         "rows": [
           {
@@ -1288,23 +1291,23 @@
             "id": "fix-05",
             "label": "2005-12-25 06:00 male — 겨울 조후 case (한랭)",
             "simple": {
-              "total": 60.9,
-              "saju": 68.2
+              "total": 60.3,
+              "saju": 65.9
             },
             "v1": {
-              "total": 60.9,
-              "saju": 68.2
+              "total": 60.3,
+              "saju": 65.9
             },
             "v2": {
-              "total": 61,
-              "saju": 68.2
+              "total": 60.3,
+              "saju": 65.9
             },
             "simpleVsV1Delta": {
               "total": 0,
               "saju": 0
             },
             "delta": {
-              "total": 0.1,
+              "total": 0,
               "saju": 0
             }
           },
@@ -1336,16 +1339,16 @@
             "id": "fix-07",
             "label": "1957-02-04 male — 입춘 boundary",
             "simple": {
-              "total": 64.8,
-              "saju": 45.5
+              "total": 67,
+              "saju": 55.8
             },
             "v1": {
-              "total": 64.8,
-              "saju": 45.5
+              "total": 67,
+              "saju": 55.8
             },
             "v2": {
-              "total": 64.6,
-              "saju": 44.9
+              "total": 66.8,
+              "saju": 55.2
             },
             "simpleVsV1Delta": {
               "total": 0,
@@ -1384,16 +1387,16 @@
             "id": "fix-09",
             "label": "1988-05-05 male — 입하 boundary",
             "simple": {
-              "total": 62,
-              "saju": 48.4
+              "total": 62.1,
+              "saju": 48.5
             },
             "v1": {
-              "total": 62,
-              "saju": 48.4
+              "total": 62.1,
+              "saju": 48.5
             },
             "v2": {
-              "total": 62,
-              "saju": 48.4
+              "total": 62.1,
+              "saju": 48.6
             },
             "simpleVsV1Delta": {
               "total": 0,
@@ -1401,7 +1404,7 @@
             },
             "delta": {
               "total": 0,
-              "saju": 0
+              "saju": 0.1
             }
           },
           {
@@ -1600,11 +1603,11 @@
       },
       "jonggyeokFixtures": {
         "total": 9,
-        "v1V2Diverged": 4,
+        "v1V2Diverged": 5,
         "simpleVsV1Diverged": 0,
         "totalAbsDelta": {
           "saju": 0.5,
-          "total": 0.1
+          "total": 0.2
         },
         "rows": [
           {
@@ -1613,22 +1616,22 @@
             "expectedJonggyeokType": "HUA_QI",
             "simple": {
               "total": 62,
-              "saju": 54.8
+              "saju": 54.9
             },
             "v1": {
               "total": 62,
-              "saju": 54.8
+              "saju": 54.9
             },
             "v2": {
-              "total": 62,
-              "saju": 54.8
+              "total": 62.1,
+              "saju": 54.9
             },
             "simpleVsV1Delta": {
               "total": 0,
               "saju": 0
             },
             "delta": {
-              "total": 0,
+              "total": 0.1,
               "saju": 0
             }
           },
@@ -1638,15 +1641,15 @@
             "expectedJonggyeokType": "ZHUAN_WANG",
             "simple": {
               "total": 57.9,
-              "saju": 42.1
+              "saju": 42.2
             },
             "v1": {
               "total": 57.9,
-              "saju": 42.1
+              "saju": 42.2
             },
             "v2": {
               "total": 57.9,
-              "saju": 42.1
+              "saju": 42.2
             },
             "simpleVsV1Delta": {
               "total": 0,

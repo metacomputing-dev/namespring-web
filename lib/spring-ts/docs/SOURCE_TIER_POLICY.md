@@ -18,6 +18,10 @@ Only `T5_OFFICIAL`, `T4_PRIMARY_TEXT`, and explicitly reviewed `T3_AUTHORED_INTE
 records may drive pass/fail authority accuracy. `T0_*` and `T1_*` records must
 never enter authority denominators. `T2_*` records may be used for comparison,
 regression observation, or hypothesis discovery, but not as standalone truth.
+Newly promoted T3 records must record an `authorityReview` block containing
+`status: "approved"`, a non-empty `reviewedBy`, and an ISO `reviewedAt` date.
+Legacy T3 records without this block require review migration; a source URL by
+itself is not review evidence.
 
 ## Required Metadata
 
@@ -46,6 +50,17 @@ status. If a `T0_*` or `T1_*` record is placed where the gate would consume it
 as authority truth, the gate fails with a source-tier violation. Low-tier
 records can remain in the repository as hypotheses, compatibility references,
 or regression observations when `authorityTruthEligible` is `false`.
+
+The audit also rejects `T3_AUTHORED_INTERPRETATION` with
+`authorityTruthEligible: true` unless `authorityReview` is approved and
+complete. The rule is enforced both when auditing metadata and when selecting
+records for an accuracy denominator. As of 2026-07-10, 25 legacy T3
+records still require migration or demotion and therefore remain an explicit
+release blocker.
+
+Exact default-output change approval is a separate control documented in
+`RELEASE_APPROVAL_POLICY.md`; source eligibility does not automatically approve
+a branch snapshot delta.
 
 `npm run ci:no-ai-policy` adds the Phase 9.3 recursive guard for AI-derived
 records and runtime LLM dependencies. See `NO_AI_POLICY.md` for policy markers

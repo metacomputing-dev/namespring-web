@@ -15,30 +15,30 @@ Artifacts:
 ## Summary
 
 This is a governed measurement baseline, not a claim that the product is
-45/100 in user-facing quality. Axes without a current source-backed denominator
+17.06/100 in user-facing quality. Axes without a current source-backed denominator
 score `0` in `rawRpi` and are called out separately so missing truth is not
 mixed with engine failure.
 
 | Metric | Current |
 |---|---:|
-| Raw governed RPI | 45 / 100 |
-| Measured-only RPI | 45 / 60 |
-| Source-tier audit | PASS |
-| Source-tier records scanned | 82 |
-| Authority-truth eligible records | 52 |
-| Non-eligible records | 30 |
+| Raw governed RPI | 17.06 / 100 |
+| Measured-only RPI | 17.06 / 50 (34.1%) |
+| Source-tier audit | FAIL (25 unreviewed T3 records) |
+| Source-tier records scanned | 118 |
+| Authority-truth eligible records | 30 |
+| Non-eligible records | 88 |
 
 ## A-G Axis Baseline
 
 | Axis | Max | Current | Status | Basis |
 |---|---:|---:|---|---|
-| A. Calculation accuracy | 15 | 15 | PASS | D5 edge/stability checks: 8 PASS / 0 FAIL |
+| A. Calculation accuracy | 15 | 7.06 | PARTIAL | D5 edge/stability checks: 8 PASS / 0 FAIL / 9 N/A; coverage 47.1% |
 | B. Legal hanja/data | 15 | 10 | PARTIAL_OFFICIAL_DENOMINATOR | 9,389 official allowed entries mirrored; 106 candidate deltas remain unresolved |
 | C. Gyeokguk/yongshin rules | 25 | 0 | INSUFFICIENT_TRUTH | D1 has no T3+ authority-truth denominator for baseline fixtures |
 | D. Ten-god position weighting | 10 | 0 | MEASURED_OPT_IN_V2 | `positional_weighted_v2` is opt-in; simple vs v1 divergence remains 0 / 24 and v1/v2 baseline comparison is recorded |
 | E. Integrated naming score | 15 | 0 | NOT_MEASURED | Phase 6 score-vector metric not implemented yet |
-| F. Explainability/UX surface | 10 | 10 | PASS | D3 card surface checks: 12 PASS / 0 FAIL |
-| G. Validation/governance | 10 | 10 | PASS | Source-tier audit PASS, 0 violations |
+| F. Explainability/UX surface | 10 | 0 | NOT_MEASURED | T2 oracle card lists are comparison-only, not authority truth |
+| G. Validation/governance | 10 | 0 | FAIL | Source-tier audit FAIL, 25 unreviewed T3 violations |
 
 ## Ten-God Position Weighting
 
@@ -52,9 +52,9 @@ changing the public default path.
 
 | Fixture set | Diverged | Total |
 |---|---:|---:|
-| Default baseline fixtures | 0 | 15 |
+| Default baseline fixtures | 0 | 17 |
 | Jonggyeok stress fixtures | 0 | 9 |
-| Combined observation | 0 | 24 |
+| Combined observation | 0 | 26 |
 
 The synthetic scorer-only fixture now distinguishes source layer in v1 and both
 source layer plus pillar position in v2:
@@ -69,9 +69,9 @@ source layer plus pillar position in v2:
 This shows the current source-layer weights are visible before normalization,
 but month/hour pillar position still collapses in v1. The v2 opt-in path keeps
 `presenceCounts` separate from `visibilityCounts` and anchors deviations through
-`expectedPresenceByChartShape`; current metrics record `10 / 15` default
+`expectedPresenceByChartShape`; current metrics record `10 / 17` default
 fixtures and `5 / 9` jonggyeok fixtures diverging between v1 and v2 while
-simple vs v1 remains `0 / 24`.
+simple vs v1 remains `0 / 26`.
 
 ## Truth Separation
 
@@ -80,22 +80,22 @@ accuracy because they do not have linked T3+ authority-truth records.
 
 | Bucket | Count |
 |---|---:|
-| Insufficient source/truth | 15 |
+| Insufficient source/truth | 17 |
 | Authority matches | 0 |
 | Engine rule failures | 0 |
 
 This means the dashboard is currently saying: "we do not yet have sufficient
-truth for D1 on these fixtures", not "the engine failed 15 D1 checks".
+truth for D1 on these fixtures", not "the engine failed 17 D1 checks".
 
 ## Source-Tier Split
 
 | Reference tier for baseline fixtures | Fixtures | D1 | D3 | D5 |
 |---|---:|---|---|---|
-| T2_REFERENCE_IMPLEMENTATION | 12 | 12 N/A | 12 PASS | 5 PASS / 7 N/A |
-| NO_REFERENCE | 3 | 3 N/A | 3 N/A | 3 PASS |
+| T2_REFERENCE_IMPLEMENTATION | 12 | 12 N/A | 12 N/A | 5 PASS / 7 N/A |
+| NO_REFERENCE | 5 | 5 N/A | 5 N/A | 3 PASS / 2 N/A |
 
 The broader source inventory contains T3/T4 authority records, but the current
-15 baseline fixtures are not directly linked to those authority records as D1
+17 baseline fixtures are not directly linked to those authority records as D1
 truth. PRs after Phase 0 should either add explicit fixture links or keep these
 cases in the insufficient-truth bucket.
 
@@ -132,12 +132,12 @@ default mode, not as authority accuracy.
 
 | schoolPreset | Fixtures | Changed from default | Avg total delta | Avg saju delta |
 |---|---:|---:|---:|---:|
-| korean | 15 | 0 | 0.0000 | 0.0000 |
-| chinese | 15 | 15 | -0.7067 | -2.5933 |
-| modern | 15 | 14 | -0.1133 | -0.4467 |
-| korean_modern | 15 | 15 | -0.1667 | -0.6733 |
-| classical_text | 15 | 15 | -0.8133 | -3.0867 |
-| naming_safe | 15 | 15 | 0.1800 | 0.7067 |
+| korean | 17 | 0 | 0.0000 | 0.0000 |
+| chinese | 17 | 17 | -1.0000 | -3.9118 |
+| modern | 17 | 17 | -0.1000 | -0.3765 |
+| korean_modern | 17 | 17 | -0.1529 | -0.5706 |
+| classical_text | 17 | 17 | -1.1294 | -4.4294 |
+| naming_safe | 17 | 17 | 0.1235 | 0.5235 |
 
 The Korean preset is a zero-op by design. The other presets alter scores, but
 those deltas are not promoted to authority accuracy without a source-tiered
