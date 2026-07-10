@@ -40,6 +40,40 @@ EOL/내용 오염될 수 있다. 반드시 `lib/saju-ts`에서 실행. 오염 �
 - **증분 광맥**: 魏多亮 실전명례 12페이지 중 1페이지만 소화 — 추가 수집으로 20건 도달 가능성 있음. sourceTier: 魏多亮 → T3 정박 가능하나 Sina 소멸 리스크 → 아카이브(웹아카이브 스냅샷) 필수.
 - **intake 규칙**: tmp 초안을 fixture에 직접 반입 금지. 초안의 8단계 절차(원문 재검증→만세력 재검증→타임존/조자시 정책(C-08 00:10 경계)→假從 정책→매핑 리뷰→저자 상한) 통과분만 반입.
 
+### 0.4 세션 기록 (2026-07-10 저녁 — 진리값·판결·채굴 완결, 어느 모델이든 여기서 이어라)
+
+**완료된 것** (증거 전부 `docs/dossiers/truth-panel-2026-07-10/` — 먼저 그 README를 읽어라):
+- 17픽스처 진리값 패널 105/105 + Codex gpt-5.5 교차검증(51판정: CONFIRM 46/WEAKEN 2/REJECT 1/SKIP 2)
+- 엔진 불일치 판결 10/10 + 종합: ENGINE_BUG 3 / CALIBRATION 6 / DOCTRINE_AMBIGUITY 2 / PANEL_ERROR 0
+- 종격 채굴 2차: ACCEPT 46/HOLD 5/REJECT 0, 달력 정합 14/15. 假從 정책 3표 만장일치 INCLUDE_WITH_FRAMEQUALITY(소유자 승인 대기)
+- 커밋: fd3857903(차트 정합 테스트)·9c8da13b7(NO_AI_POLICY v2 2층 리뷰)·cf8b08006(D2/D4 평가자+정직 D5)
+- cf8b08006 검증 재현 완료: gate-status 27/27, narrative 17/0×2, snapshot 17/0, service-visible 13/0,
+  게이트 D5 PASS(14/0/na0/notApp3)·D2/D4 N/A(17)·overall PARTIAL. **부수 수정**: baseline-metrics의
+  axis-A 단언이 옛 의미론(PARTIAL 강제)이라 1건 FAIL → 정직성 불변식으로 갱신(38/0). cf8b08006이
+  baseline-metrics를 검증 목록에서 누락했던 것 — 게이트/집계 의미론 변경 시 이 테스트도 반드시 함께 확인.
+
+**다음 작업 착수 순서** (순서 근거: 진리값이 확정되어야 수정 계측의 방향 판정이 가능):
+1. **엔진 수정 — 판결 기반** (도시에 README §2·§6): 1층(일간 자기 셈입, `saju-ts/src/core/scoring.ts:106-113`
+   → `rules/facts.ts:2384` 소비처) 제거부터. 이어 2층(deLingDiShi 월령 가중·囚/休 서열·조후 maxBoost·
+   flat strongPref — 판결별 file:line은 mismatch-verdicts-final.json의 recommendation 필드).
+   **전 항목 §1 계측 절차 필수**(스냅샷·이름점수 파급 큼). DOCTRINE_AMBIGUITY 2건(fix-02 격국,
+   fix-05 강약 hedge)은 **수정 금지** — 이설 보존.
+2. **authority truth 파일 저작** (`test/baseline/authority/<fixture-id>.json`, 스키마는 그 디렉터리
+   README): expected/narrativeClaims는 truth-panel-output-final.json에서. fix-02 격국 드랍(또는
+   양쪽 허용), fix-05 강약은 band만. NO_AI_POLICY v2 필수 메타(sourceType
+   ai_panel_adjudicated_interpretation·aiGenerated true·panelModels 2+·adversarialVerification true·
+   dossier 경로·authorityReview)는 도시에 README §6 — **소유자 승인 없이는 check_no_ai_policy가
+   차단하며 이는 의도된 것**(우회 금지). 랜딩하면 D2/D4가 N/A(17)에서 실측으로 전환된다.
+3. **코퍼스 intake** (§0.3 8단계 절차 + 假從 정책 조건 6개): ACCEPT 46 중 출생시각 완비 행 선별,
+   Sina 원문 web.archive.org 아카이브 선행, 저자 상한 50%, KCI 이재승 행 우선(한국어 T3).
+   corpus-intake-draft.json(N-01~15)은 초안일 뿐 직접 반입 금지.
+
+**검증 기대치 (2026-07-10 실측)**: saju-ts vitest **254/254(42파일)**, baseline 17/0,
+test:baseline-metrics **38/0**, test:quality-gate 20/0, compat **208/0**, jonggyeok-authority
+**168/0+INFO**(pillar-only 20행·게이트 유예 = 정상), narrative golden 17/0, service-visible 13/0.
+⚠ composite-quality-gate의 main..HEAD diff=0 검사 FAIL은 기본값 변경 브랜치에서 설계상 정상(재조사 금지).
+⚠ GitHub Actions는 org 결제 잠금으로 미기동 — CI 결과를 기다리지 마라(로컬 체인으로 검증).
+
 ### 0.1 일운(9-6) 선행 검증 — 완료, 결과 기록
 
 이원 경로(saju-ts calcDayPillar vs spring-ts getDailyFortune) **완전 일치 실측**:

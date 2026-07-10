@@ -245,7 +245,7 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 | D3 | 일운 이관 정책: saju-ts 일운 활성 시 spring-ts 줄리안 계산기와의 관계(대체/병존/검증만) | 9-6 |
 | D4 | 명식판 상문·조객 채택 여부(유파 병존 — 명식판·유년판) | 9-7 |
 | D5 | 판정 분포 대조용 외부 데이터 소스(어떤 오라클로 강약/용신을 대조할지) | PR-13 |
-| D6 | 종격 승격 검증 경로: birth-time 코퍼스 수집 vs pillar 직접 입력 게이트 재정의 | PR-11, CT-4 |
+| D6 | 종격 승격 검증 경로: birth-time 코퍼스 수집 vs pillar 직접 입력 게이트 재정의. **假從 산입 하위 결정은 정책 패널 3표 만장일치 `INCLUDE_WITH_FRAMEQUALITY` 권고 완료**(2026-07-10, 조건 6개 — `docs/dossiers/truth-panel-2026-07-10/README.md` §4) — 소유자 승인만 대기 | PR-11, CT-4 |
 | D7 | 프론트 개방: 윤달(isLeapMonth) 입력 UI, 운성/십신 전문 모드 표 | HOLD |
 
 ## 9. 진행 상태 표 (완료 시 갱신 — 커밋 해시 필수)
@@ -292,5 +292,7 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 | 13 오라클·재캘리브레이션 | ⬜ | | | D5 선행 |
 | 14 신규 해석 축 | ⬜ | | | 육친 우선 |
 | 15 후속 감사 | ⬜ | | | 방법 설계부터 |
-| CT-4 종격 birth 후보 수집 | 🔶 1차 완료 | — (tmp 초안) | 2026-07-09 | 후보 9건(즉시 8+보류 1) — `tmp/ct4-jonggyeok-birth-candidates.md`. 게이트 20건 대비 11+건 부족. ⚠구조 리스크: 단일 저자(魏多亮 7/9)·假從 편중(6/9). **선행 결정 필요: 假從을 CONG_* 게이트 분모에 산입할지(D6에 병합)**. 증분 광맥: 魏多亮 실전명례 12页 중 1页만 소화 |
+| CT-4 종격 birth 후보 수집 | 🔶 2차 완료 | pending (도시에) | 2026-07-10 | 2차 채굴+적대검증 완결: **ACCEPT 46 / HOLD 5 / REJECT 0**(기존 9건 별도) — `docs/dossiers/truth-panel-2026-07-10/mining-output-final.json`. 이재승 KCI 2편(한국어 T3) 9건 확보로 저자 편중 완화. 신규 N-01~15 달력 정합 14/15(N-15는 야자시 시두법 — JOJA_SPLIT 경로). 假從 산입은 정책 패널 만장일치 권고 완료(§8 D6) — 소유자 승인 후 intake 8단계 진행 |
+| 진리값 패널 (17픽스처) | ✅ 도시에 완결 | pending (도시에) | 2026-07-10 | 105/105 에이전트(블라인드 3렌즈×17+화해+적대검증 2×17+정책 3) + Codex gpt-5.5 교차검증(CONFIRM 46/WEAKEN 2/REJECT 1/SKIP 2) — `docs/dossiers/truth-panel-2026-07-10/`. authority truth 승격은 NO_AI_POLICY v2 요건(소유자 authorityReview) 대기 |
+| 엔진 불일치 판결 (10픽스처) | ✅ 도시에 완결 | pending (도시에) | 2026-07-10 | ENGINE_BUG 3(fix-04 강약 일간 자기셈입·fix-07/11 격국 오배속)/CALIBRATION 6/DOCTRINE_AMBIGUITY 2/PANEL_ERROR 0 + 종합. **핵심: scoring.ts:106-113 일간 자기 셈입 단방향 강측 편향(제거만으로 2건 반전 실측)**. 수정 착수 순서는 도시에 §6 — 전 항목 GUIDE §1 계측 필수 |
 | CT-1~CT-3·CT-5 | ⬜ | | | 병렬 가능 |
