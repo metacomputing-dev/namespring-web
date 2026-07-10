@@ -175,13 +175,40 @@ for (const c of authority.cases ?? []) {
   }
 
   birthRows += 1;
-  if (!authorityEligible) continue;
+
+  // Chart fidelity (fail-closed): a birth row must reproduce its declared
+  // source pillars through the engine calendar before any judgment
+  // comparison is meaningful. Foreign-born cases carry timezone/longitude
+  // inside `birth` and an optional per-case `timePolicy` (e.g. clock-time
+  // fidelity for Chinese practitioner cases judged by local clock hour).
+  const fidelityOptions: any = c.timePolicy ? { sajuTimePolicy: c.timePolicy } : {};
+  const fidelityReport: any = await engine.getSajuReport({
+    birth: c.birth,
+    surname: c.surname ?? [{ hangul: '\uAE40', hanja: '\u91D1' }],
+    options: fidelityOptions,
+  });
+  const enginePillars = ['year', 'month', 'day', 'hour'].map((key) => {
+    const pillar = fidelityReport.pillars?.[key];
+    if (!pillar) return '';
+    const stem = pillar.stem?.hanja ?? pillar.stem ?? '';
+    const branch = pillar.branch?.hanja ?? pillar.branch ?? '';
+    return `${stem}${branch}`;
+  });
+  const chartFidelity = validPillars && enginePillars.join(' ') === tokens.join(' ');
+  check(`${c.id}: engine calendar reproduces declared source pillars`,
+    chartFidelity,
+    `engine=[${enginePillars.join(' ')}] source=[${tokens.join(' ')}]`);
+
+  if (!authorityEligible || !chartFidelity) continue;
 
   authorityComparable += 1;
   const sj: any = await engine.getSajuReport({
     birth: c.birth,
     surname: c.surname ?? [{ hangul: '\uAE40', hanja: '\u91D1' }],
-    options: { precisionConfig: { sajuSchoolId: 'jonggyeok.calibrated' } } as any,
+    options: {
+      ...fidelityOptions,
+      precisionConfig: { sajuSchoolId: 'jonggyeok.calibrated' },
+    } as any,
   });
   const type = String(sj.gyeokgukResult?.type ?? sj.gyeokguk?.type ?? '');
   if (type.startsWith(String(c.expectedJonggyeokType))) authorityMatched += 1;
