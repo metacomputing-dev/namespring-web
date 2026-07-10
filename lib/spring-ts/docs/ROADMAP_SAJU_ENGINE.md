@@ -256,9 +256,9 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 
 | 항목 | 상태 | 커밋 | 일자 | 파급 실측/비고 |
 |---|---|---|---|---|
-| P0-1 Draft PR | 🔶 WIP 유지 | PR #653 | 2026-07-10 | review 0건. release gate FAIL(T3 미검토 25건, D1~D4 N/A, D5 PARTIAL), composite 13/1 FAIL이므로 undraft/merge 금지 |
+| P0-1 Draft PR | 🔶 WIP 유지 | PR #653 | 2026-07-10 | review 0건. T3 미검토 25건은 270a0fd66에서 non-eligible로 강등(소스티어 감사 118건 0위반, gate FAIL→PARTIAL). 기본 출력 변경 도시에 `docs/REVIEW_DEFAULT_CHANGE_PR653.md` 작성 — fingerprint 승인은 독립 리뷰어 몫. composite의 default-change 검사는 승인 전 FAIL 유지이므로 undraft/merge 금지. ⚠ GitHub Actions가 org 결제 잠금으로 미기동(2026-07-10) — 잠금 해제 전 CI 검증 불가 |
 | P0-2 테스트 체인 무결성 | ✅ 코드·CI 준비 | pending | 2026-07-10 | saju-ts 42 files/254 tests, spring-ts release regression 및 bridge typecheck 전부 PASS. pull_request workflow와 fail-closed expert-readiness gate 추가 |
-| P0-4 학파 출처 무결성 | 🔴 release 차단 | pending | 2026-07-10 | 18개 프리셋이 참조하는 문서 경로 중 10개가 없음. `validate:school-sources`가 비정상 종료하도록 연결했으며 출처 복구·검토 전 merge 금지 |
+| P0-4 학파 출처 무결성 | 🔶 저작 완료·독립 검토 대기 | 49a785cfa | 2026-07-10 | 누락 10개 출처 문서(docs/11·16·17·18·19·20·22·25·26·27) 전부 저작 — 교리 요약·고전 서지·엔진 매핑(file:line 검증)·검토자 체크리스트 포함, 헤더에 독립 검토 대기 명시. `validate:school-sources` FAIL(23)→PASS(18 프리셋), test:release-tools PASS. 게이트 완결 조건인 독립 검토 메타데이터는 검토 후 기록 |
 | P0-5 호환 계층 분해 | 🔶 부분 완료 | pending | 2026-07-10 | follow potential·strength component·bridge contract·운 관계 계산 중복을 분리/삭제. 대형 adapter와 legacy seam의 mapper 단위 분리는 후속 |
 | P0-3 baseline 픽스처 보강 | ✅ | 75c3cdef5 | 2026-07-09 | 17/17(야자시 창 fix-16 + 음력 윤달 fix-17). 픽스처 수 하드코딩 2곳 동적화(baseline-metrics·quality-gate) |
 | 9-1 운-원국 관계 | ✅ | 8c310a014 | 2026-07-09 | canonical fortune.relations node; springLegacy relationsWithNatal; adapter/report evidence. Natal-only relations and scoring unchanged. Verified: saju-ts 202/0, baseline 17/0, compat 208/0, tiered-shape 1378/0, service-visible 13/0, adapter-daewoon 24/0, transit-luck-report 12/0 |
