@@ -3,7 +3,8 @@
 spring-ts rule quality is based on deterministic code, official data, public
 primary texts, and human-reviewed interpretation. AI-derived material can be
 kept only as a low-tier hypothesis or regression observation. It must never
-become authority truth.
+become authority truth **silently** — the single disclosed, owner-adjudicated
+exception is defined below and everything else remains fail-closed.
 
 ## Data Policy
 
@@ -14,6 +15,30 @@ AI-derived or model-generated records must satisfy all of these constraints:
 - `sourceTier.sourceType` and adjacent provenance fields clearly mark the row
   as AI-derived, training-derived, synthetic, or generated.
 - The record is not counted in pass/fail authority denominators.
+
+## Panel-adjudicated exception (policy v2, 2026-07-10)
+
+Adopted by the project owner on 2026-07-10 (see review-mechanism decision in
+`RELEASE_APPROVAL_POLICY.md`): a record whose judgements were drafted by a
+multi-model AI panel **may** carry `T3_AUTHORED_INTERPRETATION` with
+`authorityTruthEligible: true` only when *all* of the following hold, enforced
+mechanically by `tools/check_no_ai_policy.mjs`:
+
+- `sourceTier.sourceType` is exactly `ai_panel_adjudicated_interpretation`.
+- `sourceTier.aiGenerated` is `true` — concealing AI origin stays a violation;
+  disclosure is what unlocks the exception, never silence.
+- `sourceTier.panelAdjudication` records `models` (2+ distinct model
+  identities), `adversarialVerification: true`, and `dossier` — a repo-relative
+  path to the versioned panel dossier that must exist.
+- `sourceTier.authorityReview` is an approved owner review (status/reviewedBy/
+  reviewedAt), i.e. a named human accepted accountability for the judgement
+  after reading the dossier.
+
+**Honesty boundary:** such records are *panel-adjudicated interpretations*,
+not external-expert certification. Documents and PR text must not describe
+them as independent human expert validation. `data/sources/**` registry rows
+remain fully closed to AI-derived sources — the exception applies to
+authority-truth fixtures only.
 
 Examples of AI markers include:
 

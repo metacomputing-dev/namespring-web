@@ -23,6 +23,20 @@ Newly promoted T3 records must record an `authorityReview` block containing
 Legacy T3 records without this block require review migration; a source URL by
 itself is not review evidence.
 
+### Review mechanism (2026-07-10 owner decision)
+
+This project currently has no external myeongri expert. The owner adopted a
+two-layer review mechanism for every `authorityReview` and approval control:
+**multi-model AI cross-verification** (independent adversarial panel, dossier
+versioned in-repo) as the evidence layer, and the **project owner's signature**
+(`reviewedBy`) as the accountability layer. Records whose *judgements
+originate from* the AI panel additionally use
+`sourceType: "ai_panel_adjudicated_interpretation"` with `aiGenerated: true`
+and a `panelAdjudication` block — see `NO_AI_POLICY.md` "Panel-adjudicated
+exception" for the mechanical requirements. This mechanism is disclosed
+honestly wherever it is used: it is **not** external human expert
+certification, and user-facing claims must not present it as such.
+
 ## Required Metadata
 
 Every authority-style record must include a `sourceTier` object matching
@@ -67,12 +81,15 @@ provenance are preserved verbatim. This makes the tier metadata truthful — the
 records were already excluded from every accuracy denominator by the
 eligibility rule, so no gate arithmetic changed.
 
-**Re-promotion procedure (per record):** an independent expert reviews the
-expected judgement against the cited source, then adds
+**Re-promotion procedure (per record):** the record's expected judgement is
+re-verified against the cited source through the two-layer review mechanism
+above (AI cross-verification dossier + owner signature), then the reviewer adds
 `sourceTier.authorityReview: { "status": "approved", "reviewedBy": "<name>",
 "reviewedAt": "YYYY-MM-DD" }`, restores `authorityTruthEligible: true`, and
 removes `reviewStatus`/`demotedAt`/`demotionNote`. D1 accuracy denominators
-begin consuming the record automatically once it validates.
+begin consuming the record automatically once it validates. (These 25 records
+are human-authored web/lecture interpretations, so they keep their original
+`sourceType` — the panel dossier is verification evidence, not origin.)
 
 Exact default-output change approval is a separate control documented in
 `RELEASE_APPROVAL_POLICY.md`; source eligibility does not automatically approve
