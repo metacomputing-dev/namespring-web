@@ -58,6 +58,10 @@ export type {
   NameGenderTendency,
   // Saju analysis
   SajuSummary,
+  SajuAnalysisStatus,
+  SajuAnalysisReasonCode,
+  SajuAnalysisDiagnostic,
+  SajuSafeAnalysisResult,
   PillarSummary,
   TimeCorrectionSummary,
   StrengthSummary,

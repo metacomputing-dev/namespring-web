@@ -26,7 +26,15 @@ import type {
   SajuAxisStrengthMap, SajuJudgmentStrength, SajuInputUncertaintyAxis,
   GyeokgukCandidateSummary, JonggyeokCandidateSummary, SourceTierMetadata,
   YongshinConsensusScoreboard, LunarConversionSummary, JieProximitySummary,
+  DaeunInfoSummary, SaeunPillarSummary, WolunPillarSummary,
+  SajuAnalysisReasonCode, SajuAnalysisStatus, SajuSafeAnalysisResult,
 } from './types.js';
+import type {
+  LegacySajuOutputV1Contract,
+  LegacyStrengthResultContract,
+  RuntimeLegacySajuConfig,
+  SajuModule,
+} from './saju-bridge-contract.js';
 import { lunarToSolar } from './calendar/korean-lunar-calendar.js';
 import { kasiLunarToSolar } from './calendar/kasi-lunar-api.js';
 
@@ -860,11 +868,6 @@ function classifyDeficientAndExcessive(distribution: Record<string, number>): {
 // ---------------------------------------------------------------------------
 //  Saju module loading (lazy, singleton)
 // ---------------------------------------------------------------------------
-type SajuModule = {
-  analyzeSaju: (input: any, config?: any, options?: any) => any;
-  createBirthInput: (params: any) => any;
-  configFromPreset?: (preset: string) => any;
-};
 
 let sajuModule: SajuModule | null = null;
 
@@ -1101,7 +1104,7 @@ function yearPillarApprox(year: number): { stemCode: string; branchCode: string 
 }
 
 function buildPartialSajuSummary(birth: BirthInfo, parts: KnownBirthParts): SajuSummary {
-  const summary = emptySaju() as SajuSummary & Record<string, unknown>;
+  const summary = emptySaju('BIRTH_INPUT_INSUFFICIENT') as SajuSummary & Record<string, unknown>;
   const mutableSummary = summary as Record<string, any>;
   const interpretation: string[] = [];
 
@@ -1176,7 +1179,9 @@ function buildUnsupportedLunarSajuSummary(
   parts: KnownBirthParts,
   cause: 'partial-lunar-input' | 'conversion-failed',
 ): SajuSummary {
-  const summary = emptySaju() as SajuSummary & Record<string, unknown>;
+  const summary = emptySaju(
+    cause === 'partial-lunar-input' ? 'LUNAR_INPUT_INSUFFICIENT' : 'LUNAR_CONVERSION_UNAVAILABLE',
+  ) as SajuSummary & Record<string, unknown>;
   const mutableSummary = summary as Record<string, any>;
 
   mutableSummary.partialInterpretation = [
@@ -1235,12 +1240,54 @@ async function resolveLunarConversion(
 //  Public: empty SajuSummary (fallback when analysis fails)
 // ---------------------------------------------------------------------------
 
-export function emptySaju(): SajuSummary {
+const SAJU_ANALYSIS_FAILURES: Readonly<Record<
+  SajuAnalysisReasonCode,
+  { readonly status: SajuAnalysisStatus; readonly message: string }
+>> = {
+  SAJU_MODULE_UNAVAILABLE: {
+    status: 'unavailable',
+    message: '사주 분석 모듈을 현재 사용할 수 없습니다.',
+  },
+  BIRTH_INPUT_INSUFFICIENT: {
+    status: 'partial',
+    message: '사주 분석에 필요한 출생 정보가 부족합니다.',
+  },
+  LUNAR_INPUT_INSUFFICIENT: {
+    status: 'partial',
+    message: '음력 사주 분석에는 출생 연·월·일이 모두 필요합니다.',
+  },
+  LUNAR_CONVERSION_UNAVAILABLE: {
+    status: 'unavailable',
+    message: '입력한 음력 날짜를 지원 범위에서 변환할 수 없습니다.',
+  },
+  NEUTRAL_GENDER_ANALYSIS_PARTIAL: {
+    status: 'partial',
+    message: '중성 기준 비교에서 남성·여성 계산 중 하나만 완료되었습니다.',
+  },
+  NEUTRAL_GENDER_ANALYSIS_FAILED: {
+    status: 'failed',
+    message: '중성 기준의 남녀 사주 분석을 모두 완료하지 못했습니다.',
+  },
+  SAJU_INVALID_SCHOOL_PRESET_SELECTOR: {
+    status: 'failed',
+    message: '사주 학파 프리셋 선택 형식이 올바르지 않습니다.',
+  },
+  SAJU_UNKNOWN_SCHOOL_PRESET: {
+    status: 'failed',
+    message: '선택한 사주 학파 프리셋을 사용할 수 없습니다.',
+  },
+  SAJU_CALCULATION_FAILED: {
+    status: 'failed',
+    message: '사주 계산을 완료하지 못했습니다.',
+  },
+};
+
+export function emptySaju(reasonCode?: SajuAnalysisReasonCode): SajuSummary {
   const emptyPillar: PillarSummary = {
     stem:   { code: '', hangul: '', hanja: '' },
     branch: { code: '', hangul: '', hanja: '' },
   };
-  return {
+  const baseSummary: SajuSummary = {
     pillars: { year: emptyPillar, month: emptyPillar, day: emptyPillar, hour: emptyPillar },
     timeCorrection: extractNumericFields(null, TC_KEYS) as any,
     dayMaster: { stem: '', element: '', polarity: '' },
@@ -1264,6 +1311,130 @@ export function emptySaju(): SajuSummary {
     tenGodAnalysis: null,
     shinsalHits: [],
   } as SajuSummary;
+
+  if (!reasonCode) return baseSummary;
+  const failure = SAJU_ANALYSIS_FAILURES[reasonCode];
+  return {
+    ...baseSummary,
+    analysisStatus: failure.status,
+    diagnostics: [{ reasonCode, message: failure.message }],
+  };
+}
+
+type NeutralGenderCode = 'MALE' | 'FEMALE';
+
+export interface NeutralGenderAnalysisResolution {
+  readonly summary: SajuSummary;
+  readonly basis: NeutralGenderCode | null;
+  readonly maleConfidence: number | null;
+  readonly femaleConfidence: number | null;
+  readonly completedGenders: readonly NeutralGenderCode[];
+  readonly interpretationNote: string | null;
+}
+
+function withAnalysisDiagnostic(
+  summary: SajuSummary,
+  reasonCode: SajuAnalysisReasonCode,
+): SajuSummary {
+  const failure = SAJU_ANALYSIS_FAILURES[reasonCode];
+  return {
+    ...summary,
+    analysisStatus: failure.status,
+    diagnostics: [
+      ...(summary.diagnostics ?? []),
+      { reasonCode, message: failure.message },
+    ],
+  };
+}
+
+/**
+ * Compare the two gender-dependent fortune directions used for a neutral
+ * request. The callback boundary is intentionally small so the one-sided
+ * failure path can be regression-tested without fabricating engine output.
+ */
+export function resolveNeutralGenderAnalysis(
+  analyzeWithGender: (genderCode: NeutralGenderCode) => SajuSummary,
+): NeutralGenderAnalysisResolution {
+  let maleSummary: SajuSummary | null = null;
+  let femaleSummary: SajuSummary | null = null;
+
+  try {
+    maleSummary = analyzeWithGender('MALE');
+  } catch {
+    maleSummary = null;
+  }
+  try {
+    femaleSummary = analyzeWithGender('FEMALE');
+  } catch {
+    femaleSummary = null;
+  }
+
+  if (!maleSummary && !femaleSummary) {
+    return {
+      summary: emptySaju('NEUTRAL_GENDER_ANALYSIS_FAILED'),
+      basis: null,
+      maleConfidence: null,
+      femaleConfidence: null,
+      completedGenders: [],
+      interpretationNote: null,
+    };
+  }
+
+  const maleConfidence = maleSummary?.yongshin?.confidence ?? null;
+  const femaleConfidence = femaleSummary?.yongshin?.confidence ?? null;
+  const basis: NeutralGenderCode =
+    maleSummary && !femaleSummary
+      ? 'MALE'
+      : !maleSummary && femaleSummary
+        ? 'FEMALE'
+        : (femaleConfidence ?? -1) > (maleConfidence ?? -1)
+          ? 'FEMALE'
+          : 'MALE';
+  const selectedSummary = basis === 'FEMALE' ? femaleSummary! : maleSummary!;
+  const completedGenders: NeutralGenderCode[] = [
+    ...(maleSummary ? ['MALE' as const] : []),
+    ...(femaleSummary ? ['FEMALE' as const] : []),
+  ];
+  const maleConfidenceText = maleConfidence != null ? maleConfidence.toFixed(2) : '-';
+  const femaleConfidenceText = femaleConfidence != null ? femaleConfidence.toFixed(2) : '-';
+
+  if (maleSummary && femaleSummary) {
+    return {
+      summary: selectedSummary,
+      basis,
+      maleConfidence,
+      femaleConfidence,
+      completedGenders,
+      interpretationNote:
+        `중성 선택으로 남녀 기준을 모두 계산했고, 신뢰도 기준으로 ${basis} 결과를 사용했습니다. (남성 ${maleConfidenceText}, 여성 ${femaleConfidenceText})`,
+    };
+  }
+
+  const completedLabel = basis === 'MALE' ? '남성' : '여성';
+  const failedLabel = basis === 'MALE' ? '여성' : '남성';
+  return {
+    summary: withAnalysisDiagnostic(selectedSummary, 'NEUTRAL_GENDER_ANALYSIS_PARTIAL'),
+    basis,
+    maleConfidence,
+    femaleConfidence,
+    completedGenders,
+    interpretationNote:
+      `중성 선택에서 ${completedLabel} 기준 계산만 완료되어 해당 결과를 사용했습니다. ${failedLabel} 기준 계산은 완료되지 않았습니다. (남성 ${maleConfidenceText}, 여성 ${femaleConfidenceText})`,
+  };
+}
+
+function failureReasonCode(error: unknown): SajuAnalysisReasonCode {
+  const code =
+    error && typeof error === 'object'
+      ? (error as { code?: unknown }).code
+      : undefined;
+  if (code === 'SAJU_INVALID_SCHOOL_PRESET_SELECTOR') {
+    return 'SAJU_INVALID_SCHOOL_PRESET_SELECTOR';
+  }
+  if (code === 'SAJU_UNKNOWN_SCHOOL_PRESET') {
+    return 'SAJU_UNKNOWN_SCHOOL_PRESET';
+  }
+  return 'SAJU_CALCULATION_FAILED';
 }
 
 // ---------------------------------------------------------------------------
@@ -1287,11 +1458,11 @@ export function collectElements(...sources: (string | null | undefined | string[
 
 export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['options']): Promise<SajuSummary> {
   const saju = await loadSajuModule();
-  if (!saju) return emptySaju();
+  if (!saju) return emptySaju('SAJU_MODULE_UNAVAILABLE');
 
   const parts = resolveKnownBirthParts(birth);
   if (!hasAnyKnownBirthPart(parts)) {
-    return emptySaju();
+    return emptySaju('BIRTH_INPUT_INSUFFICIENT');
   }
 
   // 감사 B1: 음력 입력은 내장 테이블(기본) 또는 KASI API(옵트인)로 양력 변환 후 분석.
@@ -1334,7 +1505,7 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
   try {
     // Always seed legacy config from a preset first.
     // Some saju-ts versions throw when only partial policy patch is provided.
-    let config: any = {};
+    let config: RuntimeLegacySajuConfig = {};
     if (saju.configFromPreset) {
       const presetKey = options?.schoolPreset ?? 'korean';
       const presetCode = PRESET_MAP[presetKey] ?? PRESET_MAP.korean ?? 'KOREAN_MAINSTREAM';
@@ -1425,7 +1596,9 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
         },
       };
     }
-    if (options?.sajuConfig) config = { ...config, ...options.sajuConfig };
+    if (options?.sajuConfig) {
+      config = { ...config, ...options.sajuConfig } as RuntimeLegacySajuConfig;
+    }
 
     const wolunStartYear = options?.sajuOptions?.wolunStartYear;
     if (typeof wolunStartYear === 'number') {
@@ -1458,7 +1631,7 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
       wolunMonthCount: options.sajuOptions.wolunMonthCount,
     } : undefined;
 
-    const analyzeWithGender = (genderCode: 'MALE' | 'FEMALE'): SajuSummary & Record<string, unknown> => {
+    const analyzeWithGender = (genderCode: 'MALE' | 'FEMALE'): SajuSummary => {
       const birthInput = saju.createBirthInput({
         birthYear,
         birthMonth,
@@ -1474,41 +1647,19 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
         longitude: resolvedCoordinates.longitude,
         name: birth.name,
       });
-      return extractSaju(saju.analyzeSaju(birthInput, finalConfig, sajuOpts)) as SajuSummary & Record<string, unknown>;
+      return extractSaju(saju.analyzeSaju(birthInput, finalConfig, sajuOpts));
     };
 
-    let summary: SajuSummary & Record<string, unknown>;
+    let summary: SajuSummary;
     let neutralBasis: 'MALE' | 'FEMALE' | null = null;
-    let neutralMaleConfidence: number | null = null;
-    let neutralFemaleConfidence: number | null = null;
+    let neutralInterpretationNote: string | null = null;
 
     if (birth.gender === 'neutral') {
-      let maleSummary: (SajuSummary & Record<string, unknown>) | null = null;
-      let femaleSummary: (SajuSummary & Record<string, unknown>) | null = null;
-
-      try { maleSummary = analyzeWithGender('MALE'); } catch {}
-      try { femaleSummary = analyzeWithGender('FEMALE'); } catch {}
-
-      if (!maleSummary && !femaleSummary) {
-        return emptySaju();
-      }
-
-      neutralMaleConfidence = maleSummary?.yongshin?.confidence ?? null;
-      neutralFemaleConfidence = femaleSummary?.yongshin?.confidence ?? null;
-
-      if (maleSummary && !femaleSummary) {
-        summary = maleSummary;
-        neutralBasis = 'MALE';
-      } else if (!maleSummary && femaleSummary) {
-        summary = femaleSummary;
-        neutralBasis = 'FEMALE';
-      } else if ((neutralFemaleConfidence ?? -1) > (neutralMaleConfidence ?? -1)) {
-        summary = femaleSummary as SajuSummary & Record<string, unknown>;
-        neutralBasis = 'FEMALE';
-      } else {
-        summary = maleSummary as SajuSummary & Record<string, unknown>;
-        neutralBasis = 'MALE';
-      }
+      const neutral = resolveNeutralGenderAnalysis(analyzeWithGender);
+      if (!neutral.basis) return neutral.summary;
+      summary = neutral.summary;
+      neutralBasis = neutral.basis;
+      neutralInterpretationNote = neutral.interpretationNote;
     } else {
       summary = analyzeWithGender(birth.gender === 'female' ? 'FEMALE' : 'MALE');
     }
@@ -1521,18 +1672,14 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
       applyUnknownHourUncertainty(summary);
     }
     if (birth.gender === 'neutral') {
-      const maleConfidenceText = neutralMaleConfidence != null ? neutralMaleConfidence.toFixed(2) : '-';
-      const femaleConfidenceText = neutralFemaleConfidence != null ? neutralFemaleConfidence.toFixed(2) : '-';
-      notes.push(
-        `중성 선택으로 남녀 기준을 모두 계산했고, 신뢰도 기준으로 ${neutralBasis ?? '중립'} 결과를 사용했습니다. (남성 ${maleConfidenceText}, 여성 ${femaleConfidenceText})`,
-      );
-      summary.neutralGenderBasis = neutralBasis ?? 'UNKNOWN';
+      if (neutralInterpretationNote) notes.push(neutralInterpretationNote);
+      summary = { ...summary, neutralGenderBasis: neutralBasis ?? 'UNKNOWN' };
     }
     // 감사 B1: 음력 변환 기록 attach + 사용자 검증 노트.
     // lunar 경로에서만 붙인다 — solar 경로에 undefined 키를 세팅하면
     // deepSerialize/스냅샷 표면에 키가 등장한다.
     if (lunarConversion) {
-      (summary as Record<string, any>).lunarConversion = lunarConversion;
+      summary = { ...summary, lunarConversion };
       const lc = lunarConversion;
       notes.push(
         `음력 ${lc.lunar.year}년 ${lc.lunar.isLeapMonth ? '윤' : ''}${lc.lunar.month}월 ${lc.lunar.day}일을 `
@@ -1544,7 +1691,7 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
       const existing = Array.isArray(summary.partialInterpretation)
         ? summary.partialInterpretation.filter((line) => typeof line === 'string')
         : [];
-      summary.partialInterpretation = [...existing, ...notes];
+      summary = { ...summary, partialInterpretation: [...existing, ...notes] };
     }
     // PR-Q-5: surface 12궁 palace analysis when precisionConfig.surfacePalace
     // is opted-in. Off by default; the field stays absent in the summary.
@@ -1562,7 +1709,9 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
     }
 
     return summary;
-  } catch { return emptySaju(); }
+  } catch (error) {
+    return emptySaju(failureReasonCode(error));
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -1573,21 +1722,21 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
  * Transforms the raw output from saju-ts into our clean SajuSummary shape.
  * Each piece of the summary is extracted by a dedicated helper function.
  */
-export function extractSaju(rawSajuOutput: any): SajuSummary {
+export function extractSaju(rawSajuOutput: LegacySajuOutputV1Contract): SajuSummary {
   const serializedOutput = deepSerialize(rawSajuOutput) as Record<string, unknown>;
   const serializedGyeokgukResult = normalizeSerializedGyeokgukResult(serializedOutput.gyeokgukResult);
-  const rawPillars       = rawSajuOutput.pillars ?? rawSajuOutput.coreResult?.pillars;
+  const rawPillars       = rawSajuOutput.pillars;
   const coreResult       = rawSajuOutput.coreResult;
   const pillars = extractPillars(rawPillars);
   const dayStemCode = String(pillars.day.stem.code ?? '');
   const elementDistribution = extractElementDistribution(rawSajuOutput);
 
-  const summary = {
+  const summary: SajuSummary = {
     ...serializedOutput,
     ...(serializedGyeokgukResult ? { gyeokgukResult: serializedGyeokgukResult } : {}),
 
     pillars,
-    timeCorrection:       extractNumericFields(coreResult, TC_KEYS) as any,
+    timeCorrection:       extractNumericFields(coreResult, TC_KEYS) as unknown as SajuSummary['timeCorrection'],
     jieProximity:         extractJieProximity(rawSajuOutput.jieProximity),
     dayMaster:            extractDayMaster(dayStemCode, rawSajuOutput.strengthResult),
     strength:             extractStrength(rawSajuOutput.strengthResult),
@@ -1610,7 +1759,7 @@ export function extractSaju(rawSajuOutput: any): SajuSummary {
     saeunPillars:         extractSaeunPillars(rawSajuOutput),
     wolunPillars:         extractWolunPillars(rawSajuOutput),
     trace:                extractTrace(rawSajuOutput),
-  } as SajuSummary;
+  };
 
   // PR9 — surface the axis strength on the SajuSummary itself so card
   // builders that receive only the summary (e.g., buildOverviewSummaryCard)
@@ -1739,7 +1888,7 @@ function extractPillars(rawPillars: any): Record<'year' | 'month' | 'day' | 'hou
 //  Day master: the stem of the day pillar
 // ---------------------------------------------------------------------------
 
-function extractDayMaster(dayStemCode: string, strengthResult: any) {
+function extractDayMaster(dayStemCode: string, strengthResult: LegacyStrengthResultContract) {
   const dayMasterInfo = CHEONGAN[dayStemCode];
   // Theory-first: day master is defined by the day stem itself.
   // Keep strengthResult as a fallback only when stem metadata is unavailable.
@@ -1757,7 +1906,7 @@ function extractDayMaster(dayStemCode: string, strengthResult: any) {
 //  Strength: whether the day master is strong or weak
 // ---------------------------------------------------------------------------
 
-function extractStrength(strengthResult: any) {
+function extractStrength(strengthResult: LegacyStrengthResultContract) {
   const isStrong = !!strengthResult?.isStrong;
   const levelCode = normalizeStrengthLevelCode(strengthResult?.level ?? '');
   return {
@@ -1776,7 +1925,7 @@ function extractStrength(strengthResult: any) {
 //  Element distribution: how many points each element has in the chart
 // ---------------------------------------------------------------------------
 
-function extractElementDistribution(rawSajuOutput: any): {
+function extractElementDistribution(rawSajuOutput: LegacySajuOutputV1Contract): {
   distribution: Record<string, number>;
   deficientElements: string[];
   excessiveElements: string[];
@@ -1823,7 +1972,7 @@ function extractYongshin(yongshinResult: any) {
   const gushin = yongshinResult?.gusin;
   const consensus = extractYongshinConsensus(yongshinResult?.consensus);
   const methodBreakdown = yongshinResult?.methodBreakdown && typeof yongshinResult.methodBreakdown === 'object'
-    ? deepSerialize(yongshinResult.methodBreakdown)
+    ? deepSerialize(yongshinResult.methodBreakdown) as Record<string, unknown>
     : undefined;
   return {
     element:    normalizeElementCode(element) ?? String(element ?? ''),
@@ -2041,15 +2190,38 @@ function extractSourceTier(value: any): SourceTierMetadata {
   if (!value || typeof value !== 'object' || Array.isArray(value)) {
     return GYEOKGUK_CANDIDATE_SOURCE_TIER;
   }
+  const review = value.authorityReview;
+  const authorityReview =
+    review &&
+    typeof review === 'object' &&
+    !Array.isArray(review) &&
+    review.status === 'approved' &&
+    typeof review.reviewedBy === 'string' &&
+    review.reviewedBy.trim().length > 0 &&
+    typeof review.reviewedAt === 'string' &&
+    /^\d{4}-\d{2}-\d{2}$/.test(review.reviewedAt)
+      ? {
+          status: 'approved' as const,
+          reviewedBy: review.reviewedBy,
+          reviewedAt: review.reviewedAt,
+        }
+      : undefined;
   return {
     tier: typeof value.tier === 'string' ? value.tier : GYEOKGUK_CANDIDATE_SOURCE_TIER.tier,
     sourceType: typeof value.sourceType === 'string' ? value.sourceType : GYEOKGUK_CANDIDATE_SOURCE_TIER.sourceType,
     sourceUrl: typeof value.sourceUrl === 'string' || value.sourceUrl === null ? value.sourceUrl : null,
     accessedAt: typeof value.accessedAt === 'string' ? value.accessedAt : GYEOKGUK_CANDIDATE_SOURCE_TIER.accessedAt,
     quoteShort: typeof value.quoteShort === 'string' || value.quoteShort === null ? value.quoteShort : null,
-    humanInterpretation: GYEOKGUK_CANDIDATE_SOURCE_TIER.humanInterpretation,
-    copyrightNote: GYEOKGUK_CANDIDATE_SOURCE_TIER.copyrightNote,
+    humanInterpretation:
+      typeof value.humanInterpretation === 'string' && value.humanInterpretation.trim().length > 0
+        ? value.humanInterpretation
+        : GYEOKGUK_CANDIDATE_SOURCE_TIER.humanInterpretation,
+    copyrightNote:
+      typeof value.copyrightNote === 'string' && value.copyrightNote.trim().length > 0
+        ? value.copyrightNote
+        : GYEOKGUK_CANDIDATE_SOURCE_TIER.copyrightNote,
     authorityTruthEligible: typeof value.authorityTruthEligible === 'boolean' ? value.authorityTruthEligible : false,
+    ...(authorityReview ? { authorityReview } : {}),
   };
 }
 
@@ -2090,7 +2262,7 @@ function extractTenGodAnalysis(tenGodResult: any, dayStemCode: string) {
 //  Shinsal hits (auspicious / inauspicious markers)
 // ---------------------------------------------------------------------------
 
-function extractShinsalHits(rawSajuOutput: any) {
+function extractShinsalHits(rawSajuOutput: LegacySajuOutputV1Contract) {
   /** Assigns a letter grade based on weight: 80+ = A, 50+ = B, else C. */
   const gradeFromWeight = (weight: number) => weight >= 80 ? 'A' : weight >= 50 ? 'B' : 'C';
 
@@ -2130,7 +2302,7 @@ function extractShinsalHits(rawSajuOutput: any) {
 //  Jiji relations (earthly branch interactions)
 // ---------------------------------------------------------------------------
 
-function extractJijiRelations(rawSajuOutput: any) {
+function extractJijiRelations(rawSajuOutput: LegacySajuOutputV1Contract) {
   const resolvedRelations = ensureArray(rawSajuOutput.resolvedJijiRelations);
   const sourceRelations   = resolvedRelations.length > 0 ? resolvedRelations : ensureArray(rawSajuOutput.jijiRelations);
   const isResolved        = resolvedRelations.length > 0;
@@ -2163,7 +2335,7 @@ function extractJijiRelations(rawSajuOutput: any) {
 //  Cheongan relations (heavenly stem interactions)
 // ---------------------------------------------------------------------------
 
-function extractCheonganRelations(rawSajuOutput: any) {
+function extractCheonganRelations(rawSajuOutput: LegacySajuOutputV1Contract) {
   // Build a lookup for scored cheongan relations (if available)
   const scoredRelations = ensureArray(rawSajuOutput.scoredCheonganRelations);
   const scoreByKey = new Map<string, any>();
@@ -2204,7 +2376,7 @@ function extractCheonganRelations(rawSajuOutput: any) {
 //  Hap-hwa evaluations (stem combination transformations)
 // ---------------------------------------------------------------------------
 
-function extractHapHwaEvaluations(rawSajuOutput: any) {
+function extractHapHwaEvaluations(rawSajuOutput: LegacySajuOutputV1Contract) {
   return ensureArray(rawSajuOutput.hapHwaEvaluations).map((evaluation: any) => ({
     stem1:             String(evaluation.stem1     ?? ''),
     stem2:             String(evaluation.stem2     ?? ''),
@@ -2222,7 +2394,7 @@ function extractHapHwaEvaluations(rawSajuOutput: any) {
 //  Sibi unseong (twelve stages of life cycle)
 // ---------------------------------------------------------------------------
 
-function extractSibiUnseong(rawSajuOutput: any) {
+function extractSibiUnseong(rawSajuOutput: LegacySajuOutputV1Contract) {
   if (!rawSajuOutput.sibiUnseong) return null;
   return Object.fromEntries(
     (rawSajuOutput.sibiUnseong instanceof Map
@@ -2236,17 +2408,20 @@ function extractSibiUnseong(rawSajuOutput: any) {
 //  YinYang balance (PR-12-4 / 감사 C6)
 // ---------------------------------------------------------------------------
 
-function extractYinYangBalance(rawSajuOutput: any) {
+function extractYinYangBalance(
+  rawSajuOutput: LegacySajuOutputV1Contract,
+): SajuSummary['yinYangBalance'] {
   const raw = rawSajuOutput.yinYangBalance;
   if (!raw || typeof raw !== 'object') return undefined;
+  const value = raw as Record<string, unknown>;
   const num = (v: any): number => (Number.isFinite(Number(v)) ? Number(v) : 0);
   const pair = (v: any) => ({ yang: num(v?.yang), yin: num(v?.yin) });
-  const dominant = raw.dominant === 'YANG' || raw.dominant === 'YIN' ? raw.dominant : 'EVEN';
+  const dominant = value.dominant === 'YANG' || value.dominant === 'YIN' ? value.dominant : 'EVEN';
   return {
-    yang: num(raw.yang),
-    yin: num(raw.yin),
-    stems: pair(raw.stems),
-    branches: pair(raw.branches),
+    yang: num(value.yang),
+    yin: num(value.yin),
+    stems: pair(value.stems),
+    branches: pair(value.branches),
     dominant,
   };
 }
@@ -2255,7 +2430,7 @@ function extractYinYangBalance(rawSajuOutput: any) {
 //  Gongmang (void branches)
 // ---------------------------------------------------------------------------
 
-function extractGongmang(rawSajuOutput: any): [string, string] | null {
+function extractGongmang(rawSajuOutput: LegacySajuOutputV1Contract): [string, string] | null {
   const branches = rawSajuOutput.gongmangVoidBranches;
   return Array.isArray(branches) && branches.length >= 2
     ? [formatBranchDisplay(branches[0]), formatBranchDisplay(branches[1])]
@@ -2266,7 +2441,7 @@ function extractGongmang(rawSajuOutput: any): [string, string] | null {
 //  Palace analysis
 // ---------------------------------------------------------------------------
 
-function extractPalaceAnalysis(rawSajuOutput: any) {
+function extractPalaceAnalysis(rawSajuOutput: LegacySajuOutputV1Contract) {
   if (!rawSajuOutput.palaceAnalysis) return null;
   return Object.fromEntries(
     Object.entries(rawSajuOutput.palaceAnalysis).map(([position, palaceData]) => {
@@ -2306,7 +2481,8 @@ function extractLuckRelationsWithNatal(raw: any) {
   };
   const stemRelations = ensureArray(source.stemRelations).map(normalizeHit).filter(Boolean);
   const branchRelations = ensureArray(source.branchRelations).map(normalizeHit).filter(Boolean);
-  if (stemRelations.length === 0 && branchRelations.length === 0) return undefined;
+  // Keep evaluated-empty annotations so report builders do not confuse
+  // “no relation found” with a fallback period that was never evaluated.
   return { stemRelations, branchRelations };
 }
 function extractLuckRelationsWithDecade(raw: any) {
@@ -2366,7 +2542,7 @@ function nullableNumber(value: unknown): number | null {
   return Number.isFinite(n) ? n : null;
 }
 
-function extractDaeunInfo(rawSajuOutput: any) {
+function extractDaeunInfo(rawSajuOutput: LegacySajuOutputV1Contract): DaeunInfoSummary | null {
   const daeunInfoRaw = rawSajuOutput.daeunInfo;
   if (!daeunInfoRaw) return null;
 
@@ -2402,7 +2578,7 @@ function extractDaeunInfo(rawSajuOutput: any) {
 //  Saeun pillars (yearly luck pillars)
 // ---------------------------------------------------------------------------
 
-function extractSaeunPillars(rawSajuOutput: any) {
+function extractSaeunPillars(rawSajuOutput: LegacySajuOutputV1Contract): SaeunPillarSummary[] {
   return ensureArray(rawSajuOutput.saeunPillars).map((saeun: any) => withLuckPillarAnnotations({
     year:   Number(saeun.year) || 0,
     stem:   String(saeun.pillar?.cheongan ?? ''),
@@ -2414,7 +2590,7 @@ function extractSaeunPillars(rawSajuOutput: any) {
   }, saeun));
 }
 
-function extractWolunPillars(rawSajuOutput: any) {
+function extractWolunPillars(rawSajuOutput: LegacySajuOutputV1Contract): WolunPillarSummary[] {
   return ensureArray(rawSajuOutput.wolunPillars).map((wolun: any) => withLuckPillarAnnotations({
     year: Number(wolun.year) || 0,
     monthOrder: Number(wolun.monthOrder) || 0,
@@ -2432,7 +2608,7 @@ function extractWolunPillars(rawSajuOutput: any) {
 //  Trace / audit log
 // ---------------------------------------------------------------------------
 
-function extractTrace(rawSajuOutput: any) {
+function extractTrace(rawSajuOutput: LegacySajuOutputV1Contract) {
   return ensureArray(rawSajuOutput.trace).map((traceEntry: any) => ({
     key:        String(traceEntry.key     ?? ''),
     summary:    cleanAdapterText(String(traceEntry.summary ?? '')),
@@ -2449,14 +2625,25 @@ function extractTrace(rawSajuOutput: any) {
 
 export async function analyzeSajuSafe(
   birth: BirthInfo, options?: SpringRequest['options'],
-): Promise<{ summary: SajuSummary; sajuEnabled: boolean }> {
+): Promise<SajuSafeAnalysisResult> {
   try {
     const summary = await analyzeSaju(birth, options);
     // If analyzeSaju returned an empty saju (module missing), detect via dayMaster
     const isRealAnalysis = !!summary.dayMaster?.element;
-    return { summary, sajuEnabled: isRealAnalysis };
+    return {
+      summary,
+      sajuEnabled: isRealAnalysis,
+      ...(summary.analysisStatus ? { analysisStatus: summary.analysisStatus } : {}),
+      ...(summary.diagnostics?.length ? { diagnostics: summary.diagnostics } : {}),
+    };
   } catch {
-    return { summary: emptySaju(), sajuEnabled: false };
+    const summary = emptySaju('SAJU_CALCULATION_FAILED');
+    return {
+      summary,
+      sajuEnabled: false,
+      analysisStatus: summary.analysisStatus,
+      diagnostics: summary.diagnostics,
+    };
   }
 }
 
@@ -2617,12 +2804,12 @@ export function buildSajuContext(
       // PeriodFortuneCard builders can read transitions without re-fetching
       // the full SajuSummary. Both are already produced by extractDaeunInfo
       // / extractSaeunPillars; we just lift them into the output path.
-      daeunInfo: (sajuSummary as any).daeunInfo ?? undefined,
-      saeunPillars: ((sajuSummary as any).saeunPillars as readonly any[] | undefined)?.length
-        ? (sajuSummary as any).saeunPillars
+      daeunInfo: sajuSummary.daeunInfo ?? undefined,
+      saeunPillars: sajuSummary.saeunPillars?.length
+        ? sajuSummary.saeunPillars
         : undefined,
-      wolunPillars: ((sajuSummary as any).wolunPillars as readonly any[] | undefined)?.length
-        ? (sajuSummary as any).wolunPillars
+      wolunPillars: sajuSummary.wolunPillars?.length
+        ? sajuSummary.wolunPillars
         : undefined,
       // PR-Q-5: forward palace summary when the adapter populated it
       // (precisionConfig.surfacePalace=true). undefined otherwise.

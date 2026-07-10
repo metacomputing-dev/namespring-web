@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "declaration": false
+  },
+  "include": [
+    "src/saju-bridge-contract.ts",
+    "src/types.ts",
+    "test/contracts/saju-bridge-contract.typecheck.ts",
+    "../saju-ts/src/compat/springLegacyContract.ts"
+  ]
+}
