@@ -1,19 +1,19 @@
 {
   "schemaVersion": "spring-ts.generation-manifest.v2",
-  "baseCells": 330,
-  "totalClasses": 21060,
+  "baseCells": 390,
+  "totalClasses": 23220,
   "perCategory": {
-    "academic": 1620,
+    "academic": 1980,
     "career": 2700,
     "expression_children": 1620,
-    "family": 2700,
-    "health": 1620,
+    "family": 3060,
+    "health": 1980,
     "health_stress": 1620,
     "movement": 1620,
-    "overall": 1620,
-    "romance": 2700,
+    "overall": 1980,
+    "romance": 3060,
     "study_document": 1620,
-    "wealth": 1620
+    "wealth": 1980
   },
   "classDims": "강약coarse3 × 격국family6 × nameEffect4 × gender2(민감분야) / 미성년 강약2×nameEffect3"
 }

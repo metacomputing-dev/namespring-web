@@ -44,6 +44,10 @@ export interface GenerationSpec {
   /** 격국 family term + what it means for life strategy. */
   readonly gyeokgukTerm: string;
   readonly gyeokgukMeaning: string;
+  /** 격국 family의 그룹 십성 태그 id(비겁·식상·재성·관성·인성). 종격(special)은 없음(null). */
+  readonly gyeokgukStar: string | null;
+  /** 용신 축의 전략 방향(부억 골격). 오행을 단정하지 않고 '채우는/발산하는/균형' 방향만 준다. */
+  readonly yongshinAxis: string;
   /** Plain + expert description of the name↔saju integration, sign-aware. */
   readonly nameEffectPlain: string;
   readonly nameEffectExpert: string;

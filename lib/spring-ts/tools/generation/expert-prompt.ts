@@ -43,13 +43,14 @@ export function buildExpertPrompt(c: GenerationCase): string {
 ## 이 원형
 - 분야/기간/독자/등급: **${c.category} / ${c.period} / ${c.audience} / 등급 ${c.band}**
 - 강약: **${s.strengthTerm}**(평문 "${s.strengthPlain}") → 조언 방향: **${s.adviceDirection}**
+- 용신 축(전문가 근거에서만, 오행 단정 금지·방향만): ${s.yongshinAxis}
 - 격국(삶의 구조): **${s.gyeokgukTerm}** — ${s.gyeokgukMeaning}
 - 이름↔사주 통합(자원오행이 사주에 합산된 결과): **${s.nameEffectPlain}** / (전문가 근거: ${s.nameEffectExpert})
 ${genderLine}
 
 ## 페어링·안전 규칙 (하나라도 어기면 리젝)
 1. **평문 tier(summary·body·tips·cautions)에 사주 용어 금지**: ${JARGON_BANNED} 등. 오행 **이름**(나무·불·흙·쇠·물)과 강약의 쉬운 평문 표현만.
-2. **전문가 tier(expert)만 용어·#{태그}** (글로서리 id 2~6개; 권장: ${s.suggestedExpertTags.map((t) => `#{${t}}`).join(', ')} + 격국·강약 근거).
+2. **전문가 tier(expert)만 용어·#{태그}** (글로서리 id 2~6개; 이 사람의 강약·격국에서 유도한 권장: ${s.suggestedExpertTags.map((t) => `#{${t}}`).join(', ')} — 용신 축·격국 그룹·강약 처방·이름 보조 순. 팔레트를 축으로 삼되 없는 태그는 지어내지 말 것).
 3. **모순 0**: 평문·전문가가 같은 방향. 강약(${s.strengthTerm}=${s.adviceDirection.split('(')[0]})과 격국 전략을 둘 다 지킴. 강약은 "${s.strengthPlain}"을 억지로 반복하지 말고, 의미가 맞는 생활어로 자연스럽게 드러내세요.
 4. **이름 정직성**: ${nameHonesty}
 5. **절대 단정 완화**(평문은 "~한 편이라"), 요약↔본문↔전문가 pairing 유지.

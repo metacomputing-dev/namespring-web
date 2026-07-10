@@ -169,6 +169,7 @@ ${cases.length}편을 이어 읽어도 같은 말의 반복이 아니라 **한 �
 
 ## 이 사람 (모든 편에 공통 — 서로 모순 금지)
 - 강약: **${s.strengthTerm}**(평문 "${s.strengthPlain}") → 조언 방향: ${s.adviceDirection}
+- 용신 축(전문가 tier에서만, 오행 단정 금지·방향만): ${s.yongshinAxis}
 - 격국(삶의 구조): **${s.gyeokgukTerm}** — ${s.gyeokgukMeaning}
 - 이름↔사주: ${s.nameEffectPlain} / (전문가 근거: ${s.nameEffectExpert})
 ${genderLine}
@@ -201,7 +202,7 @@ ${cellLines}
 ## 페어링·안전 규칙 (기존 계약 — 위반 시 리젝)
 1. **평문 tier(summary·body·tips·cautions)에 사주 용어 금지**: ${JARGON_BANNED} 등.
    오행의 우리말 이름(나무·불·흙·쇠·물)과 강약의 쉬운 평문 표현만 허용.
-2. **전문가 tier(expert)만 용어·#{태그}** — 글로서리 id 2~6개; 권장: ${s.suggestedExpertTags.map((t) => `#{${t}}`).join(', ')} + 격국·강약 근거.
+2. **전문가 tier(expert)만 용어·#{태그}** — 글로서리 id 2~6개; 이 사람의 강약·격국에서 유도한 권장: ${s.suggestedExpertTags.map((t) => `#{${t}}`).join(', ')} (용신 축·격국 그룹·강약 처방·이름 보조 순). 이 팔레트를 축으로 삼되 편마다 다른 조합·비중으로 녹여 쓰고, 없는 태그를 지어내지 마세요.
    전문가 문단도 모든 문장 해요체. 코드 단어(영문 식별자) 금지.
    ⚠ **태그는 문장 속에 녹여 쓰세요** — "#{a} #{b} #{c}"처럼 문단 끝에 나열하면 해요체 종결 위반으로
    리젝됩니다. 존재하지 않는 태그 id를 지어내지 말고 권장 목록 위주로 쓰세요.

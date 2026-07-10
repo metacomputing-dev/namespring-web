@@ -55,9 +55,59 @@ const GENDER_TERM: Record<Gender, string> = { male: '건명(乾命)', female: '�
 
 const CATEGORY_TAG: Record<string, string> = {
   overall: 'bigyeon', wealth: 'jaeseong', health: 'jeongin', academic: 'sikshin',
-  romance: 'jaeseong', family: 'jeongin', career: 'jeonggwan', study_document: 'jeongin',
+  romance: 'jaeseong', family: 'jeongin', career: 'gwanseong', study_document: 'jeongin',
   expression_children: 'sikshin', health_stress: 'jeongin', movement: 'sikshin',
 };
+
+/** 격국 family → 대표 십성 태그 id(유효 태그 집합 안). 식상 그룹(siksang)은 어느 분야에서도
+ *  유효한 대표로 sikshin을 쓴다. 종격(special)은 대세를 따르는 구조라 앵커 태그 없음(null). */
+const GYEOKGUK_STAR: Record<GyeokgukFamily, string | null> = {
+  inseong: 'inseong', siksang: 'sikshin', jaeseong: 'jaeseong',
+  gwanseong: 'gwanseong', bigeop: 'bigeob', special: null,
+};
+
+/** 강약 → 용신 축(부억용신 골격). 오행은 고정 안 하고 전략 '방향'과 그 축의 십성 태그만 준다.
+ *  신약=생조(인성)·부조(비겁)로 채움 / 신강=설기(식상)·극재(재성)로 발산 / 중화=격국의 축을 상황대로. */
+const STRENGTH_AXIS: Record<StrengthCoarse, { axis: string; tags: readonly string[] }> = {
+  weak: { axis: '기운을 채우고 받치는 쪽 — 인성의 도움과 비겁의 힘이 용신 자리에 서는 구조', tags: ['inseong', 'bigeob'] },
+  balanced: { axis: '어느 쪽으로도 크게 기울지 않아, 격국의 축을 상황에 맞게 쓰고 채우는 구조', tags: [] },
+  strong: { axis: '쌓인 기운을 내보내는 쪽 — 식상으로 풀고 재성으로 다스리는 구조', tags: ['sikshin', 'jaeseong'] },
+};
+
+/** nameEffect → expert가 이름 보강을 짚을 때의 보조 태그. boost는 희신(용신 보조),
+ *  neutral·adverse는 태그로 과장하지 않고 평문 처방으로만(페어링 규칙). */
+const NAME_EFFECT_TAG: Record<NameEffect, readonly string[]> = {
+  boost_strong: ['heeshin'], boost_mild: ['heeshin'], neutral: [], adverse: [],
+};
+
+/** 전 카테고리 공통 유효 태그(academic 화이트리스트 = 안전 부분집합). 그룹 태그 + 비겁·식상·인성
+ *  개별. 개별 재/관(정재·편재·정관·편관)과 합성 용신 태그는 제외해 어느 분야에서도 유효하게 유지. */
+const SAFE_EXPERT_TAGS: ReadonlySet<string> = new Set([
+  'yongshin', 'heeshin', 'bigeob', 'bigyeon', 'geobjae', 'sikshin', 'sanggwan',
+  'inseong', 'jeongin', 'pyeonin', 'jaeseong', 'gwanseong',
+]);
+
+/** 강약×격국×nameEffect에서 expert가 짚을 #{태그} 팔레트를 유도한다(케이스에 무관하게 고정된
+ *  2개짜리 대신). 용신 → 격국 그룹 → 강약 축 → 이름 보조 → 분야 순으로 담고, 유효 태그만 남겨
+ *  중복을 걷어낸 뒤 5개로 자른다(스키마 2~6 — 프롬프트가 격국·강약 근거를 더 얹을 여지를 둠). */
+function deriveExpertTags(category: string, g: StrengthCoarse, fam: GyeokgukFamily, ne: NameEffect): string[] {
+  const star = GYEOKGUK_STAR[fam];
+  const raw = [
+    'yongshin',
+    ...(star ? [star] : []),
+    ...STRENGTH_AXIS[g].tags,
+    ...NAME_EFFECT_TAG[ne],
+    CATEGORY_TAG[category] ?? 'bigyeon',
+  ];
+  const out: string[] = [];
+  for (const t of raw) {
+    if (!SAFE_EXPERT_TAGS.has(t) || out.includes(t)) continue;
+    out.push(t);
+    if (out.length >= 5) break;
+  }
+  if (out.length < 2) out.push('heeshin'); // 스키마 하한 보장(도달 불가에 가깝지만 방어)
+  return out;
+}
 const GENDER_SENSITIVE = new Set(['romance', 'family', 'career']);
 const MINOR_AUDIENCES = new Set(['teen', 'child', 'stage-teen']);
 
@@ -109,12 +159,14 @@ function buildSpec(cell: BaseCell, g: StrengthCoarse, fam: GyeokgukFamily, ne: N
     adviceDirection: STRENGTH_DIR[g],
     gyeokgukTerm: GYEOKGUK_TERM[fam],
     gyeokgukMeaning: GYEOKGUK_MEANING[fam],
+    gyeokgukStar: GYEOKGUK_STAR[fam],
+    yongshinAxis: STRENGTH_AXIS[g].axis,
     nameEffectPlain: NAME_EFFECT_PLAIN[ne],
     nameEffectExpert: NAME_EFFECT_EXPERT[ne],
     nameIsAdverse: ne === 'adverse',
     genderTerm: gender ? GENDER_TERM[gender] : null,
     audienceSafety: minor ? 'minor' : 'adult',
-    suggestedExpertTags: ['yongshin', CATEGORY_TAG[cell.category] ?? 'bigyeon'],
+    suggestedExpertTags: deriveExpertTags(cell.category, g, fam, ne),
   };
 }
 
