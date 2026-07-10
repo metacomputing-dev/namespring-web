@@ -1,8 +1,8 @@
 {
   "schemaVersion": "spring-ts.source-tier-summary.v1",
-  "status": "FAIL",
+  "status": "PASS",
   "scanned": 118,
-  "violationCount": 25,
+  "violationCount": 0,
   "authorityTruthEligibleCount": 30,
   "nonEligibleCount": 88,
   "byTier": {

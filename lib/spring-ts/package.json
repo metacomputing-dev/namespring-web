@@ -91,6 +91,8 @@
     "test:region": "npx tsx test/verify-region-coordinate-resolution.ts",
     "test:snapshot": "npx tsx tools/baseline_snapshot.ts verify",
     "snapshot:capture": "npx tsx tools/baseline_snapshot.ts capture",
+    "test:narrative-baseline": "npx tsx tools/narrative_baseline.ts verify",
+    "narrative:capture": "npx tsx tools/narrative_baseline.ts capture",
     "validate:regression": "node tools/measure_regression.mjs --baseline main --branch HEAD",
     "validate:default-change": "node tools/measure_default_change.mjs --baseline main --branch HEAD",
     "quality:report": "node tools/quality_gate.mjs",
@@ -119,7 +121,7 @@
     "audit:generated": "npx tsx tools/generation/audit-corpus-diversity.ts",
     "test:adapter-yinyang": "npm --prefix ../saju-ts run build && npx tsx test/integration/adapter-yinyang.test.ts",
     "test:adapter-failure-diagnostics": "npx tsx test/integration/adapter-failure-diagnostics.test.ts",
-    "test:saju-engine-release": "npm run typecheck:saju-bridge && npm run test:boundary-goldens && npm run test:snapshot && npm run test:namespring-compat && npm run test:manseryeok-oracle && npm run test:jonggyeok-authority && npm run test:adapter-yinyang && npm run test:adapter-failure-diagnostics && npm run test:adapter-daewoon && npm run test:transit-luck-report && npm run test:period-fortune-relation-source && npm run test:insight-registry-content && npm run test:yaza-opt-in && npm run test:quality-gate-status && npm run test:quality-gate && npm run test:measure-default-change && npm run test:rpi-partial-coverage"
+    "test:saju-engine-release": "npm run typecheck:saju-bridge && npm run test:boundary-goldens && npm run test:snapshot && npm run test:narrative-baseline && npm run test:namespring-compat && npm run test:manseryeok-oracle && npm run test:jonggyeok-authority && npm run test:adapter-yinyang && npm run test:adapter-failure-diagnostics && npm run test:adapter-daewoon && npm run test:transit-luck-report && npm run test:period-fortune-relation-source && npm run test:insight-registry-content && npm run test:yaza-opt-in && npm run test:quality-gate-status && npm run test:quality-gate && npm run test:measure-default-change && npm run test:rpi-partial-coverage"
   },
   "dependencies": {
     "sql.js": "^1.14.0"
