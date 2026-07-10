@@ -63,12 +63,24 @@
 
 ## 3. 교차검증 (2번째 모델 — Codex gpt-5.5, reasoning high)
 
-패널 합의(expected)를 Codex가 독립 재도출 후 대조: 17픽스처 × 3필드 = 51판정 중
+> **증거 한계 정정**: Codex 입력에는 패널의 `expected`와 `reasoningSummary`가 포함되어 있었다.
+> 따라서 아래 결과는 독립 블라인드 재도출이 아니라 **앵커링된 적대 검토**다. 수정 가설의
+> 교차 점검에는 쓸 수 있지만 외부 명리 전문가 인증이나 authority truth 승격 근거로 쓰면 안 된다.
+
+패널 합의(expected)를 Codex가 대조한 17픽스처 × 3필드 = 51판정 중
 **CONFIRM 46 / WEAKEN 2 / REJECT 1 / SKIP 2**.
 - REJECT 1: fix-02 격국(패널 편관격을 정관격으로 반박) — §2의 fix-02 DOCTRINE_AMBIGUITY 판결과 **방향 일치**,
   드랍/양쪽허용 처리를 이중으로 지지.
 - WEAKEN 2: fix-01 격국(정관격 이설), fix-06 용신(조후 水 이설·양인격 지적).
-- adversarialVerification: 패널 자체 적대 2렌즈(교리·관행) + Codex 교차 재도출 — 충족.
+- 내부 adversarialVerification 메타는 패널 자체 적대 2렌즈(교리·관행) + Codex 대조를 뜻한다.
+  서로 독립된 외부 전문가 2인의 검토를 뜻하지 않는다.
+
+### 3.1 fix-04 메타데이터 정정
+
+원 입력의 `丙火 / yang-fire / summer` 표기는 실제 출생 계산과 모순이다. 실제 명식은
+`乙巳 甲申 甲午 癸酉`, 일간은 **甲木**, 월지는 **申(가을)**이다. 패널 판결은 실제 pillars와
+트레이스를 사용했으므로 자기 셈입 결론에는 영향이 없지만, 원 입력 JSON은 감사 이력 보존을 위해
+수정하지 않는다. 정본 픽스처 메타는 `strength-direction / yang-wood / autumn`으로 바로잡았다.
 
 ## 4. 假從 정책 패널 (D6 선행 결정 — 소유자 승인 대기)
 

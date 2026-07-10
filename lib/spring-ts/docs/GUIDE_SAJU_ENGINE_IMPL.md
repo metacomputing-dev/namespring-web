@@ -74,6 +74,26 @@ test:baseline-metrics **38/0**, test:quality-gate 20/0, compat **208/0**, jonggy
 ⚠ composite-quality-gate의 main..HEAD diff=0 검사 FAIL은 기본값 변경 브랜치에서 설계상 정상(재조사 금지).
 ⚠ GitHub Actions는 org 결제 잠금으로 미기동 — CI 결과를 기다리지 마라(로컬 체인으로 검증).
 
+### 0.5 후속 세션 기록 (2026-07-10 밤 — 일간 자기 셈입 수정 경로 구현, 기본화 보류)
+
+- `strategies.strength.excludeDayMasterSelf=true` opt-in 경로를 구현했다. 범용 `scorePillars`
+  원장은 보존하고, `RuleFactsScoringResult.provenance`가 실제 `stemWeight`를 결과와 결합한 뒤
+  작은 순수 모듈 `rules/strengthBase.ts`에서만 일간 직접 비견 기여를 제외한다.
+- split-brain 방지: `buildRuleFacts`는 점수와 정책을 별도 인자로 받지 않는다. provenance가 없는
+  수기 점수나 모순 가중치는 타입/불변식에서 fail-closed 한다.
+- 기본값은 **off 유지**다. 임시 default-on 계측에서 17픽스처 전부 158 leaf가 이동했고,
+  강약 표면 7건, 희신 baseline 6건, 종격 위험 baseline 4건, 서사 golden 17건이 연쇄 변경됐다.
+  이 결과를 엔진 출력으로 곧바로 재캡처하면 순환 승인이므로 하지 않았다.
+- opt-in 증분 계측: `REVIEW_REQUIRED` 7 / regression 0 / unchanged 10,
+  fingerprint `sha256:3772274798d96e9e9fe1b9a7ad5a2b72ef6b918b967242066b99f5169fb69143`.
+  fix-04 실측은 index `+0.03478 → -0.097244`, support `4.16498 → 3.19638`,
+  `중화(신강 경향) → 중화(신약 경향)`이다.
+- 기본 모드 검증은 saju-ts 43파일/259테스트, snapshot 17/0, narrative 17/0,
+  yongshin-consensus 307/0, jonggyeok 111/0, compat 208/0으로 유지된다.
+- 다음 단계: fix-04 메타 정정분 확인 → opt-in 158 leaf 전수 독립 리뷰 → 승인된 fingerprint로만
+  기본값 전환·스냅샷 재캡처. 그 전에는 “강약 버그 수정 경로 구현”만 주장하고 “전문가 검증 완료”는
+  주장하지 않는다.
+
 ### 0.1 일운(9-6) 선행 검증 — 완료, 결과 기록
 
 이원 경로(saju-ts calcDayPillar vs spring-ts getDailyFortune) **완전 일치 실측**:
