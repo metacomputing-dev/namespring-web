@@ -8,6 +8,8 @@ import { DEFAULT_YONGSHIN_RULESET } from './defaultRuleSets.js';
 import { DEFAULT_CLIMATE_MODEL, mergeClimateModel, type ClimateModel } from './climate.js';
 import { compileYongshinRuleSpec } from './spec/compileYongshinSpec.js';
 import type { RuleFacts } from './facts.js';
+import { computeFollowPotential } from './followPotential.js';
+import { strengthDecisionComponents } from './strengthComponents.js';
 import { compete, renormalizeScale } from '../core/competition.js';
 
 export type YongshinRole = 'COMPANION' | 'RESOURCE' | 'OUTPUT' | 'WEALTH' | 'OFFICER';
@@ -549,60 +551,6 @@ function dominantSupportRole(components: { companions: number; resources: number
   return components.companions >= components.resources ? 'COMPANION' : 'RESOURCE';
 }
 
-function followPotentialFromStrength(args: {
-  strengthIndex: number;
-  support: number;
-  pressure: number;
-  weakThreshold: number;
-  strongThreshold: number;
-  minDominanceRatio: number;
-}): {
-  potential: number;
-  dominanceRatio: number;
-  mode: 'PRESSURE' | 'SUPPORT' | 'NONE';
-  weakPotential: number;
-  strongPotential: number;
-  weakDominanceRatio: number;
-  strongDominanceRatio: number;
-} {
-  const { strengthIndex, support, pressure, weakThreshold, strongThreshold, minDominanceRatio } = args;
-
-  // --- Weak-follow (从弱/从势): follow external pressure (官杀/财/食伤) when DM is very weak.
-  const denomWeak = Math.max(1e-9, weakThreshold + 1); // since -1 is the minimum
-  const weakFactor = strengthIndex < weakThreshold ? clamp01((weakThreshold - strengthIndex) / denomWeak) : 0;
-  const weakDominanceRatio = pressure / Math.max(1e-9, support);
-  const weakDomFactor = clamp01((weakDominanceRatio - minDominanceRatio) / Math.max(1e-9, minDominanceRatio));
-  const weakPotential = clamp01(weakFactor * weakDomFactor);
-
-  // --- Strong-follow (从旺/专旺): follow internal support (比劫/印) when DM is extremely strong.
-  const denomStrong = Math.max(1e-9, 1 - strongThreshold);
-  const strongFactor = strengthIndex > strongThreshold ? clamp01((strengthIndex - strongThreshold) / denomStrong) : 0;
-  const strongDominanceRatio = support / Math.max(1e-9, pressure);
-  const strongDomFactor = clamp01((strongDominanceRatio - minDominanceRatio) / Math.max(1e-9, minDominanceRatio));
-  const strongPotential = clamp01(strongFactor * strongDomFactor);
-
-  if (strongPotential > weakPotential) {
-    return {
-      potential: strongPotential,
-      dominanceRatio: strongDominanceRatio,
-      mode: strongPotential > 0 ? 'SUPPORT' : 'NONE',
-      weakPotential,
-      strongPotential,
-      weakDominanceRatio,
-      strongDominanceRatio,
-    };
-  }
-  return {
-    potential: weakPotential,
-    dominanceRatio: weakDominanceRatio,
-    mode: weakPotential > 0 ? 'PRESSURE' : 'NONE',
-    weakPotential,
-    strongPotential,
-    weakDominanceRatio,
-    strongDominanceRatio,
-  };
-}
-
 function buildPolicy(config: EngineConfig): YongshinPolicy {
   const raw: any = (config.strategies as any)?.yongshin ?? {};
   const weightsRaw: any = raw.weights ?? {};
@@ -827,7 +775,7 @@ export function computeYongshin(config: EngineConfig, facts: RuleFacts): Yongshi
         potential:
           typeof followPat.potentialRaw === 'number' && Number.isFinite(followPat.potentialRaw) ? followPat.potentialRaw : 0,
       }
-    : followPotentialFromStrength({
+    : computeFollowPotential({
         strengthIndex: s,
         support: facts.strength.support,
         pressure: facts.strength.pressure,
@@ -871,13 +819,14 @@ export function computeYongshin(config: EngineConfig, facts: RuleFacts): Yongshi
   const followMode: 'PRESSURE' | 'SUPPORT' | 'NONE' = followPatEnabled
     ? ((followPat.mode ?? 'NONE') as any)
     : (followInfo.mode as any);
+  const decisionComponents = strengthDecisionComponents(facts.strength);
 
   const domRole: YongshinRole = followPatEnabled && typeof followPat.dominantRole === 'string'
     ? (followPat.dominantRole as YongshinRole)
     : followMode === 'SUPPORT'
-      ? dominantSupportRole(facts.strength.components)
+      ? dominantSupportRole(decisionComponents)
       : followMode === 'PRESSURE'
-        ? dominantPressureRole(facts.strength.components)
+        ? dominantPressureRole(decisionComponents)
         : 'COMPANION';
 
   const followScores: Record<Element, number> = { WOOD: 0, FIRE: 0, EARTH: 0, METAL: 0, WATER: 0 };
@@ -1058,8 +1007,8 @@ export function computeYongshin(config: EngineConfig, facts: RuleFacts): Yongshi
       templateOut = {
         factor,
         bonus: templateBonus,
-        primary: tpl.primary,
-        secondary: tpl.secondary,
+        primary: tpl.templatePrimary,
+        secondary: tpl.templateSecondary,
         reasons: tpl.reasons ?? [],
       };
       out.johooTemplate = { factor, scaleBy };
@@ -1380,7 +1329,13 @@ methodSelectorOut = out;
       johooTemplate:
         templateOut ??
         (effectiveWeights.johooTemplate !== 0 && tpl?.enabled
-          ? { factor: 1, bonus: templateBonus, primary: tpl.primary, secondary: tpl.secondary, reasons: tpl.reasons ?? [] }
+          ? {
+              factor: 1,
+              bonus: templateBonus,
+              primary: tpl.templatePrimary,
+              secondary: tpl.templateSecondary,
+              reasons: tpl.reasons ?? [],
+            }
           : undefined),
       transformations:
         transformationsOut ??

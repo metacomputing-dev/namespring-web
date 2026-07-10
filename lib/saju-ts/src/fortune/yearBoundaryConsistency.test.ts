@@ -51,6 +51,45 @@ describe('A12 — 연주↔세운 yearBoundary 정합', () => {
     expect(row!.pillar).toEqual(summary.pillars.year); // 庚辰
   });
 
+  it('liChun 정밀도 설정을 세운 경계에도 동일하게 적용한다', () => {
+    const configuredLiChun = getLiChunUtcMs(
+      2027,
+      'meeus',
+      'newton',
+      'constant',
+      'iau1980_top10',
+    );
+    const classicalLiChun = getLiChunUtcMs(
+      2027,
+      'meeus',
+      'bisection',
+      'constant',
+      'classical',
+    );
+    expect(configuredLiChun).not.toBe(classicalLiChun);
+
+    const birthUtcMs = Math.floor((configuredLiChun + classicalLiChun) / 2);
+    const engine = createEngine({
+      calendar: {
+        yearBoundary: 'liChun',
+        solarTerms: { method: 'meeus', algorithm: 'newton' },
+        aberrationModel: 'constant',
+        solarPrecision: 'iau1980_top10',
+      },
+    } as any);
+    const bundle = engine.analyze({
+      birth: { instant: new Date(birthUtcMs).toISOString(), calendar: 'gregorian' },
+      sex: 'M',
+    } as any);
+    const summary: any = bundle.summary;
+    const years: YearRow[] = summary.fortune.years;
+    const row = rowContaining(years, birthUtcMs);
+
+    expect(row).toBeTruthy();
+    expect(row!.startUtcMs).toBe(configuredLiChun);
+    expect(row!.pillar).toEqual(summary.pillars.year);
+  });
+
   it('lunarNewYear: 설 이후 출생 → 연주·세운 모두 2001 辛巳로 정합', () => {
     const summary = analyzeWith('lunarNewYear');
     const years: YearRow[] = summary.fortune.years;

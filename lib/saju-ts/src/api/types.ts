@@ -445,18 +445,26 @@ export interface FortuneSummaryView {
   relations?: FortuneRelationsSummaryView;
 }
 
+export interface StrengthComponentsView {
+  companions: number;
+  resources: number;
+  outputs: number;
+  wealth: number;
+  officers: number;
+}
+
 export interface StrengthView {
   index: number;
   support: number;
   pressure: number;
   total: number;
-  components: {
-    companions: number;
-    resources: number;
-    outputs: number;
-    wealth: number;
-    officers: number;
-  };
+  /** Pre-adjustment contributions retained for audit compatibility. */
+  components: StrengthComponentsView;
+  /**
+   * Contributions reconciled to the final support/pressure totals.
+   * Downstream judgement reproduction must prefer this view when present.
+   */
+  effectiveComponents?: StrengthComponentsView;
 }
 
 export interface YongshinView {

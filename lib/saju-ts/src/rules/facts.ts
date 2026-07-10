@@ -26,6 +26,8 @@ import { DEFAULT_CLIMATE_MODEL, computeClimateScores, mergeClimateModel } from '
 import type { JohooTemplateResult } from './johooTemplate.js';
 import { computeJohooTemplate } from './johooTemplate.js';
 import { computeGyeokgukSeongpae } from './gyeokgukSeongpae.js';
+import { computeFollowPotential } from './followPotential.js';
+import { strengthDecisionComponents, type StrengthComponents } from './strengthComponents.js';
 import type { SeasonGroup } from './season.js';
 import { seasonGroupOfMonthBranch } from './season.js';
 
@@ -73,13 +75,10 @@ export interface StrengthFacts {
   support: number;
   pressure: number;
   total: number;
-  components: {
-    companions: number;
-    resources: number;
-    outputs: number;
-    wealth: number;
-    officers: number;
-  };
+  /** Pre-adjustment scoring contributions retained for audit compatibility. */
+  components: StrengthComponents;
+  /** Contributions reconciled to the final support and pressure totals. */
+  effectiveComponents?: StrengthComponents;
 
   /** Strength model id used for this run (e.g., 'base', 'seasonalRoots'). */
   model?: string;
@@ -1151,37 +1150,21 @@ function applyFollowPattern(config: EngineConfig, facts: RuleFacts): void {
   // We also look at yongshin.methodSelector.follow.oneElementBoost for convenience.
   const oneElementBoost = num((pol0 as any).oneElementBoost, num(yFollow?.oneElementBoost, 0));
 
-  const s = facts.strength.index;
-  const support = facts.strength.support;
-  const pressure = facts.strength.pressure;
-  const eps = 1e-9;
+  const { index: s, support, pressure } = facts.strength;
+  const {
+    potential: potentialRaw,
+    mode,
+    dominanceRatio,
+  } = computeFollowPotential({
+    strengthIndex: s,
+    support,
+    pressure,
+    weakThreshold,
+    strongThreshold,
+    minDominanceRatio: minDom,
+  });
 
-  // --- Base follow potentials (same math as yongshin.followPotentialFromStrength)
-  const weakFactor = s < weakThreshold ? clamp01((weakThreshold - s) / Math.max(eps, weakThreshold + 1)) : 0;
-  const weakDomRatio = pressure / Math.max(eps, support);
-  const weakDomFactor = clamp01((weakDomRatio - minDom) / Math.max(eps, minDom));
-  const weakPotential = clamp01(weakFactor * weakDomFactor);
-
-  const strongFactor = s > strongThreshold ? clamp01((s - strongThreshold) / Math.max(eps, 1 - strongThreshold)) : 0;
-  const strongDomRatio = support / Math.max(eps, pressure);
-  const strongDomFactor = clamp01((strongDomRatio - minDom) / Math.max(eps, minDom));
-  const strongPotential = clamp01(strongFactor * strongDomFactor);
-
-  let mode: 'PRESSURE' | 'SUPPORT' | 'NONE' = 'NONE';
-  let dominanceRatio = 0;
-  let potentialRaw = 0;
-
-  if (strongPotential > weakPotential) {
-    potentialRaw = strongPotential;
-    mode = strongPotential > 0 ? 'SUPPORT' : 'NONE';
-    dominanceRatio = strongDomRatio;
-  } else {
-    potentialRaw = weakPotential;
-    mode = weakPotential > 0 ? 'PRESSURE' : 'NONE';
-    dominanceRatio = weakDomRatio;
-  }
-
-  const comps = facts.strength.components;
+  const comps = strengthDecisionComponents(facts.strength);
   const dominantSupportRole: DayMasterRole = comps.companions >= comps.resources ? 'COMPANION' : 'RESOURCE';
   const dominantPressureRole: DayMasterRole = (() => {
     const o = comps.outputs;
@@ -2449,10 +2432,11 @@ function banghapElementOf(members: BranchIdx[]): Element | null {
 // 설계 원칙:
 // - 감쇠·보정은 deLingDiShi의 (1+f) 배율 층에만 주입한다. hiddenStemsOfBranch·
 //   elementDistribution·tenGodScores는 절대 건드리지 않는다(이중 감쇠 + κ 파급 방지).
-// - 값 기반 members(궁위 인프라 B538의 pillarIndexes는 랜딩됐으나 1차 감쇠는 값
-//   매칭 균일 — 동일 지지 2개는 함께 감쇠되는 한계를 문서화, 위치 차등은
-//   branchWeights(월 1.1 > 일 0.9 > 년·시 0.7) 곱을 통해 간접 반영).
-// - 왕상휴수 미구현 동안은 강도 무차별 균일 감쇠(감사 B434 연동은 후속).
+// - relationsDetailed의 pairs가 있으면 궁위별 인접/원격 감쇠를 적용한다.
+//   pairs가 없는 직접 호출만 값 기반 members 폴백을 사용하므로 동일 지지 중복은
+//   그 폴백에서 함께 감쇠될 수 있다.
+// - seasonal 정책이 켜진 기본 경로는 왕상휴수 상태별 비대칭 감쇠를 적용한다.
+//   두 보정 모두 provisional 계수이므로 authority holdout 재캘리브레이션 대상이다.
 
 interface StrengthInteractionPolicy {
   enabled: boolean;
@@ -2463,7 +2447,7 @@ interface StrengthInteractionPolicy {
     resolveByHap: boolean;
     resolveTypes: RelationType[];
     samePairHapResolves: boolean;
-    /** PR-10-2 (감사 B524/B538): 궁위 pairs 기반 인접/원격 차등 손상 — 기본 off (판정 변경). */
+    /** PR-10-2: 궁위 pairs 기반 인접/원격 차등 손상 — 현재 기본 on, 권위 캘리브레이션 대기. */
     positional: {
       enabled: boolean;
       /** 기둥 거리별 손상 강도 배율 — d1 인접 / d2 한 칸 건너 / d3 원격(년-시) */
@@ -2484,7 +2468,7 @@ interface StrengthInteractionPolicy {
     jaenghapFactor: number;
     applyToPressure: boolean;
   };
-  /** PR-10-1 (감사 B434): 왕상휴수 연동 비대칭 뿌리 손상 — 기본 off (판정 변경, 계측 후 기본화 별도). */
+  /** PR-10-1: 왕상휴수 연동 비대칭 뿌리 손상 — 현재 기본 on, 권위 캘리브레이션 대기. */
   seasonal: {
     enabled: boolean;
     /** 손상 강도 배율 — eff = 1 − (1 − f) × mult(state). mult<1 경감(왕상), >1 가중(수사). */
@@ -2521,8 +2505,8 @@ function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
         : (['YUKHAP', 'SAMHAP'] as RelationType[]), // 반합의 해충력은 이설 커서 기본 제외 (hui 파국 판정과의 순환 방지)
       samePairHapResolves: rootRaw.samePairHapResolves !== false, // 巳申 동일쌍 합+형 → 형합 유정
       positional: {
-        // PR-10-2 기본 on (감사 B524) — 인접/원격 차등. validate:default-change 계측(GUIDE §1)
-        // 통과 후 기본화. enabled:false로 완전 opt-out.
+        // PR-10-2 기본 on (감사 B524) — 인접/원격 차등. 현재 main 대비 변화는
+        // REVIEW_REQUIRED이며 authority holdout 승인 전까지 provisional. enabled:false로 완전 opt-out.
         enabled: rootRaw.positional?.enabled !== false,
         // 인접(d=1) 완전 성립 / 한 칸 건너(d=2) 절반 / 원격 년-시(d=3) 1/4 —
         // 자평 실무 인접성 통설의 보수 개시값 (계측 후 조정 전제).
@@ -2554,8 +2538,8 @@ function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
       applyToPressure: bindRaw.applyToPressure !== false,
     },
     seasonal: {
-      // PR-10-1 기본 on (감사 B434) — 왕상휴수 비대칭 감쇠. validate:default-change
-      // 계측(GUIDE §1) 통과 후 기본화. enabled:false로 완전 opt-out.
+      // PR-10-1 기본 on (감사 B434) — 왕상휴수 비대칭 감쇠. 현재 main 대비 변화는
+      // REVIEW_REQUIRED이며 authority holdout 승인 전까지 provisional. enabled:false로 완전 opt-out.
       enabled: enabled && seasonalRaw.enabled !== false,
       // 왕한 오행의 뿌리는 충·형 손상을 30% 경감, 사(死)한 오행은 30% 가중 —
       // "왕상한 쪽이 덜 상한다"는 통설의 보수적 개시값 (계측 후 조정 전제).
@@ -2571,9 +2555,9 @@ function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
 }
 
 /** 충/형 손상 → 지지별 통근 감쇠 계수 (1.0 = 무손상). 탐합망충 해소 판정 포함.
- *  seasonal이 주어지고 enabled면 왕상휴수 비대칭(감사 B434)을 적용한다 — 기본 off.
- *  pol.positional.enabled + relationsDetailed(pairs 보존)면 인접/원격 차등(감사 B524) —
- *  기본 off. 둘 다 off면 기존 값 매칭 경로와 바이트 동일. */
+ *  seasonal이 주어지고 enabled면 왕상휴수 비대칭(감사 B434)을 적용한다.
+ *  pol.positional.enabled + relationsDetailed(pairs 보존)면 인접/원격 차등(감사 B524)을 적용한다.
+ *  둘 다 현재 기본 on이며, 명시적 enabled:false일 때 기존 균일 감쇠 경로로 돌아간다. */
 export function computeBranchInteractionFactors(
   branches: BranchIdx[],
   byType: Partial<Record<RelationType, BranchIdx[][]>>,
@@ -2610,6 +2594,15 @@ export function computeBranchInteractionFactors(
     return false;
   };
 
+  const samhyeongPairs = (members: BranchIdx[]): BranchIdx[][] => {
+    if (members.length !== 3) return [];
+    return [
+      [members[0]!, members[1]!],
+      [members[0]!, members[2]!],
+      [members[1]!, members[2]!],
+    ];
+  };
+
   // ── PR-10-2 (감사 B524/B538): 궁위 pairs 기반 인접/원격 차등 경로 ──
   // 해소(탐합망충)는 값 수준 그대로 둔다 — 탐지 자체가 값 기반이라 동일 값 중복에서
   // 위치별 해소 차이는 원리상 발생하지 않는다. 차등은 손상 강도(거리)에만 적용.
@@ -2619,7 +2612,25 @@ export function computeBranchInteractionFactors(
     for (const rel of relationsDetailed) {
       const f = (pol.damageFactors as any)[rel.type];
       if (!(typeof f === 'number' && Number.isFinite(f) && f >= 0 && f < 1)) continue;
-      if (isResolved(rel.members as BranchIdx[])) {
+      const triplePairs = rel.type === 'SAMHYEONG'
+        ? samhyeongPairs(rel.members as BranchIdx[])
+        : null;
+      const unresolvedTriplePairs = triplePairs?.filter((pair) => !isResolved(pair));
+      const unresolvedTriplePairKeys = new Set(
+        unresolvedTriplePairs?.map((pair) => pair.join(',')) ?? [],
+      );
+      if (triplePairs) {
+        for (const pair of triplePairs) {
+          if (!unresolvedTriplePairKeys.has(pair.join(','))) {
+            resolved.push({ type: 'HYEONG', members: pair });
+          }
+        }
+      }
+      if (triplePairs && unresolvedTriplePairs!.length === 0) {
+        resolved.push({ type: rel.type, members: rel.members as BranchIdx[] });
+        continue;
+      }
+      if (!triplePairs && isResolved(rel.members as BranchIdx[])) {
         resolved.push({ type: rel.type, members: rel.members as BranchIdx[] });
         continue;
       }
@@ -2633,7 +2644,22 @@ export function computeBranchInteractionFactors(
         effByIdx.set(i, Math.min(effByIdx.get(i) ?? 1, eff));
       };
       const pairs = Array.isArray(rel.pairs) && rel.pairs.length > 0 ? rel.pairs : null;
-      if (pairs) {
+      if (triplePairs) {
+        // 삼형은 canonical relation 하나로 점수화하되, 탐합망형 해소는
+        // 세 구성쌍별로 평가한다. 남은 쌍에 참여하는 기둥만 한 번 감쇠한다.
+        for (const [a, b] of unresolvedTriplePairs!) {
+          for (let i = 0; i < branches.length; i++) {
+            for (let j = i + 1; j < branches.length; j++) {
+              const bi = mod(branches[i]!, 12);
+              const bj = mod(branches[j]!, 12);
+              if (!((bi === a && bj === b) || (bi === b && bj === a))) continue;
+              const scale = dScaleOf(Math.abs(i - j));
+              noteEff(i, scale);
+              noteEff(j, scale);
+            }
+          }
+        }
+      } else if (pairs) {
         for (const [i, j] of pairs as Array<[number, number]>) {
           const scale = dScaleOf(Math.abs(i - j));
           noteEff(i, scale);
@@ -2657,6 +2683,27 @@ export function computeBranchInteractionFactors(
   for (const [t, f] of Object.entries(pol.damageFactors) as Array<[RelationType, number]>) {
     if (!(typeof f === 'number' && Number.isFinite(f) && f >= 0 && f < 1)) continue;
     for (const g of byType[t] ?? []) {
+      if (t === 'SAMHYEONG') {
+        const pairs = samhyeongPairs(g as BranchIdx[]);
+        const unresolvedPairs = pairs.filter((pair) => !isResolved(pair));
+        const unresolvedPairKeys = new Set(unresolvedPairs.map((pair) => pair.join(',')));
+        for (const pair of pairs) {
+          if (!unresolvedPairKeys.has(pair.join(','))) {
+            resolved.push({ type: 'HYEONG', members: pair });
+          }
+        }
+        if (unresolvedPairs.length === 0) {
+          resolved.push({ type: t, members: g as BranchIdx[] });
+          continue;
+        }
+        const activeMembers = new Set(unresolvedPairs.flat() as number[]);
+        for (let i = 0; i < branches.length; i++) {
+          if (!activeMembers.has(mod(branches[i]!, 12))) continue;
+          const mult = seasonalMultOf(i);
+          factors[i]! *= mult === 1 ? f : clamp01(1 - (1 - f) * mult);
+        }
+        continue;
+      }
       if (isResolved(g as BranchIdx[])) {
         resolved.push({ type: t, members: g as BranchIdx[] });
         continue;
@@ -2870,7 +2917,7 @@ function computeStrengthFacts(args: {
     ];
 
     // PR-5 (감사 B448/B510): 충/형 손상 → 통근 감쇠 (탐합망충 해소 포함).
-    // PR-10-1 (감사 B434): seasonal opt-in 시 왕상휴수 비대칭 — 기본 off라 무전달과 동일.
+    // PR-10-1 (감사 B434): 현재 기본 on인 왕상휴수 비대칭 보정 재료.
     const interactionPol = readStrengthInteractionPolicy(pol);
     const rootDamage = computeBranchInteractionFactors(
       args.branches,
@@ -2955,6 +3002,15 @@ function computeStrengthFacts(args: {
     const pressureAdj = Math.max(0, pressureBase * (1 + hui.pressureBonus));
     const totalAdj = supportAdj + pressureAdj;
     const indexAdj = totalAdj <= 0 ? 0 : (supportAdj - pressureAdj) / totalAdj;
+    const supportScale = base.support > 0 ? supportAdj / base.support : 0;
+    const pressureScale = pressureBase > 0 ? pressureAdj / pressureBase : 0;
+    const effectiveComponents: StrengthComponents = {
+      companions: base.components.companions * supportScale,
+      resources: base.components.resources * supportScale,
+      outputs: base.components.outputs * pressureScale,
+      wealth: base.components.wealth * pressureScale,
+      officers: officerPressure.officers * pressureScale,
+    };
 
     return {
       index: indexAdj,
@@ -2962,6 +3018,7 @@ function computeStrengthFacts(args: {
       pressure: pressureAdj,
       total: totalAdj,
       components: base.components,
+      effectiveComponents,
       model: 'deLingDiShi',
       details: {
         delingdiShi: {
@@ -3027,6 +3084,14 @@ function computeStrengthFacts(args: {
   const pressureAdj = base.pressure;
   const totalAdj = supportAdj + pressureAdj;
   const indexAdj = totalAdj <= 0 ? 0 : (supportAdj - pressureAdj) / totalAdj;
+  const supportScale = base.support > 0 ? supportAdj / base.support : 0;
+  const effectiveComponents: StrengthComponents = {
+    companions: base.components.companions * supportScale,
+    resources: base.components.resources * supportScale,
+    outputs: base.components.outputs,
+    wealth: base.components.wealth,
+    officers: base.components.officers,
+  };
 
   return {
     index: indexAdj,
@@ -3034,6 +3099,7 @@ function computeStrengthFacts(args: {
     pressure: pressureAdj,
     total: totalAdj,
     components: base.components,
+    effectiveComponents,
     model: 'seasonalRoots',
     details: {
       season: {
@@ -3970,7 +4036,7 @@ export function buildRuleFacts(args: {
       seasonGroup: seasonGroupOfMonthBranch(pillars.month.branch),
       // PR-5 (감사 B448): 합충 상호작용 재료 — 탐지·합화 판정 재계산 없이 전달만.
       relationsByType: byType,
-      // PR-10-2 (감사 B524): pairs 보존 원본 — positional(기본 off) 경로 전용.
+      // PR-10-2 (감사 B524): pairs 보존 원본 — positional(현재 기본 on) 경로 전용.
       relationsDetailed: detectedRelations,
       transformations,
     }),

@@ -4,6 +4,7 @@ import { evalRuleSet } from './dsl.js';
 import { DEFAULT_GYEOKGUK_RULESET } from './defaultRuleSets.js';
 import { compileGyeokgukRuleSpec } from './spec/compileGyeokgukSpec.js';
 import type { DayMasterRole, RuleFacts } from './facts.js';
+import { strengthDecisionComponents } from './strengthComponents.js';
 import { compete, renormalizeScale } from '../core/competition.js';
 
 export type GyeokgukCompetitionMethod = 'follow' | 'transformations' | 'oneElement' | 'tenGod';
@@ -514,7 +515,7 @@ function selectedJonggyeokSubtype(best: string | null): JonggyeokSubtype | null 
 }
 
 function componentShare(facts: RuleFacts, name: keyof RuleFacts['strength']['components'], total: number): number {
-  return total > 0 ? finite01(facts.strength.components[name] / total) : 0;
+  return total > 0 ? finite01(strengthDecisionComponents(facts.strength)[name] / total) : 0;
 }
 
 function elementShare(facts: RuleFacts, element: string | null | undefined): number {
@@ -556,7 +557,7 @@ function statusFromScore(score: number, blockedReason: string | undefined, selec
 }
 
 function buildJonggyeokCandidates(facts: RuleFacts, best: string | null): JonggyeokCandidate[] {
-  const c = facts.strength.components;
+  const c = strengthDecisionComponents(facts.strength);
   const total = Math.max(
     1e-9,
     asNumber(c.companions, 0) + asNumber(c.resources, 0) + asNumber(c.outputs, 0) + asNumber(c.wealth, 0) + asNumber(c.officers, 0),

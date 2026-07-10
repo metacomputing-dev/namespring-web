@@ -46,19 +46,32 @@ export const defaultConfig: EngineConfig = {
   },
 };
 
+/** Raised when an explicit school selector cannot be parsed into preset ids. */
+export class InvalidSchoolPresetSelectorError extends Error {
+  readonly code = 'SAJU_INVALID_SCHOOL_PRESET_SELECTOR';
+
+  constructor() {
+    super('School preset selector must contain one or more non-empty string ids.');
+    this.name = 'InvalidSchoolPresetSelectorError';
+  }
+}
+
 function parsePresetIds(x: unknown): string[] {
+  if (x === undefined) return [];
   const out: string[] = [];
 
   const add = (v: unknown) => {
-    if (typeof v !== 'string') return;
+    if (typeof v !== 'string') throw new InvalidSchoolPresetSelectorError();
     const t = v.trim();
-    if (!t) return;
+    if (!t) throw new InvalidSchoolPresetSelectorError();
     // Allow simple composition: "a+b" or "a,b".
     const parts = t.split(/[+,]/).map((s) => s.trim()).filter(Boolean);
+    if (parts.length === 0) throw new InvalidSchoolPresetSelectorError();
     out.push(...parts);
   };
 
   if (Array.isArray(x)) {
+    if (x.length === 0) throw new InvalidSchoolPresetSelectorError();
     for (const v of x) add(v);
   } else {
     add(x);
@@ -91,8 +104,18 @@ export function normalizeConfig(input: Partial<EngineConfig> | unknown): EngineC
   const packs = resolveSchoolPresetPacks(migrated);
 
   const presetRef: unknown = (() => {
-    const bySchool = (migrated as any)?.school?.id;
-    if (bySchool != null) return bySchool;
+    if (Object.prototype.hasOwnProperty.call(migrated as object, 'school')) {
+      const school = (migrated as any).school;
+      if (
+        !school ||
+        typeof school !== 'object' ||
+        Array.isArray(school) ||
+        !Object.prototype.hasOwnProperty.call(school, 'id')
+      ) {
+        throw new InvalidSchoolPresetSelectorError();
+      }
+      return school.id;
+    }
 
     const ext: any = (migrated.extensions as any) ?? {};
     const byExt = ext?.presets?.school ?? ext?.preset?.school ?? ext?.school;
@@ -102,7 +125,7 @@ export function normalizeConfig(input: Partial<EngineConfig> | unknown): EngineC
     const byStrat = st?.school ?? st?.schoolId;
     if (byStrat != null) return byStrat;
 
-    return null;
+    return undefined;
   })();
 
   const presetIds = parsePresetIds(presetRef);

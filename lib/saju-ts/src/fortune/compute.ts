@@ -1,6 +1,13 @@
 import type { EngineConfig, SajuRequest } from '../api/types.js';
-import type { JieBoundariesAround, JieTermId, SolarTermMethod, SolarTermInstant } from '../calendar/solarTerms.js';
+import type {
+  JieBoundariesAround,
+  JieTermId,
+  SolarTermAlgorithm,
+  SolarTermMethod,
+  SolarTermInstant,
+} from '../calendar/solarTerms.js';
 import { getJieBoundaries, getLiChunUtcMs, jieTermMonthOrder } from '../calendar/solarTerms.js';
+import type { AberrationModel, SolarPrecision } from '../calendar/solar.js';
 import type { LocalDate } from '../calendar/iso.js';
 import type { LocalDateTime } from '../calendar/iso.js';
 import { computeLunarNewYearBoundary } from '../calendar/lunarNewYear.js';
@@ -23,6 +30,30 @@ import type {
 
 const MS_PER_DAY = 86_400_000;
 const AVG_DAYS_PER_YEAR = 365.2425;
+
+interface SolarTermComputationPolicy {
+  method: SolarTermMethod;
+  algorithm: SolarTermAlgorithm;
+  aberrationModel: AberrationModel;
+  solarPrecision: SolarPrecision;
+}
+
+function resolveSolarTermComputationPolicy(
+  calendar: EngineConfig['calendar'],
+  method: SolarTermMethod,
+): SolarTermComputationPolicy {
+  return {
+    method,
+    algorithm: calendar.solarTerms?.algorithm === 'newton' ? 'newton' : 'bisection',
+    aberrationModel: calendar.aberrationModel === 'rCorrected' ? 'rCorrected' : 'constant',
+    solarPrecision:
+      calendar.solarPrecision === 'iau1980_full'
+        ? 'iau1980_full'
+        : calendar.solarPrecision === 'iau1980_top10'
+          ? 'iau1980_top10'
+          : 'classical',
+  };
+}
 
 function shiftPillar(p: PillarIdx, steps: number): PillarIdx {
   return { stem: mod(p.stem + steps, 10), branch: mod(p.branch + steps, 12) };
@@ -184,25 +215,31 @@ function yearBoundaryStartUtcMs(
   y: number,
   calendar: EngineConfig['calendar'],
   offsetMinutes: number,
-  solarTermMethod: SolarTermMethod,
+  solarTermPolicy: SolarTermComputationPolicy,
 ): number {
   if (calendar.yearBoundary === 'lunarNewYear') {
-    return computeLunarNewYearBoundary(y, offsetMinutes, solarTermMethod).boundaryUtcMs;
+    return computeLunarNewYearBoundary(y, offsetMinutes, solarTermPolicy.method).boundaryUtcMs;
   }
   if (calendar.yearBoundary === 'jan1') {
     return localToUtcMs({ y, m: 1, d: 1 }, { h: 0, min: 0 }, offsetMinutes);
   }
-  return getLiChunUtcMs(y, solarTermMethod);
+  return getLiChunUtcMs(
+    y,
+    solarTermPolicy.method,
+    solarTermPolicy.algorithm,
+    solarTermPolicy.aberrationModel,
+    solarTermPolicy.solarPrecision,
+  );
 }
 
 function yearLabelAtUtc(
   utcMs: number,
   calendar: EngineConfig['calendar'],
   offsetMinutes: number,
-  solarTermMethod: SolarTermMethod,
+  solarTermPolicy: SolarTermComputationPolicy,
 ): number {
   const y = localYearAtUtc(utcMs, offsetMinutes);
-  return utcMs < yearBoundaryStartUtcMs(y, calendar, offsetMinutes, solarTermMethod) ? y - 1 : y;
+  return utcMs < yearBoundaryStartUtcMs(y, calendar, offsetMinutes, solarTermPolicy) ? y - 1 : y;
 }
 
 function ageDisplayLabelOf(mode: FortunePolicy['ageDisplay']): string {
@@ -217,12 +254,12 @@ function displayAgeAt(
   birthUtcMs: number,
   calendar: EngineConfig['calendar'],
   offsetMinutes: number,
-  solarTermMethod: SolarTermMethod,
+  solarTermPolicy: SolarTermComputationPolicy,
   policy: FortunePolicy,
 ): number {
   if (policy.ageDisplay !== 'koreanCountingAge') return startAgeDisplayOf(ageYears, policy);
-  const birthYear = yearLabelAtUtc(birthUtcMs, calendar, offsetMinutes, solarTermMethod);
-  const targetYear = yearLabelAtUtc(utcMsApprox, calendar, offsetMinutes, solarTermMethod);
+  const birthYear = yearLabelAtUtc(birthUtcMs, calendar, offsetMinutes, solarTermPolicy);
+  const targetYear = yearLabelAtUtc(utcMsApprox, calendar, offsetMinutes, solarTermPolicy);
   return Math.max(1, targetYear - birthYear + 1);
 }
 
@@ -249,6 +286,7 @@ export function computeFortuneTimeline(args: {
   policy: FortunePolicy;
 }): FortuneTimeline {
   const { request, parsedUtcMs, birthLocalDateTime, localYear, solarTermMethod, jieBoundariesAround, natalYearPillar, natalMonthPillar, policy, calendar } = args;
+  const solarTermPolicy = resolveSolarTermComputationPolicy(calendar, solarTermMethod);
 
   if (!jieBoundariesAround) {
     // If boundaries are not computed (policy doesn't need them), fall back to a trivial timeline.
@@ -260,7 +298,7 @@ export function computeFortuneTimeline(args: {
       boundary: null,
       deltaMs: 0,
       startAgeYears: 0,
-      startAgeDisplay: displayAgeAt(0, parsedUtcMs, parsedUtcMs, calendar, birthLocalDateTime.offsetMinutes, solarTermMethod, policy),
+      startAgeDisplay: displayAgeAt(0, parsedUtcMs, parsedUtcMs, calendar, birthLocalDateTime.offsetMinutes, solarTermPolicy, policy),
       ageDisplay: policy.ageDisplay,
       ageDisplayLabel: ageDisplayLabelOf(policy.ageDisplay),
       startUtcMsApprox: parsedUtcMs,
@@ -286,7 +324,7 @@ export function computeFortuneTimeline(args: {
     boundary: { id: boundary.id, utcMs: boundary.utcMs },
     deltaMs,
     startAgeYears: startAge,
-    startAgeDisplay: displayAgeAt(startAge, startUtcMsApprox, parsedUtcMs, calendar, birthLocalDateTime.offsetMinutes, solarTermMethod, policy),
+    startAgeDisplay: displayAgeAt(startAge, startUtcMsApprox, parsedUtcMs, calendar, birthLocalDateTime.offsetMinutes, solarTermPolicy, policy),
     ageDisplay: policy.ageDisplay,
     ageDisplayLabel: ageDisplayLabelOf(policy.ageDisplay),
     startAgeParts: parts,
@@ -314,8 +352,8 @@ export function computeFortuneTimeline(args: {
       index: i,
       startAgeYears,
       endAgeYears,
-      displayStartAge: displayAgeAt(startAgeYears, approxStartUtcMs, parsedUtcMs, calendar, birthLocalDateTime.offsetMinutes, solarTermMethod, policy),
-      displayEndAge: displayAgeAt(endAgeYears, approxEndUtcMs, parsedUtcMs, calendar, birthLocalDateTime.offsetMinutes, solarTermMethod, policy),
+      displayStartAge: displayAgeAt(startAgeYears, approxStartUtcMs, parsedUtcMs, calendar, birthLocalDateTime.offsetMinutes, solarTermPolicy, policy),
+      displayEndAge: displayAgeAt(endAgeYears, approxEndUtcMs, parsedUtcMs, calendar, birthLocalDateTime.offsetMinutes, solarTermPolicy, policy),
       pillar,
     };
 
@@ -333,7 +371,8 @@ export function computeFortuneTimeline(args: {
   // (liChun/lunarNewYear/jan1), so 세운 labels and segments must follow the same rule —
   // otherwise under non-liChun configs the 세운 row containing birth disagrees with the
   // natal year pillar. Default (liChun) behavior is byte-identical to the previous code.
-  const yearStartUtcMs = (y: number): number => yearBoundaryStartUtcMs(y, calendar, birthLocalDateTime.offsetMinutes, solarTermMethod);
+  const yearStartUtcMs = (y: number): number =>
+    yearBoundaryStartUtcMs(y, calendar, birthLocalDateTime.offsetMinutes, solarTermPolicy);
   const baseSolarYear = parsedUtcMs < yearStartUtcMs(localYear) ? localYear - 1 : localYear;
 
   const years: YearLuck[] = [];
@@ -359,11 +398,29 @@ export function computeFortuneTimeline(args: {
   // baseSolarYear above. Identical under the default (liChun) config.
   let months: MonthLuck[] | undefined;
   if (policy.maxMonths > 0) {
-    const jieBaseSolarYear = parsedUtcMs < getLiChunUtcMs(localYear, solarTermMethod) ? localYear - 1 : localYear;
+    const jieBaseSolarYear =
+      parsedUtcMs <
+      getLiChunUtcMs(
+        localYear,
+        solarTermPolicy.method,
+        solarTermPolicy.algorithm,
+        solarTermPolicy.aberrationModel,
+        solarTermPolicy.solarPrecision,
+      )
+        ? localYear - 1
+        : localYear;
     const spanYears = Math.ceil(policy.maxMonths / 12) + 2;
     const terms: SolarTermInstant[] = [];
     for (let y = jieBaseSolarYear; y <= jieBaseSolarYear + spanYears; y++) {
-      terms.push(...getJieBoundaries(y, solarTermMethod));
+      terms.push(
+        ...getJieBoundaries(
+          y,
+          solarTermPolicy.method,
+          solarTermPolicy.algorithm,
+          solarTermPolicy.aberrationModel,
+          solarTermPolicy.solarPrecision,
+        ),
+      );
     }
     terms.sort((a, b) => a.utcMs - b.utcMs);
 
