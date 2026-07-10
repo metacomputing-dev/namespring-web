@@ -4,8 +4,9 @@ import { normalizeConfig } from '../api/config.js';
 import type { BranchIdx, StemIdx } from '../core/cycle.js';
 import { pillar } from '../core/cycle.js';
 import { elementDistributionFromPillars } from '../core/elementDistribution.js';
-import { DEFAULT_SCORE_POLICY, scorePillars } from '../core/scoring.js';
+import { DEFAULT_SCORE_POLICY } from '../core/scoring.js';
 import { buildRuleFacts } from './facts.js';
+import { scorePillarsForRuleFacts } from './ruleFactsScoring.js';
 
 /**
  * PR-5 (감사 B448/B510/B531) — 합충 상호작용 → 신강약 주입 단위 테스트.
@@ -31,7 +32,7 @@ function strengthOf(
     [pillars.year, pillars.month, pillars.day, pillars.hour],
     { hiddenStemWeights: (config.weights as any)?.hiddenStems },
   );
-  const scoring = scorePillars(pillars, DEFAULT_SCORE_POLICY);
+  const scoring = scorePillarsForRuleFacts(pillars, DEFAULT_SCORE_POLICY);
   return buildRuleFacts({ config, pillars, elementDistribution, scoring }).strength;
 }
 

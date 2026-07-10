@@ -8,7 +8,7 @@ import type { ElementDistribution } from '../core/elementDistribution.js';
 import type { ElementVector } from '../core/elementVector.js';
 import { ELEMENT_ORDER, zeroElementVector } from '../core/elementVector.js';
 import { mod } from '../core/mod.js';
-import type { PillarsScoringResult, TenGodScore } from '../core/scoring.js';
+import type { TenGodScore } from '../core/scoring.js';
 import { tenGodOf } from '../core/tenGod.js';
 import type { TenGod } from '../core/tenGod.js';
 import type { HiddenStemRole } from '../core/hiddenStems.js';
@@ -27,6 +27,8 @@ import type { JohooTemplateResult } from './johooTemplate.js';
 import { computeJohooTemplate } from './johooTemplate.js';
 import { computeGyeokgukSeongpae } from './gyeokgukSeongpae.js';
 import { computeFollowPotential } from './followPotential.js';
+import type { RuleFactsScoringResult } from './ruleFactsScoring.js';
+import { computeStrengthBase } from './strengthBase.js';
 import { strengthDecisionComponents, type StrengthComponents } from './strengthComponents.js';
 import type { SeasonGroup } from './season.js';
 import { seasonGroupOfMonthBranch } from './season.js';
@@ -75,7 +77,7 @@ export interface StrengthFacts {
   support: number;
   pressure: number;
   total: number;
-  /** Pre-adjustment scoring contributions retained for audit compatibility. */
+  /** Pre-adjustment strength contributions under the selected strength policy. */
   components: StrengthComponents;
   /** Contributions reconciled to the final support and pressure totals. */
   effectiveComponents?: StrengthComponents;
@@ -2381,21 +2383,6 @@ function computeMonthGyeokQuality(args: {
 }
 
 
-function strengthFromTenGodScoresBase(tg: TenGodScore): StrengthFacts {
-  const companions = (tg.BI_GYEON ?? 0) + (tg.GEOB_JAE ?? 0);
-  const resources = (tg.PYEON_IN ?? 0) + (tg.JEONG_IN ?? 0);
-  const outputs = (tg.SIK_SHIN ?? 0) + (tg.SANG_GWAN ?? 0);
-  const wealth = (tg.PYEON_JAE ?? 0) + (tg.JEONG_JAE ?? 0);
-  const officers = (tg.PYEON_GWAN ?? 0) + (tg.JEONG_GWAN ?? 0);
-
-  const support = companions + resources;
-  const pressure = outputs + wealth + officers;
-  const total = support + pressure;
-  const index = total <= 0 ? 0 : (support - pressure) / total;
-
-  return { index, support, pressure, total, components: { companions, resources, outputs, wealth, officers } };
-}
-
 function seasonSupportScore(monthEl: Element, dmEl: Element): number {
   // Rough "득령/실령" score in [-1,+1] based on 生/克 관계.
   if (monthEl === dmEl) return 1.0;
@@ -2862,6 +2849,7 @@ function readLifeStageRootPolicy(pol: any): LifeStageRootPolicy {
 function computeStrengthFacts(args: {
   config: EngineConfig;
   tenGods: TenGodScore;
+  dayMasterDirectStemWeight: number;
   dayMasterStem: StemIdx;
   monthBranch: BranchIdx;
   stems: StemIdx[];
@@ -2874,11 +2862,16 @@ function computeStrengthFacts(args: {
   relationsDetailed?: DetectedRelation[];
   transformations?: any;
 }): StrengthFacts {
-  const base = strengthFromTenGodScoresBase(args.tenGods);
+  const strengthPolicy = (args.config.strategies as any)?.strength ?? {};
+  const excludedDayMasterDirectStemWeight =
+    strengthPolicy.excludeDayMasterSelf === true ? args.dayMasterDirectStemWeight : 0;
+  const base = computeStrengthBase(args.tenGods, {
+    excludedDayMasterDirectStemWeight,
+  });
 
   // [감사 B7] 기본 모델은 deLingDiShi(월지 가중). defaultConfig(api/config.ts)가 정본이며,
   // 이 폴백은 normalizeConfig를 우회한 직접 호출 방어용이다. 'base'는 명시 opt-out.
-  const model = ((args.config.strategies as any)?.strength?.model ?? 'deLingDiShi') as string;
+  const model = (strengthPolicy.model ?? 'deLingDiShi') as string;
 
   // --- Model: deLingDiShi (得令/得地/得势)
   if (model === 'deLingDiShi' || model === 'delingdiShi' || model === 'delingsh' || model === 'deLing') {
@@ -3650,7 +3643,7 @@ export function buildRuleFacts(args: {
   config: EngineConfig;
   pillars: { year: PillarIdx; month: PillarIdx; day: PillarIdx; hour: PillarIdx };
   elementDistribution: ElementDistribution;
-  scoring: PillarsScoringResult;
+  scoring: RuleFactsScoringResult;
   /**
    * Optional 月令 司令字 facts (only present when the engine resolved
    * a saryeongScheme + jieData pair). Forwarded onto `facts.month.saryeong`.
@@ -4028,6 +4021,7 @@ export function buildRuleFacts(args: {
     strength: computeStrengthFacts({
       config,
       tenGods: scoring.tenGods,
+      dayMasterDirectStemWeight: scoring.provenance.dayMasterDirectStemWeight,
       dayMasterStem: pillars.day.stem,
       monthBranch: pillars.month.branch,
       stems,

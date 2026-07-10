@@ -33,8 +33,8 @@ import type { StemRelation } from '../core/stemRelations.js';
 import { detectStemRelations } from '../core/stemRelations.js';
 import { tenGodOf } from '../core/tenGod.js';
 
-import type { PillarsScoringResult } from '../core/scoring.js';
-import { scorePillars } from '../core/scoring.js';
+import type { ScorePolicy } from '../core/scoring.js';
+import { DEFAULT_SCORE_POLICY } from '../core/scoring.js';
 
 import type { FortuneTimeline } from '../fortune/types.js';
 import { readFortunePolicy } from '../fortune/policy.js';
@@ -44,6 +44,8 @@ import { buildFortuneRelations } from '../fortune/relations.js';
 
 import type { RuleFacts, StrengthFacts } from '../rules/facts.js';
 import { buildRuleFacts } from '../rules/facts.js';
+import type { RuleFactsScoringResult } from '../rules/ruleFactsScoring.js';
+import { scorePillarsForRuleFacts } from '../rules/ruleFactsScoring.js';
 import type { YongshinResult } from '../rules/yongshin.js';
 import { computeYongshin } from '../rules/yongshin.js';
 import type { GyeokgukResult } from '../rules/gyeokguk.js';
@@ -57,6 +59,13 @@ function n<T>(spec: NodeSpec<T>): NodeSpec<T> {
 
 function fp<T>(year: T, month: T, day: T, hour: T): FourPillars<T> {
   return { year, month, day, hour };
+}
+
+function pillarsScoringPolicy(weights: EngineWeights): ScorePolicy {
+  return {
+    ...DEFAULT_SCORE_POLICY,
+    hiddenStemWeights: weights.hiddenStems ?? { scheme: 'standard' },
+  };
 }
 
 function readLifeStagePolicy(strategies: Record<string, unknown> | undefined): LifeStagePolicy {
@@ -600,7 +609,7 @@ export function buildGraph(): Graph {
 
   // --- Pillars scoring (ten-gods + elements) for rule engine
   nodes.push(
-    n<PillarsScoringResult>({
+    n<RuleFactsScoringResult>({
       id: 'scores.pillars',
       deps: ['pillars.year', 'pillars.month', 'pillars.day', 'pillars.hour', 'policy.weights'],
       explain: '일간 기준 십성/오행/음양 스코어(수학적 베이스)를 계산한다.',
@@ -611,15 +620,7 @@ export function buildGraph(): Graph {
         const h = get<PillarIdx>('pillars.hour');
         const w = get<EngineWeights>('policy.weights');
 
-        return scorePillars(
-          { year: y, month: m, day: d, hour: h },
-          {
-            stemWeight: 1,
-            branchWeight: 1,
-            hiddenStemWeights: w.hiddenStems ?? { scheme: 'standard' },
-            includeBranchYinYang: false,
-          },
-        );
+        return scorePillarsForRuleFacts({ year: y, month: m, day: d, hour: h }, pillarsScoringPolicy(w));
       },
     }),
   );
@@ -636,7 +637,7 @@ export function buildGraph(): Graph {
         const d = get<PillarIdx>('pillars.day');
         const h = get<PillarIdx>('pillars.hour');
         const ed = get<ElementDistribution>('elements.distribution');
-        const scoring = get<PillarsScoringResult>('scores.pillars');
+        const scoring = get<RuleFactsScoringResult>('scores.pillars');
 
         const sar = get<SaryeongResult | null>('month.saryeong');
         const jieData = get<JieData | null>('month.jieData');
