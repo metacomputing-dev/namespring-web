@@ -54,9 +54,25 @@ or regression observations when `authorityTruthEligible` is `false`.
 The audit also rejects `T3_AUTHORED_INTERPRETATION` with
 `authorityTruthEligible: true` unless `authorityReview` is approved and
 complete. The rule is enforced both when auditing metadata and when selecting
-records for an accuracy denominator. As of 2026-07-10, 25 legacy T3
-records still require migration or demotion and therefore remain an explicit
-release blocker.
+records for an accuracy denominator.
+
+### 2026-07-10 demotion of 25 legacy T3 records
+
+The 25 legacy T3 records (2 `chumyeongga`, 9 `figures`, 14 `lecture`) that
+claimed `authorityTruthEligible: true` without an approved review were demoted
+in place: `authorityTruthEligible` is now `false` and each record carries
+`reviewStatus: "pending_independent_review"`, `demotedAt`, and a
+`demotionNote`. Nothing else in the records changed; expected judgements and
+provenance are preserved verbatim. This makes the tier metadata truthful — the
+records were already excluded from every accuracy denominator by the
+eligibility rule, so no gate arithmetic changed.
+
+**Re-promotion procedure (per record):** an independent expert reviews the
+expected judgement against the cited source, then adds
+`sourceTier.authorityReview: { "status": "approved", "reviewedBy": "<name>",
+"reviewedAt": "YYYY-MM-DD" }`, restores `authorityTruthEligible: true`, and
+removes `reviewStatus`/`demotedAt`/`demotionNote`. D1 accuracy denominators
+begin consuming the record automatically once it validates.
 
 Exact default-output change approval is a separate control documented in
 `RELEASE_APPROVAL_POLICY.md`; source eligibility does not automatically approve
