@@ -1,0 +1,76 @@
+name: Saju Engine Quality
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: saju-engine-quality-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  regression:
+    name: Engine regression
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: |
+            lib/saju-ts/package-lock.json
+            lib/spring-ts/package-lock.json
+
+      - name: Install saju engine dependencies
+        working-directory: lib/saju-ts
+        run: npm ci
+
+      - name: Install report adapter dependencies
+        working-directory: lib/spring-ts
+        run: npm ci
+
+      - name: Typecheck, test, and build saju engine
+        working-directory: lib/saju-ts
+        run: |
+          npm run typecheck
+          npm run test:ci
+          npm run build
+          npm run validate:all
+
+      - name: Verify adapter and release regression suite
+        working-directory: lib/spring-ts
+        run: |
+          npm run typecheck
+          npm run typecheck:saju-bridge
+          npm run build
+          npm run test:saju-engine-release
+
+      - name: Expert-readiness gates (fail closed)
+        working-directory: lib/spring-ts
+        shell: bash
+        env:
+          COMPOSITE_GATE_BASELINE_REF: origin/main
+          COMPOSITE_GATE_BRANCH_REF: HEAD
+        run: |
+          status=0
+          npm --prefix ../saju-ts run test:release-tools || status=1
+          npm --prefix ../saju-ts run validate:school-sources || status=1
+          npm run test:jonggyeok-authority:release || status=1
+          node tools/measure_default_change.mjs --baseline origin/main --branch HEAD || status=1
+          npm run quality:gate:release || status=1
+          npm run test:composite-quality-gate || status=1
+          exit "$status"
+
+      - name: Ensure validation did not rewrite tracked evidence
+        if: always()
+        run: git diff --exit-code
+
