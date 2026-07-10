@@ -151,10 +151,20 @@ check('current authority fixtures are tracked as non-scorable for naming preset 
 check('RPI summary has A-G axis scores',
   rpiSummary.axisScores &&
     Object.keys(rpiSummary.axisScores).length === 7);
-check('RPI calculation axis penalizes partial fixture coverage',
-  rpiSummary.axisScores?.A_calculationAccuracy?.status === 'PARTIAL' &&
-    rpiSummary.axisScores.A_calculationAccuracy.score < rpiSummary.axisScores.A_calculationAccuracy.maxPoints &&
-    rpiSummary.axisScores.A_calculationAccuracy.coverageRate < 100,
+// cf8b08006: D5가 NOT_APPLICABLE(설계상 범위 밖)을 분모에서 제외하므로 axis A는
+// PASS/100%가 정상일 수 있다. 상태별 정직성 불변식만 강제: PASS⇔fail·na 0+만점+100%,
+// PARTIAL(na>0)⇔감점+커버리지<100, FAIL⇔fail>0.
+check('RPI calculation axis stays honest (PASS requires full coverage; partial coverage is penalized)',
+  (() => {
+    const axisA = rpiSummary.axisScores?.A_calculationAccuracy;
+    if (!axisA) return false;
+    if (axisA.status === 'PASS')
+      return axisA.fail === 0 && axisA.na === 0 && axisA.score === axisA.maxPoints && axisA.coverageRate === 100;
+    if (axisA.status === 'PARTIAL')
+      return axisA.na > 0 && axisA.score < axisA.maxPoints && axisA.coverageRate < 100;
+    if (axisA.status === 'FAIL') return axisA.fail > 0;
+    return axisA.status === 'NOT_MEASURED' && axisA.score === 0;
+  })(),
   JSON.stringify(rpiSummary.axisScores?.A_calculationAccuracy));
 check('RPI truth separation reports no current engine rule failures',
   rpiSummary.truthSeparation?.engineRuleFailureCount === 0,
