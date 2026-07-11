@@ -7,6 +7,7 @@
  */
 
 import type { SajuSummary, BirthInfo } from '../../types.js';
+import { pointsToRatio } from '../../saju/confidence-units.js';
 import type { ElementCode } from '../types.js';
 import type { TieredAgeBand } from '../types.js';
 import { targetCalendarMonth, targetCalendarYear } from '../../target-date.js';
@@ -382,7 +383,7 @@ export interface FeatureVector {
   readonly strengthDeukji: number;
   /** 득세 score: same-element presence across the chart. */
   readonly strengthDeukse: number;
-  /** Engine confidence in the surfaced 용신 element (0..1). */
+  /** Score-facing confidence ratio converted from SajuSummary's 0..100 points. */
   readonly yongshinConfidence: number;
   /** Engine confidence in the surfaced 격국 (0..1). */
   readonly gyeokgukConfidence: number;
@@ -471,7 +472,7 @@ function buildFeatureVectorInternal(
     strengthDeukryeong: finiteNumber(saju.strength?.deukryeong),
     strengthDeukji: finiteNumber(saju.strength?.deukji),
     strengthDeukse: finiteNumber(saju.strength?.deukse),
-    yongshinConfidence: finiteNumber(saju.yongshin?.confidence),
+    yongshinConfidence: pointsToRatio(saju.yongshin?.confidence),
     gyeokgukConfidence: finiteNumber(saju.gyeokguk?.confidence),
     shinsalCount: arrayLength(saju.shinsalHits),
     deficientElementCount: arrayLength(saju.deficientElements),

@@ -7,6 +7,7 @@
  */
 
 import type { SajuSummary, EvidenceRow, SajuAxisStrengthMap } from '../../types.js';
+import { pointsToRatio } from '../../saju/confidence-units.js';
 import type { LifeFortuneOverviewCard, StarRating, ElementCode } from '../types.js';
 import {
   STRENGTH_KOREAN,
@@ -46,12 +47,6 @@ function normalizeElement(code: string): ElementCode | null {
 function friendlyElementName(code: string): string {
   const el = normalizeElement(code);
   return el ? ELEMENT_FRIENDLY[el] : elementCodeToKorean(code);
-}
-
-function confidenceRatio(value: unknown): number {
-  const n = typeof value === 'number' ? value : Number(value);
-  if (!Number.isFinite(n)) return 0;
-  return Math.min(1, Math.max(0, n > 1 ? n / 100 : n));
 }
 
 function shouldHedgeYongshin(saju: SajuSummary): boolean {
@@ -111,8 +106,8 @@ function ieyo(word: string): string {
  *   4. Strength balance: BALANCED > STRONG/WEAK > EXTREME
  */
 function computeLifeFortuneScore(saju: SajuSummary): number {
-  // 1. Yongshin confidence (0-1 mapped to 0-25)
-  const yongshinConfidence = confidenceRatio(saju.yongshin.confidence);
+  // 1. Public SajuSummary confidence is 0..100 points; scoring uses 0..1.
+  const yongshinConfidence = pointsToRatio(saju.yongshin.confidence);
   const yongshinScore = yongshinConfidence * 25;
 
   // 2. Element balance (0-25, fewer deficiencies = higher)

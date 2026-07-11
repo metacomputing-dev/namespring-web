@@ -658,10 +658,10 @@ function scoreDiffConfidence(top: number, second: number): number {
   return Math.max(0.35, Math.min(1, diff));
 }
 
-function confidenceToPoints(confidence: number): number {
-  if (!Number.isFinite(confidence)) return 0;
-  const normalized = Math.max(0, Math.min(1, confidence <= 1 ? confidence : confidence / 100));
-  return Math.round(normalized * 100);
+/** Convert a contractually ratio-based confidence to rounded 0..100 points. */
+export function ratioToPoints(confidence: unknown): number {
+  if (typeof confidence !== 'number' || !Number.isFinite(confidence)) return 0;
+  return Math.round(Math.max(0, Math.min(1, confidence)) * 100);
 }
 
 function ohaengKoLabel(code: unknown): string {
@@ -736,12 +736,12 @@ function buildYongshinReasoning(
   rank: number,
   entry: { element: string; score: number },
   topElement: string,
+  confidencePoint: number,
   methodBreakdown?: any,
   primaryMethod?: unknown,
 ): string {
   const primaryLabel = ohaengKoLabel(entry.element);
   const topLabel = ohaengKoLabel(topElement || '상위');
-  const confidencePoint = confidenceToPoints(Number(entry.score));
   const evidence = rank === 0 ? buildYongshinMethodEvidence(entry, primaryMethod, methodBreakdown) : null;
   const evidenceText = evidence ? ` ${evidence}.` : '';
   if (rank === 0) {
@@ -1499,16 +1499,16 @@ function normalizeLegacyOutput(
   const yongshinRanking: Array<{ element: string; score: number }> = Array.isArray(yongshin?.ranking)
     ? yongshin.ranking.map((item: any) => ({
         element: String(item?.element ?? ''),
-        score: Number(item?.score ?? 0),
+        score: typeof item?.score === 'number' && Number.isFinite(item.score) ? item.score : 0,
       }))
     : [];
   const [topElement, secondElement] = topTwo(yongshinRanking);
   const worst = yongshinRanking.length ? yongshinRanking[yongshinRanking.length - 1]?.element ?? null : null;
   const secondWorst = yongshinRanking.length > 1 ? yongshinRanking[yongshinRanking.length - 2]?.element ?? null : null;
-  const topScore = Number(yongshinRanking[0]?.score ?? 0);
-  const secondScore = Number(yongshinRanking[1]?.score ?? 0);
+  const topScore = yongshinRanking[0]?.score ?? 0;
+  const secondScore = yongshinRanking[1]?.score ?? 0;
   const yongshinConfidence = scoreDiffConfidence(topScore, secondScore);
-  const yongshinConfidencePoints = confidenceToPoints(yongshinConfidence);
+  const yongshinConfidencePoints = ratioToPoints(yongshinConfidence);
   const yongshinConsensus =
     yongshin?.consensus && typeof yongshin.consensus === 'object'
       ? yongshin.consensus
@@ -2073,22 +2073,26 @@ function normalizeLegacyOutput(
       // 감사 B5 (additive): 종격 가능성 신호. daeunInfo.warnings 선례를 따른다.
       warnings: yongshinWarnings,
       jonggyeokRisk,
-      recommendations: yongshinRanking.slice(0, 3).map((entry: { element: string; score: number }, i: number) => ({
-        // 1위 type은 엔진이 산출한 실제 지배 방법(primaryMethod)에서 유도한다 (감사 A2·B6).
-        // 기본 정책(억부 1.0 + 조후 0.25)에서는 EOKBU 또는 JOHU만 나온다.
-        // primaryMethod 부재(구 dist 등) 시 EOKBU 폴백 — 기본 정책 최빈값.
-        type: i === 0 ? (LEGACY_YONGSHIN_TYPE[String(yongshin?.primaryMethod ?? '')] ?? 'EOKBU') : 'RANKING',
-        primaryElement: entry.element,
-        secondaryElement: yongshinRanking[i + 1]?.element ?? null,
-        confidence: confidenceToPoints(Math.max(0, Math.min(1, Number(entry.score)))),
-        reasoning: buildYongshinReasoning(
-          i,
-          entry,
-          topElement,
-          yongshin?.methodBreakdown,
-          i === 0 ? yongshin?.primaryMethod : undefined,
-        ),
-      })),
+      recommendations: yongshinRanking.slice(0, 3).map((entry: { element: string; score: number }, i: number) => {
+        const confidence = ratioToPoints(entry.score);
+        return {
+          // 1위 type은 엔진이 산출한 실제 지배 방법(primaryMethod)에서 유도한다 (감사 A2·B6).
+          // 기본 정책(억부 1.0 + 조후 0.25)에서는 EOKBU 또는 JOHU만 나온다.
+          // primaryMethod 부재(구 dist 등) 시 EOKBU 폴백 — 기본 정책 최빈값.
+          type: i === 0 ? (LEGACY_YONGSHIN_TYPE[String(yongshin?.primaryMethod ?? '')] ?? 'EOKBU') : 'RANKING',
+          primaryElement: entry.element,
+          secondaryElement: yongshinRanking[i + 1]?.element ?? null,
+          confidence,
+          reasoning: buildYongshinReasoning(
+            i,
+            entry,
+            topElement,
+            confidence,
+            yongshin?.methodBreakdown,
+            i === 0 ? yongshin?.primaryMethod : undefined,
+          ),
+        };
+      }),
     },
     gyeokgukResult: {
       type: bestKeyCore,

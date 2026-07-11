@@ -50,11 +50,17 @@ for (const repo of repos) {
 }
 await engine.init();
 
-async function evalWith(birth: any, precisionConfig?: any): Promise<{ saju: number; total: number; isPassed: boolean }> {
+async function evalWith(
+  birth: any,
+  precisionConfig?: any,
+  sajuTimePolicy?: any,
+): Promise<{ saju: number; total: number; isPassed: boolean }> {
   const result = await engine.analyze({
     birth, surname, givenName,
     mode: 'evaluate',
-    options: precisionConfig ? { precisionConfig } : undefined,
+    options: precisionConfig || sajuTimePolicy
+      ? { ...(precisionConfig ? { precisionConfig } : {}), ...(sajuTimePolicy ? { sajuTimePolicy } : {}) }
+      : undefined,
   });
   const c = result.candidates[0];
   return { saju: c.scores.saju, total: c.scores.total, isPassed: c.scores.total >= 60 };
@@ -67,6 +73,43 @@ const guardKnownHour       = await evalWith(fullBirth, { unknownHourGuard: true 
 const guardUnknownHour     = await evalWith(noHourBirth, { unknownHourGuard: true, unknownTimeSajuDamp: 0.5 });
 const defaultUnknownHour   = await evalWith(noHourBirth);
 const noGuardUnknownHour   = await evalWith(noHourBirth, { unknownHourGuard: false });
+const stableUnknownMinuteBirth = { ...fullBirth, hour: 5, minute: null };
+const stableMinutePolicy = { trueSolarTime: 'off', longitudeCorrection: 'off', yaza: 'off' };
+const stableUnknownMinuteGuard = await evalWith(
+  stableUnknownMinuteBirth,
+  { unknownHourGuard: true },
+  stableMinutePolicy,
+);
+const stableUnknownMinuteNoGuard = await evalWith(
+  stableUnknownMinuteBirth,
+  { unknownHourGuard: false },
+  stableMinutePolicy,
+);
+const sensitiveUnknownMinuteBirth = { ...fullBirth, hour: 23, minute: null };
+const sensitiveMinutePolicy = {
+  trueSolarTime: 'off', longitudeCorrection: 'off', yaza: 'on', yazaMode: '23:30',
+};
+const sensitiveUnknownMinuteGuard = await evalWith(
+  sensitiveUnknownMinuteBirth,
+  { unknownHourGuard: true, unknownTimeSajuDamp: 0.5 },
+  sensitiveMinutePolicy,
+);
+const sensitiveUnknownMinuteNoGuard = await evalWith(
+  sensitiveUnknownMinuteBirth,
+  { unknownHourGuard: false },
+  sensitiveMinutePolicy,
+);
+const emptyHourBirth = { ...fullBirth, hour: '', minute: '' };
+const emptyHourGuard = await evalWith(
+  emptyHourBirth,
+  { unknownHourGuard: true, unknownTimeSajuDamp: 0.5 },
+  stableMinutePolicy,
+);
+const emptyHourNoGuard = await evalWith(
+  emptyHourBirth,
+  { unknownHourGuard: false },
+  stableMinutePolicy,
+);
 
 let pass = 0;
 let fail = 0;
@@ -88,6 +131,12 @@ console.log('guard + known hour         :', guardKnownHour);
 console.log('guard + unknown hour       :', guardUnknownHour);
 console.log('default + unknown hour     :', defaultUnknownHour);
 console.log('no guard + unknown hour    :', noGuardUnknownHour);
+console.log('guard + stable minute      :', stableUnknownMinuteGuard);
+console.log('no guard + stable minute   :', stableUnknownMinuteNoGuard);
+console.log('guard + sensitive minute   :', sensitiveUnknownMinuteGuard);
+console.log('no guard + sensitive minute:', sensitiveUnknownMinuteNoGuard);
+console.log('guard + empty hour          :', emptyHourGuard);
+console.log('no guard + empty hour       :', emptyHourNoGuard);
 console.log('');
 
 // — Default now uses the tanh curve; explicit linear is still valid but may differ. —
@@ -121,15 +170,38 @@ check('unknownHourGuard defaults on for unknown-hour input',
 check('unknownHourGuard changes unknown-hour adaptive weighting',
   guardUnknownHour.total !== noGuardUnknownHour.total,
   `guard=${guardUnknownHour.total}, noGuard=${noGuardUnknownHour.total}`);
+check('stable unknown-minute envelope does not trigger time guard',
+  stableUnknownMinuteGuard.total === stableUnknownMinuteNoGuard.total,
+  `guard=${stableUnknownMinuteGuard.total}, noGuard=${stableUnknownMinuteNoGuard.total}`);
+check('boundary-sensitive unknown-minute envelope triggers time guard',
+  sensitiveUnknownMinuteGuard.total !== sensitiveUnknownMinuteNoGuard.total,
+  `guard=${sensitiveUnknownMinuteGuard.total}, noGuard=${sensitiveUnknownMinuteNoGuard.total}`);
+check('normalized unknown-hour contract triggers guard for empty-string input',
+  emptyHourGuard.total !== emptyHourNoGuard.total,
+  `guard=${emptyHourGuard.total}, noGuard=${emptyHourNoGuard.total}`);
 
 // — All four valid scores —
-const allResults = [baseline, linearExplicit, tanh, guardKnownHour, guardUnknownHour, defaultUnknownHour, noGuardUnknownHour];
+const allResults = [
+  baseline,
+  linearExplicit,
+  tanh,
+  guardKnownHour,
+  guardUnknownHour,
+  defaultUnknownHour,
+  noGuardUnknownHour,
+  stableUnknownMinuteGuard,
+  stableUnknownMinuteNoGuard,
+  sensitiveUnknownMinuteGuard,
+  sensitiveUnknownMinuteNoGuard,
+  emptyHourGuard,
+  emptyHourNoGuard,
+];
 let allValid = true;
 for (const r of allResults) {
   if (!Number.isFinite(r.saju) || r.saju < 0 || r.saju > 100) allValid = false;
   if (!Number.isFinite(r.total) || r.total < 0 || r.total > 100) allValid = false;
 }
-check('all 7 paths produce valid [0,100] saju + total', allValid);
+check('all 13 paths produce valid [0,100] saju + total', allValid);
 
 engine.close();
 
