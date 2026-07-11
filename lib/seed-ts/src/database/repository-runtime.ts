@@ -1,4 +1,8 @@
 import initSqlJs, { type SqlJsStatic } from 'sql.js';
+import {
+  normalizeSha256Digest,
+  verifySha256Digest,
+} from './repository-artifact-integrity.js';
 
 /** Pinned sql.js 1.14.0 browser artifact, verified against the npm package. */
 export const DEFAULT_SQL_JS_WASM_URL =
@@ -62,13 +66,12 @@ export class RepositoryIntegrityError extends Error {
 }
 
 function normalizeSha256(value: string): string {
-  const normalized = value.trim().toLowerCase();
-  if (!/^[a-f0-9]{64}$/u.test(normalized)) {
-    throw new RepositoryConfigurationError(
+  return normalizeSha256Digest(
+    value,
+    () => new RepositoryConfigurationError(
       'wasmSha256 must be a 64-character hexadecimal SHA-256 digest.',
-    );
-  }
-  return normalized;
+    ),
+  );
 }
 
 export function resolveRepositoryWasm(
@@ -99,20 +102,6 @@ export function resolveRepositoryWasm(
   );
 }
 
-async function sha256Hex(bytes: Uint8Array): Promise<string> {
-  const subtle = globalThis.crypto?.subtle;
-  if (!subtle) {
-    throw new RepositoryConfigurationError(
-      'Web Crypto SHA-256 support is required to initialize sql.js safely.',
-    );
-  }
-  const digestInput = bytes.slice().buffer;
-  const digest = await subtle.digest('SHA-256', digestInput);
-  return Array.from(new Uint8Array(digest))
-    .map((byte) => byte.toString(16).padStart(2, '0'))
-    .join('');
-}
-
 export function createRepositoryRuntime(
   overrides: RepositoryRuntimeOverrides = {},
 ): RepositoryRuntime {
@@ -133,10 +122,12 @@ export function createRepositoryRuntime(
         );
       }
       const wasmBinary = await response.arrayBuffer();
-      const actualSha256 = await sha256Hex(new Uint8Array(wasmBinary));
-      if (actualSha256 !== expectedSha256) {
-        throw new RepositoryIntegrityError(expectedSha256, actualSha256);
-      }
+      await verifySha256Digest(new Uint8Array(wasmBinary), expectedSha256, {
+        cryptoUnavailable: () => new RepositoryConfigurationError(
+          'Web Crypto SHA-256 support is required to initialize sql.js safely.',
+        ),
+        mismatch: (expected, actual) => new RepositoryIntegrityError(expected, actual),
+      });
       return initSqlJs({ wasmBinary });
     }),
   };

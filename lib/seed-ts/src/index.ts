@@ -97,6 +97,21 @@ export {
   RepositoryConfigurationError,
   RepositoryIntegrityError,
 } from './database/repository-runtime.js';
+export {
+  REPOSITORY_DATABASE_INTEGRITY_MISMATCH,
+  RepositoryDatabaseIntegrityError,
+  verifyOpenedRepositoryDatabase,
+  verifyRepositoryDatabaseBytesBeforeOpen,
+} from './database/database-integrity.js';
+export type {
+  RepositoryDatabaseIntegrityReason,
+  RepositoryDatabaseIntegrityValue,
+} from './database/database-integrity.js';
+export type {
+  DatabaseAssetManifest,
+  DatabaseAssetManifestEntry,
+  NormalizedDatabaseColumn,
+} from './database/database-asset-contract.js';
 export type {
   RepositoryFetch,
   RepositoryFetchResponse,
