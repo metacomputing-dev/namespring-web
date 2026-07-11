@@ -24,7 +24,7 @@
     "test:lunar-calendar": "npx tsx test/integration/korean-lunar-calendar.test.ts",
     "test:kasi-lunar-api": "npx tsx test/integration/kasi-lunar-api.test.ts",
     "test:calendar-policy": "npx tsx test/integration/calendar-input-policy.test.ts",
-    "test:time-policy": "npx tsx test/integration/time-policy-unknown-hour.test.ts && npm run test:saju-confidence-contract",
+    "test:time-policy": "npx tsx test/integration/birth-location-policy.test.ts && npx tsx test/integration/global-time-policy.test.ts && npx tsx test/integration/time-policy-unknown-hour.test.ts && npm run test:saju-confidence-contract",
     "test:saju-confidence-contract": "npx tsx test/integration/saju-confidence-contract.test.ts",
     "test:boundary-goldens": "npx tsx test/integration/boundary-chart-goldens.test.ts",
     "test:gyeokguk-candidates": "npm --prefix ../saju-ts run build && npx tsx test/integration/gyeokguk-candidates-baseline.test.ts",

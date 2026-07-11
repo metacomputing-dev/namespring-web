@@ -77,6 +77,14 @@ import {
   stripWhitespace,
   TEN_GOD_KO_LABEL,
 } from './saju/legacy-codec.js';
+import { resolveBirthLocation } from './saju/birth-location.js';
+import {
+  applyAuthoritativeSajuTimePolicyConfig,
+  isLongitudeCorrectionEnabled,
+  isValidSajuTimePolicy,
+  legacyTimeFailureReasonCode,
+  preflightKnownHourCivilTimeRange,
+} from './saju/time-policy.js';
 
 export { buildSajuContext } from './saju/context-builder.js';
 export { collectElements, elementFromSajuCode } from './saju/element-code.js';
@@ -86,7 +94,6 @@ export { collectElements, elementFromSajuCode } from './saju/element-code.js';
 // ---------------------------------------------------------------------------
 import cheonganJijiConfig from '../config/cheongan-jiji.json';
 import engineConfig from '../config/engine.json';
-import { KOREA_REGION_COORDINATES, type RegionCoordinate } from './region-coordinates.js';
 import { extractGyeokgukSeongpae } from './saju-seongpae-contract.js';
 
 /** Heavenly Stems reference table (hangul, hanja, element, polarity). */
@@ -339,110 +346,6 @@ function extractJieProximity(raw: any): JieProximitySummary | undefined {
     isNearBoundary: raw.isNearBoundary === true,
   };
 }
-function normalizeRegionToken(value: unknown): string {
-  return stripWhitespace(String(value ?? ''))
-    .toLowerCase()
-    .replace(/[.,()_/-]/g, '');
-}
-
-const REGION_ALIAS_ENTRIES = KOREA_REGION_COORDINATES
-  .flatMap((region) => region.aliases.map((alias) => ({
-    alias: normalizeRegionToken(alias),
-    region,
-  })))
-  .filter((entry) => entry.alias.length > 0)
-  .sort((a, b) => b.alias.length - a.alias.length);
-
-const DEFAULT_REGION_COORDINATE = KOREA_REGION_COORDINATES.find((entry) => entry.code === DEFAULT_REGION_CODE)
-  ?? KOREA_REGION_COORDINATES[0]
-  ?? {
-    code: DEFAULT_REGION_CODE,
-    latitude: DEFAULT_LATITUDE,
-    longitude: DEFAULT_LONGITUDE,
-    timezone: DEFAULT_TIMEZONE,
-    aliases: ['서울'],
-  };
-
-interface ResolvedBirthCoordinates {
-  latitude: number;
-  longitude: number;
-  timezone: string;
-  regionCode: string | null;
-  source: 'explicit' | 'region' | 'default';
-}
-
-function toFiniteNumber(value: unknown): number | null {
-  const n = Number(value);
-  return Number.isFinite(n) ? n : null;
-}
-
-function pickBirthRegionCandidates(birth: BirthInfo): string[] {
-  const birthAny = birth as unknown as Record<string, unknown>;
-  const rawCandidates = [
-    birth.region,
-    birth.city,
-    birth.birthPlace,
-    birthAny['location'],
-    birthAny['place'],
-    birthAny['regionName'],
-    birthAny['cityName'],
-    birthAny['address'],
-    birthAny['birthRegion'],
-    birthAny['birthCity'],
-    birthAny['birthLocation'],
-    birth.name,
-  ];
-
-  return rawCandidates
-    .filter((item): item is string => typeof item === 'string')
-    .map((item) => item.trim())
-    .filter((item) => item.length > 0);
-}
-
-function findRegionCoordinateFromText(text: string): RegionCoordinate | null {
-  const normalized = normalizeRegionToken(text);
-  if (!normalized) return null;
-
-  for (const entry of REGION_ALIAS_ENTRIES) {
-    if (normalized === entry.alias || normalized.includes(entry.alias)) {
-      return entry.region;
-    }
-  }
-  return null;
-}
-
-function resolveBirthCoordinates(birth: BirthInfo): ResolvedBirthCoordinates {
-  const explicitLatitude = toFiniteNumber(birth.latitude);
-  const explicitLongitude = toFiniteNumber(birth.longitude);
-  const explicitTimezone = typeof birth.timezone === 'string' && birth.timezone.trim()
-    ? birth.timezone.trim()
-    : null;
-
-  if (explicitLatitude != null && explicitLongitude != null) {
-    return {
-      latitude: explicitLatitude,
-      longitude: explicitLongitude,
-      timezone: explicitTimezone ?? DEFAULT_TIMEZONE,
-      regionCode: null,
-      source: 'explicit',
-    };
-  }
-
-  const region = pickBirthRegionCandidates(birth)
-    .map((candidate) => findRegionCoordinateFromText(candidate))
-    .find((matched): matched is RegionCoordinate => Boolean(matched))
-    ?? null;
-
-  const base = region ?? DEFAULT_REGION_COORDINATE;
-  return {
-    latitude: explicitLatitude ?? base.latitude,
-    longitude: explicitLongitude ?? base.longitude,
-    timezone: explicitTimezone ?? base.timezone ?? DEFAULT_TIMEZONE,
-    regionCode: region?.code ?? base.code,
-    source: region ? 'region' : 'default',
-  };
-}
-
 function formatCodeDisplay(koreanLabel: string | null, code: string): string {
   if (koreanLabel) return koreanLabel;
   return code;
@@ -813,64 +716,6 @@ function toStringArray(value: any): string[] {
   return [];
 }
 
-type PolicyToggle = 'on' | 'off';
-
-function resolvePolicyToggle(value: unknown, fallback: PolicyToggle): PolicyToggle {
-  if (value === 'on' || value === 'off') return value;
-  return fallback;
-}
-
-function toLegacySajuTimePolicyConfig(
-  options: SpringRequest['options'] | undefined,
-  longitudeForLmtNeutralization: number,
-): Record<string, unknown> {
-  const policy = options?.sajuTimePolicy;
-
-  // Product defaults (감사 결정① 2026-07-08):
-  // - true solar time: off
-  // - longitude correction: on
-  // - day boundary: 정자시설 — yaza 기본 'on' + 23:00 모드(엔진 ziSplit23).
-  //   경도 보정과 결합하면 서울 기준 시계 약 23:32에 일주·자시가 개시된다.
-  //   자정설(구 기본)은 sajuTimePolicy.yaza='off'로 복귀 가능.
-  const trueSolarTimeToggle = resolvePolicyToggle(policy?.trueSolarTime, 'off');
-  const longitudeCorrectionToggle = resolvePolicyToggle(policy?.longitudeCorrection, 'on');
-  const yazaToggle = resolvePolicyToggle(policy?.yaza, 'on');
-
-  const patch: Record<string, unknown> = {};
-
-  // In legacy bridge, both longitude correction and equation-of-time are behind
-  // `trueSolarTimeEnabled`. Keep the two product toggles independent by:
-  // - enabling trueSolar pipeline if either toggle is on
-  // - enabling equation-of-time only when trueSolarTime toggle is on
-  // - neutralizing longitude shift when longitude toggle is off
-  const shouldEnableTrueSolarPipeline = trueSolarTimeToggle === 'on' || longitudeCorrectionToggle === 'on';
-  patch.trueSolarTimeEnabled = shouldEnableTrueSolarPipeline;
-  patch.includeEquationOfTime = trueSolarTimeToggle === 'on';
-  patch.longitudeCorrectionEnabled = true;
-  if (longitudeCorrectionToggle === 'off') {
-    // Neutralize longitude correction by aligning baseline to raw longitude.
-    // In legacy bridge this yields effectiveLongitude == standardMeridian.
-    patch.lmtBaselineLongitude = longitudeForLmtNeutralization;
-  }
-
-  patch.yazaEnabled = yazaToggle === 'on';
-  if (yazaToggle === 'on') {
-    // 23:30 모드는 경도 보정 off 유파용 레거시 옵션 — 경도 보정과 중첩하면
-    // 이중 보정(-62분)이 된다 (감사 A11).
-    const legacyMode =
-      policy?.yazaMode === '23:30' ? 'YAZA_23_30_TO_01_30_NEXTDAY' : 'YAZA_23_TO_01_NEXTDAY';
-    patch.yazaMode = legacyMode;
-    // dayCutMode를 반드시 명시: resolveDayCutMode(springLegacy)가 dayCutMode를
-    // yazaMode보다 먼저 평가하므로, preset(KOREAN_MAINSTREAM)의 dayCutMode가
-    // 남아 있으면 여기서 고른 모드에 그림자를 드리운다.
-    patch.dayCutMode = legacyMode;
-  } else {
-    patch.dayCutMode = 'MIDNIGHT_00'; // 자정설 옵션 (yaza:'off')
-  }
-
-  return patch;
-}
-
 function toOptionalInt(value: unknown): number | null {
   if (value == null || value === '') return null;
   const parsed = Number(value);
@@ -1131,6 +976,50 @@ const SAJU_ANALYSIS_FAILURES: Readonly<Record<
     status: 'failed',
     message: '출생 시각은 0~23시와 0~59분의 정수로 입력해야 합니다.',
   },
+  BIRTH_TIME_POLICY_INVALID: {
+    status: 'failed',
+    message: '사주 시간 보정 정책 값이 지원되는 옵션이 아닙니다.',
+  },
+  BIRTH_TIMEZONE_INVALID: {
+    status: 'failed',
+    message: '출생지 시간대가 올바른 IANA 시간대 또는 UTC 오프셋이 아닙니다.',
+  },
+  BIRTH_TIMEZONE_DATA_UNSUPPORTED: {
+    status: 'failed',
+    message: '현재 실행 환경의 시간대 자료가 역사 출생시각 계산에 필요한 범위를 지원하지 않습니다.',
+  },
+  BIRTH_TIME_NONEXISTENT: {
+    status: 'failed',
+    message: '입력한 출생 시각은 해당 지역의 시계 전환으로 존재하지 않습니다.',
+  },
+  BIRTH_TIME_AMBIGUOUS: {
+    status: 'failed',
+    message: '입력한 출생 시각은 해당 지역의 시계 전환으로 두 번 존재해 하나로 확정할 수 없습니다.',
+  },
+  BIRTH_TIME_RANGE_TRANSITION: {
+    status: 'failed',
+    message: '출생 분이 없어 확인해야 할 한 시간 범위에 존재하지 않거나 두 번 존재하는 시각이 포함되어 출생 시각을 안전하게 확정할 수 없습니다.',
+  },
+  BIRTH_LOCATION_INVALID: {
+    status: 'failed',
+    message: '출생지 좌표 또는 시간대 입력 형식이 올바르지 않습니다.',
+  },
+  BIRTH_LOCATION_PARTIAL: {
+    status: 'failed',
+    message: '출생지 좌표와 시간대가 일부만 입력되어 안전하게 계산할 수 없습니다.',
+  },
+  BIRTH_LOCATION_UNRESOLVED: {
+    status: 'failed',
+    message: '출생지 이름을 지원 좌표로 확인할 수 없습니다. 좌표와 시간대를 함께 입력해 주세요.',
+  },
+  BIRTH_LOCATION_CONFLICT: {
+    status: 'failed',
+    message: '입력한 출생 지역 정보가 서로 다른 지역을 가리켜 안전하게 계산할 수 없습니다.',
+  },
+  BIRTH_LOCATION_TIMEZONE_MISMATCH: {
+    status: 'failed',
+    message: '선택한 출생 지역과 입력한 시간대가 일치하지 않습니다.',
+  },
   LUNAR_INPUT_INSUFFICIENT: {
     status: 'partial',
     message: '음력 사주 분석에는 출생 연·월·일이 모두 필요합니다.',
@@ -1380,6 +1269,8 @@ function failureReasonCode(error: unknown): SajuAnalysisReasonCode {
   if (code === 'SAJU_BRIDGE_CONTRACT_MISMATCH') {
     return 'SAJU_BRIDGE_CONTRACT_MISMATCH';
   }
+  const legacyTimeReasonCode = legacyTimeFailureReasonCode(error);
+  if (legacyTimeReasonCode) return legacyTimeReasonCode;
   return 'SAJU_CALCULATION_FAILED';
 }
 
@@ -1391,6 +1282,9 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
   const parts = resolveKnownBirthParts(birth);
   if (hasInvalidTimeInput(birth, parts)) {
     return emptySaju('BIRTH_TIME_INVALID');
+  }
+  if (!isValidSajuTimePolicy(options)) {
+    return emptySaju('BIRTH_TIME_POLICY_INVALID');
   }
   let saju: SajuModule | null;
   try {
@@ -1450,7 +1344,30 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
   }
   validateSajuRequestOptions(options?.sajuOptions, birthYear);
   validateSajuConfigFortuneHorizon(options?.sajuConfig);
-  const resolvedCoordinates = resolveBirthCoordinates(birth);
+  const locationResolution = resolveBirthLocation(
+    birth,
+    {
+      latitude: DEFAULT_LATITUDE,
+      longitude: DEFAULT_LONGITUDE,
+      timezone: DEFAULT_TIMEZONE,
+      regionCode: DEFAULT_REGION_CODE,
+    },
+    { requireLongitude: isLongitudeCorrectionEnabled(options) },
+  );
+  if (!locationResolution.ok) return emptySaju(locationResolution.reasonCode);
+  const resolvedCoordinates = locationResolution.value;
+
+  if (parts.hour != null && parts.minute == null) {
+    const timeRangePreflight = preflightKnownHourCivilTimeRange({
+      year: birthYear,
+      month: birthMonth,
+      day: birthDay,
+      hour: parts.hour,
+      timeZone: resolvedCoordinates.timezone,
+      resolveOffsetMinutes: saju.resolveOffsetMinutes,
+    });
+    if (!timeRangePreflight.ok) return emptySaju(timeRangePreflight.reasonCode);
+  }
 
   try {
     // Always seed legacy config from a preset first.
@@ -1458,8 +1375,14 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
     const presetKey = options?.schoolPreset ?? 'korean';
     const presetCode = PRESET_MAP[presetKey] ?? PRESET_MAP.korean ?? 'KOREAN_MAINSTREAM';
     let config: RuntimeLegacySajuConfig = { ...(saju.configFromPreset(presetCode) ?? {}) };
-    const timePolicyConfig = toLegacySajuTimePolicyConfig(options, resolvedCoordinates.longitude);
-    if (Object.keys(timePolicyConfig).length) config = { ...config, ...timePolicyConfig };
+    let legacyPresetMeridian: number | undefined;
+    const configuredMeridian = config['lmtBaselineLongitude'];
+    if (
+      typeof configuredMeridian === 'number'
+      && Number.isFinite(configuredMeridian)
+    ) {
+      legacyPresetMeridian = configuredMeridian;
+    }
     // PR-H-S2 — request Newton root-finder for solar-term boundary lookup.
     // saju-ts (api/types.ts:79-89) documents that 'newton' has the same target
     // tolerance as 'bisection' so the resulting instant agrees to the chosen
@@ -1495,18 +1418,6 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
         : 'iau1980_top10',
       ...(advancedAberration === 'rCorrected' || advancedAberration === 'constant'
         ? { aberrationModel: advancedAberration }
-        : {}),
-      // PR-H-S4 — when the caller opts into trueSolarTime, use saju-ts's
-      // 'precise' Equation-of-Time model. Keep default mode longitude-only:
-      // setting equationOfTime here while trueSolarTime is off would override
-      // the legacy bridge's `includeEquationOfTime=false` policy.
-      ...(options?.sajuTimePolicy?.trueSolarTime === 'on'
-        ? {
-            trueSolarTime: {
-              ...(config.calendar?.trueSolarTime ?? {}),
-              equationOfTime: 'precise',
-            },
-          }
         : {}),
     };
     // PR-H-S5 — opt-in routing of a saju-ts-side school.id when the caller
@@ -1570,6 +1481,12 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
         fortune: nextFortune,
       };
     }
+
+    config = applyAuthoritativeSajuTimePolicyConfig(
+      config,
+      options,
+      legacyPresetMeridian,
+    ) as RuntimeLegacySajuConfig;
 
     const finalConfig = Object.keys(config).length > 0 ? config : undefined;
 

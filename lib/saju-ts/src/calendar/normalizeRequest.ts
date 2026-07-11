@@ -1,4 +1,4 @@
-import type { SajuRequest } from '../api/types.js';
+import type { EngineConfig, SajuRequest } from '../api/types.js';
 import { parseIsoInstant, type ParsedInstant } from './iso.js';
 
 export interface NormalizedRequestInternal {
@@ -38,7 +38,9 @@ export function normalizeRequest(input: SajuRequest): NormalizedRequestInternal 
   const value = input as unknown;
   const record = isRecord(value) ? value : {};
   const birth = isRecord(record.birth) ? record.birth : {};
+  const sex = record.sex;
   const location = record.location;
+  let normalizedLocation: SajuRequest['location'] | undefined;
   const issues: string[] = [];
 
   if (typeof birth.instant !== 'string' || birth.instant.trim().length === 0) {
@@ -48,8 +50,8 @@ export function normalizeRequest(input: SajuRequest): NormalizedRequestInternal 
     issues.push('birth.calendar must be gregorian');
   }
   if (
-    typeof record.sex !== 'string'
-    || !['M', 'F', 'U'].includes(record.sex)
+    typeof sex !== 'string'
+    || !['M', 'F', 'U'].includes(sex)
   ) {
     issues.push('sex must be M, F, or U');
   }
@@ -57,23 +59,36 @@ export function normalizeRequest(input: SajuRequest): NormalizedRequestInternal 
     if (!isRecord(location)) {
       issues.push('location must be an object');
     } else {
-      if (!isFiniteNumberWithin(location.lat, -90, 90)) {
+      const issueCountBeforeLocation = issues.length;
+      const lat = location.lat;
+      const lon = location.lon;
+      const altitudeM = location.altitudeM;
+      const name = location.name;
+      if (!isFiniteNumberWithin(lat, -90, 90)) {
         issues.push('location.lat must be finite and within [-90, 90]');
       }
-      if (!isFiniteNumberWithin(location.lon, -180, 180)) {
+      if (!isFiniteNumberWithin(lon, -180, 180)) {
         issues.push('location.lon must be finite and within [-180, 180]');
       }
       if (
-        location.altitudeM !== undefined &&
+        altitudeM !== undefined &&
         (
-          typeof location.altitudeM !== 'number'
-          || !Number.isFinite(location.altitudeM)
+          typeof altitudeM !== 'number'
+          || !Number.isFinite(altitudeM)
         )
       ) {
         issues.push('location.altitudeM must be finite when provided');
       }
-      if (location.name !== undefined && typeof location.name !== 'string') {
+      if (name !== undefined && typeof name !== 'string') {
         issues.push('location.name must be a string when provided');
+      }
+      if (issues.length === issueCountBeforeLocation) {
+        normalizedLocation = {
+          lat: lat as number,
+          lon: lon as number,
+          ...(name !== undefined ? { name: name as string } : {}),
+          ...(altitudeM !== undefined ? { altitudeM: altitudeM as number } : {}),
+        };
       }
     }
   }
@@ -94,10 +109,8 @@ export function normalizeRequest(input: SajuRequest): NormalizedRequestInternal 
       instant,
       calendar: 'gregorian',
     },
-    sex: record.sex as SajuRequest['sex'],
-    ...(isRecord(location)
-      ? { location: { ...location } as SajuRequest['location'] }
-      : {}),
+    sex: sex as SajuRequest['sex'],
+    ...(normalizedLocation ? { location: normalizedLocation } : {}),
     ...(isRecord(record.meta) ? { meta: { ...record.meta } } : {}),
     ...(isRecord(record.overrides)
       ? { overrides: { ...record.overrides } }
@@ -105,4 +118,31 @@ export function normalizeRequest(input: SajuRequest): NormalizedRequestInternal 
   };
 
   return { request, parsed };
+}
+
+/**
+ * Enforces request fields whose necessity depends on the normalized engine
+ * policy. Pure EoT mode does not need a location; longitude correction does.
+ */
+export function assertRequestMeetsCalendarPolicy(
+  request: SajuRequest,
+  config: EngineConfig,
+): void {
+  const trueSolarTime = config.calendar.trueSolarTime;
+  const longitudeCorrectionPolicy = trueSolarTime.longitudeCorrectionPolicy
+    ?? { mode: 'civilOffsetMeridian' as const };
+  const requiresLongitude =
+    trueSolarTime.enabled
+    && longitudeCorrectionPolicy.mode !== 'off';
+  if (!requiresLongitude) return;
+
+  if (
+    !request.location
+    || typeof request.location.lon !== 'number'
+    || !Number.isFinite(request.location.lon)
+  ) {
+    throw new SajuRequestValidationError([
+      'location.lon is required when true-solar longitude correction is enabled',
+    ]);
+  }
 }

@@ -120,8 +120,8 @@ export function buildGraph(): Graph {
     n<TrueSolarTimeCorrection>({
       id: 'time.trueSolarCorrection',
       deps: ['time.utcMs', 'time.localDateTime', 'policy.calendar'],
-      formula: 'Δ(min) = 4*(lon-stdMeridian) + EoT',
-      explain: '진태양시 보정(경도 보정 + 균시차). location.lon이 없으면 적용하지 않는다.',
+      formula: 'Δ(min) = longitudePolicy[4*shortestDelta(lon,referenceMeridian) or 0] + EoT',
+      explain: '경도 보정과 균시차를 독립 적용한다. 경도 정책이 off이면 위치 없이 EoT만 적용할 수 있고, 경도 보정이 켜진 경우 위치 누락은 요청 검증에서 거부한다.',
       compute: (ctx, get) => {
         const utcMs = get<number>('time.utcMs');
         const ldt = get<LocalDateTime>('time.localDateTime');

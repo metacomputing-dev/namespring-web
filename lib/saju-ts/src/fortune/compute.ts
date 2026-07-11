@@ -12,6 +12,7 @@ import type { LocalDate } from '../calendar/iso.js';
 import type { LocalDateTime } from '../calendar/iso.js';
 import { computeLunarNewYearBoundary } from '../calendar/lunarNewYear.js';
 import { addDays, calcDayPillar, calcMonthPillarFromOrder, effectiveDayDate } from '../calendar/pillars.js';
+import { utcMsFromParts } from '../calendar/utc.js';
 import type { PillarIdx, StemIdx } from '../core/cycle.js';
 import { pillar as makePillar, stemYinYang } from '../core/cycle.js';
 import { mod } from '../core/mod.js';
@@ -184,7 +185,7 @@ function startAgeDisplayOf(
 }
 
 function localToUtcMs(date: LocalDate, time: { h: number; min: number }, offsetMinutes: number): number {
-  return Date.UTC(date.y, date.m - 1, date.d, time.h, time.min, 0) - offsetMinutes * 60_000;
+  return utcMsFromParts(date.y, date.m - 1, date.d, time.h, time.min) - offsetMinutes * 60_000;
 }
 
 function daySegmentBounds(labelDate: LocalDate, dayBoundary: EngineConfig['calendar']['dayBoundary'], offsetMinutes: number): { startUtcMs: number; endUtcMs: number } {

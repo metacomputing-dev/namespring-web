@@ -4,6 +4,7 @@ import { createEngine } from '../api/engine.js';
 import { InvalidIsoInstantError, parseIsoInstant } from './iso.js';
 import {
   SajuRequestValidationError,
+  assertRequestMeetsCalendarPolicy,
   normalizeRequest,
 } from './normalizeRequest.js';
 
@@ -15,6 +16,14 @@ describe('ISO instant validation', () => {
         time: { h: 23, min: 59 },
         offsetMinutes: 540,
       });
+  });
+
+  it('preserves literal years 1..99 and fractional seconds', () => {
+    const parsed = parseIsoInstant('0050-01-02T03:04:05.1+00:00');
+    const date = new Date(parsed.utcMs);
+    expect(date.getUTCFullYear()).toBe(50);
+    expect(date.getUTCMilliseconds()).toBe(100);
+    expect(parsed.localDateTime.date).toEqual({ y: 50, m: 1, d: 2 });
   });
 
   it.each([
@@ -42,10 +51,14 @@ describe('SajuRequest runtime validation', () => {
     [{ ...base, sex: true }, 'sex must be'],
     [{ ...base, sex: null }, 'sex must be'],
     [{ ...base, birth: { ...base.birth, calendar: 'lunar' } }, 'gregorian'],
+    [{ ...base, sex: new String('M') }, 'sex must be'],
+    [{ ...base, sex: { toString: () => 'M' } }, 'sex must be'],
     [{ ...base, location: { lat: 91, lon: 126.978 } }, 'location.lat'],
     [{ ...base, location: { lat: -91, lon: 126.978 } }, 'location.lat'],
     [{ ...base, location: { lat: 37.5665, lon: 181 } }, 'location.lon'],
     [{ ...base, location: { lat: 37.5665, lon: -181 } }, 'location.lon'],
+    [{ ...base, location: { lat: 37.5665 } }, 'location.lon'],
+    [{ ...base, location: { lon: 126.978 } }, 'location.lat'],
     [{ ...base, location: { lat: '37.5665', lon: 126.978 } }, 'location.lat'],
     [{ ...base, location: { lat: 37.5665, lon: '126.978' } }, 'location.lon'],
     [{ ...base, location: { lat: true, lon: 126.978 } }, 'location.lat'],
@@ -94,7 +107,11 @@ describe('SajuRequest runtime validation', () => {
   it('owns normalized top-level request objects', () => {
     const input = {
       ...base,
-      location: { ...base.location, name: 'Seoul' },
+      location: {
+        ...base.location,
+        name: 'Seoul',
+        altitudeM: 12,
+      },
       meta: { requestId: 'test' },
       overrides: { source: 'contract-test' },
     };
@@ -102,6 +119,23 @@ describe('SajuRequest runtime validation', () => {
     expect(normalized.request.location).not.toBe(input.location);
     expect(normalized.request.meta).not.toBe(input.meta);
     expect(normalized.request.overrides).not.toBe(input.overrides);
+    expect(normalized.request.location).toEqual({
+      lat: 37.5665,
+      lon: 126.978,
+      name: 'Seoul',
+      altitudeM: 12,
+    });
     expect(input.location.name).toBe('Seoul');
+  });
+
+  it('keeps policy-dependent longitude validation separate and structured', () => {
+    const normalized = normalizeRequest({
+      birth: base.birth,
+      sex: base.sex,
+    });
+    expect(() => assertRequestMeetsCalendarPolicy(
+      normalized.request,
+      createEngine().config,
+    )).not.toThrow();
   });
 });

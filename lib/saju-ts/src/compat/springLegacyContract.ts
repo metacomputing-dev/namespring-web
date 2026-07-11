@@ -1,3 +1,8 @@
+import type { LongitudeCorrectionPolicy } from '../api/types.js';
+
+/** Stable typed longitude policy accepted by the legacy Spring bridge. */
+export type LegacyLongitudeCorrectionPolicy = LongitudeCorrectionPolicy;
+
 /** Stable V1 pillar shape consumed by the spring-ts compatibility adapter. */
 export interface LegacyPillarV1 {
   readonly cheongan: string;
