@@ -1,3 +1,5 @@
+import { utcMsFromParts } from './utc.js';
+
 export interface LocalDate {
   y: number;
   m: number;
@@ -84,6 +86,7 @@ export function parseIsoInstant(instant: string): ParsedInstant {
   const hour = Number(match[4]);
   const minute = Number(match[5]);
   const second = Number(match[6] ?? 0);
+  const millisecond = Number(String(match[7] ?? '').padEnd(3, '0') || 0);
 
   if (year < 1 || month < 1 || month > 12) {
     throw new InvalidIsoInstantError(
@@ -109,7 +112,15 @@ export function parseIsoInstant(instant: string): ParsedInstant {
   const offsetMinutes = timezone === 'Z'
     ? 0
     : parseOffsetMinutes(timezone);
-  const utcMs = Date.parse(instant);
+  const utcMs = utcMsFromParts(
+    year,
+    month - 1,
+    day,
+    hour,
+    minute,
+    second,
+    millisecond,
+  ) - offsetMinutes * 60_000;
   if (!Number.isFinite(utcMs)) {
     throw new InvalidIsoInstantError(
       instant,

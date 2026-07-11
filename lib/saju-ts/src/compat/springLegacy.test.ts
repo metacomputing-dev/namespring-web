@@ -233,6 +233,14 @@ describe('normalizeLegacyOutput 정직성 (감사 A1/A2/A9/A15d)', () => {
     expect(noDst.coreResult.dstCorrectionMinutes).toBe(0);
   });
 
+  it('서기 50년을 1950년으로 바꾸지 않고 DST 메타데이터를 계산한다', () => {
+    const ancient: any = analyzeSaju(createBirthInput({
+      birthYear: 50, birthMonth: 7, birthDay: 15,
+      birthHour: 12, birthMinute: 0, gender: 'MALE',
+    }));
+    expect(ancient.coreResult.dstCorrectionMinutes).toBe(0);
+  });
+
   it('implements JOJA_SPLIT as midnight day pillar plus next-day zi-hour stem basis', () => {
     const lateZi = createBirthInput({
       birthYear: 2000, birthMonth: 1, birthDay: 1,

@@ -109,7 +109,7 @@ async function main(): Promise<void> {
   );
   const explicitCoordinatePriority = await runCase(
     'explicit-coordinate-priority',
-    { region: '서울', latitude: 35.8714, longitude: 128.6014 },
+    { region: '서울', latitude: 35.8714, longitude: 128.6014, timezone: 'Asia/Seoul' },
     POLICY_TST_ON_LON_ON as any,
   );
   const boundarySeoul = await runCase(

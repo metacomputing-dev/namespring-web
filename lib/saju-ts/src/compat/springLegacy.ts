@@ -10,10 +10,12 @@ import { tenGodOf } from '../core/tenGod.js';
 import { TWELVE_SAL_KEYS, twelveSalStartOf } from '../rules/facts.js';
 import type {
   LegacyJieProximityV1,
+  LegacyLongitudeCorrectionPolicy,
   LegacySajuOutputV1,
 } from './springLegacyContract.js';
 import {
   addCivilMinutes,
+  civilDateTimeToUtcMs,
   civilToIsoInstant,
   dstMinutesAtUtcMs,
   resolveOffsetMinutes,
@@ -21,6 +23,10 @@ import {
 } from './springLegacyTimezone.js';
 
 export {
+  LegacyAmbiguousTimeError,
+  LegacyCivilTimeError,
+  LegacyNonexistentTimeError,
+  LegacyTimezoneDataUnsupportedError,
   LegacyTimezoneError,
   dstMinutesAtUtcMs,
   parseOffsetToken,
@@ -33,6 +39,7 @@ export type {
   LegacyDaeunPillarV1,
   LegacyGyeokgukResultV1,
   LegacyJieProximityV1,
+  LegacyLongitudeCorrectionPolicy,
   LegacyLuckAnnotationsV1,
   LegacyPillarV1,
   LegacySaeunPillarV1,
@@ -235,8 +242,15 @@ export interface LegacySajuConfig {
   includeEquationOfTime?: boolean;
 
   /**
-   * Apply manseoryeok baseline-meridian correction to longitude.
-   * Default: true
+   * Explicit longitude-correction policy. When present, this takes precedence
+   * over longitudeCorrectionEnabled and lmtBaselineLongitude.
+   */
+  longitudeCorrectionPolicy?: LegacyLongitudeCorrectionPolicy;
+
+  /**
+   * Legacy compatibility switch. `false` historically meant that no synthetic
+   * baseline adjustment was made, so it maps to civilOffsetMeridian (not off).
+   * Use longitudeCorrectionPolicy.mode='off' for actual no-correction behavior.
    */
   longitudeCorrectionEnabled?: boolean;
 
@@ -250,6 +264,7 @@ export interface LegacySajuConfig {
   yazaEnabled?: boolean;
   yazaMode?: LegacyYazaMode;
 
+  /** Legacy fixed reference meridian retained for preset compatibility. */
   lmtBaselineLongitude?: number;
   calendar?: Partial<EngineConfig['calendar']>;
   toggles?: Partial<EngineConfig['toggles']>;
@@ -298,6 +313,25 @@ export class LegacyContractOutputError extends Error {
   }
 }
 
+export type LegacyBirthLocationErrorCode =
+  | 'SAJU_LEGACY_BIRTH_LOCATION_PARTIAL'
+  | 'SAJU_LEGACY_BIRTH_LOCATION_INVALID';
+
+/** Raised when legacy callers provide a non-atomic or invalid location tuple. */
+export class LegacyBirthLocationError extends Error {
+  readonly code: LegacyBirthLocationErrorCode;
+
+  constructor(code: LegacyBirthLocationErrorCode) {
+    super(
+      code === 'SAJU_LEGACY_BIRTH_LOCATION_PARTIAL'
+        ? 'Legacy birth location requires timezone, latitude, and longitude together.'
+        : 'Legacy birth location contains an invalid timezone or coordinate.',
+    );
+    this.name = 'LegacyBirthLocationError';
+    this.code = code;
+  }
+}
+
 interface DayCutMapping {
   dayBoundary: EngineConfig['calendar']['dayBoundary'];
   hourStemDayBoundary?: EngineConfig['calendar']['dayBoundary'];
@@ -331,7 +365,6 @@ const PRESET_CONFIGS: Record<string, LegacySajuConfig> = {
 };
 
 const DEFAULT_TRUE_SOLAR_TIME_ENABLED = false;
-const DEFAULT_LONGITUDE_CORRECTION_ENABLED = true;
 // 감사 결정① (2026-07-08): 기본 = 정자시설(ziSplit23, 23:00 모드).
 // 실무 약 80% 주류 정렬 — 자정설은 yazaEnabled=false 명시로 복귀.
 const DEFAULT_YAZA_ENABLED = true;
@@ -1178,9 +1211,31 @@ function pickEngineConfigPatch(legacy: LegacySajuConfig): Partial<EngineConfig> 
   return patch;
 }
 
+function resolveLegacyLongitudeCorrectionPolicy(
+  legacy: LegacySajuConfig,
+): LegacyLongitudeCorrectionPolicy {
+  if (legacy.longitudeCorrectionPolicy !== undefined) {
+    return legacy.longitudeCorrectionPolicy;
+  }
+
+  // Preserve the old switch's real behavior: false skipped the synthetic
+  // preset-baseline transform and therefore let the core use the civil offset.
+  if (legacy.longitudeCorrectionEnabled === false) {
+    return { mode: 'civilOffsetMeridian' };
+  }
+
+  if (Number.isFinite(legacy.lmtBaselineLongitude)) {
+    return {
+      mode: 'fixedMeridian',
+      meridianDeg: Number(legacy.lmtBaselineLongitude),
+    };
+  }
+
+  return { mode: 'civilOffsetMeridian' };
+}
+
 function buildEngineConfig(
   legacy: LegacySajuConfig,
-  timeZone: string,
 ): { config: EngineConfig } {
   const dayCut = mapDayCutMode(resolveDayCutMode(legacy));
   const trueSolarTimeEnabled = legacy.trueSolarTimeEnabled ?? DEFAULT_TRUE_SOLAR_TIME_ENABLED;
@@ -1194,6 +1249,7 @@ function buildEngineConfig(
   // legacy.calendar.dayCutShiftMinutes 수동 오버라이드가 살아있다.
   cfg.calendar.dayCutShiftMinutes = dayCut.dayCutShiftMinutes;
   cfg.calendar.trueSolarTime.enabled = trueSolarTimeEnabled;
+  cfg.calendar.trueSolarTime.longitudeCorrectionPolicy = resolveLegacyLongitudeCorrectionPolicy(legacy);
   cfg.calendar.trueSolarTime.equationOfTime = trueSolarTimeEnabled && includeEquationOfTime ? 'approx' : 'off';
   cfg.calendar.trueSolarTime.applyTo = 'dayAndHour';
   cfg.calendar.solarTerms = {
@@ -1202,6 +1258,11 @@ function buildEngineConfig(
   };
 
   cfg = deepMerge(cfg, pickEngineConfigPatch(legacy));
+  // The dedicated legacy policy is the unambiguous public override even when
+  // a caller also supplies a nested calendar patch.
+  if (legacy.longitudeCorrectionPolicy !== undefined) {
+    cfg.calendar.trueSolarTime.longitudeCorrectionPolicy = legacy.longitudeCorrectionPolicy;
+  }
   const disabledToggles = LEGACY_REQUIRED_TOGGLES
     .filter((toggle) => cfg.toggles[toggle] !== true);
   if (disabledToggles.length > 0) {
@@ -1210,22 +1271,8 @@ function buildEngineConfig(
   return { config: cfg };
 }
 
-function inferStandardMeridian(offsetMinutes: number): number {
-  return (offsetMinutes / 60) * 15;
-}
-
-function effectiveLongitudeForLegacyLmt(
-  longitude: number,
-  baselineLongitude: number | undefined,
-  stdMeridianDeg: number,
-): number {
-  if (!Number.isFinite(baselineLongitude)) return longitude;
-  return longitude - ((baselineLongitude as number) - stdMeridianDeg);
-}
-
 function makeRequest(
   input: LegacyBirthInput,
-  legacy: LegacySajuConfig,
 ): { request: SajuRequest; standard: CivilDateTime } {
   const standard = toCivilFromBirthInput(input);
   // 감사 A11: 과거에는 YAZA_23_30의 -30분을 여기(민간시→인스턴트)에 적용해
@@ -1233,17 +1280,8 @@ function makeRequest(
   // config.calendar.dayCutShiftMinutes로 엔진의 경계 분류 노드만 이동한다.
   const timeZone = input.timezone ?? DEFAULT_TIMEZONE;
   const offsetMinutes = resolveOffsetMinutes(timeZone, standard);
-  const stdMeridian = inferStandardMeridian(offsetMinutes);
   const rawLongitude = Number.isFinite(input.longitude) ? Number(input.longitude) : DEFAULT_LONGITUDE;
   const latitude = Number.isFinite(input.latitude) ? Number(input.latitude) : DEFAULT_LATITUDE;
-  const longitudeCorrectionEnabled = legacy.longitudeCorrectionEnabled ?? DEFAULT_LONGITUDE_CORRECTION_ENABLED;
-  const baselineLongitude = Number.isFinite(legacy.lmtBaselineLongitude)
-    ? Number(legacy.lmtBaselineLongitude)
-    : stdMeridian;
-
-  const effectiveLongitude = longitudeCorrectionEnabled
-    ? effectiveLongitudeForLegacyLmt(rawLongitude, baselineLongitude, stdMeridian)
-    : rawLongitude;
 
   const instant = civilToIsoInstant(standard, offsetMinutes);
   const sex: SajuRequest['sex'] = input.gender === 'FEMALE' ? 'F' : 'M';
@@ -1254,7 +1292,7 @@ function makeRequest(
       sex,
       location: {
         lat: latitude,
-        lon: effectiveLongitude,
+        lon: rawLongitude,
         name: input.name,
       },
     },
@@ -1414,7 +1452,7 @@ function normalizeLegacyOutput(
   // 서머타임 보정 실측치 — 기존에는 0 하드코딩으로 미보정 서비스처럼 표기됐다 (감사 A9).
   const tz = timeZone ?? DEFAULT_TIMEZONE;
   const offsetAtBirth = resolveOffsetMinutes(tz, standard);
-  const birthUtcMs = Date.UTC(standard.y, standard.m - 1, standard.d, standard.h, standard.min, 0) - offsetAtBirth * 60_000;
+  const birthUtcMs = civilDateTimeToUtcMs(standard) - offsetAtBirth * 60_000;
   const dstCorrectionMinutes = dstMinutesAtUtcMs(birthUtcMs, tz);
 
   const pillars = getSummaryPillars(bundle);
@@ -2094,6 +2132,42 @@ function normalizeLegacyOutput(
 }
 
 export function createBirthInput(params: LegacyBirthInput): LegacyBirthInput {
+  const timezoneProvided = params.timezone !== undefined;
+  const latitudeProvided = params.latitude !== undefined;
+  const longitudeProvided = params.longitude !== undefined;
+  const anyLocationProvided = timezoneProvided || latitudeProvided || longitudeProvided;
+  const completeLocationProvided = timezoneProvided && latitudeProvided && longitudeProvided;
+
+  if (anyLocationProvided && !completeLocationProvided) {
+    throw new LegacyBirthLocationError('SAJU_LEGACY_BIRTH_LOCATION_PARTIAL');
+  }
+
+  let timezone = DEFAULT_TIMEZONE;
+  let latitude = DEFAULT_LATITUDE;
+  let longitude = DEFAULT_LONGITUDE;
+  if (completeLocationProvided) {
+    const rawTimezone = params.timezone;
+    const rawLatitude = params.latitude;
+    const rawLongitude = params.longitude;
+    if (
+      typeof rawTimezone !== 'string'
+      || rawTimezone.trim().length === 0
+      || typeof rawLatitude !== 'number'
+      || !Number.isFinite(rawLatitude)
+      || rawLatitude < -90
+      || rawLatitude > 90
+      || typeof rawLongitude !== 'number'
+      || !Number.isFinite(rawLongitude)
+      || rawLongitude < -180
+      || rawLongitude > 180
+    ) {
+      throw new LegacyBirthLocationError('SAJU_LEGACY_BIRTH_LOCATION_INVALID');
+    }
+    timezone = rawTimezone.trim();
+    latitude = rawLatitude;
+    longitude = rawLongitude;
+  }
+
   return {
     birthYear: toInt(params.birthYear, 0),
     birthMonth: toInt(params.birthMonth, 1),
@@ -2103,9 +2177,9 @@ export function createBirthInput(params: LegacyBirthInput): LegacyBirthInput {
     gender: params.gender === 'FEMALE' ? 'FEMALE' : 'MALE',
     calendarType: params.calendarType === 'LUNAR' ? 'LUNAR' : 'SOLAR',
     isLeapMonth: params.isLeapMonth,
-    timezone: params.timezone ?? DEFAULT_TIMEZONE,
-    latitude: Number.isFinite(params.latitude) ? Number(params.latitude) : DEFAULT_LATITUDE,
-    longitude: Number.isFinite(params.longitude) ? Number(params.longitude) : DEFAULT_LONGITUDE,
+    timezone,
+    latitude,
+    longitude,
     name: params.name,
   };
 }
@@ -2127,8 +2201,8 @@ export function analyzeSaju(
 
   const legacy = normalizeLegacyConfig(rawConfig);
   const tz = normalizedInput.timezone ?? DEFAULT_TIMEZONE;
-  const { config } = buildEngineConfig(legacy, tz);
-  const { request, standard } = makeRequest(normalizedInput, legacy);
+  const { config } = buildEngineConfig(legacy);
+  const { request, standard } = makeRequest(normalizedInput);
 
   const engine = createEngine(config);
   const bundle = engine.analyze(request);

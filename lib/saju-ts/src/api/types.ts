@@ -52,6 +52,15 @@ export interface SchoolConfig {
   variant?: string;
 }
 
+/**
+ * Selects the reference meridian used for longitude (local-mean-time)
+ * correction. The request longitude always remains the physical longitude.
+ */
+export type LongitudeCorrectionPolicy =
+  | { mode: 'off' }
+  | { mode: 'civilOffsetMeridian' }
+  | { mode: 'fixedMeridian'; meridianDeg: number };
+
 export interface EngineConfig {
   schemaVersion: string;
 
@@ -124,6 +133,15 @@ export interface EngineConfig {
 
     trueSolarTime: {
       enabled: boolean;
+
+      /**
+       * Longitude-correction reference policy.
+       *
+       * - 'off': no longitude correction (EoT may still be applied)
+       * - 'civilOffsetMeridian': derive the meridian from the instant's UTC offset
+       * - 'fixedMeridian': use an explicitly configured school/reference meridian
+       */
+      longitudeCorrectionPolicy: LongitudeCorrectionPolicy;
       /**
        * Equation-of-Time model.
        *

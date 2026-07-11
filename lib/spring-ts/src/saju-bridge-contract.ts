@@ -26,7 +26,19 @@ export interface LegacySajuOptionsContract {
   readonly wolunMonthCount?: number;
 }
 
+export interface LegacyCivilDateTimeContract {
+  readonly y: number;
+  readonly m: number;
+  readonly d: number;
+  readonly h: number;
+  readonly min: number;
+}
+
 export interface RuntimeLegacySajuConfig extends Record<string, unknown> {
+  longitudeCorrectionPolicy?:
+    | { readonly mode: 'off' }
+    | { readonly mode: 'civilOffsetMeridian' }
+    | { readonly mode: 'fixedMeridian'; readonly meridianDeg: number };
   calendar?: {
     solarTerms?: {
       method?: 'meeus' | 'approx';
@@ -194,4 +206,8 @@ export type SajuModule = {
   ) => LegacySajuOutputV1Contract;
   createBirthInput: (params: LegacyBirthInputContract) => LegacyBirthInputContract;
   configFromPreset?: (preset: string) => RuntimeLegacySajuConfig;
+  resolveOffsetMinutes: (
+    timeZone: string,
+    civil: LegacyCivilDateTimeContract,
+  ) => number;
 };

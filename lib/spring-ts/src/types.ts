@@ -60,6 +60,11 @@ export interface SpringOptions {
   readonly offset?: number;
   readonly schoolPreset?: SchoolPresetName;
   readonly sajuTimePolicy?: SajuTimePolicyOptions;
+  /**
+   * Advanced raw saju-ts escape hatch. Product time controls in
+   * `sajuTimePolicy` are authoritative over conflicting top-level or nested
+   * calendar fields supplied here.
+   */
   readonly sajuConfig?: Record<string, unknown>;
   readonly sajuOptions?: SajuRequestOptions;
   readonly pureHangulNameMode?: 'auto' | 'on' | 'off';
@@ -428,6 +433,11 @@ export interface CounterexampleRow {
 export interface SajuTimePolicyOptions {
   readonly trueSolarTime?: 'on' | 'off';
   readonly longitudeCorrection?: 'on' | 'off';
+  /**
+   * Meridian used for longitude correction. Product default is the physical
+   * civil-offset meridian; legacyPreset is an explicit compatibility opt-in.
+   */
+  readonly longitudeReference?: 'civilOffsetMeridian' | 'legacyPreset';
   readonly yaza?: 'on' | 'off';
   readonly yazaMode?: '23:00' | '23:30';
 }
@@ -656,6 +666,17 @@ export type SajuAnalysisReasonCode =
   | 'BIRTH_INPUT_INSUFFICIENT'
   | 'BIRTH_DATE_INVALID'
   | 'BIRTH_TIME_INVALID'
+  | 'BIRTH_TIME_POLICY_INVALID'
+  | 'BIRTH_TIMEZONE_INVALID'
+  | 'BIRTH_TIMEZONE_DATA_UNSUPPORTED'
+  | 'BIRTH_TIME_NONEXISTENT'
+  | 'BIRTH_TIME_AMBIGUOUS'
+  | 'BIRTH_TIME_RANGE_TRANSITION'
+  | 'BIRTH_LOCATION_INVALID'
+  | 'BIRTH_LOCATION_PARTIAL'
+  | 'BIRTH_LOCATION_UNRESOLVED'
+  | 'BIRTH_LOCATION_CONFLICT'
+  | 'BIRTH_LOCATION_TIMEZONE_MISMATCH'
   | 'LUNAR_INPUT_INSUFFICIENT'
   | 'LUNAR_CONVERSION_UNAVAILABLE'
   | 'NEUTRAL_GENDER_ANALYSIS_PARTIAL'
