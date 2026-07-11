@@ -56,7 +56,10 @@ function assertNameEntryScalar(
 function assertEntry(
   entry: HanjaEntry,
   path: string,
-  allowDerivedPlaceholders = false,
+  policy: {
+    readonly allowDerivedPlaceholders: boolean;
+    readonly requireSurnameEligible: boolean;
+  },
 ): void {
   if (!isPlainRecord(entry)) {
     fail('INVALID_INPUT', 'Name entry must be an object.', path, entry);
@@ -98,6 +101,28 @@ function assertEntry(
     `${path}.is_surname`,
     entry.is_surname,
   );
+  if (policy.requireSurnameEligible && entry.is_surname !== true) {
+    fail(
+      'INVALID_SURNAME_FLAG',
+      'Surname entries must be marked as surname-eligible.',
+      `${path}.is_surname`,
+      entry.is_surname,
+    );
+  }
+
+  const isHangulOnlyPlaceholder = policy.allowDerivedPlaceholders
+    && (entry.hanja === '' || entry.hanja === entry.hangul);
+  if (
+    !isHangulOnlyPlaceholder
+    && (Array.from(entry.hanja).length !== 1 || !/^\p{Script=Han}$/u.test(entry.hanja))
+  ) {
+    fail(
+      'INVALID_HANJA_CHARACTER',
+      'Non-Hangul name entries must contain exactly one Unicode Han character.',
+      `${path}.hanja`,
+      entry.hanja,
+    );
+  }
 
   const hangulCharacters = Array.from(entry.hangul);
   const parts = hangulCharacters.length === 1
@@ -118,13 +143,13 @@ function assertEntry(
     );
   }
 
-  const validStrokeCount = allowDerivedPlaceholders
+  const validStrokeCount = policy.allowDerivedPlaceholders
     ? Number.isFinite(entry.strokes) && Number.isInteger(entry.strokes) && entry.strokes >= 0
     : Number.isFinite(entry.strokes) && Number.isInteger(entry.strokes) && entry.strokes > 0;
   if (!validStrokeCount) {
     fail(
       'INVALID_STROKE_COUNT',
-      allowDerivedPlaceholders
+      policy.allowDerivedPlaceholders
         ? 'Hangul-only placeholder stroke count must be a non-negative finite integer.'
         : 'Stroke count must be a positive finite integer.',
       `${path}.strokes`,
@@ -133,11 +158,11 @@ function assertEntry(
   }
 
   const validStrokeElement = VALID_ELEMENTS.has(entry.stroke_element)
-    || (allowDerivedPlaceholders && entry.stroke_element === '');
+    || (policy.allowDerivedPlaceholders && entry.stroke_element === '');
   if (!validStrokeElement) {
     fail(
       'INVALID_ELEMENT',
-      allowDerivedPlaceholders
+      policy.allowDerivedPlaceholders
         ? 'Hangul-only stroke element must be empty or a supported element.'
         : 'Stroke element must be one of Wood, Fire, Earth, Metal, or Water.',
       `${path}.stroke_element`,
@@ -146,11 +171,11 @@ function assertEntry(
   }
 
   const validResourceElement = VALID_ELEMENTS.has(entry.resource_element)
-    || (allowDerivedPlaceholders && entry.resource_element === '');
+    || (policy.allowDerivedPlaceholders && entry.resource_element === '');
   if (!validResourceElement) {
     fail(
       'INVALID_ELEMENT',
-      allowDerivedPlaceholders
+      policy.allowDerivedPlaceholders
         ? 'Hangul-only resource element must be empty or a supported element.'
         : 'Resource element must be one of Wood, Fire, Earth, Metal, or Water.',
       `${path}.resource_element`,
@@ -365,9 +390,15 @@ export function assertNameEntriesForAnalysis(
   },
 ): void {
   userInfo.lastName.forEach((entry, index) =>
-    assertEntry(entry, `lastName[${index}]`, policy.convertLastNameToHangul));
+    assertEntry(entry, `lastName[${index}]`, {
+      allowDerivedPlaceholders: policy.convertLastNameToHangul,
+      requireSurnameEligible: true,
+    }));
   userInfo.firstName.forEach((entry, index) =>
-    assertEntry(entry, `firstName[${index}]`, policy.convertFirstNameToHangul));
+    assertEntry(entry, `firstName[${index}]`, {
+      allowDerivedPlaceholders: policy.convertFirstNameToHangul,
+      requireSurnameEligible: false,
+    }));
 }
 
 /** Strict compatibility validator for callers that do not perform mode-aware normalization. */
