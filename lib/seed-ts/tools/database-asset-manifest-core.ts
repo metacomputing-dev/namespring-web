@@ -2,37 +2,13 @@ import { createHash } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import initSqlJs, { type Database } from 'sql.js';
-
-export const DATABASE_ASSET_MANIFEST_SCHEMA_VERSION =
-  'namespring.seed-database-asset-manifest/v1' as const;
-
-export interface NormalizedDatabaseColumn {
-  readonly cid: number;
-  readonly name: string;
-  readonly declaredType: string;
-  readonly notNull: boolean;
-  readonly defaultValue: string | null;
-  readonly primaryKeyPosition: number;
-}
-
-export interface DatabaseAssetManifestEntry {
-  readonly assetId: string;
-  readonly relativePath: string;
-  readonly byteLength: number;
-  readonly sha256: string;
-  readonly userVersion: number;
-  readonly schemaContractVersion: string;
-  readonly schemaContractSha256: string;
-  readonly table: string;
-  readonly columns: readonly NormalizedDatabaseColumn[];
-  readonly rowCount: number;
-  readonly shardKey: string | null;
-}
-
-export interface DatabaseAssetManifest {
-  readonly schemaVersion: typeof DATABASE_ASSET_MANIFEST_SCHEMA_VERSION;
-  readonly assets: readonly DatabaseAssetManifestEntry[];
-}
+import {
+  DATABASE_ASSET_MANIFEST_SCHEMA_VERSION,
+  type DatabaseAssetManifest,
+  type DatabaseAssetManifestEntry,
+  type NormalizedDatabaseColumn,
+} from '../src/database/database-asset-contract.js';
+import { readNormalizedDatabaseColumns } from '../src/database/database-integrity.js';
 
 interface DatabaseAssetSpec {
   readonly assetId: string;
@@ -140,45 +116,6 @@ function scalarInteger(db: Database, sql: string, description: string): number {
   return requiredInteger(value, description);
 }
 
-function normalizedColumns(db: Database, table: string): NormalizedDatabaseColumn[] {
-  const results = db.exec(`PRAGMA table_info(${quoteIdentifier(table)})`);
-  const result = results[0];
-  if (!result || result.values.length === 0) {
-    throw new Error(`Required table ${table} is missing`);
-  }
-  const columnIndex = new Map(result.columns.map((name, index) => [name, index]));
-  const valueAt = (row: readonly unknown[], name: string): unknown => {
-    const index = columnIndex.get(name);
-    if (index === undefined) throw new Error(`PRAGMA table_info omitted ${name}`);
-    return row[index];
-  };
-
-  return result.values.map((row, rowIndex) => {
-    const name = valueAt(row, 'name');
-    const declaredType = valueAt(row, 'type');
-    const defaultValue = valueAt(row, 'dflt_value');
-    if (typeof name !== 'string' || name.length === 0) {
-      throw new Error(`Column ${rowIndex} has an invalid name`);
-    }
-    if (typeof declaredType !== 'string') {
-      throw new Error(`Column ${name} has an invalid declared type`);
-    }
-    if (defaultValue !== null && typeof defaultValue !== 'string') {
-      throw new Error(`Column ${name} has an invalid default value`);
-    }
-    return {
-      cid: requiredInteger(valueAt(row, 'cid'), `Column ${name} cid`),
-      name,
-      declaredType: declaredType.trim().replace(/\s+/gu, ' ').toUpperCase(),
-      notNull: requiredInteger(valueAt(row, 'notnull'), `Column ${name} notnull`) === 1,
-      defaultValue: defaultValue === null
-        ? null
-        : defaultValue.trim().replace(/\s+/gu, ' '),
-      primaryKeyPosition: requiredInteger(valueAt(row, 'pk'), `Column ${name} pk`),
-    };
-  });
-}
-
 function sha256(bytes: Uint8Array): string {
   return createHash('sha256').update(bytes).digest('hex');
 }
@@ -215,7 +152,8 @@ function readAsset(
   const bytes = fs.readFileSync(absolutePath);
   const db = new SQL.Database(bytes);
   try {
-    const columns = normalizedColumns(db, spec.table);
+    const columns = readNormalizedDatabaseColumns(db, spec.table);
+    if (!columns) throw new Error(`Required table ${spec.table} is missing`);
     return {
       assetId: spec.assetId,
       relativePath,
