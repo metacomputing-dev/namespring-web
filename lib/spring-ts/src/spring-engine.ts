@@ -32,7 +32,7 @@ import { FrameCalculator } from './calculator/frame-calculator.js';
 import { evaluateName, type EvalContext, type EvaluationResult } from './core/evaluator.js';
 import { type ElementKey, bucketFromFortune } from './core/scoring.js';
 import { FourFrameOptimizer } from './calculator/search.js';
-import { makeFallbackEntry, buildInterpretation, parseJamoFilter, decomposeHangul, type JamoFilter } from './core/name-utils.js';
+import { buildInterpretation, parseJamoFilter, decomposeHangul, type JamoFilter } from './core/name-utils.js';
 import { buildNamingExplanation } from './naming-explanation.js';
 import type { SajuOutputSummary } from './types.js';
 import { SajuCalculator } from './saju-calculator.js';
@@ -89,6 +89,18 @@ import {
   sliceAndRankCandidatePage,
   sliceCandidatePage,
 } from './candidate-selection.js';
+import {
+  resolveFixedNameCharacterPool,
+  resolveNameEntries,
+  type ResolveNameEntriesOptions,
+} from './name-entry-resolver.js';
+
+export {
+  NAME_ENTRY_RESOLUTION_FAILED,
+  NameEntryResolutionError,
+  type NameEntryResolutionFailureReason,
+  type NameEntryRole,
+} from './name-entry-resolver.js';
 
 // ---------------------------------------------------------------------------
 // Config -- all tuneable numbers come from engine.json
@@ -465,12 +477,6 @@ function toNameCharInput(entry: HanjaEntry, pool: HanjaPool = 'curated'): NameCh
 interface NameResolutionPolicy {
   readonly pureHangulGivenName: boolean;
   readonly useSurnameHanjaInPureHangul: boolean;
-}
-
-interface ResolveEntriesOptions {
-  readonly forceHangulOnly?: boolean;
-  readonly isSurname?: boolean;
-  readonly hanjaPool?: HanjaPool;
 }
 
 type CandidateRejectionAccumulator = Map<string, CandidateRejectionBucket>;
@@ -2357,25 +2363,11 @@ export class SpringEngine {
 
   /** Resolve a single user-specified character into a 1-element pool. */
   private async resolveFixedCharPool(givenNameChar: NameCharInput, hanjaPool: HanjaPool): Promise<HanjaEntry[]> {
-    if (givenNameChar.hanja) {
-      const entry = await this.hanjaRepo.findByHanja(givenNameChar.hanja);
-      if (entry) return [{ ...entry, hangul: givenNameChar.hangul, is_surname: false }];
-      if (hanjaPool === 'inmyeongyong_full') {
-        const fullMatches = getFullLegalPoolEntries()
-          .filter((candidate) => candidate.hanja === givenNameChar.hanja)
-          .sort((a, b) =>
-            Number(b.hangul === givenNameChar.hangul) - Number(a.hangul === givenNameChar.hangul));
-        if (fullMatches.length) return [{ ...fullMatches[0], hangul: givenNameChar.hangul, is_surname: false }];
-      }
-      return [makeFallbackEntry(givenNameChar.hangul, { hanja: givenNameChar.hanja })];
-    }
-
-    const entries = hanjaPool === 'inmyeongyong_full'
-      ? getFullLegalPoolEntries().filter((entry) => entry.hangul === givenNameChar.hangul)
-      : await this.hanjaRepo.findByHangul(givenNameChar.hangul);
-    return entries.length
-      ? entries.slice(0, POOL_LIMIT_SINGLE_CHAR)
-      : [makeFallbackEntry(givenNameChar.hangul, { hanja: '' })];
+    return resolveFixedNameCharacterPool(givenNameChar, this.hanjaRepo, {
+      hanjaPool,
+      poolLimit: POOL_LIMIT_SINGLE_CHAR,
+      fullPoolEntries: getFullLegalPoolEntries,
+    });
   }
 
   // -------------------------------------------------------------------------
@@ -2384,44 +2376,12 @@ export class SpringEngine {
 
   private async resolveEntries(
     chars: NameCharInput[],
-    options: ResolveEntriesOptions = {},
+    options: ResolveNameEntriesOptions = {},
   ): Promise<HanjaEntry[]> {
-    const forceHangulOnly = options.forceHangulOnly ?? false;
-    const isSurname = options.isSurname ?? false;
-    const hanjaPool = options.hanjaPool ?? 'curated';
-
-    return Promise.all(chars.map(async (char) => {
-      const hasHanjaField = Object.prototype.hasOwnProperty.call(char, 'hanja');
-      const normalizedHanja = String(char.hanja ?? '').trim();
-
-      if (forceHangulOnly || (hasHanjaField && normalizedHanja.length === 0)) {
-        return makeFallbackEntry(char.hangul, {
-          hanja: '',
-          isSurname,
-        });
-      }
-
-      if (normalizedHanja.length > 0) {
-        const entry = await this.hanjaRepo.findByHanja(normalizedHanja);
-        if (entry) return { ...entry, hangul: char.hangul, is_surname: isSurname };
-        if (hanjaPool === 'inmyeongyong_full') {
-          const fullMatches = getFullLegalPoolEntries()
-            .filter((candidate) => candidate.hanja === normalizedHanja)
-            .sort((a, b) =>
-              Number(b.hangul === char.hangul) - Number(a.hangul === char.hangul));
-          if (fullMatches.length) return { ...fullMatches[0], is_surname: isSurname };
-        }
-      }
-      const byHangul = hanjaPool === 'inmyeongyong_full'
-        ? getFullLegalPoolEntries()
-          .filter((entry) => entry.hangul === char.hangul)
-          .map((entry) => ({ ...entry, is_surname: isSurname }))
-        : await this.hanjaRepo.findByHangul(char.hangul);
-      return byHangul[0] ?? makeFallbackEntry(char.hangul, {
-        hanja: normalizedHanja,
-        isSurname,
-      });
-    }));
+    return resolveNameEntries(chars, this.hanjaRepo, {
+      ...options,
+      fullPoolEntries: getFullLegalPoolEntries,
+    });
   }
 
   // -------------------------------------------------------------------------
