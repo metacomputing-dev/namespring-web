@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import type { SqlJsStatic } from 'sql.js';
+import initSqlJs, { type SqlJsStatic } from 'sql.js';
 
 import { FourframeRepository } from '../src/database/fourframe-repository.js';
 import { HanjaRepository } from '../src/database/hanja-repository.js';
@@ -113,6 +113,69 @@ function response(
     statusText,
     arrayBuffer: () => Promise.resolve(body),
   };
+}
+
+async function createHanjaOrderingFixture(): Promise<{
+  readonly SQL: SqlJsStatic;
+  readonly buffer: ArrayBuffer;
+}> {
+  const SQL = await initSqlJs();
+  const db = new SQL.Database();
+  db.run(`
+    CREATE TABLE hanjas (
+      id INTEGER PRIMARY KEY,
+      hangul TEXT NOT NULL,
+      hanja TEXT NOT NULL,
+      onset TEXT NOT NULL,
+      nucleus TEXT NOT NULL,
+      strokes INTEGER NOT NULL,
+      stroke_element TEXT NOT NULL,
+      resource_element TEXT NOT NULL,
+      meaning TEXT NOT NULL,
+      radical TEXT NOT NULL,
+      is_surname INTEGER NOT NULL
+    )
+  `);
+
+  const statement = db.prepare(`
+    INSERT INTO hanjas (
+      id, hangul, hanja, onset, nucleus, strokes, stroke_element,
+      resource_element, meaning, radical, is_surname
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `);
+  try {
+    for (let id = 1; id <= 205; id += 1) {
+      statement.run([
+        id,
+        '\uAC00',
+        '\u5BB6',
+        '\u3131',
+        '\u314F',
+        id % 2 === 0 ? 6 : 5,
+        'Water',
+        id % 3 === 0 ? 'Wood' : 'Fire',
+        `fixture-${id}`,
+        '\u5B80',
+        id % 10 === 0 ? 1 : 0,
+      ]);
+    }
+  } finally {
+    statement.free();
+  }
+
+  // These indexes deliberately expose SQLite's freedom to return equal
+  // matches in a different order when a repository query omits a complete
+  // ORDER BY. The public contract must not depend on the chosen query plan.
+  db.run('CREATE INDEX idx_fixture_hanja_desc ON hanjas(hanja, id DESC)');
+  db.run('CREATE INDEX idx_fixture_hangul_strokes_desc ON hanjas(hangul, strokes, id DESC)');
+  db.run('CREATE INDEX idx_fixture_surname_desc ON hanjas(hangul, is_surname, id DESC)');
+  db.run('CREATE INDEX idx_fixture_resource_desc ON hanjas(resource_element, id DESC)');
+  db.run('CREATE INDEX idx_fixture_strokes_desc ON hanjas(strokes, id DESC)');
+  db.run('CREATE INDEX idx_fixture_onset_desc ON hanjas(onset, id DESC)');
+
+  const exported = db.export();
+  db.close();
+  return { SQL, buffer: new Uint8Array(exported).buffer };
 }
 
 async function waitUntil(
@@ -349,6 +412,51 @@ test('HanjaRepository shares one concurrent initialization', async () => {
   assert.equal(fetches, 1);
   assert.equal(fake.databases.length, 1);
   assert.equal((await repository.findByHanja('\u5BB6'))?.hangul, '\uAC00');
+  repository.close();
+});
+
+test('HanjaRepository query order is deterministic across SQLite index plans', async () => {
+  const fixture = await createHanjaOrderingFixture();
+  const repository = new HanjaRepository({
+    initializeSqlJs: async () => fixture.SQL,
+    fetch: async () => response(fixture.buffer),
+  });
+  await repository.init();
+
+  const ids = Array.from({ length: 205 }, (_, index) => index + 1);
+  const expectedByStroke = [
+    ...ids.filter((id) => id % 2 === 1),
+    ...ids.filter((id) => id % 2 === 0),
+  ];
+  const expectedSurnames = ids.filter((id) => id % 10 === 0);
+  const expectedWood = ids.filter((id) => id % 3 === 0);
+
+  assert.equal((await repository.findByHanja('\u5BB6'))?.id, 1);
+  assert.deepEqual(
+    (await repository.findByHangul('\uAC00')).map((entry) => entry.id),
+    expectedByStroke,
+  );
+  assert.deepEqual(
+    (await repository.findSurnamesByHangul('\uAC00')).map((entry) => entry.id),
+    expectedSurnames,
+  );
+  assert.deepEqual(
+    (await repository.findByResourceElement('Wood')).map((entry) => entry.id),
+    expectedWood,
+  );
+  assert.deepEqual(
+    (await repository.findByResourceElement('Wood', '\uAC00')).map((entry) => entry.id),
+    expectedWood,
+  );
+  assert.deepEqual(
+    (await repository.findByStrokeRange(5, 5)).map((entry) => entry.id),
+    ids.filter((id) => id % 2 === 1),
+  );
+  assert.deepEqual(
+    (await repository.findByOnset('\u3131')).map((entry) => entry.id),
+    ids.slice(0, 200),
+  );
+
   repository.close();
 });
 

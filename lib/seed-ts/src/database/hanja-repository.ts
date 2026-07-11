@@ -106,18 +106,18 @@ export class HanjaRepository {
   }
 
   public async findByHanja(hanja: string): Promise<HanjaEntry | null> {
-    const sql = `SELECT * FROM hanjas WHERE hanja = ? LIMIT 1`;
+    const sql = `SELECT * FROM hanjas WHERE hanja = ? ORDER BY id ASC LIMIT 1`;
     const rows = this.execute(sql, [hanja]);
     return rows.length > 0 ? rows[0] : null;
   }
 
   public async findByHangul(hangul: string): Promise<HanjaEntry[]> {
-    const sql = `SELECT * FROM hanjas WHERE hangul = ? ORDER BY strokes ASC`;
+    const sql = `SELECT * FROM hanjas WHERE hangul = ? ORDER BY strokes ASC, id ASC`;
     return this.execute(sql, [hangul]);
   }
 
   public async findSurnamesByHangul(hangul: string): Promise<HanjaEntry[]> {
-    const sql = `SELECT * FROM hanjas WHERE hangul = ? AND is_surname = 1`;
+    const sql = `SELECT * FROM hanjas WHERE hangul = ? AND is_surname = 1 ORDER BY id ASC`;
     return this.execute(sql, [hangul]);
   }
 
@@ -129,16 +129,17 @@ export class HanjaRepository {
       sql += ` AND hangul = ?`;
       params.push(hangul);
     }
+    sql += ` ORDER BY id ASC`;
     return this.execute(sql, params);
   }
 
   public async findByStrokeRange(min: number, max: number): Promise<HanjaEntry[]> {
-    const sql = `SELECT * FROM hanjas WHERE strokes BETWEEN ? AND ? ORDER BY strokes ASC`;
+    const sql = `SELECT * FROM hanjas WHERE strokes BETWEEN ? AND ? ORDER BY strokes ASC, id ASC`;
     return this.execute(sql, [min, max]);
   }
 
   public async findByOnset(onset: string): Promise<HanjaEntry[]> {
-    const sql = `SELECT * FROM hanjas WHERE onset = ? LIMIT 200`;
+    const sql = `SELECT * FROM hanjas WHERE onset = ? ORDER BY id ASC LIMIT 200`;
     return this.execute(sql, [onset]);
   }
 
