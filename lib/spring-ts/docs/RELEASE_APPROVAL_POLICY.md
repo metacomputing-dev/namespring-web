@@ -1,10 +1,14 @@
 # Saju Engine Release Approval Policy
 
-The engine PR stays Draft until every automated readiness gate passes and the
-designated review below is complete. Regression success alone is not evidence
-of expert-level judgement accuracy.
+Review readiness for an incremental backend guardrail/refactor PR and
+certification of an expert-grade engine release are separate decisions.
+A PR may leave Draft for review when its changed backend scope is structurally
+maintainable, change-scoped regressions pass, no frontend or default-promotion
+change is included, and every unresolved accuracy limitation remains explicit.
+The certified release and default-promotion gates below remain fail-closed.
+Regression success alone is not evidence of expert-level judgement accuracy.
 
-## Review mechanism (2026-07-10 owner decision)
+## Interim review mechanism (not release certification)
 
 Every "review" control in this policy is implemented as a two-layer mechanism
 adopted by the project owner:
@@ -17,11 +21,34 @@ adopted by the project owner:
    accountability record, not a claim of domain-expert authority.
 
 This mechanism is **not** external human expert certification, and no PR,
-document, or user-facing text may present it as such. When an external
-myeongri expert later joins the project, their review supersedes this
-mechanism per control without invalidating past audit records. Records whose
-judgements *originate from* the AI panel additionally follow the
-panel-adjudicated exception in `NO_AI_POLICY.md`.
+document, or user-facing text may present it as such. It cannot satisfy the
+signoff required for a certified engine release or default promotion. It need
+not block review of an incremental backend-only guardrail/refactor PR that
+meets the review-readiness conditions above. Records whose judgements
+*originate from* the AI panel additionally follow the panel-adjudicated
+exception in `NO_AI_POLICY.md`.
+Panel and record digests authenticate repository consistency only; model
+identifiers and `reviewedBy` are self-attested metadata, not provider-origin,
+reviewer-identity, or domain-expertise authentication.
+
+## External expert certification signoff
+
+Certified engine release and default promotion require an independent human
+myeongri expert to approve the exact release baseline. An incremental
+guardrail/refactor PR may merge without this certification only when it makes
+no certification claim, does not promote a new default, and preserves the
+fail-closed release gate. The required manifest path is
+`docs/release-attestations/saju-engine-expert-signoff.json`. It must bind all
+17 canonical fixtures and D1-D5 to a reviewed code commit. That commit must be
+a strict ancestor of the release HEAD, and every later change must be confined
+to tracked, clean files under `docs/release-attestations/**`; evidence files
+must match their SHA-256 digests.
+
+`npm run quality:gate:expert-signoff` verifies this repository binding and
+manifest completeness. It does **not** authenticate the reviewer identity,
+qualification, or independence. Those claims still require human verification
+through the protected PR review process. AI-panel output and owner approval
+cannot substitute for this external expert control.
 
 ## Exact default-change approval
 
@@ -58,16 +85,20 @@ covering every changed judgement and service-visible output.
 
 ## Authority-source promotion
 
-`T3_AUTHORED_INTERPRETATION` records with
-`authorityTruthEligible: true` require:
+Generic `T3_AUTHORED_INTERPRETATION` plus an owner signature is not
+eligible. The only current T3 exception is the exact, AI-disclosed,
+evidence-bound panel contract, and that exception is limited to
+`saju_doctrine`. T4 classical truth requires case-bound quotation evidence,
+field-level bindings, a Git-tracked page artifact and quote-containing
+transcript with realpath containment and matching SHA-256 digests, and approved
+review metadata. A public URL alone is not evidence. T5 records are restricted
+to their official data scopes. T0-T2 sources remain comparison-only.
 
-- `authorityReview.status: "approved"`
-- non-empty `authorityReview.reviewedBy`
-- valid `authorityReview.reviewedAt`
-
-Until then they fail the source audit and cannot enter accuracy denominators.
-T4/T5 eligibility still requires complete source metadata. T0-T2 sources
-remain comparison-only. Reviews follow the two-layer mechanism above.
+The current repository has no eligible `naming_score_calibration`,
+`product_surface_contract`, `narrative_semantic_contract`, or
+`safety_copy_policy` record for the 17 release fixtures. This is a release
+blocker, not an engine-rule failure and not permission to broaden another
+source's scope.
 
 ## Required release gates
 
@@ -76,6 +107,7 @@ npm --prefix ../saju-ts run test:release-tools
 npm --prefix ../saju-ts run validate:school-sources
 npm run test:jonggyeok-authority:release
 node tools/measure_default_change.mjs --baseline origin/main --branch HEAD
+npm run quality:gate:expert-signoff
 npm run quality:gate:release
 COMPOSITE_GATE_BASELINE_REF=origin/main npm run test:composite-quality-gate
 ```
@@ -86,6 +118,12 @@ not `PASS`; fixtures that are structurally out of a dimension's scope (e.g.
 non-edge fixtures for the D5 edge-stability axis) are `NOT_APPLICABLE` and do
 not count against completeness. RPI scores include the missing-fixture
 coverage penalty and cannot award full points for partial coverage.
+
+D1 requires all seven fields: doctrine `gyeokguk`, `yongshinElement`, and
+`strengthLevel`, plus naming `totalScore`, `hangul`, `hanja`, and `fourFrame`.
+A missing scope or field keeps the component and D1 at `N/A`.
+D5 reports structural edge stability separately and reuses the complete D1
+contract for accuracy; stability alone therefore remains `N/A` for accuracy.
 
 The strict jonggyeok gate requires at least 20 reviewed, authority-eligible
 birth-time cases whose declared pillars are reproduced by the engine calendar

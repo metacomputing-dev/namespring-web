@@ -5,10 +5,15 @@
  *
  * Run: npm run test:baseline-metrics
  */
+import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
-import { execSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import {
+  D1_REQUIRED_DOCTRINE_FIELDS,
+  D1_REQUIRED_NAMING_FIELDS,
+} from '../../tools/quality-gate/d1.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRING_TS_ROOT = path.resolve(__dirname, '../..');
@@ -27,24 +32,46 @@ function check(label: string, cond: boolean, evidence?: string): void {
   }
 }
 
-function readMetric(fileName: string): any {
-  return JSON.parse(fs.readFileSync(path.join(METRICS_DIR, fileName), 'utf-8'));
+function readMetric(dir: string, fileName: string): any {
+  return JSON.parse(fs.readFileSync(path.join(dir, fileName), 'utf-8'));
+}
+
+function generateMetrics(outDir: string): Record<string, any> {
+  execFileSync('npx', ['tsx', 'scripts/compute-rpi.ts', '--out-dir', outDir], {
+    cwd: SPRING_TS_ROOT,
+    stdio: ['ignore', 'pipe', 'pipe'],
+    shell: process.platform === 'win32',
+  });
+  return {
+    bySourceTier: readMetric(outDir, 'bySourceTier.json'),
+    sourceTierSummary: readMetric(outDir, 'source-tier-summary.json'),
+    rpiSummary: readMetric(outDir, 'rpi-summary.json'),
+  };
 }
 
 console.log('Phase 0 baseline metrics test\n');
 
-execSync('npm run metrics:baseline', {
-  cwd: SPRING_TS_ROOT,
-  stdio: ['ignore', 'pipe', 'pipe'],
-  shell: true,
-});
+const tmpA = fs.mkdtempSync(path.join(os.tmpdir(), 'spring-ts-baseline-metrics-a-'));
+const tmpB = fs.mkdtempSync(path.join(os.tmpdir(), 'spring-ts-baseline-metrics-b-'));
+const generatedA = generateMetrics(tmpA);
+const generatedB = generateMetrics(tmpB);
+const committed = {
+  bySourceTier: readMetric(METRICS_DIR, 'bySourceTier.json'),
+  sourceTierSummary: readMetric(METRICS_DIR, 'source-tier-summary.json'),
+  rpiSummary: readMetric(METRICS_DIR, 'rpi-summary.json'),
+};
+const { bySourceTier, sourceTierSummary, rpiSummary } = generatedA;
 
-const bySourceTier = readMetric('bySourceTier.json');
-const sourceTierSummary = readMetric('source-tier-summary.json');
-const rpiSummary = readMetric('rpi-summary.json');
+check('baseline metrics generation is deterministic',
+  JSON.stringify(generatedA) === JSON.stringify(generatedB));
+check('committed baseline metrics match generated output',
+  JSON.stringify(committed) === JSON.stringify(generatedA));
 
 check('bySourceTier schema version is current',
-  bySourceTier.schemaVersion === 'spring-ts.by-source-tier.v1');
+  bySourceTier.schemaVersion === 'spring-ts.by-source-tier.v2');
+check('source-tier and RPI summary schema versions are current',
+  sourceTierSummary.schemaVersion === 'spring-ts.source-tier-summary.v2' &&
+    rpiSummary.schemaVersion === 'spring-ts.rpi-summary.v2');
 check('source tier summary scans the Phase 0 source ledger',
   sourceTierSummary.scanned >= 51,
   `scanned=${sourceTierSummary.scanned}`);
@@ -52,6 +79,49 @@ check('source tier governance status matches the RPI governance axis',
   sourceTierSummary.status === rpiSummary.axisScores?.G_validationGovernance?.status &&
     sourceTierSummary.violationCount === rpiSummary.axisScores?.G_validationGovernance?.sourceTierViolations,
   `status=${sourceTierSummary.status}, violations=${sourceTierSummary.violationCount}`);
+check('declared-scope source-record accounting is explicit and complete',
+  sourceTierSummary.declaredScopeEligibleSourceRecordCount +
+      sourceTierSummary.declaredScopeIneligibleSourceRecordCount === sourceTierSummary.scanned &&
+    sourceTierSummary.eligibilityDefinition.includes('not complete D1 fixture truth') &&
+    !('authorityTruthEligibleCount' in sourceTierSummary) &&
+    !('nonEligibleCount' in sourceTierSummary));
+
+const d1TruthCoverage = bySourceTier.d1TruthCoverage;
+const d1RequiredFields = [
+  ...D1_REQUIRED_DOCTRINE_FIELDS,
+  ...D1_REQUIRED_NAMING_FIELDS,
+];
+const d1Rows = d1TruthCoverage?.fixtures ?? [];
+check('D1 truth coverage owns the canonical seven-field contract',
+  d1TruthCoverage?.requiredFieldCount === 7 &&
+    JSON.stringify(d1TruthCoverage?.requiredFields) === JSON.stringify(d1RequiredFields) &&
+    d1TruthCoverage?.fixtureCount === bySourceTier.baseline?.fixtureCount &&
+    d1Rows.length === d1TruthCoverage?.fixtureCount);
+check('D1 COMPLETE, PARTIAL, and NONE counts are exhaustive',
+  d1TruthCoverage?.completeFixtureCount +
+      d1TruthCoverage?.partialFixtureCount +
+      d1TruthCoverage?.noneFixtureCount === d1Rows.length &&
+    d1TruthCoverage?.completeFixtureCount ===
+      d1Rows.filter((row: any) => row.coverageStatus === 'COMPLETE').length &&
+    d1TruthCoverage?.partialFixtureCount ===
+      d1Rows.filter((row: any) => row.coverageStatus === 'PARTIAL').length &&
+    d1TruthCoverage?.noneFixtureCount ===
+      d1Rows.filter((row: any) => row.coverageStatus === 'NONE').length);
+check('D1 fixture rows obey field-count and component-completeness invariants',
+  d1Rows.every((row: any) => {
+    const covered = d1RequiredFields.length - row.missingRequiredFields.length;
+    const status = covered === 7 ? 'COMPLETE' : covered > 0 ? 'PARTIAL' : 'NONE';
+    const doctrineComplete = D1_REQUIRED_DOCTRINE_FIELDS
+      .every((field) => !row.missingRequiredFields.includes(field));
+    const namingComplete = D1_REQUIRED_NAMING_FIELDS
+      .every((field) => !row.missingRequiredFields.includes(field));
+    return row.coveredFieldCount === covered &&
+      row.coverageStatus === status &&
+      row.doctrineComplete === doctrineComplete &&
+      row.namingCalibrationComplete === namingComplete &&
+      !('authorityTruthEligible' in row) &&
+      !('completeD1TruthEligible' in row);
+  }));
 
 const qByTier = bySourceTier.qualityGateByReferenceTier ?? {};
 const tierFixtureTotal = Object.values(qByTier)
@@ -80,41 +150,58 @@ const modes = bySourceTier.ruleModeBreakdown?.modes ?? {};
 check('monthly_main rule mode is present', !!modes.monthly_main);
 check('jungki_transparent rule mode is present', !!modes.jungki_transparent);
 check('composite_classical rule mode is present', !!modes.composite_classical);
-check('rule modes expose total win/loss vs monthly_main',
-  typeof modes.jungki_transparent?.winLossVsMonthlyMain?.wins === 'number' &&
-    typeof modes.jungki_transparent?.winLossVsMonthlyMain?.losses === 'number',
-  JSON.stringify(modes.jungki_transparent?.winLossVsMonthlyMain));
-check('rule modes expose source-tier win/loss vs monthly_main',
-  Object.values(modes.jungki_transparent?.bySourceTier ?? {}).every((bucket: any) =>
-    typeof bucket?.winLossVsMonthlyMain?.wins === 'number' &&
-    typeof bucket?.winLossVsMonthlyMain?.losses === 'number'),
-  JSON.stringify(modes.jungki_transparent?.bySourceTier));
-check('composite_classical is measured as evidence-only candidate mode',
-  modes.composite_classical?.measurementStatus === 'MEASURED_CANDIDATE_EVIDENCE' &&
+check('Phase-P rule modes are explicitly historical and release-ineligible',
+  bySourceTier.ruleModeBreakdown?.authorityScope === 'historical_observation_only' &&
+    bySourceTier.ruleModeBreakdown?.releaseEligible === false &&
+    Object.values(modes).every((mode: any) =>
+      mode.measurementClassification === 'HISTORICAL_PHASE_P_OBSERVATION' &&
+      mode.authorityScope === 'historical_observation_only' &&
+      mode.releaseEligible === false) &&
+    !('compositeQualityGate' in (bySourceTier.ruleModeBreakdown ?? {})));
+check('rule modes expose historical total win/loss vs monthly_main',
+  typeof modes.jungki_transparent?.historicalWinLossVsMonthlyMain?.wins === 'number' &&
+    typeof modes.jungki_transparent?.historicalWinLossVsMonthlyMain?.losses === 'number',
+  JSON.stringify(modes.jungki_transparent?.historicalWinLossVsMonthlyMain));
+check('rule modes expose historical-label-tier comparisons without current T3/T4 keys',
+  Object.keys(modes.jungki_transparent?.byHistoricalLabelTier ?? {}).sort().join(',') ===
+      'phase_p_authored_interpretation_label,phase_p_primary_text_label' &&
+    Object.values(modes.jungki_transparent?.byHistoricalLabelTier ?? {}).every((bucket: any) =>
+      typeof bucket?.historicalWinLossVsMonthlyMain?.wins === 'number' &&
+      typeof bucket?.historicalWinLossVsMonthlyMain?.losses === 'number' &&
+      bucket?.releaseEligible === false) &&
+    !('bySourceTier' in modes.jungki_transparent),
+  JSON.stringify(modes.jungki_transparent?.byHistoricalLabelTier));
+check('composite_classical is classified as historical evidence-only observation',
+  modes.composite_classical?.measurementClassification === 'HISTORICAL_PHASE_P_OBSERVATION' &&
     modes.composite_classical?.phasePSourceRow === 'monthly_main' &&
-    modes.composite_classical?.selectionPolicy === 'evidence_only_never_promote',
+    modes.composite_classical?.selectionPolicy === 'historical_evidence_only_never_promote' &&
+    modes.composite_classical?.releaseEligible === false,
   JSON.stringify({
-    status: modes.composite_classical?.measurementStatus,
+    classification: modes.composite_classical?.measurementClassification,
     sourceRow: modes.composite_classical?.phasePSourceRow,
     policy: modes.composite_classical?.selectionPolicy,
   }));
-check('composite_classical selected agreement is not worse than monthly_main',
-  modes.composite_classical?.winLossVsMonthlyMain?.net === 0 &&
-    modes.composite_classical?.sourceTierNonRegressionVsMonthlyMain?.status === 'PASS',
-  JSON.stringify(modes.composite_classical?.winLossVsMonthlyMain));
-check('composite_classical source-tier non-regression passes',
-  Object.values(modes.composite_classical?.bySourceTier ?? {}).every((bucket: any) =>
-    bucket?.winLossVsMonthlyMain?.net === 0 &&
-    bucket?.sourceTierNonRegressionVsMonthlyMain?.status === 'PASS'),
-  JSON.stringify(modes.composite_classical?.bySourceTier));
-check('composite_classical authority candidate coverage is tracked',
-  modes.composite_classical?.candidateCoverage?.covered === 23 &&
-    modes.composite_classical?.candidateCoverage?.comparable === 27,
-  JSON.stringify(modes.composite_classical?.candidateCoverage));
-check('composite_classical improves classical candidate coverage over selected agreement',
-  modes.composite_classical?.bySourceGroup?.jonheom?.candidateCoverage?.covered === 3 &&
+check('composite_classical historical non-regression is observation, not a release PASS',
+  modes.composite_classical?.historicalWinLossVsMonthlyMain?.net === 0 &&
+    modes.composite_classical?.historicalNonRegressionVsMonthlyMain?.observed === true &&
+    !('status' in (modes.composite_classical?.historicalNonRegressionVsMonthlyMain ?? {})),
+  JSON.stringify(modes.composite_classical?.historicalWinLossVsMonthlyMain));
+check('composite_classical historical candidate coverage is tracked without authority claim',
+  modes.composite_classical?.historicalCandidateCoverage?.covered === 23 &&
+    modes.composite_classical?.historicalCandidateCoverage?.comparable === 27 &&
+    modes.composite_classical?.historicalCandidateCoverage?.releaseEligible === false,
+  JSON.stringify(modes.composite_classical?.historicalCandidateCoverage));
+check('jonheom figures remain a historical source-group observation',
+  modes.composite_classical?.bySourceGroup?.jonheom?.historicalCandidateCoverage?.covered === 3 &&
     modes.composite_classical?.bySourceGroup?.jonheom?.pass === 1,
   JSON.stringify(modes.composite_classical?.bySourceGroup?.jonheom));
+check('historical composite floors cannot become a quality gate',
+  bySourceTier.ruleModeBreakdown?.historicalCompositeObservation
+      ?.allHistoricalFloorsObserved === true &&
+    bySourceTier.ruleModeBreakdown?.historicalCompositeObservation
+      ?.releaseEligible === false &&
+    (bySourceTier.ruleModeBreakdown?.historicalCompositeObservation?.checks ?? [])
+      .every((row: any) => row.releaseEligible === false && !('status' in row)));
 
 const presets = bySourceTier.schoolPresetBreakdown?.presets ?? {};
 const expectedPresetNames = ['korean', 'chinese', 'modern', 'korean_modern', 'classical_text', 'naming_safe'];
@@ -142,11 +229,15 @@ check('schoolPreset rows expose source-tier comparison metadata',
   presetRows.every((row: any) =>
     typeof row.referenceTier === 'string' &&
       typeof row.sourceType === 'string' &&
-      typeof row.truthBucket === 'string' &&
-      typeof row.authorityTruthEligible === 'boolean'));
-check('current authority fixtures are tracked as non-scorable for naming preset deltas',
-  bySourceTier.schoolPresetBreakdown?.authorityFixtureCoverage?.scorableAuthorityFixtures === 0,
-  JSON.stringify(bySourceTier.schoolPresetBreakdown?.authorityFixtureCoverage));
+      typeof row.referenceKind === 'string' &&
+      !('truthBucket' in row) &&
+      !('authorityTruthEligible' in row) &&
+      !('completeD1TruthEligible' in row)));
+check('name-input shape inventory makes no authority claim',
+  bySourceTier.schoolPresetBreakdown?.nameInputShapeCoverage?.authorityClaim === false &&
+    typeof bySourceTier.schoolPresetBreakdown?.nameInputShapeCoverage
+      ?.fullNameInputFixtureCount === 'number',
+  JSON.stringify(bySourceTier.schoolPresetBreakdown?.nameInputShapeCoverage));
 
 check('RPI summary has A-G axis scores',
   rpiSummary.axisScores &&
@@ -163,9 +254,15 @@ check('RPI calculation axis stays honest (PASS requires full coverage; partial c
     if (axisA.status === 'PARTIAL')
       return axisA.na > 0 && axisA.score < axisA.maxPoints && axisA.coverageRate < 100;
     if (axisA.status === 'FAIL') return axisA.fail > 0;
+    if (axisA.status === 'INSUFFICIENT_TRUTH')
+      return axisA.pass === 0 && axisA.fail === 0 && axisA.na > 0 && axisA.score === 0;
     return axisA.status === 'NOT_MEASURED' && axisA.score === 0;
   })(),
   JSON.stringify(rpiSummary.axisScores?.A_calculationAccuracy));
+check('quality-gate status buckets preserve NOT_APPLICABLE as a number',
+  Object.values(bySourceTier.qualityGateByReferenceTier ?? {}).every((bucket: any) =>
+    Object.values(bucket.dimensionStatus ?? {}).every((statuses: any) =>
+      typeof statuses.NOT_APPLICABLE === 'number')));
 check('RPI truth separation reports no current engine rule failures',
   rpiSummary.truthSeparation?.engineRuleFailureCount === 0,
   JSON.stringify(rpiSummary.truthSeparation));

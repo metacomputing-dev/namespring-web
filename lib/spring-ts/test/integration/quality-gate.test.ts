@@ -86,14 +86,20 @@ check(`JSON fixtures count matches snapshot (${snapshotFixtureCount})`,
   `got ${jsonReport?.fixtures?.length}`);
 
 // ── (3) D5 detects existing edge fixtures ───────────────────────────────
-const d5Pass = jsonReport?.fixtures?.filter(
-  (f: any) => f.dimensions?.D5?.status === 'PASS'
+const d5Stable = jsonReport?.fixtures?.filter(
+  (f: any) => f.dimensions?.D5?.stabilityStatus === 'PASS'
 ) ?? [];
-const d5PassIds = d5Pass.map((f: any) => f.fixtureId).sort();
-check('D5 detects at least 3 edge fixtures from existing axis tags',
-  d5Pass.length >= 3, `detected: ${d5PassIds.join(', ')}`);
-check('D5 includes fix-03 (jaza-edge)', d5PassIds.includes('fix-03'));
-check('D5 includes fix-04 (strength-direction)', d5PassIds.includes('fix-04'));
+const d5StableIds = d5Stable.map((f: any) => f.fixtureId).sort();
+check('D5 detects at least 3 structurally stable edge fixtures',
+  d5Stable.length >= 3, `detected: ${d5StableIds.join(', ')}`);
+check('D5 includes fix-03 (jaza-edge)', d5StableIds.includes('fix-03'));
+check('D5 includes fix-04 (strength-direction)', d5StableIds.includes('fix-04'));
+check('D5 does not claim calculation accuracy without eligible truth',
+  jsonReport?.dimensions?.D5?.pass === 0 &&
+    jsonReport?.dimensions?.D5?.fail === 0 &&
+    jsonReport?.dimensions?.D5?.na === 14 &&
+    jsonReport?.dimensions?.D5?.notApplicable === 3,
+  JSON.stringify(jsonReport?.dimensions?.D5));
 
 const violationPath = path.join(AUTHORITY_DIR, '__source_tier_violation_test__.json');
 try {

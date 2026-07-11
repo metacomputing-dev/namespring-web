@@ -1,0 +1,2 @@
+Test-only transcript of the reviewed primary-text page artifact.
+The source directly classifies this case as WEAK.

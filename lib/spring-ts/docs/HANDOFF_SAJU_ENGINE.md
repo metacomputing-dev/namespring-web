@@ -3,6 +3,18 @@
 > 2026-07-08 작성. **어떤 세션/계정이 이어받아도 이 문서 + 감사 보고서만으로 진행 가능**하게 쓴 인계 문서.
 > 브랜치: `feature/saju-engine-integrity-audit` (main에서 분기). 감사 보고서 커밋 33c5d71fa 이후 PR-1 구현이 이어진다.
 > 마스터 인계 문서 `HANDOFF_NEXT_PHASES.md`(콘텐츠 생성 축)와는 별개 축 — 이 문서는 엔진 로직 축.
+>
+> **2026-07-11 continuation override:** 이 문서의 PR-1~4 수치는 역사 기록이다.
+> 현재 착수점은 `ROADMAP_SAJU_ENGINE.md`의 2026-07-11 merge-readiness 블록과
+> `GUIDE_SAJU_ENGINE_IMPL.md` §0.5다. PR #653은 Draft, RPI는 20/100,
+> D1~D4는 truth-insufficient N/A, D5 accuracy는 14 N/A + 3 NOT_APPLICABLE다.
+> 권위 scope와 panel evidence 계약을 완화하거나 snapshot을 truth로 승격하지 말 것.
+> D1은 doctrine 3필드+naming 4필드 전체가 있어야 하며, T4는 URL-only 승격을 금지하고
+> Git 추적 page+quote transcript/SHA/realpath를 요구한다. Panel metadata는 self-attested로
+> 외부 전문가 인증이 아니다. Exact-commit expert signoff는 전문가급 상용 릴리스와
+> 기본값 승격의 필수 게이트다. Backend-only guardrail/refactor PR은 프론트와 기본값을
+> 건드리지 않고 변경 범위 회귀·구조 검증을 통과하며 한계를 명시한 경우 점진적 리뷰·병합
+> 후보가 될 수 있지만, WIP 해제 전에는 프로젝트 소유자에게 근거와 잔여 위험을 먼저 보고한다.
 
 ## A. 배경 (2분 캐치업)
 
@@ -81,10 +93,10 @@ cd lib/spring-ts && npx tsx tmp/probe-optin-naeum-palace.ts
     | ⑤ | 일주 경계 정자시설 전환 + A11 (결정① — yaza 기본 on/23:00, -30분 시프트를 인스턴트→경계 분류(calendar.dayCutShiftMinutes)로) | b7ff328f8 | fix-03(00:30)만 일주 丁巳→戊午 연쇄(신강약·용신 WOOD→FIRE·격국·별점). 경계골든 723 무파급(정책 핀). yaza-opt-in.test 재작성 4/4 |
     | ⑥ | 대운수 표기 소비자 전환 (B11 잔여 — daeun-display.ts 오프셋, 4개 카드 표면 동시 전환, 시간 로직·rep 채점은 연속값 유지) | 4f3609f21 | 표기만 이동(오프셋 +1 케이스에서 4표면 일관). snapshot 15/15 = 판정 무파급 확증 |
 
-  - **공식 판정 분류(validate:default-change, main↔HEAD)**: overall **IMPROVEMENT** — 개선 5(fix-03·05·06·07·11, D1 오라클 밴드 기준), 회귀 0, 불변 10.
+  - **역사적 non-authority 내부 분류(validate:default-change, main↔HEAD)**: 당시 overall **IMPROVEMENT** — 현재 release truth 또는 전문가 승인으로 사용 금지.
   - **κ 코퍼스 정합**: dump-report-trace before/after — 데모(1986-04-19) 판정 불변·전 셀 ✅재생성·정합✓ 유지. fix-03(판정 변경자)도 새 클래스(strong.jaeseong.boost_mild)에서 전 기간 ✅재생성 + byDaeun 전 구간 정합✓ = **커버리지 후퇴 0**.
-  - 검증(최종 일괄): saju-ts 21파일 84테스트, tsc 0err(양쪽), compat 202, boundary-goldens 723, jonggyeok 111, yongshin-consensus 241, tiered-shape 1378, class-axes 12, candidates 182, scoring 34, conflict-aware 10, borderline 7/7, time-policy 11, calendar-policy 9, presets 13, service-visible 13, life-stage-display 4, tiered-determinism 4, adapter-daewoon 15, quality_gate D3/D5 PASS(D1/D2/D4 N/A).
-  - ⚠ 알려진 상태: `test:composite-quality-gate`의 "monthly_main default snapshot has no regression (main..HEAD)" 1건은 **의도적 기본값 변경 브랜치에서 설계상 FAIL**(measure_regression은 무파급 PR용 diff=0 검사 — PR-1 스냅샷 재캡처 시점부터 main과 다름). 머지 후 자동 해소. 공식 게이트는 위 validate:default-change(IMPROVEMENT)로 대체 기록.
+  - 역사적 검증 기록: 당시 quality_gate D3/D5 PASS 표기는 현재 권위 계약 이전의 내부 classifier 결과이며 release truth가 아니다.
+  - ⚠ 역사적 composite diff 실패는 merge로 자동 해소할 사유가 아니다. 현재는 exact diff 승인, 7-field truth, 외부 전문가 signoff가 모두 완료되기 전까지 Draft를 유지한다.
   - 잔여 후속(판정 축 아님): quality_gate에 격명 동등 매핑(비견격≡건록격 등)을 넣었으므로 오라클 재감정은 불필요. fix-03 disagreementNotes 현행화 완료(용신은 saju_master와 수렴). BYEONGYAK 추천 type의 spring-ts 라벨 테이블 추가(스쿨팩 경유 시에만 노출)는 후속 정리 항목.
 - **PR-4 신뢰 인프라 ✅ 완료 (2026-07-08, 결정③ 실행 — 전 항목 판정 무파급: snapshot 15/15·trace 불변)**:
 

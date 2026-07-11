@@ -1,24 +1,26 @@
 {
-  "schemaVersion": "spring-ts.rpi-summary.v1",
+  "schemaVersion": "spring-ts.rpi-summary.v2",
   "note": "Unmeasured or truth-insufficient axes score 0 in rawRpi and are also reported separately to avoid mixing missing truth with engine failure.",
   "rawRpi": {
-    "score": 35,
+    "score": 20,
     "maxPoints": 100
   },
   "measuredOnlyRpi": {
-    "score": 35,
-    "maxPoints": 50,
-    "percent": 70
+    "score": 20,
+    "maxPoints": 35,
+    "percent": 57.1
   },
   "axisScores": {
     "A_calculationAccuracy": {
       "maxPoints": 15,
-      "score": 15,
-      "status": "PASS",
-      "pass": 14,
+      "score": 0,
+      "status": "INSUFFICIENT_TRUTH",
+      "reason": "Edge stability is measured, but no eligible truth exists for calculation accuracy.",
+      "pass": 0,
       "fail": 0,
-      "na": 0,
-      "coverageRate": 100
+      "na": 14,
+      "notApplicable": 3,
+      "coverageRate": 0
     },
     "B_legalHanjaData": {
       "maxPoints": 15,
@@ -34,7 +36,7 @@
       "maxPoints": 25,
       "score": 0,
       "status": "INSUFFICIENT_TRUTH",
-      "reason": "Current baseline fixtures have no T3+ authority-truth D1 denominator.",
+      "reason": "Current baseline fixtures lack the complete scoped doctrine and naming-calibration truth required by D1.",
       "insufficientTruthCount": 17,
       "engineRuleFailureCount": 0
     },
@@ -320,7 +322,7 @@
             },
             {
               "id": "fix-04",
-              "label": "1965-08-08 19:00 female — 丙火 일간, 종왕 후보 (강한 火)",
+              "label": "1965-08-08 19:00 female — 甲木 일간, 申月 강약 방향 판정",
               "simple": {
                 "total": 58.7,
                 "saju": 40
@@ -910,6 +912,7 @@
       "pass": 0,
       "fail": 0,
       "na": 17,
+      "notApplicable": 0,
       "coverageRate": 0
     },
     "G_validationGovernance": {
@@ -921,11 +924,11 @@
     }
   },
   "qualityGate": {
-    "overall": "PARTIAL",
+    "overall": "N/A",
     "totals": {
-      "pass": 14,
+      "pass": 0,
       "fail": 0,
-      "na": 3,
+      "na": 17,
       "total": 17
     },
     "dimensions": {
@@ -958,11 +961,11 @@
         "status": "N/A"
       },
       "D5": {
-        "pass": 14,
+        "pass": 0,
         "fail": 0,
-        "na": 0,
+        "na": 14,
         "notApplicable": 3,
-        "status": "PASS"
+        "status": "N/A"
       }
     },
     "exitCode": 0
@@ -1270,7 +1273,7 @@
           },
           {
             "id": "fix-04",
-            "label": "1965-08-08 19:00 female — 丙火 일간, 종왕 후보 (강한 火)",
+            "label": "1965-08-08 19:00 female — 甲木 일간, 申月 강약 방향 판정",
             "simple": {
               "total": 58.7,
               "saju": 40

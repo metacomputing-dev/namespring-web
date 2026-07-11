@@ -462,6 +462,12 @@ export interface ResponseMeta {
   readonly hanjaPool?: PrecisionConfig['hanjaPool'];
   readonly schoolPreset?: SchoolPresetMetadata;
   readonly candidateRejections?: CandidateRejectionSummary[];
+  readonly sajuAnalysis?: {
+    readonly enabled: boolean;
+    readonly generationMode: 'saju_guided' | 'name_only';
+    readonly status?: SajuAnalysisStatus;
+    readonly diagnostics?: readonly SajuAnalysisDiagnostic[];
+  };
 }
 
 export interface CandidateRejectionSummary {
@@ -643,6 +649,7 @@ export type SajuAnalysisStatus = 'unavailable' | 'partial' | 'failed';
 export type SajuAnalysisReasonCode =
   | 'SAJU_MODULE_UNAVAILABLE'
   | 'BIRTH_INPUT_INSUFFICIENT'
+  | 'BIRTH_DATE_INVALID'
   | 'LUNAR_INPUT_INSUFFICIENT'
   | 'LUNAR_CONVERSION_UNAVAILABLE'
   | 'NEUTRAL_GENDER_ANALYSIS_PARTIAL'
@@ -813,7 +820,16 @@ export interface GyeokgukSeongpaeSummary {
   readonly reasons: readonly string[];
 }
 
-/** Source-tier metadata matching test/baseline/schema/sourceTier.schema.json. */
+/** Structured model metadata validated for repository consistency, not provider authentication. */
+export type PanelAdjudicationModelIdentity =
+  | { readonly provider: 'anthropic'; readonly family: 'claude'; readonly version: '5' }
+  | { readonly provider: 'openai'; readonly family: 'gpt'; readonly version: '5' };
+
+/**
+ * Source-tier metadata matching test/baseline/schema/sourceTier.schema.json.
+ * URL and review fields are provenance/accountability metadata; they do not
+ * independently authenticate a source, reviewer, model origin, or expertise.
+ */
 export interface SourceTierMetadata {
   readonly tier: string;
   readonly sourceType: string;
@@ -823,6 +839,16 @@ export interface SourceTierMetadata {
   readonly humanInterpretation: string;
   readonly copyrightNote: string;
   readonly authorityTruthEligible: boolean;
+  readonly aiGenerated?: boolean;
+  readonly panelAdjudication?: {
+    readonly models: readonly PanelAdjudicationModelIdentity[];
+    readonly scopes: readonly 'saju_doctrine'[];
+    readonly adversarialVerification: true;
+    readonly dossier: string;
+    readonly recordId: string;
+    readonly contentDigest: string;
+  };
+  /** Accountability metadata only; external expert certification is a separate release gate. */
   readonly authorityReview?: {
     readonly status: 'approved';
     readonly reviewedBy: string;

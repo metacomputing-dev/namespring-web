@@ -47,23 +47,28 @@ EOL/내용 오염될 수 있다. 반드시 `lib/saju-ts`에서 실행. 오염 �
 - 엔진 불일치 판결 10/10 + 종합: ENGINE_BUG 3 / CALIBRATION 6 / DOCTRINE_AMBIGUITY 2 / PANEL_ERROR 0
 - 종격 채굴 2차: ACCEPT 46/HOLD 5/REJECT 0, 달력 정합 14/15. 假從 정책 3표 만장일치 INCLUDE_WITH_FRAMEQUALITY(소유자 승인 대기)
 - 커밋: fd3857903(차트 정합 테스트)·9c8da13b7(NO_AI_POLICY v2 2층 리뷰)·cf8b08006(D2/D4 평가자+정직 D5)
-- cf8b08006 검증 재현 완료: gate-status 27/27, narrative 17/0×2, snapshot 17/0, service-visible 13/0,
-  게이트 D5 PASS(14/0/na0/notApp3)·D2/D4 N/A(17)·overall PARTIAL. **부수 수정**: baseline-metrics의
-  axis-A 단언이 옛 의미론(PARTIAL 강제)이라 1건 FAIL → 정직성 불변식으로 갱신(38/0). cf8b08006이
-  baseline-metrics를 검증 목록에서 누락했던 것 — 게이트/집계 의미론 변경 시 이 테스트도 반드시 함께 확인.
-
+- **정직성 경계:** 위 패널은 repository evidence/교차검증 기록이지 실제 모델 origin,
+  reviewer 신원 또는 외부 명리 전문가 인증이 아니다. Draft 해제·merge의 별도 blocker다.
+- **2026-07-11 정정:** 당시 D5 PASS 표기는 구조 안정성을 계산 정확도로 과대계상한
+  결과였다. 현재 계약은 D5를 안정성/정확도로 분리하며 실측값은
+  `0 PASS / 0 FAIL / 14 N/A / 3 NOT_APPLICABLE`, overall `N/A`이다.
+  D1도 `saju_doctrine`과 `naming_score_calibration`이 모두 측정되어야 PASS한다.
+  진리값 부족은 엔진 실패로 세지 않지만 release-complete를 계속 차단한다.
 **다음 작업 착수 순서** (순서 근거: 진리값이 확정되어야 수정 계측의 방향 판정이 가능):
 1. **엔진 수정 — 판결 기반** (도시에 README §2·§6): 1층(일간 자기 셈입, `saju-ts/src/core/scoring.ts:106-113`
    → `rules/facts.ts:2384` 소비처) 제거부터. 이어 2층(deLingDiShi 월령 가중·囚/休 서열·조후 maxBoost·
    flat strongPref — 판결별 file:line은 mismatch-verdicts-final.json의 recommendation 필드).
    **전 항목 §1 계측 절차 필수**(스냅샷·이름점수 파급 큼). DOCTRINE_AMBIGUITY 2건(fix-02 격국,
    fix-05 강약 hedge)은 **수정 금지** — 이설 보존.
-2. **authority truth 파일 저작** (`test/baseline/authority/<fixture-id>.json`, 스키마는 그 디렉터리
-   README): expected/narrativeClaims는 truth-panel-output-final.json에서. fix-02 격국 드랍(또는
-   양쪽 허용), fix-05 강약은 band만. NO_AI_POLICY v2 필수 메타(sourceType
-   ai_panel_adjudicated_interpretation·aiGenerated true·panelModels 2+·adversarialVerification true·
-   dossier 경로·authorityReview)는 도시에 README §6 — **소유자 승인 없이는 check_no_ai_policy가
-   차단하며 이는 의도된 것**(우회 금지). 랜딩하면 D2/D4가 N/A(17)에서 실측으로 전환된다.
+2. **authority truth 파일 저작은 source class별로 분리**한다. 고전 원문은
+   `gyeokguk/strengthLevel/yongshinElement`만 허용하고 field별 `evidenceBindings`,
+   Git 추적 page artifact와 원문 인용을 포함한 transcript, 각각의 SHA-256,
+   저장소 내부 realpath가 필요하다. public URL은 locator일 뿐 단독 승격 근거가 아니다.
+   기계적 eligibility와 별개로 외부 명리 전문가 release signoff가 필요하다.
+   AI panel은 structured model 2개, exact record digest, manifest, model별 evidence JSON을
+   모두 검증하며 현재 `saju_doctrine` scope만 허용한다. 패널로 D1 naming 점수,
+   D2 narrative regex, D3 product surface, D4 safety copy를 승격하지 말 것.
+   이 네 분모는 별도 sourceType/evidence contract가 생기기 전까지 N/A 유지가 정답이다.
 3. **코퍼스 intake** (§0.3 8단계 절차 + 假從 정책 조건 6개): ACCEPT 46 중 출생시각 완비 행 선별,
    Sina 원문 web.archive.org 아카이브 선행, 저자 상한 50%, KCI 이재승 행 우선(한국어 T3).
    corpus-intake-draft.json(N-01~15)은 초안일 뿐 직접 반입 금지.
@@ -105,6 +110,36 @@ test:baseline-metrics **38/0**, test:quality-gate 20/0, compat **208/0**, jonggy
 - spring-ts `getDailyFortune(date)`는 호스트 타임존의 달력 성분을 사용(fortuneCalculator.ts:169-175) — 호출처가 UTC 자정 Date를 서쪽 타임존 서버에서 넘기면 하루 밀릴 수 있는 **호출처 책임** 위험. period-fortune-card.ts:272의 targetDate 구성에 좌우.
 
 → **D3 결정에 대한 입력**: 병존은 무해(동치 확인). saju-ts 일운 활성(maxDays)은 상품 요구 확정 시에만 배선하면 되고, 그때 로드맵 9-6 레시피(월운 선례 복제)를 따른다.
+
+### 0.5 세션 기록 (2026-07-11 — 권위/지표 정직성 및 구조 개선)
+
+- 일간 자기 셈입 제외는 `strength.excludeDayMasterSelf=true` opt-in으로 구현되어 있고
+  기본값은 exact-diff 승인 전까지 off다(커밋 `4eefcd154`, 문서 정정 `4bf6e1981`).
+- source-tier 권위를 사주 교리, 작명 점수, narrative contract, product surface,
+  safety copy 및 공식 데이터 scope로 분리했다. scope alias와 cross-scope 승격은 금지한다.
+- T4 원문은 field-level quote binding, Git 추적 page+quote transcript, SHA-256,
+  realpath containment를 요구한다. URL-only 승격은 금지했고, page image가
+  `.tmp`에만 있던 Jonheom 6건은 non-eligible로 강등했다.
+- AI panel은 full-record digest(자기 digest 필드만 제외), structured model identity,
+  manifest, scope, model별 JSON evidence와 file digest가 모두 일치해야 하며
+  `saju_doctrine` 이외 scope는 현재 금지한다. 이 해시는 repository consistency만
+  검증하며 provider origin·reviewer identity·외부 전문가 자격은 인증하지 않는다.
+- `tools/source_tier_policy.mjs`를 145줄 facade로 줄이고
+  `tools/source-tier/{policy-core,authority-evidence,ai-provenance,panel-evidence,
+  panel-dossier-evidence}.mjs`로 분리했다. 동적 파일 목록, exact import DAG,
+  immutable export, module-size guard를 테스트한다.
+- D1은 doctrine 3필드와 naming 4필드 전부가 있어야 PASS하고, D5는 stability PASS와
+  accuracy N/A를 분리한다. 재생성 결과 raw RPI `20/100`, measured-only
+  `20/35 (57.1%)`, truth-insufficient 축 A/C다.
+- 검증: typecheck, no-AI, gate-status, quality-gate 명령 PASS. 숫자형 count는
+  테스트 추가에 따라 드리프트하므로 release 근거로 고정하지 않는다.
+  source scope direct scan PASS. `quality:gate:release`는 17개 진리값
+  미완결 때문에 실패해야 정상이며, PR #653은 계속 Draft다.
+- 외부 전문가 signoff gate는 exact fixture/D1-D5/evidence/commit ancestry를 검사한다.
+  현재 manifest가 없으므로 실패가 정상이며, 이 검사 자체도 전문가 신원 진위를 인증하지 않는다.
+
+**다음 순서:** baseline/performance artifact 결정성 테스트 → Jonheom/전체 release 회귀 →
+external expert-backed doctrine/naming truth intake와 signoff. 스냅샷을 진리값 대신 갱신하지 말 것.
 
 ## 1. 공통: knob 기본화 계측 절차 (판정 변경 공통 — PR-3 확립 관례)
 

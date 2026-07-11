@@ -6,13 +6,17 @@
  * Run: npm run test:no-ai-policy
  */
 import { execFileSync } from 'node:child_process';
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { computePanelRecordDigest } from '../../tools/source_tier_policy.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRING_TS_ROOT = path.resolve(__dirname, '../..');
+const CLAUDE_MODEL = { provider: 'anthropic', family: 'claude', version: '5' };
+const GPT_MODEL = { provider: 'openai', family: 'gpt', version: '5' };
 
 let pass = 0;
 let fail = 0;
@@ -118,7 +122,13 @@ function markerPaths(result: { json: any }): string[] {
 
 console.log('Phase 9.3 no-AI policy gate\n');
 
-const currentRepo = execFileSync(process.execPath, ['tools/check_no_ai_policy.mjs', '--json'], {
+const currentRepo = execFileSync(process.execPath, [
+  'tools/check_no_ai_policy.mjs',
+  '--fixture-root', 'test/baseline/authority',
+  '--fixture-root', 'test/baseline/oracles',
+  '--fixture-root', 'test/fixtures',
+  '--json',
+], {
   cwd: SPRING_TS_ROOT,
   encoding: 'utf-8',
 });
@@ -172,6 +182,121 @@ check('aiGenerated authority truth is blocked',
     markerPaths(aiAuthority).includes('$.aiGenerated'),
   JSON.stringify(aiAuthority.json.violations));
 
+const concealedPanelRoot = createRoot((root) => {
+  writeJson(path.join(root, 'test/concealed-panel.json'), {
+    sourceTier: sourceTier({
+      tier: 'T3_AUTHORED_INTERPRETATION',
+      sourceType: 'ai_panel_adjudicated_interpretation',
+      authorityTruthEligible: true,
+      authorityReview: {
+        status: 'approved',
+        reviewedBy: 'owner@example.test',
+        reviewedAt: '2026-07-10',
+      },
+    }),
+  });
+});
+const concealedPanel = runGate(concealedPanelRoot);
+check('panel sourceType cannot conceal AI disclosure or adjudication evidence',
+  concealedPanel.code === 1 &&
+    concealedPanel.json.status === 'FAIL' &&
+    codes(concealedPanel).includes('missing_panel_ai_disclosure') &&
+    codes(concealedPanel).includes('missing_panel_adjudication'),
+  JSON.stringify(concealedPanel.json.violations));
+
+const completePanelRoot = createRoot((root) => {
+  writeText(path.join(root, 'docs/dossiers/panel-review/README.md'), 'Adversarial panel evidence.\n');
+  const record: any = {
+    id: 'complete-panel-case',
+    expected: { strengthLevel: 'WEAK' },
+    sourceTier: sourceTier({
+      tier: 'T3_AUTHORED_INTERPRETATION',
+      sourceType: 'ai_panel_adjudicated_interpretation',
+      aiGenerated: true,
+      authorityTruthEligible: true,
+      panelAdjudication: {
+        models: [CLAUDE_MODEL, GPT_MODEL],
+        scopes: ['saju_doctrine'],
+        adversarialVerification: true,
+        dossier: 'docs/dossiers/panel-review',
+        recordId: 'complete-panel-case',
+        contentDigest: '',
+      },
+      authorityReview: {
+        status: 'approved',
+        reviewedBy: 'owner@example.test',
+        reviewedAt: '2026-07-10',
+      },
+    }),
+  };
+  record.sourceTier.panelAdjudication.contentDigest = computePanelRecordDigest(record);
+  const evidence = [
+    {
+      model: CLAUDE_MODEL,
+      path: 'claude-5-output.json',
+      document: {
+        schemaVersion: 'spring-ts.panel-evidence.v1',
+        model: CLAUDE_MODEL,
+        recordId: record.id,
+        recordDigest: record.sourceTier.panelAdjudication.contentDigest,
+        scopes: record.sourceTier.panelAdjudication.scopes,
+        verdict: 'approved',
+        output: {
+          reasoning: 'Adversarial evidence retained for the integration contract.',
+        },
+      },
+    },
+    {
+      model: GPT_MODEL,
+      path: 'gpt-5-output.json',
+      document: {
+        schemaVersion: 'spring-ts.panel-evidence.v1',
+        model: GPT_MODEL,
+        recordId: record.id,
+        recordDigest: record.sourceTier.panelAdjudication.contentDigest,
+        scopes: record.sourceTier.panelAdjudication.scopes,
+        verdict: 'approved',
+        output: {
+          reasoning: 'Independent evidence retained for the integration contract.',
+        },
+      },
+    },
+  ];
+  for (const row of evidence) {
+    writeText(
+      path.join(root, 'docs/dossiers/panel-review', row.path),
+      JSON.stringify(row.document, null, 2),
+    );
+  }
+  writeJson(path.join(root, 'docs/dossiers/panel-review/panel-manifest.json'), {
+    schemaVersion: 'spring-ts.panel-adjudication.v1',
+    records: [{
+      recordId: 'complete-panel-case',
+      contentDigest: record.sourceTier.panelAdjudication.contentDigest,
+      models: [CLAUDE_MODEL, GPT_MODEL],
+      scopes: record.sourceTier.panelAdjudication.scopes,
+      adversarialVerification: true,
+      verdict: 'approved',
+      reviewedBy: 'owner@example.test',
+      reviewedAt: '2026-07-10',
+      evidence: evidence.map((row) => ({
+        model: row.model,
+        path: row.path,
+        bytes: Buffer.byteLength(JSON.stringify(row.document, null, 2)),
+        fileDigest: 'sha256:' + crypto.createHash('sha256')
+          .update(JSON.stringify(row.document, null, 2))
+          .digest('hex'),
+      })),
+    }],
+  });
+  writeJson(path.join(root, 'test/complete-panel.json'), record);
+});
+const completePanel = runGate(completePanelRoot);
+check('fully disclosed panel evidence passes the machine-verifiable provenance contract',
+  completePanel.code === 0 &&
+    completePanel.json.status === 'PASS',
+  JSON.stringify(completePanel.json));
+
 const missingSourceTierRoot = createRoot((root) => {
   writeJson(path.join(root, 'test/missing-source-tier.json'), {
     aiGenerated: true,
@@ -208,8 +333,8 @@ check('AI-marked records require AI provenance in sourceType',
 
 const syntheticHighTierRoot = createRoot((root) => {
   writeJson(path.join(root, 'test/synthetic-high-tier.json'), {
-    expected: {
-      note: 'Synthetic model-generated doctrine candidate.',
+    source: {
+      kind: 'trainingDerived',
     },
     sourceTier: sourceTier({
       tier: 'T4_PRIMARY_TEXT',
@@ -224,7 +349,7 @@ check('model-generated records cannot use T3+ tiers even when non-authority',
     syntheticHighTier.json.status === 'FAIL' &&
     codes(syntheticHighTier).includes('ai_sourceType_not_marked') &&
     codes(syntheticHighTier).includes('ai_high_tier_source') &&
-    markerPaths(syntheticHighTier).includes('$.expected.note'),
+    markerPaths(syntheticHighTier).includes('$.source.kind'),
   JSON.stringify(syntheticHighTier.json.violations));
 
 const sourceRegistryRoot = createRoot((root) => {

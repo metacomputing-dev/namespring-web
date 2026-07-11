@@ -14,11 +14,15 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { sha256FileDigest } from '../tools/metrics/artifact-digest.mjs';
+import {
+  validatePerformanceDashboardInputs,
+} from '../tools/metrics/performance-dashboard-input.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRING_TS_ROOT = path.resolve(__dirname, '..');
 const GENERATED_AT = '2026-05-02T00:00:00.000Z';
-const SCHEMA_VERSION = 'spring-ts.performance-dashboard.v1';
+const SCHEMA_VERSION = 'spring-ts.performance-dashboard.v2';
 
 interface Args {
   readonly outDir: string;
@@ -93,14 +97,23 @@ function buildRpiTrendReport(rpi: any): any {
   };
 }
 
-function buildSourceTierCoverageReport(sourceSummary: any, bySourceTier: any): any {
+function buildSourceTierCoverageReport(
+  sourceSummary: any,
+  bySourceTier: any,
+  inputValidation: any,
+): any {
+  const { eligible: eligibleRecordCount, ineligible: ineligibleRecordCount } =
+    inputValidation.sourceRecordCounts;
   const byTier = Object.fromEntries(Object.entries(sourceSummary.byTier ?? {}).map(([tier, bucket]: [string, any]) => [
     tier,
     {
       recordCount: bucket.recordCount,
-      authorityTruthEligible: bucket.authorityTruthEligible,
-      nonEligible: bucket.nonEligible,
-      eligibleRate: percent(Number(bucket.authorityTruthEligible ?? 0), Number(bucket.recordCount ?? 0)),
+      declaredScopeEligibleSourceRecordCount: bucket.declaredScopeEligibleSourceRecordCount,
+      declaredScopeIneligibleSourceRecordCount: bucket.declaredScopeIneligibleSourceRecordCount,
+      declaredScopeEligibleSourceRecordRate: percent(
+        Number(bucket.declaredScopeEligibleSourceRecordCount ?? 0),
+        Number(bucket.recordCount ?? 0),
+      ),
     },
   ]));
   const baselineByReferenceTier = Object.fromEntries(
@@ -108,39 +121,64 @@ function buildSourceTierCoverageReport(sourceSummary: any, bySourceTier: any): a
       tier,
       {
         fixtureCount: bucket.fixtureCount,
-        pass: bucket.pass,
-        partial: bucket.partial,
-        diff: bucket.diff,
-        na: bucket.na,
+        fixtureStatus: bucket.fixtureStatus,
+        dimensionStatus: bucket.dimensionStatus,
         truthBuckets: bucket.truthBuckets,
+        references: bucket.references,
       },
     ]),
   );
+  const truthCoverage = inputValidation.coverage;
   return {
     status: sourceSummary.status,
     scanned: sourceSummary.scanned,
     violationCount: sourceSummary.violationCount,
-    authorityTruthEligibleCount: sourceSummary.authorityTruthEligibleCount,
-    nonEligibleCount: sourceSummary.nonEligibleCount,
-    authorityTruthEligibleRate: percent(
-      Number(sourceSummary.authorityTruthEligibleCount ?? 0),
-      Number(sourceSummary.authorityTruthEligibleCount ?? 0) + Number(sourceSummary.nonEligibleCount ?? 0),
+    recordEligibilityDefinition: sourceSummary.eligibilityDefinition,
+    declaredScopeEligibleSourceRecordCount:
+      sourceSummary.declaredScopeEligibleSourceRecordCount,
+    declaredScopeIneligibleSourceRecordCount:
+      sourceSummary.declaredScopeIneligibleSourceRecordCount,
+    declaredScopeEligibleSourceRecordRate: percent(
+      eligibleRecordCount,
+      eligibleRecordCount + ineligibleRecordCount,
     ),
     byTier,
+    d1FixtureTruthCoverage: {
+      fixtureCount: truthCoverage.fixtureCount,
+      requiredFieldCount: truthCoverage.requiredFieldCount,
+      requiredFields: truthCoverage.requiredFields,
+      completeSevenFieldTruthFixtureCount: truthCoverage.completeFixtureCount,
+      partialTruthFixtureCount: truthCoverage.partialFixtureCount,
+      noTruthFixtureCount: truthCoverage.noneFixtureCount,
+      releaseInsufficientTruthFixtureCount:
+        truthCoverage.partialFixtureCount + truthCoverage.noneFixtureCount,
+      completeSevenFieldTruthFixtureRate: percent(
+        truthCoverage.completeFixtureCount,
+        truthCoverage.fixtureCount,
+      ),
+      doctrineTruthFixtureCount: truthCoverage.doctrineCompleteFixtureCount,
+      namingScoreTruthFixtureCount: truthCoverage.namingCalibrationCompleteFixtureCount,
+    },
     baselineByReferenceTier,
     truthSeparation: bySourceTier.truthSeparation,
   };
 }
 
 function buildRuleModeComparisonReport(bySourceTier: any): any {
-  const modes = bySourceTier.ruleModeBreakdown?.modes ?? {};
+  const breakdown = bySourceTier.ruleModeBreakdown ?? {};
+  const modes = breakdown.modes ?? {};
   return {
+    authorityScope: breakdown.authorityScope,
+    releaseEligible: breakdown.releaseEligible,
     baselineMode: 'monthly_main',
     modeCount: Object.keys(modes).length,
     modes: Object.fromEntries(Object.entries(modes).map(([modeId, mode]: [string, any]) => [
       modeId,
       {
-        measurementStatus: mode.measurementStatus,
+        measurementClassification: mode.measurementClassification,
+        authorityScope: mode.authorityScope,
+        releaseEligible: mode.releaseEligible,
+        phasePSourceRow: mode.phasePSourceRow,
         selectionPolicy: mode.selectionPolicy,
         total: mode.total,
         pass: mode.pass,
@@ -148,12 +186,15 @@ function buildRuleModeComparisonReport(bySourceTier: any): any {
         diff: mode.diff,
         comparable: mode.comparable,
         passRate: mode.passRate,
-        winLossVsMonthlyMain: mode.winLossVsMonthlyMain,
-        candidateCoverage: mode.candidateCoverage,
-        sourceTierNonRegressionVsMonthlyMain: mode.sourceTierNonRegressionVsMonthlyMain,
+        historicalWinLossVsMonthlyMain: mode.historicalWinLossVsMonthlyMain,
+        historicalCandidateCoverage: mode.historicalCandidateCoverage,
+        historicalNonRegressionVsMonthlyMain:
+          mode.historicalNonRegressionVsMonthlyMain,
+        byHistoricalLabelTier: mode.byHistoricalLabelTier,
+        bySourceGroup: mode.bySourceGroup,
       },
     ])),
-    compositeQualityGate: bySourceTier.ruleModeBreakdown?.compositeQualityGate,
+    historicalCompositeObservation: breakdown.historicalCompositeObservation,
   };
 }
 
@@ -177,7 +218,7 @@ function buildNamingCandidateDiversityReport(bySourceTier: any, ruleAbTests: any
       presetCount: presetRows.length,
       fixtureCount: bySourceTier.schoolPresetBreakdown?.rows?.length ?? 0,
       changedPresetCount: presetRows.filter((row) => Number(row.changedFromDefault ?? 0) > 0).length,
-      authorityFixtureCoverage: bySourceTier.schoolPresetBreakdown?.authorityFixtureCoverage,
+      nameInputShapeCoverage: bySourceTier.schoolPresetBreakdown?.nameInputShapeCoverage,
       presets: presetRows,
     },
     rankingStrategyDiversity: rankingComparison
@@ -209,22 +250,52 @@ function buildNamingCandidateDiversityReport(bySourceTier: any, ruleAbTests: any
 }
 
 function buildDashboard(metricsDir: string): any {
-  const rpi = readJson(path.join(metricsDir, 'rpi-summary.json'));
-  const sourceSummary = readJson(path.join(metricsDir, 'source-tier-summary.json'));
-  const bySourceTier = readJson(path.join(metricsDir, 'bySourceTier.json'));
-  const deterministicCalibration = readJson(path.join(metricsDir, 'deterministic-calibration.json'));
-  const ruleAbTests = readJson(path.join(metricsDir, 'rule-ab-tests.json'));
+  const inputPaths = {
+    rpiSummary: path.join(metricsDir, 'rpi-summary.json'),
+    sourceTierSummary: path.join(metricsDir, 'source-tier-summary.json'),
+    bySourceTier: path.join(metricsDir, 'bySourceTier.json'),
+    deterministicCalibration: path.join(metricsDir, 'deterministic-calibration.json'),
+    ruleAbTests: path.join(metricsDir, 'rule-ab-tests.json'),
+  };
+  const rpi = readJson(inputPaths.rpiSummary);
+  const sourceSummary = readJson(inputPaths.sourceTierSummary);
+  const bySourceTier = readJson(inputPaths.bySourceTier);
+  const deterministicCalibration = readJson(inputPaths.deterministicCalibration);
+  const ruleAbTests = readJson(inputPaths.ruleAbTests);
+  const inputValidation = validatePerformanceDashboardInputs({
+    rpiSummary: rpi,
+    sourceTierSummary: sourceSummary,
+    bySourceTier,
+    deterministicCalibration,
+    ruleAbTests,
+    inputPaths,
+  });
   return {
     schemaVersion: SCHEMA_VERSION,
     artifactKind: 'phase_9_2_performance_dashboard',
     generatedAt: GENERATED_AT,
     snapshotTargetDate: bySourceTier.baseline?.snapshotTargetDate,
     inputs: {
-      rpiSummary: 'metrics/rpi-summary.json',
-      sourceTierSummary: 'metrics/source-tier-summary.json',
-      bySourceTier: 'metrics/bySourceTier.json',
-      deterministicCalibration: 'metrics/deterministic-calibration.json',
-      ruleAbTests: 'metrics/rule-ab-tests.json',
+      rpiSummary: {
+        path: 'metrics/rpi-summary.json',
+        sha256: sha256FileDigest(inputPaths.rpiSummary),
+      },
+      sourceTierSummary: {
+        path: 'metrics/source-tier-summary.json',
+        sha256: sha256FileDigest(inputPaths.sourceTierSummary),
+      },
+      bySourceTier: {
+        path: 'metrics/bySourceTier.json',
+        sha256: sha256FileDigest(inputPaths.bySourceTier),
+      },
+      deterministicCalibration: {
+        path: 'metrics/deterministic-calibration.json',
+        sha256: sha256FileDigest(inputPaths.deterministicCalibration),
+      },
+      ruleAbTests: {
+        path: 'metrics/rule-ab-tests.json',
+        sha256: sha256FileDigest(inputPaths.ruleAbTests),
+      },
     },
     privacy: {
       sourceFree: true,
@@ -235,13 +306,21 @@ function buildDashboard(metricsDir: string): any {
       rawFeedbackStoredInRepo: false,
     },
     rpiTrendReport: buildRpiTrendReport(rpi),
-    sourceTierCoverageReport: buildSourceTierCoverageReport(sourceSummary, bySourceTier),
-    sourceTierPromotionGate: {
-      calibrationStatus: deterministicCalibration.sourceTierObjective?.status,
-      eligibleObjectiveFixtureCount: deterministicCalibration.sourceTierObjective?.eligibleObjectiveFixtureCount,
+    sourceTierCoverageReport: buildSourceTierCoverageReport(
+      sourceSummary,
+      bySourceTier,
+      inputValidation,
+    ),
+    completeD1PromotionGate: {
+      completeD1ObjectiveStatus:
+        deterministicCalibration.sourceTierObjective?.completeD1ObjectiveStatus,
+      completeD1ObjectiveFixtureCount:
+        deterministicCalibration.sourceTierObjective?.completeD1ObjectiveFixtureCount,
+      completeD1TruthPolicy:
+        deterministicCalibration.sourceTierObjective?.completeD1TruthPolicy,
       tierWeights: deterministicCalibration.sourceTierObjective?.tierWeights,
       lowTierPolicy: deterministicCalibration.sourceTierObjective?.lowTierPolicy,
-      ruleAbSourceTierGate: ruleAbTests.sourceTierGate,
+      ruleAbCompleteD1Gate: ruleAbTests.sourceTierGate,
     },
     ruleModeComparisonReport: buildRuleModeComparisonReport(bySourceTier),
     namingCandidateDiversityReport: buildNamingCandidateDiversityReport(bySourceTier, ruleAbTests),
@@ -250,7 +329,7 @@ function buildDashboard(metricsDir: string): any {
       sourceTierStatus: sourceSummary.status,
       sourceTierViolationCount: sourceSummary.violationCount,
       defaultPromotionDecision: ruleAbTests.defaultPromotionDecision?.decision,
-      sourceTierDefaultPromotionGate: ruleAbTests.sourceTierGate?.status,
+      completeD1DefaultPromotionGate: ruleAbTests.sourceTierGate?.status,
     },
   };
 }

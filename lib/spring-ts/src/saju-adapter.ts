@@ -37,6 +37,7 @@ import type {
 } from './saju-bridge-contract.js';
 import { lunarToSolar } from './calendar/korean-lunar-calendar.js';
 import { kasiLunarToSolar } from './calendar/kasi-lunar-api.js';
+import { isScorableSajuSummary } from './saju-analysis-contract.js';
 
 // ---------------------------------------------------------------------------
 //  Configuration loaded from JSON files
@@ -1083,6 +1084,34 @@ function canRunFullSaju(parts: KnownBirthParts): boolean {
   return parts.year != null && parts.month != null && parts.day != null;
 }
 
+function hasProvidedValue(value: unknown): boolean {
+  return value != null && value !== '';
+}
+
+function isGregorianLeapYear(year: number): boolean {
+  return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+}
+
+function isValidGregorianDate(year: number, month: number, day: number): boolean {
+  const daysInMonth = [
+    31,
+    isGregorianLeapYear(year) ? 29 : 28,
+    31, 30, 31, 30, 31, 31, 30, 31, 30, 31,
+  ];
+  return day <= (daysInMonth[month - 1] ?? 0);
+}
+
+function hasInvalidSolarDateInput(birth: BirthInfo, parts: KnownBirthParts): boolean {
+  const providedDateValues = [birth.year, birth.month, birth.day];
+  const resolvedDateValues = [parts.year, parts.month, parts.day];
+  if (providedDateValues.some((value, index) =>
+    hasProvidedValue(value) && resolvedDateValues[index] == null)) {
+    return true;
+  }
+  return canRunFullSaju(parts)
+    && !isValidGregorianDate(parts.year!, parts.month!, parts.day!);
+}
+
 function seasonHintFromMonth(month: number): string {
   if (month >= 3 && month <= 5) return '봄 기운(목 기운 경향)';
   if (month >= 6 && month <= 8) return '여름 기운(화 기운 경향)';
@@ -1252,6 +1281,10 @@ const SAJU_ANALYSIS_FAILURES: Readonly<Record<
     status: 'partial',
     message: '사주 분석에 필요한 출생 정보가 부족합니다.',
   },
+  BIRTH_DATE_INVALID: {
+    status: 'failed',
+    message: '존재하지 않거나 올바르지 않은 양력 생년월일입니다.',
+  },
   LUNAR_INPUT_INSUFFICIENT: {
     status: 'partial',
     message: '음력 사주 분석에는 출생 연·월·일이 모두 필요합니다.',
@@ -1298,7 +1331,7 @@ export function emptySaju(reasonCode?: SajuAnalysisReasonCode): SajuSummary {
       details: [],
     },
     yongshin: {
-      element: 'WOOD', heeshin: null, gishin: null, gushin: null,
+      element: '', heeshin: null, gishin: null, gushin: null,
       confidence: 0, agreement: '', recommendations: [],
     },
     gyeokguk: { type: '', category: '', baseTenGod: null, confidence: 0, reasoning: '' },
@@ -1463,6 +1496,9 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
   const parts = resolveKnownBirthParts(birth);
   if (!hasAnyKnownBirthPart(parts)) {
     return emptySaju('BIRTH_INPUT_INSUFFICIENT');
+  }
+  if (birth.calendarType !== 'lunar' && hasInvalidSolarDateInput(birth, parts)) {
+    return emptySaju('BIRTH_DATE_INVALID');
   }
 
   // 감사 B1: 음력 입력은 내장 테이블(기본) 또는 KASI API(옵트인)로 양력 변환 후 분석.
@@ -2191,6 +2227,40 @@ function extractSourceTier(value: any): SourceTierMetadata {
     return GYEOKGUK_CANDIDATE_SOURCE_TIER;
   }
   const review = value.authorityReview;
+  const panel = value.panelAdjudication;
+  const panelAdjudication =
+    panel &&
+    typeof panel === 'object' &&
+    !Array.isArray(panel) &&
+    Array.isArray(panel.models) &&
+    panel.models.every((model: any) =>
+      model &&
+      typeof model === 'object' &&
+      !Array.isArray(model) &&
+      typeof model.provider === 'string' &&
+      typeof model.family === 'string' &&
+      typeof model.version === 'string') &&
+    Array.isArray(panel.scopes) &&
+    panel.scopes.length > 0 &&
+    panel.scopes.every((scope: any) => scope === 'saju_doctrine') &&
+    new Set(panel.scopes).size === panel.scopes.length &&
+    panel.adversarialVerification === true &&
+    typeof panel.dossier === 'string' &&
+    typeof panel.recordId === 'string' &&
+    typeof panel.contentDigest === 'string'
+      ? {
+          models: panel.models.map((model: any) => ({
+            provider: model.provider,
+            family: model.family,
+            version: model.version,
+          })),
+          scopes: [...panel.scopes] as 'saju_doctrine'[],
+          adversarialVerification: true as const,
+          dossier: panel.dossier,
+          recordId: panel.recordId,
+          contentDigest: panel.contentDigest,
+        }
+      : undefined;
   const authorityReview =
     review &&
     typeof review === 'object' &&
@@ -2221,6 +2291,8 @@ function extractSourceTier(value: any): SourceTierMetadata {
         ? value.copyrightNote
         : GYEOKGUK_CANDIDATE_SOURCE_TIER.copyrightNote,
     authorityTruthEligible: typeof value.authorityTruthEligible === 'boolean' ? value.authorityTruthEligible : false,
+    ...(typeof value.aiGenerated === 'boolean' ? { aiGenerated: value.aiGenerated } : {}),
+    ...(panelAdjudication ? { panelAdjudication } : {}),
     ...(authorityReview ? { authorityReview } : {}),
   };
 }
@@ -2628,8 +2700,7 @@ export async function analyzeSajuSafe(
 ): Promise<SajuSafeAnalysisResult> {
   try {
     const summary = await analyzeSaju(birth, options);
-    // If analyzeSaju returned an empty saju (module missing), detect via dayMaster
-    const isRealAnalysis = !!summary.dayMaster?.element;
+    const isRealAnalysis = isScorableSajuSummary(summary);
     return {
       summary,
       sajuEnabled: isRealAnalysis,
@@ -2656,12 +2727,12 @@ export function buildSajuContext(
   options: { readonly includeTenGodByPosition?: boolean } = {},
 ): { dist: Record<ElementKey, number>; output: SajuOutputSummary | null } {
   const dist = emptyDistribution();
+  if (!isScorableSajuSummary(sajuSummary)) return { dist, output: null };
+
   for (const [code, count] of Object.entries(sajuSummary.elementDistribution)) {
     const key = elementFromSajuCode(code);
     if (key) dist[key] += count;
   }
-
-  if (!sajuSummary.dayMaster.element && !sajuSummary.yongshin.element) return { dist, output: null };
 
   const dayMasterKey = elementFromSajuCode(sajuSummary.dayMaster.element);
   const yongshinData = sajuSummary.yongshin;

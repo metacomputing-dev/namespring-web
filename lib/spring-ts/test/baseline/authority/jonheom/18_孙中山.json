@@ -41,8 +41,8 @@
     "sourceUrl": null,
     "accessedAt": "2026-05-01",
     "quoteShort": null,
-    "humanInterpretation": "Classical primary text extraction with short quoted basis and human-mapped expected fields.",
+    "humanInterpretation": "Regression-only classical extraction; the referenced page image is not versioned, so this record is excluded from authority denominators.",
     "copyrightNote": "Short classical quote only; expected fields are human interpretation.",
-    "authorityTruthEligible": true
+    "authorityTruthEligible": false
   }
 }

@@ -45,9 +45,19 @@ The criteria are pre-registered in code and in
 - deterministic calibration must be ready,
 - low-tier feedback can be diagnostic but cannot promote a default.
 
-Current calibration remains `INSUFFICIENT_AUTHORITY_TRUTH`, so both synthetic
-winning comparisons are recorded as blocked and `current_default` remains the
-default.
+The rule A/B consumer accepts only
+`spring-ts.deterministic-calibration.v2`. Its source-tier gate records
+`completeD1ObjectiveStatus` and `completeD1ObjectiveFixtureCount`; a legacy
+schema, unknown status, legacy count field, malformed count, or inconsistent
+status/count pair fails closed.
+
+The v2 artifact also stores `inputs.calibrationMetricDigest`; the performance
+dashboard rejects a rule A/B artifact that is not SHA-256-bound to the exact
+committed deterministic calibration input.
+
+Current calibration remains `INSUFFICIENT_COMPLETE_D1_TRUTH`, so both
+synthetic winning comparisons are recorded as blocked and `current_default`
+remains the default.
 
 ## Reference Notes
 

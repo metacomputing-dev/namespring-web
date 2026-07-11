@@ -58,14 +58,14 @@ const validCase = {
     reason: null,
   },
   sourceTier: {
-    tier: 'T3_PUBLISHED_CASE',
-    sourceType: 'published_authority',
-    sourceUrl: 'book:사주첩경:4:123',
+    tier: 'T2_REFERENCE_IMPLEMENTATION',
+    sourceType: 'reference_implementation',
+    sourceUrl: 'https://example.com/reference-a-observation',
     accessedAt: '2026-05-04',
     quoteShort: '정관격',
     humanInterpretation: 'published case paraphrase',
     copyrightNote: 'facts and short paraphrase only',
-    authorityTruthEligible: true,
+    authorityTruthEligible: false,
   },
   copyrightNote: [
     'birth pillars are factual',
@@ -83,7 +83,7 @@ const defaultStdout = execFileSync('node', [SCRIPT_PATH, '--json'], {
 const defaultReport = JSON.parse(defaultStdout);
 check('default authority directory passes in observation mode',
   defaultReport?.status === 'PASS' &&
-    defaultReport?.schemaVersion === 'spring-ts.reference-authority-intake-report.v1',
+    defaultReport?.schemaVersion === 'spring-ts.reference-authority-intake-report.v2',
   `${defaultReport?.flatCaseCount ?? 'n/a'} flat cases`);
 
 const validDir = fs.mkdtempSync(path.join(os.tmpdir(), 'spring-ts-authority-valid-'));
@@ -93,16 +93,42 @@ const validStdout = execFileSync('node', [SCRIPT_PATH, '--json', `--dir=${validD
   encoding: 'utf-8',
 });
 const validReport = JSON.parse(validStdout);
-check('valid published case passes intake',
+check('valid non-authority observation case passes intake',
   validReport?.status === 'PASS' &&
     validReport?.flatCaseCount === 1 &&
-    validReport?.authorityTruthEligibleCaseCount === 1 &&
+    validReport?.authorityTruthEligibleCaseCount === 0 &&
     validReport?.cases?.[0]?.violationCount === 0,
   JSON.stringify({
     status: validReport?.status,
     cases: validReport?.flatCaseCount,
     eligible: validReport?.authorityTruthEligibleCaseCount,
   }));
+
+const legacyClaimDir = fs.mkdtempSync(path.join(os.tmpdir(), 'spring-ts-authority-legacy-claim-'));
+writeJson(legacyClaimDir, 'fix-legacy.json', {
+  ...validCase,
+  sourceTier: {
+    ...validCase.sourceTier,
+    tier: 'T3_PUBLISHED_CASE',
+    sourceType: 'published_authority',
+    sourceUrl: 'book:사주첩경:4:123',
+    authorityTruthEligible: true,
+  },
+});
+const legacyClaimRun = spawnSync('node', [SCRIPT_PATH, '--json', `--dir=${legacyClaimDir}`], {
+  cwd: SPRING_TS_ROOT,
+  encoding: 'utf-8',
+});
+const legacyClaimReport = JSON.parse(legacyClaimRun.stdout);
+const legacyClaimCodes = new Set(
+  (legacyClaimReport?.violations ?? []).map((row: any) => row.code),
+);
+check('legacy self-declared T3 authority claim is rejected by the shared policy',
+  legacyClaimRun.status === 1
+    && legacyClaimReport?.authorityTruthEligibleCaseCount === 0
+    && ['invalid_source_url', 'unreviewed_t3_authority_truth', 'unapproved_authority_source_type']
+      .every((code) => legacyClaimCodes.has(code)),
+  [...legacyClaimCodes].join(','));
 
 const invalidDir = fs.mkdtempSync(path.join(os.tmpdir(), 'spring-ts-authority-invalid-'));
 writeJson(invalidDir, 'fix-02.json', {
@@ -133,7 +159,7 @@ check('invalid intake exits non-zero',
   invalidRun.status === 1 && invalidReport?.status === 'FAIL',
   `status=${invalidRun.status}`);
 check('invalid intake reports source, tier, and prose blockers',
-  ['summary50char_too_long', 'authority_page_unresolved', 'low_tier_authority_truth', 'training_derived_authority_truth', 'original_prose_field_present']
+  ['summary50char_too_long', 'authority_page_unresolved', 'low_tier_authority_truth', 'ai_authority_truth_eligible', 'original_prose_field_present']
     .every((code) => invalidCodes.has(code)),
   [...invalidCodes].join(','));
 

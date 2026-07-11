@@ -1,9 +1,12 @@
 {
   "name": "spring-ts",
   "version": "1.0.0",
+  "private": true,
   "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc",
     "typecheck": "tsc --noEmit",
@@ -26,7 +29,9 @@
     "test:hanja": "npx tsx test/integration/hanja-annotations.test.ts",
     "test:category": "npx tsx test/integration/category-extension.test.ts",
     "test:quality-gate": "npx tsx test/integration/quality-gate.test.ts",
-    "test:quality-gate-status": "node --test tools/quality_gate_status.test.mjs tools/quality_gate_logic.test.mjs tools/source_tier_policy.test.mjs",
+    "test:quality-gate-status": "node --test tools/quality_gate_status.test.mjs && node --test tools/quality_gate_logic.test.mjs && node --test tools/source_tier_policy.test.mjs && node --test tools/source-tier/authority-evidence.test.mjs && node --test tools/source-tier/panel-evidence.test.mjs && node --test tools/quality-gate/source-tier-audit.test.mjs && node --test tools/metrics/d1-truth-coverage-contract.test.mjs",
+    "test:d1-truth-coverage-contract": "node --test tools/metrics/d1-truth-coverage-contract.test.mjs",
+    "test:external-expert-signoff": "node --test tools/check_external_expert_signoff.test.mjs",
     "test:release-diff-gates": "node --test tools/release_diff_gates.test.mjs",
     "test:rpi-partial-coverage": "npx tsx test/integration/rpi-partial-coverage.test.ts",
     "test:manseryeok-oracle": "npx tsx test/integration/manseryeok-oracle.test.ts",
@@ -48,6 +53,7 @@
     "test:release-checklist": "npx tsx test/integration/release-checklist.test.ts",
     "test:performance-dashboard": "npx tsx test/integration/performance-dashboard.test.ts",
     "test:no-ai-policy": "npx tsx test/integration/no-ai-policy.test.ts",
+    "test:no-ai-release-scope": "node tools/check_no_ai_policy.mjs --fixture-root test/baseline/authority --fixture-root test/baseline/oracles --fixture-root test/fixtures",
     "test:tiered-shape": "npx tsx test/integration/tiered-matrix-shape.test.ts",
     "test:article-gate": "npx tsx test/integration/article-quality-gate.test.ts",
     "test:article-renderer": "npx tsx test/integration/article-renderer.test.ts",
@@ -97,8 +103,10 @@
     "validate:default-change": "node tools/measure_default_change.mjs --baseline main --branch HEAD",
     "quality:report": "node tools/quality_gate.mjs",
     "quality:gate": "npm run test:boundary-goldens && node tools/quality_gate.mjs --require-complete && npm run test:composite-quality-gate",
-    "quality:gate:release": "node tools/quality_gate.mjs --require-complete",
+    "quality:gate:expert-signoff": "node tools/check_external_expert_signoff.mjs",
+    "quality:gate:release": "node tools/quality_gate.mjs --require-complete && npm run quality:gate:expert-signoff",
     "metrics:baseline": "npx tsx scripts/compute-rpi.ts",
+    "test:rpi-rule-mode-metrics": "npx tsx scripts/rpi/rule-mode-metrics.test.ts",
     "metrics:deterministic-calibration": "npx tsx scripts/compute-deterministic-calibration.ts",
     "metrics:rule-ab-tests": "npx tsx scripts/compute-rule-ab-tests.ts",
     "metrics:performance-dashboard": "npx tsx scripts/compute-performance-dashboard.ts",
@@ -121,7 +129,9 @@
     "audit:generated": "npx tsx tools/generation/audit-corpus-diversity.ts",
     "test:adapter-yinyang": "npm --prefix ../saju-ts run build && npx tsx test/integration/adapter-yinyang.test.ts",
     "test:adapter-failure-diagnostics": "npx tsx test/integration/adapter-failure-diagnostics.test.ts",
-    "test:saju-engine-release": "npm run typecheck:saju-bridge && npm run test:boundary-goldens && npm run test:snapshot && npm run test:narrative-baseline && npm run test:namespring-compat && npm run test:manseryeok-oracle && npm run test:jonggyeok-authority && npm run test:adapter-yinyang && npm run test:adapter-failure-diagnostics && npm run test:adapter-daewoon && npm run test:transit-luck-report && npm run test:period-fortune-relation-source && npm run test:insight-registry-content && npm run test:yaza-opt-in && npm run test:quality-gate-status && npm run test:quality-gate && npm run test:measure-default-change && npm run test:rpi-partial-coverage"
+    "test:fortune-fail-closed": "npx tsx test/integration/fortune-report-fail-closed.test.ts",
+    "test:package-boundary": "node --test tools/internal_package_boundary.test.mjs",
+    "test:saju-engine-release": "npm run typecheck:saju-bridge && npm run test:package-boundary && npm run test:boundary-goldens && npm run test:snapshot && npm run test:narrative-baseline && npm run test:namespring-compat && npm run test:manseryeok-oracle && npm run test:jonggyeok-authority && npm run test:adapter-yinyang && npm run test:adapter-failure-diagnostics && npm run test:fortune-fail-closed && npm run test:adapter-daewoon && npm run test:transit-luck-report && npm run test:period-fortune-relation-source && npm run test:insight-registry-content && npm run test:yaza-opt-in && npm run test:quality-gate-status && npm run test:external-expert-signoff && npm run test:no-ai-release-scope && npm run test:no-ai-policy && npm run test:quality-gate && npm run test:rpi-rule-mode-metrics && npm run test:baseline-metrics && npm run test:deterministic-calibration && npm run test:rule-ab-tests && npm run test:performance-dashboard && npm run quality:gate:release && npm run test:measure-default-change && npm run test:rpi-partial-coverage"
   },
   "dependencies": {
     "sql.js": "^1.14.0"

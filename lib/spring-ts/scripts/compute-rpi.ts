@@ -24,7 +24,20 @@ import {
   type SajuOutputSummary,
 } from '../src/index.js';
 import { SCHOOL_PRESET_ORDER, type SchoolPresetName } from '../src/preset-loader.js';
-import { scoreAxisFromDimension } from './rpi-scoring.js';
+import {
+  scoreAccuracyAxisFromDimension,
+  scoreAxisFromDimension,
+} from './rpi-scoring.js';
+import {
+  isAuthorityTruthEligible as isAuthorityTruthEligibleByPolicy,
+} from '../tools/source_tier_policy.mjs';
+import {
+  classifyD1TruthCoverage,
+} from '../tools/quality-gate/d1.mjs';
+import {
+  createD1TruthCoverageContract,
+} from '../tools/metrics/d1-truth-coverage-contract.mjs';
+import { buildRuleModeBreakdown } from './rpi/rule-mode-metrics.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRING_TS_ROOT = path.resolve(__dirname, '..');
@@ -46,7 +59,7 @@ const LEGAL_HANJA_RECONCILIATION_PATH = path.resolve(SPRING_TS_ROOT, 'data/legal
 const QUALITY_GATE = path.resolve(SPRING_TS_ROOT, 'tools/quality_gate.mjs');
 
 const TIER_NO_REFERENCE = 'NO_REFERENCE';
-type Status = 'PASS' | 'FAIL' | 'N/A';
+type Status = 'PASS' | 'FAIL' | 'N/A' | 'NOT_APPLICABLE';
 type GateStatus = Status | 'PARTIAL';
 
 interface SourceTier {
@@ -103,7 +116,13 @@ interface QualityGateReport {
     violations: unknown[];
   };
   totals: { pass: number; fail: number; na: number; total: number };
-  dimensions: Record<string, { pass: number; fail: number; na: number; status: GateStatus }>;
+  dimensions: Record<string, {
+    pass: number;
+    fail: number;
+    na: number;
+    notApplicable: number;
+    status: GateStatus;
+  }>;
   fixtures: QualityGateFixture[];
   generatedAt?: string;
   qualityGateExitCode?: number;
@@ -118,16 +137,22 @@ interface SourceTierRecord {
   tier: string;
   tierRank: number | null;
   sourceType: string;
-  authorityTruthEligible: boolean;
+  declaredScopeEligible: boolean;
 }
+
+type D1TruthCoverageStatus = 'COMPLETE' | 'PARTIAL' | 'NONE';
 
 interface ReferenceProfile {
   tier: string;
   tierRank: number | null;
   sourceType: string;
-  authorityTruthEligible: boolean;
-  referenceKind: 'authority' | 'oracle' | 'none';
-  truthBucket: 'authority_truth' | 'insufficient_source_truth';
+  completeD1TruthEligible: boolean;
+  doctrineTruthEligible: boolean;
+  namingScoreTruthEligible: boolean;
+  referenceKind: 'authority' | 'oracle' | 'mixed' | 'none';
+  coverageStatus: D1TruthCoverageStatus;
+  coveredFieldCount: number;
+  missingRequiredFields: readonly string[];
   reason: string;
 }
 
@@ -181,18 +206,9 @@ function parseTierRank(sourceTier: SourceTier | null | undefined): number | null
   return match ? Number(match[1]) : null;
 }
 
-function isEligibleSourceTier(sourceTier: SourceTier | null | undefined): boolean {
-  const rank = parseTierRank(sourceTier);
-  if (sourceTier?.authorityTruthEligible !== true || rank === null || rank < 3) return false;
-  if (rank !== 3) return true;
-  return sourceTier.authorityReview?.status === 'approved' &&
-    typeof sourceTier.authorityReview.reviewedBy === 'string' &&
-    sourceTier.authorityReview.reviewedBy.trim().length > 0 &&
-    /^\d{4}-\d{2}-\d{2}$/.test(sourceTier.authorityReview.reviewedAt ?? '');
-}
-
 function sourceTierRecord(
   filePath: string,
+  record: any,
   sourceTier: SourceTier | null | undefined,
   sourceTierPath = 'sourceTier',
   sourceId: string | null = null,
@@ -204,7 +220,10 @@ function sourceTierRecord(
     tier: sourceTier?.tier ?? 'MISSING_SOURCE_TIER',
     tierRank: parseTierRank(sourceTier),
     sourceType: sourceTier?.sourceType ?? 'unknown',
-    authorityTruthEligible: isEligibleSourceTier(sourceTier),
+    declaredScopeEligible: isAuthorityTruthEligibleByPolicy(
+      { ...record, sourceTier },
+      { root: SPRING_TS_ROOT },
+    ),
   };
 }
 
@@ -212,6 +231,7 @@ function sourceTierRecordsForFile(filePath: string, data: any): SourceTierRecord
   const topLevelSourceTier = data?.sourceTier ?? data?._meta?.sourceTier;
   const records = [sourceTierRecord(
     filePath,
+    data,
     topLevelSourceTier,
     data?.sourceTier ? 'sourceTier' : '_meta.sourceTier',
   )];
@@ -219,6 +239,7 @@ function sourceTierRecordsForFile(filePath: string, data: any): SourceTierRecord
     data.sources.forEach((source: any, index: number) => {
       records.push(sourceTierRecord(
         filePath,
+        source,
         source?.sourceTier,
         `sources[${index}].sourceTier`,
         typeof source?.id === 'string' ? source.id : null,
@@ -229,6 +250,7 @@ function sourceTierRecordsForFile(filePath: string, data: any): SourceTierRecord
     data.snippets.forEach((snippet: any, index: number) => {
       records.push(sourceTierRecord(
         filePath,
+        snippet,
         snippet?.sourceTier,
         `snippets[${index}].sourceTier`,
         typeof snippet?.id === 'string' ? snippet.id : null,
@@ -240,6 +262,7 @@ function sourceTierRecordsForFile(filePath: string, data: any): SourceTierRecord
       if (!record || typeof record !== 'object' || !('sourceTier' in record)) return;
       records.push(sourceTierRecord(
         filePath,
+        record,
         record?.sourceTier,
         `cases[${index}].sourceTier`,
         typeof record?.id === 'string' ? record.id : null,
@@ -260,7 +283,7 @@ function increment(bucket: Record<string, number>, key: string, n = 1): void {
 }
 
 function emptyStatusCounts(): Record<Status, number> {
-  return { PASS: 0, FAIL: 0, 'N/A': 0 };
+  return { PASS: 0, FAIL: 0, 'N/A': 0, NOT_APPLICABLE: 0 };
 }
 
 function scanSourceTiers(): { records: SourceTierRecord[]; byTier: Record<string, any>; bySourceType: Record<string, any> } {
@@ -284,24 +307,24 @@ function scanSourceTiers(): { records: SourceTierRecord[]; byTier: Record<string
   for (const record of records) {
     const tierBucket = byTier[record.tier] ?? {
       recordCount: 0,
-      authorityTruthEligible: 0,
-      nonEligible: 0,
+      declaredScopeEligibleSourceRecordCount: 0,
+      declaredScopeIneligibleSourceRecordCount: 0,
       files: [],
     };
     tierBucket.recordCount += 1;
-    if (record.authorityTruthEligible) tierBucket.authorityTruthEligible += 1;
-    else tierBucket.nonEligible += 1;
+    if (record.declaredScopeEligible) tierBucket.declaredScopeEligibleSourceRecordCount += 1;
+    else tierBucket.declaredScopeIneligibleSourceRecordCount += 1;
     tierBucket.files.push(sourceTierRecordLabel(record));
     byTier[record.tier] = tierBucket;
 
     const typeBucket = bySourceType[record.sourceType] ?? {
       recordCount: 0,
-      authorityTruthEligible: 0,
-      nonEligible: 0,
+      declaredScopeEligibleSourceRecordCount: 0,
+      declaredScopeIneligibleSourceRecordCount: 0,
     };
     typeBucket.recordCount += 1;
-    if (record.authorityTruthEligible) typeBucket.authorityTruthEligible += 1;
-    else typeBucket.nonEligible += 1;
+    if (record.declaredScopeEligible) typeBucket.declaredScopeEligibleSourceRecordCount += 1;
+    else typeBucket.declaredScopeIneligibleSourceRecordCount += 1;
     bySourceType[record.sourceType] = typeBucket;
   }
 
@@ -339,50 +362,69 @@ function loadOracle(fixtureId: string): any | null {
 
 function referenceProfileForFixture(fixtureId: string): ReferenceProfile {
   const authority = loadDirectAuthority(fixtureId);
-  if (authority?.sourceTier) {
-    const tierRank = parseTierRank(authority.sourceTier);
-    const eligible = isEligibleSourceTier(authority.sourceTier);
-    return {
-      tier: authority.sourceTier.tier,
-      tierRank,
-      sourceType: authority.sourceTier.sourceType ?? 'unknown',
-      authorityTruthEligible: eligible,
-      referenceKind: 'authority',
-      truthBucket: eligible ? 'authority_truth' : 'insufficient_source_truth',
-      reason: eligible ? 'eligible authority reference' : 'authority record is not eligible as truth',
-    };
-  }
-
   const oracle = loadOracle(fixtureId);
-  if (oracle?.sourceTier) {
-    const tierRank = parseTierRank(oracle.sourceTier);
-    const eligible = isEligibleSourceTier(oracle.sourceTier);
-    return {
-      tier: oracle.sourceTier.tier,
-      tierRank,
-      sourceType: oracle.sourceTier.sourceType ?? 'unknown',
-      authorityTruthEligible: eligible,
-      referenceKind: 'oracle',
-      truthBucket: eligible ? 'authority_truth' : 'insufficient_source_truth',
-      reason: eligible ? 'oracle promoted to eligible authority truth' : 'reference implementation is comparison-only',
-    };
-  }
+  const coverage = classifyD1TruthCoverage(authority, oracle);
+  const covered = [...coverage.doctrineFields, ...coverage.namingFields];
+  const usedKinds = new Set(covered.map((field: any) => field.source));
+  const doctrineEligible = !coverage.missingRequiredFields
+    .some((field: string) => field.startsWith('sajuReport.'));
+  const namingEligible = !coverage.missingRequiredFields
+    .some((field: string) => field.startsWith('namingReport.'));
+  const eligible = coverage.complete === true;
+  const coverageStatus: D1TruthCoverageStatus = eligible
+    ? 'COMPLETE'
+    : covered.length > 0 ? 'PARTIAL' : 'NONE';
+  const referenceKind = usedKinds.size > 1
+    ? 'mixed'
+    : usedKinds.has('authority')
+      ? 'authority'
+      : usedKinds.has('oracle')
+        ? 'oracle'
+        : authority?.sourceTier
+          ? 'authority'
+          : oracle?.sourceTier ? 'oracle' : 'none';
+  const usedRecords = [
+    ...(usedKinds.has('authority') && authority?.sourceTier ? [authority] : []),
+    ...(usedKinds.has('oracle') && oracle?.sourceTier ? [oracle] : []),
+  ];
+  const fallbackRecord = authority?.sourceTier ? authority : oracle?.sourceTier ? oracle : null;
+  const weakestRecord = [...usedRecords].sort((left, right) =>
+    (parseTierRank(left.sourceTier) ?? Number.POSITIVE_INFINITY) -
+    (parseTierRank(right.sourceTier) ?? Number.POSITIVE_INFINITY))[0] ?? fallbackRecord;
+  const tier = weakestRecord?.sourceTier?.tier ?? TIER_NO_REFERENCE;
+  const tierRank = weakestRecord?.sourceTier ? parseTierRank(weakestRecord.sourceTier) : null;
+  const sourceType = referenceKind === 'mixed'
+    ? [authority?.sourceTier?.sourceType, oracle?.sourceTier?.sourceType]
+      .filter(Boolean).join('+')
+    : weakestRecord?.sourceTier?.sourceType ?? 'none';
 
   return {
-    tier: TIER_NO_REFERENCE,
-    tierRank: null,
-    sourceType: 'none',
-    authorityTruthEligible: false,
-    referenceKind: 'none',
-    truthBucket: 'insufficient_source_truth',
-    reason: 'no authority or oracle record linked to this fixture',
+    tier,
+    tierRank,
+    sourceType,
+    completeD1TruthEligible: eligible,
+    doctrineTruthEligible: doctrineEligible,
+    namingScoreTruthEligible: namingEligible,
+    referenceKind,
+    coverageStatus,
+    coveredFieldCount: covered.length,
+    missingRequiredFields: [...coverage.missingRequiredFields],
+    reason: eligible
+      ? 'all seven D1 fields are resolved through scope-eligible references'
+      : covered.length > 0
+        ? 'scope-eligible references cover only part of the seven-field D1 contract'
+        : 'no scope-eligible D1 truth fields are linked to this fixture',
   };
 }
 
-function buildQualityByReferenceTier(gate: QualityGateReport): Record<string, any> {
+function buildQualityByReferenceTier(
+  gate: QualityGateReport,
+  profiles: ReadonlyMap<string, ReferenceProfile>,
+): Record<string, any> {
   const byTier: Record<string, any> = {};
   for (const fixture of gate.fixtures) {
-    const profile = referenceProfileForFixture(fixture.fixtureId);
+    const profile = profiles.get(fixture.fixtureId);
+    if (!profile) throw new Error(`Missing D1 truth profile for fixture ${fixture.fixtureId}`);
     const bucket = byTier[profile.tier] ?? {
       fixtureCount: 0,
       fixtureStatus: emptyStatusCounts(),
@@ -400,9 +442,9 @@ function buildQualityByReferenceTier(gate: QualityGateReport): Record<string, an
     increment(bucket.references, profile.referenceKind);
 
     const d1 = fixture.dimensions?.D1;
-    if (d1?.status === 'FAIL' && profile.authorityTruthEligible) {
+    if (d1?.status === 'FAIL' && profile.completeD1TruthEligible) {
       bucket.truthBuckets.engine_rule_failure += 1;
-    } else if (d1?.status === 'PASS' && profile.authorityTruthEligible) {
+    } else if (d1?.status === 'PASS' && profile.completeD1TruthEligible) {
       bucket.truthBuckets.authority_match += 1;
     } else {
       bucket.truthBuckets.insufficient_source_truth += 1;
@@ -419,292 +461,6 @@ function buildQualityByReferenceTier(gate: QualityGateReport): Record<string, an
   return byTier;
 }
 
-function buildRuleModeBreakdown(): any {
-  const phaseP = fs.readFileSync(PHASE_P_RESULTS_PATH, 'utf-8');
-  const sourceKeys = ['lecture', 'jonheom', 'korean_modern'] as const;
-  const sourceTierByKey: Record<typeof sourceKeys[number], string> = {
-    lecture: 'T3_AUTHORED_INTERPRETATION',
-    jonheom: 'T4_PRIMARY_TEXT',
-    korean_modern: 'T3_AUTHORED_INTERPRETATION',
-  };
-  const sourceLabels: Record<typeof sourceKeys[number], string> = {
-    lecture: 'lecture',
-    jonheom: 'jonheom',
-    korean_modern: 'korean_modern_figures_and_chumyeongga',
-  };
-  const phasePRows: Record<string, string> = {
-    monthly_main: 'monthly_main',
-    jungki_transparent: 'jungki_transparent',
-    composite_classical: 'monthly_main',
-  };
-  const compositeCoverageBySourceGroup: Record<string, { covered: number; comparable: number }> = {
-    lecture: { covered: 14, comparable: 14 },
-    jonheom: { covered: 3, comparable: 6 },
-    korean_modern_figures_and_chumyeongga: { covered: 6, comparable: 7 },
-  };
-  const compositeCoverageBySourceTier: Record<string, { covered: number; comparable: number }> = {
-    T3_AUTHORED_INTERPRETATION: { covered: 20, comparable: 21 },
-    T4_PRIMARY_TEXT: { covered: 3, comparable: 6 },
-  };
-  const compositeQualityGateThresholds = {
-    monthlyMainSelectedAgreement: { minPass: 17, comparable: 27 },
-    compositeSelectedAgreement: { minNetVsMonthlyMain: 0 },
-    compositeCandidateCoverage: {
-      total: { minCovered: 23, comparable: 27 },
-      bySourceTier: {
-        T3_AUTHORED_INTERPRETATION: { minCovered: 20, comparable: 21 },
-        T4_PRIMARY_TEXT: { minCovered: 3, comparable: 6 },
-      },
-      bySourceGroup: {
-        lecture: { minCovered: 14, comparable: 14 },
-        jonheom: { minCovered: 3, comparable: 6 },
-        korean_modern_figures_and_chumyeongga: { minCovered: 6, comparable: 7 },
-      },
-    },
-  };
-
-  function parsePhasePRow(rowName: string): Array<{ pass: number; comparable: number; statedPercent: number }> {
-    const line = phaseP.split(/\r?\n/).find((l) => l.trim().startsWith(rowName));
-    if (!line) throw new Error(`Cannot find ${rowName} in ${PHASE_P_RESULTS_PATH}`);
-    const matches = [...line.matchAll(/(\d+)\s*\/\s*(\d+)\s*\((\d+(?:\.\d+)?)%\)/g)];
-    if (matches.length !== 4) throw new Error(`Cannot parse ${rowName} table row in ${PHASE_P_RESULTS_PATH}`);
-    return matches.map((m) => ({
-      pass: Number(m[1]),
-      comparable: Number(m[2]),
-      statedPercent: Number(m[3]),
-    }));
-  }
-
-  function summaryFrom(pass: number, comparable: number, statedPercent?: number, extra: Record<string, any> = {}): any {
-    const diff = comparable - pass;
-    const computedPassRate = comparable > 0 ? Number(((pass / comparable) * 100).toFixed(1)) : null;
-    const passRate = statedPercent ?? computedPassRate;
-    return {
-      total: comparable,
-      pass,
-      partial: 0,
-      diff,
-      na: 0,
-      comparable,
-      passRate,
-      computedPassRate,
-      passOrPartialRate: passRate,
-      ...extra,
-    };
-  }
-
-  function winLossVsDefault(
-    current: { pass: number; comparable: number },
-    baseline: { pass: number; comparable: number },
-  ): any {
-    const passDelta = current.pass - baseline.pass;
-    const currentRate = current.comparable > 0 ? current.pass / current.comparable : null;
-    const baselineRate = baseline.comparable > 0 ? baseline.pass / baseline.comparable : null;
-    return {
-      wins: Math.max(0, passDelta),
-      losses: Math.max(0, -passDelta),
-      net: passDelta,
-      passDelta,
-      passRateDelta:
-        currentRate == null || baselineRate == null
-          ? null
-          : Number(((currentRate - baselineRate) * 100).toFixed(1)),
-      baselineMode: 'monthly_main',
-    };
-  }
-
-  function coverageSummary(coverage: { covered: number; comparable: number } | undefined): any {
-    if (!coverage) return undefined;
-    return {
-      covered: coverage.covered,
-      comparable: coverage.comparable,
-      coverageRate: coverage.comparable > 0
-        ? Number(((coverage.covered / coverage.comparable) * 100).toFixed(1))
-        : null,
-      coverageMode: 'authority_label_present_in_evidence_candidates',
-    };
-  }
-
-  function sourceTierNonRegression(winLoss: any): any {
-    return {
-      status: winLoss?.net >= 0 ? 'PASS' : 'FAIL',
-      baselineMode: 'monthly_main',
-      basis: 'selected agreement only; composite_classical candidates are evidence-only',
-    };
-  }
-
-  const defaultCells = parsePhasePRow('monthly_main');
-  const defaultBySourceTier: Record<string, { pass: number; comparable: number }> = {};
-  sourceKeys.forEach((sourceKey, i) => {
-    const tier = sourceTierByKey[sourceKey];
-    const cell = defaultCells[i];
-    const bucket = defaultBySourceTier[tier] ?? { pass: 0, comparable: 0 };
-    bucket.pass += cell.pass;
-    bucket.comparable += cell.comparable;
-    defaultBySourceTier[tier] = bucket;
-  });
-
-  const modes: Record<string, any> = {};
-  for (const [mode, phasePRow] of Object.entries(phasePRows)) {
-    const cells = parsePhasePRow(phasePRow);
-    const bySourceGroup: Record<string, any> = {};
-    const bySourceTier: Record<string, { pass: number; comparable: number }> = {};
-
-    sourceKeys.forEach((sourceKey, i) => {
-      const cell = cells[i];
-      const defaultCell = defaultCells[i];
-      const sourceLabel = sourceLabels[sourceKey];
-      const tier = sourceTierByKey[sourceKey];
-      bySourceGroup[sourceLabel] = summaryFrom(cell.pass, cell.comparable, cell.statedPercent, {
-        winLossVsMonthlyMain: winLossVsDefault(cell, defaultCell),
-        ...(mode === 'composite_classical'
-          ? { candidateCoverage: coverageSummary(compositeCoverageBySourceGroup[sourceLabel]) }
-          : {}),
-      });
-      const tierBucket = bySourceTier[tier] ?? { pass: 0, comparable: 0 };
-      tierBucket.pass += cell.pass;
-      tierBucket.comparable += cell.comparable;
-      bySourceTier[tier] = tierBucket;
-    });
-
-    const totalCell = cells[3];
-    const tierSummary: Record<string, any> = {};
-    for (const [tier, bucket] of Object.entries(bySourceTier)) {
-      const winLoss = winLossVsDefault(bucket, defaultBySourceTier[tier] ?? { pass: 0, comparable: 0 });
-      tierSummary[tier] = summaryFrom(bucket.pass, bucket.comparable, undefined, {
-        winLossVsMonthlyMain: winLoss,
-        ...(mode === 'composite_classical'
-          ? {
-              candidateCoverage: coverageSummary(compositeCoverageBySourceTier[tier]),
-              sourceTierNonRegressionVsMonthlyMain: sourceTierNonRegression(winLoss),
-            }
-          : {}),
-      });
-    }
-
-    const totalWinLoss = winLossVsDefault(totalCell, defaultCells[3]);
-    const totalCompositeCoverage = coverageSummary({ covered: 23, comparable: 27 });
-    modes[mode] = summaryFrom(totalCell.pass, totalCell.comparable, totalCell.statedPercent, {
-      phasePSourceRow: phasePRow,
-      measurementStatus: mode === 'composite_classical' ? 'MEASURED_CANDIDATE_EVIDENCE' : 'MEASURED',
-      ...(mode === 'composite_classical'
-        ? {
-            selectedAgreementMode: 'monthly_main',
-            selectionPolicy: 'evidence_only_never_promote',
-            candidateCoverage: totalCompositeCoverage,
-            sourceTierNonRegressionVsMonthlyMain: sourceTierNonRegression(totalWinLoss),
-          }
-        : {}),
-      winLossVsMonthlyMain: totalWinLoss,
-      bySourceTier: tierSummary,
-      bySourceGroup,
-    });
-  }
-
-  function qualityGateCheck(
-    id: string,
-    description: string,
-    passed: boolean,
-    actual: Record<string, any>,
-    threshold: Record<string, any>,
-  ): any {
-    return {
-      id,
-      status: passed ? 'PASS' : 'FAIL',
-      description,
-      actual,
-      threshold,
-    };
-  }
-
-  const monthlyMain = modes.monthly_main;
-  const composite = modes.composite_classical;
-  const compositeGateChecks = [
-    qualityGateCheck(
-      'monthly_main_default_selected_agreement',
-      'Default monthly_main selected agreement must not fall below the Phase P baseline.',
-      monthlyMain.pass >= compositeQualityGateThresholds.monthlyMainSelectedAgreement.minPass &&
-        monthlyMain.comparable === compositeQualityGateThresholds.monthlyMainSelectedAgreement.comparable,
-      { pass: monthlyMain.pass, comparable: monthlyMain.comparable },
-      compositeQualityGateThresholds.monthlyMainSelectedAgreement,
-    ),
-    qualityGateCheck(
-      'composite_selected_non_regression',
-      'Composite mode is evidence-only; selected agreement must not regress against monthly_main.',
-      composite.winLossVsMonthlyMain?.net >=
-        compositeQualityGateThresholds.compositeSelectedAgreement.minNetVsMonthlyMain,
-      { netVsMonthlyMain: composite.winLossVsMonthlyMain?.net },
-      compositeQualityGateThresholds.compositeSelectedAgreement,
-    ),
-    qualityGateCheck(
-      'composite_total_candidate_coverage',
-      'Authority label must remain visible in composite candidates for the measured subset.',
-      composite.candidateCoverage?.covered >=
-        compositeQualityGateThresholds.compositeCandidateCoverage.total.minCovered &&
-        composite.candidateCoverage?.comparable ===
-          compositeQualityGateThresholds.compositeCandidateCoverage.total.comparable,
-      {
-        covered: composite.candidateCoverage?.covered,
-        comparable: composite.candidateCoverage?.comparable,
-      },
-      compositeQualityGateThresholds.compositeCandidateCoverage.total,
-    ),
-  ];
-
-  for (const [tier, threshold] of Object.entries(
-    compositeQualityGateThresholds.compositeCandidateCoverage.bySourceTier,
-  )) {
-    const coverage = composite.bySourceTier?.[tier]?.candidateCoverage;
-    compositeGateChecks.push(qualityGateCheck(
-      `composite_source_tier_${tier}_candidate_coverage`,
-      `${tier} composite candidate coverage must stay above the authority subset threshold.`,
-      coverage?.covered >= threshold.minCovered && coverage?.comparable === threshold.comparable,
-      { covered: coverage?.covered, comparable: coverage?.comparable },
-      threshold,
-    ));
-  }
-
-  for (const [sourceGroup, threshold] of Object.entries(
-    compositeQualityGateThresholds.compositeCandidateCoverage.bySourceGroup,
-  )) {
-    const coverage = composite.bySourceGroup?.[sourceGroup]?.candidateCoverage;
-    compositeGateChecks.push(qualityGateCheck(
-      `composite_source_group_${sourceGroup}_candidate_coverage`,
-      `${sourceGroup} composite candidate coverage must stay above the authority subset threshold.`,
-      coverage?.covered >= threshold.minCovered && coverage?.comparable === threshold.comparable,
-      { covered: coverage?.covered, comparable: coverage?.comparable },
-      threshold,
-    ));
-  }
-
-  const sourceTierDashboard = Object.fromEntries(
-    Object.entries(composite.bySourceTier ?? {}).map(([tier, bucket]: [string, any]) => [
-      tier,
-      {
-        selectedAgreement: {
-          pass: bucket.pass,
-          comparable: bucket.comparable,
-          passRate: bucket.passRate,
-        },
-        candidateCoverage: bucket.candidateCoverage,
-        nonRegression: bucket.sourceTierNonRegressionVsMonthlyMain,
-      },
-    ]),
-  );
-
-  return {
-    metric: 'authority gyeokguk agreement by deterministic rule-mode candidate',
-    note: 'monthly_main and jungki_transparent mirror Phase P measurement. composite_classical is an evidence-only candidate score: selected agreement remains monthly_main for non-regression, while candidateCoverage reports whether the authority label appears in surfaced candidates. passRate preserves the Phase P stated rate; computedPassRate is the literal numerator/denominator check.',
-    source: 'test/baseline/PHASE_P_RESULTS.md',
-    compositeQualityGate: {
-      status: compositeGateChecks.every((check) => check.status === 'PASS') ? 'PASS' : 'FAIL',
-      thresholds: compositeQualityGateThresholds,
-      checks: compositeGateChecks,
-      sourceTierDashboard,
-    },
-    modes,
-  };
-}
 
 function patchFetchForEngine(): void {
   const originalFetch = globalThis.fetch;
@@ -840,7 +596,7 @@ function addSchoolDelta(bucket: any, totalDelta: number, sajuDelta: number, prof
   else bucket.unchangedFromDefault += 1;
   updateSchoolSubBucket(bucket.byReferenceTier, profile.tier, changed);
   updateSchoolSubBucket(bucket.bySourceType, profile.sourceType, changed);
-  updateSchoolSubBucket(bucket.byTruthBucket, profile.truthBucket, changed);
+  updateSchoolSubBucket(bucket.byD1TruthCoverageStatus, profile.coverageStatus, changed);
 }
 
 function finalizeSchoolBucket(bucket: any): any {
@@ -857,7 +613,7 @@ function finalizeSchoolBucket(bucket: any): any {
     maxSajuDelta: Number(bucket.maxSajuDelta.toFixed(4)),
     byReferenceTier: bucket.byReferenceTier,
     bySourceType: bucket.bySourceType,
-    byTruthBucket: bucket.byTruthBucket,
+    byD1TruthCoverageStatus: bucket.byD1TruthCoverageStatus,
   };
 }
 
@@ -867,11 +623,11 @@ function hasScorableNameFixtureShape(record: any): boolean {
     Array.isArray(record?.givenName);
 }
 
-function buildAuthorityFixtureCoverage(): any {
-  let scorableAuthorityFixtures = 0;
-  let nonScorableAuthorityFixtures = 0;
-  let pillarOnlyAuthorityFixtures = 0;
-  let ruleSnippetCollections = 0;
+function buildNameInputShapeCoverage(): any {
+  let fullNameInputFixtureCount = 0;
+  let incompleteNameInputFixtureCount = 0;
+  let pillarOnlyRecordCount = 0;
+  let ruleSnippetCollectionCount = 0;
 
   for (const filePath of walkJsonFiles(AUTHORITY_DIR)) {
     const data = readJson(filePath);
@@ -883,30 +639,34 @@ function buildAuthorityFixtureCoverage(): any {
 
     for (const record of records) {
       if (hasScorableNameFixtureShape(record)) {
-        scorableAuthorityFixtures += 1;
+        fullNameInputFixtureCount += 1;
       } else {
-        nonScorableAuthorityFixtures += 1;
+        incompleteNameInputFixtureCount += 1;
       }
       if (record?.pillars || record?.birth?.year_pillar || record?.birth?.day_pillar) {
-        pillarOnlyAuthorityFixtures += 1;
+        pillarOnlyRecordCount += 1;
       }
     }
 
     if (Array.isArray(data?.snippets)) {
-      ruleSnippetCollections += 1;
+      ruleSnippetCollectionCount += 1;
     }
   }
 
   return {
-    scorableAuthorityFixtures,
-    nonScorableAuthorityFixtures,
-    pillarOnlyAuthorityFixtures,
-    ruleSnippetCollections,
-    note: 'Authority casebooks are source-tiered, but current records are not full naming-score inputs with birth + surname + givenName.',
+    fullNameInputFixtureCount,
+    incompleteNameInputFixtureCount,
+    pillarOnlyRecordCount,
+    ruleSnippetCollectionCount,
+    authorityClaim: false,
+    note: 'This is input-shape inventory only; source eligibility and complete D1 truth are reported separately.',
   };
 }
 
-async function buildSchoolPresetBreakdown(fixtures: BaselineFixture[]): Promise<any> {
+async function buildSchoolPresetBreakdown(
+  fixtures: BaselineFixture[],
+  profiles: ReadonlyMap<string, ReferenceProfile>,
+): Promise<any> {
   patchFetchForEngine();
   const engine = new SpringEngine();
   const repos: any[] = [(engine as any).hanjaRepo, (engine as any).fourFrameRepo];
@@ -936,7 +696,7 @@ async function buildSchoolPresetBreakdown(fixtures: BaselineFixture[]): Promise<
       maxSajuDelta: Number.NEGATIVE_INFINITY,
       byReferenceTier: {},
       bySourceType: {},
-      byTruthBucket: {},
+      byD1TruthCoverageStatus: {},
     };
   }
 
@@ -944,7 +704,8 @@ async function buildSchoolPresetBreakdown(fixtures: BaselineFixture[]): Promise<
   try {
     for (const fixture of fixtures) {
       const baseline = await scoreFixture(engine, fixture, undefined);
-      const profile = referenceProfileForFixture(fixture.id);
+      const profile = profiles.get(fixture.id);
+      if (!profile) throw new Error(`Missing D1 truth profile for fixture ${fixture.id}`);
       const scores: Record<string, { total: number; saju: number }> = {
         default: roundScorePair(baseline),
       };
@@ -966,8 +727,6 @@ async function buildSchoolPresetBreakdown(fixtures: BaselineFixture[]): Promise<
         referenceTier: profile.tier,
         referenceKind: profile.referenceKind,
         sourceType: profile.sourceType,
-        truthBucket: profile.truthBucket,
-        authorityTruthEligible: profile.authorityTruthEligible,
         scores,
         deltaVsDefault,
       });
@@ -986,8 +745,33 @@ async function buildSchoolPresetBreakdown(fixtures: BaselineFixture[]): Promise<
     presetOrder: SCHOOL_PRESET_ORDER,
     presets,
     rows,
-    authorityFixtureCoverage: buildAuthorityFixtureCoverage(),
+    nameInputShapeCoverage: buildNameInputShapeCoverage(),
   };
+}
+
+function buildD1TruthCoverage(
+  fixtures: readonly BaselineFixture[],
+  profiles: ReadonlyMap<string, ReferenceProfile>,
+): any {
+  const rows = fixtures.map((fixture) => {
+    const profile = profiles.get(fixture.id);
+    if (!profile) throw new Error(`Missing D1 truth profile for fixture ${fixture.id}`);
+    return {
+      fixtureId: fixture.id,
+      referenceTier: profile.tier,
+      referenceKind: profile.referenceKind,
+      sourceType: profile.sourceType,
+      coverageStatus: profile.coverageStatus,
+      coveredFieldCount: profile.coveredFieldCount,
+      missingRequiredFields: [...profile.missingRequiredFields],
+      doctrineComplete: profile.doctrineTruthEligible,
+      namingCalibrationComplete: profile.namingScoreTruthEligible,
+    };
+  });
+  return createD1TruthCoverageContract(rows, {
+    expectedFixtureCount: fixtures.length,
+    expectedFixtureIds: fixtures.map((fixture) => fixture.id),
+  });
 }
 
 function scoreLegalHanjaAxis(): any {
@@ -1154,13 +938,18 @@ function buildTenGodPositionWeightingDiagnosis(baselineComparison: any): any {
 function buildRpiSummary(gate: QualityGateReport, sourceSummary: any, bySourceTier: any, tenGodBaselineComparison: any): any {
   const tenGodDiagnosis = buildTenGodPositionWeightingDiagnosis(tenGodBaselineComparison);
   const axisScores = {
-    A_calculationAccuracy: scoreAxisFromDimension(gate, 'D5', 15, 'No calculation-specific official oracle axis beyond D5 stability yet.'),
+    A_calculationAccuracy: scoreAccuracyAxisFromDimension(
+      gate,
+      'D5',
+      15,
+      'Edge stability is measured, but no eligible truth exists for calculation accuracy.',
+    ),
     B_legalHanjaData: scoreLegalHanjaAxis(),
     C_gyeokgukYongshinRuleQuality: {
       maxPoints: 25,
       score: 0,
       status: 'INSUFFICIENT_TRUTH',
-      reason: 'Current baseline fixtures have no T3+ authority-truth D1 denominator.',
+      reason: 'Current baseline fixtures lack the complete scoped doctrine and naming-calibration truth required by D1.',
       insufficientTruthCount: bySourceTier.truthSeparation.insufficientSourceTruthCount,
       engineRuleFailureCount: bySourceTier.truthSeparation.engineRuleFailureCount,
     },
@@ -1198,7 +987,7 @@ function buildRpiSummary(gate: QualityGateReport, sourceSummary: any, bySourceTi
   const measuredScore = measuredAxes.reduce((sum: number, axis: any) => sum + axis.score, 0);
 
   return {
-    schemaVersion: 'spring-ts.rpi-summary.v1',
+    schemaVersion: 'spring-ts.rpi-summary.v2',
     note: 'Unmeasured or truth-insufficient axes score 0 in rawRpi and are also reported separately to avoid mixing missing truth with engine failure.',
     rawRpi: {
       score: Number(rawScore.toFixed(2)),
@@ -1227,19 +1016,30 @@ async function main(): Promise<void> {
   const snapshot = readJson(SNAPSHOT_PATH);
   const gate = runQualityGate();
   const sourceScan = scanSourceTiers();
+  const referenceProfiles = new Map(fixtures.map((fixture) => [
+    fixture.id,
+    referenceProfileForFixture(fixture.id),
+  ]));
+  if (referenceProfiles.size !== fixtures.length) {
+    throw new Error('Baseline fixture IDs must be unique before D1 truth profiling');
+  }
 
   const sourceSummary = {
-    schemaVersion: 'spring-ts.source-tier-summary.v1',
+    schemaVersion: 'spring-ts.source-tier-summary.v2',
     status: gate.sourceTierAudit.status,
     scanned: gate.sourceTierAudit.scanned,
     violationCount: gate.sourceTierAudit.violations.length,
-    authorityTruthEligibleCount: sourceScan.records.filter((r) => r.authorityTruthEligible).length,
-    nonEligibleCount: sourceScan.records.filter((r) => !r.authorityTruthEligible).length,
+    eligibilityDefinition:
+      'source record is eligible for at least one policy-declared authority scope; this is not complete D1 fixture truth',
+    declaredScopeEligibleSourceRecordCount: sourceScan.records
+      .filter((record) => record.declaredScopeEligible).length,
+    declaredScopeIneligibleSourceRecordCount: sourceScan.records
+      .filter((record) => !record.declaredScopeEligible).length,
     byTier: sourceScan.byTier,
     bySourceType: sourceScan.bySourceType,
   };
 
-  const qualityGateByReferenceTier = buildQualityByReferenceTier(gate);
+  const qualityGateByReferenceTier = buildQualityByReferenceTier(gate, referenceProfiles);
   const truthSeparation = {
     insufficientSourceTruthCount: Object.values(qualityGateByReferenceTier)
       .reduce((sum: number, bucket: any) => sum + bucket.truthBuckets.insufficient_source_truth, 0),
@@ -1250,17 +1050,18 @@ async function main(): Promise<void> {
   };
 
   const bySourceTier = {
-    schemaVersion: 'spring-ts.by-source-tier.v1',
+    schemaVersion: 'spring-ts.by-source-tier.v2',
     baseline: {
       fixtureCount: fixtures.length,
       snapshotVersion: snapshot.version,
       snapshotTargetDate: snapshot.targetDate,
       snapshotFixtureCount: snapshot.fixtureCount,
     },
+    d1TruthCoverage: buildD1TruthCoverage(fixtures, referenceProfiles),
     qualityGateByReferenceTier,
     truthSeparation,
-    ruleModeBreakdown: buildRuleModeBreakdown(),
-    schoolPresetBreakdown: await buildSchoolPresetBreakdown(fixtures),
+    ruleModeBreakdown: buildRuleModeBreakdown(PHASE_P_RESULTS_PATH),
+    schoolPresetBreakdown: await buildSchoolPresetBreakdown(fixtures, referenceProfiles),
   };
 
   const tenGodBaselineComparison = await buildTenGodModeComparison(fixtures);

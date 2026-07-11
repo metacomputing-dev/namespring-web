@@ -27,18 +27,44 @@ mechanically by `tools/check_no_ai_policy.mjs`:
 - `sourceTier.sourceType` is exactly `ai_panel_adjudicated_interpretation`.
 - `sourceTier.aiGenerated` is `true` — concealing AI origin stays a violation;
   disclosure is what unlocks the exception, never silence.
-- `sourceTier.panelAdjudication` records `models` (2+ distinct model
-  identities), `adversarialVerification: true`, and `dossier` — a repo-relative
-  path to the versioned panel dossier that must exist.
+- `sourceTier.panelAdjudication` records two structured model identities from
+  the reviewed catalog (`anthropic/claude/5` and `openai/gpt/5`),
+  `adversarialVerification: true`, and a repository-relative dossier whose
+  containment, manifest, file paths, sizes, and hashes are validated. Versioning
+  comes from committed CI state; the metadata itself remains self-attested.
+- `panelAdjudication.scopes` is explicit, duplicate-free, and exactly matches
+  the truth payload. The current panel exception is limited to
+  `saju_doctrine`; it cannot authorize naming scores, product card surfaces,
+  narrative regex policy, or safety-copy policy.
+- `panelAdjudication.recordId` exactly matches the authority record, and
+  `panelAdjudication.contentDigest` matches the canonical SHA-256 digest of
+  the complete record, including `sourceTier`, excluding only the
+  self-referential `panelAdjudication.contentDigest` field.
+- The dossier contains `panel-manifest.json` using
+  `spring-ts.panel-adjudication.v1`. Exactly one approved manifest row must
+  bind the same record ID, digest, exact raw model list, exact scope list, reviewer,
+  and adversarial verification flag. Each model also has a distinct JSON
+  evidence file whose size, SHA-256 digest, record ID, record digest, model,
+  scope, verdict, and non-trivial reasoning are verified. Reusing an unrelated
+  dossier or evidence file is a hard failure.
 - `sourceTier.authorityReview` is an approved owner review (status/reviewedBy/
   reviewedAt), i.e. a named human accepted accountability for the judgement
   after reading the dossier.
 
 **Honesty boundary:** such records are *panel-adjudicated interpretations*,
 not external-expert certification. Documents and PR text must not describe
-them as independent human expert validation. `data/sources/**` registry rows
+them as independent human expert validation, and they cannot satisfy the
+external expert signoff required for Draft removal or merge. Digests verify
+repository consistency, not actual provider origin or reviewer identity.
+`data/sources/**` registry rows
 remain fully closed to AI-derived sources — the exception applies to
 authority-truth fixtures only.
+
+Generic T3 owner review is not sufficient for an authority denominator.
+Non-panel authority records must match the reviewed, tier-specific sourceType
+allowlist in `tools/source-tier/authority-evidence.mjs`; unknown source classes
+fail closed until a policy review adds them. The public compatibility facade is
+`tools/source_tier_policy.mjs`.
 
 Examples of AI markers include:
 
