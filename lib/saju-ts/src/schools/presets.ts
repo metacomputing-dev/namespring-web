@@ -1,5 +1,5 @@
 import type { EngineConfig } from '../api/types.js';
-import { deepMerge } from '../utils/deepMerge.js';
+import { deepClone, deepFreeze, deepMerge } from '../utils/deepMerge.js';
 
 import type { SchoolPreset, SchoolPresetPack } from './packTypes.js';
 import { buildPresetIndex, concatRuleSpecs, extractUserPresetPacks, materializePreset } from './packLoader.js';
@@ -11,13 +11,17 @@ import { buildPresetIndex, concatRuleSpecs, extractUserPresetPacks, materializeP
 // (and NodeNext module resolution in typical ESM setups).
 import builtinPackRaw from './packs/builtin.pack.json' with { type: 'json' };
 
-const BUILTIN_PACK: SchoolPresetPack = builtinPackRaw as any;
+const BUILTIN_PACK: SchoolPresetPack = deepFreeze(deepClone(builtinPackRaw as SchoolPresetPack));
 
 // Canonical list (exclude aliases) for discovery UIs.
-const BUILTIN_PRESETS: SchoolPreset[] = (BUILTIN_PACK.presets ?? []).map((d) => materializePreset(d as any, BUILTIN_PACK));
+const BUILTIN_PRESETS: SchoolPreset[] = deepFreeze(
+  (BUILTIN_PACK.presets ?? []).map((d) => materializePreset(d as any, BUILTIN_PACK)),
+);
 
 // Fast lookup for built-in ids + aliases.
-const BUILTIN_INDEX: Record<string, { preset: SchoolPreset; packId: string }> = buildPresetIndex([BUILTIN_PACK]);
+const BUILTIN_INDEX: Record<string, { preset: SchoolPreset; packId: string }> = deepFreeze(
+  buildPresetIndex([BUILTIN_PACK]),
+);
 
 export type { SchoolPreset, SchoolPresetPack } from './packTypes.js';
 
@@ -42,12 +46,13 @@ export class UnknownSchoolPresetError extends Error {
 }
 
 export function listSchoolPresets(): SchoolPreset[] {
-  return [...BUILTIN_PRESETS];
+  return deepClone(BUILTIN_PRESETS);
 }
 
 export function getSchoolPreset(id: string): SchoolPreset | null {
   if (!id) return null;
-  return BUILTIN_INDEX[id]?.preset ?? null;
+  const preset = BUILTIN_INDEX[id]?.preset;
+  return preset ? deepClone(preset) : null;
 }
 
 /**
@@ -60,7 +65,7 @@ export function getSchoolPreset(id: string): SchoolPreset | null {
  */
 export function resolveSchoolPresetPacks(config: EngineConfig): SchoolPresetPack[] {
   const user = extractUserPresetPacks(config);
-  return [BUILTIN_PACK, ...user];
+  return [BUILTIN_PACK, ...deepClone(user)];
 }
 
 function resolvePresetFromPacks(presetId: string, packs: SchoolPresetPack[]): SchoolPreset | null {
@@ -113,7 +118,7 @@ export function applySchoolPreset(baseConfig: EngineConfig, presetId: string, pa
   if (combined != null) {
     const ext = ((merged.extensions as any) ?? {}) as any;
     merged.extensions = ext;
-    ext.ruleSpecs = combined;
+    ext.ruleSpecs = deepClone(combined);
   }
 
   return merged;

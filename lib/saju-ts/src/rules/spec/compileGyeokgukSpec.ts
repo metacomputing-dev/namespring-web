@@ -1,6 +1,7 @@
 import type { Rule, RuleSet, Expr } from '../dsl.js';
 import { ELEMENT_ORDER } from '../../core/elementVector.js';
 import { DEFAULT_GYEOKGUK_RULESET } from '../defaultRuleSets.js';
+import { deepClone } from '../../utils/deepMerge.js';
 import type { GyeokgukMacro, GyeokgukRuleSpec, GyeokgukRuleSpecMode } from './gyeokgukSpec.js';
 import type { TenGod } from '../../api/types.js';
 
@@ -422,7 +423,7 @@ function applyMode(baseRules: Rule[], compiled: Rule[], mode: GyeokgukRuleSpecMo
 
 export function compileGyeokgukRuleSpec(specInput: GyeokgukRuleSpec | GyeokgukRuleSpec[]): RuleSet {
   const specs = Array.isArray(specInput) ? specInput : [specInput];
-  if (specs.length === 0) return DEFAULT_GYEOKGUK_RULESET;
+  if (specs.length === 0) return deepClone(DEFAULT_GYEOKGUK_RULESET);
 
   let rules: Rule[] = [];
   let meta: Pick<RuleSet, 'id' | 'version' | 'description'> = {
@@ -436,7 +437,7 @@ export function compileGyeokgukRuleSpec(specInput: GyeokgukRuleSpec | GyeokgukRu
     const compiled = compileMacros(s.macros ?? []);
     if (first) {
       const base = s.base ?? 'default';
-      const baseRules = base === 'default' ? DEFAULT_GYEOKGUK_RULESET.rules : [];
+      const baseRules = base === 'default' ? deepClone(DEFAULT_GYEOKGUK_RULESET.rules) : [];
       const mode = s.mode ?? 'append';
       rules = applyMode(baseRules, compiled, mode);
       meta = {
@@ -452,10 +453,10 @@ export function compileGyeokgukRuleSpec(specInput: GyeokgukRuleSpec | GyeokgukRu
     }
   }
 
-  return {
+  return deepClone({
     id: meta.id,
     version: meta.version,
     description: meta.description,
     rules,
-  };
+  });
 }

@@ -1,5 +1,6 @@
 import type { BranchIdx, StemIdx } from './cycle.js';
 import { mod } from './mod.js';
+import { deepFreeze } from '../utils/deepMerge.js';
 
 /** 본기/중기/여기 */
 export type HiddenStemRole = 'MAIN' | 'MIDDLE' | 'RESIDUAL';
@@ -61,7 +62,7 @@ const e = (stem: StemIdx, role: HiddenStemRole): HiddenStemBase => ({ stem, role
  * - 2 stems: [MAIN, RESIDUAL]
  * - 3 stems: [MAIN, MIDDLE, RESIDUAL]
  */
-export const rawHiddenStemsTable: ReadonlyArray<readonly HiddenStemBase[]> = [
+export const rawHiddenStemsTable: ReadonlyArray<readonly HiddenStemBase[]> = deepFreeze([
   /* 子 */ [e(9, M)],
   /* 丑 */ [e(5, M), e(9, MD), e(7, R)],
   /* 寅 */ [e(0, M), e(2, MD), e(4, R)],
@@ -74,7 +75,7 @@ export const rawHiddenStemsTable: ReadonlyArray<readonly HiddenStemBase[]> = [
   /* 酉 */ [e(7, M)],
   /* 戌 */ [e(4, M), e(7, MD), e(3, R)],
   /* 亥 */ [e(8, M), e(0, R)],
-] as const;
+] as const);
 
 function weightsForCount(n: number, scheme: HiddenStemWeightScheme, std?: HiddenStemWeightPolicy['standard']): number[] {
   if (n <= 0) return [];

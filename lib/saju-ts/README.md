@@ -67,6 +67,7 @@ console.log(bundle.report.trace.nodes.slice(0, 3));
 - [validator documentation](https://github.com/metacomputing-dev/namespring-web/blob/main/lib/saju-ts/tools/README.md) — inputs, limits, and pass criteria
 - [repository-level integrity audit](https://github.com/metacomputing-dev/namespring-web/blob/main/lib/spring-ts/docs/AUDIT_SAJU_ENGINE_INTEGRITY.md)
 - [repository-level quality roadmap](https://github.com/metacomputing-dev/namespring-web/blob/main/lib/spring-ts/docs/ROADMAP_SAJU_ENGINE.md)
+- [runtime integrity boundaries](docs/28_runtime_integrity_boundaries.md)
 
 ---
 

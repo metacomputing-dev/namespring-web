@@ -2,6 +2,7 @@ import type { AnalysisBundle, EngineConfig, FourPillars, SajuRequest, SummaryRep
 import { normalizeConfig } from './config.js';
 import { sha256Hex } from '../utils/hash.js';
 import { stableStringify } from '../utils/json.js';
+import { deepFreeze } from '../utils/deepMerge.js';
 import { buildGraph } from '../graph/graphFactory.js';
 import { evaluate } from '../graph/evaluator.js';
 import { normalizeRequest } from '../calendar/normalizeRequest.js';
@@ -105,7 +106,10 @@ function toFortuneDecadeYearRelationEntryView(entry: DecadeYearRelationEntry) {
 }
 
 export function createEngine(config: Partial<EngineConfig> = {}): Engine {
-  const normalizedConfig = normalizeConfig(config);
+  // The engine and its compiled-policy caches rely on configuration identity
+  // being stable for the full engine lifetime. Own and freeze the effective
+  // snapshot before exposing it or using it as a cache key.
+  const normalizedConfig = deepFreeze(normalizeConfig(config));
   const configDigest = `sha256:${sha256Hex(stableStringify(normalizedConfig))}`;
 
 

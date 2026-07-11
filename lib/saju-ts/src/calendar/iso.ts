@@ -1,12 +1,12 @@
 export interface LocalDate {
   y: number;
-  m: number; // 1..12
-  d: number; // 1..31
+  m: number;
+  d: number;
 }
 
 export interface LocalTime {
-  h: number; // 0..23
-  min: number; // 0..59
+  h: number;
+  min: number;
 }
 
 export interface LocalDateTime {
@@ -22,48 +22,108 @@ export interface ParsedInstant {
   localDateTime: LocalDateTime;
 }
 
+export class InvalidIsoInstantError extends Error {
+  readonly code = 'SAJU_INVALID_ISO_INSTANT';
+  readonly instant: string;
+  readonly reason: string;
+
+  constructor(instant: string, reason: string) {
+    super(`Invalid ISO instant: ${reason}`);
+    this.name = 'InvalidIsoInstantError';
+    this.instant = instant;
+    this.reason = reason;
+  }
+}
+
+function isLeapYear(year: number): boolean {
+  return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+}
+
+function daysInMonth(year: number, month: number): number {
+  if (month === 2) return isLeapYear(year) ? 29 : 28;
+  return [4, 6, 9, 11].includes(month) ? 30 : 31;
+}
+
+function parseOffsetMinutes(tz: string): number {
+  const match = tz.match(/^([+-])(\d{2}):(\d{2})$/);
+  if (!match) {
+    throw new InvalidIsoInstantError(tz, 'offset shape is invalid');
+  }
+  const sign = match[1] === '-' ? -1 : 1;
+  const hours = Number(match[2]);
+  const minutes = Number(match[3]);
+  if (
+    hours > 14 ||
+    minutes > 59 ||
+    (hours === 14 && minutes !== 0)
+  ) {
+    throw new InvalidIsoInstantError(tz, 'offset is outside +/-14:00');
+  }
+  return sign * (hours * 60 + minutes);
+}
+
 /**
- * Parse ISO-8601 string with explicit offset (or 'Z').
- * - Minutes are required.
+ * Parse an ISO-8601 instant with an explicit offset or Z.
+ * Impossible calendar dates and clock times are rejected before Date.parse can
+ * normalize them into a different instant.
  */
 export function parseIsoInstant(instant: string): ParsedInstant {
-  const m = instant.match(
+  const match = instant.match(
     /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{1,3}))?)?(Z|[+-]\d{2}:\d{2})$/,
   );
-  if (!m) {
-    throw new Error(`Invalid ISO instant (requires offset and minutes): ${instant}`);
+  if (!match) {
+    throw new InvalidIsoInstantError(
+      instant,
+      'explicit offset and minute precision are required',
+    );
   }
 
-  const y = Number(m[1]);
-  const mo = Number(m[2]);
-  const d = Number(m[3]);
-  const h = Number(m[4]);
-  const min = Number(m[5]);
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  const hour = Number(match[4]);
+  const minute = Number(match[5]);
+  const second = Number(match[6] ?? 0);
 
-  const tz = m[8];
-  const offsetMinutes = tz === 'Z' ? 0 : parseOffsetMinutes(tz);
+  if (year < 1 || month < 1 || month > 12) {
+    throw new InvalidIsoInstantError(
+      instant,
+      'date is outside the supported range',
+    );
+  }
+  if (day < 1 || day > daysInMonth(year, month)) {
+    throw new InvalidIsoInstantError(instant, 'calendar date does not exist');
+  }
+  if (
+    hour < 0 ||
+    hour > 23 ||
+    minute < 0 ||
+    minute > 59 ||
+    second < 0 ||
+    second > 59
+  ) {
+    throw new InvalidIsoInstantError(instant, 'clock time does not exist');
+  }
 
+  const timezone = match[8];
+  const offsetMinutes = timezone === 'Z'
+    ? 0
+    : parseOffsetMinutes(timezone);
   const utcMs = Date.parse(instant);
   if (!Number.isFinite(utcMs)) {
-    throw new Error(`Unable to parse Date from ISO: ${instant}`);
+    throw new InvalidIsoInstantError(
+      instant,
+      'runtime date conversion failed',
+    );
   }
 
   return {
     utcMs,
     offsetMinutes,
     localDateTime: {
-      date: { y, m: mo, d },
-      time: { h, min },
+      date: { y: year, m: month, d: day },
+      time: { h: hour, min: minute },
       offsetMinutes,
     },
   };
-}
-
-function parseOffsetMinutes(tz: string): number {
-  const m = tz.match(/^([+-])(\d{2}):(\d{2})$/);
-  if (!m) throw new Error(`Invalid offset: ${tz}`);
-  const sign = m[1] === '-' ? -1 : 1;
-  const hh = Number(m[2]);
-  const mm = Number(m[3]);
-  return sign * (hh * 60 + mm);
 }

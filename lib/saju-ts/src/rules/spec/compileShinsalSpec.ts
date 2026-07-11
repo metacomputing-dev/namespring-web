@@ -9,6 +9,7 @@ import {
   buildRelationSalRules,
 } from '../shinsalRuleCompiler.js';
 import { DEFAULT_SHINSAL_RULESET } from '../defaultRuleSets.js';
+import { deepClone } from '../../utils/deepMerge.js';
 
 import type { ShinsalCatalogName, ShinsalMacro, ShinsalRuleSpec, ShinsalRuleSpecMode } from './shinsalSpec.js';
 
@@ -203,7 +204,7 @@ function applyMode(baseRules: Rule[], compiled: Rule[], mode: ShinsalRuleSpecMod
  */
 export function compileShinsalRuleSpec(specInput: ShinsalRuleSpec | ShinsalRuleSpec[]): RuleSet {
   const specs = Array.isArray(specInput) ? specInput : [specInput];
-  if (specs.length === 0) return DEFAULT_SHINSAL_RULESET;
+  if (specs.length === 0) return deepClone(DEFAULT_SHINSAL_RULESET);
 
   let rules: Rule[] = [];
   let meta: Pick<RuleSet, 'id' | 'version' | 'description'> = {
@@ -218,7 +219,7 @@ export function compileShinsalRuleSpec(specInput: ShinsalRuleSpec | ShinsalRuleS
     const compiled = compileMacros(s.macros ?? []);
     if (first) {
       const base = s.base ?? 'default';
-      const baseRules = base === 'default' ? DEFAULT_SHINSAL_RULESET.rules : [];
+      const baseRules = base === 'default' ? deepClone(DEFAULT_SHINSAL_RULESET.rules) : [];
       const mode = s.mode ?? 'append';
       rules = applyMode(baseRules, compiled, mode);
       // Use the first spec's meta preferentially.
@@ -236,10 +237,10 @@ export function compileShinsalRuleSpec(specInput: ShinsalRuleSpec | ShinsalRuleS
     }
   }
 
-  return {
+  return deepClone({
     id: meta.id,
     version: meta.version,
     description: meta.description,
     rules,
-  };
+  });
 }
