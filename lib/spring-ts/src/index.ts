@@ -4,9 +4,13 @@
 export {
   SPRING_ENGINE_INIT_CANCELLED,
   SPRING_ENGINE_OPERATION_CANCELLED,
+  NAME_ENTRY_RESOLUTION_FAILED,
   SpringEngine,
   SpringEngineInitializationCancelledError,
   SpringEngineOperationCancelledError,
+  NameEntryResolutionError,
+  type NameEntryResolutionFailureReason,
+  type NameEntryRole,
 } from './spring-engine.js';
 export {
   FOURFRAME_CONTRACT_INVALID,
