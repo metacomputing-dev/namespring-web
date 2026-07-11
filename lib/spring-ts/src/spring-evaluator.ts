@@ -142,7 +142,8 @@ function extractSajuPriority(ctx: EvalContext): number {
   //
   //    sajuPriorityCurve='tanh'  → softens both 0 and 1 extremes
   //    unknownHourGuard:true     → dampens priority by unknownTimeSajuDamp
-  //                                (default 0.5) when birth.hour is missing
+  //                                (default 0.5) when normalized input-time
+  //                                uncertainty can change chart results
 
   const evaluatorHints = (details?.evaluatorHints ?? {}) as {
     sajuPriorityCurve?: 'linear' | 'tanh';

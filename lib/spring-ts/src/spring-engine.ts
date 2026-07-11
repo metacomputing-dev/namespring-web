@@ -55,7 +55,7 @@ import { buildFortuneReport } from './report/buildFortuneReport.js';
 import type { FortuneReportRequest, FortuneReport } from './report/types.js';
 import { assertScorableSajuSummary, isScorableSajuSummary } from './saju-analysis-contract.js';
 import { resolveFortuneTargetDate } from './report/report-input-contract.js';
-import { getLegalAnnotation, normalizeToOrthodoxHanja, type HanjaLegalStatus, type HanjaPool } from './hanja-annotations.js';
+import { getLegalAnnotation, type HanjaLegalStatus, type HanjaPool } from './hanja-annotations.js';
 import inmyeongyongFullData from '../data/inmyeongyong_9389_full.json';
 import { getEnrichedStrokeCount, getUnihanMetadata } from './hanja-unihan.js';
 import { getNameTrendAnalysis, type NameTrendAnalysis } from './name-trend.js';
@@ -68,12 +68,29 @@ import {
   FOURFRAME_MAX_NUMBER,
   compileFourFrameContract,
 } from './fourframe-contract.js';
+import {
+  averageScores,
+  clampScore,
+  dedupeCandidateSummariesByHangul,
+  deriveCandidateStrengthProfile,
+  describeCandidateName,
+  finiteScore,
+  orderCandidateSummaries,
+  orderSpringCandidates,
+  orderSpringReports,
+  roundScore,
+  sliceAndRankCandidatePage,
+  sliceCandidatePage,
+} from './candidate-selection.js';
 
 // ---------------------------------------------------------------------------
 // Config -- all tuneable numbers come from engine.json
 // ---------------------------------------------------------------------------
 
 const MAX_CANDIDATES            = engineConfig.maxCandidates;
+const CANDIDATE_SELECTION_LIMITS = Object.freeze({
+  paretoPoolLimit: engineConfig.candidateSelection.paretoPoolLimit,
+});
 const POOL_LIMIT_SINGLE_CHAR    = engineConfig.candidatePoolLimits.singleCharPerStroke;
 const POOL_LIMIT_DOUBLE_CHAR    = engineConfig.candidatePoolLimits.doubleCharPerPosition;
 const POOL_LIMIT_JAMO_FILTERED  = engineConfig.candidatePoolLimits.jamoFilteredPerPosition;
@@ -347,27 +364,6 @@ function getFullLegalPoolEntries(): readonly HanjaEntry[] {
   return fullLegalPoolCache;
 }
 
-/** Round a score to one decimal place. */
-function roundScore(value: number): number {
-  return Math.round(value * 10) / 10;
-}
-
-function clampScore(value: number): number {
-  return Math.max(0, Math.min(100, roundScore(value)));
-}
-
-function finiteScore(value: unknown): number | null {
-  if (value == null) return null;
-  const numeric = Number(value);
-  return Number.isFinite(numeric) ? clampScore(numeric) : null;
-}
-
-function averageScores(values: Array<number | null | undefined>): number | null {
-  const finite = values.filter((value): value is number => typeof value === 'number' && Number.isFinite(value));
-  if (!finite.length) return null;
-  return clampScore(finite.reduce((sum, value) => sum + value, 0) / finite.length);
-}
-
 const ELEMENT_DISPLAY_LABELS: Readonly<Record<string, string>> = {
   WOOD: '나무',
   FIRE: '불',
@@ -381,30 +377,11 @@ const ELEMENT_DISPLAY_LABELS: Readonly<Record<string, string>> = {
   Water: '물',
 };
 
-const NAMING_AXIS_DISPLAY_LABELS: Readonly<Record<keyof NamingScoreVector | 'riskQuality', string>> = {
-  legal: '법적 사용 가능성',
-  sajuFit: '사주 보완',
-  yongshinFit: '용신 보강',
-  elementBalance: '오행 균형',
-  hanjaMeaning: '한자 의미',
-  phonetic: '발음 흐름',
-  eraFit: '시대감',
-  familyFit: '성과 이름 연결',
-  risk: '주의 신호',
-  riskQuality: '주의 신호 안정도',
-};
-
 function elementDisplayLabel(value: unknown): string | undefined {
   if (typeof value !== 'string') return undefined;
   const trimmed = value.trim();
   if (!trimmed) return undefined;
   return ELEMENT_DISPLAY_LABELS[trimmed] ?? ELEMENT_DISPLAY_LABELS[trimmed.toUpperCase()] ?? trimmed;
-}
-
-function formatCandidateScore(value: number | null | undefined): string {
-  return typeof value === 'number' && Number.isFinite(value)
-    ? `${roundScore(value)}점`
-    : '자료 없음';
 }
 
 function hasHanIdeograph(value: string | undefined): boolean {
@@ -472,24 +449,6 @@ function toNameCharInput(entry: HanjaEntry, pool: HanjaPool = 'curated'): NameCh
 interface NameResolutionPolicy {
   readonly pureHangulGivenName: boolean;
   readonly useSurnameHanjaInPureHangul: boolean;
-}
-
-interface CandidateSelectionInfo {
-  readonly score: number;
-  readonly vector?: NamingScoreVector;
-  readonly profile?: CandidateStrengthProfile;
-  readonly givenHangul: string;
-  readonly givenHanja: string;
-  readonly syllables: readonly string[];
-  readonly orthodoxHanjas: readonly string[];
-}
-
-interface CandidateDiversityState {
-  readonly profileCounts: Map<string, number>;
-  readonly syllableCounts: Map<string, number>;
-  readonly hanjaCounts: Map<string, number>;
-  readonly hangulCounts: Map<string, number>;
-  readonly hanjaNameCounts: Map<string, number>;
 }
 
 interface ResolveEntriesOptions {
@@ -742,11 +701,15 @@ export class SpringEngine {
    *  yongshinMode, strengthMode, tenGodMode, gyeokgukMode). When the precision
    *  config block is absent, scoringOverrides is undefined and each sub-score
    *  falls through to its legacy default. */
-  /** Build the evaluator-side hints (PR8) from a request's precisionConfig +
-   *  birth.hour presence. Returns undefined when no PR8 flag is active so
+  /** Build evaluator-side hints from request policy plus the normalized saju
+   *  uncertainty contract. Returns undefined when no adaptive flag is active so
    *  SajuCalculator's putInsight can store undefined → spring-evaluator's
    *  extractSajuPriority falls through to the linear default. */
-  private resolveEvaluatorHints(birth: BirthInfo | undefined, options?: SpringRequest['options']): SajuEvaluatorHints | undefined {
+  private resolveEvaluatorHints(
+    birth: BirthInfo | undefined,
+    options?: SpringRequest['options'],
+    sajuOutput?: SajuOutputSummary | null,
+  ): SajuEvaluatorHints | undefined {
     const pc = options?.precisionConfig ?? {};
 
     const hints: { -readonly [K in keyof SajuEvaluatorHints]?: SajuEvaluatorHints[K] } = {};
@@ -759,13 +722,19 @@ export class SpringEngine {
       hints.sajuPriorityCurve = 'tanh';
     }
     // PR-Q-8 (Phase M-D2): unknownHourGuard default flips false → true.
-    // The guard only takes effect when `birth.hour == null` (시간미상);
-    // hour-known fixtures are unaffected. Callers can opt out explicitly
+    // The guard takes effect for an unknown hour, or for an unknown minute
+    // only when the normalized HH:00..HH:59 envelope crosses a real boundary.
+    // Callers can opt out explicitly
     // with `precisionConfig.unknownHourGuard: false`.
     const guardEnabled = pc.unknownHourGuard !== false;
     if (guardEnabled) {
       hints.unknownHourGuard = true;
-      hints.isHourUnknown = birth?.hour == null;
+      const normalizedUncertainty = sajuOutput?.inputUncertainty;
+      const rawHour = (birth as { readonly hour?: unknown } | undefined)?.hour;
+      hints.isHourUnknown = normalizedUncertainty
+        ? normalizedUncertainty.unknownHour != null
+          || normalizedUncertainty.unknownMinute?.boundarySensitive === true
+        : rawHour == null || rawHour === '';
       if (typeof pc.unknownTimeSajuDamp === 'number') {
         hints.unknownTimeSajuDamp = pc.unknownTimeSajuDamp;
       }
@@ -865,10 +834,6 @@ export class SpringEngine {
       || options?.precisionConfig?.paretoFrontierCandidates === true;
   }
 
-  private shouldUseParetoFrontier(options?: SpringRequest['options']): boolean {
-    return options?.precisionConfig?.paretoFrontierCandidates === true;
-  }
-
   private resolveNamingScoreVectorEvidence(
     surname: NameCharInput[] | undefined,
     givenName: NameCharInput[] | undefined,
@@ -935,143 +900,13 @@ export class SpringEngine {
     };
   }
 
-  private deriveCandidateStrengthProfile(
-    vector: NamingScoreVector,
-    paretoFrontier: boolean = false,
-  ): CandidateStrengthProfile {
-    const riskQuality = clampScore(100 - vector.risk);
-    const profileRows: Array<{
-      readonly id: CandidateStrengthProfile['id'];
-      readonly label: string;
-      readonly primaryAxis: CandidateStrengthProfile['primaryAxis'];
-      readonly score: number | null;
-      readonly axes: Array<keyof NamingScoreVector | 'riskQuality'>;
-    }> = [
-      {
-        id: 'saju_reinforcement',
-        label: '사주 보완형',
-        primaryAxis: 'sajuFit',
-        score: averageScores([vector.sajuFit, vector.yongshinFit, vector.elementBalance]),
-        axes: ['sajuFit', 'yongshinFit', 'elementBalance'],
-      },
-      {
-        id: 'phonetic_stability',
-        label: '발음 안정형',
-        primaryAxis: 'phonetic',
-        score: averageScores([vector.phonetic, vector.familyFit, riskQuality]),
-        axes: ['phonetic', 'familyFit', 'riskQuality'],
-      },
-      {
-        id: 'era_balance',
-        label: '시대 조화형',
-        primaryAxis: 'eraFit',
-        score: averageScores([vector.eraFit, riskQuality]),
-        axes: ['eraFit', 'riskQuality'],
-      },
-      {
-        id: 'legal_meaning',
-        label: '한자 의미 안정형',
-        primaryAxis: 'legal',
-        score: averageScores([vector.legal, vector.hanjaMeaning, riskQuality]),
-        axes: ['legal', 'hanjaMeaning', 'riskQuality'],
-      },
-      {
-        id: 'risk_managed',
-        label: '위험 관리형',
-        primaryAxis: 'risk',
-        score: riskQuality,
-        axes: ['riskQuality'],
-      },
-      {
-        id: 'balanced',
-        label: '균형형',
-        primaryAxis: 'balanced',
-        score: averageScores([
-          vector.legal,
-          vector.sajuFit,
-          vector.yongshinFit,
-          vector.elementBalance,
-          vector.hanjaMeaning,
-          vector.phonetic,
-          vector.eraFit,
-          vector.familyFit,
-          riskQuality,
-        ]),
-        axes: ['legal', 'sajuFit', 'yongshinFit', 'elementBalance', 'hanjaMeaning', 'phonetic', 'eraFit', 'familyFit', 'riskQuality'],
-      },
-    ];
-    const selected = profileRows
-      .filter((row): row is typeof profileRows[number] & { readonly score: number } => row.score !== null)
-      .sort((a, b) => b.score - a.score || a.id.localeCompare(b.id))[0];
-
-    if (!selected) {
-      return {
-        id: 'balanced',
-        label: '균형형',
-        primaryAxis: 'balanced',
-        reasons: ['비교할 수 있는 점수 벡터 축이 아직 없어요.'],
-        displayReasons: ['비교할 수 있는 점수 정보가 아직 없어요.'],
-        paretoFrontier,
-      };
-    }
-
-    const displayReasons = selected.axes
-      .map((axis) => {
-        const value = axis === 'riskQuality' ? riskQuality : vector[axis];
-        return `${NAMING_AXIS_DISPLAY_LABELS[axis]} ${formatCandidateScore(value)}`;
-      });
-
-    return {
-      id: selected.id,
-      label: selected.label,
-      primaryAxis: selected.primaryAxis,
-      reasons: displayReasons,
-      displayReasons,
-      paretoFrontier,
-    };
-  }
-
-  private withParetoFlag(
-    profile: CandidateStrengthProfile | undefined,
-    paretoFrontier: boolean,
-  ): CandidateStrengthProfile | undefined {
-    return profile ? { ...profile, paretoFrontier } : undefined;
-  }
-
-  private normalizedHanjaKey(hanja: string | undefined): string {
-    const value = String(hanja ?? '').trim();
-    return hasHanIdeograph(value) ? normalizeToOrthodoxHanja(value) : '';
-  }
-
-  private nameDiversityInfo(chars: readonly NameCharInput[]): {
-    readonly givenHangul: string;
-    readonly givenHanja: string;
-    readonly syllables: readonly string[];
-    readonly orthodoxHanjas: readonly string[];
-    readonly hasRepeatedSyllable: boolean;
-    readonly hasRepeatedOrthodoxHanja: boolean;
-  } {
-    const syllables = chars.map((char) => String(char.hangul ?? '').trim()).filter(Boolean);
-    const orthodoxHanjas = chars
-      .map((char) => this.normalizedHanjaKey(char.hanja))
-      .filter(Boolean);
-    return {
-      givenHangul: syllables.join(''),
-      givenHanja: orthodoxHanjas.join(''),
-      syllables,
-      orthodoxHanjas,
-      hasRepeatedSyllable: new Set(syllables).size < syllables.length,
-      hasRepeatedOrthodoxHanja: new Set(orthodoxHanjas).size < orthodoxHanjas.length,
-    };
-  }
-
   private filterInternallyRepeatedCandidates(
     candidates: NameCharInput[][],
     accumulator: CandidateRejectionAccumulator,
   ): NameCharInput[][] {
     const filtered: NameCharInput[][] = [];
     for (const candidate of candidates) {
-      const info = this.nameDiversityInfo(candidate);
+      const info = describeCandidateName(candidate);
       if (info.hasRepeatedSyllable || info.hasRepeatedOrthodoxHanja) {
         this.recordCandidateRejection(
           accumulator,
@@ -1119,211 +954,6 @@ export class SpringEngine {
     return filtered;
   }
 
-  private vectorDominates(a: NamingScoreVector, b: NamingScoreVector): boolean {
-    const axisValues = (vector: NamingScoreVector): Array<number | null> => [
-      vector.legal,
-      vector.sajuFit,
-      vector.yongshinFit,
-      vector.elementBalance,
-      vector.hanjaMeaning,
-      vector.phonetic,
-      vector.eraFit,
-      vector.familyFit,
-      100 - vector.risk,
-    ];
-    const aValues = axisValues(a);
-    const bValues = axisValues(b);
-    let comparable = 0;
-    let strictlyBetter = false;
-    for (let index = 0; index < aValues.length; index += 1) {
-      const left = aValues[index];
-      const right = bValues[index];
-      if (left == null || right == null) continue;
-      comparable += 1;
-      if (left < right - 0.000001) return false;
-      if (left > right + 0.000001) strictlyBetter = true;
-    }
-    return comparable >= 2 && strictlyBetter;
-  }
-
-  private emptyDiversityState(): CandidateDiversityState {
-    return {
-      profileCounts: new Map(),
-      syllableCounts: new Map(),
-      hanjaCounts: new Map(),
-      hangulCounts: new Map(),
-      hanjaNameCounts: new Map(),
-    };
-  }
-
-  private diversityPenalty(info: CandidateSelectionInfo, state: CandidateDiversityState): number {
-    let penalty = 0;
-    penalty += (state.profileCounts.get(info.profile?.id ?? '') ?? 0) * 4;
-    penalty += (state.hangulCounts.get(info.givenHangul) ?? 0) * 8;
-    if (info.givenHanja) penalty += (state.hanjaNameCounts.get(info.givenHanja) ?? 0) * 8;
-    for (const syllable of info.syllables) penalty += Math.min(5, (state.syllableCounts.get(syllable) ?? 0) * 2.5);
-    for (const hanja of info.orthodoxHanjas) penalty += Math.min(5, (state.hanjaCounts.get(hanja) ?? 0) * 2.5);
-    return penalty;
-  }
-
-  private recordDiversitySelection(info: CandidateSelectionInfo, state: CandidateDiversityState): void {
-    const add = (map: Map<string, number>, key: string): void => {
-      if (!key) return;
-      map.set(key, (map.get(key) ?? 0) + 1);
-    };
-    add(state.profileCounts, info.profile?.id ?? '');
-    add(state.hangulCounts, info.givenHangul);
-    add(state.hanjaNameCounts, info.givenHanja);
-    for (const syllable of info.syllables) add(state.syllableCounts, syllable);
-    for (const hanja of info.orthodoxHanjas) add(state.hanjaCounts, hanja);
-  }
-
-  private orderParetoCandidates<T>(
-    items: readonly T[],
-    options: SpringRequest['options'] | undefined,
-    getInfo: (item: T) => CandidateSelectionInfo,
-    withParetoFrontier: (item: T, paretoFrontier: boolean) => T,
-  ): T[] {
-    const sorted = [...items].sort((a, b) => getInfo(b).score - getInfo(a).score);
-    if (!this.shouldUseParetoFrontier(options)) return sorted;
-
-    const rows = sorted.map((item, index) => ({ item, index, info: getInfo(item) }));
-    const frontier = new Set<number>();
-    for (const row of rows) {
-      const rowVector = row.info.vector;
-      if (!rowVector) continue;
-      const dominated = rows.some((other) =>
-        other.index !== row.index &&
-        other.info.vector &&
-        this.vectorDominates(other.info.vector, rowVector));
-      if (!dominated) frontier.add(row.index);
-    }
-
-    const state = this.emptyDiversityState();
-    const remaining = [...rows];
-    const ordered: T[] = [];
-
-    while (remaining.length > 0) {
-      const bestScore = Math.max(...remaining.map((row) => row.info.score));
-      const window = remaining.filter((row) => row.info.score >= bestScore - 8);
-      const selected = window
-        .map((row) => {
-          const frontierBonus = frontier.has(row.index) ? 3 : 0;
-          const diversity = this.diversityPenalty(row.info, state);
-          const profileNovelty = (state.profileCounts.get(row.info.profile?.id ?? '') ?? 0) === 0 ? 2 : 0;
-          return {
-            row,
-            selectorScore: row.info.score + frontierBonus + profileNovelty - diversity,
-          };
-        })
-        .sort((a, b) =>
-          b.selectorScore - a.selectorScore ||
-          b.row.info.score - a.row.info.score ||
-          a.row.index - b.row.index)[0];
-
-      const selectedIndex = remaining.findIndex((row) => row.index === selected.row.index);
-      remaining.splice(selectedIndex, 1);
-      this.recordDiversitySelection(selected.row.info, state);
-      ordered.push(withParetoFrontier(selected.row.item, frontier.has(selected.row.index)));
-    }
-
-    return ordered;
-  }
-
-  private selectionInfoForSpringReport(report: SpringReport): CandidateSelectionInfo {
-    const diversity = this.nameDiversityInfo(
-      report.namingReport.name.givenName.map((char) => ({
-        hangul: char.hangul,
-        hanja: char.hanja,
-      })),
-    );
-    return {
-      score: report.finalScore,
-      vector: report.scoreVector,
-      profile: report.strengthProfile,
-      ...diversity,
-    };
-  }
-
-  private selectionInfoForCandidateSummary(summary: SpringCandidateSummary): CandidateSelectionInfo {
-    const diversity = this.nameDiversityInfo(summary.givenName);
-    return {
-      score: summary.finalScore,
-      vector: summary.scoreVector,
-      profile: summary.strengthProfile,
-      ...diversity,
-    };
-  }
-
-  private selectionInfoForSpringCandidate(candidate: SpringCandidate): CandidateSelectionInfo {
-    const diversity = this.nameDiversityInfo(
-      candidate.name.givenName.map((char) => ({
-        hangul: char.hangul,
-        hanja: char.hanja,
-      })),
-    );
-    return {
-      score: candidate.scores.total,
-      vector: candidate.scoreVector,
-      profile: candidate.strengthProfile,
-      ...diversity,
-    };
-  }
-
-  private orderSpringReports(
-    results: readonly SpringReport[],
-    options?: SpringRequest['options'],
-  ): SpringReport[] {
-    return this.orderParetoCandidates(
-      results,
-      options,
-      (report) => this.selectionInfoForSpringReport(report),
-      (report, paretoFrontier) => {
-        const strengthProfile = this.withParetoFlag(report.strengthProfile, paretoFrontier);
-        const namingStrengthProfile = this.withParetoFlag(report.namingReport.strengthProfile, paretoFrontier);
-        return {
-          ...report,
-          ...(strengthProfile ? { strengthProfile } : {}),
-          namingReport: {
-            ...report.namingReport,
-            ...(namingStrengthProfile ? { strengthProfile: namingStrengthProfile } : {}),
-          },
-        };
-      },
-    ).map((report, index) => ({ ...report, rank: index + 1 }));
-  }
-
-  private orderCandidateSummaries(
-    results: readonly SpringCandidateSummary[],
-    options?: SpringRequest['options'],
-  ): SpringCandidateSummary[] {
-    return this.orderParetoCandidates(
-      results,
-      options,
-      (summary) => this.selectionInfoForCandidateSummary(summary),
-      (summary, paretoFrontier) => ({
-        ...summary,
-        ...(summary.strengthProfile
-          ? { strengthProfile: this.withParetoFlag(summary.strengthProfile, paretoFrontier) }
-          : {}),
-      }),
-    ).map((summary, index) => ({ ...summary, rank: index + 1 }));
-  }
-
-  private dedupeCandidateSummariesByHangul(
-    results: readonly SpringCandidateSummary[],
-  ): SpringCandidateSummary[] {
-    const seen = new Set<string>();
-    const deduped: SpringCandidateSummary[] = [];
-    for (const summary of results) {
-      const key = summary.fullHangul || summary.givenHangul;
-      if (seen.has(key)) continue;
-      seen.add(key);
-      deduped.push(summary);
-    }
-    return deduped.map((summary, index) => ({ ...summary, rank: index + 1 }));
-  }
-
   private pageOrderedCandidates<T extends { readonly rank: number }>(
     results: readonly T[],
     options?: SpringRequest['options'],
@@ -1333,24 +963,7 @@ export class SpringEngine {
     }
     const offset = options.offset ?? DEFAULT_OFFSET;
     const limit = options.limit ?? results.length;
-    return results.slice(offset, offset + limit);
-  }
-
-  private orderSpringCandidates(
-    results: readonly SpringCandidate[],
-    options?: SpringRequest['options'],
-  ): SpringCandidate[] {
-    return this.orderParetoCandidates(
-      results,
-      options,
-      (candidate) => this.selectionInfoForSpringCandidate(candidate),
-      (candidate, paretoFrontier) => ({
-        ...candidate,
-        ...(candidate.strengthProfile
-          ? { strengthProfile: this.withParetoFlag(candidate.strengthProfile, paretoFrontier) }
-          : {}),
-      }),
-    );
+    return sliceCandidatePage(results, offset, limit);
   }
 
   // -------------------------------------------------------------------------
@@ -1420,7 +1033,7 @@ export class SpringEngine {
       )
       : undefined;
     const strengthProfile = scoreVector
-      ? this.deriveCandidateStrengthProfile(scoreVector)
+      ? deriveCandidateStrengthProfile(scoreVector)
       : undefined;
     return this.buildNamingReport(
       surnameEntries,
@@ -1503,7 +1116,7 @@ export class SpringEngine {
         elementSource: resolutionPolicy.pureHangulGivenName ? 'hangul' : 'resource',
         enabled: hasSajuContext,
         ...this.resolveSajuPreset(request.options),
-        evaluatorHints: this.resolveEvaluatorHints(request.birth, request.options),
+        evaluatorHints: this.resolveEvaluatorHints(request.birth, request.options, sajuOutput),
       },
     );
 
@@ -1559,10 +1172,10 @@ export class SpringEngine {
       )
       : undefined;
     const strengthProfile = scoreVector
-      ? this.deriveCandidateStrengthProfile(scoreVector)
+      ? deriveCandidateStrengthProfile(scoreVector)
       : undefined;
     const namingStrengthProfile = namingScoreVector
-      ? this.deriveCandidateStrengthProfile(namingScoreVector)
+      ? deriveCandidateStrengthProfile(namingScoreVector)
       : undefined;
 
     return {
@@ -1630,7 +1243,10 @@ export class SpringEngine {
       ));
     }
 
-    return this.pageOrderedCandidates(this.orderSpringReports(results, request.options), request.options);
+    return this.pageOrderedCandidates(
+      orderSpringReports(results, request.options, CANDIDATE_SELECTION_LIMITS),
+      request.options,
+    );
   }
 
   // -------------------------------------------------------------------------
@@ -1698,7 +1314,7 @@ export class SpringEngine {
           elementSource: resolutionPolicy.pureHangulGivenName ? 'hangul' : 'resource',
           enabled: hasSajuContext,
           ...this.resolveSajuPreset(request.options),
-          evaluatorHints: this.resolveEvaluatorHints(request.birth, request.options),
+          evaluatorHints: this.resolveEvaluatorHints(request.birth, request.options, sajuOutput),
         },
       );
 
@@ -1735,7 +1351,7 @@ export class SpringEngine {
         )
         : undefined;
       const strengthProfile = scoreVector
-        ? this.deriveCandidateStrengthProfile(scoreVector)
+        ? deriveCandidateStrengthProfile(scoreVector)
         : undefined;
       results.push({
         finalScore: roundScore(combined.score),
@@ -1754,8 +1370,12 @@ export class SpringEngine {
       });
     }
 
-    const ordered = this.orderCandidateSummaries(results, request.options);
-    return this.pageOrderedCandidates(this.dedupeCandidateSummariesByHangul(ordered), request.options);
+    const ordered = orderCandidateSummaries(
+      results,
+      request.options,
+      CANDIDATE_SELECTION_LIMITS,
+    );
+    return this.pageOrderedCandidates(dedupeCandidateSummariesByHangul(ordered), request.options);
   }
 
   // -------------------------------------------------------------------------
@@ -1870,7 +1490,7 @@ export class SpringEngine {
     // 4. Score every candidate and rank by total score (descending)
     const scoredCandidates = await this.scoreAllCandidates(
       request.surname, nameInputs, sajuDistribution, sajuOutput, request.birth, request.options,
-      this.resolveEvaluatorHints(request.birth, request.options),
+      this.resolveEvaluatorHints(request.birth, request.options, sajuOutput),
     );
 
     // 5. Paginate and return
@@ -2165,7 +1785,7 @@ export class SpringEngine {
       );
     }
 
-    return this.orderSpringCandidates(scored, requestOptions);
+    return orderSpringCandidates(scored, requestOptions, CANDIDATE_SELECTION_LIMITS);
   }
 
   // -------------------------------------------------------------------------
@@ -2182,9 +1802,7 @@ export class SpringEngine {
     const offset = request.options?.offset ?? DEFAULT_OFFSET;
     const limit  = request.options?.limit  ?? DEFAULT_LIMIT;
 
-    const page = scoredCandidates
-      .slice(offset, offset + limit)
-      .map((candidate, index) => ({ ...candidate, rank: offset + index + 1 }));
+    const page = sliceAndRankCandidatePage(scoredCandidates, offset, limit);
 
     return {
       request,
@@ -2299,7 +1917,7 @@ export class SpringEngine {
       )
       : undefined;
     const strengthProfile = scoreVector
-      ? this.deriveCandidateStrengthProfile(scoreVector)
+      ? deriveCandidateStrengthProfile(scoreVector)
       : undefined;
     const explanation = scoreVector
       ? buildNamingExplanation({ evaluationResult, scoreVector, strengthProfile })

@@ -1,5 +1,8 @@
 {
   "maxCandidates": 50000,
+  "candidateSelection": {
+    "paretoPoolLimit": 500
+  },
   "candidatePoolLimits": {
     "singleCharPerStroke": 8,
     "doubleCharPerPosition": 6,

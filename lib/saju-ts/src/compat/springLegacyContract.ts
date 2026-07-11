@@ -56,6 +56,7 @@ export interface LegacyYongshinRecommendationV1 {
   readonly type: string;
   readonly primaryElement: string;
   readonly secondaryElement: string | null;
+  /** Spring compatibility boundary: 0..100 confidence points. */
   readonly confidence: number;
   readonly reasoning: string;
 }
@@ -65,6 +66,7 @@ export interface LegacyYongshinResultV1 {
   readonly finalHeesin: string | null;
   readonly gisin: string | null;
   readonly gusin: string | null;
+  /** Spring compatibility boundary: 0..100 confidence points. */
   readonly finalConfidence: number;
   readonly agreement: string;
   readonly consensus: unknown;

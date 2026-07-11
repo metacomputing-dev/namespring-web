@@ -35,7 +35,7 @@ function makeSaju(overrides: Record<string, unknown> = {}): any {
       element: 'METAL',
       heeshin: 'WATER',
       gishin: 'FIRE',
-      confidence: 0.42,
+      confidence: 42,
     },
     gyeokguk: { type: 'JEONG_IN', confidence: 0.78 },
     timeCorrection: { standardYear: 1986, standardMonth: 4 },
@@ -130,6 +130,29 @@ check('yongshinConfidence carries through',
   feature40.yongshinConfidence === 0.42, String(feature40.yongshinConfidence));
 check('gyeokgukConfidence carries through',
   feature40.gyeokgukConfidence === 0.78, String(feature40.gyeokgukConfidence));
+
+for (const { points, ratio } of [
+  { points: 0, ratio: 0 },
+  { points: 1, ratio: 0.01 },
+  { points: 1.0001, ratio: 0.010001 },
+  { points: 100, ratio: 1 },
+] as const) {
+  const feature = buildFeatureVector(
+    makeSaju({
+      yongshin: {
+        element: 'METAL',
+        heeshin: 'WATER',
+        gishin: 'FIRE',
+        confidence: points,
+      },
+    }),
+    { year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male' } as any,
+    new Date('2026-05-02T00:00:00+09:00'),
+  );
+  check(`yongshin confidence converts ${points} points to ${ratio} ratio`,
+    Math.abs(feature.yongshinConfidence - ratio) <= Number.EPSILON * 4,
+    String(feature.yongshinConfidence));
+}
 check('shinsalCount counts the shinsal hits',
   feature40.shinsalCount === 5, String(feature40.shinsalCount));
 check('deficientElementCount counts deficient elements',

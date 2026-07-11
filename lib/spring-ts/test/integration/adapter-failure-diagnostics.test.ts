@@ -84,8 +84,8 @@ check('unsupported lunar conversion is unavailable',
   unsupportedLunar.analysisStatus === 'unavailable'
     && unsupportedLunar.diagnostics?.[0]?.reasonCode === 'LUNAR_CONVERSION_UNAVAILABLE');
 
-const maleSummary = successfulSummary(0.72);
-const femaleSummary = successfulSummary(0.72);
+const maleSummary = successfulSummary(72);
+const femaleSummary = successfulSummary(72);
 const completeNeutral = resolveNeutralGenderAnalysis(
   (gender) => gender === 'MALE' ? maleSummary : femaleSummary,
 );
@@ -99,7 +99,7 @@ check('complete neutral note states that gender-dependent fortune was not select
   completeNeutral.interpretationNote?.includes('임의로 선택하지 않았습니다') === true);
 
 const mismatchedNeutral = resolveNeutralGenderAnalysis(
-  (gender) => gender === 'MALE' ? maleSummary : successfulSummary(0.81),
+  (gender) => gender === 'MALE' ? maleSummary : successfulSummary(81),
 );
 check('neutral natal mismatch fails closed instead of choosing by confidence',
   mismatchedNeutral.basis === null
@@ -181,6 +181,7 @@ check('neutral request preserves a shared malformed-preset failure',
 
 assertFailureMapping('SAJU_MODULE_UNAVAILABLE', 'unavailable');
 assertFailureMapping('BIRTH_DATE_INVALID', 'failed');
+assertFailureMapping('BIRTH_TIME_INVALID', 'failed');
 assertFailureMapping('LUNAR_INPUT_INSUFFICIENT', 'partial');
 assertFailureMapping('NEUTRAL_GENDER_ANALYSIS_PARTIAL', 'partial');
 assertFailureMapping('NEUTRAL_GENDER_NATAL_MISMATCH', 'failed');

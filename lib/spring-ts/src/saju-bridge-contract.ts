@@ -70,18 +70,28 @@ export interface LegacyStrengthResultContract {
   readonly details: readonly string[];
 }
 
+interface LegacyYongshinRecommendationContract {
+  readonly type: string;
+  readonly primaryElement: string;
+  readonly secondaryElement: string | null;
+  /** Spring compatibility boundary: 0..100 confidence points. */
+  readonly confidence: number;
+  readonly reasoning: string;
+}
+
 interface LegacyYongshinResultContract {
   readonly finalYongshin: string;
   readonly finalHeesin: string | null;
   readonly gisin: string | null;
   readonly gusin: string | null;
+  /** Spring compatibility boundary: 0..100 confidence points. */
   readonly finalConfidence: number;
   readonly agreement: string;
   readonly consensus: unknown;
   readonly methodBreakdown: unknown;
   readonly warnings: readonly string[];
   readonly jonggyeokRisk: unknown;
-  readonly recommendations: readonly unknown[];
+  readonly recommendations: readonly LegacyYongshinRecommendationContract[];
 }
 
 interface LegacyLuckAnnotationsContract {

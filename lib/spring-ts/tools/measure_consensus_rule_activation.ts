@@ -88,6 +88,7 @@ const originalFetch = globalThis.fetch;
 
 import { SpringEngine } from '../src/index.js';
 import { computeSajuNameScore } from '../src/saju-calculator.js';
+import { pointsToRatio } from '../src/saju/confidence-units.js';
 import type { ElementKey } from '../src/core/scoring.js';
 import type { SajuOutputSummary } from '../src/types.js';
 
@@ -215,7 +216,7 @@ async function run(): Promise<void> {
         finalHeesin: (yongshin.heeshin as any) ?? '',
         gisin: (yongshin.gishin as any) ?? null,
         gusin: (yongshin.gushin as any) ?? null,
-        finalConfidence: yongshin.confidence ?? 0.65,
+        finalConfidence: pointsToRatio(yongshin.confidence ?? 65),
         recommendations: [],
         consensus,
       },

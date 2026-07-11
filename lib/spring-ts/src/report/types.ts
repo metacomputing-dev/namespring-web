@@ -372,6 +372,13 @@ export interface ReportUncertainty {
     readonly minute: number;
     readonly timezone: string;
   };
+  readonly evaluatedMinuteRange?: {
+    readonly from: number;
+    readonly to: number;
+  };
+  readonly boundarySensitive?: boolean;
+  readonly continuousTimingAffected?: boolean;
+  readonly confidenceTierShift?: 'none' | 'downgrade-affected-axes-one-step';
 }
 
 export interface FortuneReport {

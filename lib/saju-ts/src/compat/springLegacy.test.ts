@@ -6,6 +6,7 @@ import {
   LegacyContractConfigError,
   analyzeSaju,
   createBirthInput,
+  ratioToPoints,
 } from './springLegacy.js';
 import { RELATION_ORDER } from '../core/branchRelations.js';
 
@@ -22,6 +23,26 @@ describe('관계 타입 ↔ 라벨 테이블 전수 일치 (감사 A3)', () => {
       expect(CHEONGAN_RELATION_NOTES[type], `CHEONGAN_RELATION_NOTES.${type}`).toBeTruthy();
     }
   });
+});
+
+const confidenceProducerCases: ReadonlyArray<readonly [unknown, number]> = [
+  [0, 0],
+  [1, 100],
+  [1.0001, 100],
+  [100, 100],
+  [-1, 0],
+  [Number.NaN, 0],
+  ['1', 0],
+  [[1], 0],
+];
+
+describe('Spring confidence producer contract', () => {
+  it.each(confidenceProducerCases)(
+    'converts ratio %j to %i points without unit guessing',
+    (ratio, points) => {
+      expect(ratioToPoints(ratio)).toBe(points);
+    },
+  );
 });
 
 describe('shinsal strategy options', () => {
@@ -74,6 +95,15 @@ describe('normalizeLegacyOutput 정직성 (감사 A1/A2/A9/A15d)', () => {
     expect(breakdown?.balance?.role).toEqual(expect.any(Object));
     expect(Object.values(breakdown.balance.deficiency).some((value) => typeof value === 'number')).toBe(true);
     expect(String(top?.reasoning ?? '')).toContain('\uC5B5\uBD80:');
+  });
+
+  it('uses the same rounded point confidence in recommendation fields and reasoning', () => {
+    for (const recommendation of output.yongshinResult.recommendations) {
+      expect(recommendation.confidence).toBeGreaterThanOrEqual(0);
+      expect(recommendation.confidence).toBeLessThanOrEqual(100);
+      expect(Number.isInteger(recommendation.confidence)).toBe(true);
+      expect(String(recommendation.reasoning)).toContain(`신뢰도 ${recommendation.confidence}점`);
+    }
   });
 
   it('surfaces gyeokguk basis and score map', () => {
