@@ -61,6 +61,16 @@ export {
 export type {
   FourframeCatalogProvenance,
 } from './fourframe-catalog.js';
+export {
+  ServiceTextPolicyError,
+  assertServiceTextPolicy,
+  auditServiceTextPolicy,
+} from './service-text-policy.js';
+export type {
+  ServiceTextPolicyAssertionOptions,
+  ServiceTextPolicySeverity,
+  ServiceTextPolicyViolation,
+} from './service-text-policy.js';
 
 export {
   FourframeRepository,

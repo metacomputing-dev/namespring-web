@@ -109,11 +109,18 @@ function expectValidationError(
   );
 }
 
-function assertEmbeddedFourframeEntries(calculator: FourFrameCalculator): void {
+function assertEmbeddedFourframeEntries(
+  calculator: FourFrameCalculator,
+  expectedFullHangul: string,
+): void {
+  let personalizedEntryCount = 0;
   for (const frame of calculator.getFrames()) {
     const entry = frame.entry;
+    const serializedEntry = JSON.stringify(entry);
     assert.equal(frame.enrichmentStatus, 'embedded_versioned_snapshot');
     assert.equal(entry.number, frame.strokeSum);
+    assert.equal(serializedEntry.includes('[성함]'), false);
+    if (serializedEntry.includes(expectedFullHangul)) personalizedEntryCount += 1;
     for (const field of [
       'title',
       'summary',
@@ -134,6 +141,7 @@ function assertEmbeddedFourframeEntries(calculator: FourFrameCalculator): void {
     assert.ok(Object.isFrozen(entry.personality_traits));
     assert.ok(Object.isFrozen(entry.suitable_career));
   }
+  assert.ok(personalizedEntryCount > 0);
 }
 
 test('analyze is deterministic, I/O-free, finite, and immutable after return', async () => {
@@ -181,7 +189,7 @@ test('analyze is deterministic, I/O-free, finite, and immutable after return', a
     });
     assert.ok(Object.isFrozen(candidate.fourFrameEnrichment));
     assert.ok(framesBefore.every((frame) => frame.luckLevel === null));
-    assertEmbeddedFourframeEntries(fourFrames);
+    assertEmbeddedFourframeEntries(fourFrames, '김민준');
     assert.equal('getLuckLevel' in framesBefore[0], false);
 
     assert.ok(Object.isFrozen(result));
@@ -229,7 +237,7 @@ test('pure-Hangul calculators expose an excluded zero-score contract after freez
   assert.equal(fourFrames.luckScore, null);
   assert.equal(candidate.hanja.getScore(), 0);
   assert.equal(fourFrames.getScore(), 0);
-  assertEmbeddedFourframeEntries(fourFrames);
+  assertEmbeddedFourframeEntries(fourFrames, '김민준');
   assert.ok(Number.isFinite(candidate.hangul.getScore()));
   assert.ok(Number.isFinite(candidate.totalScore));
 
@@ -239,7 +247,7 @@ test('pure-Hangul calculators expose an excluded zero-score contract after freez
   assert.doesNotThrow(() => fourFrames.calculate());
   assert.equal(candidate.hanja.getScore(), 0);
   assert.equal(fourFrames.getScore(), 0);
-  assertEmbeddedFourframeEntries(fourFrames);
+  assertEmbeddedFourframeEntries(fourFrames, '김민준');
   assert.equal(JSON.stringify(result), serializedBefore);
 });
 

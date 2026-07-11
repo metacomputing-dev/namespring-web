@@ -11,6 +11,7 @@ import {
   type FourframeMeaningEntry,
 } from '../fourframe-catalog.js';
 import { normalizeFourFrameNumber } from '../fourframe-contract.js';
+import { sanitizeImmutableServiceValue } from '../service-text-policy.js';
 
 const FOUR_FRAME_ENRICHMENT = Object.freeze({
   status: 'embedded_versioned_snapshot',
@@ -83,9 +84,13 @@ export class FourFrameCalculator extends EnergyCalculator {
     constructor(
       public readonly type: 'won' | 'hyung' | 'lee' | 'jung',
       strokeSum: number,
+      fullHangul: string = '',
     ) {
       this.strokeSum = normalizeFourFrameNumber(strokeSum);
-      this.entry = getFourframeMeaningByNumber(this.strokeSum);
+      this.entry = sanitizeImmutableServiceValue(
+        getFourframeMeaningByNumber(this.strokeSum),
+        fullHangul,
+      );
     }
 
   };
@@ -111,13 +116,16 @@ export class FourFrameCalculator extends EnergyCalculator {
     const givenTotal = sum(this.firstNameStrokes);
     const upperGivenTotal = sum(paddedGivenStrokes.slice(0, midpoint));
     const lowerGivenTotal = sum(paddedGivenStrokes.slice(midpoint));
+    const fullHangul = [...surnameEntries, ...firstNameEntries]
+      .map((entry) => entry.hangul)
+      .join('');
 
     // Build each frame exactly once. No constructor side effects or later replacement.
     this.frames = Object.freeze([
-      new FourFrameCalculator.Frame('won', givenTotal),
-      new FourFrameCalculator.Frame('hyung', surnameTotal + upperGivenTotal),
-      new FourFrameCalculator.Frame('lee', surnameTotal + lowerGivenTotal),
-      new FourFrameCalculator.Frame('jung', surnameTotal + givenTotal),
+      new FourFrameCalculator.Frame('won', givenTotal, fullHangul),
+      new FourFrameCalculator.Frame('hyung', surnameTotal + upperGivenTotal, fullHangul),
+      new FourFrameCalculator.Frame('lee', surnameTotal + lowerGivenTotal, fullHangul),
+      new FourFrameCalculator.Frame('jung', surnameTotal + givenTotal, fullHangul),
     ]);
   }
 

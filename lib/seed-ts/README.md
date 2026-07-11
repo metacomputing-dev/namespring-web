@@ -43,6 +43,23 @@ Database parity proves snapshot integrity, not doctrinal authority or external
 expert review. The embedded narrative is display-only, is excluded from every
 score, and remains subject to the separate content/authority release gates.
 
+## Service-visible text boundary
+
+`FOURFRAME_MEANING_CATALOG` and `getFourframeMeaningByNumber()` expose the
+immutable canonical snapshot used by DB parity and hash checks. They are never
+rewritten. `FourFrameCalculator.Frame.entry` is a separate deeply frozen display
+DTO: it substitutes the candidate's `fullHangul` and applies the shared
+seed-owned policy in `src/service-text-policy.ts`.
+
+Spring imports that same policy instead of maintaining a second sanitizer in
+its engine module. `npm run test:service-text-policy` audits every string in all
+81 sanitized display rows. Medical and mental-health claim rules are blocking;
+broader certainty, destiny, longevity, catastrophe, and medical-career wording
+is reported as review debt because blind word-wide replacement can corrupt
+sentence meaning. Call `assertServiceTextPolicy(value, { includeReview: true })`
+for a strict editorial gate. A clean blocking audit does not imply that the
+remaining review debt has expert authority approval.
+
 ## Repository contract
 
 `HanjaRepository`, `FourframeRepository`, and `NameStatRepository` expose explicit asynchronous `init()` and `close()` lifecycles. Concurrent initialization is single-flight, failed initialization can be retried, and closing during initialization prevents a late database from being published.
