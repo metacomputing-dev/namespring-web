@@ -4,6 +4,10 @@
 > 방법: 8개 도메인 × (코드 정밀 리딩 + 명리 전문 표준 웹 리서치) → 갭 분석 → bug/high 전건 적대적 검증(70 에이전트), 병행 런타임 프로브(saju-ts 재빌드 후 10개 명식 실측).
 > 결과: 발견 103건 — 검증 통과(CONFIRMED/PARTIAL) 33건, 미검증(low/enrichment 위주) 70건. 반박(REFUTED)된 발견 0건.
 > 상세는 부록 A(프로브)·B(전체 발견)·C(미감사 영역) 참조.
+>
+> **상태 주의(2026-07-12):** 본문의 “현재”와 103건 집계는 2026-07-08 감사
+> 스냅샷을 뜻한다. 이후 해결·부분해결 상태와 새 시간정책 결함은 부록 D를 함께
+> 읽어야 하며, 본문만으로 현재 HEAD 상태를 판정해서는 안 된다.
 
 ## 1. 총평
 
@@ -938,3 +942,40 @@ matchedPillars 없음. shinsalHits 항목 키셋은 단일: {type, position, gra
 - [중복 판정 불일치 — 동일 결함, 다른 kind/severity/verdict] (a) 천간 극 부재: 관계 도메인 missing/high vs 파이프라인 bug/medium. (b) 신살 matchedPillars 폐기·position=basedOn: 신살 도메인 enrichment/high vs 파이프라인 bug/high. (c) dstCorrectionMinutes 0 하드코딩: 역법 enrichment/medium/unverified vs 파이프라인 bug/medium/CONFIRMED — 같은 사실인데 검증 상태가 엇갈림. (d) 귀문관살 부재: 관계 medium / 신살 high / 파이프라인 medium 3중 계상. (e) 삼재: 신살 도메인에서 운 신살 일괄 medium vs 파이프라인 단독 low. (f) 명궁·태원, 년주 기준 공망도 도메인 간 2중 계상 — 총계 집계 시 중복 제거 및 등급 단일화 필요.
 - [해소 안 된 층위 긴장] 신살 '12신살 년지·일지 이중 방출로 scoresAdjusted 2배 집계' vs 파이프라인 'type|position 디듀프로 중복 발동 소거'. springLegacy의 디듀프 키는 type|position이고 position=basedOn 매핑이므로 YEAR_BRANCH/DAY_BRANCH 이중 방출은 디듀프를 통과해 레거시 hit에도 살아남음 — 즉 '디듀프가 소거한다'는 서술은 같은 basedOn 내 다중 발동에만 참이고 이중 앵커 중복에는 거짓. 두 finding을 층위 명시로 재서술해야 함.
 - [사소] 역법 'JOJA_SPLIT 옵션이 midnight으로 조용히 매핑' finding은 saju-ts 코어가 이미 dayBoundary 'ziSplit23'을 지원한다는 사실(api/types.ts:65, calendar/pillars.ts:27-29)을 언급하지 않음 — 코어 기능 부재가 아니라 어댑터 매핑 한 줄 문제라는 점에서 심각도·수정비용 평가가 달라짐.
+
+## 부록 D. 2026-07-12 후속 상태
+
+이 부록은 2026-07-08 감사 스냅샷을 삭제하거나 소급 수정하지 않고, 커밋
+`0e91b8ec9`까지의 후속 해결 상태를 기록한다. 여기서 “해결”은 저장소 계약과
+회귀 테스트 기준이며, 외부 명리·역법 권위 인증 또는 전 세계 역사 시간대의
+완전성을 뜻하지 않는다.
+
+| 기존/후속 발견 | 2026-07-12 상태 | 근거와 잔여 한계 |
+|---|---|---|
+| A9 `dstCorrectionMinutes=0` 고정 | 해결 | IANA 민간시 후보에서 실제 offset/DST metadata를 산출하고 legacy 결과에 전달한다. fixed offset은 DST 0으로 명시한다. |
+| 1908년 이전 서울 LMT·역사 KST | 해결 | `Asia/Seoul`의 1907 LMT, 1954 UTC+8:30, 1988 DST를 대표 회귀와 런타임 canary로 검증한다. |
+| B10 표준시·서머타임 무검증 의존 | 부분 해결 | 서울·뉴욕·키리티마티 대표 canary와 gap/fold 회귀를 추가했다. 자체 tzdb를 번들하지 않으며 모든 지역·시대 전수 인증은 아니다. |
+| 야자시/일 경계와 시간 보정 결합 | 해결 | 시간 보정된 instant를 기준으로 일주·시주 경계를 계산하고 관련 회귀를 고정했다. |
+| JOJA_SPLIT 무의미 매핑 | 해결 | 일주 경계와 시두 일간 경계를 분리해 `midnight + ziSplit23` 의미를 구현했다(`aac1b8309`). |
+| “springLegacy/narration 전용 테스트 0개” | 과거 진술 | legacy 계약·실패·경도·timezone 특성화 테스트가 존재하며, 현재 전체 saju-ts 회귀에 포함된다. |
+| preset 고정 자오선과 civil meridian 혼동 | 해결 | Spring 제품 기본은 출생 민간시 offset의 자오선, 135°/120° preset은 명시적 legacy 호환 정책으로 분리했다. |
+| 물리 경도 덮어쓰기 | 해결 | 입력 경도를 보존하고 shortest signed longitude delta만 계산에 사용한다. |
+| 부분·상충 위치 입력의 조용한 서울 fallback | 해결 | 위치 tuple을 원자적으로 검증하고, 공개 필드 간 지역 충돌·timezone 부재·해석 불가를 구조화 오류로 거부한다. |
+| DST gap/fold의 임의 instant 선택 | 해결 | round-trip 후보가 0개면 gap, 복수면 fold로 구조화 거부한다. 시각 분 미상 범위에 offset 전환이 있으면 별도 거부한다. |
+| raw `sajuConfig`가 제품 시간정책 우회 | 해결 | high-level 제품 정책을 최종 재적용하고 invalid runtime policy를 fail-closed 처리한다. |
+| 연도 1~99가 `Date.UTC`에서 1900년대로 이동 | 해결 | literal-year UTC helper를 도입하고 요청·절기·대운·진태양시 경로와 회귀를 보강했다. |
+| 진태양시 trace 수식이 실제 계산과 불일치 | 해결 | shortest longitude delta, 정책별 meridian, `off` 의미를 trace와 구현에서 일치시켰다. |
+
+### 남은 한계와 릴리스 판정
+
+- 글로벌 좌표→지역 geocoder나 timezone polygon 검증이 없다. 따라서 임의 해외
+  좌표와 IANA timezone의 지리적 일치까지 인증하지 않는다.
+- 런타임 tzdb canary는 대표 표본이다. OS/Node tzdb 전체와 모든 역사적 지역의
+  정확성을 대신하지 않는다.
+- fixed-meridian legacy preset은 현대 한국/중국 지역 호환용이며 글로벌 기본값이
+  아니다.
+- 일부 저수준 직접 API는 Spring 입력 계약과 같은 민간시 범위 검증을 자체 수행하지
+  않는다. 상용 진입점은 Spring의 fail-closed 경계를 사용해야 한다.
+- 이 체크포인트는 시간·위치 정합성 개선이다. 격국·강약·용신의 외부 권위 진리값,
+  exact default-diff 승인, exact commit 전문가 signoff를 충족하지 않으므로
+  “전문가급 상용 사주엔진 인증”이나 PR WIP 해제의 단독 근거가 아니다.
