@@ -1,17 +1,20 @@
+import { SeedValidationError } from '../errors.js';
+import { deepFreeze } from '../utils/deep-freeze.js';
+
 /**
  * Class defining the properties and cyclical relationships of the Five Elements (五行).
  */
 export class Element {
-  public static readonly Wood = new Element('Wood', '목', '木', 'East', 'Blue', 'Spring');
-  public static readonly Fire = new Element('Fire', '화', '火', 'South', 'Red', 'Summer');
-  public static readonly Earth = new Element('Earth', '토', '土', 'Center', 'Yellow', 'Between Seasons');
-  public static readonly Metal = new Element('Metal', '금', '金', 'West', 'White', 'Autumn');
-  public static readonly Water = new Element('Water', '수', '水', 'North', 'Black', 'Winter');
+  public static readonly Wood = deepFreeze(new Element('Wood', '목', '木', 'East', 'Blue', 'Spring'));
+  public static readonly Fire = deepFreeze(new Element('Fire', '화', '火', 'South', 'Red', 'Summer'));
+  public static readonly Earth = deepFreeze(new Element('Earth', '토', '土', 'Center', 'Yellow', 'Between Seasons'));
+  public static readonly Metal = deepFreeze(new Element('Metal', '금', '金', 'West', 'White', 'Autumn'));
+  public static readonly Water = deepFreeze(new Element('Water', '수', '水', 'North', 'Black', 'Winter'));
 
   /**
    * Defines internal relationships between elements.
    */
-  public static readonly Relation = {
+  public static readonly Relation = deepFreeze({
     Comparison: { 
       id: 'Comparison', 
       name: '상비(相比)', 
@@ -32,7 +35,7 @@ export class Element {
       name: '평달(平達)', 
       description: 'A neutral state where energies do not significantly help or harm each other.' 
     }
-  } as const;
+  } as const);
 
   private constructor(
     public readonly english: string,
@@ -46,7 +49,7 @@ export class Element {
   /**
    * Returns the Element instance corresponding to the given string name.
    * @param name The name of the element (e.g., 'Wood', 'Fire').
-   * @returns The matched Element instance or Earth as default.
+   * @returns The matched Element instance.
    */
   public static get(name: string): Element {
     switch (name) {
@@ -55,7 +58,13 @@ export class Element {
       case 'Earth': return Element.Earth;
       case 'Metal': return Element.Metal;
       case 'Water': return Element.Water;
-      default: return Element.Earth; // Fallback to Earth
+      default:
+        throw new SeedValidationError(
+          'INVALID_ELEMENT',
+          'Element must be one of Wood, Fire, Earth, Metal, or Water.',
+          'element',
+          name,
+        );
     }
   }
 

@@ -132,8 +132,8 @@ check('balanced root exposes safe_balance strategy',
   guardedBalanced.breakdown.safetyProfile?.strategy === 'safe_balance',
   JSON.stringify(guardedBalanced.breakdown.safetyProfile));
 
-const surname = [{ hangul: 'choi', hanja: 'C', resource_element: 'Metal' }];
-const givenName = [{ hangul: 'ga', hanja: 'G', resource_element: '' }];
+const surname = [{ hangul: '\uCD5C', hanja: 'C', resource_element: 'Metal' }];
+const givenName = [{ hangul: '\uAC00', hanja: 'G', resource_element: '' }];
 const fallbackCalc = new SajuCalculator(
   surname as any,
   givenName as any,

@@ -51,7 +51,7 @@ for (const repo of repos) { if (repo) repo.wasmUrl = WASM_PATH; }
 await engine.init();
 
 (engine as any).getNameStatInfo = async () => ({
-  exists: true,
+  status: 'found',
   popularityRank: 1,
   maleRatio: 1,
   nameGender: 'male',
@@ -93,7 +93,7 @@ check('getNameCandidateSummaries includes display Hanja meanings',
     typeof char.meaning === 'string' && char.meaning.length > 0)),
   summaries.map((row) => row.givenName.map((char) => char.meaning ?? '').join('/')).join(','));
 
-(engine as any).resetCandidateRejections();
+const candidateRejections = new Map();
 const generated = await (engine as any).generateCandidates({
   ...baseRequest,
   givenNameLength: 2,
@@ -101,9 +101,9 @@ const generated = await (engine as any).generateCandidates({
   yongshin: { element: 'METAL', heeshin: null, gishin: null, gushin: null },
   deficientElements: [],
   excessiveElements: [],
-});
+}, undefined, candidateRejections);
 const generatedHanja = generated.flat().map((char: any) => String(char.hanja ?? ''));
-const rejectionSummary = (engine as any).candidateRejectionSummary();
+const rejectionSummary = (engine as any).candidateRejectionSummary(candidateRejections);
 check('generated recommendations exclude unsafe Hanja meanings',
   !generatedHanja.includes('贓'),
   generatedHanja.slice(0, 20).join(','));
