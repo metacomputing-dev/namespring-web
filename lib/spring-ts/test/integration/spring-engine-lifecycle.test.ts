@@ -2,10 +2,14 @@ import assert from 'node:assert/strict';
 
 import { FourFrameContractError } from '../../src/fourframe-contract.js';
 import {
+  SPRING_ENGINE_OPERATION_CANCELLED,
   SPRING_ENGINE_INIT_CANCELLED,
   SpringEngine,
   SpringEngineInitializationCancelledError,
+  SpringEngineOperationCancelledError,
 } from '../../src/spring-engine.js';
+import { emptySaju } from '../../src/saju-adapter.js';
+import type { SpringRequest } from '../../src/types.js';
 import { makeValidFourFrameRecords } from '../helpers/fourframe-fixtures.js';
 
 interface Deferred<T> {
@@ -53,6 +57,54 @@ function installRepositories(
     },
   });
   return { closeCounts };
+}
+
+async function expectOperationCancelled(
+  promise: Promise<unknown>,
+  operation: string,
+): Promise<void> {
+  await assert.rejects(promise, (error: unknown) => {
+    assert.ok(error instanceof SpringEngineOperationCancelledError);
+    assert.equal(error.code, SPRING_ENGINE_OPERATION_CANCELLED);
+    assert.equal(error.operation, operation);
+    assert.equal(error.retryable, false);
+    return true;
+  });
+}
+
+async function readyEngine(): Promise<SpringEngine> {
+  const engine = new SpringEngine();
+  installRepositories(engine, async () => makeValidFourFrameRecords());
+  await engine.init();
+  return engine;
+}
+
+const lifecycleRequest: SpringRequest = {
+  birth: {
+    year: 1990,
+    month: 1,
+    day: 1,
+    hour: 12,
+    minute: 0,
+    gender: 'neutral',
+  },
+  surname: [{ hangul: '\uAE40' }],
+  givenName: [{ hangul: '\uBBFC' }, { hangul: '\uC900' }],
+  mode: 'evaluate',
+  options: { pureHangulNameMode: 'off' },
+};
+
+function foundNameStatEntry() {
+  return {
+    name: '\uBBFC\uC900',
+    first_char: '\uBBFC',
+    first_choseong: '',
+    similar_names: [],
+    yearly_rank: {},
+    yearly_birth: {},
+    hanja_combinations: [],
+    raw_entry: {},
+  };
 }
 
 const firstLoad = deferred<ReturnType<typeof makeValidFourFrameRecords>>();
@@ -123,4 +175,127 @@ assert.equal((validationEngine as any).initialized, true);
 assert.equal((validationEngine as any).luckyMap.size, 81);
 validationEngine.close();
 
-console.log('SpringEngine lifecycle: identity/generation/atomic-publish/retry PASS');
+// A public operation that crosses close() must expose the stable outer-route
+// cancellation contract, even when the in-flight repository rejects with an
+// unrelated low-level error after it has been closed.
+{
+  const operationEngine = await readyEngine() as any;
+  const lookup = deferred<never>();
+  const rawRepositoryError = new Error('database handle was closed');
+  let lookupCalls = 0;
+  operationEngine.hanjaRepo = {
+    findByHangul: async () => {
+      lookupCalls += 1;
+      return lookup.promise;
+    },
+    close: () => undefined,
+  };
+
+  const pending = operationEngine.getNamingReport(lifecycleRequest);
+  await waitFor(() => lookupCalls === 1);
+  operationEngine.close();
+  lookup.reject(rawRepositoryError);
+
+  await expectOperationCancelled(pending, 'getNamingReport');
+}
+
+// Saju-only analysis deliberately does not initialize database repositories,
+// but it is still a SpringEngine operation and must not publish a stale result.
+{
+  const sajuEngine = new SpringEngine() as any;
+  let initCalls = 0;
+  sajuEngine.init = async () => { initCalls += 1; };
+
+  const pending = sajuEngine.getSajuReport(lifecycleRequest);
+  sajuEngine.close();
+
+  await expectOperationCancelled(pending, 'getSajuReport');
+  assert.equal(initCalls, 0, 'getSajuReport must preserve its no-database-init contract');
+}
+
+// Every database-backed public route captures its lease before awaiting init.
+// This table makes adding a guard to only some entry points a visible failure.
+{
+  const initBoundOperations: ReadonlyArray<readonly [
+    string,
+    (engine: any) => Promise<unknown>,
+  ]> = [
+    ['getNamingReport', engine => engine.getNamingReport(lifecycleRequest)],
+    ['getSpringReport', engine => engine.getSpringReport(lifecycleRequest)],
+    ['getNameCandidates', engine => engine.getNameCandidates(lifecycleRequest)],
+    ['getNameCandidateSummaries', engine => engine.getNameCandidateSummaries(lifecycleRequest)],
+    ['analyze', engine => engine.analyze(lifecycleRequest)],
+    ['getFortuneReport', engine => engine.getFortuneReport({ birth: lifecycleRequest.birth })],
+  ];
+
+  for (const [operation, start] of initBoundOperations) {
+    const routeEngine = new SpringEngine() as any;
+    const initGate = deferred<void>();
+    let initCalls = 0;
+    routeEngine.init = () => {
+      initCalls += 1;
+      return initGate.promise;
+    };
+
+    const pending = start(routeEngine);
+    await waitFor(() => initCalls === 1);
+    routeEngine.close();
+    initGate.resolve();
+    await expectOperationCancelled(pending, operation);
+  }
+}
+
+// A lookup from an older lifecycle must not populate the cache after close()
+// and a successful reinitialization. The next lifecycle must query again.
+{
+  const cacheEngine = new SpringEngine() as any;
+  installRepositories(cacheEngine, async () => makeValidFourFrameRecords());
+  const staleLookup = deferred<ReturnType<typeof foundNameStatEntry>>();
+  let lookupCalls = 0;
+  cacheEngine.nameStatRepo = {
+    init: async () => undefined,
+    findByName: async () => {
+      lookupCalls += 1;
+      return lookupCalls === 1 ? staleLookup.promise : foundNameStatEntry();
+    },
+    close: () => undefined,
+  };
+  cacheEngine.getSajuReport = async () => ({
+    ...emptySaju(),
+    sajuEnabled: false,
+  });
+  await cacheEngine.init();
+
+  const pending = cacheEngine.getSpringReport(lifecycleRequest);
+  await waitFor(() => lookupCalls === 1);
+  cacheEngine.close();
+  await cacheEngine.init();
+  staleLookup.resolve(foundNameStatEntry());
+
+  await expectOperationCancelled(pending, 'getSpringReport');
+  assert.equal(cacheEngine.nameStatInfoCache.size, 0);
+
+  const current = await cacheEngine.getNameStatInfo(lifecycleRequest.givenName);
+  assert.equal(current.status, 'found');
+  assert.equal(lookupCalls, 2, 'the new lifecycle must not reuse a stale lookup result');
+  cacheEngine.close();
+}
+
+// Without a lifecycle change, operation guards must preserve the original
+// domain/infrastructure error rather than relabeling every rejection.
+{
+  const errorEngine = await readyEngine() as any;
+  const rawRepositoryError = new Error('repository read failed');
+  errorEngine.hanjaRepo = {
+    findByHangul: async () => { throw rawRepositoryError; },
+    close: () => undefined,
+  };
+
+  await assert.rejects(
+    errorEngine.getNamingReport(lifecycleRequest),
+    (error: unknown) => error === rawRepositoryError,
+  );
+  errorEngine.close();
+}
+
+console.log('SpringEngine lifecycle: init/operation generation/atomic-publish/retry PASS');
