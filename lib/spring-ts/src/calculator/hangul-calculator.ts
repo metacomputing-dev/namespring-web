@@ -37,7 +37,10 @@ export class HangulCalculator extends SeedHangulCalculator implements EvaluableC
   ) {
     super(surnameEntries, givenNameEntries);
     // Clamp to [0, 1] to prevent unintentional amplification or negative weights.
-    this.signalCap = Math.max(0, Math.min(1, Number(signalCap) || 1));
+    const numericSignalCap = Number(signalCap);
+    this.signalCap = Number.isNaN(numericSignalCap)
+      ? 1
+      : Math.max(0, Math.min(1, numericSignalCap));
     this.polarityModel = polarityModel;
   }
 
