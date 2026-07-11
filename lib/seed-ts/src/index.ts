@@ -23,6 +23,9 @@ export type {
   SeedErrorPayload,
 } from './errors.js';
 
+export { SEED_SCORING_POLICY } from './scoring-policy.js';
+export type { SeedScoringPolicyV1 } from './scoring-policy.js';
+
 export { EnergyCalculator } from './calculator/energy-calculator.js';
 export type {
   EnergyCalculationStatus,
