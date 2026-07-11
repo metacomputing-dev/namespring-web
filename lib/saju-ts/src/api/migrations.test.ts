@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest';
 
-import { migrateConfig, CURRENT_CONFIG_SCHEMA_VERSION } from './migrations.js';
+import {
+  migrateConfig,
+  CURRENT_CONFIG_SCHEMA_VERSION,
+  UnsupportedConfigSchemaVersionError,
+} from './migrations.js';
 
 describe('config migrations', () => {
   it('treats missing schemaVersion as legacy v0 and migrates to current', () => {
@@ -45,10 +49,9 @@ describe('config migrations', () => {
     expect((migrated as any).extensions.foo).toBe(1);
   });
 
-  it('stamps unknown versions to current without throwing (best-effort)', () => {
+  it('rejects unknown versions instead of falsely stamping them current', () => {
     const weird: any = { schemaVersion: '999', calendar: { yearBoundary: 'liChun' } };
-    const migrated = migrateConfig(weird);
-    expect(migrated.schemaVersion).toBe(CURRENT_CONFIG_SCHEMA_VERSION);
-    expect((migrated as any).calendar.yearBoundary).toBe('liChun');
+    expect(() => migrateConfig(weird))
+      .toThrow(UnsupportedConfigSchemaVersionError);
   });
 });

@@ -17,6 +17,17 @@ export interface ConfigMigration {
   migrate: (config: any) => any;
 }
 
+export class UnsupportedConfigSchemaVersionError extends Error {
+  readonly code = 'SAJU_CONFIG_SCHEMA_VERSION_UNSUPPORTED';
+  readonly schemaVersion: string;
+
+  constructor(schemaVersion: string) {
+    super(`Unsupported config schemaVersion: ${schemaVersion}`);
+    this.name = 'UnsupportedConfigSchemaVersionError';
+    this.schemaVersion = schemaVersion;
+  }
+}
+
 function isPlainObject(x: any): x is Record<string, unknown> {
   return !!x && typeof x === 'object' && !Array.isArray(x);
 }
@@ -97,9 +108,9 @@ const MIGRATIONS: ConfigMigration[] = [
 /**
  * Apply sequential migrations until CURRENT_CONFIG_SCHEMA_VERSION.
  *
- * The engine is intentionally tolerant:
- * - Missing/invalid schemaVersion is treated as legacy '0'.
- * - Unknown older versions are "best-effort" stamped to current (without throwing).
+ * Missing schemaVersion is treated as legacy v0. Explicit unknown versions
+ * fail closed because stamping an unrecognized contract as current would make
+ * an unperformed migration indistinguishable from a valid one.
  */
 export function migrateConfig(input: unknown): EngineConfig {
   const startV = normalizeSchemaVersion((input as any)?.schemaVersion);
@@ -113,9 +124,7 @@ export function migrateConfig(input: unknown): EngineConfig {
     if (v === CURRENT_CONFIG_SCHEMA_VERSION) break;
     const m = MIGRATIONS.find((x) => x.from === v);
     if (!m) {
-      // Unknown/unsupported older version: keep as-is but stamp current.
-      cur.schemaVersion = CURRENT_CONFIG_SCHEMA_VERSION;
-      break;
+      throw new UnsupportedConfigSchemaVersionError(v);
     }
     cur = m.migrate(cur);
     cur.schemaVersion = m.to;

@@ -1,5 +1,6 @@
 import type { Rule, RuleSet } from '../dsl.js';
 import { DEFAULT_SHINSAL_CONDITIONS_RULESET } from '../defaultShinsalConditions.js';
+import { deepClone } from '../../utils/deepMerge.js';
 import type {
   ShinsalConditionsMacro,
   ShinsalConditionsRuleSpec,
@@ -150,7 +151,7 @@ export function compileShinsalConditionsRuleSpec(
   specInput: ShinsalConditionsRuleSpec | ShinsalConditionsRuleSpec[],
 ): RuleSet {
   const specs = Array.isArray(specInput) ? specInput : [specInput];
-  if (specs.length === 0) return DEFAULT_SHINSAL_CONDITIONS_RULESET;
+  if (specs.length === 0) return deepClone(DEFAULT_SHINSAL_CONDITIONS_RULESET);
 
   let rules: Rule[] = [];
   let meta: Pick<RuleSet, 'id' | 'version' | 'description'> = {
@@ -164,7 +165,7 @@ export function compileShinsalConditionsRuleSpec(
     const compiled = compileMacros(s.macros ?? []);
     if (first) {
       const base = s.base ?? 'default';
-      const baseRules = base === 'default' ? DEFAULT_SHINSAL_CONDITIONS_RULESET.rules : [];
+      const baseRules = base === 'default' ? deepClone(DEFAULT_SHINSAL_CONDITIONS_RULESET.rules) : [];
       const mode = s.mode ?? 'append';
       rules = applyMode(baseRules, compiled, mode);
       meta = {
@@ -180,10 +181,10 @@ export function compileShinsalConditionsRuleSpec(
     }
   }
 
-  return {
+  return deepClone({
     id: meta.id,
     version: meta.version,
     description: meta.description,
     rules,
-  };
+  });
 }
