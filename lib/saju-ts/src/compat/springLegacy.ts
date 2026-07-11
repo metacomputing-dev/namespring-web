@@ -14,6 +14,10 @@ import type {
   LegacySajuOutputV1,
 } from './springLegacyContract.js';
 import {
+  mapLegacyFortune,
+  type LegacyFortuneMapperDependencies,
+} from './springLegacyFortuneMapper.js';
+import {
   addCivilMinutes,
   civilDateTimeToUtcMs,
   civilToIsoInstant,
@@ -634,9 +638,6 @@ function formatLuckRelationsWithDecade(entries: any[] | undefined) {
   return { decadeRelations };
 }
 
-function relationEntries(source: any, key: 'decades' | 'years' | 'months' | 'decadeYears') {
-  return Array.isArray(source?.[key]) ? source[key] : [];
-}
 function roundTo(value: unknown, digits: number): number {
   const n = Number(value);
   if (!Number.isFinite(n)) return 0;
@@ -664,6 +665,16 @@ function approxDaeunUtcMs(entry: any, firstStartUtcMsApprox: number | null, deca
   const length = Number.isFinite(decadeLengthYears) && decadeLengthYears > 0 ? decadeLengthYears : 10;
   return addYearsUtcApprox(firstStartUtcMsApprox, (edge === 'start' ? index : index + 1) * length);
 }
+
+const LEGACY_FORTUNE_MAPPER_DEPENDENCIES: LegacyFortuneMapperDependencies = {
+  stemCodeFromIdx,
+  branchCodeFromIdx,
+  annotateLuckPillar: luckPillarAnnotations,
+  formatRelationsWithNatal: formatLuckRelationsWithNatal,
+  formatRelationsWithDecade: formatLuckRelationsWithDecade,
+  approxDaeunUtcMs,
+  roundTo,
+};
 
 function scoreDiffConfidence(top: number, second: number): number {
   if (!Number.isFinite(top) || !Number.isFinite(second)) return 0.5;
@@ -1856,114 +1867,22 @@ function normalizeLegacyOutput(
   const shinsalHits = weightedShinsalHits.map((item) => item.hit);
   const gongmangVoidBranches = extractGongmangVoidBranches(bundle);
 
-  const fortune = bundle.summary?.fortune as any;
-  const timeline = (facts?.['fortune.timeline'] ?? null) as any;
-  const relationTimeline = ((facts?.['fortune.relations'] ?? fortune?.relations ?? null) as any);
-  const decadeRelationsByIndex = new Map(
-    relationEntries(relationTimeline, 'decades').map((entry: any) => [Number(entry?.index ?? 0), entry]),
-  );
-  const yearRelationsByYear = new Map(
-    relationEntries(relationTimeline, 'years').map((entry: any) => [Number(entry?.solarYear ?? 0), entry]),
-  );
-  const monthRelationsByKey = new Map(
-    relationEntries(relationTimeline, 'months').map((entry: any) => [`${Number(entry?.solarYear ?? 0)}:${Number(entry?.monthOrder ?? 0)}`, entry]),
-  );
-  const decadeYearRelationsByYear = new Map<number, any[]>();
-  for (const entry of relationEntries(relationTimeline, 'decadeYears')) {
-    const year = Number(entry?.solarYear ?? 0);
-    if (!Number.isFinite(year) || year === 0) continue;
-    const existing = decadeYearRelationsByYear.get(year) ?? [];
-    existing.push(entry);
-    decadeYearRelationsByYear.set(year, existing);
-  }
-  const decades = Array.isArray(fortune?.decades) ? fortune.decades : [];
-  const firstDaeunStartUtcMsApprox = finiteNumberOrNull(fortune?.start?.startUtcMsApprox ?? timeline?.start?.startUtcMsApprox);
-  const decadeLengthYears = Number(timeline?.policy?.decadeLengthYears ?? 10);
-  const ageDisplayMode = String(fortune?.start?.ageDisplay ?? timeline?.policy?.ageDisplay ?? 'continuousFromBirth');
-  const ageDisplayLabel = String(fortune?.start?.ageDisplayLabel ?? (ageDisplayMode === 'koreanCountingAge' ? 'Korean counting age by configured year boundary' : 'Continuous age from birth'));
-  const needsExpandedYears = typeof saeunStartYear === 'number' || typeof saeunYearCount === 'number';
-  const needsExpandedMonths = typeof wolunStartYear === 'number' || typeof wolunMonthCount === 'number';
-  const yearsAll = needsExpandedYears && Array.isArray(timeline?.years)
-    ? timeline.years
-    : Array.isArray(fortune?.years) ? fortune.years : [];
-  const monthsAll = needsExpandedMonths && Array.isArray(timeline?.months)
-    ? timeline.months
-    : Array.isArray(fortune?.months) ? fortune.months : [];
-  const yearsFiltered = typeof saeunStartYear === 'number'
-    ? yearsAll.filter((y: any) => Number(y?.solarYear) >= saeunStartYear)
-    : yearsAll;
-  const years = typeof saeunYearCount === 'number' && saeunYearCount > 0
-    ? yearsFiltered.slice(0, saeunYearCount)
-    : yearsFiltered;
-  const monthsFiltered = typeof wolunStartYear === 'number'
-    ? monthsAll.filter((m: any) => Number(m?.solarYear) >= wolunStartYear)
-    : monthsAll;
-  const months = typeof wolunMonthCount === 'number' && wolunMonthCount > 0
-    ? monthsFiltered.slice(0, wolunMonthCount)
-    : monthsFiltered;
-  const dayStemIdxForTransit = stemIdxFromUnknown(pillars.day.stem.idx);
-  const yearBranchIdxForTransit = branchIdxFromUnknown(pillars.year.branch.idx);
-  const lifeStagePolicy = (facts?.['policy.lifeStages'] ?? DEFAULT_TRANSIT_LIFE_STAGE_POLICY) as any;
-  const daeunPillars = (typeof daeunCount === 'number' && daeunCount > 0 ? decades.slice(0, daeunCount) : decades)
-    .map((entry: any) => ({
-      pillar: {
-        cheongan: stemCodeFromIdx(entryStemIdx(entry)),
-        jiji: branchCodeFromIdx(entryBranchIdx(entry)),
-      },
-      startAge: Number(entry?.startAgeYears ?? 0),
-      endAge: Number(entry?.endAgeYears ?? 0),
-      order: Number(entry?.index ?? 0),
-      displayStartAge: Number(entry?.displayStartAge ?? Math.floor(Number(entry?.startAgeYears ?? 0))),
-      displayEndAge: Number(entry?.displayEndAge ?? Math.floor(Number(entry?.endAgeYears ?? 0))),
-      ...(approxDaeunUtcMs(entry, firstDaeunStartUtcMsApprox, decadeLengthYears, 'start') !== null
-        ? { approxStartUtcMs: approxDaeunUtcMs(entry, firstDaeunStartUtcMsApprox, decadeLengthYears, 'start') }
-        : {}),
-      ...(approxDaeunUtcMs(entry, firstDaeunStartUtcMsApprox, decadeLengthYears, 'end') !== null
-        ? { approxEndUtcMs: approxDaeunUtcMs(entry, firstDaeunStartUtcMsApprox, decadeLengthYears, 'end') }
-        : {}),
-      ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy),
-      ...(formatLuckRelationsWithNatal(decadeRelationsByIndex.get(Number(entry?.index ?? 0)))
-        ? { relationsWithNatal: formatLuckRelationsWithNatal(decadeRelationsByIndex.get(Number(entry?.index ?? 0))) }
-        : {}),
-    }));
-
-  const saeunPillars = years.map((entry: any) => ({
-    year: Number(entry?.solarYear ?? 0),
-    pillar: {
-      cheongan: stemCodeFromIdx(entryStemIdx(entry)),
-      jiji: branchCodeFromIdx(entryBranchIdx(entry)),
+  const fortunePayload = mapLegacyFortune({
+    fortune: bundle.summary?.fortune as any,
+    timeline: (facts?.['fortune.timeline'] ?? null) as any,
+    relationTimeline: (facts?.['fortune.relations'] ?? (bundle.summary?.fortune as any)?.relations ?? null) as any,
+    dayStemIdx: stemIdxFromUnknown(pillars.day.stem.idx),
+    yearBranchIdx: branchIdxFromUnknown(pillars.year.branch.idx),
+    lifeStagePolicy: (facts?.['policy.lifeStages'] ?? DEFAULT_TRANSIT_LIFE_STAGE_POLICY) as any,
+    selection: {
+      daeunCount,
+      saeunStartYear,
+      saeunYearCount,
+      wolunStartYear,
+      wolunMonthCount,
     },
-    startUtcMs: Number.isFinite(entry?.startUtcMs) ? Number(entry.startUtcMs) : null,
-    endUtcMs: Number.isFinite(entry?.endUtcMs) ? Number(entry.endUtcMs) : null,
-    approxStartAgeYears: Number.isFinite(entry?.approxStartAgeYears) ? Number(entry.approxStartAgeYears) : null,
-    approxEndAgeYears: Number.isFinite(entry?.approxEndAgeYears) ? Number(entry.approxEndAgeYears) : null,
-    ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy),
-    ...(formatLuckRelationsWithNatal(yearRelationsByYear.get(Number(entry?.solarYear ?? 0)))
-      ? { relationsWithNatal: formatLuckRelationsWithNatal(yearRelationsByYear.get(Number(entry?.solarYear ?? 0))) }
-      : {}),
-    ...(formatLuckRelationsWithDecade(decadeYearRelationsByYear.get(Number(entry?.solarYear ?? 0)))
-      ? { relationsWithDecade: formatLuckRelationsWithDecade(decadeYearRelationsByYear.get(Number(entry?.solarYear ?? 0))) }
-      : {}),
-  }));
-
-  const wolunPillars = months.map((entry: any) => ({
-    year: Number(entry?.solarYear ?? 0),
-    monthOrder: Number(entry?.monthOrder ?? 0),
-    startJie: String(entry?.startJie ?? ''),
-    pillar: {
-      cheongan: stemCodeFromIdx(entryStemIdx(entry)),
-      jiji: branchCodeFromIdx(entryBranchIdx(entry)),
-    },
-    startUtcMs: Number.isFinite(entry?.startUtcMs) ? Number(entry.startUtcMs) : null,
-    endUtcMs: Number.isFinite(entry?.endUtcMs) ? Number(entry.endUtcMs) : null,
-    approxStartAgeYears: Number.isFinite(entry?.approxStartAgeYears) ? Number(entry.approxStartAgeYears) : null,
-    approxEndAgeYears: Number.isFinite(entry?.approxEndAgeYears) ? Number(entry.approxEndAgeYears) : null,
-    ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy),
-    ...(formatLuckRelationsWithNatal(monthRelationsByKey.get(`${Number(entry?.solarYear ?? 0)}:${Number(entry?.monthOrder ?? 0)}`))
-      ? { relationsWithNatal: formatLuckRelationsWithNatal(monthRelationsByKey.get(`${Number(entry?.solarYear ?? 0)}:${Number(entry?.monthOrder ?? 0)}`)) }
-      : {}),
-  }));
-
+    dependencies: LEGACY_FORTUNE_MAPPER_DEPENDENCIES,
+  });
   const traceNodes = Array.isArray(bundle.report?.trace?.nodes) ? bundle.report.trace.nodes : [];
   const trace = traceNodes.map((node: any) => ({
     key: String(node?.id ?? ''),
@@ -2107,26 +2026,7 @@ function normalizeLegacyOutput(
     // PR-12-4 (감사 C6): 음양 균형 — summary 집계를 additive로 재방출 (만세력 기본 표기 축).
     yinYangBalance: (bundle.summary as any)?.yinYangBalance ?? null,
     gongmangVoidBranches,
-    daeunInfo: {
-      isForward: String(fortune?.start?.direction ?? 'FORWARD') !== 'BACKWARD',
-      firstDaeunStartAge: Number(fortune?.start?.startAgeYears ?? 0),
-      // 표기용 정수 대운수 (반올림 유파 + 하한 1 — 감사 B11). 연속값과 병존.
-      firstDaeunStartAgeDisplay: Number(fortune?.start?.startAgeDisplay ?? Math.floor(Number(fortune?.start?.startAgeYears ?? 0))),
-      ageDisplayMode,
-      ageDisplayLabel,
-      firstDaeunStartMonths: Number(fortune?.start?.startAgeParts?.months ?? 0),
-      // 대운 기산 절기 id (기존에는 무관한 일경계 정책 dayBoundary가 들어갔다 — 감사 A15d).
-      boundaryMode: String(fortune?.start?.boundary?.id ?? ''),
-      boundaryUtcMs: fortune?.start?.boundary?.utcMs ?? null,
-      deltaDays: Number.isFinite(fortune?.start?.deltaMs)
-        ? roundTo(Number(fortune.start.deltaMs) / 86_400_000, 3)
-        : null,
-      formula: String(fortune?.start?.formula ?? ''),
-      warnings: [],
-      daeunPillars,
-    },
-    saeunPillars,
-    wolunPillars,
+    ...fortunePayload,
     trace,
   };
 }
