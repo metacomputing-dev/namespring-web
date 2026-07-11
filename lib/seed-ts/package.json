@@ -27,8 +27,9 @@
     "generate:fourframe-catalog": "tsx tools/generate-fourframe-catalog.ts --write",
     "check:fourframe-catalog": "tsx tools/generate-fourframe-catalog.ts --check",
     "test:fourframe-catalog": "npm run check:fourframe-catalog && tsx test/fourframe-catalog-parity.test.ts",
+    "test:service-text-policy": "tsx test/service-text-policy.test.ts",
     "test:repository-lifecycle": "tsx test/repository-lifecycle.test.ts",
-    "test:contracts": "npm run typecheck && npm run typecheck:test && npm run test:sync-contract && npm run test:fourframe-catalog && npm run test:repository-lifecycle",
+    "test:contracts": "npm run typecheck && npm run typecheck:test && npm run test:sync-contract && npm run test:fourframe-catalog && npm run test:service-text-policy && npm run test:repository-lifecycle",
     "test": "npm run test:contracts && npm run test:package-contract",
     "test:package-contract": "node --test --experimental-test-isolation=none test/package-contract.test.mjs"
   },

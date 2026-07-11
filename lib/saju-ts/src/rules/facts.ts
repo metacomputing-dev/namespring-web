@@ -19,9 +19,7 @@ import type { TenGod } from '../core/tenGod.js';
 import type { HiddenStemRole } from '../core/hiddenStems.js';
 import { hiddenStemsOfBranch } from '../core/hiddenStems.js';
 import { lifeStageOf } from '../core/lifeStage.js';
-import type { LifeStage, LifeStagePolicy } from '../core/lifeStage.js';
-import { seasonalStateOf } from '../core/seasonalStates.js';
-import type { SeasonalState } from '../core/seasonalStates.js';
+import type { LifeStagePolicy } from '../core/lifeStage.js';
 
 import type { NormalizedShinsalCatalog, RawShinsalCatalog } from './shinsalCatalog.js';
 import { mergeRawShinsalCatalog, normalizeShinsalCatalog } from './shinsalCatalog.js';
@@ -4150,6 +4148,7 @@ export function buildRuleFacts(args: {
     tongguan,
     strength: computeStrengthFacts({
       config,
+      lifeStagePolicy: readLifeStagePolicyFromConfig(config),
       tenGods: scoring.tenGods,
       dayMasterDirectStemWeight: dayMasterDirectStemWeight ?? 0,
       dayMasterStem: pillars.day.stem,

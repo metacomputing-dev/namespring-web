@@ -13,6 +13,20 @@ import type {
   LegacyJieProximityV1,
   LegacySajuOutputV1,
 } from './springLegacyContract.js';
+import {
+  addCivilMinutes,
+  civilToIsoInstant,
+  dstMinutesAtUtcMs,
+  resolveOffsetMinutes,
+  type CivilDateTime,
+} from './springLegacyTimezone.js';
+
+export {
+  LegacyTimezoneError,
+  dstMinutesAtUtcMs,
+  parseOffsetToken,
+  resolveOffsetMinutes,
+} from './springLegacyTimezone.js';
 
 export type {
   LegacyCoreResultV1,
@@ -285,25 +299,6 @@ export class LegacyContractOutputError extends Error {
   }
 }
 
-export class LegacyTimezoneError extends Error {
-  readonly code = 'SAJU_LEGACY_TIMEZONE_INVALID';
-  readonly timeZone: string;
-
-  constructor(timeZone: string, cause?: unknown) {
-    super(`Invalid or unsupported legacy timezone: ${timeZone}`, { cause });
-    this.name = 'LegacyTimezoneError';
-    this.timeZone = timeZone;
-  }
-}
-
-interface CivilDateTime {
-  y: number;
-  m: number;
-  d: number;
-  h: number;
-  min: number;
-}
-
 interface DayCutMapping {
   dayBoundary: EngineConfig['calendar']['dayBoundary'];
   hourStemDayBoundary?: EngineConfig['calendar']['dayBoundary'];
@@ -410,144 +405,6 @@ function resolveDayCutMode(legacy: LegacySajuConfig): LegacyDayCutMode {
   return 'MIDNIGHT_00';
 }
 
-// export: 표준시 변천 픽스처 테스트(springLegacyTimezone.test.ts)가 소비 (감사 B10/A15a).
-export function parseOffsetToken(token: string): number | null {
-  const s = token.trim().toUpperCase().replace('UTC', 'GMT');
-  if (s === 'GMT' || s === 'GMT+0' || s === 'GMT+00' || s === 'GMT+00:00') return 0;
-
-  // 초 성분까지 허용 — 1908-04 이전 서울 LMT는 'GMT+8:27:52'로 온다 (감사 A15a).
-  const m = s.match(/GMT([+-])(\d{1,2})(?::?(\d{2}))?(?::(\d{2}))?$/);
-  if (!m) return null;
-
-  const sign = m[1] === '-' ? -1 : 1;
-  const hh = Number(m[2]);
-  const mm = Number(m[3] ?? 0);
-  const ss = Number(m[4] ?? 0);
-  if (!Number.isFinite(hh) || !Number.isFinite(mm) || !Number.isFinite(ss)) return null;
-
-  return sign * Math.round(hh * 60 + mm + ss / 60);
-}
-
-let warnedOffsetFailure = false;
-
-function offsetAtUtcMs(utcMs: number, timeZone: string): number {
-  try {
-    const parts = new Intl.DateTimeFormat('en-US', {
-      timeZone,
-      timeZoneName: 'shortOffset',
-      hour: '2-digit',
-      minute: '2-digit',
-      hourCycle: 'h23',
-    }).formatToParts(new Date(utcMs));
-
-    const zoneName = parts.find((p) => p.type === 'timeZoneName')?.value ?? 'GMT+00:00';
-    const parsed = parseOffsetToken(zoneName);
-    if (parsed == null && !warnedOffsetFailure) {
-      warnedOffsetFailure = true;
-      // 무경고 +09:00 폴백은 약 32분 오차를 침묵시킨다 — 최소한 한 번은 드러낸다 (감사 A15a).
-      console.warn(`[saju-ts/springLegacy] failed to parse tz offset token "${zoneName}" (${timeZone}); rejecting input`);
-    }
-    if (parsed == null) throw new LegacyTimezoneError(timeZone);
-    return parsed;
-  } catch (cause) {
-    if (cause instanceof LegacyTimezoneError) throw cause;
-    if (!warnedOffsetFailure) {
-      warnedOffsetFailure = true;
-      console.warn(`[saju-ts/springLegacy] Intl offset lookup failed for tz "${timeZone}"; rejecting input`);
-    }
-    throw new LegacyTimezoneError(timeZone, cause);
-  }
-}
-
-function longZoneNameAtUtcMs(utcMs: number, timeZone: string): string {
-  try {
-    const parts = new Intl.DateTimeFormat('en-US', { timeZone, timeZoneName: 'long' })
-      .formatToParts(new Date(utcMs));
-    return parts.find((p) => p.type === 'timeZoneName')?.value ?? '';
-  } catch {
-    return '';
-  }
-}
-
-const DST_SCAN_STEP_MS = 30 * 24 * 60 * 60 * 1000;
-
-/**
- * 서머타임(DST) 보정분 실측 (감사 A9).
- *
- * 1) ICU long name이 'Standard'면 0, 'Daylight/Summer'면 DST 확정.
- * 2) 이름이 오프셋 문자열이면(한국 1961년 이전 구간은 ICU 표시명 부재) 전후
- *    각 ±270일 표본으로 판정: DST는 일시적 초과라 양쪽 모두 낮은 표준
- *    오프셋이 보이고, 표준 자오선 변경(1954/1961)은 한쪽에만 보인다.
- *    → 초과분 = offset - max(전측 최소, 후측 최소).
- */
-// export: 표준시 변천 픽스처 테스트(springLegacyTimezone.test.ts)가 소비 (감사 B10).
-export function dstMinutesAtUtcMs(utcMs: number, timeZone: string): number {
-  const name = longZoneNameAtUtcMs(utcMs, timeZone);
-  if (/standard/i.test(name)) return 0;
-  const isNamedDst = /daylight|summer/i.test(name);
-  const offset = offsetAtUtcMs(utcMs, timeZone);
-  let minBefore = offset;
-  let minAfter = offset;
-  for (let k = 1; k <= 9; k++) {
-    minBefore = Math.min(minBefore, offsetAtUtcMs(utcMs - k * DST_SCAN_STEP_MS, timeZone));
-    minAfter = Math.min(minAfter, offsetAtUtcMs(utcMs + k * DST_SCAN_STEP_MS, timeZone));
-  }
-  const excess = Math.max(0, offset - Math.max(minBefore, minAfter));
-  return isNamedDst ? (excess || 60) : excess;
-}
-
-// export: 표준시 변천 픽스처 테스트(springLegacyTimezone.test.ts)가 소비 (감사 B10).
-export function resolveOffsetMinutes(timeZone: string, civil: CivilDateTime): number {
-  const parsedFromToken = parseOffsetToken(timeZone);
-  if (parsedFromToken != null) return parsedFromToken;
-
-  const utcGuess = Date.UTC(civil.y, civil.m - 1, civil.d, civil.h, civil.min, 0);
-  try {
-    const probeParts = new Intl.DateTimeFormat('en-US', {
-      timeZone,
-      timeZoneName: 'shortOffset',
-      hour: '2-digit',
-      minute: '2-digit',
-      hourCycle: 'h23',
-    }).formatToParts(new Date(utcGuess));
-    const probeToken = probeParts
-      .find((part) => part.type === 'timeZoneName')
-      ?.value ?? '';
-    if (parseOffsetToken(probeToken) == null) {
-      throw new LegacyTimezoneError(timeZone);
-    }
-  } catch (cause) {
-    if (cause instanceof LegacyTimezoneError) throw cause;
-    throw new LegacyTimezoneError(timeZone, cause);
-  }
-  const first = offsetAtUtcMs(utcGuess, timeZone);
-  const correctedUtc = utcGuess - first * 60_000;
-  const second = offsetAtUtcMs(correctedUtc, timeZone);
-  return second;
-}
-
-function formatOffset(minutes: number): string {
-  const sign = minutes >= 0 ? '+' : '-';
-  const abs = Math.abs(minutes);
-  const hh = String(Math.floor(abs / 60)).padStart(2, '0');
-  const mm = String(abs % 60).padStart(2, '0');
-  return `${sign}${hh}:${mm}`;
-}
-
-function addMinutes(civil: CivilDateTime, deltaMinutes: number): CivilDateTime {
-  if (!deltaMinutes) return { ...civil };
-
-  const utcMs = Date.UTC(civil.y, civil.m - 1, civil.d, civil.h, civil.min, 0);
-  const shifted = new Date(utcMs + deltaMinutes * 60_000);
-  return {
-    y: shifted.getUTCFullYear(),
-    m: shifted.getUTCMonth() + 1,
-    d: shifted.getUTCDate(),
-    h: shifted.getUTCHours(),
-    min: shifted.getUTCMinutes(),
-  };
-}
-
 function toCivilFromBirthInput(input: LegacyBirthInput): CivilDateTime {
   return {
     y: toInt(input.birthYear, 0),
@@ -556,15 +413,6 @@ function toCivilFromBirthInput(input: LegacyBirthInput): CivilDateTime {
     h: clampHour(input.birthHour),
     min: clampMinute(input.birthMinute),
   };
-}
-
-function civilToIsoInstant(civil: CivilDateTime, offsetMinutes: number): string {
-  const y = String(civil.y).padStart(4, '0');
-  const m = String(civil.m).padStart(2, '0');
-  const d = String(civil.d).padStart(2, '0');
-  const h = String(civil.h).padStart(2, '0');
-  const min = String(civil.min).padStart(2, '0');
-  return `${y}-${m}-${d}T${h}:${min}:00${formatOffset(offsetMinutes)}`;
 }
 
 function normalizeTenGod(v: unknown): string {
@@ -1621,7 +1469,7 @@ function normalizeLegacyOutput(
         h: toInt(adjustedFact.time.h, standard.h),
         min: toInt(adjustedFact.time.min, standard.min),
       }
-    : addMinutes(standard, Math.round(Number(correction.totalCorrectionMinutes ?? 0)));
+    : addCivilMinutes(standard, Math.round(Number(correction.totalCorrectionMinutes ?? 0)));
 
   // 서머타임 보정 실측치 — 기존에는 0 하드코딩으로 미보정 서비스처럼 표기됐다 (감사 A9).
   const tz = timeZone ?? DEFAULT_TIMEZONE;
