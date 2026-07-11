@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SpringEngine } from '../../src/spring-engine.js';
+import { RepositoryDataError } from '../../src/index.js';
 import { analyzeSajuSafe, emptySaju } from '../../src/saju-adapter.js';
 import {
   SajuAnalysisUnavailableError,
@@ -168,6 +169,26 @@ try {
 const valid = await analyzeSajuSafe({
   year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male',
 });
+const namedFortuneProbe = new SpringEngine() as any;
+const nameDataError = new RepositoryDataError(
+  'name-stat',
+  'row.yearly_birth_json.male.2020',
+  'expected a finite non-negative safe integer',
+);
+namedFortuneProbe.init = async () => {};
+namedFortuneProbe.getSajuReport = async () => ({ ...valid.summary, sajuEnabled: true });
+namedFortuneProbe.getSpringReport = async () => { throw nameDataError; };
+const namedFortuneError = await captureError(() => namedFortuneProbe.getFortuneReport({
+  birth: {
+    year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male',
+  },
+  surname: [{ hangul: '\uCD5C' }],
+  givenName: [{ hangul: '\uC131' }, { hangul: '\uC218' }],
+  targetDate: '2026-07-11T00:00:00+09:00',
+}));
+check('named fortune reports preserve name-data integrity failures',
+  namedFortuneError === nameDataError);
+
 const throwingDistribution = new Proxy<Record<string, number>>({}, {
   ownKeys() {
     throw new Error('synthetic required-card failure');

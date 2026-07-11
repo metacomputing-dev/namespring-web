@@ -32,7 +32,7 @@ function fakeEntry(overrides: Record<string, unknown>): any {
     strokes: 4,
     stroke_element: 'Fire',
     resource_element: 'Fire',
-    meaning: '',
+    meaning: '\uC544\uB984\uB2E4\uC6B8 \uAC00',
     radical: '',
     is_surname: false,
     ...overrides,
@@ -170,12 +170,18 @@ check('full jamo-filtered pool respects reading-derived onset/nucleus',
   }),
   `count=${fullJamo.length}, hangul=${fullJamoHangul.join(',')}`);
 
-engine.resetCandidateRejections();
+const candidateRejections = new Map();
 const filtered = engine.filterGeneratedCandidatesByLegalStatus([
   [{ hangul: '답', hanja: '龘', legalStatus: 'notAllowed' }],
-], 'inmyeongyong_full');
-const rejections = engine.candidateRejectionSummary();
-const response = engine.buildResponse(baseRequest, 'recommend', sajuSummary, []);
+], 'inmyeongyong_full', candidateRejections);
+const rejections = engine.candidateRejectionSummary(candidateRejections);
+const response = engine.buildResponse(
+  baseRequest,
+  'recommend',
+  sajuSummary,
+  [],
+  candidateRejections,
+);
 check('illegal generated Hanja is removed before scoring',
   filtered.length === 0);
 check('rejection reason is exposed for filtered Hanja',

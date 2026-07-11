@@ -580,6 +580,10 @@ export interface SajuSummary {
   readonly daeunInfo?: DaeunInfoSummary | null;
   readonly saeunPillars?: readonly SaeunPillarSummary[];
   readonly wolunPillars?: readonly WolunPillarSummary[];
+  /** Neutral requests never select a male/female fortune direction implicitly. */
+  readonly neutralGenderBasis?: 'MALE' | 'FEMALE' | 'UNKNOWN';
+  /** Present when daeun and daeun-coupled relations were omitted for a neutral request. */
+  readonly genderDependentFortuneStatus?: 'unavailable_neutral_gender';
   readonly [key: string]: unknown;
 }
 
@@ -653,6 +657,7 @@ export type SajuAnalysisReasonCode =
   | 'LUNAR_INPUT_INSUFFICIENT'
   | 'LUNAR_CONVERSION_UNAVAILABLE'
   | 'NEUTRAL_GENDER_ANALYSIS_PARTIAL'
+  | 'NEUTRAL_GENDER_NATAL_MISMATCH'
   | 'NEUTRAL_GENDER_ANALYSIS_FAILED'
   | 'SAJU_INVALID_SCHOOL_PRESET_SELECTOR'
   | 'SAJU_UNKNOWN_SCHOOL_PRESET'

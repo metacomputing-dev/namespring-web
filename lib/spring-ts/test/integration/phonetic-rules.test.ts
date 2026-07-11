@@ -178,7 +178,7 @@ check('phonetic opt-in leaves analyze score unchanged',
   JSON.stringify(phoneticResponse.candidates[0]?.analysis.phonetic));
 
 (engine as any).getNameStatInfo = async () => ({
-  exists: true,
+  status: 'found',
   popularityRank: 1,
   maleRatio: 1,
   nameGender: 'male',

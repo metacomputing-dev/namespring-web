@@ -193,7 +193,7 @@ check('trend opt-in leaves analyze score unchanged',
   JSON.stringify(trendResponse.candidates[0]?.analysis.nameTrend));
 
 (engine as any).getNameStatInfo = async () => ({
-  exists: true,
+  status: 'found',
   popularityRank: 1,
   maleRatio: 1,
   nameGender: 'male',

@@ -165,7 +165,7 @@ check('highlights avoid definite yongshin wording',
 check('evidence still carries the selected yongshin candidate',
   card.evidence?.some((row) =>
     row.axis === 'yongshin' &&
-    row.supportingFeatures.some((feature) => feature.includes('METAL')) &&
+    row.supportingFeatures.some((feature) => feature.includes('\uC1E0')) &&
     row.strength === 'deferred') === true,
   JSON.stringify(card.evidence?.find((row) => row.axis === 'yongshin')));
 check('Korean balanced strength level receives balanced scoring',

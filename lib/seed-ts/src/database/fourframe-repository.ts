@@ -1,21 +1,21 @@
-import initSqlJs, { type Database } from 'sql.js';
+import { type Database } from 'sql.js';
+import {
+  createRepositoryRuntime,
+  resolveRepositoryWasm,
+  type RepositoryRuntime,
+  type RepositoryWasmOptions,
+} from './repository-runtime.js';
 import { resolvePublicAssetUrl } from './runtime-url.js';
+import { RepositoryRowDecoder } from './row-decoder.js';
+import { FOURFRAME_LUCKY_LEVELS } from '../fourframe-contract.js';
+import type { FourframeMeaningEntry } from '../fourframe-catalog.js';
 
-export interface FourframeMeaningEntry {
-  readonly id: number;
-  readonly number: number;
-  readonly title: string;
-  readonly summary: string;
-  readonly detailed_explanation: string | null;
-  readonly positive_aspects: string | null;
-  readonly caution_points: string | null;
-  readonly personality_traits: string[];
-  readonly suitable_career: string[];
-  readonly life_period_influence: string | null;
-  readonly special_characteristics: string | null;
-  readonly challenge_period: string | null;
-  readonly opportunity_area: string | null;
-  readonly lucky_level: string | null;
+export type { FourframeMeaningEntry } from '../fourframe-catalog.js';
+
+const FOURFRAME_LUCKY_LEVEL_SET = new Set(FOURFRAME_LUCKY_LEVELS);
+
+export interface FourframeRepositoryOptions extends RepositoryWasmOptions {
+  readonly dbUrl?: string;
 }
 
 /**
@@ -24,23 +24,70 @@ export interface FourframeMeaningEntry {
  */
 export class FourframeRepository {
   private db: Database | null = null;
-  private readonly dbUrl: string = resolvePublicAssetUrl('data/fourframe.db');
-  private readonly wasmUrl: string = 'https://sql.js.org/dist/sql-wasm.wasm';
+  private initPromise: Promise<void> | null = null;
+  private lifecycleGeneration = 0;
+  private readonly dbUrl: string;
+  private readonly wasmUrl: string;
+  private readonly wasmSha256: string | null;
+  private readonly runtime: RepositoryRuntime;
 
-  public async init(): Promise<void> {
-    if (this.db) return;
+  public constructor(options: FourframeRepositoryOptions = {}) {
+    const wasm = resolveRepositoryWasm(options);
+    this.dbUrl = options.dbUrl ?? resolvePublicAssetUrl('data/fourframe.db');
+    this.wasmUrl = wasm.url;
+    this.wasmSha256 = wasm.sha256;
+    this.runtime = createRepositoryRuntime(options);
+  }
 
-    const SQL = await initSqlJs({
-      locateFile: () => this.wasmUrl,
-    });
+  public init(): Promise<void> {
+    if (this.db) return Promise.resolve();
+    if (this.initPromise) return this.initPromise;
 
-    const response = await fetch(this.dbUrl);
+    const generation = this.lifecycleGeneration;
+    let trackedPromise: Promise<void>;
+    trackedPromise = this.initialize(generation)
+      .then(() => {
+        if (generation !== this.lifecycleGeneration) {
+          throw new Error('FourframeRepository initialization was cancelled by close().');
+        }
+      })
+      .finally(() => {
+        if (this.initPromise === trackedPromise) {
+          this.initPromise = null;
+        }
+      });
+    this.initPromise = trackedPromise;
+    return trackedPromise;
+  }
+
+  private async initialize(generation: number): Promise<void> {
+    const SQL = await this.runtime.initializeSqlJs(this.wasmUrl, this.wasmSha256);
+    if (generation !== this.lifecycleGeneration) {
+      throw new Error('FourframeRepository initialization was cancelled by close().');
+    }
+
+    const response = await this.runtime.fetch(this.dbUrl);
     if (!response.ok) {
-      throw new Error(`Failed to fetch DB: ${response.status} ${response.statusText}`);
+      throw new Error(
+        'Failed to fetch DB: ' + response.status + ' ' + response.statusText,
+      );
+    }
+    if (generation !== this.lifecycleGeneration) {
+      throw new Error('FourframeRepository initialization was cancelled by close().');
     }
 
     const buffer = await response.arrayBuffer();
-    this.db = new SQL.Database(new Uint8Array(buffer));
+    const candidate = new SQL.Database(new Uint8Array(buffer));
+    if (generation !== this.lifecycleGeneration) {
+      candidate.close();
+      throw new Error('FourframeRepository initialization was cancelled by close().');
+    }
+    if (this.db) {
+      candidate.close();
+      return;
+    }
+
+    this.db = candidate;
   }
 
   public async findByNumber(number: number): Promise<FourframeMeaningEntry | null> {
@@ -82,57 +129,44 @@ export class FourframeRepository {
     }
 
     const stmt = this.db.prepare(sql);
-    stmt.bind(params);
-
     const rows: FourframeMeaningEntry[] = [];
-    while (stmt.step()) {
-      rows.push(this.mapRow(stmt.getAsObject()));
+    try {
+      stmt.bind(params);
+      while (stmt.step()) {
+        rows.push(this.mapRow(stmt.getAsObject()));
+      }
+      return rows;
+    } finally {
+      stmt.free();
     }
-    stmt.free();
-    return rows;
   }
 
   private mapRow(row: Record<string, unknown>): FourframeMeaningEntry {
+    const decoder = new RepositoryRowDecoder('fourframe', row);
     return {
-      id: Number(row.id ?? 0),
-      number: Number(row.number ?? 0),
-      title: String(row.title ?? ''),
-      summary: String(row.summary ?? ''),
-      detailed_explanation: this.toNullableString(row.detailed_explanation),
-      positive_aspects: this.toNullableString(row.positive_aspects),
-      caution_points: this.toNullableString(row.caution_points),
-      personality_traits: this.parseJsonArray(row.personality_traits),
-      suitable_career: this.parseJsonArray(row.suitable_career),
-      life_period_influence: this.toNullableString(row.life_period_influence),
-      special_characteristics: this.toNullableString(row.special_characteristics),
-      challenge_period: this.toNullableString(row.challenge_period),
-      opportunity_area: this.toNullableString(row.opportunity_area),
-      lucky_level: this.toNullableString(row.lucky_level),
+      id: decoder.integer('id', { min: 1 }),
+      number: decoder.integer('number', { min: 1, max: 81 }),
+      title: decoder.string('title'),
+      summary: decoder.string('summary'),
+      detailed_explanation: decoder.string('detailed_explanation'),
+      positive_aspects: decoder.string('positive_aspects'),
+      caution_points: decoder.string('caution_points'),
+      personality_traits: decoder.jsonStringArray('personality_traits'),
+      suitable_career: decoder.jsonStringArray('suitable_career'),
+      life_period_influence: decoder.string('life_period_influence'),
+      special_characteristics: decoder.string('special_characteristics'),
+      challenge_period: decoder.string('challenge_period'),
+      opportunity_area: decoder.string('opportunity_area'),
+      lucky_level: decoder.enumString('lucky_level', FOURFRAME_LUCKY_LEVEL_SET),
     };
   }
 
-  private parseJsonArray(value: unknown): string[] {
-    if (!value) return [];
-    if (Array.isArray(value)) return value.map((v) => String(v));
-
-    try {
-      const parsed = JSON.parse(String(value));
-      return Array.isArray(parsed) ? parsed.map((v) => String(v)) : [];
-    } catch {
-      return [];
-    }
-  }
-
-  private toNullableString(value: unknown): string | null {
-    if (value === null || value === undefined) return null;
-    const str = String(value);
-    return str.length > 0 ? str : null;
-  }
-
   public close(): void {
-    if (this.db) {
-      this.db.close();
-      this.db = null;
-    }
+    this.lifecycleGeneration += 1;
+    this.initPromise = null;
+
+    const db = this.db;
+    this.db = null;
+    db?.close();
   }
 }

@@ -871,8 +871,9 @@ function classifyDeficientAndExcessive(distribution: Record<string, number>): {
 // ---------------------------------------------------------------------------
 
 let sajuModule: SajuModule | null = null;
+let sajuModulePromise: Promise<SajuModule | null> | null = null;
 
-async function loadSajuModule(): Promise<SajuModule | null> {
+async function importSajuModule(): Promise<SajuModule | null> {
   if (sajuModule) return sajuModule;
 
   // Two-stage import — order matters:
@@ -910,6 +911,21 @@ async function loadSajuModule(): Promise<SajuModule | null> {
     );
     return null;
   }
+}
+
+async function loadSajuModule(): Promise<SajuModule | null> {
+  if (sajuModule) return sajuModule;
+  if (sajuModulePromise) return sajuModulePromise;
+
+  let trackedPromise: Promise<SajuModule | null>;
+  trackedPromise = importSajuModule().finally(() => {
+    // A failed load remains retryable, while concurrent callers share the
+    // exact same attempt. Identity guarding prevents an older attempt from
+    // clearing a newer retry.
+    if (sajuModulePromise === trackedPromise) sajuModulePromise = null;
+  });
+  sajuModulePromise = trackedPromise;
+  return trackedPromise;
 }
 
 // ---------------------------------------------------------------------------
@@ -1297,6 +1313,10 @@ const SAJU_ANALYSIS_FAILURES: Readonly<Record<
     status: 'partial',
     message: '중성 기준 비교에서 남성·여성 계산 중 하나만 완료되었습니다.',
   },
+  NEUTRAL_GENDER_NATAL_MISMATCH: {
+    status: 'failed',
+    message: '중성 기준의 두 원국 계산이 일치하지 않아 결과를 사용할 수 없습니다.',
+  },
   NEUTRAL_GENDER_ANALYSIS_FAILED: {
     status: 'failed',
     message: '중성 기준의 남녀 사주 분석을 모두 완료하지 못했습니다.',
@@ -1365,6 +1385,23 @@ export interface NeutralGenderAnalysisResolution {
   readonly interpretationNote: string | null;
 }
 
+function withoutGenderDependentFortune(summary: SajuSummary): SajuSummary {
+  const saeunPillars = summary.saeunPillars?.map(({ relationsWithDecade: _ignored, ...pillar }) => pillar);
+  return {
+    ...summary,
+    daeunInfo: null,
+    ...(saeunPillars ? { saeunPillars } : {}),
+  };
+}
+
+function hasSameGenderIndependentAnalysis(
+  maleSummary: SajuSummary,
+  femaleSummary: SajuSummary,
+): boolean {
+  return JSON.stringify(withoutGenderDependentFortune(maleSummary))
+    === JSON.stringify(withoutGenderDependentFortune(femaleSummary));
+}
+
 function withAnalysisDiagnostic(
   summary: SajuSummary,
   reasonCode: SajuAnalysisReasonCode,
@@ -1390,19 +1427,34 @@ export function resolveNeutralGenderAnalysis(
 ): NeutralGenderAnalysisResolution {
   let maleSummary: SajuSummary | null = null;
   let femaleSummary: SajuSummary | null = null;
+  let maleError: unknown = null;
+  let femaleError: unknown = null;
 
   try {
     maleSummary = analyzeWithGender('MALE');
-  } catch {
+  } catch (error) {
+    maleError = error;
     maleSummary = null;
   }
   try {
     femaleSummary = analyzeWithGender('FEMALE');
-  } catch {
+  } catch (error) {
+    femaleError = error;
     femaleSummary = null;
   }
 
   if (!maleSummary && !femaleSummary) {
+    // Configuration, input and module failures are gender-independent. When
+    // both paths fail for the same structured reason, preserve that root cause
+    // for the outer adapter boundary instead of mislabelling it as a neutral
+    // comparison failure.
+    if (
+      maleError != null
+      && femaleError != null
+      && failureReasonCode(maleError) === failureReasonCode(femaleError)
+    ) {
+      throw maleError;
+    }
     return {
       summary: emptySaju('NEUTRAL_GENDER_ANALYSIS_FAILED'),
       basis: null,
@@ -1415,15 +1467,11 @@ export function resolveNeutralGenderAnalysis(
 
   const maleConfidence = maleSummary?.yongshin?.confidence ?? null;
   const femaleConfidence = femaleSummary?.yongshin?.confidence ?? null;
-  const basis: NeutralGenderCode =
+  const completedGender: NeutralGenderCode =
     maleSummary && !femaleSummary
       ? 'MALE'
-      : !maleSummary && femaleSummary
-        ? 'FEMALE'
-        : (femaleConfidence ?? -1) > (maleConfidence ?? -1)
-          ? 'FEMALE'
-          : 'MALE';
-  const selectedSummary = basis === 'FEMALE' ? femaleSummary! : maleSummary!;
+      : 'FEMALE';
+  const completedSummary = completedGender === 'FEMALE' ? femaleSummary! : maleSummary!;
   const completedGenders: NeutralGenderCode[] = [
     ...(maleSummary ? ['MALE' as const] : []),
     ...(femaleSummary ? ['FEMALE' as const] : []),
@@ -1432,22 +1480,36 @@ export function resolveNeutralGenderAnalysis(
   const femaleConfidenceText = femaleConfidence != null ? femaleConfidence.toFixed(2) : '-';
 
   if (maleSummary && femaleSummary) {
+    if (!hasSameGenderIndependentAnalysis(maleSummary, femaleSummary)) {
+      return {
+        summary: emptySaju('NEUTRAL_GENDER_NATAL_MISMATCH'),
+        basis: null,
+        maleConfidence,
+        femaleConfidence,
+        completedGenders,
+        interpretationNote: null,
+      };
+    }
+
     return {
-      summary: selectedSummary,
-      basis,
+      summary: withoutGenderDependentFortune(maleSummary),
+      basis: null,
       maleConfidence,
       femaleConfidence,
       completedGenders,
       interpretationNote:
-        `중성 선택으로 남녀 기준을 모두 계산했고, 신뢰도 기준으로 ${basis} 결과를 사용했습니다. (남성 ${maleConfidenceText}, 여성 ${femaleConfidenceText})`,
+        '중성 선택으로 성별과 무관한 원국·세운·월운만 사용했습니다. 성별에 따라 순행·역행이 달라지는 대운과 세운-대운 관계는 임의로 선택하지 않았습니다.',
     };
   }
 
-  const completedLabel = basis === 'MALE' ? '남성' : '여성';
-  const failedLabel = basis === 'MALE' ? '여성' : '남성';
+  const completedLabel = completedGender === 'MALE' ? '남성' : '여성';
+  const failedLabel = completedGender === 'MALE' ? '여성' : '남성';
   return {
-    summary: withAnalysisDiagnostic(selectedSummary, 'NEUTRAL_GENDER_ANALYSIS_PARTIAL'),
-    basis,
+    summary: withAnalysisDiagnostic(
+      withoutGenderDependentFortune(completedSummary),
+      'NEUTRAL_GENDER_ANALYSIS_PARTIAL',
+    ),
+    basis: null,
     maleConfidence,
     femaleConfidence,
     completedGenders,
@@ -1692,7 +1754,9 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
 
     if (birth.gender === 'neutral') {
       const neutral = resolveNeutralGenderAnalysis(analyzeWithGender);
-      if (!neutral.basis) return neutral.summary;
+      if (neutral.completedGenders.length === 0 || neutral.summary.analysisStatus === 'failed') {
+        return neutral.summary;
+      }
       summary = neutral.summary;
       neutralBasis = neutral.basis;
       neutralInterpretationNote = neutral.interpretationNote;
@@ -1709,7 +1773,13 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
     }
     if (birth.gender === 'neutral') {
       if (neutralInterpretationNote) notes.push(neutralInterpretationNote);
-      summary = { ...summary, neutralGenderBasis: neutralBasis ?? 'UNKNOWN' };
+      summary = {
+        ...summary,
+        neutralGenderBasis: neutralBasis ?? 'UNKNOWN',
+        ...(!neutralBasis
+          ? { genderDependentFortuneStatus: 'unavailable_neutral_gender' as const }
+          : {}),
+      };
     }
     // 감사 B1: 음력 변환 기록 attach + 사용자 검증 노트.
     // lunar 경로에서만 붙인다 — solar 경로에 undefined 키를 세팅하면

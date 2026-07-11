@@ -1,8 +1,9 @@
-import { EnergyCalculator, type EnergyVisitor } from './energy-calculator';
-import { Energy } from '../model/energy';
-import { Element } from '../model/element';
-import { Polarity } from '../model/polarity';
-import type { HanjaEntry } from '../database/hanja-repository';
+import { EnergyCalculator, type EnergyVisitor } from './energy-calculator.js';
+import { Energy } from '../model/energy.js';
+import { Element } from '../model/element.js';
+import { Polarity } from '../model/polarity.js';
+import type { HanjaEntry } from '../database/hanja-repository.js';
+import { SeedCalculationError, SeedValidationError } from '../errors.js';
 
 /**
  * PR-Q-26 (Phase K-3): ONSET → Element lookup table (dedup + drift hazard 제거).
@@ -44,6 +45,15 @@ const ONSET_TO_ELEMENT: ReadonlyArray<Element> = [
   Element.Earth,  // 18: ㅎ
 ];
 
+const YANG_VOWELS = new Set([
+  '\u314f', '\u3150', '\u3151', '\u3152', '\u3157',
+  '\u3158', '\u3159', '\u315a', '\u315b', '\u3163',
+]);
+const YIN_VOWELS = new Set([
+  '\u3153', '\u3154', '\u3155', '\u3156', '\u315c',
+  '\u315d', '\u315e', '\u315f', '\u3160', '\u3161', '\u3162',
+]);
+
 /**
  * Calculator for the Hangul (Korean Alphabet) Five Elements and Yin-Yang based on pronunciation.
  * Analyzes phonetic attributes of Hangul characters provided via HanjaEntry.
@@ -73,7 +83,7 @@ export class HangulCalculator extends EnergyCalculator {
    * @param surnameEntries Array of entries for the surname
    * @param firstNameEntries Array of entries for the first name
    */
-  constructor(surnameEntries: HanjaEntry[], firstNameEntries: HanjaEntry[]) {
+  constructor(surnameEntries: readonly HanjaEntry[], firstNameEntries: readonly HanjaEntry[]) {
     super();
 
     const fullEntries = [...surnameEntries, ...firstNameEntries];
@@ -86,16 +96,28 @@ export class HangulCalculator extends EnergyCalculator {
    * Triggers the energy calculation process for all Hangul name blocks.
    */
   public calculate(): void {
-    const needsCalculation = this.hangulNameBlocks.some(block => block.energy === null);
-
-    if (needsCalculation) {
-      const visitor = new HangulCalculator.CalculationVisitor();
-      this.accept(visitor);
-    }
+    if (!this.shouldCalculate()) return;
+    const visitor = new HangulCalculator.CalculationVisitor();
+    this.accept(visitor);
+    this.markReady();
   }
 
   public getScore(): number {
-    return Energy.getScore(this.hangulNameBlocks.map(b => b.energy).filter((e): e is Energy => e !== null));
+    const calculationStatus = this.requireReadyOrExcluded('hangul.nameBlocks');
+    if (calculationStatus === 'excluded') return 0;
+
+    const energies = this.hangulNameBlocks
+      .map(block => block.energy)
+      .filter((energy): energy is Energy => energy !== null);
+    if (energies.length !== this.hangulNameBlocks.length) {
+      throw new SeedCalculationError(
+        'EMPTY_ENERGY_SET',
+        'All Hangul energies must be calculated before scoring.',
+        'hangul.nameBlocks',
+        { blockCount: this.hangulNameBlocks.length, energyCount: energies.length },
+      );
+    }
+    return Energy.getScore(energies);
   }
 
   /**
@@ -140,10 +162,14 @@ export class HangulCalculator extends EnergyCalculator {
      * @param nucleus The Hangul vowel character.
      */
     public calculatePolarityFromVowel(nucleus: string): Polarity {
-      const yangVowels = ['ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅗ', 'ㅘ', 'ㅙ', 'ㅚ', 'ㅛ', 'ㅣ'];
-      
-      // If the nucleus is in the yang list, return Positive, else return Negative.
-      return yangVowels.includes(nucleus) ? Polarity.Positive : Polarity.Negative;
+      if (YANG_VOWELS.has(nucleus)) return Polarity.Positive;
+      if (YIN_VOWELS.has(nucleus)) return Polarity.Negative;
+      throw new SeedValidationError(
+        'INVALID_NUCLEUS',
+        'Nucleus must be a valid modern Hangul vowel.',
+        'nucleus',
+        nucleus,
+      );
     }
 
     /**
@@ -154,16 +180,27 @@ export class HangulCalculator extends EnergyCalculator {
      */
     public calculateElementFromOnset(char: string): Element {
       const code = char.charCodeAt(0) - 0xAC00;
-      if (code < 0 || code > 11171) return Element.Water;
+      if (Array.from(char).length !== 1 || code < 0 || code > 11171) {
+        throw new SeedValidationError(
+          'INVALID_HANGUL_SYLLABLE',
+          'Element calculation requires exactly one precomposed Hangul syllable.',
+          'hangul',
+          char,
+        );
+      }
 
       const initialIdx = Math.floor(code / 588);
-      // Indices 0..18 → ONSET_TO_ELEMENT lookup. Out-of-range falls back to Water
-      // (preserves legacy behavior for malformed input).
-      return ONSET_TO_ELEMENT[initialIdx] ?? Element.Water;
+      // Indices 0..18 map to ONSET_TO_ELEMENT; malformed input fails closed.
+      const element = ONSET_TO_ELEMENT[initialIdx];
+      if (!element) {
+        throw new SeedValidationError(
+          'INVALID_ONSET',
+          'Unable to derive a valid onset element from the Hangul syllable.',
+          'hangul',
+          char,
+        );
+      }
+      return element;
     }
   }
-}
-
-function clamp(arg0: number, arg1: number, arg2: number): number {
-  throw new Error('Function not implemented.');
 }

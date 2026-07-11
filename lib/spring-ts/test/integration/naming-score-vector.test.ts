@@ -128,7 +128,7 @@ const analyzeResponse = await engine.analyze({
 });
 
 (engine as any).getNameStatInfo = async () => ({
-  exists: true,
+  status: 'found',
   popularityRank: 1,
   maleRatio: 1,
   nameGender: 'male',
@@ -162,7 +162,8 @@ check('pure Hangul vector keeps hanjaMeaning inapplicable',
     pureVectorReport.scoreVector?.phonetic !== null);
 check('NameCompatibilityCard forwards scoreVector and evidence row',
   card?.scoreVector?.risk === vectorReport.scoreVector?.risk &&
-    vectorRow?.supportingFeatures.some((feature) => feature.startsWith('legal ')) === true &&
+    vectorRow?.supportingFeatures.length === Object.keys(vectorReport.scoreVector ?? {}).length &&
+    vectorRow.supportingFeatures.every((feature) => typeof feature === 'string' && feature.length > 0) &&
     card?.strengthProfile?.id === vectorReport.strengthProfile?.id);
 check('legacy analyze candidate exposes scoreVector',
   analyzeResponse.candidates[0]?.scoreVector?.legal === vectorReport.scoreVector?.legal &&

@@ -1,5 +1,12 @@
-import initSqlJs, { type Database, type SqlJsStatic } from 'sql.js';
+import { type Database, type SqlJsStatic } from 'sql.js';
+import {
+  createRepositoryRuntime,
+  resolveRepositoryWasm,
+  type RepositoryRuntime,
+  type RepositoryWasmOptions,
+} from './repository-runtime.js';
 import { resolvePublicAssetUrl } from './runtime-url.js';
+import { RepositoryRowDecoder } from './row-decoder.js';
 
 export interface NameStatEntry {
   readonly name: string;
@@ -20,6 +27,10 @@ export interface NameGenderRatioEntry {
   readonly femaleRatio: number;
 }
 
+export interface NameStatRepositoryOptions extends RepositoryWasmOptions {
+  readonly shardBaseUrl?: string;
+}
+
 type ShardKey =
   | 'ㄱ' | 'ㄴ' | 'ㄷ' | 'ㄹ' | 'ㅁ' | 'ㅂ' | 'ㅅ'
   | 'ㅇ' | 'ㅈ' | 'ㅊ' | 'ㅋ' | 'ㅌ' | 'ㅍ' | 'ㅎ';
@@ -29,10 +40,15 @@ type ShardKey =
  * Loads only the shard needed by the first character's choseong.
  */
 export class NameStatRepository {
-  private readonly wasmUrl: string = 'https://sql.js.org/dist/sql-wasm.wasm';
-  private readonly shardBaseUrl: string = resolvePublicAssetUrl('data/name-stat-shards');
+  private readonly wasmUrl: string;
+  private readonly wasmSha256: string | null;
+  private readonly shardBaseUrl: string;
+  private readonly runtime: RepositoryRuntime;
   private sqlInstance: SqlJsStatic | null = null;
+  private sqlInitPromise: Promise<SqlJsStatic> | null = null;
   private readonly dbByShard = new Map<ShardKey, Database>();
+  private readonly shardLoadPromiseByKey = new Map<ShardKey, Promise<Database>>();
+  private lifecycleGeneration = 0;
 
   private readonly shardFileByKey: Record<ShardKey, string> = {
     'ㄱ': '01.db',
@@ -51,11 +67,24 @@ export class NameStatRepository {
     'ㅎ': '14.db',
   };
 
+  public constructor(options: NameStatRepositoryOptions = {}) {
+    const wasm = resolveRepositoryWasm(options);
+    this.wasmUrl = wasm.url;
+    this.wasmSha256 = wasm.sha256;
+    this.shardBaseUrl = options.shardBaseUrl
+      ?? resolvePublicAssetUrl('data/name-stat-shards');
+    this.runtime = createRepositoryRuntime(options);
+  }
+
   /**
    * Optional eager init. DB shards remain lazy-loaded.
    */
   public async init(): Promise<void> {
+    const generation = this.lifecycleGeneration;
     await this.ensureSqlReady();
+    if (generation !== this.lifecycleGeneration) {
+      throw new Error('NameStatRepository initialization was cancelled by close().');
+    }
   }
 
   /**
@@ -70,50 +99,106 @@ export class NameStatRepository {
     const db = await this.ensureShardLoaded(shardKey);
 
     const stmt = db.prepare(`SELECT * FROM name_stats WHERE name = ? LIMIT 1`);
-    stmt.bind([normalizedName]);
-
     try {
+      stmt.bind([normalizedName]);
       if (!stmt.step()) return null;
-      return this.mapRowToEntry(stmt.getAsObject());
+      return this.mapRowToEntry(stmt.getAsObject(), normalizedName);
     } finally {
       stmt.free();
     }
   }
 
   public close(): void {
+    this.lifecycleGeneration += 1;
+    this.sqlInstance = null;
+    this.sqlInitPromise = null;
+    this.shardLoadPromiseByKey.clear();
+
     for (const db of this.dbByShard.values()) {
       db.close();
     }
     this.dbByShard.clear();
   }
 
-  private async ensureSqlReady(): Promise<SqlJsStatic> {
-    if (this.sqlInstance) return this.sqlInstance;
+  private ensureSqlReady(): Promise<SqlJsStatic> {
+    if (this.sqlInstance) return Promise.resolve(this.sqlInstance);
+    if (this.sqlInitPromise) return this.sqlInitPromise;
 
-    this.sqlInstance = await initSqlJs({
-      locateFile: () => this.wasmUrl,
-    });
-
-    return this.sqlInstance;
+    const generation = this.lifecycleGeneration;
+    let trackedPromise: Promise<SqlJsStatic>;
+    trackedPromise = this.runtime.initializeSqlJs(this.wasmUrl, this.wasmSha256)
+      .then((SQL) => {
+        if (generation !== this.lifecycleGeneration) {
+          throw new Error('NameStatRepository initialization was cancelled by close().');
+        }
+        this.sqlInstance = SQL;
+        return SQL;
+      })
+      .finally(() => {
+        if (this.sqlInitPromise === trackedPromise) {
+          this.sqlInitPromise = null;
+        }
+      });
+    this.sqlInitPromise = trackedPromise;
+    return trackedPromise;
   }
 
-  private async ensureShardLoaded(shardKey: ShardKey): Promise<Database> {
+  private ensureShardLoaded(shardKey: ShardKey): Promise<Database> {
     const cached = this.dbByShard.get(shardKey);
-    if (cached) return cached;
+    if (cached) return Promise.resolve(cached);
+    const loading = this.shardLoadPromiseByKey.get(shardKey);
+    if (loading) return loading;
 
+    const generation = this.lifecycleGeneration;
+    let trackedPromise: Promise<Database>;
+    trackedPromise = this.loadShard(shardKey, generation)
+      .then((database) => {
+        if (generation !== this.lifecycleGeneration) {
+          throw new Error('NameStatRepository shard load was cancelled by close().');
+        }
+        return database;
+      })
+      .finally(() => {
+        if (this.shardLoadPromiseByKey.get(shardKey) === trackedPromise) {
+          this.shardLoadPromiseByKey.delete(shardKey);
+        }
+      });
+    this.shardLoadPromiseByKey.set(shardKey, trackedPromise);
+    return trackedPromise;
+  }
+
+  private async loadShard(shardKey: ShardKey, generation: number): Promise<Database> {
     const SQL = await this.ensureSqlReady();
-    const filename = this.shardFileByKey[shardKey];
-    const url = `${this.shardBaseUrl}/${encodeURIComponent(filename)}`;
+    if (generation !== this.lifecycleGeneration) {
+      throw new Error('NameStatRepository shard load was cancelled by close().');
+    }
 
-    const response = await fetch(url);
+    const filename = this.shardFileByKey[shardKey];
+    const url = this.shardBaseUrl + '/' + encodeURIComponent(filename);
+
+    const response = await this.runtime.fetch(url);
     if (!response.ok) {
-      throw new Error(`Failed to fetch shard DB (${filename}): ${response.status} ${response.statusText}`);
+      throw new Error(
+        'Failed to fetch shard DB (' + filename + '): '
+        + response.status + ' ' + response.statusText,
+      );
     }
 
     const buffer = await response.arrayBuffer();
-    const db = new SQL.Database(new Uint8Array(buffer));
-    this.dbByShard.set(shardKey, db);
-    return db;
+    const candidate = new SQL.Database(new Uint8Array(buffer));
+    if (generation !== this.lifecycleGeneration) {
+      candidate.close();
+      throw new Error('NameStatRepository shard load was cancelled by close().');
+    }
+
+    const existing = this.dbByShard.get(shardKey);
+    if (existing) {
+      candidate.close();
+      return existing;
+    }
+
+    this.dbByShard.set(shardKey, candidate);
+    return candidate;
   }
 
   private getShardKeyByName(name: string): ShardKey | null {
@@ -146,65 +231,101 @@ export class NameStatRepository {
     return CHOSEONG_LIST[index] ?? null;
   }
 
-  private mapRowToEntry(row: Record<string, unknown>): NameStatEntry {
+  private mapRowToEntry(row: Record<string, unknown>, expectedName: string): NameStatEntry {
+    const decoder = new RepositoryRowDecoder('name-stat', row);
+    decoder.integer('id', { min: 1 });
+    const name = decoder.string('name');
+    if (name !== expectedName) {
+      decoder.fail(decoder.path('name'), 'did not match the requested name');
+    }
+    const firstChar = decoder.string('first_char');
+    if (firstChar !== Array.from(name)[0]) {
+      decoder.fail(decoder.path('first_char'), 'did not match the first name syllable');
+    }
+    const firstChoseong = decoder.string('first_choseong');
+    if (firstChoseong !== this.extractChoseong(firstChar)) {
+      decoder.fail(decoder.path('first_choseong'), 'did not match the first name syllable');
+    }
+
     return {
-      name: String(row.name ?? ''),
-      first_char: String(row.first_char ?? ''),
-      first_choseong: String(row.first_choseong ?? ''),
-      similar_names: this.parseJsonArray(row.similar_names_json),
-      yearly_rank: this.parseNestedNumberObject(row.yearly_rank_json),
-      yearly_birth: this.parseNestedNumberObject(row.yearly_birth_json),
-      hanja_combinations: this.parseJsonArray(row.hanja_combinations_json),
-      raw_entry: this.parseJsonObject(row.raw_entry_json),
+      name,
+      first_char: firstChar,
+      first_choseong: firstChoseong,
+      similar_names: decoder.jsonStringArray('similar_names_json'),
+      yearly_rank: this.parseNestedNumberObject(decoder, 'yearly_rank_json'),
+      yearly_birth: this.parseNestedNumberObject(decoder, 'yearly_birth_json'),
+      hanja_combinations: decoder.jsonStringArray('hanja_combinations_json'),
+      raw_entry: decoder.jsonObject('raw_entry_json'),
     };
   }
 
-  private parseJsonArray(value: unknown): string[] {
-    if (!value) return [];
-    if (Array.isArray(value)) return value.map((v) => String(v));
+  private parseNestedNumberObject(
+    decoder: RepositoryRowDecoder,
+    field: string,
+  ): Record<string, Record<string, number>> {
+    const parsed = decoder.jsonObject(field);
+    const entries = Object.entries(parsed);
+    const hasFlatValues = entries.some(([, value]) => typeof value === 'number');
+    const hasNestedValues = entries.some(([, value]) =>
+      typeof value === 'object' && value !== null && !Array.isArray(value));
 
-    try {
-      const parsed = JSON.parse(String(value));
-      return Array.isArray(parsed) ? parsed.map((v) => String(v)) : [];
-    } catch {
-      return [];
+    if (entries.some(([, value]) =>
+      typeof value !== 'number'
+      && (typeof value !== 'object' || value === null || Array.isArray(value)))) {
+      decoder.fail(decoder.path(field), 'expected numeric years or nested numeric buckets');
     }
+    if (hasFlatValues && hasNestedValues) {
+      decoder.fail(decoder.path(field), 'mixed flat and nested statistic shapes');
+    }
+
+    if (hasFlatValues) {
+      const flat: Record<string, number> = {};
+      for (const [year, value] of entries) {
+        flat[year] = this.decodeStatisticValue(decoder, field, year, value);
+      }
+      return { ['전체']: flat };
+    }
+
+    const out: Record<string, Record<string, number>> = {};
+    for (const [bucketName, bucket] of entries) {
+      if (bucketName.trim().length === 0) {
+        decoder.fail(decoder.path(field), 'contained an empty bucket name');
+      }
+      const bucketPath = decoder.path(field) + '.' + bucketName;
+      if (typeof bucket !== 'object' || bucket === null || Array.isArray(bucket)) {
+        decoder.fail(bucketPath, 'expected an object bucket');
+      }
+      const decodedBucket: Record<string, number> = {};
+      for (const [year, value] of Object.entries(bucket as Record<string, unknown>)) {
+        decodedBucket[year] = this.decodeStatisticValue(
+          decoder,
+          field,
+          bucketName + '.' + year,
+          value,
+        );
+      }
+      out[bucketName] = decodedBucket;
+    }
+    return out;
   }
 
-  private parseNestedNumberObject(value: unknown): Record<string, Record<string, number>> {
-    if (!value) return {};
-    try {
-      const parsed = JSON.parse(String(value));
-      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return {};
-
-      const out: Record<string, Record<string, number>> = {};
-      const flatBucket: Record<string, number> = {};
-      for (const [key, bucket] of Object.entries(parsed as Record<string, unknown>)) {
-        // Handle flat map shape: { "2015": 1, "2016": 2 }
-        const flatYear = Number(key);
-        const flatNum = Number(bucket);
-        if (!Number.isNaN(flatYear) && !Number.isNaN(flatNum)) {
-          flatBucket[key] = flatNum;
-          continue;
-        }
-
-        if (!bucket || typeof bucket !== 'object' || Array.isArray(bucket)) continue;
-        out[key] = {};
-        for (const [year, num] of Object.entries(bucket as Record<string, unknown>)) {
-          const n = Number(num);
-          if (!Number.isNaN(n)) out[key][year] = n;
-        }
-      }
-
-      if (Object.keys(flatBucket).length) {
-        const existing = out['전체'] || {};
-        out['전체'] = { ...existing, ...flatBucket };
-      }
-
-      return out;
-    } catch {
-      return {};
+  private decodeStatisticValue(
+    decoder: RepositoryRowDecoder,
+    field: string,
+    keyedYear: string,
+    value: unknown,
+  ): number {
+    const year = keyedYear.split('.').at(-1) ?? '';
+    if (!/^\d{4}$/u.test(year)) {
+      decoder.fail(decoder.path(field) + '.' + keyedYear, 'expected a four-digit year key');
     }
+    if (typeof value !== 'number' || !Number.isSafeInteger(value) || value < 0) {
+      decoder.fail(
+        decoder.path(field) + '.' + keyedYear,
+        'expected a finite non-negative safe integer',
+      );
+    }
+    return value;
   }
 
   public async findGenderRatioByName(name: string): Promise<NameGenderRatioEntry | null> {
@@ -232,19 +353,6 @@ export class NameStatRepository {
       maleRatio: maleBirths / totalBirths,
       femaleRatio: femaleBirths / totalBirths,
     };
-  }
-
-  private parseJsonObject(value: unknown): Record<string, unknown> {
-    if (!value) return {};
-    try {
-      const parsed = JSON.parse(String(value));
-      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
-        return parsed as Record<string, unknown>;
-      }
-      return {};
-    } catch {
-      return {};
-    }
   }
 
   private sumBirthsByBucket(
