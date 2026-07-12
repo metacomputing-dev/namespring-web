@@ -10,41 +10,21 @@ import sqlite3 from 'sqlite3';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import {
+  extractRawNameStatChoseong,
+  foldNameStatChoseong,
+  NAME_STAT_SHARD_KEYS,
+  nameStatShardFilename,
+  resolveNameStatShardKey,
+  type NameStatRawChoseong,
+  type NameStatShardKey,
+} from './name-stat-shard.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const sourceJsonPath = path.resolve(__dirname, '../data/name_to_stat_minified_with_hanja.json');
 const outputDir = path.resolve(__dirname, '../data/name-stat-shards');
-
-const CHOSEONG_LIST = [
-  'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ',
-  'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ',
-] as const;
-
-const BASE_CHOSEONG_ORDER = ['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'] as const;
-
-const CHOSEONG_SHARD_MAP: Record<string, (typeof BASE_CHOSEONG_ORDER)[number]> = {
-  'ㄱ': 'ㄱ',
-  'ㄲ': 'ㄱ',
-  'ㄴ': 'ㄴ',
-  'ㄷ': 'ㄷ',
-  'ㄸ': 'ㄷ',
-  'ㄹ': 'ㄹ',
-  'ㅁ': 'ㅁ',
-  'ㅂ': 'ㅂ',
-  'ㅃ': 'ㅂ',
-  'ㅅ': 'ㅅ',
-  'ㅆ': 'ㅅ',
-  'ㅇ': 'ㅇ',
-  'ㅈ': 'ㅈ',
-  'ㅉ': 'ㅈ',
-  'ㅊ': 'ㅊ',
-  'ㅋ': 'ㅋ',
-  'ㅌ': 'ㅌ',
-  'ㅍ': 'ㅍ',
-  'ㅎ': 'ㅎ',
-};
 
 type NameStatEntry = {
   similar_names?: unknown;
@@ -57,7 +37,7 @@ type JsonRoot = Record<string, NameStatEntry>;
 type Row = {
   name: string;
   first_char: string;
-  first_choseong: string;
+  first_choseong: NameStatRawChoseong;
   similar_names_json: string;
   yearly_rank_json: string;
   yearly_birth_json: string;
@@ -67,15 +47,6 @@ type Row = {
 
 function isObject(value: unknown): value is Record<string, unknown> {
   return !!value && typeof value === 'object' && !Array.isArray(value);
-}
-
-function extractChoseong(char: string): string | null {
-  if (!char) return null;
-  const code = char.charCodeAt(0);
-  if (code < 0xac00 || code > 0xd7a3) return null;
-
-  const choseongIndex = Math.floor((code - 0xac00) / 588);
-  return CHOSEONG_LIST[choseongIndex] ?? null;
 }
 
 function detectStatObjects(entry: NameStatEntry): Record<string, unknown>[] {
@@ -95,10 +66,9 @@ function detectStatObjects(entry: NameStatEntry): Record<string, unknown>[] {
 }
 
 function normalizeRow(name: string, entry: NameStatEntry): Row {
-  const firstChar = name[0] ?? '';
-  const rawChoseong = extractChoseong(firstChar);
-  const firstChoseong = rawChoseong ? CHOSEONG_SHARD_MAP[rawChoseong] : undefined;
-  if (!firstChoseong) {
+  const firstChar = Array.from(name)[0] ?? '';
+  const rawChoseong = extractRawNameStatChoseong(firstChar);
+  if (rawChoseong === null) {
     throw new Error(`Unsupported first choseong for name: ${name}`);
   }
 
@@ -112,7 +82,7 @@ function normalizeRow(name: string, entry: NameStatEntry): Row {
   return {
     name,
     first_char: firstChar,
-    first_choseong: firstChoseong,
+    first_choseong: rawChoseong,
     similar_names_json: JSON.stringify(similarNames),
     yearly_rank_json: JSON.stringify(yearlyRank),
     yearly_birth_json: JSON.stringify(yearlyBirth),
@@ -201,15 +171,14 @@ async function main(): Promise<void> {
   }
 
   const root = JSON.parse(fs.readFileSync(sourceJsonPath, 'utf8')) as JsonRoot;
-  const shards: Record<string, Row[]> = {};
+  const shards = new Map<NameStatShardKey, Row[]>(
+    NAME_STAT_SHARD_KEYS.map((shardKey) => [shardKey, []]),
+  );
   let skippedCount = 0;
 
-  for (const choseong of BASE_CHOSEONG_ORDER) shards[choseong] = [];
-
   for (const [name, entry] of Object.entries(root)) {
-    const firstChar = name[0] ?? '';
-    const rawChoseong = extractChoseong(firstChar);
-    const shardKey = rawChoseong ? CHOSEONG_SHARD_MAP[rawChoseong] : undefined;
+    const firstChar = Array.from(name)[0] ?? '';
+    const shardKey = resolveNameStatShardKey(firstChar);
 
     if (!shardKey) {
       skippedCount++;
@@ -217,20 +186,24 @@ async function main(): Promise<void> {
     }
 
     const row = normalizeRow(name, entry);
-    shards[shardKey].push(row);
+    if (foldNameStatChoseong(row.first_choseong) !== shardKey) {
+      throw new Error(`NameStat row/shard choseong mismatch for name: ${name}`);
+    }
+    const shardRows = shards.get(shardKey);
+    if (!shardRows) throw new Error(`Missing NameStat shard bucket: ${shardKey}`);
+    shardRows.push(row);
   }
 
-  let shardIndex = 1;
-  for (const choseong of BASE_CHOSEONG_ORDER) {
-    const rows = shards[choseong];
-    const dbFilename = `${String(shardIndex).padStart(2, '0')}.db`;
+  for (const shardKey of NAME_STAT_SHARD_KEYS) {
+    const rows = shards.get(shardKey);
+    if (!rows) throw new Error(`Missing NameStat shard bucket: ${shardKey}`);
+    const dbFilename = nameStatShardFilename(shardKey);
     const dbPath = path.join(outputDir, dbFilename);
 
     if (fs.existsSync(dbPath)) fs.unlinkSync(dbPath);
 
     await createShardDb(dbPath, rows);
     console.log(`${dbFilename}: ${rows.length} rows`);
-    shardIndex++;
   }
 
   console.log(`Skipped non-Hangul-first names: ${skippedCount}`);

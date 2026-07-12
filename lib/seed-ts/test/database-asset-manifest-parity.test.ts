@@ -1,11 +1,20 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
+import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
+import initSqlJs from 'sql.js';
 
 import { GENERATED_DATABASE_ASSET_MANIFEST } from '../src/database/database-asset-manifest.generated.js';
 import { GENERATED_FOURFRAME_CATALOG_PROVENANCE } from '../src/fourframe-catalog.generated.js';
+import {
+  extractRawNameStatChoseong,
+  foldNameStatChoseong,
+  NAME_STAT_SHARD_KEYS,
+  nameStatShardFilename,
+  resolveNameStatShardKey,
+} from '../src/utils/name-stat-shard.js';
 import {
   collectDatabaseAssetManifest,
   verifyPinnedSchemaContractSha256,
@@ -13,11 +22,65 @@ import {
 
 const PACKAGE_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const REPOSITORY_ROOT = path.resolve(PACKAGE_ROOT, '..', '..');
+const SQL_WASM_PATH = path.resolve(
+  PACKAGE_ROOT,
+  'node_modules',
+  'sql.js',
+  'dist',
+  'sql-wasm.wasm',
+);
 
 const EXPECTED_NAME_STAT_ROW_COUNTS = [
   4_621, 1_894, 3_247, 5_781, 3_576, 3_191, 6_968,
   13_644, 2_199, 1_152, 309, 461, 259, 2_892,
 ] as const;
+
+// Independent content oracle: these values deliberately do not come from the
+// generator/runtime helper. A coordinated bug in shared routing must still
+// fail against the deployed database contents.
+const EXPECTED_RAW_CHOSEONG_ORDER = [
+  'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ',
+  'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ',
+] as const;
+const EXPECTED_NAME_STAT_SHARD_KEYS = [
+  'ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ',
+  'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ',
+] as const;
+const EXPECTED_TENSE_CHOSEONG_FOLDS = {
+  'ㄲ': 'ㄱ',
+  'ㄸ': 'ㄷ',
+  'ㅃ': 'ㅂ',
+  'ㅆ': 'ㅅ',
+  'ㅉ': 'ㅈ',
+} as const;
+const EXPECTED_TENSE_CHOSEONG_ROW_COUNTS = {
+  'ㄲ': 111,
+  'ㄸ': 60,
+  'ㅃ': 32,
+  'ㅆ': 147,
+  'ㅉ': 4,
+} as const;
+
+function requiredString(value: unknown, description: string): string {
+  assert.equal(typeof value, 'string', description);
+  return value as string;
+}
+
+function independentlyExtractRawChoseong(value: string): string | null {
+  const codePoint = value.codePointAt(0);
+  if (codePoint === undefined || codePoint < 0xac00 || codePoint > 0xd7a3) {
+    return null;
+  }
+  return EXPECTED_RAW_CHOSEONG_ORDER[
+    Math.floor((codePoint - 0xac00) / 588)
+  ] ?? null;
+}
+
+function independentlyFoldChoseong(rawChoseong: string): string {
+  return EXPECTED_TENSE_CHOSEONG_FOLDS[
+    rawChoseong as keyof typeof EXPECTED_TENSE_CHOSEONG_FOLDS
+  ] ?? rawChoseong;
+}
 
 // Independent review pins: do not import these from the generator. A schema
 // migration must add a new version and digest in both authority points.
@@ -77,14 +140,124 @@ test('manifest pins the canonical table identities and exact dataset sizes', () 
   assert.equal(nameStats.length, 14);
   assert.deepEqual(nameStats.map((asset) => asset.rowCount), EXPECTED_NAME_STAT_ROW_COUNTS);
   assert.equal(nameStats.reduce((sum, asset) => sum + asset.rowCount, 0), 50_194);
-  assert.deepEqual(nameStats.map((asset) => asset.shardKey), [
-    '\u3131', '\u3134', '\u3137', '\u3139', '\u3141', '\u3142', '\u3145',
-    '\u3147', '\u3148', '\u314A', '\u314B', '\u314C', '\u314D', '\u314E',
-  ]);
+  assert.deepEqual(
+    nameStats.map((asset) => asset.shardKey),
+    EXPECTED_NAME_STAT_SHARD_KEYS,
+  );
   assert.ok(nameStats.every((asset) => asset.table === 'name_stats'));
   assert.ok(nameStats.every((asset) =>
     asset.columns.map((column) => column.name).join(',')
       === 'id,name,first_char,first_choseong,similar_names_json,yearly_rank_json,yearly_birth_json,hanja_combinations_json,raw_entry_json'));
+});
+
+test('NameStat choseong contract keeps raw identity separate from 14-shard routing', () => {
+  for (const [index, expectedRaw] of EXPECTED_RAW_CHOSEONG_ORDER.entries()) {
+    const syllable = String.fromCodePoint(0xac00 + (index * 588));
+    assert.equal(extractRawNameStatChoseong(syllable), expectedRaw);
+    assert.equal(
+      foldNameStatChoseong(expectedRaw),
+      independentlyFoldChoseong(expectedRaw),
+      `${expectedRaw} shared fold matches independent oracle`,
+    );
+  }
+  assert.deepEqual(NAME_STAT_SHARD_KEYS, EXPECTED_NAME_STAT_SHARD_KEYS);
+  assert.deepEqual(
+    NAME_STAT_SHARD_KEYS.map((shardKey) => nameStatShardFilename(shardKey)),
+    [
+      '01.db', '02.db', '03.db', '04.db', '05.db', '06.db', '07.db',
+      '08.db', '09.db', '10.db', '11.db', '12.db', '13.db', '14.db',
+    ],
+  );
+
+  const tenseCases = [
+    ['까', 'ㄲ', 'ㄱ', '01.db'],
+    ['따', 'ㄸ', 'ㄷ', '03.db'],
+    ['빠', 'ㅃ', 'ㅂ', '06.db'],
+    ['싸', 'ㅆ', 'ㅅ', '07.db'],
+    ['짜', 'ㅉ', 'ㅈ', '09.db'],
+  ] as const;
+  for (const [name, expectedRaw, expectedShard, expectedFile] of tenseCases) {
+    const raw = extractRawNameStatChoseong(name);
+    assert.equal(raw, expectedRaw, `${name} raw choseong`);
+    assert.ok(raw);
+    assert.equal(foldNameStatChoseong(raw), expectedShard, `${name} folded shard`);
+    assert.equal(resolveNameStatShardKey(`${name}람`), expectedShard, `${name} name routing`);
+    assert.equal(nameStatShardFilename(expectedShard), expectedFile, `${name} shard file`);
+  }
+
+  assert.equal(extractRawNameStatChoseong('A'), null);
+  assert.equal(resolveNameStatShardKey(''), null);
+});
+
+test('all committed NameStat rows preserve raw choseong and belong to their pinned shard', async () => {
+  const SQL = await initSqlJs({ locateFile: () => SQL_WASM_PATH });
+  const nameStatAssets = GENERATED_DATABASE_ASSET_MANIFEST.assets.filter(
+    (asset) => asset.schemaContractVersion === 'namespring.seed-db-schema/name-stat-v1',
+  );
+  const tenseCounts = new Map<string, number>();
+  let totalRows = 0;
+
+  for (const asset of nameStatAssets) {
+    const expectedShardKey = EXPECTED_NAME_STAT_SHARD_KEYS.find(
+      (shardKey) => shardKey === asset.shardKey,
+    );
+    assert.ok(expectedShardKey, `${asset.assetId} canonical shard key`);
+    const bytes = fs.readFileSync(path.resolve(REPOSITORY_ROOT, asset.relativePath));
+    const db = new SQL.Database(bytes);
+    const statement = db.prepare(
+      'SELECT name, first_char, first_choseong FROM name_stats ORDER BY id',
+    );
+    let assetRows = 0;
+    try {
+      while (statement.step()) {
+        const row = statement.getAsObject();
+        const name = requiredString(row.name, `${asset.assetId} row name`);
+        const firstChar = requiredString(
+          row.first_char,
+          `${asset.assetId}/${name} first_char`,
+        );
+        const storedRawChoseong = requiredString(
+          row.first_choseong,
+          `${asset.assetId}/${name} first_choseong`,
+        );
+        const expectedFirstChar = Array.from(name)[0] ?? '';
+        assert.equal(
+          firstChar,
+          expectedFirstChar,
+          `${asset.assetId}/${name} first_char matches name`,
+        );
+        const rawChoseong = independentlyExtractRawChoseong(firstChar);
+        assert.ok(rawChoseong, `${asset.assetId}/${name} supported raw choseong`);
+        assert.equal(
+          storedRawChoseong,
+          rawChoseong,
+          `${asset.assetId}/${name} stores raw choseong`,
+        );
+        assert.equal(
+          independentlyFoldChoseong(rawChoseong),
+          expectedShardKey,
+          `${asset.assetId}/${name} folds to manifest shard`,
+        );
+        if (rawChoseong !== expectedShardKey) {
+          tenseCounts.set(rawChoseong, (tenseCounts.get(rawChoseong) ?? 0) + 1);
+        }
+        assetRows += 1;
+      }
+    } finally {
+      statement.free();
+      db.close();
+    }
+    assert.equal(assetRows, asset.rowCount, `${asset.assetId} scanned row count`);
+    totalRows += assetRows;
+  }
+
+  assert.equal(totalRows, 50_194);
+  assert.deepEqual(
+    Object.fromEntries(
+      [...tenseCounts.entries()].sort(([left], [right]) => left.localeCompare(right, 'ko')),
+    ),
+    EXPECTED_TENSE_CHOSEONG_ROW_COUNTS,
+  );
 });
 
 test('three independent v1 digests pin every normalized column property', () => {

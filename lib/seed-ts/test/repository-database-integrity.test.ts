@@ -8,6 +8,7 @@ import type { DatabaseAssetManifestEntry } from '../src/database/database-asset-
 import {
   FOURFRAME_DATABASE_ASSET,
   HANJA_DATABASE_ASSET,
+  NAME_STAT_DATABASE_ASSETS,
 } from '../src/database/database-asset-registry.js';
 import {
   RepositoryDatabaseIntegrityError,
@@ -16,10 +17,13 @@ import {
 } from '../src/database/database-integrity.js';
 import { FourframeRepository } from '../src/database/fourframe-repository.js';
 import { HanjaRepository } from '../src/database/hanja-repository.js';
+import { NameStatRepository } from '../src/database/name-stat-repository.js';
 import { openVerifiedRepositoryDatabase } from '../src/database/repository-database-opener.js';
 import {
   resolveRepositoryDatabaseContract,
+  resolveRepositoryDatabaseShardSet,
   type RepositoryDatabaseIntegrityPolicy,
+  type RepositoryDatabaseShardSetIntegrityPolicy,
 } from '../src/database/repository-database-policy.js';
 import {
   RepositoryConfigurationError,
@@ -52,6 +56,12 @@ const CANONICAL_HANJA_BYTES = Uint8Array.from(readFileSync(
 const CANONICAL_FOURFRAME_BYTES = Uint8Array.from(readFileSync(
   new URL('../../../namespring/public/data/fourframe.db', import.meta.url),
 ));
+const CANONICAL_NAME_STAT_01_BYTES = Uint8Array.from(readFileSync(
+  new URL('../../../namespring/public/data/name-stat-shards/01.db', import.meta.url),
+));
+const CANONICAL_NAME_STAT_14_BYTES = Uint8Array.from(readFileSync(
+  new URL('../../../namespring/public/data/name-stat-shards/14.db', import.meta.url),
+));
 
 test('canonical Hanja and four-frame assets verify through custom mirror URLs', async () => {
   const SQL = await initSqlJs();
@@ -82,6 +92,68 @@ test('canonical Hanja and four-frame assets verify through custom mirror URLs', 
   ]);
   hanja.close();
   fourframe.close();
+});
+
+test('NameStat lazily verifies selected canonical edge shards through mirror URLs', async () => {
+  const SQL = await initSqlJs();
+  const requestedUrls: string[] = [];
+  const repository = new NameStatRepository({
+    shardBaseUrl: 'memory://mirror/name-stat',
+    initializeSqlJs: async () => SQL,
+    fetch: async (url) => {
+      requestedUrls.push(url);
+      if (url.endsWith('/01.db')) return response(CANONICAL_NAME_STAT_01_BYTES);
+      if (url.endsWith('/14.db')) return response(CANONICAL_NAME_STAT_14_BYTES);
+      throw new Error(`Unexpected NameStat shard URL: ${url}`);
+    },
+  });
+
+  assert.equal(
+    await repository.findByName('가나다라마바사아자차카타파하'),
+    null,
+  );
+  assert.equal(
+    await repository.findByName('하파타카차자아사바마라다나가'),
+    null,
+  );
+  assert.deepEqual(requestedUrls, [
+    'memory://mirror/name-stat/01.db',
+    'memory://mirror/name-stat/14.db',
+  ]);
+  repository.close();
+});
+
+test('NameStat rejects tampered or truncated selected-shard bytes before SQLite opens', async () => {
+  let databaseOpenCount = 0;
+  class NeverOpenedDatabase {
+    public constructor() {
+      databaseOpenCount += 1;
+      throw new Error('SQLite must not receive unverified NameStat bytes.');
+    }
+  }
+  const SQL = { Database: NeverOpenedDatabase } as unknown as SqlJsStatic;
+  const tampered = CANONICAL_NAME_STAT_01_BYTES.slice();
+  tampered[tampered.length - 1] ^= 1;
+  const repository = new NameStatRepository({
+    initializeSqlJs: async () => SQL,
+    fetch: async () => response(tampered),
+  });
+
+  await assert.rejects(
+    repository.findByName('가나'),
+    isIntegrityReason('sha256_mismatch'),
+  );
+  assert.equal(databaseOpenCount, 0);
+
+  const truncatedRepository = new NameStatRepository({
+    initializeSqlJs: async () => SQL,
+    fetch: async () => response(CANONICAL_NAME_STAT_01_BYTES.slice(0, -1)),
+  });
+  await assert.rejects(
+    truncatedRepository.findByName('가나'),
+    isIntegrityReason('byte_length_mismatch'),
+  );
+  assert.equal(databaseOpenCount, 0);
 });
 
 test('injected fetch and sql.js loaders cannot bypass byte verification', async () => {
@@ -282,5 +354,104 @@ test('pinned policies are immutable, family-bound, and fail closed when malforme
       { ...FOURFRAME_DATABASE_ASSET, sha256: 'invalid' },
     ),
     isIntegrityReason('contract_invalid'),
+  );
+});
+
+test('NameStat pinned shard sets are complete, family-bound, immutable, and canonical-order', () => {
+  const makeMutableContracts = () => NAME_STAT_DATABASE_ASSETS.map(
+    (canonical, index) => ({
+      ...canonical,
+      assetId: `mirror-name-stat-${String(index + 1).padStart(2, '0')}`,
+      relativePath: `memory://mirror/${String(index + 1).padStart(2, '0')}.db`,
+      columns: canonical.columns.map((column) => ({ ...column })),
+    }),
+  );
+  const mutableContracts = makeMutableContracts();
+  const resolved = resolveRepositoryDatabaseShardSet(
+    { mode: 'pinned', contracts: [...mutableContracts].reverse() },
+    NAME_STAT_DATABASE_ASSETS,
+  );
+
+  assert.deepEqual(
+    resolved.map((contract) => contract.shardKey),
+    NAME_STAT_DATABASE_ASSETS.map((contract) => contract.shardKey),
+  );
+  assert.deepEqual(
+    resolved.map((contract) => contract.assetId),
+    mutableContracts.map((contract) => contract.assetId),
+    'alternate assetId and relativePath provenance must remain supported',
+  );
+  assert.equal(Object.isFrozen(resolved), true);
+  assert.ok(resolved.every((contract) => Object.isFrozen(contract)));
+  assert.ok(resolved.every((contract) => Object.isFrozen(contract.columns)));
+  assert.ok(resolved.every((contract) => Object.isFrozen(contract.columns[0])));
+
+  const firstResolvedSha = resolved[0]?.sha256;
+  mutableContracts[0]!.sha256 = '0'.repeat(64);
+  mutableContracts[0]!.columns[0]!.name = 'mutated';
+  assert.equal(resolved[0]?.sha256, firstResolvedSha);
+  assert.notEqual(resolved[0]?.columns[0]?.name, 'mutated');
+
+  const expectInvalid = (
+    contracts: readonly DatabaseAssetManifestEntry[],
+    message: RegExp,
+  ): void => {
+    assert.throws(
+      () => resolveRepositoryDatabaseShardSet(
+        { mode: 'pinned', contracts },
+        NAME_STAT_DATABASE_ASSETS,
+      ),
+      (error: unknown) => {
+        if (!(error instanceof RepositoryConfigurationError)) return false;
+        assert.equal(error.code, 'REPOSITORY_CONFIGURATION_INVALID');
+        assert.match(error.message, message);
+        return true;
+      },
+    );
+  };
+
+  expectInvalid(makeMutableContracts().slice(0, -1), /missing shardKey/u);
+
+  const duplicateAssetIds = makeMutableContracts();
+  duplicateAssetIds[1] = {
+    ...duplicateAssetIds[1]!,
+    assetId: duplicateAssetIds[0]!.assetId,
+  };
+  expectInvalid(duplicateAssetIds, /duplicates assetId/u);
+
+  const duplicateShardKeys = makeMutableContracts();
+  duplicateShardKeys[1] = {
+    ...duplicateShardKeys[1]!,
+    shardKey: duplicateShardKeys[0]!.shardKey,
+  };
+  expectInvalid(duplicateShardKeys, /duplicates shardKey/u);
+
+  const unknownShardKey = makeMutableContracts();
+  unknownShardKey[0] = {
+    ...unknownShardKey[0]!,
+    shardKey: 'unknown-shard',
+  };
+  expectInvalid(unknownShardKey, /unknown shardKey/u);
+
+  const crossFamilyTable = makeMutableContracts();
+  crossFamilyTable[0] = {
+    ...crossFamilyTable[0]!,
+    table: HANJA_DATABASE_ASSET.table,
+  };
+  expectInvalid(crossFamilyTable, /contract table does not match/u);
+
+  assert.throws(
+    () => resolveRepositoryDatabaseShardSet(
+      null as unknown as RepositoryDatabaseShardSetIntegrityPolicy,
+      NAME_STAT_DATABASE_ASSETS,
+    ),
+    RepositoryConfigurationError,
+  );
+  assert.throws(
+    () => resolveRepositoryDatabaseShardSet(
+      { mode: 'pinned' } as RepositoryDatabaseShardSetIntegrityPolicy,
+      NAME_STAT_DATABASE_ASSETS,
+    ),
+    RepositoryConfigurationError,
   );
 });

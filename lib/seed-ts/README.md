@@ -64,14 +64,16 @@ remaining review debt has expert authority approval.
 
 `HanjaRepository`, `FourframeRepository`, and `NameStatRepository` expose explicit asynchronous `init()` and `close()` lifecycles. Concurrent initialization is single-flight, failed initialization can be retried, and closing during initialization prevents a late database from being published.
 
-The default loader fetches the pinned `sql.js@1.14.0` WASM artifact and verifies its SHA-256 digest before execution. A custom `wasmUrl` must include `wasmSha256`; callers that inject a custom `initializeSqlJs` loader own that loader's integrity boundary.
+The default loader fetches the pinned `sql.js@1.14.0` WASM artifact and verifies its SHA-256 digest before execution. A custom `wasmUrl` must include `wasmSha256`; callers that inject a custom `initializeSqlJs` loader own that loader's integrity boundary. The digest protects integrity, not availability: the default URL remains a third-party CDN dependency. Products that require same-origin or offline availability must provide a reviewed self-hosted URL and matching digest; there is no silent unpinned fallback.
 
-`HanjaRepository` and `FourframeRepository` separately verify the database
-artifact before publishing it. Canonical mode pins the byte length, SHA-256,
-SQLite `user_version`, table name, full normalized column schema, and exact row
-count from the generated database-asset manifest. `dbUrl` selects only where
-those canonical bytes are fetched from; changing the URL does not change or
-disable the expected contract.
+`HanjaRepository`, `FourframeRepository`, and `NameStatRepository`
+separately verify database artifacts before publishing them. Canonical mode
+pins the byte length, SHA-256, SQLite `user_version`, table name, full
+normalized column schema, and exact row count from the generated database-asset
+manifest. NameStat keeps loading lazy and applies the complete verification only
+to the selected shard. `dbUrl` or `shardBaseUrl` selects only where canonical
+bytes are fetched from; changing a URL does not change or disable the expected
+contract.
 
 An intentionally different, reviewed artifact must use
 `databaseIntegrity: { mode: 'pinned', contract }`. The complete alternate
@@ -80,6 +82,18 @@ family must match the repository's canonical family. Transport and execution
 injection remain narrow trust boundaries: a custom `fetch` changes how bytes
 arrive, and a custom `initializeSqlJs` loader owns WASM loading, but neither
 bypasses database byte, schema, or row-count verification.
+
+NameStat alternate datasets use
+`databaseIntegrity: { mode: 'pinned', contracts: [...] }` with one contract
+for every canonical shard key. Partial sets, duplicate or unknown shard keys,
+duplicate asset IDs, and cross-family schemas fail during construction; missing
+entries are never filled from the canonical set. The resolved set is cloned,
+deeply frozen, and restored to canonical shard order.
+
+NameStat rows store the raw 19-way choseong, including `ㄲ/ㄸ/ㅃ/ㅆ/ㅉ`.
+Routing alone folds those five values into the corresponding 14 base shards.
+The generator, manifest builder, runtime lookup, and committed 50,194-row
+parity audit enforce this distinction without rewriting the deployed DB files.
 
 Every returned row is decoded against a required-field and finite-number contract. Missing fields, malformed JSON, invalid enums, non-finite or negative statistics, and unsafe JSON object keys throw the non-retryable `RepositoryDataError`; they are never converted into empty fallback data.
 

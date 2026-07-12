@@ -10,9 +10,13 @@ import { NameStatRepository } from '../src/database/name-stat-repository.js';
 import {
   FOURFRAME_DATABASE_ASSET,
   HANJA_DATABASE_ASSET,
+  NAME_STAT_DATABASE_ASSETS,
 } from '../src/database/database-asset-registry.js';
 import type { DatabaseAssetManifestEntry } from '../src/database/database-asset-contract.js';
-import type { PinnedRepositoryDatabaseIntegrityPolicy } from '../src/database/repository-database-policy.js';
+import type {
+  PinnedRepositoryDatabaseIntegrityPolicy,
+  PinnedRepositoryDatabaseShardSetIntegrityPolicy,
+} from '../src/database/repository-database-policy.js';
 import {
   createRepositoryRuntime,
   DEFAULT_SQL_JS_WASM_SHA256,
@@ -43,6 +47,7 @@ interface FakeStatementRecord {
 interface FakeDatabaseRecord {
   readonly tag: number;
   closeCount: number;
+  closeError: Error | null;
 }
 
 interface FakeSqlRuntime {
@@ -52,6 +57,8 @@ interface FakeSqlRuntime {
   readonly statementPlans: StatementPlan[];
   readonly bytes: Uint8Array;
   readonly databaseIntegrity: PinnedRepositoryDatabaseIntegrityPolicy | null;
+  readonly nameStatDatabaseIntegrity:
+    PinnedRepositoryDatabaseShardSetIntegrityPolicy | null;
 }
 
 const HANJA_ROW: Record<string, unknown> = {
@@ -218,7 +225,12 @@ function createFakeSqlRuntime(defaultRow: Record<string, unknown>): FakeSqlRunti
   const databaseIntegrity = canonicalContract
     ? pinnedDatabaseIntegrity(canonicalContract, bytes, 1)
     : null;
-  const databaseContract = databaseIntegrity?.contract ?? null;
+  const nameStatDatabaseIntegrity = defaultRow === NAME_STAT_ROW
+    ? pinnedNameStatDatabaseIntegrity(bytes, 1)
+    : null;
+  const databaseContract = databaseIntegrity?.contract
+    ?? nameStatDatabaseIntegrity?.contracts[0]
+    ?? null;
 
   class FakeStatement {
     public freeCount = 0;
@@ -252,6 +264,7 @@ function createFakeSqlRuntime(defaultRow: Record<string, unknown>): FakeSqlRunti
   class FakeDatabase {
     public readonly tag: number;
     public closeCount = 0;
+    public closeError: Error | null = null;
 
     public constructor(bytes?: Uint8Array) {
       this.tag = bytes?.[0] ?? -1;
@@ -295,6 +308,7 @@ function createFakeSqlRuntime(defaultRow: Record<string, unknown>): FakeSqlRunti
 
     public close(): void {
       this.closeCount += 1;
+      if (this.closeError) throw this.closeError;
     }
   }
 
@@ -305,6 +319,7 @@ function createFakeSqlRuntime(defaultRow: Record<string, unknown>): FakeSqlRunti
     statementPlans,
     bytes,
     databaseIntegrity,
+    nameStatDatabaseIntegrity,
   };
 }
 
@@ -325,6 +340,24 @@ function pinnedDatabaseIntegrity(
   };
 }
 
+function pinnedNameStatDatabaseIntegrity(
+  bytes: Uint8Array,
+  rowCount: number,
+): PinnedRepositoryDatabaseShardSetIntegrityPolicy {
+  const digest = createHash('sha256').update(bytes).digest('hex');
+  return {
+    mode: 'pinned',
+    contracts: NAME_STAT_DATABASE_ASSETS.map((canonical) => ({
+      ...canonical,
+      assetId: `fixture-${canonical.assetId}`,
+      relativePath: `memory/${canonical.assetId}.db`,
+      byteLength: bytes.byteLength,
+      sha256: digest,
+      rowCount,
+    })),
+  };
+}
+
 function createFakeFourframeRepository(
   fake: FakeSqlRuntime,
   options: ConstructorParameters<typeof FourframeRepository>[0],
@@ -339,6 +372,17 @@ function createFakeHanjaRepository(
 ): HanjaRepository {
   assert.ok(fake.databaseIntegrity);
   return new HanjaRepository({ ...options, databaseIntegrity: fake.databaseIntegrity });
+}
+
+function createFakeNameStatRepository(
+  fake: FakeSqlRuntime,
+  options: ConstructorParameters<typeof NameStatRepository>[0],
+): NameStatRepository {
+  assert.ok(fake.nameStatDatabaseIntegrity);
+  return new NameStatRepository({
+    ...options,
+    databaseIntegrity: fake.nameStatDatabaseIntegrity,
+  });
 }
 
 test('default sql.js WASM is version-pinned and fails closed on digest mismatch', async () => {
@@ -751,7 +795,7 @@ test('NameStatRepository shares one same-shard load', async () => {
   const body = deferred<ArrayBuffer>();
   let sqlLoads = 0;
   let fetches = 0;
-  const repository = new NameStatRepository({
+  const repository = createFakeNameStatRepository(fake, {
     initializeSqlJs: async () => {
       sqlLoads += 1;
       return fake.SQL;
@@ -780,13 +824,13 @@ test('NameStatRepository shares one same-shard load', async () => {
 test('NameStatRepository removes a failed shard promise so loading can retry', async () => {
   const fake = createFakeSqlRuntime(NAME_STAT_ROW);
   let fetches = 0;
-  const repository = new NameStatRepository({
+  const repository = createFakeNameStatRepository(fake, {
     initializeSqlJs: async () => fake.SQL,
     fetch: async () => {
       fetches += 1;
       return fetches === 1
         ? response(bufferWithTag(1), 503, 'Unavailable')
-        : response(bufferWithTag(2));
+        : response(bufferWithTag(1));
     },
   });
 
@@ -808,7 +852,7 @@ test('NameStatRepository close prevents a late shard from replacing the active D
   const firstBody = deferred<ArrayBuffer>();
   let sqlLoads = 0;
   let fetches = 0;
-  const repository = new NameStatRepository({
+  const repository = createFakeNameStatRepository(fake, {
     initializeSqlJs: async () => {
       sqlLoads += 1;
       return fake.SQL;
@@ -817,7 +861,7 @@ test('NameStatRepository close prevents a late shard from replacing the active D
       fetches += 1;
       return fetches === 1
         ? response(firstBody.promise)
-        : response(bufferWithTag(2));
+        : response(bufferWithTag(1));
     },
   });
 
@@ -833,12 +877,14 @@ test('NameStatRepository close prevents a late shard from replacing the active D
   assert.match(String(staleError), /cancelled by close/);
   assert.equal(sqlLoads, 2);
   assert.equal(fetches, 2);
-  const activeDb = fake.databases.find((db) => db.tag === 2);
-  const staleDb = fake.databases.find((db) => db.tag === 1);
+  const activeDb = fake.databases[0];
   assert.ok(activeDb);
-  assert.ok(staleDb);
+  assert.equal(
+    fake.databases.length,
+    1,
+    'the stale response body must be rejected before SQLite opens it',
+  );
   assert.equal(activeDb.closeCount, 0);
-  assert.equal(staleDb.closeCount, 1);
 
   assert.equal((await repository.findByName(NAME))?.name, NAME);
   assert.equal(fetches, 2);
@@ -846,11 +892,71 @@ test('NameStatRepository close prevents a late shard from replacing the active D
   assert.equal(activeDb.closeCount, 1);
 });
 
+test('NameStatRepository close clears every shard even when one database close throws', async () => {
+  const fake = createFakeSqlRuntime(NAME_STAT_ROW);
+  const repository = createFakeNameStatRepository(fake, {
+    initializeSqlJs: async () => fake.SQL,
+    fetch: async () => response(bufferWithTag(1)),
+  });
+
+  assert.equal((await repository.findByName(NAME))?.name, NAME);
+  const secondName = '나나';
+  fake.statementPlans.push({
+    row: {
+      ...NAME_STAT_ROW,
+      name: secondName,
+      first_char: '나',
+      first_choseong: 'ㄴ',
+    },
+  });
+  assert.equal((await repository.findByName(secondName))?.name, secondName);
+  assert.equal(fake.databases.length, 2);
+
+  fake.databases[0]!.closeError = new Error('first shard close failed');
+  assert.throws(
+    () => repository.close(),
+    (error: unknown) => error instanceof AggregateError
+      && error.errors.length === 1
+      && String(error.errors[0]).includes('first shard close failed'),
+  );
+  assert.deepEqual(
+    fake.databases.slice(0, 2).map((database) => database.closeCount),
+    [1, 1],
+  );
+
+  assert.equal((await repository.findByName(NAME))?.name, NAME);
+  assert.equal(fake.databases.length, 3, 'failed close must not retain any old shard');
+  repository.close();
+  assert.equal(fake.databases[2]?.closeCount, 1);
+});
+
+test('NameStatRepository cancels a cached-shard lookup when close wins its await', async () => {
+  const fake = createFakeSqlRuntime(NAME_STAT_ROW);
+  const repository = createFakeNameStatRepository(fake, {
+    initializeSqlJs: async () => fake.SQL,
+    fetch: async () => response(bufferWithTag(1)),
+  });
+
+  assert.equal((await repository.findByName(NAME))?.name, NAME);
+  assert.equal(fake.statements.length, 1);
+
+  const staleLookup = repository.findByName(NAME);
+  repository.close();
+
+  await assert.rejects(staleLookup, /cancelled by close/);
+  assert.equal(
+    fake.statements.length,
+    1,
+    'a stale cached-shard lookup must not prepare a statement on the closed database',
+  );
+  assert.equal(fake.databases[0]?.closeCount, 1);
+});
+
 test('NameStatRepository lookup rejects if close runs before its shard promise settles', async () => {
   const fake = createFakeSqlRuntime(NAME_STAT_ROW);
   const body = deferred<ArrayBuffer>();
   let fetches = 0;
-  const repository = new NameStatRepository({
+  const repository = createFakeNameStatRepository(fake, {
     initializeSqlJs: async () => fake.SQL,
     fetch: async () => {
       fetches += 1;
@@ -864,14 +970,18 @@ test('NameStatRepository lookup rejects if close runs before its shard promise s
   queueMicrotask(() => repository.close());
 
   await assert.rejects(lookup, /cancelled by close/);
-  assert.equal(fake.databases[0]?.closeCount, 1);
+  assert.equal(
+    fake.databases.length,
+    0,
+    'close during byte verification must prevent SQLite from opening the shard',
+  );
 });
 
 test('NameStatRepository close invalidates an in-flight SQL initialization', async () => {
   const fake = createFakeSqlRuntime(NAME_STAT_ROW);
   const firstSqlLoad = deferred<SqlJsStatic>();
   let sqlLoads = 0;
-  const repository = new NameStatRepository({
+  const repository = createFakeNameStatRepository(fake, {
     initializeSqlJs: async () => {
       sqlLoads += 1;
       return sqlLoads === 1 ? firstSqlLoad.promise : fake.SQL;
@@ -892,7 +1002,7 @@ test('NameStatRepository close invalidates an in-flight SQL initialization', asy
 
 test('NameStatRepository always frees a prepared statement after bind failure', async () => {
   const fake = createFakeSqlRuntime(NAME_STAT_ROW);
-  const repository = new NameStatRepository({
+  const repository = createFakeNameStatRepository(fake, {
     initializeSqlJs: async () => fake.SQL,
     fetch: async () => response(),
   });
@@ -976,7 +1086,7 @@ test('HanjaRepository rejects invalid numbers, enums, required fields, and chara
 
 test('NameStatRepository rejects malformed JSON and unsafe statistic values', async () => {
   const fake = createFakeSqlRuntime(NAME_STAT_ROW);
-  const repository = new NameStatRepository({
+  const repository = createFakeNameStatRepository(fake, {
     initializeSqlJs: async () => fake.SQL,
     fetch: async () => response(),
   });

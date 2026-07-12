@@ -9,6 +9,10 @@ import {
   type NormalizedDatabaseColumn,
 } from '../src/database/database-asset-contract.js';
 import { readNormalizedDatabaseColumns } from '../src/database/database-integrity.js';
+import {
+  NAME_STAT_SHARD_KEYS,
+  nameStatShardFilename,
+} from '../src/utils/name-stat-shard.js';
 
 interface DatabaseAssetSpec {
   readonly assetId: string;
@@ -36,18 +40,17 @@ const DATABASE_ASSET_SPECS = [
     table: 'hanjas',
     shardKey: null,
   },
-  ...[
-    ['01', '\u3131'], ['02', '\u3134'], ['03', '\u3137'], ['04', '\u3139'],
-    ['05', '\u3141'], ['06', '\u3142'], ['07', '\u3145'], ['08', '\u3147'],
-    ['09', '\u3148'], ['10', '\u314A'], ['11', '\u314B'], ['12', '\u314C'],
-    ['13', '\u314D'], ['14', '\u314E'],
-  ].map(([number, shardKey]) => ({
-    assetId: `name-stat-${number}`,
-    dataRelativePath: `name-stat-shards/${number}.db`,
-    schemaContractVersion: 'namespring.seed-db-schema/name-stat-v1',
-    table: 'name_stats',
-    shardKey,
-  })),
+  ...NAME_STAT_SHARD_KEYS.map((shardKey) => {
+    const fileName = nameStatShardFilename(shardKey);
+    const shardNumber = fileName.slice(0, -'.db'.length);
+    return {
+      assetId: `name-stat-${shardNumber}`,
+      dataRelativePath: `name-stat-shards/${fileName}`,
+      schemaContractVersion: 'namespring.seed-db-schema/name-stat-v1',
+      table: 'name_stats',
+      shardKey,
+    };
+  }),
 ] as const satisfies readonly DatabaseAssetSpec[];
 
 // These are independent v1 contract pins, not values learned from the current
