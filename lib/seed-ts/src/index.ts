@@ -92,6 +92,8 @@ export {
   type NameStatEntry,
 } from './database/name-stat-repository.js';
 export {
+  DEFAULT_SQL_JS_VERSION,
+  DEFAULT_SQL_JS_WASM_BYTE_LENGTH,
   DEFAULT_SQL_JS_WASM_SHA256,
   DEFAULT_SQL_JS_WASM_URL,
   RepositoryConfigurationError,

@@ -64,7 +64,22 @@ remaining review debt has expert authority approval.
 
 `HanjaRepository`, `FourframeRepository`, and `NameStatRepository` expose explicit asynchronous `init()` and `close()` lifecycles. Concurrent initialization is single-flight, failed initialization can be retried, and closing during initialization prevents a late database from being published.
 
-The default loader fetches the pinned `sql.js@1.14.0` WASM artifact and verifies its SHA-256 digest before execution. A custom `wasmUrl` must include `wasmSha256`; callers that inject a custom `initializeSqlJs` loader own that loader's integrity boundary. The digest protects integrity, not availability: the default URL remains a third-party CDN dependency. Products that require same-origin or offline availability must provide a reviewed self-hosted URL and matching digest; there is no silent unpinned fallback.
+The default loader uses the same-package `assets/sql-wasm-1.14.1.wasm`
+artifact. The package contract pins its byte length and SHA-256 digest, and the
+runtime verifies the SHA-256 digest before execution. The package also ships
+the upstream MIT notice. Browser bundlers can emit the
+asset from its static `import.meta.url` reference, so the default runtime has
+no third-party CDN dependency and never falls back to one. Default
+initialization is module-wide single-flight by URL and digest; failures are
+evicted so a later call can retry. A custom `wasmUrl` must include
+`wasmSha256`, while callers that inject a custom `initializeSqlJs` loader
+own that loader's integrity boundary and are intentionally excluded from the
+default shared cache.
+
+Successful default URL/digest entries stay cached for the process lifetime.
+This bounds normal products to one reviewed bundled artifact while avoiding
+repeat transport and hashing. Arbitrarily many caller-selected pinned URLs are
+therefore not intended as a long-running multi-tenant loading strategy.
 
 `HanjaRepository`, `FourframeRepository`, and `NameStatRepository`
 separately verify database artifacts before publishing them. Canonical mode
@@ -99,4 +114,7 @@ Every returned row is decoded against a required-field and finite-number contrac
 
 ## Package boundary
 
-The package publishes only the compiled ESM runtime graph under `dist/`. Database migration utilities remain source-only development tools and are not included in the package.
+The package publishes the compiled ESM runtime graph under `dist/` plus the
+exact `assets/sql-wasm-1.14.1.wasm` binary and
+`assets/sql.js-LICENSE.txt` notice. Database migration utilities remain
+source-only development tools and are not included in the package.
