@@ -68,6 +68,22 @@ describe('shinsal strategy options', () => {
     expect(splitTypes).toContain('BI_IN_SAL');
   });
 });
+
+describe('structural month-frame public candidates', () => {
+  it('does not duplicate a Geonrok frame under the legacy companion name', () => {
+    const output: any = analyzeSaju(createBirthInput({
+      birthYear: 2005, birthMonth: 12, birthDay: 25,
+      birthHour: 6, birthMinute: 0, gender: 'MALE',
+    }));
+
+    const candidates = output.gyeokgukResult.candidates as Array<{ type: string }>;
+    const types = candidates.map((candidate) => candidate.type);
+
+    expect(output.gyeokgukResult.type).toBe('GEONROK');
+    expect(types).toContain('GEONROK');
+    expect(types).not.toContain('BI_GYEON');
+  });
+});
 describe('normalizeLegacyOutput 정직성 (감사 A1/A2/A9/A15d)', () => {
   // 1986-04-19 05:45 남 (핸드북 프리뷰 표준 케이스)
   const output: any = analyzeSaju(createBirthInput({
@@ -112,6 +128,7 @@ describe('normalizeLegacyOutput 정직성 (감사 A1/A2/A9/A15d)', () => {
     expect(gyeokguk?.basis?.monthGyeokMethod).toEqual(expect.any(String));
     expect(gyeokguk?.basis?.monthGyeokQuality?.details).toEqual(expect.any(Object));
     expect(Object.keys(gyeokguk?.scores ?? {}).some((key) => key.startsWith('gyeokguk.'))).toBe(true);
+    expect(gyeokguk?.baseSipseong).toBe('SIK_SIN');
   });
 
   it('surfaces scored cheongan relation payloads', () => {

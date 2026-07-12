@@ -4,6 +4,7 @@ import { DEFAULT_GYEOKGUK_RULESET } from '../defaultRuleSets.js';
 import { deepClone } from '../../utils/deepMerge.js';
 import type { GyeokgukMacro, GyeokgukRuleSpec, GyeokgukRuleSpecMode } from './gyeokgukSpec.js';
 import type { TenGod } from '../../api/types.js';
+import { baseTenGodOfStructuralMonthFrame, type BigyeopSubtype } from '../gyeokgukMonthFrame.js';
 
 function renderTemplate(template: string, vars: Record<string, string>): string {
   return template.replace(/\{([a-zA-Z0-9_]+)\}/g, (_m, k) => (k in vars ? String(vars[k]) : `{${k}}`));
@@ -103,11 +104,32 @@ function compileMacros(macros: GyeokgukMacro[]): Rule[] {
         const baseScore: Expr = useMul ? { op: 'mul', args: [bonus, { var: mulVar }] } : bonus;
         const tenGods = (m.tenGods && m.tenGods.length ? m.tenGods : ALL_TEN_GODS).filter(Boolean) as TenGod[];
 
+        const structuralFrameVar = 'month.gyeok.bigyeopSubtype';
+        const structuralSubtypes: readonly BigyeopSubtype[] = ['GEONROK', 'YANGIN', 'WOLGEOB'];
+        for (const subtype of structuralSubtypes) {
+          const sourceTenGod = baseTenGodOfStructuralMonthFrame(subtype);
+          if (!tenGods.includes(sourceTenGod)) continue;
+          const whenSubtype: Expr = { op: 'eq', args: [{ var: structuralFrameVar }, subtype] };
+          const whenSourceTenGod: Expr = {
+            op: 'eq', args: [{ var: 'month.gyeok.tenGod' }, sourceTenGod],
+          };
+          out.push({
+            id: `${idPrefix}_${subtype}`,
+            when: andAll([m.when, whenSubtype, whenSourceTenGod]),
+            score: { [`gyeokguk.${subtype}`]: baseScore },
+            explain: renderTemplate(explainTpl, { tenGod: subtype }),
+            tags,
+          });
+        }
+
+        // When public facts expose a structural frame, scoring the source
+        // BI_GYEON/GEOB_JAE rule as well would create contradictory keys.
+        const noStructuralFrame: Expr = { op: 'not', args: [{ var: structuralFrameVar }] };
         for (const tg of tenGods) {
           const whenTg: Expr = { op: 'eq', args: [{ var: 'month.gyeok.tenGod' }, tg] };
           out.push({
             id: `${idPrefix}_${tg}`,
-            when: andAll([m.when, whenTg]),
+            when: andAll([m.when, noStructuralFrame, whenTg]),
             score: { [`gyeokguk.${tg}`]: baseScore },
             explain: renderTemplate(explainTpl, { tenGod: tg }),
             tags,

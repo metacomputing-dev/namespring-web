@@ -50,7 +50,10 @@ export type GyeokgukMacro =
       /**
        * Generate rules: if month.gyeok.tenGod == X then score gyeokguk.X += bonus.
        *
-       * This corresponds to ZiPing(子平) style “透干/会支” month anchor selection.
+       * This corresponds to ZiPing(子平) month-anchor selection. When the facts
+       * layer exposes a classic 建祿/陽刃/月劫 structural subtype, the macro
+       * scores that subtype instead of emitting a contradictory 比肩/劫財 key.
+       * The legacy naming mode leaves the public subtype empty and preserves X.
        */
       kind: 'monthGyeokTenGod';
       tenGods?: TenGod[];
