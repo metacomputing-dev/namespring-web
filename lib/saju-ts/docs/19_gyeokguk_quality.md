@@ -118,16 +118,30 @@
 SEONGGYEOK 1.08 / PAJUNG_YUGU 1.0 / SEONGJUNG_YUPA 0.9 / PAGYEOK 0.75 / UNDETERMINED 0.95.
 이 배율은 독립 권위 코퍼스 캘리브레이션 전까지 provisional이다(코드 주석 명기).
 
-### 3.4 건록·양인·월겁과 레거시 명명 — `src/rules/facts.ts`
+### 3.4 건록·양인·월겁 구조격과 일반 취격 — `src/rules/gyeokgukMonthFrame.ts`
 
-월지 격 십성이 비견/겁재일 때 `month.gyeok.bigyeopSubtype`(감사 B4)이 세분한다:
-비견→`GEONROK`, 겁재→양간이며 월지가 제왕지(록+1)면 `YANGIN`, 그 외 `WOLGEOB`.
-록 조견은 격국 전용 상수 `GYEOKGUK_LOK_BRANCH`(甲寅 乙卯 丙巳 丁午 戊巳 己午 庚申 辛酉
-壬亥 癸子 — 화토동궁)로 고정해 신살 카탈로그·12운성 설정 변경에 끌려가지 않게 했다.
-설정 키는 `strategies.gyeokguk.bigyeopGyeok`이며 `'legacy'`로 두면 세분 없이 비견격/겁재격
-레거시 명명이 유지된다(`bigyeopSubtype: null`). `tieBreakOrder`와 경쟁축
-십신 그룹(`TEN_GOD_GROUP_KEYS`)에서도 `GEONROK`/`YANGIN`/`WOLGEOB`이 레거시
-`BI_GYEON`/`GEOB_JAE` 키보다 앞선다.
+일반 취격의 투간은 년·월·시 천간에서만 확인한다. 일간 자신은 투간 증거가 아니다. 구조격은
+일반 지장간 후보 점수와 분리해 다음 순서로 판정한다.
+
+1. 월지가 일간의 록지이면 `GEONROK` — 甲寅 乙卯 丙巳 丁午 戊巳 己午 庚申 辛酉
+   壬亥 癸子(화토동궁)를 모두 포함한다.
+2. 월지 본기가 겁재이면 양간 제왕지는 `YANGIN`, 나머지는 `WOLGEOB`.
+3. 월지 본기가 비견인 토 일간 잡기월은 채택한 호환 정책에 따라 `GEONROK`.
+4. 구조가 성립하지 않으면 비견·겁재 지장간은 일반 취격 후보가 될 수 없다.
+
+`selectionRule`은 4번의 일반 후보 선택에 적용되며 구조격이 있으면 구조격이 우선한다.
+탈락 후보는 감사 증거를 위해 `month.gyeok.candidates`에 남되
+`eligibleForGyeokSelection: false`와 배제 사유를 기록한다. 품질 계산과 Spring 공개 후보는
+선택 가능 후보만 소비한다.
+구조격의 기반 비견·겁재는 동일 근거의 중복 후보로 다시 공개하지 않는다.
+
+설정 키 `strategies.gyeokguk.bigyeopGyeok='legacy'`는 비견격/겁재격 **출력 명명 호환**만
+유지한다(`bigyeopSubtype: null`). 성패 판정은 기존 계약대로 비견→건록, 겁재→월겁 대응표를
+계속 사용한다. 따라서 이 옵션을 구조격 교리 전체를 끄는 kill switch로 해석하면 안 된다.
+
+원문 근거는 『子平真詮』 「論用神」의 월령 중심 취격 및 일간 자체 불용 설명과
+「論建祿月劫」의 월지 록당 정의를 우선 참조했다. 다만 현재 연속 점수·토 잡기월 호환 정책은
+외부 인간 전문가 승인을 받지 않은 제품 정책이다.
 
 ## 4. 학파 이설과 프리셋 선택지
 
