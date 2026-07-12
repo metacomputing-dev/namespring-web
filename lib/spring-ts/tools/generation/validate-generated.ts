@@ -156,7 +156,7 @@ export function validateGenerated(a: GeneratedArticle, c: GenerationCase): { ok:
     // sentence directly disclaims the name's role. A stray 않/보다 elsewhere no
     // longer exempts (that hole let 10-inseong-neutral read as a boost).
     const POS = /이름[은는이가]?[^.!?]{0,20}(채워 주|크게 담|크게 채|보강|덕에|덕분|뒷심|보태(는|어 주|아 주)|받쳐 주|실어 주|더해 주는|힘을 보태|힘이 붙|밀어 주)/u;
-    const DISC = /(주진 않|주지(는|를)? 않|정해 주진|끌어 주진|잡아 주진|담고 있진 않|직접 (담|채우|밀|끌)|대신[^.!?]{0,10}(정해|잡아|끌어|채워|붙)|이름이 아니라|이름 덕(이|은|만)? 아니|가감(하지|은|을)? ?(않|없)|밀거나 막|특별히 (밀|막)|앞에서 (끌|밀)어 주진)/u;
+    const DISC = /(주진 않|주지(는|를)? 않|주지도[^.!?]{0,15}(않|없)|정해 주진|끌어 주진|잡아 주진|밀어 주지|밀지(도)? 않|막지(도)? 않|발목(을)? (잡|붙)|담고 있진 않|직접 (담|채우|밀|끌)|대신[^.!?]{0,10}(정해|잡아|끌어|채워|붙)|이름이 아니라|이름 덕(이|은|만)? 아니|가감(하지|은|을)? ?(않|없)|밀거나 막|특별히 (밀|막)|앞에서 (끌|밀)어 주진)/u;
     for (const sent of all.split(/(?<=[.!?요죠])\s+/u)) {
       if (sent.includes('이름') && POS.test(sent) && !DISC.test(sent)) {
         v.push('nameEffect=neutral 이름 긍정효과 서술(정직성 위반)');
