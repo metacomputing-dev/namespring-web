@@ -998,3 +998,26 @@ matchedPillars 없음. shinsalHits 항목 키셋은 단일: {type, position, gra
   별개로 단일 리뷰 단위가 아니며, 연속 prefix 스택으로 분할하기 전에는 Draft를
   유지한다. 분할 이후의 작은 default-neutral guardrail PR과 외부 명리 인증 gate는
   서로 다른 리뷰 축으로 다뤄야 한다.
+
+---
+
+## 부록 E. 2026-07-13 입력·저장소 경계 재감사
+
+이 부록은 커밋 `165d31ab1`과 `b09fb6311`의 구조적 개선만 기록한다. 테스트 통과와 P0/P1 부재는 회귀·보안 경계의 근거이지, 사주 판정 수치와 학파 선택의 외부 권위 인증이 아니다.
+
+| 재감사 항목 | 판정 | 근거 |
+|---|---|---|
+| repository close 중 초기화가 계속 진행되어 stale 자원을 publish할 위험 | 해결 | 공통 lifecycle coordinator가 Hanja/Fourframe fetch·body와 NameStat WASM·shard·digest·open을 같은 generation/AbortSignal 계약으로 취소한다. 마지막 WASM 구독자 취소와 candidate DB close-on-abort도 고정했다(`165d31ab1`). |
+| public async route가 caller mutable object를 await 뒤 다시 읽는 TOCTOU | 해결 | 모든 public request를 첫 await 전에 descriptor-safe clone/freeze한다. completed alias identity는 유지하고 cycle·accessor·symbol·sparse·비유한 scalar·과대 graph는 고정 TypeError로 거부한다(`b09fb6311`). |
+| 잘못된 Hangul 음절 또는 Hangul/Hanja pair가 DB·사주·점수 계산 뒤에야 실패 | 해결 | syntax preflight와 repository-backed explicit identity 검증을 public 경계에 배치했다. pair 캐시는 입력 객체 identity, surname/given role, Hanja pool, lifecycle generation을 모두 키에 포함하고 close 시 무효화한다. |
+| 엔진이 만든 SajuReport를 getSpringReport override로 재사용하면 own undefined 때문에 실패 | 해결 | report 및 request의 객체 own `undefined`는 JSON semantics로 생략한다. 실제 `getSajuReport → getSpringReport` 재사용 회귀와 기존 `options: undefined` scoring 경로를 고정했다. 배열 undefined는 계속 거부한다. |
+| Proxy/reflect 오류가 원문 메시지와 PII를 노출 | 해결 | 공개 snapshot wrapper가 내부 reflection 오류와 cause를 버리고 고정된 PII-free TypeError만 노출한다. Proxy trap 실행 자체를 방지하는 보장은 아니다. |
+| 기본 출력 판정 회귀 | 부분 검증 | 핵심 계약·타입·scoring·bridge·package boundary가 통과했고 fix-01/fix-16/fix-17 표본은 3/3 무변화다. exact HEAD 전체 baseline 17/17은 90초 초과로 중단되어 merge 전 필수 재실행 항목으로 남는다. |
+
+### 잔존 P2와 상용화 차단선
+
+1. 내부 trusted snapshot을 deep import로 반복 중첩하는 비정상 경로의 누적 depth/property budget 재산정은 하지 않는다. 현재 public export와 정상 endpoint에서는 접근할 수 없으므로 P2로 기록한다.
+2. 전체 baseline suite의 직렬 후보 생성 비용을 프로파일링하지 않았다. smoke 3축과 full 17축을 분리하고 full은 CI 전용으로 병렬화할 여지가 있다.
+3. Seed WASM의 package-relative Node 실행은 확인했지만 Vite production emitted asset과 브라우저 fetch, 모바일 메모리 상한은 미검증이다.
+4. 이 두 커밋은 backend-only이고 frontend diff는 없다. 외부 명리 전문가 signoff, default-change fingerprint 승인, authority D1-D5 gate가 완료되기 전에는 WIP 해제의 단독 근거로 사용할 수 없다.
+5. 원격 push와 PR #653 편입은 사용자 명시 승인 전까지 보류한다.

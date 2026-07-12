@@ -314,3 +314,24 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 | 엔진 불일치 판결 (10픽스처) | ✅ 도시에 완결 | pending (도시에) | 2026-07-10 | ENGINE_BUG 3(fix-04 강약 일간 자기셈입·fix-07/11 격국 오배속)/CALIBRATION 6/DOCTRINE_AMBIGUITY 2/PANEL_ERROR 0 + 종합. **핵심: scoring.ts:106-113 일간 자기 셈입 단방향 강측 편향(제거만으로 2건 반전 실측)**. 수정 착수 순서는 도시에 §6 — 전 항목 GUIDE §1 계측 필수 |
 | 강약 일간 자기 셈입 제거 | 🔶 opt-in 구현·기본 보류 | 4eefcd154 | 2026-07-10 | `strength.excludeDayMasterSelf=true`에서 strength 전용 원장만 자기 비견을 제외. 범용 scorer 불변, provenance 단일 경계, 가중치 1/2 불변식 테스트. default-on 반사실: 17픽스처/158 leaf, strength 7·희신 6·종격위험 4·서사 17 이동, regression 0, fingerprint `377227…69143`. 순환 골든화 금지 — 독립 exact-diff 승인 전 기본 off |
 | CT-1~CT-3·CT-5 | ⬜ | | | 병렬 가능 |
+
+---
+
+## 2026-07-13: 저장소 취소·공개 요청 경계 체크포인트 (PR #653 freeze 이후 격리 브랜치)
+
+| 영역 | 상태 | 커밋 | 검증 근거와 한계 |
+|---|---|---|---|
+| Seed 저장소 초기화 취소 | ✅ 코드 체크포인트 | `165d31ab1` | Hanja/Fourframe의 fetch·body와 NameStat의 WASM·shard·digest·DB open까지 하나의 lifecycle coordinator로 묶었다. 마지막 WASM 구독자가 취소되면 기저 transport도 취소하고 identity-safe하게 flight를 제거하며, 검증 중 취소된 DB 후보는 정확히 한 번 닫힌다. `typecheck`, `typecheck:test`, repository lifecycle 40/40, database integrity 7/7, package contract 5/5 통과. |
+| Spring 공개 요청·이름 정체성 경계 | ✅ 코드 체크포인트 | `b09fb6311` | 7개 public async route가 첫 await 전에 caller graph를 descriptor 기반으로 snapshot/freeze한다. cycle·sparse/accessor·symbol·비유한 수·과대 depth/property/array를 fail-closed하고 Proxy 원문 오류를 고정 TypeError로 정규화해 PII 노출을 막는다. 객체 own `undefined`는 JSON semantics로 생략하되 배열의 `undefined`는 거부한다. Hangul 음절과 명시적 Hangul/Hanja pair를 사전 검증하고 pair 캐시는 role·pool·lifecycle generation으로 격리한다. |
+| 회귀·리뷰 | 🔶 핵심 회귀 통과 / 전체 baseline 재실행 필요 | `b09fb6311` | Spring `typecheck`, `test:name-stat-fail-closed`, `test:name-entry-resolver`, `test:spring-engine-lifecycle`, `test:scoring` 34/34, `typecheck:saju-bridge`, package boundary 2/2 통과. 독립 exact-diff 재리뷰 P0/P1 0. baseline 전체 17개는 두 번째 검증이 90초를 넘겨 중단했고, 일반(fix-01)·야자시(fix-16)·윤달(fix-17) 표본은 3/3 무변화였다. merge 전 전체 17/17을 CI 또는 시간 제한을 늘린 전용 실행에서 다시 확인해야 한다. |
+
+### 남은 한계와 release 판단
+
+- 이 체크포인트는 입력·저장소 무결성·동시성 경계를 강화한 것이며, 격국·강약·용신·조후 수치가 외부 명리 권위로 승인됐다는 뜻이 아니다.
+- trusted snapshot은 모듈 내부 WeakSet으로만 식별되고 public package API로 노출되지 않는다. 다만 deep import와 반복 재래핑까지 적대 경계로 간주하면 nested graph budget을 다시 합산하지 않는 P2가 남는다.
+- JavaScript Proxy trap 실행 자체는 막을 수 없고, trap 오류를 고정 메시지로 정규화해 원문 PII가 밖으로 나가지 않게 한다.
+- explicit Hangul/Hanja identity는 DB가 필요하므로 통합 초기화 실패가 pair mismatch보다 먼저 보일 수 있다. 둘 다 fail-closed지만 오류 우선순위는 후속 API 정책 항목이다.
+- 응답에 원 요청 객체를 그대로 반영하는 기존 표면의 PII 최소화는 API 호환성 검토가 필요한 별도 후속이다.
+- Vite production build의 Seed WASM 최종 방출 URL·브라우저 로딩·모바일 peak memory 스모크는 아직 완료되지 않았다.
+- 전체 baseline 장시간 원인은 17개 fixture 각각에서 후보 생성·DB 조회·사주·리포트를 직렬 반복하는 검증 구조다. correctness 변경과 분리해 profiler로 병목을 계측하고, 독립 fixture 병렬화 또는 빠른 smoke/full suite 이원화를 검토한다.
+- `codex/namestat-integrity`는 아직 원격에 push하지 않았다. frontend 변경은 0이며, PR #653에 섞기 전에 별도 리뷰 단위와 merge 순서를 확정한다.
