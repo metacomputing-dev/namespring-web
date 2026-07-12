@@ -148,17 +148,31 @@ export function validateGenerated(a: GeneratedArticle, c: GenerationCase): { ok:
   if (!hasStrengthPlainEvidence(strengthPlainText, c)) {
     v.push(`강약 평문 방향 미반영(${c.gangyak}/${s.strengthTerm})`);
   }
-  // honesty: an adverse/neutral name must NOT POSITIVELY claim it fills the
-  // needed element. Checked per sentence so a NEGATED mention ("이름이 채워
-  // 주지는 않는다" / "채워 준다기보다") is NOT a violation.
-  if (c.nameEffect === 'adverse' || c.nameEffect === 'neutral') {
+  // honesty: neutral and adverse names must not positively claim they fill/boost
+  // the needed element — but the two fail differently, so they are checked apart.
+  if (c.nameEffect === 'neutral') {
+    // NEUTRAL: the name neither pushes nor blocks. ANY positive-benefit claim
+    // (verb OR noun form: 덕에·뒷심·보태는·받쳐 주는…) is a violation unless the
+    // sentence directly disclaims the name's role. A stray 않/보다 elsewhere no
+    // longer exempts (that hole let 10-inseong-neutral read as a boost).
+    const POS = /이름[은는이가]?[^.!?]{0,20}(채워 주|크게 담|크게 채|보강|덕에|덕분|뒷심|보태(는|어 주|아 주)|받쳐 주|실어 주|더해 주는|힘을 보태|힘이 붙|밀어 주)/u;
+    const DISC = /(주진 않|주지(는|를)? 않|정해 주진|끌어 주진|잡아 주진|담고 있진 않|직접 (담|채우|밀|끌)|대신[^.!?]{0,10}(정해|잡아|끌어|채워|붙)|이름이 아니라|이름 덕(이|은|만)? 아니|가감(하지|은|을)? ?(않|없)|밀거나 막|특별히 (밀|막)|앞에서 (끌|밀)어 주진)/u;
+    for (const sent of all.split(/(?<=[.!?요죠])\s+/u)) {
+      if (sent.includes('이름') && POS.test(sent) && !DISC.test(sent)) {
+        v.push('nameEffect=neutral 이름 긍정효과 서술(정직성 위반)');
+        break;
+      }
+    }
+  } else if (c.nameEffect === 'adverse') {
+    // ADVERSE: honest framing = the name adds to the ALREADY-FULL side and the
+    // deficit is filled by daily habits ("보태는 몫이 이미 찬 쪽에 실린"). Only a
+    // claim that the name fills the NEEDED element is dishonest; the excess-side
+    // framing (이미 찬/넉넉/실린/담는 쪽) exempts.
     const FILL = /(채워 주|채워 준다|채워 줘|크게 담|크게 채|보강해 주|보강해 준다)/u;
-    // Broad negation net: 안-negation, imperative 마세요/말-, and comparatives —
-    // Korean negation is varied, so err toward NOT flagging honest hedges.
-    const NEG = /(않|없|아니|보다|대신|뿐|못|마세|마요|말자|말라|말고|기보다|건 아|리 없)/u;
+    const NEG = /(않|없|아니|보다|대신|뿐|못|마세|마요|말자|말라|말고|기보다|건 아|리 없|이미 (찬|넉넉|과)|넉넉한 쪽|찬 쪽|찬 자리|실린|담는 쪽|얹)/u;
     for (const sent of all.split(/(?<=[.!?요죠])\s+/u)) {
       if (sent.includes('이름') && FILL.test(sent) && !NEG.test(sent)) {
-        v.push(`nameEffect=${c.nameEffect}인데 이름 채움 주장(정직성 위반)`);
+        v.push('nameEffect=adverse 이름 채움 주장(정직성 위반)');
         break;
       }
     }
