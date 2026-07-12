@@ -141,7 +141,7 @@
     "test:saju-engine-release": "npm run typecheck:saju-bridge && npm run test:package-boundary && npm run test:spring-engine-lifecycle && npm run test:name-stat-fail-closed && npm run test:name-entry-resolver && npm run test:hangul-signal-cap && npm run test:saju-element-code && npm run test:time-policy && npm run test:pareto-candidates && npm run test:candidate-pagination && npm run test:boundary-goldens && npm run test:snapshot && npm run test:narrative-baseline && npm run test:namespring-compat && npm run test:manseryeok-oracle && npm run test:jonggyeok-authority && npm run test:adapter-yinyang && npm run test:adapter-failure-diagnostics && npm run test:fortune-fail-closed && npm run test:adapter-daewoon && npm run test:transit-luck-report && npm run test:period-fortune-relation-source && npm run test:insight-registry-content && npm run test:yaza-opt-in && npm run test:quality-gate-status && npm run test:external-expert-signoff && npm run test:no-ai-release-scope && npm run test:no-ai-policy && npm run test:quality-gate && npm run test:rpi-rule-mode-metrics && npm run test:baseline-metrics && npm run test:deterministic-calibration && npm run test:rule-ab-tests && npm run test:performance-dashboard && npm run quality:gate:release && npm run test:measure-default-change && npm run test:rpi-partial-coverage"
   },
   "dependencies": {
-    "sql.js": "1.14.0"
+    "sql.js": "1.14.1"
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^0.110.0",

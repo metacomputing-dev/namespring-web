@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 import test from 'node:test';
 import initSqlJs, { type SqlJsStatic } from 'sql.js';
 
@@ -18,6 +19,8 @@ import type {
 } from '../src/database/repository-database-policy.js';
 import {
   createRepositoryRuntime,
+  DEFAULT_SQL_JS_VERSION,
+  DEFAULT_SQL_JS_WASM_BYTE_LENGTH,
   DEFAULT_SQL_JS_WASM_SHA256,
   DEFAULT_SQL_JS_WASM_URL,
   RepositoryConfigurationError,
@@ -394,10 +397,10 @@ function createFakeNameStatRepository(
 }
 
 test('default sql.js WASM is version-pinned and fails closed on digest mismatch', async () => {
-  assert.equal(
-    DEFAULT_SQL_JS_WASM_URL,
-    'https://cdn.jsdelivr.net/npm/sql.js@1.14.0/dist/sql-wasm.wasm',
-  );
+  assert.equal(DEFAULT_SQL_JS_VERSION, '1.14.1');
+  assert.equal(DEFAULT_SQL_JS_WASM_BYTE_LENGTH, 659_730);
+  assert.doesNotMatch(DEFAULT_SQL_JS_WASM_URL, /^https?:/iu);
+  assert.doesNotMatch(DEFAULT_SQL_JS_WASM_URL, /cdn/iu);
   assert.match(DEFAULT_SQL_JS_WASM_SHA256, /^[a-f0-9]{64}$/u);
 
   const runtime = createRepositoryRuntime({
@@ -407,6 +410,17 @@ test('default sql.js WASM is version-pinned and fails closed on digest mismatch'
     runtime.initializeSqlJs('https://example.invalid/sql-wasm.wasm', '0'.repeat(64)),
     (error: unknown) => error instanceof RepositoryIntegrityError
       && error.code === 'REPOSITORY_WASM_INTEGRITY_MISMATCH',
+  );
+
+  const truncatedDefault = createRepositoryRuntime({
+    fetch: async () => response(bufferWithTag(1)),
+  });
+  await assert.rejects(
+    truncatedDefault.initializeSqlJs(
+      DEFAULT_SQL_JS_WASM_URL,
+      DEFAULT_SQL_JS_WASM_SHA256,
+    ),
+    /Bundled sql\.js WASM byte length mismatch: expected 659730, received 1\./u,
   );
 });
 
@@ -1088,6 +1102,140 @@ test('NameStatRepository removes a completed shard transport controller', async 
     false,
     'close must not retain and abort a controller whose transport already completed',
   );
+});
+
+test('default Node file URL initializes sql.js and opens and closes a database', async () => {
+  const runtime = createRepositoryRuntime();
+  const SQL = await runtime.initializeSqlJs(
+    DEFAULT_SQL_JS_WASM_URL,
+    DEFAULT_SQL_JS_WASM_SHA256,
+  );
+  const db = new SQL.Database();
+  try {
+    db.run('CREATE TABLE file_transport_check (value INTEGER NOT NULL)');
+    db.run('INSERT INTO file_transport_check VALUES (7)');
+    assert.deepEqual(db.exec('SELECT value FROM file_transport_check'), [{
+      columns: ['value'],
+      values: [[7]],
+    }]);
+  } finally {
+    db.close();
+  }
+});
+
+test('default Node file transport rejects aborts and missing assets without fallback', async () => {
+  const runtime = createRepositoryRuntime();
+  const controller = new AbortController();
+  controller.abort();
+  await assert.rejects(
+    runtime.fetch(DEFAULT_SQL_JS_WASM_URL, { signal: controller.signal }),
+    (error: unknown) => error instanceof Error && error.name === 'AbortError',
+  );
+
+  const missingUrl = new URL(
+    'missing-sql-wasm-1.14.1.wasm',
+    DEFAULT_SQL_JS_WASM_URL,
+  ).href;
+  await assert.rejects(
+    runtime.initializeSqlJs(missingUrl, DEFAULT_SQL_JS_WASM_SHA256),
+    (error: unknown) => error instanceof Error
+      && 'code' in error
+      && error.code === 'ENOENT',
+  );
+});
+
+test('default sql.js loader is module-wide single-flight and evicts failures', async () => {
+  const originalFetch = globalThis.fetch;
+  const wasmBuffer = Uint8Array.from(readFileSync(new URL(DEFAULT_SQL_JS_WASM_URL))).buffer;
+  const successUrl = 'https://example.invalid/sql-wasm.wasm?single-flight=success';
+  let successFetches = 0;
+  globalThis.fetch = (async () => {
+    successFetches += 1;
+    return response(wasmBuffer);
+  }) as unknown as typeof globalThis.fetch;
+  try {
+    const first = createRepositoryRuntime();
+    const second = createRepositoryRuntime();
+    const [firstSql, secondSql] = await Promise.all([
+      first.initializeSqlJs(successUrl, DEFAULT_SQL_JS_WASM_SHA256),
+      second.initializeSqlJs(successUrl, DEFAULT_SQL_JS_WASM_SHA256),
+    ]);
+    assert.equal(successFetches, 1);
+    assert.strictEqual(firstSql, secondSql);
+    assert.strictEqual(
+      await first.initializeSqlJs(successUrl, DEFAULT_SQL_JS_WASM_SHA256),
+      firstSql,
+    );
+    assert.equal(successFetches, 1, 'resolved same-key lookup must remain cached');
+
+    await assert.rejects(
+      first.initializeSqlJs(successUrl, '0'.repeat(64)),
+      (error: unknown) => error instanceof RepositoryIntegrityError,
+    );
+    assert.equal(successFetches, 2, 'same URL with a different digest is a separate key');
+
+    let cacheBypassFetches = 0;
+    const cacheBypass = createRepositoryRuntime({
+      fetch: async () => {
+        cacheBypassFetches += 1;
+        return response(wasmBuffer);
+      },
+    });
+    await cacheBypass.initializeSqlJs(successUrl, DEFAULT_SQL_JS_WASM_SHA256);
+    assert.equal(
+      cacheBypassFetches,
+      1,
+      'custom fetch must not reuse an already-resolved default cache entry',
+    );
+
+    const retryUrl = 'https://example.invalid/sql-wasm.wasm?single-flight=retry';
+    let retryFetches = 0;
+    globalThis.fetch = (async () => {
+      retryFetches += 1;
+      return retryFetches === 1
+        ? response(bufferWithTag(0), 503, 'Unavailable')
+        : response(wasmBuffer);
+    }) as unknown as typeof globalThis.fetch;
+    const retrying = createRepositoryRuntime();
+    await assert.rejects(
+      retrying.initializeSqlJs(retryUrl, DEFAULT_SQL_JS_WASM_SHA256),
+      /Failed to fetch sql\.js WASM: 503 Unavailable/u,
+    );
+    await retrying.initializeSqlJs(retryUrl, DEFAULT_SQL_JS_WASM_SHA256);
+    assert.equal(retryFetches, 2);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test('custom fetches and loaders stay outside the default single-flight cache', async () => {
+  const wasmBuffer = Uint8Array.from(readFileSync(new URL(DEFAULT_SQL_JS_WASM_URL))).buffer;
+  let customFetches = 0;
+  const customFetch = async (): Promise<RepositoryFetchResponse> => {
+    customFetches += 1;
+    return response(wasmBuffer);
+  };
+  const fetchRuntimeA = createRepositoryRuntime({ fetch: customFetch });
+  const fetchRuntimeB = createRepositoryRuntime({ fetch: customFetch });
+  await Promise.all([
+    fetchRuntimeA.initializeSqlJs('memory://custom-fetch.wasm', DEFAULT_SQL_JS_WASM_SHA256),
+    fetchRuntimeB.initializeSqlJs('memory://custom-fetch.wasm', DEFAULT_SQL_JS_WASM_SHA256),
+  ]);
+  assert.equal(customFetches, 2);
+
+  let customLoaderCalls = 0;
+  const fakeSql = createFakeSqlRuntime(HANJA_ROW).SQL;
+  const customLoader = async (): Promise<SqlJsStatic> => {
+    customLoaderCalls += 1;
+    return fakeSql;
+  };
+  const loaderRuntimeA = createRepositoryRuntime({ initializeSqlJs: customLoader });
+  const loaderRuntimeB = createRepositoryRuntime({ initializeSqlJs: customLoader });
+  await Promise.all([
+    loaderRuntimeA.initializeSqlJs('memory://custom-loader.wasm', null),
+    loaderRuntimeB.initializeSqlJs('memory://custom-loader.wasm', null),
+  ]);
+  assert.equal(customLoaderCalls, 2);
 });
 
 test('NameStatRepository aggregates abort and DB close failures before clean reinit', async () => {
