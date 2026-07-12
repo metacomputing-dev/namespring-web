@@ -2,7 +2,11 @@ import { type Database } from 'sql.js';
 import type { DatabaseAssetManifestEntry } from './database-asset-contract.js';
 import { HANJA_DATABASE_ASSET } from './database-asset-registry.js';
 import { openVerifiedRepositoryDatabase } from './repository-database-opener.js';
-import { awaitActiveRepositoryStep } from './repository-lifecycle.js';
+import {
+  awaitActiveRepositoryStep,
+  RepositoryLifecycleCoordinator,
+  type RepositoryLifecycleLease,
+} from './repository-lifecycle.js';
 import {
   resolveRepositoryDatabaseContract,
   type RepositoryDatabaseIntegrityPolicy,
@@ -45,10 +49,10 @@ export interface HanjaRepositoryOptions extends RepositoryWasmOptions {
 export class HanjaRepository {
   private db: Database | null = null;
   private initPromise: Promise<void> | null = null;
-  private lifecycleGeneration = 0;
+  private readonly lifecycle = new RepositoryLifecycleCoordinator();
   // Public URL for the database file
   private readonly dbUrl: string;
-  // WASM binary location (using CDN for simplicity, or can be local in public/)
+  // Version-pinned WASM location; defaults to the same-package asset.
   private readonly wasmUrl: string;
   private readonly wasmSha256: string | null;
   private readonly runtime: RepositoryRuntime;
@@ -71,7 +75,7 @@ export class HanjaRepository {
   }
 
   private assertActive(generation: number): void {
-    if (generation !== this.lifecycleGeneration) throw this.cancellationError();
+    this.lifecycle.assertActive(generation, () => this.cancellationError());
   }
 
   /**
@@ -82,13 +86,15 @@ export class HanjaRepository {
     if (this.db) return Promise.resolve();
     if (this.initPromise) return this.initPromise;
 
-    const generation = this.lifecycleGeneration;
+    const lease = this.lifecycle.beginLease();
+    const generation = lease.generation;
     let trackedPromise: Promise<void>;
-    trackedPromise = this.initialize(generation)
+    trackedPromise = this.initialize(lease)
       .then(() => {
         this.assertActive(generation);
       })
       .finally(() => {
+        lease.release();
         if (this.initPromise === trackedPromise) {
           this.initPromise = null;
         }
@@ -97,16 +103,23 @@ export class HanjaRepository {
     return trackedPromise;
   }
 
-  private async initialize(generation: number): Promise<void> {
+  private async initialize(lease: RepositoryLifecycleLease): Promise<void> {
+    const { generation, signal } = lease;
     const assertActive = (): void => this.assertActive(generation);
     const SQL = await awaitActiveRepositoryStep(
-      () => this.runtime.initializeSqlJs(this.wasmUrl, this.wasmSha256),
+      () => this.runtime.initializeSqlJs(
+        this.wasmUrl,
+        this.wasmSha256,
+        { signal },
+      ),
       assertActive,
+      signal,
     );
 
     const response = await awaitActiveRepositoryStep(
-      () => this.runtime.fetch(this.dbUrl),
+      () => this.runtime.fetch(this.dbUrl, { signal }),
       assertActive,
+      signal,
     );
     if (!response.ok) {
       throw new Error('Failed to fetch DB: ' + response.statusText);
@@ -115,6 +128,7 @@ export class HanjaRepository {
     const buffer = await awaitActiveRepositoryStep(
       () => response.arrayBuffer(),
       assertActive,
+      signal,
     );
 
     let candidate: Database | null = null;
@@ -124,6 +138,7 @@ export class HanjaRepository {
         new Uint8Array(buffer),
         this.databaseContract,
         assertActive,
+        signal,
       );
       assertActive();
     } catch (error) {
@@ -132,7 +147,7 @@ export class HanjaRepository {
       } catch {
         // Preserve the initialization or cancellation error that won the race.
       }
-      if (generation !== this.lifecycleGeneration) throw this.cancellationError();
+      this.assertActive(generation);
       throw error;
     }
     if (this.db) {
@@ -248,11 +263,23 @@ export class HanjaRepository {
   }
 
   public close(): void {
-    this.lifecycleGeneration += 1;
+    const cancellation = this.lifecycle.beginCancellation();
     this.initPromise = null;
 
     const db = this.db;
     this.db = null;
-    db?.close();
+    const closeErrors = cancellation.abortAll(this.cancellationError());
+    try {
+      db?.close();
+    } catch (error) {
+      closeErrors.push(error);
+    }
+    if (closeErrors.length === 1) throw closeErrors[0];
+    if (closeErrors.length > 1) {
+      throw new AggregateError(
+        closeErrors,
+        'HanjaRepository failed to cancel or close its resources.',
+      );
+    }
   }
 }

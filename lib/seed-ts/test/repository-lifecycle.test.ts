@@ -216,12 +216,40 @@ async function waitUntil(
   assert.fail('Timed out waiting for ' + description);
 }
 
+async function waitUntilEventLoop(
+  condition: () => boolean,
+  description: string,
+): Promise<void> {
+  for (let attempt = 0; attempt < 100; attempt += 1) {
+    if (condition()) return;
+    await new Promise<void>((resolve) => setImmediate(resolve));
+  }
+  assert.fail('Timed out waiting for ' + description);
+}
+
 function requireAbortSignal(
   value: AbortSignal | null,
   description: string,
 ): AbortSignal {
   assert.ok(value, description);
   return value;
+}
+
+function installCryptoDigest(
+  digest: SubtleCrypto['digest'],
+): () => void {
+  const previous = Object.getOwnPropertyDescriptor(globalThis, 'crypto');
+  Object.defineProperty(globalThis, 'crypto', {
+    configurable: true,
+    value: { subtle: { digest } } as unknown as Crypto,
+  });
+  return () => {
+    if (previous) {
+      Object.defineProperty(globalThis, 'crypto', previous);
+    } else {
+      Reflect.deleteProperty(globalThis, 'crypto');
+    }
+  };
 }
 
 function createFakeSqlRuntime(defaultRow: Record<string, unknown>): FakeSqlRuntime {
@@ -528,6 +556,186 @@ test('awaitActiveRepositoryStep owns abort listeners and skips already-aborted w
   );
   assert.equal(abortedOperationCalls, 0);
   assert.equal(abortedListenerAdds, 0);
+});
+
+test('HanjaRepository close promptly cancels an ignored fetch and permits retry', async () => {
+  const fake = createFakeSqlRuntime(HANJA_ROW);
+  const neverFetch = new Promise<RepositoryFetchResponse>(() => {});
+  const signals: AbortSignal[] = [];
+  let fetches = 0;
+  const repository = createFakeHanjaRepository(fake, {
+    initializeSqlJs: async () => fake.SQL,
+    fetch: async (_url, options) => {
+      fetches += 1;
+      assert.ok(options?.signal);
+      signals.push(options.signal);
+      return fetches === 1 ? neverFetch : response(bufferWithTag(1));
+    },
+  });
+
+  const staleInit = repository.init();
+  const staleOutcome = staleInit.catch((error: unknown) => error);
+  await waitUntil(() => fetches === 1, 'the signal-ignoring Hanja fetch');
+  repository.close();
+
+  assert.equal(signals[0]?.aborted, true);
+  assert.match(String(await staleOutcome), /cancelled by close/u);
+  await repository.init();
+  assert.equal(fetches, 2, 'retry must start a fresh Hanja fetch');
+  assert.equal(fake.databases.length, 1);
+  repository.close();
+});
+
+test('FourframeRepository close promptly cancels an ignored body and permits retry', async () => {
+  const fake = createFakeSqlRuntime(FOURFRAME_ROW);
+  const neverBody = new Promise<ArrayBuffer>(() => {});
+  const signals: AbortSignal[] = [];
+  let bodyReads = 0;
+  const repository = createFakeFourframeRepository(fake, {
+    initializeSqlJs: async () => fake.SQL,
+    fetch: async (_url, options) => {
+      assert.ok(options?.signal);
+      signals.push(options.signal);
+      return {
+        ok: true,
+        status: 200,
+        statusText: 'OK',
+        arrayBuffer: () => {
+          bodyReads += 1;
+          return bodyReads === 1 ? neverBody : Promise.resolve(bufferWithTag(1));
+        },
+      };
+    },
+  });
+
+  const staleInit = repository.init();
+  const staleOutcome = staleInit.catch((error: unknown) => error);
+  await waitUntil(() => bodyReads === 1, 'the signal-ignoring fourframe body');
+  repository.close();
+
+  assert.equal(signals[0]?.aborted, true);
+  assert.match(String(await staleOutcome), /cancelled by close/u);
+  await repository.init();
+  assert.equal(bodyReads, 2, 'retry must consume a fresh fourframe body');
+  assert.equal(fake.databases.length, 1);
+  repository.close();
+});
+
+test('all repositories close promptly while a pre-open database digest never settles', async () => {
+  const neverDigest = new Promise<ArrayBuffer>(() => {});
+  let digestCalls = 0;
+  const restoreCrypto = installCryptoDigest(async () => {
+    digestCalls += 1;
+    return neverDigest;
+  });
+
+  const assertCancelledBeforeOpen = async (
+    label: string,
+    repository: { close(): void },
+    start: () => Promise<unknown>,
+    databaseCount: () => number,
+  ): Promise<void> => {
+    const before = digestCalls;
+    const operation = start();
+    const outcome = operation.catch((error: unknown) => error);
+    await waitUntil(
+      () => digestCalls > before,
+      `${label} pre-open database digest`,
+    );
+    repository.close();
+    assert.match(String(await outcome), /cancelled by close/u);
+    assert.equal(databaseCount(), 0, `${label} must not open unverified bytes`);
+  };
+
+  try {
+    const hanjaFake = createFakeSqlRuntime(HANJA_ROW);
+    const hanja = createFakeHanjaRepository(hanjaFake, {
+      initializeSqlJs: async () => hanjaFake.SQL,
+      fetch: async () => response(bufferWithTag(1)),
+    });
+    await assertCancelledBeforeOpen(
+      'HanjaRepository',
+      hanja,
+      () => hanja.init(),
+      () => hanjaFake.databases.length,
+    );
+
+    const fourframeFake = createFakeSqlRuntime(FOURFRAME_ROW);
+    const fourframe = createFakeFourframeRepository(fourframeFake, {
+      initializeSqlJs: async () => fourframeFake.SQL,
+      fetch: async () => response(bufferWithTag(1)),
+    });
+    await assertCancelledBeforeOpen(
+      'FourframeRepository',
+      fourframe,
+      () => fourframe.init(),
+      () => fourframeFake.databases.length,
+    );
+
+    const nameStatFake = createFakeSqlRuntime(NAME_STAT_ROW);
+    const nameStat = createFakeNameStatRepository(nameStatFake, {
+      initializeSqlJs: async () => nameStatFake.SQL,
+      fetch: async () => response(bufferWithTag(1)),
+    });
+    await assertCancelledBeforeOpen(
+      'NameStatRepository',
+      nameStat,
+      () => nameStat.findByName(NAME),
+      () => nameStatFake.databases.length,
+    );
+  } finally {
+    restoreCrypto();
+  }
+});
+
+test('post-open digest cancellation consumes late settlement and closes exactly once', async () => {
+  const fake = createFakeSqlRuntime(FOURFRAME_ROW);
+  const repository = createFakeFourframeRepository(fake, {
+    initializeSqlJs: async () => fake.SQL,
+    fetch: async () => response(bufferWithTag(1)),
+  });
+  const realDigest = globalThis.crypto.subtle.digest.bind(
+    globalThis.crypto.subtle,
+  );
+  const stalledDigest = deferred<ArrayBuffer>();
+  let stalledDigestResult: Promise<ArrayBuffer> | null = null;
+  let digestCalls = 0;
+  const restoreCrypto = installCryptoDigest(async (algorithm, data) => {
+    digestCalls += 1;
+    if (digestCalls === 1) return realDigest(algorithm, data);
+    if (digestCalls === 2) {
+      stalledDigestResult = realDigest(algorithm, data);
+      return stalledDigest.promise;
+    }
+    return realDigest(algorithm, data);
+  });
+
+  try {
+    const initialization = repository.init();
+    const outcome = initialization.catch((error: unknown) => error);
+    await waitUntilEventLoop(
+      () => digestCalls === 2 && fake.databases.length === 1,
+      'the post-open schema digest',
+    );
+    repository.close();
+
+    assert.match(String(await outcome), /cancelled by close/u);
+    assert.equal(fake.databases[0]?.closeCount, 1);
+    assert.ok(stalledDigestResult);
+    stalledDigest.resolve(await stalledDigestResult);
+    await waitUntil(
+      () => digestCalls >= 3,
+      'late post-open verification settlement',
+    );
+    await Promise.resolve();
+    assert.equal(
+      fake.databases[0]?.closeCount,
+      1,
+      'opener and repository cleanup must not double-close the candidate',
+    );
+  } finally {
+    restoreCrypto();
+  }
 });
 
 test('repository close wins races with loader, fetch, and body rejections', async () => {
@@ -1248,6 +1456,79 @@ test('default sql.js loader is module-wide single-flight and evicts failures', a
   }
 });
 
+test('default sql.js flight keeps active subscribers and evicts after the last abort', async () => {
+  const originalFetch = globalThis.fetch;
+  const wasmBuffer = Uint8Array.from(readFileSync(new URL(DEFAULT_SQL_JS_WASM_URL))).buffer;
+  const url = 'https://example.invalid/sql-wasm.wasm?subscriber-cancellation';
+  const neverFetch = new Promise<RepositoryFetchResponse>(() => {});
+  let underlyingSignal: AbortSignal | undefined;
+  let fetches = 0;
+  globalThis.fetch = (async (
+    _url: string | URL | Request,
+    options?: RequestInit,
+  ) => {
+    fetches += 1;
+    if (fetches === 1) {
+      underlyingSignal = options?.signal ?? undefined;
+      return neverFetch;
+    }
+    return response(wasmBuffer);
+  }) as unknown as typeof globalThis.fetch;
+
+  try {
+    const firstRuntime = createRepositoryRuntime();
+    const secondRuntime = createRepositoryRuntime();
+    const firstController = new AbortController();
+    const secondController = new AbortController();
+    const firstCancellation = new Error('first subscriber closed');
+    const secondCancellation = new Error('second subscriber closed');
+
+    const first = firstRuntime.initializeSqlJs(
+      url,
+      DEFAULT_SQL_JS_WASM_SHA256,
+      { signal: firstController.signal },
+    );
+    const second = secondRuntime.initializeSqlJs(
+      url,
+      DEFAULT_SQL_JS_WASM_SHA256,
+      { signal: secondController.signal },
+    );
+    const firstOutcome = first.catch((error: unknown) => error);
+    const secondOutcome = second.catch((error: unknown) => error);
+    let secondSettled = false;
+    void second.then(
+      () => { secondSettled = true; },
+      () => { secondSettled = true; },
+    );
+    await waitUntil(() => fetches === 1, 'the shared never-settling WASM fetch');
+
+    firstController.abort(firstCancellation);
+    assert.strictEqual(await firstOutcome, firstCancellation);
+    await Promise.resolve();
+    assert.equal(secondSettled, false, 'one close must not cancel an active subscriber');
+    assert.equal(underlyingSignal?.aborted, false);
+
+    secondController.abort(secondCancellation);
+    const retry = firstRuntime.initializeSqlJs(
+      url,
+      DEFAULT_SQL_JS_WASM_SHA256,
+    );
+    assert.strictEqual(await secondOutcome, secondCancellation);
+    assert.equal(underlyingSignal?.aborted, true);
+
+    const retried = await retry;
+    assert.equal(fetches, 2, 'last-subscriber abort must evict the stale flight');
+    assert.strictEqual(
+      await secondRuntime.initializeSqlJs(url, DEFAULT_SQL_JS_WASM_SHA256),
+      retried,
+      'a successful retry must remain cached',
+    );
+    assert.equal(fetches, 2);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
 test('custom fetches and loaders stay outside the default single-flight cache', async () => {
   const wasmBuffer = Uint8Array.from(readFileSync(new URL(DEFAULT_SQL_JS_WASM_URL))).buffer;
   let customFetches = 0;
@@ -1289,11 +1570,11 @@ test('NameStatRepository aggregates abort and DB close failures before clean rei
   const abortFailure = new Error('fixture abort failed');
   const databaseCloseFailure = new Error('fixture database close failed');
   const internals = repository as unknown as {
-    shardAbortControllerByKey: Map<string, { abort(): void }>;
+    lifecycle: { controllers: Set<{ abort(): void }> };
     shardLoadPromiseByKey: Map<string, Promise<unknown>>;
     dbByShard: Map<string, unknown>;
   };
-  internals.shardAbortControllerByKey.set('fixture', {
+  internals.lifecycle.controllers.add({
     abort: () => {
       throw abortFailure;
     },
@@ -1308,7 +1589,7 @@ test('NameStatRepository aggregates abort and DB close failures before clean rei
       && error.errors[1] === databaseCloseFailure,
   );
   assert.equal(fake.databases[0]?.closeCount, 1);
-  assert.equal(internals.shardAbortControllerByKey.size, 0);
+  assert.equal(internals.lifecycle.controllers.size, 0);
   assert.equal(internals.shardLoadPromiseByKey.size, 0);
   assert.equal(internals.dbByShard.size, 0);
 
@@ -1405,12 +1686,12 @@ test('NameStatRepository lookup rejects if close runs before its shard promise s
 
 test('NameStatRepository close invalidates an in-flight SQL initialization', async () => {
   const fake = createFakeSqlRuntime(NAME_STAT_ROW);
-  const firstSqlLoad = deferred<SqlJsStatic>();
+  const firstSqlLoad = new Promise<SqlJsStatic>(() => {});
   let sqlLoads = 0;
   const repository = createFakeNameStatRepository(fake, {
     initializeSqlJs: async () => {
       sqlLoads += 1;
-      return sqlLoads === 1 ? firstSqlLoad.promise : fake.SQL;
+      return sqlLoads === 1 ? firstSqlLoad : fake.SQL;
     },
     fetch: async () => response(),
   });
@@ -1418,10 +1699,10 @@ test('NameStatRepository close invalidates an in-flight SQL initialization', asy
   const staleInit = repository.init();
   const staleOutcome = staleInit.catch((error: unknown) => error);
   repository.close();
-  await repository.init();
-  firstSqlLoad.resolve(fake.SQL);
+  assert.match(String(await staleOutcome), /cancelled by close/u);
 
-  assert.match(String(await staleOutcome), /cancelled by close/);
+  await repository.init();
+
   assert.equal(sqlLoads, 2);
   repository.close();
 });

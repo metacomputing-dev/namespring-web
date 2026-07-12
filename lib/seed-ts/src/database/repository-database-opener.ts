@@ -5,6 +5,7 @@ import {
   verifyOpenedRepositoryDatabase,
   verifyRepositoryDatabaseBytesBeforeOpen,
 } from './database-integrity.js';
+import { awaitActiveRepositoryStep } from './repository-lifecycle.js';
 
 /**
  * Open exactly the immutable byte snapshot that passed integrity verification.
@@ -16,25 +17,47 @@ export async function openVerifiedRepositoryDatabase(
   bytes: Uint8Array,
   contract: DatabaseAssetManifestEntry,
   assertActive: () => void,
+  signal?: AbortSignal,
 ): Promise<Database> {
   const verifiedSnapshot = bytes.slice();
-  await verifyRepositoryDatabaseBytesBeforeOpen(verifiedSnapshot, contract);
-  assertActive();
+  await awaitActiveRepositoryStep(
+    () => verifyRepositoryDatabaseBytesBeforeOpen(verifiedSnapshot, contract),
+    assertActive,
+    signal,
+  );
 
   let candidate: Database | null = null;
+  let candidateClosed = false;
+  let abortListenerAttached = false;
+  const closeCandidate = (): void => {
+    if (!candidate || candidateClosed) return;
+    candidateClosed = true;
+    try {
+      candidate.close();
+    } catch {
+      // Preserve the integrity or cancellation error that owns this path.
+    }
+  };
+  const onAbort = (): void => closeCandidate();
   try {
     candidate = new SQL.Database(verifiedSnapshot);
-    await verifyOpenedRepositoryDatabase(candidate, contract);
-    assertActive();
+    if (signal) {
+      signal.addEventListener('abort', onAbort, { once: true });
+      abortListenerAttached = true;
+      if (signal.aborted) closeCandidate();
+    }
+    await awaitActiveRepositoryStep(
+      () => verifyOpenedRepositoryDatabase(candidate as Database, contract),
+      assertActive,
+      signal,
+    );
     return candidate;
   } catch (error) {
-    if (candidate) {
-      try {
-        candidate.close();
-      } catch {
-        // Preserve the integrity or cancellation error that caused cleanup.
-      }
-    }
+    closeCandidate();
     throw error;
+  } finally {
+    if (signal && abortListenerAttached) {
+      signal.removeEventListener('abort', onAbort);
+    }
   }
 }

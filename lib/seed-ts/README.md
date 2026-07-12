@@ -64,6 +64,13 @@ remaining review debt has expert authority approval.
 
 `HanjaRepository`, `FourframeRepository`, and `NameStatRepository` expose explicit asynchronous `init()` and `close()` lifecycles. Concurrent initialization is single-flight, failed initialization can be retried, and closing during initialization prevents a late database from being published.
 
+Repository-owned loader, fetch, and response-body waits use a generation-scoped
+`AbortSignal`. `close()` settles those callers even when an injected transport
+ignores the signal, and a later generation starts with fresh repository state.
+The optional third argument of an injected `initializeSqlJs` loader carries the
+same signal; two-argument loaders remain compatible and are safely raced by the
+repository lifecycle wrapper.
+
 The default loader uses the same-package `assets/sql-wasm-1.14.1.wasm`
 artifact. The package contract pins its byte length and SHA-256 digest, and the
 runtime verifies the SHA-256 digest before execution. The package also ships
@@ -75,6 +82,13 @@ evicted so a later call can retry. A custom `wasmUrl` must include
 `wasmSha256`, while callers that inject a custom `initializeSqlJs` loader
 own that loader's integrity boundary and are intentionally excluded from the
 default shared cache.
+
+Each caller of the default module-wide WASM flight owns a subscriber lease.
+Closing one repository cancels only its subscriber; another active subscriber
+continues to share the same fetch. When the last pending subscriber closes, the
+flight is identity-checked, evicted, and its underlying transport is aborted so
+an immediate retry cannot inherit a permanently pending load. Successful
+entries remain cached as before.
 
 Successful default URL/digest entries stay cached for the process lifetime.
 This bounds normal products to one reviewed bundled artifact while avoiding
