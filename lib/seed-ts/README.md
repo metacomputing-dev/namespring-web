@@ -66,6 +66,21 @@ remaining review debt has expert authority approval.
 
 The default loader fetches the pinned `sql.js@1.14.0` WASM artifact and verifies its SHA-256 digest before execution. A custom `wasmUrl` must include `wasmSha256`; callers that inject a custom `initializeSqlJs` loader own that loader's integrity boundary.
 
+`HanjaRepository` and `FourframeRepository` separately verify the database
+artifact before publishing it. Canonical mode pins the byte length, SHA-256,
+SQLite `user_version`, table name, full normalized column schema, and exact row
+count from the generated database-asset manifest. `dbUrl` selects only where
+those canonical bytes are fetched from; changing the URL does not change or
+disable the expected contract.
+
+An intentionally different, reviewed artifact must use
+`databaseIntegrity: { mode: 'pinned', contract }`. The complete alternate
+contract is cloned and deeply frozen at construction, and its table/schema
+family must match the repository's canonical family. Transport and execution
+injection remain narrow trust boundaries: a custom `fetch` changes how bytes
+arrive, and a custom `initializeSqlJs` loader owns WASM loading, but neither
+bypasses database byte, schema, or row-count verification.
+
 Every returned row is decoded against a required-field and finite-number contract. Missing fields, malformed JSON, invalid enums, non-finite or negative statistics, and unsafe JSON object keys throw the non-retryable `RepositoryDataError`; they are never converted into empty fallback data.
 
 ## Package boundary

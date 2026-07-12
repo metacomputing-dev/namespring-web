@@ -113,6 +113,11 @@ export type {
   NormalizedDatabaseColumn,
 } from './database/database-asset-contract.js';
 export type {
+  CanonicalRepositoryDatabaseIntegrityPolicy,
+  PinnedRepositoryDatabaseIntegrityPolicy,
+  RepositoryDatabaseIntegrityPolicy,
+} from './database/repository-database-policy.js';
+export type {
   RepositoryFetch,
   RepositoryFetchResponse,
   RepositoryRuntimeOverrides,
