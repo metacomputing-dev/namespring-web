@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import {
   NAME_STAT_LOOKUP_UNAVAILABLE,
   NameStatLookupUnavailableError,
+  REPOSITORY_DATABASE_INTEGRITY_MISMATCH,
+  RepositoryDatabaseIntegrityError,
   RepositoryDataError,
   SPRING_ENGINE_OPERATION_CANCELLED,
   SpringEngine,
@@ -59,6 +61,41 @@ function foundEntry() {
   const cached = await engine.getNameStatInfo(givenName);
   assert.equal(cached.status, 'found');
   assert.equal(calls, 2, 'successful lookups should remain cacheable');
+}
+
+{
+  const engine = new SpringEngine() as any;
+  const integrityError = new RepositoryDatabaseIntegrityError(
+    'name-stat-08',
+    'sha256_mismatch',
+    'expected-sha256',
+    'actual-sha256',
+  );
+  let calls = 0;
+  engine.nameStatRepo = {
+    findByName: async () => {
+      calls += 1;
+      if (calls === 1) throw integrityError;
+      return foundEntry();
+    },
+  };
+
+  await assert.rejects(
+    engine.getNameStatInfo(givenName),
+    (error: unknown) => {
+      assert.strictEqual(error, integrityError);
+      assert.ok(error instanceof RepositoryDatabaseIntegrityError);
+      assert.equal(error.code, REPOSITORY_DATABASE_INTEGRITY_MISMATCH);
+      assert.equal(error.retryable, false);
+      assert.equal(error instanceof NameStatLookupUnavailableError, false);
+      return true;
+    },
+    'database-integrity errors must remain original and non-retryable',
+  );
+
+  const recovered = await engine.getNameStatInfo(givenName);
+  assert.equal(recovered.status, 'found');
+  assert.equal(calls, 2, 'an integrity failure must not publish or cache lookup data');
 }
 
 {

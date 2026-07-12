@@ -22,6 +22,7 @@ import {
   type NameStatEntry,
 } from '../../seed-ts/src/database/name-stat-repository.js';
 import { RepositoryDataError } from '../../seed-ts/src/database/repository-errors.js';
+import { RepositoryDatabaseIntegrityError } from '../../seed-ts/src/database/database-integrity.js';
 import {
   sanitizeServiceValue,
 } from '../../seed-ts/src/service-text-policy.js';
@@ -1786,7 +1787,10 @@ export class SpringEngine {
       );
     } catch (cause) {
       this.assertActiveOperation(operation.generation, operation.operation);
-      if (cause instanceof RepositoryDataError) {
+      if (
+        cause instanceof RepositoryDataError
+        || cause instanceof RepositoryDatabaseIntegrityError
+      ) {
         throw cause;
       }
       // Infrastructure failures must not become a durable "name does not

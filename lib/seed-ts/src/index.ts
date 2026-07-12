@@ -114,8 +114,11 @@ export type {
 } from './database/database-asset-contract.js';
 export type {
   CanonicalRepositoryDatabaseIntegrityPolicy,
+  CanonicalRepositoryDatabaseShardSetIntegrityPolicy,
   PinnedRepositoryDatabaseIntegrityPolicy,
+  PinnedRepositoryDatabaseShardSetIntegrityPolicy,
   RepositoryDatabaseIntegrityPolicy,
+  RepositoryDatabaseShardSetIntegrityPolicy,
 } from './database/repository-database-policy.js';
 export type {
   RepositoryFetch,

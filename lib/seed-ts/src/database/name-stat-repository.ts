@@ -1,4 +1,12 @@
 import { type Database, type SqlJsStatic } from 'sql.js';
+import type { DatabaseAssetManifestEntry } from './database-asset-contract.js';
+import { NAME_STAT_DATABASE_ASSETS } from './database-asset-registry.js';
+import { openVerifiedRepositoryDatabase } from './repository-database-opener.js';
+import { awaitActiveRepositoryStep } from './repository-lifecycle.js';
+import {
+  resolveRepositoryDatabaseShardSet,
+  type RepositoryDatabaseShardSetIntegrityPolicy,
+} from './repository-database-policy.js';
 import {
   createRepositoryRuntime,
   resolveRepositoryWasm,
@@ -7,6 +15,12 @@ import {
 } from './repository-runtime.js';
 import { resolvePublicAssetUrl } from './runtime-url.js';
 import { RepositoryRowDecoder } from './row-decoder.js';
+import {
+  extractRawNameStatChoseong,
+  nameStatShardFilename,
+  resolveNameStatShardKey,
+  type NameStatShardKey,
+} from '../utils/name-stat-shard.js';
 
 export interface NameStatEntry {
   readonly name: string;
@@ -29,11 +43,8 @@ export interface NameGenderRatioEntry {
 
 export interface NameStatRepositoryOptions extends RepositoryWasmOptions {
   readonly shardBaseUrl?: string;
+  readonly databaseIntegrity?: RepositoryDatabaseShardSetIntegrityPolicy;
 }
-
-type ShardKey =
-  | 'ㄱ' | 'ㄴ' | 'ㄷ' | 'ㄹ' | 'ㅁ' | 'ㅂ' | 'ㅅ'
-  | 'ㅇ' | 'ㅈ' | 'ㅊ' | 'ㅋ' | 'ㅌ' | 'ㅍ' | 'ㅎ';
 
 /**
  * Browser-compatible repository for sharded name statistics DBs.
@@ -44,28 +55,16 @@ export class NameStatRepository {
   private readonly wasmSha256: string | null;
   private readonly shardBaseUrl: string;
   private readonly runtime: RepositoryRuntime;
+  private readonly databaseContractByShard: ReadonlyMap<
+    NameStatShardKey,
+    DatabaseAssetManifestEntry
+  >;
   private sqlInstance: SqlJsStatic | null = null;
   private sqlInitPromise: Promise<SqlJsStatic> | null = null;
-  private readonly dbByShard = new Map<ShardKey, Database>();
-  private readonly shardLoadPromiseByKey = new Map<ShardKey, Promise<Database>>();
+  private readonly dbByShard = new Map<NameStatShardKey, Database>();
+  private readonly shardLoadPromiseByKey =
+    new Map<NameStatShardKey, Promise<Database>>();
   private lifecycleGeneration = 0;
-
-  private readonly shardFileByKey: Record<ShardKey, string> = {
-    'ㄱ': '01.db',
-    'ㄴ': '02.db',
-    'ㄷ': '03.db',
-    'ㄹ': '04.db',
-    'ㅁ': '05.db',
-    'ㅂ': '06.db',
-    'ㅅ': '07.db',
-    'ㅇ': '08.db',
-    'ㅈ': '09.db',
-    'ㅊ': '10.db',
-    'ㅋ': '11.db',
-    'ㅌ': '12.db',
-    'ㅍ': '13.db',
-    'ㅎ': '14.db',
-  };
 
   public constructor(options: NameStatRepositoryOptions = {}) {
     const wasm = resolveRepositoryWasm(options);
@@ -74,6 +73,22 @@ export class NameStatRepository {
     this.shardBaseUrl = options.shardBaseUrl
       ?? resolvePublicAssetUrl('data/name-stat-shards');
     this.runtime = createRepositoryRuntime(options);
+    const contracts = resolveRepositoryDatabaseShardSet(
+      options.databaseIntegrity,
+      NAME_STAT_DATABASE_ASSETS,
+    );
+    this.databaseContractByShard = new Map(contracts.map((contract) => [
+      contract.shardKey as NameStatShardKey,
+      contract,
+    ]));
+  }
+
+  private cancellationError(): Error {
+    return new Error('NameStatRepository initialization was cancelled by close().');
+  }
+
+  private assertActive(generation: number): void {
+    if (generation !== this.lifecycleGeneration) throw this.cancellationError();
   }
 
   /**
@@ -82,21 +97,21 @@ export class NameStatRepository {
   public async init(): Promise<void> {
     const generation = this.lifecycleGeneration;
     await this.ensureSqlReady();
-    if (generation !== this.lifecycleGeneration) {
-      throw new Error('NameStatRepository initialization was cancelled by close().');
-    }
+    this.assertActive(generation);
   }
 
   /**
    * Finds name statistics from the proper shard selected by first character choseong.
    */
   public async findByName(name: string): Promise<NameStatEntry | null> {
+    const generation = this.lifecycleGeneration;
     const normalizedName = name?.trim();
     if (!normalizedName) return null;
 
-    const shardKey = this.getShardKeyByName(normalizedName);
+    const shardKey = resolveNameStatShardKey(normalizedName);
     if (!shardKey) return null;
     const db = await this.ensureShardLoaded(shardKey);
+    this.assertActive(generation);
 
     const stmt = db.prepare(`SELECT * FROM name_stats WHERE name = ? LIMIT 1`);
     try {
@@ -114,10 +129,22 @@ export class NameStatRepository {
     this.sqlInitPromise = null;
     this.shardLoadPromiseByKey.clear();
 
-    for (const db of this.dbByShard.values()) {
-      db.close();
-    }
+    const databases = [...this.dbByShard.values()];
     this.dbByShard.clear();
+    const closeErrors: unknown[] = [];
+    for (const db of databases) {
+      try {
+        db.close();
+      } catch (error) {
+        closeErrors.push(error);
+      }
+    }
+    if (closeErrors.length > 0) {
+      throw new AggregateError(
+        closeErrors,
+        'NameStatRepository failed to close one or more shard databases.',
+      );
+    }
   }
 
   private ensureSqlReady(): Promise<SqlJsStatic> {
@@ -125,12 +152,14 @@ export class NameStatRepository {
     if (this.sqlInitPromise) return this.sqlInitPromise;
 
     const generation = this.lifecycleGeneration;
+    const assertActive = (): void => this.assertActive(generation);
     let trackedPromise: Promise<SqlJsStatic>;
-    trackedPromise = this.runtime.initializeSqlJs(this.wasmUrl, this.wasmSha256)
+    trackedPromise = awaitActiveRepositoryStep(
+      () => this.runtime.initializeSqlJs(this.wasmUrl, this.wasmSha256),
+      assertActive,
+    )
       .then((SQL) => {
-        if (generation !== this.lifecycleGeneration) {
-          throw new Error('NameStatRepository initialization was cancelled by close().');
-        }
+        assertActive();
         this.sqlInstance = SQL;
         return SQL;
       })
@@ -143,7 +172,7 @@ export class NameStatRepository {
     return trackedPromise;
   }
 
-  private ensureShardLoaded(shardKey: ShardKey): Promise<Database> {
+  private ensureShardLoaded(shardKey: NameStatShardKey): Promise<Database> {
     const cached = this.dbByShard.get(shardKey);
     if (cached) return Promise.resolve(cached);
     const loading = this.shardLoadPromiseByKey.get(shardKey);
@@ -153,9 +182,7 @@ export class NameStatRepository {
     let trackedPromise: Promise<Database>;
     trackedPromise = this.loadShard(shardKey, generation)
       .then((database) => {
-        if (generation !== this.lifecycleGeneration) {
-          throw new Error('NameStatRepository shard load was cancelled by close().');
-        }
+        this.assertActive(generation);
         return database;
       })
       .finally(() => {
@@ -167,16 +194,23 @@ export class NameStatRepository {
     return trackedPromise;
   }
 
-  private async loadShard(shardKey: ShardKey, generation: number): Promise<Database> {
-    const SQL = await this.ensureSqlReady();
-    if (generation !== this.lifecycleGeneration) {
-      throw new Error('NameStatRepository shard load was cancelled by close().');
-    }
+  private async loadShard(
+    shardKey: NameStatShardKey,
+    generation: number,
+  ): Promise<Database> {
+    const assertActive = (): void => this.assertActive(generation);
+    const SQL = await awaitActiveRepositoryStep(
+      () => this.ensureSqlReady(),
+      assertActive,
+    );
 
-    const filename = this.shardFileByKey[shardKey];
+    const filename = nameStatShardFilename(shardKey);
     const url = this.shardBaseUrl + '/' + encodeURIComponent(filename);
 
-    const response = await this.runtime.fetch(url);
+    const response = await awaitActiveRepositoryStep(
+      () => this.runtime.fetch(url),
+      assertActive,
+    );
     if (!response.ok) {
       throw new Error(
         'Failed to fetch shard DB (' + filename + '): '
@@ -184,11 +218,35 @@ export class NameStatRepository {
       );
     }
 
-    const buffer = await response.arrayBuffer();
-    const candidate = new SQL.Database(new Uint8Array(buffer));
-    if (generation !== this.lifecycleGeneration) {
-      candidate.close();
-      throw new Error('NameStatRepository shard load was cancelled by close().');
+    const buffer = await awaitActiveRepositoryStep(
+      () => response.arrayBuffer(),
+      assertActive,
+    );
+    const contract = this.databaseContractByShard.get(shardKey);
+    if (!contract) {
+      throw new Error(`NameStatRepository has no integrity contract for shard ${shardKey}.`);
+    }
+
+    let candidate: Database | null = null;
+    try {
+      candidate = await openVerifiedRepositoryDatabase(
+        SQL,
+        new Uint8Array(buffer),
+        contract,
+        assertActive,
+      );
+      assertActive();
+    } catch (error) {
+      try {
+        candidate?.close();
+      } catch {
+        // Preserve the integrity or cancellation error that won the race.
+      }
+      if (generation !== this.lifecycleGeneration) throw this.cancellationError();
+      throw error;
+    }
+    if (!candidate) {
+      throw new Error(`NameStatRepository failed to open shard ${shardKey}.`);
     }
 
     const existing = this.dbByShard.get(shardKey);
@@ -199,36 +257,6 @@ export class NameStatRepository {
 
     this.dbByShard.set(shardKey, candidate);
     return candidate;
-  }
-
-  private getShardKeyByName(name: string): ShardKey | null {
-    const firstChar = name[0];
-    const choseong = this.extractChoseong(firstChar);
-    if (!choseong) return null;
-
-    if (choseong === 'ㄲ') return 'ㄱ';
-    if (choseong === 'ㄸ') return 'ㄷ';
-    if (choseong === 'ㅃ') return 'ㅂ';
-    if (choseong === 'ㅆ') return 'ㅅ';
-    if (choseong === 'ㅉ') return 'ㅈ';
-
-    const base = choseong as ShardKey;
-    if (base in this.shardFileByKey) return base;
-    return null;
-  }
-
-  private extractChoseong(char: string): string | null {
-    if (!char) return null;
-    const code = char.charCodeAt(0);
-    if (code < 0xac00 || code > 0xd7a3) return null;
-
-    const CHOSEONG_LIST = [
-      'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ',
-      'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ',
-    ] as const;
-
-    const index = Math.floor((code - 0xac00) / 588);
-    return CHOSEONG_LIST[index] ?? null;
   }
 
   private mapRowToEntry(row: Record<string, unknown>, expectedName: string): NameStatEntry {
@@ -243,7 +271,7 @@ export class NameStatRepository {
       decoder.fail(decoder.path('first_char'), 'did not match the first name syllable');
     }
     const firstChoseong = decoder.string('first_choseong');
-    if (firstChoseong !== this.extractChoseong(firstChar)) {
+    if (firstChoseong !== extractRawNameStatChoseong(firstChar)) {
       decoder.fail(decoder.path('first_choseong'), 'did not match the first name syllable');
     }
 
