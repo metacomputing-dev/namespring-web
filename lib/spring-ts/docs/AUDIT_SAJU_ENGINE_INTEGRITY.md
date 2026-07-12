@@ -946,7 +946,7 @@ matchedPillars 없음. shinsalHits 항목 키셋은 단일: {type, position, gra
 ## 부록 D. 2026-07-12 후속 상태
 
 이 부록은 2026-07-08 감사 스냅샷을 삭제하거나 소급 수정하지 않고, 커밋
-`0e91b8ec9`까지의 후속 해결 상태를 기록한다. 여기서 “해결”은 저장소 계약과
+`bc4134ecc`까지의 후속 해결 상태를 기록한다. 여기서 “해결”은 저장소 계약과
 회귀 테스트 기준이며, 외부 명리·역법 권위 인증 또는 전 세계 역사 시간대의
 완전성을 뜻하지 않는다.
 
@@ -965,6 +965,9 @@ matchedPillars 없음. shinsalHits 항목 키셋은 단일: {type, position, gra
 | raw `sajuConfig`가 제품 시간정책 우회 | 해결 | high-level 제품 정책을 최종 재적용하고 invalid runtime policy를 fail-closed 처리한다. |
 | 연도 1~99가 `Date.UTC`에서 1900년대로 이동 | 해결 | literal-year UTC helper를 도입하고 요청·절기·대운·진태양시 경로와 회귀를 보강했다. |
 | 진태양시 trace 수식이 실제 계산과 불일치 | 해결 | shortest longitude delta, 정책별 meridian, `off` 의미를 trace와 구현에서 일치시켰다. |
+| Seed DB 자산의 런타임 무결성 미검증 | Hanja/Fourframe 해결·NameStat 미완 | 16개 canonical DB의 byte/schema/count manifest를 고정하고, Hanja/Fourframe는 SHA 전검증과 opened-DB 후검증을 모두 통과한 동일 snapshot만 publish한다(`88144fb65..bc4134ecc`). 14개 NameStat shard는 대용량 hash 비용과 shard별 close 경쟁을 별도 검증한 뒤 배선해야 한다. |
+| 이름 입력의 동음 한자 대체·stale operation publish | 해결 | 명시 Hangul/Hanja가 DB identity와 다르면 구조화 거부하고, 7개 public async route는 generation lease로 close 이후 결과·cache publish를 차단한다(`1fde4adde`, `61b4206cd`). 이미 시작한 대규모 동기 scoring loop 자체를 중간 abort하지는 않는다. |
+| Seed 점수·입력·조회 계약의 암묵성 | 구조 고정·교리 검토 일부 미완 | v1 점수표와 positional surname/Han 입력 검증, 결정적 SQL 순서를 고정했다. 기존 호환을 위해 보존한 same-element `-5`는 설명과의 긴장이 명시돼 있으며 전문가 검토 전 교리 정답으로 승격하지 않는다(`195bcbdde..00d3ee53d`). |
 
 ### 남은 한계와 릴리스 판정
 
@@ -979,3 +982,7 @@ matchedPillars 없음. shinsalHits 항목 키셋은 단일: {type, position, gra
 - 이 체크포인트는 시간·위치 정합성 개선이다. 격국·강약·용신의 외부 권위 진리값,
   exact default-diff 승인, exact commit 전문가 signoff를 충족하지 않으므로
   “전문가급 상용 사주엔진 인증”이나 PR WIP 해제의 단독 근거가 아니다.
+- PR #653의 누적 범위는 `bc4134ecc` 기준 133커밋·418파일이다. 회귀 통과 여부와
+  별개로 단일 리뷰 단위가 아니며, 연속 prefix 스택으로 분할하기 전에는 Draft를
+  유지한다. 분할 이후의 작은 default-neutral guardrail PR과 외부 명리 인증 gate는
+  서로 다른 리뷰 축으로 다뤄야 한다.
