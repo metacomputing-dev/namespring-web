@@ -12,6 +12,7 @@
  *
  * A miss falls back to the base article pool, so selection degrades gracefully.
  */
+import { resolvePublicAssetUrl } from '../../../../seed-ts/src/database/runtime-url.js';
 import type { Article } from './article-registry.js';
 
 function isBrowserRuntime(): boolean {
@@ -66,7 +67,10 @@ export async function preloadGeneratedForPerson(
   await Promise.all(entries.map(async ({ category, packKey }) => {
     if (!packKey) return;
     try {
-      const res = await fetch(`/generated-packed/${category}/${packKey}.json`);
+      const bundleUrl = resolvePublicAssetUrl(
+        `generated-packed/${category}/${packKey}.json`,
+      );
+      const res = await fetch(bundleUrl);
       if (!res.ok) return;
       const bundle = (await res.json()) as Record<string, unknown>;
       for (const [classId, article] of Object.entries(bundle)) {
