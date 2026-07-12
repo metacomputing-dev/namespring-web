@@ -17,7 +17,14 @@ export interface RepositoryFetchResponse {
   arrayBuffer(): Promise<ArrayBuffer>;
 }
 
-export type RepositoryFetch = (url: string) => Promise<RepositoryFetchResponse>;
+export interface RepositoryFetchOptions {
+  readonly signal?: AbortSignal;
+}
+
+export type RepositoryFetch = (
+  url: string,
+  options?: RepositoryFetchOptions,
+) => Promise<RepositoryFetchResponse>;
 export type SqlJsLoader = (
   wasmUrl: string,
   expectedSha256: string | null,
@@ -105,7 +112,8 @@ export function resolveRepositoryWasm(
 export function createRepositoryRuntime(
   overrides: RepositoryRuntimeOverrides = {},
 ): RepositoryRuntime {
-  const fetch = overrides.fetch ?? ((url) => globalThis.fetch(url));
+  const fetch: RepositoryFetch = overrides.fetch
+    ?? ((url, options) => globalThis.fetch(url, options));
   return {
     fetch,
     initializeSqlJs: overrides.initializeSqlJs ?? (async (wasmUrl, expectedSha256) => {

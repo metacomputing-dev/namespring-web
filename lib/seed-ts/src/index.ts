@@ -122,6 +122,7 @@ export type {
 } from './database/repository-database-policy.js';
 export type {
   RepositoryFetch,
+  RepositoryFetchOptions,
   RepositoryFetchResponse,
   RepositoryRuntimeOverrides,
   RepositoryWasmOptions,
