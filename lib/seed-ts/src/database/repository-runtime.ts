@@ -3,6 +3,7 @@ import {
   normalizeSha256Digest,
   verifySha256Digest,
 } from './repository-artifact-integrity.js';
+import { awaitActiveRepositoryStep } from './repository-lifecycle.js';
 
 /** Bundled sql.js browser artifact, verified against the exact npm package. */
 export const DEFAULT_SQL_JS_VERSION = '1.14.1' as const;
@@ -32,6 +33,7 @@ export type RepositoryFetch = (
 export type SqlJsLoader = (
   wasmUrl: string,
   expectedSha256: string | null,
+  options?: RepositoryFetchOptions,
 ) => Promise<SqlJsStatic>;
 
 export interface RepositoryRuntimeOverrides {
@@ -54,7 +56,33 @@ export interface RepositoryRuntime {
   readonly initializeSqlJs: SqlJsLoader;
 }
 
-const defaultSqlJsInitializationByArtifact = new Map<string, Promise<SqlJsStatic>>();
+interface DefaultSqlJsInitializationFlight {
+  readonly controller: AbortController;
+  readonly subscribers: Set<symbol>;
+  promise: Promise<SqlJsStatic>;
+  settled: boolean;
+}
+
+const defaultSqlJsInitializationByArtifact =
+  new Map<string, DefaultSqlJsInitializationFlight>();
+
+function signalCancellationReason(
+  signal: AbortSignal,
+  message: string,
+): unknown {
+  return signal.reason ?? new Error(message);
+}
+
+function awaitSignalAwareStep<T>(
+  operation: () => Promise<T>,
+  signal: AbortSignal | undefined,
+  message: string,
+): Promise<T> {
+  const assertNotAborted = (): void => {
+    if (signal?.aborted) throw signalCancellationReason(signal, message);
+  };
+  return awaitActiveRepositoryStep(operation, assertNotAborted, signal);
+}
 
 interface NodeFileSystemPromises {
   readFile(
@@ -168,20 +196,30 @@ async function initializeVerifiedSqlJs(
   fetch: RepositoryFetch,
   wasmUrl: string,
   expectedSha256: string | null,
+  signal?: AbortSignal,
 ): Promise<SqlJsStatic> {
   if (!expectedSha256) {
     throw new RepositoryConfigurationError(
       'The default sql.js loader requires an expected WASM SHA-256 digest.',
     );
   }
-  const response = await fetch(wasmUrl);
+  const awaitStep = <T>(operation: () => Promise<T>): Promise<T> =>
+    awaitSignalAwareStep(
+      operation,
+      signal,
+      'sql.js WASM initialization was aborted.',
+    );
+
+  const response = await awaitStep(
+    () => fetch(wasmUrl, signal ? { signal } : undefined),
+  );
   if (!response.ok) {
     throw new Error(
       'Failed to fetch sql.js WASM: '
       + response.status + ' ' + response.statusText,
     );
   }
-  const wasmBinary = await response.arrayBuffer();
+  const wasmBinary = await awaitStep(() => response.arrayBuffer());
   if (
     wasmUrl === DEFAULT_SQL_JS_WASM_URL
     && wasmBinary.byteLength !== DEFAULT_SQL_JS_WASM_BYTE_LENGTH
@@ -194,41 +232,113 @@ async function initializeVerifiedSqlJs(
       + '.',
     );
   }
-  await verifySha256Digest(new Uint8Array(wasmBinary), expectedSha256, {
-    cryptoUnavailable: () => new RepositoryConfigurationError(
-      'Web Crypto SHA-256 support is required to initialize sql.js safely.',
-    ),
-    mismatch: (expected, actual) => new RepositoryIntegrityError(expected, actual),
+  await awaitStep(() => verifySha256Digest(
+    new Uint8Array(wasmBinary),
+    expectedSha256,
+    {
+      cryptoUnavailable: () => new RepositoryConfigurationError(
+        'Web Crypto SHA-256 support is required to initialize sql.js safely.',
+      ),
+      mismatch: (expected, actual) =>
+        new RepositoryIntegrityError(expected, actual),
+    },
+  ));
+  return await awaitStep(() => initSqlJs({ wasmBinary }));
+}
+
+function createDefaultSqlJsFlight(
+  key: string,
+  wasmUrl: string,
+  expectedSha256: string,
+): DefaultSqlJsInitializationFlight {
+  const controller = new AbortController();
+  let flight!: DefaultSqlJsInitializationFlight;
+  const promise = initializeVerifiedSqlJs(
+    defaultRepositoryFetch,
+    wasmUrl,
+    expectedSha256,
+    controller.signal,
+  ).then(
+    (SQL) => {
+      flight.settled = true;
+      return SQL;
+    },
+    (error: unknown) => {
+      flight.settled = true;
+      if (defaultSqlJsInitializationByArtifact.get(key) === flight) {
+        defaultSqlJsInitializationByArtifact.delete(key);
+      }
+      throw error;
+    },
+  );
+  flight = {
+    controller,
+    subscribers: new Set<symbol>(),
+    promise,
+    settled: false,
+  };
+  defaultSqlJsInitializationByArtifact.set(key, flight);
+  return flight;
+}
+
+function subscribeToDefaultSqlJsFlight(
+  key: string,
+  flight: DefaultSqlJsInitializationFlight,
+  signal?: AbortSignal,
+): Promise<SqlJsStatic> {
+  const subscriber = Symbol(key);
+  flight.subscribers.add(subscriber);
+  let released = false;
+
+  const release = (): void => {
+    if (released) return;
+    released = true;
+    flight.subscribers.delete(subscriber);
+    if (
+      !flight.settled
+      && flight.subscribers.size === 0
+      && defaultSqlJsInitializationByArtifact.get(key) === flight
+    ) {
+      defaultSqlJsInitializationByArtifact.delete(key);
+      flight.controller.abort(
+        new Error('sql.js WASM initialization has no active subscribers.'),
+      );
+    }
+  };
+  const onAbort = (): void => release();
+  if (signal) signal.addEventListener('abort', onAbort, { once: true });
+
+  return awaitSignalAwareStep(
+    () => flight.promise,
+    signal,
+    'sql.js WASM initialization was aborted.',
+  ).finally(() => {
+    if (signal) signal.removeEventListener('abort', onAbort);
+    release();
   });
-  return initSqlJs({ wasmBinary });
 }
 
 function initializeDefaultSqlJs(
   wasmUrl: string,
   expectedSha256: string | null,
+  options?: RepositoryFetchOptions,
 ): Promise<SqlJsStatic> {
   if (!expectedSha256) {
     return Promise.reject(new RepositoryConfigurationError(
       'The default sql.js loader requires an expected WASM SHA-256 digest.',
     ));
   }
+  const signal = options?.signal;
+  if (signal?.aborted) {
+    return Promise.reject(signalCancellationReason(
+      signal,
+      'sql.js WASM initialization was aborted.',
+    ));
+  }
   const key = JSON.stringify([wasmUrl, expectedSha256]);
-  const cached = defaultSqlJsInitializationByArtifact.get(key);
-  if (cached) return cached;
-
-  let trackedPromise: Promise<SqlJsStatic>;
-  trackedPromise = initializeVerifiedSqlJs(
-    defaultRepositoryFetch,
-    wasmUrl,
-    expectedSha256,
-  ).catch((error: unknown) => {
-    if (defaultSqlJsInitializationByArtifact.get(key) === trackedPromise) {
-      defaultSqlJsInitializationByArtifact.delete(key);
-    }
-    throw error;
-  });
-  defaultSqlJsInitializationByArtifact.set(key, trackedPromise);
-  return trackedPromise;
+  const flight = defaultSqlJsInitializationByArtifact.get(key)
+    ?? createDefaultSqlJsFlight(key, wasmUrl, expectedSha256);
+  return subscribeToDefaultSqlJsFlight(key, flight, signal);
 }
 
 export function createRepositoryRuntime(
@@ -237,9 +347,29 @@ export function createRepositoryRuntime(
   const fetch = overrides.fetch ?? defaultRepositoryFetch;
   const initializeSqlJsOverride = overrides.initializeSqlJs;
   const initializeSqlJs = initializeSqlJsOverride
-    ?? (overrides.fetch
-      ? (wasmUrl: string, expectedSha256: string | null) =>
-          initializeVerifiedSqlJs(fetch, wasmUrl, expectedSha256)
+    ? (
+        wasmUrl: string,
+        expectedSha256: string | null,
+        options?: RepositoryFetchOptions,
+      ) => {
+        const signal = options?.signal;
+        return awaitSignalAwareStep(
+          () => initializeSqlJsOverride(wasmUrl, expectedSha256, options),
+          signal,
+          'sql.js WASM initialization was aborted.',
+        );
+      }
+    : (overrides.fetch
+      ? (
+          wasmUrl: string,
+          expectedSha256: string | null,
+          options?: RepositoryFetchOptions,
+        ) => initializeVerifiedSqlJs(
+          fetch,
+          wasmUrl,
+          expectedSha256,
+          options?.signal,
+        )
       : initializeDefaultSqlJs);
   return {
     fetch,

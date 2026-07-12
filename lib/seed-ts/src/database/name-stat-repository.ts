@@ -2,7 +2,11 @@ import { type Database, type SqlJsStatic } from 'sql.js';
 import type { DatabaseAssetManifestEntry } from './database-asset-contract.js';
 import { NAME_STAT_DATABASE_ASSETS } from './database-asset-registry.js';
 import { openVerifiedRepositoryDatabase } from './repository-database-opener.js';
-import { awaitActiveRepositoryStep } from './repository-lifecycle.js';
+import {
+  awaitActiveRepositoryStep,
+  RepositoryLifecycleCoordinator,
+  type RepositoryLifecycleLease,
+} from './repository-lifecycle.js';
 import {
   resolveRepositoryDatabaseShardSet,
   type RepositoryDatabaseShardSetIntegrityPolicy,
@@ -64,9 +68,7 @@ export class NameStatRepository {
   private readonly dbByShard = new Map<NameStatShardKey, Database>();
   private readonly shardLoadPromiseByKey =
     new Map<NameStatShardKey, Promise<Database>>();
-  private readonly shardAbortControllerByKey =
-    new Map<NameStatShardKey, AbortController>();
-  private lifecycleGeneration = 0;
+  private readonly lifecycle = new RepositoryLifecycleCoordinator();
 
   public constructor(options: NameStatRepositoryOptions = {}) {
     const wasm = resolveRepositoryWasm(options);
@@ -90,14 +92,14 @@ export class NameStatRepository {
   }
 
   private assertActive(generation: number): void {
-    if (generation !== this.lifecycleGeneration) throw this.cancellationError();
+    this.lifecycle.assertActive(generation, () => this.cancellationError());
   }
 
   /**
    * Optional eager init. DB shards remain lazy-loaded.
    */
   public async init(): Promise<void> {
-    const generation = this.lifecycleGeneration;
+    const generation = this.lifecycle.currentGeneration;
     await this.ensureSqlReady();
     this.assertActive(generation);
   }
@@ -106,7 +108,7 @@ export class NameStatRepository {
    * Finds name statistics from the proper shard selected by first character choseong.
    */
   public async findByName(name: string): Promise<NameStatEntry | null> {
-    const generation = this.lifecycleGeneration;
+    const generation = this.lifecycle.currentGeneration;
     const normalizedName = name?.trim();
     if (!normalizedName) return null;
 
@@ -126,24 +128,14 @@ export class NameStatRepository {
   }
 
   public close(): void {
-    this.lifecycleGeneration += 1;
+    const cancellation = this.lifecycle.beginCancellation();
     this.sqlInstance = null;
     this.sqlInitPromise = null;
     this.shardLoadPromiseByKey.clear();
 
-    const abortControllers = [...this.shardAbortControllerByKey.values()];
-    this.shardAbortControllerByKey.clear();
-
     const databases = [...this.dbByShard.values()];
     this.dbByShard.clear();
-    const closeErrors: unknown[] = [];
-    for (const controller of abortControllers) {
-      try {
-        controller.abort();
-      } catch (error) {
-        closeErrors.push(error);
-      }
-    }
+    const closeErrors = cancellation.abortAll(this.cancellationError());
     for (const db of databases) {
       try {
         db.close();
@@ -163,12 +155,18 @@ export class NameStatRepository {
     if (this.sqlInstance) return Promise.resolve(this.sqlInstance);
     if (this.sqlInitPromise) return this.sqlInitPromise;
 
-    const generation = this.lifecycleGeneration;
+    const lease = this.lifecycle.beginLease();
+    const { generation, signal } = lease;
     const assertActive = (): void => this.assertActive(generation);
     let trackedPromise: Promise<SqlJsStatic>;
     trackedPromise = awaitActiveRepositoryStep(
-      () => this.runtime.initializeSqlJs(this.wasmUrl, this.wasmSha256),
+      () => this.runtime.initializeSqlJs(
+        this.wasmUrl,
+        this.wasmSha256,
+        { signal },
+      ),
       assertActive,
+      signal,
     )
       .then((SQL) => {
         assertActive();
@@ -176,6 +174,7 @@ export class NameStatRepository {
         return SQL;
       })
       .finally(() => {
+        lease.release();
         if (this.sqlInitPromise === trackedPromise) {
           this.sqlInitPromise = null;
         }
@@ -190,14 +189,16 @@ export class NameStatRepository {
     const loading = this.shardLoadPromiseByKey.get(shardKey);
     if (loading) return loading;
 
-    const generation = this.lifecycleGeneration;
+    const lease = this.lifecycle.beginLease();
+    const generation = lease.generation;
     let trackedPromise: Promise<Database>;
-    trackedPromise = this.loadShard(shardKey, generation)
+    trackedPromise = this.loadShard(shardKey, lease)
       .then((database) => {
         this.assertActive(generation);
         return database;
       })
       .finally(() => {
+        lease.release();
         if (this.shardLoadPromiseByKey.get(shardKey) === trackedPromise) {
           this.shardLoadPromiseByKey.delete(shardKey);
         }
@@ -208,43 +209,35 @@ export class NameStatRepository {
 
   private async loadShard(
     shardKey: NameStatShardKey,
-    generation: number,
+    lease: RepositoryLifecycleLease,
   ): Promise<Database> {
+    const { generation, signal } = lease;
     const assertActive = (): void => this.assertActive(generation);
     const SQL = await awaitActiveRepositoryStep(
       () => this.ensureSqlReady(),
       assertActive,
+      signal,
     );
 
     const filename = nameStatShardFilename(shardKey);
     const url = this.shardBaseUrl + '/' + encodeURIComponent(filename);
-    const controller = new AbortController();
-    this.shardAbortControllerByKey.set(shardKey, controller);
 
-    let buffer: ArrayBuffer;
-    try {
-      const response = await awaitActiveRepositoryStep(
-        () => this.runtime.fetch(url, { signal: controller.signal }),
-        assertActive,
-        controller.signal,
+    const response = await awaitActiveRepositoryStep(
+      () => this.runtime.fetch(url, { signal }),
+      assertActive,
+      signal,
+    );
+    if (!response.ok) {
+      throw new Error(
+        'Failed to fetch shard DB (' + filename + '): '
+        + response.status + ' ' + response.statusText,
       );
-      if (!response.ok) {
-        throw new Error(
-          'Failed to fetch shard DB (' + filename + '): '
-          + response.status + ' ' + response.statusText,
-        );
-      }
-
-      buffer = await awaitActiveRepositoryStep(
-        () => response.arrayBuffer(),
-        assertActive,
-        controller.signal,
-      );
-    } finally {
-      if (this.shardAbortControllerByKey.get(shardKey) === controller) {
-        this.shardAbortControllerByKey.delete(shardKey);
-      }
     }
+    const buffer = await awaitActiveRepositoryStep(
+      () => response.arrayBuffer(),
+      assertActive,
+      signal,
+    );
     const contract = this.databaseContractByShard.get(shardKey);
     if (!contract) {
       throw new Error(`NameStatRepository has no integrity contract for shard ${shardKey}.`);
@@ -257,6 +250,7 @@ export class NameStatRepository {
         new Uint8Array(buffer),
         contract,
         assertActive,
+        signal,
       );
       assertActive();
     } catch (error) {
@@ -265,7 +259,7 @@ export class NameStatRepository {
       } catch {
         // Preserve the integrity or cancellation error that won the race.
       }
-      if (generation !== this.lifecycleGeneration) throw this.cancellationError();
+      this.assertActive(generation);
       throw error;
     }
     if (!candidate) {
