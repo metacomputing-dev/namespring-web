@@ -35,6 +35,12 @@ export {
   RepositoryDataError,
 } from '../../seed-ts/src/database/repository-errors.js';
 export {
+  REPOSITORY_DATABASE_INTEGRITY_MISMATCH,
+  RepositoryDatabaseIntegrityError,
+  type RepositoryDatabaseIntegrityReason,
+  type RepositoryDatabaseIntegrityValue,
+} from '../../seed-ts/src/database/database-integrity.js';
+export {
   SAJU_ANALYSIS_UNAVAILABLE,
   SajuAnalysisUnavailableError,
   assertScorableSajuSummary,

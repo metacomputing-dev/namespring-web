@@ -946,7 +946,7 @@ matchedPillars 없음. shinsalHits 항목 키셋은 단일: {type, position, gra
 ## 부록 D. 2026-07-12 후속 상태
 
 이 부록은 2026-07-08 감사 스냅샷을 삭제하거나 소급 수정하지 않고, 커밋
-`bc4134ecc`까지의 후속 해결 상태를 기록한다. 여기서 “해결”은 저장소 계약과
+`2e2252402`까지의 후속 해결 상태를 기록한다. 여기서 “해결”은 저장소 계약과
 회귀 테스트 기준이며, 외부 명리·역법 권위 인증 또는 전 세계 역사 시간대의
 완전성을 뜻하지 않는다.
 
@@ -965,7 +965,8 @@ matchedPillars 없음. shinsalHits 항목 키셋은 단일: {type, position, gra
 | raw `sajuConfig`가 제품 시간정책 우회 | 해결 | high-level 제품 정책을 최종 재적용하고 invalid runtime policy를 fail-closed 처리한다. |
 | 연도 1~99가 `Date.UTC`에서 1900년대로 이동 | 해결 | literal-year UTC helper를 도입하고 요청·절기·대운·진태양시 경로와 회귀를 보강했다. |
 | 진태양시 trace 수식이 실제 계산과 불일치 | 해결 | shortest longitude delta, 정책별 meridian, `off` 의미를 trace와 구현에서 일치시켰다. |
-| Seed DB 자산의 런타임 무결성 미검증 | Hanja/Fourframe 해결·NameStat 미완 | 16개 canonical DB의 byte/schema/count manifest를 고정하고, Hanja/Fourframe는 SHA 전검증과 opened-DB 후검증을 모두 통과한 동일 snapshot만 publish한다(`88144fb65..bc4134ecc`). 14개 NameStat shard는 대용량 hash 비용과 shard별 close 경쟁을 별도 검증한 뒤 배선해야 한다. |
+| Seed DB 자산의 런타임 무결성 미검증 | 해결 | 16개 canonical DB의 byte/schema/count manifest를 고정했다. Hanja/Fourframe와 NameStat의 선택 shard는 SHA 전검증과 opened-DB 후검증을 모두 통과한 동일 snapshot만 publish한다(`88144fb65..2e2252402`). NameStat은 완전한 14-shard pinned set만 허용하고 누락·중복·미지 shard·교차 family를 생성자에서 거부한다. loader/fetch/body/hash/open/close 경합과 cached-shard close도 cancellation 우선으로 고정했다. |
+| sql.js JS/WASM 버전·배포 경계 불일치 | 해결 | Seed·Spring·브라우저 lock과 WASM을 1.14.1로 정확히 맞췄다. 검토된 WASM과 MIT notice를 Seed 패키지에 포함하고 byteLength·SHA를 fail-closed 검증하며, package-relative URL만 사용해 외부 CDN fallback을 제거했다. 실제 npm tarball을 해제한 위치에서 transport mock 없이 WASM 초기화와 SQLite 질의까지 확인했다(`352a1303c`). |
 | 이름 입력의 동음 한자 대체·stale operation publish | 해결 | 명시 Hangul/Hanja가 DB identity와 다르면 구조화 거부하고, 7개 public async route는 generation lease로 close 이후 결과·cache publish를 차단한다(`1fde4adde`, `61b4206cd`). 이미 시작한 대규모 동기 scoring loop 자체를 중간 abort하지는 않는다. |
 | Seed 점수·입력·조회 계약의 암묵성 | 구조 고정·교리 검토 일부 미완 | v1 점수표와 positional surname/Han 입력 검증, 결정적 SQL 순서를 고정했다. 기존 호환을 위해 보존한 same-element `-5`는 설명과의 긴장이 명시돼 있으며 전문가 검토 전 교리 정답으로 승격하지 않는다(`195bcbdde..00d3ee53d`). |
 
@@ -979,10 +980,44 @@ matchedPillars 없음. shinsalHits 항목 키셋은 단일: {type, position, gra
   아니다.
 - 일부 저수준 직접 API는 Spring 입력 계약과 같은 민간시 범위 검증을 자체 수행하지
   않는다. 상용 진입점은 Spring의 fail-closed 경계를 사용해야 한다.
-- 이 체크포인트는 시간·위치 정합성 개선이다. 격국·강약·용신의 외부 권위 진리값,
+- NameStat의 커밋된 14개 DB·manifest·50,194행 초성 귀속은 전수 검증하지만,
+  원본 통계 JSON은 저장소에 없어 현재 DB를 원천 데이터에서 byte-for-byte
+  재생성하는 provenance 사슬은 아직 닫히지 않았다.
+- 기본 sql.js WASM의 package-relative Node 경로와 실제 npm tarball 실행은 검증했다.
+  다만 Vite production build가 이 정확한 자산을 최종 배포 URL로 방출하는 통합 검증은
+  프론트엔드 비변경 범위를 지키기 위해 실행하지 않았다.
+- NameStat은 선택 shard만 lazy 검증하지만 최대 shard는 약 24.5MB다. 진행 중
+  fetch/body 취소는 구현했으나 응답은 `arrayBuffer()`로 완전히 materialize한 뒤 크기를
+  검사하므로 모바일 브라우저의 peak memory·지연 실측은 후속이다.
+- 기본 sql.js 성공 cache는 URL·SHA별로 프로세스 수명 동안 유지된다. 제품 기본값은 한
+  항목이지만 임의 custom URL·SHA를 반복 사용하는 장기 프로세스의 bounded cache 정책은 후속이다.
+- 이 후속 체크포인트들은 시간·위치·저장소 무결성 개선이다. 격국·강약·용신의 외부 권위 진리값,
   exact default-diff 승인, exact commit 전문가 signoff를 충족하지 않으므로
   “전문가급 상용 사주엔진 인증”이나 PR WIP 해제의 단독 근거가 아니다.
-- PR #653의 누적 범위는 `bc4134ecc` 기준 133커밋·418파일이다. 회귀 통과 여부와
+- PR #653의 freeze 누적 범위는 `6fb2f68a4` 기준 134커밋·418파일이다. 회귀 통과 여부와
   별개로 단일 리뷰 단위가 아니며, 연속 prefix 스택으로 분할하기 전에는 Draft를
   유지한다. 분할 이후의 작은 default-neutral guardrail PR과 외부 명리 인증 gate는
   서로 다른 리뷰 축으로 다뤄야 한다.
+
+---
+
+## 부록 E. 2026-07-13 입력·저장소 경계 재감사
+
+이 부록은 커밋 `165d31ab1`과 `b09fb6311`의 구조적 개선만 기록한다. 테스트 통과와 P0/P1 부재는 회귀·보안 경계의 근거이지, 사주 판정 수치와 학파 선택의 외부 권위 인증이 아니다.
+
+| 재감사 항목 | 판정 | 근거 |
+|---|---|---|
+| repository close 중 초기화가 계속 진행되어 stale 자원을 publish할 위험 | 해결 | 공통 lifecycle coordinator가 Hanja/Fourframe fetch·body와 NameStat WASM·shard·digest·open을 같은 generation/AbortSignal 계약으로 취소한다. 마지막 WASM 구독자 취소와 candidate DB close-on-abort도 고정했다(`165d31ab1`). |
+| public async route가 caller mutable object를 await 뒤 다시 읽는 TOCTOU | 해결 | 모든 public request를 첫 await 전에 descriptor-safe clone/freeze한다. completed alias identity는 유지하고 cycle·accessor·symbol·sparse·비유한 scalar·과대 graph는 고정 TypeError로 거부한다(`b09fb6311`). |
+| 잘못된 Hangul 음절 또는 Hangul/Hanja pair가 DB·사주·점수 계산 뒤에야 실패 | 해결 | syntax preflight와 repository-backed explicit identity 검증을 public 경계에 배치했다. pair 캐시는 입력 객체 identity, surname/given role, Hanja pool, lifecycle generation을 모두 키에 포함하고 close 시 무효화한다. |
+| 엔진이 만든 SajuReport를 getSpringReport override로 재사용하면 own undefined 때문에 실패 | 해결 | report 및 request의 객체 own `undefined`는 JSON semantics로 생략한다. 실제 `getSajuReport → getSpringReport` 재사용 회귀와 기존 `options: undefined` scoring 경로를 고정했다. 배열 undefined는 계속 거부한다. |
+| Proxy/reflect 오류가 원문 메시지와 PII를 노출 | 해결 | 공개 snapshot wrapper가 내부 reflection 오류와 cause를 버리고 고정된 PII-free TypeError만 노출한다. Proxy trap 실행 자체를 방지하는 보장은 아니다. |
+| 기본 출력 판정 회귀 | 부분 검증 | 핵심 계약·타입·scoring·bridge·package boundary가 통과했고 fix-01/fix-16/fix-17 표본은 3/3 무변화다. exact HEAD 전체 baseline 17/17은 90초 초과로 중단되어 merge 전 필수 재실행 항목으로 남는다. |
+
+### 잔존 P2와 상용화 차단선
+
+1. 내부 trusted snapshot을 deep import로 반복 중첩하는 비정상 경로의 누적 depth/property budget 재산정은 하지 않는다. 현재 public export와 정상 endpoint에서는 접근할 수 없으므로 P2로 기록한다.
+2. 전체 baseline suite의 직렬 후보 생성 비용을 프로파일링하지 않았다. smoke 3축과 full 17축을 분리하고 full은 CI 전용으로 병렬화할 여지가 있다.
+3. Seed WASM의 package-relative Node 실행은 확인했지만 Vite production emitted asset과 브라우저 fetch, 모바일 메모리 상한은 미검증이다.
+4. 이 두 커밋은 backend-only이고 frontend diff는 없다. 외부 명리 전문가 signoff, default-change fingerprint 승인, authority D1-D5 gate가 완료되기 전에는 WIP 해제의 단독 근거로 사용할 수 없다.
+5. 원격 push와 PR #653 편입은 사용자 명시 승인 전까지 보류한다.

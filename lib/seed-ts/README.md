@@ -64,14 +64,45 @@ remaining review debt has expert authority approval.
 
 `HanjaRepository`, `FourframeRepository`, and `NameStatRepository` expose explicit asynchronous `init()` and `close()` lifecycles. Concurrent initialization is single-flight, failed initialization can be retried, and closing during initialization prevents a late database from being published.
 
-The default loader fetches the pinned `sql.js@1.14.0` WASM artifact and verifies its SHA-256 digest before execution. A custom `wasmUrl` must include `wasmSha256`; callers that inject a custom `initializeSqlJs` loader own that loader's integrity boundary.
+Repository-owned loader, fetch, and response-body waits use a generation-scoped
+`AbortSignal`. `close()` settles those callers even when an injected transport
+ignores the signal, and a later generation starts with fresh repository state.
+The optional third argument of an injected `initializeSqlJs` loader carries the
+same signal; two-argument loaders remain compatible and are safely raced by the
+repository lifecycle wrapper.
 
-`HanjaRepository` and `FourframeRepository` separately verify the database
-artifact before publishing it. Canonical mode pins the byte length, SHA-256,
-SQLite `user_version`, table name, full normalized column schema, and exact row
-count from the generated database-asset manifest. `dbUrl` selects only where
-those canonical bytes are fetched from; changing the URL does not change or
-disable the expected contract.
+The default loader uses the same-package `assets/sql-wasm-1.14.1.wasm`
+artifact. The package contract pins its byte length and SHA-256 digest, and the
+runtime verifies the SHA-256 digest before execution. The package also ships
+the upstream MIT notice. Browser bundlers can emit the
+asset from its static `import.meta.url` reference, so the default runtime has
+no third-party CDN dependency and never falls back to one. Default
+initialization is module-wide single-flight by URL and digest; failures are
+evicted so a later call can retry. A custom `wasmUrl` must include
+`wasmSha256`, while callers that inject a custom `initializeSqlJs` loader
+own that loader's integrity boundary and are intentionally excluded from the
+default shared cache.
+
+Each caller of the default module-wide WASM flight owns a subscriber lease.
+Closing one repository cancels only its subscriber; another active subscriber
+continues to share the same fetch. When the last pending subscriber closes, the
+flight is identity-checked, evicted, and its underlying transport is aborted so
+an immediate retry cannot inherit a permanently pending load. Successful
+entries remain cached as before.
+
+Successful default URL/digest entries stay cached for the process lifetime.
+This bounds normal products to one reviewed bundled artifact while avoiding
+repeat transport and hashing. Arbitrarily many caller-selected pinned URLs are
+therefore not intended as a long-running multi-tenant loading strategy.
+
+`HanjaRepository`, `FourframeRepository`, and `NameStatRepository`
+separately verify database artifacts before publishing them. Canonical mode
+pins the byte length, SHA-256, SQLite `user_version`, table name, full
+normalized column schema, and exact row count from the generated database-asset
+manifest. NameStat keeps loading lazy and applies the complete verification only
+to the selected shard. `dbUrl` or `shardBaseUrl` selects only where canonical
+bytes are fetched from; changing a URL does not change or disable the expected
+contract.
 
 An intentionally different, reviewed artifact must use
 `databaseIntegrity: { mode: 'pinned', contract }`. The complete alternate
@@ -81,8 +112,23 @@ injection remain narrow trust boundaries: a custom `fetch` changes how bytes
 arrive, and a custom `initializeSqlJs` loader owns WASM loading, but neither
 bypasses database byte, schema, or row-count verification.
 
+NameStat alternate datasets use
+`databaseIntegrity: { mode: 'pinned', contracts: [...] }` with one contract
+for every canonical shard key. Partial sets, duplicate or unknown shard keys,
+duplicate asset IDs, and cross-family schemas fail during construction; missing
+entries are never filled from the canonical set. The resolved set is cloned,
+deeply frozen, and restored to canonical shard order.
+
+NameStat rows store the raw 19-way choseong, including `ㄲ/ㄸ/ㅃ/ㅆ/ㅉ`.
+Routing alone folds those five values into the corresponding 14 base shards.
+The generator, manifest builder, runtime lookup, and committed 50,194-row
+parity audit enforce this distinction without rewriting the deployed DB files.
+
 Every returned row is decoded against a required-field and finite-number contract. Missing fields, malformed JSON, invalid enums, non-finite or negative statistics, and unsafe JSON object keys throw the non-retryable `RepositoryDataError`; they are never converted into empty fallback data.
 
 ## Package boundary
 
-The package publishes only the compiled ESM runtime graph under `dist/`. Database migration utilities remain source-only development tools and are not included in the package.
+The package publishes the compiled ESM runtime graph under `dist/` plus the
+exact `assets/sql-wasm-1.14.1.wasm` binary and
+`assets/sql.js-LICENSE.txt` notice. Database migration utilities remain
+source-only development tools and are not included in the package.

@@ -3,12 +3,20 @@ import assert from 'node:assert/strict';
 import {
   NAME_STAT_LOOKUP_UNAVAILABLE,
   NameStatLookupUnavailableError,
+  NAME_ENTRY_RESOLUTION_FAILED,
+  NameEntryResolutionError,
+  REPOSITORY_DATABASE_INTEGRITY_MISMATCH,
+  RepositoryDatabaseIntegrityError,
   RepositoryDataError,
   SPRING_ENGINE_OPERATION_CANCELLED,
   SpringEngine,
   SpringEngineOperationCancelledError,
   emptySaju,
 } from '../../src/index.js';
+import {
+  snapshotSajuReport,
+  snapshotSpringRequest,
+} from '../../src/public-request-snapshot.js';
 
 const givenName = [
   { hangul: '\uBBFC' },
@@ -59,6 +67,41 @@ function foundEntry() {
   const cached = await engine.getNameStatInfo(givenName);
   assert.equal(cached.status, 'found');
   assert.equal(calls, 2, 'successful lookups should remain cacheable');
+}
+
+{
+  const engine = new SpringEngine() as any;
+  const integrityError = new RepositoryDatabaseIntegrityError(
+    'name-stat-08',
+    'sha256_mismatch',
+    'expected-sha256',
+    'actual-sha256',
+  );
+  let calls = 0;
+  engine.nameStatRepo = {
+    findByName: async () => {
+      calls += 1;
+      if (calls === 1) throw integrityError;
+      return foundEntry();
+    },
+  };
+
+  await assert.rejects(
+    engine.getNameStatInfo(givenName),
+    (error: unknown) => {
+      assert.strictEqual(error, integrityError);
+      assert.ok(error instanceof RepositoryDatabaseIntegrityError);
+      assert.equal(error.code, REPOSITORY_DATABASE_INTEGRITY_MISMATCH);
+      assert.equal(error.retryable, false);
+      assert.equal(error instanceof NameStatLookupUnavailableError, false);
+      return true;
+    },
+    'database-integrity errors must remain original and non-retryable',
+  );
+
+  const recovered = await engine.getNameStatInfo(givenName);
+  assert.equal(recovered.status, 'found');
+  assert.equal(calls, 2, 'an integrity failure must not publish or cache lookup data');
 }
 
 {
@@ -187,4 +230,688 @@ function foundEntry() {
   assert.equal(calls, 2, 'the new lifecycle must query the repository again');
 }
 
+{
+  const callerRequest: any = {
+    birth: { year: 1990, month: 1, day: 1, gender: 'neutral' },
+    surname: [{ hangul: '\uAE40' }],
+    givenName: [{ hangul: '\uBBFC' }],
+    options: { precisionConfig: { tenGodMode: 'simple_count' } },
+  };
+  const first = snapshotSpringRequest(callerRequest);
+  const repeated = snapshotSpringRequest(first);
+  assert.strictEqual(repeated, first, 'trusted snapshots must be idempotent');
+
+  const derived = snapshotSpringRequest({
+    ...first,
+    givenName: [{ hangul: '\uC900' }],
+  });
+  assert.notStrictEqual(derived, first);
+  assert.strictEqual(derived.birth, first.birth);
+  assert.strictEqual(derived.options, first.options);
+  assert.strictEqual(derived.surname, first.surname);
+  assert.notStrictEqual(derived.givenName, first.givenName);
+
+  const externallyFrozen: any = Object.freeze({
+    birth: Object.freeze({ year: 1990, gender: 'neutral' }),
+    surname: Object.freeze([{ hangul: '\uAE40' }]),
+  });
+  const externalSnapshot = snapshotSpringRequest(externallyFrozen);
+  assert.notStrictEqual(externalSnapshot, externallyFrozen);
+  assert.notStrictEqual(externalSnapshot.birth, externallyFrozen.birth);
+}
+
+{
+  const invalidEndpoints: readonly [
+    string,
+    (engine: any, request: any) => Promise<unknown>,
+  ][] = [
+    ['getNamingReport', (engine, request) => engine.getNamingReport(request)],
+    ['getSpringReport', (engine, request) => engine.getSpringReport(request)],
+    ['getNameCandidates', (engine, request) => engine.getNameCandidates(request)],
+    ['getNameCandidateSummaries', (engine, request) => engine.getNameCandidateSummaries(request)],
+    ['analyze', (engine, request) => engine.analyze(request)],
+    ['getFortuneReport', (engine, request) => engine.getFortuneReport(request)],
+  ];
+
+  for (const [endpoint, invoke] of invalidEndpoints) {
+    const engine = new SpringEngine() as any;
+    let initCalls = 0;
+    let nameStatCalls = 0;
+    engine.init = async () => {
+      initCalls += 1;
+    };
+    engine.nameStatRepo = {
+      findByName: async () => {
+        nameStatCalls += 1;
+        throw new Error('NameStat must not run for invalid public identity.');
+      },
+    };
+
+    const request: any = {
+      birth: {
+        year: 1990,
+        month: 1,
+        day: 1,
+        hour: 12,
+        minute: 0,
+        gender: 'neutral',
+      },
+      surname: [{ hangul: '\uAE40' }],
+      givenName: [{ hangul: 'Latin' }],
+      mode: 'evaluate',
+    };
+    await assert.rejects(
+      invoke(engine, request),
+      (error: unknown) => {
+        assert.ok(error instanceof NameEntryResolutionError, endpoint);
+        assert.equal(error.code, NAME_ENTRY_RESOLUTION_FAILED, endpoint);
+        assert.equal(error.reason, 'invalid_hangul_syllable', endpoint);
+        assert.equal(error.role, 'givenName', endpoint);
+        assert.equal(error.characterIndex, 0, endpoint);
+        assert.equal(error.retryable, false, endpoint);
+        assert.equal('hangul' in error, false, endpoint);
+        assert.equal('hanja' in error, false, endpoint);
+        return true;
+      },
+      endpoint + ' must reject invalid Hangul before infrastructure work',
+    );
+    assert.equal(initCalls, 0, endpoint + ' must validate before its first await');
+    assert.equal(nameStatCalls, 0, endpoint + ' must not classify invalid input as not-found');
+  }
+}
+
+{
+  const explicitEndpoints: readonly [
+    string,
+    (engine: any, request: any) => Promise<unknown>,
+  ][] = [
+    ['getNamingReport', (engine, request) => engine.getNamingReport(request)],
+    ['analyze', (engine, request) => engine.analyze(request)],
+    ['getFortuneReport', (engine, request) => engine.getFortuneReport(request)],
+    ['getSpringReport', (engine, request) => engine.getSpringReport(request)],
+    ['getNameCandidates', (engine, request) => engine.getNameCandidates(request)],
+    ['getNameCandidateSummaries', (engine, request) => engine.getNameCandidateSummaries(request)],
+  ];
+
+  for (const [endpoint, invoke] of explicitEndpoints) {
+    const engine = new SpringEngine() as any;
+    let nameStatCalls = 0;
+    let sajuCalls = 0;
+    engine.init = async () => {};
+    engine.hanjaRepo = {
+      findByHanja: async () => ({ hangul: '\uC900', hanja: '\u73C9' }),
+      findByHangul: async () => [],
+    };
+    engine.nameStatRepo = {
+      findByName: async () => {
+        nameStatCalls += 1;
+        throw new Error('NameStat must not mask an explicit-pair mismatch.');
+      },
+    };
+    engine.getSajuReport = async () => {
+      sajuCalls += 1;
+      throw new Error('Saju must not precede explicit identity verification.');
+    };
+
+    const request: any = {
+      birth: {
+        year: 1990,
+        month: 1,
+        day: 1,
+        hour: 12,
+        minute: 0,
+        gender: 'neutral',
+      },
+      surname: [{ hangul: '\uAE40' }],
+      givenName: [{ hangul: '\uBBFC', hanja: '\u73C9' }],
+      mode: 'evaluate',
+    };
+    await assert.rejects(
+      invoke(engine, request),
+      (error: unknown) => {
+        assert.ok(error instanceof NameEntryResolutionError, endpoint);
+        assert.equal(error.reason, 'hangul_hanja_reading_mismatch', endpoint);
+        assert.equal(error.role, 'givenName', endpoint);
+        assert.equal(error.characterIndex, 0, endpoint);
+        return true;
+      },
+      endpoint + ' must preserve explicit identity error precedence',
+    );
+    assert.equal(nameStatCalls, 0, endpoint);
+    assert.equal(sajuCalls, 0, endpoint);
+  }
+}
+
+{
+  const syntaxPassed = new Error('recognized jamo reached initialization');
+  const engine = new SpringEngine() as any;
+  engine.init = async () => {
+    throw syntaxPassed;
+  };
+  const request: any = {
+    birth: {
+      year: 1990,
+      month: 1,
+      day: 1,
+      hour: 12,
+      minute: 0,
+      gender: 'neutral',
+    },
+    surname: [{ hangul: '\uAE40' }],
+    givenName: [{ hangul: '\u3141' }],
+    mode: 'recommend',
+  };
+  await assert.rejects(
+    engine.getNameCandidateSummaries(request),
+    (error: unknown) => error === syntaxPassed,
+    'a recognized recommendation jamo filter must remain valid',
+  );
+}
+
+{
+  let releaseInit!: () => void;
+  const initGate = new Promise<void>((resolve) => {
+    releaseInit = resolve;
+  });
+  const stopAfterResolution = new Error('stop after observing the resolved identity');
+  const observedHanja: string[] = [];
+  const observedNameStatKeys: string[] = [];
+  let observedSajuRequest: any = null;
+  let observedResolvedGivenName: any[] | null = null;
+
+  const engine = new SpringEngine() as any;
+  engine.init = () => initGate;
+  engine.hanjaRepo = {
+    findByHanja: async (hanja: string) => {
+      observedHanja.push(hanja);
+      return { hangul: '\uBBFC', hanja: '\u73C9' };
+    },
+    findByHangul: async () => [],
+  };
+  engine.getSajuReport = async (stableRequest: any) => {
+    observedSajuRequest = stableRequest;
+    return {
+      ...emptySaju(),
+      sajuEnabled: false,
+    };
+  };
+  engine.nameStatRepo = {
+    findByName: async (key: string) => {
+      observedNameStatKeys.push(key);
+      return foundEntry();
+    },
+  };
+  engine.resolveEntries = async (chars: any[], options: any) => {
+    if (options?.isSurname) return [];
+    observedResolvedGivenName = chars.map((char) => ({ ...char }));
+    throw stopAfterResolution;
+  };
+
+  const request: any = {
+    birth: {
+      year: 1990,
+      month: 1,
+      day: 1,
+      hour: 12,
+      minute: 0,
+      gender: 'neutral',
+    },
+    surname: [{ hangul: '\uAE40' }],
+    givenName: [{ hangul: '\uBBFC', hanja: '\u73C9' }],
+    mode: 'evaluate',
+    options: {
+      precisionConfig: {
+        tenGodMode: 'simple_count',
+      },
+    },
+  };
+  const originalGivenCharacter = request.givenName[0];
+  const pending = engine.getSpringReport(request);
+
+  originalGivenCharacter.hangul = '\uC900';
+  originalGivenCharacter.hanja = '\u4FCA';
+  request.givenName.push({ hangul: '\uD638' });
+  request.givenName = [{ hangul: '\uC900', hanja: '\u4FCA' }];
+  request.surname[0].hangul = '\uBC15';
+  request.birth.year = 2001;
+  request.options.precisionConfig.tenGodMode = 'positional_weighted_v2';
+  releaseInit();
+
+  await assert.rejects(
+    pending,
+    (error: unknown) => error === stopAfterResolution,
+  );
+  assert.deepEqual(observedHanja, ['\u73C9']);
+  assert.deepEqual(observedNameStatKeys, ['\uBBFC']);
+  assert.deepEqual(observedResolvedGivenName, [{ hangul: '\uBBFC', hanja: '\u73C9' }]);
+  assert.equal(observedSajuRequest.birth.year, 1990);
+  assert.equal(observedSajuRequest.surname[0].hangul, '\uAE40');
+  assert.equal(observedSajuRequest.givenName[0].hangul, '\uBBFC');
+  assert.equal(
+    observedSajuRequest.options.precisionConfig.tenGodMode,
+    'simple_count',
+  );
+  assert.equal(Object.isFrozen(observedSajuRequest), true);
+  assert.equal(Object.isFrozen(observedSajuRequest.birth), true);
+  assert.equal(Object.isFrozen(observedSajuRequest.givenName), true);
+  assert.equal(Object.isFrozen(observedSajuRequest.givenName[0]), true);
+  assert.equal(Object.isFrozen(observedSajuRequest.options.precisionConfig), true);
+}
+
+{
+  const baseRequest = (surname: any, options: any = undefined): any => ({
+    birth: { year: 1990, month: 1, day: 1, gender: 'neutral' },
+    surname,
+    givenName: [{ hangul: '\uBBFC' }],
+    ...(options === undefined ? {} : { options }),
+  });
+
+  let iteratorReads = 0;
+  const iteratorArray: any[] = [{ hangul: '\uAE40' }];
+  Object.defineProperty(iteratorArray, Symbol.iterator, {
+    configurable: true,
+    get: () => {
+      iteratorReads += 1;
+      throw new Error('array iterator must not be read');
+    },
+  });
+  assert.throws(() => snapshotSpringRequest(baseRequest(iteratorArray)), TypeError);
+  assert.equal(iteratorReads, 0);
+
+  let indexGetterReads = 0;
+  const accessorArray: any[] = [];
+  Object.defineProperty(accessorArray, '0', {
+    configurable: true,
+    enumerable: true,
+    get: () => {
+      indexGetterReads += 1;
+      return { hangul: '\uAE40' };
+    },
+  });
+  assert.throws(() => snapshotSpringRequest(baseRequest(accessorArray)), TypeError);
+  assert.equal(indexGetterReads, 0);
+
+  const hiddenIndexArray: any[] = [];
+  Object.defineProperty(hiddenIndexArray, '0', {
+    configurable: true,
+    enumerable: false,
+    value: { hangul: '\uAE40' },
+  });
+  assert.throws(() => snapshotSpringRequest(baseRequest(hiddenIndexArray)), TypeError);
+
+  const extraKeyArray: any = [{ hangul: '\uAE40' }];
+  extraKeyArray.extra = true;
+  assert.throws(() => snapshotSpringRequest(baseRequest(extraKeyArray)), TypeError);
+
+  let objectGetterReads = 0;
+  const accessorOptions: any = {};
+  Object.defineProperty(accessorOptions, 'precisionConfig', {
+    configurable: true,
+    enumerable: true,
+    get: () => {
+      objectGetterReads += 1;
+      return {};
+    },
+  });
+  assert.throws(
+    () => snapshotSpringRequest(baseRequest([{ hangul: '\uAE40' }], accessorOptions)),
+    TypeError,
+  );
+  assert.equal(objectGetterReads, 0);
+
+  const nonEnumerableOptions: any = {};
+  Object.defineProperty(nonEnumerableOptions, 'precisionConfig', {
+    configurable: true,
+    enumerable: false,
+    value: {},
+  });
+  assert.throws(
+    () => snapshotSpringRequest(baseRequest([{ hangul: '\uAE40' }], nonEnumerableOptions)),
+    TypeError,
+  );
+
+  let dateGetTimeCalls = 0;
+  const forbiddenDate: any = new Date(0);
+  Object.defineProperty(forbiddenDate, 'getTime', {
+    configurable: true,
+    enumerable: true,
+    value: () => {
+      dateGetTimeCalls += 1;
+      return 0;
+    },
+  });
+  assert.throws(
+    () => snapshotSpringRequest(baseRequest(
+      [{ hangul: '\uAE40' }],
+      { sajuConfig: { forbiddenDate } },
+    )),
+    TypeError,
+  );
+  assert.equal(dateGetTimeCalls, 0);
+
+  const symbolOptions: any = {};
+  Object.defineProperty(symbolOptions, Symbol('hidden'), {
+    configurable: true,
+    enumerable: true,
+    value: true,
+  });
+  assert.throws(
+    () => snapshotSpringRequest(baseRequest([{ hangul: '\uAE40' }], symbolOptions)),
+    TypeError,
+  );
+
+  const protoOptions: any = {};
+  Object.defineProperty(protoOptions, '__proto__', {
+    configurable: true,
+    enumerable: true,
+    value: { polluted: false },
+  });
+  const protoSnapshot: any = snapshotSpringRequest(
+    baseRequest([{ hangul: '\uAE40' }], protoOptions),
+  );
+  assert.equal(Object.hasOwn(protoSnapshot.options, '__proto__'), true);
+  assert.deepEqual(protoSnapshot.options.__proto__, { polluted: false });
+  assert.equal(Object.getPrototypeOf(protoSnapshot.options), Object.prototype);
+  assert.equal(({} as any).polluted, undefined);
+}
+
+{
+  let releaseOverrideRead!: () => void;
+  const overrideReadGate = new Promise<void>((resolve) => {
+    releaseOverrideRead = resolve;
+  });
+  let observedOverride: any = null;
+  const engine = new SpringEngine() as any;
+  engine.getSpringReportFromSnapshot = async (
+    _stableRequest: any,
+    stableOverride: any,
+  ) => {
+    await overrideReadGate;
+    observedOverride = stableOverride;
+    return {};
+  };
+
+  const request: any = {
+    birth: { year: 1990, month: 1, day: 1, gender: 'neutral' },
+    surname: [{ hangul: '\uAE40' }],
+    givenName: [{ hangul: '\uBBFC' }],
+  };
+  const override: any = {
+    ...emptySaju(),
+    sajuEnabled: false,
+    wrapperProbe: { value: 'A' },
+    yongshin: {
+      ...emptySaju().yongshin,
+      jonggyeokRisk: undefined,
+    },
+  };
+  const pending = engine.getSpringReport(request, override);
+  override.wrapperProbe.value = 'B';
+  releaseOverrideRead();
+  await pending;
+  assert.equal(observedOverride.wrapperProbe.value, 'A');
+  assert.equal(Object.isFrozen(observedOverride), true);
+  assert.equal(Object.isFrozen(observedOverride.wrapperProbe), true);
+  assert.equal(Object.hasOwn(observedOverride.yongshin, 'jonggyeokRisk'), false);
+}
+
+{
+  const engine = new SpringEngine() as any;
+  const request: any = {
+    birth: {
+      year: 1990,
+      month: 1,
+      day: 1,
+      hour: 12,
+      minute: 0,
+      gender: 'neutral',
+    },
+    surname: [{ hangul: '\uAE40' }],
+    givenName: [{ hangul: '\uBBFC' }],
+  };
+  const producedReport = await engine.getSajuReport(request);
+  let reusedReport: any = null;
+  engine.getSpringReportFromSnapshot = async (
+    _stableRequest: any,
+    stableOverride: any,
+  ) => {
+    reusedReport = stableOverride;
+    return {};
+  };
+  await engine.getSpringReport(request, producedReport);
+  assert.ok(reusedReport, 'a getSajuReport result must be reusable as an override');
+  assert.doesNotThrow(() => JSON.stringify(reusedReport));
+}
+
+{
+  const fakeHanjaEntry = (overrides: Record<string, unknown> = {}): any => ({
+    id: 1,
+    hangul: '\uBBFC',
+    hanja: '\u654F',
+    onset: '\u3141',
+    nucleus: '\u3163',
+    strokes: 11,
+    stroke_element: 'Wood',
+    resource_element: 'Water',
+    meaning: 'verified',
+    radical: '\u6534',
+    is_surname: false,
+    ...overrides,
+  });
+  const stopAfterGivenResolution = new Error('stop after cached given-name resolution');
+  const cachedRoutes: readonly [
+    string,
+    (engine: any, request: any) => Promise<unknown>,
+  ][] = [
+    ['getNamingReport', (engine, request) => engine.getNamingReport(request)],
+    ['getSpringReport', (engine, request) => engine.getSpringReport(request)],
+    ['getNameCandidates', (engine, request) => engine.getNameCandidates(request)],
+  ];
+
+  for (const [route, invoke] of cachedRoutes) {
+    const engine = new SpringEngine() as any;
+    let findByHanjaCalls = 0;
+    engine.init = async () => {};
+    engine.hanjaRepo = {
+      findByHanja: async () => {
+        findByHanjaCalls += 1;
+        return fakeHanjaEntry();
+      },
+      findByHangul: async (hangul: string) => [
+        fakeHanjaEntry({ hangul, hanja: hangul === '\uAE40' ? '\u91D1' : '\u654F' }),
+      ],
+      close: () => {},
+    };
+    engine.getSajuReport = async () => ({
+      ...emptySaju(),
+      sajuEnabled: false,
+    });
+    engine.nameStatRepo = {
+      findByName: async () => foundEntry(),
+      close: () => {},
+    };
+
+    const resolveEntries = engine.resolveEntries.bind(engine);
+    engine.resolveEntries = async (chars: any[], options: any = {}) => {
+      const resolved = await resolveEntries(chars, options);
+      if (!options.isSurname) throw stopAfterGivenResolution;
+      return resolved;
+    };
+
+    const request: any = {
+      birth: { year: 1990, month: 1, day: 1, gender: 'neutral' },
+      surname: [{ hangul: '\uAE40' }],
+      givenName: [{ hangul: '\uBBFC', hanja: '\u654F' }],
+      mode: 'evaluate',
+    };
+    await assert.rejects(
+      invoke(engine, request),
+      (error: unknown) => error === stopAfterGivenResolution,
+      route,
+    );
+    assert.equal(
+      findByHanjaCalls,
+      1,
+      route + ' must reuse the preflight pair during resolution',
+    );
+  }
+
+  const engine = new SpringEngine() as any;
+  engine.hanjaRepo = {
+    findByHanja: async () => fakeHanjaEntry(),
+    findByHangul: async () => [],
+    close: () => {},
+  };
+  const stableRequest: any = snapshotSpringRequest({
+    birth: { year: 1990, month: 1, day: 1, gender: 'neutral' },
+    surname: [{ hangul: '\uAE40' }],
+    givenName: [{ hangul: '\uBBFC', hanja: '\u654F' }],
+  } as any);
+  const operation = engine.beginOperation('getNamingReport');
+  await engine.assertExplicitRequestNameIdentity(stableRequest, operation);
+  const input = stableRequest.givenName[0];
+  assert.ok(engine.preverifiedExplicitNameIdentity(input, {
+    role: 'givenName',
+    hanjaPool: 'curated',
+  }));
+  assert.equal(engine.preverifiedExplicitNameIdentity(input, {
+    role: 'surname',
+    hanjaPool: 'curated',
+  }), undefined);
+  assert.equal(engine.preverifiedExplicitNameIdentity(input, {
+    role: 'givenName',
+    hanjaPool: 'inmyeongyong_full',
+  }), undefined);
+  try {
+    engine.close();
+  } catch {
+    // Default unused repositories may reject close in isolated fixtures.
+  }
+  assert.equal(engine.preverifiedExplicitNameIdentity(input, {
+    role: 'givenName',
+    hanjaPool: 'curated',
+  }), undefined);
+}
+
+{
+  const publicInputError =
+    'Spring public request inputs must contain only bounded JSON-compatible plain data.';
+  const requestWithConfig = (sajuConfig: unknown): any => ({
+    birth: { year: 1990, month: 1, day: 1, gender: 'neutral' },
+    surname: [{ hangul: '\uAE40' }],
+    givenName: [{ hangul: '\uBBFC' }],
+    options: { sajuConfig },
+  });
+  const assertInvalidPublicInput = (sajuConfig: unknown, label: string): void => {
+    assert.throws(
+      () => snapshotSpringRequest(requestWithConfig(sajuConfig)),
+      (error: unknown) => {
+        assert.ok(error instanceof TypeError, label);
+        assert.equal(error.message, publicInputError, label);
+        assert.equal('cause' in error, false, label);
+        return true;
+      },
+      label,
+    );
+  };
+
+  for (const [label, value] of [
+    ['bigint', 1n],
+    ['NaN', Number.NaN],
+    ['positive infinity', Number.POSITIVE_INFINITY],
+    ['negative infinity', Number.NEGATIVE_INFINITY],
+  ] as const) {
+    assertInvalidPublicInput({ value }, label);
+  }
+
+  const requestWithOptionalUndefined: any = snapshotSpringRequest(
+    requestWithConfig({ omitted: undefined }),
+  );
+  assert.equal(
+    Object.hasOwn(requestWithOptionalUndefined.options.sajuConfig, 'omitted'),
+    false,
+  );
+  assertInvalidPublicInput(
+    { values: [undefined] },
+    'undefined array element',
+  );
+
+  const reportWithOptionalUndefined: any = {
+    ...emptySaju(),
+    sajuEnabled: false,
+    optionalProbe: undefined,
+    yongshin: {
+      ...emptySaju().yongshin,
+      jonggyeokRisk: undefined,
+    },
+  };
+  const stableReport: any = snapshotSajuReport(reportWithOptionalUndefined);
+  assert.equal(Object.hasOwn(stableReport, 'optionalProbe'), false);
+  assert.equal(Object.hasOwn(stableReport.yongshin, 'jonggyeokRisk'), false);
+  assert.doesNotThrow(() => JSON.stringify(stableReport));
+
+  const cyclic: Record<string, unknown> = {};
+  cyclic.self = cyclic;
+  assertInvalidPublicInput(cyclic, 'cyclic input');
+
+  const shared = { value: 7 };
+  const sharedSnapshot: any = snapshotSpringRequest(requestWithConfig({
+    first: shared,
+    second: shared,
+  }));
+  assert.strictEqual(
+    sharedSnapshot.options.sajuConfig.first,
+    sharedSnapshot.options.sajuConfig.second,
+    'completed shared aliases must preserve cloned identity',
+  );
+  assert.equal(Object.isFrozen(sharedSnapshot.options.sajuConfig.first), true);
+  assert.doesNotThrow(() => JSON.stringify(sharedSnapshot));
+
+  const denseSnapshot: any = snapshotSpringRequest(requestWithConfig({
+    values: [null, 0, 'ok', true, { nested: 1 }],
+  }));
+  assert.deepEqual(
+    denseSnapshot.options.sajuConfig.values,
+    [null, 0, 'ok', true, { nested: 1 }],
+  );
+  assert.doesNotThrow(() => JSON.stringify(denseSnapshot));
+
+  const sparse = new Array(2);
+  sparse[1] = null;
+  assertInvalidPublicInput({ sparse }, 'sparse array');
+  assertInvalidPublicInput(
+    { oversized: new Array(10_001).fill(null) },
+    'oversized array',
+  );
+
+  let deep: Record<string, unknown> = { leaf: true };
+  for (let depth = 0; depth < 70; depth += 1) deep = { next: deep };
+  assertInvalidPublicInput({ deep }, 'excessive depth');
+
+  const tooManyProperties: Record<string, number> = {};
+  for (let index = 0; index <= 100_000; index += 1) {
+    tooManyProperties['key' + index] = index;
+  }
+  assertInvalidPublicInput({ tooManyProperties }, 'property budget');
+
+  const rawProxyMessage = 'raw-name-PII-must-not-escape';
+  const throwingProxy = new Proxy({}, {
+    getPrototypeOf: () => {
+      throw new Error(rawProxyMessage);
+    },
+  });
+  assertInvalidPublicInput({ throwingProxy }, 'throwing proxy');
+
+  const revoked = Proxy.revocable({}, {});
+  revoked.revoke();
+  assertInvalidPublicInput({ revokedProxy: revoked.proxy }, 'revoked proxy');
+
+  try {
+    snapshotSpringRequest(requestWithConfig({ throwingProxy }));
+    assert.fail('throwing proxy must be rejected');
+  } catch (error) {
+    assert.ok(error instanceof TypeError);
+    assert.equal(error.message.includes(rawProxyMessage), false);
+  }
+}
 console.log('Name-stat fail-closed contract: PASS');
