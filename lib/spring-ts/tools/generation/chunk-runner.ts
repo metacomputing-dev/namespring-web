@@ -53,37 +53,57 @@ function flag(name: string): string | undefined {
 }
 
 // ── prepare ─────────────────────────────────────────────────────────────────
+type RawBundle = { bundleKey: string; caseIds: string[]; prompt: string };
+function readBatch(prepStdout: string): RawBundle[] {
+  const m = prepStdout.match(/→\s*(\S+\.batch\.json)/u);
+  if (!m) { console.error('prepare: prepare-bundles produced no batch (0 bundles left?)'); process.exit(1); }
+  const f = path.isAbsolute(m[1]) ? m[1] : path.join(ROOT, m[1]);
+  return (JSON.parse(fs.readFileSync(f, 'utf-8')) as { bundles: RawBundle[] }).bundles;
+}
+const audienceOf = (bundleKey: string): string => bundleKey.split('.')[1];
+
 function prepare(): void {
   const positional = process.argv.slice(3).filter((a) => !a.startsWith('--'));
   const category = positional[0];
   const keys = flag('--keys');
+  const audience = flag('--audience'); // adult | child | stages | teen — chunk within one audience only
   const count = flag('--count') ?? '10';
   const offset = flag('--offset') ?? '0';
-  if (!keys && !category) { console.error('prepare: <category> [--count N --offset M] | --keys=k1,k2'); process.exit(2); }
+  if (!keys && !category) { console.error('prepare: <category> [--audience=adult --count N --offset M] | --keys=k1,k2'); process.exit(2); }
 
-  const stdout = keys
-    ? run([TOOL('prepare-bundles.ts'), `--keys=${keys}`])
-    : run([TOOL('prepare-bundles.ts'), category, '--offset', offset, '--count', count]);
-  process.stdout.write(stdout);
-  const fileMatch = stdout.match(/→\s*(\S+\.batch\.json)/u);
-  if (!fileMatch) { console.error('prepare: prepare-bundles produced no batch (0 bundles left?)'); process.exit(1); }
-  const batchFile = path.isAbsolute(fileMatch[1]) ? fileMatch[1] : path.join(ROOT, fileMatch[1]);
-  const batch = JSON.parse(fs.readFileSync(batchFile, 'utf-8')) as { bundles: Array<{ bundleKey: string; caseIds: string[]; prompt: string }> };
+  let selected: RawBundle[];
+  if (keys) {
+    const stdout = run([TOOL('prepare-bundles.ts'), `--keys=${keys}`]);
+    process.stdout.write(stdout);
+    selected = readBatch(stdout);
+  } else if (audience) {
+    // pull the whole not-done list, keep only this audience, then slice by offset/count —
+    // so a chunk never straddles an audience boundary (child/teen counts aren't ×10).
+    const stdout = run([TOOL('prepare-bundles.ts'), category, '--offset', '0', '--count', '100000']);
+    process.stdout.write(stdout.split('\n').slice(0, 1).join('\n') + '\n');
+    const off = Number(offset);
+    selected = readBatch(stdout).filter((b) => audienceOf(b.bundleKey) === audience).slice(off, off + Number(count));
+  } else {
+    const stdout = run([TOOL('prepare-bundles.ts'), category, '--offset', offset, '--count', count]);
+    process.stdout.write(stdout);
+    selected = readBatch(stdout);
+  }
+  if (!selected.length) { console.error(`prepare: no bundles selected${audience ? ` (audience=${audience} done or empty)` : ''}.`); process.exit(1); }
 
   fs.rmSync(CHUNK_DIR, { recursive: true, force: true });
   fs.mkdirSync(CHUNK_DIR, { recursive: true });
-  const bundles: ChunkBundle[] = batch.bundles.map((b) => {
+  const bundles: ChunkBundle[] = selected.map((b) => {
     const promptFile = path.join(CHUNK_DIR, `${b.bundleKey}.prompt.txt`);
     const outFile = path.join(CHUNK_DIR, `${b.bundleKey}.out.json`);
     fs.writeFileSync(promptFile, b.prompt, 'utf-8');
     return { bundleKey: b.bundleKey, caseIds: b.caseIds, promptFile, outFile };
   });
-  const cat = keys ? bundles[0]?.bundleKey.split('.')[0] ?? 'mixed' : category;
+  const cat = (category ?? bundles[0]?.bundleKey.split('.')[0]) || 'mixed';
   const manifest: ChunkManifest = { category: cat, createdKeys: bundles.map((b) => b.bundleKey), bundles };
   fs.writeFileSync(MANIFEST, JSON.stringify(manifest, null, 2), 'utf-8');
 
-  console.log(`\n[chunk] ${bundles.length} bundle(s) staged → ${path.relative(REPO, CHUNK_DIR)}`);
-  for (const b of bundles) console.log(`  ${b.bundleKey}  (${b.caseIds.length}편)  prompt=${path.basename(b.promptFile)} out=${path.basename(b.outFile)}`);
+  console.log(`\n[chunk] ${bundles.length} bundle(s)${audience ? ` · audience=${audience}` : ''} staged → ${path.relative(REPO, CHUNK_DIR)}`);
+  for (const b of bundles) console.log(`  ${b.bundleKey}  (${b.caseIds.length}편)`);
   console.log(`\nnext: generate each bundle (read its .prompt.txt, write {"articles":[...]} to its .out.json), then:`);
   console.log(`  npx tsx tools/generation/chunk-runner.ts finalize --source=regen-<tag> --commit`);
 }
