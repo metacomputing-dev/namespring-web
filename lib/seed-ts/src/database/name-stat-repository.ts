@@ -64,6 +64,8 @@ export class NameStatRepository {
   private readonly dbByShard = new Map<NameStatShardKey, Database>();
   private readonly shardLoadPromiseByKey =
     new Map<NameStatShardKey, Promise<Database>>();
+  private readonly shardAbortControllerByKey =
+    new Map<NameStatShardKey, AbortController>();
   private lifecycleGeneration = 0;
 
   public constructor(options: NameStatRepositoryOptions = {}) {
@@ -129,9 +131,19 @@ export class NameStatRepository {
     this.sqlInitPromise = null;
     this.shardLoadPromiseByKey.clear();
 
+    const abortControllers = [...this.shardAbortControllerByKey.values()];
+    this.shardAbortControllerByKey.clear();
+
     const databases = [...this.dbByShard.values()];
     this.dbByShard.clear();
     const closeErrors: unknown[] = [];
+    for (const controller of abortControllers) {
+      try {
+        controller.abort();
+      } catch (error) {
+        closeErrors.push(error);
+      }
+    }
     for (const db of databases) {
       try {
         db.close();
@@ -142,7 +154,7 @@ export class NameStatRepository {
     if (closeErrors.length > 0) {
       throw new AggregateError(
         closeErrors,
-        'NameStatRepository failed to close one or more shard databases.',
+        'NameStatRepository failed to cancel or close one or more shard resources.',
       );
     }
   }
@@ -206,22 +218,33 @@ export class NameStatRepository {
 
     const filename = nameStatShardFilename(shardKey);
     const url = this.shardBaseUrl + '/' + encodeURIComponent(filename);
+    const controller = new AbortController();
+    this.shardAbortControllerByKey.set(shardKey, controller);
 
-    const response = await awaitActiveRepositoryStep(
-      () => this.runtime.fetch(url),
-      assertActive,
-    );
-    if (!response.ok) {
-      throw new Error(
-        'Failed to fetch shard DB (' + filename + '): '
-        + response.status + ' ' + response.statusText,
+    let buffer: ArrayBuffer;
+    try {
+      const response = await awaitActiveRepositoryStep(
+        () => this.runtime.fetch(url, { signal: controller.signal }),
+        assertActive,
+        controller.signal,
       );
-    }
+      if (!response.ok) {
+        throw new Error(
+          'Failed to fetch shard DB (' + filename + '): '
+          + response.status + ' ' + response.statusText,
+        );
+      }
 
-    const buffer = await awaitActiveRepositoryStep(
-      () => response.arrayBuffer(),
-      assertActive,
-    );
+      buffer = await awaitActiveRepositoryStep(
+        () => response.arrayBuffer(),
+        assertActive,
+        controller.signal,
+      );
+    } finally {
+      if (this.shardAbortControllerByKey.get(shardKey) === controller) {
+        this.shardAbortControllerByKey.delete(shardKey);
+      }
+    }
     const contract = this.databaseContractByShard.get(shardKey);
     if (!contract) {
       throw new Error(`NameStatRepository has no integrity contract for shard ${shardKey}.`);

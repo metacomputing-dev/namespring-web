@@ -26,6 +26,7 @@ import {
 } from '../src/database/repository-runtime.js';
 import type { RepositoryFetchResponse } from '../src/database/repository-runtime.js';
 import { RepositoryDataError } from '../src/database/repository-errors.js';
+import { awaitActiveRepositoryStep } from '../src/database/repository-lifecycle.js';
 
 interface Deferred<T> {
   readonly promise: Promise<T>;
@@ -210,6 +211,14 @@ async function waitUntil(
     await Promise.resolve();
   }
   assert.fail('Timed out waiting for ' + description);
+}
+
+function requireAbortSignal(
+  value: AbortSignal | null,
+  description: string,
+): AbortSignal {
+  assert.ok(value, description);
+  return value;
 }
 
 function createFakeSqlRuntime(defaultRow: Record<string, unknown>): FakeSqlRuntime {
@@ -452,6 +461,59 @@ test('custom WASM URL requires a digest unless the caller owns the loader', () =
     initializeSqlJs: async () => createFakeSqlRuntime(HANJA_ROW).SQL,
     fetch: async () => response(),
   }));
+});
+
+test('awaitActiveRepositoryStep owns abort listeners and skips already-aborted work', async () => {
+  let listenerAdds = 0;
+  let listenerRemoves = 0;
+  const trackingSignal = {
+    aborted: false,
+    reason: undefined,
+    addEventListener: () => {
+      listenerAdds += 1;
+    },
+    removeEventListener: () => {
+      listenerRemoves += 1;
+    },
+  } as unknown as AbortSignal;
+
+  assert.equal(
+    await awaitActiveRepositoryStep(
+      async () => 7,
+      () => {},
+      trackingSignal,
+    ),
+    7,
+  );
+  assert.equal(listenerAdds, 1);
+  assert.equal(listenerRemoves, 1);
+
+  const cancellation = new Error('already closed');
+  let abortedOperationCalls = 0;
+  let abortedListenerAdds = 0;
+  const alreadyAbortedSignal = {
+    aborted: true,
+    reason: new Error('raw abort reason'),
+    addEventListener: () => {
+      abortedListenerAdds += 1;
+    },
+    removeEventListener: () => {},
+  } as unknown as AbortSignal;
+  await assert.rejects(
+    awaitActiveRepositoryStep(
+      async () => {
+        abortedOperationCalls += 1;
+        return 1;
+      },
+      () => {
+        throw cancellation;
+      },
+      alreadyAbortedSignal,
+    ),
+    (error: unknown) => error === cancellation,
+  );
+  assert.equal(abortedOperationCalls, 0);
+  assert.equal(abortedListenerAdds, 0);
 });
 
 test('repository close wins races with loader, fetch, and body rejections', async () => {
@@ -870,11 +932,13 @@ test('NameStatRepository close prevents a late shard from replacing the active D
   await waitUntil(() => fetches === 1, 'the first name-stat shard fetch');
   repository.close();
 
+  const staleError = await staleOutcome;
+  assert.match(String(staleError), /cancelled by close/);
+
   assert.equal((await repository.findByName(NAME))?.name, NAME);
   firstBody.resolve(bufferWithTag(1));
-  const staleError = await staleOutcome;
+  await Promise.resolve();
 
-  assert.match(String(staleError), /cancelled by close/);
   assert.equal(sqlLoads, 2);
   assert.equal(fetches, 2);
   const activeDb = fake.databases[0];
@@ -890,6 +954,220 @@ test('NameStatRepository close prevents a late shard from replacing the active D
   assert.equal(fetches, 2);
   repository.close();
   assert.equal(activeDb.closeCount, 1);
+});
+
+test('NameStatRepository close aborts a pending shard fetch', async () => {
+  const fake = createFakeSqlRuntime(NAME_STAT_ROW);
+  let shardSignal: AbortSignal | null = null;
+  const repository = createFakeNameStatRepository(fake, {
+    initializeSqlJs: async () => fake.SQL,
+    fetch: (_url, options) => new Promise<RepositoryFetchResponse>((_resolve, reject) => {
+      shardSignal = options?.signal ?? null;
+      if (!shardSignal) {
+        reject(new Error('NameStat shard fetch did not receive an AbortSignal.'));
+        return;
+      }
+      shardSignal.addEventListener(
+        'abort',
+        () => reject(new Error('shard fetch aborted')),
+        { once: true },
+      );
+    }),
+  });
+
+  const lookup = repository.findByName(NAME);
+  await waitUntil(() => shardSignal !== null, 'the abortable name-stat shard fetch');
+  const observedSignal = requireAbortSignal(shardSignal, 'pending shard fetch signal');
+  assert.equal(observedSignal.aborted, false);
+
+  repository.close();
+
+  assert.equal(observedSignal.aborted, true);
+  await assert.rejects(lookup, /cancelled by close/);
+  assert.equal(fake.databases.length, 0);
+});
+
+test('NameStatRepository cancellation settles before an ignored fetch resolves late', async () => {
+  const fake = createFakeSqlRuntime(NAME_STAT_ROW);
+  const lateFetch = deferred<RepositoryFetchResponse>();
+  let fetches = 0;
+  let lookupSettled = false;
+  const repository = createFakeNameStatRepository(fake, {
+    initializeSqlJs: async () => fake.SQL,
+    fetch: () => {
+      fetches += 1;
+      return lateFetch.promise;
+    },
+  });
+
+  const outcome = repository.findByName(NAME)
+    .catch((error: unknown) => error)
+    .finally(() => {
+      lookupSettled = true;
+    });
+  await waitUntil(() => fetches === 1, 'the signal-ignoring shard fetch');
+  repository.close();
+
+  await waitUntil(() => lookupSettled, 'cancellation before late fetch resolution');
+  assert.match(String(await outcome), /cancelled by close/);
+  lateFetch.resolve(response(bufferWithTag(1)));
+  await Promise.resolve();
+  assert.equal(fake.databases.length, 0);
+});
+
+test('NameStatRepository close aborts pending shard body consumption', async () => {
+  const fake = createFakeSqlRuntime(NAME_STAT_ROW);
+  let shardSignal: AbortSignal | null = null;
+  let bodyStarted = false;
+  const repository = createFakeNameStatRepository(fake, {
+    initializeSqlJs: async () => fake.SQL,
+    fetch: async (_url, options) => {
+      const signal = options?.signal;
+      if (!signal) {
+        throw new Error('NameStat shard body did not receive an AbortSignal.');
+      }
+      shardSignal = signal;
+      return {
+        ok: true,
+        status: 200,
+        statusText: 'OK',
+        arrayBuffer: () => new Promise<ArrayBuffer>((_resolve, reject) => {
+          bodyStarted = true;
+          signal.addEventListener(
+            'abort',
+            () => reject(new Error('shard body aborted')),
+            { once: true },
+          );
+        }),
+      };
+    },
+  });
+
+  const lookup = repository.findByName(NAME);
+  await waitUntil(() => bodyStarted, 'the abortable name-stat response body');
+  const observedSignal = requireAbortSignal(shardSignal, 'pending shard body signal');
+  assert.equal(observedSignal.aborted, false);
+
+  repository.close();
+
+  assert.equal(observedSignal.aborted, true);
+  await assert.rejects(lookup, /cancelled by close/);
+  assert.equal(fake.databases.length, 0);
+});
+
+test('NameStatRepository stale cleanup preserves a new-generation shard controller', async () => {
+  const fake = createFakeSqlRuntime(NAME_STAT_ROW);
+  const firstFetch = deferred<RepositoryFetchResponse>();
+  const secondBody = deferred<ArrayBuffer>();
+  const shardSignals: AbortSignal[] = [];
+  let fetches = 0;
+  const repository = createFakeNameStatRepository(fake, {
+    initializeSqlJs: async () => fake.SQL,
+    fetch: async (_url, options) => {
+      const signal = options?.signal;
+      assert.ok(signal);
+      shardSignals.push(signal);
+      fetches += 1;
+      if (fetches === 1) return firstFetch.promise;
+      if (fetches === 2) return response(secondBody.promise);
+      return response(bufferWithTag(1));
+    },
+  });
+
+  const staleLookup = repository.findByName(NAME);
+  const staleOutcome = staleLookup.catch((error: unknown) => error);
+  await waitUntil(() => fetches === 1, 'the first generation shard fetch');
+  repository.close();
+  assert.equal(shardSignals[0]?.aborted, true);
+
+  const secondLookup = repository.findByName(NAME);
+  const secondOutcome = secondLookup.catch((error: unknown) => error);
+  await waitUntil(() => fetches === 2, 'the second generation shard fetch');
+  assert.equal(shardSignals[1]?.aborted, false);
+
+  assert.match(String(await staleOutcome), /cancelled by close/);
+  firstFetch.reject(new Error('first generation fetch settled after close'));
+  await Promise.resolve();
+
+  repository.close();
+  assert.equal(
+    shardSignals[1]?.aborted,
+    true,
+    'stale cleanup must not remove the new generation controller',
+  );
+  assert.match(String(await secondOutcome), /cancelled by close/);
+  secondBody.reject(new Error('second generation body settled after close'));
+  await Promise.resolve();
+
+  assert.equal((await repository.findByName(NAME))?.name, NAME);
+  assert.equal(fetches, 3);
+  assert.equal(fake.databases.length, 1);
+  repository.close();
+  assert.equal(fake.databases[0]?.closeCount, 1);
+});
+
+test('NameStatRepository removes a completed shard transport controller', async () => {
+  const fake = createFakeSqlRuntime(NAME_STAT_ROW);
+  let completedSignal: AbortSignal | null = null;
+  const repository = createFakeNameStatRepository(fake, {
+    initializeSqlJs: async () => fake.SQL,
+    fetch: async (_url, options) => {
+      completedSignal = options?.signal ?? null;
+      return response(bufferWithTag(1));
+    },
+  });
+
+  assert.equal((await repository.findByName(NAME))?.name, NAME);
+  const observedSignal = requireAbortSignal(completedSignal, 'completed shard signal');
+  assert.equal(observedSignal.aborted, false);
+
+  repository.close();
+
+  assert.equal(
+    observedSignal.aborted,
+    false,
+    'close must not retain and abort a controller whose transport already completed',
+  );
+});
+
+test('NameStatRepository aggregates abort and DB close failures before clean reinit', async () => {
+  const fake = createFakeSqlRuntime(NAME_STAT_ROW);
+  const repository = createFakeNameStatRepository(fake, {
+    initializeSqlJs: async () => fake.SQL,
+    fetch: async () => response(bufferWithTag(1)),
+  });
+  assert.equal((await repository.findByName(NAME))?.name, NAME);
+
+  const abortFailure = new Error('fixture abort failed');
+  const databaseCloseFailure = new Error('fixture database close failed');
+  const internals = repository as unknown as {
+    shardAbortControllerByKey: Map<string, { abort(): void }>;
+    shardLoadPromiseByKey: Map<string, Promise<unknown>>;
+    dbByShard: Map<string, unknown>;
+  };
+  internals.shardAbortControllerByKey.set('fixture', {
+    abort: () => {
+      throw abortFailure;
+    },
+  });
+  fake.databases[0]!.closeError = databaseCloseFailure;
+
+  assert.throws(
+    () => repository.close(),
+    (error: unknown) => error instanceof AggregateError
+      && error.errors.length === 2
+      && error.errors[0] === abortFailure
+      && error.errors[1] === databaseCloseFailure,
+  );
+  assert.equal(fake.databases[0]?.closeCount, 1);
+  assert.equal(internals.shardAbortControllerByKey.size, 0);
+  assert.equal(internals.shardLoadPromiseByKey.size, 0);
+  assert.equal(internals.dbByShard.size, 0);
+
+  assert.equal((await repository.findByName(NAME))?.name, NAME);
+  assert.equal(fake.databases.length, 2);
+  repository.close();
+  assert.equal(fake.databases[1]?.closeCount, 1);
 });
 
 test('NameStatRepository close clears every shard even when one database close throws', async () => {
