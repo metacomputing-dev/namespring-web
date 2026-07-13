@@ -100,12 +100,22 @@ const FULL_REGISTRABLE_HANJA: ReadonlySet<string> = new Set(
 
 export type HanjaPool = 'curated' | 'inmyeongyong_full';
 
-function isBlankHanja(hanja: string): boolean {
-  return hanja.trim().length === 0;
+/**
+ * True for exactly one ordinary Han code point or one locally recognized
+ * legal full-pool glyph. The latter includes court-mirror PUA code points;
+ * arbitrary PUA values remain rejected.
+ */
+export function isRecognizedHanjaGlyph(hanja: string): boolean {
+  const iterator = hanja[Symbol.iterator]();
+  const first = iterator.next();
+  if (first.done || !iterator.next().done) return false;
+  const glyph = first.value;
+  return /^\p{Script=Han}$/u.test(glyph)
+    || FULL_REGISTRABLE_HANJA.has(normalizeToOrthodoxHanja(glyph));
 }
 
-function hasHanIdeograph(hanja: string): boolean {
-  return /\p{Script=Han}/u.test(hanja);
+function isBlankHanja(hanja: string): boolean {
+  return hanja.trim().length === 0;
 }
 
 /** Returns the legal-registrability annotation for a HanjaEntry.
@@ -137,7 +147,7 @@ export function getLegalAnnotation(
   const isVariant = orthodox !== hanja;
   const pool = options?.pool ?? 'curated';
   const appearsInLocalFullPool = FULL_REGISTRABLE_HANJA.has(orthodox);
-  if (!hasHanIdeograph(hanja) && !appearsInLocalFullPool) {
+  if (!isRecognizedHanjaGlyph(hanja) && !appearsInLocalFullPool) {
     return pool === 'inmyeongyong_full'
       ? { legalRegistrable: false, legalStatus: 'notAllowed', isVariantOf: isVariant ? orthodox : undefined }
       : { legalRegistrable: undefined, legalStatus: 'hangulOnly', isVariantOf: undefined };

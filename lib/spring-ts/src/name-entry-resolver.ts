@@ -1,6 +1,9 @@
 import type { HanjaEntry } from '../../seed-ts/src/database/hanja-repository.js';
 import { makeFallbackEntry } from './core/name-utils.js';
-import type { HanjaPool } from './hanja-annotations.js';
+import {
+  isRecognizedHanjaGlyph,
+  type HanjaPool,
+} from './hanja-annotations.js';
 import type { NameCharInput } from './types.js';
 
 export const NAME_ENTRY_RESOLUTION_FAILED = 'NAME_ENTRY_RESOLUTION_FAILED' as const;
@@ -8,7 +11,11 @@ export const NAME_ENTRY_RESOLUTION_FAILED = 'NAME_ENTRY_RESOLUTION_FAILED' as co
 export type NameEntryResolutionFailureReason =
   | 'explicit_hanja_not_found'
   | 'hangul_hanja_reading_mismatch'
-  | 'invalid_hangul_syllable';
+  | 'explicit_hanja_not_surname_eligible'
+  | 'explicit_hanja_required'
+  | 'ambiguous_surname_hanja'
+  | 'invalid_hangul_syllable'
+  | 'invalid_hanja_character';
 
 export type NameEntryRole = 'surname' | 'givenName';
 
@@ -18,6 +25,14 @@ function nameEntryResolutionMessage(reason: NameEntryResolutionFailureReason): s
       return 'The explicit Hangul and Hanja pair does not match a verified reading.';
     case 'invalid_hangul_syllable':
       return 'The name character must be one precomposed Hangul syllable.';
+    case 'invalid_hanja_character':
+      return 'Explicit Hanja must be exactly one Han character.';
+    case 'explicit_hanja_not_surname_eligible':
+      return 'The explicit character is not registered as an eligible surname.';
+    case 'ambiguous_surname_hanja':
+      return 'The surname reading maps to more than one eligible Hanja; explicit Hanja is required.';
+    case 'explicit_hanja_required':
+      return 'Explicit Hanja is required for non-pure name evaluation.';
     default:
       return 'The explicit Hanja is not available in the active name-character pool.';
   }
@@ -47,6 +62,7 @@ export class NameEntryResolutionError extends Error {
 export interface NameEntryRepository {
   findByHanja(hanja: string): Promise<HanjaEntry | null>;
   findByHangul(hangul: string): Promise<HanjaEntry[]>;
+  findSurnamesByHangul?(hangul: string): Promise<HanjaEntry[]>;
 }
 
 export interface PreverifiedExplicitPairContext {
@@ -70,6 +86,7 @@ export interface ResolveNameEntriesOptions {
 export interface ResolveFixedNameCharacterPoolOptions {
   readonly hanjaPool: HanjaPool;
   readonly poolLimit: number;
+  readonly allowHangulFallback?: boolean;
   readonly fullPoolEntries?: () => readonly HanjaEntry[];
   readonly preverifiedEntry?: HanjaEntry;
 }
@@ -86,11 +103,44 @@ export interface AssertNameCharacterSyntaxOptions {
   readonly allowGenerationFilter?: (input: NameCharInput) => boolean;
 }
 
+// One Han ideograph occupies at most two UTF-16 code units. Leave a small
+// allowance for surrounding whitespace accepted by the legacy request shape,
+// while rejecting attacker-sized strings before trim() performs a linear scan.
+const MAX_RAW_HANJA_CODE_UNITS = 8;
+
+function isNameCharacterRecord(value: unknown): value is NameCharInput {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+/** Normalize the optional Hanja field without scanning an unbounded string. */
+export function normalizeNameHanja(input: unknown): string {
+  if (!isNameCharacterRecord(input) || typeof input.hanja !== 'string') return '';
+  if (input.hanja.length > MAX_RAW_HANJA_CODE_UNITS) return '';
+  return input.hanja.trim();
+}
+
+/** True only for a bounded, non-placeholder Hanja value. */
+export function hasExplicitNameHanja(input: unknown): boolean {
+  if (!isNameCharacterRecord(input) || typeof input.hangul !== 'string') return false;
+  const hanja = normalizeNameHanja(input);
+  return hanja.length > 0 && hanja !== input.hangul;
+}
+
+function singleCodePoint(value: string): string | null {
+  const iterator = value[Symbol.iterator]();
+  const first = iterator.next();
+  if (first.done || !iterator.next().done) return null;
+  return first.value;
+}
+
 function isOnePrecomposedHangulSyllable(value: string): boolean {
-  const codePoints = Array.from(value);
-  if (codePoints.length !== 1) return false;
-  const codePoint = codePoints[0]?.codePointAt(0);
+  const character = singleCodePoint(value);
+  const codePoint = character?.codePointAt(0);
   return codePoint !== undefined && codePoint >= 0xac00 && codePoint <= 0xd7a3;
+}
+
+function isOneHanCharacter(value: string): boolean {
+  return isRecognizedHanjaGlyph(value);
 }
 
 /** Validate name-character syntax without retaining or exposing the raw name. */
@@ -99,28 +149,55 @@ export function assertNameCharacterSyntax(
   options: AssertNameCharacterSyntaxOptions,
 ): void {
   for (const [characterIndex, char] of chars.entries()) {
-    const hangul = String(char.hangul ?? '');
-    if (isOnePrecomposedHangulSyllable(hangul)) continue;
-
-    const hanja = String(char.hanja ?? '').trim();
-    const hasExplicitHanja = hanja.length > 0 && hanja !== hangul;
-    if (
-      options.role === 'givenName'
-      && !hasExplicitHanja
-      && options.allowGenerationFilter?.(char) === true
-    ) {
-      continue;
+    const isCharacterRecord = isNameCharacterRecord(char);
+    const hangul = isCharacterRecord && typeof char.hangul === 'string'
+      ? char.hangul
+      : '';
+    if (!isOnePrecomposedHangulSyllable(hangul)) {
+      const hasGenerationFilter = isCharacterRecord
+        && typeof char.hangul === 'string'
+        && options.allowGenerationFilter?.(char) === true;
+      if (
+        options.role !== 'givenName'
+        || hasExplicitNameHanja(char)
+        || !hasGenerationFilter
+      ) {
+        throw new NameEntryResolutionError(
+          'invalid_hangul_syllable',
+          options.role,
+          characterIndex,
+        );
+      }
     }
-    throw new NameEntryResolutionError(
-      'invalid_hangul_syllable',
-      options.role,
-      characterIndex,
-    );
-  }
-}
 
-function withRole(entry: HanjaEntry, isSurname: boolean): HanjaEntry {
-  return { ...entry, is_surname: isSurname };
+    if (!isCharacterRecord) {
+      throw new NameEntryResolutionError(
+        'invalid_hangul_syllable',
+        options.role,
+        characterIndex,
+      );
+    }
+    if (!Object.prototype.hasOwnProperty.call(char, 'hanja')) continue;
+    if (
+      typeof char.hanja !== 'string'
+      || char.hanja.length > MAX_RAW_HANJA_CODE_UNITS
+    ) {
+      throw new NameEntryResolutionError(
+        'invalid_hanja_character',
+        options.role,
+        characterIndex,
+      );
+    }
+    const hanja = normalizeNameHanja(char);
+    if (hanja.length === 0 || hanja === char.hangul) continue;
+    if (!isOneHanCharacter(hanja)) {
+      throw new NameEntryResolutionError(
+        'invalid_hanja_character',
+        options.role,
+        characterIndex,
+      );
+    }
+  }
 }
 
 function fullPool(options: {
@@ -130,6 +207,18 @@ function fullPool(options: {
   return options.hanjaPool === 'inmyeongyong_full'
     ? (options.fullPoolEntries?.() ?? [])
     : [];
+}
+
+async function findRegisteredSurnames(
+  repository: NameEntryRepository,
+  hangul: string,
+): Promise<HanjaEntry[]> {
+  const registered = repository.findSurnamesByHangul
+    ? await repository.findSurnamesByHangul(hangul)
+    : await repository.findByHangul(hangul);
+  return registered.filter(
+    (entry) => entry.hangul === hangul && entry.is_surname === true,
+  );
 }
 
 async function resolveVerifiedExplicitPair(
@@ -143,26 +232,44 @@ async function resolveVerifiedExplicitPair(
     readonly fullPoolEntries?: () => readonly HanjaEntry[];
   },
 ): Promise<HanjaEntry> {
-  const hangul = String(input.hangul ?? '');
-  const hanja = String(input.hanja ?? '').trim();
-  const byHanja = await repository.findByHanja(hanja);
+  const hangul = input.hangul;
+  const hanja = normalizeNameHanja(input);
 
-  // Preserve the common, already-correct route byte-for-byte.
-  if (byHanja?.hangul === hangul) {
-    return { ...byHanja, hangul, is_surname: options.isSurname };
+  if (options.role === 'surname') {
+    const eligibleSurnames = await findRegisteredSurnames(repository, hangul);
+    const exactEligible = eligibleSurnames.find(
+      (entry) => entry.hanja === hanja
+        && entry.hangul === hangul
+        && entry.is_surname === true,
+    );
+    if (exactEligible) return exactEligible;
   }
 
-  // HanjaRepository.findByHanja historically returns only one row. Verify an
-  // alternate registered reading through the Hangul index before rejecting it.
+  const byHanja = await repository.findByHanja(hanja);
+  if (options.role !== 'surname' && byHanja?.hangul === hangul) {
+    return byHanja;
+  }
+
   const byHangul = await repository.findByHangul(hangul);
   const exactRepositoryPair = byHangul.find((entry) => entry.hanja === hanja);
-  if (exactRepositoryPair) return withRole(exactRepositoryPair, options.isSurname);
+  if (options.role !== 'surname' && exactRepositoryPair) return exactRepositoryPair;
 
   const activeFullPool = fullPool(options);
   const exactFullPair = activeFullPool.find(
     (entry) => entry.hanja === hanja && entry.hangul === hangul,
   );
-  if (exactFullPair) return withRole(exactFullPair, options.isSurname);
+  if (options.role !== 'surname' && exactFullPair) return exactFullPair;
+
+  const exactPairExists = byHanja?.hangul === hangul
+    || exactRepositoryPair !== undefined
+    || exactFullPair !== undefined;
+  if (options.role === 'surname' && exactPairExists) {
+    throw new NameEntryResolutionError(
+      'explicit_hanja_not_surname_eligible',
+      options.role,
+      options.characterIndex,
+    );
+  }
 
   const glyphExists = byHanja != null
     || activeFullPool.some((entry) => entry.hanja === hanja);
@@ -192,8 +299,8 @@ export async function assertExplicitNameIdentity(
   const resolved = new Map<NameCharInput, HanjaEntry>();
 
   for (const [characterIndex, char] of chars.entries()) {
-    const hangul = String(char.hangul ?? '');
-    const hanja = String(char.hanja ?? '').trim();
+    const hangul = char.hangul;
+    const hanja = normalizeNameHanja(char);
     if (hanja.length === 0 || hanja === hangul) continue;
     const preverified = options.preverifiedExplicitPair?.(char, { role, hanjaPool });
     const entry = preverified ?? await resolveVerifiedExplicitPair(char, repository, {
@@ -220,14 +327,13 @@ export async function resolveNameEntries(
   const hanjaPool = options.hanjaPool ?? 'curated';
 
   return Promise.all(chars.map(async (char, characterIndex) => {
-    const hasHanjaField = Object.prototype.hasOwnProperty.call(char, 'hanja');
-    const normalizedHanja = String(char.hanja ?? '').trim();
+    const hasExplicitHanja = hasExplicitNameHanja(char);
 
-    if (forceHangulOnly || (hasHanjaField && normalizedHanja.length === 0)) {
+    if (forceHangulOnly) {
       return makeFallbackEntry(char.hangul, { hanja: '', isSurname });
     }
 
-    if (normalizedHanja.length > 0) {
+    if (hasExplicitHanja) {
       const preverified = options.preverifiedExplicitPair?.(char, { role, hanjaPool });
       if (preverified) return preverified;
 
@@ -240,15 +346,23 @@ export async function resolveNameEntries(
       });
     }
 
-    const entries = hanjaPool === 'inmyeongyong_full'
-      ? fullPool({ hanjaPool, fullPoolEntries: options.fullPoolEntries })
-        .filter((entry) => entry.hangul === char.hangul)
-        .map((entry) => withRole(entry, isSurname))
-      : await repository.findByHangul(char.hangul);
-    return entries[0] ?? makeFallbackEntry(char.hangul, {
-      hanja: '',
-      isSurname,
-    });
+    if (role === 'surname') {
+      const eligible = await findRegisteredSurnames(repository, char.hangul);
+      if (eligible.length === 1) return eligible[0];
+      if (eligible.length > 1) {
+        throw new NameEntryResolutionError(
+          'ambiguous_surname_hanja',
+          role,
+          characterIndex,
+        );
+      }
+    }
+
+    throw new NameEntryResolutionError(
+      'explicit_hanja_required',
+      role,
+      characterIndex,
+    );
   }));
 }
 
@@ -258,8 +372,7 @@ export async function resolveFixedNameCharacterPool(
   repository: NameEntryRepository,
   options: ResolveFixedNameCharacterPoolOptions,
 ): Promise<HanjaEntry[]> {
-  const normalizedHanja = String(input.hanja ?? '').trim();
-  if (normalizedHanja.length > 0) {
+  if (hasExplicitNameHanja(input)) {
     if (options.preverifiedEntry) return [options.preverifiedEntry];
     return [await resolveVerifiedExplicitPair(input, repository, {
       hanjaPool: options.hanjaPool,
@@ -270,10 +383,14 @@ export async function resolveFixedNameCharacterPool(
     })];
   }
 
+  if (options.allowHangulFallback === true) {
+    return [makeFallbackEntry(input.hangul, { hanja: '' })];
+  }
+
   const entries = options.hanjaPool === 'inmyeongyong_full'
     ? fullPool(options).filter((entry) => entry.hangul === input.hangul)
     : await repository.findByHangul(input.hangul);
   return entries.length > 0
     ? [...entries.slice(0, options.poolLimit)]
-    : [makeFallbackEntry(input.hangul, { hanja: '' })];
+    : [];
 }

@@ -56,7 +56,12 @@ import { buildFortuneReport } from './report/buildFortuneReport.js';
 import type { FortuneReportRequest, FortuneReport } from './report/types.js';
 import { assertScorableSajuSummary, isScorableSajuSummary } from './saju-analysis-contract.js';
 import { resolveFortuneTargetDate } from './report/report-input-contract.js';
-import { getLegalAnnotation, type HanjaLegalStatus, type HanjaPool } from './hanja-annotations.js';
+import {
+  getLegalAnnotation,
+  isRecognizedHanjaGlyph,
+  type HanjaLegalStatus,
+  type HanjaPool,
+} from './hanja-annotations.js';
 import inmyeongyongFullData from '../data/inmyeongyong_9389_full.json';
 import { getEnrichedStrokeCount, getUnihanMetadata } from './hanja-unihan.js';
 import { getNameTrendAnalysis, type NameTrendAnalysis } from './name-trend.js';
@@ -85,13 +90,14 @@ import {
 } from './candidate-selection.js';
 import {
   assertExplicitNameIdentity,
-  assertNameCharacterSyntax,
+  hasExplicitNameHanja,
   resolveFixedNameCharacterPool,
   resolveNameEntries,
   type ResolveNameEntriesOptions,
   type NameEntryRole,
   type PreverifiedExplicitPairContext,
 } from './name-entry-resolver.js';
+import { assertSpringNameRequestContract } from './name-input-contract.js';
 import {
   snapshotFortuneReportRequest,
   snapshotSpringRequest,
@@ -104,6 +110,12 @@ export {
   type NameEntryResolutionFailureReason,
   type NameEntryRole,
 } from './name-entry-resolver.js';
+export {
+  SPRING_NAME_REQUEST_INVALID,
+  SpringNameRequestValidationError,
+  type SpringNameRequestValidationField,
+  type SpringNameRequestValidationReason,
+} from './name-input-contract.js';
 
 // ---------------------------------------------------------------------------
 // Config -- all tuneable numbers come from engine.json
@@ -407,7 +419,7 @@ function elementDisplayLabel(value: unknown): string | undefined {
 }
 
 function hasHanIdeograph(value: string | undefined): boolean {
-  return typeof value === 'string' && /\p{Script=Han}/u.test(value);
+  return typeof value === 'string' && isRecognizedHanjaGlyph(value);
 }
 
 function scoreLegalStatus(status: HanjaLegalStatus): number {
@@ -474,6 +486,13 @@ function toNameCharInput(entry: HanjaEntry, pool: HanjaPool = 'curated'): NameCh
 interface NameResolutionPolicy {
   readonly pureHangulGivenName: boolean;
   readonly useSurnameHanjaInPureHangul: boolean;
+}
+
+interface NameInputPlan {
+  readonly mode: 'evaluate' | 'recommend' | 'all';
+  readonly jamoFilters: readonly (JamoFilter | null)[] | undefined;
+  readonly hasGenerationConstraints: boolean;
+  readonly includeOriginalName: boolean;
 }
 
 type CandidateRejectionAccumulator = Map<string, CandidateRejectionBucket>;
@@ -764,11 +783,6 @@ export class SpringEngine {
     return 'binary';
   }
 
-  private hasExplicitHanja(char: NameCharInput): boolean {
-    const hanja = String(char.hanja ?? '').trim();
-    return hanja.length > 0 && hanja !== char.hangul;
-  }
-
   /** Extracts the school-preset routing for SajuCalculator from a request's
    *  options. `useSchoolPreset` defaults to false (legacy behavior) and the
    *  resolved schoolPreset is forwarded as-is. SajuCalculator itself returns
@@ -872,7 +886,7 @@ export class SpringEngine {
     const givenNameChars = givenName ?? [];
     const hasGivenName = givenNameChars.length > 0;
     const allGivenHangulOnly = givenNameChars.length > 0
-      && givenNameChars.every((char) => !this.hasExplicitHanja(char));
+      && givenNameChars.every((char) => !hasExplicitNameHanja(char));
 
     const pureHangulGivenName = pureHangulMode === 'on'
       ? hasGivenName
@@ -957,14 +971,13 @@ export class SpringEngine {
   private assertRequestNameSyntax(
     request: SpringRequest,
     allowGivenNameGenerationFilters: boolean,
+    requireGivenName = false,
+    evaluateGivenName = false,
   ): void {
-    assertNameCharacterSyntax(request.surname, { role: 'surname' });
-    if (!request.givenName?.length) return;
-    assertNameCharacterSyntax(request.givenName, {
-      role: 'givenName',
-      ...(allowGivenNameGenerationFilters
-        ? { allowGenerationFilter: (char) => parseJamoFilter(char.hangul) !== null }
-        : {}),
+    assertSpringNameRequestContract(request, {
+      allowGivenNameGenerationFilters,
+      requireGivenName,
+      evaluateGivenName,
     });
   }
 
@@ -1132,7 +1145,7 @@ export class SpringEngine {
   async getNamingReport(request: SpringRequest): Promise<NamingReport> {
     request = snapshotSpringRequest(request);
     const operation = this.beginOperation('getNamingReport');
-    this.assertRequestNameSyntax(request, false);
+    this.assertRequestNameSyntax(request, false, true, true);
     await this.awaitOperationStep(operation, () => this.init());
     await this.assertExplicitRequestNameIdentity(request, operation);
 
@@ -1247,10 +1260,7 @@ export class SpringEngine {
     sajuReportOverride?: SajuReport,
   ): Promise<SpringReport> {
     const operation = this.beginOperation('getSpringReport');
-    if (!request.givenName?.length) {
-      throw new Error('getSpringReport requires givenName input.');
-    }
-    this.assertRequestNameSyntax(request, false);
+    this.assertRequestNameSyntax(request, false, true, true);
     await this.awaitOperationStep(operation, () => this.init());
     await this.assertExplicitRequestNameIdentity(request, operation);
 
@@ -1415,14 +1425,11 @@ export class SpringEngine {
     const sajuSummary: SajuSummary = sajuReport;
 
     // 2. Determine mode and collect name inputs
-    const jamoFilters = request.givenName?.map(
-      char => char.hanja ? null : parseJamoFilter(char.hangul),
-    );
-    const hasJamoInput = jamoFilters?.some(filter => filter !== null) ?? false;
-    const mode = this.resolveMode(request, hasJamoInput);
+    const nameInputPlan = this.buildNameInputPlan(request);
 
     const nameInputs = await this.awaitOperationStep(operation, () => this.collectNameInputs(
-      request, mode, hasJamoInput, jamoFilters, sajuSummary, candidateRejections, operation,
+      request, nameInputPlan,
+      sajuSummary, candidateRejections, operation,
     ));
     // 3. Score each candidate
     const results: SpringReport[] = [];
@@ -1470,14 +1477,11 @@ export class SpringEngine {
       includeTenGodByPosition: request.options?.precisionConfig?.tenGodMode === 'positional_weighted_v2',
     });
 
-    const jamoFilters = request.givenName?.map(
-      char => char.hanja ? null : parseJamoFilter(char.hangul),
-    );
-    const hasJamoInput = jamoFilters?.some(filter => filter !== null) ?? false;
-    const mode = this.resolveMode(request, hasJamoInput);
+    const nameInputPlan = this.buildNameInputPlan(request);
 
     const nameInputs = await this.awaitOperationStep(operation, () => this.collectNameInputs(
-      request, mode, hasJamoInput, jamoFilters, sajuSummary, candidateRejections, operation,
+      request, nameInputPlan,
+      sajuSummary, candidateRejections, operation,
     ));
     const results: SpringCandidateSummary[] = [];
 
@@ -1687,11 +1691,7 @@ export class SpringEngine {
     const candidateRejections: CandidateRejectionAccumulator = new Map();
 
     // 1. Determine the operating mode
-    const jamoFilters = request.givenName?.map(
-      char => char.hanja ? null : parseJamoFilter(char.hangul),
-    );
-    const hasJamoInput = jamoFilters?.some(filter => filter !== null) ?? false;
-    const mode = this.resolveMode(request, hasJamoInput);
+    const nameInputPlan = this.buildNameInputPlan(request);
 
     // 2. Run saju (four-pillar destiny) analysis on the birth data
     const sajuSummary = await this.awaitOperationStep(
@@ -1704,7 +1704,8 @@ export class SpringEngine {
 
     // 3. Build the list of name inputs to score
     const nameInputs = await this.awaitOperationStep(operation, () => this.collectNameInputs(
-      request, mode, hasJamoInput, jamoFilters, sajuSummary, candidateRejections, operation,
+      request, nameInputPlan,
+      sajuSummary, candidateRejections, operation,
     ));
 
     // 4. Score every candidate and rank by total score (descending)
@@ -1716,67 +1717,91 @@ export class SpringEngine {
     // 5. Paginate and return
     return this.completeOperation(
       operation,
-      this.buildResponse(request, mode, sajuSummary, scoredCandidates, candidateRejections),
+      this.buildResponse(request, nameInputPlan.mode, sajuSummary, scoredCandidates, candidateRejections),
     );
   }
 
   // -------------------------------------------------------------------------
-  // analyze() helper -- resolve which mode to use
+  // analyze() helper -- one shared interpretation of names and filters
   // -------------------------------------------------------------------------
 
-  private resolveMode(
-    request: SpringRequest,
-    hasJamoInput: boolean,
-  ): 'evaluate' | 'recommend' | 'all' {
-    if (request.mode && request.mode !== 'auto') return request.mode;
-
-    // Auto-detect: if every given-name character has an explicit hanja,
-    // the user wants an evaluation; otherwise, generate recommendations.
-    const allHaveHanja = request.givenName?.length
-      && request.givenName.every((char) => this.hasExplicitHanja(char));
-
+  private buildNameInputPlan(request: SpringRequest): NameInputPlan {
+    const givenName = request.givenName;
+    const hasGivenName = Boolean(givenName?.length);
+    const hasPartialGivenName = hasGivenName
+      && request.givenNameLength !== undefined
+      && givenName!.length < request.givenNameLength;
+    const jamoFilters = givenName?.map((char) =>
+      hasExplicitNameHanja(char) ? null : parseJamoFilter(char.hangul));
+    const hasGenerationFilter = jamoFilters?.some((filter) => filter !== null) ?? false;
+    const hasGenerationConstraints = hasPartialGivenName
+      || (givenName?.some((char) => !hasExplicitNameHanja(char)) ?? false);
+    const allExplicitHanja = hasGivenName
+      && givenName!.every(hasExplicitNameHanja);
+    const allLiteralHangul = hasGivenName
+      && !hasGenerationFilter
+      && givenName!.every((char) => !hasExplicitNameHanja(char));
     const pureHangulMode = this.resolvePureHangulMode(request.options);
-    const allGivenHangulOnly = request.givenName?.length
-      && request.givenName.every((char) => !this.hasExplicitHanja(char));
-    if (pureHangulMode === 'on' && allGivenHangulOnly && !hasJamoInput) {
-      return 'evaluate';
-    }
+    const mode = request.mode && request.mode !== 'auto'
+      ? request.mode
+      : !hasPartialGivenName
+          && (allExplicitHanja || (pureHangulMode === 'on' && allLiteralHangul))
+        ? 'evaluate'
+        : 'recommend';
+    const includeOriginalName = !hasPartialGivenName
+      && (allExplicitHanja
+        || (allLiteralHangul && (pureHangulMode === 'on' || mode === 'evaluate')));
 
-    return allHaveHanja && !hasJamoInput ? 'evaluate' : 'recommend';
+    return {
+      mode,
+      jamoFilters,
+      hasGenerationConstraints,
+      includeOriginalName,
+    };
   }
 
   // -------------------------------------------------------------------------
   // analyze() helper -- gather name inputs depending on mode
   // -------------------------------------------------------------------------
 
+  private canonicalizePureHangulCandidates(
+    candidates: readonly NameCharInput[][],
+  ): NameCharInput[][] {
+    const unique = new Map<string, NameCharInput[]>();
+    for (const candidate of candidates) {
+      const canonical = candidate.map((char) => ({ hangul: char.hangul }));
+      const key = canonical.map((char) => char.hangul).join('\u0000');
+      if (!unique.has(key)) unique.set(key, canonical);
+    }
+    return [...unique.values()];
+  }
+
   private async collectNameInputs(
     request: SpringRequest,
-    mode: 'evaluate' | 'recommend' | 'all',
-    hasJamoInput: boolean,
-    jamoFilters: (JamoFilter | null)[] | undefined,
+    plan: NameInputPlan,
     sajuSummary: SajuSummary,
     candidateRejections: CandidateRejectionAccumulator,
     operation: SpringEngineOperationLease,
   ): Promise<NameCharInput[][]> {
-    const hasExplicitGivenName = request.givenName?.length && !hasJamoInput;
-
-    // Evaluate mode with a fully specified name -- just score it directly
-    if (mode === 'evaluate' && hasExplicitGivenName) {
+    if (plan.mode === 'evaluate') {
       return [request.givenName!];
     }
 
     // Recommend or all mode -- generate candidates
-    if (mode === 'recommend' || mode === 'all' || hasJamoInput) {
-      const candidates = await this.awaitOperationStep(operation, () => this.generateCandidates(
+    if (plan.mode === 'recommend' || plan.mode === 'all') {
+      let candidates = await this.awaitOperationStep(operation, () => this.generateCandidates(
         request,
         sajuSummary,
-        hasJamoInput ? jamoFilters! : undefined,
+        plan.hasGenerationConstraints ? [...(plan.jamoFilters ?? [])] : undefined,
         candidateRejections,
       ));
 
-      // If the user also supplied an explicit name, prepend it
-      if (hasExplicitGivenName) {
+      if (plan.includeOriginalName) {
         candidates.unshift(request.givenName!);
+      }
+
+      if (this.resolvePureHangulMode(request.options) === 'on') {
+        candidates = this.canonicalizePureHangulCandidates(candidates);
       }
 
       return this.awaitOperationStep(
@@ -1785,8 +1810,7 @@ export class SpringEngine {
       );
     }
 
-    // Fallback: just the explicit name, or nothing
-    return request.givenName?.length ? [request.givenName] : [];
+    return [];
   }
 
   private givenNameHangulKey(givenName: NameCharInput[]): string {
@@ -2220,9 +2244,16 @@ export class SpringEngine {
     candidateRejections: CandidateRejectionAccumulator = new Map(),
   ): Promise<NameCharInput[][]> {
     const hanjaPool      = this.resolveHanjaPool(request.options);
-    const surnameEntries = await this.resolveEntries(request.surname, { isSurname: true, hanjaPool });
+    const pureHangulGeneration = this.resolvePureHangulMode(request.options) === 'on';
+    const surnameEntries = await this.resolveEntries(request.surname, {
+      forceHangulOnly: pureHangulGeneration
+        && !(request.options?.useSurnameHanjaInPureHangul
+          ?? DEFAULT_USE_SURNAME_HANJA_IN_PURE),
+      isSurname: true,
+      hanjaPool,
+    });
     const nameLength     = request.givenNameLength ?? jamoFilters?.length ?? 2;
-    const hasJamoFilter  = jamoFilters?.some(filter => filter !== null) ?? false;
+    const hasPositionConstraints = jamoFilters !== undefined;
 
     // A failed or partial analysis must not be converted into the configured
     // default element. In that case generation is explicitly name-only.
@@ -2247,12 +2278,12 @@ export class SpringEngine {
 
     // Build per-position character pools
     const pools = await this.buildPositionPools(
-      request, nameLength, jamoFilters, hasJamoFilter,
+      request, nameLength, jamoFilters, hasPositionConstraints,
       surnameEntries, targetElements, avoidElements, hanjaPool, candidateRejections,
     );
 
     // Choose the generation strategy
-    const useStrokeStrategy = !hasJamoFilter && nameLength <= 2;
+    const useStrokeStrategy = !hasPositionConstraints && nameLength <= 2;
 
     const generated = useStrokeStrategy
       ? this.generateViaStrokeOptimizer(surnameEntries, pools, nameLength, hanjaPool)
@@ -2385,7 +2416,10 @@ export class SpringEngine {
 
       for (const candidate of positionPools[depth]) {
         // Skip if the same hanja character already appears in the combination
-        if (current.some(existing => existing.hanja === candidate.hanja)) continue;
+        if (candidate.hanja.length > 0
+          && current.some(existing => existing.hanja === candidate.hanja)) {
+          continue;
+        }
         explore(depth + 1, [...current, candidate]);
       }
     };
@@ -2406,14 +2440,14 @@ export class SpringEngine {
     request: SpringRequest,
     nameLength: number,
     jamoFilters: (JamoFilter | null)[] | undefined,
-    hasJamoFilter: boolean,
+    hasPositionConstraints: boolean,
     surnameEntries: HanjaEntry[],
     targetElements: Set<string>,
     avoidElements: Set<string>,
     hanjaPool: HanjaPool,
     candidateRejections: CandidateRejectionAccumulator,
   ): Promise<Map<number, HanjaEntry[]>> {
-    const useStrokeMode = !hasJamoFilter && nameLength <= 2;
+    const useStrokeMode = !hasPositionConstraints && nameLength <= 2;
 
     return useStrokeMode
       ? this.buildStrokeBasedPools(
@@ -2542,7 +2576,25 @@ export class SpringEngine {
 
       // Case A: no jamo filter at this position and user supplied a character
       if (jamoFilter === null && givenNameChar) {
-        pools.set(position, await this.resolveFixedCharPool(givenNameChar, hanjaPool));
+        const allowHangulFallback = request.options?.pureHangulNameMode === 'on'
+          && !hasExplicitNameHanja(givenNameChar);
+        const fixedEntries = await this.resolveFixedCharPool(
+          givenNameChar,
+          hanjaPool,
+          allowHangulFallback,
+          Number.MAX_SAFE_INTEGER,
+        );
+        const safeHanjaEntries = this.filterPresentationSafeEntries(
+          fixedEntries.filter((entry) => hasHanIdeograph(entry.hanja)),
+          hanjaPool,
+          candidateRejections,
+        ).slice(0, POOL_LIMIT_SINGLE_CHAR);
+        const pureHangulEntries = allowHangulFallback
+          ? fixedEntries
+              .filter((entry) => !hasHanIdeograph(entry.hanja))
+              .slice(0, POOL_LIMIT_SINGLE_CHAR)
+          : [];
+        pools.set(position, [...safeHanjaEntries, ...pureHangulEntries]);
         continue;
       }
 
@@ -2563,10 +2615,16 @@ export class SpringEngine {
   }
 
   /** Resolve a single user-specified character into a 1-element pool. */
-  private async resolveFixedCharPool(givenNameChar: NameCharInput, hanjaPool: HanjaPool): Promise<HanjaEntry[]> {
+  private async resolveFixedCharPool(
+    givenNameChar: NameCharInput,
+    hanjaPool: HanjaPool,
+    allowHangulFallback = false,
+    poolLimit = POOL_LIMIT_SINGLE_CHAR,
+  ): Promise<HanjaEntry[]> {
     return resolveFixedNameCharacterPool(givenNameChar, this.hanjaRepo, {
       hanjaPool,
-      poolLimit: POOL_LIMIT_SINGLE_CHAR,
+      poolLimit,
+      allowHangulFallback,
       fullPoolEntries: getFullLegalPoolEntries,
       preverifiedEntry: this.preverifiedExplicitNameIdentity(givenNameChar, {
         role: 'givenName',
@@ -2598,22 +2656,27 @@ export class SpringEngine {
   async getFortuneReport(request: FortuneReportRequest): Promise<FortuneReport> {
     request = snapshotFortuneReportRequest(request);
     const operation = this.beginOperation('getFortuneReport');
-    const explicitNameRequest: SpringRequest | null = request.givenName?.length
+    const targetDate = resolveFortuneTargetDate(request.targetDate);
+    const hasSuppliedGivenName = Object.prototype.hasOwnProperty.call(request, 'givenName')
+      && !(Array.isArray(request.givenName) && request.givenName.length === 0);
+    const hasNameInput = hasSuppliedGivenName;
+    const explicitNameRequest: SpringRequest | null = hasNameInput
       ? {
           birth: request.birth,
           surname: request.surname ?? [],
           givenName: request.givenName,
+          mode: 'evaluate',
           options: request.options,
         }
       : null;
-    if (explicitNameRequest) this.assertRequestNameSyntax(explicitNameRequest, false);
+    if (explicitNameRequest) {
+      this.assertRequestNameSyntax(explicitNameRequest, false, true, true);
+    }
     await this.awaitOperationStep(operation, () => this.init());
     if (explicitNameRequest) {
       await this.assertExplicitRequestNameIdentity(explicitNameRequest, operation);
     }
 
-    // 1. Parse target date, then request the surrounding transit rows.
-    const targetDate = resolveFortuneTargetDate(request.targetDate);
     const reportOptions = optionsForFortuneTarget(request.options, targetDate);
 
     // 2. Run saju analysis

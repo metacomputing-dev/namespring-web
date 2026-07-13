@@ -1,14 +1,14 @@
 export const FORTUNE_TARGET_DATE_INVALID = 'FORTUNE_TARGET_DATE_INVALID' as const;
 export const FORTUNE_REPORT_BUILD_FAILED = 'FORTUNE_REPORT_BUILD_FAILED' as const;
+const MAX_FORTUNE_TARGET_DATE_CODE_UNITS = 128;
 
 export class FortuneTargetDateInvalidError extends Error {
   readonly code = FORTUNE_TARGET_DATE_INVALID;
-  readonly input: string;
+  readonly retryable = false;
 
-  constructor(input: string) {
+  constructor() {
     super('운세 기준일 형식이 올바르지 않습니다.');
     this.name = 'FortuneTargetDateInvalidError';
-    this.input = input;
   }
 }
 
@@ -25,9 +25,15 @@ export class FortuneReportBuildError extends Error {
 
 export function resolveFortuneTargetDate(raw: string | undefined): Date {
   if (raw === undefined) return new Date();
+  if (
+    typeof raw !== 'string'
+    || raw.length > MAX_FORTUNE_TARGET_DATE_CODE_UNITS
+  ) {
+    throw new FortuneTargetDateInvalidError();
+  }
   const parsed = new Date(raw);
   if (Number.isNaN(parsed.getTime())) {
-    throw new FortuneTargetDateInvalidError(raw);
+    throw new FortuneTargetDateInvalidError();
   }
   return parsed;
 }
