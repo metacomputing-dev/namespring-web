@@ -109,4 +109,62 @@ describe('SajuRequest runtime validation', () => {
       createEngine().config,
     )).not.toThrow();
   });
+
+  describe.each([
+    ['true solar time off', false],
+    ['true solar time on', true],
+  ] as const)('%s', (_label, trueSolarTimeEnabled) => {
+    const engine = createEngine({
+      calendar: {
+        trueSolarTime: { enabled: trueSolarTimeEnabled },
+      },
+      toggles: {
+        pillars: false,
+        relations: false,
+        tenGods: false,
+        hiddenStems: false,
+        elementDistribution: false,
+        fortune: false,
+        rules: false,
+        lifeStages: false,
+        stemRelations: false,
+      },
+    } as any);
+
+    it.each([
+      ['numeric string', '0'],
+      ['true', true],
+      ['false', false],
+      ['null', null],
+      ['NaN', Number.NaN],
+      ['positive infinity', Number.POSITIVE_INFINITY],
+      ['negative infinity', Number.NEGATIVE_INFINITY],
+    ])('rejects %s coordinates at the public engine boundary', (_case, coordinate) => {
+      for (const axis of ['lat', 'lon'] as const) {
+        const location = { ...base.location, [axis]: coordinate };
+        expect(
+          () => engine.analyze({ ...base, location } as any),
+          `${axis}=${String(coordinate)}`,
+        ).toThrow(SajuRequestValidationError);
+      }
+    });
+
+    it.each([
+      ['latitude below minimum', { lat: -90.000001, lon: 0 }],
+      ['latitude above maximum', { lat: 90.000001, lon: 0 }],
+      ['longitude below minimum', { lat: 0, lon: -180.000001 }],
+      ['longitude above maximum', { lat: 0, lon: 180.000001 }],
+    ])('rejects %s at the public engine boundary', (_case, location) => {
+      expect(() => engine.analyze({ ...base, location } as any))
+        .toThrow(SajuRequestValidationError);
+    });
+
+    it.each([
+      ['negative bounds', { lat: -90, lon: -180 }],
+      ['zero coordinates', { lat: 0, lon: 0 }],
+      ['positive bounds', { lat: 90, lon: 180 }],
+    ])('accepts %s at the public engine boundary', (_case, location) => {
+      expect(() => engine.analyze({ ...base, location } as any)).not.toThrow();
+    });
+  });
 });

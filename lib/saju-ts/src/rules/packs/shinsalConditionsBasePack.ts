@@ -30,7 +30,8 @@ export interface ShinsalQualityModel {
   /** Category-level overrides (e.g., RELATION_SAL, VOID, TWELVE_SAL, ...). */
   categories?: Record<string, ShinsalQualityModelOverride>;
 
-  /** Name-level overrides (highest priority). */
+  /** Name-level model parameters have highest merge priority.
+   * Enable/apply/exclude gates are cumulative and cannot reopen an enclosing gate. */
   names?: Record<string, ShinsalQualityModelOverride>;
 
   /** Per-condition penalty weight in [0,1]. Penalty is converted to qualityWeight = 1 - penalty. */
