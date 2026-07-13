@@ -98,6 +98,7 @@ const DOMAIN_WORDS: readonly string[] = [
 const VOWEL_EUL_ALLOWED: readonly string[] = [
   '가을', '마을', '노을',
   '지을', '이을', '나을', '부을', '그을', '저을',
+  '모을', // 모으다 관형형("마음을 모을 수"), not an object 을 after a vowel-final noun
 ];
 
 // ── helpers ────────────────────────────────────────────────────────────────
