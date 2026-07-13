@@ -1036,7 +1036,7 @@ matchedPillars 없음. shinsalHits 항목 키셋은 단일: {type, position, gra
 |---|---|---|
 | 공개 자산 URL | Vite `BASE_URL`을 애플리케이션 base로 우선해 BrowserRouter 직접 진입에서도 DB·generated pack URL이 저장소 하위 경로를 유지한다(`4a7387d67`). | 실제 Pages 배포 후 네트워크 fetch 스모크는 원격 push 뒤 확인한다. |
 | 재현 가능한 Pages 산출물 | 21,060 source article을 1,116 bundle로 pack하고 `/ci/`와 `/namespring-web/` base에서 Vite build 통과. 산출물은 1,142 files, 154.22 MiB다. | main JS 약 5.3 MiB 및 Node builtin externalization 경고는 P2 성능·브라우저 스모크 과제다. |
-| 배포 자산 계약 | `index.html=404.html`, 16 DB의 source↔dist byte/SHA, pinned sql.js 1.14.1 WASM 1개(659,730 bytes, canonical SHA), JS의 WASM·base-aware generated pack 참조, legacy CDN·`dist/saju-ts` 부재를 verifier가 확인한다. | verifier는 source/bundle 파일 수와 bundle byte 동일성을 고정한다. bundle 내부 article ID 집합 완전성은 별도 실측 21,060/21,060·누락 0이며 후속 P2로 자동화할 수 있다. |
+| 배포 자산 계약 | `index.html=404.html`, 16 DB의 source↔dist byte/SHA, pinned sql.js 1.14.1 WASM 1개(659,730 bytes, canonical SHA), JS의 WASM·base-aware generated pack 참조, legacy CDN·`dist/saju-ts` 부재를 verifier가 확인한다. | source filename/articleId/category와 21,060개 bundle key/articleId·8-token·category·route를 destructive exact-set으로 대조하고, public↔dist byte/SHA 동일성까지 fail-closed로 고정했다(`fe68bfd04`). 정상 산출물과 key/articleId fault injection이 모두 기대대로 통과했다. |
 | CI 의미 분리 | `regression`은 구조·회귀·빌드, `expert-readiness`는 authority·provenance·exact-diff·signoff를 별도 fail-closed job으로 실행한다(`8a63450a2`). | GitHub Actions 원격 성공 이력은 아직 없고, 외부 전문가 signoff·default-change 승인이 없으므로 expert job red와 PR Draft 유지가 정상이다. |
 
 전체 17-fixture snapshot과 40개 이상 명령의 full release chain은 로컬 장시간 실행을
