@@ -14,7 +14,12 @@ export interface InsightInterpretation {
   readonly factId: string;
   /** 평문 한 줄 해석 (해요체). */
   readonly text: string;
-  /** 전문가 tier 보강 해석 (선택, #{태그} 직조 가능). */
+  /**
+   * 상세 표시용 보강 해석 (선택, #{태그} 직조 가능).
+   *
+   * `expertText`는 표시 상세도를 뜻할 뿐 전문가 검증이나 권위 승인을 뜻하지
+   * 않는다. 권위 적격성은 반드시 `sourceTier.authorityTruthEligible`로 판단한다.
+   */
   readonly expertText?: string;
   /** AI-authored content provenance. Present on newly-authored entries. */
   readonly aiGenerated?: boolean;
