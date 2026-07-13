@@ -70,6 +70,19 @@ for (const relativePath of databaseRelativePaths) {
 
 const sourceArticles = listFiles(GENERATED_SOURCE, (file) => file.endsWith('.json'));
 assert.equal(sourceArticles.length, EXPECTED_ARTICLE_COUNT, 'generated article count');
+const remainingArticleIds = new Set();
+for (const file of sourceArticles) {
+  const relativePath = path.relative(GENERATED_SOURCE, file);
+  const [sourceCategory] = relativePath.split(path.sep);
+  const article = JSON.parse(fs.readFileSync(file, 'utf8'));
+  assert.ok(article && typeof article === 'object' && !Array.isArray(article), `source article object: ${relativePath}`);
+  const articleId = path.basename(file, '.json');
+  assert.equal(typeof article.articleId, 'string', `source articleId: ${relativePath}`);
+  assert.equal(article.articleId, articleId, `source filename/articleId: ${relativePath}`);
+  assert.equal(article.category, sourceCategory, `source path/category: ${relativePath}`);
+  assert.equal(remainingArticleIds.has(articleId), false, `duplicate source articleId: ${articleId}`);
+  remainingArticleIds.add(articleId);
+}
 const publicPacked = path.join(PUBLIC, 'generated-packed');
 const distPacked = path.join(DIST, 'generated-packed');
 const publicBundles = listFiles(publicPacked, (file) => file.endsWith('.json'));
@@ -78,9 +91,27 @@ assert.equal(publicBundles.length, EXPECTED_BUNDLE_COUNT, 'public bundle count')
 assert.equal(distBundles.length, EXPECTED_BUNDLE_COUNT, 'dist bundle count');
 const relativeBundles = publicBundles.map((file) => path.relative(publicPacked, file));
 assert.deepEqual(distBundles.map((file) => path.relative(distPacked, file)), relativeBundles, 'bundle paths');
+let packedEntryCount = 0;
 for (const relativePath of relativeBundles) {
-  assertSameFile(path.join(publicPacked, relativePath), path.join(distPacked, relativePath), `generated-packed/${relativePath}`);
+  const routeParts = relativePath.split(path.sep);
+  assert.equal(routeParts.length, 2, `bundle route depth: ${relativePath}`);
+  const [bundleCategory, bundleFilename] = routeParts;
+  const publicBundle = path.join(publicPacked, relativePath);
+  assertSameFile(publicBundle, path.join(distPacked, relativePath), `generated-packed/${relativePath}`);
+  const packed = JSON.parse(fs.readFileSync(publicBundle, 'utf8'));
+  assert.ok(packed && typeof packed === 'object' && !Array.isArray(packed), `bundle object: ${relativePath}`);
+  for (const [articleId, article] of Object.entries(packed)) {
+    assert.equal(article?.articleId, articleId, `bundle key/articleId: ${relativePath}#${articleId}`);
+    const articleIdParts = articleId.split('.');
+    assert.equal(articleIdParts.length, 8, `bundle articleId shape: ${relativePath}#${articleId}`);
+    assert.equal(articleIdParts[0], bundleCategory, `bundle article category: ${relativePath}#${articleId}`);
+    assert.equal(`${articleIdParts.slice(4).join('.')}.json`, bundleFilename, `bundle article route: ${relativePath}#${articleId}`);
+    assert.equal(remainingArticleIds.delete(articleId), true, `unknown or duplicate packed articleId: ${articleId}`);
+    packedEntryCount += 1;
+  }
 }
+assert.equal(packedEntryCount, EXPECTED_ARTICLE_COUNT, 'packed article count');
+assert.equal(remainingArticleIds.size, 0, `packed articles missing: ${Array.from(remainingArticleIds).slice(0, 5).join(', ')}`);
 
 const wasmCandidates = listFiles(path.join(DIST, 'assets'), (file) => /^sql-wasm-1\.14\.1.*\.wasm$/u.test(path.basename(file)));
 assert.equal(wasmCandidates.length, 1, 'one bundled sql.js WASM asset');
