@@ -996,8 +996,8 @@ matchedPillars 없음. shinsalHits 항목 키셋은 단일: {type, position, gra
   exact default-diff 승인, exact commit 전문가 signoff를 충족하지 않으므로
   “전문가급 상용 사주엔진 인증”이나 PR WIP 해제의 단독 근거가 아니다.
 - PR #653의 freeze 누적 범위 `6fb2f68a4` 기준 134커밋·418파일과 후속 backend 체크포인트는
-  #654~#676의 23개 Draft base/head 스택으로 분할한다. Stack 23 정합 커밋까지
-  main..Stack23은 157커밋이고 frontend source diff는 0이다.
+  #654~#678의 25개 Draft base/head 스택으로 분할한다. Stack 25까지
+  main..Stack25는 159커밋이고 frontend source diff는 0이다.
 - Stack23은 선택 후보와 전체 투간 품질 증거를 분리해 내부 모순을 해소하지만, 결정론적
   5,133건 표본 중 126건의 snapshot-invisible 품질 변화를 확인했다. 인구 가중 발생률은 아니며
   영향·권위 검토 P1을 global registry에 open으로 유지한다. exact diff 0에서도 gate는 non-zero다.
@@ -1045,3 +1045,25 @@ matchedPillars 없음. shinsalHits 항목 키셋은 단일: {type, position, gra
 전체 17-fixture snapshot과 40개 이상 명령의 full release chain은 로컬 장시간 실행을
 반복하지 않았다. fix-01·16·17 표본과 개별 계약·타입·빌드·산출물 검증을 사용했고,
 full chain은 원격 CI에서 시간 제한과 로그를 가진 상태로 완주해야 한다.
+
+---
+
+## 부록 G. 2026-07-14 Stack 24~25 공개 입력·identity 계약
+
+이 부록은 Spring `e38b5512f`와 Seed `d0b367581`의 공개 경계 하드닝을 기록한다.
+두 커밋은 backend-only이며 사주 판정 계수·격국·강약·용신 기본값을 바꾸지 않는다.
+
+| 재감사 항목 | 결과 | 검증·한계 |
+|---|---|---|
+| 성씨 권위와 이름 identity | request role로 `is_surname`을 덮어쓰지 않고 repository의 surname-eligible exact pair만 인정한다. Hanja 생략 시 임의 첫 행 선택을 제거하고 모호한 성씨는 명시 입력을 요구한다. | resolver/lifecycle/Hanja pool 회귀 통과. 일반 unrestricted 생성 풀의 `is_surname` 배제는 기본 후보 집합을 바꿀 수 있어 별도 default-change 검토로 격리한다. |
+| Spring public input | surname 1~2자, given name 1~4자, mode/options, 부분 제약, bounded Hanja, pure-Hangul/PUA, Fortune targetDate를 repository init 전에 검증한다. | typecheck·bridge, compat 208/208, Fortune 18/18, name-stat, candidate pagination 11/11, package boundary 2/2 통과. 오류는 raw 이름·날짜·cause를 보존하지 않는다. |
+| Seed repository query | 문자열·enum·수치·limit·범위를 SQL 준비 전에 공통 validator로 거부하고 안정 오류 코드 `REPOSITORY_QUERY_INVALID`를 사용한다. | Seed 전체 계약, 16 DB manifest/integrity, WASM, runtime URL, lifecycle 41/41, 실제 npm package 5/5 통과. |
+| Seed 계산 입력·오류 privacy | Energy singleton/shape, score 입력, 이름·의미·keyword의 bounded code-point 계약을 fail-closed로 고정하고 dynamic user key를 오류 path에서 제거한다. | 유효 Energy 11,110개 시퀀스 digest `3225b6690600407ba4e0da6789678e325c5bec5262f7404a49f4e6ff006dcda5` 불변. public error에는 bounded `receivedSummary`만 남긴다. |
+| 기본 출력 회귀 | Stack 25 exact tip에서 Spring baseline 17/17과 NameSpring compat 208/208이 통과한다. | 부록 E의 3/3 표본·17개 미완 기록은 이 후속 exact-tip 검증으로 보완됐다. 이는 회귀 부재의 증거이지 외부 명리 권위 인증이 아니다. |
+
+### Ready 판단
+
+1. Stack 24·25 자체의 독립 정적 검토는 P0=0, P1=0이고 로컬 계약·통합 회귀도 통과했다.
+2. 그러나 연속 스택은 선행 PR이 merge된 뒤에만 다음 PR의 실제 main-relative diff를 승인할 수 있다.
+3. 첫 PR #654의 exact default diff 승인, Stack 18/23의 명리·영향 P1, 실제 Actions 성공, D1~D5 authority와 외부 전문가 signoff가 남아 있으므로 현재 Ready PR은 0개다.
+4. 따라서 #654~#678은 모두 Draft로 유지하며, 후속 guardrail의 초록 테스트를 선행 판정 승인의 대체물로 사용하지 않는다.
