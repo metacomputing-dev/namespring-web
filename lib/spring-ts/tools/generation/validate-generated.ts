@@ -136,6 +136,14 @@ export function validateGenerated(a: GeneratedArticle, c: GenerationCase): { ok:
   //    phrases, generic frames (docs/PLAN_PR1_GENERATED_TEXT_QUALITY.md §4) --
   for (const violation of validatePlainTextQuality(a)) v.push(`${violation.rule}: ${violation.detail}`);
 
+  // -- deadline safety: a paid service must not advise deferring/ignoring a REAL
+  //    deadline on the strength of fortune ("마감은 기한만 확인하고 손 떼기" /
+  //    "마감을 넉넉히 미뤄"). Safe low-band advice shrinks scope or does the
+  //    minimum required part — it does not tell the reader to skip obligations.
+  const plainSafety = [a.summary, ...a.body, ...a.livingTips, ...a.cautions].join('\n');
+  const DEADLINE_UNSAFE = /기한만 확인[^.!?]{0,25}(손\s?대지 않|손\s?떼|안 건드|건드리지 않|보지)|마감[^.!?]{0,15}(넉넉히 미|미뤄 두|미뤄서|뒤로 미|덮어)/u;
+  if (DEADLINE_UNSAFE.test(plainSafety)) v.push('마감 방치 조언(안전 위반)');
+
   // -- medical / minor --
   const all = [a.summary, a.hook ?? '', ...a.body, ...a.expert, ...a.livingTips, ...a.cautions].join('\n');
   if (all.includes('검진')) v.push('medical 검진');

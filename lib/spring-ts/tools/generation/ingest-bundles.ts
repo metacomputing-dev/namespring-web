@@ -23,9 +23,12 @@ import { fileURLToPath } from 'node:url';
 import type { GenerationCase } from './case-schema.js';
 import { validateGenerated, type GeneratedArticle } from './validate-generated.js';
 import {
+  bandKeyOf,
   bundleDiversityViolations,
+  bundleKeyFromCaseId,
   crossBundleDuplicateViolations,
   paragraphKey,
+  shingleSet,
   type BundleArticleLike,
   type CrossBundleIndex,
 } from './text-quality-rules.js';
@@ -65,24 +68,54 @@ function savedRegenSiblings(manifest: Map<string, GenerationCase>, bundleKey: st
   return out;
 }
 
-/** Paragraph index over every regen- article in a category (cross-bundle). */
-function buildCrossBundleIndex(category: string): { paragraphs: Map<string, string> } {
-  const paragraphs = new Map<string, string>();
+interface MutableCrossIndex {
+  paragraphs: Map<string, string>;
+  tips: Map<string, Set<string>>;
+  cautions: Map<string, Set<string>>;
+  bandBodies: Map<string, Array<{ caseId: string; sh: Set<string> }>>;
+}
+function emptyCrossIndex(): MutableCrossIndex {
+  return { paragraphs: new Map(), tips: new Map(), cautions: new Map(), bandBodies: new Map() };
+}
+/** Index one article's paragraphs/tips/cautions/body-shingles for cross-bundle checks. */
+function addToCross(idx: MutableCrossIndex, caseId: string, a: { body?: string[]; expert?: string[]; livingTips?: string[]; cautions?: string[] }): void {
+  const bundleKey = bundleKeyFromCaseId(caseId);
+  for (const p of [...(a.body ?? []), ...(a.expert ?? [])]) {
+    const k = paragraphKey(p);
+    if (k.length >= 20 && !idx.paragraphs.has(k)) idx.paragraphs.set(k, caseId);
+  }
+  for (const t of a.livingTips ?? []) {
+    const k = t.replace(/\s+/gu, ' ').trim();
+    if (k.length < 6) continue;
+    (idx.tips.get(k) ?? idx.tips.set(k, new Set()).get(k)!).add(bundleKey);
+  }
+  for (const c of a.cautions ?? []) {
+    const k = c.replace(/\s+/gu, ' ').trim();
+    if (k.length < 8) continue;
+    (idx.cautions.get(k) ?? idx.cautions.set(k, new Set()).get(k)!).add(bundleKey);
+  }
+  if ((a.body ?? []).length) {
+    const bk = bandKeyOf(caseId);
+    const arr = idx.bandBodies.get(bk) ?? [];
+    arr.push({ caseId, sh: shingleSet((a.body ?? []).join(' ')) });
+    idx.bandBodies.set(bk, arr);
+  }
+}
+/** Cross-bundle index over every regen- article in a category. */
+function buildCrossBundleIndex(category: string): MutableCrossIndex {
+  const idx = emptyCrossIndex();
   const dir = path.join(OUT_DIR, category);
-  if (!fs.existsSync(dir)) return { paragraphs };
+  if (!fs.existsSync(dir)) return idx;
   for (const f of fs.readdirSync(dir).filter((n) => n.endsWith('.json'))) {
     try {
       const a = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf-8')) as {
-        articleId?: string; sourceNote?: string; body?: string[]; expert?: string[];
+        articleId?: string; sourceNote?: string; body?: string[]; expert?: string[]; livingTips?: string[]; cautions?: string[];
       };
       if (typeof a.sourceNote !== 'string' || !a.sourceNote.startsWith('regen-')) continue;
-      for (const p of [...(a.body ?? []), ...(a.expert ?? [])]) {
-        const key = paragraphKey(p);
-        if (key.length >= 20 && !paragraphs.has(key)) paragraphs.set(key, a.articleId ?? f);
-      }
+      addToCross(idx, a.articleId ?? f, a);
     } catch { /* unreadable → skip */ }
   }
-  return { paragraphs };
+  return idx;
 }
 
 function toStored(c: GenerationCase, g: GeneratedArticle, sourceNote: string): Record<string, unknown> {
@@ -113,7 +146,7 @@ function main(): void {
   const manifest = loadManifest();
   let ok = 0; let rejectedCount = 0;
   const rerunKeys = new Set<string>();
-  const crossByCategory = new Map<string, { paragraphs: Map<string, string> }>();
+  const crossByCategory = new Map<string, MutableCrossIndex>();
 
   for (const bundle of parsed.results ?? []) {
     const rejected: Array<{ caseId: string; reasons: string[] }> = [];
@@ -182,10 +215,7 @@ function main(): void {
         fs.writeFileSync(path.join(dir, `${c.caseId}.json`), JSON.stringify(toStored(c, g, sourceNote), null, 2), 'utf-8');
       }
       ok += 1;
-      for (const p of [...g.body, ...g.expert]) {
-        const key = paragraphKey(p);
-        if (key.length >= 20 && !cross.paragraphs.has(key)) cross.paragraphs.set(key, c.caseId);
-      }
+      addToCross(cross, c.caseId, g);
     }
 
     // coverage: caseIds the agent never returned

@@ -253,9 +253,41 @@ export function paragraphKey(paragraph: string): string {
   return maskSlots(normalizeSpaces(paragraph));
 }
 
+/** period·band key from a caseId like `academic.today.adult.high.balanced…`. */
+export function bandKeyOf(caseId: string): string {
+  const p = caseId.split('.');
+  return `${p[1] ?? ''}.${p[3] ?? ''}`;
+}
+/** bundle (person) key from a caseId — drop period(1) and band(3). */
+export function bundleKeyFromCaseId(caseId: string): string {
+  const p = caseId.split('.');
+  return [p[0], p[2], p[4], p[5], p[6], p[7]].filter((x) => x !== undefined).join('.');
+}
+/** char-shingle set for fuzzy near-duplicate detection (exact-match misses 95%
+ *  similar cards that differ only by a word — e.g. "것은"↔"건"). */
+export function shingleSet(text: string, k = 5): Set<string> {
+  const t = maskSlots(normalizeSpaces(text)).replace(/[\s.,!?…·—''""()\-]/gu, '');
+  const s = new Set<string>();
+  for (let i = 0; i + k <= t.length; i += 1) s.add(t.slice(i, i + k));
+  return s;
+}
+function jaccard(a: ReadonlySet<string>, b: ReadonlySet<string>): number {
+  if (a.size === 0 || b.size === 0) return 0;
+  let inter = 0;
+  for (const x of a) if (b.has(x)) inter += 1;
+  return inter / (a.size + b.size - inter);
+}
+const NEAR_DUP_THRESHOLD = 0.82;
+
 export interface CrossBundleIndex {
   /** paragraphKey → first owning caseId (regen articles already on disk). */
   readonly paragraphs: ReadonlyMap<string, string>;
+  /** normalized livingTip → the bundle keys using it (over-reuse across bundles). */
+  readonly tips?: ReadonlyMap<string, ReadonlySet<string>>;
+  /** normalized caution → the bundle keys using it. */
+  readonly cautions?: ReadonlyMap<string, ReadonlySet<string>>;
+  /** period·band → [{caseId, body shingles}] for fuzzy near-dup across 격국. */
+  readonly bandBodies?: ReadonlyMap<string, ReadonlyArray<{ caseId: string; sh: ReadonlySet<string> }>>;
 }
 
 export function crossBundleDuplicateViolations(
@@ -263,17 +295,41 @@ export function crossBundleDuplicateViolations(
   index: CrossBundleIndex,
 ): readonly TextQualityViolation[] {
   const violations: TextQualityViolation[] = [];
+  const self = article.caseId ?? article.articleId ?? '';
+  // exact body/expert paragraph reuse across bundles
   for (const p of [...(article.body ?? []), ...(article.expert ?? [])]) {
     const key = paragraphKey(p);
     if (key.length < 20) continue;
     const owner = index.paragraphs.get(key);
-    if (owner && owner !== (article.caseId ?? article.articleId)) {
-      violations.push({
-        rule: 'cross-bundle-duplicate-paragraph',
-        detail: `"${key.slice(0, 40)}…" already in ${owner}`,
-        articleId: article.caseId ?? article.articleId,
-        caseIds: [owner],
-      });
+    if (owner && owner !== self) {
+      violations.push({ rule: 'cross-bundle-duplicate-paragraph', detail: `"${key.slice(0, 40)}…" already in ${owner}`, articleId: self, caseIds: [owner] });
+    }
+  }
+  // over-reused tip: an identical tip already used by ≥2 OTHER bundles (this
+  //  makes it the 3rd+). Some overlap is fine; global uniqueness is infeasible.
+  const selfBundle = bundleKeyFromCaseId(self);
+  for (const t of article.livingTips ?? []) {
+    const key = normalizeSpaces(t);
+    if (key.length < 6) continue;
+    const others = [...(index.tips?.get(key) ?? [])].filter((b) => b !== selfBundle);
+    if (others.length >= 2) violations.push({ rule: 'cross-bundle-overused-tip', detail: `"${key.slice(0, 28)}…" in ${others.length + 1}+ bundles`, articleId: self, caseIds: others.slice(0, 2) });
+  }
+  for (const c of article.cautions ?? []) {
+    const key = normalizeSpaces(c);
+    if (key.length < 8) continue;
+    const others = [...(index.cautions?.get(key) ?? [])].filter((b) => b !== selfBundle);
+    if (others.length >= 2) violations.push({ rule: 'cross-bundle-overused-caution', detail: `"${key.slice(0, 28)}…" in ${others.length + 1}+ bundles`, articleId: self, caseIds: others.slice(0, 2) });
+  }
+  // fuzzy near-duplicate body vs another 격국's same period·band card
+  if (index.bandBodies && self && (article.body ?? []).length) {
+    const sh = shingleSet((article.body ?? []).join(' '));
+    for (const other of index.bandBodies.get(bandKeyOf(self)) ?? []) {
+      if (other.caseId === self) continue;
+      const sim = jaccard(sh, other.sh);
+      if (sim >= NEAR_DUP_THRESHOLD) {
+        violations.push({ rule: 'cross-bundle-near-duplicate', detail: `body ${Math.round(sim * 100)}% ~ ${other.caseId}`, articleId: self, caseIds: [other.caseId] });
+        break;
+      }
     }
   }
   return violations;
@@ -378,5 +434,33 @@ export function bundleDiversityViolations(
     }
   }
 
+  // 5) decorative-motif overuse: one non-core word dominating the whole bundle's
+  //    plain text (a single scene domain crowding out the reading — measured
+  //    "좋아하는"×79, "책상"×37 when a bundle was pinned to one material palette).
+  const plain = maskSlots(articles.map((a) => [a.summary, ...(a.body ?? []), ...(a.livingTips ?? [])].join(' ')).join(' '));
+  const wordCount = new Map<string, number>();
+  for (const m of plain.matchAll(/[가-힣]{2,5}/gu)) {
+    const w = m[0];
+    if (MOTIF_STOPWORDS.has(w)) continue;
+    wordCount.set(w, (wordCount.get(w) ?? 0) + 1);
+  }
+  for (const [w, n] of wordCount) {
+    if (n > MOTIF_MAX_PER_BUNDLE) {
+      violations.push({ rule: 'bundle-motif-overuse', detail: `"${w}" ${n}× (>${MOTIF_MAX_PER_BUNDLE})`, caseIds: articles.map((a) => a.caseId) });
+    }
+  }
+
   return violations;
 }
+
+const MOTIF_MAX_PER_BUNDLE = 30;
+// study-core + function words that legitimately recur across 15 cards; only a
+// non-core word exceeding the cap signals a decorative motif dominating.
+const MOTIF_STOPWORDS: ReadonlySet<string> = new Set([
+  '오늘', '이번', '올해', '하루', '한번', '공부', '과목', '문제', '자료', '시간', '범위', '대목',
+  '정리', '복습', '진도', '계획', '마감', '강의', '시험', '기출', '제출', '노트', '필기', '방식',
+  '기운', '이름', '자리', '구조', '배치', '정도', '생각', '으로', '에서', '있어', '없어', '정해',
+  '조금', '바로', '다시', '오래', '편이', '때문', '만큼', '수록', '에는', '이라', '처럼', '같은',
+  '하고', '해서', '되는', '같이', '한쪽', '한다', '한다면', '두면', '두고', '보면', '주는', '주면',
+  '기복', '균형', '무난', '안정', '흐름', '리듬', '페이스', '한 편', '요일', '단원', '개념',
+]);
