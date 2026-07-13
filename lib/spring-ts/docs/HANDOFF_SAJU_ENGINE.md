@@ -6,7 +6,7 @@
 >
 > **2026-07-11 continuation override:** 이 문서의 PR-1~4 수치는 역사 기록이다.
 > 현재 착수점은 `ROADMAP_SAJU_ENGINE.md`의 2026-07-11 merge-readiness 블록과
-> `GUIDE_SAJU_ENGINE_IMPL.md` §0.5다. PR #653은 Draft, RPI는 20/100,
+> `GUIDE_SAJU_ENGINE_IMPL.md` §0.5다. 누적 PR #653은 닫혔고 대체 PR #654~#675는 모두 Draft다. RPI는 20/100,
 > D1~D4는 truth-insufficient N/A, D5 accuracy는 14 N/A + 3 NOT_APPLICABLE다.
 > 권위 scope와 panel evidence 계약을 완화하거나 snapshot을 truth로 승격하지 말 것.
 > D1은 doctrine 3필드+naming 4필드 전체가 있어야 하며, T4는 URL-only 승격을 금지하고
@@ -150,10 +150,11 @@ cd lib/spring-ts && npx tsx tmp/probe-optin-naeum-palace.ts
 - F1은 `0416c3daa`에서 코드 수정 완료 후 검토 대기이고 F4/F7은 별도 대기다. 이 dossier는 해당 영역을 재분석하지 않고 인벤토리에만 수록한다. [캘리브] 태그 수치는 명리적 승인 상태가 아니며 authority holdout 전 변경 금지.
 ## I. 2026-07-13 스택 검증 보완과 Stack 22
 
-- PR #654의 63개 후보 점수 상승은 await 계측기 수정이 아니라 `79042afdc`의 추천 타입 `JOHU→EOKBU` 정정과 Spring 가중치 `0.95→1.0`의 파급이다. 14픽스처·63 leaf(+0.1 38, +0.2 20, +0.3 5), 후보 이름·순서 불변이며 독립 승인은 아직 pending이다. 정본은 `docs/dossiers/default-change-stack01-2026-07-13/`.
+- PR #654의 63개 후보 점수 상승은 await 계측기 수정이 아니라 `79042afdc`의 추천 타입 `JOHU→EOKBU` 정정 파급이다. Spring 타입 가중 계수 `0.95→1.0`뿐 아니라 JOHU는 contextual이고 EOKBU는 비contextual인 현재 정책 때문에 contextual priority와 adaptive balance↔yongshin 배분도 함께 변한다. 이 계수·분류는 authority calibration이 끝난 정설이 아니라 provisional 제품 정책이다. 14픽스처·63 leaf(+0.1 38, +0.2 20, +0.3 5), 후보 이름·순서 불변이며 표기 승인과 점수정책 승인을 분리해 받아야 한다. 정본은 `docs/dossiers/default-change-stack01-2026-07-13/`.
 - Stack 18 0416c3daa의 F1 수정은 5픽스처·8 leaf(sha256:6018d66d…) 기본변화와 후보 snapshot 9건(sha256:b05f310…)을 낳았다. Stack 22가 exact snapshot diff와 pending dossier를 Git에 고정하지만 명리 승인은 아직 없다.
+- 후속 반박검토에서 Stack 18의 별도 P1 두 건을 확인했다. 토 일간 잡기월 가운데 본기가 BI_GYEON인 4조합(戊辰·戊戌·己丑·己未)의 구조격 자동 승격은 strict 자평과 분리할 명시 정책/권위 승인이 필요하고, 선택 제외된 비겁 투간 증거까지 purity/mixed 품질에서 지워 `QING`과 `겁재 투출 파격`이 공존하는 모순은 코드 수정이 필요하다. 기존 5/8 및 후보 9건 승인에 묻지 않는다.
 - Stack 22는 후속 검증에서 발견한 계약·정직성 부채를 닫는다: source-compatible optional boundaryTermId와 null 보존·잘못된 타입 fail-closed, 12운성 12개 T1/AI/non-authority provenance, 신살 category/name override parser의 잘못된 타입 fail-closed, 대운 정확 2일 반올림 안정화, 비기본 palace/naeum·강약·INDEPENDENT characterization.
 - boundaryTermId와 12운성 provenance는 기존 구조 스냅샷이 포착하지 않는 additive output change다. 정확 2일 대운수 반올림은 경계 입력에만 보이는 default change이며 PR 본문에서 snapshot-invisible output change로 공개한다.
 - Claude 병렬 사전검증: PR #668은 계산 base≡tip이나 당시 좌표 coercion P1 때문에 CONDITIONAL PASS. 해당 입력 검증은 Stack 16의 `0e91b8ec9`에서 이미 strict number/range로 보완됐고 Stack 22가 JS 비타입 회귀를 추가한다. PR #673과 #674는 각각 코드·문서 검증 PASS(P0/P1 0, 비차단 P2 각 6건)이나 선행 스택 순서 때문에 자동 Ready 전환하지 않는다.
-- PR #673은 Seed `npm ci`를 CI에 추가해 PR #668 시점의 선재 `sql.js` 설치 위험을 해소한다. 실제 Actions 성공 이력은 결제 잠금·OAuth workflow scope가 풀리기 전까지 미확보다.
-- 운영 원칙: 기존 #654~#674를 재작성하지 않고 Stack 22를 마지막 필수 보완 PR로 둔다. 모든 Draft는 선행 스택 검증과 사용자 사전 확인 없이 Ready/merge하지 않는다.
+- PR #673은 Seed `npm ci`를 CI에 추가해 PR #668 시점의 선재 `sql.js` 설치 위험을 해소한다. Stack 22의 Actions run `29227222364`는 생성됐지만 account billing lock 때문에 `Engine regression` job이 step 0개로 시작되지 않았고 expert job은 skipped였다. 따라서 실제 CI 성공 이력은 아직 없다.
+- 운영 원칙: #654~#675를 재작성하지 않는다. 22개 base/head 스택의 154커밋은 main..Stack22와 누락·중복 0이며 frontend source diff도 0이다. 모든 Draft는 선행 스택 검증과 사용자 사전 확인 없이 Ready/merge하지 않는다.

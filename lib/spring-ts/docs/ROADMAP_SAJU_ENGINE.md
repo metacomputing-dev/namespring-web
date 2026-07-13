@@ -7,9 +7,10 @@
 > `HANDOFF_SAJU_ENGINE_PR8_20260709.md`(§6 다음 작업 후보)의 잔여 목록은 이 문서로 대체된다.
 > 개별 항목의 완료 이력·검증 수치는 여전히 두 핸드오프가 정본이다.
 >
-> 브랜치: `feature/saju-engine-integrity-audit` (P0-1 머지 전까지). 진행 상태는 §9 표에 커밋 해시와 함께 갱신한다.
+> 현재 리뷰 단위: 누적 PR #653을 대체한 Draft 스택 PR #654~#675. 진행 상태는 §9 표에 커밋 해시와 함께 갱신한다.
 >
-> **2026-07-11 merge-readiness 정정:** PR #653은 현재 Draft로 유지한다. 현재
+> **2026-07-13 merge-readiness 정정:** 누적 PR #653은 닫혔고 대체 PR #654~#675는 모두 Draft다.
+> 현재
 > source-tier/no-AI/quality 정책 테스트와 구조 게이트는 통과하지만, 17개 release fixture의
 > `D1~D4=N/A`, `D5=0 PASS / 0 FAIL / 14 N/A / 3 NOT_APPLICABLE`, raw RPI
 > `20/100`이다. 이는 실패 17건이 아니라 진리값 부족 17건이다. D1 필수 7필드의
@@ -153,7 +154,7 @@
 
 | # | 항목 | 내용 | 완료 기준 |
 |---|---|---|---|
-| P0-1 | Draft PR 유지 + review 준비 | PR #653은 열려 있으나 release gate가 전부 PASS할 때까지 Draft 유지. composite 실패를 baseline 갱신으로 숨기지 않는다 | PR URL·gate 상태 §9 기록 |
+| P0-1 | Draft 스택 유지 + review 준비 | PR #654~#675는 release gate가 전부 PASS할 때까지 Draft 유지. composite 실패를 baseline 갱신으로 숨기지 않는다 | 각 PR의 base/head·gate 상태 §9 기록 |
 | P0-2 | 테스트 체인 무결성 | saju-ts 전체 테스트와 spring-ts 핵심 엔진/오라클 테스트를 `test:saju-engine-release` 및 pull_request workflow에 연결하고, `typecheck:saju-bridge`로 패키지 사이 계약을 컴파일 타임에 확인하며, incomplete evidence와 미승인 exact diff를 fail-closed로 처리 | 체인 1회 완주 + CI required check 설정 |
 | P0-3 | baseline 픽스처 보강(구 과제 4) | `test/fixtures/spring_ts_baseline_cases.json`에 ① 시계 23:35~23:59 출생(정자시설 창 안) ② 음력 입력 각 1건 추가 → `npx tsx tools/baseline_snapshot.ts capture` 재캡처. **capture는 다른 엔진 세션이 없는 창에서만**(baseline 파일을 다시 씀). borderline 계열(fix-13~15)과 겹치지 않는 명식 선정 | verify 17/17, compat 208, 경계골든 723 무파급 |
 | P0-4 | 학파 프리셋 출처 무결성 | 존재하지 않는 `docs/schools/*.md`를 출처로 선언한 프리셋을 release에서 fail-closed로 차단 | `validate:school-sources` 0 missing + 독립 검토 메타데이터 |
@@ -270,13 +271,13 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 
 | 항목 | 상태 | 커밋 | 일자 | 파급 실측/비고 |
 |---|---|---|---|---|
-| P0-1 Draft PR | 🔶 WIP 유지 | PR #653 | 2026-07-11 | 권위 scope를 분리하고 D1 필수 7필드 미만 PASS, D5 안정성=정확도 과대계상, URL-only T4 승격, panel raw-array 세탁을 차단했다. T4는 Git 추적 page+quote transcript/SHA/realpath를 요구하고, 6개 Jonheom은 non-eligible이다. source-tier는 thin facade + 5개 모듈과 exact DAG/immutable guard로 분해했다. RPI 20/100이며 외부 전문가 signoff manifest도 없으므로 release-complete 실패와 Draft 유지가 정상이다. |
-| P0-2 테스트 체인 무결성 | 🔶 로컬 CI 계약·산출물 통과 / 원격 CI 대기 | 8a63450a2, fe68bfd04 | 2026-07-13 | 회귀 job과 상용 권위 `expert-readiness` job을 분리했다. 회귀는 Seed 전체 계약, saju-ts 검증, Spring release regression, generated pack, Vite Pages build, 404 fallback, 배포 자산 무결성을 실행한다. expert job은 school source·종격 authority·exact default diff·release/composite gate를 fail-closed로 유지한다. 로컬 통합에서 21,060 article→1,116 bundle, `/ci/`·`/namespring-web/` 빌드, 16 DB·pinned WASM·base-aware URL과 source↔bundle article ID·category·route exact-set 검증이 통과했다. 다만 원격 Actions는 아직 push 전이고 기존 billing 잠금도 재확인하지 못했으므로 CI 완료로 표기하지 않는다. 외부 signoff와 exact-diff 승인 전 expert job의 red는 정상이다. |
+| P0-1 Draft PR | 🔶 22개 스택 모두 Draft | PR #654~#675 | 2026-07-13 | 닫힌 누적 PR #653의 134커밋과 후속 backend 체크포인트를 22개 base/head 스택으로 분리했다. main..Stack22 154커밋과 스택 합집합은 누락·중복 0이고 frontend source diff도 0이다. Stack 01 63 leaf, Stack 18 기본 5픽스처·8 leaf 및 후보 9건은 독립 명리 승인 pending이며, Stack 18 후속 반박검토의 잡기월 구조격 정책·품질 증거 필터링 P1도 남아 있다. 외부 전문가 signoff와 authority gate가 없으므로 Draft 유지가 정상이다. |
+| P0-2 테스트 체인 무결성 | 🔶 로컬 회귀 통과 / 원격 job 미시작 | 8a63450a2, fe68bfd04, 389c0e1f2 | 2026-07-13 | 회귀 job과 `expert-readiness` job을 분리했고 로컬에서 saju-ts 480/480, Spring snapshot 17/17, 후보 snapshot 261/261, Pages·DB·WASM exact-set 계약을 통과했다. GitHub Actions run `29227222364`는 실제 생성됐지만 account billing lock 주석과 함께 `Engine regression`이 step 0개로 시작되지 않았고 expert job은 skipped였다. 이는 테스트 실패가 아니라 계정 차단이며 실제 CI 성공 증거도 아니다. billing lock 해소 후 동일 head에서 재실행해야 한다. 외부 signoff와 exact-diff 승인 전 expert job의 red는 정상이다. |
 | P0-4 학파 출처 무결성 | 🔶 저작 완료·독립 검토 대기 | 49a785cfa | 2026-07-10 | 누락 10개 출처 문서(docs/11·16·17·18·19·20·22·25·26·27) 전부 저작 — 교리 요약·고전 서지·엔진 매핑(file:line 검증)·검토자 체크리스트 포함, 헤더에 독립 검토 대기 명시. `validate:school-sources` FAIL(23)→PASS(18 프리셋), test:release-tools PASS. 게이트 완결 조건인 독립 검토 메타데이터는 검토 후 기록 |
 | P0-5 호환 계층 분해 | 🔶 부분 완료 | pending | 2026-07-10 | follow potential·strength component·bridge contract·운 관계 계산 중복을 분리/삭제. 대형 adapter와 legacy seam의 mapper 단위 분리는 후속 |
 | backend 런타임·데이터 경계 | ✅ 코드 체크포인트 / 🔶 release 검토 대기 | 352a1303c | 2026-07-12 | `3f08b2754..352a1303c`: legacy fortune mapper 분리, 이름 identity fail-closed, Seed 점수정책·입력 계약, Hanja 질의 결정성, Spring operation lease와 16개 DB asset verifier를 추가했다. Hanja/Fourframe뿐 아니라 NameStat도 선택된 shard의 byteLength·SHA를 검증한 동일 snapshot을 열고 userVersion·전체 schema·row count 통과 후에만 publish한다. NameStat 원본 19초성과 14-shard routing을 분리하고 실제 50,194행을 전수 고정했으며, 진행 중 shard fetch/body는 repository close 시 abort하고 signal을 무시하는 custom transport도 호출자 관점에서 즉시 취소한다(`0af887ad3`). sql.js JS/WASM은 1.14.1로 정확히 맞추고 package-relative WASM·MIT notice·byteLength·SHA 계약을 함께 배포하며 CDN fallback을 제거했다(`352a1303c`). 최종 Seed/Spring typecheck, test typecheck, 자산 3/3, lifecycle 35/35, 실제 npm tarball 설치 스모크 5/5, package boundary 2/2가 통과했다. Vite production build의 최종 자산 방출·모바일 peak memory 실측, 원본 통계 JSON provenance, same-element `-5` 전문가 검토는 후속이다. 이 행은 구조·무결성 guardrail이며 격국·강약·용신 권위 인증이 아니다. |
 | 글로벌·역사 시간정책 | ✅ backend 체크포인트 / 🔶 상용 claim 검토 대기 | 0e91b8ec9 | 2026-07-12 | Spring 기본을 civil-offset 자오선으로 정합화하고, legacy 135°/120°는 지역 호환 opt-in으로 분리했다. 물리 경도 비변조, 위치 tuple·충돌 fail-closed, IANA gap/fold·분 미상 전환 거부, 런타임 tzdb canary, 1~99년 literal-year UTC를 구현했다. modern Chinese preset·역사/DST·해외·부분입력은 의도적 default/API 변화다. 글로벌 geocoder·좌표/timezone 지리 검증·전 세계 역사 tzdb 인증·외부 권위 검토는 미완이다. |
-| PR #653 리뷰 범위 | 🔶 분할 전 Draft 유지 | 6fb2f68a4 | 2026-07-12 | freeze `origin/main...6fb2f68a4`는 134커밋·418파일이며 frontend diff는 0이다. 읽기 전용 이력·merge-tree 감사는 커밋 재작성 없이 연속 prefix 스택 17개(운영 축소안 14개)를 권고했다. 이번 NameStat 체크포인트는 freeze 이후 별도 브랜치에 있으며, 분할 방식 확정 전 누적 PR에 섞지 않는다. 누적 PR 자체는 리뷰 가능 크기가 아니다. |
+| PR #653 리뷰 범위(역사 기록) | ✅ 22개 Draft 스택으로 대체·종료 | 6fb2f68a4 | 2026-07-12~13 | freeze `origin/main...6fb2f68a4`의 134커밋·418파일과 후속 backend 체크포인트를 커밋 재작성 없이 #654~#675에 배치했다. main..Stack22 154커밋과 스택 합집합은 누락·중복 0이고 frontend source diff도 0이다. 누적 PR 자체는 닫혔다. |
 | P0-3 baseline 픽스처 보강 | ✅ | 75c3cdef5 | 2026-07-09 | 17/17(야자시 창 fix-16 + 음력 윤달 fix-17). 픽스처 수 하드코딩 2곳 동적화(baseline-metrics·quality-gate) |
 | 9-1 운-원국 관계 | ✅ | 8c310a014 | 2026-07-09 | canonical fortune.relations node; springLegacy relationsWithNatal; adapter/report evidence. Natal-only relations and scoring unchanged. Verified: saju-ts 202/0, baseline 17/0, compat 208/0, tiered-shape 1378/0, service-visible 13/0, adapter-daewoon 24/0, transit-luck-report 12/0 |
 | 9-2 대운↔세운 | ✅ | ade45f9c0 | 2026-07-09 | decade-year fortune relations in fortune.relations.decadeYears; saeun relationsWithDecade; yearly report evidence. Pre-start years omitted; natal scoring unchanged. Verified: saju-ts 204/0, baseline 17/0, compat 208/0, tiered-shape 1378/0, service-visible 13/0, adapter-daewoon 25/0, transit-luck-report 13/0 |
@@ -334,4 +335,4 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 - 응답에 원 요청 객체를 그대로 반영하는 기존 표면의 PII 최소화는 API 호환성 검토가 필요한 별도 후속이다.
 - Vite production build의 Seed WASM 최종 방출 URL·브라우저 로딩·모바일 peak memory 스모크는 아직 완료되지 않았다.
 - 전체 baseline 장시간 원인은 17개 fixture 각각에서 후보 생성·DB 조회·사주·리포트를 직렬 반복하는 검증 구조다. correctness 변경과 분리해 profiler로 병목을 계측하고, 독립 fixture 병렬화 또는 빠른 smoke/full suite 이원화를 검토한다.
-- `codex/namestat-integrity`는 아직 원격에 push하지 않았다. frontend 변경은 0이며, PR #653에 섞기 전에 별도 리뷰 단위와 merge 순서를 확정한다.
+- `codex/namestat-integrity`는 원격에 push했고 통합 merge `022356934`를 통해 후속 Draft 스택에 포함했다. frontend 변경은 0이며, 스택 순서를 유지해 검증한다.

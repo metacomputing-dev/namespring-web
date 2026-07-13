@@ -21,8 +21,21 @@
   "cause": {
     "recommendationTypeBefore": "JOHU",
     "recommendationTypeAfter": "EOKBU",
-    "springTypeWeightBefore": 0.95,
-    "springTypeWeightAfter": 1.0
+    "springTypeWeightCoefficientBefore": 0.95,
+    "springTypeWeightCoefficientAfter": 1.0,
+    "contextualTypeBefore": true,
+    "contextualTypeAfter": false,
+    "scoringEffects": [
+      "recommendation_type_weight",
+      "contextual_priority",
+      "adaptive_balance_yongshin_weight_shift"
+    ],
+    "policyStatus": "provisional_product_tuning_not_authority_calibrated"
+  },
+  "reviewDimensions": {
+    "methodLabelContract": "pending",
+    "productScoringPolicy": "pending",
+    "exactOutputDiff": "pending"
   },
   "diff": {
     "fixtureCount": 14,

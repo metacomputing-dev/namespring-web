@@ -26,7 +26,7 @@
           "summary": "Machine-readable commit attribution, fixture counts, deltas, and pending fingerprint."
         }
       ],
-      "note": "Stack 01 exact candidate-score delta is attributed to 79042afdc (JOHU to EOKBU method correction), not the await repair. Independent approval is still required."
+      "note": "Stack 01 exact candidate-score delta is attributed to 79042afdc (JOHU to EOKBU method correction), not the await repair. Review must cover the 0.95-to-1.0 type-weight policy coefficient, contextual-priority removal, and adaptive balance/yongshin shift separately. Independent approval is still required."
     },
     {
       "fingerprint": "sha256:6018d66d34e3875e22cb8924f01221b41bfaa9adaa1c9993ff3ddadd809440a0",
@@ -45,7 +45,19 @@
           "summary": "Exact source attribution, snapshot diff, and linked nine-fixture candidate snapshot fingerprint."
         }
       ],
-      "note": "Stack 18 fixes day-master self-transparency and unsupported companion-frame promotion. Exact judgement changes and candidate snapshot remain independently unapproved."
+      "blockers": [
+        {
+          "id": "EARTH_MIXED_MONTH_STRUCTURAL_COMPATIBILITY",
+          "severity": "P1",
+          "status": "open"
+        },
+        {
+          "id": "QUALITY_EVIDENCE_FILTERING_CONTRADICTION",
+          "severity": "P1",
+          "status": "open"
+        }
+      ],
+      "note": "Stack 18 fixes day-master self-transparency and unsupported companion-frame promotion. Exact judgement changes and candidate snapshot remain independently unapproved. Approving this fingerprint does not resolve either open P1 blocker; Ready remains prohibited until both are closed and the release gate consumes this blocker list fail-closed."
     }
   ]
 }

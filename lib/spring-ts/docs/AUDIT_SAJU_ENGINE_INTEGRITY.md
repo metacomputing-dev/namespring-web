@@ -995,10 +995,10 @@ matchedPillars 없음. shinsalHits 항목 키셋은 단일: {type, position, gra
 - 이 후속 체크포인트들은 시간·위치·저장소 무결성 개선이다. 격국·강약·용신의 외부 권위 진리값,
   exact default-diff 승인, exact commit 전문가 signoff를 충족하지 않으므로
   “전문가급 상용 사주엔진 인증”이나 PR WIP 해제의 단독 근거가 아니다.
-- PR #653의 freeze 누적 범위는 `6fb2f68a4` 기준 134커밋·418파일이다. 회귀 통과 여부와
-  별개로 단일 리뷰 단위가 아니며, 연속 prefix 스택으로 분할하기 전에는 Draft를
-  유지한다. 분할 이후의 작은 default-neutral guardrail PR과 외부 명리 인증 gate는
-  서로 다른 리뷰 축으로 다뤄야 한다.
+- PR #653의 freeze 누적 범위 `6fb2f68a4` 기준 134커밋·418파일과 후속 backend 체크포인트는
+  #654~#675의 22개 Draft base/head 스택으로 분할됐다. main..Stack22 154커밋과 스택
+  합집합은 누락·중복 0이고 frontend source diff도 0이다. 작은 default-neutral guardrail과
+  외부 명리 인증 gate는 계속 서로 다른 리뷰 축으로 다룬다.
 
 ---
 
@@ -1021,7 +1021,7 @@ matchedPillars 없음. shinsalHits 항목 키셋은 단일: {type, position, gra
 2. 전체 baseline suite의 직렬 후보 생성 비용을 프로파일링하지 않았다. smoke 3축과 full 17축을 분리하고 full은 CI 전용으로 병렬화할 여지가 있다.
 3. Seed WASM의 package-relative Node 실행과 Vite production emitted asset·JS 참조는 확인했다. 실제 배포 뒤 브라우저 fetch와 모바일 메모리 상한은 미검증이다.
 4. 이 두 커밋은 backend-only이고 frontend diff는 없다. 외부 명리 전문가 signoff, default-change fingerprint 승인, authority D1-D5 gate가 완료되기 전에는 WIP 해제의 단독 근거로 사용할 수 없다.
-5. 원격 push와 PR #653 편입은 사용자 명시 승인 전까지 보류한다.
+5. 두 체크포인트는 승인된 원격 브랜치와 후속 Draft 스택에 포함됐다. 이는 Ready나 merge 승인이 아니며 스택 순서·외부 권위 gate를 계속 적용한다.
 
 ---
 
@@ -1037,7 +1037,7 @@ matchedPillars 없음. shinsalHits 항목 키셋은 단일: {type, position, gra
 | 공개 자산 URL | Vite `BASE_URL`을 애플리케이션 base로 우선해 BrowserRouter 직접 진입에서도 DB·generated pack URL이 저장소 하위 경로를 유지한다(`4a7387d67`). | 실제 Pages 배포 후 네트워크 fetch 스모크는 원격 push 뒤 확인한다. |
 | 재현 가능한 Pages 산출물 | 21,060 source article을 1,116 bundle로 pack하고 `/ci/`와 `/namespring-web/` base에서 Vite build 통과. 산출물은 1,142 files, 154.22 MiB다. | main JS 약 5.3 MiB 및 Node builtin externalization 경고는 P2 성능·브라우저 스모크 과제다. |
 | 배포 자산 계약 | `index.html=404.html`, 16 DB의 source↔dist byte/SHA, pinned sql.js 1.14.1 WASM 1개(659,730 bytes, canonical SHA), JS의 WASM·base-aware generated pack 참조, legacy CDN·`dist/saju-ts` 부재를 verifier가 확인한다. | source filename/articleId/category와 21,060개 bundle key/articleId·8-token·category·route를 destructive exact-set으로 대조하고, public↔dist byte/SHA 동일성까지 fail-closed로 고정했다(`fe68bfd04`). 정상 산출물과 key/articleId fault injection이 모두 기대대로 통과했다. |
-| CI 의미 분리 | `regression`은 구조·회귀·빌드, `expert-readiness`는 authority·provenance·exact-diff·signoff를 별도 fail-closed job으로 실행한다(`8a63450a2`). | GitHub Actions 원격 성공 이력은 아직 없고, 외부 전문가 signoff·default-change 승인이 없으므로 expert job red와 PR Draft 유지가 정상이다. |
+| CI 의미 분리 | `regression`은 구조·회귀·빌드, `expert-readiness`는 authority·provenance·exact-diff·signoff를 별도 fail-closed job으로 실행한다(`8a63450a2`). | Stack 22 run `29227222364`는 생성됐으나 account billing lock 때문에 regression job이 step 0개로 시작되지 않고 expert job도 skipped됐다. 원격 성공 이력은 아직 없으며, billing 해소 후 동일 head 재실행과 외부 signoff·default-change 승인이 필요하다. |
 
 전체 17-fixture snapshot과 40개 이상 명령의 full release chain은 로컬 장시간 실행을
 반복하지 않았다. fix-01·16·17 표본과 개별 계약·타입·빌드·산출물 검증을 사용했고,

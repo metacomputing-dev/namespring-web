@@ -39,5 +39,17 @@
     ],
     "baselineUpdated": true,
     "approvalScope": "same-expert-review"
-  }
+  },
+  "knownFollowupBlockers": [
+    {
+      "id": "EARTH_MIXED_MONTH_STRUCTURAL_COMPATIBILITY",
+      "severity": "P1",
+      "status": "requires_explicit_school_policy_or_authority_approval"
+    },
+    {
+      "id": "QUALITY_EVIDENCE_FILTERING_CONTRADICTION",
+      "severity": "P1",
+      "status": "requires_code_fix_and_exact_diff_review"
+    }
+  ]
 }

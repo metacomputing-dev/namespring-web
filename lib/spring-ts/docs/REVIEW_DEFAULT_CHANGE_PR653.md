@@ -26,7 +26,7 @@
 
 | 커밋 | 내용 | leaf 수 | 성격 |
 |---|---|---|---|
-| `3d65a56cf` | await 누락 수정 + 재캡처 carrier (PR-1) | 63 | **실제 원인 `79042afdc`** — 첫 추천 타입 JOHU→EOKBU 정정으로 방법 가중치 0.95→1.0. await-only 재현은 점수 무변. 상세는 `docs/dossiers/default-change-stack01-2026-07-13/` |
+| `3d65a56cf` | await 누락 수정 + 재캡처 carrier (PR-1) | 63 | **실제 원인 `79042afdc`** — 첫 추천 타입 JOHU→EOKBU 정정이 타입 가중 계수 0.95→1.0뿐 아니라 contextual priority와 adaptive balance↔yongshin 배분도 변경. await-only 재현은 점수 무변. 상세는 `docs/dossiers/default-change-stack01-2026-07-13/` |
 | `1f6090919` | 신강약 base → deLingDiShi(월지 가중) 전환 [감사 B7] | 32 | 판정 모델 기본화 (결정 ②) |
 | `32a740129` | 조후 개입 기본화 — climate 0.25 + 조후위급 게이트 [감사 B6·A2] | 104 | 판정 모델 기본화 (결정 ②) — 희신·별점·이름점수 파급 최대 축 |
 | `416c0d845` | 종격 게이트 — 리스크 신호 + 억부 확신 감쇠 [감사 B5] | 5 | 종격 리스크 명식의 confidence 감쇠 |
@@ -114,7 +114,8 @@
 PR-1의 63개 `finalScore` 상승은 계측기 수정 때문이 아니다. 2026-07-13 재현에서
 `origin/main + await-only`와 `053b1f9ec + await-only`는 각각 저장 baseline과 `capturedAt` 외
 모든 leaf가 같았다. 실제 원인은 `79042afdc`가 첫 추천 타입을 JOHU에서 EOKBU로 바로잡아
-Spring 방법 가중치가 0.95→1.0으로 바뀐 것이다. 14픽스처에서 +0.1 38개, +0.2 20개,
+Spring 타입 가중 계수가 0.95→1.0으로 바뀌고, JOHU는 포함되지만 EOKBU는 제외된 `contextualTypes` 때문에
+contextual priority와 adaptive balance↔yongshin 배분까지 함께 바뀐 것이다. 14픽스처에서 +0.1 38개, +0.2 20개,
 +0.3 5개이며 후보 이름·순서는 불변이다. 이 변화는 표시 정직성 수정의 점수 파급이므로
 독립 승인이 필요하며 `docs/dossiers/default-change-stack01-2026-07-13/`에 재현 증거를 고정했다.
 그 밖의 이름 축 변화는 보완 오행 변경과 `8401cfbab`·`a9f27f52b`의 미세 가점에서 온다.
@@ -172,7 +173,7 @@ Spring 방법 가중치가 0.95→1.0으로 바뀐 것이다. 14픽스처에서 
 ## 8. Stack 18 F1: 일간 자기 투간·비겁 구조격 오분류 수정 (승인 대기)
 
 0416c3daa는 일간을 년·월·시간과 같은 투간 증거로 보던 오류를 제거하고,
-구조적 근거가 없는 비겁 지장간 후보의 일반 격 승격을 막는다. 재실측 결과는
+일간 자기투간 때문에 비겁 지장간 후보가 일반 격으로 잘못 승격되던 경로를 막는다. 재실측 결과는
 5픽스처·8 leaf, fingerprint
 sha256:6018d66d34e3875e22cb8924f01221b41bfaa9adaa1c9993ff3ddadd809440a0로
 커밋 메시지와 일치한다. 격명은 fix-06 양인격→정인격, fix-07 월겁격→정인격,
@@ -183,3 +184,6 @@ fix-11 건록격→식신격이며 나머지 5 leaf는 confidence다.
 docs/dossiers/default-change-stack18-gyeok-transparency-2026-07-13/이다.
 재캡처와 pending manifest는 exact diff 노출 수단일 뿐 승인 자체가 아니며,
 독립 검토 전 Stack 18 및 후속 스택을 Ready로 전환하지 않는다.
+토 일간 잡기월 BI_GYEON 4조합의 구조격 호환정책과 선택 후보/노출 증거 혼용 P1은
+이 fingerprint 승인 범위 밖이다. 두 blocker가 닫히고 release gate가 이를 fail-closed로
+검증하기 전에는 fingerprint가 승인되어도 Ready로 전환하지 않는다.
