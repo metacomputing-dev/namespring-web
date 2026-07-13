@@ -122,6 +122,8 @@ export interface LegacyDaeunInfoV1 {
   readonly ageDisplayMode: string;
   readonly ageDisplayLabel: string;
   readonly firstDaeunStartMonths: number;
+  readonly boundaryTermId?: string | null;
+  /** @deprecated Use boundaryTermId. Empty when no boundary term is available. */
   readonly boundaryMode: string;
   readonly boundaryUtcMs: number | null;
   readonly deltaDays: number | null;

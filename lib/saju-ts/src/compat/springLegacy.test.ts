@@ -279,10 +279,11 @@ describe('normalizeLegacyOutput 정직성 (감사 A1/A2/A9/A15d)', () => {
     expect(joja.pillars.hour.cheongan).not.toBe(midnight.pillars.hour.cheongan);
   });
 
-  it('daeunInfo.boundaryMode는 일경계 정책이 아니라 절기 id다', () => {
-    expect(output.daeunInfo.boundaryMode).not.toBe('midnight');
-    expect(output.daeunInfo.boundaryMode).not.toBe('ziSplit23');
-    expect(output.daeunInfo.boundaryMode).toMatch(/^[A-Z_]+$/);
+  it('daeunInfo.boundaryTermId는 절기 id이고 boundaryMode는 정상 경계의 호환 별칭이다', () => {
+    expect(output.daeunInfo.boundaryTermId).not.toBe('midnight');
+    expect(output.daeunInfo.boundaryTermId).not.toBe('ziSplit23');
+    expect(output.daeunInfo.boundaryTermId).toMatch(/^[A-Z_]+$/);
+    expect(output.daeunInfo.boundaryMode).toBe(output.daeunInfo.boundaryTermId);
     expect(output.daeunInfo.deltaDays).toBeGreaterThan(0);
     expect(String(output.daeunInfo.formula)).toContain('startAgeYears');
   });

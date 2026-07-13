@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { describe, expect, it } from 'vitest';
 import { analyzeSaju, createBirthInput } from './springLegacy.js';
+import { mapLegacyFortune } from './springLegacyFortuneMapper.js';
 
 describe('spring legacy fortune mapping characterization', () => {
   it('preserves the exact daeun, saeun, and wolun compatibility payload', () => {
@@ -35,13 +36,14 @@ describe('spring legacy fortune mapping characterization', () => {
       byteLength: Buffer.byteLength(encoded, 'utf8'),
       sha256: createHash('sha256').update(encoded, 'utf8').digest('hex'),
     }).toEqual({
-      byteLength: 3964,
-      sha256: '159a8dc6c5ad612067e4963ded725f42bf763b933d6c2f12e4b58a361c35b465',
+      byteLength: 3989,
+      sha256: '4472e095668e4a8d53ff82044f1036cace68ae1d6ac6f48ff2805206e033aa08',
     });
 
     expect(fortunePayload).toMatchObject({
       daeunInfo: {
         isForward: true,
+        boundaryTermId: 'LIXIA',
         boundaryMode: 'LIXIA',
         warnings: [],
         daeunPillars: [{ order: 0, pillar: { cheongan: 'GYE', jiji: 'SA' } }],
@@ -54,6 +56,62 @@ describe('spring legacy fortune mapping characterization', () => {
         pillar: { cheongan: 'GYEONG', jiji: 'IN' },
       }],
     });
+  });
+
+  it('preserves an unavailable fortune boundary without fabricating a term id', () => {
+    const unreachable = () => {
+      throw new Error('unexpected dependency call');
+    };
+
+    const result = mapLegacyFortune({
+      fortune: { start: { boundary: null } },
+      timeline: {},
+      relationTimeline: {},
+      dayStemIdx: 0,
+      yearBranchIdx: 0,
+      lifeStagePolicy: {},
+      selection: {},
+      dependencies: {
+        stemCodeFromIdx: unreachable,
+        branchCodeFromIdx: unreachable,
+        annotateLuckPillar: unreachable,
+        formatRelationsWithNatal: unreachable,
+        formatRelationsWithDecade: unreachable,
+        approxDaeunUtcMs: unreachable,
+        roundTo: unreachable,
+      },
+    });
+
+    expect(result.daeunInfo).toMatchObject({
+      boundaryTermId: null,
+      boundaryMode: '',
+      boundaryUtcMs: null,
+    });
+  });
+
+  it('rejects a non-string fortune boundary id instead of stringifying it', () => {
+    const unreachable = () => {
+      throw new Error('unexpected dependency call');
+    };
+
+    expect(() => mapLegacyFortune({
+      fortune: { start: { boundary: { id: { malformed: true } } } } as any,
+      timeline: {},
+      relationTimeline: {},
+      dayStemIdx: 0,
+      yearBranchIdx: 0,
+      lifeStagePolicy: {},
+      selection: {},
+      dependencies: {
+        stemCodeFromIdx: unreachable,
+        branchCodeFromIdx: unreachable,
+        annotateLuckPillar: unreachable,
+        formatRelationsWithNatal: unreachable,
+        formatRelationsWithDecade: unreachable,
+        approxDaeunUtcMs: unreachable,
+        roundTo: unreachable,
+      },
+    })).toThrow(/boundary\.id must be a string or null/);
   });
 
 });
