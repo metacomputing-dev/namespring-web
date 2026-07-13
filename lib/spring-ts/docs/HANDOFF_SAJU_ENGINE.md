@@ -132,3 +132,19 @@ cd lib/spring-ts && npx tsx tmp/probe-optin-naeum-palace.ts
 > ① 콘텐츠 저작 축(PR-2 잔여 — 귀인 궁위 세분 factId + 신규 표면 해석 충전, HANDOFF_NEXT_PHASES 작업 5-후속)
 > ② 프론트 윤달(isLeapMonth) 입력 UI(lib 밖 제품 결정) ③ 후속 감사 후보(위) ④ 미검증 70건 개별 확인.
 > 착수 시 감사 보고서 부록 B·C에서 상세 확인 후 항목 단위 커밋 + C절 검증 관례를 그대로 따르라.
+
+## G. 2026-07-12 명리 판정 논리 감사 인계 (Codex 필독)
+
+> **정본: `docs/dossiers/f2-johoo-2026-07-12/DOSSIER.md`** (현재 built `dist/`를 freeze 캡처 기대값과 대조하는 `verify-f2.mjs` 동봉). freeze `6fb2f68a4` 기준 읽기 전용 감사 산출물.
+
+- **F2 조후위급**: urgency 게이트(子·丑·午만 발동)가 열려도 조후 오행이 극단 강약(신약 s≲−0.28~−0.46, 신강 s≳0.59)에서 1위 불가함을 수학적으로 증명 + 5표본 실측. **기본 동작 변경은 dossier §7 전문가 질문 7개 답변 전 금지**(default-change 대상). 지금 가능한 것: yongshin.ts:313-316 주석 '우선'→'개입' 정정, 丑월·신약×위급월 baseline 픽스처 추가(§6 갭).
+- **감사 티켓 T1~T7**: dossier 부록 A 표 참조. T1(F1 일간 투간 격 오분류, P0)은 `0416c3daa`에서 코드 수정 완료했으며 exact default diff·명리 전문가 검토 대기다. T2(HUA_QI/ZHUAN_WANG veto 우회)·T3(월지 형충 이중 감점)·T4(consensus conflictLevel 상수 'high')·T5(기반 감쇠 층위 불일치)·T6(희신/기신 기계 유도)·T7(magic 계수 인벤토리)은 상호 독립·착수 가능.
+- 확인된 불변식(재감사 불요): 시간 경계 이중 적용 없음, 관계 탐지 중복 방출 없음, 오행 분포 이중 계상 없음, 신강약 상호작용 (1+f) 층 한정 준수.
+
+## H. 2026-07-12 정책 계수(magic number) 감사 인계 (Codex 필독)
+
+> **정본: `docs/dossiers/coefficient-policy-2026-07-12/DOSSIER.md`** (+ 기계 판독본 `inventory.json` 56건). freeze `6fb2f68a4` 기준 읽기 전용 감사 산출물 — **수치 변경 제안 없음**(캘리브레이션 절차 대상).
+
+- P0 없음. **P1 4건**: 용신 가중이 비정규화 신호에 곱해짐(P1-A) / 충형파해 감쇠 4벌 서열 모순(P1-B) / config 모양의 사실상 상수(P1-C — 프리셋 실변주는 yongshin weights뿐) / 정규화 상수 다중 정의(P1-D). 단위 불일치 C-3(기반 감쇠 ×/raw 혼용)·C-4(decisiveMargin raw 단위)·C-6(신살 점수 이중 체계), rootNorm=0 가드 방향 불일치(강약 fail-open ↔ 격국 fail-closed).
+- **티켓 G1~G5는 상호 독립**이다. G1~G3은 로직 무변경, G4는 기본 config 불변이지만 비기본 `norm<=0` 산출 변경, G5는 승인 전 현행동작 characterization으로만 허용한다. 변경 허용 범위·필수 테스트·전문가 판단 여부는 DOSSIER §G에 명기했다.
+- F1은 `0416c3daa`에서 코드 수정 완료 후 검토 대기이고 F4/F7은 별도 대기다. 이 dossier는 해당 영역을 재분석하지 않고 인벤토리에만 수록한다. [캘리브] 태그 수치는 명리적 승인 상태가 아니며 authority holdout 전 변경 금지.
