@@ -76,6 +76,10 @@ const STAGE_LABEL: Record<string, string> = {
 // near-identical case specs, and identical prompts make OPUS converge on the
 // same sentences across bundles (measured in wave 1). A deterministic palette
 // per bundleKey gives each bundle its own texture without touching facts.
+// 12 materials — enough that the up-to-12 (강약×nameEffect) person-variants of one
+// 격국 group each get a DISTINCT primary material (see paletteFor). Without this,
+// same-격국 siblings hashed to overlapping palettes and converged on identical
+// paragraphs → cross-bundle-duplicate rejects at scale.
 const MATERIAL_PALETTES: readonly string[] = [
   '몸의 감각(호흡·자세·피로·컨디션)',
   '공간과 물건(책상·집·정리·동선)',
@@ -85,6 +89,10 @@ const MATERIAL_PALETTES: readonly string[] = [
   '돈과 살림의 장면(장보기·구독·저금통·영수증)',
   '길과 이동(출퇴근·산책·여행·환승)',
   '취향과 몰입(취미·음악·음식·소소한 즐거움)',
+  '자연과 계절(빛·바람·창밖·산책로·날씨)',
+  '부엌과 먹거리(요리·재료·식단·냉장고)',
+  '화면과 기기(앱·알림·타이머·플레이리스트)',
+  '놀이의 결(승부·기록 갱신·수집·레벨)',
 ];
 const STYLE_NOTES: readonly string[] = [
   '비유는 아끼고 담백한 문장으로.',
@@ -92,6 +100,8 @@ const STYLE_NOTES: readonly string[] = [
   '한두 편쯤은 부드러운 질문으로 열어도 좋게.',
   '동사 중심의 움직이는 문장으로.',
 ];
+const PALETTE_GANGYAK: readonly string[] = ['weak', 'balanced', 'strong'];
+const PALETTE_NAME_EFFECT: readonly string[] = ['adverse', 'boost_mild', 'boost_strong', 'neutral'];
 
 function fnv1a(text: string): number {
   let hash = 0x811c9dc5;
@@ -102,13 +112,24 @@ function fnv1a(text: string): number {
   return hash;
 }
 
+// bundleKey = category.audience.강약.격국.nameEffect.gender. Palette is keyed on the
+// 격국 GROUP (drop 강약·nameEffect) for the base, then the (강약×nameEffect) combo is
+// added to the primary index — so within one 격국 group every person-variant lands on
+// a different primary material (12 materials ≥ 12 combos), guaranteeing divergence.
 function paletteFor(bundleKey: string): { materials: string[]; style: string } {
-  const h = fnv1a(bundleKey);
-  const first = h % MATERIAL_PALETTES.length;
-  const second = (first + 1 + ((h >>> 8) % (MATERIAL_PALETTES.length - 1))) % MATERIAL_PALETTES.length;
+  const p = bundleKey.split('.');
+  const gangyak = p[2] ?? '';
+  const nameEffect = p[4] ?? '';
+  const groupKey = [p[0], p[1], p[3], p[5] ?? 'x'].join('.');
+  const base = fnv1a(groupKey);
+  const combo = Math.max(0, PALETTE_GANGYAK.indexOf(gangyak)) * PALETTE_NAME_EFFECT.length
+    + Math.max(0, PALETTE_NAME_EFFECT.indexOf(nameEffect)); // 0..11
+  const n = MATERIAL_PALETTES.length;
+  const first = (base + combo) % n;
+  const second = (first + 1 + ((base >>> 8) % (n - 1))) % n;
   return {
     materials: [MATERIAL_PALETTES[first], MATERIAL_PALETTES[second]],
-    style: STYLE_NOTES[(h >>> 16) % STYLE_NOTES.length],
+    style: STYLE_NOTES[(((base >>> 16) + combo) >>> 0) % STYLE_NOTES.length],
   };
 }
 
