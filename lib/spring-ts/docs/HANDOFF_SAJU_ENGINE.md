@@ -148,3 +148,12 @@ cd lib/spring-ts && npx tsx tmp/probe-optin-naeum-palace.ts
 - P0 없음. **P1 4건**: 용신 가중이 비정규화 신호에 곱해짐(P1-A) / 충형파해 감쇠 4벌 서열 모순(P1-B) / config 모양의 사실상 상수(P1-C — 프리셋 실변주는 yongshin weights뿐) / 정규화 상수 다중 정의(P1-D). 단위 불일치 C-3(기반 감쇠 ×/raw 혼용)·C-4(decisiveMargin raw 단위)·C-6(신살 점수 이중 체계), rootNorm=0 가드 방향 불일치(강약 fail-open ↔ 격국 fail-closed).
 - **티켓 G1~G5는 상호 독립**이다. G1~G3은 로직 무변경, G4는 기본 config 불변이지만 비기본 `norm<=0` 산출 변경, G5는 승인 전 현행동작 characterization으로만 허용한다. 변경 허용 범위·필수 테스트·전문가 판단 여부는 DOSSIER §G에 명기했다.
 - F1은 `0416c3daa`에서 코드 수정 완료 후 검토 대기이고 F4/F7은 별도 대기다. 이 dossier는 해당 영역을 재분석하지 않고 인벤토리에만 수록한다. [캘리브] 태그 수치는 명리적 승인 상태가 아니며 authority holdout 전 변경 금지.
+## I. 2026-07-13 스택 검증 보완과 Stack 22
+
+- PR #654의 63개 후보 점수 상승은 await 계측기 수정이 아니라 `79042afdc`의 추천 타입 `JOHU→EOKBU` 정정과 Spring 가중치 `0.95→1.0`의 파급이다. 14픽스처·63 leaf(+0.1 38, +0.2 20, +0.3 5), 후보 이름·순서 불변이며 독립 승인은 아직 pending이다. 정본은 `docs/dossiers/default-change-stack01-2026-07-13/`.
+- Stack 18 0416c3daa의 F1 수정은 5픽스처·8 leaf(sha256:6018d66d…) 기본변화와 후보 snapshot 9건(sha256:b05f310…)을 낳았다. Stack 22가 exact snapshot diff와 pending dossier를 Git에 고정하지만 명리 승인은 아직 없다.
+- Stack 22는 후속 검증에서 발견한 계약·정직성 부채를 닫는다: source-compatible optional boundaryTermId와 null 보존·잘못된 타입 fail-closed, 12운성 12개 T1/AI/non-authority provenance, 신살 category/name override parser의 잘못된 타입 fail-closed, 대운 정확 2일 반올림 안정화, 비기본 palace/naeum·강약·INDEPENDENT characterization.
+- boundaryTermId와 12운성 provenance는 기존 구조 스냅샷이 포착하지 않는 additive output change다. 정확 2일 대운수 반올림은 경계 입력에만 보이는 default change이며 PR 본문에서 snapshot-invisible output change로 공개한다.
+- Claude 병렬 사전검증: PR #668은 계산 base≡tip이나 당시 좌표 coercion P1 때문에 CONDITIONAL PASS. 해당 입력 검증은 Stack 16의 `0e91b8ec9`에서 이미 strict number/range로 보완됐고 Stack 22가 JS 비타입 회귀를 추가한다. PR #673과 #674는 각각 코드·문서 검증 PASS(P0/P1 0, 비차단 P2 각 6건)이나 선행 스택 순서 때문에 자동 Ready 전환하지 않는다.
+- PR #673은 Seed `npm ci`를 CI에 추가해 PR #668 시점의 선재 `sql.js` 설치 위험을 해소한다. 실제 Actions 성공 이력은 결제 잠금·OAuth workflow scope가 풀리기 전까지 미확보다.
+- 운영 원칙: 기존 #654~#674를 재작성하지 않고 Stack 22를 마지막 필수 보완 PR로 둔다. 모든 Draft는 선행 스택 검증과 사용자 사전 확인 없이 Ready/merge하지 않는다.

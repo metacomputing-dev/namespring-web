@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "spring-ts.default-change-attribution.v1",
+  "status": "pending",
+  "sourceBase": "6fb2f68a4",
+  "sourceCommit": "0416c3daa",
+  "snapshotEvidenceBase": "7f8a2cb5f",
+  "snapshotCarrier": "codex/pr653-stack-22",
+  "capturedAt": "2026-07-13T05:19:10.113Z",
+  "fingerprint": "sha256:6018d66d34e3875e22cb8924f01221b41bfaa9adaa1c9993ff3ddadd809440a0",
+  "fixtureCount": 5,
+  "exactDiffCount": 8,
+  "changes": [
+    { "fixture": "fix-01", "path": "sajuReport.gyeokgukConfidence", "baseline": 0.562957219251337, "current": 0.5820160427807487 },
+    { "fixture": "fix-06", "path": "sajuReport.gyeokgukType", "baseline": "양인격", "current": "정인격" },
+    { "fixture": "fix-06", "path": "sajuReport.gyeokgukConfidence", "baseline": 0.35000000000000003, "current": 0.4855555555555555 },
+    { "fixture": "fix-07", "path": "sajuReport.gyeokgukType", "baseline": "월겁격", "current": "정인격" },
+    { "fixture": "fix-07", "path": "sajuReport.gyeokgukConfidence", "baseline": 0.6168, "current": 0.6102 },
+    { "fixture": "fix-08", "path": "sajuReport.gyeokgukConfidence", "baseline": 0.65625, "current": 0.67875 },
+    { "fixture": "fix-11", "path": "sajuReport.gyeokgukType", "baseline": "건록격", "current": "식신격" },
+    { "fixture": "fix-11", "path": "sajuReport.gyeokgukConfidence", "baseline": 0.2540192307692308, "current": 0.24046153846153842 }
+  ],
+  "candidateSnapshot": {
+    "sourceCommitFingerprint": "sha256:b05f310745c6ae1ff15a0e90abb090affc51139afe991635b2115cae0c66c746",
+    "normalizedReviewFingerprint": "sha256:246c769a989536fbda66aaa6f0ac5156d951d1d8af35d32aae6b2a391387c81e",
+    "fixtureCount": 9,
+    "exactDiffCount": 22,
+    "fixtureIds": ["fix-01", "fix-05", "fix-06", "fix-07", "fix-08", "fix-11", "fix-13", "fix-16", "fix-17"],
+    "normalization": "Wrap each candidate snapshot row as output, then apply snapshot_diff_approval.buildSnapshotDiff and fingerprintSnapshotDiff.",
+    "diffKeys": [
+      { "fixture": "fix-01", "paths": ["candidates", "selected.baseTenGod", "selected.confidence"] },
+      { "fixture": "fix-05", "paths": ["candidates"] },
+      { "fixture": "fix-06", "paths": ["candidates", "selected.baseTenGod", "selected.confidence", "selected.type"] },
+      { "fixture": "fix-07", "paths": ["candidates", "selected.baseTenGod", "selected.confidence", "selected.type"] },
+      { "fixture": "fix-08", "paths": ["candidates", "selected.baseTenGod", "selected.confidence"] },
+      { "fixture": "fix-11", "paths": ["candidates", "selected.baseTenGod", "selected.confidence", "selected.type"] },
+      { "fixture": "fix-13", "paths": ["candidates"] },
+      { "fixture": "fix-16", "paths": ["selected.baseTenGod"] },
+      { "fixture": "fix-17", "paths": ["selected.baseTenGod"] }
+    ],
+    "baselineUpdated": true,
+    "approvalScope": "same-expert-review"
+  }
+}

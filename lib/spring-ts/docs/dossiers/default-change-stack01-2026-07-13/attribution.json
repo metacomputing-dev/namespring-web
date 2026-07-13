@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "spring-ts.default-change-attribution.v1",
+  "generatedAt": "2026-07-13",
+  "baselineRef": "origin/main@354fa60a4",
+  "stackTip": "a4f443347",
+  "snapshotCarrierCommit": "3d65a56cf",
+  "preCauseCommit": "053b1f9ec",
+  "causeCommit": "79042afdc",
+  "approval": {
+    "status": "pending",
+    "fingerprint": "sha256:2ca4ddcf743061692aa6e0900ee5d20e04aee134cb6c63954af38afca6c51bfc",
+    "requiresIndependentReview": true
+  },
+  "reproduction": {
+    "originMainPlusAwaitOnly": "identical_to_baseline_except_capturedAt",
+    "preCause053b1f9ecPlusAwaitOnly": "identical_to_baseline_except_capturedAt",
+    "changedFieldPattern": "results[*].output.candidatesTop5[*].finalScore",
+    "candidateIdentityChanged": false,
+    "candidateOrderChanged": false
+  },
+  "cause": {
+    "recommendationTypeBefore": "JOHU",
+    "recommendationTypeAfter": "EOKBU",
+    "springTypeWeightBefore": 0.95,
+    "springTypeWeightAfter": 1.0
+  },
+  "diff": {
+    "fixtureCount": 14,
+    "leafCount": 63,
+    "deltaCounts": {
+      "0.1": 38,
+      "0.2": 20,
+      "0.3": 5
+    },
+    "fixtures": {
+      "fix-01": [0.3, 0.3, 0.3, 0.3, 0.3],
+      "fix-02": [0.1, 0.1, 0.1, 0.1, 0.1],
+      "fix-03": [0.1, 0.1, 0.1, 0.1, 0.1],
+      "fix-04": [0.1, 0.1, 0.1, 0.1, 0.2],
+      "fix-05": [0.1],
+      "fix-06": [0.1, 0.1, 0.1, 0.1, 0.1],
+      "fix-07": [0.2, 0.2, 0.1, 0.1, 0.1],
+      "fix-09": [0.2, 0.2, 0.2, 0.2, 0.2],
+      "fix-10": [0.1, 0.2, 0.2, 0.1, 0.1],
+      "fix-11": [0.1, 0.1, 0.1, 0.1, 0.1],
+      "fix-12": [0.1, 0.1],
+      "fix-13": [0.2, 0.2, 0.2, 0.2, 0.2],
+      "fix-14": [0.2, 0.2, 0.2, 0.2, 0.2],
+      "fix-15": [0.1, 0.1, 0.1, 0.1, 0.1]
+    }
+  }
+}

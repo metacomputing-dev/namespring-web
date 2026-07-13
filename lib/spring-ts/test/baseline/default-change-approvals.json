@@ -8,6 +8,44 @@
       "reviewedAt": null,
       "evidence": [],
       "note": "Current origin/main..HEAD snapshot delta remains blocked. Promote to approved only after independent expert review of every changed judgement and output field."
+    },
+    {
+      "fingerprint": "sha256:2ca4ddcf743061692aa6e0900ee5d20e04aee134cb6c63954af38afca6c51bfc",
+      "status": "pending",
+      "reviewedBy": null,
+      "reviewedAt": null,
+      "evidence": [
+        {
+          "kind": "dossier",
+          "reference": "docs/dossiers/default-change-stack01-2026-07-13/DOSSIER.md",
+          "summary": "Human-readable reproduction and review checklist for the 63 candidate-score leaves."
+        },
+        {
+          "kind": "machine-readable-attribution",
+          "reference": "docs/dossiers/default-change-stack01-2026-07-13/attribution.json",
+          "summary": "Machine-readable commit attribution, fixture counts, deltas, and pending fingerprint."
+        }
+      ],
+      "note": "Stack 01 exact candidate-score delta is attributed to 79042afdc (JOHU to EOKBU method correction), not the await repair. Independent approval is still required."
+    },
+    {
+      "fingerprint": "sha256:6018d66d34e3875e22cb8924f01221b41bfaa9adaa1c9993ff3ddadd809440a0",
+      "status": "pending",
+      "reviewedBy": null,
+      "reviewedAt": null,
+      "evidence": [
+        {
+          "kind": "dossier",
+          "reference": "docs/dossiers/default-change-stack18-gyeok-transparency-2026-07-13/DOSSIER.md",
+          "summary": "Human-readable doctrine review checklist for five fixtures and eight exact gyeokguk leaves."
+        },
+        {
+          "kind": "machine-readable-attribution",
+          "reference": "docs/dossiers/default-change-stack18-gyeok-transparency-2026-07-13/attribution.json",
+          "summary": "Exact source attribution, snapshot diff, and linked nine-fixture candidate snapshot fingerprint."
+        }
+      ],
+      "note": "Stack 18 fixes day-master self-transparency and unsupported companion-frame promotion. Exact judgement changes and candidate snapshot remain independently unapproved."
     }
   ]
 }
