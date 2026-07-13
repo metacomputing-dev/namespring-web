@@ -1,6 +1,7 @@
 import type { HanjaEntry } from './database/hanja-repository.js';
 import { SeedValidationError } from './errors.js';
 import type { UserInfo } from './types.js';
+import { countCodePointsUpTo } from './utils/bounded-code-point-count.js';
 import { decomposeHangulSyllable } from './utils/hangul-name-entry.js';
 
 const VALID_ELEMENTS = new Set(['Wood', 'Fire', 'Earth', 'Metal', 'Water']);
@@ -28,6 +29,8 @@ const VALID_NUCLEI = new Set([
   '\u314f', '\u3150', '\u3151', '\u3152', '\u3153', '\u3154', '\u3155', '\u3156', '\u3157', '\u3158', '\u3159',
   '\u315a', '\u315b', '\u315c', '\u315d', '\u315e', '\u315f', '\u3160', '\u3161', '\u3162', '\u3163',
 ]);
+const MAX_MEANING_LENGTH = 512;
+const MAX_RADICAL_LENGTH = 32;
 
 function fail(
   code: ConstructorParameters<typeof SeedValidationError>[0],
@@ -95,6 +98,20 @@ function assertEntry(
     `${path}.radical`,
     entry.radical,
   );
+  const meaningLength = countCodePointsUpTo(entry.meaning, MAX_MEANING_LENGTH);
+  assertNameEntryScalar(
+    meaningLength <= MAX_MEANING_LENGTH,
+    `Name entry meaning must not exceed ${MAX_MEANING_LENGTH} Unicode characters.`,
+    `${path}.meaning`,
+    meaningLength,
+  );
+  const radicalLength = countCodePointsUpTo(entry.radical, MAX_RADICAL_LENGTH);
+  assertNameEntryScalar(
+    radicalLength <= MAX_RADICAL_LENGTH,
+    `Name entry radical must not exceed ${MAX_RADICAL_LENGTH} Unicode characters.`,
+    `${path}.radical`,
+    radicalLength,
+  );
   assertNameEntryScalar(
     typeof entry.is_surname === 'boolean',
     'Name entry surname flag must be boolean.',
@@ -112,25 +129,26 @@ function assertEntry(
 
   const isHangulOnlyPlaceholder = policy.allowDerivedPlaceholders
     && (entry.hanja === '' || entry.hanja === entry.hangul);
+  const hanjaLength = countCodePointsUpTo(entry.hanja, 1);
   if (
     !isHangulOnlyPlaceholder
-    && (Array.from(entry.hanja).length !== 1 || !/^\p{Script=Han}$/u.test(entry.hanja))
+    && (hanjaLength !== 1 || !/^\p{Script=Han}$/u.test(entry.hanja))
   ) {
     fail(
       'INVALID_HANJA_CHARACTER',
       'Non-Hangul name entries must contain exactly one Unicode Han character.',
       `${path}.hanja`,
-      entry.hanja,
+      hanjaLength,
     );
   }
 
-  const hangulCharacters = Array.from(entry.hangul);
-  const parts = hangulCharacters.length === 1
-    ? decomposeHangulSyllable(hangulCharacters[0])
+  const hangulLength = countCodePointsUpTo(entry.hangul, 1);
+  const parts = hangulLength === 1
+    ? decomposeHangulSyllable(entry.hangul)
     : null;
-  const codePoint = hangulCharacters[0]?.codePointAt(0) ?? -1;
+  const codePoint = hangulLength === 1 ? entry.hangul.codePointAt(0) ?? -1 : -1;
   if (
-    hangulCharacters.length !== 1
+    hangulLength !== 1
     || codePoint < 0xac00
     || codePoint > 0xd7a3
     || parts === null
@@ -139,7 +157,7 @@ function assertEntry(
       'INVALID_HANGUL_SYLLABLE',
       'Name entry must contain exactly one precomposed Hangul syllable.',
       `${path}.hangul`,
-      entry.hangul,
+      hangulLength,
     );
   }
 
@@ -216,7 +234,7 @@ function assertBirthDateTime(value: unknown): void {
       fail(
         'INVALID_BIRTH_DATE_TIME',
         'Birth date and time contains an unsupported field.',
-        `birthDateTime.${field}`,
+        'birthDateTime',
         value[field],
       );
     }
@@ -320,7 +338,7 @@ function assertAnalysisOptions(value: unknown): void {
       fail(
         'INVALID_ANALYSIS_OPTIONS',
         'Analysis options contain an unsupported field.',
-        `options.${field}`,
+        'options',
         value[field],
       );
     }
@@ -357,8 +375,24 @@ export function assertValidUserInfoEnvelope(userInfo: UserInfo): void {
   if (!Array.isArray(userInfo.lastName) || userInfo.lastName.length === 0) {
     fail('EMPTY_SURNAME', 'At least one surname syllable is required.', 'lastName', userInfo.lastName);
   }
+  if (userInfo.lastName.length > 2) {
+    fail(
+      'INVALID_SURNAME_LENGTH',
+      'Surname must contain one or two syllables.',
+      'lastName',
+      userInfo.lastName.length,
+    );
+  }
   if (!Array.isArray(userInfo.firstName) || userInfo.firstName.length === 0) {
     fail('EMPTY_GIVEN_NAME', 'At least one given-name syllable is required.', 'firstName', userInfo.firstName);
+  }
+  if (userInfo.firstName.length > 4) {
+    fail(
+      'INVALID_GIVEN_NAME_LENGTH',
+      'Given name must contain one to four syllables.',
+      'firstName',
+      userInfo.firstName.length,
+    );
   }
 
   if (!VALID_GENDERS.has(userInfo.gender)) {
@@ -377,6 +411,10 @@ export function areEntriesHangulOnly(entries: readonly HanjaEntry[]): boolean {
   return entries.length > 0 && entries.every((entry) => {
     if (!isPlainRecord(entry)) return false;
     if (typeof entry.hangul !== 'string' || typeof entry.hanja !== 'string') return false;
+    // A placeholder is empty or one Hangul code point (at most two UTF-16
+    // code units). Bound work before trim() so whitespace padding cannot
+    // bypass the strict per-entry validation that follows mode resolution.
+    if (entry.hanja.length > 2) return false;
     const hanja = entry.hanja.trim();
     return hanja.length === 0 || hanja === entry.hangul;
   });

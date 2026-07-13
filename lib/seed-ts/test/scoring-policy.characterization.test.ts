@@ -2,10 +2,16 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import type { HanjaEntry } from '../src/database/hanja-repository.js';
+import { SeedCalculationError } from '../src/errors.js';
 import { Element } from '../src/model/element.js';
 import { Energy } from '../src/model/energy.js';
 import { Polarity } from '../src/model/polarity.js';
-import { SEED_SCORING_POLICY } from '../src/scoring-policy.js';
+import {
+  averageEnabledComponentScores,
+  calculateElementRelationScore,
+  combineEnergyScores,
+  SEED_SCORING_POLICY,
+} from '../src/scoring-policy.js';
 import { SeedTs } from '../src/seed.js';
 import { buildHangulPseudoEntry } from '../src/utils/hangul-name-entry.js';
 
@@ -51,6 +57,43 @@ test('v1 policy freezes the current 25 directional element-pair scores', () => {
   assert.ok(Object.isFrozen(SEED_SCORING_POLICY.energy));
   assert.ok(Object.isFrozen(SEED_SCORING_POLICY.reviewWarnings));
   assert.ok(Object.isFrozen(SEED_SCORING_POLICY.reviewWarnings[0]));
+
+  assert.deepEqual(
+    SEED_SCORING_POLICY.authorityDecisions.map((decision) => decision.id),
+    [
+      'energy-coefficients-and-weights',
+      'directional-adjacency',
+      'component-aggregation',
+      'length-normalization',
+    ],
+  );
+  assert.ok(Object.isFrozen(SEED_SCORING_POLICY.authorityDecisions));
+  for (const decision of SEED_SCORING_POLICY.authorityDecisions) {
+    assert.equal(decision.status, 'expert-review-required');
+    assert.ok(decision.scope.trim().length > 0);
+    assert.ok(decision.reason.trim().length > 0);
+    assert.ok(Object.isFrozen(decision));
+  }
+});
+
+test('score helpers fail closed on malformed, non-finite, and out-of-policy inputs', () => {
+  const assertInvalidScore = (operation: () => unknown): void => assert.throws(
+    operation,
+    (error: unknown) => error instanceof SeedCalculationError
+      && error.code === 'INVALID_SCORE_INPUT',
+  );
+
+  assertInvalidScore(() => combineEnergyScores(Number.NaN, 50));
+  assertInvalidScore(() => combineEnergyScores(-1, 50));
+  assertInvalidScore(() => combineEnergyScores(50, 101));
+  assertInvalidScore(() => calculateElementRelationScore(null as unknown as {
+    generating: number; overcoming: number; same: number;
+  }));
+  assertInvalidScore(() => calculateElementRelationScore({ generating: -1, overcoming: 0, same: 0 }));
+  assertInvalidScore(() => calculateElementRelationScore({ generating: 0, overcoming: 0.5, same: 0 }));
+  assertInvalidScore(() => averageEnabledComponentScores([]));
+  assertInvalidScore(() => averageEnabledComponentScores([50, Number.POSITIVE_INFINITY]));
+  assertInvalidScore(() => averageEnabledComponentScores([101]));
 });
 
 test('v1 policy preserves the representative enabled-component total exactly', () => {

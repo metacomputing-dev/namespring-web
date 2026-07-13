@@ -10,6 +10,29 @@ All 81 four-frame meanings are available synchronously from a versioned embedded
 
 Every calculator exposes a `pending | ready | excluded` `calculationStatus`. Pure-Hangul analysis marks Hanja and four-frame calculators as `excluded`; their score is explicitly zero and remains safe to read after the frozen result is returned.
 
+Engine-produced structured Seed errors never retain caller input. The former public
+`received` field has been replaced by a non-identifying `receivedSummary`
+descriptor such as `{ type: 'string' }`, `{ type: 'array' }`, or
+`{ type: 'object' }`; `toJSON()` exposes only that descriptor. Consumers must
+migrate from inspecting rejected values to branching on `kind`, `code`, and
+`path`. This is an intentional privacy hardening of the public error contract.
+
+`SeedTs.analyze()` now enforces one or two surname syllables, one to four
+given-name syllables, at most 512 Unicode characters for each `meaning`, and at
+most 32 for each `radical`. Direct `Energy` construction and scoring accept only
+the exported `Polarity` and `Element` singleton instances. Inputs outside these
+bounds or structural lookalikes that older builds happened to process now fail
+closed; callers must normalize or reject them before invoking Seed.
+
+`SEED_SCORING_POLICY.authorityDecisions` describes only the approval state of
+the shipped numeric weights, relation adjustments, directional adjacency,
+enabled-component aggregation, and unresolved length-normalization policy.
+Every listed item remains `expert-review-required`; the metadata does not
+grant doctrinal or content authority and does not change any valid score. It is
+not a complete authority inventory for onset/nucleus mappings, stroke-to-element
+mappings, four-frame construction, or narrative content; those remain governed
+by their separate source and expert-review gates.
+
 Pure-Hangul mode is resolved before derived stroke/element validation. Native-Korean UI entries may therefore carry `0`/empty derived placeholders only when they are immediately normalized into deterministic Hangul-only entries; the same placeholders still fail closed in non-pure analysis.
 
 ## Four-frame catalog provenance
@@ -70,6 +93,19 @@ ignores the signal, and a later generation starts with fresh repository state.
 The optional third argument of an injected `initializeSqlJs` loader carries the
 same signal; two-argument loaders remain compatible and are safely raced by the
 repository lifecycle wrapper.
+
+Every public repository lookup validates its query before SQLite binding.
+Blank names or search keywords, `limit = 0`, negative or non-integer limits,
+string-coerced numbers, invalid enums, and reversed stroke ranges throw the
+non-retryable `RepositoryQueryValidationError` with code
+`REPOSITORY_QUERY_INVALID`. They no longer return `null`, match every row, or
+rely on SQLite coercion. Callers migrating from the old behavior should catch
+that class or code and correct the request; valid not-found queries still
+return `null` or an empty list according to the method's existing contract.
+Repository limits are integers from 1 through 1,000, four-frame keywords are at
+most 200 Unicode characters, and name-stat names are at most 64. Raw string
+input is also capped before trimming so whitespace padding cannot create
+unbounded validation work.
 
 The default loader uses the same-package `assets/sql-wasm-1.14.1.wasm`
 artifact. The package contract pins its byte length and SHA-256 digest, and the
