@@ -56,29 +56,80 @@ cannot substitute for this external expert control.
 the same SHA-256 fingerprint from the exact, sorted per-field snapshot diff.
 An intentional default-output change remains blocked unless
 `test/baseline/default-change-approvals.json` contains a matching approved
-entry:
+entry and exactly one matching canonical blocker inventory. The approval is
+bound to the normalized inventory by `blockerInventoryFingerprint`; approval
+entries cannot self-declare or omit their own blocker list.
+
+Snapshot-fingerprint inventories and the top-level `releaseBlockers` registry
+have different scopes. `blockerInventories` binds review findings to one exact
+snapshot diff. `releaseBlockers` covers release risks that the canonical
+snapshot may not observe. Its exact normalized digest is bound by
+`releaseBlockerInventoryFingerprint`, and both CLIs validate it before the
+zero-diff path. Therefore an empty exact diff is `RELEASE_BLOCKED`, not
+`NOT_REQUIRED` or `PASS`, while any global P0/P1/P2 record is still open.
+
+A minimal schema-v2 record has this shape:
 
 ```json
 {
-  "fingerprint": "sha256:<64 hex characters>",
-  "status": "approved",
-  "reviewedBy": "reviewer identity (project owner under the current mechanism)",
-  "reviewedAt": "YYYY-MM-DD",
-  "evidence": [
+  "schemaVersion": "spring-ts.default-change-approval.v2",
+  "releaseBlockers": [
     {
-      "kind": "dossier",
-      "reference": "versioned evidence path or immutable review URL",
-      "summary": "What was adjudicated, by which panel, and with what result."
+      "id": "EARTH_MIXED_MONTH_STRUCTURAL_COMPATIBILITY",
+      "severity": "P1",
+      "status": "open"
+    },
+    {
+      "id": "QUALITY_EVIDENCE_DEFAULT_IMPACT_REVIEW",
+      "severity": "P1",
+      "status": "open"
+    }
+  ],
+  "releaseBlockerInventoryFingerprint": "sha256:<exact canonical global inventory>",
+  "blockerInventories": [
+    {
+      "fingerprint": "sha256:<exact output diff>",
+      "blockers": []
+    }
+  ],
+  "approvals": [
+    {
+      "fingerprint": "sha256:<exact output diff>",
+      "blockerInventoryFingerprint": "sha256:<exact canonical inventory>",
+      "status": "approved",
+      "reviewedBy": "reviewer identity",
+      "reviewedAt": "YYYY-MM-DD",
+      "evidence": [
+        {
+          "kind": "dossier",
+          "reference": "versioned evidence path or immutable review URL",
+          "summary": "What was adjudicated, by which panel, and with what result."
+        }
+      ]
     }
   ]
 }
 ```
 
 The fingerprint is printed by either comparison command. Any changed field
-changes the fingerprint and invalidates the approval. Missing fields, removed
-fixtures, and dropped cards are structural regressions and cannot be waived by
-the manifest. An approved manifest entry is an auditable record, not reviewer
-authentication.
+changes the output approval. Any blocker ID, severity, status, resolution, or
+acceptance change alters the canonical inventory fingerprint and requires a new
+binding. Duplicate approval entries or duplicate inventories for one output
+fingerprint are invalid. Open P0/P1/P2 records block approval; a P2 may use
+`accepted` only with reviewer, date, rationale, and evidence. P0/P1 cannot be
+risk-accepted.
+
+The same evidence rules apply to the global registry. A malformed registry or
+digest mismatch is `MANIFEST_INVALID`; unresolved valid records are
+`RELEASE_BLOCKED`. A resolved record requires resolver identity, date, and
+resolution evidence. Only P2 may be accepted as risk, with acceptor identity,
+date, rationale, and evidence. `NOT_REQUIRED` is available only when the exact
+snapshot diff is empty and the global registry is valid and closed.
+
+Missing fields, removed fixtures, and dropped cards are structural regressions
+and cannot be waived by the manifest. The manifest and its digests make review
+changes explicit but do not authenticate reviewer identity or prove that a
+declared evidence path is truthful; protected human review remains required.
 
 Do not flip a `pending` fingerprint to `approved` without dossier evidence
 covering every changed judgement and service-visible output.

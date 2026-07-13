@@ -51,6 +51,22 @@ fingerprint와 일치한다. Stack 22의 다른 소스 변경에는 격국·fact
    계산에도 사용해, 노출 겁재가 있는데 `QING/mixed:false`와 `겁재 투출 파격`이 동시에
    나오는 내부 모순이 생긴다. 선택 후보와 노출 증거 집합을 분리해야 한다.
 
+Stack 23은 2번을 코드로 해소했다. `computeMonthGyeokQuality`의 gap은 선택 가능 후보만,
+purity/mixed는 선택 제외 후보를 포함한 전체 투간 증거를 사용한다. 유효 명식
+`己巳/戊辰/甲子/乙亥`는 편재격 선택을 유지하면서 노출 겁재를
+`mixed:true/ZHUO`와 `PAGYEOK/GEOB_JAE`에 일관되게 반영한다. 표적 42/42,
+관련 격국 70/70, 기본 17/17 및 후보 261/261 회귀가 통과했다.
+
+1번 BI_GYEON 4조합의 학파·권위 결정은 계속 open P1이다. 또한 2번 수정은
+기본 17·후보 261 snapshot 밖에서 품질 결과를 바꾸므로 영향 검토 P1
+`QUALITY_EVIDENCE_DEFAULT_IMPACT_REVIEW`도 별도로 open이다. 합법 4주 격자의
+결정론적 표본 5,133건 중 126건(2.4547%)이 바뀌었으며, 이는 인구·서비스 트래픽
+발생률 추정치가 아니다. 재현 규약과 한계는
+[Stack 23 영향 dossier](../stack23-gyeok-quality-evidence-2026-07-13/DOSSIER.md)에 고정한다.
+
+Stack 18의 예전 PR tip은 Stack 23의 코드 수정과 global blocker gate를 소급 포함하지 않는다.
+따라서 Stack 18은 top-level registry와 별개로도 수동 Draft hold를 유지한다.
+
 ## 승인 전 확인 사항
 
 1. fix-06의 양인격→정인격이 월지 본기와 구조격 조건에 맞는가.

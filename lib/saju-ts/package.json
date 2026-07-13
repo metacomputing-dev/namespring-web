@@ -20,7 +20,7 @@
     "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run --passWithNoTests",
-    "test:ci": "vitest run --passWithNoTests --reporter=dot",
+    "test:ci": "vitest run --passWithNoTests --reporter=dot --maxWorkers=2",
     "test:release-tools": "node --test tools/validate_school_sources.test.mjs",
     "validate:kasi": "npm run build --silent && node tools/validate_kasi_2027.mjs",
     "validate:xref": "npm run build --silent && node tools/validate_saju_master_xref.mjs",

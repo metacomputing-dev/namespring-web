@@ -1,8 +1,62 @@
 {
-  "schemaVersion": "spring-ts.default-change-approval.v1",
+  "schemaVersion": "spring-ts.default-change-approval.v2",
+  "releaseBlockers": [
+    {
+      "id": "EARTH_MIXED_MONTH_STRUCTURAL_COMPATIBILITY",
+      "severity": "P1",
+      "status": "open"
+    },
+    {
+      "id": "QUALITY_EVIDENCE_DEFAULT_IMPACT_REVIEW",
+      "severity": "P1",
+      "status": "open"
+    }
+  ],
+  "releaseBlockerInventoryFingerprint": "sha256:d397636f9f225a5b9532c9d07fa7524f10ba25151f5dc9e5b6d80000f2d22669",
+  "blockerInventories": [
+    {
+      "fingerprint": "sha256:2b92727a02624e89362b88653e2051b2a8b2c9e88d8e8d5aae8437cda4c7b074",
+      "blockers": [
+        {
+          "id": "SUPERSEDED_CUMULATIVE_DIFF",
+          "severity": "P1",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "fingerprint": "sha256:2ca4ddcf743061692aa6e0900ee5d20e04aee134cb6c63954af38afca6c51bfc",
+      "blockers": []
+    },
+    {
+      "fingerprint": "sha256:6018d66d34e3875e22cb8924f01221b41bfaa9adaa1c9993ff3ddadd809440a0",
+      "blockers": [
+        {
+          "id": "QUALITY_EVIDENCE_FILTERING_CONTRADICTION",
+          "severity": "P1",
+          "status": "resolved",
+          "resolvedBy": "Stack 23 independent code review",
+          "resolvedAt": "2026-07-13",
+          "resolutionEvidence": [
+            {
+              "kind": "source-contract",
+              "reference": "lib/saju-ts/src/rules/facts.ts",
+              "summary": "Month-gyeok selection candidates and exposure evidence are separate inputs."
+            },
+            {
+              "kind": "regression-test",
+              "reference": "lib/saju-ts/src/rules/gyeokgukStructuralMonthFrame.test.ts",
+              "summary": "A valid chart keeps PYEON_JAE selection while exposed GEOB_JAE makes quality mixed and ZHUO."
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "approvals": [
     {
       "fingerprint": "sha256:2b92727a02624e89362b88653e2051b2a8b2c9e88d8e8d5aae8437cda4c7b074",
+      "blockerInventoryFingerprint": "sha256:3c091ec0f2919c0e0b74f3a49029658340a3a0915d41e56591e4f01c40b6a5a5",
       "status": "pending",
       "reviewedBy": null,
       "reviewedAt": null,
@@ -11,6 +65,7 @@
     },
     {
       "fingerprint": "sha256:2ca4ddcf743061692aa6e0900ee5d20e04aee134cb6c63954af38afca6c51bfc",
+      "blockerInventoryFingerprint": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
       "status": "pending",
       "reviewedBy": null,
       "reviewedAt": null,
@@ -30,6 +85,7 @@
     },
     {
       "fingerprint": "sha256:6018d66d34e3875e22cb8924f01221b41bfaa9adaa1c9993ff3ddadd809440a0",
+      "blockerInventoryFingerprint": "sha256:8bcb38ba2d22964d7abb5b3c6c3ee500ae4990626321a18dfb10aab6e1ba28d3",
       "status": "pending",
       "reviewedBy": null,
       "reviewedAt": null,
@@ -45,19 +101,7 @@
           "summary": "Exact source attribution, snapshot diff, and linked nine-fixture candidate snapshot fingerprint."
         }
       ],
-      "blockers": [
-        {
-          "id": "EARTH_MIXED_MONTH_STRUCTURAL_COMPATIBILITY",
-          "severity": "P1",
-          "status": "open"
-        },
-        {
-          "id": "QUALITY_EVIDENCE_FILTERING_CONTRADICTION",
-          "severity": "P1",
-          "status": "open"
-        }
-      ],
-      "note": "Stack 18 fixes day-master self-transparency and unsupported companion-frame promotion. Exact judgement changes and candidate snapshot remain independently unapproved. Approving this fingerprint does not resolve either open P1 blocker; Ready remains prohibited until both are closed and the release gate consumes this blocker list fail-closed."
+      "note": "Stack 18 fixes day-master self-transparency and unsupported companion-frame promotion. Exact judgement changes and candidate snapshot remain independently unapproved. Stack 23 resolves the fingerprint-specific quality-evidence filtering contradiction. The top-level releaseBlockers registry separately keeps earth mixed-month compatibility and Stack23's snapshot-invisible impact review open; Ready remains prohibited."
     }
   ]
 }

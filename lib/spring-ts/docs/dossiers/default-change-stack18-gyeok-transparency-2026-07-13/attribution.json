@@ -40,16 +40,43 @@
     "baselineUpdated": true,
     "approvalScope": "same-expert-review"
   },
+  "blockerRegistry": {
+    "canonicalPath": "lib/spring-ts/test/baseline/default-change-approvals.json",
+    "canonicalField": "releaseBlockers",
+    "note": "This attribution mirrors follow-up state; the top-level releaseBlockers registry is authoritative."
+  },
   "knownFollowupBlockers": [
     {
       "id": "EARTH_MIXED_MONTH_STRUCTURAL_COMPATIBILITY",
       "severity": "P1",
-      "status": "requires_explicit_school_policy_or_authority_approval"
+      "status": "open",
+      "reason": "Requires an explicit school policy or authority approval."
     },
     {
       "id": "QUALITY_EVIDENCE_FILTERING_CONTRADICTION",
       "severity": "P1",
-      "status": "requires_code_fix_and_exact_diff_review"
+      "status": "resolved",
+      "resolvedBy": "Stack 23 independent code review",
+      "resolvedAt": "2026-07-13",
+      "resolutionEvidence": [
+        {
+          "kind": "source-contract",
+          "reference": "lib/saju-ts/src/rules/facts.ts",
+          "summary": "Selection candidates and exposure evidence are separate quality inputs."
+        },
+        {
+          "kind": "regression-test",
+          "reference": "lib/saju-ts/src/rules/gyeokgukStructuralMonthFrame.test.ts",
+          "summary": "PYEON_JAE selection coexists consistently with exposed GEOB_JAE mixed/ZHUO evidence."
+        }
+      ]
+    },
+    {
+      "id": "QUALITY_EVIDENCE_DEFAULT_IMPACT_REVIEW",
+      "severity": "P1",
+      "status": "open",
+      "evidence": "lib/spring-ts/docs/dossiers/stack23-gyeok-quality-evidence-2026-07-13/impact-sample.json",
+      "reason": "The corrected evidence split changes quality in 126 of 5,133 deterministic grid samples while fixed snapshots remain unchanged."
     }
   ]
 }

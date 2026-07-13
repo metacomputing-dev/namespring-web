@@ -1,0 +1,113 @@
+{
+  "schema": "namespring.spring-ts.stack23-gyeok-quality-impact-sample.v1",
+  "measuredOn": "2026-07-13",
+  "status": "review-required",
+  "blocker": {
+    "id": "QUALITY_EVIDENCE_DEFAULT_IMPACT_REVIEW",
+    "severity": "P1",
+    "status": "open",
+    "reason": "The default behavior change is not observed by the 17 baseline snapshots or the 261 candidate snapshots."
+  },
+  "comparison": {
+    "baseStack": 22,
+    "baseCommit": "3011d1904bfe71c7005e234b4c0698b41dc686fb",
+    "change": "Keep the filtered candidates for gap and selection, but use all visible candidates as purity and mixed-quality evidence.",
+    "selectionCandidateInputChanged": false,
+    "qualityEvidenceInputChanged": true,
+    "potentiallyChangedFields": [
+      "purity",
+      "mixed",
+      "clarity",
+      "multiplier"
+    ],
+    "possibleDownstreamEffect": "Quality multipliers can affect gyeokguk candidate competition, ranking, and confidence even though selection eligibility is unchanged."
+  },
+  "universe": {
+    "kind": "uniform legal-cycle four-pillar grid",
+    "size": 518400,
+    "dimensions": {
+      "yearCycle": 60,
+      "dayCycle": 60,
+      "monthBranch": 12,
+      "hourBranch": 12
+    },
+    "sizeFormula": "60 * 60 * 12 * 12"
+  },
+  "construction": {
+    "loopOrder": [
+      "yearCycle:0..59",
+      "dayCycle:0..59",
+      "monthBranch:0..11",
+      "hourBranch:0..11"
+    ],
+    "indices": {
+      "yearStem": "yearCycle % 10",
+      "yearBranch": "yearCycle % 12",
+      "dayStem": "dayCycle % 10",
+      "dayBranch": "dayCycle % 12",
+      "monthStem": "(((yearStem % 5) * 2 + 2 + ((monthBranch - 2) % 12 + 12) % 12) % 10)",
+      "hourStem": "(((dayStem % 5) * 2 + hourBranch) % 10)"
+    },
+    "pipeline": [
+      "normalizeConfig({})",
+      "elementDistributionFromPillars",
+      "scorePillarsForRuleFacts(DEFAULT_SCORE_POLICY)",
+      "buildRuleFacts"
+    ]
+  },
+  "sampling": {
+    "kind": "deterministic systematic sample",
+    "linearIndexBase": 0,
+    "rule": "linearIndex % 101 === 0",
+    "sampleSize": 5133,
+    "random": false,
+    "populationWeighted": false,
+    "confidenceIntervalApplicable": false
+  },
+  "comparisonRule": {
+    "beforeVisibleTenGodEvidence": "eligible visible candidates only",
+    "afterVisibleTenGodEvidence": "all visible candidates",
+    "affectedDefinition": "An excluded visible companion candidate exists, the after evidence set is larger than the before set, and the computed quality result changes."
+  },
+  "results": {
+    "sampledCharts": 5133,
+    "chartsWithExcludedVisibleCompanionEvidence": 358,
+    "chartsWithQualityChange": 126,
+    "qualityChangeRatePercent": 2.4547,
+    "qualityChangeRateNumerator": 126,
+    "qualityChangeRateDenominator": 5133,
+    "bySelectedRegularFrame": {
+      "PYEON_GWAN": 17,
+      "PYEON_JAE": 10,
+      "SIK_SHIN": 14,
+      "JEONG_JAE": 11,
+      "PYEON_IN": 21,
+      "SANG_GWAN": 12,
+      "JEONG_IN": 26,
+      "JEONG_GWAN": 15
+    },
+    "bySelectedRegularFrameTotal": 126
+  },
+  "snapshotEvidence": {
+    "baseline": {
+      "cases": 17,
+      "changed": 0
+    },
+    "gyeokgukCandidates": {
+      "cases": 261,
+      "changed": 0
+    },
+    "classification": "snapshot-invisible default change"
+  },
+  "limitations": [
+    "This is not a sample of real births or service traffic.",
+    "The 2.4547% rate is not population prevalence, user incidence, market impact, or a statistical estimate.",
+    "The sample does not approve the classical authority of the rule or the numerical quality coefficients.",
+    "Passing snapshots demonstrate no change in the fixed fixtures; they do not negate the measured out-of-fixture impact."
+  ],
+  "authority": {
+    "externallyApproved": false,
+    "commercialDefaultApproved": false,
+    "statement": "The change resolves an internal evidence-model contradiction, but independent impact and authority review remain required."
+  }
+}

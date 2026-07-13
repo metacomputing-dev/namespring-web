@@ -996,9 +996,12 @@ matchedPillars 없음. shinsalHits 항목 키셋은 단일: {type, position, gra
   exact default-diff 승인, exact commit 전문가 signoff를 충족하지 않으므로
   “전문가급 상용 사주엔진 인증”이나 PR WIP 해제의 단독 근거가 아니다.
 - PR #653의 freeze 누적 범위 `6fb2f68a4` 기준 134커밋·418파일과 후속 backend 체크포인트는
-  #654~#675의 22개 Draft base/head 스택으로 분할됐다. main..Stack22 154커밋과 스택
-  합집합은 누락·중복 0이고 frontend source diff도 0이다. 작은 default-neutral guardrail과
-  외부 명리 인증 gate는 계속 서로 다른 리뷰 축으로 다룬다.
+  #654~#676의 23개 Draft base/head 스택으로 분할한다. Stack23 최종 누적 커밋·스택 합집합·
+  frontend source diff는 최종 commit 뒤 재측정한다.
+- Stack23은 선택 후보와 전체 투간 품질 증거를 분리해 내부 모순을 해소하지만, 결정론적
+  5,133건 표본 중 126건의 snapshot-invisible 품질 변화를 확인했다. 인구 가중 발생률은 아니며
+  영향·권위 검토 P1을 global registry에 open으로 유지한다. exact diff 0에서도 gate는 non-zero다.
+  작은 default-neutral guardrail, default-impact 판정, 외부 명리 인증은 서로 다른 리뷰 축으로 다룬다.
 
 ---
 

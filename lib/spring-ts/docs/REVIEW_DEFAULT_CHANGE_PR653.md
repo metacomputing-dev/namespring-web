@@ -185,5 +185,26 @@ docs/dossiers/default-change-stack18-gyeok-transparency-2026-07-13/이다.
 재캡처와 pending manifest는 exact diff 노출 수단일 뿐 승인 자체가 아니며,
 독립 검토 전 Stack 18 및 후속 스택을 Ready로 전환하지 않는다.
 토 일간 잡기월 BI_GYEON 4조합의 구조격 호환정책과 선택 후보/노출 증거 혼용 P1은
-이 fingerprint 승인 범위 밖이다. 두 blocker가 닫히고 release gate가 이를 fail-closed로
-검증하기 전에는 fingerprint가 승인되어도 Ready로 전환하지 않는다.
+이 fingerprint 승인 범위 밖이다. Stack 23은 후자를 코드·회귀로 해소했지만 Stack 18의
+예전 tip은 해당 수정과 새 gate를 포함하지 않으므로 수동 Draft hold를 유지한다. schema v2의
+fingerprint별 inventory에는 역사적 exact-diff 판정을 결박하고, top-level global registry에는
+`EARTH_MIXED_MONTH_STRUCTURAL_COMPATIBILITY`와
+`QUALITY_EVIDENCE_DEFAULT_IMPACT_REVIEW` P1을 open으로 둔다. 이 global blocker는
+snapshot diff가 0이어도 `RELEASE_BLOCKED`로 평가되며 둘 다 닫히기 전에는 Ready로 전환하지 않는다.
+
+## 9. Stack 23 격국 품질 증거 기본변화
+
+Stack 23은 gap·일반격 선택에는 기존 filtered 후보를 그대로 쓰고, purity/mixed 품질에는
+선택 제외 후보까지 포함한 전체 투간 증거를 사용한다. 따라서 격 선택 자격 집합은 바뀌지 않지만
+`purity`, `mixed`, `clarity`, `multiplier`와 그 배율을 소비하는 후속 후보 경쟁은 바뀔 수 있다.
+
+결정론적 합법 4주 격자 518,400건 중 linear index `% 101 === 0`인 5,133건을 표본화한 결과,
+선택 제외 visible companion evidence가 있는 명식은 358건이고 품질 결과가 실제 바뀐 명식은
+126건(2.4547%)이었다. 격별 변화는 PYEON_GWAN 17, PYEON_JAE 10, SIK_SHIN 14,
+JEONG_JAE 11, PYEON_IN 21, SANG_GWAN 12, JEONG_IN 26, JEONG_GWAN 15로 합계 126이다.
+이 비율은 실제 출생·사용자·트래픽 분포를 가중하지 않은 격자 탐색치이며 시장 발생률 추정치가 아니다.
+
+기본 17 및 후보 261 snapshot 무변은 영향 부재의 증거가 아니라 기존 고정 fixture가 이 변화를
+포착하지 못한다는 증거다. 내부 증거 모델의 모순 해소와 외부 명리 권위·계수 승인은 별개다.
+재현 규약과 기계 판독 결과는
+`docs/dossiers/stack23-gyeok-quality-evidence-2026-07-13/`에 고정한다.
