@@ -1065,5 +1065,5 @@ full chain은 원격 CI에서 시간 제한과 로그를 가진 상태로 완주
 
 1. Stack 24·25 자체의 독립 정적 검토는 P0=0, P1=0이고 로컬 계약·통합 회귀도 통과했다.
 2. 그러나 연속 스택은 선행 PR이 merge된 뒤에만 다음 PR의 실제 main-relative diff를 승인할 수 있다.
-3. 첫 PR #654의 exact default diff 승인, Stack 18/23의 명리·영향 P1, 실제 Actions 성공, D1~D5 authority와 외부 전문가 signoff가 남아 있으므로 현재 Ready PR은 0개다.
-4. 따라서 #654~#678은 모두 Draft로 유지하며, 후속 guardrail의 초록 테스트를 선행 판정 승인의 대체물로 사용하지 않는다.
+3. 첫 PR #654는 완결된 리뷰 단위이고 알려진 P0/P1이 없어 2026-07-14 Ready로 전환했다. exact default diff 승인과 명리·SW 검토는 merge 심사에서 수행한다.
+4. #655~#678은 순서를 유지해 Draft로 둔다. Stack 18/23의 명리·영향 P1, 실제 Actions 성공, D1~D5 authority와 외부 전문가 signoff는 해당 PR과 최종 release의 merge 차단선이다.

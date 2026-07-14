@@ -6,7 +6,7 @@
 >
 > **2026-07-11 continuation override:** 이 문서의 PR-1~4 수치는 역사 기록이다.
 > 현재 착수점은 `ROADMAP_SAJU_ENGINE.md`의 2026-07-11 merge-readiness 블록과
-> `GUIDE_SAJU_ENGINE_IMPL.md` §0.5다. 누적 PR #653은 닫혔고 대체 PR #654~#678(25개)는 모두 Draft다. RPI는 20/100,
+> `GUIDE_SAJU_ENGINE_IMPL.md` §0.5다. 누적 PR #653은 닫혔고 대체 PR #654~#678(25개) 중 #654는 Ready, #655~#678은 Draft다. RPI는 20/100,
 > D1~D4는 truth-insufficient N/A, D5 accuracy는 14 N/A + 3 NOT_APPLICABLE다.
 > 권위 scope와 panel evidence 계약을 완화하거나 snapshot을 truth로 승격하지 말 것.
 > D1은 doctrine 3필드+naming 4필드 전체가 있어야 하며, T4는 URL-only 승격을 금지하고
@@ -159,7 +159,7 @@ cd lib/spring-ts && npx tsx tmp/probe-optin-naeum-palace.ts
 - boundaryTermId와 12운성 provenance는 기존 구조 스냅샷이 포착하지 않는 additive output change다. 정확 2일 대운수 반올림은 경계 입력에만 보이는 default change이며 PR 본문에서 snapshot-invisible output change로 공개한다.
 - Claude 병렬 사전검증: PR #668은 계산 base≡tip이나 당시 좌표 coercion P1 때문에 CONDITIONAL PASS. 해당 입력 검증은 Stack 16의 `0e91b8ec9`에서 이미 strict number/range로 보완됐고 Stack 22가 JS 비타입 회귀를 추가한다. PR #673과 #674는 각각 코드·문서 검증 PASS(P0/P1 0, 비차단 P2 각 6건)이나 선행 스택 순서 때문에 자동 Ready 전환하지 않는다.
 - PR #673은 Seed `npm ci`를 CI에 추가해 PR #668 시점의 선재 `sql.js` 설치 위험을 해소한다. Stack 22의 Actions run `29227222364`는 생성됐지만 account billing lock 때문에 `Engine regression` job이 step 0개로 시작되지 않았고 expert job은 skipped였다. 따라서 실제 CI 성공 이력은 아직 없다.
-- 운영 원칙: #654~#678을 재작성하지 않는다. Stack 25까지 main..Stack25는 159커밋이며 frontend source diff는 0이다. Ready 전환은 선행 스택 merge, 그 시점 main-relative exact diff 승인, 해당 SW·명리 리뷰와 release blocker 해소를 순서대로 요구한다. 소유자의 2026-07-14 위임에 따라 조건 충족 시 Codex가 직접 Draft를 해제할 수 있으나 merge는 별도 결정이다.
+- 운영 원칙: #654~#678을 재작성하지 않는다. Stack 25까지 main..Stack25는 159커밋이며 frontend source diff는 0이다. Ready는 완결된 diff·알려진 P0/P1 없음·회귀 통과·한계 공개를 뜻하고, exact diff 승인·전문가 리뷰·release blocker는 merge gate로 분리한다. 소유자의 2026-07-14 위임에 따라 조건 충족 시 Codex가 직접 Draft를 해제할 수 있으나 merge는 별도 결정이다.
 
 ## J. 2026-07-14 Stack 24~25 및 Ready 인계
 
@@ -168,10 +168,10 @@ cd lib/spring-ts && npx tsx tmp/probe-optin-naeum-palace.ts
 - 두 스택 모두 backend-only이며 frontend source diff는 0이다. 격국·강약·용신·조후 계수와 사주 기본 판정은 변경하지 않는다.
 - 일반 unrestricted 이름 후보 풀의 `is_surname` 배제는 의미론상 후속 수정 후보이나 기본 후보 집합을 바꾸므로 Stack 24에 섞지 않았다. 별도 default-change fingerprint·후보 snapshot을 동반해 다룬다.
 
-### 현재 Ready 판정: 0개
+### 현재 Ready 판정: 1개 (#654)
 
-1. 첫 PR #654의 63 leaf fingerprint `sha256:2ca4ddcf…`가 pending이고 독립 reviewedBy·GitHub review가 없다.
-2. Stack 18 기본변화와 Stack 23 `EARTH_MIXED_MONTH_STRUCTURAL_COMPATIBILITY`, `QUALITY_EVIDENCE_DEFAULT_IMPACT_REVIEW` P1이 open이다.
-3. GitHub Actions는 billing lock으로 실제 regression step이 시작되지 않았다.
-4. D1~D5 truth/authority와 exact-commit 외부 명리 전문가 signoff가 없다.
-5. 따라서 후속 PR의 개별 P0/P1=0은 선행 스택을 건너뛴 Ready 사유가 아니다. #654 승인부터 순서대로 main-relative 검증 후 해제한다.
+1. #654는 exact-tip 회귀가 통과하고 알려진 P0/P1이 없어 Ready로 전환했다. 63 leaf fingerprint `sha256:2ca4ddcf…`와 독립 리뷰는 merge 심사 대상이다.
+2. Stack 18 기본변화와 Stack 23 `EARTH_MIXED_MONTH_STRUCTURAL_COMPATIBILITY`, `QUALITY_EVIDENCE_DEFAULT_IMPACT_REVIEW` P1은 해당 스택 merge 전 해결한다.
+3. GitHub Actions billing lock으로 실제 regression step이 시작되지 않은 상태는 merge 차단선이다.
+4. D1~D5 truth/authority와 exact-commit 외부 명리 전문가 signoff는 상용 release 및 관련 판정 PR의 merge 차단선이다.
+5. #655~#678은 선행 PR의 리뷰·머지 뒤 main-relative diff를 재확인하고 순차 Ready로 전환한다.

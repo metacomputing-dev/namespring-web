@@ -7,9 +7,9 @@
 > `HANDOFF_SAJU_ENGINE_PR8_20260709.md`(§6 다음 작업 후보)의 잔여 목록은 이 문서로 대체된다.
 > 개별 항목의 완료 이력·검증 수치는 여전히 두 핸드오프가 정본이다.
 >
-> 현재 리뷰 단위: 누적 PR #653을 대체한 Draft 스택 PR #654~#678(25개). 진행 상태는 §9 표에 커밋 해시와 함께 갱신한다.
+> 현재 리뷰 단위: 누적 PR #653을 대체한 스택 PR #654~#678(25개). #654는 Ready, #655~#678은 Draft다. 진행 상태는 §9 표에 커밋 해시와 함께 갱신한다.
 >
-> **2026-07-14 merge-readiness 정정:** 누적 PR #653은 닫혔고 대체 PR #654~#678는 모두 Draft다.
+> **2026-07-14 merge-readiness 정정:** 누적 PR #653은 닫혔고, 첫 PR #654는 리뷰 시작을 위해 Ready로 전환했다. 나머지 #655~#678은 Draft다.
 > 현재
 > source-tier/no-AI/quality 정책 테스트와 구조 게이트는 통과하지만, 17개 release fixture의
 > `D1~D4=N/A`, `D5=0 PASS / 0 FAIL / 14 N/A / 3 NOT_APPLICABLE`, raw RPI
@@ -271,7 +271,7 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 
 | 항목 | 상태 | 커밋 | 일자 | 파급 실측/비고 |
 |---|---|---|---|---|
-| P0-1 Draft PR | 🔶 25개 스택 모두 Draft / Ready 0 | PR #654~#678 | 2026-07-14 | 닫힌 누적 PR #653의 134커밋과 후속 backend 체크포인트를 25개 base/head 스택으로 분리한다. Stack 25까지 main..Stack25는 159커밋이고 frontend source diff는 0이다. Stack 01 63 leaf와 Stack 18 기본 5픽스처·8 leaf 및 후보 9건은 독립 명리 승인 pending이다. Stack 23의 잡기월 구조격 정책·영향 검토 P1도 open이고 실제 Actions 성공, 외부 전문가 signoff, authority gate가 없다. 따라서 후속 Stack 24·25의 P0/P1=0과 로컬 회귀 통과는 선행 스택을 건너뛴 Ready 전환 근거가 아니다. |
+| P0-1 스택 PR | 🟢 #654 Ready / 🔶 24개 Draft | PR #654~#678 | 2026-07-14 | 닫힌 누적 PR #653의 134커밋과 후속 backend 체크포인트를 25개 base/head 스택으로 분리한다. Stack 25까지 main..Stack25는 159커밋이고 frontend source diff는 0이다. #654는 완결된 리뷰 단위이고 알려진 P0/P1이 없어 Ready로 전환했다. 63 leaf fingerprint와 명리·SW 검토는 Ready 차단선이 아니라 merge 심사 대상이다. Stack 18·23 P1, 실제 Actions 성공, 외부 전문가 signoff와 authority gate는 해당 스택 및 최종 merge 차단선으로 유지한다. |
 | P0-2 테스트 체인 무결성 | 🔶 로컬 회귀 통과 / 원격 job 미시작 | 8a63450a2, fe68bfd04, 389c0e1f2 | 2026-07-13 | 회귀 job과 `expert-readiness` job을 분리했고 worker 2로 고정한 공식 saju-ts `test:ci` 481/481, Spring snapshot 17/17, 후보 snapshot 261/261, Pages·DB·WASM exact-set 계약을 로컬에서 통과했다. GitHub Actions run `29227222364`는 실제 생성됐지만 account billing lock 주석과 함께 `Engine regression`이 step 0개로 시작되지 않았고 expert job은 skipped였다. 이는 테스트 실패가 아니라 계정 차단이며 실제 CI 성공 증거도 아니다. billing lock 해소 후 동일 head에서 재실행해야 한다. 외부 signoff와 exact-diff 승인 전 expert job의 red는 정상이다. |
 | Stack23 격국 품질 증거·release blocker 결박 | 🔶 코드·회귀 통과 / 영향·교리 승인 대기 | 290b669a7 | 2026-07-13 | 선택 후보와 투간 품질 증거를 분리했다. 표적 42/42, 관련 70/70, saju-ts 481/481, 기본 17/17, 후보 261/261을 통과했지만 5,133 결정론적 표본 중 126건의 snapshot-invisible 품질 변화가 있어 영향 검토 P1은 open이다. top-level global registry는 exact diff 0에서도 두 open P1을 `RELEASE_BLOCKED`로 만들고 두 CLI를 non-zero로 종료한다. |
 | Stack24 Spring 이름 identity·입력 계약 | ✅ 코드·회귀 통과 / 🔶 스택 순서 대기 | e38b5512f, PR #677 | 2026-07-14 | 성씨는 repository의 `is_surname=true` exact pair만 권위로 인정하고 임의 첫 Hanja 선택을 제거했다. 이름·mode/options·길이·Fortune targetDate를 init 전에 bounded fail-closed 검증하며 오류에 원문 PII를 보존하지 않는다. pure-Hangul 후보 identity와 court-mirror PUA 경계도 고정했다. typecheck, bridge, compat 208/208, snapshot 17/17, Fortune 18/18, package boundary 2/2 및 독립 P0/P1=0을 확인했다. 일반 unrestricted 후보 풀의 `is_surname` 필터는 기본 후보 집합 변경 가능성이 있어 별도 default-change 항목으로 격리한다. |
