@@ -133,13 +133,181 @@ describe('gyeokguk selectionRule', () => {
     };
 
     const result = computeGyeokguk(config, facts);
-    expect(result.scores['gyeokguk.PYEON_IN']).toBeCloseTo(0.5, 12);
+    expect(result.scores['gyeokguk.PYEON_IN']).toBeCloseTo(0.475, 12);
     expect(result.basis.seongpaeScoreAdjustment).toMatchObject({
       verdict: 'PAGYEOK',
-      multiplier: 1,
+      multiplier: 0.95,
       before: 0.5,
-      after: 0.5,
+      after: 0.475,
       suppressedBy: 'MONTH_DAMAGE_ALREADY_APPLIED_TO_QUALITY',
     });
+  });
+
+  it('preserves the pre-damage seonggyeok boost when quality already carries month damage', () => {
+    const { config, facts } = analyzeWithSelectionRule(undefined, {}, true);
+    facts.month.gyeok.quality.multiplier = 0.5;
+    facts.month.gyeok.seongpae = {
+      ...facts.month.gyeok.seongpae!,
+      verdict: 'SEONGJUNG_YUPA',
+      verdictBeforeMonthBroken: 'SEONGGYEOK',
+    };
+
+    const result = computeGyeokguk(config, facts);
+    expect(result.scores['gyeokguk.PYEON_IN']).toBeCloseTo(0.54, 12);
+    expect(result.basis.seongpaeScoreAdjustment).toMatchObject({
+      verdict: 'SEONGJUNG_YUPA',
+      multiplier: 1.08,
+      before: 0.5,
+      after: 0.54,
+      suppressedBy: 'MONTH_DAMAGE_ALREADY_APPLIED_TO_QUALITY',
+    });
+  });
+
+  it('keeps the final damage verdict penalty when a custom rule omits quality', () => {
+    const { config, facts } = analyzeWithSelectionRule();
+    facts.month.gyeok.quality.multiplier = 0.5;
+    facts.month.gyeok.seongpae = {
+      ...facts.month.gyeok.seongpae!,
+      verdict: 'PAGYEOK',
+      verdictBeforeMonthBroken: 'UNDETERMINED',
+    };
+
+    const result = computeGyeokguk(config, facts);
+    expect(result.scores['gyeokguk.PYEON_IN']).toBeCloseTo(0.75, 12);
+    expect(result.basis.seongpaeScoreAdjustment).toMatchObject({
+      verdict: 'PAGYEOK',
+      multiplier: 0.75,
+      before: 1,
+      after: 0.75,
+    });
+    expect(result.basis.seongpaeScoreAdjustment?.suppressedBy).toBeUndefined();
+  });
+
+  it('applies prior and final verdict multipliers to their own mixed-rule contributions', () => {
+    const { facts } = analyzeWithSelectionRule();
+    const config = normalizeConfig({
+      extensions: {
+        rulesets: {
+          gyeokguk: {
+            id: 'test.gyeokguk.mixed-quality-provenance',
+            version: '1.0',
+            rules: [
+              {
+                id: 'QUALITY_CONTRIBUTION',
+                score: {
+                  'gyeokguk.PYEON_IN': {
+                    op: 'mul',
+                    args: [1, { var: 'month.gyeok.quality.multiplier' }],
+                  },
+                },
+              },
+              {
+                id: 'FIXED_CONTRIBUTION',
+                score: { 'gyeokguk.PYEON_IN': 1 },
+              },
+            ],
+          },
+        },
+      },
+    });
+    facts.month.gyeok.quality.multiplier = 0.5;
+    facts.month.gyeok.seongpae = {
+      ...facts.month.gyeok.seongpae!,
+      verdict: 'PAGYEOK',
+      verdictBeforeMonthBroken: 'UNDETERMINED',
+    };
+
+    const result = computeGyeokguk(config, facts);
+    expect(result.basis.seongpaeScoreAdjustment?.before).toBeCloseTo(1.5, 12);
+    expect(result.scores['gyeokguk.PYEON_IN']).toBeCloseTo(1.225, 12);
+    expect(result.basis.seongpaeScoreAdjustment?.multiplier).toBeCloseTo(1.225 / 1.5, 12);
+    expect(result.basis.seongpaeScoreAdjustment).toMatchObject({
+      verdict: 'PAGYEOK',
+      after: 1.225,
+      suppressedBy: 'MONTH_DAMAGE_ALREADY_APPLIED_TO_QUALITY',
+      multiplierBreakdown: {
+        qualityContribution: 0.5,
+        qualityVerdict: 'UNDETERMINED',
+        qualityMultiplier: 0.95,
+        otherContribution: 1,
+        otherVerdict: 'PAGYEOK',
+        otherMultiplier: 0.75,
+      },
+    });
+  });
+
+  it('does not protect an unreachable quality branch from the final damage verdict', () => {
+    const { facts } = analyzeWithSelectionRule();
+    const config = normalizeConfig({
+      extensions: {
+        rulesets: {
+          gyeokguk: {
+            id: 'test.gyeokguk.unreachable-quality-branch',
+            version: '1.0',
+            rules: [
+              {
+                id: 'UNREACHABLE_QUALITY',
+                score: {
+                  'gyeokguk.PYEON_IN': {
+                    op: 'if',
+                    args: [false, { var: 'month.gyeok.quality.multiplier' }, 1],
+                  },
+                },
+              },
+            ],
+          },
+        },
+      },
+    });
+    facts.month.gyeok.quality.multiplier = 0.5;
+    facts.month.gyeok.seongpae = {
+      ...facts.month.gyeok.seongpae!,
+      verdict: 'PAGYEOK',
+      verdictBeforeMonthBroken: 'UNDETERMINED',
+    };
+
+    const result = computeGyeokguk(config, facts);
+    expect(result.scores['gyeokguk.PYEON_IN']).toBeCloseTo(0.75, 12);
+    expect(result.basis.seongpaeScoreAdjustment?.suppressedBy).toBeUndefined();
+  });
+
+  it('fails closed when duplicate rule ids make score provenance ambiguous', () => {
+    const { facts } = analyzeWithSelectionRule();
+    const config = normalizeConfig({
+      extensions: {
+        rulesets: {
+          gyeokguk: {
+            id: 'test.gyeokguk.duplicate-rule-id',
+            version: '1.0',
+            rules: [
+              {
+                id: 'DUPLICATE',
+                score: {
+                  'gyeokguk.PYEON_IN': {
+                    op: 'mul',
+                    args: [1, { var: 'month.gyeok.quality.multiplier' }],
+                  },
+                },
+              },
+              {
+                id: 'DUPLICATE',
+                score: { 'gyeokguk.PYEON_IN': 1 },
+              },
+            ],
+          },
+        },
+      },
+    });
+    facts.month.gyeok.quality.multiplier = 0.5;
+    facts.month.gyeok.seongpae = {
+      ...facts.month.gyeok.seongpae!,
+      verdict: 'PAGYEOK',
+      verdictBeforeMonthBroken: 'UNDETERMINED',
+    };
+
+    const result = computeGyeokguk(config, facts);
+    expect(result.basis.seongpaeScoreAdjustment?.before).toBeCloseTo(1.5, 12);
+    expect(result.scores['gyeokguk.PYEON_IN']).toBeCloseTo(1.125, 12);
+    expect(result.basis.seongpaeScoreAdjustment?.suppressedBy).toBeUndefined();
   });
 });
