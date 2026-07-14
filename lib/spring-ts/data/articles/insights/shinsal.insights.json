@@ -44,6 +44,55 @@
     { "factId": "shinsal.격각살", "text": "삶의 무대가 자주 바뀌는 결이라, 변화를 겁내지 않으면 기회가 돼요.", "expertText": "격각살(隔角殺) — 거처·직업 변동의 별로, 유연한 적응력이 자산이 되는 상이에요." },
     { "factId": "shinsal.비인살", "text": "예리한 승부 감각이 있는 대신, 뒷심 관리가 과제인 자리예요.", "expertText": "비인살(飛刃殺) — 양인의 충 반대편 별로, 순간 집중력은 강하나 지속성 보완이 처방이에요." },
     { "factId": "shinsal.양인", "text": "칼처럼 강한 추진력이 실려 있어요. 쓰는 곳을 가리면 큰 무기가 돼요.", "expertText": "양인살(羊刃殺) — 왕기가 넘치는 별로, 전문 기술·수술·승부 직능에서 정제되면 대성하는 상이에요." },
-    { "factId": "shinsal.공망", "text": "그 자리의 일이 헛도는 느낌이 들 수 있지만, 비움 자체가 여백의 힘이 되기도 해요.", "expertText": "공망(空亡) — 순중 결위의 상으로, 집착을 내려놓는 영역에서 오히려 정신적 성취가 커져요." }
+    { "factId": "shinsal.공망", "text": "그 자리의 일이 헛도는 느낌이 들 수 있지만, 비움 자체가 여백의 힘이 되기도 해요.", "expertText": "공망(空亡) — 순중 결위의 상으로, 집착을 내려놓는 영역에서 오히려 정신적 성취가 커져요." },
+    {
+      "factId": "shinsal.귀인@year",
+      "text": "년주 쪽 귀인은 집안·초년·바깥 인연에서 도움의 통로가 열리는 모습이에요. 오래된 관계를 가볍게 보지 않으면 좋아요.",
+      "expertText": "귀인@year — 근묘화실상 뿌리와 배경의 자리예요. 조상·부모 세대, 초기 환경, 사회적 첫 인연을 통해 보호와 조력이 들어오는 신호로 읽어요.",
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "ai_authored_insight_text", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-authored Korean narrative for display-only shinsal palace-position insight text.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "factId": "shinsal.귀인@month",
+      "text": "월주 쪽 귀인은 일과 사회적 무대에서 도움을 받기 쉬운 배치예요. 역할을 성실히 잡을수록 조력자가 선명해져요.",
+      "expertText": "귀인@month — 사회궁과 직업 환경의 자리예요. 조직·상사·동료·제도권의 도움으로 실무 기회가 살아나는 신호로 읽어요.",
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "ai_authored_insight_text", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-authored Korean narrative for display-only shinsal palace-position insight text.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "factId": "shinsal.귀인@day",
+      "text": "일주 쪽 귀인은 가까운 관계와 내 선택에서 도움의 손길이 살아나는 자리예요. 믿을 만한 사람과 기준을 함께 세우면 좋아요.",
+      "expertText": "귀인@day — 자기 자신과 배우자궁의 자리예요. 개인의 판단력, 동반자, 가까운 협력 관계를 통해 보호와 회복이 일어나는 신호로 읽어요.",
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "ai_authored_insight_text", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-authored Korean narrative for display-only shinsal palace-position insight text.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "factId": "shinsal.귀인@hour",
+      "text": "시주 쪽 귀인은 후반부의 성과나 제자·후배 인연에서 도움을 받는 모습이에요. 길게 키우는 일이 복으로 돌아오기 쉬워요.",
+      "expertText": "귀인@hour — 결과·자녀·후속 성취의 자리예요. 말년의 조력, 후배와 제자, 장기 프로젝트의 보호 신호로 조심스럽게 읽어요.",
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "ai_authored_insight_text", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-authored Korean narrative for display-only shinsal palace-position insight text.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "factId": "shinsal.귀문관살",
+      "text": "감이 예민하고 보이지 않는 분위기를 빨리 읽는 배치예요. 혼자 넘겨짚기보다 기록하고 확인하면 재능으로 바뀌어요.",
+      "expertText": "귀문관살 — 심리적 감응과 몰입이 강한 신살로 보되 흉단으로 몰지 않아요. 상담·연구·창작처럼 깊게 파고드는 일에서 장점이 돼요.",
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "ai_authored_insight_text", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-authored Korean narrative for display-only shinsal insight text.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "factId": "shinsal.고신살",
+      "text": "혼자 견디는 힘이 강한 만큼 마음을 닫아 두기 쉬운 신호예요. 책임을 나눌 사람을 미리 정해 두면 훨씬 편해져요.",
+      "expertText": "고신살 — 고립을 단정하는 말이 아니라 독립성과 거리두기 성향의 신호로 다뤄요. 협력 루틴을 만들면 장점인 집중력만 남길 수 있어요.",
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "ai_authored_insight_text", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-authored Korean narrative for display-only shinsal insight text.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "factId": "shinsal.과숙살",
+      "text": "속마음을 쉽게 드러내지 않아 혼자 삭이는 시간이 길어질 수 있어요. 표현의 작은 통로를 만들면 관계가 부드러워져요.",
+      "expertText": "과숙살 — 관계 단절을 예언하기보다 정서 표현이 늦어지는 신호로 읽어요. 말·글·상담처럼 감정을 내보내는 장치를 두는 것이 처방이에요.",
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "ai_authored_insight_text", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-authored Korean narrative for display-only shinsal insight text.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+    }
   ]
 }

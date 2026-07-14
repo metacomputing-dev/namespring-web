@@ -16,6 +16,18 @@ export interface InsightInterpretation {
   readonly text: string;
   /** 전문가 tier 보강 해석 (선택, #{태그} 직조 가능). */
   readonly expertText?: string;
+  /** AI-authored content provenance. Present on newly-authored entries. */
+  readonly aiGenerated?: boolean;
+  readonly sourceTier?: {
+    readonly tier: string;
+    readonly sourceType: string;
+    readonly sourceUrl: string | null;
+    readonly accessedAt: string;
+    readonly quoteShort: string | null;
+    readonly humanInterpretation: string;
+    readonly copyrightNote: string;
+    readonly authorityTruthEligible: boolean;
+  };
 }
 
 interface InsightsFile {
