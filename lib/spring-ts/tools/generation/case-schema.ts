@@ -56,4 +56,15 @@ export interface GenerationSpec {
   readonly genderTerm: string | null;
   readonly audienceSafety: 'adult' | 'minor';
   readonly suggestedExpertTags: readonly string[];
+  // ── academic-only matrix fields (docs/academic-matrix-v1.md) ──
+  // Populated only for category === 'academic'; undefined elsewhere so other
+  // categories' manifest JSONL stays byte-identical (JSON.stringify drops undefined).
+  /** 이 격국의 학습 성향 + 리스크(생활어, 사주 용어 금지). */
+  readonly studyProfile?: string;
+  /** 이 (격국 × 시기) 셀의 고유 과제 — 셀 핵심 문장이 담을 활동. */
+  readonly periodTask?: string;
+  /** 이름이 이 격국에 더해 주는 이점(neutral/adverse는 빈 문자열). */
+  readonly nameBenefit?: string;
+  /** 이름이 이 격국에서 키우는 위험/살펴야 할 과잉. */
+  readonly nameRisk?: string;
 }

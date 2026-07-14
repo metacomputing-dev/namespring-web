@@ -65,6 +65,16 @@ const BAND_TONE: Record<string, string> = {
   low: '조심스러운 자리 — 방어·회복·덜어내기. 겁주지 말고 담담하게 지키는 법.',
   any: '등급 중립 — 시기 조언보다 이 사람의 결에 맞는 본질적인 이야기.',
 };
+// Academic bands are INTENSITY-ONLY: they modulate the strength of the cell's
+// injected 격국 task, they must NOT supply a competing generic activity. (Pilot
+// showed the generic BAND_TONE.mid "유지·정돈·재정비/작은 발견" made all 격국
+// converge on "방식 실험" / "완강+노트" and ignore their distinct task.)
+const ACADEMIC_BAND_INTENSITY: Record<string, string> = {
+  high: '강도 강 — 아래 핵심 과제를 도전 범위 넓혀 결과가 남는 수준으로(시험·제출·발표). 들뜨지 않게.',
+  mid: '강도 중 — 아래 핵심 과제를 무리 없는 유지 강도로(새 범위를 벌이지 말고 그 과제에 집중). 활동 자체를 generic으로 바꾸지 말 것.',
+  low: '강도 약 — 아래 핵심 과제를 회복·범위 축소·오류 방지 수준으로. 겁주지 말고 담담하게.',
+  any: '강도 중립 — 이 사람의 결에 맞는 본질적인 이야기.',
+};
 const STAGE_LABEL: Record<string, string> = {
   'stage-teen': '10대(학업·또래·자아)', 'stage-early': '20~30대(자립·시작·탐색)',
   'stage-mid': '40~50대(책임·확장·재정비)', 'stage-senior': '60~70대(내려놓음·건강·관계)',
@@ -148,10 +158,21 @@ export function buildBundlePrompt(cases: readonly GenerationCase[]): string {
   const cellLines = cases.map((c, i) => {
     // stage 셀도 band가 지정되면(등급 확장 S4+) 대운 길흉 톤을 함께 싣는다.
     // band 'any'(현행 S3 번들)는 종전과 동일 — 진행 중 생성에 무영향.
+    const bandTone = c0.category === 'academic'
+      ? (ACADEMIC_BAND_INTENSITY[c.band] ?? '')
+      : (BAND_TONE[c.band] ?? '');
     const lens = isStages
       ? `생애 단계: ${STAGE_LABEL[c.audience] ?? c.audience}${c.band && c.band !== 'any' ? ` / 대운 등급 ${c.band}: ${BAND_TONE[c.band] ?? ''}` : ''}`
-      : `${PERIOD_LENS[c.period] ?? c.period} / 등급 ${c.band}: ${BAND_TONE[c.band] ?? ''}`;
-    return `${i + 1}. \`${c.caseId}\` — ${lens}`;
+      : `${PERIOD_LENS[c.period] ?? c.period} / 등급 ${c.band}: ${bandTone}`;
+    // Academic: pin this cell's 격국×시기 task (docs/academic-matrix-v1.md) as the
+    // MANDATORY core activity. Meaning is enforced, wording is NOT — realize it with
+    // this bundle's palette (계약 9). Band = intensity only (see ACADEMIC_BAND_INTENSITY).
+    const task = c.spec.periodTask
+      ? `\n   → **이 셀의 핵심 활동(필수 — 이 활동이 셀의 중심)**: ${c.spec.periodTask}`
+        + `\n     · 밴드(${c.band})는 이 활동의 강도만 바꿀 뿐, 활동 자체를 "무난하니 방식을 한 번 실험" · "듣던 강의를 완강하고 노트 정돈" 같은 generic 유지활동으로 바꾸지 말 것(실측된 mid 수렴 골격).`
+        + `\n     · 문구 복붙 금지 — 이 번들 팔레트 소재로 구현.`
+      : '';
+    return `${i + 1}. \`${c.caseId}\` — ${lens}${task}`;
   }).join('\n');
 
   const palette = paletteFor(bundleKeyOfCase(c0));
@@ -166,24 +187,26 @@ export function buildBundlePrompt(cases: readonly GenerationCase[]): string {
   // category resolves to an empty string, so their prompts stay byte-identical.
   // Rationale: paid academic-content review (specificity + study scenes) plus the
   // condition-observation phrasing that keeps the no-absolute-assertion gate happy.
-  // Per-격국 study profile — concrete material so the body carries the 격국's
-  // learning temperament (in plain language, no jargon), not one generic tip set.
-  const ACADEMIC_STUDY_PROFILE: Record<string, string> = {
-    bigeop: '자율·자기 페이스형 — 스스로 정한 길·순서로 공부할 때 가장 강함. 결과 동기=내 완주. **리스크**: 독주·남과 비교 과열, 도움을 안 받아 헛심.',
-    gwanseong: '규칙·마감·시험 체계형 — 커리큘럼·기한을 따라갈 때 강함. 결과 동기=자격·통과. **리스크**: 정답 하나 고집·완벽주의로 이해가 굳음, 압박 과부하.',
-    inseong: '이해·기억·흡수형 — 자료·문서·멘토에서 받아들일 때 강함. 결과 동기=깊이 이해. **리스크**: 자료만 모으고 문제풀이·정리(출력)가 밀림, 결정을 미룸.',
-    siksang: '표현·산출형 — 정리해 내보내고(요약·설명·문제풀이) 만들 때 이해가 굳음. **리스크**: 벌여만 놓고 마무리가 약함, 규칙과 부딪힘.',
-    jaeseong: '현실·목표 관리형 — 쓸모·결과가 보일 때 붙음, 계획·자원 배분에 강함. **리스크**: 흥미 없으면 안 붙음, 넓게 벌려 얕아짐.',
-    special: '한쪽으로 크게 몰입하는 형 — 대세를 따를 때 강함. **리스크**: 균형·기본기를 놓침.',
-  };
-  const studyProfile = ACADEMIC_STUDY_PROFILE[c0.gyeokgukFamily] ?? '';
+  // Study profile + per-cell period task + name benefit/risk all come from the
+  // academic content matrix (docs/academic-matrix-v1.md), carried on the spec.
+  const studyProfile = s.studyProfile ?? '';
+  const nameBenefit = s.nameBenefit ?? '';
+  const nameRisk = s.nameRisk ?? '';
+  // Only ASK for name benefit/risk when there IS a benefit (boost cases). For
+  // neutral/adverse the benefit is empty; inviting a name mention there is what
+  // made the pilot leak positive name-effect → honesty rejects. Suppress instead.
+  const nameMatrixLine = nameBenefit
+    ? `\n0.5 **이름 작용(매트릭스 — 이 격국 기준)**: 이점 = ${nameBenefit}${nameRisk ? ` / 위험·유의 = ${nameRisk}` : ''}. → 이 이점과 위험을 이름 대목에서 **각각 최소 1회** 비단정형으로 짚어라(3차 평가 합격기준). 문구 복붙 금지 — 편마다 다른 문장·다른 자리로.`
+    : (nameRisk
+      ? `\n0.5 **이름 작용(매트릭스)**: ${nameRisk}. → ⚠ 이름의 긍정효과(채워 준다·힘을 더한다·잘 맞는다)를 서술하지 마라(정직성 게이트 리젝). 이름을 매 편 꺼내지 말고, 꼭 필요한 자리에서만 "이름이 방향을 바꾸진 않아요/이미 강한 쪽에 더 실려요" 선에서 담담하게.`
+      : '');
 
   const academicGuidance = c0.category === 'academic' ? `
 
 ## 학업운 전용 지침 (academic — 이 분야에만 적용, 위 규칙과 함께 지킬 것)
 0. **이 사람의 학습 성향·리스크(이 격국 고유 — body에 생활어로 반드시 체감시킬 것, 사주 용어 금지)**: ${studyProfile}
    → body의 조언·리스크가 격국과 무관하게 비슷해지면 안 된다. 위 성향/리스크가 다른 격국과 **구별되게** 드러나야 하고, 특히 3문단(조절법)은 **이 격국의 리스크**를 짚어라. 일반 공부팁(포모도로·커피·음악·간식)에만 기대지 말고, 이 사람이 **어떤 학습에 반응하고(이해형/암기형/문제풀이형/표현형) 압박·마감에 어떻게 반응하며 혼자/함께 중 어느 쪽인지**를 해석에 녹여라.
-   ⚠ **단, 격국 성향은 공유해도 구체 장면·문단·문장은 이 번들의 지문(아래 다양성 계약 9의 팔레트)으로 서로 달라야 한다** — 같은 격국의 다른 이름효과 번들(예: 인성·중립 vs 인성·역방향)과 **같은 문단·같은 조언 장면**이 나오면 크로스번들 중복으로 리젝된다. 격국 리스크(예: 인성=출력 밀림)를 말할 때도 그 장면을 **이 번들 팔레트의 소재**로 구현해, 남과 다른 문장으로 써라.
+   ⚠ **단, 격국 성향은 공유해도 구체 장면·문단·문장은 이 번들의 지문(아래 다양성 계약 9의 팔레트)으로 서로 달라야 한다** — 같은 격국의 다른 이름효과 번들(예: 인성·중립 vs 인성·역방향)과 **같은 문단·같은 조언 장면**이 나오면 크로스번들 중복으로 리젝된다. 격국 리스크(예: 인성=출력 밀림)를 말할 때도 그 장면을 **이 번들 팔레트의 소재**로 구현해, 남과 다른 문장으로 써라.${nameMatrixLine}
 1. **body는 "공부 팁"이 아니라 "학업운 해석"이다. 3문단 구조로:**
    - 1문단: 이 시기에 공부가 **어떤 식으로 느껴질 수 있는지** + 어떤 공부 단위가 잘 맞는지. 형태 = [시기]+[공부 장면]+[느껴질 가능성]+[맞는 전략]. ⚠ 운세를 단정하지 말 것("학업운이 강하다/약하다·공부가 잘 된다·합격한다" 금지). ⚠ **1문단에 판단·강약·이름효과를 한꺼번에 몰아넣지 말 것** — 1문단은 느껴질 가능성+단위에 집중하고 정보 밀도를 낮춘다. ⚠ **각 body 문단은 170자를 넘기지 말 것**(특히 2문단이 길어지지 않게 — 한 문단 2~4문장으로).
    - 2문단: 그 기간 단위에 맞는 **구체적 공부 사용법**(아래 학업 이벤트 활용).
@@ -212,9 +235,12 @@ export function buildBundlePrompt(cases: readonly GenerationCase[]): string {
 14. **특정 날짜·요일 고정 지시 금지(열람 시점이 언제일지 모른다)**: 특정 요일 이름(월·화·수…)·특정 월(3월·6월)·달 초/보름/말일·상반기/하반기를 **고정 지시하지 마라**(이미 지난 시점에 노출되면 어긋난다). 대신 상대 표현을 써라 — "주 초/주 중반/남은 요일", "이번 달 남은 기간", "올해 남은 기간의 앞부분/뒷부분", "전체의 절반이 지나는 시점에 한 번 점검". 요일 배치를 권할 땐 특정 요일 대신 "요일마다 과목을 갈라"처럼 일반화하라. (런타임 슬롯 \`{{currentSeasonName}}\`·\`{{periodLabel}}\`은 허용.)
 15. **이름효과 4단계를 행동 수준에서 구분**(mild와 strong이 목표 크기·운용까지 같아지면 안 됨): **boost_mild**=조건이 갖춰질 때 오는 작은 도움, 루틴·꾸준함이 발현 조건 → 목표는 한 단계만 위로. **boost_strong**=더 큰 목표를 감당할 여력 → 도전 범위를 키우되 과신·과잉 사용 경계. **neutral**=이름은 가감하지 않음, 원국(성향)과 시기 신호만으로 설명(이름 긍정효과 서술 금지 — 게이트 리젝). **adverse**=무엇이 이미 과하고 무엇이 부족한지 짚고 → 그 부족을 생활 습관으로 보완.
 16. **등급(high/mid/low) 결과 수준을 분리**(high도 low도 "하나만 하고 멈춰라"로 수렴 금지): **high**=도전 범위 확대 + 시험·제출·발표처럼 결과가 남는 행동. **mid**=유지·실험·정리. **low**=회복·범위 축소·오류 방지. 목표 강도와 산출물 수준이 등급마다 달라야 한다. ⚠ **expert는 한 번은 인과를 풀어라**: [이 격국의 학습 성향] → [이름이 그 성향을 강화/중립/역행] → [현재 기간 신호와의 상호작용] → [그래서 필요한 행동]. "용신 채운다/희신 데운다"만 추상 반복하지 말 것.
-17. **mid(무난) 밴드를 격국 고유 활동으로 — 번들 간 수렴 금지(재검수 잔여 지적)**: mid는 '유지·정돈·재정비'라 격국과 무관하게 "무난한 주/달 → 방식 하나 실험 → 발판" 골격으로 뭉치기 쉽고, **다른 격국 번들의 mid끼리도 같은 문장**이 된다. mid의 유지·정돈 활동을 **이 격국의 성향으로 구체화**하라 — 비겁=내 방식 견주기·자기 리듬 점검 / 관성=체계·체크리스트·진도표 재정비 / 인성=쌓인 자료 재정리→출력(문제풀이·요약)으로 전환 / 식상=만든 것 다시 다듬어 내보내기 / 재성=우선순위·자원 재배분. "무난하게 흘러 방식 하나 실험" 같은 격국-공통 문장을 mid에 쓰지 말고, mid에서도 이 격국이 다른 격국과 다르게 읽히게 하라.
+17. **mid(무난) 밴드 = 번들 간 수렴 최대 감점축(3차 평가·재검수 공통 지적, 실측 확인)**: mid는 '무난'이라 격국과 무관하게 아래 **두 골격**으로 뭉친다(실측: 세 격국이 mid에서 같은 문장이 됨) — ⚠ **이 둘을 mid에 쓰지 마라**:
+    - (a) "무난한 하루/달이라 → 공부 **방식을 한 번 실험**/살짝 바꿔 보기"
+    - (b) "듣던 **강의를 완강**하고 **노트를 다시 정돈**"
+    → '무난'은 활동을 generic으로 바꾸라는 뜻이 **아니라**, 위 셀별 **'핵심 활동'(격국 고유 과제)을 그대로 활동으로 삼되 강도만 낮추라**는 뜻이다. mid 활동도 격국마다 달라야 한다 — 예: 비겁 mid=내가 정한 한 구간을 작게라도 완주 / 관성 mid=마감 기준 한 칸 점검 / 인성 mid=읽은 대목 하나를 내 말로 정리 / 식상 mid=작은 산출 하나 내보내기 / 재성 mid=쓸모 큰 것 하나에 시간 몰기 / 특수 mid=몰입 갈래 하나 이어가며 기본 하나 점검.
 18. **livingTips·cautions를 격국 고유로 — 다른 격국 번들과 같은 팁·주의를 쓰지 말 것(게이트가 3번들+ 반복을 리젝)**: 일반 팁("오늘 끝낼 걸 한 대목으로 줄이기")을 전 격국에 돌려쓰지 말고, 이 격국의 행동·실패 패턴에 맞춰라 — 비겁=비교 화면 닫기·막히면 한 질문 보내기·내 기준 최소 몫 / 관성=필수 마감 조건 확인·체크리스트 한 칸·종료 시각 정하기 / 인성=새 자료 차단·기존 메모 한 문단 설명·막힌 곳만 표시 / 식상=만든 것 하나 다듬어 내보내기 / 재성=우선순위 3개만 남기기.
-19. **모티프 절제 + 생활환경 중립**: 한 소재(몸·길·책상·좋아하는 것·장보기 등)를 번들에 도배하지 마라 — **같은 낱말은 카드당 최대 4회, 번들 전체 30회 미만**(넘으면 리젝). 그 소재가 사주 근거보다 앞서면 안 된다. ⚠ **출퇴근·정류장·물리적 책상/책장·유료 강의 구매를 전제하지 말 것**(재택·학생·이동 제약 사용자 배제) — 필요하면 "이동 중이라면/책상이 있다면"처럼 선택형으로. ⚠ 사용자를 **소비 습관으로 낙인**(자꾸 사들이는 사람)하거나 **신체 증상을 사주로 단정**하지 마라.
+19. **모티프 절제 + 생활환경 중립**: 한 소재(몸·길·책상·좋아하는 것·장보기 등)를 번들에 도배하지 마라 — **같은 낱말은 카드당 최대 4회, 번들 전체 30회 미만**(넘으면 리젝). ⚠ **격국 과제의 핵심어도 모티프로 센다** — 위 '핵심 활동'을 매 셀에 넣다 보면 과제 키워드(관성=통과/관문, 비겁=완주, 인성=정리, 재성=투자, 식상=산출)가 30회를 넘기기 쉽다(실측: gwanseong '통과' 39회 리젝). 과제 자체는 유지하되 **그 낱말은 동의어로 흩어라**(통과→관문·판정 기준·제출 조건·확인 지점, 완주→끝까지·마무리·완결, 정리→요약·되짚기·매듭). 그 소재가 사주 근거보다 앞서면 안 된다. ⚠ **출퇴근·정류장·물리적 책상/책장·유료 강의 구매를 전제하지 말 것**(재택·학생·이동 제약 사용자 배제) — 필요하면 "이동 중이라면/책상이 있다면"처럼 선택형으로. ⚠ 사용자를 **소비 습관으로 낙인**(자꾸 사들이는 사람)하거나 **신체 증상을 사주로 단정**하지 마라.
 20. **마감 안전(유료 서비스 필수)**: low·조심 편이라도 **현실 마감을 방치·미루라 하지 마라** — "마감은 기한만 확인하고 손 떼기"·"마감을 넉넉히 미뤄" 금지(게이트 리젝). 대신 **필수 마감=기한·최소 제출 조건 확인 후 필수분만 처리 / 조정 가능=미리 협의해 재설정 / 비필수 새 범위=내일로**. "덜어내기"는 새 일·욕심에 적용하고 의무엔 적용하지 마라.
 21. **평생·low 의미 + 이름 확대 표현**: **평생 편은 생애 기질이다** — 평생·low를 "이 국면/이 철" 같은 일시 예보로 쓰지 말고 **반복해서 나타나는 취약 패턴·지쳤을 때의 장기 방어 습관·평생 관리할 균형점**으로 써라. ⚠ 강한 이름효과(boost_strong)는 "**남보다** 한 단계 크게"가 아니라 "**평소보다**(본인이 감당할 범위) 크게"로 — 남과의 우열이 아니라 자기 그릇의 확대다(caution의 '남과 견주지 말라'와 모순 금지).` : '';
 

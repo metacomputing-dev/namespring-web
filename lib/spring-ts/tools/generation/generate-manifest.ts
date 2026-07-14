@@ -14,6 +14,7 @@ import { fileURLToPath } from 'node:url';
 import type {
   Gender, GenerationCase, GenerationSpec, GyeokgukFamily, NameEffect, StrengthCoarse,
 } from './case-schema.js';
+import { ACADEMIC_STUDY_PROFILE, academicNameEffect, academicPeriodTask } from './academic-matrix.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ARTICLES_DIR = path.resolve(HERE, '../../data/articles');
@@ -152,6 +153,19 @@ function isMinor(cell: BaseCell): boolean {
 
 function buildSpec(cell: BaseCell, g: StrengthCoarse, fam: GyeokgukFamily, ne: NameEffect, gender: Gender | null): GenerationSpec {
   const minor = isMinor(cell);
+  // Academic-only matrix fields (격국 × 이름작용 × 시기국면). Left undefined for
+  // every other category so their manifest bytes never change.
+  const academic = cell.category === 'academic'
+    ? (() => {
+        const { benefit, risk } = academicNameEffect(fam, ne);
+        return {
+          studyProfile: ACADEMIC_STUDY_PROFILE[fam],
+          periodTask: academicPeriodTask(fam, cell.period),
+          nameBenefit: benefit,
+          nameRisk: risk,
+        };
+      })()
+    : undefined;
   return {
     archetype: `${STRENGTH_TERM[g]}(${STRENGTH_PLAIN[g]}) · ${GYEOKGUK_TERM[fam]} · ${NAME_EFFECT_PLAIN[ne]} · ${gender ? GENDER_TERM[gender] + ' · ' : ''}${cell.category}/${cell.period}/${cell.audience}/등급 ${cell.band}`,
     strengthTerm: STRENGTH_TERM[g],
@@ -167,6 +181,7 @@ function buildSpec(cell: BaseCell, g: StrengthCoarse, fam: GyeokgukFamily, ne: N
     genderTerm: gender ? GENDER_TERM[gender] : null,
     audienceSafety: minor ? 'minor' : 'adult',
     suggestedExpertTags: deriveExpertTags(cell.category, g, fam, ne),
+    ...academic,
   };
 }
 
