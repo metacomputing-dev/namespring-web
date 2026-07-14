@@ -996,7 +996,7 @@ matchedPillars 없음. shinsalHits 항목 키셋은 단일: {type, position, gra
   exact default-diff 승인, exact commit 전문가 signoff를 충족하지 않으므로
   “전문가급 상용 사주엔진 인증”이나 PR WIP 해제의 단독 근거가 아니다.
 - PR #653의 freeze 누적 범위 `6fb2f68a4` 기준 134커밋·418파일과 후속 backend 체크포인트는
-  #654~#678의 25개 Draft base/head 스택으로 분할한다. Stack 25까지
+  #654~#678의 25개 base/head 스택으로 분할한다. Stack 25까지
   main..Stack25는 159커밋이고 frontend source diff는 0이다.
 - Stack23은 선택 후보와 전체 투간 품질 증거를 분리해 내부 모순을 해소하지만, 결정론적
   5,133건 표본 중 126건의 snapshot-invisible 품질 변화를 확인했다. 인구 가중 발생률은 아니며
@@ -1023,8 +1023,8 @@ matchedPillars 없음. shinsalHits 항목 키셋은 단일: {type, position, gra
 1. 내부 trusted snapshot을 deep import로 반복 중첩하는 비정상 경로의 누적 depth/property budget 재산정은 하지 않는다. 현재 public export와 정상 endpoint에서는 접근할 수 없으므로 P2로 기록한다.
 2. 전체 baseline suite의 직렬 후보 생성 비용을 프로파일링하지 않았다. smoke 3축과 full 17축을 분리하고 full은 CI 전용으로 병렬화할 여지가 있다.
 3. Seed WASM의 package-relative Node 실행과 Vite production emitted asset·JS 참조는 확인했다. 실제 배포 뒤 브라우저 fetch와 모바일 메모리 상한은 미검증이다.
-4. 이 두 커밋은 backend-only이고 frontend diff는 없다. 외부 명리 전문가 signoff, default-change fingerprint 승인, authority D1-D5 gate가 완료되기 전에는 WIP 해제의 단독 근거로 사용할 수 없다.
-5. 두 체크포인트는 승인된 원격 브랜치와 후속 Draft 스택에 포함됐다. 이는 Ready나 merge 승인이 아니며 스택 순서·외부 권위 gate를 계속 적용한다.
+4. 이 두 커밋은 backend-only이고 frontend diff는 없다. 구조 회귀가 없으면 Ready 리뷰 근거가 될 수 있지만 외부 명리 전문가 signoff, default-change fingerprint 승인, authority D1-D5 gate를 대신하지 않는다.
+5. 두 체크포인트는 승인된 원격 브랜치와 후속 스택에 포함됐다. Ready는 merge 승인이 아니며 스택 순서·외부 권위 gate를 계속 적용한다.
 
 ---
 
@@ -1060,10 +1060,12 @@ full chain은 원격 CI에서 시간 제한과 로그를 가진 상태로 완주
 | Seed repository query | 문자열·enum·수치·limit·범위를 SQL 준비 전에 공통 validator로 거부하고 안정 오류 코드 `REPOSITORY_QUERY_INVALID`를 사용한다. | Seed 전체 계약, 16 DB manifest/integrity, WASM, runtime URL, lifecycle 41/41, 실제 npm package 5/5 통과. |
 | Seed 계산 입력·오류 privacy | Energy singleton/shape, score 입력, 이름·의미·keyword의 bounded code-point 계약을 fail-closed로 고정하고 dynamic user key를 오류 path에서 제거한다. | 유효 Energy 11,110개 시퀀스 digest `3225b6690600407ba4e0da6789678e325c5bec5262f7404a49f4e6ff006dcda5` 불변. public error에는 bounded `receivedSummary`만 남긴다. |
 | 기본 출력 회귀 | Stack 25 exact tip에서 Spring baseline 17/17과 NameSpring compat 208/208이 통과한다. | 부록 E의 3/3 표본·17개 미완 기록은 이 후속 exact-tip 검증으로 보완됐다. 이는 회귀 부재의 증거이지 외부 명리 권위 인증이 아니다. |
+| saju-ts clean build | origin/main부터 `tsc`가 `builtin.pack.json`을 dist에 내보내지 않아 clean import가 실패하던 P1을 수정했다. | dist 없는 build/import PASS, source↔dist SHA-256 동일, release tools 5/5, saju-ts 481/481, npm pack asset 포함 확인. |
 
 ### Ready 판단
 
-1. Stack 24·25 자체의 독립 정적 검토는 P0=0, P1=0이고 로컬 계약·통합 회귀도 통과했다.
-2. 그러나 연속 스택은 선행 PR이 merge된 뒤에만 다음 PR의 실제 main-relative diff를 승인할 수 있다.
-3. 첫 PR #654는 완결된 리뷰 단위이고 알려진 P0/P1이 없어 2026-07-14 Ready로 전환했다. exact default diff 승인과 명리·SW 검토는 merge 심사에서 수행한다.
-4. #655~#678은 순서를 유지해 Draft로 둔다. Stack 18/23의 명리·영향 P1, 실제 Actions 성공, D1~D5 authority와 외부 전문가 signoff는 해당 PR과 최종 release의 merge 차단선이다.
+1. Ready는 독립 리뷰 시작 상태이며 merge·상용 release·전문가급 명리 인증이 아니다.
+2. 2026-07-14 병렬 exact-tip 감사 후 20개를 Ready로 전환했고 #662·#665·#668·#671·#676 5개만 Draft로 유지했다.
+3. #662는 최신에도 남은 월지손상 이중감점·기반 감쇠 층위 P1이다. #665·#668·#671의 P1은 후속 스택에서 고쳤지만 해당 historical tip에는 남는다.
+4. #676의 두 global P1 표시는 코드 결함이 아니라 학파 정책·snapshot 밖 영향 승인이다. 다만 Stack23 저장소 문서의 Ready/merge 표현 정합 전까지 Draft로 둔다.
+5. fingerprint·명리 검토·실제 Actions·D1~D5 authority·exact-commit 외부 signoff는 해당 PR과 최종 release의 merge 차단선이다.
