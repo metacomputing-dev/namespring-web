@@ -27,7 +27,7 @@ import type {
   GyeokgukCandidateSummary, JonggyeokCandidateSummary, SourceTierMetadata,
   YongshinConsensusScoreboard, LunarConversionSummary,
 } from './types.js';
-import { lunarToSolar } from './calendar/korean-lunar-calendar.js';
+import { leapMonthOfLunarYear, lunarToSolar } from './calendar/korean-lunar-calendar.js';
 import { kasiLunarToSolar } from './calendar/kasi-lunar-api.js';
 
 // ---------------------------------------------------------------------------
@@ -1124,13 +1124,13 @@ function buildPartialSajuSummary(birth: BirthInfo, parts: KnownBirthParts): Saju
 
 /**
  * 감사 B1: 음력 입력을 변환할 수 없을 때의 비활성 요약.
- * 정상 음력 입력은 이제 내장 테이블(KASI/KARI 표준, 제품 보장 1900~2050)로 변환되어
+ * 정상 음력 입력은 내장 테이블(KASI/KARI 표준, 제품 보장 1900-01-01~2050-11-18 음력)로 변환되어
  * 분석된다 — 이 경로는 부분 입력·범위 밖·존재하지 않는 날짜 전용이다.
  */
 function buildUnsupportedLunarSajuSummary(
   birth: BirthInfo,
   parts: KnownBirthParts,
-  cause: 'partial-lunar-input' | 'conversion-failed',
+  cause: 'partial-lunar-input' | 'ambiguous-leap-month' | 'conversion-failed',
 ): SajuSummary {
   const summary = emptySaju() as SajuSummary & Record<string, unknown>;
   const mutableSummary = summary as Record<string, any>;
@@ -1138,7 +1138,9 @@ function buildUnsupportedLunarSajuSummary(
   mutableSummary.partialInterpretation = [
     cause === 'partial-lunar-input'
       ? '음력 생년월일은 연·월·일이 모두 있어야 양력으로 변환해 사주를 세울 수 있습니다.'
-      : '입력한 음력 날짜를 양력으로 변환하지 못했습니다. 지원 범위(1900~2050년)와 윤달 여부를 확인해 주세요.',
+      : cause === 'ambiguous-leap-month'
+        ? '입력한 음력 달에는 평달과 윤달이 모두 있습니다. 윤달 여부를 반드시 선택해 주세요.'
+        : '입력한 음력 날짜를 양력으로 변환하지 못했습니다. 지원 범위(1900년~2050년 음력 11월 18일)와 윤달 여부를 확인해 주세요.',
   ];
   mutableSummary.partialBirthInput = {
     year: parts.year,
@@ -1147,14 +1149,14 @@ function buildUnsupportedLunarSajuSummary(
     hour: parts.hour,
     minute: parts.minute,
     calendarType: birth.calendarType ?? 'lunar',
-    isLeapMonth: birth.isLeapMonth === true,
+    isLeapMonth: birth.isLeapMonth ?? null,
   };
   mutableSummary.disabledReason = 'lunar-conversion-unavailable';
   mutableSummary.calendarPolicy = {
     inputCalendar: 'lunar',
-    conversionRequired: 'builtin korean-lunar-calendar(1900~2050) | KASI LrsrCldInfoService(opt-in)',
+    conversionRequired: 'builtin korean-lunar-calendar(1900~2050-11-18 lunar) | KASI LrsrCldInfoService(opt-in)',
     conversionStatus: cause,
-    leapMonth: birth.isLeapMonth === true,
+    leapMonth: birth.isLeapMonth ?? null,
   };
 
   return summary;
@@ -1259,12 +1261,18 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
       // 음력은 연·월·일 전부 있어야 변환 가능 — 부분 입력은 비활성 경로 유지.
       return buildUnsupportedLunarSajuSummary(birth, parts, 'partial-lunar-input');
     }
+    const leapMonth = leapMonthOfLunarYear(parts.year);
+    if (birth.isLeapMonth === undefined && leapMonth === parts.month) {
+      // 같은 월 번호의 평달·윤달이 모두 존재한다. 누락을 false로 추정하면
+      // 서로 다른 양력 날짜와 사주를 조용히 만들므로 반드시 호출자에게 되묻는다.
+      return buildUnsupportedLunarSajuSummary(birth, parts, 'ambiguous-leap-month');
+    }
     lunarConversion = await resolveLunarConversion(
       { year: parts.year, month: parts.month, day: parts.day, isLeapMonth: birth.isLeapMonth === true },
       options,
     );
     if (!lunarConversion) {
-      // 제품 보장 범위(1900~2050) 밖 또는 존재하지 않는 음력 날짜(없는 윤달 등).
+      // 제품 보장 범위(1900-01-01~2050-11-18 음력) 밖 또는 존재하지 않는 음력 날짜(없는 윤달 등).
       return buildUnsupportedLunarSajuSummary(birth, parts, 'conversion-failed');
     }
     effectiveParts = {

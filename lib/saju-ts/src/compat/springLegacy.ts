@@ -6,6 +6,7 @@ import { lifeStageOf } from '../core/lifeStage.js';
 import { mod } from '../core/mod.js';
 import { tenGodOf } from '../core/tenGod.js';
 import { TWELVE_SAL_KEYS, twelveSalStartOf } from '../rules/facts.js';
+import { baseTenGodOfStructuralMonthFrame, type BigyeopSubtype } from '../rules/gyeokgukMonthFrame.js';
 
 const STEM_CODES = ['GAP', 'EUL', 'BYEONG', 'JEONG', 'MU', 'GI', 'GYEONG', 'SIN', 'IM', 'GYE'] as const;
 const BRANCH_CODES = ['JA', 'CHUK', 'IN', 'MYO', 'JIN', 'SA', 'O', 'MI', 'SIN', 'YU', 'SUL', 'HAE'] as const;
@@ -628,16 +629,29 @@ function topTwo(values: Array<{ element: string; score: number }>): [string, str
 }
 
 // 감사 B4: 건록/양인/월겁의 기반 십성 유지 (건록=비견, 양인/월겁=겁재).
-const GYEOKGUK_BASE_SIPSEONG_ALIASES: Record<string, string> = {
-  GEONROK: 'BI_GYEON',
-  YANGIN: 'GYEOB_JAE',
-  WOLGEOB: 'GYEOB_JAE',
-};
+function readStructuralMonthFrameSubtype(value: unknown): BigyeopSubtype | null {
+  const normalized = String(value ?? '').trim().toUpperCase();
+  switch (normalized) {
+    case 'GEONROK':
+    case 'YANGIN':
+    case 'WOLGEOB':
+      return normalized;
+    default:
+      return null;
+  }
+}
 
+function structuralBaseSipseongKey(value: unknown): string {
+  const subtype = readStructuralMonthFrameSubtype(value);
+  const engineKey = subtype
+    ? baseTenGodOfStructuralMonthFrame(subtype)
+    : String(value ?? '').trim().toUpperCase();
+  return normalizeTenGod(engineKey);
+}
 function deriveGyeokgukBaseSipseong(bestKeyCore: string): string | null {
   const normalized = String(bestKeyCore ?? '').trim().toUpperCase();
   if (!normalized) return null;
-  const resolved = GYEOKGUK_BASE_SIPSEONG_ALIASES[normalized] ?? normalized;
+  const resolved = structuralBaseSipseongKey(normalized);
   if (!GYEOKGUK_BASE_SIPSEONG_KEYS.has(resolved)) return null;
   return normalizeTenGod(resolved);
 }
@@ -742,6 +756,10 @@ function compositeTransformSupport(ruleFacts: any, element: string): number {
     oneElementCode === element ? oneElementFactor * 0.5 : 0,
   );
 }
+function isSelectableMonthGyeokCandidate(candidate: any): boolean {
+  return candidate?.eligibleForGyeokSelection !== false;
+}
+
 
 function buildCompositeClassicalScore(args: {
   type: string;
@@ -753,7 +771,9 @@ function buildCompositeClassicalScore(args: {
 }): any {
   const { type, monthCandidate, notes, ruleFacts, ranking, yongshinRanking } = args;
   const monthGyeok = ruleFacts?.month?.gyeok ?? {};
-  const monthCandidates = Array.isArray(monthGyeok?.candidates) ? monthGyeok.candidates : [];
+  const monthCandidates = Array.isArray(monthGyeok?.candidates)
+    ? monthGyeok.candidates.filter(isSelectableMonthGyeokCandidate)
+    : [];
   const quality = monthGyeok?.quality ?? {};
   const normalizedElements = ruleFacts?.elements?.normalized ?? {};
 
@@ -852,8 +872,12 @@ function buildCompositeClassicalScore(args: {
 function buildGyeokgukCandidates(bundle: AnalysisBundle, bestKeyCore: string, bestScore: number): any[] {
   const facts = bundle.report?.facts as Record<string, unknown> | undefined;
   const ruleFacts = facts?.['rules.facts'] as any;
+  const structuralSubtype = readStructuralMonthFrameSubtype(ruleFacts?.month?.gyeok?.bigyeopSubtype);
+  const structuralBaseCandidateType = structuralSubtype
+    ? structuralBaseSipseongKey(structuralSubtype)
+    : null;
   const monthCandidates = Array.isArray(ruleFacts?.month?.gyeok?.candidates)
-    ? ruleFacts.month.gyeok.candidates
+    ? ruleFacts.month.gyeok.candidates.filter(isSelectableMonthGyeokCandidate)
     : [];
 
   const monthByType = new Map<string, any>();
@@ -906,7 +930,7 @@ function buildGyeokgukCandidates(bundle: AnalysisBundle, bestKeyCore: string, be
 
   // 감사 B4: 건록/양인/월겁 키는 십성 인덱스(monthByType)에서 기반 십성으로 조회.
   const monthCandidateForType = (type: string): any =>
-    monthByType.get(type) ?? monthByType.get(normalizeTenGod(GYEOKGUK_BASE_SIPSEONG_ALIASES[type] ?? type));
+    monthByType.get(type) ?? monthByType.get(structuralBaseSipseongKey(type));
 
   for (const entry of ranking) {
     const type = normalizeGyeokgukKey(entry?.key);
@@ -916,9 +940,13 @@ function buildGyeokgukCandidates(bundle: AnalysisBundle, bestKeyCore: string, be
   }
 
   for (const candidate of monthCandidates) {
+    const candidateType = normalizeGyeokgukKey(candidate?.tenGod);
+    // A structural frame already represents this same month-command evidence.
+    // Do not re-publish it as a contradictory BI/GEOB frame.
+    if (structuralBaseCandidateType && candidateType === structuralBaseCandidateType) continue;
     const score = Number(candidate?.score);
     if (!Number.isFinite(score) || score <= MIN_GYEOKGUK_CANDIDATE_SCORE) continue;
-    addCandidate(candidate?.tenGod, candidate?.score, candidate);
+    addCandidate(candidateType, candidate?.score, candidate);
   }
 
   if (bestKeyCore && !seen.has(bestKeyCore)) {
