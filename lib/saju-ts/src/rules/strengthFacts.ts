@@ -98,6 +98,11 @@ export interface StrengthFacts {
         stemBinds: Array<{ pos: string; stem: StemIdx; factor: number }>;
         /** Visible officer stems whose pressure contribution was reduced by hap binding. */
         pressureStemBinds: Array<{ pos: string; stem: StemIdx; tenGod: TenGod; factor: number; reduction: number }>;
+        /**
+         * 관성 기반 감쇠를 raw 십성 원장이 아닌 득세와 같은 정규화·배율 층에
+         * 적용한 내역. factor는 pressure의 (1+f) 배율에서 차감된다.
+         */
+        pressureStemBindPenalty: { score: number; normalized: number; factor: number };
       };
     };
 
@@ -505,19 +510,24 @@ function stemHapBindFactor(
   return 1;
 }
 
-function boundOfficerPressure(args: {
+function computeOfficerBindPenalty(args: {
   dayMasterStem: StemIdx;
-  stems: Array<{ pos: 'year' | 'month' | 'hour'; stem: StemIdx }>;
+  stems: Array<{ pos: 'year' | 'month' | 'hour'; stem: StemIdx; w: number }>;
   transformations: any;
   pol: StrengthInteractionPolicy['stemBind'];
-  officers: number;
+  norm: number;
+  scale: number;
 }): {
-  officers: number;
+  score: number;
+  normalized: number;
+  factor: number;
   binds: Array<{ pos: string; stem: StemIdx; tenGod: TenGod; factor: number; reduction: number }>;
 } {
-  if (!args.pol.enabled || !args.pol.applyToPressure || args.officers <= 0) return { officers: args.officers, binds: [] };
+  if (!args.pol.enabled || !args.pol.applyToPressure) {
+    return { score: 0, normalized: 0, factor: 0, binds: [] };
+  }
 
-  let reduction = 0;
+  let score = 0;
   const binds: Array<{ pos: string; stem: StemIdx; tenGod: TenGod; factor: number; reduction: number }> = [];
   for (const s0 of args.stems) {
     const tenGod = tenGodOf(args.dayMasterStem, s0.stem);
@@ -527,11 +537,17 @@ function boundOfficerPressure(args: {
     if (factor >= 1) continue;
 
     const entryReduction = 1 - factor;
-    reduction += entryReduction;
+    score += s0.w * entryReduction;
     binds.push({ pos: s0.pos, stem: s0.stem, tenGod, factor, reduction: entryReduction });
   }
 
-  return { officers: Math.max(0, args.officers - Math.min(args.officers, reduction)), binds };
+  const normalized = clamp01(score / Math.max(1e-9, args.norm));
+  return {
+    score,
+    normalized,
+    factor: normalized * Math.max(0, args.scale),
+    binds,
+  };
 }
 
 type StrengthRootPosition = 'year' | 'month' | 'day' | 'hour';
@@ -710,16 +726,18 @@ export function computeStrengthFacts(args: {
     );
 
     const supportAdj = Math.max(0, base.support * (1 + lingFactor + diFactor + shiFactor + hui.supportBonus));
-    const officerPressure = boundOfficerPressure({
+    const officerBind = computeOfficerBindPenalty({
       dayMasterStem: args.dayMasterStem,
       stems: stemsOther,
       transformations: args.transformations,
       pol: interactionPol.stemBind,
-      officers: base.components.officers,
+      norm: shiNorm,
+      scale: shiScale,
     });
-    // Hui pressure remains a pressure-side multiplier; stem bind only reduces visible officer stems.
-    const pressureBase = base.components.outputs + base.components.wealth + officerPressure.officers;
-    const pressureAdj = Math.max(0, pressureBase * (1 + hui.pressureBonus));
+    // 상호작용은 원장(base.components)을 바꾸지 않고 (1+f) 배율 층에서만 적용한다.
+    // 관성 기반도 득세와 같은 position weight → shiNorm → shiScale 경로를 사용한다.
+    const pressureBase = base.components.outputs + base.components.wealth + base.components.officers;
+    const pressureAdj = Math.max(0, pressureBase * Math.max(0, 1 + hui.pressureBonus - officerBind.factor));
     const totalAdj = supportAdj + pressureAdj;
     const indexAdj = totalAdj <= 0 ? 0 : (supportAdj - pressureAdj) / totalAdj;
     const supportScale = base.support > 0 ? supportAdj / base.support : 0;
@@ -729,7 +747,7 @@ export function computeStrengthFacts(args: {
       resources: base.components.resources * supportScale,
       outputs: base.components.outputs * pressureScale,
       wealth: base.components.wealth * pressureScale,
-      officers: officerPressure.officers * pressureScale,
+      officers: base.components.officers * pressureScale,
     };
 
     return {
@@ -762,7 +780,12 @@ export function computeStrengthFacts(args: {
                 resolved: rootDamage.resolved,
                 hui: { supportBonus: hui.supportBonus, pressureBonus: hui.pressureBonus, groups: hui.groups },
                 stemBinds,
-                pressureStemBinds: officerPressure.binds,
+                pressureStemBinds: officerBind.binds,
+                pressureStemBindPenalty: {
+                  score: officerBind.score,
+                  normalized: officerBind.normalized,
+                  factor: officerBind.factor,
+                },
               }
             : undefined,
         },
