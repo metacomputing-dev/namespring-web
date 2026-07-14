@@ -92,7 +92,11 @@ function main(): void {
   fs.mkdirSync(BATCH_DIR, { recursive: true });
   const name = keysArg ? `bundles-keys-${bundles.length}` : `bundles-${category}-${num('--offset', 0)}-${bundles.length}`;
   const outFile = path.join(BATCH_DIR, `${name}.batch.json`);
-  fs.writeFileSync(outFile, JSON.stringify({ schema: BUNDLE_OUTPUT_SCHEMA, bundles }, null, 2), 'utf-8');
+  fs.writeFileSync(outFile, JSON.stringify({
+    strategy: 'editorial-bundle-v1',
+    schema: BUNDLE_OUTPUT_SCHEMA,
+    bundles,
+  }, null, 2), 'utf-8');
   const cells = bundles.reduce((n, b) => n + b.caseIds.length, 0);
   console.log(`batch: ${bundles.length} bundles (${cells} articles) → ${path.relative(process.cwd(), outFile)}`);
   console.log(`bundleKeys: ${bundles.map((b) => b.bundleKey).join(',')}`);
