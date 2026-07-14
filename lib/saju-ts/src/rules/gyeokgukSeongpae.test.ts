@@ -88,6 +88,7 @@ describe('격국 성패 룰 테이블 (PR-6 — 자평진전 순용/역용)', ()
   it('월지 손상: 성격이 성중유패로 강등된다', () => {
     const r = run({ gyeokTenGod: 'JEONG_GWAN', otherStems: [5, 8, 6], monthBroken: true })!;
     expect(r.verdict).toBe('SEONGJUNG_YUPA');
+    expect(r.verdictBeforeMonthBroken).toBe('SEONGGYEOK');
     expect(r.reasons.some((x) => x.includes('월지 손상'))).toBe(true);
   });
 
