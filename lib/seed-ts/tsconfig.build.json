@@ -12,7 +12,11 @@
     "noEmit": false,
     "noEmitOnError": true
   },
-  "files": ["src/index.ts"],
-  "include": [],
-  "exclude": []
+  "include": ["src/**/*.ts"],
+  "exclude": [
+    "src/utils/decrypt-dict-to-db.ts",
+    "src/utils/name-stat-json-to-sharded-db.ts",
+    "src/utils/sagyeoksu-json-to-db.ts",
+    "src/utils/update-surname-db.ts"
+  ]
 }
