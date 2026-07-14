@@ -6,7 +6,7 @@
 >
 > **2026-07-11 continuation override:** 이 문서의 PR-1~4 수치는 역사 기록이다.
 > 현재 착수점은 `ROADMAP_SAJU_ENGINE.md`의 2026-07-11 merge-readiness 블록과
-> `GUIDE_SAJU_ENGINE_IMPL.md` §0.5다. 누적 PR #653은 닫혔고 대체 PR #654~#676는 모두 Draft다. RPI는 20/100,
+> `GUIDE_SAJU_ENGINE_IMPL.md` §0.5다. 누적 PR #653은 닫혔고 대체 스택에서 Ready와 merge gate를 분리한다. RPI는 20/100,
 > D1~D4는 truth-insufficient N/A, D5 accuracy는 14 N/A + 3 NOT_APPLICABLE다.
 > 권위 scope와 panel evidence 계약을 완화하거나 snapshot을 truth로 승격하지 말 것.
 > D1은 doctrine 3필드+naming 4필드 전체가 있어야 하며, T4는 URL-only 승격을 금지하고
@@ -14,7 +14,7 @@
 > 외부 전문가 인증이 아니다. Exact-commit expert signoff는 전문가급 상용 릴리스와
 > 기본값 승격의 필수 게이트다. Backend-only guardrail/refactor PR은 프론트와 기본값을
 > 건드리지 않고 변경 범위 회귀·구조 검증을 통과하며 한계를 명시한 경우 점진적 리뷰·병합
-> 후보가 될 수 있지만, WIP 해제 전에는 프로젝트 소유자에게 근거와 잔여 위험을 먼저 보고한다.
+> 후보가 될 수 있다. 프로젝트 소유자는 2026-07-14 이 기준을 충족한 PR의 Ready 전환을 위임했으며, merge는 별도 승인한다.
 
 ## A. 배경 (2분 캐치업)
 
@@ -159,4 +159,4 @@ cd lib/spring-ts && npx tsx tmp/probe-optin-naeum-palace.ts
 - boundaryTermId와 12운성 provenance는 기존 구조 스냅샷이 포착하지 않는 additive output change다. 정확 2일 대운수 반올림은 경계 입력에만 보이는 default change이며 PR 본문에서 snapshot-invisible output change로 공개한다.
 - Claude 병렬 사전검증: PR #668은 계산 base≡tip이나 당시 좌표 coercion P1 때문에 CONDITIONAL PASS. 해당 입력 검증은 Stack 16의 `0e91b8ec9`에서 이미 strict number/range로 보완됐고 Stack 22가 JS 비타입 회귀를 추가한다. PR #673과 #674는 각각 코드·문서 검증 PASS(P0/P1 0, 비차단 P2 각 6건)이나 선행 스택 순서 때문에 자동 Ready 전환하지 않는다.
 - PR #673은 Seed `npm ci`를 CI에 추가해 PR #668 시점의 선재 `sql.js` 설치 위험을 해소한다. Stack 22의 Actions run `29227222364`는 생성됐지만 account billing lock 때문에 `Engine regression` job이 step 0개로 시작되지 않았고 expert job은 skipped였다. 따라서 실제 CI 성공 이력은 아직 없다.
-- 운영 원칙: #654~#676을 재작성하지 않는다. Stack 23 최종 정합 커밋까지 main..Stack23은 157커밋이며 frontend source diff는 0이다. Stack 23 코드 체크포인트는 `290b669a7`이고, 앞선 22개 스택에 이를 연속 적층해 누락 없이 보존한다. 모든 Draft는 선행 스택 검증과 사용자 사전 확인 없이 Ready/merge하지 않는다.
+- 운영 원칙: #654~#676을 재작성하지 않는다. Stack 23 코드 체크포인트는 `290b669a7`이고 frontend source diff는 0이다. exact-tip diff 완결·신규 코드 P0/P1 없음·회귀와 한계 공개를 충족하면 Ready로 전환할 수 있다. 선행 스택 순서, default/명리 승인, 실제 CI, authority/signoff는 merge gate로 유지한다.
