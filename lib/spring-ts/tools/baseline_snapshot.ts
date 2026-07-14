@@ -111,7 +111,9 @@ async function runFixtures(): Promise<SnapshotFile> {
       mode: 'recommend',
       options: { limit: 5 },
     });
-    const fortuneReport = buildFortuneReport(sajuReport, targetDate, candidates[0] ?? null);
+    // buildFortuneReport는 2026-07-04(7d4ee70a0)부터 async — await 누락 시
+    // Promise가 캡처되어 fortuneReport 필드 전체가 undefined로 고정된다.
+    const fortuneReport = await buildFortuneReport(sajuReport, targetDate, candidates[0] ?? null);
 
     results.push({
       id: fix.id,

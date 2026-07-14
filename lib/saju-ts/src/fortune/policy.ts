@@ -1,10 +1,12 @@
 import type { EngineConfig } from '../api/types.js';
-import type { FortunePolicy, StartAgeMethodSpec } from './types.js';
+import type { FortunePolicy, StartAgeMethodSpec, StartAgeRounding } from './types.js';
 
 const DEFAULT_POLICY: FortunePolicy = {
   directionRule: 'sex_yearStemYinYang',
   startBoundary: 'jie',
   startAgeMethod: 'threeDaysOneYear',
+  startAgeRounding: 'round1down2up',
+  minStartAge: 1,
   firstDecadeOffsetSteps: 1,
   decadeLengthYears: 10,
   maxDecades: 10,
@@ -13,6 +15,8 @@ const DEFAULT_POLICY: FortunePolicy = {
   maxDays: 0,
   axis: 'ageOnly',
 };
+
+const START_AGE_ROUNDINGS: readonly StartAgeRounding[] = ['round1down2up', 'threshold8months', 'floor', 'ceil', 'none'];
 
 function asNumber(x: unknown, fallback: number): number {
   return typeof x === 'number' && Number.isFinite(x) ? x : fallback;
@@ -55,6 +59,11 @@ export function readFortunePolicy(config: EngineConfig): FortunePolicy {
 
   const startAgeMethod = asStartAgeMethod(raw.startAgeMethod ?? raw.startAge, DEFAULT_POLICY.startAgeMethod);
 
+  const startAgeRounding = START_AGE_ROUNDINGS.includes(raw.startAgeRounding)
+    ? (raw.startAgeRounding as StartAgeRounding)
+    : DEFAULT_POLICY.startAgeRounding;
+  const minStartAge = Math.max(0, Math.floor(asNumber(raw.minStartAge, DEFAULT_POLICY.minStartAge ?? 1)));
+
   return {
     ...DEFAULT_POLICY,
     directionRule,
@@ -66,5 +75,7 @@ export function readFortunePolicy(config: EngineConfig): FortunePolicy {
     decadeLengthYears,
     firstDecadeOffsetSteps,
     startAgeMethod,
+    startAgeRounding,
+    minStartAge,
   };
 }

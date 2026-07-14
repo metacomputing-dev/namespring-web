@@ -1,10 +1,14 @@
 import type { Element, StemIdx } from './cycle.js';
 import { mod } from './mod.js';
 
-export type StemRelationType = 'HAP' | 'CHUNG';
+export type StemRelationType = 'HAP' | 'CHUNG' | 'GEUK';
 
 export interface StemRelation {
   type: StemRelationType;
+  /**
+   * Sorted ascending. GEUK의 경우 방향이 고정된다: 6쌍 모두 작은 인덱스가
+   * 극하는 쪽이다 (갑→무, 을→기, 병→경, 정→신, 무→임, 기→계).
+   */
   members: [StemIdx, StemIdx]; // sorted
   /** For HAP (天干合), traditional resulting element.
    * Some schools apply additional “化” conditions; we only report the classical mapping here.
@@ -12,7 +16,7 @@ export interface StemRelation {
   resultElement?: Element;
 }
 
-const STEM_RELATION_ORDER: readonly StemRelationType[] = ['HAP', 'CHUNG'] as const;
+const STEM_RELATION_ORDER: readonly StemRelationType[] = ['HAP', 'CHUNG', 'GEUK'] as const;
 
 const STEM_RELATION_RANK: Record<StemRelationType, number> = Object.fromEntries(
   STEM_RELATION_ORDER.map((t, i) => [t, i]),
@@ -57,6 +61,18 @@ export function isStemChung(a: StemIdx, b: StemIdx): boolean {
   );
 }
 
+/**
+ * 천간 극(剋) — 같은 음양의 상극 쌍 중 충 4쌍을 제외한 6쌍 (감사 B2):
+ * 甲剋戊, 乙剋己 (木剋土) · 丙剋庚, 丁剋辛 (火剋金) · 戊剋壬, 己剋癸 (土剋水).
+ * 인덱스로는 정확히 거리 4인 쌍이다 (충은 거리 6, 합은 거리 5).
+ * 작은 인덱스가 항상 극하는 쪽.
+ */
+export function isStemGeuk(a: StemIdx, b: StemIdx): boolean {
+  const x = Math.min(mod(a, 10), mod(b, 10));
+  const y = Math.max(mod(a, 10), mod(b, 10));
+  return y - x === 4;
+}
+
 function uniqByKey<T>(arr: T[], key: (t: T) => string): T[] {
   const seen = new Set<string>();
   const out: T[] = [];
@@ -89,6 +105,10 @@ export function detectStemRelations(stems: StemIdx[]): StemRelation[] {
 
       if (isStemChung(a, b)) {
         rels.push({ type: 'CHUNG', members: [Math.min(a, b), Math.max(a, b)] });
+      }
+
+      if (isStemGeuk(a, b)) {
+        rels.push({ type: 'GEUK', members: [Math.min(a, b), Math.max(a, b)] });
       }
     }
   }

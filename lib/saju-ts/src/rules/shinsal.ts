@@ -15,7 +15,9 @@ import type {
 } from './packs/shinsalConditionsBasePack.js';
 import { DEFAULT_SHINSAL_QUALITY_MODEL } from './packs/shinsalConditionsBasePack.js';
 
-export type ShinsalBasedOn = 'YEAR_BRANCH' | 'DAY_BRANCH' | 'MONTH_BRANCH' | 'OTHER';
+// DAY_STEM/YEAR_STEM: 천간 기준 신살(귀인류·양인·홍염 등) — 과거 'OTHER' 하드코딩으로 산출
+// 기준이 소실됐다 (감사 C3). springLegacy position 매핑에서는 하위호환을 위해 OTHER로 유지된다.
+export type ShinsalBasedOn = 'YEAR_BRANCH' | 'DAY_BRANCH' | 'MONTH_BRANCH' | 'DAY_STEM' | 'YEAR_STEM' | 'OTHER';
 export type ShinsalTargetKind = 'BRANCH' | 'STEM' | 'NONE';
 
 export interface ShinsalDetection {
@@ -135,7 +137,9 @@ function buildPolicy(config: EngineConfig): ShinsalPolicy {
 }
 
 function parseBasedOn(x: any): ShinsalBasedOn {
-  return x === 'YEAR_BRANCH' || x === 'DAY_BRANCH' || x === 'MONTH_BRANCH' ? x : 'OTHER';
+  return x === 'YEAR_BRANCH' || x === 'DAY_BRANCH' || x === 'MONTH_BRANCH' || x === 'DAY_STEM' || x === 'YEAR_STEM'
+    ? x
+    : 'OTHER';
 }
 
 function parseMatchedPillars(x: any): Array<'year' | 'month' | 'day' | 'hour'> | undefined {
@@ -145,11 +149,16 @@ function parseMatchedPillars(x: any): Array<'year' | 'month' | 'day' | 'hour'> |
   return out.length ? out : undefined;
 }
 
+type ShinsalPillarName = 'year' | 'month' | 'day' | 'hour';
+type ExpandedShinsalDetection = ShinsalDetection & {
+  scopePillars?: ShinsalPillarName[];
+};
+
 function parseQuality(x: any): 'FULL' | 'WEAK' | undefined {
   return x === 'FULL' || x === 'WEAK' ? x : undefined;
 }
 
-function expandDetections(x: JsonValue): ShinsalDetection[] {
+function expandDetections(x: JsonValue): ExpandedShinsalDetection[] {
   if (!x || typeof x !== 'object') return [];
   if (Array.isArray(x)) {
     // Allow emitting an array of payloads.
@@ -161,16 +170,18 @@ function expandDetections(x: JsonValue): ShinsalDetection[] {
 
   const basedOn = parseBasedOn(o.basedOn);
   const matchedPillars = parseMatchedPillars(o.matchedPillars);
+  const scopePillars = parseMatchedPillars(o.scopePillars);
   const quality = parseQuality(o.quality);
   const qualityWeight = typeof o.qualityWeight === 'number' && Number.isFinite(o.qualityWeight) ? o.qualityWeight : undefined;
   const category = typeof o.category === 'string' && o.category.length > 0 ? o.category : undefined;
 
-  const base: ShinsalDetection = {
+  const base: ExpandedShinsalDetection = {
     name: o.name,
     category,
     basedOn,
     targetKind: 'NONE',
     matchedPillars,
+    scopePillars,
     quality,
     qualityWeight,
   };
@@ -447,21 +458,45 @@ function matchedPillarsForStemTarget(facts: RuleFacts, s: StemIdx): Array<'year'
   return out;
 }
 
+function restrictToExplicitScope(
+  targetMatches: ShinsalPillarName[],
+  scopePillars: readonly ShinsalPillarName[] | undefined,
+): ShinsalPillarName[] {
+  if (!Array.isArray(scopePillars)) return targetMatches;
+  const allowed = new Set(scopePillars);
+  return targetMatches.filter((pillar) => allowed.has(pillar));
+}
+
 /**
  * Canonicalize matchedPillars after fan-out.
  *
  * Facts-side catalogs often compute matchedPillars for a *set* of candidate targets.
- * After we split into per-target detections, we re-bind matchedPillars to the specific target.
+ * After we split into per-target detections, re-bind matchedPillars to the specific target.
+ * Only a separately emitted scope may restrict those target matches; matchedPillars itself
+ * is provenance and must not be reused as a scope proxy.
  */
-function normalizeMatchedPillarsByTarget(facts: RuleFacts, dets: ShinsalDetection[]): ShinsalDetection[] {
+function normalizeMatchedPillarsByTarget(facts: RuleFacts, dets: ExpandedShinsalDetection[]): ShinsalDetection[] {
   return dets.map((d) => {
-    if (d.targetKind === 'BRANCH' && typeof d.targetBranch === 'number') {
-      return { ...d, matchedPillars: matchedPillarsForBranchTarget(facts, d.targetBranch) };
+    const { scopePillars, ...detection } = d;
+    if (detection.targetKind === 'BRANCH' && typeof detection.targetBranch === 'number') {
+      return {
+        ...detection,
+        matchedPillars: restrictToExplicitScope(
+          matchedPillarsForBranchTarget(facts, detection.targetBranch),
+          scopePillars,
+        ),
+      };
     }
-    if (d.targetKind === 'STEM' && typeof d.targetStem === 'number') {
-      return { ...d, matchedPillars: matchedPillarsForStemTarget(facts, d.targetStem) };
+    if (detection.targetKind === 'STEM' && typeof detection.targetStem === 'number') {
+      return {
+        ...detection,
+        matchedPillars: restrictToExplicitScope(
+          matchedPillarsForStemTarget(facts, detection.targetStem),
+          scopePillars,
+        ),
+      };
     }
-    return d;
+    return detection;
   });
 }
 function applyQualityModel(args: {
@@ -476,6 +511,11 @@ function applyQualityModel(args: {
 
   const scoresAdjusted: Record<string, number> = {};
   const conditionsTrace: NonNullable<ShinsalResult['rules']['conditions']> = [];
+  // 12신살 년지·일지 병용 등에서 동일 (name, target) detection이 앵커별로 중복
+  // 방출되면 점수가 2배 계상된다 (감사 A10). 병용의 의미는 '어느 기준으로든
+  // 성립'이지 '두 배 강함'이 아니므로, 점수 집계만 target 단위로 1회 계상한다
+  // (detection 자체는 양 앵커 표시를 위해 그대로 둔다).
+  const scoreSeen = new Set<string>();
 
   for (let i = 0; i < detections.length; i++) {
     const d0 = detections[i]!;
@@ -492,7 +532,12 @@ function applyQualityModel(args: {
     let condAssertionsFailed: Array<{ ruleId: string; explain?: string }> = [];
     let condScores: Record<string, number> = {};
 
-    if (typeof d.qualityWeight !== 'number' && !exclude.has(d.name)) {
+    // 카테고리/이름별 오버라이드·enabled·applyToNames를 detection 단위로 해석한다
+    // (감사 A7 — resolveQualityModelForDetection이 정의만 되고 미호출이라
+    //  sanmingtonghui 팩의 conditions.enabled=false 등이 전부 무효였다).
+    const { model: resolvedModel, applyConditions } = resolveQualityModelForDetection(qm, d0);
+
+    if (applyConditions && !exclude.has(d.name)) {
       const targetBranches = inferTargetBranches(facts, d);
 
       const det = {
@@ -511,10 +556,10 @@ function applyQualityModel(args: {
         policy: {
           shinsal: {
             conditions: {
-              weights: qm.weights,
-              combine: qm.combine,
-              weakThreshold: qm.weakThreshold,
-              invalidateThreshold: qm.invalidateThreshold,
+              weights: resolvedModel.weights,
+              combine: resolvedModel.combine,
+              weakThreshold: resolvedModel.weakThreshold,
+              invalidateThreshold: resolvedModel.invalidateThreshold,
             },
           },
         },
@@ -543,17 +588,17 @@ function applyQualityModel(args: {
       }
 
       qualityReasons = penaltyParts.map((p) => p.key);
-      combinedPenalty = combinePenalty(penaltyParts.map((p) => p.value), qm.combine);
+      combinedPenalty = combinePenalty(penaltyParts.map((p) => p.value), resolvedModel.combine);
       qualityWeight = clamp01(1 - combinedPenalty);
-      invalidated = qualityWeight <= (qm.invalidateThreshold ?? 0);
+      invalidated = qualityWeight <= (resolvedModel.invalidateThreshold ?? 0);
     }
 
     // Label quality
-    const weakThreshold = qm.weakThreshold ?? 1;
+    const weakThreshold = resolvedModel.weakThreshold ?? 1;
     const quality: 'FULL' | 'WEAK' = qualityWeight < weakThreshold ? 'WEAK' : 'FULL';
 
     // Normalize invalidation in one place (also covers excluded / explicit qualityWeight cases)
-    const invT = qm.invalidateThreshold ?? 0;
+    const invT = resolvedModel.invalidateThreshold ?? 0;
     invalidated = invalidated || qualityWeight <= invT;
 
     d = {
@@ -568,11 +613,21 @@ function applyQualityModel(args: {
       conditionPenalty: combinedPenalty || undefined,
     };
 
-    // Accumulate adjusted scores
+    // Accumulate adjusted scores (동일 name+target은 1회만 — 감사 A10)
     const base = detectionBaseWeight(d);
     const key = `shinsal.${d.name}`;
     const contrib = base * qualityWeight;
-    scoresAdjusted[key] = (scoresAdjusted[key] ?? 0) + contrib;
+    const dupKey = [
+      d.name,
+      d.targetKind,
+      d.targetBranch ?? '',
+      d.targetStem ?? '',
+      Array.isArray(d.targetBranches) ? [...d.targetBranches].sort((a, b) => a - b).join(',') : '',
+    ].join('|');
+    if (!scoreSeen.has(dupKey)) {
+      scoreSeen.add(dupKey);
+      scoresAdjusted[key] = (scoresAdjusted[key] ?? 0) + contrib;
+    }
 
     // Trace
     if (!exclude.has(d.name)) {

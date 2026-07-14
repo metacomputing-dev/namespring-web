@@ -129,7 +129,8 @@ export function analyzePalaces(pillars: PalacePillarsInput): PalaceReport {
     const p = pillars[pos];
     if (!p) continue;
     const hidden = hiddenStemsOfBranch(p.branch);
-    const main = hidden[hidden.length - 1]?.stem ?? hidden[0]!.stem;  // 정기 = last entry per rawHiddenStemsTable
+    // 정기(MAIN) is the FIRST entry per rawHiddenStemsTable ([MAIN, MIDDLE?, RESIDUAL?]).
+    const main = hidden.find((h) => h.role === 'MAIN')?.stem ?? hidden[0]!.stem;
     const mainTenGod = tenGodOf(day.stem, main);
     const isGilshin = GILSHIN_TEN_GODS.has(mainTenGod);
     const root = rootStatus(day.stem, p.branch);

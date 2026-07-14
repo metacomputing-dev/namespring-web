@@ -283,9 +283,12 @@ export interface StemRelationView {
 
 export interface FortuneStartView {
   direction: 'FORWARD' | 'BACKWARD';
-  boundary: { id: string; utcMs: number };
+  /** null = solar-term boundaries unavailable (trivial fallback timeline). */
+  boundary: { id: string; utcMs: number } | null;
   deltaMs: number;
   startAgeYears: number;
+  /** 표기용 정수 대운수 (startAgeRounding 유파 + minStartAge 적용). */
+  startAgeDisplay?: number;
   startAgeParts?: { years: number; months: number; days: number };
   startUtcMsApprox?: number;
   formula: string;
@@ -412,13 +415,13 @@ export interface JonggyeokCandidateView {
 
 export interface ShinsalView {
   name: string;
-  basedOn: 'YEAR_BRANCH' | 'DAY_BRANCH' | 'MONTH_BRANCH' | 'OTHER';
+  basedOn: 'YEAR_BRANCH' | 'DAY_BRANCH' | 'MONTH_BRANCH' | 'DAY_STEM' | 'YEAR_STEM' | 'OTHER';
   targetBranch: BranchView;
 }
 
 export interface ShinsalHitView {
   name: string;
-  basedOn: 'YEAR_BRANCH' | 'DAY_BRANCH' | 'MONTH_BRANCH' | 'OTHER';
+  basedOn: 'YEAR_BRANCH' | 'DAY_BRANCH' | 'MONTH_BRANCH' | 'DAY_STEM' | 'YEAR_STEM' | 'OTHER';
   targetKind: 'BRANCH' | 'STEM' | 'NONE';
   targetBranch?: BranchView;
   targetStem?: StemView;

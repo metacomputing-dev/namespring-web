@@ -7,6 +7,7 @@ export default defineConfig({
     include: [
       'src/api/**/*.test.ts',
       'src/calendar/**/*.test.ts',
+      'src/compat/**/*.test.ts',
       'src/core/**/*.test.ts',
       'src/rules/**/*.test.ts',
       'tests/precision/**/*.test.ts',

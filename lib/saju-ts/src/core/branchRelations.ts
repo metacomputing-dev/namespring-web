@@ -11,7 +11,9 @@ export type RelationType =
   | 'HAE'
   | 'PA'
   | 'WONJIN'
+  | 'GWIMUN'   // 귀문관살(鬼門關殺) 쌍 — 원진과 4조합 겹치나 별개 신살 (다수설 병기)
   | 'SAMHAP'
+  | 'BANHAP'   // 반합(半合): 왕지 포함 삼합 2자 (주의: BANGHAP=방합과 다름)
   | 'BANGHAP';
 
 export interface DetectedRelation {
@@ -19,7 +21,8 @@ export interface DetectedRelation {
   members: BranchIdx[]; // sorted
 }
 
-const RELATION_ORDER: readonly RelationType[] = [
+/** 방출 가능한 지지 관계 타입 전수 (라벨 커버리지 테스트가 소비). */
+export const RELATION_ORDER: readonly RelationType[] = [
   'CHUNG',
   'YUKHAP',
   'HYEONG',
@@ -28,7 +31,9 @@ const RELATION_ORDER: readonly RelationType[] = [
   'HAE',
   'PA',
   'WONJIN',
+  'GWIMUN',
   'SAMHAP',
+  'BANHAP',
   'BANGHAP',
 ] as const;
 
@@ -73,6 +78,17 @@ export function paPartner(i: BranchIdx): BranchIdx {
 export function wonjinPartner(i: BranchIdx): BranchIdx {
   const yang = branchYinYang(i) === 'YANG';
   return yang ? mod(i + 7, 12) : mod(i + 5, 12);
+}
+
+/**
+ * 귀문관살(鬼門關殺) 6조합 (다수설): 子酉·丑午·寅未·卯申·辰亥·巳戌.
+ * 원진과 丑午·卯申·辰亥·巳戌 4조합이 겹치지만 별개 신살로 병기하는 것이
+ * 다수설이며, 子酉·寅未는 귀문 전용 조합이다 (감사 B9).
+ */
+const GWIMUN_PARTNER: readonly number[] = [9, 6, 7, 8, 11, 10, 1, 2, 3, 0, 5, 4];
+
+export function gwimunPartner(i: BranchIdx): BranchIdx {
+  return GWIMUN_PARTNER[mod(i, 12)]! as BranchIdx;
 }
 
 // --- Punishment (刑)
@@ -128,8 +144,14 @@ function tripleKey(xs: number[]): string {
   return [...xs].sort((a, b) => a - b).join('-');
 }
 
+/** 왕지(旺支) 여부 — 子(0)·卯(3)·午(6)·酉(9). */
+export function isWangji(i: BranchIdx): boolean {
+  return mod(i, 12) % 3 === 0;
+}
+
 export function detectBranchRelations(branches: BranchIdx[]): DetectedRelation[] {
   const bs = branches.map((b) => mod(b, 12));
+  const set = new Set(bs);
 
   const rels: DetectedRelation[] = [];
 
@@ -144,10 +166,21 @@ export function detectBranchRelations(branches: BranchIdx[]): DetectedRelation[]
       if (haePartner(a) === b) rels.push({ type: 'HAE', members: [a, b].sort((x, y) => x - y) });
       if (paPartner(a) === b) rels.push({ type: 'PA', members: [a, b].sort((x, y) => x - y) });
       if (wonjinPartner(a) === b) rels.push({ type: 'WONJIN', members: [a, b].sort((x, y) => x - y) });
+      if (a !== b && gwimunPartner(a) === b) rels.push({ type: 'GWIMUN', members: [a, b].sort((x, y) => x - y) });
 
       // Punishment (刑)
       if (a === b && isJaHyeongBranch(a)) rels.push({ type: 'JA_HYEONG', members: [a, b] });
       if (a !== b && isHyeongPair(a, b)) rels.push({ type: 'HYEONG', members: [a, b].sort((x, y) => x - y) });
+
+      // 반합(半合) — 같은 삼합군 2자 + 왕지 포함(생지반합·묘지반합)이 주류 성립 조건.
+      // 왕지 없는 생지+고지(가합)는 불인정. 삼합 3자 완전체가 있으면 SAMHAP만 보고하고
+      // 부분집합 반합은 억제한다 (감사 B3 — 운 경로 fortuneCalculator와 규칙 통일).
+      if (a !== b && (mod(a - b, 12) === 4 || mod(a - b, 12) === 8) && (isWangji(a) || isWangji(b))) {
+        const group = samhapGroup(a);
+        if (!group.every((x) => set.has(x))) {
+          rels.push({ type: 'BANHAP', members: [a, b].sort((x, y) => x - y) });
+        }
+      }
     }
   }
 
@@ -157,7 +190,6 @@ export function detectBranchRelations(branches: BranchIdx[]): DetectedRelation[]
   );
 
   // Triple relations: 삼합, 방합 (only if all 3 are present)
-  const set = new Set(bs);
   const tripleRels: DetectedRelation[] = [];
   for (const b of bs) {
     const s = samhapGroup(b);

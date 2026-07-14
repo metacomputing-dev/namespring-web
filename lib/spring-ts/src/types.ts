@@ -598,8 +598,11 @@ export interface StrengthSummary {
   readonly isStrong: boolean;
   readonly totalSupport: number;
   readonly totalOppose: number;
+  /** 득령 여부 (0|1): 월지 본기 십성이 비겁·인성인가. (과거에는 비겁 점수 합의 재라벨이었다 — 감사 A1) */
   readonly deukryeong: number;
+  /** 득지 강도 (0~1): 일지 지장간 통근(비견·겁재) — 본기 1 > 중기 0.6 > 여기 0.3. */
   readonly deukji: number;
+  /** 득세 개수 (0~7): 일간 제외 7글자(년·월·시 천간 + 4지지 본기) 중 비겁·인성 개수. */
   readonly deukse: number;
   readonly details: string[];
 }
@@ -812,11 +815,18 @@ export interface HiddenStemTenGod {
 /** A divine-sha (shinsal) hit and its weighted score. */
 export interface ShinsalHitSummary {
   readonly type: string;
+  /** ⚠ 산출 기준(basedOn)의 축약이지 앉은 궁위가 아니다 — 궁위는 seatPillars를 볼 것. */
   readonly position: string;
   readonly grade: string;
   readonly baseWeight: number;
   readonly positionMultiplier: number;
   readonly weightedScore: number;
+  /** 산출 기준 원값: YEAR_BRANCH | DAY_BRANCH | MONTH_BRANCH | DAY_STEM | YEAR_STEM | OTHER. */
+  readonly basedOn?: string;
+  /** 실제 앉은 기둥(궁위) — 근묘화실 통변의 전제 (감사 C2, HANDOFF 작업 5-후속 스펙). */
+  readonly seatPillars?: readonly ('year' | 'month' | 'day' | 'hour')[];
+  /** 같은 (type, position) 키로 합쳐진 발동 횟수 (예: 도화 2개). */
+  readonly count?: number;
 }
 
 /** A single 대운 (10-year luck cycle) pillar entry. */
@@ -837,8 +847,17 @@ export interface DaeunPillarSummary {
 export interface DaeunInfoSummary {
   readonly isForward: boolean;
   readonly firstDaeunStartAge: number;
+  /** 표기용 정수 대운수 — 반올림 유파(기본: 1일 버림·2일 올림) + 하한 1. 상용 만세력 표기와 정합 (감사 B11). */
+  readonly firstDaeunStartAgeDisplay?: number | null;
   readonly firstDaeunStartMonths: number;
+  /** 대운 기산 절기 id (예: 'LICHUN'). 과거에는 무관한 일경계 정책 문자열이 들어갔다. */
   readonly boundaryMode: string;
+  /** 기산 절기의 UTC ms — 절기 경계 부재 시 null. */
+  readonly boundaryUtcMs?: number | null;
+  /** 출생→기산 절기까지 일수 (소수 3자리). */
+  readonly deltaDays?: number | null;
+  /** 대운수 산출 공식 문자열 (예: 'startAgeYears = (Δdays / 3)  // 三日一歲'). */
+  readonly formula?: string | null;
   readonly warnings: readonly string[];
   readonly pillars: readonly DaeunPillarSummary[];
 }

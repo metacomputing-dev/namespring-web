@@ -118,6 +118,7 @@ export function buildGraph(): Graph {
           offsetMinutes: ldt.offsetMinutes,
           location: ctx.request.location,
           policy: cal.trueSolarTime,
+          precision: { solarPrecision: cal.solarPrecision, aberrationModel: cal.aberrationModel },
         });
       },
     }),

@@ -268,6 +268,7 @@ const DEFAULT_SHINSAL_RULES: Rule[] = [
     { name: 'HAE_SAL', explain: '해살(害殺): 명식 내 지지 관계에서 지해(害) 발생(관계 기반).' },
     { name: 'PA_SAL', explain: '파살(破殺): 명식 내 지지 관계에서 파(破) 발생(관계 기반).' },
     { name: 'WONJIN_SAL', explain: '원진살(怨嗔殺): 명식 내 지지 관계에서 원진(怨嗔) 발생(관계 기반).' },
+    { name: 'GWIMUN_SAL', explain: '귀문관살(鬼門關殺): 명식 내 지지 관계에서 귀문(子酉·丑午·寅未·卯申·辰亥·巳戌) 발생(관계 기반).' },
     { name: 'GEOKGAK_SAL', explain: '격각살(隔角殺): 지지 12순환에서 한 칸 건너 관계(distance=2) 성립(관계 기반).' },
   ]),
 
@@ -308,6 +309,10 @@ const DEFAULT_SHINSAL_RULES: Rule[] = [
       .concat([
         { id: 'HONG_LUAN_FROM_YEAR', name: 'HONG_LUAN', basedOn: 'YEAR_BRANCH', targetVar: 'shinsal.hongluan.year', explain: '년지 기준 홍란(紅鸞) 지지가 명식에 존재' },
         { id: 'CHEON_HUI_FROM_YEAR', name: 'CHEON_HUI', basedOn: 'YEAR_BRANCH', targetVar: 'shinsal.cheonhui.year', explain: '년지 기준 천희(天喜) 지지가 명식에 존재' },
+        // 고신·과숙 (감사 B8): 년지 기준이 주류. 일지 앵커는 12신살 이중 방출(감사 A10)과
+        // 같은 이중 계상 문제를 피하기 위해 룰로는 내지 않는다 (facts 데이터만 제공).
+        { id: 'GOSIN_FROM_YEAR', name: 'GOSIN_SAL', basedOn: 'YEAR_BRANCH', targetVar: 'shinsal.gosin.year', explain: '년지 기준 고신살(孤辰) 지지가 명식에 존재' },
+        { id: 'GWASUK_FROM_YEAR', name: 'GWASUK_SAL', basedOn: 'YEAR_BRANCH', targetVar: 'shinsal.gwasuk.year', explain: '년지 기준 과숙살(寡宿) 지지가 명식에 존재' },
       ]) as Array<{ id: string; name: string; basedOn: 'YEAR_BRANCH' | 'DAY_BRANCH'; targetVar: string; explain: string }>,
   ),
 
@@ -320,7 +325,8 @@ const DEFAULT_SHINSAL_RULES: Rule[] = [
     pillars: [
       { pillar: 'year', id: 'GONGMANG_YEAR', explain: '연지가 일주旬空(공망)에 해당' },
       { pillar: 'month', id: 'GONGMANG_MONTH', explain: '월지가 일주旬空(공망)에 해당' },
-      { pillar: 'day', id: 'GONGMANG_DAY', explain: '일지가 일주旬空(공망)에 해당' },
+      // 일지는 자기 순(旬) 안에 있어 일주 기준 공망일 수 없다 — GONGMANG_DAY 는 영구 불발화 룰이라 제거.
+      // 일지 공망 판정은 년주 기준 공망(별도 축, 감사 B13)으로만 가능.
       { pillar: 'hour', id: 'GONGMANG_HOUR', explain: '시지가 일주旬空(공망)에 해당' },
     ],
   }),

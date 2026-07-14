@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "capturedAt": "2026-05-05T13:30:11.002Z",
+  "capturedAt": "2026-07-08T06:00:06.680Z",
   "targetDate": "2026-04-30T00:00:00.000Z",
   "fixtureCount": 15,
   "results": [
@@ -47,31 +47,31 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 80.9,
+            "finalScore": 81.2,
             "fullHangul": "최이수",
             "fullHanja": "崔理琇",
             "rank": 1
           },
           {
-            "finalScore": 79.2,
+            "finalScore": 79.5,
             "fullHangul": "최유단",
             "fullHanja": "崔攸端",
             "rank": 2
           },
           {
-            "finalScore": 79.2,
+            "finalScore": 79.5,
             "fullHangul": "최영정",
             "fullHanja": "崔瑛玎",
             "rank": 3
           },
           {
-            "finalScore": 79.2,
+            "finalScore": 79.5,
             "fullHangul": "최영진",
             "fullHanja": "崔瑛珍",
             "rank": 4
           },
           {
-            "finalScore": 78.9,
+            "finalScore": 79.2,
             "fullHangul": "최정영",
             "fullHanja": "崔玎瑛",
             "rank": 5
@@ -124,31 +124,31 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 74.6,
+            "finalScore": 74.7,
             "fullHangul": "김배주",
             "fullHanja": "金北宙",
             "rank": 1
           },
           {
-            "finalScore": 74.6,
+            "finalScore": 74.7,
             "fullHangul": "김사영",
             "fullHanja": "金事永",
             "rank": 2
           },
           {
-            "finalScore": 74.6,
+            "finalScore": 74.7,
             "fullHangul": "김사영",
             "fullHanja": "金祀永",
             "rank": 3
           },
           {
-            "finalScore": 74.6,
+            "finalScore": 74.7,
             "fullHangul": "김서영",
             "fullHanja": "金抒永",
             "rank": 4
           },
           {
-            "finalScore": 74.6,
+            "finalScore": 74.7,
             "fullHangul": "김서우",
             "fullHanja": "金抒右",
             "rank": 5
@@ -201,31 +201,31 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 78.7,
+            "finalScore": 78.8,
             "fullHangul": "이대영",
             "fullHanja": "李岱穎",
             "rank": 1
           },
           {
-            "finalScore": 78.5,
+            "finalScore": 78.6,
             "fullHangul": "이대유",
             "fullHanja": "李岱遊",
             "rank": 2
           },
           {
-            "finalScore": 78.4,
+            "finalScore": 78.5,
             "fullHangul": "이승만",
             "fullHanja": "李丞娩",
             "rank": 3
           },
           {
-            "finalScore": 78.2,
+            "finalScore": 78.3,
             "fullHangul": "이주민",
             "fullHanja": "李遒岷",
             "rank": 4
           },
           {
-            "finalScore": 77.7,
+            "finalScore": 77.8,
             "fullHangul": "이선호",
             "fullHanja": "李繕好",
             "rank": 5
@@ -282,31 +282,31 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 75.9,
+            "finalScore": 76,
             "fullHangul": "박수진",
             "fullHanja": "朴修辰",
             "rank": 1
           },
           {
-            "finalScore": 74.5,
+            "finalScore": 74.6,
             "fullHangul": "박구혜",
             "fullHanja": "朴舊蹊",
             "rank": 2
           },
           {
-            "finalScore": 73.9,
+            "finalScore": 74,
             "fullHangul": "박로희",
             "fullHanja": "朴潞嬉",
             "rank": 3
           },
           {
-            "finalScore": 73.7,
+            "finalScore": 73.8,
             "fullHangul": "박정미",
             "fullHanja": "朴炡美",
             "rank": 4
           },
           {
-            "finalScore": 73.5,
+            "finalScore": 73.7,
             "fullHangul": "박구자",
             "fullHanja": "朴舊孜",
             "rank": 5
@@ -387,7 +387,7 @@
             "rank": 4
           },
           {
-            "finalScore": 73.3,
+            "finalScore": 73.4,
             "fullHangul": "정월수",
             "fullHanja": "鄭月琇",
             "rank": 5
@@ -446,31 +446,31 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 78,
+            "finalScore": 78.1,
             "fullHangul": "강리희",
             "fullHanja": "姜理稀",
             "rank": 1
           },
           {
-            "finalScore": 77,
+            "finalScore": 77.1,
             "fullHangul": "강리영",
             "fullHanja": "姜利穎",
             "rank": 2
           },
           {
-            "finalScore": 77,
+            "finalScore": 77.1,
             "fullHangul": "강로희",
             "fullHanja": "姜瀘稀",
             "rank": 3
           },
           {
-            "finalScore": 76.9,
+            "finalScore": 77,
             "fullHangul": "강임정",
             "fullHanja": "姜壬珽",
             "rank": 4
           },
           {
-            "finalScore": 76.8,
+            "finalScore": 76.9,
             "fullHangul": "강수정",
             "fullHanja": "姜手珽",
             "rank": 5
@@ -527,31 +527,31 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 78.4,
+            "finalScore": 78.6,
             "fullHangul": "윤장희",
             "fullHanja": "尹薔稀",
             "rank": 1
           },
           {
-            "finalScore": 78.2,
+            "finalScore": 78.4,
             "fullHangul": "윤수봉",
             "fullHanja": "尹隧蓬",
             "rank": 2
           },
           {
-            "finalScore": 77.8,
+            "finalScore": 77.9,
             "fullHangul": "윤희장",
             "fullHanja": "尹稀薔",
             "rank": 3
           },
           {
-            "finalScore": 77.5,
+            "finalScore": 77.6,
             "fullHangul": "윤수만",
             "fullHanja": "尹隧挽",
             "rank": 4
           },
           {
-            "finalScore": 77.4,
+            "finalScore": 77.5,
             "fullHangul": "윤탁희",
             "fullHanja": "尹拓稀",
             "rank": 5
@@ -686,31 +686,31 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 77.3,
+            "finalScore": 77.5,
             "fullHangul": "최오정",
             "fullHanja": "崔鼇靖",
             "rank": 1
           },
           {
-            "finalScore": 77.3,
+            "finalScore": 77.5,
             "fullHangul": "최염정",
             "fullHanja": "崔鹽靖",
             "rank": 2
           },
           {
-            "finalScore": 77.2,
+            "finalScore": 77.4,
             "fullHangul": "최한수",
             "fullHanja": "崔瀚手",
             "rank": 3
           },
           {
-            "finalScore": 77,
+            "finalScore": 77.2,
             "fullHangul": "최희장",
             "fullHanja": "崔喜掌",
             "rank": 4
           },
           {
-            "finalScore": 76.9,
+            "finalScore": 77.1,
             "fullHangul": "최서부",
             "fullHanja": "崔薯不",
             "rank": 5
@@ -768,31 +768,31 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 83.4,
+            "finalScore": 83.5,
             "fullHangul": "한소범",
             "fullHanja": "韓蕭帆",
             "rank": 1
           },
           {
-            "finalScore": 81.7,
+            "finalScore": 81.9,
             "fullHangul": "한선해",
             "fullHanja": "韓繕亥",
             "rank": 2
           },
           {
-            "finalScore": 81.7,
+            "finalScore": 81.9,
             "fullHangul": "한소후",
             "fullHanja": "韓蕭后",
             "rank": 3
           },
           {
-            "finalScore": 81.5,
+            "finalScore": 81.6,
             "fullHangul": "한수영",
             "fullHanja": "韓秀瑛",
             "rank": 4
           },
           {
-            "finalScore": 81.5,
+            "finalScore": 81.6,
             "fullHangul": "한사영",
             "fullHanja": "韓些瑛",
             "rank": 5
@@ -849,31 +849,31 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 76.7,
+            "finalScore": 76.8,
             "fullHangul": "이진희",
             "fullHanja": "李璡僖",
             "rank": 1
           },
           {
-            "finalScore": 76.7,
+            "finalScore": 76.8,
             "fullHangul": "이린희",
             "fullHanja": "李璘僖",
             "rank": 2
           },
           {
-            "finalScore": 76.5,
+            "finalScore": 76.6,
             "fullHangul": "이지영",
             "fullHanja": "李旨玲",
             "rank": 3
           },
           {
-            "finalScore": 76.5,
+            "finalScore": 76.6,
             "fullHangul": "이린영",
             "fullHanja": "李璘瑛",
             "rank": 4
           },
           {
-            "finalScore": 76.3,
+            "finalScore": 76.4,
             "fullHangul": "이정해",
             "fullHanja": "李炡諧",
             "rank": 5
@@ -930,13 +930,13 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 78.7,
+            "finalScore": 78.8,
             "fullHangul": "정일정",
             "fullHanja": "鄭日淨",
             "rank": 1
           },
           {
-            "finalScore": 77.4,
+            "finalScore": 77.5,
             "fullHangul": "정일희",
             "fullHanja": "鄭日喜",
             "rank": 2
@@ -1011,31 +1011,31 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 79.7,
+            "finalScore": 79.9,
             "fullHangul": "김배서",
             "fullHanja": "金北抒",
             "rank": 1
           },
           {
-            "finalScore": 79.7,
+            "finalScore": 79.9,
             "fullHangul": "김사우",
             "fullHanja": "金事右",
             "rank": 2
           },
           {
-            "finalScore": 79.7,
+            "finalScore": 79.9,
             "fullHangul": "김사우",
             "fullHanja": "金祀右",
             "rank": 3
           },
           {
-            "finalScore": 79.7,
+            "finalScore": 79.9,
             "fullHangul": "김주영",
             "fullHanja": "金宙永",
             "rank": 4
           },
           {
-            "finalScore": 79.7,
+            "finalScore": 79.9,
             "fullHangul": "김주우",
             "fullHanja": "金宙右",
             "rank": 5
@@ -1094,31 +1094,31 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 85,
+            "finalScore": 85.2,
             "fullHangul": "박수신",
             "fullHanja": "朴修辰",
             "rank": 1
           },
           {
-            "finalScore": 84.9,
+            "finalScore": 85.1,
             "fullHangul": "박구대",
             "fullHanja": "朴舊旲",
             "rank": 2
           },
           {
-            "finalScore": 83.8,
+            "finalScore": 84,
             "fullHangul": "박구영",
             "fullHanja": "朴舊營",
             "rank": 3
           },
           {
-            "finalScore": 83.1,
+            "finalScore": 83.3,
             "fullHangul": "박진혁",
             "fullHanja": "朴辰爀",
             "rank": 4
           },
           {
-            "finalScore": 83.1,
+            "finalScore": 83.3,
             "fullHangul": "박신혁",
             "fullHanja": "朴辰爀",
             "rank": 5
@@ -1176,31 +1176,31 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 79.4,
+            "finalScore": 79.5,
             "fullHangul": "이선민",
             "fullHanja": "李璇泯",
             "rank": 1
           },
           {
-            "finalScore": 79.2,
+            "finalScore": 79.3,
             "fullHangul": "이왕서",
             "fullHanja": "李汪諝",
             "rank": 2
           },
           {
-            "finalScore": 79.2,
+            "finalScore": 79.3,
             "fullHangul": "이왕선",
             "fullHanja": "李汪璇",
             "rank": 3
           },
           {
-            "finalScore": 79.2,
+            "finalScore": 79.3,
             "fullHangul": "이운서",
             "fullHanja": "李沄諝",
             "rank": 4
           },
           {
-            "finalScore": 79.2,
+            "finalScore": 79.3,
             "fullHangul": "이운선",
             "fullHanja": "李沄璇",
             "rank": 5
