@@ -135,6 +135,7 @@ describe('pressure 축 천간합 기반(羈絆) 감쇠 (PR-10-3)', () => {
 
     expect(on.pressure).toBeLessThan(off.pressure);
     expect(on.index).toBeGreaterThan(off.index);
+    expect(on.components.officers).toBeCloseTo(off.components.officers, 12);
 
     const inter = (on.details as any)?.delingdiShi?.interaction;
     const bind = inter?.pressureStemBinds?.find((b: any) => b.pos === 'month');
@@ -142,6 +143,15 @@ describe('pressure 축 천간합 기반(羈絆) 감쇠 (PR-10-3)', () => {
     expect(bind?.tenGod).toBe('JEONG_GWAN');
     expect(bind?.factor).toBeCloseTo(0.5, 12);
     expect(bind?.reduction).toBeCloseTo(0.5, 12);
+    expect(inter?.pressureStemBindPenalty?.score).toBeGreaterThan(0);
+    expect(inter?.pressureStemBindPenalty?.normalized).toBeGreaterThan(0);
+    expect(inter?.pressureStemBindPenalty?.factor).toBeGreaterThan(0);
+
+    const basePressure = on.components.outputs + on.components.wealth + on.components.officers;
+    expect(off.pressure - on.pressure).toBeCloseTo(
+      basePressure * inter.pressureStemBindPenalty.factor,
+      12,
+    );
   });
 });
 

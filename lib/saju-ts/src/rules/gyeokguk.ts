@@ -107,6 +107,8 @@ export interface GyeokgukSeongpaeScoreAdjustment {
   multiplier: number;
   before: number;
   after: number;
+  /** 같은 월지 손상이 quality.multiplier에 이미 반영되어 성패 재곱을 억제한 경우. */
+  suppressedBy?: 'MONTH_DAMAGE_ALREADY_APPLIED_TO_QUALITY';
 }
 
 export interface GyeokgukCompetition {
@@ -353,11 +355,23 @@ function applySeongpaeScoreAdjustment(
   const before = scores[key];
   if (typeof before !== 'number' || !Number.isFinite(before) || before === 0) return null;
 
-  const multiplier = asNumber(pol.multipliers[seongpae.verdict], 1);
+  // 월지 손상은 month.gyeok.quality.multiplier의 integrity에 이미 반영된다.
+  // 손상만으로 성패 verdict가 강등된 경우 같은 증거로 다시 점수를 깎지 않는다.
+  const monthDamageAlreadyApplied =
+    seongpae.verdictBeforeMonthBroken != null &&
+    seongpae.verdictBeforeMonthBroken !== seongpae.verdict;
+  const multiplier = monthDamageAlreadyApplied ? 1 : asNumber(pol.multipliers[seongpae.verdict], 1);
   const after = before * multiplier;
   scores[key] = after;
 
-  return { verdict: seongpae.verdict, key, multiplier, before, after };
+  return {
+    verdict: seongpae.verdict,
+    key,
+    multiplier,
+    before,
+    after,
+    ...(monthDamageAlreadyApplied ? { suppressedBy: 'MONTH_DAMAGE_ALREADY_APPLIED_TO_QUALITY' as const } : {}),
+  };
 }
 
 function readTransformSignal(facts: RuleFacts, selector: TransformSignalSelector = 'auto'): number {
