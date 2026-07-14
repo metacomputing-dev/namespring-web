@@ -51,13 +51,21 @@ describe('SajuRequest runtime validation', () => {
     [{ ...base, sex: new String('M') }, 'sex must be'],
     [{ ...base, sex: { toString: () => 'M' } }, 'sex must be'],
     [{ ...base, location: { lat: 91, lon: 126.978 } }, 'location.lat'],
+    [{ ...base, location: { lat: -91, lon: 126.978 } }, 'location.lat'],
     [{ ...base, location: { lat: 37.5665, lon: 181 } }, 'location.lon'],
+    [{ ...base, location: { lat: 37.5665, lon: -181 } }, 'location.lon'],
     [{ ...base, location: { lat: 37.5665 } }, 'location.lon'],
     [{ ...base, location: { lon: 126.978 } }, 'location.lat'],
     [{ ...base, location: { lat: '37.5665', lon: 126.978 } }, 'location.lat'],
     [{ ...base, location: { lat: 37.5665, lon: '126.978' } }, 'location.lon'],
+    [{ ...base, location: { lat: true, lon: 126.978 } }, 'location.lat'],
+    [{ ...base, location: { lat: 37.5665, lon: false } }, 'location.lon'],
     [{ ...base, location: { lat: null, lon: 126.978 } }, 'location.lat'],
     [{ ...base, location: { lat: 37.5665, lon: null } }, 'location.lon'],
+    [{ ...base, location: { lat: Number.NaN, lon: 126.978 } }, 'location.lat'],
+    [{ ...base, location: { lat: 37.5665, lon: Number.NaN } }, 'location.lon'],
+    [{ ...base, location: { lat: Number.POSITIVE_INFINITY, lon: 126.978 } }, 'location.lat'],
+    [{ ...base, location: { lat: 37.5665, lon: Number.NEGATIVE_INFINITY } }, 'location.lon'],
     [{
       ...base,
       location: { ...base.location, altitudeM: '12' },
@@ -75,6 +83,15 @@ describe('SajuRequest runtime validation', () => {
       .toContain(issue);
   });
 
+  it.each([
+    { lat: -90, lon: -180 },
+    { lat: -90, lon: 180 },
+    { lat: 90, lon: -180 },
+    { lat: 90, lon: 180 },
+    { lat: 0, lon: 0 },
+  ])('accepts finite numeric coordinate boundaries %#', (location) => {
+    expect(() => normalizeRequest({ ...base, location })).not.toThrow();
+  });
   it('owns normalized top-level request objects', () => {
     const input = {
       ...base,
