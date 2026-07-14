@@ -13,7 +13,9 @@ import type { StrengthFacts } from '../rules/facts.js';
 import type { YongshinResult } from '../rules/yongshin.js';
 import type { GyeokgukResult } from '../rules/gyeokguk.js';
 import type { ShinsalResult } from '../rules/shinsal.js';
-import type { PillarIdx } from '../core/cycle.js';
+import type { Element, PillarIdx } from '../core/cycle.js';
+import { branchYinYang, stemYinYang } from '../core/cycle.js';
+import { ALL_ELEMENTS, SEASONAL_STATE_KO, monthCommandElement, seasonalStatesForMonth } from '../core/seasonalStates.js';
 import type { DetectedRelation } from '../core/branchRelations.js';
 import type { HiddenStem } from '../core/hiddenStems.js';
 import type { ElementDistribution } from '../core/elementDistribution.js';
@@ -129,6 +131,36 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
           month: toPillarView(month),
           day: toPillarView(day),
           hour: toPillarView(hour),
+        };
+
+        // PR-10-1 (감사 B434 선행): 왕상휴수사 — 월지 당령 기준 오행별 계절 상태.
+        // 순수 조견(월지만의 함수)이라 그래프 노드 없이 직접 산출한다. additive 표면 —
+        // springLegacy 재방출은 별도 결정(스냅샷 파급)이므로 여기서는 saju-ts summary까지만.
+        const states = seasonalStatesForMonth(month.branch);
+        const statesKo = {} as Record<Element, string>;
+        for (const el of ALL_ELEMENTS) statesKo[el] = SEASONAL_STATE_KO[states[el]];
+        summary.seasonalStates = {
+          command: monthCommandElement(month.branch),
+          states,
+          statesKo,
+        };
+
+        // PR-12-4 (감사 C6): 음양 균형 — 8글자 체(體) 기준 개수 (만세력 기본 표기 축).
+        // core YinYangScore(가중 집계)와 별개로, 표기용은 단순 개수가 표준이다.
+        const yyStems = { yang: 0, yin: 0 };
+        const yyBranches = { yang: 0, yin: 0 };
+        for (const p of [year, month, day, hour]) {
+          yyStems[stemYinYang(p.stem) === 'YANG' ? 'yang' : 'yin'] += 1;
+          yyBranches[branchYinYang(p.branch) === 'YANG' ? 'yang' : 'yin'] += 1;
+        }
+        const yangTotal = yyStems.yang + yyBranches.yang;
+        const yinTotal = yyStems.yin + yyBranches.yin;
+        summary.yinYangBalance = {
+          yang: yangTotal,
+          yin: yinTotal,
+          stems: yyStems,
+          branches: yyBranches,
+          dominant: yangTotal > yinTotal ? 'YANG' : yinTotal > yangTotal ? 'YIN' : 'EVEN',
         };
       }
 

@@ -106,7 +106,8 @@
     "measure:alternative-rules": "npx tsx tools/measure_alternative_gyeokguk_rules.ts",
     "validate:tyme4ts": "npx tsx tools/cross_validate_tyme4ts.ts",
     "test:generated-quality": "npx tsx test/integration/generated-text-quality.test.ts",
-    "audit:generated": "npx tsx tools/generation/audit-corpus-diversity.ts"
+    "audit:generated": "npx tsx tools/generation/audit-corpus-diversity.ts",
+    "test:adapter-yinyang": "npm --prefix ../saju-ts run build && npx tsx test/integration/adapter-yinyang.test.ts"
   },
   "dependencies": {
     "sql.js": "^1.14.0",

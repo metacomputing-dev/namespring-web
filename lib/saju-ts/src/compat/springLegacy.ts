@@ -1744,6 +1744,8 @@ function normalizeLegacyOutput(
     weightedShinsalHits,
     shinsalComposites: [],
     sibiUnseong,
+    // PR-12-4 (감사 C6): 음양 균형 — summary 집계를 additive로 재방출 (만세력 기본 표기 축).
+    yinYangBalance: (bundle.summary as any)?.yinYangBalance ?? null,
     gongmangVoidBranches,
     daeunInfo: {
       isForward: String(fortune?.start?.direction ?? 'FORWARD') !== 'BACKWARD',

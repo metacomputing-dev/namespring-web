@@ -128,3 +128,10 @@ cd lib/spring-ts && npx tsx tmp/probe-optin-naeum-palace.ts
 > ① 콘텐츠 저작 축(PR-2 잔여 — 귀인 궁위 세분 factId + 신규 표면 해석 충전, HANDOFF_NEXT_PHASES 작업 5-후속)
 > ② 프론트 윤달(isLeapMonth) 입력 UI(lib 밖 제품 결정) ③ 후속 감사 후보(위) ④ 미검증 70건 개별 확인.
 > 착수 시 감사 보고서 부록 B·C에서 상세 확인 후 항목 단위 커밋 + C절 검증 관례를 그대로 따르라.
+
+## G. Stack07 self-review correction (2026-07-14)
+
+`strength.interaction`의 기존 합충 계층은 기본 on을 유지한다. 다만 후속 seasonal/positional
+확장 knob는 17픽스처의 authority truth denominator가 0이고 고정 이름 메트릭에 더 넓은
+이동이 확인되어 기본 off로 복구했다. 두 기능은 명시 opt-in으로만 유지하며, 독립 권위
+holdout과 재캘리브레이션 전에는 제품 기본값으로 승인하지 않는다.

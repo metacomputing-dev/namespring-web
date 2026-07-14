@@ -75,8 +75,12 @@ check('JSON has passing sourceTierAudit', jsonReport &&
 check('JSON has dimensions D1-D5', jsonReport &&
   ['D1', 'D2', 'D3', 'D4', 'D5'].every((d) => d in jsonReport.dimensions));
 check('JSON has fixtures array', jsonReport && Array.isArray(jsonReport.fixtures));
-check('JSON fixtures count matches snapshot (15)',
-  jsonReport && jsonReport.fixtures.length === 15,
+// P0-3: 픽스처 수 하드코딩 금지 — 스냅샷 파일의 실제 개수와 동적 비교 (15→17 확장 대응)
+const snapshotFixtureCount = JSON.parse(
+  fs.readFileSync(path.resolve(SPRING_TS_ROOT, 'test/baseline/spring_ts_snapshot.json'), 'utf-8'),
+).results.length;
+check(`JSON fixtures count matches snapshot (${snapshotFixtureCount})`,
+  jsonReport && jsonReport.fixtures.length === snapshotFixtureCount,
   `got ${jsonReport?.fixtures?.length}`);
 
 // ── (3) D5 detects existing edge fixtures ───────────────────────────────

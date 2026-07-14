@@ -1,4 +1,4 @@
-import type { BranchIdx, PillarIdx, StemIdx } from '../core/cycle.js';
+import type { BranchIdx, Element, PillarIdx, StemIdx } from '../core/cycle.js';
 import type { ElementVector } from '../core/elementVector.js';
 import type { HiddenStemRole, HiddenStemWeightPolicy } from '../core/hiddenStems.js';
 import type { LifeStage } from '../core/lifeStage.js';
@@ -212,6 +212,12 @@ export interface SummaryReport {
 
   elementDistribution?: ElementDistributionView;
 
+  /** Optional: 왕상휴수사(旺相休囚死) — 월지 당령 기준 오행별 계절 상태 (PR-10-1, additive) */
+  seasonalStates?: SeasonalStatesView;
+
+  /** Optional: 음양 균형 — 8글자(천간4+지지4) 체(體) 기준 개수 집계 (PR-12-4/감사 C6, additive) */
+  yinYangBalance?: YinYangBalanceView;
+
   /** Optional (future): 十二運星 */
   lifeStages?: FourPillars<LifeStage>;
 
@@ -243,6 +249,25 @@ export interface SummaryReport {
 
   /** Optional: 신살 스코어(관계/품질 기반 보정; forward-compatible) */
   shinsalScoresAdjusted?: Array<{ key: string; score: number }>;
+}
+
+export interface YinYangBalanceView {
+  /** 8글자 합계 개수 */
+  yang: number;
+  yin: number;
+  stems: { yang: number; yin: number };
+  /** 지지는 체(體) 기준 — 子寅辰午申戌=양 (만세력 표준 표기와 동일) */
+  branches: { yang: number; yin: number };
+  dominant: 'YANG' | 'YIN' | 'EVEN';
+}
+
+export interface SeasonalStatesView {
+  /** 당령 오행 (사계 辰戌丑未월은 본기 土 기준) */
+  command: Element;
+  /** 오행별 왕상휴수사 상태 코드 */
+  states: Record<Element, 'WANG' | 'SANG' | 'HYU' | 'SU' | 'SA'>;
+  /** 오행별 한글 라벨 (왕/상/휴/수/사) */
+  statesKo: Record<Element, string>;
 }
 
 export interface StemView {

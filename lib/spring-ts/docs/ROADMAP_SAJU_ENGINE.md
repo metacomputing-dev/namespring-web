@@ -13,7 +13,7 @@
 
 ## 0. 새 세션 착수 절차 (모든 세션 공통 — 하위모델 포함)
 
-1. 읽기 순서: **이 문서 §0~§4** → 착수할 패키지의 상세(§6~§8) → 해당 항목이 가리키는 pr8-verify JSON·핸드오프 절.
+1. 읽기 순서: **이 문서 §0~§4** → 착수할 패키지의 상세(§6~§8) → **구현 레시피 `GUIDE_SAJU_ENGINE_IMPL.md`**(항목별 정확한 절차) → 해당 항목이 가리키는 pr8-verify JSON·핸드오프 절.
 2. 상태 확인:
    ```bash
    git status --short --branch          # feature/saju-engine-integrity-audit 확인 (머지 후에는 main 기준 새 브랜치)
@@ -71,7 +71,7 @@
 | lib/saju-ts | `npm run typecheck` / `npm run build` | PASS |
 | lib/saju-ts | `npm test` (vitest) | 178+ (전부 PASS) |
 | lib/spring-ts | `npm run typecheck` / `npm run build` | PASS |
-| lib/spring-ts | `npx tsx tools/baseline_snapshot.ts verify` | 15/15 (P0-3 이후 17/17) |
+| lib/spring-ts | `npx tsx tools/baseline_snapshot.ts verify` | **17/17** (P0-3, 75c3cdef5부터) |
 | lib/spring-ts | `npm run test:namespring-compat` | 208/0 |
 | lib/spring-ts | `npm run test:tiered-shape` | 1378/0 |
 | lib/spring-ts | `npm run test:service-visible-output` | 13/0 |
@@ -223,26 +223,28 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 | 항목 | 상태 | 커밋 | 일자 | 파급 실측/비고 |
 |---|---|---|---|---|
 | P0-1 PR 오픈 | ⬜ | | | 사용자 확인 후 |
-| P0-2 테스트 체인 무결성 | ⬜ | | | |
-| P0-3 baseline 픽스처 보강 | ⬜ | | | capture 단독 창 |
+| P0-2 테스트 체인 무결성 | ✅(부분) | 3bf08cf5c | 2026-07-09 | vitest include 6디렉토리 추가 완료. jonggyeok-authority 체인 포함 여부는 미결 |
+| P0-3 baseline 픽스처 보강 | ✅ | 75c3cdef5 | 2026-07-09 | 17/17(야자시 창 fix-16 + 음력 윤달 fix-17). 픽스처 수 하드코딩 2곳 동적화(baseline-metrics·quality-gate) |
 | 9-1 운-원국 관계 | ⬜ | | | |
 | 9-2 대운↔세운 | ⬜ | | | 9-1 후 |
 | 9-3 교운 일시 | ⬜ | | | D2 선행 |
 | 9-4 나이 표기 옵션 | ⬜ | | | |
-| 9-5 A12 yearBoundary | ⬜ | | | 비-liChun 픽스처 신설 |
-| 9-6 일운 정합 | ⬜ | | | D3 선행 |
+| 9-5 A12 yearBoundary | ✅ | 3bf08cf5c | 2026-07-09 | 기본(liChun) 바이트 동일 확인(회귀 가드 테스트). 비-liChun만 세운 분절 변경. saju-ts 184/0·baseline 15/15·calendar-policy 14/0·compat 208/0 |
+| 9-6 일운 정합 | 🔶 검증완료 | — | 2026-07-09 | 이원 경로 49,319건 대조 불일치 0(수식 동치·KASI 453건 양쪽 100%). 배선은 상품 요구(D3) 확정 시 — GUIDE §0.1 |
 | 9-7 명식판 상문·조객 | ⬜ | | | D4 선행 |
 | 9-8 thisYear·개두/절각 | ⬜ | | | |
-| 10-1 왕상휴수 | ⬜ | | | 계측 |
-| 10-2 감쇠 세분 | ⬜ | | | 계측 |
+| 10-1 왕상휴수 | ✅ 구현·기본 off | f792c7765 → 8401cfbab | 2026-07-14 재검토 | authority truth denominator 0. top-5 스냅샷 밖 고정 이름 메트릭 이동을 확인해 기본화 보류; 명시 opt-in만 유지 |
+| 10-2 감쇠 세분 | ✅ 구현·기본 off | 07aeaaf33 → 8401cfbab | 2026-07-14 재검토 | 독립 권위 holdout 없이 거리 계수를 제품 기본값으로 승인할 수 없어 opt-in 복구 |
 | 10-3 pressure 합거 | ⬜ | | | 계측 |
 | 10-4 성패 점수 통합 | ⬜ | | | 계측 |
 | 10-5 성패 v1 | ⬜ | | | 계측 |
 | 10-6 위치 가중 | ⬜ | | | κ 계측 |
 | 10-7 통근 강도 계수 | ⬜ | | | |
 | 11 종격 승격 (a/b/c) | ⬜ | | | D6·CT-4 선행 |
-| 12-1~12-10 설명가능성 | ⬜ | | | 항목별 커밋 |
+| 12-4 음양 균형 노출 | ✅ | e7e12fdd7 | 2026-07-09 | 5층 배선 완료(SajuSummary.yinYangBalance, test:adapter-yinyang 5/0) — 12계열 exemplar. 소비 카드 저작은 CT-3와 협업 |
+| 12-1~12-10 잔여 설명가능성 | ⬜ | | | 항목별 커밋 — 12-4 커밋(e7e12fdd7)을 본보기로 |
 | 13 오라클·재캘리브레이션 | ⬜ | | | D5 선행 |
 | 14 신규 해석 축 | ⬜ | | | 육친 우선 |
 | 15 후속 감사 | ⬜ | | | 방법 설계부터 |
-| CT-1~CT-5 | ⬜ | | | 병렬 가능 |
+| CT-4 종격 birth 후보 수집 | 🔶 1차 완료 | — (tmp 초안) | 2026-07-09 | 후보 9건(즉시 8+보류 1) — `tmp/ct4-jonggyeok-birth-candidates.md`. 게이트 20건 대비 11+건 부족. ⚠구조 리스크: 단일 저자(魏多亮 7/9)·假從 편중(6/9). **선행 결정 필요: 假從을 CONG_* 게이트 분모에 산입할지(D6에 병합)**. 증분 광맥: 魏多亮 실전명례 12页 중 1页만 소화 |
+| CT-1~CT-3·CT-5 | ⬜ | | | 병렬 가능 |

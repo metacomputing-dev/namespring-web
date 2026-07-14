@@ -15,6 +15,8 @@ import type { HiddenStemRole } from '../core/hiddenStems.js';
 import { hiddenStemsOfBranch } from '../core/hiddenStems.js';
 import { lifeStageOf } from '../core/lifeStage.js';
 import type { LifeStagePolicy } from '../core/lifeStage.js';
+import { seasonalStateOf } from '../core/seasonalStates.js';
+import type { SeasonalState } from '../core/seasonalStates.js';
 
 import type { NormalizedShinsalCatalog, RawShinsalCatalog } from './shinsalCatalog.js';
 import { mergeRawShinsalCatalog, normalizeShinsalCatalog } from './shinsalCatalog.js';
@@ -2444,10 +2446,10 @@ function banghapElementOf(members: BranchIdx[]): Element | null {
 // 설계 원칙:
 // - 감쇠·보정은 deLingDiShi의 (1+f) 배율 층에만 주입한다. hiddenStemsOfBranch·
 //   elementDistribution·tenGodScores는 절대 건드리지 않는다(이중 감쇠 + κ 파급 방지).
-// - 값 기반 members(궁위 인프라 B538의 pillarIndexes는 랜딩됐으나 1차 감쇠는 값
-//   매칭 균일 — 동일 지지 2개는 함께 감쇠되는 한계를 문서화, 위치 차등은
-//   branchWeights(월 1.1 > 일 0.9 > 년·시 0.7) 곱을 통해 간접 반영).
-// - 왕상휴수 미구현 동안은 강도 무차별 균일 감쇠(감사 B434 연동은 후속).
+// - 기본 경로는 값 기반 균일 감쇠로 기존 판정을 보존한다.
+//   positional.enabled=true일 때만 pillarIndexes 기반 거리 차등을 적용한다.
+// - seasonal.enabled=true일 때만 왕상휴수 비대칭 감쇠를 적용한다.
+//   두 확장 경로는 전문가 승인 전까지 명시적 opt-in이다.
 
 interface StrengthInteractionPolicy {
   enabled: boolean;
@@ -2458,6 +2460,12 @@ interface StrengthInteractionPolicy {
     resolveByHap: boolean;
     resolveTypes: RelationType[];
     samePairHapResolves: boolean;
+    /** PR-10-2 (감사 B524/B538): 궁위 pairs 기반 인접/원격 차등 손상 — 기본 off (판정 변경). */
+    positional: {
+      enabled: boolean;
+      /** 기둥 거리별 손상 강도 배율 — d1 인접 / d2 한 칸 건너 / d3 원격(년-시) */
+      distanceScales: { d1: number; d2: number; d3: number };
+    };
   };
   hui: {
     enabled: boolean;
@@ -2472,6 +2480,12 @@ interface StrengthInteractionPolicy {
     factor: number;
     jaenghapFactor: number;
   };
+  /** PR-10-1 (감사 B434): 왕상휴수 연동 비대칭 뿌리 손상 — 기본 off (판정 변경, 계측 후 기본화 별도). */
+  seasonal: {
+    enabled: boolean;
+    /** 손상 강도 배율 — eff = 1 − (1 − f) × mult(state). mult<1 경감(왕상), >1 가중(수사). */
+    multipliers: Record<SeasonalState, number>;
+  };
 }
 
 function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
@@ -2481,6 +2495,7 @@ function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
   const rootRaw: any = raw.root ?? {};
   const huiRaw: any = raw.hui ?? {};
   const bindRaw: any = raw.stemBind ?? {};
+  const seasonalRaw: any = raw.seasonal ?? {};
   return {
     enabled,
     root: {
@@ -2501,6 +2516,18 @@ function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
         ? (rootRaw.resolveTypes.filter((t: any) => typeof t === 'string') as RelationType[])
         : (['YUKHAP', 'SAMHAP'] as RelationType[]), // 반합의 해충력은 이설 커서 기본 제외 (hui 파국 판정과의 순환 방지)
       samePairHapResolves: rootRaw.samePairHapResolves !== false, // 巳申 동일쌍 합+형 → 형합 유정
+      positional: {
+        // PR-10-2 (감사 B524) — 인접/원격 차등은 전문가 승인 전 명시적 opt-in.
+        // enabled:true일 때만 적용하며, 미지정/false는 기존 판정을 보존한다.
+        enabled: rootRaw.positional?.enabled === true,
+        // 인접(d=1) 완전 성립 / 한 칸 건너(d=2) 절반 / 원격 년-시(d=3) 1/4 —
+        // 자평 실무 인접성 통설의 보수 개시값 (계측 후 조정 전제).
+        distanceScales: {
+          d1: num(rootRaw.positional?.distanceScales?.d1, 1.0),
+          d2: num(rootRaw.positional?.distanceScales?.d2, 0.5),
+          d3: num(rootRaw.positional?.distanceScales?.d3, 0.25),
+        },
+      },
     },
     hui: {
       enabled: enabled && huiRaw.enabled !== false,
@@ -2521,18 +2548,43 @@ function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
       factor: num(bindRaw.factor, 0.5),
       jaenghapFactor: num(bindRaw.jaenghapFactor, 0.75), // 쟁합·투합은 합력 분산 → 감쇠 완화
     },
+    seasonal: {
+      // PR-10-1 (감사 B434) — 왕상휴수 비대칭 감쇠는 전문가 승인 전 명시적 opt-in.
+      // enabled:true일 때만 적용하며, 미지정/false는 기존 판정을 보존한다.
+      enabled: enabled && seasonalRaw.enabled === true,
+      // 왕한 오행의 뿌리는 충·형 손상을 30% 경감, 사(死)한 오행은 30% 가중 —
+      // "왕상한 쪽이 덜 상한다"는 통설의 보수적 개시값 (계측 후 조정 전제).
+      multipliers: {
+        WANG: num(seasonalRaw.multipliers?.WANG, 0.7),
+        SANG: num(seasonalRaw.multipliers?.SANG, 0.85),
+        HYU: num(seasonalRaw.multipliers?.HYU, 1.0),
+        SU: num(seasonalRaw.multipliers?.SU, 1.15),
+        SA: num(seasonalRaw.multipliers?.SA, 1.3),
+      },
+    },
   };
 }
 
-/** 충/형 손상 → 지지별 통근 감쇠 계수 (1.0 = 무손상). 탐합망충 해소 판정 포함. */
-function computeBranchInteractionFactors(
+/** 충/형 손상 → 지지별 통근 감쇠 계수 (1.0 = 무손상). 탐합망충 해소 판정 포함.
+ *  seasonal이 주어지고 enabled면 왕상휴수 비대칭(감사 B434)을 적용한다 — 기본 off.
+ *  pol.positional.enabled + relationsDetailed(pairs 보존)면 인접/원격 차등(감사 B524) —
+ *  기본 off. 둘 다 off면 기존 값 매칭 경로와 바이트 동일. */
+export function computeBranchInteractionFactors(
   branches: BranchIdx[],
   byType: Partial<Record<RelationType, BranchIdx[][]>>,
   pol: StrengthInteractionPolicy['root'],
+  seasonal?: { pol: StrengthInteractionPolicy['seasonal']; monthBranch: BranchIdx },
+  relationsDetailed?: DetectedRelation[],
 ): { factors: number[]; resolved: Array<{ type: RelationType; members: BranchIdx[] }> } {
   const factors = branches.map(() => 1);
   const resolved: Array<{ type: RelationType; members: BranchIdx[] }> = [];
   if (!pol.enabled) return { factors, resolved };
+
+  const seasonalMultOf = (i: number): number => {
+    if (!seasonal?.pol.enabled) return 1;
+    const st = seasonalStateOf(branchElement(mod(branches[i]!, 12) as BranchIdx), seasonal.monthBranch);
+    return seasonal.pol.multipliers[st] ?? 1;
+  };
 
   const hapGroups: BranchIdx[][] = pol.resolveTypes.flatMap((t) => (byType[t] ?? []) as BranchIdx[][]);
 
@@ -2553,6 +2605,50 @@ function computeBranchInteractionFactors(
     return false;
   };
 
+  // ── PR-10-2 (감사 B524/B538): 궁위 pairs 기반 인접/원격 차등 경로 ──
+  // 해소(탐합망충)는 값 수준 그대로 둔다 — 탐지 자체가 값 기반이라 동일 값 중복에서
+  // 위치별 해소 차이는 원리상 발생하지 않는다. 차등은 손상 강도(거리)에만 적용.
+  if (pol.positional?.enabled === true && Array.isArray(relationsDetailed)) {
+    const ds = pol.positional.distanceScales;
+    const dScaleOf = (d: number): number => (d <= 1 ? ds.d1 : d === 2 ? ds.d2 : ds.d3);
+    for (const rel of relationsDetailed) {
+      const f = (pol.damageFactors as any)[rel.type];
+      if (!(typeof f === 'number' && Number.isFinite(f) && f >= 0 && f < 1)) continue;
+      if (isResolved(rel.members as BranchIdx[])) {
+        resolved.push({ type: rel.type, members: rel.members as BranchIdx[] });
+        continue;
+      }
+      // 인덱스별로 가장 강한(최저 eff) 인스턴스 하나만 적용 — 다중 인스턴스 중첩(f^n)은
+      // 별도 판정 강화 결정이므로 현행 1회 적용 크기를 유지한다.
+      const effByIdx = new Map<number, number>();
+      const noteEff = (i: number, scale: number): void => {
+        // m===1이면 f 그대로 — 부동소수점 왕복(1-(1-f))로 인한 바이트 표류 방지.
+        const m = scale * seasonalMultOf(i);
+        const eff = m === 1 ? f : clamp01(1 - (1 - f) * m);
+        effByIdx.set(i, Math.min(effByIdx.get(i) ?? 1, eff));
+      };
+      const pairs = Array.isArray(rel.pairs) && rel.pairs.length > 0 ? rel.pairs : null;
+      if (pairs) {
+        for (const [i, j] of pairs as Array<[number, number]>) {
+          const scale = dScaleOf(Math.abs(i - j));
+          noteEff(i, scale);
+          noteEff(j, scale);
+        }
+      } else if (Array.isArray(rel.pillarIndexes) && rel.pillarIndexes.length > 0) {
+        // triple(삼합·방합·삼형)은 거리 차등 없이 완전 적용 (현행 크기 유지)
+        for (const i of rel.pillarIndexes) noteEff(i, 1);
+      } else {
+        // 궁위 정보 없는 구형 입력 — 값 매칭 폴백
+        for (let i = 0; i < branches.length; i++) {
+          if ((rel.members as number[]).includes(mod(branches[i]!, 12))) noteEff(i, 1);
+        }
+      }
+      for (const [i, eff] of effByIdx) factors[i]! *= eff;
+    }
+    return { factors: factors.map((x) => Math.max(pol.floor, x)), resolved };
+  }
+
+  // ── 기존 값 매칭 경로 (positional off — 바이트 불변) ──
   for (const [t, f] of Object.entries(pol.damageFactors) as Array<[RelationType, number]>) {
     if (!(typeof f === 'number' && Number.isFinite(f) && f >= 0 && f < 1)) continue;
     for (const g of byType[t] ?? []) {
@@ -2561,8 +2657,13 @@ function computeBranchInteractionFactors(
         continue;
       }
       for (let i = 0; i < branches.length; i++) {
-        // 값 매칭 (궁위 세분은 B538 pairs 소비로 후속 — 동일 지지 과감쇠 한계 문서화)
-        if ((g as number[]).includes(mod(branches[i]!, 12))) factors[i]! *= f;
+        // 값 매칭 (동일 지지 과감쇠 한계 — positional 경로가 인접/원격 차등으로 보완)
+        if (!(g as number[]).includes(mod(branches[i]!, 12))) continue;
+        // 왕상휴수 비대칭 (감사 B434): 왕상한 오행의 뿌리는 손상을 덜 받고(mult<1),
+        // 수사(囚死)한 오행은 더 받는다(mult>1). eff = 1 − (1 − f) × mult.
+        // mult===1이면 f 그대로 — 부동소수점 왕복으로 인한 기본 경로 바이트 표류 방지.
+        const mult = seasonalMultOf(i);
+        factors[i]! *= mult === 1 ? f : clamp01(1 - (1 - f) * mult);
       }
     }
   }
@@ -2650,6 +2751,8 @@ function computeStrengthFacts(args: {
   seasonGroup: SeasonGroup;
   /** PR-5 (감사 B448): 합충 상호작용 재료 — 미전달 시 상호작용 보정 없음(직접 호출 하위호환). */
   relationsByType?: Partial<Record<RelationType, BranchIdx[][]>>;
+  /** PR-10-2 (감사 B524): pairs 보존 원본 — positional 차등용. 미전달 시 값 매칭 경로. */
+  relationsDetailed?: DetectedRelation[];
   transformations?: any;
 }): StrengthFacts {
   const base = strengthFromTenGodScoresBase(args.tenGods);
@@ -2695,11 +2798,14 @@ function computeStrengthFacts(args: {
     ];
 
     // PR-5 (감사 B448/B510): 충/형 손상 → 통근 감쇠 (탐합망충 해소 포함).
+    // PR-10-1 (감사 B434): seasonal opt-in 시 왕상휴수 비대칭 — 기본 off라 무전달과 동일.
     const interactionPol = readStrengthInteractionPolicy(pol);
     const rootDamage = computeBranchInteractionFactors(
       args.branches,
       args.relationsByType ?? {},
       interactionPol.root,
+      { pol: interactionPol.seasonal, monthBranch: args.monthBranch },
+      args.relationsDetailed,
     );
 
     let same = 0;
@@ -3769,6 +3875,8 @@ export function buildRuleFacts(args: {
       seasonGroup: seasonGroupOfMonthBranch(pillars.month.branch),
       // PR-5 (감사 B448): 합충 상호작용 재료 — 탐지·합화 판정 재계산 없이 전달만.
       relationsByType: byType,
+      // PR-10-2 (감사 B524): pairs 보존 원본 — positional(기본 off) 경로 전용.
+      relationsDetailed: detectedRelations,
       transformations,
     }),
 

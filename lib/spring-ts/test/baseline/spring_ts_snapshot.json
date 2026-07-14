@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "capturedAt": "2026-07-14T06:29:01.644Z",
+  "capturedAt": "2026-07-14T09:34:45.372Z",
   "targetDate": "2026-04-30T00:00:00.000Z",
-  "fixtureCount": 15,
+  "fixtureCount": 17,
   "results": [
     {
       "id": "fix-01",
@@ -88,10 +88,10 @@
     },
     {
       "id": "fix-02",
-      "label": "1992-09-15 female — 壬水 일간, 가을",
+      "label": "1992-09-15 female — 甲木 일간, 가을",
       "axis": [
         "normal",
-        "yang-water",
+        "yang-wood",
         "autumn"
       ],
       "output": {
@@ -168,7 +168,7 @@
       "label": "2000-01-01 00:30 male — 子時 boundary edge",
       "axis": [
         "jaza-edge",
-        "yang-water",
+        "yang-earth",
         "winter"
       ],
       "output": {
@@ -246,10 +246,10 @@
     },
     {
       "id": "fix-04",
-      "label": "1965-08-08 19:00 female — 丙火 일간, 종왕 후보 (강한 火)",
+      "label": "1965-08-08 19:00 female — 甲木 일간, 종왕 후보 (강한 木)",
       "axis": [
         "jonggwang-candidate",
-        "yang-fire",
+        "yang-wood",
         "summer"
       ],
       "output": {
@@ -330,7 +330,7 @@
       "label": "2005-12-25 06:00 male — 겨울 조후 case (한랭)",
       "axis": [
         "johu-winter",
-        "yin-wood",
+        "yin-water",
         "winter"
       ],
       "output": {
@@ -575,7 +575,7 @@
       "label": "2020-08-23 female — 처서 boundary",
       "axis": [
         "jie-cheoseo",
-        "yin-earth",
+        "yang-earth",
         "late-summer"
       ],
       "output": {
@@ -735,7 +735,7 @@
       "axis": [
         "jie-soseol",
         "winter-onset",
-        "yin-water"
+        "yang-earth"
       ],
       "output": {
         "namingReport": {
@@ -817,7 +817,7 @@
       "axis": [
         "unknown-hour",
         "edge",
-        "yin-fire"
+        "yang-earth"
       ],
       "output": {
         "namingReport": {
@@ -898,7 +898,7 @@
       "axis": [
         "borderline-strength",
         "edge",
-        "yang-wood"
+        "yin-earth"
       ],
       "output": {
         "namingReport": {
@@ -1214,6 +1214,164 @@
           "overviewTitle": "총평 요약",
           "dailyStars": 3,
           "yearlyStars": 2,
+          "lifeStars": 3,
+          "personalityTraitCount": 6
+        }
+      }
+    },
+    {
+      "id": "fix-16",
+      "label": "2003-05-10 23:40 male — 야자시 창(정자시설+경도보정, 시계 23:32 이후 자시) 경계",
+      "axis": [
+        "yaza-window",
+        "boundary-hour",
+        "spring"
+      ],
+      "output": {
+        "namingReport": {
+          "totalScore": 62.6,
+          "scores": {
+            "hangul": 70,
+            "hanja": 25,
+            "fourFrame": 60
+          },
+          "fullHangul": "최성수",
+          "fullHanja": "崔成秀"
+        },
+        "sajuReport": {
+          "sajuEnabled": true,
+          "dayMaster": {
+            "stem": "갑",
+            "element": "WOOD",
+            "polarity": "양"
+          },
+          "strengthLevel": "중화(신강 경향)",
+          "isStrong": true,
+          "yongshinElement": "WATER",
+          "yongshinHeeshin": "FIRE",
+          "gyeokgukType": "식신격",
+          "gyeokgukCategory": "일반",
+          "gyeokgukConfidence": 0.32961538461538464,
+          "deficientElements": [
+            "EARTH"
+          ],
+          "excessiveElements": []
+        },
+        "candidatesTop5": [
+          {
+            "finalScore": 76,
+            "fullHangul": "최유예",
+            "fullHanja": "崔幼乂",
+            "rank": 1
+          },
+          {
+            "finalScore": 75.7,
+            "fullHangul": "최우예",
+            "fullHanja": "崔右乂",
+            "rank": 2
+          },
+          {
+            "finalScore": 73.9,
+            "fullHangul": "최예일",
+            "fullHanja": "崔乂日",
+            "rank": 3
+          },
+          {
+            "finalScore": 73.8,
+            "fullHangul": "최찬희",
+            "fullHanja": "崔瓚熙",
+            "rank": 4
+          },
+          {
+            "finalScore": 72.5,
+            "fullHangul": "최예우",
+            "fullHanja": "崔乂右",
+            "rank": 5
+          }
+        ],
+        "fortuneReport": {
+          "overviewTitle": "총평 요약",
+          "dailyStars": 1,
+          "yearlyStars": 4,
+          "lifeStars": 4,
+          "personalityTraitCount": 6
+        }
+      }
+    },
+    {
+      "id": "fix-17",
+      "label": "음력 2004-윤2-15 10:00 female — 음력 윤달 입력 변환(calendarType=lunar)",
+      "axis": [
+        "lunar-input",
+        "leap-month",
+        "spring"
+      ],
+      "output": {
+        "namingReport": {
+          "totalScore": 66.2,
+          "scores": {
+            "hangul": 83.8,
+            "hanja": 25,
+            "fourFrame": 60
+          },
+          "fullHangul": "이성민",
+          "fullHanja": "李成敏"
+        },
+        "sajuReport": {
+          "sajuEnabled": true,
+          "dayMaster": {
+            "stem": "계",
+            "element": "WATER",
+            "polarity": "음"
+          },
+          "strengthLevel": "신약",
+          "isStrong": false,
+          "yongshinElement": "METAL",
+          "yongshinHeeshin": "WATER",
+          "gyeokgukType": "식신격",
+          "gyeokgukCategory": "일반",
+          "gyeokgukConfidence": 0.6133333333333333,
+          "deficientElements": [
+            "EARTH"
+          ],
+          "excessiveElements": []
+        },
+        "candidatesTop5": [
+          {
+            "finalScore": 78,
+            "fullHangul": "이서민",
+            "fullHanja": "李諝泯",
+            "rank": 1
+          },
+          {
+            "finalScore": 78,
+            "fullHangul": "이서비",
+            "fullHanja": "李諝泌",
+            "rank": 2
+          },
+          {
+            "finalScore": 78,
+            "fullHangul": "이선비",
+            "fullHanja": "李璇泌",
+            "rank": 3
+          },
+          {
+            "finalScore": 77.7,
+            "fullHangul": "이옥선",
+            "fullHanja": "李沃璇",
+            "rank": 4
+          },
+          {
+            "finalScore": 77,
+            "fullHangul": "이서해",
+            "fullHanja": "李諝咳",
+            "rank": 5
+          }
+        ],
+        "fortuneReport": {
+          "overviewTitle": "총평 요약",
+          "dailyStars": 2,
+          "yearlyStars": 1,
           "lifeStars": 3,
           "personalityTraitCount": 6
         }
