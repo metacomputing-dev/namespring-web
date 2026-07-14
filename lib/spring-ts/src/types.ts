@@ -849,7 +849,9 @@ export interface ShinsalHitSummary {
 export interface DaeunPillarSummary {
   readonly stem: string;
   readonly branch: string;
+  /** Inclusive start of the continuous daewoon age interval. */
   readonly startAge: number;
+  /** Exclusive end of the continuous daewoon age interval. */
   readonly endAge: number;
   readonly order: number;
 }

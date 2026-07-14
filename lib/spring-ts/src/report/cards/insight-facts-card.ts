@@ -17,7 +17,10 @@ import type { SajuSummary } from '../../types.js';
 import { getInsightInterpretation, type InsightInterpretation } from '../tiered/insight-registry.js';
 import { SHINSAL_ENCYCLOPEDIA } from '../knowledge/shinsalEncyclopedia.js';
 import { STEM_BY_CODE, BRANCH_BY_CODE } from '../common/elementMaps.js';
-import { daeunDisplayOffset } from '../common/daeun-display.js';
+import {
+  daeunDisplayOffset,
+  resolveDaeunDisplayInterval,
+} from '../common/daeun-display.js';
 
 export type InsightFactKind =
   | 'shinsal' | 'gongmang' | 'stemRelation' | 'branchRelation'
@@ -326,14 +329,15 @@ export function buildInsightFactsCard(saju: SajuSummary): InsightFactsCard | nul
       if (!p || typeof p !== 'object') continue;
       const pp = p as Record<string, unknown>;
       if (typeof pp.stem !== 'string' || typeof pp.branch !== 'string') continue;
+      const displayInterval = resolveDaeunDisplayInterval(pp, displayOffset);
       const stemKo = STEM_BY_CODE[pp.stem.toUpperCase()]?.hangul ?? pp.stem;
       const branchKo = BRANCH_BY_CODE[pp.branch.toUpperCase()]?.hangul ?? pp.branch;
       facts.push(withInterpretation({
         factId: `daeunPillar.${pp.stem}-${pp.branch}`,
         kind: 'daeunPillar',
         label: `${i + 1}대운 ${stemKo}${branchKo}`,
-        detail: typeof pp.startAge === 'number' && typeof pp.endAge === 'number'
-          ? `${Math.floor(pp.startAge) + displayOffset}세~${Math.floor(pp.endAge) + displayOffset}세`
+        detail: displayInterval
+          ? displayInterval.startInclusive + '세~' + displayInterval.endInclusive + '세'
           : undefined,
       }));
     }
