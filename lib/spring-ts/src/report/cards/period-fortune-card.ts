@@ -39,6 +39,17 @@ import {
   luckAnnotationFeatures,
   type LuckPillarAnnotationsForReport,
 } from '../common/transit-luck-metadata.js';
+import {
+  findYearLuckRowForInstant,
+  LuckIntervalSelectionError,
+  requireLuckRowCoveringInstant,
+} from '../common/luck-interval.js';
+import {
+  addTargetCalendarDays,
+  targetCalendarDay,
+  targetCalendarMonth,
+  targetCalendarYear,
+} from '../../target-date.js';
 
 import {
   ELEMENT_GENERATES,
@@ -194,21 +205,6 @@ interface LuckPillarRow extends LuckPillarAnnotationsForReport {
   readonly endUtcMs?: number | null;
 }
 
-function finiteNumber(value: unknown): number | null {
-  const n = Number(value);
-  return Number.isFinite(n) ? n : null;
-}
-
-function findLuckRowCoveringDate(rows: readonly LuckPillarRow[] | undefined, targetMs: number): LuckPillarRow | null {
-  if (!Array.isArray(rows)) return null;
-  for (const row of rows) {
-    const start = finiteNumber(row.startUtcMs);
-    const end = finiteNumber(row.endUtcMs);
-    if (start !== null && end !== null && targetMs >= start && targetMs < end) return row;
-  }
-  return null;
-}
-
 function pillarFromLuckRow(row: LuckPillarRow | null | undefined, label: string): PeriodPillar | null {
   if (!row) return null;
   const stemInfo = STEM_BY_CODE[row.stem?.toUpperCase?.() ?? ''];
@@ -238,31 +234,37 @@ function computePillarForPeriod(
   targetDate: Date,
   options?: { readonly fortuneCascadeMode?: 'simple' | 'jie_based' | 'full_5layer' },
 ): PeriodPillar | null {
-  const year = targetDate.getFullYear();
+  const year = targetCalendarYear(targetDate);
 
   if (periodKind === 'yearly') {
     const targetMs = targetDate.getTime();
     const saeunPillars = saju.saeunPillars as readonly LuckPillarRow[] | undefined;
-    const match = findLuckRowCoveringDate(saeunPillars, targetMs)
-      ?? (Array.isArray(saeunPillars) ? saeunPillars.find((p) => p.year === year) ?? null : null);
+    const match = findYearLuckRowForInstant(saeunPillars, targetMs, year);
     const fromSaeun = pillarFromLuckRow(match, `${year}년`);
     if (fromSaeun) return fromSaeun;
+    if (match) {
+      throw new LuckIntervalSelectionError('selected year luck row has an invalid pillar');
+    }
 
     const yf = getYearlyFortune(year);
     return { ganzhi: yf, label: `${year}년` };
   }
 
   if (periodKind === 'monthly') {
-    const solarMonth = targetDate.getMonth() + 1;
+    const solarMonth = targetCalendarMonth(targetDate);
     const targetMs = targetDate.getTime();
     const wolunPillars = (saju as Record<string, unknown>).wolunPillars as readonly LuckPillarRow[] | undefined;
+    const match = requireLuckRowCoveringInstant(wolunPillars, targetMs);
     const fromWolun = pillarFromLuckRow(
-      findLuckRowCoveringDate(wolunPillars, targetMs),
+      match,
       `${year}년 ${solarMonth}월`,
     );
     if (fromWolun) return fromWolun;
+    if (match) {
+      throw new LuckIntervalSelectionError('selected month luck row has an invalid pillar');
+    }
 
-    const day = targetDate.getDate();
+    const day = targetCalendarDay(targetDate);
     const mode = options?.fortuneCascadeMode === 'jie_based' ? 'jie_based' as const : 'simple' as const;
     const mf = getMonthlyFortuneSolar(year, solarMonth, { day, mode });
     return { ganzhi: mf, label: `${year}년 ${solarMonth}월` };
@@ -270,19 +272,18 @@ function computePillarForPeriod(
 
   if (periodKind === 'daily') {
     const df = getDailyFortune(targetDate);
-    const m = targetDate.getMonth() + 1;
-    const d = targetDate.getDate();
+    const m = targetCalendarMonth(targetDate);
+    const d = targetCalendarDay(targetDate);
     return { ganzhi: df, label: `${year}년 ${m}월 ${d}일` };
   }
 
   if (periodKind === 'weekly') {
     // Use the first day of the week for the label
-    const m = targetDate.getMonth() + 1;
-    const d = targetDate.getDate();
-    const endDate = new Date(targetDate);
-    endDate.setDate(endDate.getDate() + 6);
-    const em = endDate.getMonth() + 1;
-    const ed = endDate.getDate();
+    const m = targetCalendarMonth(targetDate);
+    const d = targetCalendarDay(targetDate);
+    const endDate = addTargetCalendarDays(targetDate, 6);
+    const em = targetCalendarMonth(endDate);
+    const ed = targetCalendarDay(endDate);
     // For weekly, return null here -- handled separately
     return {
       ganzhi: getDailyFortune(targetDate),
@@ -870,8 +871,8 @@ function computeMonthlyTimeSeries(
   targetDate: Date,
   natal: NatalData,
 ): FortuneTimeSeries {
-  const year = targetDate.getFullYear();
-  const month = targetDate.getMonth(); // 0-based
+  const year = targetCalendarYear(targetDate);
+  const month = targetCalendarMonth(targetDate) - 1; // 0-based
   const daysInMonth = new Date(year, month + 1, 0).getDate();
 
   // Compute daily grades for every day in the month
@@ -905,7 +906,7 @@ function computeYearlyTimeSeries(
   targetDate: Date,
   natal: NatalData,
 ): FortuneTimeSeries {
-  const year = targetDate.getFullYear();
+  const year = targetCalendarYear(targetDate);
   const points = [];
   for (let m = 1; m <= 12; m++) {
     const mf = getMonthlyFortuneSolar(year, m);
@@ -942,8 +943,9 @@ export function buildPeriodFortuneCard(
 
   // Compute the period pillar
   const pillarResult = computePillarForPeriod(saju, periodKind, targetDate, options);
-  const ganzhi = pillarResult?.ganzhi ?? getYearlyFortune(targetDate.getFullYear());
-  const periodLabel = pillarResult?.label ?? `${targetDate.getFullYear()}년`;
+  const targetYear = targetCalendarYear(targetDate);
+  const ganzhi = pillarResult?.ganzhi ?? getYearlyFortune(targetYear);
+  const periodLabel = pillarResult?.label ?? `${targetYear}년`;
 
   let grade: number;
   let effectiveStemEl: ElementCode;

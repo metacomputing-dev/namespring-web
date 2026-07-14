@@ -43,6 +43,11 @@ import {
   getYearlyFortune,
   getFortuneGrade,
 } from '../common/fortuneCalculator.js';
+import {
+  findYearLuckRowForInstant,
+  LuckIntervalSelectionError,
+} from '../common/luck-interval.js';
+import { targetCalendarYear } from '../../target-date.js';
 
 import {
   ELEMENT_GENERATES,
@@ -612,24 +617,26 @@ export function buildCategoryFortuneCards(
   }
 
   // Get yearly fortune pillar
-  const year = targetDate.getFullYear();
+  const year = targetCalendarYear(targetDate);
 
   // Try saeunPillars first
-  let fortuneEl: ElementCode = 'EARTH';
+  let fortuneEl: ElementCode;
 
   const saeunPillars = (saju as Record<string, unknown>).saeunPillars as
-    | Array<{ year: number; stem: string; branch: string }>
+    | Array<{
+      year: number; stem: string; branch: string;
+      startUtcMs?: number | null; endUtcMs?: number | null;
+    }>
     | undefined;
-  if (Array.isArray(saeunPillars)) {
-    const match = saeunPillars.find((p) => p.year === year);
-    if (match) {
-      const stemEl = toElementCode(match.stem);
-      if (stemEl) fortuneEl = stemEl;
+  const match = findYearLuckRowForInstant(saeunPillars, targetDate.getTime(), year);
+  if (match) {
+    const stemEl = toElementCode(match.stem);
+    if (!stemEl) {
+      throw new LuckIntervalSelectionError('selected year luck row has an invalid stem');
     }
-  }
-
-  if (fortuneEl === 'EARTH' && !saeunPillars) {
-    // Fallback: compute from formula
+    fortuneEl = stemEl;
+  } else {
+    // Formula fallback is allowed when no valid row covers the target instant.
     const yf = getYearlyFortune(year);
     fortuneEl = yf.stemElement;
   }

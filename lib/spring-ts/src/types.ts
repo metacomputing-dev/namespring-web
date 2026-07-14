@@ -901,13 +901,13 @@ export interface TransitShinsalSummary {
   readonly anchorBranch: string;
   readonly targetBranch: string;
   readonly twelveSal: string;
-  readonly samjae: {
+  readonly samjae?: {
     readonly active: boolean;
     readonly phase: 'DEUL' | 'NUL' | 'NAL' | null | string;
     readonly group: readonly string[];
   };
-  readonly sangmun: boolean;
-  readonly jogaek: boolean;
+  readonly sangmun?: boolean;
+  readonly jogaek?: boolean;
 }
 
 export interface LuckPillarAnnotationSummary {

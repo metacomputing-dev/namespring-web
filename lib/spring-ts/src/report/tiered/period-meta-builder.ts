@@ -16,6 +16,13 @@ import {
 } from '../common/fortuneCalculator.js';
 import { ELEMENT_KOREAN } from '../common/elementMaps.js';
 import type { ElementCode } from '../types.js';
+import {
+  addTargetCalendarDays,
+  targetCalendarDay,
+  targetCalendarDayOfWeek,
+  targetCalendarMonth,
+  targetCalendarYear,
+} from '../../target-date.js';
 
 interface BuiltPeriod {
   label: string;
@@ -43,8 +50,8 @@ function buildLifeMeta(): BuiltPeriod {
 
 function buildTodayMeta(targetDate: Date): BuiltPeriod {
   const f = getDailyFortune(targetDate);
-  const month = String(targetDate.getMonth() + 1);
-  const day = String(targetDate.getDate());
+  const month = String(targetCalendarMonth(targetDate));
+  const day = String(targetCalendarDay(targetDate));
   return {
     label: `오늘 (${month}월 ${day}일)`,
     meta: {
@@ -55,8 +62,7 @@ function buildTodayMeta(targetDate: Date): BuiltPeriod {
 }
 
 function buildThisWeekMeta(targetDate: Date): BuiltPeriod {
-  const start = new Date(targetDate);
-  start.setDate(targetDate.getDate() - targetDate.getDay());
+  const start = addTargetCalendarDays(targetDate, -targetCalendarDayOfWeek(targetDate));
   const f = getDailyFortune(start);
   return {
     label: '이번 주',
@@ -68,9 +74,10 @@ function buildThisWeekMeta(targetDate: Date): BuiltPeriod {
 }
 
 function buildThisMonthMeta(targetDate: Date): BuiltPeriod {
-  const f = getMonthlyFortuneSolar(targetDate.getFullYear(), targetDate.getMonth() + 1);
+  const month = targetCalendarMonth(targetDate);
+  const f = getMonthlyFortuneSolar(targetCalendarYear(targetDate), month);
   return {
-    label: `이번 달 (${targetDate.getMonth() + 1}월)`,
+    label: `이번 달 (${month}월)`,
     meta: {
       ...metaFromGanzhi('month', f),
       relativeNote: `이번 달은 ${f.ganzhiHangul}월의 흐름이에요.`,
@@ -79,7 +86,7 @@ function buildThisMonthMeta(targetDate: Date): BuiltPeriod {
 }
 
 function buildThisYearMeta(targetDate: Date): BuiltPeriod {
-  const year = targetDate.getFullYear();
+  const year = targetCalendarYear(targetDate);
   const f = getYearlyFortune(year);
   return {
     label: `올해 (${year}년)`,
@@ -107,15 +114,14 @@ export function periodFortuneElement(periodKind: TieredPeriodKind, targetDate: D
   if (periodKind === 'life') return null;
   if (periodKind === 'today') return getDailyFortune(targetDate).stemElement;
   if (periodKind === 'thisWeek') {
-    const start = new Date(targetDate);
-    start.setDate(targetDate.getDate() - targetDate.getDay());
+    const start = addTargetCalendarDays(targetDate, -targetCalendarDayOfWeek(targetDate));
     return getDailyFortune(start).stemElement;
   }
   if (periodKind === 'thisMonth') {
-    return getMonthlyFortuneSolar(targetDate.getFullYear(), targetDate.getMonth() + 1).stemElement;
+    return getMonthlyFortuneSolar(targetCalendarYear(targetDate), targetCalendarMonth(targetDate)).stemElement;
   }
   if (periodKind === 'thisYear') {
-    return getYearlyFortune(targetDate.getFullYear()).stemElement;
+    return getYearlyFortune(targetCalendarYear(targetDate)).stemElement;
   }
   return null;
 }

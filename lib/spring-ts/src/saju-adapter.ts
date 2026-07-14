@@ -29,6 +29,13 @@ import type {
 } from './types.js';
 import { leapMonthOfLunarYear, lunarToSolar } from './calendar/korean-lunar-calendar.js';
 import { kasiLunarToSolar } from './calendar/kasi-lunar-api.js';
+import {
+  SajuRequestValidationError,
+  requiredMaxMonthsForRequest,
+  requiredMaxYearsForRequest,
+  validateSajuConfigFortuneHorizon,
+  validateSajuRequestOptions,
+} from './saju-request-policy.js';
 
 // ---------------------------------------------------------------------------
 //  Configuration loaded from JSON files
@@ -1293,6 +1300,8 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
   if (birthYear == null || birthMonth == null || birthDay == null) {
     return buildPartialSajuSummary(birth, effectiveParts);
   }
+  validateSajuRequestOptions(options?.sajuOptions, birthYear);
+  validateSajuConfigFortuneHorizon(options?.sajuConfig);
   const resolvedCoordinates = resolveBirthCoordinates(birth);
 
   try {
@@ -1391,24 +1400,27 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
     }
     if (options?.sajuConfig) config = { ...config, ...options.sajuConfig };
 
-    const wolunStartYear = options?.sajuOptions?.wolunStartYear;
-    if (typeof wolunStartYear === 'number') {
-      const requestedMonthCount = typeof options?.sajuOptions?.wolunMonthCount === 'number'
-        ? options.sajuOptions.wolunMonthCount
-        : 24;
-      const yearsToCover = Math.max(2, wolunStartYear - birthYear + 2);
-      const requiredMaxMonths = Math.max(24, yearsToCover * 12 + requestedMonthCount);
+    const requiredMaxYears = requiredMaxYearsForRequest(options?.sajuOptions, birthYear);
+    const requiredMaxMonths = requiredMaxMonthsForRequest(options?.sajuOptions, birthYear);
+    if (requiredMaxYears !== null || requiredMaxMonths !== null) {
       const strategies = (config.strategies ?? {}) as Record<string, any>;
       const fortune = (strategies.fortune ?? {}) as Record<string, any>;
-      const existingMaxMonths = Number(fortune.maxMonths);
+      const nextFortune = { ...fortune };
+      if (requiredMaxYears !== null) {
+        const existingMaxYears = fortune.maxYears;
+        nextFortune.maxYears = typeof existingMaxYears === 'number' && Number.isFinite(existingMaxYears)
+          ? Math.max(existingMaxYears, requiredMaxYears)
+          : requiredMaxYears;
+      }
+      if (requiredMaxMonths !== null) {
+        const existingMaxMonths = fortune.maxMonths;
+        nextFortune.maxMonths = typeof existingMaxMonths === 'number' && Number.isFinite(existingMaxMonths)
+          ? Math.max(existingMaxMonths, requiredMaxMonths)
+          : requiredMaxMonths;
+      }
       config.strategies = {
         ...strategies,
-        fortune: {
-          ...fortune,
-          maxMonths: Number.isFinite(existingMaxMonths)
-            ? Math.max(existingMaxMonths, requiredMaxMonths)
-            : requiredMaxMonths,
-        },
+        fortune: nextFortune,
       };
     }
 
@@ -1526,7 +1538,10 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
     }
 
     return summary;
-  } catch { return emptySaju(); }
+  } catch (error) {
+    if (error instanceof SajuRequestValidationError) throw error;
+    return emptySaju();
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -2233,8 +2248,8 @@ function withLuckPillarAnnotations<T extends Record<string, unknown>>(out: T, ra
 }
 
 function nullableNumber(value: unknown): number | null {
-  const n = Number(value);
-  return Number.isFinite(n) ? n : null;
+  return typeof value === 'number' && Number.isFinite(value)
+    ? value : null;
 }
 
 function extractDaeunInfo(rawSajuOutput: any) {
@@ -2320,7 +2335,8 @@ export async function analyzeSajuSafe(
     // If analyzeSaju returned an empty saju (module missing), detect via dayMaster
     const isRealAnalysis = !!summary.dayMaster?.element;
     return { summary, sajuEnabled: isRealAnalysis };
-  } catch {
+  } catch (error) {
+    if (error instanceof SajuRequestValidationError) throw error;
     return { summary: emptySaju(), sajuEnabled: false };
   }
 }

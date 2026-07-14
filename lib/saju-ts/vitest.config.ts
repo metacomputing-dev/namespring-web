@@ -9,6 +9,7 @@ export default defineConfig({
       'src/calendar/**/*.test.ts',
       'src/compat/**/*.test.ts',
       'src/core/**/*.test.ts',
+      'src/fortune/**/*.test.ts',
       'src/rules/**/*.test.ts',
       'tests/precision/**/*.test.ts',
     ],

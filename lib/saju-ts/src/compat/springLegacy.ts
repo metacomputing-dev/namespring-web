@@ -519,20 +519,29 @@ function entryBranchIdx(entry: any): unknown {
   return entry?.pillar?.branch?.idx ?? entry?.pillar?.branch;
 }
 
-export function buildTransitShinsalForBranch(anchorBranchIdx: unknown, targetBranchIdx: unknown) {
+function buildTransitTwelveSalForBranch(anchorBranchIdx: unknown, targetBranchIdx: unknown) {
   const anchor = branchIdxFromUnknown(anchorBranchIdx);
   const target = branchIdxFromUnknown(targetBranchIdx);
   const start = twelveSalStartOf(anchor as any);
   const twelveSal = TWELVE_SAL_KEYS[mod(target - start, 12)] ?? '';
-  const yeokmaBranch = mod(start + 6, 12);
-  const samjaeGroup = orderedBanghapGroup(yeokmaBranch);
-  const samjaePhaseIndex = samjaeGroup.indexOf(target);
-
   return {
     anchor: 'YEAR_BRANCH',
     anchorBranch: branchCodeFromIdx(anchor),
     targetBranch: branchCodeFromIdx(target),
     twelveSal,
+  };
+}
+
+export function buildTransitShinsalForBranch(anchorBranchIdx: unknown, targetBranchIdx: unknown) {
+  const anchor = branchIdxFromUnknown(anchorBranchIdx);
+  const target = branchIdxFromUnknown(targetBranchIdx);
+  const start = twelveSalStartOf(anchor as any);
+  const yeokmaBranch = mod(start + 6, 12);
+  const samjaeGroup = orderedBanghapGroup(yeokmaBranch);
+  const samjaePhaseIndex = samjaeGroup.indexOf(target);
+
+  return {
+    ...buildTransitTwelveSalForBranch(anchor, target),
     samjae: {
       active: samjaePhaseIndex >= 0,
       phase: samjaePhaseIndex >= 0 ? SAMJAE_PHASES[samjaePhaseIndex] : null,
@@ -543,7 +552,13 @@ export function buildTransitShinsalForBranch(anchorBranchIdx: unknown, targetBra
   };
 }
 
-function luckPillarAnnotations(entry: any, dayStemIdx: number, yearBranchIdx: number, lifeStagePolicy: any) {
+function luckPillarAnnotations(
+  entry: any,
+  dayStemIdx: number,
+  yearBranchIdx: number,
+  lifeStagePolicy: any,
+  includeAnnualSignals: boolean,
+) {
   const stemIdx = stemIdxFromUnknown(entryStemIdx(entry));
   const branchIdx = branchIdxFromUnknown(entryBranchIdx(entry));
   const lifeStage = lifeStageOf(dayStemIdx as any, branchIdx as any, lifeStagePolicy ?? DEFAULT_TRANSIT_LIFE_STAGE_POLICY).stage;
@@ -552,7 +567,9 @@ function luckPillarAnnotations(entry: any, dayStemIdx: number, yearBranchIdx: nu
     tenGod: normalizeTenGod(tenGodOf(dayStemIdx as any, stemIdx as any)),
     lifeStage,
     lifeStageKo: LIFE_STAGE_KO[String(lifeStage)] ?? String(lifeStage),
-    transitShinsal: buildTransitShinsalForBranch(yearBranchIdx, branchIdx),
+    transitShinsal: includeAnnualSignals
+      ? buildTransitShinsalForBranch(yearBranchIdx, branchIdx)
+      : buildTransitTwelveSalForBranch(yearBranchIdx, branchIdx),
   };
 }
 
@@ -1536,12 +1553,15 @@ function normalizeLegacyOutput(
   const decades = Array.isArray(fortune?.decades) ? fortune.decades : [];
   const needsExpandedYears = typeof saeunStartYear === 'number' || typeof saeunYearCount === 'number';
   const needsExpandedMonths = typeof wolunStartYear === 'number' || typeof wolunMonthCount === 'number';
-  const yearsAll = needsExpandedYears && Array.isArray(timeline?.years)
+  const maxFortuneSolarYear = standard.y + 120;
+  const yearsSource = needsExpandedYears && Array.isArray(timeline?.years)
     ? timeline.years
     : Array.isArray(fortune?.years) ? fortune.years : [];
-  const monthsAll = needsExpandedMonths && Array.isArray(timeline?.months)
+  const monthsSource = needsExpandedMonths && Array.isArray(timeline?.months)
     ? timeline.months
     : Array.isArray(fortune?.months) ? fortune.months : [];
+  const yearsAll = yearsSource.filter((y: any) => Number(y?.solarYear) <= maxFortuneSolarYear);
+  const monthsAll = monthsSource.filter((m: any) => Number(m?.solarYear) <= maxFortuneSolarYear);
   const yearsFiltered = typeof saeunStartYear === 'number'
     ? yearsAll.filter((y: any) => Number(y?.solarYear) >= saeunStartYear)
     : yearsAll;
@@ -1566,7 +1586,7 @@ function normalizeLegacyOutput(
       startAge: Number(entry?.startAgeYears ?? 0),
       endAge: Number(entry?.endAgeYears ?? 0),
       order: Number(entry?.index ?? 0),
-      ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy),
+      ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy, false),
     }));
 
   const saeunPillars = years.map((entry: any) => ({
@@ -1579,7 +1599,7 @@ function normalizeLegacyOutput(
     endUtcMs: Number.isFinite(entry?.endUtcMs) ? Number(entry.endUtcMs) : null,
     approxStartAgeYears: Number.isFinite(entry?.approxStartAgeYears) ? Number(entry.approxStartAgeYears) : null,
     approxEndAgeYears: Number.isFinite(entry?.approxEndAgeYears) ? Number(entry.approxEndAgeYears) : null,
-    ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy),
+    ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy, true),
   }));
 
   const wolunPillars = months.map((entry: any) => ({
@@ -1594,7 +1614,7 @@ function normalizeLegacyOutput(
     endUtcMs: Number.isFinite(entry?.endUtcMs) ? Number(entry.endUtcMs) : null,
     approxStartAgeYears: Number.isFinite(entry?.approxStartAgeYears) ? Number(entry.approxStartAgeYears) : null,
     approxEndAgeYears: Number.isFinite(entry?.approxEndAgeYears) ? Number(entry.approxEndAgeYears) : null,
-    ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy),
+    ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy, false),
   }));
 
   const traceNodes = Array.isArray(bundle.report?.trace?.nodes) ? bundle.report.trace.nodes : [];
