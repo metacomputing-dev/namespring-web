@@ -1,11 +1,11 @@
 {
-  "version": "1.0.2",
-  "generatedNote": "12 diverse fixtures for spring-ts regression baseline. Covers 5-element × 2-polarity sample + 자시/입춘/곡우/입하/처서/소설 jie boundaries + 조후 winter + 종왕 candidate + unknown-hour + borderline-strength. Each PR's snapshot test runs against this fixture set. PR-M-3 added per-fixture `disagreementNotes`. PR-N-3 reframes those notes: saju_master is no longer treated as a presumed authority — PR-N-2 found saju_master's chengbai logic disagrees with the published 명리심리상담사 prose on 7/11 lecture cases (saju-ts agrees 11/11). Where spring-ts and saju_master disagree on the 12 fixtures, the published-prose evidence skews in favor of spring-ts/saju-ts.",
+  "version": "1.0.3",
+  "generatedNote": "15 diverse fixtures for spring-ts regression baseline. Covers 5-element × 2-polarity sample + 자시/입춘/곡우/입하/처서/소설 jie boundaries + 조후 winter + 종왕 candidate + unknown-hour + borderline-strength. Each PR's snapshot test runs against this fixture set. PR-M-3 added per-fixture `disagreementNotes` for the original 12-fixture subset. PR-N-3 reframes those notes: saju_master is no longer treated as a presumed authority — PR-N-2 found saju_master's chengbai logic disagrees with the published 명리심리상담사 prose on 7/11 lecture cases (saju-ts agrees 11/11). Stack02 corrects the fix-06/fix-07 structural-month-frame diagnosis while retaining pending independent authority review.",
   "fixtures": [
     {
       "id": "fix-01",
-      "label": "1986-04-19 male — 戊土 일간 (README example)",
-      "axis": ["normal", "yang-earth", "spring"],
+      "label": "1986-04-19 male — 癸水 일간 (README example)",
+      "axis": ["normal", "yin-water", "spring"],
       "birth": { "year": 1986, "month": 4, "day": 19, "hour": 5, "minute": 45, "gender": "male" },
       "surname": [{ "hangul": "최", "hanja": "崔" }],
       "givenName": [{ "hangul": "성", "hanja": "成" }, { "hangul": "수", "hanja": "秀" }]
@@ -79,17 +79,17 @@
     },
     {
       "id": "fix-06",
-      "label": "1978-06-15 14:00 female — 庚金 일간, 여름",
-      "axis": ["normal", "yang-metal", "summer"],
+      "label": "1978-06-15 14:00 female — 戊土 일간, 여름",
+      "axis": ["normal", "yang-earth", "summer"],
       "birth": { "year": 1978, "month": 6, "day": 15, "hour": 14, "minute": 0, "gender": "female" },
       "surname": [{ "hangul": "강", "hanja": "姜" }],
       "givenName": [{ "hangul": "수", "hanja": "秀" }, { "hangul": "빈", "hanja": "彬" }],
       "disagreementNotes": [
         {
           "field": "sajuReport.gyeokgukType",
-          "spring_ts": "겁재격",
+          "spring_ts": "정인격",
           "saju_master": "비견격",
-          "reason": "saju_master geok_codes=['BiJian','JieCai'] — both 비견·겁재 present. The chart is 1978-06-15 14:00 female with 庚 day master in 午 month (午 정기=丁=정관, but 午 has no 비견 in main hidden — saju-ts/spring-ts derives 겁재 from a different pillar root). PR-N-2 evidence shows saju_master's chengbai rule diverges from published prose 7/11 on similar tie-breaks. Both 비견 and 겁재 selection rules are 자평-traditional. Documented school-level tie-break disagreement.",
+          "reason": "Stack02 structural-month-frame correction supersedes the earlier tie-break diagnosis: day-master or residual companion evidence cannot create a structural frame unless the month command itself is 비견/겁재. For this 戊 day master, 午 main 丁 maps to 정인. saju_master remains 비견격; independent authority adjudication of the adopted month-command policy is still pending.",
           "pendingAuthority": true
         }
       ]
@@ -104,9 +104,9 @@
       "disagreementNotes": [
         {
           "field": "sajuReport.gyeokgukType",
-          "spring_ts": "겁재격",
+          "spring_ts": "정인격",
           "saju_master": "비견격",
-          "reason": "Same pattern as fix-06: saju_master geok_codes=['BiJian','JieCai']. spring-ts picks JieCai, saju_master picks BiJian. 겸격 tie-break disagreement. PR-N-2 evidence: saju_master's chengbai rule diverges from published prose 7/11 on lecture cases; spring-ts's classical 월지 추출 매핑 matches prose 11/11. The choice between 비견/겁재 here is school-level.",
+          "reason": "Stack02 structural-month-frame correction supersedes the earlier tie-break diagnosis: residual 丙 겁재 is evidence but is not selectable when the 寅 month command is 甲 정인 for the 丁 day master. saju_master remains 비견격; independent authority adjudication of the adopted month-command policy is still pending.",
           "pendingAuthority": true
         }
       ]

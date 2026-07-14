@@ -51,6 +51,10 @@ export type GyeokgukMacro =
        * Generate rules: if month.gyeok.tenGod == X then score gyeokguk.X += bonus.
        *
        * This corresponds to ZiPing(子平) style “透干/会支” month anchor selection.
+       * A classic GEONROK/YANGIN/WOLGEOB structural subtype is emitted instead
+       * of a contradictory BI_GYEON/GEOB_JAE key. Legacy naming leaves the
+       * subtype empty and preserves the ordinary ten-god key.
+       *
        */
       kind: 'monthGyeokTenGod';
       tenGods?: TenGod[];
