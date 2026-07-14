@@ -246,5 +246,17 @@ export function detectBranchRelations(branches: BranchIdx[]): DetectedRelation[]
 
   const tripleDeduped = uniqByKey(tripleRels, (r) => `${r.type}:${tripleKey(r.members)}`);
 
-  return [...pairDeduped, ...tripleDeduped].sort(compareDetectedRelation);
+  // A complete 三刑 already represents its three constituent punishment
+  // pairs. Keep one canonical SAMHYEONG relation so every downstream scoring
+  // layer cannot charge the same punishment four times.
+  const fullSamhyeongGroups = tripleDeduped
+    .filter((relation) => relation.type === 'SAMHYEONG')
+    .map((relation) => new Set<number>(relation.members));
+  const effectivePairs = pairDeduped.filter(
+    (relation) =>
+      relation.type !== 'HYEONG'
+      || !fullSamhyeongGroups.some((group) => relation.members.every((member) => group.has(member))),
+  );
+
+  return [...effectivePairs, ...tripleDeduped].sort(compareDetectedRelation);
 }

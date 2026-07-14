@@ -3658,7 +3658,9 @@ export function buildRuleFacts(args: {
   // PR-6: 격국 성패(상신·순용/역용·성격/파격) — additive 판정 표면.
   const gyeokSeongpae = computeGyeokgukSeongpae({
     gyeokTenGod,
-    bigyeopSubtype,
+    // bigyeopGyeok='legacy' is a public naming compatibility option only.
+    // Seongpae doctrine must still consume the actual month-frame structure.
+    bigyeopSubtype: structuralMonthFrame?.subtype ?? null,
     dayStem,
     otherStems: [pillars.year.stem, pillars.month.stem, pillars.hour.stem],
     monthBroken: monthGyeokQuality.broken,
