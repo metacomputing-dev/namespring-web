@@ -648,7 +648,7 @@
     {
       "id": "qiongTongBaoJian",
       "name": "穷通宝鉴/궁통보감 프로필",
-      "description": "조후(調候) 중심 접근을 빠르게 적용하기 위한 프로필. 현재 엔진에서는 johoo.strict와 동일하게 동작(확장 여지).",
+      "description": "궁통보감 조후용신표(일간×월지 120셀 전체 수록 — 서락오 평주본 계열 통용표) 조회 기반 조후 프로필. johoo.strict 위에 월별 주용신/보좌 표 조회를 활성화한다 [감사 B12].",
       "extends": "johoo.strict",
       "aliases": [
         "qiongTong",
@@ -659,7 +659,18 @@
         "窮通寶鑑",
         "穷通宝鉴"
       ],
-      "sources": ["docs/18_school_sources.md"]
+      "sources": ["docs/18_school_sources.md"],
+      "overlay": {
+        "strategies": {
+          "yongshin": {
+            "johooTemplate": {
+              "monthTable": "qiongTongBaoJian",
+              "monthTablePrimaryBoost": 0.5,
+              "monthTableSecondaryBoost": 0.25
+            }
+          }
+        }
+      }
     },
 
     {

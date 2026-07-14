@@ -330,7 +330,8 @@ function resolveDayCutMode(legacy: LegacySajuConfig): LegacyDayCutMode {
   return 'MIDNIGHT_00';
 }
 
-function parseOffsetToken(token: string): number | null {
+// export: 표준시 변천 픽스처 테스트(springLegacyTimezone.test.ts)가 소비 (감사 B10/A15a).
+export function parseOffsetToken(token: string): number | null {
   const s = token.trim().toUpperCase().replace('UTC', 'GMT');
   if (s === 'GMT' || s === 'GMT+0' || s === 'GMT+00' || s === 'GMT+00:00') return 0;
 
@@ -397,7 +398,8 @@ const DST_SCAN_STEP_MS = 30 * 24 * 60 * 60 * 1000;
  *    오프셋이 보이고, 표준 자오선 변경(1954/1961)은 한쪽에만 보인다.
  *    → 초과분 = offset - max(전측 최소, 후측 최소).
  */
-function dstMinutesAtUtcMs(utcMs: number, timeZone: string): number {
+// export: 표준시 변천 픽스처 테스트(springLegacyTimezone.test.ts)가 소비 (감사 B10).
+export function dstMinutesAtUtcMs(utcMs: number, timeZone: string): number {
   const name = longZoneNameAtUtcMs(utcMs, timeZone);
   if (/standard/i.test(name)) return 0;
   const isNamedDst = /daylight|summer/i.test(name);
@@ -412,7 +414,8 @@ function dstMinutesAtUtcMs(utcMs: number, timeZone: string): number {
   return isNamedDst ? (excess || 60) : excess;
 }
 
-function resolveOffsetMinutes(timeZone: string, civil: CivilDateTime): number {
+// export: 표준시 변천 픽스처 테스트(springLegacyTimezone.test.ts)가 소비 (감사 B10).
+export function resolveOffsetMinutes(timeZone: string, civil: CivilDateTime): number {
   const parsedFromToken = parseOffsetToken(timeZone);
   if (parsedFromToken != null) return parsedFromToken;
 

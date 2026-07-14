@@ -28,16 +28,32 @@ lunar new year, and solar year rollover cases.
 - KASI raw leap-month values are preserved as `raw.lunLeapmonth` with `평` or
   `윤`.
 
-## Current Product Limit
+## Production Conversion (감사 B1 · 결정③, 2026-07-08)
 
-`spring-ts` accepts `BirthInfo.calendarType: 'lunar'` and `isLeapMonth`, but the
-current `saju-ts` bridge does not yet contain a production lunar-to-solar
-conversion layer. Until that layer exists, lunar user input is retained in
-`partialBirthInput`, `sajuEnabled` remains `false`, and the report surfaces
-`disabledReason: "lunar-input-requires-kasi-conversion"`.
+`spring-ts` now converts lunar input to solar before analysis:
 
-This avoids the worst failure mode: silently treating a lunar birth date as a
-Gregorian solar date.
+- **Default (builtin)**: `src/calendar/korean-lunar-calendar.ts` — clean port of
+  usingsky/korean_lunar_calendar_js (MIT, KASI/KARI standard data, table range
+  1000–2050). Product-guaranteed range: **lunar year 1900–2050** (adapter guard).
+  Offline-deterministic; the browser path uses the same table.
+- **Opt-in (KASI API)**: `precisionConfig.lunarConversionSource: 'kasi'` calls
+  `getSpcifyLunCalInfo` first (Node only, service-key env trio) and falls back
+  to the builtin table on any failure, marked `lunarConversion.kasiFallback`.
+- The conversion record is surfaced as `SajuSummary.lunarConversion`
+  (`{lunar, solar, source}`) plus a user-facing note, so users can verify the
+  converted solar date. Solar-input reports never carry the field.
+- Unconvertible input (partial lunar date, out-of-range year, nonexistent leap
+  month) keeps saju disabled with
+  `disabledReason: "lunar-conversion-unavailable"` and
+  `calendarPolicy.conversionStatus: 'partial-lunar-input' | 'conversion-failed'`.
+
+Verification: `npm run test:lunar-calendar` (KASI 13-case oracle both ways +
+Seollal 151 / leap-month 151-year / Chuseok 22 anchors + 55,122-day round-trip
+sweep), `npm run test:kasi-lunar-api` (offline mock server), and
+`npm run test:calendar-policy` (adapter wiring + solar equivalence).
+
+This retains the original guard against the worst failure mode: a lunar birth
+date is never silently treated as a Gregorian solar date.
 
 ## Commands
 

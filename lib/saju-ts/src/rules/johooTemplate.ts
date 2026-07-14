@@ -4,6 +4,8 @@ import { branchHanja, stemElement, stemHanja, stemIdxFromHanja } from '../core/c
 import { ELEMENT_ORDER } from '../core/elementVector.js';
 import type { SeasonGroup } from './season.js';
 import { seasonGroupOfMonthBranch } from './season.js';
+import type { JohooMonthCell, JohooMonthTable } from './packs/johooQiongTongBaoJianTable.js';
+import { QIONG_TONG_BAO_JIAN_TABLE } from './packs/johooQiongTongBaoJianTable.js';
 
 export interface JohooTemplatePolicy {
   enabled: boolean;
@@ -19,6 +21,18 @@ export interface JohooTemplatePolicy {
 
   /** Optional override mapping: stem hanja → list of preferred stem hanja(s). */
   stemPreferencesOverride?: Record<string, string[]>;
+
+  /**
+   * 감사 B12: 궁통보감 조후용신표(일간×월지 120셀) 조회.
+   * 'qiongTongBaoJian'(내장 이름) 또는 인라인 부분 테이블. null = 기존 간이 경로.
+   * 셀 적중 시 互不离·冬丙/夏癸 힌트를 셀의 주용신/보좌로 대체한다(이중 가산 금지).
+   */
+  monthTable: JohooMonthTable | null;
+  monthTableSource?: 'qiongTongBaoJian' | 'custom';
+  /** 주용신 원소 보너스 (기본 0.5 — 계절 필수 원소와 동급 이상). */
+  monthTablePrimaryBoost: number;
+  /** 보좌 원소 보너스 (기본 0.25 — 기존 보조 힌트와 동일 스케일). */
+  monthTableSecondaryBoost: number;
 }
 
 export interface JohooTemplateResult {
@@ -47,6 +61,19 @@ export interface JohooTemplateResult {
   primary: Element;
   secondary: Element;
 
+  /**
+   * 감사 B12 (additive): 궁통보감 120셀 조회가 적중한 경우의 천간 레벨 상세.
+   * primary/secondary(원소 레벨, combinedScores 랭킹)와 별개 — 의미 불변 원칙.
+   */
+  monthTable?: {
+    source: 'qiongTongBaoJian' | 'custom';
+    primaryStem: StemIdx;
+    primaryStemHanja: string;
+    secondaryStems: StemIdx[];
+    secondaryStemHanja: string[];
+    note?: string;
+  };
+
   reasons: string[];
 }
 
@@ -69,14 +96,75 @@ function asNumber(x: unknown, fallback: number): number {
   return typeof x === 'number' && Number.isFinite(x) ? x : fallback;
 }
 
+// 감사 B12: 내장 월별 조후용신표 레지스트리.
+const BUILTIN_MONTH_TABLES: Record<string, JohooMonthTable> = {
+  qiongTongBaoJian: QIONG_TONG_BAO_JIAN_TABLE,
+};
+
+/**
+ * monthTableOverride 셀 단위 패치 병합. deepMerge를 쓰지 않는 이유:
+ * base가 내장 이름(문자열)일 수 있고, secondary 배열은 병합이 아니라 교체가 맞다.
+ */
+function mergeMonthTable(
+  base: JohooMonthTable,
+  override: unknown,
+): { table: JohooMonthTable; overridden: boolean } {
+  if (!override || typeof override !== 'object') return { table: base, overridden: false };
+  const out: Record<string, Record<string, JohooMonthCell>> = {};
+  let overridden = false;
+  for (const [stem, row] of Object.entries(base)) {
+    out[stem] = { ...(row as Record<string, JohooMonthCell>) };
+  }
+  for (const [stem, row] of Object.entries(override as Record<string, unknown>)) {
+    if (!row || typeof row !== 'object') continue;
+    out[stem] = { ...(out[stem] ?? {}) };
+    for (const [branch, cell] of Object.entries(row as Record<string, unknown>)) {
+      if (!cell || typeof cell !== 'object') continue;
+      const c = cell as { primary?: unknown; secondary?: unknown; note?: unknown };
+      if (typeof c.primary !== 'string') continue;
+      out[stem]![branch] = {
+        primary: c.primary,
+        secondary: Array.isArray(c.secondary) ? c.secondary.filter((x): x is string => typeof x === 'string') : [],
+        ...(typeof c.note === 'string' ? { note: c.note } : {}),
+      };
+      overridden = true;
+    }
+  }
+  return { table: out as JohooMonthTable, overridden };
+}
+
+function readMonthTable(raw: any): { table: JohooMonthTable | null; source: 'qiongTongBaoJian' | 'custom' | undefined } {
+  const spec = raw?.monthTable;
+  let table: JohooMonthTable | null = null;
+  let source: 'qiongTongBaoJian' | 'custom' | undefined;
+  if (typeof spec === 'string' && BUILTIN_MONTH_TABLES[spec]) {
+    table = BUILTIN_MONTH_TABLES[spec]!;
+    source = spec as 'qiongTongBaoJian';
+  } else if (spec && typeof spec === 'object') {
+    table = spec as JohooMonthTable;
+    source = 'custom';
+  }
+  if (table && raw?.monthTableOverride) {
+    const merged = mergeMonthTable(table, raw.monthTableOverride);
+    table = merged.table;
+    if (merged.overridden) source = 'custom';
+  }
+  return { table, source };
+}
+
 function readPolicy(config: EngineConfig): JohooTemplatePolicy {
   const raw: any = (config.strategies as any)?.yongshin?.johooTemplate ?? (config.strategies as any)?.johooTemplate ?? {};
+  const { table, source } = readMonthTable(raw);
   return {
     enabled: raw?.enabled === true,
     seasonMandatoryBoost: asNumber(raw?.seasonMandatoryBoost, 0.35),
     stemPreferenceBoost: asNumber(raw?.stemPreferenceBoost, 0.25),
     enforceSummerWinter: raw?.enforceSummerWinter !== false,
     stemPreferencesOverride: raw?.stemPreferencesOverride && typeof raw?.stemPreferencesOverride === 'object' ? (raw.stemPreferencesOverride as any) : undefined,
+    monthTable: table,
+    monthTableSource: source,
+    monthTablePrimaryBoost: asNumber(raw?.monthTablePrimaryBoost, 0.5),
+    monthTableSecondaryBoost: asNumber(raw?.monthTableSecondaryBoost, 0.25),
   };
 }
 
@@ -112,12 +200,6 @@ export function computeJohooTemplate(config: EngineConfig, args: {
   const dayStemHanja = stemHanja(args.dayStem);
   const monthBranchHanja = branchHanja(args.monthBranch);
 
-  const prefs = mergeStemPref(policy);
-  const prefHanjaBase = prefs[dayStemHanja] ?? [];
-  const prefHanja = [...prefHanjaBase];
-  const preferredStems = prefHanja.map((h) => stemIdxFromHanja(h)).filter((x): x is StemIdx => typeof x === 'number');
-  const preferredElements = preferredStems.map((s) => stemElement(s));
-
   const mandatoryElements = mandatoryBySeason(seasonGroup);
 
   const bonus: Record<Element, number> = { WOOD: 0, FIRE: 0, EARTH: 0, METAL: 0, WATER: 0 };
@@ -128,26 +210,70 @@ export function computeJohooTemplate(config: EngineConfig, args: {
   }
   if (mandatoryElements.length > 0) reasons.push(`seasonMandatory:${seasonGroup}`);
 
-  // “互不离” stems → element bonus.
-  for (const s of preferredStems) {
-    const el = stemElement(s);
-    bonus[el] += policy.stemPreferenceBoost;
-  }
-  if (preferredStems.length > 0) reasons.push(`stemPreference:${dayStemHanja}`);
+  // 감사 B12: 궁통보감 120셀 조회. 셀 적중 시 互不离(고정 1천간)와 冬丙/夏癸
+  // 힌트를 통째로 대체한다 — 겨울 셀은 이미 화 계열 천간을 수록하므로 힌트를
+  // 중첩하면 FIRE가 과대 가산된다(이중 가산 금지).
+  const cell = policy.monthTable
+    ? (policy.monthTable as Record<string, Record<string, JohooMonthCell> | undefined>)[dayStemHanja]?.[monthBranchHanja] ?? null
+    : null;
+  const cellPrimary = cell ? stemIdxFromHanja(cell.primary) : null;
 
-  // Optional: enforce “夏不离水 / 冬不离火” even if users later extend season mapping.
-  if (policy.enforceSummerWinter) {
-    // Also inject the classic “冬生要丙 / 夏生要癸” stem-level hint.
-    // This is intentionally minimal and uses the same stemPreferenceBoost.
-    const extraStemHanja = seasonGroup === 'WINTER' ? '丙' : seasonGroup === 'SUMMER' ? '癸' : null;
-    if (extraStemHanja) {
-      const extraStem = stemIdxFromHanja(extraStemHanja);
-      if (typeof extraStem === 'number' && preferredStems.indexOf(extraStem) === -1) {
-        prefHanja.push(extraStemHanja);
-        preferredStems.push(extraStem);
-        preferredElements.push(stemElement(extraStem));
-        bonus[stemElement(extraStem)] += policy.stemPreferenceBoost;
-        reasons.push(`seasonStemHelper:${seasonGroup}:${extraStemHanja}`);
+  let prefHanja: string[];
+  let preferredStems: StemIdx[];
+  let preferredElements: Element[];
+  let monthTableOut: JohooTemplateResult['monthTable'];
+
+  if (cell && typeof cellPrimary === 'number') {
+    // ── 궁통보감 조회 경로 ──
+    const secStems = (cell.secondary ?? [])
+      .map((h) => stemIdxFromHanja(h))
+      .filter((x): x is StemIdx => typeof x === 'number');
+    preferredStems = [cellPrimary, ...secStems];
+    prefHanja = preferredStems.map((s) => stemHanja(s));
+    preferredElements = preferredStems.map((s) => stemElement(s));
+    bonus[stemElement(cellPrimary)] += policy.monthTablePrimaryBoost;
+    // 보좌 동일 원소가 여러 개면 단순 누적(+0.25×n) — 현 수록 데이터에서 유의미한
+    // 과대는 없으며, per-element cap은 데이터 저작 확장 시 재결정 포인트.
+    for (const s of secStems) bonus[stemElement(s)] += policy.monthTableSecondaryBoost;
+    reasons.push(`monthTable:${dayStemHanja}${monthBranchHanja}:${cell.primary}(${(cell.secondary ?? []).join('')})`);
+    monthTableOut = {
+      source: policy.monthTableSource ?? 'custom',
+      primaryStem: cellPrimary,
+      primaryStemHanja: stemHanja(cellPrimary),
+      secondaryStems: secStems,
+      secondaryStemHanja: secStems.map((s) => stemHanja(s)),
+      ...(cell.note ? { note: cell.note } : {}),
+    };
+  } else {
+    if (policy.monthTable) reasons.push(`monthTableMiss:${dayStemHanja}${monthBranchHanja}`);
+    // ── 기존 간이 경로 (테이블 미지정 또는 셀 부재 폴백) ──
+    const prefs = mergeStemPref(policy);
+    const prefHanjaBase = prefs[dayStemHanja] ?? [];
+    prefHanja = [...prefHanjaBase];
+    preferredStems = prefHanja.map((h) => stemIdxFromHanja(h)).filter((x): x is StemIdx => typeof x === 'number');
+    preferredElements = preferredStems.map((s) => stemElement(s));
+
+    // “互不离” stems → element bonus.
+    for (const s of preferredStems) {
+      const el = stemElement(s);
+      bonus[el] += policy.stemPreferenceBoost;
+    }
+    if (preferredStems.length > 0) reasons.push(`stemPreference:${dayStemHanja}`);
+
+    // Optional: enforce “夏不离水 / 冬不离火” even if users later extend season mapping.
+    if (policy.enforceSummerWinter) {
+      // Also inject the classic “冬生要丙 / 夏生要癸” stem-level hint.
+      // This is intentionally minimal and uses the same stemPreferenceBoost.
+      const extraStemHanja = seasonGroup === 'WINTER' ? '丙' : seasonGroup === 'SUMMER' ? '癸' : null;
+      if (extraStemHanja) {
+        const extraStem = stemIdxFromHanja(extraStemHanja);
+        if (typeof extraStem === 'number' && preferredStems.indexOf(extraStem) === -1) {
+          prefHanja.push(extraStemHanja);
+          preferredStems.push(extraStem);
+          preferredElements.push(stemElement(extraStem));
+          bonus[stemElement(extraStem)] += policy.stemPreferenceBoost;
+          reasons.push(`seasonStemHelper:${seasonGroup}:${extraStemHanja}`);
+        }
       }
     }
   }
@@ -175,6 +301,7 @@ export function computeJohooTemplate(config: EngineConfig, args: {
     ranking,
     primary: ranking[0]?.element ?? 'WOOD',
     secondary: ranking[1]?.element ?? ranking[0]?.element ?? 'WOOD',
+    ...(monthTableOut ? { monthTable: monthTableOut } : {}),
     reasons,
   };
 }
