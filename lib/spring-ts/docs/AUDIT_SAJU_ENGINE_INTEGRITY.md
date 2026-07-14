@@ -994,9 +994,9 @@ matchedPillars 없음. shinsalHits 항목 키셋은 단일: {type, position, gra
   항목이지만 임의 custom URL·SHA를 반복 사용하는 장기 프로세스의 bounded cache 정책은 후속이다.
 - 이 후속 체크포인트들은 시간·위치·저장소 무결성 개선이다. 격국·강약·용신의 외부 권위 진리값,
   exact default-diff 승인, exact commit 전문가 signoff를 충족하지 않으므로
-  “전문가급 상용 사주엔진 인증”이나 PR WIP 해제의 단독 근거가 아니다.
+  “전문가급 상용 사주엔진 인증”이나 merge 승인의 단독 근거가 아니다. 구조 회귀가 없고 한계가 공개되면 Ready 리뷰 근거로는 사용할 수 있다.
 - PR #653의 freeze 누적 범위 `6fb2f68a4` 기준 134커밋·418파일과 후속 backend 체크포인트는
-  #654~#676의 23개 Draft base/head 스택으로 분할한다. Stack 23 정합 커밋까지
+  #654~#676의 23개 base/head 스택으로 분할한다. Stack 23 정합 커밋까지
   main..Stack23은 157커밋이고 frontend source diff는 0이다.
 - Stack23은 선택 후보와 전체 투간 품질 증거를 분리해 내부 모순을 해소하지만, 결정론적
   5,133건 표본 중 126건의 snapshot-invisible 품질 변화를 확인했다. 인구 가중 발생률은 아니며
@@ -1023,8 +1023,8 @@ matchedPillars 없음. shinsalHits 항목 키셋은 단일: {type, position, gra
 1. 내부 trusted snapshot을 deep import로 반복 중첩하는 비정상 경로의 누적 depth/property budget 재산정은 하지 않는다. 현재 public export와 정상 endpoint에서는 접근할 수 없으므로 P2로 기록한다.
 2. 전체 baseline suite의 직렬 후보 생성 비용을 프로파일링하지 않았다. smoke 3축과 full 17축을 분리하고 full은 CI 전용으로 병렬화할 여지가 있다.
 3. Seed WASM의 package-relative Node 실행과 Vite production emitted asset·JS 참조는 확인했다. 실제 배포 뒤 브라우저 fetch와 모바일 메모리 상한은 미검증이다.
-4. 이 두 커밋은 backend-only이고 frontend diff는 없다. 외부 명리 전문가 signoff, default-change fingerprint 승인, authority D1-D5 gate가 완료되기 전에는 WIP 해제의 단독 근거로 사용할 수 없다.
-5. 두 체크포인트는 승인된 원격 브랜치와 후속 Draft 스택에 포함됐다. 이는 Ready나 merge 승인이 아니며 스택 순서·외부 권위 gate를 계속 적용한다.
+4. 이 두 커밋은 backend-only이고 frontend diff는 없다. 구조 회귀가 없으면 Ready 리뷰 근거가 될 수 있지만 외부 명리 전문가 signoff, default-change fingerprint 승인, authority D1-D5 gate를 대신하지 않는다.
+5. 두 체크포인트는 승인된 원격 브랜치와 후속 스택에 포함됐다. Ready는 merge 승인이 아니며 스택 순서·외부 권위 gate를 계속 적용한다.
 
 ---
 

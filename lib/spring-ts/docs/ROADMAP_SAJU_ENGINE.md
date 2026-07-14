@@ -7,9 +7,9 @@
 > `HANDOFF_SAJU_ENGINE_PR8_20260709.md`(§6 다음 작업 후보)의 잔여 목록은 이 문서로 대체된다.
 > 개별 항목의 완료 이력·검증 수치는 여전히 두 핸드오프가 정본이다.
 >
-> 현재 리뷰 단위: 누적 PR #653을 대체한 Draft 스택 PR #654~#676. 진행 상태는 §9 표에 커밋 해시와 함께 갱신한다.
+> 현재 리뷰 단위: 누적 PR #653을 대체한 스택 PR #654~#676. Ready는 독립 리뷰 시작 상태이고 merge 승인이 아니며, 진행 상태는 §9 표에 커밋 해시와 함께 갱신한다.
 >
-> **2026-07-13 merge-readiness 정정:** 누적 PR #653은 닫혔고 대체 PR #654~#676는 모두 Draft다.
+> **2026-07-14 Ready/merge 정정:** exact-tip diff가 완결되고 신규 P0/P1이 없으며 회귀·한계가 공개되면 Ready로 전환할 수 있다. 명리 정책·fingerprint·Actions·authority/signoff는 merge 차단선으로 유지한다.
 > 현재
 > source-tier/no-AI/quality 정책 테스트와 구조 게이트는 통과하지만, 17개 release fixture의
 > `D1~D4=N/A`, `D5=0 PASS / 0 FAIL / 14 N/A / 3 NOT_APPLICABLE`, raw RPI
@@ -24,8 +24,8 @@
 > 입력에는 의도적인 default/API 변화가 있다. 따라서 전용 시간정책 행렬과 exact-diff
 > 검토 없이 무파급 리팩터링으로 분류하지 않는다. 현재 diff의 고위험 스파게티와 논리
 > 결함을 정리하고 변경 범위 회귀가 통과하며 위 한계를 PR에 명시한 뒤 점진적 병합
-> 대상으로 검토할 수 있다. WIP 해제 전에는 근거와 잔여 위험을 프로젝트 소유자에게
-> 먼저 보고한다.
+> 대상으로 검토할 수 있다. 프로젝트 소유자는 2026-07-14 위 기준 충족 PR의 Ready 전환을
+> 위임했으며, Ready 전환 뒤에도 본 문서의 merge 차단선은 완화하지 않는다.
 
 ---
 
@@ -271,7 +271,7 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 
 | 항목 | 상태 | 커밋 | 일자 | 파급 실측/비고 |
 |---|---|---|---|---|
-| P0-1 Draft PR | 🔶 23개 스택 모두 Draft | PR #654~#676 | 2026-07-13 | 닫힌 누적 PR #653의 134커밋과 후속 backend 체크포인트를 23개 base/head 스택으로 분리한다. Stack 23 정합 커밋까지 main..Stack23은 157커밋이고 frontend source diff는 0이다. Stack 01 63 leaf와 Stack 18 기본 5픽스처·8 leaf 및 후보 9건은 독립 명리 승인 pending이다. Stack 23이 품질 증거 필터링 모순을 해소했지만 Stack 18 old tip은 이를 소급 포함하지 않아 수동 Draft hold를 유지한다. global registry의 잡기월 구조격 정책·Stack23 영향 검토 P1도 open이며 외부 전문가 signoff와 authority gate가 없으므로 Draft 유지가 정상이다. |
+| P0-1 스택 PR | 🟢 Stack23 exact diff Ready / 🔶 merge 차단 | PR #654~#676 | 2026-07-14 | 닫힌 누적 PR #653의 범위와 후속 backend 체크포인트를 23개 base/head 스택으로 분리했다. Stack23은 품질 증거 내부 모순을 해소했고 exact-tip 코드 P0/P1=0 및 회귀 근거가 있어 독립 리뷰를 시작할 수 있다. 다만 Stack01·18 default diff와 global registry의 잡기월 구조격 정책·Stack23 영향 검토 P1, 실제 Actions, 외부 signoff와 authority gate는 merge 차단선이다. Ready를 이 승인들의 완료로 오인하지 않는다. |
 | P0-2 테스트 체인 무결성 | 🔶 로컬 회귀 통과 / 원격 job 미시작 | 8a63450a2, fe68bfd04, 389c0e1f2 | 2026-07-13 | 회귀 job과 `expert-readiness` job을 분리했고 worker 2로 고정한 공식 saju-ts `test:ci` 481/481, Spring snapshot 17/17, 후보 snapshot 261/261, Pages·DB·WASM exact-set 계약을 로컬에서 통과했다. GitHub Actions run `29227222364`는 실제 생성됐지만 account billing lock 주석과 함께 `Engine regression`이 step 0개로 시작되지 않았고 expert job은 skipped였다. 이는 테스트 실패가 아니라 계정 차단이며 실제 CI 성공 증거도 아니다. billing lock 해소 후 동일 head에서 재실행해야 한다. 외부 signoff와 exact-diff 승인 전 expert job의 red는 정상이다. |
 | Stack23 격국 품질 증거·release blocker 결박 | 🔶 코드·회귀 통과 / 영향·교리 승인 대기 | 290b669a7 | 2026-07-13 | 선택 후보와 투간 품질 증거를 분리했다. 표적 42/42, 관련 70/70, saju-ts 481/481, 기본 17/17, 후보 261/261을 통과했지만 5,133 결정론적 표본 중 126건의 snapshot-invisible 품질 변화가 있어 영향 검토 P1은 open이다. top-level global registry는 exact diff 0에서도 두 open P1을 `RELEASE_BLOCKED`로 만들고 두 CLI를 non-zero로 종료한다. |
 | P0-4 학파 출처 무결성 | 🔶 저작 완료·독립 검토 대기 | 49a785cfa | 2026-07-10 | 누락 10개 출처 문서(docs/11·16·17·18·19·20·22·25·26·27) 전부 저작 — 교리 요약·고전 서지·엔진 매핑(file:line 검증)·검토자 체크리스트 포함, 헤더에 독립 검토 대기 명시. `validate:school-sources` FAIL(23)→PASS(18 프리셋), test:release-tools PASS. 게이트 완결 조건인 독립 검토 메타데이터는 검토 후 기록 |
