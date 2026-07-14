@@ -105,9 +105,13 @@ const BUILTIN_MONTH_TABLES: Record<string, JohooMonthTable> = {
  * monthTableOverride 셀 단위 패치 병합. deepMerge를 쓰지 않는 이유:
  * base가 내장 이름(문자열)일 수 있고, secondary 배열은 병합이 아니라 교체가 맞다.
  */
-function mergeMonthTable(base: JohooMonthTable, override: unknown): JohooMonthTable {
-  if (!override || typeof override !== 'object') return base;
+function mergeMonthTable(
+  base: JohooMonthTable,
+  override: unknown,
+): { table: JohooMonthTable; overridden: boolean } {
+  if (!override || typeof override !== 'object') return { table: base, overridden: false };
   const out: Record<string, Record<string, JohooMonthCell>> = {};
+  let overridden = false;
   for (const [stem, row] of Object.entries(base)) {
     out[stem] = { ...(row as Record<string, JohooMonthCell>) };
   }
@@ -123,9 +127,10 @@ function mergeMonthTable(base: JohooMonthTable, override: unknown): JohooMonthTa
         secondary: Array.isArray(c.secondary) ? c.secondary.filter((x): x is string => typeof x === 'string') : [],
         ...(typeof c.note === 'string' ? { note: c.note } : {}),
       };
+      overridden = true;
     }
   }
-  return out as JohooMonthTable;
+  return { table: out as JohooMonthTable, overridden };
 }
 
 function readMonthTable(raw: any): { table: JohooMonthTable | null; source: 'qiongTongBaoJian' | 'custom' | undefined } {
@@ -140,8 +145,9 @@ function readMonthTable(raw: any): { table: JohooMonthTable | null; source: 'qio
     source = 'custom';
   }
   if (table && raw?.monthTableOverride) {
-    table = mergeMonthTable(table, raw.monthTableOverride);
-    source = source === 'qiongTongBaoJian' ? 'qiongTongBaoJian' : 'custom';
+    const merged = mergeMonthTable(table, raw.monthTableOverride);
+    table = merged.table;
+    if (merged.overridden) source = 'custom';
   }
   return { table, source };
 }
