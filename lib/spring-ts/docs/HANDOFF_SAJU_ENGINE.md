@@ -6,7 +6,7 @@
 >
 > **2026-07-11 continuation override:** 이 문서의 PR-1~4 수치는 역사 기록이다.
 > 현재 착수점은 `ROADMAP_SAJU_ENGINE.md`의 2026-07-11 merge-readiness 블록과
-> `GUIDE_SAJU_ENGINE_IMPL.md` §0.5다. 누적 PR #653은 닫혔고 대체 PR #654~#678(25개) 중 20개는 Ready, #662·#665·#668·#671·#676은 Draft다. RPI는 20/100,
+> `GUIDE_SAJU_ENGINE_IMPL.md` §0.5다. 누적 PR #653은 닫혔고 대체 PR #654~#678(25개) 중 21개는 Ready, #662·#665·#668·#671은 Draft다. RPI는 20/100,
 > D1~D4는 truth-insufficient N/A, D5 accuracy는 14 N/A + 3 NOT_APPLICABLE다.
 > 권위 scope와 panel evidence 계약을 완화하거나 snapshot을 truth로 승격하지 말 것.
 > D1은 doctrine 3필드+naming 4필드 전체가 있어야 하며, T4는 URL-only 승격을 금지하고
@@ -168,11 +168,11 @@ cd lib/spring-ts && npx tsx tmp/probe-optin-naeum-palace.ts
 - 두 스택 모두 backend-only이며 frontend source diff는 0이다. 격국·강약·용신·조후 계수와 사주 기본 판정은 변경하지 않는다.
 - 일반 unrestricted 이름 후보 풀의 `is_surname` 배제는 의미론상 후속 수정 후보이나 기본 후보 집합을 바꾸므로 Stack 24에 섞지 않았다. 별도 default-change fingerprint·후보 snapshot을 동반해 다룬다.
 
-### 현재 Ready 판정: 20개 / Draft 5개
+### 현재 Ready 판정: 21개 / Draft 4개
 
-1. Ready: #654~#661, #663~#664, #666~#667, #669~#670, #672~#675, #677~#678. 각 PR 본문에 exact head·회귀·snapshot-invisible/default 한계를 기록했다.
-2. Draft: #662(F3/F6 로직 P1), #665(exact-tip CI Seed 설치 누락), #668(좌표 coercion), #671(품질 증거 내부 모순), #676(Ready/merge 저장소 문서 정합 대기).
-3. #665·#668·#671의 결함은 각각 Stack20·16·23에서 해소됐지만 historical exact tip에는 남는다. #662의 두 로직 P1은 최신 Stack25에도 남아 우선 수정 대상이다.
+1. Ready: #654~#661, #663~#664, #666~#667, #669~#670, #672~#678. 각 PR 본문에 exact head·회귀·snapshot-invisible/default 한계를 기록했다.
+2. Draft: #662(F3/F6 로직 P1), #665(exact-tip CI Seed 설치 누락), #668(좌표 coercion), #671(품질 증거 내부 모순).
+3. #665·#668·#671의 결함은 각각 Stack20·16·23에서 해소됐지만 historical exact tip에는 남아 backport 중이다. #662의 두 로직 P1은 최신 Stack25에도 남아 우선 수정 대상이다. #676의 두 global P1은 코드 결함이 아닌 명리 정책·영향 merge gate다.
 4. #672의 snapshot 12/17은 Stack18 F1 수정의 의도된 5명식·8필드 변화이며 fingerprint `sha256:6018d66d…`와 일치한다. 명리 승인 전 merge하지 않는다.
 5. GitHub Actions billing lock으로 실제 regression step이 시작되지 않은 상태는 merge 차단선이다.
 6. D1~D5 truth/authority와 exact-commit 외부 명리 전문가 signoff는 상용 release 및 관련 판정 PR의 merge 차단선이다.

@@ -1065,7 +1065,7 @@ full chain은 원격 CI에서 시간 제한과 로그를 가진 상태로 완주
 ### Ready 판단
 
 1. Ready는 독립 리뷰 시작 상태이며 merge·상용 release·전문가급 명리 인증이 아니다.
-2. 2026-07-14 병렬 exact-tip 감사 후 20개를 Ready로 전환했고 #662·#665·#668·#671·#676 5개만 Draft로 유지했다.
+2. 2026-07-14 병렬 exact-tip 감사 후 21개를 Ready로 전환했고 #662·#665·#668·#671 4개만 Draft로 유지했다.
 3. #662는 최신에도 남은 월지손상 이중감점·기반 감쇠 층위 P1이다. #665·#668·#671의 P1은 후속 스택에서 고쳤지만 해당 historical tip에는 남는다.
-4. #676의 두 global P1 표시는 코드 결함이 아니라 학파 정책·snapshot 밖 영향 승인이다. 다만 Stack23 저장소 문서의 Ready/merge 표현 정합 전까지 Draft로 둔다.
+4. #676의 두 global P1 표시는 코드 결함이 아니라 학파 정책·snapshot 밖 영향 승인이다. Ready/merge 문서 정합을 닫아 Ready로 전환하되 두 항목은 merge 차단선으로 유지한다.
 5. fingerprint·명리 검토·실제 Actions·D1~D5 authority·exact-commit 외부 signoff는 해당 PR과 최종 release의 merge 차단선이다.
