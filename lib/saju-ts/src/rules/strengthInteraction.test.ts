@@ -171,6 +171,7 @@ describe('pressure 축 천간합 기반(羈絆) 감쇠 (PR-10-3)', () => {
 
     expect(on.pressure).toBeLessThan(off.pressure);
     expect(on.index).toBeGreaterThan(off.index);
+    expect(on.components.officers).toBeCloseTo(off.components.officers, 12);
 
     const inter = (on.details as any)?.delingdiShi?.interaction;
     const bind = inter?.pressureStemBinds?.find((b: any) => b.pos === 'month');
@@ -184,6 +185,15 @@ describe('pressure 축 천간합 기반(羈絆) 감쇠 (PR-10-3)', () => {
     expect(effective.companions + effective.resources).toBeCloseTo(on.support, 12);
     expect(effective.outputs + effective.wealth + effective.officers).toBeCloseTo(on.pressure, 12);
     expect(effective.officers).toBeLessThan(on.components.officers);
+    expect(inter?.pressureStemBindPenalty?.score).toBeGreaterThan(0);
+    expect(inter?.pressureStemBindPenalty?.normalized).toBeGreaterThan(0);
+    expect(inter?.pressureStemBindPenalty?.factor).toBeGreaterThan(0);
+
+    const basePressure = on.components.outputs + on.components.wealth + on.components.officers;
+    expect(off.pressure - on.pressure).toBeCloseTo(
+      basePressure * inter.pressureStemBindPenalty.factor,
+      12,
+    );
   });
 });
 
