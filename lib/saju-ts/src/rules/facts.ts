@@ -2121,14 +2121,28 @@ function computeMonthGyeokQuality(args: {
   gyeokStem: StemIdx;
   gyeokTenGod: TenGod;
   gyeokMethod: GyeokQualityMethod;
-  monthGyeokCandidates: Array<{ score: number; tenGod: TenGod; visibleInChart: boolean }>;
+  selectionCandidates: Array<{ score: number; tenGod: TenGod; visibleInChart: boolean }>;
+  exposureEvidenceCandidates: Array<{ score: number; tenGod: TenGod; visibleInChart: boolean }>;
   branches: BranchIdx[];
   hiddenStemPolicy: any;
   tenGodScoresRanking: Array<{ tenGod: TenGod; score: number }>;
   detectedRelations: DetectedRelation[];
   byType: Partial<Record<RelationType, BranchIdx[][]>>;
 }): RuleFacts['month']['gyeok']['quality'] {
-  const { config, monthBranch, gyeokStem, gyeokTenGod, gyeokMethod, monthGyeokCandidates, branches, hiddenStemPolicy, tenGodScoresRanking, detectedRelations, byType } = args;
+  const {
+    config,
+    monthBranch,
+    gyeokStem,
+    gyeokTenGod,
+    gyeokMethod,
+    selectionCandidates,
+    exposureEvidenceCandidates,
+    branches,
+    hiddenStemPolicy,
+    tenGodScoresRanking,
+    detectedRelations,
+    byType,
+  } = args;
 
   const raw: any = (config.strategies as any)?.gyeokguk?.quality ?? {};
   const rawTan: any = raw.tanhap ?? {};
@@ -2172,8 +2186,8 @@ function computeMonthGyeokQuality(args: {
   }
 
   // --- Gap (候选差距): top vs 2nd
-  const top = monthGyeokCandidates[0]?.score ?? 0;
-  const second = monthGyeokCandidates[1]?.score ?? 0;
+  const top = selectionCandidates[0]?.score ?? 0;
+  const second = selectionCandidates[1]?.score ?? 0;
   const gap = top > 0 ? clamp01((top - second) / top) : 0;
 
   // --- Alignment: month-gyeok ten-god rank within overall ten-god scores
@@ -2197,8 +2211,10 @@ function computeMonthGyeokQuality(args: {
     }
   })();
 
-  // --- Purity: how many distinct ten-gods are exposed among month hidden stems?
-  const visibleTenGods = new Set(monthGyeokCandidates.filter((c) => c.visibleInChart).map((c) => c.tenGod));
+  // --- Purity: every exposed month hidden stem is evidence, including a
+  // companion candidate that is ineligible for ordinary frame selection.
+  const visibleTenGods = new Set(
+    exposureEvidenceCandidates.filter((candidate) => candidate.visibleInChart).map((candidate) => candidate.tenGod));
   const visibleKinds = visibleTenGods.size;
   const mixed = visibleKinds > 1;
   const purity = visibleKinds <= 1 ? 1 : clamp01(1 - 0.3 * (visibleKinds - 1));
@@ -3122,7 +3138,8 @@ export function buildRuleFacts(args: {
     gyeokStem,
     gyeokTenGod,
     gyeokMethod,
-    monthGyeokCandidates: selectableMonthGyeokCandidates,
+    selectionCandidates: selectableMonthGyeokCandidates,
+    exposureEvidenceCandidates: monthGyeokCandidates,
     branches,
     hiddenStemPolicy,
     tenGodScoresRanking,
