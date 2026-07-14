@@ -2,6 +2,10 @@ import { createEngine } from '../api/engine.js';
 import { defaultConfig } from '../api/config.js';
 import type { AnalysisBundle, EngineConfig, SajuRequest } from '../api/types.js';
 import { detectStemRelations } from '../core/stemRelations.js';
+import { lifeStageOf } from '../core/lifeStage.js';
+import { mod } from '../core/mod.js';
+import { tenGodOf } from '../core/tenGod.js';
+import { TWELVE_SAL_KEYS, twelveSalStartOf } from '../rules/facts.js';
 import { baseTenGodOfStructuralMonthFrame, type BigyeopSubtype } from '../rules/gyeokgukMonthFrame.js';
 
 const STEM_CODES = ['GAP', 'EUL', 'BYEONG', 'JEONG', 'MU', 'GI', 'GYEONG', 'SIN', 'IM', 'GYE'] as const;
@@ -164,6 +168,8 @@ export interface LegacySajuOptions {
   daeunCount?: number;
   saeunStartYear?: number | null;
   saeunYearCount?: number;
+  wolunStartYear?: number | null;
+  wolunMonthCount?: number;
 }
 
 export type LegacyDayCutMode =
@@ -484,6 +490,87 @@ function branchCodeFromIdx(idx: unknown): string {
   const n = Number(idx);
   const normalized = Number.isFinite(n) ? ((Math.trunc(n) % 12) + 12) % 12 : 0;
   return BRANCH_CODES[normalized] ?? '';
+}
+
+const DEFAULT_TRANSIT_LIFE_STAGE_POLICY = { earthRule: 'FOLLOW_FIRE', yinReversalEnabled: true } as const;
+const SAMJAE_PHASES = ['DEUL', 'NUL', 'NAL'] as const;
+
+function stemIdxFromUnknown(idx: unknown): number {
+  const n = Number(idx);
+  return Number.isFinite(n) ? mod(Math.trunc(n), 10) : 0;
+}
+
+function branchIdxFromUnknown(idx: unknown): number {
+  const n = Number(idx);
+  return Number.isFinite(n) ? mod(Math.trunc(n), 12) : 0;
+}
+
+function orderedBanghapGroup(branchIdx: number): number[] {
+  const d = mod(branchIdx - 2, 12);
+  const start = 2 + 3 * Math.floor(d / 3);
+  return [mod(start, 12), mod(start + 1, 12), mod(start + 2, 12)];
+}
+
+function entryStemIdx(entry: any): unknown {
+  return entry?.pillar?.stem?.idx ?? entry?.pillar?.stem;
+}
+
+function entryBranchIdx(entry: any): unknown {
+  return entry?.pillar?.branch?.idx ?? entry?.pillar?.branch;
+}
+
+function buildTransitTwelveSalForBranch(anchorBranchIdx: unknown, targetBranchIdx: unknown) {
+  const anchor = branchIdxFromUnknown(anchorBranchIdx);
+  const target = branchIdxFromUnknown(targetBranchIdx);
+  const start = twelveSalStartOf(anchor as any);
+  const twelveSal = TWELVE_SAL_KEYS[mod(target - start, 12)] ?? '';
+  return {
+    anchor: 'YEAR_BRANCH',
+    anchorBranch: branchCodeFromIdx(anchor),
+    targetBranch: branchCodeFromIdx(target),
+    twelveSal,
+  };
+}
+
+export function buildTransitShinsalForBranch(anchorBranchIdx: unknown, targetBranchIdx: unknown) {
+  const anchor = branchIdxFromUnknown(anchorBranchIdx);
+  const target = branchIdxFromUnknown(targetBranchIdx);
+  const start = twelveSalStartOf(anchor as any);
+  const yeokmaBranch = mod(start + 6, 12);
+  const samjaeGroup = orderedBanghapGroup(yeokmaBranch);
+  const samjaePhaseIndex = samjaeGroup.indexOf(target);
+
+  return {
+    ...buildTransitTwelveSalForBranch(anchor, target),
+    samjae: {
+      active: samjaePhaseIndex >= 0,
+      phase: samjaePhaseIndex >= 0 ? SAMJAE_PHASES[samjaePhaseIndex] : null,
+      group: samjaeGroup.map((branch) => branchCodeFromIdx(branch)),
+    },
+    sangmun: target === mod(anchor + 2, 12),
+    jogaek: target === mod(anchor - 2, 12),
+  };
+}
+
+function luckPillarAnnotations(
+  entry: any,
+  dayStemIdx: number,
+  yearBranchIdx: number,
+  lifeStagePolicy: any,
+  includeAnnualSignals: boolean,
+) {
+  const stemIdx = stemIdxFromUnknown(entryStemIdx(entry));
+  const branchIdx = branchIdxFromUnknown(entryBranchIdx(entry));
+  const lifeStage = lifeStageOf(dayStemIdx as any, branchIdx as any, lifeStagePolicy ?? DEFAULT_TRANSIT_LIFE_STAGE_POLICY).stage;
+
+  return {
+    tenGod: normalizeTenGod(tenGodOf(dayStemIdx as any, stemIdx as any)),
+    lifeStage,
+    lifeStageKo: LIFE_STAGE_KO[String(lifeStage)] ?? String(lifeStage),
+    transitShinsal: includeAnnualSignals
+      ? buildTransitShinsalForBranch(yearBranchIdx, branchIdx)
+      : buildTransitTwelveSalForBranch(yearBranchIdx, branchIdx),
+  };
 }
 
 function roundTo(value: unknown, digits: number): number {
@@ -1093,6 +1180,8 @@ function normalizeLegacyOutput(
   daeunCount?: number,
   saeunStartYear?: number | null,
   saeunYearCount?: number,
+  wolunStartYear?: number | null,
+  wolunMonthCount?: number,
   timeZone?: string,
 ) {
   const facts = bundle.report?.facts as Record<string, unknown>;
@@ -1460,31 +1549,72 @@ function normalizeLegacyOutput(
   const gongmangVoidBranches = extractGongmangVoidBranches(bundle);
 
   const fortune = bundle.summary?.fortune as any;
+  const timeline = (facts?.['fortune.timeline'] ?? null) as any;
   const decades = Array.isArray(fortune?.decades) ? fortune.decades : [];
-  const yearsAll = Array.isArray(fortune?.years) ? fortune.years : [];
+  const needsExpandedYears = typeof saeunStartYear === 'number' || typeof saeunYearCount === 'number';
+  const needsExpandedMonths = typeof wolunStartYear === 'number' || typeof wolunMonthCount === 'number';
+  const maxFortuneSolarYear = standard.y + 120;
+  const yearsSource = needsExpandedYears && Array.isArray(timeline?.years)
+    ? timeline.years
+    : Array.isArray(fortune?.years) ? fortune.years : [];
+  const monthsSource = needsExpandedMonths && Array.isArray(timeline?.months)
+    ? timeline.months
+    : Array.isArray(fortune?.months) ? fortune.months : [];
+  const yearsAll = yearsSource.filter((y: any) => Number(y?.solarYear) <= maxFortuneSolarYear);
+  const monthsAll = monthsSource.filter((m: any) => Number(m?.solarYear) <= maxFortuneSolarYear);
   const yearsFiltered = typeof saeunStartYear === 'number'
     ? yearsAll.filter((y: any) => Number(y?.solarYear) >= saeunStartYear)
     : yearsAll;
   const years = typeof saeunYearCount === 'number' && saeunYearCount > 0
     ? yearsFiltered.slice(0, saeunYearCount)
     : yearsFiltered;
+  const monthsFiltered = typeof wolunStartYear === 'number'
+    ? monthsAll.filter((m: any) => Number(m?.solarYear) >= wolunStartYear)
+    : monthsAll;
+  const months = typeof wolunMonthCount === 'number' && wolunMonthCount > 0
+    ? monthsFiltered.slice(0, wolunMonthCount)
+    : monthsFiltered;
+  const dayStemIdxForTransit = stemIdxFromUnknown(pillars.day.stem.idx);
+  const yearBranchIdxForTransit = branchIdxFromUnknown(pillars.year.branch.idx);
+  const lifeStagePolicy = (facts?.['policy.lifeStages'] ?? DEFAULT_TRANSIT_LIFE_STAGE_POLICY) as any;
   const daeunPillars = (typeof daeunCount === 'number' && daeunCount > 0 ? decades.slice(0, daeunCount) : decades)
     .map((entry: any) => ({
       pillar: {
-        cheongan: stemCodeFromIdx(entry?.pillar?.stem?.idx),
-        jiji: branchCodeFromIdx(entry?.pillar?.branch?.idx),
+        cheongan: stemCodeFromIdx(entryStemIdx(entry)),
+        jiji: branchCodeFromIdx(entryBranchIdx(entry)),
       },
       startAge: Number(entry?.startAgeYears ?? 0),
       endAge: Number(entry?.endAgeYears ?? 0),
       order: Number(entry?.index ?? 0),
+      ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy, false),
     }));
 
   const saeunPillars = years.map((entry: any) => ({
     year: Number(entry?.solarYear ?? 0),
     pillar: {
-      cheongan: stemCodeFromIdx(entry?.pillar?.stem?.idx),
-      jiji: branchCodeFromIdx(entry?.pillar?.branch?.idx),
+      cheongan: stemCodeFromIdx(entryStemIdx(entry)),
+      jiji: branchCodeFromIdx(entryBranchIdx(entry)),
     },
+    startUtcMs: Number.isFinite(entry?.startUtcMs) ? Number(entry.startUtcMs) : null,
+    endUtcMs: Number.isFinite(entry?.endUtcMs) ? Number(entry.endUtcMs) : null,
+    approxStartAgeYears: Number.isFinite(entry?.approxStartAgeYears) ? Number(entry.approxStartAgeYears) : null,
+    approxEndAgeYears: Number.isFinite(entry?.approxEndAgeYears) ? Number(entry.approxEndAgeYears) : null,
+    ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy, true),
+  }));
+
+  const wolunPillars = months.map((entry: any) => ({
+    year: Number(entry?.solarYear ?? 0),
+    monthOrder: Number(entry?.monthOrder ?? 0),
+    startJie: String(entry?.startJie ?? ''),
+    pillar: {
+      cheongan: stemCodeFromIdx(entryStemIdx(entry)),
+      jiji: branchCodeFromIdx(entryBranchIdx(entry)),
+    },
+    startUtcMs: Number.isFinite(entry?.startUtcMs) ? Number(entry.startUtcMs) : null,
+    endUtcMs: Number.isFinite(entry?.endUtcMs) ? Number(entry.endUtcMs) : null,
+    approxStartAgeYears: Number.isFinite(entry?.approxStartAgeYears) ? Number(entry.approxStartAgeYears) : null,
+    approxEndAgeYears: Number.isFinite(entry?.approxEndAgeYears) ? Number(entry.approxEndAgeYears) : null,
+    ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy, false),
   }));
 
   const traceNodes = Array.isArray(bundle.report?.trace?.nodes) ? bundle.report.trace.nodes : [];
@@ -1632,6 +1762,7 @@ function normalizeLegacyOutput(
       daeunPillars,
     },
     saeunPillars,
+    wolunPillars,
     trace,
   };
 }
@@ -1681,6 +1812,8 @@ export function analyzeSaju(
     options?.daeunCount,
     options?.saeunStartYear,
     options?.saeunYearCount,
+    options?.wolunStartYear,
+    options?.wolunMonthCount,
     tz,
   );
 }

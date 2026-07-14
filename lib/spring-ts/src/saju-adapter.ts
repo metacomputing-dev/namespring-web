@@ -29,6 +29,13 @@ import type {
 } from './types.js';
 import { leapMonthOfLunarYear, lunarToSolar } from './calendar/korean-lunar-calendar.js';
 import { kasiLunarToSolar } from './calendar/kasi-lunar-api.js';
+import {
+  SajuRequestValidationError,
+  requiredMaxMonthsForRequest,
+  requiredMaxYearsForRequest,
+  validateSajuConfigFortuneHorizon,
+  validateSajuRequestOptions,
+} from './saju-request-policy.js';
 
 // ---------------------------------------------------------------------------
 //  Configuration loaded from JSON files
@@ -1293,6 +1300,8 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
   if (birthYear == null || birthMonth == null || birthDay == null) {
     return buildPartialSajuSummary(birth, effectiveParts);
   }
+  validateSajuRequestOptions(options?.sajuOptions, birthYear);
+  validateSajuConfigFortuneHorizon(options?.sajuConfig);
   const resolvedCoordinates = resolveBirthCoordinates(birth);
 
   try {
@@ -1390,12 +1399,39 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
       };
     }
     if (options?.sajuConfig) config = { ...config, ...options.sajuConfig };
+
+    const requiredMaxYears = requiredMaxYearsForRequest(options?.sajuOptions, birthYear);
+    const requiredMaxMonths = requiredMaxMonthsForRequest(options?.sajuOptions, birthYear);
+    if (requiredMaxYears !== null || requiredMaxMonths !== null) {
+      const strategies = (config.strategies ?? {}) as Record<string, any>;
+      const fortune = (strategies.fortune ?? {}) as Record<string, any>;
+      const nextFortune = { ...fortune };
+      if (requiredMaxYears !== null) {
+        const existingMaxYears = fortune.maxYears;
+        nextFortune.maxYears = typeof existingMaxYears === 'number' && Number.isFinite(existingMaxYears)
+          ? Math.max(existingMaxYears, requiredMaxYears)
+          : requiredMaxYears;
+      }
+      if (requiredMaxMonths !== null) {
+        const existingMaxMonths = fortune.maxMonths;
+        nextFortune.maxMonths = typeof existingMaxMonths === 'number' && Number.isFinite(existingMaxMonths)
+          ? Math.max(existingMaxMonths, requiredMaxMonths)
+          : requiredMaxMonths;
+      }
+      config.strategies = {
+        ...strategies,
+        fortune: nextFortune,
+      };
+    }
+
     const finalConfig = Object.keys(config).length > 0 ? config : undefined;
 
     const sajuOpts = options?.sajuOptions ? {
-      daeunCount:     options.sajuOptions.daeunCount,
-      saeunStartYear: options.sajuOptions.saeunStartYear,
-      saeunYearCount: options.sajuOptions.saeunYearCount,
+      daeunCount:      options.sajuOptions.daeunCount,
+      saeunStartYear:  options.sajuOptions.saeunStartYear,
+      saeunYearCount:  options.sajuOptions.saeunYearCount,
+      wolunStartYear:  options.sajuOptions.wolunStartYear,
+      wolunMonthCount: options.sajuOptions.wolunMonthCount,
     } : undefined;
 
     const analyzeWithGender = (genderCode: 'MALE' | 'FEMALE'): SajuSummary & Record<string, unknown> => {
@@ -1502,7 +1538,10 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
     }
 
     return summary;
-  } catch { return emptySaju(); }
+  } catch (error) {
+    if (error instanceof SajuRequestValidationError) throw error;
+    return emptySaju();
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -1547,6 +1586,7 @@ export function extractSaju(rawSajuOutput: any): SajuSummary {
     palaceAnalysis:       extractPalaceAnalysis(rawSajuOutput),
     daeunInfo:            extractDaeunInfo(rawSajuOutput),
     saeunPillars:         extractSaeunPillars(rawSajuOutput),
+    wolunPillars:         extractWolunPillars(rawSajuOutput),
     trace:                extractTrace(rawSajuOutput),
   } as SajuSummary;
 
@@ -2192,6 +2232,26 @@ function extractPalaceAnalysis(rawSajuOutput: any) {
 //  Daeun info (major luck cycles)
 // ---------------------------------------------------------------------------
 
+function withLuckPillarAnnotations<T extends Record<string, unknown>>(out: T, raw: any): T {
+  const tenGod = toNullableString(raw?.tenGod);
+  const lifeStage = toNullableString(raw?.lifeStage);
+  const lifeStageKo = toNullableString(raw?.lifeStageKo);
+  const transitShinsal = raw?.transitShinsal ? deepSerialize(raw.transitShinsal) : null;
+
+  return {
+    ...out,
+    ...(tenGod ? { tenGod } : {}),
+    ...(lifeStage ? { lifeStage } : {}),
+    ...(lifeStageKo ? { lifeStageKo } : {}),
+    ...(transitShinsal ? { transitShinsal } : {}),
+  };
+}
+
+function nullableNumber(value: unknown): number | null {
+  return typeof value === 'number' && Number.isFinite(value)
+    ? value : null;
+}
+
 function extractDaeunInfo(rawSajuOutput: any) {
   const daeunInfoRaw = rawSajuOutput.daeunInfo;
   if (!daeunInfoRaw) return null;
@@ -2208,13 +2268,13 @@ function extractDaeunInfo(rawSajuOutput: any) {
     deltaDays:              Number.isFinite(daeunInfoRaw.deltaDays) ? Number(daeunInfoRaw.deltaDays) : null,
     formula:                toNullableString(daeunInfoRaw.formula),
     warnings:               ensureArray(daeunInfoRaw.warnings).map((warning) => cleanAdapterText(String(warning))),
-    pillars: ensureArray(daeunInfoRaw.daeunPillars).map((pillarData: any) => ({
+    pillars: ensureArray(daeunInfoRaw.daeunPillars).map((pillarData: any) => withLuckPillarAnnotations({
       stem:     String(pillarData.pillar?.cheongan ?? ''),
       branch:   String(pillarData.pillar?.jiji     ?? ''),
       startAge: Number(pillarData.startAge)        || 0,
       endAge:   Number(pillarData.endAge)          || 0,
       order:    Number(pillarData.order)           || 0,
-    })),
+    }, pillarData)),
   };
 }
 
@@ -2223,11 +2283,29 @@ function extractDaeunInfo(rawSajuOutput: any) {
 // ---------------------------------------------------------------------------
 
 function extractSaeunPillars(rawSajuOutput: any) {
-  return ensureArray(rawSajuOutput.saeunPillars).map((saeun: any) => ({
+  return ensureArray(rawSajuOutput.saeunPillars).map((saeun: any) => withLuckPillarAnnotations({
     year:   Number(saeun.year) || 0,
     stem:   String(saeun.pillar?.cheongan ?? ''),
     branch: String(saeun.pillar?.jiji     ?? ''),
-  }));
+    startUtcMs: nullableNumber(saeun.startUtcMs),
+    endUtcMs: nullableNumber(saeun.endUtcMs),
+    approxStartAgeYears: nullableNumber(saeun.approxStartAgeYears),
+    approxEndAgeYears: nullableNumber(saeun.approxEndAgeYears),
+  }, saeun));
+}
+
+function extractWolunPillars(rawSajuOutput: any) {
+  return ensureArray(rawSajuOutput.wolunPillars).map((wolun: any) => withLuckPillarAnnotations({
+    year: Number(wolun.year) || 0,
+    monthOrder: Number(wolun.monthOrder) || 0,
+    startJie: String(wolun.startJie ?? ''),
+    stem: String(wolun.pillar?.cheongan ?? ''),
+    branch: String(wolun.pillar?.jiji ?? ''),
+    startUtcMs: nullableNumber(wolun.startUtcMs),
+    endUtcMs: nullableNumber(wolun.endUtcMs),
+    approxStartAgeYears: nullableNumber(wolun.approxStartAgeYears),
+    approxEndAgeYears: nullableNumber(wolun.approxEndAgeYears),
+  }, wolun));
 }
 
 // ---------------------------------------------------------------------------
@@ -2257,7 +2335,8 @@ export async function analyzeSajuSafe(
     // If analyzeSaju returned an empty saju (module missing), detect via dayMaster
     const isRealAnalysis = !!summary.dayMaster?.element;
     return { summary, sajuEnabled: isRealAnalysis };
-  } catch {
+  } catch (error) {
+    if (error instanceof SajuRequestValidationError) throw error;
     return { summary: emptySaju(), sajuEnabled: false };
   }
 }
@@ -2418,6 +2497,9 @@ export function buildSajuContext(
       daeunInfo: (sajuSummary as any).daeunInfo ?? undefined,
       saeunPillars: ((sajuSummary as any).saeunPillars as readonly any[] | undefined)?.length
         ? (sajuSummary as any).saeunPillars
+        : undefined,
+      wolunPillars: ((sajuSummary as any).wolunPillars as readonly any[] | undefined)?.length
+        ? (sajuSummary as any).wolunPillars
         : undefined,
       // PR-Q-5: forward palace summary when the adapter populated it
       // (precisionConfig.surfacePalace=true). undefined otherwise.

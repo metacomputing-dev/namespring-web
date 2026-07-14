@@ -436,6 +436,8 @@ export interface SajuRequestOptions {
   readonly daeunCount?: number;
   readonly saeunStartYear?: number | null;
   readonly saeunYearCount?: number;
+  readonly wolunStartYear?: number | null;
+  readonly wolunMonthCount?: number;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -894,7 +896,28 @@ export interface ShinsalHitSummary {
 }
 
 /** A single 대운 (10-year luck cycle) pillar entry. */
-export interface DaeunPillarSummary {
+export interface TransitShinsalSummary {
+  readonly anchor: 'YEAR_BRANCH' | string;
+  readonly anchorBranch: string;
+  readonly targetBranch: string;
+  readonly twelveSal: string;
+  readonly samjae?: {
+    readonly active: boolean;
+    readonly phase: 'DEUL' | 'NUL' | 'NAL' | null | string;
+    readonly group: readonly string[];
+  };
+  readonly sangmun?: boolean;
+  readonly jogaek?: boolean;
+}
+
+export interface LuckPillarAnnotationSummary {
+  readonly tenGod?: string;
+  readonly lifeStage?: string;
+  readonly lifeStageKo?: string;
+  readonly transitShinsal?: TransitShinsalSummary;
+}
+
+export interface DaeunPillarSummary extends LuckPillarAnnotationSummary {
   readonly stem: string;
   readonly branch: string;
   /** Inclusive start of the continuous daewoon age interval. */
@@ -929,10 +952,26 @@ export interface DaeunInfoSummary {
 }
 
 /** A single 세운 (yearly luck) pillar entry. */
-export interface SaeunPillarSummary {
+export interface SaeunPillarSummary extends LuckPillarAnnotationSummary {
   readonly year: number;
   readonly stem: string;
   readonly branch: string;
+  readonly startUtcMs?: number | null;
+  readonly endUtcMs?: number | null;
+  readonly approxStartAgeYears?: number | null;
+  readonly approxEndAgeYears?: number | null;
+}
+
+export interface WolunPillarSummary extends LuckPillarAnnotationSummary {
+  readonly year: number;
+  readonly monthOrder: number;
+  readonly startJie: string;
+  readonly stem: string;
+  readonly branch: string;
+  readonly startUtcMs?: number | null;
+  readonly endUtcMs?: number | null;
+  readonly approxStartAgeYears?: number | null;
+  readonly approxEndAgeYears?: number | null;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1245,6 +1284,7 @@ export interface SajuOutputSummary {
    *  SajuSummary.saeunPillars production. Used by the period fortune card
    *  builders for year-level trace + transitions. */
   saeunPillars?: readonly SaeunPillarSummary[];
+  wolunPillars?: readonly WolunPillarSummary[];
   /** 12궁 palace analysis (PR-Q-5). Surfaced by the saju-adapter only when
    *  `precisionConfig.surfacePalace === true` and the adapter has access to
    *  saju-ts's `analyzePalaces`. Each position carries the canonical

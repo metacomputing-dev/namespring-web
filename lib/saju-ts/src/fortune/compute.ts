@@ -19,6 +19,7 @@ import type {
   DecadeLuck,
   YearLuck,
 } from './types.js';
+import { assertFortuneHorizonPolicy } from './policy.js';
 
 const MS_PER_DAY = 86_400_000;
 const AVG_DAYS_PER_YEAR = 365.2425;
@@ -198,6 +199,7 @@ export function computeFortuneTimeline(args: {
   policy: FortunePolicy;
 }): FortuneTimeline {
   const { request, parsedUtcMs, birthLocalDateTime, localYear, solarTermMethod, jieBoundariesAround, natalYearPillar, natalMonthPillar, policy, calendar } = args;
+  assertFortuneHorizonPolicy(policy);
 
   if (!jieBoundariesAround) {
     // If boundaries are not computed (policy doesn't need them), fall back to a trivial timeline.

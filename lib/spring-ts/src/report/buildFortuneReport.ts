@@ -9,6 +9,8 @@
 
 import type { SajuSummary, SpringReport, BirthInfo } from '../types.js';
 import type { FortuneReport, FortuneReportOptions, FortuneTieredMatrix, ReportMeta, ReportUncertainty, FortuneCategory } from './types.js';
+import { targetCalendarYear } from '../target-date.js';
+import { LuckIntervalSelectionError } from './common/luck-interval.js';
 
 // Card builders
 import { buildOverviewSummaryCard } from './cards/overview-summary-card.js';
@@ -50,7 +52,7 @@ function computeCurrentAge(saju: SajuSummary, targetDate: Date): number {
   // Prefer the standardYear from timeCorrection (the original birth year)
   const birthYear = saju.timeCorrection?.standardYear;
   if (birthYear && birthYear > 0) {
-    return targetDate.getFullYear() - birthYear;
+    return targetCalendarYear(targetDate) - birthYear;
   }
   // Fallback: no reliable birth year -- assume 30 as a safe default
   return 30;
@@ -64,6 +66,7 @@ function safeCall<T>(builder: () => T, fallback: T, context = 'unknown-card'): T
   try {
     return builder();
   } catch (error) {
+    if (error instanceof LuckIntervalSelectionError) throw error;
     console.error(`[spring-ts] Fortune report builder failed: ${context}`, error);
     return fallback;
   }

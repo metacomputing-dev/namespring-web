@@ -1,13 +1,9 @@
 /**
  * test/integration/adapter-daewoon.test.ts
  *
- * PR-H-D — verifies the saju-adapter surfaces daeunInfo and saeunPillars
- * through SajuOutputSummary.
- *
- *   1. buildSajuContext lifts daeunInfo when source has the structure.
- *   2. buildSajuContext lifts saeunPillars when source has rows.
- *   3. Empty / null sources coerce to undefined.
- *   4. Pre-existing PR-H-A/B surfaces unaffected.
+ * PR-H-D / PR-8: verifies the saju-adapter surfaces daeunInfo,
+ * saeunPillars, and wolunPillars through SajuOutputSummary without changing
+ * the existing relation/shinsal/gongmang surfaces.
  *
  * Run: npm run test:adapter-daewoon
  */
@@ -49,36 +45,69 @@ function check(label: string, cond: boolean, evidence?: string): void {
   }
 }
 
-console.log('PR-H-D adapter daewoon richness surface\n');
+function hasCommonLuckAnnotations(row: any): boolean {
+  return typeof row?.tenGod === 'string' &&
+    typeof row?.lifeStage === 'string' &&
+    typeof row?.transitShinsal?.twelveSal === 'string';
+}
+
+function hasAnnualLuckAnnotations(row: any): boolean {
+  return hasCommonLuckAnnotations(row) &&
+    typeof row?.transitShinsal?.samjae?.active === 'boolean' &&
+    typeof row?.transitShinsal?.sangmun === 'boolean' &&
+    typeof row?.transitShinsal?.jogaek === 'boolean';
+}
+
+function excludesAnnualLuckAnnotations(row: any): boolean {
+  const shinsal = row?.transitShinsal;
+  return hasCommonLuckAnnotations(row) &&
+    shinsal?.samjae === undefined && shinsal?.sangmun === undefined && shinsal?.jogaek === undefined;
+}
+
+console.log('PR-H-D / PR-8 adapter daewoon richness surface\n');
 
 const summary: SajuSummary = await analyzeSaju({
   year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male',
 });
 
+const boundedSummary: SajuSummary = await analyzeSaju({
+  year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male',
+}, {
+  sajuOptions: {
+    saeunStartYear: 2105,
+    saeunYearCount: 2,
+    wolunMonthCount: 120,
+  },
+});
+const boundedSaeun = (boundedSummary as any).saeunPillars;
+const countOnlyWolun = (boundedSummary as any).wolunPillars;
+check('near-horizon saeun request returns exact count without silent truncation',
+  boundedSaeun?.length === 2 && boundedSaeun[0]?.year === 2105 && boundedSaeun[1]?.year === 2106);
+check('count-only wolun request returns exact count without silent truncation', countOnlyWolun?.length === 120);
+
 const daeunSource = (summary as any).daeunInfo;
 const saeunSource = (summary as any).saeunPillars;
+const wolunSource = (summary as any).wolunPillars;
 
 check('SajuSummary.daeunInfo present (existing)', daeunSource !== undefined,
   daeunSource ? `pillars=${daeunSource.pillars?.length}` : 'null');
 check('SajuSummary.saeunPillars present (existing)', Array.isArray(saeunSource),
   `length=${saeunSource?.length}`);
+check('SajuSummary.wolunPillars present (PR-8 additive)', Array.isArray(wolunSource) && wolunSource.length > 0,
+  `length=${wolunSource?.length}`);
 
 const ctx = buildSajuContext(summary);
 check('buildSajuContext returns an output object', ctx.output !== null);
 
 if (ctx.output) {
-  // — daeunInfo surface —
   if (daeunSource) {
     check('SajuOutputSummary.daeunInfo is set when source has structure',
       ctx.output.daeunInfo !== undefined && ctx.output.daeunInfo !== null,
       `pillars=${ctx.output.daeunInfo?.pillars?.length}`);
     if (ctx.output.daeunInfo) {
-      check('daeunInfo has isForward boolean',
-        typeof ctx.output.daeunInfo.isForward === 'boolean');
-      check('daeunInfo has firstDaeunStartAge number',
-        typeof ctx.output.daeunInfo.firstDaeunStartAge === 'number');
-      check('daeunInfo has pillars array',
-        Array.isArray(ctx.output.daeunInfo.pillars));
+      check('daeunInfo has isForward boolean', typeof ctx.output.daeunInfo.isForward === 'boolean');
+      check('daeunInfo has firstDaeunStartAge number', typeof ctx.output.daeunInfo.firstDaeunStartAge === 'number');
+      check('daeunInfo has pillars array', Array.isArray(ctx.output.daeunInfo.pillars));
       const firstPillar = ctx.output.daeunInfo.pillars?.[0];
       if (firstPillar) {
         check('daeunInfo.pillars[0] has stem/branch/startAge/endAge',
@@ -86,30 +115,44 @@ if (ctx.output) {
           typeof firstPillar.branch === 'string' &&
           typeof firstPillar.startAge === 'number' &&
           typeof firstPillar.endAge === 'number');
+        check('daeunInfo.pillars[0] has common luck annotations without annual-only signals',
+          excludesAnnualLuckAnnotations(firstPillar));
       }
     }
   } else {
-    check('SajuOutputSummary.daeunInfo is undefined when source is null',
-      ctx.output.daeunInfo === undefined);
+    check('SajuOutputSummary.daeunInfo is undefined when source is null', ctx.output.daeunInfo === undefined);
   }
 
-  // — saeunPillars surface —
   if (Array.isArray(saeunSource) && saeunSource.length > 0) {
     check('SajuOutputSummary.saeunPillars is set when source has rows',
-      Array.isArray(ctx.output.saeunPillars) &&
-      ctx.output.saeunPillars.length === saeunSource.length,
+      Array.isArray(ctx.output.saeunPillars) && ctx.output.saeunPillars.length === saeunSource.length,
       `lifted ${ctx.output.saeunPillars?.length} entries`);
     const firstSaeun = ctx.output.saeunPillars![0];
     check('saeunPillars[0] has year/stem/branch shape',
       typeof firstSaeun.year === 'number' &&
       typeof firstSaeun.stem === 'string' &&
       typeof firstSaeun.branch === 'string');
+    check('saeunPillars[0] has annual luck annotations', hasAnnualLuckAnnotations(firstSaeun));
   } else {
-    check('SajuOutputSummary.saeunPillars is undefined when source is empty',
-      ctx.output.saeunPillars === undefined);
+    check('SajuOutputSummary.saeunPillars is undefined when source is empty', ctx.output.saeunPillars === undefined);
   }
 
-  // — PR-H-A/B regression guards —
+  const wolunOutput = (ctx.output as any).wolunPillars;
+  if (Array.isArray(wolunSource) && wolunSource.length > 0) {
+    check('SajuOutputSummary.wolunPillars is set when source has rows',
+      Array.isArray(wolunOutput) && wolunOutput.length === wolunSource.length,
+      `lifted ${wolunOutput?.length} entries`);
+    const firstWolun = wolunOutput![0];
+    check('wolunPillars[0] has month/stem/branch + PR-8 annotations',
+      typeof firstWolun.year === 'number' &&
+      typeof firstWolun.monthOrder === 'number' &&
+      typeof firstWolun.stem === 'string' &&
+      typeof firstWolun.branch === 'string' &&
+      excludesAnnualLuckAnnotations(firstWolun));
+  } else {
+    check('SajuOutputSummary.wolunPillars is undefined when source is empty', wolunOutput === undefined);
+  }
+
   check('cheonganRelations regression guard',
     Array.isArray(ctx.output.cheonganRelations) || ctx.output.cheonganRelations === undefined);
   check('shinsalHits regression guard',
@@ -118,15 +161,16 @@ if (ctx.output) {
     Array.isArray(ctx.output.gongmang) || ctx.output.gongmang === undefined);
 }
 
-// — Empty-source coercion —
 const emptySummary: SajuSummary = {
   ...summary,
   daeunInfo: null,
   saeunPillars: [],
+  wolunPillars: [],
 } as any as SajuSummary;
 const emptyCtx = buildSajuContext(emptySummary);
-check('null daeunInfo → output undefined', emptyCtx.output?.daeunInfo === undefined);
-check('empty saeunPillars → output undefined', emptyCtx.output?.saeunPillars === undefined);
+check('null daeunInfo -> output undefined', emptyCtx.output?.daeunInfo === undefined);
+check('empty saeunPillars -> output undefined', emptyCtx.output?.saeunPillars === undefined);
+check('empty wolunPillars -> output undefined', (emptyCtx.output as any)?.wolunPillars === undefined);
 
 console.log(`\nadapter-daewoon: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);
