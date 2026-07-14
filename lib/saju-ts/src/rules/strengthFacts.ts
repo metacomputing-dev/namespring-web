@@ -767,9 +767,15 @@ export function computeStrengthFacts(args: {
             score: diScore,
             normalized: diNormed,
             factor: diScale,
-            lifeStageRoot: lifeStageRootPol.enabled
-              ? { enabled: true, multipliers: lifeStageRootPol.multipliers, branches: lifeStageRootBranches }
-              : undefined,
+            ...(lifeStageRootPol.enabled
+              ? {
+                  lifeStageRoot: {
+                    enabled: true,
+                    multipliers: lifeStageRootPol.multipliers,
+                    branches: lifeStageRootBranches,
+                  },
+                }
+              : {}),
           },
           deShi: { sameElement: shiSame, resourceElement: shiRes, score: shiScore, normalized: shiNormed, factor: shiScale, positionWeights: posW },
           adjusted: { support: supportAdj, pressure: pressureAdj, total: totalAdj },
