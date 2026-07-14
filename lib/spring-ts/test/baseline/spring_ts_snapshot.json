@@ -1,15 +1,15 @@
 {
   "version": "1.0.0",
-  "capturedAt": "2026-07-08T10:47:42.892Z",
+  "capturedAt": "2026-07-14T06:29:01.644Z",
   "targetDate": "2026-04-30T00:00:00.000Z",
   "fixtureCount": 15,
   "results": [
     {
       "id": "fix-01",
-      "label": "1986-04-19 male — 戊土 일간 (README example)",
+      "label": "1986-04-19 male — 癸水 일간 (README example)",
       "axis": [
         "normal",
-        "yang-earth",
+        "yin-water",
         "spring"
       ],
       "output": {
@@ -36,7 +36,7 @@
           "yongshinHeeshin": "WATER",
           "gyeokgukType": "식신격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.5212566844919787,
+          "gyeokgukConfidence": 0.538903743315508,
           "deficientElements": [
             "EARTH",
             "METAL"
@@ -408,10 +408,10 @@
     },
     {
       "id": "fix-06",
-      "label": "1978-06-15 14:00 female — 庚金 일간, 여름",
+      "label": "1978-06-15 14:00 female — 戊土 일간, 여름",
       "axis": [
         "normal",
-        "yang-metal",
+        "yang-earth",
         "summer"
       ],
       "output": {
@@ -436,9 +436,9 @@
           "isStrong": true,
           "yongshinElement": "METAL",
           "yongshinHeeshin": "WATER",
-          "gyeokgukType": "양인격",
+          "gyeokgukType": "정인격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.46666666666666673,
+          "gyeokgukConfidence": 0.5111111111111111,
           "deficientElements": [
             "WOOD",
             "METAL",
@@ -519,9 +519,9 @@
           "isStrong": true,
           "yongshinElement": "EARTH",
           "yongshinHeeshin": "METAL",
-          "gyeokgukType": "월겁격",
+          "gyeokgukType": "정인격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.5711111111111111,
+          "gyeokgukConfidence": 0.565,
           "deficientElements": [
             "WOOD"
           ],
@@ -602,7 +602,7 @@
           "yongshinHeeshin": "EARTH",
           "gyeokgukType": "식신격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.875,
+          "gyeokgukConfidence": 0.905,
           "deficientElements": [],
           "excessiveElements": []
         },
@@ -841,9 +841,9 @@
           "isStrong": false,
           "yongshinElement": "FIRE",
           "yongshinHeeshin": "METAL",
-          "gyeokgukType": "건록격",
+          "gyeokgukType": "식신격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.28224358974358976,
+          "gyeokgukConfidence": 0.26717948717948714,
           "deficientElements": [
             "METAL"
           ],

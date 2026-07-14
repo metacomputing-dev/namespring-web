@@ -102,3 +102,23 @@ describe('normalizeLegacyOutput 정직성 (감사 A1/A2/A9/A15d)', () => {
     expect(String(output.daeunInfo.formula)).toContain('startAgeYears');
   });
 });
+
+describe('structural month-frame public candidates', () => {
+  it('does not duplicate a Geonrok frame under the legacy companion name', () => {
+    const output: any = analyzeSaju(createBirthInput({
+      birthYear: 2005,
+      birthMonth: 12,
+      birthDay: 25,
+      birthHour: 6,
+      birthMinute: 0,
+      gender: 'MALE',
+    }));
+
+    const candidates = output.gyeokgukResult.candidates as Array<{ type: string }>;
+    const types = candidates.map((candidate) => candidate.type);
+
+    expect(output.gyeokgukResult.type).toBe('GEONROK');
+    expect(types).toContain('GEONROK');
+    expect(types).not.toContain('BI_GYEON');
+  });
+});

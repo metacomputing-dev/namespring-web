@@ -275,7 +275,7 @@ export interface PrecisionConfig {
   readonly surfaceNaeum?: boolean;
 
   /** 감사 B1: 음력→양력 변환 소스. 기본 'builtin'(내장 KASI/KARI 표준 테이블,
-   *  제품 보장 1900~2050, 오프라인 결정적). 'kasi' = Node 전용 옵트인 —
+   *  제품 보장 1900-01-01~2050-11-18 음력, 오프라인 결정적). 'kasi' = Node 전용 옵트인 —
    *  data.go.kr LrsrCldInfoService/getSpcifyLunCalInfo를 먼저 시도하고
    *  실패(키 부재·네트워크·타임아웃·브라우저 런타임) 시 내장 테이블로 폴백하며
    *  SajuSummary.lunarConversion.kasiFallback으로 표기한다. */
@@ -897,7 +897,9 @@ export interface ShinsalHitSummary {
 export interface DaeunPillarSummary {
   readonly stem: string;
   readonly branch: string;
+  /** Inclusive start of the continuous daewoon age interval. */
   readonly startAge: number;
+  /** Exclusive end of the continuous daewoon age interval. */
   readonly endAge: number;
   readonly order: number;
 }

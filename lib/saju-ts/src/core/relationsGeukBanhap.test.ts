@@ -67,3 +67,28 @@ describe('지지 반합(BANHAP) 탐지 (감사 B3)', () => {
     }
   });
 });
+
+describe('삼형(SAMHYEONG) 중복 억제', () => {
+  it.each([
+    [[2, 5, 8, 0], '2-5-8'],
+    [[1, 7, 10, 0], '1-7-10'],
+  ])('완전체 %j는 SAMHYEONG만 방출하고 HYEONG 부분쌍은 억제한다', (branches, key) => {
+    const relations = detectBranchRelations(branches);
+    expect(
+      relations.some(
+        (relation) => relation.type === 'SAMHYEONG' && relation.members.join('-') === key,
+      ),
+    ).toBe(true);
+    expect(relations.some((relation) => relation.type === 'HYEONG')).toBe(false);
+  });
+
+  it('삼형 2자만 있으면 HYEONG 쌍을 유지한다', () => {
+    const relations = detectBranchRelations([2, 5, 0, 4]);
+    expect(
+      relations.some(
+        (relation) => relation.type === 'HYEONG' && relation.members.join('-') === '2-5',
+      ),
+    ).toBe(true);
+    expect(relations.some((relation) => relation.type === 'SAMHYEONG')).toBe(false);
+  });
+});
