@@ -109,6 +109,14 @@ export interface GyeokgukSeongpaeScoreAdjustment {
   after: number;
   /** 같은 월지 손상이 quality.multiplier에 이미 반영되어 성패 재곱을 억제한 경우. */
   suppressedBy?: 'MONTH_DAMAGE_ALREADY_APPLIED_TO_QUALITY';
+  multiplierBreakdown?: {
+    qualityContribution: number;
+    qualityVerdict: SeongpaeVerdictKey;
+    qualityMultiplier: number;
+    otherContribution: number;
+    otherVerdict: SeongpaeVerdictKey;
+    otherMultiplier: number;
+  };
 }
 
 export interface GyeokgukCompetition {
@@ -340,10 +348,58 @@ function monthGyeokScoreKey(facts: RuleFacts): string | null {
   return typeof key === 'string' && key.length > 0 ? `gyeokguk.${key}` : null;
 }
 
+function expressionReferencesVariable(value: unknown, variable: string): boolean {
+  if (value == null || typeof value !== 'object') return false;
+  if (Array.isArray(value)) return value.some((item) => expressionReferencesVariable(item, variable));
+
+  const record = value as Record<string, unknown>;
+  if (record.var === variable) return true;
+  return Object.values(record).some((item) => expressionReferencesVariable(item, variable));
+}
+
+function expressionIsProportionalToVariable(value: unknown, variable: string): boolean {
+  if (value == null || typeof value !== 'object' || Array.isArray(value)) return false;
+
+  const record = value as Record<string, unknown>;
+  if (record.var === variable) return true;
+  if (record.op !== 'mul' || !Array.isArray(record.args)) return false;
+
+  let proportionalFactors = 0;
+  for (const factor of record.args) {
+    if (expressionIsProportionalToVariable(factor, variable)) {
+      proportionalFactors += 1;
+    } else if (expressionReferencesVariable(factor, variable)) {
+      return false;
+    }
+  }
+  return proportionalFactors === 1;
+}
+
+function matchedMonthScoreQualityContribution(ruleSet: RuleSet, matches: RuleMatch[], key: string): number {
+  const rulesById = new Map<string, RuleSet['rules'][number] | null>();
+  for (const rule of ruleSet.rules) {
+    const existing = rulesById.get(rule.id);
+    rulesById.set(rule.id, existing === undefined ? rule : null);
+  }
+
+  let qualityContribution = 0;
+  for (const match of matches) {
+    const contribution = match.scores?.[key];
+    if (typeof contribution !== 'number' || !Number.isFinite(contribution) || contribution === 0) continue;
+
+    const rule = rulesById.get(match.ruleId);
+    if (rule && expressionIsProportionalToVariable(rule.score?.[key], 'month.gyeok.quality.multiplier')) {
+      qualityContribution += contribution;
+    }
+  }
+  return qualityContribution;
+}
+
 function applySeongpaeScoreAdjustment(
   scores: Record<string, number>,
   facts: RuleFacts,
   policy: GyeokgukPolicy,
+  matches: RuleMatch[],
 ): GyeokgukSeongpaeScoreAdjustment | null {
   const pol = policy.seongpaeScore;
   const seongpae = facts.month.gyeok.seongpae;
@@ -357,11 +413,23 @@ function applySeongpaeScoreAdjustment(
 
   // 월지 손상은 month.gyeok.quality.multiplier의 integrity에 이미 반영된다.
   // 손상만으로 성패 verdict가 강등된 경우 같은 증거로 다시 점수를 깎지 않는다.
-  const monthDamageAlreadyApplied =
-    seongpae.verdictBeforeMonthBroken != null &&
-    seongpae.verdictBeforeMonthBroken !== seongpae.verdict;
-  const multiplier = monthDamageAlreadyApplied ? 1 : asNumber(pol.multipliers[seongpae.verdict], 1);
-  const after = before * multiplier;
+  const verdictBeforeMonthBroken = seongpae.verdictBeforeMonthBroken;
+  const verdictChangedByMonthDamage =
+    verdictBeforeMonthBroken != null && verdictBeforeMonthBroken !== seongpae.verdict;
+  const qualityContribution = verdictChangedByMonthDamage
+    ? matchedMonthScoreQualityContribution(policy.ruleSet, matches, key)
+    : 0;
+  const monthDamageAlreadyApplied = verdictChangedByMonthDamage && qualityContribution !== 0;
+  const finalMultiplier = asNumber(pol.multipliers[seongpae.verdict], 1);
+  const qualityMultiplier =
+    monthDamageAlreadyApplied && verdictBeforeMonthBroken != null
+      ? asNumber(pol.multipliers[verdictBeforeMonthBroken], 1)
+      : finalMultiplier;
+  const otherContribution = before - qualityContribution;
+  const after =
+    qualityContribution * qualityMultiplier +
+    otherContribution * finalMultiplier;
+  const multiplier = after / before;
   scores[key] = after;
 
   return {
@@ -370,7 +438,19 @@ function applySeongpaeScoreAdjustment(
     multiplier,
     before,
     after,
-    ...(monthDamageAlreadyApplied ? { suppressedBy: 'MONTH_DAMAGE_ALREADY_APPLIED_TO_QUALITY' as const } : {}),
+    ...(monthDamageAlreadyApplied && verdictBeforeMonthBroken != null
+      ? {
+          suppressedBy: 'MONTH_DAMAGE_ALREADY_APPLIED_TO_QUALITY' as const,
+          multiplierBreakdown: {
+            qualityContribution,
+            qualityVerdict: verdictBeforeMonthBroken,
+            qualityMultiplier,
+            otherContribution,
+            otherVerdict: seongpae.verdict,
+            otherMultiplier: finalMultiplier,
+          },
+        }
+      : {}),
   };
 }
 
@@ -1091,7 +1171,7 @@ export function computeGyeokguk(config: EngineConfig, facts: RuleFacts): Gyeokgu
 
   // NOTE: we *mutate* the score map in-place for competition to keep allocations small.
   const scores = evalRes.scores;
-  const seongpaeScoreAdjustment = applySeongpaeScoreAdjustment(scores, facts, policy);
+  const seongpaeScoreAdjustment = applySeongpaeScoreAdjustment(scores, facts, policy, evalRes.matches);
   const comp = applySpecialCompetition(scores, facts, policy);
 
   const ranking = [...Object.entries(scores)]
