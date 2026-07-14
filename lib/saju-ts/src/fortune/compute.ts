@@ -1,6 +1,13 @@
 import type { EngineConfig, SajuRequest } from '../api/types.js';
-import type { JieBoundariesAround, JieTermId, SolarTermMethod, SolarTermInstant } from '../calendar/solarTerms.js';
+import type {
+  JieBoundariesAround,
+  JieTermId,
+  SolarTermAlgorithm,
+  SolarTermMethod,
+  SolarTermInstant,
+} from '../calendar/solarTerms.js';
 import { getJieBoundaries, getLiChunUtcMs, jieTermMonthOrder } from '../calendar/solarTerms.js';
+import type { AberrationModel, SolarPrecision } from '../calendar/solar.js';
 import type { LocalDate } from '../calendar/iso.js';
 import type { LocalDateTime } from '../calendar/iso.js';
 import { computeLunarNewYearBoundary } from '../calendar/lunarNewYear.js';
@@ -20,9 +27,34 @@ import type {
   DecadeLuck,
   YearLuck,
 } from './types.js';
+import { assertFortuneHorizonPolicy } from './policy.js';
 
 const MS_PER_DAY = 86_400_000;
 const AVG_DAYS_PER_YEAR = 365.2425;
+
+interface SolarTermComputationPolicy {
+  method: SolarTermMethod;
+  algorithm: SolarTermAlgorithm;
+  aberrationModel: AberrationModel;
+  solarPrecision: SolarPrecision;
+}
+
+function resolveSolarTermComputationPolicy(
+  calendar: EngineConfig['calendar'],
+  method: SolarTermMethod,
+): SolarTermComputationPolicy {
+  return {
+    method,
+    algorithm: calendar.solarTerms?.algorithm === 'newton' ? 'newton' : 'bisection',
+    aberrationModel: calendar.aberrationModel === 'rCorrected' ? 'rCorrected' : 'constant',
+    solarPrecision:
+      calendar.solarPrecision === 'iau1980_full'
+        ? 'iau1980_full'
+        : calendar.solarPrecision === 'iau1980_top10'
+          ? 'iau1980_top10'
+          : 'classical',
+  };
+}
 
 function shiftPillar(p: PillarIdx, steps: number): PillarIdx {
   return { stem: mod(p.stem + steps, 10), branch: mod(p.branch + steps, 12) };
@@ -199,6 +231,8 @@ export function computeFortuneTimeline(args: {
   policy: FortunePolicy;
 }): FortuneTimeline {
   const { request, parsedUtcMs, birthLocalDateTime, localYear, solarTermMethod, jieBoundariesAround, natalYearPillar, natalMonthPillar, policy, calendar } = args;
+  assertFortuneHorizonPolicy(policy);
+  const solarTermPolicy = resolveSolarTermComputationPolicy(calendar, solarTermMethod);
 
   if (!jieBoundariesAround) {
     // If boundaries are not computed (policy doesn't need them), fall back to a trivial timeline.
@@ -282,7 +316,13 @@ export function computeFortuneTimeline(args: {
     if (calendar.yearBoundary === 'jan1') {
       return localToUtcMs({ y, m: 1, d: 1 }, { h: 0, min: 0 }, birthLocalDateTime.offsetMinutes);
     }
-    return getLiChunUtcMs(y, solarTermMethod);
+    return getLiChunUtcMs(
+      y,
+      solarTermPolicy.method,
+      solarTermPolicy.algorithm,
+      solarTermPolicy.aberrationModel,
+      solarTermPolicy.solarPrecision,
+    );
   };
   const baseSolarYear = parsedUtcMs < yearStartUtcMs(localYear) ? localYear - 1 : localYear;
 
@@ -309,11 +349,29 @@ export function computeFortuneTimeline(args: {
   // baseSolarYear above. Identical under the default (liChun) config.
   let months: MonthLuck[] | undefined;
   if (policy.maxMonths > 0) {
-    const jieBaseSolarYear = parsedUtcMs < getLiChunUtcMs(localYear, solarTermMethod) ? localYear - 1 : localYear;
+    const jieBaseSolarYear =
+      parsedUtcMs <
+      getLiChunUtcMs(
+        localYear,
+        solarTermPolicy.method,
+        solarTermPolicy.algorithm,
+        solarTermPolicy.aberrationModel,
+        solarTermPolicy.solarPrecision,
+      )
+        ? localYear - 1
+        : localYear;
     const spanYears = Math.ceil(policy.maxMonths / 12) + 2;
     const terms: SolarTermInstant[] = [];
     for (let y = jieBaseSolarYear; y <= jieBaseSolarYear + spanYears; y++) {
-      terms.push(...getJieBoundaries(y, solarTermMethod));
+      terms.push(
+        ...getJieBoundaries(
+          y,
+          solarTermPolicy.method,
+          solarTermPolicy.algorithm,
+          solarTermPolicy.aberrationModel,
+          solarTermPolicy.solarPrecision,
+        ),
+      );
     }
     terms.sort((a, b) => a.utcMs - b.utcMs);
 

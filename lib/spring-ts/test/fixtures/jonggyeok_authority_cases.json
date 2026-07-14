@@ -1,14 +1,14 @@
 {
   "_meta": {
     "schemaVersion": "spring-ts.jonggyeok-authority-fixture.v1",
-    "purpose": "Authority-anchored special-frame chart corpus for PR-7/9 jonggyeok calibration. Most public sources expose four pillars rather than birth timestamps, so tests validate pillar-only cases as data intake and reserve engine comparison for cases that include birth.",
+    "purpose": "Source-anchored special-frame chart intake for PR-7/9 jonggyeok calibration. Public web interpretations remain non-authority until independently reviewed; pillar-only rows are not engine-comparable.",
     "intakeRequirements": {
-      "sourceTier": "T3_AUTHORED_INTERPRETATION or higher, with sourceUrl/short quote/human interpretation and authorityTruthEligible=true",
+      "sourceTier": "T3_AUTHORED_INTERPRETATION or higher with source metadata. T3 web intake remains authorityTruthEligible=false until explicit independent review.",
       "requiredFields": ["id", "label", "birth", "pillars", "expectedJonggyeokType", "expectedYongshinElement", "sourceTier"],
       "expectedJonggyeokType": "CONG_CAI | CONG_GUAN | CONG_SHA | CONG_ER | CONG_YIN | CONG_BI | ZHUAN_WANG | HUA_QI",
       "note": "When birth is unavailable, birth is null and pillars is a four-ganji string in year month day hour order. Engine comparison is skipped until direct-pillar analysis is supported."
     },
-    "promotionCriteria": "20+ cases plus 80%+ calibrated match only when 20+ engine-comparable birth cases exist. Pillar-only cases are source intake and subtype coverage evidence, not an engine denominator yet.",
+    "promotionCriteria": "80%+ calibrated match on 20+ authorityTruthEligible birth-time cases. Pillar-only or unreviewed web cases are source intake and subtype coverage evidence, never an accuracy denominator.",
     "accessedAt": "2026-07-08",
     "sourceTier": {
       "tier": "T3_AUTHORED_INTERPRETATION",
@@ -38,7 +38,7 @@
         "quoteShort": "Earth transformation established",
         "humanInterpretation": "FateMaster records this Di Tian Sui example as a Jia-Ji earth transformation case and gives the four pillars.",
         "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
-        "authorityTruthEligible": true
+        "authorityTruthEligible": false
       }
     },
     {
@@ -57,7 +57,7 @@
         "quoteShort": "Metal transformation established",
         "humanInterpretation": "FateMaster records this Di Tian Sui example as an Yi-Geng metal transformation case and gives the four pillars.",
         "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
-        "authorityTruthEligible": true
+        "authorityTruthEligible": false
       }
     },
     {
@@ -76,7 +76,7 @@
         "quoteShort": "Water transformation established",
         "humanInterpretation": "FateMaster records this Di Tian Sui example as a Bing-Xin water transformation case and gives the four pillars.",
         "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
-        "authorityTruthEligible": true
+        "authorityTruthEligible": false
       }
     },
     {
@@ -95,7 +95,7 @@
         "quoteShort": "Wood transformation established",
         "humanInterpretation": "FateMaster records this Di Tian Sui example as a Ding-Ren wood transformation case and gives the four pillars.",
         "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
-        "authorityTruthEligible": true
+        "authorityTruthEligible": false
       }
     },
     {
@@ -114,7 +114,7 @@
         "quoteShort": "Fire transformation established",
         "humanInterpretation": "FateMaster records this Di Tian Sui example as a Wu-Gui fire transformation case and gives the four pillars.",
         "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
-        "authorityTruthEligible": true
+        "authorityTruthEligible": false
       }
     },
     {
@@ -133,7 +133,7 @@
         "quoteShort": "Wood dominates without control",
         "humanInterpretation": "FateMaster records this Xu Lewu/Di Tian Sui commentary case as Curving & Straight wood dominant pattern.",
         "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
-        "authorityTruthEligible": true
+        "authorityTruthEligible": false
       }
     },
     {
@@ -152,7 +152,7 @@
         "quoteShort": "meets Yan Shang criteria",
         "humanInterpretation": "FateMaster records this Ren Tieqiao commentary example as Blazing Upward fire dominant pattern.",
         "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
-        "authorityTruthEligible": true
+        "authorityTruthEligible": false
       }
     },
     {
@@ -171,7 +171,7 @@
         "quoteShort": "meets Jia Se criteria",
         "humanInterpretation": "FateMaster records this Ren Tieqiao commentary example as Sowing & Reaping earth dominant pattern.",
         "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
-        "authorityTruthEligible": true
+        "authorityTruthEligible": false
       }
     },
     {
@@ -190,7 +190,7 @@
         "quoteShort": "Metal energy consolidates",
         "humanInterpretation": "FateMaster records this Ren Tieqiao commentary example as Following Reform metal dominant pattern.",
         "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
-        "authorityTruthEligible": true
+        "authorityTruthEligible": false
       }
     },
     {
@@ -209,7 +209,7 @@
         "quoteShort": "meets Run Xia criteria",
         "humanInterpretation": "FateMaster records this Wang Shouren case as Moistening Downward water dominant pattern.",
         "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
-        "authorityTruthEligible": true
+        "authorityTruthEligible": false
       }
     },
     {
@@ -228,7 +228,7 @@
         "quoteShort": "真纯的炎上格",
         "humanInterpretation": "Cantian records this four-pillar example as a pure Yan Shang fire-dominant special frame.",
         "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
-        "authorityTruthEligible": true
+        "authorityTruthEligible": false
       }
     },
     {
@@ -247,7 +247,7 @@
         "quoteShort": "chart is Cong Cai",
         "humanInterpretation": "FateMaster records this Di Tian Sui merchant chart as a follow-wealth case.",
         "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
-        "authorityTruthEligible": true
+        "authorityTruthEligible": false
       }
     },
     {
@@ -266,7 +266,7 @@
         "quoteShort": "所以为从财格",
         "humanInterpretation": "The Sohu article gives this female chart and explicitly classifies it as follow-wealth.",
         "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
-        "authorityTruthEligible": true
+        "authorityTruthEligible": false
       }
     },
     {
@@ -285,7 +285,7 @@
         "quoteShort": "所以为从财格",
         "humanInterpretation": "The Sohu article gives this male chart and explicitly classifies it as follow-wealth.",
         "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
-        "authorityTruthEligible": true
+        "authorityTruthEligible": false
       }
     },
     {
@@ -304,7 +304,7 @@
         "quoteShort": "格局从真",
         "humanInterpretation": "Suanzhun records this Sanming example under follow-wealth formation and breakage.",
         "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
-        "authorityTruthEligible": true
+        "authorityTruthEligible": false
       }
     },
     {
@@ -323,7 +323,7 @@
         "quoteShort": "从财格很真",
         "humanInterpretation": "Suanzhun records this chart as a true follow-wealth case.",
         "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
-        "authorityTruthEligible": true
+        "authorityTruthEligible": false
       }
     },
     {
@@ -342,7 +342,7 @@
         "quoteShort": "弃命从财之真格",
         "humanInterpretation": "Cantian records this Fan Zhongyan chart as a true follow-wealth case.",
         "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
-        "authorityTruthEligible": true
+        "authorityTruthEligible": false
       }
     },
     {
@@ -361,7 +361,7 @@
         "quoteShort": "authoritative Cong Er example",
         "humanInterpretation": "FateMaster records this Di Tian Sui Shun Ju case as follow-children/output.",
         "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
-        "authorityTruthEligible": true
+        "authorityTruthEligible": false
       }
     },
     {
@@ -380,7 +380,7 @@
         "quoteShort": "真从儿格",
         "humanInterpretation": "Cantian records this chart as a true follow-children case.",
         "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
-        "authorityTruthEligible": true
+        "authorityTruthEligible": false
       }
     },
     {
@@ -399,7 +399,7 @@
         "quoteShort": "satisfies Cong Sha criteria",
         "humanInterpretation": "FateMaster records this Ren Tieqiao commentary example as following killings.",
         "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
-        "authorityTruthEligible": true
+        "authorityTruthEligible": false
       }
     }
   ]

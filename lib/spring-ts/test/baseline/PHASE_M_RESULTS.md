@@ -27,15 +27,17 @@ D5 fail count is downstream of D1 — when an edge fixture's D1 fails, D5 also f
 
 ## D1 disagreement classification
 
-All 7 D1-FAIL fixtures have been investigated and classified. **None are bugs.** Detailed reasoning lives in each fixture's `disagreementNotes` in `test/fixtures/spring_ts_baseline_cases.json`.
+All 7 original D1-FAIL fixtures were investigated in Phase M. Stack02 later proved that the
+fix-06/fix-07 companion-frame diagnosis was an engine bug, so the earlier “none are bugs” conclusion
+is superseded for those two fixtures. Current reasoning lives in each fixture's `disagreementNotes`.
 
 | fix | spring-ts                          | saju_master              | nature                                       | source PR |
 |-----|------------------------------------|--------------------------|----------------------------------------------|-----------|
 | 02  | 정관격                              | 편관격                    | saju_master 미정/혼잡 score 0.25 (low conf)   | PR-M-3 |
 | 03  | 편관격 / WOOD                       | 편재격 / FIRE             | 자시 boundary, saju_master 미정/혼잡         | PR-M-3 |
 | 04  | 중화(신강 경향)                     | 신약                      | engine-level strength weighting diff         | PR-M-3 + PR-M-7 |
-| 06  | 겁재격                              | 비견격                    | 겸격 [BiJian,JieCai] tie-break                | PR-M-3 |
-| 07  | 겁재격                              | 비견격                    | 겸격 [BiJian,JieCai] tie-break                | PR-M-3 |
+| 06  | 정인격                              | 비견격                    | residual companion structural-frame bug fixed | Stack02 |
+| 07  | 정인격                              | 비견격                    | residual companion structural-frame bug fixed | Stack02 |
 | 10  | 편재격 / METAL / 신강               | 비견격 / null             | engine-level gyeokguk rule diff              | PR-M-3 + PR-M-8 |
 | 12  | 중화(신강 경향)                     | 신약                      | engine-level strength weighting diff         | PR-M-3 + PR-M-7 |
 
@@ -60,11 +62,13 @@ These are not Reference A validation — they verify saju-ts's internal logic ma
 What Phase M proves:
 - spring-ts and saju_master agree on **3 / 12** fixtures fully (fix-01, 08, 09).
 - They agree on **5 / 12** when the D1 strength-label normalizer (PR-M-2) is applied for compatible band labels.
-- The remaining **7 / 12** disagreements are all classified as engine-level rule or weighting differences, both internally consistent.
+- The remaining **7 / 12** disagreements are classified as engine-level rule or weighting differences;
+  Stack02 subsequently corrected the internal consistency of fix-06/fix-07 without claiming external authority.
 
 What Phase M does NOT prove:
 - spring-ts surpasses Korean naming experts. saju_master itself is a research implementation, not an authority. Several spring-ts PRs (chengbai.py, judgment_expression_engine.py reference) cite saju_master as their source. Where they agree, that's shared lineage, not independent verification.
-- spring-ts is correct on the 7 disagreements. Authority case adjudication is required to settle each. None are bugs we can fix unilaterally; all are school-level questions.
+- spring-ts is externally correct on the 7 disagreements. Authority case adjudication is still required.
+  The fix-06/fix-07 implementation defect was corrected, but the adopted structural policy remains provisional.
 
 Phase M's contribution: **infrastructure + documented honesty**. Future authority case extractions will plug into the existing `quality_gate.mjs` D1/D2/D4 dimensions without further wiring.
 

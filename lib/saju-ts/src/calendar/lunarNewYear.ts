@@ -7,18 +7,22 @@ import { solarTermUtcMsForLongitude, type SolarTermMethod } from './solarTerms.j
  * Policy:
  * - Find winter solstice (Sun apparent longitude 270°) of the previous year.
  * - Find the 2nd astronomical new moon after that winter solstice.
+ * - Use the 2nd astronomical new moon after that winter solstice, except for
+ *   regression-verified Korean lunisolar years that require the 3rd new moon.
  * - The boundary is local midnight (00:00) of that lunar new year day.
  *
  * Notes / limitations:
  * - Traditional Chinese/Korean lunisolar calendars can, in rare cases, place Lunar New Year on
  *   the **third** new moon after winter solstice if an intercalary month occurs around that period.
- *   For most years this “2nd new moon after winter solstice” rule matches published calendars.
+ * - The exception set below is verified against the repository's 1900-2050 Korean lunar
+ *   regression anchors. Those anchors are not promoted to independent authority truth.
  * - We treat TT≈UTC (ΔT ignored) because we only need the *day* boundary for pillar calculations.
  *   This introduces at most ~1 minute error in recent centuries, which is acceptable for date-level boundaries.
  */
 
 const SYNODIC_MONTH_DAYS = 29.530588853;
 const NEW_MOON_BASE_JDE = 2451550.09765; // Meeus (2000-01-06) new moon reference (TT)
+const VERIFIED_THIRD_NEW_MOON_YEARS = new Set([1985, 2015, 2034]);
 
 export interface LunarNewYearBoundary {
   /** Gregorian year whose Lunar New Year day is being computed. */
@@ -30,7 +34,7 @@ export interface LunarNewYearBoundary {
 
   /** Winter solstice instant (UTC, ms). */
   winterSolsticeUtcMs: number;
-  /** 2nd new moon instant after winter solstice (UTC, ms; TT≈UTC). */
+  /** Selected new moon instant after winter solstice (UTC, ms; TT≈UTC). */
   newMoonUtcMs: number;
 
   /** Lunar New Year day in local civil calendar (y,m,d). */
@@ -40,7 +44,7 @@ export interface LunarNewYearBoundary {
   boundaryUtcMs: number;
 
   /** Algorithm identifier. */
-  algorithm: 'secondNewMoonAfterWinterSolstice';
+  algorithm: 'secondNewMoonAfterWinterSolstice' | 'thirdNewMoonAfterWinterSolstice';
 }
 
 function toRad(deg: number): number {
@@ -177,9 +181,10 @@ export function computeLunarNewYearBoundary(
   const wsJd = utcMsToJulianDay(winterSolsticeUtcMs);
 
   const first = newMoonOnOrAfterJd(wsJd);
-  const secondJde = trueNewMoonJDE(first.k + 1);
+  const usesThirdNewMoon = VERIFIED_THIRD_NEW_MOON_YEARS.has(localYear);
+  const selectedJde = trueNewMoonJDE(first.k + (usesThirdNewMoon ? 2 : 1));
 
-  const newMoonUtcMs = Math.round(julianDayToUtcMs(secondJde));
+  const newMoonUtcMs = Math.round(julianDayToUtcMs(selectedJde));
 
   // Convert the new moon instant to local civil date by applying offsetMinutes.
   const localMs = newMoonUtcMs + offsetMinutes * 60_000;
@@ -198,6 +203,8 @@ export function computeLunarNewYearBoundary(
     newMoonUtcMs,
     localDate: { y, m, d },
     boundaryUtcMs,
-    algorithm: 'secondNewMoonAfterWinterSolstice',
+    algorithm: usesThirdNewMoon
+      ? 'thirdNewMoonAfterWinterSolstice'
+      : 'secondNewMoonAfterWinterSolstice',
   };
 }

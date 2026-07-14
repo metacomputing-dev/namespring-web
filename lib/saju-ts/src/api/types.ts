@@ -327,7 +327,9 @@ export interface FortuneStartView {
 
 export interface DecadeLuckView {
   index: number;
+  /** Inclusive start of the continuous daewoon age interval. */
   startAgeYears: number;
+  /** Exclusive end of the continuous daewoon age interval. */
   endAgeYears: number;
   pillar: PillarView;
   startUtcMs?: number;
