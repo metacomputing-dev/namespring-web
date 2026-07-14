@@ -27,8 +27,18 @@ function check(label: string, cond: boolean, evidence?: string): void {
   }
 }
 
-function okXml(items: Array<{ lunYear: number; solYear: number; solMonth: number; solDay: number }>): string {
-  const rows = items.map((i) => `<item><lunYear>${i.lunYear}</lunYear><solYear>${i.solYear}</solYear><solMonth>${String(i.solMonth).padStart(2, '0')}</solMonth><solDay>${String(i.solDay).padStart(2, '0')}</solDay></item>`).join('');
+interface MockItem {
+  lunYear: number;
+  lunMonth: number;
+  lunDay: number;
+  lunLeapmonth: '평' | '윤';
+  solYear: number;
+  solMonth: number;
+  solDay: number;
+}
+
+function okXml(items: MockItem[]): string {
+  const rows = items.map((i) => `<item><lunYear>${i.lunYear}</lunYear><lunMonth>${String(i.lunMonth).padStart(2, '0')}</lunMonth><lunDay>${String(i.lunDay).padStart(2, '0')}</lunDay><lunLeapmonth>${i.lunLeapmonth}</lunLeapmonth><solYear>${i.solYear}</solYear><solMonth>${String(i.solMonth).padStart(2, '0')}</solMonth><solDay>${String(i.solDay).padStart(2, '0')}</solDay></item>`).join('');
   return `<?xml version="1.0"?><response><header><resultCode>00</resultCode><resultMsg>OK</resultMsg></header><body><items>${rows}</items></body></response>`;
 }
 
@@ -46,8 +56,9 @@ const server = http.createServer((req, res) => {
   // 연 범위 검색이라 이듬해 동일 음력 월일이 함께 온다 — lunYear 필터 검증용 오염 행 포함.
   res.writeHead(200, { 'Content-Type': 'application/xml' });
   res.end(okXml([
-    { lunYear: 2026, solYear: 2026, solMonth: 8, solDay: 13 },
-    { lunYear: 2025, solYear: 2025, solMonth: 7, solDay: 25 },
+    { lunYear: 2026, lunMonth: 6, lunDay: 1, lunLeapmonth: '윤', solYear: 2026, solMonth: 8, solDay: 13 },
+    { lunYear: 2025, lunMonth: 6, lunDay: 1, lunLeapmonth: '평', solYear: 2025, solMonth: 6, solDay: 25 },
+    { lunYear: 2025, lunMonth: 6, lunDay: 1, lunLeapmonth: '윤', solYear: 2025, solMonth: 7, solDay: 25 },
   ]));
 });
 await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
@@ -60,7 +71,7 @@ const got = await kasiLunarToSolar(
   { year: 2025, month: 6, day: 1, isLeapMonth: true },
   { serviceKey: 'TEST_KEY', baseUrl },
 );
-check('정상 응답 파싱 + lunYear 필터 (2026 오염 행 무시)',
+check('정상 응답 파싱 + 음력 tuple 필터 (연도·평달 오염 행 무시)',
   got?.year === 2025 && got?.month === 7 && got?.day === 25,
   JSON.stringify(got));
 

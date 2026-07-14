@@ -8,6 +8,7 @@ import { lifeStageOf } from '../core/lifeStage.js';
 import { mod } from '../core/mod.js';
 import { tenGodOf } from '../core/tenGod.js';
 import { TWELVE_SAL_KEYS, twelveSalStartOf } from '../rules/facts.js';
+import { baseTenGodOfStructuralMonthFrame, type BigyeopSubtype } from '../rules/gyeokgukMonthFrame.js';
 
 const STEM_CODES = ['GAP', 'EUL', 'BYEONG', 'JEONG', 'MU', 'GI', 'GYEONG', 'SIN', 'IM', 'GYE'] as const;
 const BRANCH_CODES = ['JA', 'CHUK', 'IN', 'MYO', 'JIN', 'SA', 'O', 'MI', 'SIN', 'YU', 'SUL', 'HAE'] as const;
@@ -541,20 +542,29 @@ function entryBranchIdx(entry: any): unknown {
   return entry?.pillar?.branch?.idx ?? entry?.pillar?.branch;
 }
 
-export function buildTransitShinsalForBranch(anchorBranchIdx: unknown, targetBranchIdx: unknown) {
+function buildTransitTwelveSalForBranch(anchorBranchIdx: unknown, targetBranchIdx: unknown) {
   const anchor = branchIdxFromUnknown(anchorBranchIdx);
   const target = branchIdxFromUnknown(targetBranchIdx);
   const start = twelveSalStartOf(anchor as any);
   const twelveSal = TWELVE_SAL_KEYS[mod(target - start, 12)] ?? '';
-  const yeokmaBranch = mod(start + 6, 12);
-  const samjaeGroup = orderedBanghapGroup(yeokmaBranch);
-  const samjaePhaseIndex = samjaeGroup.indexOf(target);
-
   return {
     anchor: 'YEAR_BRANCH',
     anchorBranch: branchCodeFromIdx(anchor),
     targetBranch: branchCodeFromIdx(target),
     twelveSal,
+  };
+}
+
+export function buildTransitShinsalForBranch(anchorBranchIdx: unknown, targetBranchIdx: unknown) {
+  const anchor = branchIdxFromUnknown(anchorBranchIdx);
+  const target = branchIdxFromUnknown(targetBranchIdx);
+  const start = twelveSalStartOf(anchor as any);
+  const yeokmaBranch = mod(start + 6, 12);
+  const samjaeGroup = orderedBanghapGroup(yeokmaBranch);
+  const samjaePhaseIndex = samjaeGroup.indexOf(target);
+
+  return {
+    ...buildTransitTwelveSalForBranch(anchor, target),
     samjae: {
       active: samjaePhaseIndex >= 0,
       phase: samjaePhaseIndex >= 0 ? SAMJAE_PHASES[samjaePhaseIndex] : null,
@@ -565,7 +575,13 @@ export function buildTransitShinsalForBranch(anchorBranchIdx: unknown, targetBra
   };
 }
 
-function luckPillarAnnotations(entry: any, dayStemIdx: number, yearBranchIdx: number, lifeStagePolicy: any) {
+function luckPillarAnnotations(
+  entry: any,
+  dayStemIdx: number,
+  yearBranchIdx: number,
+  lifeStagePolicy: any,
+  includeAnnualSignals: boolean,
+) {
   const stemIdx = stemIdxFromUnknown(entryStemIdx(entry));
   const branchIdx = branchIdxFromUnknown(entryBranchIdx(entry));
   const lifeStage = lifeStageOf(dayStemIdx as any, branchIdx as any, lifeStagePolicy ?? DEFAULT_TRANSIT_LIFE_STAGE_POLICY).stage;
@@ -575,7 +591,9 @@ function luckPillarAnnotations(entry: any, dayStemIdx: number, yearBranchIdx: nu
     tenGod: normalizeTenGod(tenGodOf(dayStemIdx as any, stemIdx as any)),
     lifeStage,
     lifeStageKo: LIFE_STAGE_KO[String(lifeStage)] ?? String(lifeStage),
-    transitShinsal: buildTransitShinsalForBranch(yearBranchIdx, branchIdx),
+    transitShinsal: includeAnnualSignals
+      ? buildTransitShinsalForBranch(yearBranchIdx, branchIdx)
+      : buildTransitTwelveSalForBranch(yearBranchIdx, branchIdx),
     ...(stemBranchInteraction ? { stemBranchInteraction } : {}),
   };
 }
@@ -757,16 +775,29 @@ function topTwo(values: Array<{ element: string; score: number }>): [string, str
 }
 
 // 감사 B4: 건록/양인/월겁의 기반 십성 유지 (건록=비견, 양인/월겁=겁재).
-const GYEOKGUK_BASE_SIPSEONG_ALIASES: Record<string, string> = {
-  GEONROK: 'BI_GYEON',
-  YANGIN: 'GYEOB_JAE',
-  WOLGEOB: 'GYEOB_JAE',
-};
+function readStructuralMonthFrameSubtype(value: unknown): BigyeopSubtype | null {
+  const normalized = String(value ?? '').trim().toUpperCase();
+  switch (normalized) {
+    case 'GEONROK':
+    case 'YANGIN':
+    case 'WOLGEOB':
+      return normalized;
+    default:
+      return null;
+  }
+}
 
+function structuralBaseSipseongKey(value: unknown): string {
+  const subtype = readStructuralMonthFrameSubtype(value);
+  const engineKey = subtype
+    ? baseTenGodOfStructuralMonthFrame(subtype)
+    : String(value ?? '').trim().toUpperCase();
+  return normalizeTenGod(engineKey);
+}
 function deriveGyeokgukBaseSipseong(bestKeyCore: string): string | null {
   const normalized = String(bestKeyCore ?? '').trim().toUpperCase();
   if (!normalized) return null;
-  const resolved = GYEOKGUK_BASE_SIPSEONG_ALIASES[normalized] ?? normalized;
+  const resolved = structuralBaseSipseongKey(normalized);
   if (!GYEOKGUK_BASE_SIPSEONG_KEYS.has(resolved)) return null;
   return normalizeTenGod(resolved);
 }
@@ -871,6 +902,10 @@ function compositeTransformSupport(ruleFacts: any, element: string): number {
     oneElementCode === element ? oneElementFactor * 0.5 : 0,
   );
 }
+function isSelectableMonthGyeokCandidate(candidate: any): boolean {
+  return candidate?.eligibleForGyeokSelection !== false;
+}
+
 
 function buildCompositeClassicalScore(args: {
   type: string;
@@ -882,7 +917,9 @@ function buildCompositeClassicalScore(args: {
 }): any {
   const { type, monthCandidate, notes, ruleFacts, ranking, yongshinRanking } = args;
   const monthGyeok = ruleFacts?.month?.gyeok ?? {};
-  const monthCandidates = Array.isArray(monthGyeok?.candidates) ? monthGyeok.candidates : [];
+  const monthCandidates = Array.isArray(monthGyeok?.candidates)
+    ? monthGyeok.candidates.filter(isSelectableMonthGyeokCandidate)
+    : [];
   const quality = monthGyeok?.quality ?? {};
   const normalizedElements = ruleFacts?.elements?.normalized ?? {};
 
@@ -981,8 +1018,12 @@ function buildCompositeClassicalScore(args: {
 function buildGyeokgukCandidates(bundle: AnalysisBundle, bestKeyCore: string, bestScore: number): any[] {
   const facts = bundle.report?.facts as Record<string, unknown> | undefined;
   const ruleFacts = facts?.['rules.facts'] as any;
+  const structuralSubtype = readStructuralMonthFrameSubtype(ruleFacts?.month?.gyeok?.bigyeopSubtype);
+  const structuralBaseCandidateType = structuralSubtype
+    ? structuralBaseSipseongKey(structuralSubtype)
+    : null;
   const monthCandidates = Array.isArray(ruleFacts?.month?.gyeok?.candidates)
-    ? ruleFacts.month.gyeok.candidates
+    ? ruleFacts.month.gyeok.candidates.filter(isSelectableMonthGyeokCandidate)
     : [];
 
   const monthByType = new Map<string, any>();
@@ -1035,7 +1076,7 @@ function buildGyeokgukCandidates(bundle: AnalysisBundle, bestKeyCore: string, be
 
   // 감사 B4: 건록/양인/월겁 키는 십성 인덱스(monthByType)에서 기반 십성으로 조회.
   const monthCandidateForType = (type: string): any =>
-    monthByType.get(type) ?? monthByType.get(normalizeTenGod(GYEOKGUK_BASE_SIPSEONG_ALIASES[type] ?? type));
+    monthByType.get(type) ?? monthByType.get(structuralBaseSipseongKey(type));
 
   for (const entry of ranking) {
     const type = normalizeGyeokgukKey(entry?.key);
@@ -1045,9 +1086,13 @@ function buildGyeokgukCandidates(bundle: AnalysisBundle, bestKeyCore: string, be
   }
 
   for (const candidate of monthCandidates) {
+    const candidateType = normalizeGyeokgukKey(candidate?.tenGod);
+    // A structural frame already represents this same month-command evidence.
+    // Do not re-publish it as a contradictory BI/GEOB frame.
+    if (structuralBaseCandidateType && candidateType === structuralBaseCandidateType) continue;
     const score = Number(candidate?.score);
     if (!Number.isFinite(score) || score <= MIN_GYEOKGUK_CANDIDATE_SCORE) continue;
-    addCandidate(candidate?.tenGod, candidate?.score, candidate);
+    addCandidate(candidateType, candidate?.score, candidate);
   }
 
   if (bestKeyCore && !seen.has(bestKeyCore)) {
@@ -1659,12 +1704,15 @@ function normalizeLegacyOutput(
   const ageDisplayLabel = String(fortune?.start?.ageDisplayLabel ?? (ageDisplayMode === 'koreanCountingAge' ? 'Korean counting age by configured year boundary' : 'Continuous age from birth'));
   const needsExpandedYears = typeof saeunStartYear === 'number' || typeof saeunYearCount === 'number';
   const needsExpandedMonths = typeof wolunStartYear === 'number' || typeof wolunMonthCount === 'number';
-  const yearsAll = needsExpandedYears && Array.isArray(timeline?.years)
+  const maxFortuneSolarYear = standard.y + 120;
+  const yearsSource = needsExpandedYears && Array.isArray(timeline?.years)
     ? timeline.years
     : Array.isArray(fortune?.years) ? fortune.years : [];
-  const monthsAll = needsExpandedMonths && Array.isArray(timeline?.months)
+  const monthsSource = needsExpandedMonths && Array.isArray(timeline?.months)
     ? timeline.months
     : Array.isArray(fortune?.months) ? fortune.months : [];
+  const yearsAll = yearsSource.filter((y: any) => Number(y?.solarYear) <= maxFortuneSolarYear);
+  const monthsAll = monthsSource.filter((m: any) => Number(m?.solarYear) <= maxFortuneSolarYear);
   const yearsFiltered = typeof saeunStartYear === 'number'
     ? yearsAll.filter((y: any) => Number(y?.solarYear) >= saeunStartYear)
     : yearsAll;
@@ -1697,7 +1745,7 @@ function normalizeLegacyOutput(
       ...(approxDaeunUtcMs(entry, firstDaeunStartUtcMsApprox, decadeLengthYears, 'end') !== null
         ? { approxEndUtcMs: approxDaeunUtcMs(entry, firstDaeunStartUtcMsApprox, decadeLengthYears, 'end') }
         : {}),
-      ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy),
+      ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy, false),
       ...(formatLuckRelationsWithNatal(decadeRelationsByIndex.get(Number(entry?.index ?? 0)))
         ? { relationsWithNatal: formatLuckRelationsWithNatal(decadeRelationsByIndex.get(Number(entry?.index ?? 0))) }
         : {}),
@@ -1713,7 +1761,7 @@ function normalizeLegacyOutput(
     endUtcMs: Number.isFinite(entry?.endUtcMs) ? Number(entry.endUtcMs) : null,
     approxStartAgeYears: Number.isFinite(entry?.approxStartAgeYears) ? Number(entry.approxStartAgeYears) : null,
     approxEndAgeYears: Number.isFinite(entry?.approxEndAgeYears) ? Number(entry.approxEndAgeYears) : null,
-    ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy),
+    ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy, true),
     ...(formatLuckRelationsWithNatal(yearRelationsByYear.get(Number(entry?.solarYear ?? 0)))
       ? { relationsWithNatal: formatLuckRelationsWithNatal(yearRelationsByYear.get(Number(entry?.solarYear ?? 0))) }
       : {}),
@@ -1734,7 +1782,7 @@ function normalizeLegacyOutput(
     endUtcMs: Number.isFinite(entry?.endUtcMs) ? Number(entry.endUtcMs) : null,
     approxStartAgeYears: Number.isFinite(entry?.approxStartAgeYears) ? Number(entry.approxStartAgeYears) : null,
     approxEndAgeYears: Number.isFinite(entry?.approxEndAgeYears) ? Number(entry.approxEndAgeYears) : null,
-    ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy),
+    ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy, false),
     ...(formatLuckRelationsWithNatal(monthRelationsByKey.get(`${Number(entry?.solarYear ?? 0)}:${Number(entry?.monthOrder ?? 0)}`))
       ? { relationsWithNatal: formatLuckRelationsWithNatal(monthRelationsByKey.get(`${Number(entry?.solarYear ?? 0)}:${Number(entry?.monthOrder ?? 0)}`)) }
       : {}),

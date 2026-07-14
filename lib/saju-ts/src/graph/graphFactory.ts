@@ -206,12 +206,16 @@ export function buildGraph(): Graph {
       id: 'calendar.solarTermsAround',
       deps: ['time.localDateTime', 'policy.calendar'],
       explain: '24절기(정기) 시각(UTC) — baseYear±1을 포함한 정렬된 목록. (절입/진단/확장 기능에서 재사용)',
-      compute: (_ctx, get) => {
+      compute: (ctx, get) => {
         const ldt = get<any>('time.localDateTime');
         const cal = get<any>('policy.calendar');
 
         // Only compute if some policy actually needs solar terms.
-        const needs = cal.monthBoundary === 'jieqi' || cal.yearBoundary === 'liChun' || !!cal?.solarTerms?.alwaysCompute;
+        const needs =
+          ctx.config.toggles.fortune === true ||
+          cal.monthBoundary === 'jieqi' ||
+          cal.yearBoundary === 'liChun' ||
+          !!cal?.solarTerms?.alwaysCompute;
         if (!needs) return null;
 
         const method = cal.solarTerms?.method === 'approx' ? 'approx' : 'meeus';
@@ -369,7 +373,7 @@ export function buildGraph(): Graph {
       id: 'pillars.month',
       deps: ['time.localDateTime', 'time.utcMs', 'policy.calendar', 'calendar.jieBoundariesAround', 'pillars.year'],
       formula: 'base = ((yearStem mod 5)*2 + 2) mod 10, monthStem = (base + m) mod 10',
-      explain: '월 경계(monthBoundary)를 적용해 월주를 결정한다(절기 경계는 실제 절기 시각을 사용).',
+      explain: '월 경계(monthBoundary)를 적용해 월주를 결정한다. 절기월의 월간은 연주 표시 정책과 분리된 입춘 연간을 사용한다.',
       compute: (_ctx, get) => {
         const ldt = get<any>('time.localDateTime');
         const utcMs = get<number>('time.utcMs');
@@ -377,7 +381,17 @@ export function buildGraph(): Graph {
         const boundaries = get<JieBoundariesAround | null>('calendar.jieBoundariesAround');
         const year = get<PillarIdx>('pillars.year');
         const order = monthOrderByPolicy(utcMs, ldt, cal.monthBoundary, boundaries);
-        return calcMonthPillarFromOrder(year.stem, order);
+        const monthYearStem = cal.monthBoundary === 'jieqi'
+          ? calcYearPillarFromLiChunUtc(
+              ldt.date.y,
+              utcMs,
+              boundaries ? liChunUtcMsFromBoundaries(boundaries) : null,
+              'liChun',
+              ldt.offsetMinutes,
+              cal.solarTerms?.method === 'approx' ? 'approx' : 'meeus',
+            ).stem
+          : year.stem;
+        return calcMonthPillarFromOrder(monthYearStem, order);
       },
     }),
   );

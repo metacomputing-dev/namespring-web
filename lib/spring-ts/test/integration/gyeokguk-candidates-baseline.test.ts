@@ -158,6 +158,27 @@ for (const fixture of fixtures) {
     `actual=${selected.confidence}, baseline=${storedSelected?.gyeokgukConfidence}`);
 
   check(`${fixture.id}: candidates non-empty`, candidates.length > 0, `count=${candidates.length}`);
+  const legacyDuplicateType = ({
+    건록격: '비견격',
+    양인격: '겁재격',
+    월겁격: '겁재격',
+  } as Record<string, string>)[selected.type];
+  if (legacyDuplicateType) {
+    check(
+      `${fixture.id}: structural frame is not duplicated under its legacy ten-god name`,
+      candidates.every((candidate) => candidate.type !== legacyDuplicateType),
+      `duplicate=${legacyDuplicateType}`,
+    );
+  }
+  if (['fix-06', 'fix-07', 'fix-11'].includes(fixture.id)) {
+    const leakedCompanions = candidates.filter((candidate) =>
+      candidate.baseTenGod === '비견' || candidate.baseTenGod === '겁재');
+    check(
+      `${fixture.id}: structurally ineligible companion candidates stay internal`,
+      leakedCompanions.length === 0,
+      `leaked=${leakedCompanions.map((candidate) => candidate.type).join(',') || 'none'}`,
+    );
+  }
   const first = candidates[0];
   check(`${fixture.id}: first candidate matches selected`,
     first?.type === selected.type &&

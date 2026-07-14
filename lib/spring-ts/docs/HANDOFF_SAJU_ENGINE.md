@@ -81,6 +81,14 @@ cd lib/spring-ts && npx tsx tmp/probe-optin-naeum-palace.ts
     | ⑤ | 일주 경계 정자시설 전환 + A11 (결정① — yaza 기본 on/23:00, -30분 시프트를 인스턴트→경계 분류(calendar.dayCutShiftMinutes)로) | b7ff328f8 | fix-03(00:30)만 일주 丁巳→戊午 연쇄(신강약·용신 WOOD→FIRE·격국·별점). 경계골든 723 무파급(정책 핀). yaza-opt-in.test 재작성 4/4 |
     | ⑥ | 대운수 표기 소비자 전환 (B11 잔여 — daeun-display.ts 오프셋, 4개 카드 표면 동시 전환, 시간 로직·rep 채점은 연속값 유지) | 4f3609f21 | 표기만 이동(오프셋 +1 케이스에서 4표면 일관). snapshot 15/15 = 판정 무파급 확증 |
 
+  - **Stack02 구조격 정오표 (2026-07-14, 외부 전문가 승인 전 provisional)**:
+    - 일반 취격의 투간에서 일간 자신을 제외하고, 월령 본기가 비견/겁재가 아닌 경우 잔여기 비겁 후보가
+      건록·양인·월겁 구조격으로 승격되지 않도록 분리했다. 甲亥·丙寅 오분류도 같은 원인으로 차단했다.
+    - 탈락한 비겁 후보는 내부 증거로 보존하되 공개 후보와 품질 gap에서는 제외한다.
+    - 기본 스냅샷은 fix-01/06/07/08/11의 격국 5건·8개 판정 필드가 이동했다.
+      특히 fix-06/07은 양인격·월겁격에서 정인격으로 정정되어 위 표 ④의 당시 기록을 대체한다.
+    - 테스트 통과는 회귀 부재의 증거이며, 토 잡기월 호환 정책과 구조격 분류 자체의 명리 승인은 아니다.
+
   - **공식 판정 분류(validate:default-change, main↔HEAD)**: overall **IMPROVEMENT** — 개선 5(fix-03·05·06·07·11, D1 오라클 밴드 기준), 회귀 0, 불변 10.
   - **κ 코퍼스 정합**: dump-report-trace before/after — 데모(1986-04-19) 판정 불변·전 셀 ✅재생성·정합✓ 유지. fix-03(판정 변경자)도 새 클래스(strong.jaeseong.boost_mild)에서 전 기간 ✅재생성 + byDaeun 전 구간 정합✓ = **커버리지 후퇴 0**.
   - 검증(최종 일괄): saju-ts 21파일 84테스트, tsc 0err(양쪽), compat 202, boundary-goldens 723, jonggyeok 111, yongshin-consensus 241, tiered-shape 1378, class-axes 12, candidates 182, scoring 34, conflict-aware 10, borderline 7/7, time-policy 11, calendar-policy 9, presets 13, service-visible 13, life-stage-display 4, tiered-determinism 4, adapter-daewoon 15, quality_gate D3/D5 PASS(D1/D2/D4 N/A).
@@ -120,3 +128,10 @@ cd lib/spring-ts && npx tsx tmp/probe-optin-naeum-palace.ts
 > ① 콘텐츠 저작 축(PR-2 잔여 — 귀인 궁위 세분 factId + 신규 표면 해석 충전, HANDOFF_NEXT_PHASES 작업 5-후속)
 > ② 프론트 윤달(isLeapMonth) 입력 UI(lib 밖 제품 결정) ③ 후속 감사 후보(위) ④ 미검증 70건 개별 확인.
 > 착수 시 감사 보고서 부록 B·C에서 상세 확인 후 항목 단위 커밋 + C절 검증 관례를 그대로 따르라.
+
+## G. Stack07 self-review correction (2026-07-14)
+
+`strength.interaction`의 기존 합충 계층은 기본 on을 유지한다. 다만 후속 seasonal/positional
+확장 knob는 17픽스처의 authority truth denominator가 0이고 고정 이름 메트릭에 더 넓은
+이동이 확인되어 기본 off로 복구했다. 두 기능은 명시 opt-in으로만 유지하며, 독립 권위
+holdout과 재캘리브레이션 전에는 제품 기본값으로 승인하지 않는다.

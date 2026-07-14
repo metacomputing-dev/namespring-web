@@ -238,16 +238,16 @@
         "note": "v2 is opt-in; this artifact compares PR-5.1 default behavior with the PR-5.2 candidate mode.",
         "defaultFixtures": {
           "total": 17,
-          "v1V2Diverged": 10,
+          "v1V2Diverged": 9,
           "simpleVsV1Diverged": 0,
           "totalAbsDelta": {
             "saju": 1.7,
-            "total": 0.5
+            "total": 0.4
           },
           "rows": [
             {
               "id": "fix-01",
-              "label": "1986-04-19 male — 戊土 일간 (README example)",
+              "label": "1986-04-19 male — 癸水 일간 (README example)",
               "simple": {
                 "total": 56.1,
                 "saju": 35.4
@@ -271,7 +271,7 @@
             },
             {
               "id": "fix-02",
-              "label": "1992-09-15 female — 壬水 일간, 가을",
+              "label": "1992-09-15 female — 甲木 일간, 가을",
               "simple": {
                 "total": 53.9,
                 "saju": 42.2
@@ -319,7 +319,7 @@
             },
             {
               "id": "fix-04",
-              "label": "1965-08-08 19:00 female — 丙火 일간, 종왕 후보 (강한 火)",
+              "label": "1965-08-08 19:00 female — 甲木 일간, 종왕 후보 (강한 木)",
               "simple": {
                 "total": 58.7,
                 "saju": 40
@@ -345,11 +345,11 @@
               "id": "fix-05",
               "label": "2005-12-25 06:00 male — 겨울 조후 case (한랭)",
               "simple": {
-                "total": 60.9,
+                "total": 61,
                 "saju": 68.2
               },
               "v1": {
-                "total": 60.9,
+                "total": 61,
                 "saju": 68.2
               },
               "v2": {
@@ -361,13 +361,13 @@
                 "saju": 0
               },
               "delta": {
-                "total": 0.1,
+                "total": 0,
                 "saju": 0
               }
             },
             {
               "id": "fix-06",
-              "label": "1978-06-15 14:00 female — 庚金 일간, 여름",
+              "label": "1978-06-15 14:00 female — 戊土 일간, 여름",
               "simple": {
                 "total": 57,
                 "saju": 36.8
@@ -657,10 +657,10 @@
         },
         "jonggyeokFixtures": {
           "total": 9,
-          "v1V2Diverged": 4,
+          "v1V2Diverged": 5,
           "simpleVsV1Diverged": 0,
           "totalAbsDelta": {
-            "saju": 0.5,
+            "saju": 0.6,
             "total": 0.1
           },
           "rows": [
@@ -870,11 +870,11 @@
               "expectedJonggyeokType": "CONG_BI",
               "simple": {
                 "total": 60.8,
-                "saju": 62.5
+                "saju": 62.4
               },
               "v1": {
                 "total": 60.8,
-                "saju": 62.5
+                "saju": 62.4
               },
               "v2": {
                 "total": 60.8,
@@ -886,7 +886,7 @@
               },
               "delta": {
                 "total": 0,
-                "saju": 0
+                "saju": 0.1
               }
             }
           ]
@@ -1181,16 +1181,16 @@
       "note": "v2 is opt-in; this artifact compares PR-5.1 default behavior with the PR-5.2 candidate mode.",
       "defaultFixtures": {
         "total": 17,
-        "v1V2Diverged": 10,
+        "v1V2Diverged": 9,
         "simpleVsV1Diverged": 0,
         "totalAbsDelta": {
           "saju": 1.7,
-          "total": 0.5
+          "total": 0.4
         },
         "rows": [
           {
             "id": "fix-01",
-            "label": "1986-04-19 male — 戊土 일간 (README example)",
+            "label": "1986-04-19 male — 癸水 일간 (README example)",
             "simple": {
               "total": 56.1,
               "saju": 35.4
@@ -1214,7 +1214,7 @@
           },
           {
             "id": "fix-02",
-            "label": "1992-09-15 female — 壬水 일간, 가을",
+            "label": "1992-09-15 female — 甲木 일간, 가을",
             "simple": {
               "total": 53.9,
               "saju": 42.2
@@ -1262,7 +1262,7 @@
           },
           {
             "id": "fix-04",
-            "label": "1965-08-08 19:00 female — 丙火 일간, 종왕 후보 (강한 火)",
+            "label": "1965-08-08 19:00 female — 甲木 일간, 종왕 후보 (강한 木)",
             "simple": {
               "total": 58.7,
               "saju": 40
@@ -1288,11 +1288,11 @@
             "id": "fix-05",
             "label": "2005-12-25 06:00 male — 겨울 조후 case (한랭)",
             "simple": {
-              "total": 60.9,
+              "total": 61,
               "saju": 68.2
             },
             "v1": {
-              "total": 60.9,
+              "total": 61,
               "saju": 68.2
             },
             "v2": {
@@ -1304,13 +1304,13 @@
               "saju": 0
             },
             "delta": {
-              "total": 0.1,
+              "total": 0,
               "saju": 0
             }
           },
           {
             "id": "fix-06",
-            "label": "1978-06-15 14:00 female — 庚金 일간, 여름",
+            "label": "1978-06-15 14:00 female — 戊土 일간, 여름",
             "simple": {
               "total": 57,
               "saju": 36.8
@@ -1600,10 +1600,10 @@
       },
       "jonggyeokFixtures": {
         "total": 9,
-        "v1V2Diverged": 4,
+        "v1V2Diverged": 5,
         "simpleVsV1Diverged": 0,
         "totalAbsDelta": {
-          "saju": 0.5,
+          "saju": 0.6,
           "total": 0.1
         },
         "rows": [
@@ -1813,11 +1813,11 @@
             "expectedJonggyeokType": "CONG_BI",
             "simple": {
               "total": 60.8,
-              "saju": 62.5
+              "saju": 62.4
             },
             "v1": {
               "total": 60.8,
-              "saju": 62.5
+              "saju": 62.4
             },
             "v2": {
               "total": 60.8,
@@ -1829,7 +1829,7 @@
             },
             "delta": {
               "total": 0,
-              "saju": 0
+              "saju": 0.1
             }
           }
         ]

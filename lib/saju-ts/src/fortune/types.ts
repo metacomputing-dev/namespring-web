@@ -136,7 +136,9 @@ export interface FortuneStart {
 export interface DecadeLuck {
   kind: 'DECADE';
   index: number; // 0-based
+  /** Inclusive start of the continuous daewoon age interval. */
   startAgeYears: number;
+  /** Exclusive end of the continuous daewoon age interval. */
   endAgeYears: number;
   displayStartAge: number;
   displayEndAge: number;

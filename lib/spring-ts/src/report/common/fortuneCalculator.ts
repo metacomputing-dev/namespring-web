@@ -17,6 +17,11 @@
  */
 
 import type { ElementCode, BranchCode } from '../types.js';
+import {
+  addTargetCalendarDays,
+  targetCalendarDayOfWeek,
+  targetCalendarParts,
+} from '../../target-date.js';
 
 import {
   GANZHI_60,
@@ -161,16 +166,17 @@ function toJulianDay(year: number, month: number, day: number): number {
 
 /**
  * Date 객체를 줄리안 데이 넘버로 변환합니다.
- * UTC 기준이 아닌 로컬 시간 기준으로 날짜를 추출합니다.
+ * 등록된 호출자 달력 날짜를 우선하고, 일반 Date는 기존 로컬 날짜를 사용합니다.
  *
  * @param date Date 객체
  * @returns 줄리안 데이 넘버
  */
 function dateToJulianDay(date: Date): number {
+  const parts = targetCalendarParts(date);
   return toJulianDay(
-    date.getFullYear(),
-    date.getMonth() + 1,
-    date.getDate(),
+    parts.year,
+    parts.month,
+    parts.day,
   );
 }
 
@@ -438,7 +444,7 @@ export function getDailyFortune(date: Date): DailyFortune {
     ...base,
     date,
     julianDay: jd,
-    dayOfWeek: date.getDay(),
+    dayOfWeek: targetCalendarDayOfWeek(date),
   };
 }
 
@@ -456,8 +462,7 @@ export function getWeeklyFortunes(startDate: Date): DailyFortune[] {
   const result: DailyFortune[] = [];
 
   for (let i = 0; i < 7; i++) {
-    const d = new Date(startDate);
-    d.setDate(d.getDate() + i);
+    const d = addTargetCalendarDays(startDate, i);
     result.push(getDailyFortune(d));
   }
 

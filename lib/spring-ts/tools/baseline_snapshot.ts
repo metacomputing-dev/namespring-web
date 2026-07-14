@@ -4,10 +4,10 @@
  * Capture or verify the spring-ts baseline regression snapshot.
  *
  *   capture mode:  rebuilds tests/baseline/spring_ts_snapshot.json from the
- *                  10 fixtures in tests/fixtures/spring_ts_baseline_cases.json.
+ *                  all fixtures in tests/fixtures/spring_ts_baseline_cases.json.
  *                  Used after intentional baseline changes (e.g., post-PR1).
  *
- *   verify mode (default): re-runs all 10 fixtures and diffs against the
+ *   verify mode (default): re-runs every fixture and diffs against the
  *                          stored snapshot. Default-mode regression must be 0;
  *                          opt-in modes are tested separately.
  *
@@ -197,6 +197,43 @@ async function main(): Promise<void> {
   let pass = 0;
   let fail = 0;
   const failures: string[] = [];
+  const baselineIds = baseline.results.map((result) => result.id);
+  const currentIds = snapshot.results.map((result) => result.id);
+  const shapeFailures: string[] = [];
+
+  if (baseline.fixtureCount !== baseline.results.length) {
+    shapeFailures.push(
+      `stored fixtureCount=${baseline.fixtureCount}, stored results=${baseline.results.length}`,
+    );
+  }
+  if (snapshot.fixtureCount !== snapshot.results.length) {
+    shapeFailures.push(
+      `current fixtureCount=${snapshot.fixtureCount}, current results=${snapshot.results.length}`,
+    );
+  }
+  if (new Set(baselineIds).size !== baselineIds.length) {
+    shapeFailures.push('stored snapshot contains duplicate fixture ids');
+  }
+  if (new Set(currentIds).size !== currentIds.length) {
+    shapeFailures.push('current fixture run contains duplicate fixture ids');
+  }
+  if (baseline.fixtureCount !== snapshot.fixtureCount) {
+    shapeFailures.push(
+      `fixture count changed: stored=${baseline.fixtureCount}, current=${snapshot.fixtureCount}`,
+    );
+  }
+  if (JSON.stringify(baselineIds) !== JSON.stringify(currentIds)) {
+    shapeFailures.push(
+      `fixture id/order changed: stored=[${baselineIds.join(', ')}], current=[${currentIds.join(', ')}]`,
+    );
+  }
+
+  if (shapeFailures.length > 0) {
+    console.error('Snapshot structure mismatch:');
+    for (const failure of shapeFailures) console.error(`  - ${failure}`);
+    console.error('Re-capture only after confirming the fixture-set change is intentional.');
+    process.exit(1);
+  }
 
   for (const baseFix of baseline.results) {
     const currentFix = snapshot.results.find((r) => r.id === baseFix.id);

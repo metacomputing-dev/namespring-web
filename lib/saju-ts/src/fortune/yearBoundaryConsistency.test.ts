@@ -51,6 +51,49 @@ describe('A12 — 연주↔세운 yearBoundary 정합', () => {
     expect(row!.pillar).toEqual(summary.pillars.year); // 庚辰
   });
 
+  it('liChun 정밀도 설정을 세운·월운 경계에도 동일하게 적용한다', () => {
+    const configuredLiChun = getLiChunUtcMs(2027, 'meeus', 'newton', 'rCorrected', 'iau1980_full');
+    const classicalLiChun = getLiChunUtcMs(2027, 'meeus', 'bisection', 'constant', 'classical');
+    expect(configuredLiChun).not.toBe(classicalLiChun);
+
+    const birthUtcMs = Math.max(configuredLiChun, classicalLiChun) + 1_000;
+    const engine = createEngine({
+      calendar: {
+        yearBoundary: 'liChun',
+        solarTerms: { method: 'meeus', algorithm: 'newton' },
+        aberrationModel: 'rCorrected',
+        solarPrecision: 'iau1980_full',
+      },
+    } as any);
+    const summary: any = engine.analyze({
+      birth: { instant: new Date(birthUtcMs).toISOString(), calendar: 'gregorian' },
+      sex: 'M',
+    } as any).summary;
+    const yearRow = rowContaining(summary.fortune.years, birthUtcMs);
+    const monthRow = rowContaining(summary.fortune.months, birthUtcMs);
+
+    expect(yearRow).toBeTruthy();
+    expect(yearRow!.startUtcMs).toBe(configuredLiChun);
+    expect(yearRow!.pillar).toEqual(summary.pillars.year);
+    expect(monthRow).toBeTruthy();
+    expect(monthRow!.startUtcMs).toBe(configuredLiChun);
+    expect(monthRow!.pillar).toEqual(summary.pillars.month);
+  });
+
+  it('fortune이 켜져 있으면 비입춘 연 경계와 역법월 조합에서도 절기 기산을 계산한다', () => {
+    for (const yearBoundary of ['lunarNewYear', 'jan1'] as const) {
+      const engine = createEngine({
+        calendar: { yearBoundary, monthBoundary: 'gregorianMonth' },
+      } as any);
+      const summary: any = engine.analyze({
+        birth: { instant: BIRTH, calendar: 'gregorian' },
+        sex: 'M',
+      } as any).summary;
+      expect(summary.fortune.start.boundary).toBeTruthy();
+      expect(summary.fortune.years.length).toBeGreaterThan(0);
+    }
+  });
+
   it('lunarNewYear: 설 이후 출생 → 연주·세운 모두 2001 辛巳로 정합', () => {
     const summary = analyzeWith('lunarNewYear');
     const years: YearRow[] = summary.fortune.years;
@@ -84,16 +127,20 @@ describe('A12 — 연주↔세운 yearBoundary 정합', () => {
     }
   });
 
-  it('월운 앵커는 yearBoundary와 무관하게 절기 기준(출생 포함 창 유지)', () => {
+  it('절기 월주와 출생 포함 월운은 yearBoundary와 무관하게 같은 입춘 연간을 쓴다', () => {
     for (const yb of ['liChun', 'lunarNewYear', 'jan1'] as const) {
       const summary = analyzeWith(yb);
       const months: YearRow[] = summary.fortune.months ?? [];
       expect(months.length).toBeGreaterThan(0);
-      // 출생 시점이 월운 창 안에 있어야 한다 (비-liChun에서 앵커가 흔들리면 깨짐)
+      // 출생 시점이 월운 창 안에 있어야 하고, 그 월운의 간지는 명식 월주와 같아야 한다.
+      // 2001-01-28은 입춘 전이므로 비-liChun 연주 정책에서도 월주는 2000 庚년의 己丑이다.
       const containing = months.find(
         (m: any) => m.startUtcMs <= BIRTH_UTC_MS && BIRTH_UTC_MS < m.endUtcMs,
       );
       expect(containing).toBeTruthy();
+      expect(containing!.pillar).toEqual(summary.pillars.month);
+      expect((containing!.pillar as any).stem.text).toBe('己');
+      expect((containing!.pillar as any).branch.text).toBe('丑');
     }
   });
 });
