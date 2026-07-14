@@ -7,20 +7,28 @@ import { DEFAULT_SCORE_POLICY, scorePillars } from '../core/scoring.js';
 import { buildRuleFacts, type GyeokgukSelectionRule } from './facts.js';
 import { computeGyeokguk } from './gyeokguk.js';
 
-function analyzeWithSelectionRule(selectionRule?: GyeokgukSelectionRule, gyeokgukOverrides: Record<string, unknown> = {}) {
+function analyzeWithSelectionRule(
+  selectionRule?: GyeokgukSelectionRule,
+  gyeokgukOverrides: Record<string, unknown> = {},
+  useDefaultRuleSet = false,
+) {
   const gyeokgukStrategy = { ...(selectionRule ? { selectionRule } : {}), ...gyeokgukOverrides };
   const config = normalizeConfig({
     strategies: Object.keys(gyeokgukStrategy).length > 0 ? { gyeokguk: gyeokgukStrategy } : {},
-    extensions: {
-      ruleSpecs: {
-        gyeokguk: {
-          id: 'test.gyeokguk.month-gyeok-only',
-          base: 'none',
-          mode: 'replace',
-          macros: [{ kind: 'monthGyeokTenGod' }],
-        },
-      },
-    },
+    ...(useDefaultRuleSet
+      ? {}
+      : {
+          extensions: {
+            ruleSpecs: {
+              gyeokguk: {
+                id: 'test.gyeokguk.month-gyeok-only',
+                base: 'none',
+                mode: 'replace',
+                macros: [{ kind: 'monthGyeokTenGod' }],
+              },
+            },
+          },
+        }),
   });
 
   const pillars = {
@@ -37,7 +45,7 @@ function analyzeWithSelectionRule(selectionRule?: GyeokgukSelectionRule, gyeokgu
   const facts = buildRuleFacts({ config, pillars, elementDistribution, scoring });
   const result = computeGyeokguk(config, facts);
 
-  return { facts, result };
+  return { config, facts, result };
 }
 
 function analyzeHiddenSeongpae(gyeokgukOverrides: Record<string, unknown> = {}) {
@@ -112,5 +120,25 @@ describe('gyeokguk selectionRule', () => {
     });
     expect(enabled.result.basis.seongpaeScoreAdjustment?.before).toBeCloseTo(1, 12);
     expect(enabled.result.basis.seongpaeScoreAdjustment?.after).toBeCloseTo(0.95, 12);
+  });
+
+  it('does not apply the same month damage through quality and seongpae score twice', () => {
+    const { config, facts } = analyzeWithSelectionRule(undefined, {}, true);
+    facts.month.gyeok.quality.multiplier = 0.5;
+    facts.month.gyeok.seongpae = {
+      ...facts.month.gyeok.seongpae!,
+      verdict: 'PAGYEOK',
+      verdictBeforeMonthBroken: 'UNDETERMINED',
+    };
+
+    const result = computeGyeokguk(config, facts);
+    expect(result.scores['gyeokguk.PYEON_IN']).toBeCloseTo(0.5, 12);
+    expect(result.basis.seongpaeScoreAdjustment).toMatchObject({
+      verdict: 'PAGYEOK',
+      multiplier: 1,
+      before: 0.5,
+      after: 0.5,
+      suppressedBy: 'MONTH_DAMAGE_ALREADY_APPLIED_TO_QUALITY',
+    });
   });
 });
