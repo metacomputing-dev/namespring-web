@@ -23,6 +23,7 @@ import { DEFAULT_SHINSAL_DAMAGE_RELATIONS } from './packs/conditionsBasePack.js'
 import { DEFAULT_CLIMATE_MODEL, computeClimateScores, mergeClimateModel } from './climate.js';
 import type { JohooTemplateResult } from './johooTemplate.js';
 import { computeJohooTemplate } from './johooTemplate.js';
+import { classifyStructuralMonthFrame, isCompanionTenGod, type BigyeopSubtype } from './gyeokgukMonthFrame.js';
 import type { SeasonGroup } from './season.js';
 import { seasonGroupOfMonthBranch } from './season.js';
 
@@ -212,11 +213,12 @@ export interface RuleFacts {
       visibleInChart: boolean;
     }>;
 
-    /** True if 월지 本气(본기) stem is exposed(透干) in any pillar stem. */
+    /** True if 월지 本气(본기) stem is exposed(透干) outside the day master. */
     mainHiddenStemVisible: boolean;
 
     /**
      * ZiPing-style 格局 anchor candidate derived from month hidden-stem exposure.
+     * - STRUCTURAL_MONTH_FRAME: 건록·양인·월겁을 일간-월지 구조로 판정
      * - MAIN_EXPOSED: 本气透干 → 본기를 고정
      * - VISIBLE_HIDDEN: 본기 미투간이지만 중/여기 중 노출된 것이 있어 그 stem을 채택
      * - MAIN_FALLBACK: 아무것도 노출되지 않아 본기로 fallback
@@ -224,8 +226,15 @@ export interface RuleFacts {
     gyeok: {
       stem: StemIdx;
       tenGod: TenGod;
-      method: 'MAIN_EXPOSED' | 'VISIBLE_HIDDEN' | 'GROUP_SUPPORTED' | 'MAIN_FALLBACK';
+      method: 'STRUCTURAL_MONTH_FRAME' | 'MAIN_EXPOSED' | 'VISIBLE_HIDDEN' | 'GROUP_SUPPORTED' | 'MAIN_FALLBACK';
       selectionRule: GyeokgukSelectionRule;
+
+      /**
+       * 건록·양인·월겁 세분 (감사 B4).
+       * 판정은 선택된 후보 십신이 아니라 일간-월지 구조와 월지 본기로 결정한다.
+       * strategies.gyeokguk.bigyeopGyeok === 'legacy' 이면 null (비견격/겁재격 표기 유지).
+       */
+      bigyeopSubtype?: BigyeopSubtype | null;
 
       /** Optional “会支” support info (삼합/방합) used when no stem is exposed. */
       support?: { type: 'SAMHAP' | 'BANGHAP'; element: Element; members: BranchIdx[] } | null;
@@ -240,6 +249,8 @@ export interface RuleFacts {
         visibleInChart: boolean;
         role: HiddenStemRole;
         weight: number;
+        eligibleForGyeokSelection: boolean;
+        selectionExclusionReason?: 'COMPANION_REQUIRES_STRUCTURAL_FRAME';
       }>;
 
       /**
@@ -2136,14 +2147,15 @@ function computeMonthGyeokQuality(args: {
   gyeokStem: StemIdx;
   gyeokTenGod: TenGod;
   gyeokMethod: GyeokQualityMethod;
-  monthGyeokCandidates: Array<{ score: number; tenGod: TenGod; visibleInChart: boolean }>;
+  selectionCandidates: Array<{ score: number; tenGod: TenGod; visibleInChart: boolean }>;
+  exposureEvidenceCandidates: Array<{ score: number; tenGod: TenGod; visibleInChart: boolean }>;
   branches: BranchIdx[];
   hiddenStemPolicy: any;
   tenGodScoresRanking: Array<{ tenGod: TenGod; score: number }>;
   detectedRelations: DetectedRelation[];
   byType: Partial<Record<RelationType, BranchIdx[][]>>;
 }): RuleFacts['month']['gyeok']['quality'] {
-  const { config, monthBranch, gyeokStem, gyeokTenGod, gyeokMethod, monthGyeokCandidates, branches, hiddenStemPolicy, tenGodScoresRanking, detectedRelations, byType } = args;
+  const { config, monthBranch, gyeokStem, gyeokTenGod, gyeokMethod, selectionCandidates, exposureEvidenceCandidates, branches, hiddenStemPolicy, tenGodScoresRanking, detectedRelations, byType } = args;
 
   const raw: any = (config.strategies as any)?.gyeokguk?.quality ?? {};
   const policy = {
@@ -2178,8 +2190,8 @@ function computeMonthGyeokQuality(args: {
   }
 
   // --- Gap (候选差距): top vs 2nd
-  const top = monthGyeokCandidates[0]?.score ?? 0;
-  const second = monthGyeokCandidates[1]?.score ?? 0;
+  const top = selectionCandidates[0]?.score ?? 0;
+  const second = selectionCandidates[1]?.score ?? 0;
   const gap = top > 0 ? clamp01((top - second) / top) : 0;
 
   // --- Alignment: month-gyeok ten-god rank within overall ten-god scores
@@ -2189,6 +2201,8 @@ function computeMonthGyeokQuality(args: {
   // --- Method: 透干/会支 availability affects “清”
   const methodScore = (() => {
     switch (gyeokMethod) {
+      case 'STRUCTURAL_MONTH_FRAME':
+        return 1.0;
       case 'MAIN_EXPOSED':
         return 1.0;
       case 'VISIBLE_HIDDEN':
@@ -2202,7 +2216,8 @@ function computeMonthGyeokQuality(args: {
   })();
 
   // --- Purity: how many distinct ten-gods are exposed among month hidden stems?
-  const visibleTenGods = new Set(monthGyeokCandidates.filter((c) => c.visibleInChart).map((c) => c.tenGod));
+  const visibleTenGods = new Set(
+    exposureEvidenceCandidates.filter((candidate) => candidate.visibleInChart).map((candidate) => candidate.tenGod));
   const visibleKinds = visibleTenGods.size;
   const mixed = visibleKinds > 1;
   const purity = visibleKinds <= 1 ? 1 : clamp01(1 - 0.3 * (visibleKinds - 1));
@@ -2328,7 +2343,9 @@ function computeStrengthFacts(args: {
 }): StrengthFacts {
   const base = strengthFromTenGodScoresBase(args.tenGods);
 
-  const model = ((args.config.strategies as any)?.strength?.model ?? 'base') as string;
+  // [감사 B7] 기본 모델은 deLingDiShi(월지 가중). defaultConfig(api/config.ts)가 정본이며,
+  // 이 폴백은 normalizeConfig를 우회한 직접 호출 방어용이다. 'base'는 명시 opt-out.
+  const model = ((args.config.strategies as any)?.strength?.model ?? 'deLingDiShi') as string;
 
   // --- Model: deLingDiShi (得令/得地/得势)
   if (model === 'deLingDiShi' || model === 'delingdiShi' || model === 'delingsh' || model === 'deLing') {
@@ -3149,13 +3166,29 @@ export function buildRuleFacts(args: {
   const monthMain = monthMainHiddenStem(pillars.month.branch, hiddenStemPolicy);
   const monthMainTG = tenGodOf(dayStem, monthMain);
 
+  // Transparency means appearance outside the day master itself. Keep one
+  // source for candidate visibility, main-qi visibility, and middle-qi selection.
+  const nonDayTransparentStems = [pillars.year.stem, pillars.month.stem, pillars.hour.stem];
+  const selectionRule = readGyeokgukSelectionRule(config);
+  const bigyeopModeRaw = (config.strategies as any)?.gyeokguk?.bigyeopGyeok;
+  const bigyeopMode: 'classic' | 'legacy' = bigyeopModeRaw === 'legacy' ? 'legacy' : 'classic';
+  // Structural eligibility is doctrine, while bigyeopMode is display
+  // compatibility. Legacy naming must not re-enable companion candidates as
+  // ordinary month-command frames.
+  const structuralMonthFrame = classifyStructuralMonthFrame({
+    dayStem,
+    monthBranch: pillars.month.branch,
+    monthMainStem: monthMain,
+    monthMainTenGod: monthMainTG,
+  });
+
   const monthHiddenStems = hiddenStemsOfBranch(pillars.month.branch, hiddenStemPolicy).map((h) => ({
     stem: h.stem,
     element: stemElement(h.stem),
     role: h.role,
     weight: h.weight,
     tenGod: tenGodOf(dayStem, h.stem),
-    visibleInChart: stems.includes(h.stem),
+    visibleInChart: nonDayTransparentStems.includes(h.stem),
   }));
 
   // --- ZiPing-style “干透支会” (透干 + 会支) for month.gyeok
@@ -3219,32 +3252,64 @@ export function buildRuleFacts(args: {
         reasons.push('MONTH_BRANCH_DAMAGED');
       }
 
-      return { ...h, score, reasons };
+      const excludedCompanion = !structuralMonthFrame && isCompanionTenGod(h.tenGod);
+      if (excludedCompanion) reasons.push('COMPANION_REQUIRES_STRUCTURAL_FRAME');
+
+      return {
+        ...h,
+        score,
+        reasons,
+        eligibleForGyeokSelection: !excludedCompanion,
+        ...(excludedCompanion
+          ? { selectionExclusionReason: 'COMPANION_REQUIRES_STRUCTURAL_FRAME' as const }
+          : {}),
+      };
     })
     .sort((a, b) => b.score - a.score);
 
-  const monthMainVisible = stems.includes(monthMain);
-  const selectionRule = readGyeokgukSelectionRule(config);
-  const nonDayTransparentStems = [pillars.year.stem, pillars.month.stem, pillars.hour.stem];
-  const bestVisible = monthGyeokCandidates.find((c) => c.visibleInChart);
-  const bestGroup = groupEl ? monthGyeokCandidates.find((c) => c.element === groupEl) : null;
-  const transparentMiddle = monthGyeokCandidates.find(
-    (c) => c.role === 'MIDDLE' && nonDayTransparentStems.includes(c.stem),
+  // Keep companion rows as diagnostic evidence, but ordinary selection must
+  // consume only explicitly eligible candidates.
+  const selectableMonthGyeokCandidates = monthGyeokCandidates.filter(
+    (candidate) => candidate.eligibleForGyeokSelection,
+  );
+
+  const monthMainVisible = nonDayTransparentStems.includes(monthMain);
+  const bestVisible = selectableMonthGyeokCandidates.find((candidate) => candidate.visibleInChart);
+  const bestGroup = groupEl
+    ? selectableMonthGyeokCandidates.find((candidate) => candidate.element === groupEl)
+    : null;
+  const transparentMiddle = selectableMonthGyeokCandidates.find(
+    (candidate) => candidate.role === 'MIDDLE' && candidate.visibleInChart,
   );
 
   const gyeokStem =
-    selectionRule === 'jungki_transparent'
-      ? (transparentMiddle?.stem ?? monthMain)
-      : selectionRule === 'monthly_main'
-        ? monthMain
-        : monthMainVisible ? monthMain : (bestVisible?.stem ?? bestGroup?.stem ?? monthMain);
+    structuralMonthFrame
+      ? structuralMonthFrame.anchorStem
+      : selectionRule === 'jungki_transparent'
+        ? (transparentMiddle?.stem ?? monthMain)
+        : selectionRule === 'monthly_main'
+          ? monthMain
+          : monthMainVisible ? monthMain : (bestVisible?.stem ?? bestGroup?.stem ?? monthMain);
   const gyeokTenGod = tenGodOf(dayStem, gyeokStem);
-  const gyeokMethod =
-    selectionRule === 'jungki_transparent'
-      ? (transparentMiddle ? 'VISIBLE_HIDDEN' : (monthMainVisible ? 'MAIN_EXPOSED' : 'MAIN_FALLBACK'))
-      : selectionRule === 'monthly_main'
-        ? (monthMainVisible ? 'MAIN_EXPOSED' : 'MAIN_FALLBACK')
-        : monthMainVisible ? 'MAIN_EXPOSED' : (bestVisible ? 'VISIBLE_HIDDEN' : (bestGroup ? 'GROUP_SUPPORTED' : 'MAIN_FALLBACK'));
+  const gyeokMethod: RuleFacts['month']['gyeok']['method'] =
+    structuralMonthFrame
+      ? 'STRUCTURAL_MONTH_FRAME'
+      : selectionRule === 'jungki_transparent'
+        ? (transparentMiddle ? 'VISIBLE_HIDDEN' : (monthMainVisible ? 'MAIN_EXPOSED' : 'MAIN_FALLBACK'))
+        : selectionRule === 'monthly_main'
+          ? (monthMainVisible ? 'MAIN_EXPOSED' : 'MAIN_FALLBACK')
+          : monthMainVisible ? 'MAIN_EXPOSED' : (bestVisible ? 'VISIBLE_HIDDEN' : (bestGroup ? 'GROUP_SUPPORTED' : 'MAIN_FALLBACK'));
+
+  // --- 건록/양인/월겁 세분 (감사 B4)
+  // 록 조견표: 甲寅 乙卯 丙巳 丁午 戊巳 己午 庚申 辛酉 壬亥 癸子 (화토동궁; 신살 lokFallback와 동일).
+  // 격국 전용 고정 상수를 쓴다 — 신살 카탈로그(YANG_IN)는 사용자 오버라이드 가능하고
+  // 12운성 earthRule(수토동궁) 설정에 격국 판정이 끌려가면 안 되기 때문.
+  // 주의(스코프 한정): '병무오월 양인' 전통의 戊午월은 午 본기 丁이 무토의 정인이라
+  // 이 분기(비견/겁재)에 들어오지 않고 정인격 유지 — 십성 무관 제왕지 승격은 이설이 커서 미채택.
+  // 토 일간 잡기월(戊 일간 辰/戌월 등)의 본기 비견도 통칭 록겁 관례대로 GEONROK로 분류(엄밀 유파는 잡기격).
+  const bigyeopSubtype: BigyeopSubtype | null = bigyeopMode === 'classic'
+    ? structuralMonthFrame?.subtype ?? null
+    : null;
 
   const { normalized, sum } = normalizeVector(elementDistribution.total);
 
@@ -3257,7 +3322,8 @@ export function buildRuleFacts(args: {
     gyeokStem,
     gyeokTenGod,
     gyeokMethod,
-    monthGyeokCandidates,
+    selectionCandidates: selectableMonthGyeokCandidates,
+    exposureEvidenceCandidates: monthGyeokCandidates,
     branches,
     hiddenStemPolicy,
     tenGodScoresRanking,
@@ -3330,7 +3396,7 @@ export function buildRuleFacts(args: {
       mainTenGod: monthMainTG,
       hiddenStems: monthHiddenStems,
       mainHiddenStemVisible: monthMainVisible,
-      gyeok: { stem: gyeokStem, tenGod: gyeokTenGod, method: gyeokMethod, selectionRule, support: groupSupport, candidates: monthGyeokCandidates, quality: monthGyeokQuality },
+      gyeok: { stem: gyeokStem, tenGod: gyeokTenGod, method: gyeokMethod, selectionRule, bigyeopSubtype, support: groupSupport, candidates: monthGyeokCandidates, quality: monthGyeokQuality },
       saryeong: saryeong
         ? {
             scheme: saryeong.scheme,

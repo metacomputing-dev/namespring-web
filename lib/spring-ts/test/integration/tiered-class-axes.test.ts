@@ -50,6 +50,16 @@ check('adverse: gishin>yongshin → nameEffect adverse',
     feat({ dayMasterStrength: 'WEAK', gyeokguk: 'bigyeongyeok', gender: 'female' }), { yongshinMatchCount: 0, gishinMatchCount: 2 } as any)
   === 'family.thisYear.adult.high.weak.bigeop.adverse.female');
 
+// 감사 B4: 건록/양인/월겁 → bigeop family (기존 코퍼스를 폴백 없이 그대로 탄다)
+check('건록격→bigeop (감사 B4 — κ 폴백 방지 가드)',
+  computeClassId('wealth', 'thisYear', 'adult', 'high',
+    feat({ dayMasterStrength: 'STRONG', gyeokguk: 'geonrokgyeok' }), { yongshinMatchCount: 2, gishinMatchCount: 0 } as any)
+  === 'wealth.thisYear.adult.high.strong.bigeop.boost_strong.x');
+check('월겁격→bigeop (감사 B4)',
+  computeClassId('overall', 'life', 'adult', 'any',
+    feat({ dayMasterStrength: 'BALANCED', gyeokguk: 'wolgeobgyeok' }), { yongshinMatchCount: 0, gishinMatchCount: 0 } as any)
+  === 'overall.life.adult.any.balanced.bigeop.neutral.x');
+
 // fallbacks → null
 check('격국 미해석 → null(폴백)',
   computeClassId('wealth', 'thisYear', 'adult', 'high', feat({ gyeokguk: null }), null) === null);

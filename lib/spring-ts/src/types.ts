@@ -617,6 +617,22 @@ export interface YongshinSummary {
   readonly agreement: string;
   readonly recommendations: YongshinRecommendation[];
   readonly consensus?: YongshinConsensusScoreboard;
+  /** 감사 B5: 종격 가능성 경고 문구 (springLegacy yongshinResult.warnings passthrough). */
+  readonly warnings?: readonly string[];
+  /** 감사 B5: 종격(從格) 리스크 신호 — 억부 용신 신뢰도 게이트의 구조화 근거. */
+  readonly jonggyeokRisk?: YongshinJonggyeokRisk;
+}
+
+/** 감사 B5: 종격 가능성 신호 상세. */
+export interface YongshinJonggyeokRisk {
+  readonly level: 'HIGH' | 'INFO';
+  readonly direction: 'PRESSURE' | 'SUPPORT';
+  readonly strengthIndex: number;
+  readonly dominanceRatio: number;
+  readonly subtypes: readonly string[];
+  readonly maxCandidateScore: number;
+  /** HIGH 리스크로 finalConfidence cap(35점)이 실제 적용됐는지. */
+  readonly confidenceAttenuated: boolean;
 }
 
 /** A single yongshin recommendation with its rationale. */
@@ -833,7 +849,9 @@ export interface ShinsalHitSummary {
 export interface DaeunPillarSummary {
   readonly stem: string;
   readonly branch: string;
+  /** Inclusive start of the continuous daewoon age interval. */
   readonly startAge: number;
+  /** Exclusive end of the continuous daewoon age interval. */
   readonly endAge: number;
   readonly order: number;
 }

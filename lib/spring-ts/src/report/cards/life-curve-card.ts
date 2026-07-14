@@ -17,6 +17,11 @@ import type { SajuSummary } from '../../types.js';
 import type { ElementCode } from '../types.js';
 import { getPillarGrade, gradeToStarsShared } from '../common/fortuneCalculator.js';
 import { STEM_BY_CODE, BRANCH_BY_CODE } from '../common/elementMaps.js';
+import {
+  containsDaeunAge,
+  daeunDisplayOffset,
+  resolveDaeunDisplayInterval,
+} from '../common/daeun-display.js';
 
 export interface LifeCurvePoint {
   /** 출생 기준 경과 연수 (만 나이 근사). */
@@ -30,7 +35,7 @@ export interface LifeCurvePoint {
 
 export interface LifeCurveDaeunSegment {
   readonly index: number;
-  /** 표시용 내림 나이 (life-stage 카드와 동일 규약). */
+  /** 표시용 정수 나이 — 반올림 유파 표기 오프셋 반영 (감사 B11; life-stage 카드와 동일 규약). */
   readonly startAge: number;
   readonly endAge: number;
   /** 커브 전환점용 원본 소수 나이 (三日一歲 산출값 그대로). */
@@ -75,6 +80,8 @@ interface DaeunPillarRuntime {
   readonly branch: string;
   readonly startAge: number;
   readonly endAge: number;
+  readonly displayStartAge?: unknown;
+  readonly displayEndAge?: unknown;
 }
 
 /** SajuSummary.daeunInfo는 인덱스 시그니처 경유 런타임 파싱 (어댑터 규약). */
@@ -88,11 +95,18 @@ function extractDaeunPillars(saju: SajuSummary): DaeunPillarRuntime[] {
     if (!p || typeof p !== 'object') continue;
     const pp = p as Record<string, unknown>;
     if (typeof pp.stem !== 'string' || typeof pp.branch !== 'string') continue;
+    const startAge = typeof pp.startAge === 'number' ? pp.startAge : Number.NaN;
+    const endAge = typeof pp.endAge === 'number' ? pp.endAge : Number.NaN;
+    if (!Number.isFinite(startAge) || !Number.isFinite(endAge) || endAge <= startAge) continue;
+    const hasDisplayStart = Object.prototype.hasOwnProperty.call(pp, 'displayStartAge');
+    const hasDisplayEnd = Object.prototype.hasOwnProperty.call(pp, 'displayEndAge');
     pillars.push({
       stem: pp.stem,
       branch: pp.branch,
-      startAge: typeof pp.startAge === 'number' ? pp.startAge : 0,
-      endAge: typeof pp.endAge === 'number' ? pp.endAge : 0,
+      startAge,
+      endAge,
+      ...(hasDisplayStart ? { displayStartAge: pp.displayStartAge } : {}),
+      ...(hasDisplayEnd ? { displayEndAge: pp.displayEndAge } : {}),
     });
   }
   return pillars.sort((a, b) => a.startAge - b.startAge);
@@ -119,6 +133,8 @@ export function buildLifeCurveCard(
   const gishin = toElementCode(saju.yongshin?.gishin);
 
   const daeunPillars = extractDaeunPillars(saju);
+  // 감사 B11: 표기용 정수 대운수(반올림 유파) 오프셋 — 라벨에만 적용, 시간 로직은 연속값.
+  const displayOffset = daeunDisplayOffset((saju as Record<string, unknown>)['daeunInfo']);
   // saeunPillars는 SajuSummary 인덱스 시그니처 경유 (어댑터가 런타임에 부착).
   const saeun = new Map<number, { stem: string; branch: string }>();
   const saeunRaw = (saju as Record<string, unknown>)['saeunPillars'];
@@ -138,8 +154,10 @@ export function buildLifeCurveCard(
   const daeunSegments: LifeCurveDaeunSegment[] = daeunPillars.map((p, index) => {
     const el = pillarElements(p.stem, p.branch);
     const grade = el.stem ? getPillarGrade(el.stem, el.branch, yongshin, heeshin, gishin) : 3;
-    const startAge = Math.floor(p.startAge);
-    const endAge = Math.floor(p.endAge);
+    const displayInterval = resolveDaeunDisplayInterval(p, displayOffset);
+    if (!displayInterval) throw new RangeError('Invalid daeun display interval');
+    const startAge = displayInterval.startInclusive;
+    const endAge = displayInterval.endExclusive;
     return {
       index,
       startAge,
@@ -157,7 +175,7 @@ export function buildLifeCurveCard(
     let daeunGrade: number | null = null;
     let daeunIndex: number | null = null;
     if (age >= firstDaeunStart) {
-      let idx = daeunPillars.findIndex((p) => age >= p.startAge && age <= p.endAge);
+      let idx = daeunPillars.findIndex((p) => containsDaeunAge(age, p.startAge, p.endAge));
       if (idx < 0) idx = daeunPillars.length - 1; // 마지막 대운 이후는 추세 연장
       const p = daeunPillars[idx];
       const el = pillarElements(p.stem, p.branch);

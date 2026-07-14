@@ -586,6 +586,7 @@
               "transformations": 1.1,
               "oneElement": 0
             },
+            "climate": { "enabled": false },
             "methodSelector": { "enabled": true, "transformations": { "enabled": true, "threshold": 0.55 } }
           },
           "gyeokguk": {
@@ -625,7 +626,8 @@
             }
           },
           "yongshin": {
-            "weights": { "balance": 0.45, "role": 0.2, "climate": 0, "medicine": 0, "tongguan": 0, "follow": 0, "johooTemplate": 0, "transformations": 0, "oneElement": 0 }
+            "weights": { "balance": 0.45, "role": 0.2, "climate": 0, "medicine": 0, "tongguan": 0, "follow": 0, "johooTemplate": 0, "transformations": 0, "oneElement": 0 },
+            "climate": { "enabled": false }
           },
           "gyeokguk": {
             "competition": { "enabled": true, "methods": ["tenGod", "follow", "transformations", "oneElement"], "power": 2.0, "minKeep": 0.2, "renormalize": true }

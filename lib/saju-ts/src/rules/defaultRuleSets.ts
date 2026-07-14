@@ -21,7 +21,7 @@ export const DEFAULT_YONGSHIN_RULESET: RuleSet = {
 
 export const DEFAULT_GYEOKGUK_RULESET: RuleSet = {
   id: 'gyeokguk.monthGyeokTenGod.quality',
-  version: '0.4',
+  version: '0.5',
   description:
     'Month “gyeok”(透干/会支) ten-god → gyeokguk baseline with quality multiplier (清濁/破格). Includes optional high-level pattern keys (化气/专旺) as continuous signals.',
   rules: [
@@ -33,8 +33,14 @@ export const DEFAULT_GYEOKGUK_RULESET: RuleSet = {
     { id: 'GYEOK_SANG_GWAN', when: { op: 'eq', args: [{ var: 'month.gyeok.tenGod' }, 'SANG_GWAN'] }, score: { 'gyeokguk.SANG_GWAN': { op: 'mul', args: [1, { var: 'month.gyeok.quality.multiplier' }] } }, explain: '월지 격=상관 → 상관격(기초×품질)' },
     { id: 'GYEOK_JEONG_IN', when: { op: 'eq', args: [{ var: 'month.gyeok.tenGod' }, 'JEONG_IN'] }, score: { 'gyeokguk.JEONG_IN': { op: 'mul', args: [1, { var: 'month.gyeok.quality.multiplier' }] } }, explain: '월지 격=정인 → 정인격(기초×품질)' },
     { id: 'GYEOK_PYEON_IN', when: { op: 'eq', args: [{ var: 'month.gyeok.tenGod' }, 'PYEON_IN'] }, score: { 'gyeokguk.PYEON_IN': { op: 'mul', args: [1, { var: 'month.gyeok.quality.multiplier' }] } }, explain: '월지 격=편인 → 편인격(기초×품질)' },
-    { id: 'GYEOK_BI_GYEON', when: { op: 'eq', args: [{ var: 'month.gyeok.tenGod' }, 'BI_GYEON'] }, score: { 'gyeokguk.BI_GYEON': { op: 'mul', args: [1, { var: 'month.gyeok.quality.multiplier' }] } }, explain: '월지 격=비견 → 비견격(기초×품질)' },
-    { id: 'GYEOK_GEOB_JAE', when: { op: 'eq', args: [{ var: 'month.gyeok.tenGod' }, 'GEOB_JAE'] }, score: { 'gyeokguk.GEOB_JAE': { op: 'mul', args: [1, { var: 'month.gyeok.quality.multiplier' }] } }, explain: '월지 격=겁재 → 겁재격(기초×품질)' },
+    // --- 건록/양인/월겁 (감사 B4): 월지 비겁은 십신격으로 삼지 않는다(자평진전 계열 주류).
+    // 세분 판정은 facts의 month.gyeok.bigyeopSubtype(팩트 레이어)에서 계산 — DSL은 eq 소비만.
+    { id: 'GYEOK_GEONROK', when: { op: 'eq', args: [{ var: 'month.gyeok.bigyeopSubtype' }, 'GEONROK'] }, score: { 'gyeokguk.GEONROK': { op: 'mul', args: [1, { var: 'month.gyeok.quality.multiplier' }] } }, explain: '월지 격=비견(建祿) → 건록격(기초×품질)' },
+    { id: 'GYEOK_YANGIN', when: { op: 'eq', args: [{ var: 'month.gyeok.bigyeopSubtype' }, 'YANGIN'] }, score: { 'gyeokguk.YANGIN': { op: 'mul', args: [1, { var: 'month.gyeok.quality.multiplier' }] } }, explain: '월지 격=겁재+양간 제왕(陽刃) → 양인격(기초×품질)' },
+    { id: 'GYEOK_WOLGEOB', when: { op: 'eq', args: [{ var: 'month.gyeok.bigyeopSubtype' }, 'WOLGEOB'] }, score: { 'gyeokguk.WOLGEOB': { op: 'mul', args: [1, { var: 'month.gyeok.quality.multiplier' }] } }, explain: '월지 격=겁재(月劫) → 월겁격(기초×품질)' },
+    // 레거시(비견격/겁재격 명칭) — strategies.gyeokguk.bigyeopGyeok='legacy'일 때만 발화(bigyeopSubtype=null).
+    { id: 'GYEOK_BI_GYEON', when: { op: 'and', args: [{ op: 'eq', args: [{ var: 'month.gyeok.tenGod' }, 'BI_GYEON'] }, { op: 'not', args: [{ var: 'month.gyeok.bigyeopSubtype' }] }] }, score: { 'gyeokguk.BI_GYEON': { op: 'mul', args: [1, { var: 'month.gyeok.quality.multiplier' }] } }, explain: '월지 격=비견 → 비견격(레거시 표기)' },
+    { id: 'GYEOK_GEOB_JAE', when: { op: 'and', args: [{ op: 'eq', args: [{ var: 'month.gyeok.tenGod' }, 'GEOB_JAE'] }, { op: 'not', args: [{ var: 'month.gyeok.bigyeopSubtype' }] }] }, score: { 'gyeokguk.GEOB_JAE': { op: 'mul', args: [1, { var: 'month.gyeok.quality.multiplier' }] } }, explain: '월지 격=겁재 → 겁재격(레거시 표기)' },
 
     // --- High-level patterns (math-first continuous signals)
     {

@@ -1,15 +1,15 @@
 {
   "version": "1.0.0",
-  "capturedAt": "2026-07-08T06:00:06.680Z",
+  "capturedAt": "2026-07-14T05:38:19.991Z",
   "targetDate": "2026-04-30T00:00:00.000Z",
   "fixtureCount": 15,
   "results": [
     {
       "id": "fix-01",
-      "label": "1986-04-19 male — 戊土 일간 (README example)",
+      "label": "1986-04-19 male — 癸水 일간 (README example)",
       "axis": [
         "normal",
-        "yang-earth",
+        "yin-water",
         "spring"
       ],
       "output": {
@@ -36,7 +36,7 @@
           "yongshinHeeshin": "WATER",
           "gyeokgukType": "식신격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.5212566844919787,
+          "gyeokgukConfidence": 0.538903743315508,
           "deficientElements": [
             "EARTH",
             "METAL"
@@ -47,31 +47,31 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 81.2,
+            "finalScore": 81.3,
             "fullHangul": "최이수",
             "fullHanja": "崔理琇",
             "rank": 1
           },
           {
-            "finalScore": 79.5,
+            "finalScore": 79.6,
             "fullHangul": "최유단",
             "fullHanja": "崔攸端",
             "rank": 2
           },
           {
-            "finalScore": 79.5,
+            "finalScore": 79.6,
             "fullHangul": "최영정",
             "fullHanja": "崔瑛玎",
             "rank": 3
           },
           {
-            "finalScore": 79.5,
+            "finalScore": 79.6,
             "fullHangul": "최영진",
             "fullHanja": "崔瑛珍",
             "rank": 4
           },
           {
-            "finalScore": 79.2,
+            "finalScore": 79.3,
             "fullHangul": "최정영",
             "fullHanja": "崔玎瑛",
             "rank": 5
@@ -185,58 +185,62 @@
         "sajuReport": {
           "sajuEnabled": true,
           "dayMaster": {
-            "stem": "정",
-            "element": "FIRE",
-            "polarity": "음"
+            "stem": "무",
+            "element": "EARTH",
+            "polarity": "양"
           },
-          "strengthLevel": "중화(신약 경향)",
-          "isStrong": false,
-          "yongshinElement": "WOOD",
-          "yongshinHeeshin": "EARTH",
-          "gyeokgukType": "편관격",
+          "strengthLevel": "중화(신강 경향)",
+          "isStrong": true,
+          "yongshinElement": "FIRE",
+          "yongshinHeeshin": "METAL",
+          "gyeokgukType": "정재격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.5388888888888889,
-          "deficientElements": [],
-          "excessiveElements": []
+          "gyeokgukConfidence": 0.3464285714285714,
+          "deficientElements": [
+            "METAL"
+          ],
+          "excessiveElements": [
+            "WATER"
+          ]
         },
         "candidatesTop5": [
           {
-            "finalScore": 78.8,
-            "fullHangul": "이대영",
-            "fullHanja": "李岱穎",
+            "finalScore": 80.9,
+            "fullHangul": "이진영",
+            "fullHanja": "李璡瑛",
             "rank": 1
           },
           {
-            "finalScore": 78.6,
-            "fullHangul": "이대유",
-            "fullHanja": "李岱遊",
+            "finalScore": 80.6,
+            "fullHangul": "이선민",
+            "fullHanja": "李瑄珉",
             "rank": 2
           },
           {
-            "finalScore": 78.5,
-            "fullHangul": "이승만",
-            "fullHanja": "李丞娩",
+            "finalScore": 79.7,
+            "fullHangul": "이선인",
+            "fullHanja": "李瑄璘",
             "rank": 3
           },
           {
-            "finalScore": 78.3,
+            "finalScore": 79.7,
             "fullHangul": "이주민",
-            "fullHanja": "李遒岷",
+            "fullHanja": "李鑄珉",
             "rank": 4
           },
           {
-            "finalScore": 77.8,
-            "fullHangul": "이선호",
-            "fullHanja": "李繕好",
+            "finalScore": 79.6,
+            "fullHangul": "이주민",
+            "fullHanja": "李鑄敃",
             "rank": 5
           }
         ],
         "fortuneReport": {
           "overviewTitle": "총평 요약",
-          "dailyStars": 5,
-          "yearlyStars": 3,
-          "lifeStars": 4,
-          "personalityTraitCount": 6
+          "dailyStars": 3,
+          "yearlyStars": 5,
+          "lifeStars": 3,
+          "personalityTraitCount": 7
         }
       }
     },
@@ -282,7 +286,7 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 76,
+            "finalScore": 75.9,
             "fullHangul": "박수진",
             "fullHanja": "朴修辰",
             "rank": 1
@@ -347,11 +351,11 @@
             "element": "WATER",
             "polarity": "음"
           },
-          "strengthLevel": "신약",
+          "strengthLevel": "중화(신약 경향)",
           "isStrong": false,
           "yongshinElement": "METAL",
-          "yongshinHeeshin": "WATER",
-          "gyeokgukType": "비견격",
+          "yongshinHeeshin": "FIRE",
+          "gyeokgukType": "건록격",
           "gyeokgukCategory": "일반",
           "gyeokgukConfidence": 0.2635135135135135,
           "deficientElements": [
@@ -363,40 +367,40 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 76.6,
-            "fullHangul": "정임수",
-            "fullHanja": "鄭壬琇",
+            "finalScore": 80.9,
+            "fullHangul": "정인수",
+            "fullHanja": "鄭仁琇",
             "rank": 1
           },
           {
-            "finalScore": 75.3,
-            "fullHangul": "정부이",
-            "fullHanja": "鄭不理",
+            "finalScore": 80.9,
+            "fullHangul": "정일정",
+            "fullHanja": "鄭日珽",
             "rank": 2
           },
           {
-            "finalScore": 74,
-            "fullHangul": "정정리",
-            "fullHanja": "鄭井理",
+            "finalScore": 80.9,
+            "fullHangul": "정일수",
+            "fullHanja": "鄭日琇",
             "rank": 3
           },
           {
-            "finalScore": 74,
-            "fullHangul": "정소수",
-            "fullHanja": "鄭少琇",
+            "finalScore": 80.7,
+            "fullHangul": "정일정",
+            "fullHanja": "鄭日晶",
             "rank": 4
           },
           {
-            "finalScore": 73.4,
-            "fullHangul": "정월수",
-            "fullHanja": "鄭月琇",
+            "finalScore": 80.7,
+            "fullHangul": "정일정",
+            "fullHanja": "鄭日晸",
             "rank": 5
           }
         ],
         "fortuneReport": {
           "overviewTitle": "총평 요약",
           "dailyStars": 3,
-          "yearlyStars": 2,
+          "yearlyStars": 4,
           "lifeStars": 3,
           "personalityTraitCount": 6
         }
@@ -404,10 +408,10 @@
     },
     {
       "id": "fix-06",
-      "label": "1978-06-15 14:00 female — 庚金 일간, 여름",
+      "label": "1978-06-15 14:00 female — 戊土 일간, 여름",
       "axis": [
         "normal",
-        "yang-metal",
+        "yang-earth",
         "summer"
       ],
       "output": {
@@ -431,10 +435,10 @@
           "strengthLevel": "신강",
           "isStrong": true,
           "yongshinElement": "METAL",
-          "yongshinHeeshin": "WOOD",
-          "gyeokgukType": "겁재격",
+          "yongshinHeeshin": "WATER",
+          "gyeokgukType": "정인격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.46666666666666673,
+          "gyeokgukConfidence": 0.5111111111111111,
           "deficientElements": [
             "WOOD",
             "METAL",
@@ -447,38 +451,38 @@
         "candidatesTop5": [
           {
             "finalScore": 78.1,
-            "fullHangul": "강리희",
-            "fullHanja": "姜理稀",
+            "fullHangul": "강임정",
+            "fullHanja": "姜壬珽",
             "rank": 1
           },
           {
-            "finalScore": 77.1,
-            "fullHangul": "강리영",
-            "fullHanja": "姜利穎",
+            "finalScore": 77.9,
+            "fullHangul": "강리희",
+            "fullHanja": "姜理喜",
             "rank": 2
           },
           {
-            "finalScore": 77.1,
+            "finalScore": 77.2,
             "fullHangul": "강로희",
             "fullHanja": "姜瀘稀",
             "rank": 3
           },
           {
-            "finalScore": 77,
-            "fullHangul": "강임정",
-            "fullHanja": "姜壬珽",
+            "finalScore": 77.1,
+            "fullHangul": "강리희",
+            "fullHanja": "姜理稀",
             "rank": 4
           },
           {
-            "finalScore": 76.9,
-            "fullHangul": "강수정",
-            "fullHanja": "姜手珽",
+            "finalScore": 76.7,
+            "fullHangul": "강소정",
+            "fullHanja": "姜少珽",
             "rank": 5
           }
         ],
         "fortuneReport": {
           "overviewTitle": "총평 요약",
-          "dailyStars": 4,
+          "dailyStars": 2,
           "yearlyStars": 1,
           "lifeStars": 3,
           "personalityTraitCount": 6
@@ -514,10 +518,10 @@
           "strengthLevel": "신강",
           "isStrong": true,
           "yongshinElement": "EARTH",
-          "yongshinHeeshin": "WOOD",
-          "gyeokgukType": "겁재격",
+          "yongshinHeeshin": "METAL",
+          "gyeokgukType": "정인격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.5711111111111111,
+          "gyeokgukConfidence": 0.565,
           "deficientElements": [
             "WOOD"
           ],
@@ -527,39 +531,39 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 78.6,
-            "fullHangul": "윤장희",
-            "fullHanja": "尹薔稀",
+            "finalScore": 78.3,
+            "fullHangul": "윤장만",
+            "fullHanja": "尹掌鏋",
             "rank": 1
           },
           {
-            "finalScore": 78.4,
-            "fullHangul": "윤수봉",
-            "fullHanja": "尹隧蓬",
+            "finalScore": 77.4,
+            "fullHangul": "윤장용",
+            "fullHanja": "尹掌鏞",
             "rank": 2
           },
           {
-            "finalScore": 77.9,
-            "fullHangul": "윤희장",
-            "fullHanja": "尹稀薔",
+            "finalScore": 77.4,
+            "fullHangul": "윤장정",
+            "fullHanja": "尹薔珽",
             "rank": 3
           },
           {
-            "finalScore": 77.6,
-            "fullHangul": "윤수만",
-            "fullHanja": "尹隧挽",
+            "finalScore": 77.4,
+            "fullHangul": "윤선장",
+            "fullHanja": "尹璿掌",
             "rank": 4
           },
           {
-            "finalScore": 77.5,
-            "fullHangul": "윤탁희",
-            "fullHanja": "尹拓稀",
+            "finalScore": 77.4,
+            "fullHangul": "윤용장",
+            "fullHanja": "尹鏞掌",
             "rank": 5
           }
         ],
         "fortuneReport": {
           "overviewTitle": "총평 요약",
-          "dailyStars": 4,
+          "dailyStars": 2,
           "yearlyStars": 1,
           "lifeStars": 3,
           "personalityTraitCount": 6
@@ -598,7 +602,7 @@
           "yongshinHeeshin": "EARTH",
           "gyeokgukType": "식신격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.875,
+          "gyeokgukConfidence": 0.905,
           "deficientElements": [],
           "excessiveElements": []
         },
@@ -636,7 +640,7 @@
         ],
         "fortuneReport": {
           "overviewTitle": "총평 요약",
-          "dailyStars": 3,
+          "dailyStars": 1,
           "yearlyStars": 5,
           "lifeStars": 3,
           "personalityTraitCount": 6
@@ -768,33 +772,33 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 83.5,
+            "finalScore": 83.6,
             "fullHangul": "한소범",
             "fullHanja": "韓蕭帆",
             "rank": 1
           },
           {
-            "finalScore": 81.9,
-            "fullHangul": "한선해",
-            "fullHanja": "韓繕亥",
+            "finalScore": 81.7,
+            "fullHangul": "한수영",
+            "fullHanja": "韓秀瑛",
             "rank": 2
           },
           {
-            "finalScore": 81.9,
-            "fullHangul": "한소후",
-            "fullHanja": "韓蕭后",
+            "finalScore": 81.7,
+            "fullHangul": "한사영",
+            "fullHanja": "韓些瑛",
             "rank": 3
           },
           {
-            "finalScore": 81.6,
-            "fullHangul": "한수영",
-            "fullHanja": "韓秀瑛",
+            "finalScore": 81.7,
+            "fullHangul": "한선이",
+            "fullHanja": "韓繕耳",
             "rank": 4
           },
           {
-            "finalScore": 81.6,
-            "fullHangul": "한사영",
-            "fullHanja": "韓些瑛",
+            "finalScore": 81.4,
+            "fullHangul": "한이정",
+            "fullHanja": "韓利禎",
             "rank": 5
           }
         ],
@@ -837,9 +841,9 @@
           "isStrong": false,
           "yongshinElement": "FIRE",
           "yongshinHeeshin": "METAL",
-          "gyeokgukType": "비견격",
+          "gyeokgukType": "식신격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.24192307692307694,
+          "gyeokgukConfidence": 0.22901098901098899,
           "deficientElements": [
             "METAL"
           ],
@@ -930,33 +934,33 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 78.8,
+            "finalScore": 76.7,
             "fullHangul": "정일정",
-            "fullHanja": "鄭日淨",
+            "fullHanja": "鄭日晶",
             "rank": 1
           },
           {
-            "finalScore": 77.5,
-            "fullHangul": "정일희",
-            "fullHanja": "鄭日喜",
+            "finalScore": 76.7,
+            "fullHangul": "정일정",
+            "fullHanja": "鄭日晸",
             "rank": 2
           },
           {
-            "finalScore": 75.8,
-            "fullHangul": "정일정",
-            "fullHanja": "鄭日晶",
+            "finalScore": 76.6,
+            "fullHangul": "정인수",
+            "fullHanja": "鄭仁琇",
             "rank": 3
           },
           {
-            "finalScore": 75.8,
+            "finalScore": 76.6,
             "fullHangul": "정일정",
-            "fullHanja": "鄭日晸",
+            "fullHanja": "鄭日珽",
             "rank": 4
           },
           {
-            "finalScore": 75.7,
-            "fullHangul": "정일정",
-            "fullHanja": "鄭日珽",
+            "finalScore": 76.6,
+            "fullHangul": "정일수",
+            "fullHanja": "鄭日琇",
             "rank": 5
           }
         ],
@@ -1011,31 +1015,31 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 79.9,
+            "finalScore": 79.1,
             "fullHangul": "김배서",
             "fullHanja": "金北抒",
             "rank": 1
           },
           {
-            "finalScore": 79.9,
+            "finalScore": 79.1,
             "fullHangul": "김사우",
             "fullHanja": "金事右",
             "rank": 2
           },
           {
-            "finalScore": 79.9,
+            "finalScore": 79.1,
             "fullHangul": "김사우",
             "fullHanja": "金祀右",
             "rank": 3
           },
           {
-            "finalScore": 79.9,
+            "finalScore": 79.1,
             "fullHangul": "김주영",
             "fullHanja": "金宙永",
             "rank": 4
           },
           {
-            "finalScore": 79.9,
+            "finalScore": 79.1,
             "fullHangul": "김주우",
             "fullHanja": "金宙右",
             "rank": 5
@@ -1044,7 +1048,7 @@
         "fortuneReport": {
           "overviewTitle": "총평 요약",
           "dailyStars": 4,
-          "yearlyStars": 3,
+          "yearlyStars": 2,
           "lifeStars": 3,
           "personalityTraitCount": 6
         }
@@ -1079,7 +1083,7 @@
           "strengthLevel": "신강",
           "isStrong": true,
           "yongshinElement": "WOOD",
-          "yongshinHeeshin": "FIRE",
+          "yongshinHeeshin": "EARTH",
           "gyeokgukType": "정관격",
           "gyeokgukCategory": "일반",
           "gyeokgukConfidence": 0.3711538461538461,
@@ -1094,13 +1098,13 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 85.2,
+            "finalScore": 85.3,
             "fullHangul": "박수신",
             "fullHanja": "朴修辰",
             "rank": 1
           },
           {
-            "finalScore": 85.1,
+            "finalScore": 85.2,
             "fullHangul": "박구대",
             "fullHanja": "朴舊旲",
             "rank": 2
@@ -1127,7 +1131,7 @@
         "fortuneReport": {
           "overviewTitle": "총평 요약",
           "dailyStars": 5,
-          "yearlyStars": 4,
+          "yearlyStars": 3,
           "lifeStars": 3,
           "personalityTraitCount": 6
         }

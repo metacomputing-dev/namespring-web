@@ -181,6 +181,10 @@ const GYEOKGUK_CATEGORY_KO_LABEL: Record<string, string> = {
 const GYEOKGUK_KO_LABEL: Record<string, string> = {
   BI_GYEON: '비견격',
   GYEOB_JAE: '겁재격',
+  // 감사 B4: 월지 비겁의 주류 격명 (기본 모드). 누락 시 원시 코드 노출됨.
+  GEONROK: '건록격',
+  YANGIN: '양인격',
+  WOLGEOB: '월겁격',
   JEONG_GWAN: '정관격',
   PYEON_GWAN: '편관격',
   JEONG_JAE: '정재격',
@@ -946,13 +950,15 @@ function toLegacySajuTimePolicyConfig(
 ): Record<string, unknown> {
   const policy = options?.sajuTimePolicy;
 
-  // Product defaults:
+  // Product defaults (감사 결정① 2026-07-08):
   // - true solar time: off
   // - longitude correction: on
-  // - yaza: off
+  // - day boundary: 정자시설 — yaza 기본 'on' + 23:00 모드(엔진 ziSplit23).
+  //   경도 보정과 결합하면 서울 기준 시계 약 23:32에 일주·자시가 개시된다.
+  //   자정설(구 기본)은 sajuTimePolicy.yaza='off'로 복귀 가능.
   const trueSolarTimeToggle = resolvePolicyToggle(policy?.trueSolarTime, 'off');
   const longitudeCorrectionToggle = resolvePolicyToggle(policy?.longitudeCorrection, 'on');
-  const yazaToggle = resolvePolicyToggle(policy?.yaza, 'off');
+  const yazaToggle = resolvePolicyToggle(policy?.yaza, 'on');
 
   const patch: Record<string, unknown> = {};
 
@@ -972,8 +978,19 @@ function toLegacySajuTimePolicyConfig(
   }
 
   patch.yazaEnabled = yazaToggle === 'on';
-  if (policy?.yazaMode === '23:00') patch.yazaMode = 'YAZA_23_TO_01_NEXTDAY';
-  else if (policy?.yazaMode === '23:30') patch.yazaMode = 'YAZA_23_30_TO_01_30_NEXTDAY';
+  if (yazaToggle === 'on') {
+    // 23:30 모드는 경도 보정 off 유파용 레거시 옵션 — 경도 보정과 중첩하면
+    // 이중 보정(-62분)이 된다 (감사 A11).
+    const legacyMode =
+      policy?.yazaMode === '23:30' ? 'YAZA_23_30_TO_01_30_NEXTDAY' : 'YAZA_23_TO_01_NEXTDAY';
+    patch.yazaMode = legacyMode;
+    // dayCutMode를 반드시 명시: resolveDayCutMode(springLegacy)가 dayCutMode를
+    // yazaMode보다 먼저 평가하므로, preset(KOREAN_MAINSTREAM)의 dayCutMode가
+    // 남아 있으면 여기서 고른 모드에 그림자를 드리운다.
+    patch.dayCutMode = legacyMode;
+  } else {
+    patch.dayCutMode = 'MIDNIGHT_00'; // 자정설 옵션 (yaza:'off')
+  }
 
   return patch;
 }
@@ -1669,6 +1686,12 @@ function extractYongshin(yongshinResult: any) {
     confidence: confidenceToPoints(yongshinResult?.finalConfidence),
     agreement:  formatYongshinAgreementDisplay(yongshinResult?.agreement),
     consensus,
+    // 감사 B5 (additive): 종격 가능성 경고 + 구조화 리스크 신호 passthrough.
+    warnings: ensureArray(yongshinResult?.warnings).map((w: any) => String(w)),
+    jonggyeokRisk:
+      yongshinResult?.jonggyeokRisk && typeof yongshinResult.jonggyeokRisk === 'object'
+        ? yongshinResult.jonggyeokRisk
+        : undefined,
     recommendations: ensureArray(yongshinResult?.recommendations).map(
       ({ type, primaryElement, secondaryElement, confidence, reasoning }: any) => ({
         type:             formatYongshinTypeDisplay(type),

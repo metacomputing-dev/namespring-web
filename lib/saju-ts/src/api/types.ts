@@ -64,6 +64,12 @@ export interface EngineConfig {
     monthBoundary: 'jieqi' | 'gregorianMonth';
     dayBoundary: 'midnight' | 'ziSplit23';
     hourBoundary: 'doubleHour';
+    /**
+     * 일/시 경계 분류용 로컬 시각 이동(분). UTC 인스턴트는 불변 —
+     * 년주(입춘)·월주(절입) 비교와 대운 기산에는 영향 없음 (감사 A11).
+     * YAZA_23_30(자시 23:30 개시) 등 고정 시프트 유파 전용. 기본 0.
+     */
+    dayCutShiftMinutes?: number;
 
     /**
      * Solar-term computation policy.
@@ -296,7 +302,9 @@ export interface FortuneStartView {
 
 export interface DecadeLuckView {
   index: number;
+  /** Inclusive start of the continuous daewoon age interval. */
   startAgeYears: number;
+  /** Exclusive end of the continuous daewoon age interval. */
   endAgeYears: number;
   pillar: PillarView;
   startUtcMs?: number;
@@ -364,6 +372,11 @@ export interface YongshinView {
   ranking: Array<{ element: string; score: number }>;
   strengthIndex: number;
   consensus?: YongshinConsensusView;
+  /**
+   * [감사 A2·B6] best 오행에 가장 크게 기여한 방법군 (base 항 기준).
+   * 'EOKBU' | 'JOHU' | 'BYEONGYAK' | 'TONGGWAN' | 'JONGHWA'.
+   */
+  primaryMethod?: string;
 }
 
 export type YongshinConsensusConflictLevelView = 'none' | 'low' | 'medium' | 'high';

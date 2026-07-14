@@ -220,6 +220,18 @@
     },
     {
       "schemaVersion": "spring-ts.glossary-entry.v1",
+      "id": "wolgeobgyeok",
+      "label": "월겁격",
+      "hashLabel": "#월겁격",
+      "category": "gyeokguk",
+      "brief": "겁재(경쟁의 결)가 월지에 자리잡은 승부사형 형태예요.",
+      "detailed": "내 일간과 같은 오행이지만 음양이 다른 겁재가 월지(태어난 달의 자리)에 든 모양이에요. 경쟁 속에서 단련되는 결이라 실전 감각과 회복력이 좋고, 성과가 또렷하게 측정되는 자리에서 힘을 내요. 질서를 잡아주는 관성의 결이 옆에 있으면 경쟁이 실속으로 이어져요.",
+      "related": ["geobjae", "geonrokgyeok"],
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "training_derived", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-derived plain-language definition of 월겁격. Display-only narrative.", "copyrightNote": "No source prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "schemaVersion": "spring-ts.glossary-entry.v1",
       "id": "gahwagyeok",
       "label": "가화격",
       "hashLabel": "#가화격",

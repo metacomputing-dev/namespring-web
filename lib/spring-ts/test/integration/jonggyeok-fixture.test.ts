@@ -65,6 +65,22 @@ const EXPECTED_TYPE_TO_SUBTYPE: Record<string, string | null> = {
   CONG_BI: 'cong_bi',
 };
 
+// 감사 B5: 종격 리스크 신호(yongshin.jonggyeokRisk) 기대 레벨 — deLingDiShi 기본
+// 모델(감사 B7) 하 실측 고정(2026-07-08 프로브). PRESSURE 극단(04·06·07)은 HIGH
+// (억부 용신이 교리와 정반대인 대표 위해), SUPPORT 극단(01·03·08·09)은 INFO,
+// 중화 근접(02·05)은 무발화 — 강약 모델 자체의 한계 축(B7)으로 별도 추적.
+const EXPECTED_RISK_LEVEL: Record<string, 'HIGH' | 'INFO' | null> = {
+  'fix-jong-01': 'INFO',
+  'fix-jong-02': null,
+  'fix-jong-03': 'INFO',
+  'fix-jong-04': 'HIGH',
+  'fix-jong-05': null,
+  'fix-jong-06': 'HIGH',
+  'fix-jong-07': 'HIGH',
+  'fix-jong-08': 'INFO',
+  'fix-jong-09': 'INFO',
+};
+
 interface JonggyeokFixture {
   id: string;
   label: string;
@@ -184,6 +200,18 @@ for (const fix of fixtures) {
       expectedSubtype);
     if (observed && observed.status !== 'none') fixtureCandidateObservations += 1;
   }
+
+  // (5) 감사 B5: 종격 리스크 신호 + 경고 발화
+  const risk = sj.yongshin?.jonggyeokRisk ?? null;
+  const expectedLevel = EXPECTED_RISK_LEVEL[fix.id] ?? null;
+  check(`${fix.id}: jonggyeok risk level = ${expectedLevel ?? 'none'}`,
+    (risk?.level ?? null) === expectedLevel,
+    `actual=${risk ? `${risk.level}/${risk.direction} idx=${risk.strengthIndex} dom=${risk.dominanceRatio}` : 'none'}`);
+  check(`${fix.id}: yongshin warnings ${expectedLevel ? 'attached (1건)' : 'empty'}`,
+    expectedLevel
+      ? Array.isArray(sj.yongshin?.warnings) && sj.yongshin.warnings.length === 1
+      : !sj.yongshin?.warnings?.length,
+    `count=${sj.yongshin?.warnings?.length ?? 0}`);
 }
 
 console.log('\nEngine output vs doctrinal expected (informational):');

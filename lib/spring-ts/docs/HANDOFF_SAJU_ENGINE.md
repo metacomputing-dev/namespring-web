@@ -68,18 +68,44 @@ cd lib/spring-ts && npx tsx tmp/probe-optin-naeum-palace.ts
   - 천간 극(GEUK) 6쌍 탐지 + 죽은 라벨 배관 소생 · 반합(BANHAP, 왕지 필수·완전체 억제·운 경로 규칙 통일) · 귀문관살(GWIMUN 관계 + GWIMUN_SAL) · 고신/과숙(년지 기준 룰, 일지 앵커는 facts만) · 12운성 노출(springLegacy sibiUnseong 배선 + insight-facts-card kind 신설 + 타입 레벨 해석 12건 저작 — 실측: 4기둥 팩트 전부 해석 부착) · seatPillars/count(궁위 합집합·발동 횟수, position/dedupe 불변) · basedOn 보존(DAY_STEM/YEAR_STEM).
   - 검증: saju-ts 78 테스트, 호환 202, tiered-shape 1378, 경계골든 723, **baseline snapshot 15/15(판정·별점 불변)**, 런타임 프로브(극·반합·고신/과숙 발동, 천을귀인[day,hour]x2 병합 확인).
   - **잔여(콘텐츠 저작 축, 별도 세션 권장)**: ① 귀인 궁위 세분 factId(`shinsal.<이름>@<기둥>`) + preferredIds — seatPillars 배관은 완료됐으므로 인사이트 카드 factId 확장 + 궁위별 해석 저작만 남음(HANDOFF_NEXT_PHASES 작업 5-후속 ③④⑤단계) ② 신규 표면(반합·귀문·고신/과숙·귀문살) 타입 레벨 해석 충전(branchRelation.반합/귀문, shinsal.귀문관살/고신살/과숙살 — 現在는 신살 백과 폴백에 걸리는 것만 노출).
-- **PR-3 판정 재정렬 — 무파급 절반 ✅ 완료 (2026-07-08, 커밋 6af40c64b·7a7d1af5d·b222e802f)**:
-  - 완료: 신살 품질모델 오버라이드 실배선(A7 — virtueStrict·sanmingtonghui 팩 소생, 기본 경로 불변 확증), 월덕/천덕 scope 배선(A8 — monthDeokScope='day' 실동작 프로브), 12신살 이중 계상 dedupe(A10 — 점수만 1회, 표시는 양 앵커 유지), INDEPENDENT 명시 throw(A14), 대운수 이원 표기(B11 — startAgeRounding 기본 round1down2up + minStartAge 1 + startAgeDisplay/firstDaeunStartAgeDisplay additive. 소비 카드 전환은 미착수 — 전환 시 표기 나이가 바뀌므로 아래 잔여와 함께).
-  - **잔여 (판정이 실제로 바뀌는 세트 — 착수 시 dump-report-trace before/after + snapshot 재캡처 + κ 코퍼스 정합 필수)**: ① deLingDiShi 신강약 기본화(월지 가중 — facts.ts model='base' 기본 교체) ② 조후 개입 기본화(climateUrgency 기본 on + climate weight 0.2~0.3, yongshin.ts:303-317) ③ 종격 게이트(jonggyeokCandidates 연동 자동 활성 또는 신뢰도 감쇠 경고, facts.ts:1086) ④ 건록격/월겁격/양인격(defaultRuleSets.ts:36-37 분기 + 레거시 라벨) ⑤ 일주 경계 기본 정자시설 전환(saju-adapter yaza 기본 + 23:30 이중 보정 정리 = 감사 A11과 함께) ⑥ 대운수 표기 소비자 전환(life-curve 칩 등). 항목별 파급 명세는 감사 보고서 §2 표 B4~B7·부록 B 참조.
+- **PR-3 판정 재정렬 ✅ 완료 (2026-07-08)**:
+  - 무파급 절반 (커밋 6af40c64b·7a7d1af5d·b222e802f): 신살 품질모델 오버라이드 실배선(A7), 월덕/천덕 scope 배선(A8), 12신살 이중 계상 dedupe(A10), INDEPENDENT 명시 throw(A14), 대운수 이원 표기(B11 배관).
+  - **판정 변경 세트 (커밋 6건, 항목당 1커밋 + snapshot 재캡처 동봉)**:
+
+    | # | 항목 | 커밋 | 판정 파급 실측 (직전 항목 대비) |
+    |---|---|---|---|
+    | ① | deLingDiShi 신강약 기본화 (B7 — defaultConfig+facts.ts 폴백, base는 명시 opt-out) | 1f6090919 | fix-05 신약→중화(신약 경향), fix-07 희신 WOOD→METAL·dailyStars 4→2, 이름 후보 ±0.1 재배열 4건. borderline tier 불변 |
+    | ② | 조후 기본화 (B6 — climate 0.25 + urgency on + 1위 type 실유도 primaryMethod, 스쿨팩 2종 핀) | 32a740129 | 용신 1위 15/15 불변, 희신만 4건 이동(fix-05 겨울 WATER→FIRE 등 조후 표준 방향), 별점 5건 이동 |
+    | ③ | 종격 게이트 (B5 — jonggyeokRisk+warnings additive, HIGH 시 confidence cap 35. 완전 승격(a)은 weakThreshold 도달불가로 반려·프리셋 옵션 유지) | 416c0d845 | fix-13(극신약 편중)만 이름 -0.4. 교리 9픽스처: HIGH=04·06·07, INFO=01·03·08·09 테스트 고정(93→111) |
+    | ④ | 건록/양인/월겁격 (B4 — bigyeopSubtype 팩트+DSL v0.5+라벨/κ/백과/글로서리 9파일 배선, 'legacy' opt-out) | ea2f8366a | 라벨 전환만 4건(fix-05·11 비견격→건록격, fix-06 겁재격→양인격, fix-07 겁재격→월겁격). 점수·별점 불변 |
+    | ⑤ | 일주 경계 정자시설 전환 + A11 (결정① — yaza 기본 on/23:00, -30분 시프트를 인스턴트→경계 분류(calendar.dayCutShiftMinutes)로) | b7ff328f8 | fix-03(00:30)만 일주 丁巳→戊午 연쇄(신강약·용신 WOOD→FIRE·격국·별점). 경계골든 723 무파급(정책 핀). yaza-opt-in.test 재작성 4/4 |
+    | ⑥ | 대운수 표기 소비자 전환 (B11 잔여 — daeun-display.ts 오프셋, 4개 카드 표면 동시 전환, 시간 로직·rep 채점은 연속값 유지) | 4f3609f21 | 표기만 이동(오프셋 +1 케이스에서 4표면 일관). snapshot 15/15 = 판정 무파급 확증 |
+
+  - **Stack02 구조격 정오표 (2026-07-14, 외부 전문가 승인 전 provisional)**:
+    - 일반 취격의 투간에서 일간 자신을 제외하고, 월령 본기가 비견/겁재가 아닌 경우 잔여기 비겁 후보가
+      건록·양인·월겁 구조격으로 승격되지 않도록 분리했다. 甲亥·丙寅 오분류도 같은 원인으로 차단했다.
+    - 탈락한 비겁 후보는 내부 증거로 보존하되 공개 후보와 품질 gap에서는 제외한다.
+    - 기본 스냅샷은 fix-01/06/07/08/11의 격국 5건·8개 판정 필드가 이동했다.
+      특히 fix-06/07은 양인격·월겁격에서 정인격으로 정정되어 위 표 ④의 당시 기록을 대체한다.
+    - 테스트 통과는 회귀 부재의 증거이며, 토 잡기월 호환 정책과 구조격 분류 자체의 명리 승인은 아니다.
+
+  - **공식 판정 분류(validate:default-change, main↔HEAD)**: overall **IMPROVEMENT** — 개선 5(fix-03·05·06·07·11, D1 오라클 밴드 기준), 회귀 0, 불변 10.
+  - **κ 코퍼스 정합**: dump-report-trace before/after — 데모(1986-04-19) 판정 불변·전 셀 ✅재생성·정합✓ 유지. fix-03(판정 변경자)도 새 클래스(strong.jaeseong.boost_mild)에서 전 기간 ✅재생성 + byDaeun 전 구간 정합✓ = **커버리지 후퇴 0**.
+  - 검증(최종 일괄): saju-ts 21파일 84테스트, tsc 0err(양쪽), compat 202, boundary-goldens 723, jonggyeok 111, yongshin-consensus 241, tiered-shape 1378, class-axes 12, candidates 182, scoring 34, conflict-aware 10, borderline 7/7, time-policy 11, calendar-policy 9, presets 13, service-visible 13, life-stage-display 4, tiered-determinism 4, adapter-daewoon 15, quality_gate D3/D5 PASS(D1/D2/D4 N/A).
+  - ⚠ 알려진 상태: `test:composite-quality-gate`의 "monthly_main default snapshot has no regression (main..HEAD)" 1건은 **의도적 기본값 변경 브랜치에서 설계상 FAIL**(measure_regression은 무파급 PR용 diff=0 검사 — PR-1 스냅샷 재캡처 시점부터 main과 다름). 머지 후 자동 해소. 공식 게이트는 위 validate:default-change(IMPROVEMENT)로 대체 기록.
+  - 잔여 후속(판정 축 아님): quality_gate에 격명 동등 매핑(비견격≡건록격 등)을 넣었으므로 오라클 재감정은 불필요. fix-03 disagreementNotes 현행화 완료(용신은 saju_master와 수렴). BYEONGYAK 추천 type의 spring-ts 라벨 테이블 추가(스쿨팩 경유 시에만 노출)는 후속 정리 항목.
 - **PR-4 신뢰 인프라** (결정 ③ 실행): 내장 음양력 테이블(1900~2050, KASI 픽스처 `data/kasi-lunar-solar/`를 오라클로) + KASI API 옵션, 표준시 변천·서머타임 14구간 픽스처 테스트, 조견표 단정 테스트(12운성 120칸·지장간 12지지·신살 배속), 궁통보감 120셀 JSON.
 - **후속 감사 후보**: graph/·schools 팩 전수·DSL 컴파일러·migrations·음양 균형(YinYangScore 소비자 0곳)·육친/묘고/개두절각 축 (감사 보고서 부록 C).
 
 ## F. 새 세션 착수 프롬프트
 
+> PR-1·2·3은 완료됐다(위 D·E절). 다음 작업 = **PR-4 신뢰 인프라** (E절 요약 + 감사 §4·결정③).
+
 ```
 lib/spring-ts/docs/HANDOFF_SAJU_ENGINE.md를 읽고, 참조된 감사 보고서(AUDIT_SAJU_ENGINE_INTEGRITY.md)의 §1~§4를 읽어라.
-브랜치 feature/saju-engine-integrity-audit에서 D절 PR-1 체크리스트의 미완(☐) 항목을 이어서 구현하라.
-각 항목은 감사 보고서 부록 B에서 해당 발견의 상세(현재/표준/권고/근거)를 확인한 후 착수하고,
-완료마다 D절 표의 상태를 갱신하고 항목 단위로 커밋하라. saju-ts src 수정 후 Node 검증 전 dist 재빌드 필수.
-전체 완료 시 C절 검증 도구 일괄 실행 + 프로브 재실행으로 before/after를 기록하라.
+브랜치 feature/saju-engine-integrity-audit에서 E절의 PR-4 신뢰 인프라를 구현하라:
+내장 음양력 테이블(1900~2050, data/kasi-lunar-solar/ 픽스처를 오라클로) + KASI API 옵션(기본 내장),
+표준시 변천·서머타임 14구간 픽스처 테스트, 조견표 단정 테스트(12운성 120칸·지장간 12지지·신살 배속), 궁통보감 120셀 JSON.
+각 항목은 감사 보고서 부록 B에서 상세(현재/표준/권고/근거)를 확인한 후 착수하고, 항목 단위로 커밋하라.
+saju-ts src 수정 후 Node 검증 전 dist 재빌드 필수. 완료 시 C절 검증 도구 일괄 실행으로 회귀를 확인하라.
 ```

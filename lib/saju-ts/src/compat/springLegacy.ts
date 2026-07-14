@@ -1,6 +1,7 @@
 import { createEngine } from '../api/engine.js';
 import { defaultConfig } from '../api/config.js';
 import type { AnalysisBundle, EngineConfig, SajuRequest } from '../api/types.js';
+import { baseTenGodOfStructuralMonthFrame, type BigyeopSubtype } from '../rules/gyeokgukMonthFrame.js';
 
 const STEM_CODES = ['GAP', 'EUL', 'BYEONG', 'JEONG', 'MU', 'GI', 'GYEONG', 'SIN', 'IM', 'GYE'] as const;
 const BRANCH_CODES = ['JA', 'CHUK', 'IN', 'MYO', 'JIN', 'SA', 'O', 'MI', 'SIN', 'YU', 'SUL', 'HAE'] as const;
@@ -15,6 +16,10 @@ const OHAENG_KO_LABEL: Record<string, string> = {
 const GYEOKGUK_KO_LABEL: Record<string, string> = {
   BI_GYEON: '비견격',
   GYEOB_JAE: '겁재격',
+  // 감사 B4: 월지 비겁의 주류 격명 (기본 모드).
+  GEONROK: '건록격',
+  YANGIN: '양인격',
+  WOLGEOB: '월겁격',
   JEONG_GWAN: '정관격',
   PYEON_GWAN: '편관격',
   JEONG_JAE: '정재격',
@@ -55,6 +60,16 @@ const GYEOKGUK_CANDIDATE_SOURCE_TIER = {
 const TEN_GOD_ALIASES: Record<string, string> = {
   GEOB_JAE: 'GYEOB_JAE',
   SIK_SHIN: 'SIK_SIN',
+};
+// [감사 A2·B6] 엔진 primaryMethod → 레거시 추천 type 코드.
+// 기본 정책(억부 1.0 + 조후 0.25)에서 실제 발생 값은 EOKBU/JOHU 둘뿐이고,
+// BYEONGYAK(병약)·TONGGWAN(통관)·ILHAENG(전왕/종화)은 스쿨팩 경유 방어선이다.
+const LEGACY_YONGSHIN_TYPE: Record<string, string> = {
+  EOKBU: 'EOKBU',
+  JOHU: 'JOHU',
+  BYEONGYAK: 'BYEONGYAK',
+  TONGGWAN: 'TONGGWAN',
+  JONGHWA: 'ILHAENG',
 };
 const GYEOKGUK_BASE_SIPSEONG_KEYS = new Set([
   'JEONG_GWAN', 'PYEON_GWAN',
@@ -184,9 +199,10 @@ export interface LegacySajuConfig {
 
   /**
    * Convenience switch for YAZA day-cut behavior.
-   * - false: MIDNIGHT_00
-   * - true:  yazaMode/dayCutMode or default YAZA_23_30_TO_01_30_NEXTDAY
-   * Default: false
+   * - false: MIDNIGHT_00 (자정설 옵션)
+   * - true:  dayCutMode/yazaMode or default YAZA_23_TO_01_NEXTDAY
+   * Default: true (감사 결정① — 정자시설이 기본. 주의: resolveDayCutMode는
+   * dayCutMode를 yazaMode보다 먼저 평가한다.)
    */
   yazaEnabled?: boolean;
   yazaMode?: LegacyYazaMode;
@@ -222,7 +238,9 @@ interface TrueSolarCorrectionView {
 
 const PRESET_CONFIGS: Record<string, LegacySajuConfig> = {
   KOREAN_MAINSTREAM: {
-    dayCutMode: 'YAZA_23_30_TO_01_30_NEXTDAY',
+    // 감사 결정①+A11: 경도 보정(기본 on)과 결합하는 정자시설은 23:00 모드(ziSplit23).
+    // 23:30 모드는 경도 보정 off 유파용 — 중첩 시 이중 보정(-62분)이 된다.
+    dayCutMode: 'YAZA_23_TO_01_NEXTDAY',
     includeEquationOfTime: false,
     lmtBaselineLongitude: 135,
   },
@@ -240,8 +258,10 @@ const PRESET_CONFIGS: Record<string, LegacySajuConfig> = {
 
 const DEFAULT_TRUE_SOLAR_TIME_ENABLED = false;
 const DEFAULT_LONGITUDE_CORRECTION_ENABLED = true;
-const DEFAULT_YAZA_ENABLED = false;
-const DEFAULT_YAZA_MODE: LegacyYazaMode = 'YAZA_23_30_TO_01_30_NEXTDAY';
+// 감사 결정① (2026-07-08): 기본 = 정자시설(ziSplit23, 23:00 모드).
+// 실무 약 80% 주류 정렬 — 자정설은 yazaEnabled=false 명시로 복귀.
+const DEFAULT_YAZA_ENABLED = true;
+const DEFAULT_YAZA_MODE: LegacyYazaMode = 'YAZA_23_TO_01_NEXTDAY';
 
 function toInt(v: unknown, fallback: number): number {
   const n = Number(v);
@@ -534,11 +554,32 @@ function topTwo(values: Array<{ element: string; score: number }>): [string, str
   return [first, second];
 }
 
+// 감사 B4: 건록/양인/월겁의 기반 십성 유지 (건록=비견, 양인/월겁=겁재).
+function readStructuralMonthFrameSubtype(value: unknown): BigyeopSubtype | null {
+  const normalized = String(value ?? '').trim().toUpperCase();
+  switch (normalized) {
+    case 'GEONROK':
+    case 'YANGIN':
+    case 'WOLGEOB':
+      return normalized;
+    default:
+      return null;
+  }
+}
+
+function structuralBaseSipseongKey(value: unknown): string {
+  const subtype = readStructuralMonthFrameSubtype(value);
+  const engineKey = subtype
+    ? baseTenGodOfStructuralMonthFrame(subtype)
+    : String(value ?? '').trim().toUpperCase();
+  return normalizeTenGod(engineKey);
+}
 function deriveGyeokgukBaseSipseong(bestKeyCore: string): string | null {
   const normalized = String(bestKeyCore ?? '').trim().toUpperCase();
   if (!normalized) return null;
-  if (!GYEOKGUK_BASE_SIPSEONG_KEYS.has(normalized)) return null;
-  return normalizeTenGod(normalized);
+  const resolved = structuralBaseSipseongKey(normalized);
+  if (!GYEOKGUK_BASE_SIPSEONG_KEYS.has(resolved)) return null;
+  return normalizeTenGod(resolved);
 }
 
 function clamp01(value: unknown): number {
@@ -641,6 +682,10 @@ function compositeTransformSupport(ruleFacts: any, element: string): number {
     oneElementCode === element ? oneElementFactor * 0.5 : 0,
   );
 }
+function isSelectableMonthGyeokCandidate(candidate: any): boolean {
+  return candidate?.eligibleForGyeokSelection !== false;
+}
+
 
 function buildCompositeClassicalScore(args: {
   type: string;
@@ -652,7 +697,9 @@ function buildCompositeClassicalScore(args: {
 }): any {
   const { type, monthCandidate, notes, ruleFacts, ranking, yongshinRanking } = args;
   const monthGyeok = ruleFacts?.month?.gyeok ?? {};
-  const monthCandidates = Array.isArray(monthGyeok?.candidates) ? monthGyeok.candidates : [];
+  const monthCandidates = Array.isArray(monthGyeok?.candidates)
+    ? monthGyeok.candidates.filter(isSelectableMonthGyeokCandidate)
+    : [];
   const quality = monthGyeok?.quality ?? {};
   const normalizedElements = ruleFacts?.elements?.normalized ?? {};
 
@@ -751,8 +798,12 @@ function buildCompositeClassicalScore(args: {
 function buildGyeokgukCandidates(bundle: AnalysisBundle, bestKeyCore: string, bestScore: number): any[] {
   const facts = bundle.report?.facts as Record<string, unknown> | undefined;
   const ruleFacts = facts?.['rules.facts'] as any;
+  const structuralSubtype = readStructuralMonthFrameSubtype(ruleFacts?.month?.gyeok?.bigyeopSubtype);
+  const structuralBaseCandidateType = structuralSubtype
+    ? structuralBaseSipseongKey(structuralSubtype)
+    : null;
   const monthCandidates = Array.isArray(ruleFacts?.month?.gyeok?.candidates)
-    ? ruleFacts.month.gyeok.candidates
+    ? ruleFacts.month.gyeok.candidates.filter(isSelectableMonthGyeokCandidate)
     : [];
 
   const monthByType = new Map<string, any>();
@@ -803,21 +854,29 @@ function buildGyeokgukCandidates(bundle: AnalysisBundle, bestKeyCore: string, be
     });
   };
 
+  // 감사 B4: 건록/양인/월겁 키는 십성 인덱스(monthByType)에서 기반 십성으로 조회.
+  const monthCandidateForType = (type: string): any =>
+    monthByType.get(type) ?? monthByType.get(structuralBaseSipseongKey(type));
+
   for (const entry of ranking) {
     const type = normalizeGyeokgukKey(entry?.key);
     const score = Number(entry?.score);
     if (type !== selectedType && (!Number.isFinite(score) || score <= MIN_GYEOKGUK_CANDIDATE_SCORE)) continue;
-    addCandidate(type, entry?.score, monthByType.get(type));
+    addCandidate(type, entry?.score, monthCandidateForType(type));
   }
 
   for (const candidate of monthCandidates) {
+    const candidateType = normalizeGyeokgukKey(candidate?.tenGod);
+    // A structural frame already represents this same month-command evidence.
+    // Do not re-publish it as a contradictory BI/GEOB frame.
+    if (structuralBaseCandidateType && candidateType === structuralBaseCandidateType) continue;
     const score = Number(candidate?.score);
     if (!Number.isFinite(score) || score <= MIN_GYEOKGUK_CANDIDATE_SCORE) continue;
-    addCandidate(candidate?.tenGod, candidate?.score, candidate);
+    addCandidate(candidateType, candidate?.score, candidate);
   }
 
   if (bestKeyCore && !seen.has(bestKeyCore)) {
-    addCandidate(bestKeyCore, bestScore, monthByType.get(bestKeyCore));
+    addCandidate(bestKeyCore, bestScore, monthCandidateForType(bestKeyCore));
   }
 
   return candidates.sort((a, b) => {
@@ -869,13 +928,17 @@ function pickEngineConfigPatch(legacy: LegacySajuConfig): Partial<EngineConfig> 
 function buildEngineConfig(
   legacy: LegacySajuConfig,
   timeZone: string,
-): { config: EngineConfig; dayCutShiftMinutes: number } {
+): { config: EngineConfig } {
   const dayCut = mapDayCutMode(resolveDayCutMode(legacy));
   const trueSolarTimeEnabled = legacy.trueSolarTimeEnabled ?? DEFAULT_TRUE_SOLAR_TIME_ENABLED;
   const includeEquationOfTime = legacy.includeEquationOfTime ?? true;
 
   let cfg = cloneConfig();
   cfg.calendar.dayBoundary = dayCut.dayBoundary;
+  // 감사 A11: YAZA_23_30의 -30분은 인스턴트가 아니라 일/시 경계 분류용 시프트로
+  // 엔진에 전달한다(graphFactory ForDay/ForHour). deepMerge 이전에 세팅해야
+  // legacy.calendar.dayCutShiftMinutes 수동 오버라이드가 살아있다.
+  cfg.calendar.dayCutShiftMinutes = dayCut.dayCutShiftMinutes;
   cfg.calendar.trueSolarTime.enabled = trueSolarTimeEnabled;
   cfg.calendar.trueSolarTime.equationOfTime = trueSolarTimeEnabled && includeEquationOfTime ? 'approx' : 'off';
   cfg.calendar.trueSolarTime.applyTo = 'dayAndHour';
@@ -885,7 +948,7 @@ function buildEngineConfig(
   };
 
   cfg = deepMerge(cfg, pickEngineConfigPatch(legacy));
-  return { config: cfg, dayCutShiftMinutes: dayCut.dayCutShiftMinutes };
+  return { config: cfg };
 }
 
 function inferStandardMeridian(offsetMinutes: number): number {
@@ -904,12 +967,13 @@ function effectiveLongitudeForLegacyLmt(
 function makeRequest(
   input: LegacyBirthInput,
   legacy: LegacySajuConfig,
-  dayCutShiftMinutes: number,
-): { request: SajuRequest; standard: CivilDateTime; analysisLocal: CivilDateTime } {
+): { request: SajuRequest; standard: CivilDateTime } {
   const standard = toCivilFromBirthInput(input);
-  const analysisLocal = addMinutes(standard, dayCutShiftMinutes);
+  // 감사 A11: 과거에는 YAZA_23_30의 -30분을 여기(민간시→인스턴트)에 적용해
+  // 입춘·절입 비교와 대운 기산까지 30분 당겨졌다. 시프트는 이제
+  // config.calendar.dayCutShiftMinutes로 엔진의 경계 분류 노드만 이동한다.
   const timeZone = input.timezone ?? DEFAULT_TIMEZONE;
-  const offsetMinutes = resolveOffsetMinutes(timeZone, analysisLocal);
+  const offsetMinutes = resolveOffsetMinutes(timeZone, standard);
   const stdMeridian = inferStandardMeridian(offsetMinutes);
   const rawLongitude = Number.isFinite(input.longitude) ? Number(input.longitude) : DEFAULT_LONGITUDE;
   const latitude = Number.isFinite(input.latitude) ? Number(input.latitude) : DEFAULT_LATITUDE;
@@ -922,7 +986,7 @@ function makeRequest(
     ? effectiveLongitudeForLegacyLmt(rawLongitude, baselineLongitude, stdMeridian)
     : rawLongitude;
 
-  const instant = civilToIsoInstant(analysisLocal, offsetMinutes);
+  const instant = civilToIsoInstant(standard, offsetMinutes);
   const sex: SajuRequest['sex'] = input.gender === 'FEMALE' ? 'F' : 'M';
 
   return {
@@ -936,7 +1000,6 @@ function makeRequest(
       },
     },
     standard,
-    analysisLocal,
   };
 }
 
@@ -1095,6 +1158,62 @@ function normalizeLegacyOutput(
   const jonggyeokCandidates = Array.isArray(gyeokguk?.jonggyeokCandidates)
     ? gyeokguk.jonggyeokCandidates
     : [];
+
+  // --- 감사 B5: 종격(從格) 가능성 신호 — 억부 용신 신뢰도 게이트 ---
+  // 기본 경로는 patterns.follow 옵트인 꺼짐 + weights.follow=0이라 CONG_* 격이
+  // 구조적으로 발화하지 않는다. 극단 편중 명식에서 억부 용신을 무경고 확신
+  // 표기하지 않도록 리스크를 파생한다. 트리거 2갈래:
+  //  (1) jonggyeokCandidates에 candidate/selected 존재 (엔진 증거 표면)
+  //  (2) 강약 극단(|index|>=0.5) + 우세비>=2.2 (yongshin follow의 minDominanceRatio 기본 재사용)
+  //     - PRESSURE(극신약) 방향: 억부가 정반대(인성/비겁) 용신을 내는 대표 위해 → HIGH
+  //     - SUPPORT(극신강) 방향: 억부 설기 용신이 순세와 부분 호환 → INFO
+  // 상수 0.5/2.2는 base·deLingDiShi 두 강약 모델의 교리 종격 실측 대역(0.575~0.798)을
+  // 모두 커버하도록 보정됨(감사 B5 프로브). support-side는 candidates 표면이 침묵하므로
+  // (rootWeakness/dayMasterIsolation이 pressure-follow용 설계) 트리거 (2)가 본체다.
+  const PRESSURE_CONG_SUBTYPES = new Set(['cong_cai', 'cong_guan', 'cong_sha', 'cong_er']);
+  const SUPPORT_CONG_SUBTYPES = new Set(['cong_bi', 'cong_yin', 'zhuan_wang']);
+  const jonggyeokRisk = (() => {
+    const eps = 1e-9;
+    const cands = jonggyeokCandidates.filter((c: any) => c && typeof c.subtype === 'string');
+    const strong = cands.filter((c: any) => c.status === 'candidate' || c.status === 'selected');
+    const pressureDom = pressure / Math.max(eps, support);
+    const supportDom = support / Math.max(eps, pressure);
+    const pressureSignals = cands.filter(
+      (c: any) => PRESSURE_CONG_SUBTYPES.has(c.subtype) && c.status !== 'none',
+    );
+    const pressureExtreme = strengthIndex <= -0.5 && pressureDom >= 2.2 && pressureSignals.length > 0;
+    const supportExtreme = strengthIndex >= 0.5 && supportDom >= 2.2;
+    if (strong.length === 0 && !pressureExtreme && !supportExtreme) return undefined;
+
+    const level: 'HIGH' | 'INFO' = strong.length > 0 || pressureExtreme ? 'HIGH' : 'INFO';
+    const direction: 'PRESSURE' | 'SUPPORT' = strengthIndex < 0 ? 'PRESSURE' : 'SUPPORT';
+    const related =
+      strong.length > 0
+        ? strong
+        : direction === 'PRESSURE'
+          ? pressureSignals
+          : cands.filter((c: any) => SUPPORT_CONG_SUBTYPES.has(c.subtype) && c.status !== 'none');
+    return {
+      level,
+      direction,
+      strengthIndex: roundTo(strengthIndex, 3),
+      dominanceRatio: roundTo(direction === 'PRESSURE' ? pressureDom : supportDom, 2),
+      subtypes: related.map((c: any) => String(c.subtype)),
+      maxCandidateScore: roundTo(Math.max(0, ...cands.map((c: any) => Number(c.score) || 0)), 6),
+      // b-2: HIGH 리스크 시 finalConfidence를 동률 바닥(35점)으로 강등했는지 여부.
+      confidenceAttenuated: false,
+    };
+  })();
+  const yongshinWarnings: string[] =
+    jonggyeokRisk?.level === 'HIGH'
+      ? ['종격(從格) 가능성 — 억부 용신 신뢰도 낮음: 세력이 한쪽으로 크게 쏠린 명식으로, 종격 판정 시 용신이 달라질 수 있습니다.']
+      : jonggyeokRisk
+        ? ['전왕(專旺)·종왕 계열 가능성 — 극신강 편중 명식으로, 유파에 따라 순세(順勢) 용신이 우선될 수 있습니다.']
+        : [];
+  if (jonggyeokRisk?.level === 'HIGH' && yongshinConfidencePoints > 35) {
+    // b-2 실적용 여부: cap(35)이 실제로 값을 낮춘 경우만 true.
+    jonggyeokRisk.confidenceAttenuated = true;
+  }
 
   const totalDistribution = (bundle.summary?.elementDistribution as any)?.total ?? {};
   const ohaengDistribution = {
@@ -1304,14 +1423,22 @@ function normalizeLegacyOutput(
       finalHeesin: secondElement,
       gisin: worst,
       gusin: secondWorst,
-      finalConfidence: yongshinConfidencePoints,
+      // 감사 B5(b-2): HIGH 리스크(종격 가능성) 명식에서 억부 확신을
+      // 동률 바닥(scoreDiffConfidence 하한 35점)으로 강등.
+      finalConfidence:
+        jonggyeokRisk?.level === 'HIGH'
+          ? Math.min(yongshinConfidencePoints, 35)
+          : yongshinConfidencePoints,
       agreement: 'RANKING',
       consensus: yongshinConsensus,
+      // 감사 B5 (additive): 종격 가능성 신호. daeunInfo.warnings 선례를 따른다.
+      warnings: yongshinWarnings,
+      jonggyeokRisk,
       recommendations: yongshinRanking.slice(0, 3).map((entry: { element: string; score: number }, i: number) => ({
-        // 이 브리지의 기본 정책은 climate weight 0(조후 비활성) — 랭킹은 순수
-        // 억부(balance+role) 산출이므로 'EOKBU'가 정직한 라벨이다 (감사 A2.
-        // 설정이 다양해지면 실제 지배 방법에서 유도할 것).
-        type: i === 0 ? 'EOKBU' : 'RANKING',
+        // 1위 type은 엔진이 산출한 실제 지배 방법(primaryMethod)에서 유도한다 (감사 A2·B6).
+        // 기본 정책(억부 1.0 + 조후 0.25)에서는 EOKBU 또는 JOHU만 나온다.
+        // primaryMethod 부재(구 dist 등) 시 EOKBU 폴백 — 기본 정책 최빈값.
+        type: i === 0 ? (LEGACY_YONGSHIN_TYPE[String(yongshin?.primaryMethod ?? '')] ?? 'EOKBU') : 'RANKING',
         primaryElement: entry.element,
         secondaryElement: yongshinRanking[i + 1]?.element ?? null,
         confidence: confidenceToPoints(Math.max(0, Math.min(1, Number(entry.score)))),
@@ -1400,8 +1527,8 @@ export function analyzeSaju(
 
   const legacy = normalizeLegacyConfig(rawConfig);
   const tz = normalizedInput.timezone ?? DEFAULT_TIMEZONE;
-  const { config, dayCutShiftMinutes } = buildEngineConfig(legacy, tz);
-  const { request, standard } = makeRequest(normalizedInput, legacy, dayCutShiftMinutes);
+  const { config } = buildEngineConfig(legacy, tz);
+  const { request, standard } = makeRequest(normalizedInput, legacy);
 
   const engine = createEngine(config);
   const bundle = engine.analyze(request);

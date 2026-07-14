@@ -143,14 +143,18 @@ export function buildGraph(): Graph {
     n<LocalDateTime>({
       id: 'time.localDateTimeForDay',
       deps: ['time.localDateTime', 'time.solarLocalDateTime', 'policy.calendar'],
-      explain: '일주/일경계 계산에 사용할 로컬 dateTime(trueSolarTime.applyTo 정책 반영).',
+      explain: '일주/일경계 계산에 사용할 로컬 dateTime(trueSolarTime.applyTo 정책 + dayCutShiftMinutes 반영).',
       compute: (_ctx, get) => {
         const civil = get<LocalDateTime>('time.localDateTime');
         const solar = get<LocalDateTime>('time.solarLocalDateTime');
         const cal = get<any>('policy.calendar');
         const t = cal.trueSolarTime;
         const applyTo = t?.applyTo ?? 'hourOnly';
-        return t?.enabled && applyTo === 'dayAndHour' ? solar : civil;
+        const base = t?.enabled && applyTo === 'dayAndHour' ? solar : civil;
+        // 감사 A11: 고정 시프트 유파(YAZA_23_30)는 인스턴트가 아니라 경계 분류용
+        // 로컬 시각만 이동한다 — 절입/입춘 비교(UTC)와 대운 기산은 불변.
+        const shift = Number(cal.dayCutShiftMinutes ?? 0);
+        return Number.isFinite(shift) && shift !== 0 ? applyMinuteOffsetToLocalDateTime(base, shift) : base;
       },
     }),
   );
@@ -159,7 +163,7 @@ export function buildGraph(): Graph {
     n<LocalDateTime>({
       id: 'time.localDateTimeForHour',
       deps: ['time.localDateTime', 'time.solarLocalDateTime', 'policy.calendar'],
-      explain: '시주/시지 경계 판정에 사용할 로컬 dateTime(trueSolarTime.enabled 반영).',
+      explain: '시주/시지 경계 판정에 사용할 로컬 dateTime(trueSolarTime.enabled + dayCutShiftMinutes 반영).',
       compute: (_ctx, get) => {
         const civil = get<LocalDateTime>('time.localDateTime');
         const solar = get<LocalDateTime>('time.solarLocalDateTime');
@@ -167,7 +171,11 @@ export function buildGraph(): Graph {
         const t = cal.trueSolarTime;
         const applyTo = t?.applyTo ?? 'hourOnly';
         const useSolar = !!t?.enabled && (applyTo === 'hourOnly' || applyTo === 'dayAndHour');
-        return useSolar ? solar : civil;
+        const base = useSolar ? solar : civil;
+        // 감사 A11: day와 동일 시프트를 hour에도 적용해야 YAZA_23_30의 의미
+        // (자시=23:30~01:30, 12시진 경계 전체 30분 이동)가 유지된다.
+        const shift = Number(cal.dayCutShiftMinutes ?? 0);
+        return Number.isFinite(shift) && shift !== 0 ? applyMinuteOffsetToLocalDateTime(base, shift) : base;
       },
     }),
   );
