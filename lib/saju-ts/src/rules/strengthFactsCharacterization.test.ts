@@ -114,7 +114,12 @@ describe('strength facts model characterization', () => {
                 "groups": []
               },
               "stemBinds": [],
-              "pressureStemBinds": []
+              "pressureStemBinds": [],
+              "pressureStemBindPenalty": {
+                "score": 0,
+                "normalized": 0,
+                "factor": 0
+              }
             }
           }
         }
