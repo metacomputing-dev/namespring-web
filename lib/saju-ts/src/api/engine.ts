@@ -9,6 +9,7 @@ import { toBranchView, toHiddenStemTenGodView, toHiddenStemView, toPillarView, t
 import { packAnalysisBundleZip } from '../artifacts/analysisZip.js';
 import { ENGINE_NAME, ENGINE_VERSION } from '../meta/version.js';
 import type { FortuneTimeline } from '../fortune/types.js';
+import type { DecadeYearRelationEntry, FortuneRelationEntry, FortuneRelationsTimeline } from '../fortune/relations.js';
 import type { StrengthFacts } from '../rules/facts.js';
 import type { YongshinResult } from '../rules/yongshin.js';
 import type { GyeokgukResult } from '../rules/gyeokguk.js';
@@ -58,6 +59,50 @@ function readAnalysisZipStrategy(config: EngineConfig): {
 }
 
 type HiddenStemTenGod = HiddenStem & { tenGod: TenGod };
+
+function toFortuneRelationEntryView(entry: FortuneRelationEntry) {
+  return {
+    luckKind: entry.luckKind,
+    index: entry.index,
+    solarYear: entry.solarYear,
+    monthOrder: entry.monthOrder,
+    localDate: entry.localDate,
+    pillar: toPillarView(entry.pillar),
+    stemRelations: entry.stemRelations.map((relation) => ({
+      type: relation.type,
+      members: relation.members.map(toStemView),
+      resultElement: relation.resultElement,
+      natalPositions: relation.natalPositions,
+      luckPosition: relation.luckPosition,
+    })),
+    branchRelations: entry.branchRelations.map((relation) => ({
+      type: relation.type,
+      members: relation.members.map(toBranchView),
+      natalPositions: relation.natalPositions,
+      luckPosition: relation.luckPosition,
+    })),
+  };
+}
+function toFortuneDecadeYearRelationEntryView(entry: DecadeYearRelationEntry) {
+  return {
+    luckKind: entry.luckKind,
+    solarYear: entry.solarYear,
+    decadeIndex: entry.decadeIndex,
+    decadePillar: toPillarView(entry.decadePillar),
+    yearPillar: toPillarView(entry.yearPillar),
+    stemRelations: entry.stemRelations.map((relation) => ({
+      type: relation.type,
+      members: relation.members.map(toStemView),
+      resultElement: relation.resultElement,
+      luckPositions: relation.luckPositions,
+    })),
+    branchRelations: entry.branchRelations.map((relation) => ({
+      type: relation.type,
+      members: relation.members.map(toBranchView),
+      luckPositions: relation.luckPositions,
+    })),
+  };
+}
 
 export function createEngine(config: Partial<EngineConfig> = {}): Engine {
   const normalizedConfig = normalizeConfig(config);
@@ -109,7 +154,7 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
       }
 
       if (normalizedConfig.toggles.fortune) {
-        wanted.push('fortune.timeline');
+        wanted.push('fortune.timeline', 'fortune.relations');
       }
 
       if (normalizedConfig.toggles.rules) {
@@ -220,6 +265,8 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
       if (normalizedConfig.toggles.fortune) {
         const ft = results.get('fortune.timeline') as FortuneTimeline;
 
+        const fortuneRelations = results.get('fortune.relations') as FortuneRelationsTimeline;
+
         summary.fortune = {
           start: {
             direction: ft.start.direction,
@@ -227,6 +274,8 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
             deltaMs: ft.start.deltaMs,
             startAgeYears: ft.start.startAgeYears,
             startAgeDisplay: ft.start.startAgeDisplay,
+            ageDisplay: ft.start.ageDisplay,
+            ageDisplayLabel: ft.start.ageDisplayLabel,
             startAgeParts: ft.start.startAgeParts,
             startUtcMsApprox: ft.start.startUtcMsApprox,
             formula: ft.start.formula,
@@ -235,6 +284,8 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
             index: d.index,
             startAgeYears: d.startAgeYears,
             endAgeYears: d.endAgeYears,
+            displayStartAge: d.displayStartAge,
+            displayEndAge: d.displayEndAge,
             pillar: toPillarView(d.pillar),
             startUtcMs: d.startUtcMs,
             endUtcMs: d.endUtcMs,
@@ -265,6 +316,13 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
             approxStartAgeYears: d.approxStartAgeYears,
             approxEndAgeYears: d.approxEndAgeYears,
           })),
+          relations: {
+            decades: fortuneRelations.decades.map(toFortuneRelationEntryView),
+            years: fortuneRelations.years.slice(0, 30).map(toFortuneRelationEntryView),
+            months: fortuneRelations.months?.slice(0, 24).map(toFortuneRelationEntryView),
+            days: fortuneRelations.days?.slice(0, 60).map(toFortuneRelationEntryView),
+            decadeYears: fortuneRelations.decadeYears.slice(0, 30).map(toFortuneDecadeYearRelationEntryView),
+          },
         };
       }
 

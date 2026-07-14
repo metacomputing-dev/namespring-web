@@ -144,10 +144,16 @@ const partiallyMalformedSummary = {
       {
         stem: 'BYEONG', branch: 'SIN', startAge: 0, endAge: 10, order: 1,
         displayStartAge: 1,
+        relationsWithNatal: {
+          branchRelations: [{ type: 'HAP', natalPositions: ['year'] }],
+        },
       },
       {
         stem: 'JEONG', branch: 'YU', startAge: 10, endAge: 20, order: 2,
         displayStartAge: 10, displayEndAge: 20,
+        relationsWithNatal: {
+          branchRelations: [{ type: 'CHUNG', natalPositions: ['month'] }],
+        },
       },
     ],
   },
@@ -156,6 +162,9 @@ const filteredCard = buildLifeStageFortuneCard(partiallyMalformedSummary, 15);
 check('life-stage current index follows emitted stages after malformed interval filtering',
   filteredCard.stages.length === 1 && filteredCard.currentStageIndex === 0,
   `stages=${filteredCard.stages.length}, current=${filteredCard.currentStageIndex}`);
+check('life-stage evidence follows the rendered pillar after malformed filtering',
+  filteredCard.evidence?.[0]?.supportingFeatures?.includes('원국 지지 관계: 월주 충') === true
+    && filteredCard.evidence?.[0]?.supportingFeatures?.includes('원국 지지 관계: 년주 합') !== true);
 
 const fullyMalformedSummary = {
   dayMaster: { element: 'WATER' },

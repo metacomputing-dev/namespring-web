@@ -320,6 +320,8 @@ export interface FortuneStartView {
   startAgeYears: number;
   /** 표기용 정수 대운수 (startAgeRounding 유파 + minStartAge 적용). */
   startAgeDisplay?: number;
+  ageDisplay?: 'continuousFromBirth' | 'koreanCountingAge';
+  ageDisplayLabel?: string;
   startAgeParts?: { years: number; months: number; days: number };
   startUtcMsApprox?: number;
   formula: string;
@@ -331,6 +333,8 @@ export interface DecadeLuckView {
   startAgeYears: number;
   /** Exclusive end of the continuous daewoon age interval. */
   endAgeYears: number;
+  displayStartAge?: number;
+  displayEndAge?: number;
   pillar: PillarView;
   startUtcMs?: number;
   endUtcMs?: number;
@@ -365,6 +369,62 @@ export interface DayLuckView {
   approxEndAgeYears: number;
 }
 
+export interface FortuneStemRelationView {
+  type: StemRelationType;
+  members: StemView[];
+  resultElement?: string;
+  natalPositions: Array<'year' | 'month' | 'day' | 'hour'>;
+  luckPosition: 'luck';
+}
+
+export interface FortuneBranchRelationView {
+  type: RelationType;
+  members: BranchView[];
+  natalPositions: Array<'year' | 'month' | 'day' | 'hour'>;
+  luckPosition: 'luck';
+}
+
+export interface FortuneLuckPairStemRelationView {
+  type: StemRelationType;
+  members: StemView[];
+  resultElement?: string;
+  luckPositions: Array<'decade' | 'year'>;
+}
+
+export interface FortuneLuckPairBranchRelationView {
+  type: RelationType;
+  members: BranchView[];
+  luckPositions: Array<'decade' | 'year'>;
+}
+
+export interface FortuneDecadeYearRelationEntryView {
+  luckKind: 'DECADE_YEAR';
+  solarYear: number;
+  decadeIndex: number;
+  decadePillar: PillarView;
+  yearPillar: PillarView;
+  stemRelations: FortuneLuckPairStemRelationView[];
+  branchRelations: FortuneLuckPairBranchRelationView[];
+}
+
+export interface FortuneRelationEntryView {
+  luckKind: 'DECADE' | 'YEAR' | 'MONTH' | 'DAY';
+  index?: number;
+  solarYear?: number;
+  monthOrder?: number;
+  localDate?: { y: number; m: number; d: number };
+  pillar: PillarView;
+  stemRelations: FortuneStemRelationView[];
+  branchRelations: FortuneBranchRelationView[];
+}
+
+export interface FortuneRelationsSummaryView {
+  decades: FortuneRelationEntryView[];
+  years: FortuneRelationEntryView[];
+  months?: FortuneRelationEntryView[];
+  days?: FortuneRelationEntryView[];
+  decadeYears: FortuneDecadeYearRelationEntryView[];
+}
 export interface FortuneSummaryView {
   start: FortuneStartView;
   decades: DecadeLuckView[];
@@ -376,6 +436,9 @@ export interface FortuneSummaryView {
 
   /** Optional: 일운(정책 dayBoundary 기반). Potentially large; summary includes a prefix. */
   days?: DayLuckView[];
+
+  /** Optional: 운 기둥이 원국 4주와 맺는 천간/지지 관계(PR-9-1, additive). */
+  relations?: FortuneRelationsSummaryView;
 }
 
 export interface StrengthView {

@@ -1,6 +1,8 @@
 import { createEngine } from '../api/engine.js';
 import { defaultConfig } from '../api/config.js';
 import type { AnalysisBundle, EngineConfig, SajuRequest } from '../api/types.js';
+import { branchElement, stemElement } from '../core/cycle.js';
+import { controls } from '../core/elements.js';
 import { detectStemRelations } from '../core/stemRelations.js';
 import { lifeStageOf } from '../core/lifeStage.js';
 import { mod } from '../core/mod.js';
@@ -505,6 +507,27 @@ function branchIdxFromUnknown(idx: unknown): number {
   return Number.isFinite(n) ? mod(Math.trunc(n), 12) : 0;
 }
 
+function buildStemBranchInteraction(stemIdxInput: unknown, branchIdxInput: unknown) {
+  const stemIdx = stemIdxFromUnknown(stemIdxInput);
+  const branchIdx = branchIdxFromUnknown(branchIdxInput);
+  const stemEl = stemElement(stemIdx);
+  const branchEl = branchElement(branchIdx);
+  const gaedoo = controls(stemEl, branchEl);
+  const geogak = controls(branchEl, stemEl);
+  if (!gaedoo && !geogak) return undefined;
+
+  return {
+    gaedoo,
+    geogak,
+    labels: [
+      ...(gaedoo ? ['개두'] : []),
+      ...(geogak ? ['절각'] : []),
+    ],
+    stemElement: stemEl,
+    branchElement: branchEl,
+  };
+}
+
 function orderedBanghapGroup(branchIdx: number): number[] {
   const d = mod(branchIdx - 2, 12);
   const start = 2 + 3 * Math.floor(d / 3);
@@ -562,6 +585,7 @@ function luckPillarAnnotations(
   const stemIdx = stemIdxFromUnknown(entryStemIdx(entry));
   const branchIdx = branchIdxFromUnknown(entryBranchIdx(entry));
   const lifeStage = lifeStageOf(dayStemIdx as any, branchIdx as any, lifeStagePolicy ?? DEFAULT_TRANSIT_LIFE_STAGE_POLICY).stage;
+  const stemBranchInteraction = buildStemBranchInteraction(stemIdx, branchIdx);
 
   return {
     tenGod: normalizeTenGod(tenGodOf(dayStemIdx as any, stemIdx as any)),
@@ -570,14 +594,119 @@ function luckPillarAnnotations(
     transitShinsal: includeAnnualSignals
       ? buildTransitShinsalForBranch(yearBranchIdx, branchIdx)
       : buildTransitTwelveSalForBranch(yearBranchIdx, branchIdx),
+    ...(stemBranchInteraction ? { stemBranchInteraction } : {}),
   };
 }
 
+function relationMemberCode(axis: 'STEM' | 'BRANCH', member: any): string {
+  const idx = member && typeof member === 'object' ? member.idx : member;
+  return axis === 'STEM' ? stemCodeFromIdx(idx) : branchCodeFromIdx(idx);
+}
+
+function pillarCodesFromUnknown(pillar: any) {
+  return {
+    cheongan: stemCodeFromIdx(pillar?.stem?.idx ?? pillar?.stem),
+    jiji: branchCodeFromIdx(pillar?.branch?.idx ?? pillar?.branch),
+  };
+}
+
+function formatFortuneRelationHit(axis: 'STEM' | 'BRANCH', relation: any) {
+  const members = Array.isArray(relation?.members)
+    ? relation.members.map((member: any) => relationMemberCode(axis, member)).filter(Boolean)
+    : [];
+  const natalPositions = Array.isArray(relation?.natalPositions)
+    ? relation.natalPositions.map((pos: any) => String(pos)).filter(Boolean)
+    : [];
+  if (!relation?.type || members.length === 0 || natalPositions.length === 0) return null;
+  return {
+    type: String(relation.type),
+    members,
+    natalPositions,
+    luckPosition: 'luck',
+    ...(axis === 'STEM' && relation.resultElement ? { resultOhaeng: String(relation.resultElement) } : {}),
+  };
+}
+
+function formatLuckPairRelationHit(axis: 'STEM' | 'BRANCH', relation: any) {
+  const members = Array.isArray(relation?.members)
+    ? relation.members.map((member: any) => relationMemberCode(axis, member)).filter(Boolean)
+    : [];
+  const luckPositions = Array.isArray(relation?.luckPositions)
+    ? relation.luckPositions.map((pos: any) => String(pos)).filter(Boolean)
+    : ['decade', 'year'];
+  if (!relation?.type || members.length === 0) return null;
+  return {
+    type: String(relation.type),
+    members,
+    luckPositions,
+    ...(axis === 'STEM' && relation.resultElement ? { resultOhaeng: String(relation.resultElement) } : {}),
+  };
+}
+
+function formatLuckRelationsWithNatal(entry: any) {
+  if (!entry || typeof entry !== 'object') return undefined;
+  const stemRelations = Array.isArray(entry.stemRelations)
+    ? entry.stemRelations.map((rel: any) => formatFortuneRelationHit('STEM', rel)).filter(Boolean)
+    : [];
+  const branchRelations = Array.isArray(entry.branchRelations)
+    ? entry.branchRelations.map((rel: any) => formatFortuneRelationHit('BRANCH', rel)).filter(Boolean)
+    : [];
+  if (stemRelations.length === 0 && branchRelations.length === 0) return undefined;
+  return { stemRelations, branchRelations };
+}
+
+function formatLuckRelationsWithDecade(entries: any[] | undefined) {
+  const decadeRelations = (Array.isArray(entries) ? entries : [])
+    .map((entry: any) => {
+      if (!entry || typeof entry !== 'object') return null;
+      const stemRelations = Array.isArray(entry.stemRelations)
+        ? entry.stemRelations.map((rel: any) => formatLuckPairRelationHit('STEM', rel)).filter(Boolean)
+        : [];
+      const branchRelations = Array.isArray(entry.branchRelations)
+        ? entry.branchRelations.map((rel: any) => formatLuckPairRelationHit('BRANCH', rel)).filter(Boolean)
+        : [];
+      if (stemRelations.length === 0 && branchRelations.length === 0) return null;
+      return {
+        decadeIndex: Number(entry.decadeIndex ?? 0),
+        decadePillar: pillarCodesFromUnknown(entry.decadePillar),
+        stemRelations,
+        branchRelations,
+      };
+    })
+    .filter(Boolean);
+  if (decadeRelations.length === 0) return undefined;
+  return { decadeRelations };
+}
+
+function relationEntries(source: any, key: 'decades' | 'years' | 'months' | 'decadeYears') {
+  return Array.isArray(source?.[key]) ? source[key] : [];
+}
 function roundTo(value: unknown, digits: number): number {
   const n = Number(value);
   if (!Number.isFinite(n)) return 0;
   const scale = 10 ** digits;
   return Math.round(n * scale) / scale;
+}
+
+function finiteNumberOrNull(value: unknown): number | null {
+  const n = Number(value);
+  return Number.isFinite(n) ? n : null;
+}
+
+function addYearsUtcApprox(utcMs: number, years: number): number {
+  const d = new Date(utcMs);
+  d.setUTCFullYear(d.getUTCFullYear() + years);
+  return d.getTime();
+}
+
+function approxDaeunUtcMs(entry: any, firstStartUtcMsApprox: number | null, decadeLengthYears: number, edge: 'start' | 'end'): number | null {
+  const direct = finiteNumberOrNull(edge === 'start' ? entry?.startUtcMs : entry?.endUtcMs);
+  if (direct !== null) return direct;
+  if (firstStartUtcMsApprox === null) return null;
+  const index = Number(entry?.index ?? 0);
+  if (!Number.isFinite(index)) return null;
+  const length = Number.isFinite(decadeLengthYears) && decadeLengthYears > 0 ? decadeLengthYears : 10;
+  return addYearsUtcApprox(firstStartUtcMsApprox, (edge === 'start' ? index : index + 1) * length);
 }
 
 function scoreDiffConfidence(top: number, second: number): number {
@@ -1550,7 +1679,29 @@ function normalizeLegacyOutput(
 
   const fortune = bundle.summary?.fortune as any;
   const timeline = (facts?.['fortune.timeline'] ?? null) as any;
+  const relationTimeline = ((facts?.['fortune.relations'] ?? fortune?.relations ?? null) as any);
+  const decadeRelationsByIndex = new Map(
+    relationEntries(relationTimeline, 'decades').map((entry: any) => [Number(entry?.index ?? 0), entry]),
+  );
+  const yearRelationsByYear = new Map(
+    relationEntries(relationTimeline, 'years').map((entry: any) => [Number(entry?.solarYear ?? 0), entry]),
+  );
+  const monthRelationsByKey = new Map(
+    relationEntries(relationTimeline, 'months').map((entry: any) => [`${Number(entry?.solarYear ?? 0)}:${Number(entry?.monthOrder ?? 0)}`, entry]),
+  );
+  const decadeYearRelationsByYear = new Map<number, any[]>();
+  for (const entry of relationEntries(relationTimeline, 'decadeYears')) {
+    const year = Number(entry?.solarYear ?? 0);
+    if (!Number.isFinite(year) || year === 0) continue;
+    const existing = decadeYearRelationsByYear.get(year) ?? [];
+    existing.push(entry);
+    decadeYearRelationsByYear.set(year, existing);
+  }
   const decades = Array.isArray(fortune?.decades) ? fortune.decades : [];
+  const firstDaeunStartUtcMsApprox = finiteNumberOrNull(fortune?.start?.startUtcMsApprox ?? timeline?.start?.startUtcMsApprox);
+  const decadeLengthYears = Number(timeline?.policy?.decadeLengthYears ?? 10);
+  const ageDisplayMode = String(fortune?.start?.ageDisplay ?? timeline?.policy?.ageDisplay ?? 'continuousFromBirth');
+  const ageDisplayLabel = String(fortune?.start?.ageDisplayLabel ?? (ageDisplayMode === 'koreanCountingAge' ? 'Korean counting age by configured year boundary' : 'Continuous age from birth'));
   const needsExpandedYears = typeof saeunStartYear === 'number' || typeof saeunYearCount === 'number';
   const needsExpandedMonths = typeof wolunStartYear === 'number' || typeof wolunMonthCount === 'number';
   const maxFortuneSolarYear = standard.y + 120;
@@ -1586,7 +1737,18 @@ function normalizeLegacyOutput(
       startAge: Number(entry?.startAgeYears ?? 0),
       endAge: Number(entry?.endAgeYears ?? 0),
       order: Number(entry?.index ?? 0),
+      displayStartAge: Number(entry?.displayStartAge ?? Math.floor(Number(entry?.startAgeYears ?? 0))),
+      displayEndAge: Number(entry?.displayEndAge ?? Math.floor(Number(entry?.endAgeYears ?? 0))),
+      ...(approxDaeunUtcMs(entry, firstDaeunStartUtcMsApprox, decadeLengthYears, 'start') !== null
+        ? { approxStartUtcMs: approxDaeunUtcMs(entry, firstDaeunStartUtcMsApprox, decadeLengthYears, 'start') }
+        : {}),
+      ...(approxDaeunUtcMs(entry, firstDaeunStartUtcMsApprox, decadeLengthYears, 'end') !== null
+        ? { approxEndUtcMs: approxDaeunUtcMs(entry, firstDaeunStartUtcMsApprox, decadeLengthYears, 'end') }
+        : {}),
       ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy, false),
+      ...(formatLuckRelationsWithNatal(decadeRelationsByIndex.get(Number(entry?.index ?? 0)))
+        ? { relationsWithNatal: formatLuckRelationsWithNatal(decadeRelationsByIndex.get(Number(entry?.index ?? 0))) }
+        : {}),
     }));
 
   const saeunPillars = years.map((entry: any) => ({
@@ -1600,6 +1762,12 @@ function normalizeLegacyOutput(
     approxStartAgeYears: Number.isFinite(entry?.approxStartAgeYears) ? Number(entry.approxStartAgeYears) : null,
     approxEndAgeYears: Number.isFinite(entry?.approxEndAgeYears) ? Number(entry.approxEndAgeYears) : null,
     ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy, true),
+    ...(formatLuckRelationsWithNatal(yearRelationsByYear.get(Number(entry?.solarYear ?? 0)))
+      ? { relationsWithNatal: formatLuckRelationsWithNatal(yearRelationsByYear.get(Number(entry?.solarYear ?? 0))) }
+      : {}),
+    ...(formatLuckRelationsWithDecade(decadeYearRelationsByYear.get(Number(entry?.solarYear ?? 0)))
+      ? { relationsWithDecade: formatLuckRelationsWithDecade(decadeYearRelationsByYear.get(Number(entry?.solarYear ?? 0))) }
+      : {}),
   }));
 
   const wolunPillars = months.map((entry: any) => ({
@@ -1615,6 +1783,9 @@ function normalizeLegacyOutput(
     approxStartAgeYears: Number.isFinite(entry?.approxStartAgeYears) ? Number(entry.approxStartAgeYears) : null,
     approxEndAgeYears: Number.isFinite(entry?.approxEndAgeYears) ? Number(entry.approxEndAgeYears) : null,
     ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy, false),
+    ...(formatLuckRelationsWithNatal(monthRelationsByKey.get(`${Number(entry?.solarYear ?? 0)}:${Number(entry?.monthOrder ?? 0)}`))
+      ? { relationsWithNatal: formatLuckRelationsWithNatal(monthRelationsByKey.get(`${Number(entry?.solarYear ?? 0)}:${Number(entry?.monthOrder ?? 0)}`)) }
+      : {}),
   }));
 
   const traceNodes = Array.isArray(bundle.report?.trace?.nodes) ? bundle.report.trace.nodes : [];
@@ -1752,6 +1923,8 @@ function normalizeLegacyOutput(
       firstDaeunStartAge: Number(fortune?.start?.startAgeYears ?? 0),
       // 표기용 정수 대운수 (반올림 유파 + 하한 1 — 감사 B11). 연속값과 병존.
       firstDaeunStartAgeDisplay: Number(fortune?.start?.startAgeDisplay ?? Math.floor(Number(fortune?.start?.startAgeYears ?? 0))),
+      ageDisplayMode,
+      ageDisplayLabel,
       firstDaeunStartMonths: Number(fortune?.start?.startAgeParts?.months ?? 0),
       // 대운 기산 절기 id (기존에는 무관한 일경계 정책 dayBoundary가 들어갔다 — 감사 A15d).
       boundaryMode: String(fortune?.start?.boundary?.id ?? ''),

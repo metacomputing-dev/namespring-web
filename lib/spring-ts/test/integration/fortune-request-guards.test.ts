@@ -138,6 +138,47 @@ check('[start,end) keeps row 1ms after boundary',
   findLuckRowCoveringInstant(rows, liChun + 1)?.id === 'after');
 check('end boundary is exclusive', findLuckRowCoveringInstant(rows, liChun + 1_000) === null);
 
+const liChunSaju = {
+  dayMaster: { element: 'WOOD' },
+  yongshin: { element: 'WATER' },
+  saeunPillars: [
+    {
+      year: 2025,
+      stem: 'EUL',
+      branch: 'SA',
+      startUtcMs: liChun - 1_000,
+      endUtcMs: liChun,
+      tenGod: 'BI_GYEON',
+    },
+    {
+      year: 2026,
+      stem: 'BYEONG',
+      branch: 'O',
+      startUtcMs: liChun,
+      endUtcMs: liChun + 1_000,
+      tenGod: 'SIK_SIN',
+    },
+  ],
+} as any;
+for (const [label, instant, expectedStem, expectedElement, expectedGanzhi] of [
+  ['1ms before LiChun', liChun - 1, '을', '나무', '을사'],
+  ['exactly at LiChun', liChun, '병', '불', '병오'],
+  ['1ms after LiChun', liChun + 1, '병', '불', '병오'],
+] as const) {
+  const target = new Date(instant);
+  const period = buildPeriodFortuneCard(liChunSaju, 'yearly', target) as any;
+  const periodFeatures = period.evidence?.flatMap((row: any) => row.supportingFeatures ?? []) ?? [];
+  const tiered = buildPeriodMeta('thisYear', target, liChunSaju);
+  const category = buildCategoryFortuneCards(liChunSaju, target).wealth as any;
+  const categoryFeatures = category.evidence?.flatMap((row: any) => row.supportingFeatures ?? []) ?? [];
+  check(`period card selects the interval row ${label}`,
+    periodFeatures.some((feature: string) => feature.includes(`간지: ${expectedGanzhi}`)));
+  check(`tiered meta selects the same interval row ${label}`,
+    tiered.meta.stems?.[0]?.stem === expectedStem);
+  check(`category card selects the same interval row ${label}`,
+    categoryFeatures.includes(`올해 천간 오행: ${expectedElement}`));
+}
+
 for (const value of [null, '', '1000', false, [], Number.NaN, Number.POSITIVE_INFINITY]) {
   check(`strict finite number rejects ${JSON.stringify(value) ?? String(value)}`, strictFiniteNumber(value) === null);
 }
@@ -151,8 +192,8 @@ check('overlapping matching rows fail closed',
     { id: 'a', startUtcMs: liChun - 10, endUtcMs: liChun + 10 },
     { id: 'b', startUtcMs: liChun - 5, endUtcMs: liChun + 5 },
   ], liChun) === null);
-check('legacy year-only row may use explicit year fallback',
-  findYearLuckRowForInstant([{ id: 'legacy', year: 2026 }], liChun, 2026)?.id === 'legacy');
+check('legacy year-only row fails closed without an explicit boundary policy',
+  throwsRangeError(() => findYearLuckRowForInstant([{ id: 'legacy', year: 2026 }], liChun, 2026)));
 check('malformed interval metadata is not revived by year fallback',
   throwsRangeError(() => findYearLuckRowForInstant([
     { id: 'bad', year: 2026, startUtcMs: null, endUtcMs: liChun + 10 },

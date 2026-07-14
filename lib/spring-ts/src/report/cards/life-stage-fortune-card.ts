@@ -179,6 +179,15 @@ function extractDaeunInfo(saju: SajuSummary): DaeunInfo | null {
       transitShinsal: pp.transitShinsal && typeof pp.transitShinsal === 'object'
         ? pp.transitShinsal as LuckPillarAnnotationsForReport['transitShinsal']
         : undefined,
+      relationsWithNatal: pp.relationsWithNatal && typeof pp.relationsWithNatal === 'object'
+        ? pp.relationsWithNatal as LuckPillarAnnotationsForReport['relationsWithNatal']
+        : undefined,
+      relationsWithDecade: pp.relationsWithDecade && typeof pp.relationsWithDecade === 'object'
+        ? pp.relationsWithDecade as LuckPillarAnnotationsForReport['relationsWithDecade']
+        : undefined,
+      stemBranchInteraction: pp.stemBranchInteraction && typeof pp.stemBranchInteraction === 'object'
+        ? pp.stemBranchInteraction as LuckPillarAnnotationsForReport['stemBranchInteraction']
+        : undefined,
     });
   }
 
@@ -306,6 +315,7 @@ export function buildLifeStageFortuneCard(
 
   // Sort pillars by startAge to ensure correct order
   const sortedPillars = [...daeunInfo.pillars].sort((a, b) => a.startAge - b.startAge);
+  const renderedPillars: DaeunPillar[] = [];
   // 감사 B11: 표기용 정수 대운수(반올림 유파) 오프셋 — 라벨·stages 나이에만 적용.
   const displayOffset = daeunDisplayOffset((saju as Record<string, unknown>)['daeunInfo']);
 
@@ -364,6 +374,7 @@ export function buildLifeStageFortuneCard(
       summary,
       highlights,
     });
+    renderedPillars.push(dp);
   }
 
   if (stages.length === 0) return buildMissingDaeunCard();
@@ -377,7 +388,7 @@ export function buildLifeStageFortuneCard(
   // the current stage (or first stage when current is unknown).
   const focusIndex = currentStageIndex ?? 0;
   const focusStage = stages[focusIndex];
-  const focusPillar = sortedPillars[focusIndex];
+  const focusPillar = renderedPillars[focusIndex];
   if (focusStage) {
     const supporting: string[] = [
       `현재 시기: ${focusStage.ageRange}`,

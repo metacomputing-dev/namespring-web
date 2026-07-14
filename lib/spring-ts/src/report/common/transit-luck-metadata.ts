@@ -8,11 +8,54 @@ export interface TransitShinsalForReport {
   readonly jogaek?: boolean;
 }
 
+export interface LuckRelationForReport {
+  readonly type?: string;
+  readonly members?: readonly string[];
+  readonly natalPositions?: readonly string[];
+  readonly luckPosition?: string;
+  readonly resultElement?: string | null;
+}
+
+export interface LuckRelationsWithNatalForReport {
+  readonly stemRelations?: readonly LuckRelationForReport[];
+  readonly branchRelations?: readonly LuckRelationForReport[];
+}
+
+export interface LuckPairRelationForReport {
+  readonly type?: string;
+  readonly members?: readonly string[];
+  readonly luckPositions?: readonly string[];
+  readonly resultElement?: string | null;
+}
+
+export interface LuckDecadeRelationForReport {
+  readonly decadeIndex?: number;
+  readonly decadePillar?: {
+    readonly cheongan?: string;
+    readonly jiji?: string;
+  };
+  readonly stemRelations?: readonly LuckPairRelationForReport[];
+  readonly branchRelations?: readonly LuckPairRelationForReport[];
+}
+
+export interface LuckRelationsWithDecadeForReport {
+  readonly decadeRelations?: readonly LuckDecadeRelationForReport[];
+}
+export interface LuckStemBranchInteractionForReport {
+  readonly gaedoo?: boolean;
+  readonly geogak?: boolean;
+  readonly labels?: readonly string[];
+  readonly stemElement?: string;
+  readonly branchElement?: string;
+}
 export interface LuckPillarAnnotationsForReport {
   readonly tenGod?: string;
   readonly lifeStage?: string;
   readonly lifeStageKo?: string;
   readonly transitShinsal?: TransitShinsalForReport;
+  readonly relationsWithNatal?: LuckRelationsWithNatalForReport;
+  readonly relationsWithDecade?: LuckRelationsWithDecadeForReport;
+  readonly stemBranchInteraction?: LuckStemBranchInteractionForReport;
 }
 
 const TEN_GOD_KO: Record<string, string> = {
@@ -48,6 +91,29 @@ const TWELVE_SAL_KO: Record<string, string> = {
   CHEON_SAL: '천살',
 };
 
+const RELATION_TYPE_KO: Record<string, string> = {
+  HAP: '합',
+  GEUK: '극',
+  CHUNG: '충',
+  HYEONG: '형',
+  JA_HYEONG: '자형',
+  SAMHYEONG: '삼형',
+  HAE: '해',
+  PA: '파',
+  WONJIN: '원진',
+  GWIMUN: '귀문',
+  YUKHAP: '육합',
+  SAMHAP: '삼합',
+  BANHAP: '반합',
+  BANGHAP: '방합',
+};
+
+const NATAL_POSITION_KO: Record<string, string> = {
+  year: '년주',
+  month: '월주',
+  day: '일주',
+  hour: '시주',
+};
 const SAMJAE_PHASE_KO: Record<string, string> = {
   DEUL: '들삼재',
   NUL: '눌삼재',
@@ -73,6 +139,64 @@ export function samjaePhaseKo(value: unknown): string | null {
   return labelFromMap(value, SAMJAE_PHASE_KO);
 }
 
+function relationTypeKo(value: unknown): string | null {
+  return labelFromMap(value, RELATION_TYPE_KO);
+}
+
+function positionListKo(values: readonly string[] | undefined): string {
+  const positions = Array.isArray(values) ? values : [];
+  const labels = positions.map((pos) => NATAL_POSITION_KO[pos] ?? pos).filter(Boolean);
+  return labels.length ? labels.join('/') : '원국';
+}
+
+function luckRelationFeatures(row: LuckPillarAnnotationsForReport | null | undefined): string[] {
+  const relations = row?.relationsWithNatal;
+  if (!relations) return [];
+
+  const features: string[] = [];
+  const branch = relations.branchRelations?.[0];
+  const branchType = relationTypeKo(branch?.type);
+  if (branchType) features.push(`원국 지지 관계: ${positionListKo(branch?.natalPositions)} ${branchType}`);
+
+  const stem = relations.stemRelations?.[0];
+  const stemType = relationTypeKo(stem?.type);
+  if (stemType) features.push(`원국 천간 관계: ${positionListKo(stem?.natalPositions)} ${stemType}`);
+
+  return features;
+}
+
+function decadeRelationLabel(entry: LuckDecadeRelationForReport | null | undefined): string {
+  const index = Number(entry?.decadeIndex);
+  return Number.isFinite(index) ? `${index + 1}대운` : '대운';
+}
+
+function luckDecadeRelationFeatures(row: LuckPillarAnnotationsForReport | null | undefined): string[] {
+  const entries = row?.relationsWithDecade?.decadeRelations;
+  const entry = Array.isArray(entries) ? entries[0] : undefined;
+  if (!entry) return [];
+
+  const features: string[] = [];
+  const branch = entry.branchRelations?.[0];
+  const branchType = relationTypeKo(branch?.type);
+  if (branchType) features.push(`대운-세운 지지 관계: ${decadeRelationLabel(entry)} ${branchType}`);
+
+  const stem = entry.stemRelations?.[0];
+  const stemType = relationTypeKo(stem?.type);
+  if (stemType) features.push(`대운-세운 천간 관계: ${decadeRelationLabel(entry)} ${stemType}`);
+
+  return features;
+}
+function stemBranchInteractionFeatures(row: LuckPillarAnnotationsForReport | null | undefined): string[] {
+  const interaction = row?.stemBranchInteraction;
+  if (!interaction) return [];
+  const labels = Array.isArray(interaction.labels)
+    ? interaction.labels.map((label) => String(label).trim()).filter(Boolean)
+    : [
+      ...(interaction.gaedoo ? ['개두'] : []),
+      ...(interaction.geogak ? ['절각'] : []),
+    ];
+  return labels.length > 0 ? [`기둥 내부 상극: ${labels.join('/')}`] : [];
+}
 export function luckAnnotationFeatures(row: LuckPillarAnnotationsForReport | null | undefined): string[] {
   if (!row) return [];
 
@@ -97,6 +221,11 @@ export function luckAnnotationFeatures(row: LuckPillarAnnotationsForReport | nul
   }
   if (shinsal?.sangmun) features.push('보조 신살: 상문');
   if (shinsal?.jogaek) features.push('보조 신살: 조객');
+
+  features.push(...luckRelationFeatures(row));
+  features.push(...luckDecadeRelationFeatures(row));
+
+    features.push(...stemBranchInteractionFeatures(row));
 
   return features;
 }

@@ -921,11 +921,56 @@ export interface TransitShinsalSummary {
   readonly jogaek?: boolean;
 }
 
+export interface LuckPillarRelationSummary {
+  readonly type: string;
+  readonly members: readonly string[];
+  readonly natalPositions: readonly ('year' | 'month' | 'day' | 'hour' | string)[];
+  readonly luckPosition: 'luck' | string;
+  readonly resultElement?: string | null;
+}
+
+export interface LuckPillarRelationsWithNatalSummary {
+  readonly stemRelations: readonly LuckPillarRelationSummary[];
+  readonly branchRelations: readonly LuckPillarRelationSummary[];
+}
+
+export interface LuckPairRelationSummary {
+  readonly type: string;
+  readonly members: readonly string[];
+  readonly luckPositions: readonly ('decade' | 'year' | string)[];
+  readonly resultElement?: string | null;
+}
+
+export interface LuckDecadeYearRelationSummary {
+  readonly decadeIndex: number;
+  readonly decadePillar: {
+    readonly cheongan: string;
+    readonly jiji: string;
+  };
+  readonly stemRelations: readonly LuckPairRelationSummary[];
+  readonly branchRelations: readonly LuckPairRelationSummary[];
+}
+
+export interface LuckPillarRelationsWithDecadeSummary {
+  readonly decadeRelations: readonly LuckDecadeYearRelationSummary[];
+}
+
+export interface LuckPillarStemBranchInteractionSummary {
+  readonly gaedoo?: boolean;
+  readonly geogak?: boolean;
+  readonly labels?: readonly string[];
+  readonly stemElement?: ElementKey | string;
+  readonly branchElement?: ElementKey | string;
+}
+
 export interface LuckPillarAnnotationSummary {
   readonly tenGod?: string;
   readonly lifeStage?: string;
   readonly lifeStageKo?: string;
   readonly transitShinsal?: TransitShinsalSummary;
+  readonly relationsWithNatal?: LuckPillarRelationsWithNatalSummary;
+  readonly relationsWithDecade?: LuckPillarRelationsWithDecadeSummary;
+  readonly stemBranchInteraction?: LuckPillarStemBranchInteractionSummary;
 }
 
 export interface DaeunPillarSummary extends LuckPillarAnnotationSummary {
@@ -936,6 +981,11 @@ export interface DaeunPillarSummary extends LuckPillarAnnotationSummary {
   /** Exclusive end of the continuous daewoon age interval. */
   readonly endAge: number;
   readonly order: number;
+  readonly displayStartAge?: number | null;
+  readonly displayEndAge?: number | null;
+  /** Approximate UTC boundary for display/timeline only; continuous age remains authoritative. */
+  readonly approxStartUtcMs?: number | null;
+  readonly approxEndUtcMs?: number | null;
 }
 
 /** Daeun (대운, 10-year luck cycles) overview for a chart. Mirrors the
@@ -949,6 +999,8 @@ export interface DaeunInfoSummary {
   readonly firstDaeunStartAge: number;
   /** 표기용 정수 대운수 — 반올림 유파(기본: 1일 버림·2일 올림) + 하한 1. 상용 만세력 표기와 정합 (감사 B11). */
   readonly firstDaeunStartAgeDisplay?: number | null;
+  readonly ageDisplayMode?: string | null;
+  readonly ageDisplayLabel?: string | null;
   readonly firstDaeunStartMonths: number;
   /** 대운 기산 절기 id (예: 'LICHUN'). 과거에는 무관한 일경계 정책 문자열이 들어갔다. */
   readonly boundaryMode: string;

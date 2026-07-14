@@ -45,6 +45,30 @@ function check(label: string, cond: boolean, evidence?: string): void {
   }
 }
 
+function hasNatalRelations(row: any): boolean {
+  const relations = row?.relationsWithNatal;
+  return !!relations && (
+    (Array.isArray(relations.stemRelations) && relations.stemRelations.length > 0) ||
+    (Array.isArray(relations.branchRelations) && relations.branchRelations.length > 0)
+  );
+}
+
+function hasDecadeRelations(row: any): boolean {
+  const entries = row?.relationsWithDecade?.decadeRelations;
+  return Array.isArray(entries) && entries.some((entry: any) =>
+    (Array.isArray(entry?.stemRelations) && entry.stemRelations.length > 0) ||
+    (Array.isArray(entry?.branchRelations) && entry.branchRelations.length > 0),
+  );
+}
+function hasStemBranchInteraction(row: any): boolean {
+  const interaction = row?.stemBranchInteraction;
+  return !!interaction &&
+    (interaction.gaedoo === true || interaction.geogak === true) &&
+    Array.isArray(interaction.labels) &&
+    interaction.labels.length > 0 &&
+    typeof interaction.stemElement === 'string' &&
+    typeof interaction.branchElement === 'string';
+}
 function hasCommonLuckAnnotations(row: any): boolean {
   return typeof row?.tenGod === 'string' &&
     typeof row?.lifeStage === 'string' &&
@@ -107,6 +131,9 @@ if (ctx.output) {
     if (ctx.output.daeunInfo) {
       check('daeunInfo has isForward boolean', typeof ctx.output.daeunInfo.isForward === 'boolean');
       check('daeunInfo has firstDaeunStartAge number', typeof ctx.output.daeunInfo.firstDaeunStartAge === 'number');
+      check('daeunInfo exposes PR-9 age display convention',
+        ctx.output.daeunInfo.ageDisplayMode === 'continuousFromBirth' &&
+        typeof ctx.output.daeunInfo.ageDisplayLabel === 'string');
       check('daeunInfo has pillars array', Array.isArray(ctx.output.daeunInfo.pillars));
       const firstPillar = ctx.output.daeunInfo.pillars?.[0];
       if (firstPillar) {
@@ -117,6 +144,18 @@ if (ctx.output) {
           typeof firstPillar.endAge === 'number');
         check('daeunInfo.pillars[0] has common luck annotations without annual-only signals',
           excludesAnnualLuckAnnotations(firstPillar));
+        check('daeunInfo.pillars[0] has PR-9 display age metadata',
+          typeof firstPillar.displayStartAge === 'number' &&
+          typeof firstPillar.displayEndAge === 'number' &&
+          firstPillar.displayEndAge > firstPillar.displayStartAge);
+        check('daeunInfo.pillars[0] has PR-9 approximate boundary UTC metadata',
+          typeof firstPillar.approxStartUtcMs === 'number' &&
+          typeof firstPillar.approxEndUtcMs === 'number' &&
+          firstPillar.approxEndUtcMs > firstPillar.approxStartUtcMs);
+        check('daeunInfo.pillars has PR-9 natal relation annotations',
+          ctx.output.daeunInfo.pillars.some((pillar: any) => hasNatalRelations(pillar)));
+        check('daeunInfo.pillars includes PR-9-8 stem-branch interaction annotations',
+          ctx.output.daeunInfo.pillars.some((pillar: any) => hasStemBranchInteraction(pillar)));
       }
     }
   } else {
@@ -133,6 +172,12 @@ if (ctx.output) {
       typeof firstSaeun.stem === 'string' &&
       typeof firstSaeun.branch === 'string');
     check('saeunPillars[0] has annual luck annotations', hasAnnualLuckAnnotations(firstSaeun));
+    check('saeunPillars includes PR-9 natal relation annotations',
+      ctx.output.saeunPillars!.some((pillar: any) => hasNatalRelations(pillar)));
+    check('saeunPillars includes PR-9 decade-year relation annotations',
+      ctx.output.saeunPillars!.some((pillar: any) => hasDecadeRelations(pillar)));
+    check('saeunPillars includes PR-9-8 stem-branch interaction annotations',
+      ctx.output.saeunPillars!.some((pillar: any) => hasStemBranchInteraction(pillar)));
   } else {
     check('SajuOutputSummary.saeunPillars is undefined when source is empty', ctx.output.saeunPillars === undefined);
   }
@@ -149,6 +194,10 @@ if (ctx.output) {
       typeof firstWolun.stem === 'string' &&
       typeof firstWolun.branch === 'string' &&
       excludesAnnualLuckAnnotations(firstWolun));
+    check('wolunPillars includes PR-9 natal relation annotations',
+      wolunOutput!.some((pillar: any) => hasNatalRelations(pillar)));
+    check('wolunPillars includes PR-9-8 stem-branch interaction annotations',
+      wolunOutput!.some((pillar: any) => hasStemBranchInteraction(pillar)));
   } else {
     check('SajuOutputSummary.wolunPillars is undefined when source is empty', wolunOutput === undefined);
   }

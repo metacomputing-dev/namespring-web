@@ -130,7 +130,7 @@ PR-8이 표면화한 운 메타데이터 위에 운 통변의 나머지 반쪽�
 | 9-5 | **A12: yearBoundary 모순 해소** [파급-옵션 한정] | compute.ts **3곳 동시 수정**: :274(baseSolarYear 보정이 liChun 한정), :278-280(세운 구간 경계), :178-182(라벨 공식). 단일 진실은 calendar/pillars.ts:66-93(yearBoundary 3종 존중). 부분 수정 시 라벨·구간이 다시 어긋남 | 기본 설정(liChun) 무변화 = snapshot 15/15 안전. **비-liChun 픽스처 테스트 신설 필수**. 별도 상존 리스크: period-fortune-card yearly는 달력 연도로 매칭하는데 YearLuck.solarYear는 입춘 라벨 |
 | 9-6 | **일운(日運) 정합·노출** | **선행: 이원 경로 간지 일치 검증** — spring-ts는 이미 자체 줄리안 계산기로 일운을 서비스 중(fortuneCalculator.ts:432 getDailyFortune, 기준 2000-01-07=甲子, 소비 period-fortune-card 별점). saju-ts 쪽은 maxDays=0(fortune/policy.ts:15)이라 미생성(compute.ts:336-344). 배선은 월운 선례 복제: adapter maxMonths 동적 패치(saju-adapter.ts:1386-1405) → springLegacy ilunPillars 신설(wolunPillars 1557-1570 패턴, days 소비는 현재 **0건 — 신설**) → extractIlunPillars(extractWolunPillars 2274 선례) | ① 두 경로 간지 불일치 시 이관 정책부터(§8 D3) ② DayLuck은 dayBoundary(야자시) 정합 확인 ③ engine.ts days?.slice(0,60) 하드 캡 ④ 일운 60건은 페이로드 파급이 월운보다 큼 |
 | 9-7 | **명식판 상문·조객 (REFUTED 후속)** | transit판은 완료(buildTransitShinsalForBranch, springLegacy.ts:521). 명식판(년지 vs 명식 내 지지)은 **교리 결정 사항**(§8 D4) — 채택 시 defaultRuleSets.ts:315-322 buildBranchPresenceRules 패턴(±2 산술은 shinsalHongluanOf facts.ts:2919 선례)으로 저비용 | SHINSAL_TYPE_KO_LABEL(saju-adapter.ts:259 부근)에 SANGMUN/JOGAEK 라벨 존재 확인(없으면 코드 문자열 노출) |
-| 9-8 | **thisYear 메타 소비 + 개두/절각 플래그** | tiered/category의 thisYear 메타까지 PR-8 annotation 일관 소비. 개두(蓋頭)·절각(截脚) — 같은 기둥 내 천간-지지 상극(코드 0건, 감사 부록 C 928행)을 대운/세운 annotation에 병기하는 것이 자연 소비처 | shape(1378)·service-visible-output(13)·미성년 안전 문구 검사 반드시 동반 |
+| 9-8 | **thisYear 메타 소비 + 개두/절각 플래그** | 완료(0bfb061d2): tiered/category의 thisYear 메타가 saeun PR-8 annotation evidence를 소비. 개두/절각은 same-pillar 천간/지지 상극 stemBranchInteraction으로 대운/세운/월운 annotation에 병기 | Verified: saju-ts 206/0, baseline 17/0, compat 208/0, tiered-shape 1379/0, service-visible 13/0, adapter-daewoon 31/0, transit-luck-report 13/0 |
 
 ### PR-10 — 판정 깊이 완결 [난이도 상, 전 항목 §2 계측 필수]
 
@@ -225,14 +225,14 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 | P0-1 PR 오픈 | ⬜ | | | 사용자 확인 후 |
 | P0-2 테스트 체인 무결성 | ✅(부분) | 3bf08cf5c | 2026-07-09 | vitest include 6디렉토리 추가 완료. jonggyeok-authority 체인 포함 여부는 미결 |
 | P0-3 baseline 픽스처 보강 | ✅ | 75c3cdef5 | 2026-07-09 | 17/17(야자시 창 fix-16 + 음력 윤달 fix-17). 픽스처 수 하드코딩 2곳 동적화(baseline-metrics·quality-gate) |
-| 9-1 운-원국 관계 | ⬜ | | | |
-| 9-2 대운↔세운 | ⬜ | | | 9-1 후 |
-| 9-3 교운 일시 | ⬜ | | | D2 선행 |
-| 9-4 나이 표기 옵션 | ⬜ | | | |
+| 9-1 운-원국 관계 | ✅ | 8c310a014 | 2026-07-09 | canonical fortune.relations node; springLegacy relationsWithNatal; adapter/report evidence. Natal-only relations and scoring unchanged. Verified: saju-ts 202/0, baseline 17/0, compat 208/0, tiered-shape 1378/0, service-visible 13/0, adapter-daewoon 24/0, transit-luck-report 12/0 |
+| 9-2 대운↔세운 | ✅ | ade45f9c0 | 2026-07-09 | decade-year fortune relations in fortune.relations.decadeYears; saeun relationsWithDecade; yearly report evidence. Pre-start years omitted; natal scoring unchanged. Verified: saju-ts 204/0, baseline 17/0, compat 208/0, tiered-shape 1378/0, service-visible 13/0, adapter-daewoon 25/0, transit-luck-report 13/0 |
+| 9-3 교운 일시 | ✅(approx) | 680494293 | 2026-07-09 | arithmetic approximate daeun boundaries only: daeunPillars approxStartUtcMs/approxEndUtcMs via startUtcMsApprox + decade length. D2 precision path still deferred. Verified: saju-ts 204/0, baseline 17/0, compat 208/0, tiered-shape 1378/0, service-visible 13/0, adapter-daewoon 26/0, transit-luck-report 13/0 |
+| 9-4 나이 표기 옵션 | ✅ | 74a2a7742 | 2026-07-09 | FortunePolicy ageDisplay continuousFromBirth/koreanCountingAge. Default unchanged; koreanCountingAge opt-in and display-only. daeunInfo ageDisplayMode/Label + daeunPillars displayStartAge/displayEndAge; 4 report backends consume display ages while continuous-age matching remains unchanged. Verified: saju-ts 206/0, baseline 17/0, compat 208/0, tiered-shape 1378/0, service-visible 13/0, adapter-daewoon 28/0, transit-luck-report 13/0 |
 | 9-5 A12 yearBoundary | ✅ | 3bf08cf5c | 2026-07-09 | 기본(liChun) 바이트 동일 확인(회귀 가드 테스트). 비-liChun만 세운 분절 변경. saju-ts 184/0·baseline 15/15·calendar-policy 14/0·compat 208/0 |
 | 9-6 일운 정합 | 🔶 검증완료 | — | 2026-07-09 | 이원 경로 49,319건 대조 불일치 0(수식 동치·KASI 453건 양쪽 100%). 배선은 상품 요구(D3) 확정 시 — GUIDE §0.1 |
 | 9-7 명식판 상문·조객 | ⬜ | | | D4 선행 |
-| 9-8 thisYear·개두/절각 | ⬜ | | | |
+| 9-8 thisYear·개두/절각 | ✅ | 0bfb061d2 | 2026-07-09 | thisYear tiered/category surfaces consume saeun PR-8 annotation evidence; stemBranchInteraction adds 개두/절각 when same-pillar stem/branch control. Verified: saju-ts 206/0, baseline 17/0, compat 208/0, tiered-shape 1379/0, service-visible 13/0, adapter-daewoon 31/0, transit-luck-report 13/0 |
 | 10-1 왕상휴수 | ✅ 구현·기본 off | f792c7765 → 8401cfbab | 2026-07-14 재검토 | authority truth denominator 0. top-5 스냅샷 밖 고정 이름 메트릭 이동을 확인해 기본화 보류; 명시 opt-in만 유지 |
 | 10-2 감쇠 세분 | ✅ 구현·기본 off | 07aeaaf33 → 8401cfbab | 2026-07-14 재검토 | 독립 권위 holdout 없이 거리 계수를 제품 기본값으로 승인할 수 없어 opt-in 복구 |
 | 10-3 pressure 합거 | ⬜ | | | 계측 |

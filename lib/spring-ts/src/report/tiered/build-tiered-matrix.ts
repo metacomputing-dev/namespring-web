@@ -422,15 +422,16 @@ function buildPeriodScoped(
   feature: FeatureVector,
   seedKey: string,
   targetDate: Date,
+  saju: SajuSummary | null | undefined,
   sajuCompat: SajuCompatibility | null | undefined,
   periodLabelOverride?: string,
   fortuneElementOverride?: ElementCode | null,
   audienceOverride?: ArticleAudience,
 ): PeriodScopedFortunes {
-  const meta = buildPeriodMeta(period, targetDate);
+  const meta = buildPeriodMeta(period, targetDate, saju);
   const periodLabel = periodLabelOverride ?? meta.label;
   const fortuneElement = fortuneElementOverride
-    ?? (period === 'life' ? feature.dayMasterElement : periodFortuneElement(period, targetDate));
+    ?? (period === 'life' ? feature.dayMasterElement : periodFortuneElement(period, targetDate, saju));
   const overallGrade = gradeCell(
     fortuneElement,
     feature.yongshinElement,
@@ -497,6 +498,7 @@ function buildAgeBandScoped(
     feature,
     seedKey,
     targetDate,
+    saju,
     sajuCompat,
     band.label,
     fortuneElement,
@@ -719,7 +721,7 @@ export function buildTieredMatrix(
   const sajuCompat = options.sajuCompatibility ?? null;
   const periods = {} as Record<TieredPeriodKind, PeriodScopedFortunes>;
   for (const period of PERIOD_ORDER) {
-    const scoped = buildPeriodScoped(period, registry, allGlossaryEntries, feature, seedKey, targetDate, sajuCompat);
+    const scoped = buildPeriodScoped(period, registry, allGlossaryEntries, feature, seedKey, targetDate, saju, sajuCompat);
     periods[period] = period === 'life'
       ? {
         ...scoped,

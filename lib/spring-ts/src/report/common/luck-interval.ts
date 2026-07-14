@@ -80,20 +80,21 @@ function selectUniqueCompleteInterval<T extends LuckIntervalRow>(
 }
 
 /**
- * Legacy year-only rows may be selected by their numeric year. Once any row
- * declares interval metadata, however, malformed, incomplete, or overlapping
- * intervals must remain fail-closed instead of being revived by year label.
+ * Year-luck rows require explicit UTC intervals. A numeric year alone cannot
+ * identify the active row around LiChun (or another configured year boundary),
+ * so legacy year-only payloads fail closed instead of silently using the
+ * host/calendar year.
  */
 export function findYearLuckRowForInstant<T extends LuckIntervalRow & { readonly year?: unknown }>(
   rows: readonly T[] | undefined,
   targetUtcMs: number,
-  targetYear: number,
+  _targetYear: number,
 ): T | null {
   if (!Array.isArray(rows) || rows.length === 0) return null;
   if (hasLuckIntervalMetadata(rows)) {
     return selectUniqueCompleteInterval(rows, targetUtcMs);
   }
-  return rows.find((row) => row !== null && typeof row === 'object' && row.year === targetYear) ?? null;
+  throw new LuckIntervalSelectionError('year luck rows require explicit UTC interval bounds');
 }
 
 /**

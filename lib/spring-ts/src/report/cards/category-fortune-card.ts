@@ -64,6 +64,7 @@ import {
   BRANCH_BY_CODE,
   getElementRelation,
 } from '../common/elementMaps.js';
+import { luckAnnotationFeatures, type LuckPillarAnnotationsForReport } from '../common/transit-luck-metadata.js';
 
 // ---------------------------------------------------------------------------
 //  Element helpers
@@ -88,6 +89,13 @@ function toElementCode(value: unknown): ElementCode | null {
   return STEM_TO_ELEMENT[upper] ?? null;
 }
 
+interface CategorySaeunRow extends LuckPillarAnnotationsForReport {
+  readonly year?: unknown;
+  readonly stem?: unknown;
+  readonly branch?: unknown;
+  readonly startUtcMs?: unknown;
+  readonly endUtcMs?: unknown;
+}
 function elementKo(code: ElementCode): string {
   return ELEMENT_KO[code];
 }
@@ -621,26 +629,22 @@ export function buildCategoryFortuneCards(
 
   // Try saeunPillars first
   let fortuneEl: ElementCode;
-
   const saeunPillars = (saju as Record<string, unknown>).saeunPillars as
-    | Array<{
-      year: number; stem: string; branch: string;
-      startUtcMs?: number | null; endUtcMs?: number | null;
-    }>
+    | readonly CategorySaeunRow[]
     | undefined;
-  const match = findYearLuckRowForInstant(saeunPillars, targetDate.getTime(), year);
-  if (match) {
-    const stemEl = toElementCode(match.stem);
+  const saeunRow = findYearLuckRowForInstant(saeunPillars, targetDate.getTime(), year);
+  if (saeunRow) {
+    const stemEl = toElementCode(saeunRow.stem);
     if (!stemEl) {
       throw new LuckIntervalSelectionError('selected year luck row has an invalid stem');
     }
     fortuneEl = stemEl;
   } else {
-    // Formula fallback is allowed when no valid row covers the target instant.
+    // Formula fallback is allowed only when there are no year-luck rows or
+    // no valid complete interval covers the target instant.
     const yf = getYearlyFortune(year);
     fortuneEl = yf.stemElement;
   }
-
   // Yongshin grade for the year
   const yongshinGrade = getFortuneGrade(fortuneEl, yongshinElement, heeshinElement, gishinElement);
 
@@ -704,6 +708,8 @@ export function buildCategoryFortuneCards(
     ];
     if (yongshinElement) supporting.push(`용신: ${elementKo(yongshinElement)}`);
     if (gishinElement) supporting.push(`기신: ${elementKo(gishinElement)}`);
+
+    if (saeunRow) supporting.push(...luckAnnotationFeatures(saeunRow));
 
     const evidence: EvidenceRow[] = [{
       axis: 'category',
