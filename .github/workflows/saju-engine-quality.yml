@@ -28,10 +28,15 @@ jobs:
           cache: npm
           cache-dependency-path: |
             lib/saju-ts/package-lock.json
+            lib/seed-ts/package-lock.json
             lib/spring-ts/package-lock.json
 
       - name: Install saju engine dependencies
         working-directory: lib/saju-ts
+        run: npm ci
+
+      - name: Install Seed repository dependencies
+        working-directory: lib/seed-ts
         run: npm ci
 
       - name: Install report adapter dependencies
