@@ -40,7 +40,19 @@ describe('SajuRequest runtime validation', () => {
     [{ ...base, sex: 'X' }, 'sex must be'],
     [{ ...base, birth: { ...base.birth, calendar: 'lunar' } }, 'gregorian'],
     [{ ...base, location: { lat: 91, lon: 126.978 } }, 'location.lat'],
+    [{ ...base, location: { lat: -91, lon: 126.978 } }, 'location.lat'],
     [{ ...base, location: { lat: 37.5665, lon: 181 } }, 'location.lon'],
+    [{ ...base, location: { lat: 37.5665, lon: -181 } }, 'location.lon'],
+    [{ ...base, location: { lat: '37.5665', lon: 126.978 } }, 'location.lat'],
+    [{ ...base, location: { lat: 37.5665, lon: '126.978' } }, 'location.lon'],
+    [{ ...base, location: { lat: true, lon: 126.978 } }, 'location.lat'],
+    [{ ...base, location: { lat: 37.5665, lon: false } }, 'location.lon'],
+    [{ ...base, location: { lat: null, lon: 126.978 } }, 'location.lat'],
+    [{ ...base, location: { lat: 37.5665, lon: null } }, 'location.lon'],
+    [{ ...base, location: { lat: Number.NaN, lon: 126.978 } }, 'location.lat'],
+    [{ ...base, location: { lat: 37.5665, lon: Number.NaN } }, 'location.lon'],
+    [{ ...base, location: { lat: Number.POSITIVE_INFINITY, lon: 126.978 } }, 'location.lat'],
+    [{ ...base, location: { lat: 37.5665, lon: Number.NEGATIVE_INFINITY } }, 'location.lon'],
     [{ ...base, meta: [] }, 'meta must be'],
   ])('rejects invalid runtime request fields', (request, issue) => {
     let caught: unknown;
@@ -52,6 +64,16 @@ describe('SajuRequest runtime validation', () => {
     expect(caught).toBeInstanceOf(SajuRequestValidationError);
     expect((caught as SajuRequestValidationError).issues.join(' '))
       .toContain(issue);
+  });
+
+  it.each([
+    { lat: -90, lon: -180 },
+    { lat: -90, lon: 180 },
+    { lat: 90, lon: -180 },
+    { lat: 90, lon: 180 },
+    { lat: 0, lon: 0 },
+  ])('accepts finite numeric coordinate boundaries %#', (location) => {
+    expect(() => normalizeRequest({ ...base, location })).not.toThrow();
   });
 
   it('owns normalized top-level request objects', () => {

@@ -21,6 +21,19 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return !!value && typeof value === 'object' && !Array.isArray(value);
 }
 
+function isFiniteNumberWithin(
+  value: unknown,
+  minimum: number,
+  maximum: number,
+): value is number {
+  return (
+    typeof value === 'number'
+    && Number.isFinite(value)
+    && value >= minimum
+    && value <= maximum
+  );
+}
+
 export function normalizeRequest(input: SajuRequest): NormalizedRequestInternal {
   const value = input as unknown;
   const record = isRecord(value) ? value : {};
@@ -41,12 +54,10 @@ export function normalizeRequest(input: SajuRequest): NormalizedRequestInternal 
     if (!isRecord(location)) {
       issues.push('location must be an object');
     } else {
-      const lat = Number(location.lat);
-      const lon = Number(location.lon);
-      if (!Number.isFinite(lat) || lat < -90 || lat > 90) {
+      if (!isFiniteNumberWithin(location.lat, -90, 90)) {
         issues.push('location.lat must be finite and within [-90, 90]');
       }
-      if (!Number.isFinite(lon) || lon < -180 || lon > 180) {
+      if (!isFiniteNumberWithin(location.lon, -180, 180)) {
         issues.push('location.lon must be finite and within [-180, 180]');
       }
       if (
