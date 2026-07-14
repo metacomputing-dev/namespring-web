@@ -91,6 +91,10 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
       }
       if (normalizedConfig.toggles.elementDistribution) {
         wanted.push('elements.distribution');
+        // PR-5 (감사 B448) 옵션 틀: 합충 보정 분포 — 기본 off.
+        if ((normalizedConfig.strategies as any)?.elements?.interactionAdjusted === true) {
+          wanted.push('elements.distributionAdjusted');
+        }
       }
       if (normalizedConfig.toggles.lifeStages) {
         wanted.push('lifeStages.pillars');
@@ -154,6 +158,10 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
 
       if (normalizedConfig.toggles.elementDistribution) {
         summary.elementDistribution = results.get('elements.distribution') as ElementDistribution;
+        // PR-5 (감사 B448) 옵션 틀: 옵트인 시에만 additive 노출 — 기본 분포·소비자 불변.
+        if ((normalizedConfig.strategies as any)?.elements?.interactionAdjusted === true) {
+          (summary as any).elementDistributionAdjusted = results.get('elements.distributionAdjusted');
+        }
       }
 
       if (normalizedConfig.toggles.lifeStages) {

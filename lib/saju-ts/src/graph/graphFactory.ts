@@ -20,6 +20,8 @@ import { applyMinuteOffsetToLocalDateTime, computeTrueSolarTimeCorrection } from
 import type { DetectedRelation } from '../core/branchRelations.js';
 import { detectBranchRelations } from '../core/branchRelations.js';
 import type { ElementDistribution } from '../core/elementDistribution.js';
+import type { AdjustedElementDistribution } from '../core/elementInteractionAdjust.js';
+import { applyInteractionAdjustments } from '../core/elementInteractionAdjust.js';
 import { elementDistributionFromPillars } from '../core/elementDistribution.js';
 import type { HiddenStem } from '../core/hiddenStems.js';
 import { hiddenStemsOfBranch } from '../core/hiddenStems.js';
@@ -469,6 +471,31 @@ export function buildGraph(): Graph {
           heavenStemWeight: ed.heavenStemWeight,
           branchTotalWeight: ed.branchTotalWeight,
           hiddenStemWeights: w.hiddenStems,
+        });
+      },
+    }),
+  );
+
+  // --- Element distribution (합충 보정, 옵션) [감사 B448 — PR-5 옵션 틀]
+  // strategies.elements.interactionAdjusted=true일 때만 engine이 요청한다.
+  // 기본 분포(elements.distribution)는 불변 — 소비 전환은 κ 코퍼스 재생성
+  // 계획과 세트인 별도 결정(스위치 없음).
+  nodes.push(
+    n<AdjustedElementDistribution>({
+      id: 'elements.distributionAdjusted',
+      deps: ['pillars.year', 'pillars.month', 'pillars.day', 'pillars.hour', 'relations.branches', 'relations.stems', 'policy.weights'],
+      explain: '충 손상/회국/합거를 반영한 보정 오행 분포 (옵트인). 기본 분포는 불변.',
+      compute: (ctx, get) => {
+        const w = get<EngineWeights>('policy.weights');
+        const ed = w.elementDistribution ?? {};
+        const rawPolicy: any = (ctx.config.strategies as any)?.elements?.interactionPolicy ?? {};
+        return applyInteractionAdjustments({
+          pillars: [get('pillars.year'), get('pillars.month'), get('pillars.day'), get('pillars.hour')],
+          branchRelations: get('relations.branches'),
+          stemRelations: get('relations.stems'),
+          hiddenStemPolicy: w.hiddenStems,
+          heavenStemWeight: ed.heavenStemWeight,
+          policy: rawPolicy,
         });
       },
     }),

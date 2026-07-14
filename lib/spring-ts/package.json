@@ -67,6 +67,7 @@
     "test:tengod-null-effect": "npm run test:tengod-position-weighting && npx tsx test/integration/md8-tengod-divergence.test.ts",
     "test:life-fortune-yongshin-confidence": "npx tsx test/integration/life-fortune-yongshin-confidence.test.ts",
     "test:jonggyeok": "npx tsx test/integration/jonggyeok-fixture.test.ts",
+    "test:jonggyeok-authority": "npm --prefix ../saju-ts run build && npx tsx test/integration/jonggyeok-authority-scaffold.test.ts",
     "test:yongshin-consensus": "npm --prefix ../saju-ts run build && npx tsx test/integration/yongshin-consensus-baseline.test.ts",
     "test:deep-saju-feature-report": "npx tsx test/integration/deep-saju-feature-report.test.ts",
     "test:training-derived-authority": "npx tsx test/integration/training-derived-authority.test.ts",

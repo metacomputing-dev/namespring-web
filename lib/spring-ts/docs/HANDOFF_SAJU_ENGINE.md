@@ -106,6 +106,22 @@ cd lib/spring-ts && npx tsx tmp/probe-optin-naeum-palace.ts
   - 검증(일괄): saju-ts 27파일 151테스트, tsc 0err 양쪽, compat 202, 경계골든 723, jonggyeok 111, consensus 241, tiered-shape 1378, class-axes 12, scoring 34, borderline 7/7, time-policy 11, presets 13, snapshot 15/15, lunar-calendar 36, kasi-lunar-api 5, calendar-policy 14. dump-report-trace·probe-summary-surface 불변.
 - **후속 감사 후보**: graph/·schools 팩 전수·DSL 컴파일러·migrations·음양 균형(YinYangScore 소비자 0곳)·육친/묘고/개두절각 축 (감사 보고서 부록 C).
 
+## E-2. PR-5~7 — 판정 깊이 축 ✅ 완료 (2026-07-08)
+
+> 원칙 준수: 콘텐츠 저작·코퍼스가 무거운 부분은 틀까지만, 판정 변경은 PR-3 계측 절차 그대로. **validate:default-change(main↔HEAD) = IMPROVEMENT(개선 5·회귀 0·불변 10) 유지, trace 정합✓·재생성 무후퇴.**
+
+| PR | 항목 | 커밋 | 결과 |
+|---|---|---|---|
+| **PR-5** | 합충의 판정 반영 | 6bf05e8e7 (궁위 인프라) · 28751758d (신강약 주입) · 2a98bab3d (격국 탐합망충) · abb80a4a2 (천간합 상태 표면) · fdcedcce3 (분포 옵션 틀) | ① DetectedRelation/StemRelation에 pillarIndexes·pairs additive(값-dedupe 불변) ② deLingDiShi (1+f) 층에 충손상(CHUNG 0.5·형 0.7, floor 0.3)+탐합망충 해소+회국 별도 항(삼합 0.10/방합 0.08/반합 0.05, 식·재·관 국은 pressure)+천간합 기반(0.5, 쟁합 0.75) — strategies.strength.interaction 전량 설정화(기본 on). **파급 실측: 강약 레벨·용신·격국·별점 15픽스처 전부 불변**(이름 후보 순위 재배열 4건 + fix-11 격국 confidence 0.242→0.282 회복만 — 보수 기본값+해소 규칙의 의도된 완충) ③ 격국 damage per-relation 해소(SAMHAP 완전·YUKHAP/BANHAP 절반·합신 피충 무효) + resolvedJijiRelations 배관 소생 ④ 합화/기반/쟁합/요합 hapState + hapHwaEvaluations 죽은 배관 소생 ⑤ 분포 보정은 elements.distributionAdjusted 옵션 틀(기본 off — κ 파급 사유 주석) |
+| **PR-6** | 격국 성패(成敗) | 02a9fe7c4 | 자평진전 순용/역용 룰 테이블(11격 × 상신/파격요인/구응) → verdict 5단(성격·파격·패중유구·성중유패·미확정) + 월지 손상(탐합망충 해소 후 잔존) 연동 강등. facts→springLegacy→어댑터 전부 additive(GyeokgukSummary.seongpae) — **격국 점수 미개입**(점수 통합은 별도 계측 항목). v0는 투간 기준 — 지장간 회지 상신·세력 비교는 후속. 해석 텍스트 저작은 틀만 |
+| **PR-7** | 종격 승격 틀 | 229c980b1 | jonggyeok.calibrated 프리셋(임계 ±0.55, 옵트인 전용) + 권위 코퍼스 스캐폴드(jonggyeok_authority_cases.json — intake 요건·승격 기준 20건+/80%+, 축적 시 검증 자동 활성, test:jonggyeok-authority). **실측 발견: 임계 재보정 단독으로는 potential 램프 수식((threshold-s)/(threshold+1))이 극단 명식 factor를 ~0.19로 눌러 CONG 게이트(0.6) 미달** — 반려 사유의 실체는 수식 구조. 완전 승격 = 램프 재설계 또는 게이트 인하 + 권위 코퍼스 (기본값 완전 불변) |
+
+  - 신설 테스트: strengthInteraction 8 · gyeokQualityTanhap 4 · gyeokgukSeongpae 11 · elementInteractionAdjust 4 · jonggyeok-authority 6 (saju-ts 총 178).
+  - PR-5/6 잔여 후속(기록): 궁위 pairs 기반 감쇠 세분(현 v0는 값 매칭 — 동일 지지 과감쇠 한계), 인접 요합 감쇠, 왕상휴수 연동 비대칭 감쇠, pressure 축 합거(관성 묶임→신강 방향), 성패의 격국 점수 통합(판정 변경 — 계측 필수), 성패 해석 텍스트 저작(콘텐츠 축).
+| 후속 | 운(運) 통합 판정 | 교운 일시 표기, 대운-원국 합충 재평가, 운 신살(삼재·상문·조객), 월운/일운 노출 | 부록 B 259·266·728, C5 |
+| 후속 | 대규모 외부 오라클 | 상용 만세력 대비 명식 4주 대량 대조 파이프라인 + deLingDiShi ±0.15 임계 분포 재캘리브레이션 | §3-2 파급 검토, B7 함정 3 |
+| 후속 | 설명가능성 노출 | 용신 methodBreakdown(C4)·격국 basis·시간 보정 카드(C7)·야자시 시두법(JOJA_SPLIT 실구현 또는 경고) | C4·C7, 부록 B 196 |
+
 ## F. 새 세션 착수 프롬프트
 
 > **PR-1~4 전부 완료** (D·E절). 엔진 무결성 감사 축의 계획 작업은 종결 — 남은 것은 선택 후속뿐:

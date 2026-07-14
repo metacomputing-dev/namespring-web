@@ -1,0 +1,25 @@
+{
+  "_meta": {
+    "schemaVersion": "spring-ts.jonggyeok-authority-fixture.v1",
+    "purpose": "[PR-7 스캐폴드] 종격 완전 승격의 전제 조건인 '권위 검증 코퍼스'. 기존 test/fixtures/jonggyeok_cases.json 9픽스처는 T1_HYPOTHESIS(훈련데이터 유래, 인용 비정박)라 임계 캘리브레이션의 기준이 될 수 없다(감사 B5 — PR-3 ③에서 완전 승격을 반려한 사유). 이 파일에 T3 이상(저자·서지 인용 정박) 종격 명식이 축적되면 jonggyeok-authority-scaffold.test.ts가 자동으로 jonggyeok.calibrated 프리셋 판정 일치를 검증하기 시작한다.",
+    "intakeRequirements": {
+      "sourceTier": "T3_AUTHORED_INTERPRETATION 이상 (sourceUrl 또는 서지 + quoteShort 필수, authorityTruthEligible=true)",
+      "requiredFields": ["id", "label", "birth", "expectedJonggyeokType", "expectedYongshinElement", "sourceTier"],
+      "expectedJonggyeokType": "CONG_CAI | CONG_GUAN | CONG_SHA | CONG_ER | CONG_YIN | CONG_BI | ZHUAN_WANG | HUA_QI",
+      "note": "생시 불명 케이스는 hour: null 허용(시간미상 경로). 판본·역자에 따라 명식이 갈리는 케이스는 disagreementNotes에 기록."
+    },
+    "promotionCriteria": "케이스 20건 이상 + calibrated 프리셋 일치율 80% 이상이 확인되면 기본 승격(자동 활성) 재논의 — E-2 로드맵 PR-7 참조. 그 전까지 기본 경로는 리스크 신호+감쇠 유지.",
+    "accessedAt": "2026-07-08",
+    "sourceTier": {
+      "tier": "T1_HYPOTHESIS",
+      "sourceType": "scaffold",
+      "sourceUrl": null,
+      "accessedAt": "2026-07-08",
+      "quoteShort": null,
+      "humanInterpretation": "Empty intake scaffold for authority-anchored jonggyeok chart corpus. No chart data yet.",
+      "copyrightNote": "No source content.",
+      "authorityTruthEligible": false
+    }
+  },
+  "cases": []
+}

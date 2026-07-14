@@ -716,6 +716,19 @@ export interface GyeokgukSummary {
   readonly reasoning: string;
   readonly candidates?: readonly GyeokgukCandidateSummary[];
   readonly jonggyeokCandidates?: readonly JonggyeokCandidateSummary[];
+  /** PR-6: 격국 성패(成敗) 판정 — 상신·순용/역용·성격/파격 (additive). */
+  readonly seongpae?: GyeokgukSeongpaeSummary | null;
+}
+
+/** PR-6: 격국 성패 판정 상세 (자평진전 순용/역용 계열). */
+export interface GyeokgukSeongpaeSummary {
+  readonly verdict: 'SEONGGYEOK' | 'PAGYEOK' | 'PAJUNG_YUGU' | 'SEONGJUNG_YUPA' | 'UNDETERMINED';
+  readonly usage: 'SUNYONG' | 'YEOKYONG';
+  readonly sangshin: string | null;
+  readonly sangshinStemHanja: string | null;
+  readonly pagyeokFactor: string | null;
+  readonly gueung: string | null;
+  readonly reasons: readonly string[];
 }
 
 /** Source-tier metadata matching test/baseline/schema/sourceTier.schema.json. */
@@ -810,6 +823,12 @@ export interface CheonganRelationSummary {
   readonly resultElement: string | null;
   readonly note: string;
   readonly score: CheonganRelationScore | null;
+  /** PR-5 (감사 B531): 합 상태 — 'HUA' | 'HAPGEO' | 'JAENGHAP' | 'YOHAP' (HAP만). */
+  readonly hapState?: string;
+  /** 합 상태 한글 표기 (예: '합이불화 — 기반(묶임)'). */
+  readonly hapStateKo?: string;
+  /** resultElement(화기 오행)를 확정 표기해도 되는지 — 합화(HUA) 성립 시에만 true. */
+  readonly resultConfirmed?: boolean;
 }
 
 /** Numeric breakdown of a heavenly-stem relation's score. */

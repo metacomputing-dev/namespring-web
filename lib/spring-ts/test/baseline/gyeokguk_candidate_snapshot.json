@@ -537,20 +537,20 @@
         "type": "식신격",
         "category": "일반",
         "baseTenGod": "식신",
-        "confidence": 0.229011
+        "confidence": 0.267179
       },
       "candidates": [
         {
           "type": "식신격",
           "category": "일반",
           "baseTenGod": "식신",
-          "score": 0.229011,
-          "confidence": 0.229011,
+          "score": 0.267179,
+          "confidence": 0.267179,
           "compositeClassical": {
-            "score": 0.402423,
-            "confidence": 0.402423,
+            "score": 0.424711,
+            "confidence": 0.424711,
             "status": "low_confidence_evidence",
-            "breakerPenalty": 0.285385,
+            "breakerPenalty": 0.265385,
             "selectedByComposite": false,
             "topFeatures": [
               "monthMainMatch",
@@ -578,7 +578,7 @@
             "score": 0,
             "confidence": 0,
             "status": "trace_only",
-            "breakerPenalty": 0.285385,
+            "breakerPenalty": 0.265385,
             "selectedByComposite": false,
             "topFeatures": [
               "seasonalCommand",

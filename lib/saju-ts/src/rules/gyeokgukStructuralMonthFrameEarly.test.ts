@@ -186,6 +186,22 @@ describe('structural month-frame integration', () => {
     expect(legacy.result.best).toBe('gyeokguk.BI_GYEON');
   });
 
+  it('keeps YANGIN seongpae doctrine in legacy naming mode', () => {
+    const specimen: PillarSpec = {
+      year: [6, 0], month: [5, 3], day: [0, 8], hour: [4, 4],
+    };
+    const classic = analyze(specimen);
+    const legacy = analyze(specimen, { bigyeopGyeok: 'legacy' });
+
+    expect(classic.facts.month.gyeok.bigyeopSubtype).toBe('YANGIN');
+    expect(legacy.facts.month.gyeok.bigyeopSubtype).toBeNull();
+    expect(classic.facts.month.gyeok.seongpae?.usage).toBe('YEOKYONG');
+    expect(legacy.facts.month.gyeok.seongpae).toMatchObject({
+      usage: 'YEOKYONG',
+      verdict: classic.facts.month.gyeok.seongpae?.verdict,
+    });
+  });
+
   it('does not re-enable a residual companion candidate in legacy mode', () => {
     const specimen: PillarSpec = {
       year: [3, 9], month: [8, 2], day: [3, 7], hour: [2, 6],
