@@ -1,28 +1,28 @@
 {
   "schemaVersion": "spring-ts.gyeokguk-candidate-snapshot.v2",
   "sourceFixture": "test/fixtures/spring_ts_baseline_cases.json",
-  "fixtureCount": 15,
+  "fixtureCount": 17,
   "results": [
     {
       "id": "fix-01",
       "selected": {
         "type": "식신격",
         "category": "일반",
-        "baseTenGod": null,
-        "confidence": 0.521257
+        "baseTenGod": "식신",
+        "confidence": 0.538904
       },
       "candidates": [
         {
           "type": "식신격",
           "category": "일반",
           "baseTenGod": "식신",
-          "score": 0.521257,
-          "confidence": 0.521257,
+          "score": 0.538904,
+          "confidence": 0.538904,
           "compositeClassical": {
-            "score": 0.286295,
-            "confidence": 0.286295,
-            "status": "trace_only",
-            "breakerPenalty": 0.177545,
+            "score": 0.358366,
+            "confidence": 0.358366,
+            "status": "low_confidence_evidence",
+            "breakerPenalty": 0.107545,
             "selectedByComposite": false,
             "topFeatures": [
               "stemTransparency",
@@ -49,10 +49,10 @@
           "score": 0.65,
           "confidence": 0.65,
           "compositeClassical": {
-            "score": 0.482635,
-            "confidence": 0.482635,
+            "score": 0.554706,
+            "confidence": 0.554706,
             "status": "low_confidence_evidence",
-            "breakerPenalty": 0.177545,
+            "breakerPenalty": 0.107545,
             "selectedByComposite": false,
             "topFeatures": [
               "monthMainMatch",
@@ -67,35 +67,6 @@
             "role:MAIN",
             "weight:0.60",
             "MAIN",
-            "blocking:MONTH_BRANCH_DAMAGED"
-          ]
-        },
-        {
-          "type": "비견격",
-          "category": "일반",
-          "baseTenGod": "비견",
-          "score": 0.55,
-          "confidence": 0.55,
-          "compositeClassical": {
-            "score": 0.222735,
-            "confidence": 0.222735,
-            "status": "trace_only",
-            "breakerPenalty": 0.177545,
-            "selectedByComposite": false,
-            "topFeatures": [
-              "stemTransparency",
-              "rootSupport",
-              "purityScore"
-            ]
-          },
-          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
-          "sourceType": "reference_implementation",
-          "reasonCodes": [
-            "monthHiddenStem:GYE",
-            "role:RESIDUAL",
-            "visibleInChart",
-            "weight:0.10",
-            "VISIBLE",
             "blocking:MONTH_BRANCH_DAMAGED"
           ]
         }
@@ -260,15 +231,15 @@
           "score": 0.263514,
           "confidence": 0.263514,
           "compositeClassical": {
-            "score": 0.199068,
-            "confidence": 0.199068,
+            "score": 0.004744,
+            "confidence": 0.004744,
             "status": "trace_only",
             "breakerPenalty": 0.308,
             "selectedByComposite": false,
             "topFeatures": [
-              "stemTransparency",
               "rootSupport",
-              "seasonalCommand"
+              "seasonalCommand",
+              "purityScore"
             ]
           },
           "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
@@ -276,40 +247,8 @@
           "reasonCodes": [
             "monthHiddenStem:GYE",
             "role:MAIN",
-            "visibleInChart",
             "weight:1.00",
             "MAIN",
-            "VISIBLE",
-            "blocking:MONTH_BRANCH_DAMAGED"
-          ]
-        },
-        {
-          "type": "비견격",
-          "category": "일반",
-          "baseTenGod": "비견",
-          "score": 1.6,
-          "confidence": 1,
-          "compositeClassical": {
-            "score": 0.551568,
-            "confidence": 0.551568,
-            "status": "low_confidence_evidence",
-            "breakerPenalty": 0.278,
-            "selectedByComposite": false,
-            "topFeatures": [
-              "monthMainMatch",
-              "stemTransparency",
-              "rootSupport"
-            ]
-          },
-          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
-          "sourceType": "reference_implementation",
-          "reasonCodes": [
-            "monthHiddenStem:GYE",
-            "role:MAIN",
-            "visibleInChart",
-            "weight:1.00",
-            "MAIN",
-            "VISIBLE",
             "blocking:MONTH_BRANCH_DAMAGED"
           ]
         }
@@ -318,81 +257,23 @@
     {
       "id": "fix-06",
       "selected": {
-        "type": "양인격",
+        "type": "정인격",
         "category": "일반",
-        "baseTenGod": "겁재",
-        "confidence": 0.466667
+        "baseTenGod": "정인",
+        "confidence": 0.511111
       },
       "candidates": [
-        {
-          "type": "양인격",
-          "category": "일반",
-          "baseTenGod": "겁재",
-          "score": 0.466667,
-          "confidence": 0.466667,
-          "compositeClassical": {
-            "score": 0.22038,
-            "confidence": 0.22038,
-            "status": "trace_only",
-            "breakerPenalty": 0.192,
-            "selectedByComposite": false,
-            "topFeatures": [
-              "stemTransparency",
-              "rootSupport",
-              "seasonalCommand"
-            ]
-          },
-          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
-          "sourceType": "reference_implementation",
-          "reasonCodes": [
-            "monthHiddenStem:GI",
-            "role:RESIDUAL",
-            "visibleInChart",
-            "weight:0.30",
-            "VISIBLE",
-            "blocking:MONTH_BRANCH_DAMAGED"
-          ]
-        },
-        {
-          "type": "겁재격",
-          "category": "일반",
-          "baseTenGod": "겁재",
-          "score": 0.75,
-          "confidence": 0.75,
-          "compositeClassical": {
-            "score": 0.25038,
-            "confidence": 0.25038,
-            "status": "trace_only",
-            "breakerPenalty": 0.162,
-            "selectedByComposite": false,
-            "topFeatures": [
-              "stemTransparency",
-              "rootSupport",
-              "seasonalCommand"
-            ]
-          },
-          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
-          "sourceType": "reference_implementation",
-          "reasonCodes": [
-            "monthHiddenStem:GI",
-            "role:RESIDUAL",
-            "visibleInChart",
-            "weight:0.30",
-            "VISIBLE",
-            "blocking:MONTH_BRANCH_DAMAGED"
-          ]
-        },
         {
           "type": "정인격",
           "category": "일반",
           "baseTenGod": "정인",
-          "score": 0.75,
-          "confidence": 0.75,
+          "score": 0.511111,
+          "confidence": 0.511111,
           "compositeClassical": {
-            "score": 0.493393,
-            "confidence": 0.493393,
+            "score": 0.578844,
+            "confidence": 0.578844,
             "status": "low_confidence_evidence",
-            "breakerPenalty": 0.162,
+            "breakerPenalty": 0.082,
             "selectedByComposite": false,
             "topFeatures": [
               "monthMainMatch",
@@ -415,81 +296,23 @@
     {
       "id": "fix-07",
       "selected": {
-        "type": "월겁격",
+        "type": "정인격",
         "category": "일반",
-        "baseTenGod": "겁재",
-        "confidence": 0.571111
+        "baseTenGod": "정인",
+        "confidence": 0.565
       },
       "candidates": [
-        {
-          "type": "월겁격",
-          "category": "일반",
-          "baseTenGod": "겁재",
-          "score": 0.571111,
-          "confidence": 0.571111,
-          "compositeClassical": {
-            "score": 0.299413,
-            "confidence": 0.299413,
-            "status": "trace_only",
-            "breakerPenalty": 0.143333,
-            "selectedByComposite": false,
-            "topFeatures": [
-              "stemTransparency",
-              "rootSupport",
-              "seasonalCommand"
-            ]
-          },
-          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
-          "sourceType": "reference_implementation",
-          "reasonCodes": [
-            "monthHiddenStem:BYEONG",
-            "role:MIDDLE",
-            "visibleInChart",
-            "weight:0.30",
-            "VISIBLE",
-            "blocking:MONTH_BRANCH_DAMAGED"
-          ]
-        },
-        {
-          "type": "겁재격",
-          "category": "일반",
-          "baseTenGod": "겁재",
-          "score": 0.75,
-          "confidence": 0.75,
-          "compositeClassical": {
-            "score": 0.328357,
-            "confidence": 0.328357,
-            "status": "trace_only",
-            "breakerPenalty": 0.113333,
-            "selectedByComposite": false,
-            "topFeatures": [
-              "stemTransparency",
-              "rootSupport",
-              "seasonalCommand"
-            ]
-          },
-          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
-          "sourceType": "reference_implementation",
-          "reasonCodes": [
-            "monthHiddenStem:BYEONG",
-            "role:MIDDLE",
-            "visibleInChart",
-            "weight:0.30",
-            "VISIBLE",
-            "blocking:MONTH_BRANCH_DAMAGED"
-          ]
-        },
         {
           "type": "정인격",
           "category": "일반",
           "baseTenGod": "정인",
-          "score": 0.65,
-          "confidence": 0.65,
+          "score": 0.565,
+          "confidence": 0.565,
           "compositeClassical": {
-            "score": 0.572697,
-            "confidence": 0.572697,
-            "status": "low_confidence_evidence",
-            "breakerPenalty": 0.113333,
+            "score": 0.615378,
+            "confidence": 0.615378,
+            "status": "candidate_evidence",
+            "breakerPenalty": 0.07,
             "selectedByComposite": false,
             "topFeatures": [
               "monthMainMatch",
@@ -514,21 +337,21 @@
       "selected": {
         "type": "식신격",
         "category": "일반",
-        "baseTenGod": null,
-        "confidence": 0.875
+        "baseTenGod": "식신",
+        "confidence": 0.905
       },
       "candidates": [
         {
           "type": "식신격",
           "category": "일반",
           "baseTenGod": "식신",
-          "score": 0.875,
-          "confidence": 0.875,
+          "score": 0.905,
+          "confidence": 0.905,
           "compositeClassical": {
-            "score": 0.789,
-            "confidence": 0.789,
+            "score": 0.8614,
+            "confidence": 0.8614,
             "status": "candidate_evidence",
-            "breakerPenalty": 0.095,
+            "breakerPenalty": 0.025,
             "selectedByComposite": false,
             "topFeatures": [
               "monthMainMatch",
@@ -548,49 +371,21 @@
           ]
         },
         {
-          "type": "비견격",
-          "category": "일반",
-          "baseTenGod": "비견",
-          "score": 0.65,
-          "confidence": 0.65,
-          "compositeClassical": {
-            "score": 0.2951,
-            "confidence": 0.2951,
-            "status": "trace_only",
-            "breakerPenalty": 0.125,
-            "selectedByComposite": false,
-            "topFeatures": [
-              "stemTransparency",
-              "purityScore",
-              "rootSupport"
-            ]
-          },
-          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
-          "sourceType": "reference_implementation",
-          "reasonCodes": [
-            "monthHiddenStem:MU",
-            "role:RESIDUAL",
-            "visibleInChart",
-            "weight:0.10",
-            "VISIBLE"
-          ]
-        },
-        {
           "type": "편재격",
           "category": "일반",
           "baseTenGod": "편재",
           "score": 0.65,
           "confidence": 0.65,
           "compositeClassical": {
-            "score": 0.09216,
-            "confidence": 0.09216,
+            "score": 0.19456,
+            "confidence": 0.19456,
             "status": "trace_only",
-            "breakerPenalty": 0.125,
+            "breakerPenalty": 0.025,
             "selectedByComposite": false,
             "topFeatures": [
               "seasonalCommand",
-              "rootSupport",
-              "purityScore"
+              "purityScore",
+              "rootSupport"
             ]
           },
           "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
@@ -739,52 +534,23 @@
     {
       "id": "fix-11",
       "selected": {
-        "type": "건록격",
+        "type": "식신격",
         "category": "일반",
-        "baseTenGod": "비견",
-        "confidence": 0.282244
+        "baseTenGod": "식신",
+        "confidence": 0.267179
       },
       "candidates": [
-        {
-          "type": "건록격",
-          "category": "일반",
-          "baseTenGod": "비견",
-          "score": 0.282244,
-          "confidence": 0.282244,
-          "compositeClassical": {
-            "score": 0.075046,
-            "confidence": 0.075046,
-            "status": "trace_only",
-            "breakerPenalty": 0.322308,
-            "selectedByComposite": false,
-            "topFeatures": [
-              "stemTransparency",
-              "rootSupport",
-              "seasonalCommand"
-            ]
-          },
-          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
-          "sourceType": "reference_implementation",
-          "reasonCodes": [
-            "monthHiddenStem:MU",
-            "role:RESIDUAL",
-            "visibleInChart",
-            "weight:0.10",
-            "VISIBLE",
-            "blocking:MONTH_BRANCH_DAMAGED"
-          ]
-        },
         {
           "type": "식신격",
           "category": "일반",
           "baseTenGod": "식신",
-          "score": 0.65,
-          "confidence": 0.65,
+          "score": 0.267179,
+          "confidence": 0.267179,
           "compositeClassical": {
-            "score": 0.4006,
-            "confidence": 0.4006,
+            "score": 0.424711,
+            "confidence": 0.424711,
             "status": "low_confidence_evidence",
-            "breakerPenalty": 0.292308,
+            "breakerPenalty": 0.265385,
             "selectedByComposite": false,
             "topFeatures": [
               "monthMainMatch",
@@ -803,35 +569,6 @@
           ]
         },
         {
-          "type": "비견격",
-          "category": "일반",
-          "baseTenGod": "비견",
-          "score": 0.55,
-          "confidence": 0.55,
-          "compositeClassical": {
-            "score": 0.105046,
-            "confidence": 0.105046,
-            "status": "trace_only",
-            "breakerPenalty": 0.292308,
-            "selectedByComposite": false,
-            "topFeatures": [
-              "stemTransparency",
-              "rootSupport",
-              "seasonalCommand"
-            ]
-          },
-          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
-          "sourceType": "reference_implementation",
-          "reasonCodes": [
-            "monthHiddenStem:MU",
-            "role:RESIDUAL",
-            "visibleInChart",
-            "weight:0.10",
-            "VISIBLE",
-            "blocking:MONTH_BRANCH_DAMAGED"
-          ]
-        },
-        {
           "type": "편재격",
           "category": "일반",
           "baseTenGod": "편재",
@@ -841,7 +578,7 @@
             "score": 0,
             "confidence": 0,
             "status": "trace_only",
-            "breakerPenalty": 0.292308,
+            "breakerPenalty": 0.265385,
             "selectedByComposite": false,
             "topFeatures": [
               "seasonalCommand",
@@ -961,32 +698,6 @@
             "role:MIDDLE",
             "weight:0.30"
           ]
-        },
-        {
-          "type": "겁재격",
-          "category": "일반",
-          "baseTenGod": "겁재",
-          "score": 0.1,
-          "confidence": 0.1,
-          "compositeClassical": {
-            "score": 0.178987,
-            "confidence": 0.178987,
-            "status": "trace_only",
-            "breakerPenalty": 0.011538,
-            "selectedByComposite": false,
-            "topFeatures": [
-              "purityScore",
-              "usefulGodAlignment",
-              "seasonalCommand"
-            ]
-          },
-          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
-          "sourceType": "reference_implementation",
-          "reasonCodes": [
-            "monthHiddenStem:EUL",
-            "role:RESIDUAL",
-            "weight:0.10"
-          ]
         }
       ]
     },
@@ -1092,6 +803,111 @@
             "weight:1.00",
             "MAIN",
             "VISIBLE"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fix-16",
+      "selected": {
+        "type": "식신격",
+        "category": "일반",
+        "baseTenGod": "식신",
+        "confidence": 0.329615
+      },
+      "candidates": [
+        {
+          "type": "식신격",
+          "category": "일반",
+          "baseTenGod": "식신",
+          "score": 0.329615,
+          "confidence": 0.329615,
+          "compositeClassical": {
+            "score": 0.449353,
+            "confidence": 0.449353,
+            "status": "low_confidence_evidence",
+            "breakerPenalty": 0.245385,
+            "selectedByComposite": false,
+            "topFeatures": [
+              "monthMainMatch",
+              "rootSupport",
+              "seasonalCommand"
+            ]
+          },
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:BYEONG",
+            "role:MAIN",
+            "weight:0.60",
+            "MAIN",
+            "blocking:MONTH_BRANCH_DAMAGED"
+          ]
+        },
+        {
+          "type": "편관격",
+          "category": "일반",
+          "baseTenGod": "편관",
+          "score": 0.2,
+          "confidence": 0.2,
+          "compositeClassical": {
+            "score": 0,
+            "confidence": 0,
+            "status": "trace_only",
+            "breakerPenalty": 0.245385,
+            "selectedByComposite": false,
+            "topFeatures": [
+              "seasonalCommand",
+              "rootSupport",
+              "purityScore"
+            ]
+          },
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:GYEONG",
+            "role:MIDDLE",
+            "weight:0.30",
+            "blocking:MONTH_BRANCH_DAMAGED"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fix-17",
+      "selected": {
+        "type": "식신격",
+        "category": "일반",
+        "baseTenGod": "식신",
+        "confidence": 0.613333
+      },
+      "candidates": [
+        {
+          "type": "식신격",
+          "category": "일반",
+          "baseTenGod": "식신",
+          "score": 0.613333,
+          "confidence": 0.613333,
+          "compositeClassical": {
+            "score": 0.620533,
+            "confidence": 0.620533,
+            "status": "candidate_evidence",
+            "breakerPenalty": 0.07,
+            "selectedByComposite": false,
+            "topFeatures": [
+              "monthMainMatch",
+              "rootSupport",
+              "seasonalCommand"
+            ]
+          },
+          "sourceTier": "T2_REFERENCE_IMPLEMENTATION",
+          "sourceType": "reference_implementation",
+          "reasonCodes": [
+            "monthHiddenStem:EUL",
+            "role:MAIN",
+            "weight:1.00",
+            "MAIN",
+            "blocking:MONTH_BRANCH_DAMAGED"
           ]
         }
       ]

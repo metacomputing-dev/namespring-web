@@ -15,6 +15,7 @@ function run(args: {
   monthBroken?: boolean;
   monthHiddenStems?: any[];
   tenGodScores?: Record<string, number>;
+  dayMasterSelfScore?: number;
   policy?: any;
 }) {
   return computeGyeokgukSeongpae({
@@ -25,6 +26,7 @@ function run(args: {
     monthBroken: args.monthBroken ?? false,
     monthHiddenStems: args.monthHiddenStems as any,
     tenGodScores: args.tenGodScores as any,
+    dayMasterSelfScore: args.dayMasterSelfScore,
     policy: args.policy,
   });
 }
@@ -118,6 +120,18 @@ describe('격국 성패 룰 테이블 (PR-6 — 자평진전 순용/역용)', ()
     expect(r.sangshinHiddenRole).toBe('MAIN');
   });
 
+  it('keeps every transparent candidate ahead of secondary month-hidden evidence', () => {
+    const r = run({
+      gyeokTenGod: 'JEONG_GWAN',
+      otherStems: [4, 2, 2], // transparent PYEON_JAE; JEONG_JAE is absent from stems
+      monthHiddenStems: [{ stem: 5, tenGod: 'JEONG_JAE', role: 'MAIN', weight: 0.6 }],
+      policy: { hiddenSangshin: { enabled: true } },
+    })!;
+    expect(r.verdict).toBe('SEONGGYEOK');
+    expect(r.sangshin).toBe('PYEON_JAE');
+    expect(r.sangshinSource).toBe('TRANSPARENT');
+  });
+
   it('v1 hiddenSangshin ignores residual month hidden stems by default', () => {
     const r = run({
       gyeokTenGod: 'JEONG_IN',
@@ -152,5 +166,79 @@ describe('격국 성패 룰 테이블 (PR-6 — 자평진전 순용/역용)', ()
       breaker: 'SANG_GWAN',
       decisive: true,
     });
+  });
+
+  it('does not label an exact tie decisive when decisiveMargin is zero', () => {
+    const r = run({
+      gyeokTenGod: 'JEONG_GWAN',
+      otherStems: [3, 5, 6],
+      tenGodScores: { SANG_GWAN: 1, JEONG_JAE: 1 },
+      policy: { strengthCompare: { enabled: true, decisiveMargin: 0 } },
+    })!;
+    expect(r.verdict).toBe('SEONGJUNG_YUPA');
+    expect(r.strengthComparison).toMatchObject({ margin: 0, decisive: false });
+  });
+
+  it('captures the pre-month verdict after the strength comparison', () => {
+    const r = run({
+      gyeokTenGod: 'JEONG_GWAN',
+      otherStems: [3, 5, 6],
+      monthBroken: true,
+      tenGodScores: { SANG_GWAN: 3, JEONG_JAE: 0.4 },
+      policy: { strengthCompare: { enabled: true, decisiveMargin: 0.4 } },
+    })!;
+    expect(r.verdict).toBe('PAGYEOK');
+    // Month damage cannot further lower PAGYEOK. A value here would prove
+    // the pre-month verdict was captured before strengthCompare completed.
+    expect(r.verdictBeforeMonthDamage).toBeUndefined();
+  });
+
+  it('excludes the day stem itself from BI_GYEON breaker strength', () => {
+    const r = run({
+      gyeokTenGod: 'JEONG_JAE',
+      otherStems: [0, 8, 8],
+      monthHiddenStems: [
+        { stem: 2, tenGod: 'SIK_SHIN', role: 'MAIN', weight: 0.6 },
+      ],
+      tenGodScores: { BI_GYEON: 2, SIK_SHIN: 1.5 },
+      dayMasterSelfScore: 1,
+      policy: {
+        hiddenSangshin: { enabled: true },
+        strengthCompare: { enabled: true, decisiveMargin: 0.4 },
+      },
+    })!;
+    expect(r.verdict).toBe('SEONGJUNG_YUPA');
+    expect(r.strengthComparison).toMatchObject({
+      sangshinScore: 1.5,
+      breakerScore: 1,
+      margin: 0.5,
+      decisive: true,
+    });
+  });
+
+  it('fails closed when BI_GYEON comparison lacks self provenance', () => {
+    expect(() => run({
+      gyeokTenGod: 'JEONG_JAE',
+      otherStems: [0, 8, 8],
+      monthHiddenStems: [
+        { stem: 2, tenGod: 'SIK_SHIN', role: 'MAIN', weight: 0.6 },
+      ],
+      tenGodScores: { BI_GYEON: 2, SIK_SHIN: 1.5 },
+      policy: {
+        hiddenSangshin: { enabled: true },
+        strengthCompare: { enabled: true, decisiveMargin: 0.4 },
+      },
+    })).toThrow(RangeError);
+  });
+
+  it('retains the verdict before month damage so scoring does not count the same damage twice', () => {
+    const r = run({
+      gyeokTenGod: 'JEONG_GWAN',
+      otherStems: [5, 8, 6],
+      monthBroken: true,
+      policy: { retainPreMonthVerdict: true },
+    })!;
+    expect(r.verdict).toBe('SEONGJUNG_YUPA');
+    expect(r.verdictBeforeMonthDamage).toBe('SEONGGYEOK');
   });
 });

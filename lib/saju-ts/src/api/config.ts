@@ -35,8 +35,8 @@ export const defaultConfig: EngineConfig = {
     // [감사 B7] 신강약 기본 모델: 월지 가중 得令/得地/得势 (deLingDiShi).
     // 월지 무가중 'base' 모델은 어느 학파도 채택하지 않는 이설 밖 동작이라 옵션으로 강등.
     // 명시적으로 strategies.strength.model='base'를 주면 이전 동작으로 복귀한다.
-    // [PR-5] strength.interaction.* (합충→신강약 주입, 기본 on)의 세부 기본값은
-    // rules/facts.ts readStrengthInteractionPolicy에 있다 — enabled:false로 완전 opt-out.
+    // [PR-5] strength.interaction.*의 기본 합충 계층은 on이다. 권위 분모가 없는
+    // seasonal/positional 확장 계층은 명시 opt-in이며, enabled:false로 전체 opt-out한다.
     strength: { model: 'deLingDiShi' },
     // [감사 B448 · PR-5 옵션 틀] 합충 보정 오행 분포 — 기본 off.
     // true로 켜면 summary.elementDistributionAdjusted가 additive로 산출될 뿐,

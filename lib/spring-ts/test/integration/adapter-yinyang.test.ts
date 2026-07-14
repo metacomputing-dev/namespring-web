@@ -43,7 +43,7 @@ function check(name: string, cond: boolean, detail?: string): void {
   }
 }
 
-// 1986-04-19 05:45 male — 丙寅 壬辰 己巳 丁卯: 음양 4:4 EVEN
+// 1986-04-19 05:45 male — 丙寅 壬辰 癸巳 乙卯: 음양 4:4 EVEN
 const summary = await analyzeSaju({ year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male' });
 const yy: any = (summary as any).yinYangBalance;
 

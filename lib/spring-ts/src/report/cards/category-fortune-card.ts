@@ -43,6 +43,11 @@ import {
   getYearlyFortune,
   getFortuneGrade,
 } from '../common/fortuneCalculator.js';
+import {
+  findYearLuckRowForInstant,
+  LuckIntervalSelectionError,
+} from '../common/luck-interval.js';
+import { targetCalendarYear } from '../../target-date.js';
 
 import {
   ELEMENT_GENERATES,
@@ -85,29 +90,11 @@ function toElementCode(value: unknown): ElementCode | null {
 }
 
 interface CategorySaeunRow extends LuckPillarAnnotationsForReport {
-  readonly year?: number;
-  readonly stem?: string;
-  readonly branch?: string;
-  readonly startUtcMs?: number | null;
-  readonly endUtcMs?: number | null;
-}
-
-function finiteNumber(value: unknown): number | null {
-  const n = Number(value);
-  return Number.isFinite(n) ? n : null;
-}
-
-function findCategorySaeunRow(saju: SajuSummary, targetDate: Date): CategorySaeunRow | null {
-  const rows = (saju as Record<string, unknown>).saeunPillars as readonly CategorySaeunRow[] | undefined;
-  if (!Array.isArray(rows)) return null;
-  const targetMs = targetDate.getTime();
-  for (const row of rows) {
-    const start = finiteNumber(row.startUtcMs);
-    const end = finiteNumber(row.endUtcMs);
-    if (start !== null && end !== null && targetMs >= start && targetMs < end) return row;
-  }
-  const year = targetDate.getFullYear();
-  return rows.find((p) => p.year === year) ?? null;
+  readonly year?: unknown;
+  readonly stem?: unknown;
+  readonly branch?: unknown;
+  readonly startUtcMs?: unknown;
+  readonly endUtcMs?: unknown;
 }
 function elementKo(code: ElementCode): string {
   return ELEMENT_KO[code];
@@ -638,18 +625,23 @@ export function buildCategoryFortuneCards(
   }
 
   // Get yearly fortune pillar
-  const year = targetDate.getFullYear();
+  const year = targetCalendarYear(targetDate);
 
   // Try saeunPillars first
-  let fortuneEl: ElementCode = 'EARTH';
-  const saeunRow = findCategorySaeunRow(saju, targetDate);
+  let fortuneEl: ElementCode;
+  const saeunPillars = (saju as Record<string, unknown>).saeunPillars as
+    | readonly CategorySaeunRow[]
+    | undefined;
+  const saeunRow = findYearLuckRowForInstant(saeunPillars, targetDate.getTime(), year);
   if (saeunRow) {
     const stemEl = toElementCode(saeunRow.stem);
-    if (stemEl) fortuneEl = stemEl;
-  }
-
-  if (!saeunRow) {
-    // Fallback: compute from formula
+    if (!stemEl) {
+      throw new LuckIntervalSelectionError('selected year luck row has an invalid stem');
+    }
+    fortuneEl = stemEl;
+  } else {
+    // Formula fallback is allowed only when there are no year-luck rows or
+    // no valid complete interval covers the target instant.
     const yf = getYearlyFortune(year);
     fortuneEl = yf.stemElement;
   }

@@ -103,6 +103,8 @@ export interface GyeokgukPolicy {
 
 export interface GyeokgukSeongpaeScoreAdjustment {
   verdict: SeongpaeVerdictKey;
+  /** User-facing verdict may include month damage already accounted for by quality.multiplier. */
+  reportedVerdict?: SeongpaeVerdictKey;
   key: string;
   multiplier: number;
   before: number;
@@ -243,6 +245,7 @@ const DEFAULT_SEONGPAE_SCORE_MULTIPLIERS: Record<SeongpaeVerdictKey, number> = {
   PAGYEOK: 0.75,
   UNDETERMINED: 0.95,
 };
+const MAX_SEONGPAE_SCORE_MULTIPLIER = 10;
 
 const DEFAULT_POLICY: GyeokgukPolicy = {
   ruleSet: DEFAULT_GYEOKGUK_RULESET,
@@ -274,7 +277,7 @@ const DEFAULT_POLICY: GyeokgukPolicy = {
     'gyeokguk.CONG_GE',
   ],
   seongpaeScore: {
-    enabled: true,
+    enabled: false,
     multipliers: { ...DEFAULT_SEONGPAE_SCORE_MULTIPLIERS },
   },
   competition: {
@@ -351,13 +354,28 @@ function applySeongpaeScoreAdjustment(
   if (!key) return null;
 
   const before = scores[key];
-  if (typeof before !== 'number' || !Number.isFinite(before) || before === 0) return null;
+  if (typeof before !== 'number') return null;
+  if (!Number.isFinite(before)) {
+    throw new RangeError('seongpae score adjustment received a non-finite score');
+  }
+  if (before <= 0) return null;
 
-  const multiplier = asNumber(pol.multipliers[seongpae.verdict], 1);
+  const scoreVerdict = seongpae.verdictBeforeMonthDamage ?? seongpae.verdict;
+  const multiplier = asNumber(pol.multipliers[scoreVerdict], 1);
   const after = before * multiplier;
+  if (!Number.isFinite(after)) {
+    throw new RangeError('seongpae score adjustment produced a non-finite score');
+  }
   scores[key] = after;
 
-  return { verdict: seongpae.verdict, key, multiplier, before, after };
+  return {
+    verdict: scoreVerdict,
+    ...(scoreVerdict !== seongpae.verdict ? { reportedVerdict: seongpae.verdict } : {}),
+    key,
+    multiplier,
+    before,
+    after,
+  };
 }
 
 function readTransformSignal(facts: RuleFacts, selector: TransformSignalSelector = 'auto'): number {
@@ -1050,10 +1068,21 @@ function buildPolicy(config: EngineConfig): GyeokgukPolicy {
   comp = mergeCompetition(comp, raw.competition ?? {});
 
   const seongpaeRaw: any = raw.seongpaeScore ?? {};
-  const seongpaeMultipliers = {
-    ...DEFAULT_SEONGPAE_SCORE_MULTIPLIERS,
-    ...(seongpaeRaw.multipliers && typeof seongpaeRaw.multipliers === 'object' ? seongpaeRaw.multipliers : {}),
-  };
+  const rawMultipliers = seongpaeRaw.multipliers && typeof seongpaeRaw.multipliers === 'object'
+    ? seongpaeRaw.multipliers
+    : {};
+  const seongpaeMultipliers = { ...DEFAULT_SEONGPAE_SCORE_MULTIPLIERS };
+  for (const verdict of Object.keys(seongpaeMultipliers) as SeongpaeVerdictKey[]) {
+    const candidate = rawMultipliers[verdict];
+    if (
+      typeof candidate === 'number'
+      && Number.isFinite(candidate)
+      && candidate >= 0
+      && candidate <= MAX_SEONGPAE_SCORE_MULTIPLIER
+    ) {
+      seongpaeMultipliers[verdict] = candidate;
+    }
+  }
 
   return {
     ...DEFAULT_POLICY,
@@ -1061,7 +1090,7 @@ function buildPolicy(config: EngineConfig): GyeokgukPolicy {
     tieBreakOrder,
     competition: comp,
     seongpaeScore: {
-      enabled: seongpaeRaw.enabled !== false,
+      enabled: seongpaeRaw.enabled === true,
       multipliers: seongpaeMultipliers,
     },
   };
@@ -1096,7 +1125,7 @@ export function computeGyeokguk(config: EngineConfig, facts: RuleFacts): Gyeokgu
     ranking,
     scores,
     competition: comp ?? undefined,
-    seongpaeScoreAdjustment: seongpaeScoreAdjustment ?? undefined,
+    ...(seongpaeScoreAdjustment ? { seongpaeScoreAdjustment } : {}),
     jonggyeokCandidates,
     basis: {
       monthMainTenGod: facts.month.mainTenGod,
@@ -1105,7 +1134,7 @@ export function computeGyeokguk(config: EngineConfig, facts: RuleFacts): Gyeokgu
       monthGyeokSelectionRule: facts.month.gyeok.selectionRule,
       monthGyeokQuality: facts.month.gyeok.quality,
       competition: comp ?? undefined,
-      seongpaeScoreAdjustment: seongpaeScoreAdjustment ?? undefined,
+      ...(seongpaeScoreAdjustment ? { seongpaeScoreAdjustment } : {}),
     },
     rules: { matches: evalRes.matches, assertionsFailed: evalRes.assertionsFailed },
   };
