@@ -30,6 +30,13 @@ export type SeongpaeVerdict =
 
 export interface SeongpaeResult {
   verdict: SeongpaeVerdict;
+  /**
+   * 월지 손상만으로 verdict가 강등된 경우의 강등 전 판정.
+   *
+   * 월지 손상은 이미 month.gyeok.quality.multiplier에 반영되므로, 점수 층은
+   * 이 값을 사용해 같은 손상을 seongpae 배율로 다시 곱하지 않는다.
+   */
+  verdictBeforeMonthBroken?: SeongpaeVerdict;
   /** 격 운용 방향 — 순용(길신 생조) / 역용(흉신 제화). */
   usage: 'SUNYONG' | 'YEOKYONG';
   /** 상신(격을 성격시키는 십성) — 투간에서 확인된 것. */
@@ -315,6 +322,7 @@ export function computeGyeokgukSeongpae(args: {
   } else if (strengthComparison?.decisive && strengthComparison.margin > 0 && verdict === 'SEONGJUNG_YUPA') {
     reasons.push(`strength:sangshin-dominant margin=${strengthComparison.margin.toFixed(2)}`);
   }
+  const verdictBeforeMonthBroken = verdict;
   if (args.monthBroken) {
     reasons.push('월지 손상(형충 — 탐합망충 해소 후에도 잔존)');
     if (verdict === 'SEONGGYEOK') verdict = 'SEONGJUNG_YUPA';
@@ -325,6 +333,7 @@ export function computeGyeokgukSeongpae(args: {
 
   return {
     verdict,
+    ...(verdict !== verdictBeforeMonthBroken ? { verdictBeforeMonthBroken } : {}),
     usage: rule.usage,
     sangshin: sangshinHit?.tenGod ?? null,
     sangshinStemHanja: sangshinHit ? stemHanja(sangshinHit.stem) : null,
