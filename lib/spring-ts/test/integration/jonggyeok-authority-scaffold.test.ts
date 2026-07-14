@@ -60,6 +60,7 @@ const AUTHORITY_TYPES = new Set([
 ]);
 const SOURCE_TIERS = new Set(['T3_AUTHORED_INTERPRETATION', 'T4_PRIMARY_TEXT', 'T5_OFFICIAL']);
 const GANJI_RE = /^[\u7532\u4E59\u4E19\u4E01\u620A\u5DF1\u5E9A\u8F9B\u58EC\u7678][\u5B50\u4E11\u5BC5\u536F\u8FB0\u5DF3\u5348\u672A\u7533\u9149\u620C\u4EA5]$/u;
+const REQUIRE_AUTHORITY = process.argv.includes('--require-authority');
 
 function isString(value: unknown): value is string {
   return typeof value === 'string' && value.trim().length > 0;
@@ -81,6 +82,16 @@ function hasValidBirth(value: unknown): boolean {
     Number.isInteger(birth.month) &&
     Number.isInteger(birth.day) &&
     Number.isInteger(birth.hour);
+}
+
+function hasAuthorityEligibility(sourceTier: any): boolean {
+  if (sourceTier?.authorityTruthEligible !== true) return false;
+  if (sourceTier?.tier === 'T4_PRIMARY_TEXT' || sourceTier?.tier === 'T5_OFFICIAL') return true;
+  if (sourceTier?.tier !== 'T3_AUTHORED_INTERPRETATION') return false;
+  const review = sourceTier?.authorityReview;
+  return review?.status === 'approved' &&
+    isString(review?.reviewedBy) &&
+    /^\d{4}-\d{2}-\d{2}$/.test(String(review?.reviewedAt ?? ''));
 }
 
 console.log('jonggyeok authority scaffold (PR-7/9)\n');
@@ -123,8 +134,9 @@ check('authority corpus has 20+ cases',
   Array.isArray(authority.cases) && authority.cases.length >= 20,
   `cases=${authority.cases?.length ?? 'n/a'}`);
 
-let matched = 0;
-let engineComparable = 0;
+let authorityMatched = 0;
+let birthRows = 0;
+let authorityComparable = 0;
 let pillarOnly = 0;
 
 for (const c of authority.cases ?? []) {
@@ -141,9 +153,13 @@ for (const c of authority.cases ?? []) {
   check(`${c.id}: expected yongshin element is present`,
     isString(c?.expectedYongshinElement),
     String(c?.expectedYongshinElement ?? ''));
-  check(`${c.id}: sourceTier T3+ and authorityTruthEligible`,
-    SOURCE_TIERS.has(tier) && c?.sourceTier?.authorityTruthEligible === true,
+  const authorityEligible = hasAuthorityEligibility(c?.sourceTier);
+  check(`${c.id}: sourceTier is T3+ intake`,
+    SOURCE_TIERS.has(tier),
     tier);
+  check(`${c.id}: authority eligibility is false or independently reviewable`,
+    c?.sourceTier?.authorityTruthEligible === false || authorityEligible,
+    c?.sourceTier?.authorityTruthEligible === true ? 'eligible' : 'intake-only');
   check(`${c.id}: sourceUrl is anchored`,
     typeof c?.sourceTier?.sourceUrl === 'string' && c.sourceTier.sourceUrl.startsWith('http'),
     String(c?.sourceTier?.sourceUrl ?? ''));
@@ -158,27 +174,40 @@ for (const c of authority.cases ?? []) {
     continue;
   }
 
-  engineComparable += 1;
+  birthRows += 1;
+  if (!authorityEligible) continue;
+
+  authorityComparable += 1;
   const sj: any = await engine.getSajuReport({
     birth: c.birth,
     surname: c.surname ?? [{ hangul: '\uAE40', hanja: '\u91D1' }],
     options: { precisionConfig: { sajuSchoolId: 'jonggyeok.calibrated' } } as any,
   });
   const type = String(sj.gyeokgukResult?.type ?? sj.gyeokguk?.type ?? '');
-  if (type.startsWith(String(c.expectedJonggyeokType))) matched += 1;
+  if (type.startsWith(String(c.expectedJonggyeokType))) authorityMatched += 1;
 }
 
 check('authority corpus currently includes pillar-only intake rows',
   pillarOnly > 0,
   `pillarOnly=${pillarOnly}`);
 
-if (engineComparable >= 20) {
-  const rate = matched / engineComparable;
-  console.log(`  INFO calibrated engine match: ${matched}/${engineComparable} (${(rate * 100).toFixed(0)}%)`);
-  check('promotion gate: 20+ engine-comparable rows have 80%+ calibrated match',
+if (authorityComparable >= 20) {
+  const rate = authorityMatched / authorityComparable;
+  console.log(`  INFO calibrated authority match: ${authorityMatched}/${authorityComparable} (${(rate * 100).toFixed(0)}%)`);
+  check('promotion gate: 20+ authority-eligible birth rows have 80%+ calibrated match',
     rate >= 0.8);
 } else {
-  console.log(`  INFO calibrated engine match deferred: ${engineComparable} birth rows, ${pillarOnly} pillar-only rows`);
+  console.log(
+    `  INFO calibrated authority match deferred: ${authorityComparable} eligible birth rows, ` +
+    `${birthRows} total birth rows, ${pillarOnly} pillar-only rows`,
+  );
+  if (REQUIRE_AUTHORITY) {
+    check(
+      'release gate: 20+ authority-eligible birth rows are required',
+      false,
+      `eligible=${authorityComparable}, birth=${birthRows}, pillarOnly=${pillarOnly}`,
+    );
+  }
 }
 
 engine.close();
