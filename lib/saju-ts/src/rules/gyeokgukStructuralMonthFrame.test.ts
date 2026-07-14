@@ -223,6 +223,33 @@ describe('structural month-gyeok integration', () => {
     expect(qualityGap).not.toBeCloseTo(candidateGap(candidates), 12);
   });
 
+  it('keeps excluded companion transparency as quality evidence without selecting it', () => {
+    const { facts, result } = analyze({
+      year: [5, 5],
+      month: [4, 4],
+      day: [0, 0],
+      hour: [1, 11],
+    });
+    const excludedCompanion = facts.month.gyeok.candidates?.find(
+      (candidate) => candidate.tenGod === 'GEOB_JAE' && candidate.visibleInChart,
+    );
+
+    expect(facts.month.gyeok.tenGod).toBe('PYEON_JAE');
+    expect(result.best).toBe('gyeokguk.PYEON_JAE');
+    expect(excludedCompanion).toMatchObject({
+      eligibleForGyeokSelection: false,
+      selectionExclusionReason: 'COMPANION_REQUIRES_STRUCTURAL_FRAME',
+    });
+    expect(facts.month.gyeok.quality).toMatchObject({
+      mixed: true,
+      qingZhuo: 'ZHUO',
+    });
+    expect(facts.month.gyeok.seongpae).toMatchObject({
+      verdict: 'PAGYEOK',
+      pagyeokFactor: 'GEOB_JAE',
+    });
+  });
+
   it.each([
     [
       '甲寅',

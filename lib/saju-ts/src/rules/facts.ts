@@ -2126,7 +2126,20 @@ function computeMonthGyeokQuality(args: {
   detectedRelations: DetectedRelation[];
   byType: Partial<Record<RelationType, BranchIdx[][]>>;
 }): RuleFacts['month']['gyeok']['quality'] {
-  const { config, monthBranch, gyeokStem, gyeokTenGod, gyeokMethod, selectionCandidates, exposureEvidenceCandidates, branches, hiddenStemPolicy, tenGodScoresRanking, detectedRelations, byType } = args;
+  const {
+    config,
+    monthBranch,
+    gyeokStem,
+    gyeokTenGod,
+    gyeokMethod,
+    selectionCandidates,
+    exposureEvidenceCandidates,
+    branches,
+    hiddenStemPolicy,
+    tenGodScoresRanking,
+    detectedRelations,
+    byType,
+  } = args;
 
   const raw: any = (config.strategies as any)?.gyeokguk?.quality ?? {};
   const rawTan: any = raw.tanhap ?? {};
@@ -2195,7 +2208,8 @@ function computeMonthGyeokQuality(args: {
     }
   })();
 
-  // --- Purity: how many distinct ten-gods are exposed among month hidden stems?
+  // --- Purity: every exposed month hidden stem is evidence, including a
+  // companion candidate that is ineligible for ordinary frame selection.
   const visibleTenGods = new Set(
     exposureEvidenceCandidates.filter((candidate) => candidate.visibleInChart).map((candidate) => candidate.tenGod));
   const visibleKinds = visibleTenGods.size;
