@@ -3058,8 +3058,12 @@ export function buildRuleFacts(args: {
   // source for candidate visibility, main-qi visibility, and middle-qi selection.
   const nonDayTransparentStems = [pillars.year.stem, pillars.month.stem, pillars.hour.stem];
   const selectionRule = readGyeokgukSelectionRule(config);
-  const bigyeopModeRaw = (config.strategies as any)?.gyeokguk?.bigyeopGyeok;
+  const gyeokgukStrategy = (config.strategies as any)?.gyeokguk ?? {};
+  const bigyeopModeRaw = gyeokgukStrategy.bigyeopGyeok;
   const bigyeopMode: 'classic' | 'legacy' = bigyeopModeRaw === 'legacy' ? 'legacy' : 'classic';
+  const earthMixedMonthPolicy = gyeokgukStrategy.earthMixedMonthFrame === 'geonrok_compat'
+    ? 'geonrok_compat'
+    : 'strict';
   // Structural eligibility is doctrine, while bigyeopMode is display
   // compatibility. Legacy naming must not re-enable companion candidates as
   // ordinary month-command frames.
@@ -3068,6 +3072,7 @@ export function buildRuleFacts(args: {
     monthBranch: pillars.month.branch,
     monthMainStem: monthMain,
     monthMainTenGod: monthMainTG,
+    earthMixedMonthPolicy,
   });
 
   const monthHiddenStems = hiddenStemsOfBranch(pillars.month.branch, hiddenStemPolicy).map((h) => ({
@@ -3175,7 +3180,8 @@ export function buildRuleFacts(args: {
   // 12운성 earthRule(수토동궁) 설정에 격국 판정이 끌려가면 안 되기 때문.
   // 주의(스코프 한정): '병무오월 양인' 전통의 戊午월은 午 본기 丁이 무토의 정인이라
   // 이 분기(비견/겁재)에 들어오지 않고 정인격 유지 — 십성 무관 제왕지 승격은 이설이 커서 미채택.
-  // 토 일간 잡기월(戊 일간 辰/戌월 등)의 본기 비견도 통칭 록겁 관례대로 GEONROK로 분류(엄밀 유파는 잡기격).
+  // 토 일간 잡기월(戊辰/戊戌·己丑/己未)은 정본 기본값에서 건록으로 자동 승격하지 않는다.
+  // 과거 호환 명칭은 earthMixedMonthFrame='geonrok_compat' 명시 시에만 사용한다.
   const bigyeopSubtype: BigyeopSubtype | null = bigyeopMode === 'classic'
     ? structuralMonthFrame?.subtype ?? null
     : null;

@@ -131,16 +131,12 @@ describe('structural month-frame classifier', () => {
   });
 
   it.each([
-    [4, 4, 4, 'BI_GYEON', 'GEONROK'],
-    [4, 10, 4, 'BI_GYEON', 'GEONROK'],
     [4, 1, 5, 'GEOB_JAE', 'WOLGEOB'],
     [4, 7, 5, 'GEOB_JAE', 'WOLGEOB'],
-    [5, 1, 5, 'BI_GYEON', 'GEONROK'],
-    [5, 7, 5, 'BI_GYEON', 'GEONROK'],
     [5, 4, 4, 'GEOB_JAE', 'WOLGEOB'],
     [5, 10, 4, 'GEOB_JAE', 'WOLGEOB'],
   ] as const)(
-    'keeps earth mixed-month policy for day stem %s / branch %s',
+    'classifies earth mixed-month GEOB_JAE as WOLGEOB for day stem %s / branch %s',
     (dayStem, monthBranch, monthMainStem, monthMainTenGod, subtype) => {
       expect(classifyStructuralMonthFrame({
         dayStem: dayStem as StemIdx,
@@ -148,6 +144,28 @@ describe('structural month-frame classifier', () => {
         monthMainStem: monthMainStem as StemIdx,
         monthMainTenGod,
       })?.subtype).toBe(subtype);
+    },
+  );
+
+  it.each([
+    [4, 4, 4],
+    [4, 10, 4],
+    [5, 1, 5],
+    [5, 7, 5],
+  ] as const)(
+    'does not auto-promote earth mixed-month BI_GYEON for day stem %s / branch %s',
+    (dayStem, monthBranch, monthMainStem) => {
+      const input = {
+        dayStem: dayStem as StemIdx,
+        monthBranch: monthBranch as BranchIdx,
+        monthMainStem: monthMainStem as StemIdx,
+        monthMainTenGod: 'BI_GYEON' as const,
+      };
+      expect(classifyStructuralMonthFrame(input)).toBeNull();
+      expect(classifyStructuralMonthFrame({
+        ...input,
+        earthMixedMonthPolicy: 'geonrok_compat',
+      })?.subtype).toBe('GEONROK');
     },
   );
 });
@@ -276,16 +294,26 @@ describe('structural month-gyeok integration', () => {
       { year: [0, 0], month: [6, 6], day: [5, 5], hour: [8, 8] },
       { tenGod: 'BI_GYEON', subtype: 'GEONROK', resultKey: 'gyeokguk.GEONROK' },
     ],
-    [
-      '戊辰 mixed-month compatibility',
-      { year: [0, 0], month: [4, 4], day: [4, 4], hour: [2, 4] },
-      { tenGod: 'BI_GYEON', subtype: 'GEONROK', resultKey: 'gyeokguk.GEONROK' },
-    ],
   ] as const)('selects %s from a structural month-frame basis', (_label, pillarSpec, expected) => {
     expectSelected(pillarSpec, {
       ...expected,
       method: 'STRUCTURAL_MONTH_FRAME',
     });
+  });
+
+  it('keeps 戊辰 mixed month out of GEONROK unless compatibility is explicit', () => {
+    const specimen: PillarSpec = {
+      year: [0, 0], month: [4, 4], day: [4, 4], hour: [2, 4],
+    };
+    expectSelected(
+      specimen,
+      { tenGod: 'BI_GYEON', method: 'MAIN_EXPOSED', subtype: null, resultKey: 'gyeokguk.BI_GYEON' },
+    );
+    expectSelected(
+      specimen,
+      { tenGod: 'BI_GYEON', method: 'STRUCTURAL_MONTH_FRAME', subtype: 'GEONROK', resultKey: 'gyeokguk.GEONROK' },
+      { earthMixedMonthFrame: 'geonrok_compat' },
+    );
   });
 
   it('documents that a structural frame takes precedence over selectionRule', () => {
