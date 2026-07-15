@@ -5,7 +5,7 @@
   "inputs": {
     "feedbackKind": "source_free_aggregate_snapshots",
     "calibrationMetric": "metrics/deterministic-calibration.json",
-    "calibrationMetricDigest": "sha256:cc749af0d7f6771f8dafde7553f3257d985db55255f38f2d539a9e65f93434e9"
+    "calibrationMetricDigest": "sha256:331e856f569b50e251cd7bbfc27a734b60d4a65be7f9a96a95a276a8e0cb5075"
   },
   "privacy": {
     "sourceFree": true,

@@ -4,7 +4,7 @@
   "generatedAt": "2026-05-02T00:00:00.000Z",
   "inputMetric": "metrics/bySourceTier.json#d1TruthCoverage.fixtures",
   "inputSchemaVersion": "spring-ts.by-source-tier.v2",
-  "inputMetricDigest": "sha256:8b0c0d1aef4acb8e79b78479ea617b1d25da0c1a79e27148f46c031aa0b04dc8",
+  "inputMetricDigest": "sha256:58da19d7be5a06c48351306c666d758304c674236c319df1ffa050df5cd09a07",
   "gridSearchPolicy": {
     "gridKind": "fixed_parameter_grid",
     "executionSurface": "SpringEngine.analyze(mode=evaluate)",
@@ -2689,12 +2689,12 @@
         "fixtureCount": 17,
         "changedFromDefault": 17,
         "unchangedFromDefault": 0,
-        "averageTotalDelta": -1.0118,
-        "averageSajuDelta": -3.9706,
-        "minTotalDelta": -7.3,
-        "maxTotalDelta": 0.6,
-        "minSajuDelta": -27,
-        "maxSajuDelta": 2.6
+        "averageTotalDelta": -0.2647,
+        "averageSajuDelta": -1.0118,
+        "minTotalDelta": -0.5,
+        "maxTotalDelta": 0.2,
+        "minSajuDelta": -2,
+        "maxSajuDelta": 0.8
       },
       "objective": {
         "completeD1ObjectiveFixtureCount": 0,
@@ -2865,12 +2865,12 @@
             "saju": 40
           },
           "score": {
-            "total": 55.4,
-            "saju": 25.5
+            "total": 58.4,
+            "saju": 39
           },
           "deltaVsDefault": {
-            "total": -3.3,
-            "saju": -14.5
+            "total": -0.3,
+            "saju": -1
           },
           "changedFromDefault": true
         },
@@ -3001,12 +3001,12 @@
             "saju": 55.2
           },
           "score": {
-            "total": 54.7,
-            "saju": 43.2
+            "total": 57.8,
+            "saju": 55.8
           },
           "deltaVsDefault": {
-            "total": -2.9,
-            "saju": -12
+            "total": 0.2,
+            "saju": 0.6
           },
           "changedFromDefault": true
         },
@@ -3069,12 +3069,12 @@
             "saju": 82.3
           },
           "score": {
-            "total": 69,
-            "saju": 55.3
+            "total": 76,
+            "saju": 81.3
           },
           "deltaVsDefault": {
-            "total": -7.3,
-            "saju": -27
+            "total": -0.3,
+            "saju": -1
           },
           "changedFromDefault": true
         },
@@ -3137,12 +3137,12 @@
             "saju": 33.5
           },
           "score": {
-            "total": 57,
-            "saju": 36.1
+            "total": 56.6,
+            "saju": 34.3
           },
           "deltaVsDefault": {
-            "total": 0.6,
-            "saju": 2.6
+            "total": 0.2,
+            "saju": 0.8
           },
           "changedFromDefault": true
         },
@@ -4690,12 +4690,12 @@
         "fixtureCount": 17,
         "changedFromDefault": 17,
         "unchangedFromDefault": 0,
-        "averageTotalDelta": -1.1412,
-        "averageSajuDelta": -4.5176,
-        "minTotalDelta": -7.5,
-        "maxTotalDelta": 0.7,
-        "minSajuDelta": -27.9,
-        "maxSajuDelta": 3.4
+        "averageTotalDelta": -0.4118,
+        "averageSajuDelta": -1.6353,
+        "minTotalDelta": -0.8,
+        "maxTotalDelta": 0.3,
+        "minSajuDelta": -3.2,
+        "maxSajuDelta": 1.3
       },
       "objective": {
         "completeD1ObjectiveFixtureCount": 0,
@@ -4866,12 +4866,12 @@
             "saju": 40
           },
           "score": {
-            "total": 55.4,
-            "saju": 25.6
+            "total": 58.3,
+            "saju": 38.5
           },
           "deltaVsDefault": {
-            "total": -3.3,
-            "saju": -14.4
+            "total": -0.4,
+            "saju": -1.5
           },
           "changedFromDefault": true
         },
@@ -5002,12 +5002,12 @@
             "saju": 55.2
           },
           "score": {
-            "total": 54.9,
-            "saju": 44
+            "total": 57.8,
+            "saju": 56
           },
           "deltaVsDefault": {
-            "total": -2.7,
-            "saju": -11.2
+            "total": 0.2,
+            "saju": 0.8
           },
           "changedFromDefault": true
         },
@@ -5070,12 +5070,12 @@
             "saju": 82.3
           },
           "score": {
-            "total": 68.8,
-            "saju": 54.4
+            "total": 75.8,
+            "saju": 80.6
           },
           "deltaVsDefault": {
-            "total": -7.5,
-            "saju": -27.9
+            "total": -0.5,
+            "saju": -1.7
           },
           "changedFromDefault": true
         },
@@ -5138,12 +5138,12 @@
             "saju": 33.5
           },
           "score": {
-            "total": 57.1,
-            "saju": 36.9
+            "total": 56.7,
+            "saju": 34.8
           },
           "deltaVsDefault": {
-            "total": 0.7,
-            "saju": 3.4
+            "total": 0.3,
+            "saju": 1.3
           },
           "changedFromDefault": true
         },

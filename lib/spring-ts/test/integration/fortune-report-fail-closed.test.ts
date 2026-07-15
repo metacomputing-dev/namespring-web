@@ -191,7 +191,11 @@ const nameDataError = new RepositoryDataError(
 );
 namedFortuneProbe.init = async () => {};
 namedFortuneProbe.getSajuReport = async () => ({ ...valid.summary, sajuEnabled: true });
-namedFortuneProbe.getSpringReport = async () => { throw nameDataError; };
+// getFortuneReport deliberately calls the private, already-snapshotted seam so
+// that validation cannot be bypassed through a mutable public request.  Stub
+// that actual seam here: mocking getSpringReport would let this regression
+// test pass without exercising the production call path.
+namedFortuneProbe.getSpringReportFromSnapshot = async () => { throw nameDataError; };
 const namedFortuneError = await captureError(() => namedFortuneProbe.getFortuneReport({
   birth: {
     year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male',

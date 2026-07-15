@@ -1239,12 +1239,12 @@
         "fixtureCount": 17,
         "changedFromDefault": 17,
         "unchangedFromDefault": 0,
-        "averageTotalDelta": -1.0118,
-        "averageSajuDelta": -3.9706,
-        "minTotalDelta": -7.3,
-        "maxTotalDelta": 0.6,
-        "minSajuDelta": -27,
-        "maxSajuDelta": 2.6,
+        "averageTotalDelta": -0.2647,
+        "averageSajuDelta": -1.0118,
+        "minTotalDelta": -0.5,
+        "maxTotalDelta": 0.2,
+        "minSajuDelta": -2,
+        "maxSajuDelta": 0.8,
         "byReferenceTier": {
           "T2_REFERENCE_IMPLEMENTATION": {
             "fixtureCount": 12,
@@ -1365,12 +1365,12 @@
         "fixtureCount": 17,
         "changedFromDefault": 17,
         "unchangedFromDefault": 0,
-        "averageTotalDelta": -1.1412,
-        "averageSajuDelta": -4.5176,
-        "minTotalDelta": -7.5,
-        "maxTotalDelta": 0.7,
-        "minSajuDelta": -27.9,
-        "maxSajuDelta": 3.4,
+        "averageTotalDelta": -0.4118,
+        "averageSajuDelta": -1.6353,
+        "minTotalDelta": -0.8,
+        "maxTotalDelta": 0.3,
+        "minSajuDelta": -3.2,
+        "maxSajuDelta": 1.3,
         "byReferenceTier": {
           "T2_REFERENCE_IMPLEMENTATION": {
             "fixtureCount": 12,
@@ -1652,8 +1652,8 @@
             "saju": 40
           },
           "chinese": {
-            "total": 55.4,
-            "saju": 25.5
+            "total": 58.4,
+            "saju": 39
           },
           "modern": {
             "total": 58.6,
@@ -1664,8 +1664,8 @@
             "saju": 39.5
           },
           "classical_text": {
-            "total": 55.4,
-            "saju": 25.6
+            "total": 58.3,
+            "saju": 38.5
           },
           "naming_safe": {
             "total": 58.8,
@@ -1678,8 +1678,8 @@
             "saju": 0
           },
           "chinese": {
-            "total": -3.3,
-            "saju": -14.5
+            "total": -0.3,
+            "saju": -1
           },
           "modern": {
             "total": -0.1,
@@ -1690,8 +1690,8 @@
             "saju": -0.5
           },
           "classical_text": {
-            "total": -3.3,
-            "saju": -14.4
+            "total": -0.4,
+            "saju": -1.5
           },
           "naming_safe": {
             "total": 0.1,
@@ -1904,8 +1904,8 @@
             "saju": 55.2
           },
           "chinese": {
-            "total": 54.7,
-            "saju": 43.2
+            "total": 57.8,
+            "saju": 55.8
           },
           "modern": {
             "total": 57.7,
@@ -1916,8 +1916,8 @@
             "saju": 55.4
           },
           "classical_text": {
-            "total": 54.9,
-            "saju": 44
+            "total": 57.8,
+            "saju": 56
           },
           "naming_safe": {
             "total": 57.5,
@@ -1930,8 +1930,8 @@
             "saju": 0
           },
           "chinese": {
-            "total": -2.9,
-            "saju": -12
+            "total": 0.2,
+            "saju": 0.6
           },
           "modern": {
             "total": 0.1,
@@ -1942,8 +1942,8 @@
             "saju": 0.2
           },
           "classical_text": {
-            "total": -2.7,
-            "saju": -11.2
+            "total": 0.2,
+            "saju": 0.8
           },
           "naming_safe": {
             "total": -0.1,
@@ -2030,8 +2030,8 @@
             "saju": 82.3
           },
           "chinese": {
-            "total": 69,
-            "saju": 55.3
+            "total": 76,
+            "saju": 81.3
           },
           "modern": {
             "total": 76.2,
@@ -2042,8 +2042,8 @@
             "saju": 81.6
           },
           "classical_text": {
-            "total": 68.8,
-            "saju": 54.4
+            "total": 75.8,
+            "saju": 80.6
           },
           "naming_safe": {
             "total": 76.5,
@@ -2056,8 +2056,8 @@
             "saju": 0
           },
           "chinese": {
-            "total": -7.3,
-            "saju": -27
+            "total": -0.3,
+            "saju": -1
           },
           "modern": {
             "total": -0.1,
@@ -2068,8 +2068,8 @@
             "saju": -0.7
           },
           "classical_text": {
-            "total": -7.5,
-            "saju": -27.9
+            "total": -0.5,
+            "saju": -1.7
           },
           "naming_safe": {
             "total": 0.2,
@@ -2156,8 +2156,8 @@
             "saju": 33.5
           },
           "chinese": {
-            "total": 57,
-            "saju": 36.1
+            "total": 56.6,
+            "saju": 34.3
           },
           "modern": {
             "total": 56.5,
@@ -2168,8 +2168,8 @@
             "saju": 34
           },
           "classical_text": {
-            "total": 57.1,
-            "saju": 36.9
+            "total": 56.7,
+            "saju": 34.8
           },
           "naming_safe": {
             "total": 56.3,
@@ -2182,8 +2182,8 @@
             "saju": 0
           },
           "chinese": {
-            "total": 0.6,
-            "saju": 2.6
+            "total": 0.2,
+            "saju": 0.8
           },
           "modern": {
             "total": 0.1,
@@ -2194,8 +2194,8 @@
             "saju": 0.5
           },
           "classical_text": {
-            "total": 0.7,
-            "saju": 3.4
+            "total": 0.3,
+            "saju": 1.3
           },
           "naming_safe": {
             "total": -0.1,
