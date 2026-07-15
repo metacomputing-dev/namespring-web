@@ -1,13 +1,50 @@
 {
-  "schemaVersion": "spring-ts.default-change-approval.v1",
+  "schemaVersion": "spring-ts.default-change-approval.v3",
   "approvals": [
     {
       "fingerprint": "sha256:2b92727a02624e89362b88653e2051b2a8b2c9e88d8e8d5aae8437cda4c7b074",
-      "status": "pending",
-      "reviewedBy": null,
-      "reviewedAt": null,
-      "evidence": [],
-      "note": "Current origin/main..HEAD snapshot delta remains blocked. Promote to approved only after independent expert review of every changed judgement and output field."
+      "status": "superseded",
+      "supersededBy": "https://github.com/metacomputing-dev/namespring-web/pull/654",
+      "supersededAt": "2026-07-15",
+      "supersessionEvidence": [
+        {
+          "kind": "stacked-review-dossier",
+          "reference": "lib/spring-ts/docs/dossiers/default-change-stack22-git-bound-2026-07-15/DOSSIER.md",
+          "summary": "The moving monolithic PR #653 comparison was replaced by exact-parent incremental stack reviews; this is not external doctrine certification.",
+          "sha256": "sha256:e824a0d4676f64f0ff5ae1226aa00109b0ba431e05534f8c243e1f32c7ef95f4"
+        }
+      ],
+      "note": "Historical cumulative comparison only; no longer a live branch delta."
+    },
+    {
+      "fingerprint": "sha256:2ca4ddcf743061692aa6e0900ee5d20e04aee134cb6c63954af38afca6c51bfc",
+      "status": "superseded",
+      "supersededBy": "https://github.com/metacomputing-dev/namespring-web/pull/654",
+      "supersededAt": "2026-07-15",
+      "supersessionEvidence": [
+        {
+          "kind": "stacked-review-dossier",
+          "reference": "lib/spring-ts/docs/dossiers/default-change-stack22-git-bound-2026-07-15/DOSSIER.md",
+          "summary": "Stack 01 landed through PR #654 after incremental review; supersession records baseline integration rather than independent expert approval.",
+          "sha256": "sha256:e824a0d4676f64f0ff5ae1226aa00109b0ba431e05534f8c243e1f32c7ef95f4"
+        }
+      ],
+      "note": "Historical Stack 01 comparison against its pre-merge baseline."
+    },
+    {
+      "fingerprint": "sha256:6018d66d34e3875e22cb8924f01221b41bfaa9adaa1c9993ff3ddadd809440a0",
+      "status": "superseded",
+      "supersededBy": "https://github.com/metacomputing-dev/namespring-web/pull/671",
+      "supersededAt": "2026-07-15",
+      "supersessionEvidence": [
+        {
+          "kind": "stacked-review-dossier",
+          "reference": "lib/spring-ts/docs/dossiers/default-change-stack22-git-bound-2026-07-15/DOSSIER.md",
+          "summary": "The pre-rebuild Stack 18 comparison was replaced by the reviewed implementation merged in PR #671; doctrine certification remains separate.",
+          "sha256": "sha256:e824a0d4676f64f0ff5ae1226aa00109b0ba431e05534f8c243e1f32c7ef95f4"
+        }
+      ],
+      "note": "Historical pre-rebuild Stack 18 comparison."
     }
   ]
 }
