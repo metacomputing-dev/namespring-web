@@ -3,6 +3,7 @@ import {
   CHEONGAN_RELATION_NOTES,
   JIJI_RELATION_NOTES,
   JIJI_RELATION_OUTCOMES,
+  LegacyContractConfigError,
   analyzeSaju,
   createBirthInput,
 } from './springLegacy.js';
@@ -308,5 +309,40 @@ describe('structural month-frame public candidates', () => {
     expect(output.gyeokgukResult.type).toBe('GEONROK');
     expect(types).toContain('GEONROK');
     expect(types).not.toContain('BI_GYEON');
+  });
+});
+
+describe('LegacySajuOutputV1 fail-closed config contract', () => {
+  const input = createBirthInput({
+    birthYear: 1986,
+    birthMonth: 4,
+    birthDay: 19,
+    birthHour: 5,
+    birthMinute: 45,
+    gender: 'MALE',
+  });
+
+  it.each([
+    'pillars',
+    'relations',
+    'tenGods',
+    'hiddenStems',
+    'elementDistribution',
+    'fortune',
+    'rules',
+    'lifeStages',
+    'stemRelations',
+  ] as const)('rejects disabled required toggle %s', (toggle) => {
+    let caught: unknown;
+    try {
+      analyzeSaju(input, { toggles: { [toggle]: false } });
+    } catch (error) {
+      caught = error;
+    }
+    expect(caught).toBeInstanceOf(LegacyContractConfigError);
+    expect((caught as LegacyContractConfigError).code)
+      .toBe('SAJU_LEGACY_CONTRACT_CONFIG_INVALID');
+    expect((caught as LegacyContractConfigError).disabledToggles)
+      .toContain(toggle);
   });
 });

@@ -247,6 +247,55 @@ export interface LegacySajuConfig {
   schemaVersion?: string;
 }
 
+const LEGACY_REQUIRED_TOGGLES = [
+  'pillars',
+  'relations',
+  'tenGods',
+  'hiddenStems',
+  'elementDistribution',
+  'fortune',
+  'rules',
+  'lifeStages',
+  'stemRelations',
+] as const satisfies readonly (keyof EngineConfig['toggles'])[];
+
+export class LegacyContractConfigError extends Error {
+  readonly code = 'SAJU_LEGACY_CONTRACT_CONFIG_INVALID';
+  readonly disabledToggles: readonly string[];
+
+  constructor(disabledToggles: readonly string[]) {
+    super(
+      `LegacySajuOutputV1 requires these engine toggles: ${disabledToggles.join(', ')}`,
+    );
+    this.name = 'LegacyContractConfigError';
+    this.disabledToggles = [...disabledToggles];
+  }
+}
+
+export class LegacyContractOutputError extends Error {
+  readonly code = 'SAJU_LEGACY_CONTRACT_OUTPUT_MISSING';
+  readonly missingFields: readonly string[];
+
+  constructor(missingFields: readonly string[]) {
+    super(
+      `Engine output cannot satisfy LegacySajuOutputV1; missing: ${missingFields.join(', ')}`,
+    );
+    this.name = 'LegacyContractOutputError';
+    this.missingFields = [...missingFields];
+  }
+}
+
+export class LegacyTimezoneError extends Error {
+  readonly code = 'SAJU_LEGACY_TIMEZONE_INVALID';
+  readonly timeZone: string;
+
+  constructor(timeZone: string, cause?: unknown) {
+    super(`Invalid or unsupported legacy timezone: ${timeZone}`, { cause });
+    this.name = 'LegacyTimezoneError';
+    this.timeZone = timeZone;
+  }
+}
+
 interface CivilDateTime {
   y: number;
   m: number;
@@ -379,7 +428,7 @@ export function parseOffsetToken(token: string): number | null {
   return sign * Math.round(hh * 60 + mm + ss / 60);
 }
 
-let warnedOffsetFallback = false;
+let warnedOffsetFailure = false;
 
 function offsetAtUtcMs(utcMs: number, timeZone: string): number {
   try {
@@ -393,18 +442,20 @@ function offsetAtUtcMs(utcMs: number, timeZone: string): number {
 
     const zoneName = parts.find((p) => p.type === 'timeZoneName')?.value ?? 'GMT+00:00';
     const parsed = parseOffsetToken(zoneName);
-    if (parsed == null && !warnedOffsetFallback) {
-      warnedOffsetFallback = true;
+    if (parsed == null && !warnedOffsetFailure) {
+      warnedOffsetFailure = true;
       // 무경고 +09:00 폴백은 약 32분 오차를 침묵시킨다 — 최소한 한 번은 드러낸다 (감사 A15a).
-      console.warn(`[saju-ts/springLegacy] failed to parse tz offset token "${zoneName}" (${timeZone}); falling back to +09:00`);
+      console.warn(`[saju-ts/springLegacy] failed to parse tz offset token "${zoneName}" (${timeZone}); rejecting input`);
     }
-    return parsed ?? 540;
-  } catch {
-    if (!warnedOffsetFallback) {
-      warnedOffsetFallback = true;
-      console.warn(`[saju-ts/springLegacy] Intl offset lookup failed for tz "${timeZone}"; falling back to +09:00`);
+    if (parsed == null) throw new LegacyTimezoneError(timeZone);
+    return parsed;
+  } catch (cause) {
+    if (cause instanceof LegacyTimezoneError) throw cause;
+    if (!warnedOffsetFailure) {
+      warnedOffsetFailure = true;
+      console.warn(`[saju-ts/springLegacy] Intl offset lookup failed for tz "${timeZone}"; rejecting input`);
     }
-    return 540;
+    throw new LegacyTimezoneError(timeZone, cause);
   }
 }
 
@@ -451,6 +502,24 @@ export function resolveOffsetMinutes(timeZone: string, civil: CivilDateTime): nu
   if (parsedFromToken != null) return parsedFromToken;
 
   const utcGuess = Date.UTC(civil.y, civil.m - 1, civil.d, civil.h, civil.min, 0);
+  try {
+    const probeParts = new Intl.DateTimeFormat('en-US', {
+      timeZone,
+      timeZoneName: 'shortOffset',
+      hour: '2-digit',
+      minute: '2-digit',
+      hourCycle: 'h23',
+    }).formatToParts(new Date(utcGuess));
+    const probeToken = probeParts
+      .find((part) => part.type === 'timeZoneName')
+      ?.value ?? '';
+    if (parseOffsetToken(probeToken) == null) {
+      throw new LegacyTimezoneError(timeZone);
+    }
+  } catch (cause) {
+    if (cause instanceof LegacyTimezoneError) throw cause;
+    throw new LegacyTimezoneError(timeZone, cause);
+  }
   const first = offsetAtUtcMs(utcGuess, timeZone);
   const correctedUtc = utcGuess - first * 60_000;
   const second = offsetAtUtcMs(correctedUtc, timeZone);
@@ -1344,6 +1413,11 @@ function buildEngineConfig(
   };
 
   cfg = deepMerge(cfg, pickEngineConfigPatch(legacy));
+  const disabledToggles = LEGACY_REQUIRED_TOGGLES
+    .filter((toggle) => cfg.toggles[toggle] !== true);
+  if (disabledToggles.length > 0) {
+    throw new LegacyContractConfigError(disabledToggles);
+  }
   return { config: cfg };
 }
 
@@ -1400,12 +1474,55 @@ function makeRequest(
 }
 
 function getSummaryPillars(bundle: AnalysisBundle) {
-  return bundle.summary?.pillars ?? {
-    year: { stem: { idx: 0 }, branch: { idx: 0 } },
-    month: { stem: { idx: 0 }, branch: { idx: 0 } },
-    day: { stem: { idx: 0 }, branch: { idx: 0 } },
-    hour: { stem: { idx: 0 }, branch: { idx: 0 } },
+  const pillars = bundle.summary?.pillars;
+  if (!pillars) throw new LegacyContractOutputError(['summary.pillars']);
+  return pillars;
+}
+
+function assertLegacyBundleContract(bundle: AnalysisBundle): void {
+  const summary = bundle.summary as Record<string, unknown> | undefined;
+  const missing: string[] = [];
+  const requireObject = (path: string, value: unknown): void => {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) {
+      missing.push(path);
+    }
   };
+  const requireArray = (path: string, value: unknown): void => {
+    if (!Array.isArray(value)) missing.push(path);
+  };
+  const requireFinite = (path: string, value: unknown): void => {
+    if (!Number.isFinite(Number(value))) missing.push(path);
+  };
+
+  requireObject('summary', summary);
+  requireObject('summary.pillars', summary?.pillars);
+  requireObject('summary.strength', summary?.strength);
+  requireFinite('summary.strength.index', (summary?.strength as any)?.index);
+  requireFinite('summary.strength.support', (summary?.strength as any)?.support);
+  requireFinite('summary.strength.pressure', (summary?.strength as any)?.pressure);
+  requireObject('summary.yongshin', summary?.yongshin);
+  requireArray('summary.yongshin.ranking', (summary?.yongshin as any)?.ranking);
+  requireObject('summary.gyeokguk', summary?.gyeokguk);
+  requireArray('summary.gyeokguk.ranking', (summary?.gyeokguk as any)?.ranking);
+  requireObject('summary.elementDistribution', summary?.elementDistribution);
+  requireObject(
+    'summary.elementDistribution.total',
+    (summary?.elementDistribution as any)?.total,
+  );
+  requireObject('summary.tenGods', summary?.tenGods);
+  requireObject('summary.hiddenStems', summary?.hiddenStems);
+  requireObject('summary.tenGodsHiddenStems', summary?.tenGodsHiddenStems);
+  requireArray('summary.relations', summary?.relations);
+  requireArray('summary.stemRelations', summary?.stemRelations);
+  requireObject('summary.lifeStages', summary?.lifeStages);
+  requireArray('summary.shinsalHits', summary?.shinsalHits);
+  requireObject('summary.fortune', summary?.fortune);
+  requireObject('summary.fortune.start', (summary?.fortune as any)?.start);
+  requireArray('summary.fortune.decades', (summary?.fortune as any)?.decades);
+  requireArray('summary.fortune.years', (summary?.fortune as any)?.years);
+  requireObject('report.facts', bundle.report?.facts);
+
+  if (missing.length > 0) throw new LegacyContractOutputError(missing);
 }
 
 function extractDeficientAndExcessive(distribution: Record<string, number>): {
@@ -1490,6 +1607,7 @@ function normalizeLegacyOutput(
   wolunMonthCount?: number,
   timeZone?: string,
 ): LegacySajuOutputV1 {
+  assertLegacyBundleContract(bundle);
   const facts = bundle.report?.facts as Record<string, unknown>;
   const correction = (facts?.['time.trueSolarCorrection'] ?? {}) as TrueSolarCorrectionView;
   const jieProximity = buildJieProximity(facts);

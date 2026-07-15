@@ -1,3 +1,5 @@
+import { deepFreeze } from '../utils/deepMerge.js';
+
 /**
  * 納音 (naeum / sound-of-the-pillar) 60 갑자 table.
  *
@@ -23,7 +25,7 @@ export interface NaeumEntry {
 }
 
 /** 60갑자 pair table — 30 entries, each covering 2 consecutive 갑자. */
-export const NAEUM_PAIR_TABLE: ReadonlyArray<readonly [readonly [string, string], NaeumEntry]> = [
+export const NAEUM_PAIR_TABLE: ReadonlyArray<readonly [readonly [string, string], NaeumEntry]> = deepFreeze([
   [['甲子', '乙丑'], { nameHanja: '海中金', nameKorean: '해중금', elementHanja: '金', meaning: '바다 속의 금' }],
   [['丙寅', '丁卯'], { nameHanja: '爐中火', nameKorean: '노중화', elementHanja: '火', meaning: '화로 속의 불' }],
   [['戊辰', '己巳'], { nameHanja: '大林木', nameKorean: '대림목', elementHanja: '木', meaning: '큰 숲의 나무' }],
@@ -54,16 +56,16 @@ export const NAEUM_PAIR_TABLE: ReadonlyArray<readonly [readonly [string, string]
   [['戊午', '己未'], { nameHanja: '天上火', nameKorean: '천상화', elementHanja: '火', meaning: '하늘의 불' }],
   [['庚申', '辛酉'], { nameHanja: '石榴木', nameKorean: '석류목', elementHanja: '木', meaning: '석류나무' }],
   [['壬戌', '癸亥'], { nameHanja: '大海水', nameKorean: '대해수', elementHanja: '水', meaning: '큰 바닷물' }],
-] as const;
+] as const);
 
 /** Flat ganzhi → NaeumEntry lookup. Built once at module load. */
-export const NAEUM_BY_GANZHI: Readonly<Record<string, NaeumEntry>> = (() => {
+export const NAEUM_BY_GANZHI: Readonly<Record<string, NaeumEntry>> = deepFreeze((() => {
   const out: Record<string, NaeumEntry> = {};
   for (const [pair, entry] of NAEUM_PAIR_TABLE) {
     for (const gz of pair) out[gz] = entry;
   }
   return out;
-})();
+})());
 
 export type NaeumPosition = 'year' | 'month' | 'day' | 'hour';
 

@@ -1,9 +1,9 @@
 import type { EngineConfig } from './types.js';
 import { migrateConfig } from './migrations.js';
 import { applySchoolPreset, resolveSchoolPresetPacks } from '../schools/index.js';
-import { deepMerge } from '../utils/deepMerge.js';
+import { deepFreeze, deepMerge } from '../utils/deepMerge.js';
 
-export const defaultConfig: EngineConfig = {
+export const defaultConfig: EngineConfig = deepFreeze({
   schemaVersion: '1',
   calendar: {
     yearBoundary: 'liChun',
@@ -44,7 +44,7 @@ export const defaultConfig: EngineConfig = {
     // validate:default-change + κ 코퍼스 재생성 계획과 세트인 별도 결정.
     elements: { interactionAdjusted: false },
   },
-};
+} satisfies EngineConfig);
 
 /** Raised when an explicit school selector cannot be parsed into preset ids. */
 export class InvalidSchoolPresetSelectorError extends Error {

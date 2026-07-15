@@ -364,8 +364,24 @@ export function solarTermUtcMsForLongitude(
   return Math.round(julianDayToUtcMs(rootJd));
 }
 
-const cacheSolar = new Map<string, SolarTermInstant[]>();
-const cacheJie = new Map<string, SolarTermInstant[]>();
+type FrozenSolarTermList = readonly Readonly<SolarTermInstant>[];
+
+function freezeSolarTermList(
+  terms: readonly SolarTermInstant[],
+): FrozenSolarTermList {
+  return Object.freeze(
+    terms.map((term) => Object.freeze({ ...term })),
+  );
+}
+
+function cloneSolarTermList(
+  terms: FrozenSolarTermList,
+): SolarTermInstant[] {
+  return terms.map((term) => ({ ...term }));
+}
+
+const cacheSolar = new Map<string, FrozenSolarTermList>();
+const cacheJie = new Map<string, FrozenSolarTermList>();
 
 export function getSolarTerms(
   year: number,
@@ -376,7 +392,7 @@ export function getSolarTerms(
 ): SolarTermInstant[] {
   const key = `${method}:${algorithm}:${aberrationModel}:${solarPrecision}:${year}`;
   const cached = cacheSolar.get(key);
-  if (cached) return cached;
+  if (cached) return cloneSolarTermList(cached);
 
   const out: SolarTermInstant[] = SOLAR_TERMS_24.map((spec) => ({
     id: spec.id,
@@ -385,8 +401,9 @@ export function getSolarTerms(
     utcMs: solarTermUtcMsForLongitude(year, spec.longitude, method, algorithm, aberrationModel, solarPrecision),
   })).sort((a, b) => a.utcMs - b.utcMs);
 
-  cacheSolar.set(key, out);
-  return out;
+  const frozen = freezeSolarTermList(out);
+  cacheSolar.set(key, frozen);
+  return cloneSolarTermList(frozen);
 }
 
 export function getJieBoundaries(
@@ -398,14 +415,15 @@ export function getJieBoundaries(
 ): SolarTermInstant[] {
   const key = `${method}:${algorithm}:${aberrationModel}:${solarPrecision}:${year}`;
   const cached = cacheJie.get(key);
-  if (cached) return cached;
+  if (cached) return cloneSolarTermList(cached);
 
   const out = getSolarTerms(year, method, algorithm, aberrationModel, solarPrecision)
     .filter((t) => isJieTermId(t.id))
     .sort((a, b) => a.utcMs - b.utcMs);
 
-  cacheJie.set(key, out);
-  return out;
+  const frozen = freezeSolarTermList(out);
+  cacheJie.set(key, frozen);
+  return cloneSolarTermList(frozen);
 }
 
 export function getSolarTermsAround(
