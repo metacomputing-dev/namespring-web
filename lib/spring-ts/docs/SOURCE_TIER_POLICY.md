@@ -18,6 +18,24 @@ Only `T5_OFFICIAL`, `T4_PRIMARY_TEXT`, and explicitly reviewed `T3_AUTHORED_INTE
 records may drive pass/fail authority accuracy. `T0_*` and `T1_*` records must
 never enter authority denominators. `T2_*` records may be used for comparison,
 regression observation, or hypothesis discovery, but not as standalone truth.
+Newly promoted T3 records must record an `authorityReview` block containing
+`status: "approved"`, a non-empty `reviewedBy`, and an ISO `reviewedAt` date.
+Legacy T3 records without this block require review migration; a source URL by
+itself is not review evidence.
+
+### Review mechanism (2026-07-10 owner decision)
+
+This project currently has no external myeongri expert. The owner adopted a
+two-layer review mechanism for every `authorityReview` and approval control:
+**multi-model AI cross-verification** (independent adversarial panel, dossier
+versioned in-repo) as the evidence layer, and the **project owner's signature**
+(`reviewedBy`) as the accountability layer. Records whose *judgements
+originate from* the AI panel additionally use
+`sourceType: "ai_panel_adjudicated_interpretation"` with `aiGenerated: true`
+and a `panelAdjudication` block — see `NO_AI_POLICY.md` "Panel-adjudicated
+exception" for the mechanical requirements. This mechanism is disclosed
+honestly wherever it is used: it is **not** external human expert
+certification, and user-facing claims must not present it as such.
 
 ## Required Metadata
 
@@ -46,6 +64,36 @@ status. If a `T0_*` or `T1_*` record is placed where the gate would consume it
 as authority truth, the gate fails with a source-tier violation. Low-tier
 records can remain in the repository as hypotheses, compatibility references,
 or regression observations when `authorityTruthEligible` is `false`.
+
+The audit also rejects `T3_AUTHORED_INTERPRETATION` with
+`authorityTruthEligible: true` unless `authorityReview` is approved and
+complete. The rule is enforced both when auditing metadata and when selecting
+records for an accuracy denominator.
+
+### 2026-07-10 demotion of 25 legacy T3 records
+
+The 25 legacy T3 records (2 `chumyeongga`, 9 `figures`, 14 `lecture`) that
+claimed `authorityTruthEligible: true` without an approved review were demoted
+in place: `authorityTruthEligible` is now `false` and each record carries
+`reviewStatus: "pending_independent_review"`, `demotedAt`, and a
+`demotionNote`. Nothing else in the records changed; expected judgements and
+provenance are preserved verbatim. This makes the tier metadata truthful — the
+records were already excluded from every accuracy denominator by the
+eligibility rule, so no gate arithmetic changed.
+
+**Re-promotion procedure (per record):** the record's expected judgement is
+re-verified against the cited source through the two-layer review mechanism
+above (AI cross-verification dossier + owner signature), then the reviewer adds
+`sourceTier.authorityReview: { "status": "approved", "reviewedBy": "<name>",
+"reviewedAt": "YYYY-MM-DD" }`, restores `authorityTruthEligible: true`, and
+removes `reviewStatus`/`demotedAt`/`demotionNote`. D1 accuracy denominators
+begin consuming the record automatically once it validates. (These 25 records
+are human-authored web/lecture interpretations, so they keep their original
+`sourceType` — the panel dossier is verification evidence, not origin.)
+
+Exact default-output change approval is a separate control documented in
+`RELEASE_APPROVAL_POLICY.md`; source eligibility does not automatically approve
+a branch snapshot delta.
 
 `npm run ci:no-ai-policy` adds the Phase 9.3 recursive guard for AI-derived
 records and runtime LLM dependencies. See `NO_AI_POLICY.md` for policy markers

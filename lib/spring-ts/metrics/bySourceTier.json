@@ -10,9 +10,9 @@
     "T2_REFERENCE_IMPLEMENTATION": {
       "fixtureCount": 12,
       "fixtureStatus": {
-        "PASS": 12,
+        "PASS": 9,
         "FAIL": 0,
-        "N/A": 0
+        "N/A": 3
       },
       "dimensionStatus": {
         "D1": {
@@ -26,9 +26,9 @@
           "N/A": 12
         },
         "D3": {
-          "PASS": 12,
+          "PASS": 0,
           "FAIL": 0,
-          "N/A": 0
+          "N/A": 12
         },
         "D4": {
           "PASS": 0,
@@ -36,9 +36,10 @@
           "N/A": 12
         },
         "D5": {
-          "PASS": 5,
+          "PASS": 9,
           "FAIL": 0,
-          "N/A": 7
+          "N/A": 0,
+          "NOT_APPLICABLE": null
         }
       },
       "truthBuckets": {
@@ -53,9 +54,9 @@
     "NO_REFERENCE": {
       "fixtureCount": 5,
       "fixtureStatus": {
-        "PASS": 3,
+        "PASS": 5,
         "FAIL": 0,
-        "N/A": 2
+        "N/A": 0
       },
       "dimensionStatus": {
         "D1": {
@@ -79,9 +80,9 @@
           "N/A": 5
         },
         "D5": {
-          "PASS": 3,
+          "PASS": 5,
           "FAIL": 0,
-          "N/A": 2
+          "N/A": 0
         }
       },
       "truthBuckets": {
@@ -2077,7 +2078,7 @@
     ],
     "authorityFixtureCoverage": {
       "scorableAuthorityFixtures": 0,
-      "nonScorableAuthorityFixtures": 78,
+      "nonScorableAuthorityFixtures": 76,
       "pillarOnlyAuthorityFixtures": 75,
       "ruleSnippetCollections": 1,
       "note": "Authority casebooks are source-tiered, but current records are not full naming-score inputs with birth + surname + givenName."

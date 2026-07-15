@@ -4,9 +4,25 @@
     "purpose": "Source-anchored special-frame chart intake for PR-7/9 jonggyeok calibration. Public web interpretations remain non-authority until independently reviewed; pillar-only rows are not engine-comparable.",
     "intakeRequirements": {
       "sourceTier": "T3_AUTHORED_INTERPRETATION or higher with source metadata. T3 web intake remains authorityTruthEligible=false until explicit independent review.",
-      "requiredFields": ["id", "label", "birth", "pillars", "expectedJonggyeokType", "expectedYongshinElement", "sourceTier"],
+      "requiredFields": [
+        "id",
+        "label",
+        "birth",
+        "pillars",
+        "expectedJonggyeokType",
+        "expectedYongshinElement",
+        "sourceTier"
+      ],
       "expectedJonggyeokType": "CONG_CAI | CONG_GUAN | CONG_SHA | CONG_ER | CONG_YIN | CONG_BI | ZHUAN_WANG | HUA_QI",
-      "note": "When birth is unavailable, birth is null and pillars is a four-ganji string in year month day hour order. Engine comparison is skipped until direct-pillar analysis is supported."
+      "note": "When birth is unavailable, birth is null and pillars is a four-ganji string in year month day hour order. Engine comparison is skipped until direct-pillar analysis is supported.",
+      "birthContext": {
+        "timezone": "IANA timezone inside birth (e.g. Asia/Shanghai) for foreign-born cases; engine default is Asia/Seoul.",
+        "longitude": "Standard-meridian longitude inside birth (e.g. 120 for Beijing time) so residual longitude correction is zero when the birth city is unknown.",
+        "timePolicy": "Optional per-case sajuTimePolicy passed to the engine. Chinese practitioner cases judged by local clock hour use { trueSolarTime: off, longitudeCorrection: off } for clock-time fidelity.",
+        "hourConvention": "When the source gives only a shichen (時辰), use its mid-hour clock time (寅時→04:00, 未時→14:00). Exact clock times are kept as-is with minute.",
+        "dstNote": "Mainland China observed DST only 1986-1991; cases born 1963-1985 need no DST handling.",
+        "chartFidelity": "Every birth row must reproduce its declared pillars through the engine calendar (scaffold test enforces this fail-closed). Mismatched rows are excluded from the match denominator and fail the suite."
+      }
     },
     "promotionCriteria": "80%+ calibrated match on 20+ authorityTruthEligible birth-time cases. Pillar-only or unreviewed web cases are source intake and subtype coverage evidence, never an accuracy denominator.",
     "accessedAt": "2026-07-08",

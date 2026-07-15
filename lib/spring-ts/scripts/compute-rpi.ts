@@ -24,6 +24,7 @@ import {
   type SajuOutputSummary,
 } from '../src/index.js';
 import { SCHOOL_PRESET_ORDER, type SchoolPresetName } from '../src/preset-loader.js';
+import { scoreAxisFromDimension } from './rpi-scoring.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRING_TS_ROOT = path.resolve(__dirname, '..');
@@ -32,6 +33,10 @@ const WASM_PATH = path.resolve(SPRING_TS_ROOT, 'node_modules/sql.js/dist/sql-was
 
 const FIXTURES_PATH = path.resolve(SPRING_TS_ROOT, 'test/fixtures/spring_ts_baseline_cases.json');
 const JONGGYEOK_FIXTURES_PATH = path.resolve(SPRING_TS_ROOT, 'test/fixtures/jonggyeok_cases.json');
+const JONGGYEOK_AUTHORITY_CASES_PATH = path.resolve(
+  SPRING_TS_ROOT,
+  'test/fixtures/jonggyeok_authority_cases.json',
+);
 const SNAPSHOT_PATH = path.resolve(SPRING_TS_ROOT, 'test/baseline/spring_ts_snapshot.json');
 const PHASE_P_RESULTS_PATH = path.resolve(SPRING_TS_ROOT, 'test/baseline/PHASE_P_RESULTS.md');
 const AUTHORITY_DIR = path.resolve(SPRING_TS_ROOT, 'test/baseline/authority');
@@ -41,9 +46,8 @@ const LEGAL_HANJA_RECONCILIATION_PATH = path.resolve(SPRING_TS_ROOT, 'data/legal
 const QUALITY_GATE = path.resolve(SPRING_TS_ROOT, 'tools/quality_gate.mjs');
 
 const TIER_NO_REFERENCE = 'NO_REFERENCE';
-const MIN_AUTHORITY_TRUTH_TIER = 3;
-
 type Status = 'PASS' | 'FAIL' | 'N/A';
+type GateStatus = Status | 'PARTIAL';
 
 interface SourceTier {
   tier?: string;
@@ -54,6 +58,11 @@ interface SourceTier {
   humanInterpretation?: string | null;
   copyrightNote?: string | null;
   authorityTruthEligible?: boolean;
+  authorityReview?: {
+    status?: string;
+    reviewedBy?: string;
+    reviewedAt?: string;
+  };
 }
 
 interface BaselineFixture {
@@ -80,21 +89,21 @@ type ScorableFixture = Pick<BaselineFixture, 'id' | 'birth' | 'surname' | 'given
 interface QualityGateFixture {
   fixtureId: string;
   label: string;
-  status: Status;
+  status: GateStatus;
   dimensions: Record<string, { status: Status; reason?: string; failedCount?: number; totalChecks?: number }>;
   measuredCount?: number;
   failedCount?: number;
 }
 
 interface QualityGateReport {
-  overall: Status;
+  overall: GateStatus;
   sourceTierAudit: {
     status: 'PASS' | 'FAIL';
     scanned: number;
     violations: unknown[];
   };
   totals: { pass: number; fail: number; na: number; total: number };
-  dimensions: Record<string, { pass: number; fail: number; na: number; status: Status }>;
+  dimensions: Record<string, { pass: number; fail: number; na: number; status: GateStatus }>;
   fixtures: QualityGateFixture[];
   generatedAt?: string;
   qualityGateExitCode?: number;
@@ -157,7 +166,9 @@ function walkJsonFiles(dir: string): string[] {
   const out: string[] = [];
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const fullPath = path.join(dir, entry.name);
-    if (entry.isDirectory()) out.push(...walkJsonFiles(fullPath));
+    if (entry.isDirectory() && !entry.name.startsWith('_')) {
+      out.push(...walkJsonFiles(fullPath));
+    }
     else if (entry.isFile() && entry.name.endsWith('.json')) out.push(fullPath);
   }
   return out.sort();
@@ -168,6 +179,16 @@ function parseTierRank(sourceTier: SourceTier | null | undefined): number | null
   if (typeof tier !== 'string') return null;
   const match = tier.match(/^T([0-5])_/);
   return match ? Number(match[1]) : null;
+}
+
+function isEligibleSourceTier(sourceTier: SourceTier | null | undefined): boolean {
+  const rank = parseTierRank(sourceTier);
+  if (sourceTier?.authorityTruthEligible !== true || rank === null || rank < 3) return false;
+  if (rank !== 3) return true;
+  return sourceTier.authorityReview?.status === 'approved' &&
+    typeof sourceTier.authorityReview.reviewedBy === 'string' &&
+    sourceTier.authorityReview.reviewedBy.trim().length > 0 &&
+    /^\d{4}-\d{2}-\d{2}$/.test(sourceTier.authorityReview.reviewedAt ?? '');
 }
 
 function sourceTierRecord(
@@ -183,12 +204,17 @@ function sourceTierRecord(
     tier: sourceTier?.tier ?? 'MISSING_SOURCE_TIER',
     tierRank: parseTierRank(sourceTier),
     sourceType: sourceTier?.sourceType ?? 'unknown',
-    authorityTruthEligible: sourceTier?.authorityTruthEligible === true,
+    authorityTruthEligible: isEligibleSourceTier(sourceTier),
   };
 }
 
 function sourceTierRecordsForFile(filePath: string, data: any): SourceTierRecord[] {
-  const records = [sourceTierRecord(filePath, data?.sourceTier)];
+  const topLevelSourceTier = data?.sourceTier ?? data?._meta?.sourceTier;
+  const records = [sourceTierRecord(
+    filePath,
+    topLevelSourceTier,
+    data?.sourceTier ? 'sourceTier' : '_meta.sourceTier',
+  )];
   if (Array.isArray(data?.sources)) {
     data.sources.forEach((source: any, index: number) => {
       records.push(sourceTierRecord(
@@ -196,6 +222,27 @@ function sourceTierRecordsForFile(filePath: string, data: any): SourceTierRecord
         source?.sourceTier,
         `sources[${index}].sourceTier`,
         typeof source?.id === 'string' ? source.id : null,
+      ));
+    });
+  }
+  if (Array.isArray(data?.snippets)) {
+    data.snippets.forEach((snippet: any, index: number) => {
+      records.push(sourceTierRecord(
+        filePath,
+        snippet?.sourceTier,
+        `snippets[${index}].sourceTier`,
+        typeof snippet?.id === 'string' ? snippet.id : null,
+      ));
+    });
+  }
+  if (Array.isArray(data?.cases)) {
+    data.cases.forEach((record: any, index: number) => {
+      if (!record || typeof record !== 'object' || !('sourceTier' in record)) return;
+      records.push(sourceTierRecord(
+        filePath,
+        record?.sourceTier,
+        `cases[${index}].sourceTier`,
+        typeof record?.id === 'string' ? record.id : null,
       ));
     });
   }
@@ -223,6 +270,9 @@ function scanSourceTiers(): { records: SourceTierRecord[]; byTier: Record<string
     ...walkJsonFiles(DATA_SOURCES_DIR),
   ];
   if (fs.existsSync(JONGGYEOK_FIXTURES_PATH)) files.push(JONGGYEOK_FIXTURES_PATH);
+  if (fs.existsSync(JONGGYEOK_AUTHORITY_CASES_PATH)) {
+    files.push(JONGGYEOK_AUTHORITY_CASES_PATH);
+  }
 
   const records = files.flatMap((filePath) => {
     const data = readJson(filePath);
@@ -291,9 +341,7 @@ function referenceProfileForFixture(fixtureId: string): ReferenceProfile {
   const authority = loadDirectAuthority(fixtureId);
   if (authority?.sourceTier) {
     const tierRank = parseTierRank(authority.sourceTier);
-    const eligible = authority.sourceTier.authorityTruthEligible === true &&
-      tierRank !== null &&
-      tierRank >= MIN_AUTHORITY_TRUTH_TIER;
+    const eligible = isEligibleSourceTier(authority.sourceTier);
     return {
       tier: authority.sourceTier.tier,
       tierRank,
@@ -308,9 +356,7 @@ function referenceProfileForFixture(fixtureId: string): ReferenceProfile {
   const oracle = loadOracle(fixtureId);
   if (oracle?.sourceTier) {
     const tierRank = parseTierRank(oracle.sourceTier);
-    const eligible = oracle.sourceTier.authorityTruthEligible === true &&
-      tierRank !== null &&
-      tierRank >= MIN_AUTHORITY_TRUTH_TIER;
+    const eligible = isEligibleSourceTier(oracle.sourceTier);
     return {
       tier: oracle.sourceTier.tier,
       tierRank,
@@ -941,28 +987,6 @@ async function buildSchoolPresetBreakdown(fixtures: BaselineFixture[]): Promise<
     presets,
     rows,
     authorityFixtureCoverage: buildAuthorityFixtureCoverage(),
-  };
-}
-
-function scoreAxisFromDimension(gate: QualityGateReport, dimension: string, points: number, notMeasuredReason: string): any {
-  const d = gate.dimensions[dimension];
-  const measured = (d?.pass ?? 0) + (d?.fail ?? 0);
-  if (!d || measured === 0) {
-    return {
-      maxPoints: points,
-      score: 0,
-      status: 'NOT_MEASURED',
-      reason: notMeasuredReason,
-    };
-  }
-  const score = points * ((d.pass ?? 0) / measured);
-  return {
-    maxPoints: points,
-    score: Number(score.toFixed(2)),
-    status: d.fail > 0 ? 'FAIL' : 'PASS',
-    pass: d.pass,
-    fail: d.fail,
-    na: d.na,
   };
 }
 

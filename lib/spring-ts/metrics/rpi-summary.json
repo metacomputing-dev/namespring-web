@@ -2,22 +2,23 @@
   "schemaVersion": "spring-ts.rpi-summary.v1",
   "note": "Unmeasured or truth-insufficient axes score 0 in rawRpi and are also reported separately to avoid mixing missing truth with engine failure.",
   "rawRpi": {
-    "score": 45,
+    "score": 35,
     "maxPoints": 100
   },
   "measuredOnlyRpi": {
-    "score": 45,
-    "maxPoints": 60,
-    "percent": 75
+    "score": 35,
+    "maxPoints": 50,
+    "percent": 70
   },
   "axisScores": {
     "A_calculationAccuracy": {
       "maxPoints": 15,
       "score": 15,
       "status": "PASS",
-      "pass": 8,
+      "pass": 14,
       "fail": 0,
-      "na": 9
+      "na": 0,
+      "coverageRate": 100
     },
     "B_legalHanjaData": {
       "maxPoints": 15,
@@ -903,26 +904,28 @@
     },
     "F_explainabilityUxSurface": {
       "maxPoints": 10,
-      "score": 10,
-      "status": "PASS",
-      "pass": 12,
+      "score": 0,
+      "status": "NOT_MEASURED",
+      "reason": "No card-surface fixture denominator available.",
+      "pass": 0,
       "fail": 0,
-      "na": 5
+      "na": 17,
+      "coverageRate": 0
     },
     "G_validationGovernance": {
       "maxPoints": 10,
       "score": 10,
       "status": "PASS",
-      "sourceTierScanned": 99,
+      "sourceTierScanned": 118,
       "sourceTierViolations": 0
     }
   },
   "qualityGate": {
-    "overall": "PASS",
+    "overall": "PARTIAL",
     "totals": {
-      "pass": 15,
+      "pass": 14,
       "fail": 0,
-      "na": 2,
+      "na": 3,
       "total": 17
     },
     "dimensions": {
@@ -930,30 +933,35 @@
         "pass": 0,
         "fail": 0,
         "na": 17,
+        "notApplicable": 0,
         "status": "N/A"
       },
       "D2": {
         "pass": 0,
         "fail": 0,
         "na": 17,
+        "notApplicable": 0,
         "status": "N/A"
       },
       "D3": {
-        "pass": 12,
+        "pass": 0,
         "fail": 0,
-        "na": 5,
-        "status": "PASS"
+        "na": 17,
+        "notApplicable": 0,
+        "status": "N/A"
       },
       "D4": {
         "pass": 0,
         "fail": 0,
         "na": 17,
+        "notApplicable": 0,
         "status": "N/A"
       },
       "D5": {
-        "pass": 8,
+        "pass": 14,
         "fail": 0,
-        "na": 9,
+        "na": 0,
+        "notApplicable": 3,
         "status": "PASS"
       }
     },

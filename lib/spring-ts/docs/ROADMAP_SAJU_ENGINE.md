@@ -8,6 +8,11 @@
 > 개별 항목의 완료 이력·검증 수치는 여전히 두 핸드오프가 정본이다.
 >
 > 브랜치: `feature/saju-engine-integrity-audit` (P0-1 머지 전까지). 진행 상태는 §9 표에 커밋 해시와 함께 갱신한다.
+>
+> **2026-07-10 merge-readiness 정정:** PR #653은 Draft를 유지한다. 회귀 테스트 통과는
+> 필요조건일 뿐 전문가급 판정의 충분조건이 아니다. `D1~D4=N/A`, `D5=PARTIAL(8/17)`,
+> 독립 검토 없는 T3 authority 25건, 종격 비교 가능 birth 사례 0건, school source 문서
+> 10종 누락, snapshot diff 승인 `pending`, composite 실패 상태에서는 WIP를 풀거나 머지하지 않는다.
 
 ---
 
@@ -43,10 +48,12 @@
 
 1. 변경 전 기준 확보: `npx tsx tools/baseline_snapshot.ts verify` (통과 상태에서 시작).
 2. 구현은 **설정 knob으로 감싸고** 기본값 결정은 별도 커밋으로 분리(무파급 틀 → 기본화 순).
-3. `npm run validate:default-change` (main↔HEAD): 결과가 **IMPROVEMENT(회귀 0)** 이어야 기본화 가능.
+3. `npm run validate:default-change` (main↔HEAD): 수치·구조 회귀를 탐지하되, 격국·용신·강약 같은
+   방향 불명 categorical 변화는 **REVIEW_REQUIRED**로 차단한다. 내부 점수 상승을 품질 향상으로 간주하지 않는다.
 4. `dump-report-trace` before/after: κ 코퍼스 커버리지 후퇴 0 확인(전 셀 ✅재생성·정합✓).
 5. 15픽스처 판정 필드(강약 레벨·용신·격국·별점) diff를 항목별로 실측해 기록.
-6. 파급이 의도와 다르면 기본 off로 두고 §9에 사유 기록.
+6. 기본화는 독립 전문가/권위 holdout의 방향 라벨과 `quality:gate:release` 전 차원 PASS가 있을 때만 허용한다.
+7. 파급이 의도와 다르거나 권위 정답이 없으면 기본 off로 두고 §9에 사유 기록.
 
 ## 3. 공통 함정 (하위모델 필독 — 전부 실제로 밟았던 것)
 
@@ -60,7 +67,7 @@
 | 빈 배열 관례 | 어댑터 계약상 빈 배열은 undefined로 강제(`adapter-daewoon.test.ts`) — 배선만 하고 opt-in이 없으면 조용히 빈 값 |
 | Windows EPERM | 샌드박스에서 `tsx`/`vitest`가 `spawn EPERM` 가능 — 권한 승인 후 같은 명령 재실행 |
 | compat 기대치 | `test:namespring-compat`는 **208**이 정본(문서 곳곳의 202는 구값) |
-| quality-gate 1건 | `test:composite-quality-gate`의 main..HEAD diff=0 검사 1건은 기본값 변경 브랜치에서 **설계상 FAIL** — 머지 후 자동 해소, 재조사 금지 |
+| quality-gate 1건 | `test:composite-quality-gate`의 main..HEAD diff는 **실제 review gate**다. 머지로 baseline을 덮어 자동 해소하지 말고, 17개 diff를 권위 근거로 승인하거나 회귀를 수정해야 한다 |
 | hanja-pool 1건 | `test:hanja-pool` 1건은 main에서도 실패 — 이 로드맵과 무관(별도 작업 칩 존재) |
 | 값-dedupe | 관계 탐지는 값 기준 dedupe — 운 지지가 원국과 동일 값이면 새 관계가 안 생기고 기존 항목 pairs에 [i,4]만 추가됨. 운 개입 판별은 **pairs의 i>=4 필터**로만 가능(`branchRelations.ts:174-187`) |
 
@@ -75,16 +82,22 @@
 | lib/spring-ts | `npm run test:namespring-compat` | 208/0 |
 | lib/spring-ts | `npm run test:tiered-shape` | 1378/0 |
 | lib/spring-ts | `npm run test:service-visible-output` | 13/0 |
-| lib/spring-ts | `npm run test:adapter-daewoon` | 21/0 |
-| lib/spring-ts | `npm run test:transit-luck-report` | 10/0 |
-| lib/spring-ts | `npm run test:boundary-goldens` | 723/0 |
+| lib/spring-ts | `npm run test:adapter-daewoon` | 31/0 |
+| lib/spring-ts | `npm run test:transit-luck-report` | 13/0 |
+| lib/spring-ts | `npm run test:boundary-goldens` | 867/0 |
 | lib/spring-ts | `npm run test:jonggyeok` | 111/0 |
 | lib/spring-ts | `npm run test:yongshin-consensus` | 241/0 |
-| lib/spring-ts | `npm run test:jonggyeok-authority` | 148/0 + `INFO … deferred: 0 birth rows`(게이트 유예가 정상) |
+| lib/spring-ts | `npm run test:jonggyeok-authority` | 168/0 + `INFO … 0 eligible birth rows, 20 pillar-only rows`(정확도 미측정) |
 | lib/spring-ts | `npx tsx test/integration/insight-registry-content.test.ts` | 54/0 (콘텐츠 추가 시 증가) |
-| 판정 변경 시 | `npm run validate:default-change` | IMPROVEMENT(회귀 0) |
+| 판정 변경 시 | `npm run validate:default-change` | 정답 없는 categorical 변화는 REVIEW_REQUIRED(비정상 종료) |
+| release 판정 | `npm run quality:gate:release` | D1~D5 전 차원 PASS; N/A/PARTIAL은 실패 |
+| release 회귀 | `npm run test:saju-engine-release` | 연결된 엔진·어댑터·오라클 회귀 전부 PASS |
+| release 종격 | `npm run test:jonggyeok-authority:release` | 20+ independently reviewed birth rows, 80%+ match; 미달 시 실패 |
+| default diff 승인 | `node tools/measure_default_change.mjs --baseline origin/main --branch HEAD` | exact fingerprint의 reviewer/date/evidence 승인 필요 |
 
-`test:jonggyeok-authority`는 `test:integration` 체인(package.json:80)에 **미포함** — 독립 실행 필요(P0-2 참조).
+`test:jonggyeok-authority`, 만세력 오라클, adapter-yinyang, transit report 등 핵심 신규 검증은
+`test:saju-engine-release` 단일 체인에 포함한다. 다만 종격 테스트의 168 PASS는 intake·스키마 검증이며
+`0 eligible birth rows`인 동안 정확도 게이트가 아님을 결과에 함께 기록한다.
 
 ## 5. 우선순위 총괄
 
@@ -126,9 +139,11 @@
 
 | # | 항목 | 내용 | 완료 기준 |
 |---|---|---|---|
-| P0-1 | 브랜치 push + PR 오픈 | PR 설명은 커밋 축 단위(과제 1/2/3, PR-8 표면화, PR-8 소비)로 분리. **사용자 확인 후 진행**(외부 공개 행위). 머지되면 composite-quality-gate 설계상 FAIL 자동 해소 | PR URL §9 기록 |
-| P0-2 | 테스트 체인 무결성 | ① saju-ts `vitest.config.ts` include에 `src/fortune/**` 추가 ② `test:jonggyeok-authority`를 `test:integration` 체인(spring-ts package.json:80)에 포함할지 결정·반영 ③ 체인이 실패를 삼키지 않는지 확인 | 체인 1회 완주 + 수치 기록 |
+| P0-1 | Draft PR 유지 + review 준비 | PR #653은 열려 있으나 release gate가 전부 PASS할 때까지 Draft 유지. composite 실패를 baseline 갱신으로 숨기지 않는다 | PR URL·gate 상태 §9 기록 |
+| P0-2 | 테스트 체인 무결성 | saju-ts 전체 테스트와 spring-ts 핵심 엔진/오라클 테스트를 `test:saju-engine-release` 및 pull_request workflow에 연결하고, `typecheck:saju-bridge`로 패키지 사이 계약을 컴파일 타임에 확인하며, incomplete evidence와 미승인 exact diff를 fail-closed로 처리 | 체인 1회 완주 + CI required check 설정 |
 | P0-3 | baseline 픽스처 보강(구 과제 4) | `test/fixtures/spring_ts_baseline_cases.json`에 ① 시계 23:35~23:59 출생(정자시설 창 안) ② 음력 입력 각 1건 추가 → `npx tsx tools/baseline_snapshot.ts capture` 재캡처. **capture는 다른 엔진 세션이 없는 창에서만**(baseline 파일을 다시 씀). borderline 계열(fix-13~15)과 겹치지 않는 명식 선정 | verify 17/17, compat 208, 경계골든 723 무파급 |
+| P0-4 | 학파 프리셋 출처 무결성 | 존재하지 않는 `docs/schools/*.md`를 출처로 선언한 프리셋을 release에서 fail-closed로 차단 | `validate:school-sources` 0 missing + 독립 검토 메타데이터 |
+| P0-5 | 호환 계층 분해 | 중복 수식·운 관계 테이블·동적 브리지 계약을 공용 모듈로 분리했다. 다만 `saju-adapter.ts`(약 2,900행)와 `springLegacy.ts`(약 2,200행)는 여전히 큰 결합 지점이므로 mapper/domain 단위 분해를 후속한다 | 새 계약 복사본 0 + mapper별 회귀 테스트 + 공개 payload 무파급 |
 
 ### PR-9 — 운(運) 축 완결 [난이도 중, PR-8의 연장]
 
@@ -164,9 +179,11 @@ PR-8이 표면화한 운 메타데이터 위에 운 통변의 나머지 반쪽�
 PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **potential 램프 수식 구조**.
 
 - **수식 현황(실측)**: `facts.ts:1149` weak 램프 `clamp01((weakThreshold − s) / max(eps, weakThreshold + 1))` — weakThreshold −0.78에서 분모 0.22, s=−1.0에서만 factor 1.0. 실제 극단 종격 명식은 s≈−0.82 부근이라 factor ≈0.19로 CONG 게이트 0.6(defaultRuleSets.ts:113-206, `gte(patterns.follow.jonggyeokFactor, 0.6)`) 미달. strong 쪽 동형(:1154), ×domFactor(:1152), potential 합성(:1212), jonggyeokFactor(:1601/1645).
-- **⚠ 이중 구현**: 같은 수학이 `yongshin.ts:571-582`(followPotentialFromStrength)에 중복 — **수식 변경 시 두 곳 동기화 필수**(주석에 명시돼 있음).
+- **단일 구현으로 정리(2026-07-10)**: follow potential 수식은 `rules/followPotential.ts`의 순수 함수 하나를
+  `facts.ts`와 `yongshin.ts`가 함께 소비한다. 수식 변경 시 해당 함수와 한 묶음의 회귀 테스트만 검토한다.
 - **게이트 구분**: 룰 게이트 0.6(defaultRuleSets)과 jonggyeokCandidates 상태 임계(gyeokguk.ts:492-497, 0.68/0.28/0.18)는 다른 표면 — 혼동 금지.
-- **승격 게이트 조건(정정)**: `test:jonggyeok-authority`의 자동 활성은 코퍼스 총 20건이 아니라 **engineComparable(birth-time 행) ≥ 20**(jonggyeok-authority-scaffold.test.ts:175). 현 코퍼스 20건은 **전부 pillar-only(birth 0건)** → 게이트 유예 중(148/0 + INFO deferred가 정상).
+- **승격 게이트 조건(정정)**: 코퍼스 총 건수가 아니라 독립 검토를 통과한 **authority-eligible birth-time 행**이
+  필요하다. 현 20건은 전부 web 기반 pillar-only intake이고 `authorityTruthEligible=false`이므로 정확도 비교 0건이다.
 
 | 단계 | 내용 |
 |---|---|
@@ -233,10 +250,16 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 
 ## 9. 진행 상태 표 (완료 시 갱신 — 커밋 해시 필수)
 
+> 2026-07-10 정정: 아래 PR-10 행의 과거 `IMPROVEMENT` 표기는 당시 내부 classifier 출력의
+> 역사 기록일 뿐 권위 정답 대비 품질 향상 증거가 아니다. 새 classifier에서는 같은 방향 불명
+> 변경을 `REVIEW_REQUIRED`로 차단한다.
+
 | 항목 | 상태 | 커밋 | 일자 | 파급 실측/비고 |
 |---|---|---|---|---|
-| P0-1 PR 오픈 | ⬜ | | | 사용자 확인 후 |
-| P0-2 테스트 체인 무결성 | ✅(부분) | 3bf08cf5c | 2026-07-09 | vitest include 6디렉토리 추가 완료. jonggyeok-authority 체인 포함 여부는 미결 |
+| P0-1 Draft PR | 🔶 WIP 유지 | PR #653 | 2026-07-10 | review 0건. T3 미검토 25건은 270a0fd66에서 non-eligible로 강등(소스티어 감사 118건 0위반, gate FAIL→PARTIAL). 기본 출력 변경 도시에 `docs/REVIEW_DEFAULT_CHANGE_PR653.md` 작성 — fingerprint 승인은 독립 리뷰어 몫. composite의 default-change 검사는 승인 전 FAIL 유지이므로 undraft/merge 금지. ⚠ GitHub Actions가 org 결제 잠금으로 미기동(2026-07-10) — 잠금 해제 전 CI 검증 불가 |
+| P0-2 테스트 체인 무결성 | ✅ 코드·CI 준비 | pending | 2026-07-10 | saju-ts 42 files/254 tests, spring-ts release regression 및 bridge typecheck 전부 PASS. pull_request workflow와 fail-closed expert-readiness gate 추가 |
+| P0-4 학파 출처 무결성 | 🔶 저작 완료·독립 검토 대기 | 49a785cfa | 2026-07-10 | 누락 10개 출처 문서(docs/11·16·17·18·19·20·22·25·26·27) 전부 저작 — 교리 요약·고전 서지·엔진 매핑(file:line 검증)·검토자 체크리스트 포함, 헤더에 독립 검토 대기 명시. `validate:school-sources` FAIL(23)→PASS(18 프리셋), test:release-tools PASS. 게이트 완결 조건인 독립 검토 메타데이터는 검토 후 기록 |
+| P0-5 호환 계층 분해 | 🔶 부분 완료 | pending | 2026-07-10 | follow potential·strength component·bridge contract·운 관계 계산 중복을 분리/삭제. 대형 adapter와 legacy seam의 mapper 단위 분리는 후속 |
 | P0-3 baseline 픽스처 보강 | ✅ | 75c3cdef5 | 2026-07-09 | 17/17(야자시 창 fix-16 + 음력 윤달 fix-17). 픽스처 수 하드코딩 2곳 동적화(baseline-metrics·quality-gate) |
 | 9-1 운-원국 관계 | ✅ | 8c310a014 | 2026-07-09 | canonical fortune.relations node; springLegacy relationsWithNatal; adapter/report evidence. Natal-only relations and scoring unchanged. Verified: saju-ts 202/0, baseline 17/0, compat 208/0, tiered-shape 1378/0, service-visible 13/0, adapter-daewoon 24/0, transit-luck-report 12/0 |
 | 9-2 대운↔세운 | ✅ | ade45f9c0 | 2026-07-09 | decade-year fortune relations in fortune.relations.decadeYears; saeun relationsWithDecade; yearly report evidence. Pre-start years omitted; natal scoring unchanged. Verified: saju-ts 204/0, baseline 17/0, compat 208/0, tiered-shape 1378/0, service-visible 13/0, adapter-daewoon 25/0, transit-luck-report 13/0 |

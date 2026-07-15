@@ -100,9 +100,9 @@ console.log('PR-4.6 composite quality gate: monthly_main default\n');
 const regressionReport = runDefaultRegressionGate();
 if (regressionReport) {
   check(
-    `monthly_main default snapshot has no regression (${BASELINE_REF}..${BRANCH_REF})`,
-    regressionReport.totalDiffs === 0,
-    `diffs=${regressionReport.totalDiffs}`,
+    `monthly_main default snapshot has no unapproved diff (${BASELINE_REF}..${BRANCH_REF})`,
+    regressionReport.unapprovedDiffs === 0,
+    `diffs=${regressionReport.totalDiffs}, unapproved=${regressionReport.unapprovedDiffs}, approval=${regressionReport.approval?.status}`,
   );
 }
 

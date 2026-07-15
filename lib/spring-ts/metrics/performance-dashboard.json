@@ -21,16 +21,16 @@
   "rpiTrendReport": {
     "trendKind": "single_snapshot_baseline",
     "current": {
-      "rawScore": 45,
+      "rawScore": 35,
       "rawMaxPoints": 100,
-      "measuredScore": 45,
-      "measuredMaxPoints": 60,
-      "measuredPercent": 75
+      "measuredScore": 35,
+      "measuredMaxPoints": 50,
+      "measuredPercent": 70
     },
     "axisCount": 7,
-    "measuredAxisCount": 5,
+    "measuredAxisCount": 4,
     "truthInsufficientAxisCount": 1,
-    "notMeasuredAxisCount": 1,
+    "notMeasuredAxisCount": 2,
     "axes": {
       "A_calculationAccuracy": {
         "score": 15,
@@ -63,10 +63,10 @@
         "status": "NOT_MEASURED"
       },
       "F_explainabilityUxSurface": {
-        "score": 10,
+        "score": 0,
         "maxPoints": 10,
-        "percent": 100,
-        "status": "PASS"
+        "percent": 0,
+        "status": "NOT_MEASURED"
       },
       "G_validationGovernance": {
         "score": 10,
@@ -78,29 +78,29 @@
   },
   "sourceTierCoverageReport": {
     "status": "PASS",
-    "scanned": 99,
+    "scanned": 118,
     "violationCount": 0,
-    "authorityTruthEligibleCount": 56,
-    "nonEligibleCount": 33,
-    "authorityTruthEligibleRate": 62.9213,
+    "authorityTruthEligibleCount": 30,
+    "nonEligibleCount": 88,
+    "authorityTruthEligibleRate": 25.4237,
     "byTier": {
-      "T1_HYPOTHESIS": {
-        "recordCount": 8,
+      "T3_AUTHORED_INTERPRETATION": {
+        "recordCount": 52,
         "authorityTruthEligible": 0,
-        "nonEligible": 8,
+        "nonEligible": 52,
         "eligibleRate": 0
       },
-      "T3_AUTHORED_INTERPRETATION": {
-        "recordCount": 32,
-        "authorityTruthEligible": 26,
-        "nonEligible": 6,
-        "eligibleRate": 81.25
-      },
       "T4_PRIMARY_TEXT": {
-        "recordCount": 12,
+        "recordCount": 22,
         "authorityTruthEligible": 9,
-        "nonEligible": 3,
-        "eligibleRate": 75
+        "nonEligible": 13,
+        "eligibleRate": 40.9091
+      },
+      "T1_HYPOTHESIS": {
+        "recordCount": 7,
+        "authorityTruthEligible": 0,
+        "nonEligible": 7,
+        "eligibleRate": 0
       },
       "T2_REFERENCE_IMPLEMENTATION": {
         "recordCount": 13,
@@ -422,7 +422,7 @@
       "changedPresetCount": 5,
       "authorityFixtureCoverage": {
         "scorableAuthorityFixtures": 0,
-        "nonScorableAuthorityFixtures": 78,
+        "nonScorableAuthorityFixtures": 76,
         "pillarOnlyAuthorityFixtures": 75,
         "ruleSnippetCollections": 1,
         "note": "Authority casebooks are source-tiered, but current records are not full naming-score inputs with birth + surname + givenName."
@@ -541,7 +541,7 @@
     }
   },
   "releaseGates": {
-    "qualityGateOverall": "PASS",
+    "qualityGateOverall": "PARTIAL",
     "sourceTierStatus": "PASS",
     "sourceTierViolationCount": 0,
     "defaultPromotionDecision": "keep_current_default",
