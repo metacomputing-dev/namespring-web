@@ -32,7 +32,7 @@ import { FrameCalculator } from './calculator/frame-calculator.js';
 import { evaluateName, type EvalContext, type EvaluationResult } from './core/evaluator.js';
 import { type ElementKey, bucketFromFortune } from './core/scoring.js';
 import { FourFrameOptimizer } from './calculator/search.js';
-import { makeFallbackEntry, buildInterpretation, parseJamoFilter, decomposeHangul, type JamoFilter } from './core/name-utils.js';
+import { buildInterpretation, parseJamoFilter, decomposeHangul, type JamoFilter } from './core/name-utils.js';
 import { buildNamingExplanation } from './naming-explanation.js';
 import type { SajuOutputSummary } from './types.js';
 import { SajuCalculator } from './saju-calculator.js';
@@ -89,6 +89,18 @@ import {
   sliceAndRankCandidatePage,
   sliceCandidatePage,
 } from './candidate-selection.js';
+import {
+  resolveFixedNameCharacterPool,
+  resolveNameEntries,
+  type ResolveNameEntriesOptions,
+} from './name-entry-resolver.js';
+
+export {
+  NAME_ENTRY_RESOLUTION_FAILED,
+  NameEntryResolutionError,
+  type NameEntryResolutionFailureReason,
+  type NameEntryRole,
+} from './name-entry-resolver.js';
 
 // ---------------------------------------------------------------------------
 // Config -- all tuneable numbers come from engine.json
@@ -467,12 +479,6 @@ interface NameResolutionPolicy {
   readonly useSurnameHanjaInPureHangul: boolean;
 }
 
-interface ResolveEntriesOptions {
-  readonly forceHangulOnly?: boolean;
-  readonly isSurname?: boolean;
-  readonly hanjaPool?: HanjaPool;
-}
-
 type CandidateRejectionAccumulator = Map<string, CandidateRejectionBucket>;
 
 /** Prevents fortune cards from being synthesized from an unavailable saju placeholder. */
@@ -490,6 +496,21 @@ export class FortuneSajuUnavailableError extends Error {
     this.reasonCode = reasonCode;
     this.analysisStatus = analysisStatus;
   }
+}
+
+type SpringEngineOperationName =
+  | 'getNamingReport'
+  | 'getSajuReport'
+  | 'getSpringReport'
+  | 'getNameCandidates'
+  | 'getNameCandidateSummaries'
+  | 'analyze'
+  | 'getFortuneReport'
+  | 'name-stat-lookup';
+
+interface SpringEngineOperationLease {
+  readonly operation: SpringEngineOperationName;
+  readonly generation: number;
 }
 
 export const SPRING_ENGINE_INIT_CANCELLED = 'SPRING_ENGINE_INIT_CANCELLED' as const;
@@ -621,6 +642,41 @@ export class SpringEngine {
         this.lifecycleGeneration,
       );
     }
+  }
+
+  private beginOperation(operation: SpringEngineOperationName): SpringEngineOperationLease {
+    return { operation, generation: this.lifecycleGeneration };
+  }
+
+  private async awaitOperationStep<T>(
+    lease: SpringEngineOperationLease,
+    work: () => Promise<T>,
+  ): Promise<T> {
+    try {
+      // The thunk must not start work in a newer lifecycle on behalf of an
+      // operation that was already invalidated by close().
+      this.assertActiveOperation(lease.generation, lease.operation);
+      const result = await work();
+      this.assertActiveOperation(lease.generation, lease.operation);
+      return result;
+    } catch (cause) {
+      // Repository implementations have their own generation guards, but
+      // their low-level cancellation messages are not part of SpringEngine's
+      // public contract. A lifecycle change always wins over the inner cause.
+      if (lease.generation !== this.lifecycleGeneration) {
+        throw new SpringEngineOperationCancelledError(
+          lease.operation,
+          lease.generation,
+          this.lifecycleGeneration,
+        );
+      }
+      throw cause;
+    }
+  }
+
+  private completeOperation<T>(lease: SpringEngineOperationLease, result: T): T {
+    this.assertActiveOperation(lease.generation, lease.operation);
+    return result;
   }
 
   private resolvePureHangulMode(options?: SpringRequest['options']): 'auto' | 'on' | 'off' {
@@ -1004,23 +1060,24 @@ export class SpringEngine {
   // -------------------------------------------------------------------------
 
   async getNamingReport(request: SpringRequest): Promise<NamingReport> {
-    await this.init();
+    const operation = this.beginOperation('getNamingReport');
+    await this.awaitOperationStep(operation, () => this.init());
 
     const resolutionPolicy = this.resolveNameResolutionPolicy(
       request.givenName,
       request.options,
     );
     const hanjaPool = this.resolveHanjaPool(request.options);
-    const surnameEntries = await this.resolveEntries(request.surname, {
+    const surnameEntries = await this.awaitOperationStep(operation, () => this.resolveEntries(request.surname, {
       forceHangulOnly: resolutionPolicy.pureHangulGivenName
         && !resolutionPolicy.useSurnameHanjaInPureHangul,
       isSurname: true,
       hanjaPool,
-    });
-    const givenNameEntries = await this.resolveEntries(request.givenName!, {
+    }));
+    const givenNameEntries = await this.awaitOperationStep(operation, () => this.resolveEntries(request.givenName!, {
       forceHangulOnly: resolutionPolicy.pureHangulGivenName,
       hanjaPool,
-    });
+    }));
 
     const hangul = new HangulCalculator(surnameEntries, givenNameEntries, this.resolveHangulSignalCap(request.options), this.resolveHangulPolarityModel(request.options));
     const hanja = new HanjaCalculator(
@@ -1068,7 +1125,7 @@ export class SpringEngine {
     const strengthProfile = scoreVector
       ? deriveCandidateStrengthProfile(scoreVector)
       : undefined;
-    return this.buildNamingReport(
+    return this.completeOperation(operation, this.buildNamingReport(
       surnameEntries,
       givenNameEntries,
       evalResult,
@@ -1080,7 +1137,7 @@ export class SpringEngine {
       phonetic,
       scoreVector,
       strengthProfile,
-    );
+    ));
   }
 
   // -------------------------------------------------------------------------
@@ -1088,8 +1145,12 @@ export class SpringEngine {
   // -------------------------------------------------------------------------
 
   async getSajuReport(request: SpringRequest): Promise<SajuReport> {
-    const { summary, sajuEnabled } = await analyzeSajuSafe(request.birth, request.options);
-    return { ...summary, sajuEnabled };
+    const operation = this.beginOperation('getSajuReport');
+    const { summary, sajuEnabled } = await this.awaitOperationStep(
+      operation,
+      () => analyzeSajuSafe(request.birth, request.options),
+    );
+    return this.completeOperation(operation, { ...summary, sajuEnabled });
   }
 
   // -------------------------------------------------------------------------
@@ -1100,33 +1161,40 @@ export class SpringEngine {
     request: SpringRequest,
     sajuReportOverride?: SajuReport,
   ): Promise<SpringReport> {
-    await this.init();
+    const operation = this.beginOperation('getSpringReport');
+    await this.awaitOperationStep(operation, () => this.init());
 
     if (!request.givenName?.length) {
       throw new Error('getSpringReport requires givenName input.');
     }
 
-    const sajuReport = sajuReportOverride ?? await this.getSajuReport(request);
+    const sajuReport = sajuReportOverride ?? await this.awaitOperationStep(
+      operation,
+      () => this.getSajuReport(request),
+    );
     const { dist: sajuDistribution, output: sajuOutput } = buildSajuContext(sajuReport, {
       includeTenGodByPosition: request.options?.precisionConfig?.tenGodMode === 'positional_weighted_v2',
     });
-    const nameStatInfo = await this.getNameStatInfo(request.givenName);
+    const nameStatInfo = await this.awaitOperationStep(
+      operation,
+      () => this.getNameStatInfo(request.givenName!, operation),
+    );
 
     const resolutionPolicy = this.resolveNameResolutionPolicy(
       request.givenName,
       request.options,
     );
     const hanjaPool = this.resolveHanjaPool(request.options);
-    const surnameEntries = await this.resolveEntries(request.surname, {
+    const surnameEntries = await this.awaitOperationStep(operation, () => this.resolveEntries(request.surname, {
       forceHangulOnly: resolutionPolicy.pureHangulGivenName
         && !resolutionPolicy.useSurnameHanjaInPureHangul,
       isSurname: true,
       hanjaPool,
-    });
-    const givenNameEntries = await this.resolveEntries(request.givenName, {
+    }));
+    const givenNameEntries = await this.awaitOperationStep(operation, () => this.resolveEntries(request.givenName!, {
       forceHangulOnly: resolutionPolicy.pureHangulGivenName,
       hanjaPool,
-    });
+    }));
 
     const hangul = new HangulCalculator(surnameEntries, givenNameEntries, this.resolveHangulSignalCap(request.options), this.resolveHangulPolarityModel(request.options));
     const hanja  = new HanjaCalculator(
@@ -1211,7 +1279,7 @@ export class SpringEngine {
       ? deriveCandidateStrengthProfile(namingScoreVector)
       : undefined;
 
-    return {
+    return this.completeOperation(operation, {
       finalScore: roundScore(combined.score),
       ...(scoreVector ? { scoreVector } : {}),
       ...(strengthProfile ? { strengthProfile } : {}),
@@ -1238,7 +1306,7 @@ export class SpringEngine {
       sajuCompatibility: saju.getAnalysis().data,
       combinedDistribution: saju.getCombinedDistribution(),
       rank: 0,
-    };
+    });
   }
 
   // -------------------------------------------------------------------------
@@ -1246,11 +1314,15 @@ export class SpringEngine {
   // -------------------------------------------------------------------------
 
   async getNameCandidates(request: SpringRequest): Promise<SpringReport[]> {
-    await this.init();
+    const operation = this.beginOperation('getNameCandidates');
+    await this.awaitOperationStep(operation, () => this.init());
     const candidateRejections: CandidateRejectionAccumulator = new Map();
 
     // 1. Saju analysis
-    const sajuReport = await this.getSajuReport(request);
+    const sajuReport = await this.awaitOperationStep(
+      operation,
+      () => this.getSajuReport(request),
+    );
     const sajuSummary: SajuSummary = sajuReport;
 
     // 2. Determine mode and collect name inputs
@@ -1260,26 +1332,29 @@ export class SpringEngine {
     const hasJamoInput = jamoFilters?.some(filter => filter !== null) ?? false;
     const mode = this.resolveMode(request, hasJamoInput);
 
-    const nameInputs = await this.collectNameInputs(
-      request, mode, hasJamoInput, jamoFilters, sajuSummary, candidateRejections,
-    );
+    const nameInputs = await this.awaitOperationStep(operation, () => this.collectNameInputs(
+      request, mode, hasJamoInput, jamoFilters, sajuSummary, candidateRejections, operation,
+    ));
     // 3. Score each candidate
     const results: SpringReport[] = [];
 
     for (const givenNameInput of nameInputs) {
-      const nameStatInfo = await this.getNameStatInfo(givenNameInput);
+      const nameStatInfo = await this.awaitOperationStep(
+        operation,
+        () => this.getNameStatInfo(givenNameInput, operation),
+      );
       if (nameStatInfo.status === 'not_found') continue;
       if (this.isGenderMismatch(request.birth.gender, nameStatInfo.nameGender)) continue;
-      results.push(await this.getSpringReport(
+      results.push(await this.awaitOperationStep(operation, () => this.getSpringReport(
         { ...request, givenName: givenNameInput, mode: 'evaluate' },
         sajuReport,
-      ));
+      )));
     }
 
-    return this.pageOrderedCandidates(
+    return this.completeOperation(operation, this.pageOrderedCandidates(
       orderSpringReports(results, request.options, CANDIDATE_SELECTION_LIMITS),
       request.options,
-    );
+    ));
   }
 
   // -------------------------------------------------------------------------
@@ -1287,10 +1362,14 @@ export class SpringEngine {
   // -------------------------------------------------------------------------
 
   async getNameCandidateSummaries(request: SpringRequest): Promise<SpringCandidateSummary[]> {
-    await this.init();
+    const operation = this.beginOperation('getNameCandidateSummaries');
+    await this.awaitOperationStep(operation, () => this.init());
     const candidateRejections: CandidateRejectionAccumulator = new Map();
 
-    const sajuReport = await this.getSajuReport(request);
+    const sajuReport = await this.awaitOperationStep(
+      operation,
+      () => this.getSajuReport(request),
+    );
     const sajuSummary: SajuSummary = sajuReport;
     const { dist: sajuDistribution, output: sajuOutput } = buildSajuContext(sajuSummary, {
       includeTenGodByPosition: request.options?.precisionConfig?.tenGodMode === 'positional_weighted_v2',
@@ -1302,29 +1381,32 @@ export class SpringEngine {
     const hasJamoInput = jamoFilters?.some(filter => filter !== null) ?? false;
     const mode = this.resolveMode(request, hasJamoInput);
 
-    const nameInputs = await this.collectNameInputs(
-      request, mode, hasJamoInput, jamoFilters, sajuSummary, candidateRejections,
-    );
+    const nameInputs = await this.awaitOperationStep(operation, () => this.collectNameInputs(
+      request, mode, hasJamoInput, jamoFilters, sajuSummary, candidateRejections, operation,
+    ));
     const results: SpringCandidateSummary[] = [];
 
     for (const givenNameInput of nameInputs) {
-      const nameStatInfo = await this.getNameStatInfo(givenNameInput);
+      const nameStatInfo = await this.awaitOperationStep(
+        operation,
+        () => this.getNameStatInfo(givenNameInput, operation),
+      );
       if (nameStatInfo.status === 'not_found') continue;
       if (this.isGenderMismatch(request.birth.gender, nameStatInfo.nameGender)) continue;
       const resolutionPolicy = this.resolveNameResolutionPolicy(
         givenNameInput,
         request.options,
       );
-      const surnameEntries = await this.resolveEntries(request.surname, {
+      const surnameEntries = await this.awaitOperationStep(operation, () => this.resolveEntries(request.surname, {
         forceHangulOnly: resolutionPolicy.pureHangulGivenName
           && !resolutionPolicy.useSurnameHanjaInPureHangul,
         isSurname: true,
         hanjaPool: this.resolveHanjaPool(request.options),
-      });
-      const givenNameEntries = await this.resolveEntries(givenNameInput, {
+      }));
+      const givenNameEntries = await this.awaitOperationStep(operation, () => this.resolveEntries(givenNameInput, {
         forceHangulOnly: resolutionPolicy.pureHangulGivenName,
         hanjaPool: this.resolveHanjaPool(request.options),
-      });
+      }));
 
       const hangul = new HangulCalculator(surnameEntries, givenNameEntries, this.resolveHangulSignalCap(request.options), this.resolveHangulPolarityModel(request.options));
       const hanja  = new HanjaCalculator(
@@ -1408,7 +1490,10 @@ export class SpringEngine {
       request.options,
       CANDIDATE_SELECTION_LIMITS,
     );
-    return this.pageOrderedCandidates(dedupeCandidateSummariesByHangul(ordered), request.options);
+    return this.completeOperation(
+      operation,
+      this.pageOrderedCandidates(dedupeCandidateSummariesByHangul(ordered), request.options),
+    );
   }
 
   // -------------------------------------------------------------------------
@@ -1499,7 +1584,8 @@ export class SpringEngine {
   // -------------------------------------------------------------------------
 
   async analyze(request: SpringRequest): Promise<SpringResponse> {
-    await this.init();
+    const operation = this.beginOperation('analyze');
+    await this.awaitOperationStep(operation, () => this.init());
     const candidateRejections: CandidateRejectionAccumulator = new Map();
 
     // 1. Determine the operating mode
@@ -1510,24 +1596,30 @@ export class SpringEngine {
     const mode = this.resolveMode(request, hasJamoInput);
 
     // 2. Run saju (four-pillar destiny) analysis on the birth data
-    const sajuSummary = await analyzeSaju(request.birth, request.options);
+    const sajuSummary = await this.awaitOperationStep(
+      operation,
+      () => analyzeSaju(request.birth, request.options),
+    );
     const { dist: sajuDistribution, output: sajuOutput } = buildSajuContext(sajuSummary, {
       includeTenGodByPosition: request.options?.precisionConfig?.tenGodMode === 'positional_weighted_v2',
     });
 
     // 3. Build the list of name inputs to score
-    const nameInputs = await this.collectNameInputs(
-      request, mode, hasJamoInput, jamoFilters, sajuSummary, candidateRejections,
-    );
+    const nameInputs = await this.awaitOperationStep(operation, () => this.collectNameInputs(
+      request, mode, hasJamoInput, jamoFilters, sajuSummary, candidateRejections, operation,
+    ));
 
     // 4. Score every candidate and rank by total score (descending)
-    const scoredCandidates = await this.scoreAllCandidates(
+    const scoredCandidates = await this.awaitOperationStep(operation, () => this.scoreAllCandidates(
       request.surname, nameInputs, sajuDistribution, sajuOutput, request.birth, request.options,
       this.resolveEvaluatorHints(request.birth, request.options, sajuOutput),
-    );
+    ));
 
     // 5. Paginate and return
-    return this.buildResponse(request, mode, sajuSummary, scoredCandidates, candidateRejections);
+    return this.completeOperation(
+      operation,
+      this.buildResponse(request, mode, sajuSummary, scoredCandidates, candidateRejections),
+    );
   }
 
   // -------------------------------------------------------------------------
@@ -1566,6 +1658,7 @@ export class SpringEngine {
     jamoFilters: (JamoFilter | null)[] | undefined,
     sajuSummary: SajuSummary,
     candidateRejections: CandidateRejectionAccumulator,
+    operation: SpringEngineOperationLease,
   ): Promise<NameCharInput[][]> {
     const hasExplicitGivenName = request.givenName?.length && !hasJamoInput;
 
@@ -1576,19 +1669,22 @@ export class SpringEngine {
 
     // Recommend or all mode -- generate candidates
     if (mode === 'recommend' || mode === 'all' || hasJamoInput) {
-      const candidates = await this.generateCandidates(
+      const candidates = await this.awaitOperationStep(operation, () => this.generateCandidates(
         request,
         sajuSummary,
         hasJamoInput ? jamoFilters! : undefined,
         candidateRejections,
-      );
+      ));
 
       // If the user also supplied an explicit name, prepend it
       if (hasExplicitGivenName) {
         candidates.unshift(request.givenName!);
       }
 
-      return this.filterCandidatesByNameStat(candidates, request.birth.gender);
+      return this.awaitOperationStep(
+        operation,
+        () => this.filterCandidatesByNameStat(candidates, request.birth.gender, operation),
+      );
     }
 
     // Fallback: just the explicit name, or nothing
@@ -1697,8 +1793,11 @@ export class SpringEngine {
     return userGender !== nameGender;
   }
 
-  private async getNameStatInfo(givenName: NameCharInput[]): Promise<NameStatLookupResult> {
-    const generation = this.lifecycleGeneration;
+  private async getNameStatInfo(
+    givenName: NameCharInput[],
+    operation: SpringEngineOperationLease = this.beginOperation('name-stat-lookup'),
+  ): Promise<NameStatLookupResult> {
+    this.assertActiveOperation(operation.generation, operation.operation);
     const key = this.givenNameHangulKey(givenName);
     if (!key) {
       return {
@@ -1714,9 +1813,12 @@ export class SpringEngine {
 
     let found: NameStatEntry | null;
     try {
-      found = await this.nameStatRepo.findByName(key);
+      found = await this.awaitOperationStep(
+        operation,
+        () => this.nameStatRepo.findByName(key),
+      );
     } catch (cause) {
-      this.assertActiveOperation(generation, 'name-stat-lookup');
+      this.assertActiveOperation(operation.generation, operation.operation);
       if (cause instanceof RepositoryDataError) {
         throw cause;
       }
@@ -1724,7 +1826,7 @@ export class SpringEngine {
       // exist" decision. Do not cache this path, so a later request can retry.
       throw new NameStatLookupUnavailableError(cause);
     }
-    this.assertActiveOperation(generation, 'name-stat-lookup');
+    this.assertActiveOperation(operation.generation, operation.operation);
 
     if (!found) {
       const notFound: NameStatLookupResult = {
@@ -1778,10 +1880,14 @@ export class SpringEngine {
   private async filterCandidatesByNameStat(
     nameInputs: NameCharInput[][],
     userGender: 'male' | 'female' | 'neutral',
+    operation: SpringEngineOperationLease = this.beginOperation('name-stat-lookup'),
   ): Promise<NameCharInput[][]> {
     const filtered: NameCharInput[][] = [];
     for (const givenNameInput of nameInputs) {
-      const info = await this.getNameStatInfo(givenNameInput);
+      const info = await this.awaitOperationStep(
+        operation,
+        () => this.getNameStatInfo(givenNameInput, operation),
+      );
       if (info.status === 'not_found') continue;
       if (this.isGenderMismatch(userGender, info.nameGender)) continue;
       filtered.push(givenNameInput);
@@ -2357,25 +2463,11 @@ export class SpringEngine {
 
   /** Resolve a single user-specified character into a 1-element pool. */
   private async resolveFixedCharPool(givenNameChar: NameCharInput, hanjaPool: HanjaPool): Promise<HanjaEntry[]> {
-    if (givenNameChar.hanja) {
-      const entry = await this.hanjaRepo.findByHanja(givenNameChar.hanja);
-      if (entry) return [{ ...entry, hangul: givenNameChar.hangul, is_surname: false }];
-      if (hanjaPool === 'inmyeongyong_full') {
-        const fullMatches = getFullLegalPoolEntries()
-          .filter((candidate) => candidate.hanja === givenNameChar.hanja)
-          .sort((a, b) =>
-            Number(b.hangul === givenNameChar.hangul) - Number(a.hangul === givenNameChar.hangul));
-        if (fullMatches.length) return [{ ...fullMatches[0], hangul: givenNameChar.hangul, is_surname: false }];
-      }
-      return [makeFallbackEntry(givenNameChar.hangul, { hanja: givenNameChar.hanja })];
-    }
-
-    const entries = hanjaPool === 'inmyeongyong_full'
-      ? getFullLegalPoolEntries().filter((entry) => entry.hangul === givenNameChar.hangul)
-      : await this.hanjaRepo.findByHangul(givenNameChar.hangul);
-    return entries.length
-      ? entries.slice(0, POOL_LIMIT_SINGLE_CHAR)
-      : [makeFallbackEntry(givenNameChar.hangul, { hanja: '' })];
+    return resolveFixedNameCharacterPool(givenNameChar, this.hanjaRepo, {
+      hanjaPool,
+      poolLimit: POOL_LIMIT_SINGLE_CHAR,
+      fullPoolEntries: getFullLegalPoolEntries,
+    });
   }
 
   // -------------------------------------------------------------------------
@@ -2384,44 +2476,12 @@ export class SpringEngine {
 
   private async resolveEntries(
     chars: NameCharInput[],
-    options: ResolveEntriesOptions = {},
+    options: ResolveNameEntriesOptions = {},
   ): Promise<HanjaEntry[]> {
-    const forceHangulOnly = options.forceHangulOnly ?? false;
-    const isSurname = options.isSurname ?? false;
-    const hanjaPool = options.hanjaPool ?? 'curated';
-
-    return Promise.all(chars.map(async (char) => {
-      const hasHanjaField = Object.prototype.hasOwnProperty.call(char, 'hanja');
-      const normalizedHanja = String(char.hanja ?? '').trim();
-
-      if (forceHangulOnly || (hasHanjaField && normalizedHanja.length === 0)) {
-        return makeFallbackEntry(char.hangul, {
-          hanja: '',
-          isSurname,
-        });
-      }
-
-      if (normalizedHanja.length > 0) {
-        const entry = await this.hanjaRepo.findByHanja(normalizedHanja);
-        if (entry) return { ...entry, hangul: char.hangul, is_surname: isSurname };
-        if (hanjaPool === 'inmyeongyong_full') {
-          const fullMatches = getFullLegalPoolEntries()
-            .filter((candidate) => candidate.hanja === normalizedHanja)
-            .sort((a, b) =>
-              Number(b.hangul === char.hangul) - Number(a.hangul === char.hangul));
-          if (fullMatches.length) return { ...fullMatches[0], is_surname: isSurname };
-        }
-      }
-      const byHangul = hanjaPool === 'inmyeongyong_full'
-        ? getFullLegalPoolEntries()
-          .filter((entry) => entry.hangul === char.hangul)
-          .map((entry) => ({ ...entry, is_surname: isSurname }))
-        : await this.hanjaRepo.findByHangul(char.hangul);
-      return byHangul[0] ?? makeFallbackEntry(char.hangul, {
-        hanja: normalizedHanja,
-        isSurname,
-      });
-    }));
+    return resolveNameEntries(chars, this.hanjaRepo, {
+      ...options,
+      fullPoolEntries: getFullLegalPoolEntries,
+    });
   }
 
   // -------------------------------------------------------------------------
@@ -2429,6 +2489,7 @@ export class SpringEngine {
   // -------------------------------------------------------------------------
 
   async getFortuneReport(request: FortuneReportRequest): Promise<FortuneReport> {
+    const operation = this.beginOperation('getFortuneReport');
     // 1. Reject malformed or unbounded horizons before database or astronomy work.
     const birthYear = request.birth.year;
     if (typeof birthYear !== 'number' || !Number.isInteger(birthYear)) {
@@ -2438,14 +2499,14 @@ export class SpringEngine {
     const reportOptions = optionsForFortuneTarget(request.options, targetDate, birthYear);
     validateSajuRequestOptions(reportOptions.sajuOptions, birthYear);
     validateSajuConfigFortuneHorizon(reportOptions.sajuConfig);
-    await this.init();
+    await this.awaitOperationStep(operation, () => this.init());
 
     // 2. Run saju analysis
-    const sajuReport = await this.getSajuReport({
+    const sajuReport = await this.awaitOperationStep(operation, () => this.getSajuReport({
       birth: request.birth,
       surname: request.surname ?? [],
       options: reportOptions,
-    });
+    }));
     if (
       !sajuReport.sajuEnabled
       || sajuReport.analysisStatus === 'failed'
@@ -2466,7 +2527,7 @@ export class SpringEngine {
       // corruption, cancellation and infrastructure failures must remain
       // visible rather than silently degrading to a successful nameless
       // fortune report.
-      springReport = await this.getSpringReport(
+      springReport = await this.awaitOperationStep(operation, () => this.getSpringReport(
         {
           birth: request.birth,
           surname: request.surname ?? [],
@@ -2475,7 +2536,7 @@ export class SpringEngine {
           options: reportOptions,
         },
         sajuReport,
-      );
+      ));
     }
 
     // 4. Build the fortune report
@@ -2484,7 +2545,7 @@ export class SpringEngine {
     // (16%) 정확도 회복. Callers can opt out via explicit 'simple'.
     const pc = reportOptions.precisionConfig;
     const fortuneCascadeMode = pc?.fortuneCascadeMode ?? 'jie_based';
-    return buildFortuneReport(saju, targetDate, springReport, {
+    const report = await this.awaitOperationStep(operation, () => buildFortuneReport(saju, targetDate, springReport, {
       fortuneCascadeMode: fortuneCascadeMode === 'jie_based' || fortuneCascadeMode === 'full_5layer'
         ? fortuneCascadeMode
         : 'simple',
@@ -2502,7 +2563,8 @@ export class SpringEngine {
       surfaceTieredMatrix: pc?.surfaceTieredMatrix === true,
       // 전문 인사이트 원자료 (precisionConfig.surfaceInsightFacts). Default off.
       surfaceInsightFacts: pc?.surfaceInsightFacts === true,
-    }, request.birth);
+    }, request.birth));
+    return this.completeOperation(operation, report);
   }
 
   // -------------------------------------------------------------------------

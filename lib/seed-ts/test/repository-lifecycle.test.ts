@@ -1,10 +1,17 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import test from 'node:test';
-import type { SqlJsStatic } from 'sql.js';
+import initSqlJs, { type SqlJsStatic } from 'sql.js';
 
 import { FourframeRepository } from '../src/database/fourframe-repository.js';
 import { HanjaRepository } from '../src/database/hanja-repository.js';
 import { NameStatRepository } from '../src/database/name-stat-repository.js';
+import {
+  FOURFRAME_DATABASE_ASSET,
+  HANJA_DATABASE_ASSET,
+} from '../src/database/database-asset-registry.js';
+import type { DatabaseAssetManifestEntry } from '../src/database/database-asset-contract.js';
+import type { PinnedRepositoryDatabaseIntegrityPolicy } from '../src/database/repository-database-policy.js';
 import {
   createRepositoryRuntime,
   DEFAULT_SQL_JS_WASM_SHA256,
@@ -42,6 +49,8 @@ interface FakeSqlRuntime {
   readonly databases: FakeDatabaseRecord[];
   readonly statements: FakeStatementRecord[];
   readonly statementPlans: StatementPlan[];
+  readonly bytes: Uint8Array;
+  readonly databaseIntegrity: PinnedRepositoryDatabaseIntegrityPolicy | null;
 }
 
 const HANJA_ROW: Record<string, unknown> = {
@@ -115,6 +124,75 @@ function response(
   };
 }
 
+async function createHanjaOrderingFixture(): Promise<{
+  readonly SQL: SqlJsStatic;
+  readonly buffer: ArrayBuffer;
+  readonly databaseIntegrity: PinnedRepositoryDatabaseIntegrityPolicy;
+}> {
+  const SQL = await initSqlJs();
+  const db = new SQL.Database();
+  db.run(`
+    CREATE TABLE hanjas (
+      id INTEGER PRIMARY KEY,
+      hangul TEXT NOT NULL,
+      hanja TEXT NOT NULL,
+      onset TEXT,
+      nucleus TEXT,
+      strokes INTEGER,
+      stroke_element TEXT,
+      resource_element TEXT,
+      meaning TEXT,
+      radical TEXT,
+      is_surname INTEGER DEFAULT 0
+    )
+  `);
+
+  const statement = db.prepare(`
+    INSERT INTO hanjas (
+      id, hangul, hanja, onset, nucleus, strokes, stroke_element,
+      resource_element, meaning, radical, is_surname
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `);
+  try {
+    for (let id = 1; id <= 205; id += 1) {
+      statement.run([
+        id,
+        '\uAC00',
+        '\u5BB6',
+        '\u3131',
+        '\u314F',
+        id % 2 === 0 ? 6 : 5,
+        'Water',
+        id % 3 === 0 ? 'Wood' : 'Fire',
+        `fixture-${id}`,
+        '\u5B80',
+        id % 10 === 0 ? 1 : 0,
+      ]);
+    }
+  } finally {
+    statement.free();
+  }
+
+  // These indexes deliberately expose SQLite's freedom to return equal
+  // matches in a different order when a repository query omits a complete
+  // ORDER BY. The public contract must not depend on the chosen query plan.
+  db.run('CREATE INDEX idx_fixture_hanja_desc ON hanjas(hanja, id DESC)');
+  db.run('CREATE INDEX idx_fixture_hangul_strokes_desc ON hanjas(hangul, strokes, id DESC)');
+  db.run('CREATE INDEX idx_fixture_surname_desc ON hanjas(hangul, is_surname, id DESC)');
+  db.run('CREATE INDEX idx_fixture_resource_desc ON hanjas(resource_element, id DESC)');
+  db.run('CREATE INDEX idx_fixture_strokes_desc ON hanjas(strokes, id DESC)');
+  db.run('CREATE INDEX idx_fixture_onset_desc ON hanjas(onset, id DESC)');
+
+  const exported = db.export();
+  db.close();
+  const bytes = new Uint8Array(exported);
+  return {
+    SQL,
+    buffer: bytes.buffer,
+    databaseIntegrity: pinnedDatabaseIntegrity(HANJA_DATABASE_ASSET, bytes, 205),
+  };
+}
+
 async function waitUntil(
   condition: () => boolean,
   description: string,
@@ -130,6 +208,16 @@ function createFakeSqlRuntime(defaultRow: Record<string, unknown>): FakeSqlRunti
   const databases: FakeDatabaseRecord[] = [];
   const statements: FakeStatementRecord[] = [];
   const statementPlans: StatementPlan[] = [];
+  const bytes = Uint8Array.of(1);
+  const canonicalContract = defaultRow === HANJA_ROW
+    ? HANJA_DATABASE_ASSET
+    : defaultRow === FOURFRAME_ROW
+      ? FOURFRAME_DATABASE_ASSET
+      : null;
+  const databaseIntegrity = canonicalContract
+    ? pinnedDatabaseIntegrity(canonicalContract, bytes, 1)
+    : null;
+  const databaseContract = databaseIntegrity?.contract ?? null;
 
   class FakeStatement {
     public freeCount = 0;
@@ -175,6 +263,35 @@ function createFakeSqlRuntime(defaultRow: Record<string, unknown>): FakeSqlRunti
       return statement;
     }
 
+    public exec(sql: string): Array<{
+      readonly columns: string[];
+      readonly values: unknown[][];
+    }> {
+      if (!databaseContract) {
+        throw new Error('This fake database has no repository integrity contract.');
+      }
+      if (sql === 'PRAGMA user_version') {
+        return [{ columns: ['user_version'], values: [[databaseContract.userVersion]] }];
+      }
+      if (sql.startsWith('PRAGMA table_info(')) {
+        return [{
+          columns: ['cid', 'name', 'type', 'notnull', 'dflt_value', 'pk'],
+          values: databaseContract.columns.map((column) => [
+            column.cid,
+            column.name,
+            column.declaredType,
+            column.notNull ? 1 : 0,
+            column.defaultValue,
+            column.primaryKeyPosition,
+          ]),
+        }];
+      }
+      if (sql.startsWith('SELECT COUNT(*) FROM ')) {
+        return [{ columns: ['COUNT(*)'], values: [[databaseContract.rowCount]] }];
+      }
+      throw new Error(`Unexpected integrity query: ${sql}`);
+    }
+
     public close(): void {
       this.closeCount += 1;
     }
@@ -185,7 +302,42 @@ function createFakeSqlRuntime(defaultRow: Record<string, unknown>): FakeSqlRunti
     databases,
     statements,
     statementPlans,
+    bytes,
+    databaseIntegrity,
   };
+}
+
+function pinnedDatabaseIntegrity(
+  canonical: DatabaseAssetManifestEntry,
+  bytes: Uint8Array,
+  rowCount: number,
+): PinnedRepositoryDatabaseIntegrityPolicy {
+  return {
+    mode: 'pinned',
+    contract: {
+      ...canonical,
+      relativePath: `memory/${canonical.assetId}.db`,
+      byteLength: bytes.byteLength,
+      sha256: createHash('sha256').update(bytes).digest('hex'),
+      rowCount,
+    },
+  };
+}
+
+function createFakeFourframeRepository(
+  fake: FakeSqlRuntime,
+  options: ConstructorParameters<typeof FourframeRepository>[0],
+): FourframeRepository {
+  assert.ok(fake.databaseIntegrity);
+  return new FourframeRepository({ ...options, databaseIntegrity: fake.databaseIntegrity });
+}
+
+function createFakeHanjaRepository(
+  fake: FakeSqlRuntime,
+  options: ConstructorParameters<typeof HanjaRepository>[0],
+): HanjaRepository {
+  assert.ok(fake.databaseIntegrity);
+  return new HanjaRepository({ ...options, databaseIntegrity: fake.databaseIntegrity });
 }
 
 test('default sql.js WASM is version-pinned and fails closed on digest mismatch', async () => {
@@ -218,12 +370,78 @@ test('custom WASM URL requires a digest unless the caller owns the loader', () =
   }));
 });
 
+test('repository close wins races with loader, fetch, and body rejections', async () => {
+  const loaderFake = createFakeSqlRuntime(HANJA_ROW);
+  const loader = deferred<SqlJsStatic>();
+  const loaderRepository = createFakeHanjaRepository(loaderFake, {
+    initializeSqlJs: () => loader.promise,
+    fetch: async () => response(),
+  });
+  const loaderInit = loaderRepository.init();
+  const loaderAssertion = assert.rejects(loaderInit, /cancelled by close/);
+  loaderRepository.close();
+  loader.reject(new Error('loader failed'));
+  await loaderAssertion;
+  assert.equal(loaderFake.databases.length, 0);
+
+  const fetchFake = createFakeSqlRuntime(HANJA_ROW);
+  const fetched = deferred<RepositoryFetchResponse>();
+  let fetches = 0;
+  const fetchRepository = createFakeHanjaRepository(fetchFake, {
+    initializeSqlJs: async () => fetchFake.SQL,
+    fetch: () => {
+      fetches += 1;
+      return fetched.promise;
+    },
+  });
+  const fetchInit = fetchRepository.init();
+  const fetchAssertion = assert.rejects(fetchInit, /cancelled by close/);
+  await waitUntil(() => fetches === 1, 'the rejecting DB fetch');
+  fetchRepository.close();
+  fetched.reject(new Error('fetch failed'));
+  await fetchAssertion;
+  assert.equal(fetchFake.databases.length, 0);
+
+  const bodyFake = createFakeSqlRuntime(HANJA_ROW);
+  const body = deferred<ArrayBuffer>();
+  let bodyReads = 0;
+  const bodyRepository = createFakeHanjaRepository(bodyFake, {
+    initializeSqlJs: async () => bodyFake.SQL,
+    fetch: async () => ({
+      ok: true,
+      status: 200,
+      statusText: 'OK',
+      arrayBuffer: () => {
+        bodyReads += 1;
+        return body.promise;
+      },
+    }),
+  });
+  const bodyInit = bodyRepository.init();
+  const bodyAssertion = assert.rejects(bodyInit, /cancelled by close/);
+  await waitUntil(() => bodyReads === 1, 'the rejecting DB response body');
+  bodyRepository.close();
+  body.reject(new Error('body failed'));
+  await bodyAssertion;
+  assert.equal(bodyFake.databases.length, 0);
+
+  const activeFake = createFakeSqlRuntime(HANJA_ROW);
+  const activeRepository = createFakeHanjaRepository(activeFake, {
+    initializeSqlJs: async () => {
+      throw new Error('active loader failed');
+    },
+    fetch: async () => response(),
+  });
+  await assert.rejects(activeRepository.init(), /active loader failed/);
+  activeRepository.close();
+});
+
 test('FourframeRepository shares one concurrent initialization', async () => {
   const fake = createFakeSqlRuntime(FOURFRAME_ROW);
   const body = deferred<ArrayBuffer>();
   let sqlLoads = 0;
   let fetches = 0;
-  const repository = new FourframeRepository({
+  const repository = createFakeFourframeRepository(fake, {
     initializeSqlJs: async () => {
       sqlLoads += 1;
       return fake.SQL;
@@ -253,13 +471,13 @@ test('FourframeRepository close prevents a late initialization from publishing',
   const fake = createFakeSqlRuntime(FOURFRAME_ROW);
   const firstBody = deferred<ArrayBuffer>();
   let fetches = 0;
-  const repository = new FourframeRepository({
+  const repository = createFakeFourframeRepository(fake, {
     initializeSqlJs: async () => fake.SQL,
     fetch: async () => {
       fetches += 1;
       return fetches === 1
         ? response(firstBody.promise)
-        : response(bufferWithTag(2));
+        : response(bufferWithTag(1));
     },
   });
 
@@ -273,12 +491,10 @@ test('FourframeRepository close prevents a late initialization from publishing',
   const staleError = await staleOutcome;
 
   assert.match(String(staleError), /cancelled by close/);
-  const activeDb = fake.databases.find((db) => db.tag === 2);
-  const staleDb = fake.databases.find((db) => db.tag === 1);
+  const [activeDb] = fake.databases;
   assert.ok(activeDb);
-  assert.ok(staleDb);
+  assert.equal(fake.databases.length, 1, 'cancelled bytes must not reach SQL.Database');
   assert.equal(activeDb.closeCount, 0);
-  assert.equal(staleDb.closeCount, 1);
   assert.equal((await repository.findByNumber(81))?.number, 81);
 
   repository.close();
@@ -288,13 +504,13 @@ test('FourframeRepository close prevents a late initialization from publishing',
 test('FourframeRepository removes a failed init promise so initialization can retry', async () => {
   const fake = createFakeSqlRuntime(FOURFRAME_ROW);
   let fetches = 0;
-  const repository = new FourframeRepository({
+  const repository = createFakeFourframeRepository(fake, {
     initializeSqlJs: async () => fake.SQL,
     fetch: async () => {
       fetches += 1;
       return fetches === 1
         ? response(bufferWithTag(1), 503, 'Unavailable')
-        : response(bufferWithTag(2));
+        : response(bufferWithTag(1));
     },
   });
 
@@ -303,13 +519,13 @@ test('FourframeRepository removes a failed init promise so initialization can re
 
   assert.equal(fetches, 2);
   assert.equal(fake.databases.length, 1);
-  assert.equal(fake.databases[0]?.tag, 2);
+  assert.equal(fake.databases[0]?.tag, 1);
   repository.close();
 });
 
 test('FourframeRepository always frees a prepared statement after query failure', async () => {
   const fake = createFakeSqlRuntime(FOURFRAME_ROW);
-  const repository = new FourframeRepository({
+  const repository = createFakeFourframeRepository(fake, {
     initializeSqlJs: async () => fake.SQL,
     fetch: async () => response(),
   });
@@ -326,7 +542,7 @@ test('HanjaRepository shares one concurrent initialization', async () => {
   const body = deferred<ArrayBuffer>();
   let sqlLoads = 0;
   let fetches = 0;
-  const repository = new HanjaRepository({
+  const repository = createFakeHanjaRepository(fake, {
     initializeSqlJs: async () => {
       sqlLoads += 1;
       return fake.SQL;
@@ -352,17 +568,63 @@ test('HanjaRepository shares one concurrent initialization', async () => {
   repository.close();
 });
 
+test('HanjaRepository query order is deterministic across SQLite index plans', async () => {
+  const fixture = await createHanjaOrderingFixture();
+  const repository = new HanjaRepository({
+    initializeSqlJs: async () => fixture.SQL,
+    fetch: async () => response(fixture.buffer),
+    databaseIntegrity: fixture.databaseIntegrity,
+  });
+  await repository.init();
+
+  const ids = Array.from({ length: 205 }, (_, index) => index + 1);
+  const expectedByStroke = [
+    ...ids.filter((id) => id % 2 === 1),
+    ...ids.filter((id) => id % 2 === 0),
+  ];
+  const expectedSurnames = ids.filter((id) => id % 10 === 0);
+  const expectedWood = ids.filter((id) => id % 3 === 0);
+
+  assert.equal((await repository.findByHanja('\u5BB6'))?.id, 1);
+  assert.deepEqual(
+    (await repository.findByHangul('\uAC00')).map((entry) => entry.id),
+    expectedByStroke,
+  );
+  assert.deepEqual(
+    (await repository.findSurnamesByHangul('\uAC00')).map((entry) => entry.id),
+    expectedSurnames,
+  );
+  assert.deepEqual(
+    (await repository.findByResourceElement('Wood')).map((entry) => entry.id),
+    expectedWood,
+  );
+  assert.deepEqual(
+    (await repository.findByResourceElement('Wood', '\uAC00')).map((entry) => entry.id),
+    expectedWood,
+  );
+  assert.deepEqual(
+    (await repository.findByStrokeRange(5, 5)).map((entry) => entry.id),
+    ids.filter((id) => id % 2 === 1),
+  );
+  assert.deepEqual(
+    (await repository.findByOnset('\u3131')).map((entry) => entry.id),
+    ids.slice(0, 200),
+  );
+
+  repository.close();
+});
+
 test('HanjaRepository close prevents a late initialization from publishing', async () => {
   const fake = createFakeSqlRuntime(HANJA_ROW);
   const firstBody = deferred<ArrayBuffer>();
   let fetches = 0;
-  const repository = new HanjaRepository({
+  const repository = createFakeHanjaRepository(fake, {
     initializeSqlJs: async () => fake.SQL,
     fetch: async () => {
       fetches += 1;
       return fetches === 1
         ? response(firstBody.promise)
-        : response(bufferWithTag(2));
+        : response(bufferWithTag(1));
     },
   });
 
@@ -376,12 +638,10 @@ test('HanjaRepository close prevents a late initialization from publishing', asy
   const staleError = await staleOutcome;
 
   assert.match(String(staleError), /cancelled by close/);
-  const activeDb = fake.databases.find((db) => db.tag === 2);
-  const staleDb = fake.databases.find((db) => db.tag === 1);
+  const [activeDb] = fake.databases;
   assert.ok(activeDb);
-  assert.ok(staleDb);
+  assert.equal(fake.databases.length, 1, 'cancelled bytes must not reach SQL.Database');
   assert.equal(activeDb.closeCount, 0);
-  assert.equal(staleDb.closeCount, 1);
   assert.equal((await repository.findByHanja('\u5BB6'))?.hanja, '\u5BB6');
 
   repository.close();
@@ -392,7 +652,7 @@ test('HanjaRepository init rejects if close runs before its promise settles', as
   const fake = createFakeSqlRuntime(HANJA_ROW);
   const body = deferred<ArrayBuffer>();
   let fetches = 0;
-  const repository = new HanjaRepository({
+  const repository = createFakeHanjaRepository(fake, {
     initializeSqlJs: async () => fake.SQL,
     fetch: async () => {
       fetches += 1;
@@ -406,20 +666,20 @@ test('HanjaRepository init rejects if close runs before its promise settles', as
   queueMicrotask(() => repository.close());
 
   await assert.rejects(initialization, /cancelled by close/);
-  assert.equal(fake.databases[0]?.closeCount, 1);
+  assert.equal(fake.databases.length, 0, 'cancelled bytes must not reach SQL.Database');
   await assert.rejects(repository.findByHanja('\u5BB6'), /Database not initialized/);
 });
 
 test('HanjaRepository removes a failed init promise so initialization can retry', async () => {
   const fake = createFakeSqlRuntime(HANJA_ROW);
   let fetches = 0;
-  const repository = new HanjaRepository({
+  const repository = createFakeHanjaRepository(fake, {
     initializeSqlJs: async () => fake.SQL,
     fetch: async () => {
       fetches += 1;
       return fetches === 1
         ? response(bufferWithTag(1), 503, 'Unavailable')
-        : response(bufferWithTag(2));
+        : response(bufferWithTag(1));
     },
   });
 
@@ -428,13 +688,13 @@ test('HanjaRepository removes a failed init promise so initialization can retry'
 
   assert.equal(fetches, 2);
   assert.equal(fake.databases.length, 1);
-  assert.equal(fake.databases[0]?.tag, 2);
+  assert.equal(fake.databases[0]?.tag, 1);
   repository.close();
 });
 
 test('HanjaRepository always frees a prepared statement after query failure', async () => {
   const fake = createFakeSqlRuntime(HANJA_ROW);
-  const repository = new HanjaRepository({
+  const repository = createFakeHanjaRepository(fake, {
     initializeSqlJs: async () => fake.SQL,
     fetch: async () => response(),
   });
@@ -620,7 +880,7 @@ function isDataError(
 
 test('FourframeRepository rejects malformed and non-finite rows without leaking statements', async () => {
   const fake = createFakeSqlRuntime(FOURFRAME_ROW);
-  const repository = new FourframeRepository({
+  const repository = createFakeFourframeRepository(fake, {
     initializeSqlJs: async () => fake.SQL,
     fetch: async () => response(),
   });
@@ -646,7 +906,7 @@ test('FourframeRepository rejects malformed and non-finite rows without leaking 
 
 test('HanjaRepository rejects invalid numbers, enums, required fields, and character metadata', async () => {
   const fake = createFakeSqlRuntime(HANJA_ROW);
-  const repository = new HanjaRepository({
+  const repository = createFakeHanjaRepository(fake, {
     initializeSqlJs: async () => fake.SQL,
     fetch: async () => response(),
   });

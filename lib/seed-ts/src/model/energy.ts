@@ -1,6 +1,10 @@
 import { Polarity } from './polarity.js';
 import type { Element } from './element.js';
 import { SeedCalculationError } from '../errors.js';
+import {
+  calculateElementRelationScore,
+  combineEnergyScores,
+} from '../scoring-policy.js';
 
 export class Energy {
   public polarity: Polarity;
@@ -13,7 +17,10 @@ export class Energy {
 
   public static getScore(energies: readonly Energy[]): number {
     Energy.assertNonEmpty(energies);
-    return Energy.getPolarityScore(energies) * 0.5 + Energy.getElementScore(energies) * 0.5;
+    return combineEnergyScores(
+      Energy.getPolarityScore(energies),
+      Energy.getElementScore(energies),
+    );
   }
 
   public static getPolarityScore(energies: readonly Energy[]): number {
@@ -47,12 +54,16 @@ export class Energy {
       } else if (current.element.isOvercoming(next.element)) {
         overCount += 1;
       } else if (current.element.isSameAs(next.element)) {
-        sameCount += 1; // Bonus for same element
+        // v1 preserves the historical -5 adjustment; see the expert-review warning in the policy.
+        sameCount += 1;
       }
     }
 
-    const score = 70 + genCount * 15 - overCount * 20 - sameCount * 5;
-    return Math.min(100, Math.max(0, score));
+    return calculateElementRelationScore({
+      generating: genCount,
+      overcoming: overCount,
+      same: sameCount,
+    });
   }
 
   private static assertNonEmpty(energies: readonly Energy[]): void {

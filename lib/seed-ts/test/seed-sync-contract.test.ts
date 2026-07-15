@@ -303,8 +303,8 @@ test('InputForm native-Korean placeholder shape is normalized before strict scor
       ...input,
       options: { pureHangulNameMode: 'off' },
     },
-    'INVALID_STROKE_COUNT',
-    'firstName[0].strokes',
+    'INVALID_HANJA_CHARACTER',
+    'firstName[0].hanja',
   );
 });
 
@@ -347,6 +347,39 @@ test('invalid names, strokes, elements, onset, and nucleus fail closed', () => {
 
   const invalidNucleus = withFirstNameEntry({ nucleus: '\u314F' });
   expectValidationError(invalidNucleus, 'INVALID_NUCLEUS', 'firstName[0].nucleus');
+});
+
+test('non-Hangul analysis rejects invalid Han characters and positional surname flags', () => {
+  for (const invalidHanja of ['', 'NOT-HAN', '\u73C9\u4FCA']) {
+    expectValidationError(
+      withFirstNameEntry({ hanja: invalidHanja }),
+      'INVALID_HANJA_CHARACTER',
+      'firstName[0].hanja',
+    );
+  }
+
+  const surnameFlagMismatch = validUserInfo();
+  expectValidationError(
+    {
+      ...surnameFlagMismatch,
+      lastName: [{ ...surnameFlagMismatch.lastName[0], is_surname: false }],
+    },
+    'INVALID_SURNAME_FLAG',
+    'lastName[0].is_surname',
+  );
+
+  const surnameEligibleGivenName = validUserInfo();
+  assert.doesNotThrow(() => new SeedTs().analyze({
+    ...surnameEligibleGivenName,
+    firstName: [
+      { ...surnameEligibleGivenName.firstName[0], is_surname: true },
+      ...surnameEligibleGivenName.firstName.slice(1),
+    ],
+  }));
+
+  assert.doesNotThrow(() => new SeedTs().analyze(
+    withFirstNameEntry({ hanja: '\u{20000}' }),
+  ));
 });
 
 test('gender, options, and birth date-time values fail closed at runtime', () => {

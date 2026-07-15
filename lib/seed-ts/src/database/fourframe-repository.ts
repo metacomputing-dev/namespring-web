@@ -1,4 +1,12 @@
 import { type Database } from 'sql.js';
+import type { DatabaseAssetManifestEntry } from './database-asset-contract.js';
+import { FOURFRAME_DATABASE_ASSET } from './database-asset-registry.js';
+import { openVerifiedRepositoryDatabase } from './repository-database-opener.js';
+import { awaitActiveRepositoryStep } from './repository-lifecycle.js';
+import {
+  resolveRepositoryDatabaseContract,
+  type RepositoryDatabaseIntegrityPolicy,
+} from './repository-database-policy.js';
 import {
   createRepositoryRuntime,
   resolveRepositoryWasm,
@@ -16,6 +24,7 @@ const FOURFRAME_LUCKY_LEVEL_SET = new Set(FOURFRAME_LUCKY_LEVELS);
 
 export interface FourframeRepositoryOptions extends RepositoryWasmOptions {
   readonly dbUrl?: string;
+  readonly databaseIntegrity?: RepositoryDatabaseIntegrityPolicy;
 }
 
 /**
@@ -30,6 +39,7 @@ export class FourframeRepository {
   private readonly wasmUrl: string;
   private readonly wasmSha256: string | null;
   private readonly runtime: RepositoryRuntime;
+  private readonly databaseContract: DatabaseAssetManifestEntry;
 
   public constructor(options: FourframeRepositoryOptions = {}) {
     const wasm = resolveRepositoryWasm(options);
@@ -37,6 +47,18 @@ export class FourframeRepository {
     this.wasmUrl = wasm.url;
     this.wasmSha256 = wasm.sha256;
     this.runtime = createRepositoryRuntime(options);
+    this.databaseContract = resolveRepositoryDatabaseContract(
+      options.databaseIntegrity,
+      FOURFRAME_DATABASE_ASSET,
+    );
+  }
+
+  private cancellationError(): Error {
+    return new Error('FourframeRepository initialization was cancelled by close().');
+  }
+
+  private assertActive(generation: number): void {
+    if (generation !== this.lifecycleGeneration) throw this.cancellationError();
   }
 
   public init(): Promise<void> {
@@ -47,9 +69,7 @@ export class FourframeRepository {
     let trackedPromise: Promise<void>;
     trackedPromise = this.initialize(generation)
       .then(() => {
-        if (generation !== this.lifecycleGeneration) {
-          throw new Error('FourframeRepository initialization was cancelled by close().');
-        }
+        this.assertActive(generation);
       })
       .finally(() => {
         if (this.initPromise === trackedPromise) {
@@ -61,26 +81,44 @@ export class FourframeRepository {
   }
 
   private async initialize(generation: number): Promise<void> {
-    const SQL = await this.runtime.initializeSqlJs(this.wasmUrl, this.wasmSha256);
-    if (generation !== this.lifecycleGeneration) {
-      throw new Error('FourframeRepository initialization was cancelled by close().');
-    }
+    const assertActive = (): void => this.assertActive(generation);
+    const SQL = await awaitActiveRepositoryStep(
+      () => this.runtime.initializeSqlJs(this.wasmUrl, this.wasmSha256),
+      assertActive,
+    );
 
-    const response = await this.runtime.fetch(this.dbUrl);
+    const response = await awaitActiveRepositoryStep(
+      () => this.runtime.fetch(this.dbUrl),
+      assertActive,
+    );
     if (!response.ok) {
       throw new Error(
         'Failed to fetch DB: ' + response.status + ' ' + response.statusText,
       );
     }
-    if (generation !== this.lifecycleGeneration) {
-      throw new Error('FourframeRepository initialization was cancelled by close().');
-    }
 
-    const buffer = await response.arrayBuffer();
-    const candidate = new SQL.Database(new Uint8Array(buffer));
-    if (generation !== this.lifecycleGeneration) {
-      candidate.close();
-      throw new Error('FourframeRepository initialization was cancelled by close().');
+    const buffer = await awaitActiveRepositoryStep(
+      () => response.arrayBuffer(),
+      assertActive,
+    );
+
+    let candidate: Database | null = null;
+    try {
+      candidate = await openVerifiedRepositoryDatabase(
+        SQL,
+        new Uint8Array(buffer),
+        this.databaseContract,
+        assertActive,
+      );
+      assertActive();
+    } catch (error) {
+      try {
+        candidate?.close();
+      } catch {
+        // Preserve the initialization or cancellation error that won the race.
+      }
+      if (generation !== this.lifecycleGeneration) throw this.cancellationError();
+      throw error;
     }
     if (this.db) {
       candidate.close();

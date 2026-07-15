@@ -12,6 +12,7 @@ import {
   cloneNameEntries,
 } from './validation.js';
 import { deepFreeze } from './utils/deep-freeze.js';
+import { averageEnabledComponentScores } from './scoring-policy.js';
 
 const ENABLE_HANJA_EVALUATION = true;
 const ENABLE_FOURFRAME_EVALUATION = true;
@@ -117,7 +118,7 @@ export class SeedTs {
       );
     }
 
-    const totalScore = scores.reduce((sum, value) => sum + value, 0) / scores.length;
+    const totalScore = averageEnabledComponentScores(scores);
     if (!Number.isFinite(totalScore)) {
       throw new SeedCalculationError(
         'NON_FINITE_SCORE',

@@ -23,6 +23,9 @@ export type {
   SeedErrorPayload,
 } from './errors.js';
 
+export { SEED_SCORING_POLICY } from './scoring-policy.js';
+export type { SeedScoringPolicyV1 } from './scoring-policy.js';
+
 export { EnergyCalculator } from './calculator/energy-calculator.js';
 export type {
   EnergyCalculationStatus,
@@ -94,6 +97,26 @@ export {
   RepositoryConfigurationError,
   RepositoryIntegrityError,
 } from './database/repository-runtime.js';
+export {
+  REPOSITORY_DATABASE_INTEGRITY_MISMATCH,
+  RepositoryDatabaseIntegrityError,
+  verifyOpenedRepositoryDatabase,
+  verifyRepositoryDatabaseBytesBeforeOpen,
+} from './database/database-integrity.js';
+export type {
+  RepositoryDatabaseIntegrityReason,
+  RepositoryDatabaseIntegrityValue,
+} from './database/database-integrity.js';
+export type {
+  DatabaseAssetManifest,
+  DatabaseAssetManifestEntry,
+  NormalizedDatabaseColumn,
+} from './database/database-asset-contract.js';
+export type {
+  CanonicalRepositoryDatabaseIntegrityPolicy,
+  PinnedRepositoryDatabaseIntegrityPolicy,
+  RepositoryDatabaseIntegrityPolicy,
+} from './database/repository-database-policy.js';
 export type {
   RepositoryFetch,
   RepositoryFetchResponse,
