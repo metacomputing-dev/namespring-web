@@ -138,7 +138,7 @@ holdout과 재캘리브레이션 전에는 제품 기본값으로 승인하지 �
 
 ## H. 2026-07-12 명리 판정 논리 감사 인계 (Codex 필독)
 
-> **정본: `docs/dossiers/f2-johoo-2026-07-12/DOSSIER.md`** (현재 built `dist/`를 freeze 캡처 기대값과 대조하는 `verify-f2.mjs` 동봉). freeze `6fb2f68a4` 기준 읽기 전용 감사 산출물.
+> **정본: `docs/dossiers/f2-johoo-2026-07-12/DOSSIER.md`** (현재 checkout의 saju-ts `src/`를 직접 검증하는 `verify-f2.mjs` 동봉). freeze `6fb2f68a4`에서 시작해 현재 source 기대값으로 재검증한 감사 산출물.
 
 - **F2 조후위급**: 기본 3항 모델에서 dossier 표에 열거한 조후 오행 C와 비교 오행 B의 역할 충돌이 있고 `prefGap >= G`인 경우에만 C의 1위 역전이 불가능하다. 조후와 억부가 일치하거나 다른 역할 조합에는 일반화하지 않는다. 5표본은 조건 사례이며 극단 강약 전체에 대한 전칭 증명이 아니다. **기본 동작 변경은 dossier §7 전문가 질문 7개 답변 전 금지**(default-change 대상).
 - **감사 티켓 T1~T7**: dossier 부록 A 표 참조. T1·T3·T5는 코드 수정 완료 후 명리 검토 대기, T7은 계수 인벤토리 문서화 완료다. T2(HUA_QI/ZHUAN_WANG veto 우회)·T4(consensus conflictLevel 상수 'high')는 열려 있고, T6(희신/기신 유도)는 전문가 검토 대기다.

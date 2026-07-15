@@ -8,14 +8,14 @@
 ## 범위와 제외
 
 - 대상: lib/saju-ts 판정 경로 + lib/spring-ts 어댑터(springLegacy.ts). 프론트엔드 제외.
-- **제외(이 문서는 해당 영역을 재분석하지 않는다)**: F1은 `0416c3daa`에서 코드 수정 완료 후 exact diff·명리 검토 대기(월지 격 후보 점수 GK-09는 인벤토리 수록만), F4(DSL veto fallback)와 F7(consensus conflictLevel/confidence — 인접 표시 상수 FX-06은 수록만, 티켓 제외)은 별도 대기.
+- **제외(이 문서는 해당 영역을 재분석하지 않는다)**: F1은 코드 수정 완료 후 독립 명리 검토 대기(월지 격 후보 점수 GK-09는 인벤토리 수록만), F4(DSL veto fallback)와 F7(consensus conflictLevel/confidence — 인접 표시 상수 FX-06은 수록만, 티켓 제외)은 별도 대기.
 - 조후 우선순위 정책은 별도 dossier가 정본: `../f2-johoo-2026-07-12/DOSSIER.md`.
 
 ## Codex 행동 지침
 
 | 구분 | 내용 |
 |---|---|
-| ✅ 착수 가능 | 티켓 G1~G5 (§G — 상호 독립). G1~G3은 로직 무변경, G4는 기본 config 불변·비기본 `norm<=0` 변경, G5는 승인 전 현행동작 특성화만 허용 |
+| ✅ 착수 가능 | 미완 티켓 G1·G2·G3과 경계 정책 G4·특성화 G5(§G). T7 계수 인벤토리는 이 dossier와 `inventory.json`으로 완료 |
 | ⛔ 금지 | [캘리브] 태그 계수의 **수치 변경**(authority holdout·measure_default_change 절차 없이 불가), [정책] 태그 기본값 변경(전문가/소유자 결정 대기) |
 | ⚠️ 참고 | §E의 질문들은 명리 전문가 확인 사항 — 코드로 선결하지 말 것 |
 
@@ -29,7 +29,7 @@
 
 1. **P1-A: 용신 가중치가 비정규화 신호에 곱해짐 — 명목 가중과 실효 영향의 괴리.** 방법축 신호의 자연 범위가 제각각: balance(def) 0~0.2, role(pref) −0.4~+1.0(폭 1.4), climate −0.54~+0.51(폭 1.05), medicine 0~0.8, tongguan/follow/oneElement 0~1, template 0~0.75. 명목 가중 1:1:0.25(yongshin.ts:317)의 실효 영향은 0.2 : 1.4 : 0.26 — **role이 사실상 지배**하고 '가중치'가 정책 의미를 담지 못함. F2(조후 열세)는 이 구조의 한 단면이며 medicine·tongguan을 켜는 프리셋에서도 재발. 축별 정규화 없이는 프리셋 가중이 학파 의도를 표현한다고 보장 불가.
 2. **P1-B: 충·형·파·해·원진 감쇠 계수가 4벌 존재, 상대 서열 상호 모순.** ①신강약 뿌리감쇠: 충 0.5·형 0.7, **파/해/원진 0(불인정)** (strengthFacts.ts:207-213) ②격국 damage: 충 1.0>형 0.8>해=파 0.7>원진 0.5 (facts.ts:2064) ③신살 conditions: **전부 균일 0.5**, HAP/GONGMANG도 0.5 (shinsalConditionsBasePack.ts:75-83) ④합화 break: stemClash 0.12·branchDamage 0.08 (facts.ts:1621-1624). 도메인별 의도 차이일 수 있으나 **서열이 왜 다른지 교차 근거표가 없음** — 한쪽만 수정되는 드리프트 경로.
-3. **P1-C: config 모양이지만 사실상 상수.** builtin.pack.json 20개 프리셋이 실제 변주하는 계수는 yongshin `weights`(14회)·quality(2)·conditions(1)뿐. **strength 내부 계수 14개(lingScale/diScale/shiScale/rootNorm/shiNorm/resAlpha/posW/branchWeights/interaction 전부), 격국 quality·seongpae 계수, transformations 계수는 프리셋 변주 0회 + 스키마 문서 부재.** '학파 정책 표면'과 '엔진 내부 계수'가 같은 config 네임스페이스에 섞여 소유권 불명. 사용자는 임의 키를 무검증 num() 폴백으로 덮어쓸 수 있어 지원 불가 조합이 열려 있음.
+3. **P1-C: 프리셋 정책 표면과 엔진 내부 계수의 소유권이 혼재.** `builtin.pack.json`의 실제 프리셋은 18개다. 직접 overlay하는 구조는 `yongshin.weights` 12개, `patterns.transformations` 1개, `patterns.oneElement` 1개, `gyeokguk.competition` 5개, `yongshin.methodSelector` 5개, `shinsal.conditions` 1개다. 반면 **strength 내부 정규화·interaction 계수와 격국 quality·seongpae 내부 계수는 프리셋 변주가 없고 스키마 소유권 문서도 없다.** '학파 정책 표면'과 '엔진 내부 계수'가 같은 config 네임스페이스에 섞여 있어 지원 범위가 불명확하다.
 4. **P1-D: 정규화·임계 상수의 다중 정의(동기화 위험).** rootNorm 2.2·shiNorm 1.6·rootResAlpha 0.6·shiResAlpha 0.7이 **3곳**(strengthFacts.ts:615-619 / 전왕팩 facts.ts:819-822 / 종격팩 facts.ts:1180-1181), 종격 weakThreshold −0.78·minDom 2.2가 **2곳**(facts.ts:1066-1068 / yongshin.ts:586-588), branchWeights(0.7/1.1/0.9/0.7) 2곳(strengthFacts.ts:632-637 / facts.ts:825-830). 록 조견 2곳(facts.ts:3058)은 의도적 분리 주석 있음(예외). 기존 기록('램프 수식 이중 구현 — 동기화 필수')과 같은 유형의 확산.
 
 **P2 (6건)**
@@ -101,7 +101,7 @@
 | GK-06 | gyeokguk.ts:240-246 | seongpae 성격1.08/파중유구1.0/성중유패.9/파격.75/미확정.95 | 성패 verdict 배율 | 점수 배율 · × | 주석: provisional 명시 | 별도 감사 F3(이중감점)과 연동 | **캘리브** |
 | GK-07 | gyeokgukSeongpae.ts:226,231 | hiddenSangshin minWeight .3 / decisiveMargin .4 | 성패 세부 게이트 | 게이트 · **th(raw)** | 없음 | **C-4 단위 불일치** | **캘리브** |
 | GK-08 | defaultRuleSets.ts:59,74,86,99-104,113-116 | 특수격 gate .6/.62 · 점수 ×.85 | 화기/전왕/종격 후보 | DSL · ×(0.85 스케일) | 없음 | quality multiplier(≤1)와 순위 비교되는 암묵 등가 가정 | **캘리브** |
-| GK-09 | facts.ts:3005-3021 | 격 후보 MAIN+.15/VISIBLE+.55/GROUP+.35/DAMAGED−.1 | 월지 격 후보 점수 | 선정 · + | 없음 | **F1 영역 — `0416c3daa` 코드 수정 완료·검토 대기, 본 감사 분석·티켓 제외** | (F1 후속) |
+| GK-09 | facts.ts:3005-3021 | 격 후보 MAIN+.15/VISIBLE+.55/GROUP+.35/DAMAGED−.1 | 월지 격 후보 점수 | 선정 · + | 없음 | **F1 영역 — 코드 수정 완료(PR #671)·독립 명리 검토 대기, 본 감사 분석·티켓 제외** | (F1 후속) |
 | GK-10 | gyeokguk.ts:574-616,646-717 | jonggyeok evidence: .46/1.35 · 가중 .28/.2/.18/.16/.12/.12 · blocker .2/.14/.1/.08 · status th .18/.28/.68 · 전왕 .58/.24/.18 · 화기 .62/.2/.18 · gate .2/.45 | 종격 후보 증거 점수 | evidence-only(승격 안 함 명시) · × | 없음 | 어댑터 jonggyeokRisk가 판정 신호로 소비 — 순수 표시 아님 | **캘리브** |
 | GK-11 | springLegacy.ts:1029-1080 | composite classical: .75/.72/.45/.65·.35/.6/.3/.55/damage÷3×.12/.12/.07/.05/.05/.08/.03/.06 | 레거시 격국 후보 표시 점수 | 표시 합성 · × | 없음 | candidates 순위로 노출 | **표시**(동결) 또는 **캘리브** |
 
@@ -186,7 +186,7 @@ ST-01~13, ST-16, YS-02, GK-01~08, GK-10, TF-01~04, SP-01/02, SS-01, CL-01/02, FX
 - **전문가 판단**: 문서의 '확인 대기' 섹션 답변은 필요하나, 티켓 자체는 불필요.
 
 ### G3. config 스키마·소유권 표
-- **내용**: strategies.* 계수 키 전수 표(기본값·프리셋 실변주 여부(실측: yongshin weights 14회/quality 2/conditions 1, 그 외 0회)·[정책/캘리브/내부] 라벨)를 docs 신규 문서로 작성. P1-C의 '사실상 상수' 키 선언부에 `@engine-internal` 주석 라벨 추가.
+- **내용**: strategies.* 계수 키 전수 표(기본값·프리셋 실변주 여부: 18개 중 weights 12, transformations 1, oneElement 1, competition 5, methodSelector 5, conditions 1 · [정책/캘리브/내부] 라벨)를 docs 신규 문서로 작성. 프리셋 비변주 내부 키 선언부에 `@engine-internal` 주석 라벨 추가.
 - **변경 허용 범위**: docs 신규 1파일 + 코드 주석 줄만.
 - **판정 변화**: 없음.
 - **필수 테스트**: 기존 스위트 통과. 표의 기본값은 inventory.json과 대조.
@@ -207,4 +207,4 @@ ST-01~13, ST-16, YS-02, GK-01~08, GK-10, TF-01~04, SP-01/02, SS-01, CL-01/02, FX
 - **전문가 판단**: characterization 작성 자체는 불필요. 다만 감쇠·12운성·성패 서열을 정책 불변식이나 release gate로 승격하려면 §E 전문가 답변이 선행돼야 한다.
 
 ---
-검증 노트(재현): 프리셋 분산 실측 `grep -o '"weights"...' src/schools/packs/builtin.pack.json`(yongshin weights 14·quality 2·conditions 1, strength 내부 키 0). 테스트 결박 표본 `grep -rn "toBeCloseTo(" src/rules/*.test.ts`. 인벤토리 라인 번호는 freeze `6fb2f68a4` 기준.
+검증 노트(재현): `builtin.pack.json`은 텍스트 grep이 아니라 `JSON.parse` 후 정확한 구조 경로별로 계수했다. 결과는 프리셋 18, `yongshin.weights` 12, `patterns.transformations` 1, `patterns.oneElement` 1, `gyeokguk.competition` 5, `yongshin.methodSelector` 5, `shinsal.conditions` 1이다. 테스트 결박 표본은 `toBeCloseTo(` 호출을 별도로 조사했다. 인벤토리 라인 번호는 freeze `6fb2f68a4` 기준이다.
