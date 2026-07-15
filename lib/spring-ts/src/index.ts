@@ -2,6 +2,20 @@
 //  1. SPRING ENGINE & EVALUATOR
 // ─────────────────────────────────────────────────────────────────────────────
 export { FortuneSajuUnavailableError, SpringEngine } from './spring-engine.js';
+export {
+  SAJU_ANALYSIS_UNAVAILABLE,
+  SajuAnalysisUnavailableError,
+  assertScorableSajuSummary,
+  isScorableSajuSummary,
+} from './saju-analysis-contract.js';
+export {
+  FORTUNE_REPORT_BUILD_FAILED,
+  FORTUNE_TARGET_DATE_INVALID,
+  FortuneReportBuildError,
+  FortuneTargetDateInvalidError,
+  resolveFortuneTargetDate,
+} from './report/report-input-contract.js';
+export { SajuRequestValidationError } from './saju-request-policy.js';
 export { springEvaluateName, SAJU_FRAME } from './spring-evaluator.js';
 
 // ─────────────────────────────────────────────────────────────────────────────

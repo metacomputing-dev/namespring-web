@@ -23,11 +23,14 @@ import {
   type RuleExperimentComparisonContext,
   type RuleExperimentVariantFeedbackSnapshot,
 } from '../src/index.js';
+import { sha256FileDigest } from '../tools/metrics/artifact-digest.mjs';
+import {
+  completeD1GateFromCalibration,
+} from '../tools/metrics/complete-d1-rule-ab-gate.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRING_TS_ROOT = path.resolve(__dirname, '..');
 const GENERATED_AT = '2026-05-02T00:00:00.000Z';
-const MIN_ELIGIBLE_OBJECTIVE_FIXTURES = 3;
 
 interface Args {
   readonly outDir: string;
@@ -167,31 +170,11 @@ function buildFeedbackSnapshots(): Record<string, readonly RuleExperimentVariant
   };
 }
 
-function sourceTierGateFromCalibration(calibration: any): any {
-  const eligibleObjectiveFixtureCount =
-    Number(calibration?.sourceTierObjective?.eligibleObjectiveFixtureCount ?? 0);
-  const objectiveStatus = String(calibration?.sourceTierObjective?.status ?? 'UNKNOWN');
-  const calibrationDecision = String(calibration?.selected?.decision ?? 'unknown');
-  const status = objectiveStatus === 'READY' &&
-    eligibleObjectiveFixtureCount >= MIN_ELIGIBLE_OBJECTIVE_FIXTURES &&
-    calibrationDecision !== 'keep_current_default'
-    ? 'PASS'
-    : 'BLOCKED';
-  return {
-    requiredBeforeDefaultChange: true,
-    status,
-    authorityObjectiveStatus: objectiveStatus,
-    eligibleObjectiveFixtureCount,
-    minimumEligibleObjectiveFixtures: MIN_ELIGIBLE_OBJECTIVE_FIXTURES,
-    lowTierPolicy: 'T2, T1, T0, and NO_REFERENCE feedback is diagnostic only and cannot promote defaults.',
-  };
-}
-
-function buildReport(calibration: any): any {
-  const sourceTierGate = sourceTierGateFromCalibration(calibration);
+function buildReport(calibration: any, calibrationMetricDigest: string): any {
+  const sourceTierGate = completeD1GateFromCalibration(calibration);
   const comparisonContext: RuleExperimentComparisonContext = {
     sourceTierGatePassed: sourceTierGate.status === 'PASS',
-    deterministicCalibrationPassed: String(calibration?.sourceTierObjective?.status ?? '') === 'READY',
+    deterministicCalibrationPassed: sourceTierGate.deterministicCalibrationPassed,
   };
   const snapshots = buildFeedbackSnapshots();
   const comparisons = RULE_EXPERIMENT_DEFINITIONS.map((definition) =>
@@ -212,6 +195,7 @@ function buildReport(calibration: any): any {
     inputs: {
       feedbackKind: 'source_free_aggregate_snapshots',
       calibrationMetric: 'metrics/deterministic-calibration.json',
+      calibrationMetricDigest,
     },
     privacy: {
       sourceFree: true,
@@ -244,7 +228,7 @@ function buildReport(calibration: any): any {
         : 'keep_current_default',
       reason: sourceTierGate.status === 'PASS'
         ? 'Experiment winners still require human review before any default mutation.'
-        : 'Experiment winners are insufficient without the source-tier default promotion gate.',
+        : 'Experiment winners are insufficient without the complete-D1 default promotion gate.',
       winningExperimentCount: winningComparisons.length,
       blockedWinningExperimentCount: blockedWins.length,
     },
@@ -254,7 +238,7 @@ function buildReport(calibration: any): any {
 async function main(): Promise<void> {
   const args = parseArgs(process.argv);
   const calibration = readJson(args.calibrationPath);
-  const report = buildReport(calibration);
+  const report = buildReport(calibration, sha256FileDigest(args.calibrationPath));
   const outPath = path.join(args.outDir, 'rule-ab-tests.json');
   writeJson(outPath, report);
   const summary = {

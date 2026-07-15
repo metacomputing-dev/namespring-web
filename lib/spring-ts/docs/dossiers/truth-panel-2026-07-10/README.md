@@ -137,3 +137,14 @@
   단일 저자(魏多亮) 편중 — §4 조건 5로 완화 예정 ③ Sina 블로그 소멸 리스크 — intake 시
   web.archive.org 아카이브 선행 필요 ④ HOLD 5건은 근거 부족이 아니라 접근 실패/경계 사례로,
   재시도 가치 있음.
+> Promotion status update (2026-07-10): this historical dossier is review
+> evidence only. It does not contain the new evidence-binding
+> `panel-manifest.json`, so it cannot promote any authority record by path
+> alone. A future promotion must add a reviewed manifest row binding the exact
+> record ID and canonical content digest.
+>
+> The current machine contract also requires structured Claude-5/GPT-5 model
+> identities, an explicit `saju_doctrine` scope, distinct model JSON evidence
+> files, file digests, and exact record/model/scope bindings. This dossier has
+> none of those promotion artifacts. It cannot authorize naming scores,
+> narrative regex policy, product-card surfaces, or safety-copy policy.

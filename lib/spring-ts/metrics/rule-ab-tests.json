@@ -1,10 +1,11 @@
 {
-  "schemaVersion": "spring-ts.rule-ab-tests.v1",
+  "schemaVersion": "spring-ts.rule-ab-tests.v2",
   "artifactKind": "deterministic_rule_ab_test_plan",
   "generatedAt": "2026-05-02T00:00:00.000Z",
   "inputs": {
     "feedbackKind": "source_free_aggregate_snapshots",
-    "calibrationMetric": "metrics/deterministic-calibration.json"
+    "calibrationMetric": "metrics/deterministic-calibration.json",
+    "calibrationMetricDigest": "sha256:cc749af0d7f6771f8dafde7553f3257d985db55255f38f2d539a9e65f93434e9"
   },
   "privacy": {
     "sourceFree": true,
@@ -31,9 +32,13 @@
   "sourceTierGate": {
     "requiredBeforeDefaultChange": true,
     "status": "BLOCKED",
-    "authorityObjectiveStatus": "INSUFFICIENT_AUTHORITY_TRUTH",
-    "eligibleObjectiveFixtureCount": 0,
-    "minimumEligibleObjectiveFixtures": 3,
+    "calibrationSchemaVersion": "spring-ts.deterministic-calibration.v2",
+    "requiredCalibrationSchemaVersion": "spring-ts.deterministic-calibration.v2",
+    "calibrationContractValid": true,
+    "completeD1ObjectiveStatus": "INSUFFICIENT_COMPLETE_D1_TRUTH",
+    "completeD1ObjectiveFixtureCount": 0,
+    "minimumCompleteD1ObjectiveFixtures": 3,
+    "deterministicCalibrationPassed": false,
     "lowTierPolicy": "T2, T1, T0, and NO_REFERENCE feedback is diagnostic only and cannot promote defaults."
   },
   "experiments": [
@@ -321,7 +326,7 @@
   ],
   "defaultPromotionDecision": {
     "decision": "keep_current_default",
-    "reason": "Experiment winners are insufficient without the source-tier default promotion gate.",
+    "reason": "Experiment winners are insufficient without the complete-D1 default promotion gate.",
     "winningExperimentCount": 2,
     "blockedWinningExperimentCount": 2
   }

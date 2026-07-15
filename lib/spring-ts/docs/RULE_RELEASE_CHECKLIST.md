@@ -41,8 +41,14 @@ link the relevant release checklist evidence.
 - Confirm no `T2`, `T1`, `T0`, `NO_REFERENCE`, AI-generated, or unsourced row is
   used as authority truth.
 - Confirm any new fixture or source has an explicit source tier and source kind.
-- Confirm promotion or calibration artifacts keep low-tier data diagnostic
-  unless `sourceTier.authorityTruthEligible === true` and tier rank is `T3+`.
+- Confirm calibration consumes only the validated
+  `spring-ts.by-source-tier.v2` `d1TruthCoverage.fixtures` contract, never
+  `schoolPresetBreakdown.rows` truth aliases.
+- Confirm only `coverageStatus === "COMPLETE"` rows with all seven D1 fields,
+  a non-`none` reference, and effective tier rank `T3+` enter the promotion
+  objective. `PARTIAL`, `NONE`, and low-tier rows must remain diagnostic.
+- Confirm malformed coverage fails closed and insufficient coverage remains
+  `INSUFFICIENT_COMPLETE_D1_TRUTH`; do not translate it to a passing status.
 - Run `npm run ci:no-ai-policy` for fixture, source registry, dependency, or
   runtime-source changes that could affect No-AI compliance.
 - Link `SOURCE_TIER_POLICY.md`, `DETERMINISTIC_CALIBRATION.md`, or the relevant

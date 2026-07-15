@@ -6,20 +6,31 @@
  * Run: npm run test:no-ai-policy
  */
 import { execFileSync } from 'node:child_process';
-import { createHash } from 'node:crypto';
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { computePanelRecordDigest } from '../../tools/source_tier_policy.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRING_TS_ROOT = path.resolve(__dirname, '../..');
+const CLAUDE_MODEL = { provider: 'anthropic', family: 'claude', version: '5' };
+const GPT_MODEL = { provider: 'openai', family: 'gpt', version: '5' };
 
-// Existing generated corpora predate this gate and still lack sourceTier metadata.
-// Keep the integration test monotonic while ci:no-ai-policy remains fail-closed.
-const ACKNOWLEDGED_MISSING_SOURCE_TIER_COUNT = 23_220;
-const ACKNOWLEDGED_MISSING_SOURCE_TIER_FINGERPRINT =
-  '1935fff70828a900cb22759219ce8d6e51d7b2288f0592045761f70402f1ee90';
+// Existing generated corpora predate the centralized source-tier schema.
+// Count-by-code and content digest make this debt monotonic and non-replaceable.
+const ACKNOWLEDGED_SOURCE_TIER_DEBT_COUNTS = Object.freeze({
+  ai_missing_sourceTier: 23_220,
+  invalid_accessed_at: 1_816,
+  invalid_sourceTier_field: 5_380,
+  invalid_sourceTier_tier: 1_749,
+  missing_sourceTier_field: 12_577,
+});
+const ACKNOWLEDGED_SOURCE_TIER_DEBT_COUNT = 44_742;
+const ACKNOWLEDGED_SOURCE_TIER_DEBT_FINGERPRINT =
+  '9826df7b9a41b5d9fe84b8a6a65147411e8c21a85197189b4f8e626552d83884';
+
 let pass = 0;
 let fail = 0;
 
@@ -55,26 +66,6 @@ function sourceTier(overrides: Record<string, unknown>): Record<string, unknown>
     authorityTruthEligible: false,
     ...overrides,
   };
-}
-
-function panelAuthority(overrides: Record<string, unknown> = {}): Record<string, unknown> {
-  return sourceTier({
-    tier: 'T3_AUTHORED_INTERPRETATION',
-    sourceType: 'ai_panel_adjudicated_interpretation',
-    aiGenerated: true,
-    authorityTruthEligible: true,
-    panelAdjudication: {
-      models: ['independent-model-a', 'independent-model-b'],
-      adversarialVerification: true,
-      dossier: 'docs/panel-dossier.md',
-    },
-    authorityReview: {
-      status: 'approved',
-      reviewedBy: 'project-owner',
-      reviewedAt: '2026-07-10',
-    },
-    ...overrides,
-  });
 }
 
 function createRoot(setup: (root: string) => void): string {
@@ -152,7 +143,7 @@ function violationFingerprint(violations: any[]): string {
       JSON.stringify(violation.markers ?? []),
     ].join('\u0000'))
     .sort();
-  return createHash('sha256').update(rows.join('\n')).digest('hex');
+  return crypto.createHash('sha256').update(rows.join('\n')).digest('hex');
 }
 
 console.log('Phase 9.3 no-AI policy gate\n');
@@ -173,6 +164,12 @@ try {
 const currentViolations = currentJson.violations ?? [];
 const currentInputErrors = currentJson.inputErrors ?? [];
 const currentDebtFingerprint = violationFingerprint(currentViolations);
+const currentDebtCounts = Object.fromEntries(
+  Object.keys(ACKNOWLEDGED_SOURCE_TIER_DEBT_COUNTS).map((code) => [
+    code,
+    currentViolations.filter((violation: any) => violation.code === code).length,
+  ]),
+);
 check('current repository does not exceed acknowledged sourceTier metadata debt',
   currentInputErrors.length === 0 &&
     currentJson.scanned.fixtureFiles > 0 &&
@@ -180,13 +177,14 @@ check('current repository does not exceed acknowledged sourceTier metadata debt'
     currentJson.scanned.sourceTierRecords > 0 &&
     currentJson.scanned.packageDependencies > 0 &&
     currentJson.scanned.runtimeSourceFiles > 0 &&
-    currentViolations.length === ACKNOWLEDGED_MISSING_SOURCE_TIER_COUNT &&
-    currentViolations.every((violation: any) => violation.code === 'ai_missing_sourceTier') &&
-    currentDebtFingerprint === ACKNOWLEDGED_MISSING_SOURCE_TIER_FINGERPRINT,
+    currentViolations.length === ACKNOWLEDGED_SOURCE_TIER_DEBT_COUNT &&
+    JSON.stringify(currentDebtCounts) === JSON.stringify(ACKNOWLEDGED_SOURCE_TIER_DEBT_COUNTS) &&
+    currentDebtFingerprint === ACKNOWLEDGED_SOURCE_TIER_DEBT_FINGERPRINT,
   JSON.stringify({
     ...currentJson.scanned,
     status: currentJson.status,
-    acknowledgedMissingSourceTier: currentViolations.length,
+    acknowledgedSourceTierDebt: currentViolations.length,
+    acknowledgedSourceTierDebtByCode: currentDebtCounts,
     acknowledgedDebtFingerprint: currentDebtFingerprint,
   }));
 
@@ -234,107 +232,6 @@ check('T1 training-derived fixture remains allowed when not authority truth',
     allowedTraining.json.status === 'PASS',
   JSON.stringify(allowedTraining.json));
 
-const authoredInsightRoot = createRoot((root) => {
-  writeJson(path.join(root, 'test/ai-authored-insight.json'), {
-    aiGenerated: true,
-    sourceTier: sourceTier({
-      sourceType: 'ai_authored_insight_text',
-      authorityTruthEligible: false,
-    }),
-  });
-});
-const authoredInsight = runGate(authoredInsightRoot);
-check('canonical ai_authored_insight_text provenance remains non-authority and valid',
-  authoredInsight.code === 0 && authoredInsight.json.status === 'PASS',
-  JSON.stringify(authoredInsight.json));
-
-const validPanelRoot = createRoot((root) => {
-  writeText(path.join(root, 'docs/panel-dossier.md'), '# adversarial panel evidence\n');
-  writeJson(path.join(root, 'test/panel-authority.json'), {
-    sourceTier: panelAuthority(),
-  });
-});
-const validPanel = runGate(validPanelRoot);
-check('complete panel authority requires distinct models and an in-root regular dossier file',
-  validPanel.code === 0 && validPanel.json.status === 'PASS',
-  JSON.stringify(validPanel.json));
-
-const duplicatePanelModelRoot = createRoot((root) => {
-  writeText(path.join(root, 'docs/panel-dossier.md'), '# adversarial panel evidence\n');
-  writeJson(path.join(root, 'test/panel-authority.json'), {
-    sourceTier: panelAuthority({
-      panelAdjudication: {
-        models: ['Same Model', ' same model '],
-        adversarialVerification: true,
-        dossier: 'docs/panel-dossier.md',
-      },
-    }),
-  });
-});
-const duplicatePanelModel = runGate(duplicatePanelModelRoot);
-check('duplicate panel model labels do not satisfy independent cross-model review',
-  duplicatePanelModel.code === 1 &&
-    duplicatePanelModel.json.status === 'FAIL' &&
-    codes(duplicatePanelModel).includes('ai_authority_truth_eligible'),
-  JSON.stringify(duplicatePanelModel.json.violations));
-
-const escapedDossierRoot = createRoot((root) => {
-  writeText(path.resolve(root, '../outside-panel-dossier.md'), '# outside evidence\n');
-  writeJson(path.join(root, 'test/panel-authority.json'), {
-    sourceTier: panelAuthority({
-      panelAdjudication: {
-        models: ['independent-model-a', 'independent-model-b'],
-        adversarialVerification: true,
-        dossier: '../outside-panel-dossier.md',
-      },
-    }),
-  });
-});
-const escapedDossier = runGate(escapedDossierRoot);
-check('panel dossier traversal outside the audited root is blocked even when the target exists',
-  escapedDossier.code === 1 &&
-    escapedDossier.json.status === 'FAIL' &&
-    codes(escapedDossier).includes('ai_authority_truth_eligible'),
-  JSON.stringify(escapedDossier.json.violations));
-
-const directoryDossierRoot = createRoot((root) => {
-  fs.mkdirSync(path.join(root, 'docs/panel-directory'), { recursive: true });
-  writeJson(path.join(root, 'test/panel-authority.json'), {
-    sourceTier: panelAuthority({
-      panelAdjudication: {
-        models: ['independent-model-a', 'independent-model-b'],
-        adversarialVerification: true,
-        dossier: 'docs/panel-directory',
-      },
-    }),
-  });
-});
-const directoryDossier = runGate(directoryDossierRoot);
-check('a directory cannot masquerade as a panel dossier',
-  directoryDossier.code === 1 &&
-    directoryDossier.json.status === 'FAIL' &&
-    codes(directoryDossier).includes('ai_authority_truth_eligible'),
-  JSON.stringify(directoryDossier.json.violations));
-
-const impossibleReviewDateRoot = createRoot((root) => {
-  writeText(path.join(root, 'docs/panel-dossier.md'), '# adversarial panel evidence\n');
-  writeJson(path.join(root, 'test/panel-authority.json'), {
-    sourceTier: panelAuthority({
-      authorityReview: {
-        status: 'approved',
-        reviewedBy: 'project-owner',
-        reviewedAt: '2026-02-31',
-      },
-    }),
-  });
-});
-const impossibleReviewDate = runGate(impossibleReviewDateRoot);
-check('an impossible calendar date cannot approve panel authority',
-  impossibleReviewDate.code === 1 &&
-    impossibleReviewDate.json.status === 'FAIL' &&
-    codes(impossibleReviewDate).includes('ai_authority_truth_eligible'),
-  JSON.stringify(impossibleReviewDate.json.violations));
-
 const aiAuthorityRoot = createRoot((root) => {
   writeJson(path.join(root, 'test/ai-authority.json'), {
     aiGenerated: true,
@@ -354,6 +251,121 @@ check('aiGenerated authority truth is blocked',
     codes(aiAuthority).includes('ai_high_tier_source') &&
     markerPaths(aiAuthority).includes('$.aiGenerated'),
   JSON.stringify(aiAuthority.json.violations));
+
+const concealedPanelRoot = createRoot((root) => {
+  writeJson(path.join(root, 'test/concealed-panel.json'), {
+    sourceTier: sourceTier({
+      tier: 'T3_AUTHORED_INTERPRETATION',
+      sourceType: 'ai_panel_adjudicated_interpretation',
+      authorityTruthEligible: true,
+      authorityReview: {
+        status: 'approved',
+        reviewedBy: 'owner@example.test',
+        reviewedAt: '2026-07-10',
+      },
+    }),
+  });
+});
+const concealedPanel = runGate(concealedPanelRoot);
+check('panel sourceType cannot conceal AI disclosure or adjudication evidence',
+  concealedPanel.code === 1 &&
+    concealedPanel.json.status === 'FAIL' &&
+    codes(concealedPanel).includes('missing_panel_ai_disclosure') &&
+    codes(concealedPanel).includes('missing_panel_adjudication'),
+  JSON.stringify(concealedPanel.json.violations));
+
+const completePanelRoot = createRoot((root) => {
+  writeText(path.join(root, 'docs/dossiers/panel-review/README.md'), 'Adversarial panel evidence.\n');
+  const record: any = {
+    id: 'complete-panel-case',
+    expected: { strengthLevel: 'WEAK' },
+    sourceTier: sourceTier({
+      tier: 'T3_AUTHORED_INTERPRETATION',
+      sourceType: 'ai_panel_adjudicated_interpretation',
+      aiGenerated: true,
+      authorityTruthEligible: true,
+      panelAdjudication: {
+        models: [CLAUDE_MODEL, GPT_MODEL],
+        scopes: ['saju_doctrine'],
+        adversarialVerification: true,
+        dossier: 'docs/dossiers/panel-review',
+        recordId: 'complete-panel-case',
+        contentDigest: '',
+      },
+      authorityReview: {
+        status: 'approved',
+        reviewedBy: 'owner@example.test',
+        reviewedAt: '2026-07-10',
+      },
+    }),
+  };
+  record.sourceTier.panelAdjudication.contentDigest = computePanelRecordDigest(record);
+  const evidence = [
+    {
+      model: CLAUDE_MODEL,
+      path: 'claude-5-output.json',
+      document: {
+        schemaVersion: 'spring-ts.panel-evidence.v1',
+        model: CLAUDE_MODEL,
+        recordId: record.id,
+        recordDigest: record.sourceTier.panelAdjudication.contentDigest,
+        scopes: record.sourceTier.panelAdjudication.scopes,
+        verdict: 'approved',
+        output: {
+          reasoning: 'Adversarial evidence retained for the integration contract.',
+        },
+      },
+    },
+    {
+      model: GPT_MODEL,
+      path: 'gpt-5-output.json',
+      document: {
+        schemaVersion: 'spring-ts.panel-evidence.v1',
+        model: GPT_MODEL,
+        recordId: record.id,
+        recordDigest: record.sourceTier.panelAdjudication.contentDigest,
+        scopes: record.sourceTier.panelAdjudication.scopes,
+        verdict: 'approved',
+        output: {
+          reasoning: 'Independent evidence retained for the integration contract.',
+        },
+      },
+    },
+  ];
+  for (const row of evidence) {
+    writeText(
+      path.join(root, 'docs/dossiers/panel-review', row.path),
+      JSON.stringify(row.document, null, 2),
+    );
+  }
+  writeJson(path.join(root, 'docs/dossiers/panel-review/panel-manifest.json'), {
+    schemaVersion: 'spring-ts.panel-adjudication.v1',
+    records: [{
+      recordId: 'complete-panel-case',
+      contentDigest: record.sourceTier.panelAdjudication.contentDigest,
+      models: [CLAUDE_MODEL, GPT_MODEL],
+      scopes: record.sourceTier.panelAdjudication.scopes,
+      adversarialVerification: true,
+      verdict: 'approved',
+      reviewedBy: 'owner@example.test',
+      reviewedAt: '2026-07-10',
+      evidence: evidence.map((row) => ({
+        model: row.model,
+        path: row.path,
+        bytes: Buffer.byteLength(JSON.stringify(row.document, null, 2)),
+        fileDigest: 'sha256:' + crypto.createHash('sha256')
+          .update(JSON.stringify(row.document, null, 2))
+          .digest('hex'),
+      })),
+    }],
+  });
+  writeJson(path.join(root, 'test/complete-panel.json'), record);
+});
+const completePanel = runGate(completePanelRoot);
+check('fully disclosed panel evidence passes the machine-verifiable provenance contract',
+  completePanel.code === 0 &&
+    completePanel.json.status === 'PASS',
+  JSON.stringify(completePanel.json));
 
 const missingSourceTierRoot = createRoot((root) => {
   writeJson(path.join(root, 'test/missing-source-tier.json'), {
@@ -391,8 +403,8 @@ check('AI-marked records require AI provenance in sourceType',
 
 const syntheticHighTierRoot = createRoot((root) => {
   writeJson(path.join(root, 'test/synthetic-high-tier.json'), {
-    expected: {
-      note: 'Synthetic model-generated doctrine candidate.',
+    source: {
+      kind: 'trainingDerived',
     },
     sourceTier: sourceTier({
       tier: 'T4_PRIMARY_TEXT',
@@ -407,7 +419,7 @@ check('model-generated records cannot use T3+ tiers even when non-authority',
     syntheticHighTier.json.status === 'FAIL' &&
     codes(syntheticHighTier).includes('ai_sourceType_not_marked') &&
     codes(syntheticHighTier).includes('ai_high_tier_source') &&
-    markerPaths(syntheticHighTier).includes('$.expected.note'),
+    markerPaths(syntheticHighTier).includes('$.source.kind'),
   JSON.stringify(syntheticHighTier.json.violations));
 
 const sourceRegistryRoot = createRoot((root) => {

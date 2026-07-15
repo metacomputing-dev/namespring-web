@@ -1,5 +1,9 @@
-import type { SajuRequestOptions } from './types.js';
-import { registerTargetCalendarDate } from './target-date.js';
+import type { SajuAnalysisReasonCode, SajuRequestOptions } from './types.js';
+import {
+  FortuneTargetDateInvalidError,
+  resolveFortuneTargetDate,
+} from './report/report-input-contract.js';
+import { targetCalendarParts } from './target-date.js';
 
 export const SAJU_REQUEST_LIMITS = Object.freeze({
   daeunCount: 10,
@@ -12,9 +16,13 @@ export const SAJU_REQUEST_LIMITS = Object.freeze({
 });
 
 export class SajuRequestValidationError extends RangeError {
-  constructor(message: string) {
+  readonly code = 'SAJU_REQUEST_INVALID' as const;
+  readonly reasonCode?: SajuAnalysisReasonCode;
+
+  constructor(message: string, reasonCode?: SajuAnalysisReasonCode) {
     super(message);
     this.name = 'SajuRequestValidationError';
+    this.reasonCode = reasonCode;
   }
 }
 
@@ -151,17 +159,19 @@ interface CalendarDateParts {
   readonly day: number;
 }
 
-const STRICT_ISO_TARGET = /^(\d{4})-(\d{2})-(\d{2})(?:$|T(\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{1,9}))?)?(Z|[+-]\d{2}:\d{2}))$/;
-
 function daysInMonth(year: number, month: number): number {
   return new Date(Date.UTC(year, month, 0)).getUTCDate();
 }
 
-function assertCalendarDate(parts: CalendarDateParts, label: string): void {
+function assertCalendarDate(
+  parts: CalendarDateParts,
+  label: string,
+  reasonCode?: SajuAnalysisReasonCode,
+): void {
   if (!Number.isInteger(parts.year) || !Number.isInteger(parts.month) || !Number.isInteger(parts.day)
     || parts.year < 1 || parts.year > 9_999 || parts.month < 1 || parts.month > 12
     || parts.day < 1 || parts.day > daysInMonth(parts.year, parts.month)) {
-    throw new SajuRequestValidationError(`${label} must be a valid calendar date`);
+    throw new SajuRequestValidationError(`${label} must be a valid calendar date`, reasonCode);
   }
 }
 
@@ -175,39 +185,20 @@ export function parseFortuneTargetDate(raw: string | undefined, birth: BirthDate
     month: birth?.month,
     day: birth?.day,
   } as CalendarDateParts;
-  assertCalendarDate(birthDate, 'birth date');
+  assertCalendarDate(birthDate, 'birth date', 'BIRTH_DATE_INVALID');
 
   let parsed: Date;
-  let targetDate: CalendarDateParts;
-  if (raw === undefined) {
-    parsed = new Date();
-    targetDate = { year: parsed.getFullYear(), month: parsed.getMonth() + 1, day: parsed.getDate() };
-  } else {
-    if (typeof raw !== 'string' || raw !== raw.trim()) {
-      throw new SajuRequestValidationError('targetDate must be a strict ISO date string');
+  try {
+    parsed = resolveFortuneTargetDate(raw);
+  } catch (error) {
+    if (error instanceof FortuneTargetDateInvalidError) {
+      throw new SajuRequestValidationError(
+        'targetDate must be ISO YYYY-MM-DD or include an explicit timezone',
+      );
     }
-    const match = STRICT_ISO_TARGET.exec(raw);
-    if (!match) throw new SajuRequestValidationError('targetDate must be ISO YYYY-MM-DD or include an explicit timezone');
-    targetDate = { year: Number(match[1]), month: Number(match[2]), day: Number(match[3]) };
-    assertCalendarDate(targetDate, 'targetDate');
-    if (match[4] !== undefined) {
-      const hour = Number(match[4]);
-      const minute = Number(match[5]);
-      const second = match[6] === undefined ? 0 : Number(match[6]);
-      const zone = match[8];
-      const offset = zone === 'Z' ? null : zone.slice(1).split(':').map(Number);
-      if (hour > 23 || minute > 59 || second > 59
-        || (offset !== null && (offset[0] > 14 || offset[1] > 59 || (offset[0] === 14 && offset[1] !== 0)))) {
-        throw new SajuRequestValidationError('targetDate time or timezone offset is invalid');
-      }
-    }
-    parsed = raw.length === 10
-      ? new Date(Date.UTC(targetDate.year, targetDate.month - 1, targetDate.day))
-      : new Date(raw);
+    throw error;
   }
-  if (!Number.isFinite(parsed.getTime())) {
-    throw new SajuRequestValidationError('targetDate must be a valid date');
-  }
+  const targetDate = targetCalendarParts(parsed);
   const maxYear = birthDate.year + SAJU_REQUEST_LIMITS.futureYearsFromBirth;
   const maxDate = {
     year: maxYear,
@@ -219,5 +210,5 @@ export function parseFortuneTargetDate(raw: string | undefined, birth: BirthDate
       `targetDate must be between the birth date and its ${SAJU_REQUEST_LIMITS.futureYearsFromBirth}-year anniversary`,
     );
   }
-  return registerTargetCalendarDate(parsed, targetDate);
+  return parsed;
 }

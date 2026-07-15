@@ -90,10 +90,12 @@ at least one flat case with:
 npm run validate:reference-authority -- --allow-empty=false
 ```
 
-Authority-truth promotion is blocked unless the case has resolved source
-citation data, a T3+ source tier, `authorityTruthEligible: true`, a
-`summary50char` paraphrase at 50 characters or fewer, and no stored original
-prose fields.
+This intake shape never grants authority by itself. Any record declaring
+`authorityTruthEligible: true` is also evaluated by the shared
+`source_tier_policy.mjs` evidence, scope, provenance, and review contract.
+Resolved citation data, a T3+ label, and a boolean flag are necessary but not
+sufficient. Observation-only cases can pass intake while remaining outside all
+authority denominators.
 
 ## License
 

@@ -4,6 +4,13 @@
 
 > NameSpring (irumbom-poc) 의 backend 엔진으로 사용되며, API 는 IMMUTABLE — opt-in `precisionConfig.*` 로만 동작 확장.
 
+> **Packaging boundary:** `spring-ts` is a private internal source module.
+> NameSpring consumes `src/**` through a Vite alias; this directory is not an
+> npm registry package. The current `tsc` output is verification-only and is
+> not advertised as a Node-importable package. Registry publication requires a
+> separate packaging contract for seed-ts, saju-ts, DB/WASM assets, ESM imports,
+> and curated report data.
+
 ---
 
 ## 한 줄 요약

@@ -1,15 +1,16 @@
 {
-  "schemaVersion": "spring-ts.source-tier-summary.v1",
+  "schemaVersion": "spring-ts.source-tier-summary.v2",
   "status": "PASS",
   "scanned": 118,
   "violationCount": 0,
-  "authorityTruthEligibleCount": 30,
-  "nonEligibleCount": 88,
+  "eligibilityDefinition": "source record is eligible for at least one policy-declared authority scope; this is not complete D1 fixture truth",
+  "declaredScopeEligibleSourceRecordCount": 24,
+  "declaredScopeIneligibleSourceRecordCount": 94,
   "byTier": {
     "T3_AUTHORED_INTERPRETATION": {
       "recordCount": 52,
-      "authorityTruthEligible": 0,
-      "nonEligible": 52,
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 52,
       "files": [
         "test/baseline/authority/chumyeongga/chu_32.json",
         "test/baseline/authority/chumyeongga/chu_37.json",
@@ -67,8 +68,8 @@
     },
     "T4_PRIMARY_TEXT": {
       "recordCount": 22,
-      "authorityTruthEligible": 9,
-      "nonEligible": 13,
+      "declaredScopeEligibleSourceRecordCount": 3,
+      "declaredScopeIneligibleSourceRecordCount": 19,
       "files": [
         "test/baseline/authority/classical/myeongri_jonheom_pillars.json",
         "test/baseline/authority/classical/public_text_rule_snippets.json",
@@ -96,8 +97,8 @@
     },
     "T1_HYPOTHESIS": {
       "recordCount": 7,
-      "authorityTruthEligible": 0,
-      "nonEligible": 7,
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 7,
       "files": [
         "test/baseline/authority/training_derived/td_01_jeonggwan_sinkang.json",
         "test/baseline/authority/training_derived/td_02_jongjae_buwi.json",
@@ -110,8 +111,8 @@
     },
     "T2_REFERENCE_IMPLEMENTATION": {
       "recordCount": 13,
-      "authorityTruthEligible": 0,
-      "nonEligible": 13,
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 13,
       "files": [
         "test/baseline/oracles/fix-01.json",
         "test/baseline/oracles/fix-02.json",
@@ -130,8 +131,8 @@
     },
     "T5_OFFICIAL": {
       "recordCount": 24,
-      "authorityTruthEligible": 21,
-      "nonEligible": 3,
+      "declaredScopeEligibleSourceRecordCount": 21,
+      "declaredScopeIneligibleSourceRecordCount": 3,
       "files": [
         "data/sources/kasi-lunar-solar.sources.json",
         "data/sources/kasi-lunar-solar.sources.json#sources[0].sourceTier:data_go_kr_kasi_lunar_solar_info_15012679",
@@ -163,183 +164,183 @@
   "bySourceType": {
     "modern_korean_myeongri_extract": {
       "recordCount": 11,
-      "authorityTruthEligible": 0,
-      "nonEligible": 11
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 11
     },
     "classical_primary_text_pillars_only": {
       "recordCount": 1,
-      "authorityTruthEligible": 0,
-      "nonEligible": 1
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
     },
     "classical_public_rule_snippet_fixture": {
       "recordCount": 1,
-      "authorityTruthEligible": 0,
-      "nonEligible": 1
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
     },
     "classical_public_rule_snippet": {
       "recordCount": 10,
-      "authorityTruthEligible": 0,
-      "nonEligible": 10
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 10
     },
     "classical_primary_text": {
       "recordCount": 6,
-      "authorityTruthEligible": 6,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 6
     },
     "lecture_casebook": {
       "recordCount": 14,
-      "authorityTruthEligible": 0,
-      "nonEligible": 14
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 14
     },
     "training_derived": {
       "recordCount": 7,
-      "authorityTruthEligible": 0,
-      "nonEligible": 7
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 7
     },
     "reference_implementation": {
       "recordCount": 12,
-      "authorityTruthEligible": 0,
-      "nonEligible": 12
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 12
     },
     "classical_primary_text_registry": {
       "recordCount": 4,
-      "authorityTruthEligible": 3,
-      "nonEligible": 1
+      "declaredScopeEligibleSourceRecordCount": 3,
+      "declaredScopeIneligibleSourceRecordCount": 1
     },
     "official_kasi_lunar_solar_api_registry": {
       "recordCount": 1,
-      "authorityTruthEligible": 1,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 1,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "official_public_data_catalog": {
       "recordCount": 2,
-      "authorityTruthEligible": 2,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 2,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "official_kasi_lunar_solar_api": {
       "recordCount": 3,
-      "authorityTruthEligible": 3,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 3,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "official_kasi_lunisolar_calendar_table": {
       "recordCount": 1,
-      "authorityTruthEligible": 1,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 1,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "internal_oracle_policy": {
       "recordCount": 2,
-      "authorityTruthEligible": 0,
-      "nonEligible": 2
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 2
     },
     "official_kasi_special_day_api_registry": {
       "recordCount": 1,
-      "authorityTruthEligible": 1,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 1,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "official_kasi_solar_term_api": {
       "recordCount": 1,
-      "authorityTruthEligible": 1,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 1,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "official_kasi_calendar_data_preview": {
       "recordCount": 1,
-      "authorityTruthEligible": 0,
-      "nonEligible": 1
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
     },
     "official_law_registry": {
       "recordCount": 2,
-      "authorityTruthEligible": 2,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 2,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "official_law_attachment": {
       "recordCount": 1,
-      "authorityTruthEligible": 1,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 1,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "official_press_release": {
       "recordCount": 1,
-      "authorityTruthEligible": 1,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 1,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "third_party_mirror": {
       "recordCount": 1,
-      "authorityTruthEligible": 0,
-      "nonEligible": 1
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
     },
     "official_court_statistics": {
       "recordCount": 2,
-      "authorityTruthEligible": 2,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 2,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "official_court_statistics_guide": {
       "recordCount": 1,
-      "authorityTruthEligible": 1,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 1,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "official_report_endpoint_observed": {
       "recordCount": 1,
-      "authorityTruthEligible": 0,
-      "nonEligible": 1
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
     },
     "official_copyright_policy": {
       "recordCount": 1,
-      "authorityTruthEligible": 0,
-      "nonEligible": 1
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
     },
     "internal_phonetic_rule_policy": {
       "recordCount": 1,
-      "authorityTruthEligible": 0,
-      "nonEligible": 1
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
     },
     "unicode_standard_hangul_algorithm": {
       "recordCount": 1,
-      "authorityTruthEligible": 1,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 1,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "official_korean_pronunciation_rule": {
       "recordCount": 1,
-      "authorityTruthEligible": 1,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 1,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "authored_phonetic_naming_heuristic": {
       "recordCount": 1,
-      "authorityTruthEligible": 0,
-      "nonEligible": 1
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
     },
     "internal_scoring_policy": {
       "recordCount": 1,
-      "authorityTruthEligible": 0,
-      "nonEligible": 1
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
     },
     "unicode_standard_annex": {
       "recordCount": 2,
-      "authorityTruthEligible": 2,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 2,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "unicode_ucd": {
       "recordCount": 1,
-      "authorityTruthEligible": 1,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 1,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "internal_rule_policy": {
       "recordCount": 1,
-      "authorityTruthEligible": 0,
-      "nonEligible": 1
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
     },
     "authority_corpus_scaffold_with_web_cases": {
       "recordCount": 1,
-      "authorityTruthEligible": 0,
-      "nonEligible": 1
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
     },
     "web_authored_classical_case": {
       "recordCount": 13,
-      "authorityTruthEligible": 0,
-      "nonEligible": 13
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 13
     },
     "web_authored_case_analysis": {
       "recordCount": 7,
-      "authorityTruthEligible": 0,
-      "nonEligible": 7
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 7
     }
   }
 }
