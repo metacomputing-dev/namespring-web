@@ -1,5 +1,5 @@
 /** 채굴 2차 신규 후보 N-01~N-15 역법 검증 (clock-time fidelity 모드). */
-import { analyzeSaju } from '../src/saju-adapter.js';
+import { analyzeSaju } from '../../../src/saju-adapter.js';
 
 type C = { id: string; y: number; mo: number; d: number; h: number; mi: number; g: 'male' | 'female'; src: string; tz?: string; note?: string };
 const CANDS: C[] = [
@@ -8,7 +8,7 @@ const CANDS: C[] = [
   { id: 'N-03', y: 1967, mo: 6, d: 23, h: 12, mi: 10, g: 'male', src: '丁未 丙午 戊午 戊午' },
   { id: 'N-04', y: 1980, mo: 1, d: 25, h: 2, mi: 30, g: 'male', src: '己未 丁丑 丁酉 辛丑' },
   { id: 'N-05', y: 1983, mo: 8, d: 29, h: 18, mi: 40, g: 'female', src: '癸亥 庚申 己丑 癸酉' },
-  { id: 'N-06', y: 1973, mo: 1, d: 31, h: 23, mi: 44, g: 'female', src: '壬子 癸丑 戊辰 壬子', note: '소스는 23시 환일(익일 일주) — 정자시설 엔진과 불일치 예상' },
+  { id: 'N-06', y: 1973, mo: 1, d: 31, h: 23, mi: 44, g: 'female', src: '壬子 癸丑 戊辰 壬子', note: '23시 환일(익일 일주) — 정자시설 엔진과 일치 확인' },
   { id: 'N-07', y: 2002, mo: 6, d: 18, h: 11, mi: 48, g: 'male', src: '壬午 丙午 丁巳 丙午' },
   { id: 'N-08', y: 1979, mo: 9, d: 17, h: 21, mi: 40, g: 'male', src: '己未 癸酉 丁亥 辛亥' },
   { id: 'N-09', y: 1979, mo: 2, d: 4, h: 9, mi: 36, g: 'male', src: '戊午 乙丑 壬寅 乙巳', note: '입춘 경계일(1979-02-04) — 월주·년주 민감' },
@@ -22,6 +22,7 @@ const CANDS: C[] = [
 
 const OPTS: any = { sajuTimePolicy: { trueSolarTime: 'off', longitudeCorrection: 'off' } };
 let pass = 0;
+const mismatches: string[] = [];
 for (const c of CANDS) {
   const birth: any = { year: c.y, month: c.mo, day: c.d, hour: c.h, minute: c.mi, gender: c.g, calendarType: 'solar', longitude: 120, timezone: c.tz ?? 'Asia/Shanghai' };
   const s: any = await analyzeSaju(birth, OPTS);
@@ -32,6 +33,20 @@ for (const c of CANDS) {
   }).join(' ');
   const ok = got === c.src;
   if (ok) pass += 1;
+  else mismatches.push(c.id);
   console.log(`${c.id}: ${ok ? 'MATCH   ' : 'MISMATCH'} engine=[${got}] source=[${c.src}]${c.note ? ' | ' + c.note : ''}`);
 }
 console.log(`\n${pass}/${CANDS.length} MATCH`);
+
+const expectedMismatches = ['N-15'];
+const mismatchContractHolds =
+  mismatches.length === expectedMismatches.length &&
+  mismatches.every((id, index) => id === expectedMismatches[index]);
+if (!mismatchContractHolds) {
+  console.error(
+    `Mismatch contract failed: expected=[${expectedMismatches.join(',')}] actual=[${mismatches.join(',')}]`,
+  );
+  process.exitCode = 1;
+} else {
+  console.log(`Expected mismatch contract: PASS (${expectedMismatches.join(',')})`);
+}

@@ -2,13 +2,18 @@ import type { EngineConfig } from '../api/types.js';
 import type { BranchIdx, Element, PillarIdx, StemIdx } from '../core/cycle.js';
 import { branchElement, branchIdxFromHanja, ganzhiIndex, pillar, stemElement, stemIdxFromHanja } from '../core/cycle.js';
 import type { DetectedRelation, RelationType } from '../core/branchRelations.js';
-import { detectBranchRelations, samhapGroup } from '../core/branchRelations.js';
+import {
+  detectBranchRelations,
+  relationMatchesTarget,
+  relationResolutionUnits,
+  samhapGroup,
+} from '../core/branchRelations.js';
 import { controls, generates } from '../core/elements.js';
 import type { ElementDistribution } from '../core/elementDistribution.js';
 import type { ElementVector } from '../core/elementVector.js';
 import { ELEMENT_ORDER, zeroElementVector } from '../core/elementVector.js';
 import { mod } from '../core/mod.js';
-import type { TenGodScore } from '../core/scoring.js';
+import type { PillarsScoringResult, TenGodScore } from '../core/scoring.js';
 import { tenGodOf } from '../core/tenGod.js';
 import type { TenGod } from '../core/tenGod.js';
 import type { HiddenStemRole } from '../core/hiddenStems.js';
@@ -27,9 +32,10 @@ import type { JohooTemplateResult } from './johooTemplate.js';
 import { computeJohooTemplate } from './johooTemplate.js';
 import { computeGyeokgukSeongpae } from './gyeokgukSeongpae.js';
 import { computeFollowPotential } from './followPotential.js';
-import type { RuleFactsScoringResult } from './ruleFactsScoring.js';
+import { readRuleFactsScoringProvenance } from './ruleFactsScoring.js';
 import { computeStrengthBase } from './strengthBase.js';
 import { strengthDecisionComponents, type StrengthComponents } from './strengthComponents.js';
+import { classifyStructuralMonthFrame, isCompanionTenGod, type BigyeopSubtype } from './gyeokgukMonthFrame.js';
 import type { SeasonGroup } from './season.js';
 import { seasonGroupOfMonthBranch } from './season.js';
 
@@ -147,12 +153,12 @@ export interface StrengthFacts {
         /** 천간합 기반(羈絆)으로 감쇠된 투간 목록. */
         stemBinds: Array<{ pos: string; stem: StemIdx; factor: number }>;
         /** Visible officer stems whose pressure contribution was reduced by hap binding. */
-        pressureStemBinds: Array<{ pos: string; stem: StemIdx; tenGod: TenGod; factor: number; reduction: number }>;
+        pressureStemBinds?: Array<{ pos: string; stem: StemIdx; tenGod: TenGod; factor: number; reduction: number }>;
         /**
          * 관성 기반 감쇠를 raw 십성 원장이 아닌 득세와 같은 정규화·배율 층에
          * 적용한 내역. factor는 pressure의 (1+f) 배율에서 차감된다.
          */
-        pressureStemBindPenalty: { score: number; normalized: number; factor: number };
+        pressureStemBindPenalty?: { score: number; normalized: number; factor: number };
       };
     };
 
@@ -245,11 +251,12 @@ export interface RuleFacts {
       visibleInChart: boolean;
     }>;
 
-    /** True if 월지 本气(본기) stem is exposed(透干) in any pillar stem. */
+    /** True if 월지 本气(본기) stem is exposed(透干) outside the day master. */
     mainHiddenStemVisible: boolean;
 
     /**
      * ZiPing-style 格局 anchor candidate derived from month hidden-stem exposure.
+     * - STRUCTURAL_MONTH_FRAME: 건록·양인·월겁을 일간-월지 구조로 판정
      * - MAIN_EXPOSED: 本气透干 → 본기를 고정
      * - VISIBLE_HIDDEN: 본기 미투간이지만 중/여기 중 노출된 것이 있어 그 stem을 채택
      * - MAIN_FALLBACK: 아무것도 노출되지 않아 본기로 fallback
@@ -257,17 +264,15 @@ export interface RuleFacts {
     gyeok: {
       stem: StemIdx;
       tenGod: TenGod;
-      method: 'MAIN_EXPOSED' | 'VISIBLE_HIDDEN' | 'GROUP_SUPPORTED' | 'MAIN_FALLBACK';
+      method: 'STRUCTURAL_MONTH_FRAME' | 'MAIN_EXPOSED' | 'VISIBLE_HIDDEN' | 'GROUP_SUPPORTED' | 'MAIN_FALLBACK';
       selectionRule: GyeokgukSelectionRule;
 
       /**
        * 건록·양인·월겁 세분 (감사 B4).
-       * - GEONROK: 월지 격 십성=비견 (월지 비겁은 십신격으로 삼지 않는 자평진전 주류)
-       * - YANGIN : 월지 격 십성=겁재 && 양간 && 월지=제왕지(록+1; 甲卯·丙午·戊午·庚酉·壬子)
-       * - WOLGEOB: 그 외 겁재(음간 겁재월, 戊 일간 丑/未월 등)
+       * 판정은 선택된 후보 십신이 아니라 일간-월지 구조와 월지 본기로 결정한다.
        * strategies.gyeokguk.bigyeopGyeok === 'legacy' 이면 null (비견격/겁재격 표기 유지).
        */
-      bigyeopSubtype?: 'GEONROK' | 'YANGIN' | 'WOLGEOB' | null;
+      bigyeopSubtype?: BigyeopSubtype | null;
 
       /**
        * PR-6: 격국 성패(成敗) — 상신(相神)·순용/역용·성격/파격 판정 (additive).
@@ -288,6 +293,8 @@ export interface RuleFacts {
         visibleInChart: boolean;
         role: HiddenStemRole;
         weight: number;
+        eligibleForGyeokSelection: boolean;
+        selectionExclusionReason?: 'COMPANION_REQUIRES_STRUCTURAL_FRAME';
       }>;
 
       /**
@@ -317,7 +324,16 @@ export interface RuleFacts {
           /** PR-5 (감사 B510) additive: 탐합망충 해소 前 damage 합. */
           damageRaw?: number;
           /** PR-5 additive: 해소된 관계와 해소자·잔존 계수. */
-          damageResolved?: Array<{ relation: DetectedRelation; via: DetectedRelation[]; residualFactor: number }>;
+          damageResolved?: Array<{
+            relation: DetectedRelation;
+            via: DetectedRelation[];
+            residualFactor: number;
+            resolutionUnits?: Array<{
+              members: BranchIdx[];
+              residualFactor: number;
+              via: DetectedRelation[];
+            }>;
+          }>;
         };
       };
     };
@@ -2189,14 +2205,15 @@ function computeMonthGyeokQuality(args: {
   gyeokStem: StemIdx;
   gyeokTenGod: TenGod;
   gyeokMethod: GyeokQualityMethod;
-  monthGyeokCandidates: Array<{ score: number; tenGod: TenGod; visibleInChart: boolean }>;
+  selectionCandidates: Array<{ score: number; tenGod: TenGod; visibleInChart: boolean }>;
+  exposureEvidenceCandidates: Array<{ score: number; tenGod: TenGod; visibleInChart: boolean }>;
   branches: BranchIdx[];
   hiddenStemPolicy: any;
   tenGodScoresRanking: Array<{ tenGod: TenGod; score: number }>;
   detectedRelations: DetectedRelation[];
   byType: Partial<Record<RelationType, BranchIdx[][]>>;
 }): RuleFacts['month']['gyeok']['quality'] {
-  const { config, monthBranch, gyeokStem, gyeokTenGod, gyeokMethod, monthGyeokCandidates, branches, hiddenStemPolicy, tenGodScoresRanking, detectedRelations, byType } = args;
+  const { config, monthBranch, gyeokStem, gyeokTenGod, gyeokMethod, selectionCandidates, exposureEvidenceCandidates, branches, hiddenStemPolicy, tenGodScoresRanking, detectedRelations, byType } = args;
 
   const raw: any = (config.strategies as any)?.gyeokguk?.quality ?? {};
   const rawTan: any = raw.tanhap ?? {};
@@ -2240,8 +2257,8 @@ function computeMonthGyeokQuality(args: {
   }
 
   // --- Gap (候选差距): top vs 2nd
-  const top = monthGyeokCandidates[0]?.score ?? 0;
-  const second = monthGyeokCandidates[1]?.score ?? 0;
+  const top = selectionCandidates[0]?.score ?? 0;
+  const second = selectionCandidates[1]?.score ?? 0;
   const gap = top > 0 ? clamp01((top - second) / top) : 0;
 
   // --- Alignment: month-gyeok ten-god rank within overall ten-god scores
@@ -2251,6 +2268,8 @@ function computeMonthGyeokQuality(args: {
   // --- Method: 透干/会支 availability affects “清”
   const methodScore = (() => {
     switch (gyeokMethod) {
+      case 'STRUCTURAL_MONTH_FRAME':
+        return 1.0;
       case 'MAIN_EXPOSED':
         return 1.0;
       case 'VISIBLE_HIDDEN':
@@ -2264,7 +2283,8 @@ function computeMonthGyeokQuality(args: {
   })();
 
   // --- Purity: how many distinct ten-gods are exposed among month hidden stems?
-  const visibleTenGods = new Set(monthGyeokCandidates.filter((c) => c.visibleInChart).map((c) => c.tenGod));
+  const visibleTenGods = new Set(
+    exposureEvidenceCandidates.filter((candidate) => candidate.visibleInChart).map((candidate) => candidate.tenGod));
   const visibleKinds = visibleTenGods.size;
   const mixed = visibleKinds > 1;
   const purity = visibleKinds <= 1 ? 1 : clamp01(1 - 0.3 * (visibleKinds - 1));
@@ -2290,18 +2310,17 @@ function computeMonthGyeokQuality(args: {
 
   const tan = policy.tanhap;
   const chungGroups = (byType.CHUNG ?? []) as BranchIdx[][];
-  const resolveOf = (rel: DetectedRelation): { residual: number; via: DetectedRelation[] } => {
-    if (!tan.enabled || !tan.targetTypes.includes(rel.type)) return { residual: 1, via: [] };
+  const resolveMembers = (members: BranchIdx[]): { residual: number; via: DetectedRelation[] } => {
     let residual = 1;
     const via: DetectedRelation[] = [];
     for (const hap of detectedRelations) {
       const rf = (tan.resolvers as any)[hap.type];
       if (typeof rf !== 'number') continue;
-      if (!hap.members.some((m) => (rel.members as BranchIdx[]).includes(m))) continue;
+      if (!hap.members.some((m) => members.includes(m as BranchIdx))) continue;
       if (tan.resolverMustBeClean) {
         // 합신(충 당사자 외 제3지)이 자체 충을 맞으면 해소자 불인정.
         // 합 그룹은 충 쌍 양쪽을 동시 포함 불가(거리 산술)라 rel 자신 제외 로직 불요.
-        const thirds = hap.members.filter((m) => !(rel.members as BranchIdx[]).includes(m));
+        const thirds = hap.members.filter((m) => !members.includes(m as BranchIdx));
         if (thirds.some((m) => chungGroups.some((g) => g.includes(m)))) continue;
       }
       via.push(hap);
@@ -2309,20 +2328,54 @@ function computeMonthGyeokQuality(args: {
     }
     return { residual, via };
   };
+  const resolveOf = (rel: DetectedRelation): {
+    residual: number;
+    via: DetectedRelation[];
+    resolutionUnits?: Array<{ members: BranchIdx[]; residualFactor: number; via: DetectedRelation[] }>;
+  } => {
+    const targeted = tan.targetTypes.some((target) => relationMatchesTarget(rel.type, target));
+    if (!tan.enabled || !targeted) return { residual: 1, via: [] };
+    const units = relationResolutionUnits(rel);
+    const resolutionUnits = units.map((members) => {
+      const result = resolveMembers(members);
+      return { members, residualFactor: result.residual, via: result.via };
+    });
+    const residual = resolutionUnits.reduce((sum, unit) => sum + unit.residualFactor, 0) / resolutionUnits.length;
+    const viaByKey = new Map<string, DetectedRelation>();
+    for (const unit of resolutionUnits) {
+      for (const resolver of unit.via) {
+        viaByKey.set(`${resolver.type}:${resolver.members.join('-')}`, resolver);
+      }
+    }
+    return {
+      residual,
+      via: [...viaByKey.values()],
+      ...(rel.type === 'SAMHYEONG' ? { resolutionUnits } : {}),
+    };
+  };
 
   const w = policy.damageWeights as any;
   const cnt: Record<string, number> = { CHUNG: 0, HAE: 0, PA: 0, WONJIN: 0, HYEONG: 0 };
-  const damageResolved: Array<{ relation: DetectedRelation; via: DetectedRelation[]; residualFactor: number }> = [];
+  const damageResolved: NonNullable<
+    NonNullable<RuleFacts['month']['gyeok']['quality']['details']>['damageResolved']
+  > = [];
   let damageRaw = 0;
   let damage = 0;
   for (const rel of damageRelations) {
     const wk = weightKeyOf(rel.type);
     cnt[wk] = (cnt[wk] ?? 0) + 1; // damageByType는 해소 前 원 카운트 유지 (스키마 불변)
     const base = typeof w[wk] === 'number' ? w[wk] : 0;
-    const { residual, via } = resolveOf(rel);
+    const { residual, via, resolutionUnits } = resolveOf(rel);
     damageRaw += base;
     damage += base * residual;
-    if (residual < 1) damageResolved.push({ relation: rel, via, residualFactor: residual });
+    if (residual < 1) {
+      damageResolved.push({
+        relation: rel,
+        via,
+        residualFactor: residual,
+        ...(resolutionUnits ? { resolutionUnits } : {}),
+      });
+    }
   }
   const integrity = clamp01(1 / (1 + Math.max(0, damage)));
   const broken = damage >= policy.brokenDamageThreshold;
@@ -2424,11 +2477,10 @@ function banghapElementOf(members: BranchIdx[]): Element | null {
 // 설계 원칙:
 // - 감쇠·보정은 deLingDiShi의 (1+f) 배율 층에만 주입한다. hiddenStemsOfBranch·
 //   elementDistribution·tenGodScores는 절대 건드리지 않는다(이중 감쇠 + κ 파급 방지).
-// - relationsDetailed의 pairs가 있으면 궁위별 인접/원격 감쇠를 적용한다.
-//   pairs가 없는 직접 호출만 값 기반 members 폴백을 사용하므로 동일 지지 중복은
-//   그 폴백에서 함께 감쇠될 수 있다.
-// - seasonal 정책이 켜진 기본 경로는 왕상휴수 상태별 비대칭 감쇠를 적용한다.
-//   두 보정 모두 provisional 계수이므로 authority holdout 재캘리브레이션 대상이다.
+// - 기본 경로는 값 기반 균일 감쇠로 기존 판정을 보존한다.
+//   positional.enabled=true일 때만 pillarIndexes 기반 거리 차등을 적용한다.
+// - seasonal.enabled=true일 때만 왕상휴수 비대칭 감쇠를 적용한다.
+//   두 확장 경로는 전문가 승인 전까지 명시적 opt-in이다.
 
 interface StrengthInteractionPolicy {
   enabled: boolean;
@@ -2439,7 +2491,7 @@ interface StrengthInteractionPolicy {
     resolveByHap: boolean;
     resolveTypes: RelationType[];
     samePairHapResolves: boolean;
-    /** PR-10-2: 궁위 pairs 기반 인접/원격 차등 손상 — 현재 기본 on, 권위 캘리브레이션 대기. */
+    /** PR-10-2: 궁위 pairs 기반 인접/원격 차등 손상 — 명시 opt-in, 권위 캘리브레이션 대기. */
     positional: {
       enabled: boolean;
       /** 기둥 거리별 손상 강도 배율 — d1 인접 / d2 한 칸 건너 / d3 원격(년-시) */
@@ -2460,7 +2512,7 @@ interface StrengthInteractionPolicy {
     jaenghapFactor: number;
     applyToPressure: boolean;
   };
-  /** PR-10-1: 왕상휴수 연동 비대칭 뿌리 손상 — 현재 기본 on, 권위 캘리브레이션 대기. */
+  /** PR-10-1: 왕상휴수 연동 비대칭 뿌리 손상 — 명시 opt-in, 권위 캘리브레이션 대기. */
   seasonal: {
     enabled: boolean;
     /** 손상 강도 배율 — eff = 1 − (1 − f) × mult(state). mult<1 경감(왕상), >1 가중(수사). */
@@ -2471,6 +2523,9 @@ interface StrengthInteractionPolicy {
 function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
   const raw: any = pol?.interaction ?? {};
   const num = (v: any, d: number) => (typeof v === 'number' && Number.isFinite(v) ? v : d);
+  const unit = (v: any, d: number) => (
+    typeof v === 'number' && Number.isFinite(v) && v >= 0 && v <= 1 ? v : d
+  );
   const enabled = raw.enabled !== false; // PR-5 기본 on — 판정 변경(계측 절차 동반)
   const rootRaw: any = raw.root ?? {};
   const huiRaw: any = raw.hui ?? {};
@@ -2497,9 +2552,9 @@ function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
         : (['YUKHAP', 'SAMHAP'] as RelationType[]), // 반합의 해충력은 이설 커서 기본 제외 (hui 파국 판정과의 순환 방지)
       samePairHapResolves: rootRaw.samePairHapResolves !== false, // 巳申 동일쌍 합+형 → 형합 유정
       positional: {
-        // PR-10-2 기본 on (감사 B524) — 인접/원격 차등. 현재 main 대비 변화는
-        // REVIEW_REQUIRED이며 authority holdout 승인 전까지 provisional. enabled:false로 완전 opt-out.
-        enabled: rootRaw.positional?.enabled !== false,
+        // PR-10-2 (감사 B524) — 인접/원격 차등은 전문가 승인 전 명시적 opt-in.
+        // enabled:true일 때만 적용하며, 미지정/false는 기존 판정을 보존한다.
+        enabled: rootRaw.positional?.enabled === true,
         // 인접(d=1) 완전 성립 / 한 칸 건너(d=2) 절반 / 원격 년-시(d=3) 1/4 —
         // 자평 실무 인접성 통설의 보수 개시값 (계측 후 조정 전제).
         distanceScales: {
@@ -2525,14 +2580,16 @@ function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
     stemBind: {
       enabled: enabled && bindRaw.enabled !== false,
       // 합이불화 = 기반(묶임) — 역할 절반 상실 (감사 B531 표준: 현대 주류는 합화 거의 불인정).
-      factor: num(bindRaw.factor, 0.5),
-      jaenghapFactor: num(bindRaw.jaenghapFactor, 0.75), // 쟁합·투합은 합력 분산 → 감쇠 완화
-      applyToPressure: bindRaw.applyToPressure !== false,
+      factor: unit(bindRaw.factor, 0.5),
+      jaenghapFactor: unit(bindRaw.jaenghapFactor, 0.75), // 쟁합·투합은 합력 분산 → 감쇠 완화
+      // Pressure damping remains experimental until authority calibration and
+      // must be requested explicitly. Support-side stem binding is unchanged.
+      applyToPressure: bindRaw.applyToPressure === true,
     },
     seasonal: {
-      // PR-10-1 기본 on (감사 B434) — 왕상휴수 비대칭 감쇠. 현재 main 대비 변화는
-      // REVIEW_REQUIRED이며 authority holdout 승인 전까지 provisional. enabled:false로 완전 opt-out.
-      enabled: enabled && seasonalRaw.enabled !== false,
+      // PR-10-1 (감사 B434) — 왕상휴수 비대칭 감쇠는 전문가 승인 전 명시적 opt-in.
+      // enabled:true일 때만 적용하며, 미지정/false는 기존 판정을 보존한다.
+      enabled: enabled && seasonalRaw.enabled === true,
       // 왕한 오행의 뿌리는 충·형 손상을 30% 경감, 사(死)한 오행은 30% 가중 —
       // "왕상한 쪽이 덜 상한다"는 통설의 보수적 개시값 (계측 후 조정 전제).
       multipliers: {
@@ -2549,7 +2606,7 @@ function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
 /** 충/형 손상 → 지지별 통근 감쇠 계수 (1.0 = 무손상). 탐합망충 해소 판정 포함.
  *  seasonal이 주어지고 enabled면 왕상휴수 비대칭(감사 B434)을 적용한다.
  *  pol.positional.enabled + relationsDetailed(pairs 보존)면 인접/원격 차등(감사 B524)을 적용한다.
- *  둘 다 현재 기본 on이며, 명시적 enabled:false일 때 기존 균일 감쇠 경로로 돌아간다. */
+ *  둘 다 명시 opt-in이며, 미지정/false일 때 기존 균일 감쇠 경로를 유지한다. */
 export function computeBranchInteractionFactors(
   branches: BranchIdx[],
   byType: Partial<Record<RelationType, BranchIdx[][]>>,
@@ -2586,15 +2643,6 @@ export function computeBranchInteractionFactors(
     return false;
   };
 
-  const samhyeongPairs = (members: BranchIdx[]): BranchIdx[][] => {
-    if (members.length !== 3) return [];
-    return [
-      [members[0]!, members[1]!],
-      [members[0]!, members[2]!],
-      [members[1]!, members[2]!],
-    ];
-  };
-
   // ── PR-10-2 (감사 B524/B538): 궁위 pairs 기반 인접/원격 차등 경로 ──
   // 해소(탐합망충)는 값 수준 그대로 둔다 — 탐지 자체가 값 기반이라 동일 값 중복에서
   // 위치별 해소 차이는 원리상 발생하지 않는다. 차등은 손상 강도(거리)에만 적용.
@@ -2605,22 +2653,22 @@ export function computeBranchInteractionFactors(
       const f = (pol.damageFactors as any)[rel.type];
       if (!(typeof f === 'number' && Number.isFinite(f) && f >= 0 && f < 1)) continue;
       const triplePairs = rel.type === 'SAMHYEONG'
-        ? samhyeongPairs(rel.members as BranchIdx[])
+        ? relationResolutionUnits(rel)
         : null;
       const unresolvedTriplePairs = triplePairs?.filter((pair) => !isResolved(pair));
       const unresolvedTriplePairKeys = new Set(
         unresolvedTriplePairs?.map((pair) => pair.join(',')) ?? [],
       );
+      if (triplePairs && unresolvedTriplePairs!.length === 0) {
+        resolved.push({ type: rel.type, members: rel.members as BranchIdx[] });
+        continue;
+      }
       if (triplePairs) {
         for (const pair of triplePairs) {
           if (!unresolvedTriplePairKeys.has(pair.join(','))) {
             resolved.push({ type: 'HYEONG', members: pair });
           }
         }
-      }
-      if (triplePairs && unresolvedTriplePairs!.length === 0) {
-        resolved.push({ type: rel.type, members: rel.members as BranchIdx[] });
-        continue;
       }
       if (!triplePairs && isResolved(rel.members as BranchIdx[])) {
         resolved.push({ type: rel.type, members: rel.members as BranchIdx[] });
@@ -2676,17 +2724,17 @@ export function computeBranchInteractionFactors(
     if (!(typeof f === 'number' && Number.isFinite(f) && f >= 0 && f < 1)) continue;
     for (const g of byType[t] ?? []) {
       if (t === 'SAMHYEONG') {
-        const pairs = samhyeongPairs(g as BranchIdx[]);
+        const pairs = relationResolutionUnits({ type: t, members: g as BranchIdx[] });
         const unresolvedPairs = pairs.filter((pair) => !isResolved(pair));
         const unresolvedPairKeys = new Set(unresolvedPairs.map((pair) => pair.join(',')));
+        if (unresolvedPairs.length === 0) {
+          resolved.push({ type: t, members: g as BranchIdx[] });
+          continue;
+        }
         for (const pair of pairs) {
           if (!unresolvedPairKeys.has(pair.join(','))) {
             resolved.push({ type: 'HYEONG', members: pair });
           }
-        }
-        if (unresolvedPairs.length === 0) {
-          resolved.push({ type: t, members: g as BranchIdx[] });
-          continue;
         }
         const activeMembers = new Set(unresolvedPairs.flat() as number[]);
         for (let i = 0; i < branches.length; i++) {
@@ -2926,7 +2974,7 @@ function computeStrengthFacts(args: {
     ];
 
     // PR-5 (감사 B448/B510): 충/형 손상 → 통근 감쇠 (탐합망충 해소 포함).
-    // PR-10-1 (감사 B434): 현재 기본 on인 왕상휴수 비대칭 보정 재료.
+    // PR-10-1 (감사 B434): opt-in 왕상휴수 비대칭 보정 재료.
     const interactionPol = readStrengthInteractionPolicy(pol);
     const rootDamage = computeBranchInteractionFactors(
       args.branches,
@@ -2964,6 +3012,9 @@ function computeStrengthFacts(args: {
       }
     }
     const diScore = Math.max(0, same + rootResAlpha * res);
+    if (![same, res, diScore].every(Number.isFinite)) {
+      throw new RangeError('life-stage root multipliers produced a non-finite strength score');
+    }
     const diNormed = clamp01(diScore / Math.max(1e-9, rootNorm));
     const diFactor = diNormed * diScale;
 
@@ -3022,7 +3073,6 @@ function computeStrengthFacts(args: {
       wealth: base.components.wealth * pressureScale,
       officers: base.components.officers * pressureScale,
     };
-
     return {
       index: indexAdj,
       support: supportAdj,
@@ -3040,9 +3090,9 @@ function computeStrengthFacts(args: {
             score: diScore,
             normalized: diNormed,
             factor: diScale,
-            lifeStageRoot: lifeStageRootPol.enabled
-              ? { enabled: true, multipliers: lifeStageRootPol.multipliers, branches: lifeStageRootBranches }
-              : undefined,
+            ...(lifeStageRootPol.enabled
+              ? { lifeStageRoot: { enabled: true, multipliers: lifeStageRootPol.multipliers, branches: lifeStageRootBranches } }
+              : {}),
           },
           deShi: { sameElement: shiSame, resourceElement: shiRes, score: shiScore, normalized: shiNormed, factor: shiScale, positionWeights: posW },
           adjusted: { support: supportAdj, pressure: pressureAdj, total: totalAdj },
@@ -3053,12 +3103,16 @@ function computeStrengthFacts(args: {
                 resolved: rootDamage.resolved,
                 hui: { supportBonus: hui.supportBonus, pressureBonus: hui.pressureBonus, groups: hui.groups },
                 stemBinds,
-                pressureStemBinds: officerBind.binds,
-                pressureStemBindPenalty: {
-                  score: officerBind.score,
-                  normalized: officerBind.normalized,
-                  factor: officerBind.factor,
-                },
+                ...(interactionPol.stemBind.applyToPressure
+                  ? {
+                      pressureStemBinds: officerBind.binds,
+                      pressureStemBindPenalty: {
+                        score: officerBind.score,
+                        normalized: officerBind.normalized,
+                        factor: officerBind.factor,
+                      },
+                    }
+                  : {}),
               }
             : undefined,
         },
@@ -3108,7 +3162,6 @@ function computeStrengthFacts(args: {
     wealth: base.components.wealth,
     officers: base.components.officers,
   };
-
   return {
     index: indexAdj,
     support: supportAdj,
@@ -3666,7 +3719,9 @@ export function buildRuleFacts(args: {
   config: EngineConfig;
   pillars: { year: PillarIdx; month: PillarIdx; day: PillarIdx; hour: PillarIdx };
   elementDistribution: ElementDistribution;
-  scoring: RuleFactsScoringResult;
+  scoring: PillarsScoringResult;
+  /** Direct day-stem contribution inside scoring.tenGods.BI_GYEON. */
+  dayMasterSelfScore?: number;
   /**
    * Optional 月令 司令字 facts (only present when the engine resolved
    * a saryeongScheme + jieData pair). Forwarded onto `facts.month.saryeong`.
@@ -3680,6 +3735,22 @@ export function buildRuleFacts(args: {
   };
 }): RuleFacts {
   const { config, pillars, elementDistribution, scoring, saryeong } = args;
+  const scoringSelfScore = readRuleFactsScoringProvenance(scoring)?.dayMasterDirectStemWeight;
+  if (
+    scoringSelfScore !== undefined &&
+    args.dayMasterSelfScore !== undefined &&
+    Math.abs(scoringSelfScore - args.dayMasterSelfScore) > 1e-12
+  ) {
+    throw new Error('Invariant: conflicting day-master self-score provenance');
+  }
+  if (
+    (config.strategies as any)?.strength?.excludeDayMasterSelf === true &&
+    scoringSelfScore === undefined &&
+    args.dayMasterSelfScore === undefined
+  ) {
+    throw new Error('Invariant: day-master self exclusion requires scoring provenance');
+  }
+  const dayMasterDirectStemWeight = scoringSelfScore ?? args.dayMasterSelfScore;
 
   const stems: StemIdx[] = [pillars.year.stem, pillars.month.stem, pillars.day.stem, pillars.hour.stem];
   const branches: BranchIdx[] = [pillars.year.branch, pillars.month.branch, pillars.day.branch, pillars.hour.branch];
@@ -3804,13 +3875,29 @@ export function buildRuleFacts(args: {
   const monthMain = monthMainHiddenStem(pillars.month.branch, hiddenStemPolicy);
   const monthMainTG = tenGodOf(dayStem, monthMain);
 
+  // Transparency means appearance outside the day master itself. Keep one
+  // source for candidate visibility, main-qi visibility, and middle-qi selection.
+  const nonDayTransparentStems = [pillars.year.stem, pillars.month.stem, pillars.hour.stem];
+  const selectionRule = readGyeokgukSelectionRule(config);
+  const bigyeopModeRaw = (config.strategies as any)?.gyeokguk?.bigyeopGyeok;
+  const bigyeopMode: 'classic' | 'legacy' = bigyeopModeRaw === 'legacy' ? 'legacy' : 'classic';
+  // Structural eligibility is doctrine, while bigyeopMode is display
+  // compatibility. Legacy naming must not re-enable companion candidates as
+  // ordinary month-command frames.
+  const structuralMonthFrame = classifyStructuralMonthFrame({
+    dayStem,
+    monthBranch: pillars.month.branch,
+    monthMainStem: monthMain,
+    monthMainTenGod: monthMainTG,
+  });
+
   const monthHiddenStems = hiddenStemsOfBranch(pillars.month.branch, hiddenStemPolicy).map((h) => ({
     stem: h.stem,
     element: stemElement(h.stem),
     role: h.role,
     weight: h.weight,
     tenGod: tenGodOf(dayStem, h.stem),
-    visibleInChart: stems.includes(h.stem),
+    visibleInChart: nonDayTransparentStems.includes(h.stem),
   }));
 
   // --- ZiPing-style “干透支会” (透干 + 会支) for month.gyeok
@@ -3855,32 +3942,53 @@ export function buildRuleFacts(args: {
         reasons.push('MONTH_BRANCH_DAMAGED');
       }
 
-      return { ...h, score, reasons };
+      const excludedCompanion = !structuralMonthFrame && isCompanionTenGod(h.tenGod);
+      if (excludedCompanion) reasons.push('COMPANION_REQUIRES_STRUCTURAL_FRAME');
+
+      return {
+        ...h,
+        score,
+        reasons,
+        eligibleForGyeokSelection: !excludedCompanion,
+        ...(excludedCompanion
+          ? { selectionExclusionReason: 'COMPANION_REQUIRES_STRUCTURAL_FRAME' as const }
+          : {}),
+      };
     })
     .sort((a, b) => b.score - a.score);
 
-  const monthMainVisible = stems.includes(monthMain);
-  const selectionRule = readGyeokgukSelectionRule(config);
-  const nonDayTransparentStems = [pillars.year.stem, pillars.month.stem, pillars.hour.stem];
-  const bestVisible = monthGyeokCandidates.find((c) => c.visibleInChart);
-  const bestGroup = groupEl ? monthGyeokCandidates.find((c) => c.element === groupEl) : null;
-  const transparentMiddle = monthGyeokCandidates.find(
-    (c) => c.role === 'MIDDLE' && nonDayTransparentStems.includes(c.stem),
+  // Keep companion rows as diagnostic evidence, but ordinary selection must
+  // consume only explicitly eligible candidates.
+  const selectableMonthGyeokCandidates = monthGyeokCandidates.filter(
+    (candidate) => candidate.eligibleForGyeokSelection,
+  );
+
+  const monthMainVisible = nonDayTransparentStems.includes(monthMain);
+  const bestVisible = selectableMonthGyeokCandidates.find((candidate) => candidate.visibleInChart);
+  const bestGroup = groupEl
+    ? selectableMonthGyeokCandidates.find((candidate) => candidate.element === groupEl)
+    : null;
+  const transparentMiddle = selectableMonthGyeokCandidates.find(
+    (candidate) => candidate.role === 'MIDDLE' && candidate.visibleInChart,
   );
 
   const gyeokStem =
-    selectionRule === 'jungki_transparent'
-      ? (transparentMiddle?.stem ?? monthMain)
-      : selectionRule === 'monthly_main'
-        ? monthMain
-        : monthMainVisible ? monthMain : (bestVisible?.stem ?? bestGroup?.stem ?? monthMain);
+    structuralMonthFrame
+      ? structuralMonthFrame.anchorStem
+      : selectionRule === 'jungki_transparent'
+        ? (transparentMiddle?.stem ?? monthMain)
+        : selectionRule === 'monthly_main'
+          ? monthMain
+          : monthMainVisible ? monthMain : (bestVisible?.stem ?? bestGroup?.stem ?? monthMain);
   const gyeokTenGod = tenGodOf(dayStem, gyeokStem);
-  const gyeokMethod =
-    selectionRule === 'jungki_transparent'
-      ? (transparentMiddle ? 'VISIBLE_HIDDEN' : (monthMainVisible ? 'MAIN_EXPOSED' : 'MAIN_FALLBACK'))
-      : selectionRule === 'monthly_main'
-        ? (monthMainVisible ? 'MAIN_EXPOSED' : 'MAIN_FALLBACK')
-        : monthMainVisible ? 'MAIN_EXPOSED' : (bestVisible ? 'VISIBLE_HIDDEN' : (bestGroup ? 'GROUP_SUPPORTED' : 'MAIN_FALLBACK'));
+  const gyeokMethod: RuleFacts['month']['gyeok']['method'] =
+    structuralMonthFrame
+      ? 'STRUCTURAL_MONTH_FRAME'
+      : selectionRule === 'jungki_transparent'
+        ? (transparentMiddle ? 'VISIBLE_HIDDEN' : (monthMainVisible ? 'MAIN_EXPOSED' : 'MAIN_FALLBACK'))
+        : selectionRule === 'monthly_main'
+          ? (monthMainVisible ? 'MAIN_EXPOSED' : 'MAIN_FALLBACK')
+          : monthMainVisible ? 'MAIN_EXPOSED' : (bestVisible ? 'VISIBLE_HIDDEN' : (bestGroup ? 'GROUP_SUPPORTED' : 'MAIN_FALLBACK'));
 
   // --- 건록/양인/월겁 세분 (감사 B4)
   // 록 조견표: 甲寅 乙卯 丙巳 丁午 戊巳 己午 庚申 辛酉 壬亥 癸子 (화토동궁; 신살 lokFallback와 동일).
@@ -3889,19 +3997,9 @@ export function buildRuleFacts(args: {
   // 주의(스코프 한정): '병무오월 양인' 전통의 戊午월은 午 본기 丁이 무토의 정인이라
   // 이 분기(비견/겁재)에 들어오지 않고 정인격 유지 — 십성 무관 제왕지 승격은 이설이 커서 미채택.
   // 토 일간 잡기월(戊 일간 辰/戌월 등)의 본기 비견도 통칭 록겁 관례대로 GEONROK로 분류(엄밀 유파는 잡기격).
-  const GYEOKGUK_LOK_BRANCH: readonly number[] = [2, 3, 5, 6, 5, 6, 8, 9, 11, 0];
-  const bigyeopModeRaw = (config.strategies as any)?.gyeokguk?.bigyeopGyeok;
-  const bigyeopMode: 'classic' | 'legacy' = bigyeopModeRaw === 'legacy' ? 'legacy' : 'classic';
-  let bigyeopSubtype: 'GEONROK' | 'YANGIN' | 'WOLGEOB' | null = null;
-  if (bigyeopMode === 'classic') {
-    if (gyeokTenGod === 'BI_GYEON') {
-      bigyeopSubtype = 'GEONROK';
-    } else if (gyeokTenGod === 'GEOB_JAE') {
-      const dayIsYang = mod(dayStem, 2) === 0;
-      const jewangBranch = mod((GYEOKGUK_LOK_BRANCH[mod(dayStem, 10)] ?? 0) + 1, 12) as BranchIdx;
-      bigyeopSubtype = dayIsYang && pillars.month.branch === jewangBranch ? 'YANGIN' : 'WOLGEOB';
-    }
-  }
+  const bigyeopSubtype: BigyeopSubtype | null = bigyeopMode === 'classic'
+    ? structuralMonthFrame?.subtype ?? null
+    : null;
 
   const { normalized, sum } = normalizeVector(elementDistribution.total);
 
@@ -3914,7 +4012,8 @@ export function buildRuleFacts(args: {
     gyeokStem,
     gyeokTenGod,
     gyeokMethod,
-    monthGyeokCandidates,
+    selectionCandidates: selectableMonthGyeokCandidates,
+    exposureEvidenceCandidates: monthGyeokCandidates,
     branches,
     hiddenStemPolicy,
     tenGodScoresRanking,
@@ -3924,18 +4023,26 @@ export function buildRuleFacts(args: {
 
   // PR-6: 격국 성패(상신·순용/역용·성격/파격) — additive 판정 표면.
   const seongpaeStrategy: any = (config.strategies as any)?.gyeokguk?.seongpae ?? {};
-  const seongpaeV1Enabled = seongpaeStrategy.enabled !== false && seongpaeStrategy.v1?.enabled !== false;
+  const seongpaeScoreEnabled = (config.strategies as any)?.gyeokguk?.seongpaeScore?.enabled === true;
+  // Hidden-sangshin and strength comparison are doctrinal extensions and stay
+  // opt-in until an independent authority holdout approves their defaults.
+  const seongpaeV1Enabled = seongpaeStrategy.enabled === true
+    || (seongpaeStrategy.enabled !== false && seongpaeStrategy.v1?.enabled === true);
   const hiddenSangshinStrategy: any = seongpaeStrategy.hiddenSangshin ?? {};
   const strengthCompareStrategy: any = seongpaeStrategy.strengthCompare ?? {};
   const gyeokSeongpae = computeGyeokgukSeongpae({
     gyeokTenGod,
-    bigyeopSubtype,
+    // bigyeopGyeok='legacy' is a public naming compatibility option only.
+    // Seongpae doctrine must still consume the actual month-frame structure.
+    bigyeopSubtype: structuralMonthFrame?.subtype ?? null,
     dayStem,
     otherStems: [pillars.year.stem, pillars.month.stem, pillars.hour.stem],
     monthBroken: monthGyeokQuality.broken,
     monthHiddenStems,
     tenGodScores: scoring.tenGods,
+    dayMasterSelfScore: dayMasterDirectStemWeight,
     policy: {
+      retainPreMonthVerdict: seongpaeScoreEnabled,
       hiddenSangshin: {
         enabled: seongpaeV1Enabled && hiddenSangshinStrategy.enabled !== false,
         minWeight: typeof hiddenSangshinStrategy.minWeight === 'number' ? hiddenSangshinStrategy.minWeight : undefined,
@@ -4044,7 +4151,7 @@ export function buildRuleFacts(args: {
     strength: computeStrengthFacts({
       config,
       tenGods: scoring.tenGods,
-      dayMasterDirectStemWeight: scoring.provenance.dayMasterDirectStemWeight,
+      dayMasterDirectStemWeight: dayMasterDirectStemWeight ?? 0,
       dayMasterStem: pillars.day.stem,
       monthBranch: pillars.month.branch,
       stems,
@@ -4053,7 +4160,7 @@ export function buildRuleFacts(args: {
       seasonGroup: seasonGroupOfMonthBranch(pillars.month.branch),
       // PR-5 (감사 B448): 합충 상호작용 재료 — 탐지·합화 판정 재계산 없이 전달만.
       relationsByType: byType,
-      // PR-10-2 (감사 B524): pairs 보존 원본 — positional(현재 기본 on) 경로 전용.
+      // PR-10-2 (감사 B524): pairs 보존 원본 — positional opt-in 경로 전용.
       relationsDetailed: detectedRelations,
       transformations,
     }),

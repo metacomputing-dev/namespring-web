@@ -85,6 +85,36 @@ check('용신 동일', lunarBirth.summary.yongshin.element === solarBirth.summar
 check('양력 입력 리포트에는 lunarConversion 키가 없다',
   !('lunarConversion' in (solarBirth.summary as Record<string, unknown>)));
 
+const ambiguousLeapMonth = await analyzeSajuSafe({
+  year: 2025, month: 6, day: 1, hour: 9, minute: 30,
+  gender: 'female', calendarType: 'lunar', timezone: 'Asia/Seoul',
+});
+const ambiguousSummary = ambiguousLeapMonth.summary as Record<string, any>;
+check('평달·윤달이 함께 있는 월에서 윤달 플래그 누락은 fail-closed',
+  ambiguousLeapMonth.sajuEnabled === false
+    && ambiguousSummary.disabledReason === 'lunar-conversion-unavailable'
+    && ambiguousSummary.calendarPolicy?.conversionStatus === 'ambiguous-leap-month'
+    && ambiguousSummary.calendarPolicy?.leapMonth === null,
+  JSON.stringify(ambiguousSummary.calendarPolicy));
+
+const ordinaryLunar = await analyzeSajuSafe({
+  year: 2025, month: 6, day: 1, hour: 9, minute: 30,
+  gender: 'female', calendarType: 'lunar', isLeapMonth: false, timezone: 'Asia/Seoul',
+});
+const ordinaryConversion = (ordinaryLunar.summary as Record<string, any>).lunarConversion;
+check('명시적 평달 플래그는 2025 음력 6월 1일을 2025-06-25로 변환',
+  ordinaryLunar.sajuEnabled === true
+    && ordinaryConversion?.lunar?.isLeapMonth === false
+    && ordinaryConversion?.solar?.year === 2025
+    && ordinaryConversion?.solar?.month === 6
+    && ordinaryConversion?.solar?.day === 25,
+  JSON.stringify(ordinaryConversion));
+check('명시적 윤달 플래그는 동일 월일의 다른 양력 날짜를 유지',
+  lunarBirth.sajuEnabled === true
+    && conversion?.solar?.year === 2025
+    && conversion?.solar?.month === 7
+    && conversion?.solar?.day === 25);
+
 // ── 3. 변환 불가 경로만 비활성 ──
 const outOfRange = await analyzeSajuSafe({
   year: 1850, month: 1, day: 1, hour: 12, minute: 0,

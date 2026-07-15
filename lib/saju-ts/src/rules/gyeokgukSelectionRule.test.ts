@@ -11,9 +11,22 @@ import { scorePillarsForRuleFacts } from './ruleFactsScoring.js';
 function analyzeWithSelectionRule(
   selectionRule?: GyeokgukSelectionRule,
   gyeokgukOverrides: Record<string, unknown> = {},
-  useDefaultRuleSet = false,
+  options: {
+    useDefaultRuleSet?: boolean;
+    monthGyeokBonus?: number;
+    duplicateMonthGyeokRule?: boolean;
+  } = {},
 ) {
+  const {
+    useDefaultRuleSet = false,
+    monthGyeokBonus = 1,
+    duplicateMonthGyeokRule = false,
+  } = options;
   const gyeokgukStrategy = { ...(selectionRule ? { selectionRule } : {}), ...gyeokgukOverrides };
+  const monthGyeokMacros = Array.from(
+    { length: duplicateMonthGyeokRule ? 2 : 1 },
+    () => ({ kind: 'monthGyeokTenGod' as const, bonus: monthGyeokBonus }),
+  );
   const config = normalizeConfig({
     strategies: Object.keys(gyeokgukStrategy).length > 0 ? { gyeokguk: gyeokgukStrategy } : {},
     ...(useDefaultRuleSet
@@ -25,7 +38,7 @@ function analyzeWithSelectionRule(
                 id: 'test.gyeokguk.month-gyeok-only',
                 base: 'none',
                 mode: 'replace',
-                macros: [{ kind: 'monthGyeokTenGod' }],
+                macros: monthGyeokMacros,
               },
             },
           },
@@ -90,9 +103,12 @@ describe('gyeokguk selectionRule', () => {
     expect(jungkiTransparent.result.basis.monthGyeokSelectionRule).toBe('jungki_transparent');
   });
 
-  it('enables seongpae v1 by default while preserving explicit opt-out', () => {
-    const enabled = analyzeHiddenSeongpae();
-    const disabled = analyzeHiddenSeongpae({ seongpae: { enabled: false } });
+  it('keeps seongpae v1 opt-in until an authority holdout approves the policy', () => {
+    const disabled = analyzeHiddenSeongpae();
+    const enabled = analyzeHiddenSeongpae({ seongpae: { enabled: true } });
+    const masterDisabled = analyzeHiddenSeongpae({
+      seongpae: { enabled: false, v1: { enabled: true } },
+    });
 
     expect(enabled.month.gyeok.seongpae).toMatchObject({
       verdict: 'SEONGJUNG_YUPA',
@@ -102,15 +118,18 @@ describe('gyeokguk selectionRule', () => {
     expect(disabled.month.gyeok.seongpae?.verdict).toBe('PAGYEOK');
     expect(disabled.month.gyeok.seongpae?.sangshin).toBeNull();
     expect(disabled.month.gyeok.seongpae?.sangshinSource).toBeUndefined();
+    expect(masterDisabled.month.gyeok.seongpae).toEqual(disabled.month.gyeok.seongpae);
   });
 
-  it('applies seongpaeScore by default only to the selected month-gyeok score', () => {
-    const enabled = analyzeWithSelectionRule();
-    const disabled = analyzeWithSelectionRule(undefined, { seongpaeScore: { enabled: false } });
+  it('keeps seongpaeScore opt-in and applies it only to the selected month-gyeok score', () => {
+    const disabled = analyzeWithSelectionRule();
+    const enabled = analyzeWithSelectionRule(undefined, { seongpaeScore: { enabled: true } });
 
     expect(enabled.facts.month.gyeok.seongpae?.verdict).toBe('UNDETERMINED');
     expect(disabled.result.scores['gyeokguk.PYEON_IN']).toBeCloseTo(1, 12);
     expect(disabled.result.basis.seongpaeScoreAdjustment).toBeUndefined();
+    expect(Object.hasOwn(disabled.result, 'seongpaeScoreAdjustment')).toBe(false);
+    expect(Object.hasOwn(disabled.result.basis, 'seongpaeScoreAdjustment')).toBe(false);
     expect(enabled.result.scores['gyeokguk.PYEON_IN']).toBeCloseTo(0.95, 12);
     expect(enabled.result.best).toBe(disabled.result.best);
 
@@ -124,7 +143,11 @@ describe('gyeokguk selectionRule', () => {
   });
 
   it('does not apply the same month damage through quality and seongpae score twice', () => {
-    const { config, facts } = analyzeWithSelectionRule(undefined, {}, true);
+    const { config, facts } = analyzeWithSelectionRule(
+      undefined,
+      { seongpaeScore: { enabled: true } },
+      { useDefaultRuleSet: true },
+    );
     facts.month.gyeok.quality.multiplier = 0.5;
     facts.month.gyeok.seongpae = {
       ...facts.month.gyeok.seongpae!,
@@ -144,7 +167,11 @@ describe('gyeokguk selectionRule', () => {
   });
 
   it('preserves the pre-damage seonggyeok boost when quality already carries month damage', () => {
-    const { config, facts } = analyzeWithSelectionRule(undefined, {}, true);
+    const { config, facts } = analyzeWithSelectionRule(
+      undefined,
+      { seongpaeScore: { enabled: true } },
+      { useDefaultRuleSet: true },
+    );
     facts.month.gyeok.quality.multiplier = 0.5;
     facts.month.gyeok.seongpae = {
       ...facts.month.gyeok.seongpae!,
@@ -164,7 +191,7 @@ describe('gyeokguk selectionRule', () => {
   });
 
   it('keeps the final damage verdict penalty when a custom rule omits quality', () => {
-    const { config, facts } = analyzeWithSelectionRule();
+    const { config, facts } = analyzeWithSelectionRule(undefined, { seongpaeScore: { enabled: true } });
     facts.month.gyeok.quality.multiplier = 0.5;
     facts.month.gyeok.seongpae = {
       ...facts.month.gyeok.seongpae!,
@@ -186,6 +213,7 @@ describe('gyeokguk selectionRule', () => {
   it('applies prior and final verdict multipliers to their own mixed-rule contributions', () => {
     const { facts } = analyzeWithSelectionRule();
     const config = normalizeConfig({
+      strategies: { gyeokguk: { seongpaeScore: { enabled: true } } },
       extensions: {
         rulesets: {
           gyeokguk: {
@@ -239,6 +267,7 @@ describe('gyeokguk selectionRule', () => {
   it('does not protect an unreachable quality branch from the final damage verdict', () => {
     const { facts } = analyzeWithSelectionRule();
     const config = normalizeConfig({
+      strategies: { gyeokguk: { seongpaeScore: { enabled: true } } },
       extensions: {
         rulesets: {
           gyeokguk: {
@@ -274,6 +303,7 @@ describe('gyeokguk selectionRule', () => {
   it('fails closed when duplicate rule ids make score provenance ambiguous', () => {
     const { facts } = analyzeWithSelectionRule();
     const config = normalizeConfig({
+      strategies: { gyeokguk: { seongpaeScore: { enabled: true } } },
       extensions: {
         rulesets: {
           gyeokguk: {
@@ -310,4 +340,45 @@ describe('gyeokguk selectionRule', () => {
     expect(result.scores['gyeokguk.PYEON_IN']).toBeCloseTo(1.125, 12);
     expect(result.basis.seongpaeScoreAdjustment?.suppressedBy).toBeUndefined();
   });
+  it('falls back to the governed verdict multiplier when an override is negative', () => {
+    const got = analyzeWithSelectionRule(undefined, {
+      seongpaeScore: { enabled: true, multipliers: { UNDETERMINED: -5 } },
+    });
+    expect(got.result.scores['gyeokguk.PYEON_IN']).toBeCloseTo(0.95, 12);
+    expect(got.result.best).toBe('gyeokguk.PYEON_IN');
+  });
+
+  it('falls back to the governed verdict multiplier when an override is unbounded', () => {
+    const got = analyzeWithSelectionRule(undefined, {
+      seongpaeScore: { enabled: true, multipliers: { UNDETERMINED: Number.MAX_VALUE } },
+    });
+    expect(got.result.scores['gyeokguk.PYEON_IN']).toBeCloseTo(0.95, 12);
+  });
+
+  it('does not improve a non-positive rule score through verdict multiplication', () => {
+    const got = analyzeWithSelectionRule(
+      undefined,
+      { seongpaeScore: { enabled: true } },
+      { monthGyeokBonus: -1 },
+    );
+    expect(got.result.scores['gyeokguk.PYEON_IN']).toBe(-1);
+    expect(got.result.basis.seongpaeScoreAdjustment).toBeUndefined();
+  });
+
+  it('fails closed when a finite score and multiplier overflow', () => {
+    expect(() => analyzeWithSelectionRule(
+      undefined,
+      { seongpaeScore: { enabled: true, multipliers: { UNDETERMINED: 10 } } },
+      { monthGyeokBonus: Number.MAX_VALUE },
+    )).toThrow(RangeError);
+  });
+
+  it('fails closed when finite rule contributions overflow before adjustment', () => {
+    expect(() => analyzeWithSelectionRule(
+      undefined,
+      { seongpaeScore: { enabled: true } },
+      { monthGyeokBonus: Number.MAX_VALUE, duplicateMonthGyeokRule: true },
+    )).toThrow(RangeError);
+  });
+
 });

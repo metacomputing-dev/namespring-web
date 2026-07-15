@@ -20,7 +20,7 @@
 
 | 커밋 | 내용 |
 |---|---|
-| 8401cfbab | **두 knob 기본 on**(seasonal+positional). 계측: seasonal 단독 완전 무파급, positional 추가 시 유일 이동 = fix-14 이름 후보 finalScore +0.1×2(순위 불변). measure_default_change HEAD~1↔HEAD=UNCHANGED(0/0/15), main↔HEAD=**IMPROVEMENT(5/0/10) 유지**. knob 계약 테스트 4건을 opt-out 방향으로 반전 |
+| 8401cfbab | 두 knob 기본 on 시도. 당시 top-5 스냅샷에서는 fix-14 +0.1×2만 관찰했으나, 후속 self-review에서 권위 진리값 분모 0과 고정 이름 메트릭의 더 넓은 이동을 확인해 기본 off로 복구했다. 구현은 opt-in으로 유지한다. |
 | 75c3cdef5 | **P0-3 완료**: baseline 17픽스처(fix-16 야자시 창 23:40, fix-17 음력 윤달 2004-윤2-15). 픽스처 수 하드코딩 2곳 동적화(baseline-metrics:121·156, quality-gate:78) |
 
 갱신된 검증 기대치: baseline verify **17/17**, test:baseline-metrics **37/0**, test:quality-gate **20/0**.
@@ -77,9 +77,9 @@ test:baseline-metrics **38/0**, test:quality-gate 20/0, compat **208/0**, jonggy
 ### 0.5 후속 세션 기록 (2026-07-10 밤 — 일간 자기 셈입 수정 경로 구현, 기본화 보류)
 
 - `strategies.strength.excludeDayMasterSelf=true` opt-in 경로를 구현했다. 범용 `scorePillars`
-  원장은 보존하고, `RuleFactsScoringResult.provenance`가 실제 `stemWeight`를 결과와 결합한 뒤
+  원장은 보존하고, 모듈 내부 WeakMap provenance가 실제 `stemWeight`를 점수 객체와 결합한 뒤
   작은 순수 모듈 `rules/strengthBase.ts`에서만 일간 직접 비견 기여를 제외한다.
-- split-brain 방지: `buildRuleFacts`는 점수와 정책을 별도 인자로 받지 않는다. provenance가 없는
+- split-brain 방지: `buildRuleFacts`는 공개 점수 형상을 바꾸지 않는 내부 provenance를 우선한다. provenance가 없는
   수기 점수나 모순 가중치는 타입/불변식에서 fail-closed 한다.
 - 기본값은 **off 유지**다. 임시 default-on 계측에서 17픽스처 전부 158 leaf가 이동했고,
   강약 표면 7건, 희신 baseline 6건, 종격 위험 baseline 4건, 서사 golden 17건이 연쇄 변경됐다.
@@ -124,22 +124,21 @@ npm run test:tiered-shape                             # 1378
 
 회귀가 1건이라도 있으면 기본 off 유지 + 로드맵 §9에 사유 기록. 결과 수치는 커밋 메시지에 병기.
 
-## 2. PR-10-1 잔여: seasonal 비대칭 감쇠 기본화 [난이도 중 — 계측만]
+## 2. PR-10-1: seasonal 비대칭 감쇠 구현 완료 — 기본화 보류
 
-- 코드는 전부 랜딩됨(f792c7765). 남은 것: §1 절차로 계측 → 기본화 여부 결정.
-- 기본값 뒤집는 지점: `lib/saju-ts/src/rules/facts.ts` `readStrengthInteractionPolicy`의
-  `seasonal.enabled: enabled && seasonalRaw.enabled === true` → `!== false`로 변경.
-- multipliers(왕 0.7/상 0.85/휴 1.0/수 1.15/사 1.3)는 보수 개시값 — 계측에서 회귀가 나오면
-  왕 0.8/사 1.2로 완화해 재계측.
+- 코드는 전부 랜딩됨(f792c7765). `enabled === true`인 명시 opt-in으로 유지한다.
+- 17픽스처의 authority truth denominator가 0이므로 수치 기본화 근거가 없다.
+- multipliers(왕 0.7/상 0.85/휴 1.0/수 1.15/사 1.3)는 provisional이다. 독립 권위 holdout과
+  재캘리브레이션 없이는 기본값을 뒤집지 않는다.
 - 부속(선택): summary.seasonalStates의 springLegacy 재방출 + 해석 저작은 콘텐츠 축(CT-3와 함께).
   재방출 시 deepSerialize 스프레드로 스냅샷 표면에 즉시 등장함을 잊지 말 것(스냅샷 재캡처 동반).
 
-## 3. PR-10-2: 궁위 pairs 기반 감쇠 세분 ✅ 구현 완료 (07aeaaf33) — 기본화 계측만 잔여
+## 3. PR-10-2: 궁위 pairs 기반 감쇠 세분 ✅ 구현 완료 (07aeaaf33) — 기본화 보류
 
 > 아래 설계는 커밋 07aeaaf33으로 구현됐다. 차이점: 값-detection 특성상 위치별 '해소' 차이는
 > 원리상 불발이라 해소는 값 수준 유지, 차등은 **인접/원격 거리(d1 1.0/d2 0.5/d3 0.25)**에만
 > 적용했다(자평 인접성 통설 — 동일 지지 과감쇠는 원격 완화로 해소됨). knob는
-> `strength.interaction.root.positional.enabled`(기본 off). 잔여: §1 절차로 기본화 계측.
+> `strength.interaction.root.positional.enabled`(기본 off). 독립 권위 holdout 전까지 opt-in 유지.
 > 계측 시 seasonal(§2)과 함께 켠 조합도 1회 측정할 것(곱 결합 — eff = 1-(1-f)·scale·mult).
 
 ### 원 설계 메모 (구현 전 기록 — 참조용)

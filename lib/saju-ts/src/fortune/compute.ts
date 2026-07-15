@@ -27,6 +27,7 @@ import type {
   DecadeLuck,
   YearLuck,
 } from './types.js';
+import { assertFortuneHorizonPolicy } from './policy.js';
 
 const MS_PER_DAY = 86_400_000;
 const AVG_DAYS_PER_YEAR = 365.2425;
@@ -286,6 +287,7 @@ export function computeFortuneTimeline(args: {
   policy: FortunePolicy;
 }): FortuneTimeline {
   const { request, parsedUtcMs, birthLocalDateTime, localYear, solarTermMethod, jieBoundariesAround, natalYearPillar, natalMonthPillar, policy, calendar } = args;
+  assertFortuneHorizonPolicy(policy);
   const solarTermPolicy = resolveSolarTermComputationPolicy(calendar, solarTermMethod);
 
   if (!jieBoundariesAround) {
@@ -352,8 +354,12 @@ export function computeFortuneTimeline(args: {
       index: i,
       startAgeYears,
       endAgeYears,
-      displayStartAge: displayAgeAt(startAgeYears, approxStartUtcMs, parsedUtcMs, calendar, birthLocalDateTime.offsetMinutes, solarTermPolicy, policy),
-      displayEndAge: displayAgeAt(endAgeYears, approxEndUtcMs, parsedUtcMs, calendar, birthLocalDateTime.offsetMinutes, solarTermPolicy, policy),
+      displayStartAge: policy.ageDisplay === 'continuousFromBirth'
+        ? start.startAgeDisplay + i * decadeLen
+        : displayAgeAt(startAgeYears, approxStartUtcMs, parsedUtcMs, calendar, birthLocalDateTime.offsetMinutes, solarTermPolicy, policy),
+      displayEndAge: policy.ageDisplay === 'continuousFromBirth'
+        ? start.startAgeDisplay + (i + 1) * decadeLen
+        : displayAgeAt(endAgeYears, approxEndUtcMs, parsedUtcMs, calendar, birthLocalDateTime.offsetMinutes, solarTermPolicy, policy),
       pillar,
     };
 

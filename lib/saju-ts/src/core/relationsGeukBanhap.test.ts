@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { detectStemRelations, isStemGeuk } from './stemRelations.js';
-import { detectBranchRelations, gwimunPartner, isWangji } from './branchRelations.js';
+import {
+  detectBranchRelations,
+  gwimunPartner,
+  isWangji,
+  relationMatchesTarget,
+  relationResolutionUnits,
+} from './branchRelations.js';
 
 // 천간 인덱스: 0갑 1을 2병 3정 4무 5기 6경 7신 8임 9계
 // 지지 인덱스: 0子 1丑 2寅 3卯 4辰 5巳 6午 7未 8申 9酉 10戌 11亥
@@ -69,6 +75,25 @@ describe('지지 반합(BANHAP) 탐지 (감사 B3)', () => {
 });
 
 describe('삼형(SAMHYEONG) 중복 억제', () => {
+  it('HYEONG 정책은 canonical SAMHYEONG family를 포함하되 역방향은 포함하지 않는다', () => {
+    expect(relationMatchesTarget('SAMHYEONG', 'HYEONG')).toBe(true);
+    expect(relationMatchesTarget('HYEONG', 'SAMHYEONG')).toBe(false);
+    expect(relationMatchesTarget('JA_HYEONG', 'HYEONG')).toBe(false);
+  });
+
+  it('canonical SAMHYEONG을 세 구성쌍으로 안정적으로 분해하고 malformed triple은 거부한다', () => {
+    expect(relationResolutionUnits({ type: 'SAMHYEONG', members: [10, 1, 7] }))
+      .toEqual([[1, 7], [1, 10], [7, 10]]);
+    expect(relationResolutionUnits({ type: 'HYEONG', members: [2, 5] }))
+      .toEqual([[2, 5]]);
+    expect(() => relationResolutionUnits({ type: 'SAMHYEONG', members: [1, 1, 7] }))
+      .toThrow(/three unique branches/);
+    expect(() => relationResolutionUnits({ type: 'SAMHYEONG', members: [1, 7, 22] as any }))
+      .toThrow(/0 through 11/);
+    expect(() => relationResolutionUnits({ type: 'SAMHYEONG', members: [0, 1, 2] }))
+      .toThrow(/canonical three-punishment set/);
+  });
+
   it.each([
     [[2, 5, 8, 0], '2-5-8'],
     [[1, 7, 10, 0], '1-7-10'],

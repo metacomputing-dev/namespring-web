@@ -762,8 +762,8 @@
         "fixtureCount": 17,
         "changedFromDefault": 17,
         "unchangedFromDefault": 0,
-        "averageTotalDelta": -1,
-        "averageSajuDelta": -3.9118,
+        "averageTotalDelta": -1.0118,
+        "averageSajuDelta": -3.9706,
         "minTotalDelta": -7.3,
         "maxTotalDelta": 0.6,
         "minSajuDelta": -27,
@@ -804,9 +804,9 @@
         "fixtureCount": 17,
         "changedFromDefault": 17,
         "unchangedFromDefault": 0,
-        "averageTotalDelta": -0.1,
-        "averageSajuDelta": -0.3765,
-        "minTotalDelta": -0.2,
+        "averageTotalDelta": -0.1118,
+        "averageSajuDelta": -0.4118,
+        "minTotalDelta": -0.3,
         "maxTotalDelta": 0.1,
         "minSajuDelta": -0.8,
         "maxSajuDelta": 0.4,
@@ -846,9 +846,9 @@
         "fixtureCount": 17,
         "changedFromDefault": 17,
         "unchangedFromDefault": 0,
-        "averageTotalDelta": -0.1529,
-        "averageSajuDelta": -0.5706,
-        "minTotalDelta": -0.3,
+        "averageTotalDelta": -0.1647,
+        "averageSajuDelta": -0.6118,
+        "minTotalDelta": -0.4,
         "maxTotalDelta": 0.1,
         "minSajuDelta": -1.2,
         "maxSajuDelta": 0.5,
@@ -888,8 +888,8 @@
         "fixtureCount": 17,
         "changedFromDefault": 17,
         "unchangedFromDefault": 0,
-        "averageTotalDelta": -1.1294,
-        "averageSajuDelta": -4.4294,
+        "averageTotalDelta": -1.1412,
+        "averageSajuDelta": -4.5176,
         "minTotalDelta": -7.5,
         "maxTotalDelta": 0.7,
         "minSajuDelta": -27.9,
@@ -930,12 +930,12 @@
         "fixtureCount": 17,
         "changedFromDefault": 17,
         "unchangedFromDefault": 0,
-        "averageTotalDelta": 0.1235,
-        "averageSajuDelta": 0.5235,
+        "averageTotalDelta": 0.1353,
+        "averageSajuDelta": 0.5412,
         "minTotalDelta": -0.1,
         "maxTotalDelta": 0.3,
         "minSajuDelta": -0.4,
-        "maxSajuDelta": 1,
+        "maxSajuDelta": 1.1,
         "byReferenceTier": {
           "T2_REFERENCE_IMPLEMENTATION": {
             "fixtureCount": 12,
@@ -972,7 +972,7 @@
     "rows": [
       {
         "fixtureId": "fix-01",
-        "label": "1986-04-19 male — 戊土 일간 (README example)",
+        "label": "1986-04-19 male — 癸水 일간 (README example)",
         "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
         "referenceKind": "oracle",
         "sourceType": "reference_implementation",
@@ -1037,7 +1037,7 @@
       },
       {
         "fixtureId": "fix-02",
-        "label": "1992-09-15 female — 壬水 일간, 가을",
+        "label": "1992-09-15 female — 甲木 일간, 가을",
         "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
         "referenceKind": "oracle",
         "sourceType": "reference_implementation",
@@ -1167,7 +1167,7 @@
       },
       {
         "fixtureId": "fix-04",
-        "label": "1965-08-08 19:00 female — 丙火 일간, 종왕 후보 (강한 火)",
+        "label": "1965-08-08 19:00 female — 甲木 일간, 申月 강약 방향 판정",
         "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
         "referenceKind": "oracle",
         "sourceType": "reference_implementation",
@@ -1240,32 +1240,32 @@
         "authorityTruthEligible": false,
         "scores": {
           "default": {
-            "total": 60.3,
-            "saju": 65.9
+            "total": 61,
+            "saju": 68.2
           },
           "korean": {
-            "total": 60.3,
-            "saju": 65.9
+            "total": 61,
+            "saju": 68.2
           },
           "chinese": {
-            "total": 59.8,
-            "saju": 64.1
+            "total": 60.5,
+            "saju": 66.4
           },
           "modern": {
-            "total": 60.1,
-            "saju": 65.2
+            "total": 60.7,
+            "saju": 67.4
           },
           "korean_modern": {
-            "total": 60,
-            "saju": 64.8
+            "total": 60.6,
+            "saju": 67.1
           },
           "classical_text": {
-            "total": 59.5,
-            "saju": 62.9
+            "total": 60.2,
+            "saju": 65.3
           },
           "naming_safe": {
-            "total": 60.5,
-            "saju": 66.8
+            "total": 61.2,
+            "saju": 69
           }
         },
         "deltaVsDefault": {
@@ -1278,26 +1278,26 @@
             "saju": -1.8
           },
           "modern": {
-            "total": -0.2,
-            "saju": -0.7
+            "total": -0.3,
+            "saju": -0.8
           },
           "korean_modern": {
-            "total": -0.3,
+            "total": -0.4,
             "saju": -1.1
           },
           "classical_text": {
             "total": -0.8,
-            "saju": -3
+            "saju": -2.9
           },
           "naming_safe": {
             "total": 0.2,
-            "saju": 0.9
+            "saju": 0.8
           }
         }
       },
       {
         "fixtureId": "fix-06",
-        "label": "1978-06-15 14:00 female — 庚金 일간, 여름",
+        "label": "1978-06-15 14:00 female — 戊土 일간, 여름",
         "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
         "referenceKind": "oracle",
         "sourceType": "reference_implementation",
@@ -1370,32 +1370,32 @@
         "authorityTruthEligible": false,
         "scores": {
           "default": {
-            "total": 67,
-            "saju": 55.8
+            "total": 64.8,
+            "saju": 45.5
           },
           "korean": {
-            "total": 67,
-            "saju": 55.8
+            "total": 64.8,
+            "saju": 45.5
           },
           "chinese": {
-            "total": 66.8,
-            "saju": 55
+            "total": 64.4,
+            "saju": 43.8
           },
           "modern": {
-            "total": 66.9,
-            "saju": 55.5
+            "total": 64.6,
+            "saju": 44.8
           },
           "korean_modern": {
-            "total": 66.8,
-            "saju": 55.4
+            "total": 64.5,
+            "saju": 44.5
           },
           "classical_text": {
-            "total": 66.6,
-            "saju": 54.5
+            "total": 64.1,
+            "saju": 42.7
           },
           "naming_safe": {
-            "total": 67.1,
-            "saju": 56.4
+            "total": 65,
+            "saju": 46.6
           }
         },
         "deltaVsDefault": {
@@ -1404,24 +1404,24 @@
             "saju": 0
           },
           "chinese": {
-            "total": -0.2,
-            "saju": -0.8
+            "total": -0.4,
+            "saju": -1.7
           },
           "modern": {
-            "total": -0.1,
-            "saju": -0.3
+            "total": -0.2,
+            "saju": -0.7
           },
           "korean_modern": {
-            "total": -0.2,
-            "saju": -0.4
+            "total": -0.3,
+            "saju": -1
           },
           "classical_text": {
-            "total": -0.4,
-            "saju": -1.3
+            "total": -0.7,
+            "saju": -2.8
           },
           "naming_safe": {
-            "total": 0.1,
-            "saju": 0.6
+            "total": 0.2,
+            "saju": 1.1
           }
         }
       },
@@ -1500,32 +1500,32 @@
         "authorityTruthEligible": false,
         "scores": {
           "default": {
-            "total": 62.1,
-            "saju": 48.5
+            "total": 62,
+            "saju": 48.4
           },
           "korean": {
-            "total": 62.1,
-            "saju": 48.5
+            "total": 62,
+            "saju": 48.4
           },
           "chinese": {
-            "total": 61.9,
-            "saju": 47.6
+            "total": 61.8,
+            "saju": 47.4
           },
           "modern": {
-            "total": 62,
-            "saju": 48.2
+            "total": 61.9,
+            "saju": 48
           },
           "korean_modern": {
-            "total": 62,
-            "saju": 48
+            "total": 61.9,
+            "saju": 47.8
           },
           "classical_text": {
             "total": 61.7,
-            "saju": 47.1
+            "saju": 46.9
           },
           "naming_safe": {
             "total": 62.2,
-            "saju": 49.1
+            "saju": 48.9
           }
         },
         "deltaVsDefault": {
@@ -1535,23 +1535,23 @@
           },
           "chinese": {
             "total": -0.2,
-            "saju": -0.9
+            "saju": -1
           },
           "modern": {
             "total": -0.1,
-            "saju": -0.3
+            "saju": -0.4
           },
           "korean_modern": {
             "total": -0.1,
-            "saju": -0.5
+            "saju": -0.6
           },
           "classical_text": {
-            "total": -0.4,
-            "saju": -1.4
+            "total": -0.3,
+            "saju": -1.5
           },
           "naming_safe": {
-            "total": 0.1,
-            "saju": 0.6
+            "total": 0.2,
+            "saju": 0.5
           }
         }
       },

@@ -67,7 +67,11 @@ export interface EngineConfig {
     yearBoundary: 'liChun' | 'lunarNewYear' | 'jan1';
     monthBoundary: 'jieqi' | 'gregorianMonth';
     dayBoundary: 'midnight' | 'ziSplit23';
-    /** Optional day-boundary used only for deriving the hour-pillar stem. Defaults to dayBoundary. */
+    /**
+     * Optional day-boundary used only for deriving the hour-pillar stem.
+     * Omitted, or equal to dayBoundary, reuses pillars.day. A different value
+     * is an explicit split policy such as JOJA_SPLIT.
+     */
     hourStemDayBoundary?: 'midnight' | 'ziSplit23';
     hourBoundary: 'doubleHour';
     /**
@@ -335,7 +339,9 @@ export interface FortuneStartView {
 
 export interface DecadeLuckView {
   index: number;
+  /** Inclusive start of the continuous daewoon age interval. */
   startAgeYears: number;
+  /** Exclusive end of the continuous daewoon age interval. */
   endAgeYears: number;
   displayStartAge?: number;
   displayEndAge?: number;

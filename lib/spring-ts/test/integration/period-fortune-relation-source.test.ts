@@ -49,6 +49,8 @@ function makeSaju(
       year: 2025,
       stem: 'GAP',
       branch: 'O',
+      startUtcMs: Date.UTC(2025, 1, 3),
+      endUtcMs: Date.UTC(2026, 1, 4),
       ...(relationsWithNatal ? { relationsWithNatal } : {}),
     }],
   };

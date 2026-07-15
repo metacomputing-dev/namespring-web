@@ -9,7 +9,7 @@
 ## 1. 무엇을 만들었나
 
 17개 baseline 픽스처(fix-01~fix-17)의 **권위 진리값**(강약·용신·격국 + 서술 클레임)을 엔진과 독립적으로
-도출하고, 엔진 판정과의 불일치 10건을 판결했으며, 종격(從格) 권위 코퍼스 후보 채굴 2차분을 적대 검증했다.
+도출하고, 10개 픽스처에서 확인된 11개 필드 불일치를 판결했으며, 종격(從格) 권위 코퍼스 후보 채굴 2차분을 적대 검증했다.
 
 ### 패널 구조 (105 에이전트, 전원 완료)
 - **블라인드 3렌즈 분석** (17×3): 억부/조후/격국 렌즈. 입력은 `truth-panel-blind.json`(출생정보+KASI 검증
@@ -26,7 +26,7 @@
 | `truth-panel-blind.json` | 패널 입력(블라인드): 17픽스처 출생정보+4주 간지 |
 | `truth-panel-input.json` | 판결용 입력: 픽스처별 birth/pillars + 엔진 판정값 |
 | `truth-panel-output-final.json` | **패널 진리값 최종본**: fixtures[17](analysts 3·rec·verifiers 2) + policyVotes[3] |
-| `mismatch-verdicts-final.json` | **불일치 판결 10/10 + 종합(synthesis)**: 엔진 트레이스 실측 기반 분류 |
+| `mismatch-verdicts-final.json` | **불일치 판결 11필드/10픽스처 + 종합(synthesis)**: 엔진 트레이스 실측 기반 분류 |
 | `codex-truth-input.json` / `codex-truth-verdicts.json` | Codex 교차검증 입력/판정 (17픽스처 × 3필드) |
 | `mining-output-final.json` | 종격 채굴 2차 최종: ACCEPT 46 / HOLD 5 / REJECT 0 (후보별 적대검증 결과 포함) |
 | `corpus-intake-draft.json` | 신규 후보 N-01~N-15 intake 초안(양력 환산·suggestedEnum 포함) |
@@ -65,7 +65,8 @@
 
 > **증거 한계 정정**: Codex 입력에는 패널의 `expected`와 `reasoningSummary`가 포함되어 있었다.
 > 따라서 아래 결과는 독립 블라인드 재도출이 아니라 **앵커링된 적대 검토**다. 수정 가설의
-> 교차 점검에는 쓸 수 있지만 외부 명리 전문가 인증이나 authority truth 승격 근거로 쓰면 안 된다.
+> 교차 점검에는 쓸 수 있지만, 이 결과 단독으로는 외부 명리 전문가 인증이나 authority truth 승격 근거가
+> 아니다. 전체 패널 기록·도시에·소유자 승인과 결합될 때만 정책상 패널 판결 증거의 일부로 사용할 수 있다.
 
 패널 합의(expected)를 Codex가 대조한 17픽스처 × 3필드 = 51판정 중
 **CONFIRM 46 / WEAKEN 2 / REJECT 1 / SKIP 2**.
@@ -117,9 +118,12 @@
   단 **fix-02 격국은 드랍 또는 {정관격,편관격} 양쪽 허용**, **fix-05 강약은 band(중화)만 단언**(hedge
   방향 비게이팅) — §2 DOCTRINE_AMBIGUITY 판결과 §3 Codex REJECT에 따름. 합의 실패로 빈 문자열인
   필드는 그대로 비워 N/A 유지(fail-closed).
-- 레코드 필수 메타(NO_AI_POLICY v2): `sourceType: ai_panel_adjudicated_interpretation`, `aiGenerated: true`,
-  `panelModels: ["claude-fable-5", "gpt-5.5"]`, `adversarialVerification: true`,
-  `dossier: "docs/dossiers/truth-panel-2026-07-10"`, 소유자 `authorityReview` 승인 — 하나라도 빠지면
+- 레코드 필수 메타(NO_AI_POLICY v2): `sourceTier.sourceType: ai_panel_adjudicated_interpretation`,
+  `sourceTier.aiGenerated: true`, `sourceTier.authorityTruthEligible: true`,
+  `sourceTier.panelAdjudication.models: ["claude-fable-5", "gpt-5.5"]`,
+  `sourceTier.panelAdjudication.adversarialVerification: true`,
+  `sourceTier.panelAdjudication.dossier: "docs/dossiers/truth-panel-2026-07-10/README.md"`,
+  소유자 `sourceTier.authorityReview` 승인 — 하나라도 빠지면
   `check_no_ai_policy`가 차단(의도된 fail-closed).
 - **엔진 수정 우선순위**: §2 종합의 1층(일간 자기 셈입)부터. 판정 파급이 크므로 GUIDE §1 계측 절차
   (measure_default_change) 필수. DOCTRINE_AMBIGUITY 2건은 **수정 금지**(이설 보존).

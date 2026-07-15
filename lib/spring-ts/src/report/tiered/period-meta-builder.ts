@@ -17,7 +17,18 @@ import {
 } from '../common/fortuneCalculator.js';
 import { BRANCH_BY_CODE, ELEMENT_KOREAN, STEM_BY_CODE } from '../common/elementMaps.js';
 import { luckAnnotationFeatures, type LuckPillarAnnotationsForReport } from '../common/transit-luck-metadata.js';
+import {
+  findYearLuckRowForInstant,
+  LuckIntervalSelectionError,
+} from '../common/luck-interval.js';
 import type { ElementCode } from '../types.js';
+import {
+  addTargetCalendarDays,
+  targetCalendarDay,
+  targetCalendarDayOfWeek,
+  targetCalendarMonth,
+  targetCalendarYear,
+} from '../../target-date.js';
 
 interface BuiltPeriod {
   label: string;
@@ -25,11 +36,11 @@ interface BuiltPeriod {
 }
 
 interface LuckPillarMetaRow extends LuckPillarAnnotationsForReport {
-  readonly year?: number;
-  readonly stem?: string;
-  readonly branch?: string;
-  readonly startUtcMs?: number | null;
-  readonly endUtcMs?: number | null;
+  readonly year?: unknown;
+  readonly stem?: unknown;
+  readonly branch?: unknown;
+  readonly startUtcMs?: unknown;
+  readonly endUtcMs?: unknown;
 }
 
 function elementHangul(code: ElementCode | null | undefined): string {
@@ -37,27 +48,29 @@ function elementHangul(code: ElementCode | null | undefined): string {
   return ELEMENT_KOREAN[code] ?? '';
 }
 
-function finiteNumber(value: unknown): number | null {
-  const n = Number(value);
-  return Number.isFinite(n) ? n : null;
-}
-
 function findSaeunRowForDate(saju: SajuSummary | null | undefined, targetDate: Date): LuckPillarMetaRow | null {
   const rows = (saju as { readonly saeunPillars?: readonly LuckPillarMetaRow[] } | null | undefined)?.saeunPillars;
-  if (!Array.isArray(rows)) return null;
-  const targetMs = targetDate.getTime();
-  for (const row of rows) {
-    const start = finiteNumber(row.startUtcMs);
-    const end = finiteNumber(row.endUtcMs);
-    if (start !== null && end !== null && targetMs >= start && targetMs < end) return row;
-  }
-  const year = targetDate.getFullYear();
-  return rows.find((row) => row.year === year) ?? null;
+  return findYearLuckRowForInstant(rows, targetDate.getTime(), targetCalendarYear(targetDate));
 }
 
-function metaFromLuckRow(position: string, row: LuckPillarMetaRow, fallback: FortuneGanzhi): TieredPeriodMeta {
-  const stemInfo = STEM_BY_CODE[String(row.stem ?? '').toUpperCase()] ?? fallback.stem;
-  const branchInfo = BRANCH_BY_CODE[String(row.branch ?? '').toUpperCase()] ?? fallback.branch;
+function resolveLuckRowParts(row: LuckPillarMetaRow): {
+  stemInfo: (typeof STEM_BY_CODE)[string];
+  branchInfo: (typeof BRANCH_BY_CODE)[string];
+} {
+  const stemInfo = typeof row.stem === 'string'
+    ? STEM_BY_CODE[row.stem.toUpperCase()]
+    : undefined;
+  const branchInfo = typeof row.branch === 'string'
+    ? BRANCH_BY_CODE[row.branch.toUpperCase()]
+    : undefined;
+  if (!stemInfo || !branchInfo) {
+    throw new LuckIntervalSelectionError('selected year luck row has an invalid stem or branch');
+  }
+  return { stemInfo, branchInfo };
+}
+
+function metaFromLuckRow(position: string, row: LuckPillarMetaRow): TieredPeriodMeta {
+  const { stemInfo, branchInfo } = resolveLuckRowParts(row);
   const transitEvidence = luckAnnotationFeatures(row);
   return {
     stems: [{ position, stem: stemInfo.hangul, element: elementHangul(stemInfo.element) }],
@@ -68,9 +81,8 @@ function metaFromLuckRow(position: string, row: LuckPillarMetaRow, fallback: For
 
 function luckRowGanzhiHangul(row: LuckPillarMetaRow | null, fallback: FortuneGanzhi): string {
   if (!row) return fallback.ganzhiHangul;
-  const stemInfo = STEM_BY_CODE[String(row.stem ?? '').toUpperCase()];
-  const branchInfo = BRANCH_BY_CODE[String(row.branch ?? '').toUpperCase()];
-  return stemInfo && branchInfo ? `${stemInfo.hangul}${branchInfo.hangul}` : fallback.ganzhiHangul;
+  const { stemInfo, branchInfo } = resolveLuckRowParts(row);
+  return `${stemInfo.hangul}${branchInfo.hangul}`;
 }
 
 function metaFromGanzhi(position: string, f: FortuneGanzhi): TieredPeriodMeta {
@@ -89,8 +101,8 @@ function buildLifeMeta(): BuiltPeriod {
 
 function buildTodayMeta(targetDate: Date): BuiltPeriod {
   const f = getDailyFortune(targetDate);
-  const month = String(targetDate.getMonth() + 1);
-  const day = String(targetDate.getDate());
+  const month = String(targetCalendarMonth(targetDate));
+  const day = String(targetCalendarDay(targetDate));
   return {
     label: `오늘 (${month}월 ${day}일)`,
     meta: {
@@ -101,8 +113,7 @@ function buildTodayMeta(targetDate: Date): BuiltPeriod {
 }
 
 function buildThisWeekMeta(targetDate: Date): BuiltPeriod {
-  const start = new Date(targetDate);
-  start.setDate(targetDate.getDate() - targetDate.getDay());
+  const start = addTargetCalendarDays(targetDate, -targetCalendarDayOfWeek(targetDate));
   const f = getDailyFortune(start);
   return {
     label: '이번 주',
@@ -114,9 +125,10 @@ function buildThisWeekMeta(targetDate: Date): BuiltPeriod {
 }
 
 function buildThisMonthMeta(targetDate: Date): BuiltPeriod {
-  const f = getMonthlyFortuneSolar(targetDate.getFullYear(), targetDate.getMonth() + 1);
+  const month = targetCalendarMonth(targetDate);
+  const f = getMonthlyFortuneSolar(targetCalendarYear(targetDate), month);
   return {
-    label: `이번 달 (${targetDate.getMonth() + 1}월)`,
+    label: `이번 달 (${month}월)`,
     meta: {
       ...metaFromGanzhi('month', f),
       relativeNote: `이번 달은 ${f.ganzhiHangul}월의 흐름이에요.`,
@@ -125,13 +137,13 @@ function buildThisMonthMeta(targetDate: Date): BuiltPeriod {
 }
 
 function buildThisYearMeta(targetDate: Date, saju?: SajuSummary | null): BuiltPeriod {
-  const year = targetDate.getFullYear();
+  const year = targetCalendarYear(targetDate);
   const f = getYearlyFortune(year);
   const saeun = findSaeunRowForDate(saju, targetDate);
   return {
     label: `올해 (${year}년)`,
     meta: {
-      ...(saeun ? metaFromLuckRow('year', saeun, f) : metaFromGanzhi('year', f)),
+      ...(saeun ? metaFromLuckRow('year', saeun) : metaFromGanzhi('year', f)),
       relativeNote: `${year}년은 ${luckRowGanzhiHangul(saeun, f)}년의 흐름이에요.`,
     },
   };
@@ -154,18 +166,17 @@ export function periodFortuneElement(periodKind: TieredPeriodKind, targetDate: D
   if (periodKind === 'life') return null;
   if (periodKind === 'today') return getDailyFortune(targetDate).stemElement;
   if (periodKind === 'thisWeek') {
-    const start = new Date(targetDate);
-    start.setDate(targetDate.getDate() - targetDate.getDay());
+    const start = addTargetCalendarDays(targetDate, -targetCalendarDayOfWeek(targetDate));
     return getDailyFortune(start).stemElement;
   }
   if (periodKind === 'thisMonth') {
-    return getMonthlyFortuneSolar(targetDate.getFullYear(), targetDate.getMonth() + 1).stemElement;
+    return getMonthlyFortuneSolar(targetCalendarYear(targetDate), targetCalendarMonth(targetDate)).stemElement;
   }
   if (periodKind === 'thisYear') {
-    const fallback = getYearlyFortune(targetDate.getFullYear());
+    const fallback = getYearlyFortune(targetCalendarYear(targetDate));
     const saeun = findSaeunRowForDate(saju, targetDate);
-    const stemInfo = saeun ? STEM_BY_CODE[String(saeun.stem ?? '').toUpperCase()] : null;
-    return stemInfo?.element ?? fallback.stemElement;
+    if (!saeun) return fallback.stemElement;
+    return resolveLuckRowParts(saeun).stemInfo.element;
   }
   return null;
 }
