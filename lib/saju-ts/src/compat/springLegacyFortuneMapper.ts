@@ -65,6 +65,14 @@ function finiteNumberOrNull(value: unknown): number | null {
   return Number.isFinite(number) ? number : null;
 }
 
+function boundaryTermIdOrNull(value: unknown): string | null {
+  if (value === null || value === undefined) return null;
+  if (typeof value !== 'string') {
+    throw new TypeError('fortune.start.boundary.id must be a string or null');
+  }
+  return value.trim() || null;
+}
+
 function entryStemIdx(entry: FortuneEntry): unknown {
   return entry?.pillar?.stem?.idx ?? entry?.pillar?.stem;
 }
@@ -147,6 +155,7 @@ export function mapLegacyFortune(input: LegacyFortuneMapperInput): LegacyFortune
   const yearsAll = yearsSource.filter(
     (entry: FortuneEntry) => Number(entry?.solarYear) <= maxSolarYear,
   );
+  const boundaryTermId = boundaryTermIdOrNull(fortune?.start?.boundary?.id);
   const monthsAll = monthsSource.filter(
     (entry: FortuneEntry) => Number(entry?.solarYear) <= maxSolarYear,
   );
@@ -250,7 +259,8 @@ export function mapLegacyFortune(input: LegacyFortuneMapperInput): LegacyFortune
       ageDisplayMode,
       ageDisplayLabel,
       firstDaeunStartMonths: Number(fortune?.start?.startAgeParts?.months ?? 0),
-      boundaryMode: String(fortune?.start?.boundary?.id ?? ''),
+      boundaryTermId,
+      boundaryMode: boundaryTermId ?? '',
       boundaryUtcMs: fortune?.start?.boundary?.utcMs ?? null,
       deltaDays: Number.isFinite(fortune?.start?.deltaMs)
         ? dependencies.roundTo(Number(fortune.start.deltaMs) / 86_400_000, 3)
