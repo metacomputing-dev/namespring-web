@@ -2605,9 +2605,29 @@ function nullableNumber(value: unknown): number | null {
     ? value : null;
 }
 
+function resolveDaeunBoundaryTermId(
+  raw: { boundaryTermId?: unknown; boundaryMode?: unknown },
+): string | null {
+  const hasExplicitTermId = Object.prototype.hasOwnProperty.call(raw, 'boundaryTermId')
+    && raw.boundaryTermId !== undefined;
+  if (hasExplicitTermId) {
+    if (raw.boundaryTermId === null) return null;
+    if (typeof raw.boundaryTermId !== 'string') {
+      throw new TypeError('daeunInfo.boundaryTermId must be a string or null');
+    }
+    return raw.boundaryTermId.trim() || null;
+  }
+  if (raw.boundaryMode === null || raw.boundaryMode === undefined) return null;
+  if (typeof raw.boundaryMode !== 'string') {
+    throw new TypeError('daeunInfo.boundaryMode must be a string when boundaryTermId is absent');
+  }
+  return raw.boundaryMode.trim() || null;
+}
+
 function extractDaeunInfo(rawSajuOutput: LegacySajuOutputV1Contract): DaeunInfoSummary | null {
   const daeunInfoRaw = rawSajuOutput.daeunInfo;
   if (!daeunInfoRaw) return null;
+  const boundaryTermId = resolveDaeunBoundaryTermId(daeunInfoRaw);
 
   return {
     isForward:              !!daeunInfoRaw.isForward,
@@ -2618,7 +2638,8 @@ function extractDaeunInfo(rawSajuOutput: LegacySajuOutputV1Contract): DaeunInfoS
     ageDisplayMode:        toNullableString(daeunInfoRaw.ageDisplayMode),
     ageDisplayLabel:       toNullableString(daeunInfoRaw.ageDisplayLabel),
     firstDaeunStartMonths:  Number(daeunInfoRaw.firstDaeunStartMonths) || 0,
-    boundaryMode:           String(daeunInfoRaw.boundaryMode ?? ''),
+    boundaryTermId,
+    boundaryMode:           boundaryTermId ?? '',
     boundaryUtcMs:          Number.isFinite(daeunInfoRaw.boundaryUtcMs) ? Number(daeunInfoRaw.boundaryUtcMs) : null,
     deltaDays:              Number.isFinite(daeunInfoRaw.deltaDays) ? Number(daeunInfoRaw.deltaDays) : null,
     formula:                toNullableString(daeunInfoRaw.formula),

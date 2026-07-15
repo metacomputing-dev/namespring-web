@@ -9,7 +9,7 @@
  */
 import path from 'node:path';
 import fs from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRING_TS_ROOT = path.resolve(__dirname, '../..');
@@ -30,7 +30,7 @@ const originalFetch = globalThis.fetch;
   return originalFetch(url as any, options);
 };
 
-import { buildSajuContext, analyzeSaju } from '../../src/saju-adapter.js';
+import { buildSajuContext, analyzeSaju, extractSaju } from '../../src/saju-adapter.js';
 import type { SajuSummary } from '../../src/types.js';
 
 let pass = 0;
@@ -134,6 +134,11 @@ if (ctx.output) {
       check('daeunInfo exposes PR-9 age display convention',
         ctx.output.daeunInfo.ageDisplayMode === 'continuousFromBirth' &&
         typeof ctx.output.daeunInfo.ageDisplayLabel === 'string');
+      check('daeunInfo exposes a non-empty boundaryTermId with an exact legacy alias',
+        typeof ctx.output.daeunInfo.boundaryTermId === 'string' &&
+        /^[A-Z_]+$/.test(ctx.output.daeunInfo.boundaryTermId) &&
+        ctx.output.daeunInfo.boundaryMode === ctx.output.daeunInfo.boundaryTermId,
+        `boundaryTermId=${ctx.output.daeunInfo.boundaryTermId}`);
       check('daeunInfo has pillars array', Array.isArray(ctx.output.daeunInfo.pillars));
       const firstPillar = ctx.output.daeunInfo.pillars?.[0];
       if (firstPillar) {
@@ -209,6 +214,70 @@ if (ctx.output) {
   check('gongmang regression guard',
     Array.isArray(ctx.output.gongmang) || ctx.output.gongmang === undefined);
 }
+
+const sajuTsDistPath = path.resolve(SPRING_TS_ROOT, '../saju-ts/dist/index.js');
+const sajuModule = await import(pathToFileURL(sajuTsDistPath).href);
+const rawOutput = sajuModule.analyzeSaju(sajuModule.createBirthInput({
+  birthYear: 1986,
+  birthMonth: 4,
+  birthDay: 19,
+  birthHour: 5,
+  birthMinute: 45,
+  gender: 'MALE',
+}));
+const rawBoundaryTermId = rawOutput.daeunInfo.boundaryTermId;
+const newPreferredSummary = extractSaju({
+  ...rawOutput,
+  daeunInfo: {
+    ...rawOutput.daeunInfo,
+    boundaryMode: 'LEGACY_CONFLICT',
+  },
+});
+check('boundaryTermId wins over a conflicting legacy boundaryMode alias',
+  newPreferredSummary.daeunInfo?.boundaryTermId === rawBoundaryTermId &&
+  newPreferredSummary.daeunInfo?.boundaryMode === rawBoundaryTermId);
+
+const legacyOnlySummary = extractSaju({
+  ...rawOutput,
+  daeunInfo: {
+    ...rawOutput.daeunInfo,
+    boundaryTermId: undefined,
+    boundaryMode: rawBoundaryTermId,
+  },
+});
+check('legacy boundaryMode falls back into both normalized fields',
+  legacyOnlySummary.daeunInfo?.boundaryTermId === rawBoundaryTermId &&
+  legacyOnlySummary.daeunInfo?.boundaryMode === rawBoundaryTermId);
+
+const missingBoundarySummary = extractSaju({
+  ...rawOutput,
+  daeunInfo: {
+    ...rawOutput.daeunInfo,
+    boundaryTermId: null,
+    boundaryMode: 'LEGACY_STALE',
+    boundaryUtcMs: null,
+  },
+});
+check('explicit null boundaryTermId stays authoritative over a stale legacy alias',
+  missingBoundarySummary.daeunInfo?.boundaryTermId === null &&
+  missingBoundarySummary.daeunInfo?.boundaryMode === '' &&
+  missingBoundarySummary.daeunInfo?.boundaryUtcMs === null);
+
+let malformedBoundaryRejected = false;
+try {
+  extractSaju({
+    ...rawOutput,
+    daeunInfo: {
+      ...rawOutput.daeunInfo,
+      boundaryTermId: { malformed: true },
+    },
+  });
+} catch (error) {
+  malformedBoundaryRejected = error instanceof TypeError
+    && /boundaryTermId must be a string or null/.test(error.message);
+}
+check('malformed boundaryTermId fails closed without object stringification',
+  malformedBoundaryRejected);
 
 const emptySummary: SajuSummary = {
   ...summary,

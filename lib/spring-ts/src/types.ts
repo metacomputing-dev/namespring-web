@@ -1158,7 +1158,9 @@ export interface DaeunInfoSummary {
   readonly ageDisplayMode?: string | null;
   readonly ageDisplayLabel?: string | null;
   readonly firstDaeunStartMonths: number;
-  /** 대운 기산 절기 id (예: 'LICHUN'). 과거에는 무관한 일경계 정책 문자열이 들어갔다. */
+  /** 대운 기산 절기 id (예: 'LICHUN'). */
+  readonly boundaryTermId?: string | null;
+  /** @deprecated Use boundaryTermId. Empty when no boundary term is available. */
   readonly boundaryMode: string;
   /** 기산 절기의 UTC ms — 절기 경계 부재 시 null. */
   readonly boundaryUtcMs?: number | null;
@@ -1496,7 +1498,7 @@ export interface SajuOutputSummary {
   /** Daeun (대운, 10-year luck cycles) overview (PR-H-D). Lifts
    *  SajuSummary.daeunInfo into the scoring/output path so the
    *  LifeStageFortuneCard builder can surface narrative + transitions
-   *  detail (decade pillars + isForward direction + boundaryMode +
+   *  detail (decade pillars + isForward direction + boundaryTermId +
    *  warnings) without re-fetching the full SajuSummary. */
   daeunInfo?: DaeunInfoSummary | null;
   /** Saeun (세운, yearly luck) pillar list (PR-H-D). Mirrors the existing

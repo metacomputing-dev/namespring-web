@@ -50,38 +50,72 @@ qualification, or independence. Those claims still require human verification
 through the protected PR review process. AI-panel output and owner approval
 cannot substitute for this external expert control.
 
-## Exact default-change approval
+## Git-bound default-change readiness
 
-`tools/measure_default_change.mjs` and `tools/measure_regression.mjs` compute
-the same SHA-256 fingerprint from the exact, sorted per-field snapshot diff.
-An intentional default-output change remains blocked unless
-`test/baseline/default-change-approvals.json` contains a matching approved
-entry:
+`tools/measure_default_change.mjs` and `tools/measure_regression.mjs` enforce
+default-change readiness only. They do not certify the engine or replace the
+external expert gate above.
+
+The impact fingerprint binds three fixed artifacts: the exact per-field
+default snapshot diff, the canonical fixture set, and the focused gyeokguk
+candidate snapshot. A candidate-only or fixture-only change therefore still
+requires review even when the service snapshot has zero leaf diffs. Missing
+fields, removed fixtures, and dropped cards are structural regressions and
+cannot be waived.
+
+The authoritative manifest is read from the evaluated Git branch, never the
+working tree. The entire v3 registry is validated before any no-diff shortcut:
+an unrelated malformed, duplicate, or pending entry blocks the gate. A
+`superseded` entry requires a dated successor reference and digest-bound
+evidence; supersession records that an obsolete comparison was replaced and
+does not claim independent doctrinal approval. `--approval-manifest` is a
+diagnostic override and can never produce an authoritative exit code 0.
+
+Approval uses a two-commit protocol to avoid a commit-hash cycle:
+
+1. Commit code, package scripts, fixtures, and both snapshots as the reviewed
+   code-freeze commit.
+2. In a later attestation commit, add only the manifest and its exact evidence
+   files. The manifest subject names the reviewed commit, baseline commit,
+   exact diff fingerprint, and raw SHA-256 of all three artifacts.
+
+The gate requires the baseline to be an ancestor of the reviewed commit and
+the reviewed commit to be an ancestor of the evaluated commit. Everything
+after review must be confined to the manifest and explicitly referenced
+regular `.md`/`.json` evidence blobs. Each evidence record carries its raw
+SHA-256; source, package, snapshot, rename, symlink, and unlisted dossier
+changes fail closed.
 
 ```json
 {
-  "fingerprint": "sha256:<64 hex characters>",
+  "fingerprint": "sha256:<impact fingerprint>",
   "status": "approved",
-  "reviewedBy": "reviewer identity (project owner under the current mechanism)",
+  "subject": {
+    "baselineCommit": "<40-hex commit>",
+    "reviewedCommit": "<40-hex code-freeze commit>",
+    "exactDiffFingerprint": "sha256:<exact output diff>",
+    "baselineFixtureSetSha256": "sha256:<raw blob>",
+    "reviewedFixtureSetSha256": "sha256:<raw blob>",
+    "baselineSnapshotSha256": "sha256:<raw blob>",
+    "reviewedSnapshotSha256": "sha256:<raw blob>",
+    "baselineCandidateSnapshotSha256": "sha256:<raw blob>",
+    "reviewedCandidateSnapshotSha256": "sha256:<raw blob>"
+  },
+  "reviewedBy": "accountable reviewer identity",
   "reviewedAt": "YYYY-MM-DD",
-  "evidence": [
-    {
-      "kind": "dossier",
-      "reference": "versioned evidence path or immutable review URL",
-      "summary": "What was adjudicated, by which panel, and with what result."
-    }
-  ]
+  "evidence": [{
+    "kind": "dossier",
+    "reference": "lib/spring-ts/docs/dossiers/default-change-.../DOSSIER.md",
+    "summary": "Scope and result of the exact review.",
+    "sha256": "sha256:<raw evidence blob>"
+  }]
 }
 ```
 
-The fingerprint is printed by either comparison command. Any changed field
-changes the fingerprint and invalidates the approval. Missing fields, removed
-fixtures, and dropped cards are structural regressions and cannot be waived by
-the manifest. An approved manifest entry is an auditable record, not reviewer
-authentication.
-
-Do not flip a `pending` fingerprint to `approved` without dossier evidence
-covering every changed judgement and service-visible output.
+An approved entry is an auditable accountability record, not authentication
+of reviewer identity, independence, or myeongri expertise. Do not promote a
+pending impact without evidence covering every changed judgement and
+service-visible field.
 
 ## Authority-source promotion
 

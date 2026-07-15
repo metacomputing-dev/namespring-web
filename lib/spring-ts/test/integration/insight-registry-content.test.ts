@@ -35,6 +35,30 @@ function hasT1Provenance(entry: InsightInterpretation | null): boolean {
     entry.sourceTier?.authorityTruthEligible === false;
 }
 
+const sibiUnseongStages = [
+  '장생', '목욕', '관대', '건록', '제왕', '쇠',
+  '병', '사', '묘', '절', '태', '양',
+] as const;
+
+const sibiUnseongSourceTier = {
+  tier: 'T1_HYPOTHESIS',
+  sourceType: 'ai_authored_insight_text',
+  sourceUrl: null,
+  accessedAt: '2026-07-08',
+  quoteShort: null,
+  humanInterpretation: 'AI-authored Korean narrative for display-only sibi-unseong insight text. expertText denotes detail level, not expert validation.',
+  copyrightNote: 'No third-party prose copied.',
+  authorityTruthEligible: false,
+} as const;
+
+function hasExactSibiUnseongProvenance(entry: InsightInterpretation | null): boolean {
+  if (entry?.aiGenerated !== true || !entry.sourceTier) return false;
+  const expectedEntries = Object.entries(sibiUnseongSourceTier);
+  return Object.keys(entry.sourceTier).length === expectedEntries.length &&
+    expectedEntries.every(([key, value]) =>
+      entry.sourceTier?.[key as keyof typeof sibiUnseongSourceTier] === value);
+}
+
 const seongpaeVerdicts = [
   'SEONGGYEOK',
   'PAGYEOK',
@@ -70,6 +94,22 @@ for (const id of requiredIds) {
   const entry = getInsightInterpretation(id);
   check(`${id} resolves`, entry != null);
   check(`${id} has T1 aiGenerated provenance`, hasT1Provenance(entry));
+}
+
+for (const stage of sibiUnseongStages) {
+  const id = `sibiUnseong.${stage}`;
+  const entry = getInsightInterpretation(id);
+  check(`${id} resolves`, entry != null);
+  check(`${id} has exact display-only T1 provenance`, hasExactSibiUnseongProvenance(entry));
+  check(`${id} has detailed display text`,
+    typeof entry?.expertText === 'string' && entry.expertText.length > 0);
+
+  const stageCard = buildInsightFactsCard({
+    sibiUnseong: { year: stage },
+  } as any);
+  const stageFact = stageCard?.facts.find((fact) => fact.factId === `${id}.year`);
+  check(`${id} provenance and expertText survive buildInsightFactsCard`,
+    JSON.stringify(stageFact?.interpretation) === JSON.stringify(entry));
 }
 
 const synthetic: any = {
