@@ -69,13 +69,23 @@ function hasStemBranchInteraction(row: any): boolean {
     typeof interaction.stemElement === 'string' &&
     typeof interaction.branchElement === 'string';
 }
-function hasLuckAnnotations(row: any): boolean {
+function hasCommonLuckAnnotations(row: any): boolean {
   return typeof row?.tenGod === 'string' &&
     typeof row?.lifeStage === 'string' &&
-    typeof row?.transitShinsal?.twelveSal === 'string' &&
+    typeof row?.transitShinsal?.twelveSal === 'string';
+}
+
+function hasAnnualLuckAnnotations(row: any): boolean {
+  return hasCommonLuckAnnotations(row) &&
     typeof row?.transitShinsal?.samjae?.active === 'boolean' &&
     typeof row?.transitShinsal?.sangmun === 'boolean' &&
     typeof row?.transitShinsal?.jogaek === 'boolean';
+}
+
+function excludesAnnualLuckAnnotations(row: any): boolean {
+  const shinsal = row?.transitShinsal;
+  return hasCommonLuckAnnotations(row) &&
+    shinsal?.samjae === undefined && shinsal?.sangmun === undefined && shinsal?.jogaek === undefined;
 }
 
 console.log('PR-H-D / PR-8 adapter daewoon richness surface\n');
@@ -83,6 +93,21 @@ console.log('PR-H-D / PR-8 adapter daewoon richness surface\n');
 const summary: SajuSummary = await analyzeSaju({
   year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male',
 });
+
+const boundedSummary: SajuSummary = await analyzeSaju({
+  year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male',
+}, {
+  sajuOptions: {
+    saeunStartYear: 2105,
+    saeunYearCount: 2,
+    wolunMonthCount: 120,
+  },
+});
+const boundedSaeun = (boundedSummary as any).saeunPillars;
+const countOnlyWolun = (boundedSummary as any).wolunPillars;
+check('near-horizon saeun request returns exact count without silent truncation',
+  boundedSaeun?.length === 2 && boundedSaeun[0]?.year === 2105 && boundedSaeun[1]?.year === 2106);
+check('count-only wolun request returns exact count without silent truncation', countOnlyWolun?.length === 120);
 
 const daeunSource = (summary as any).daeunInfo;
 const saeunSource = (summary as any).saeunPillars;
@@ -117,7 +142,8 @@ if (ctx.output) {
           typeof firstPillar.branch === 'string' &&
           typeof firstPillar.startAge === 'number' &&
           typeof firstPillar.endAge === 'number');
-        check('daeunInfo.pillars[0] has PR-8 luck annotations', hasLuckAnnotations(firstPillar));
+        check('daeunInfo.pillars[0] has common luck annotations without annual-only signals',
+          excludesAnnualLuckAnnotations(firstPillar));
         check('daeunInfo.pillars[0] has PR-9 display age metadata',
           typeof firstPillar.displayStartAge === 'number' &&
           typeof firstPillar.displayEndAge === 'number' &&
@@ -145,7 +171,7 @@ if (ctx.output) {
       typeof firstSaeun.year === 'number' &&
       typeof firstSaeun.stem === 'string' &&
       typeof firstSaeun.branch === 'string');
-    check('saeunPillars[0] has PR-8 luck annotations', hasLuckAnnotations(firstSaeun));
+    check('saeunPillars[0] has annual luck annotations', hasAnnualLuckAnnotations(firstSaeun));
     check('saeunPillars includes PR-9 natal relation annotations',
       ctx.output.saeunPillars!.some((pillar: any) => hasNatalRelations(pillar)));
     check('saeunPillars includes PR-9 decade-year relation annotations',
@@ -167,7 +193,7 @@ if (ctx.output) {
       typeof firstWolun.monthOrder === 'number' &&
       typeof firstWolun.stem === 'string' &&
       typeof firstWolun.branch === 'string' &&
-      hasLuckAnnotations(firstWolun));
+      excludesAnnualLuckAnnotations(firstWolun));
     check('wolunPillars includes PR-9 natal relation annotations',
       wolunOutput!.some((pillar: any) => hasNatalRelations(pillar)));
     check('wolunPillars includes PR-9-8 stem-branch interaction annotations',

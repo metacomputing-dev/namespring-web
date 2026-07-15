@@ -28,6 +28,7 @@ const originalFetch = globalThis.fetch;
 };
 
 import { SpringEngine } from '../../src/index.js';
+import { twelveSalKo } from '../../src/report/common/transit-luck-metadata.js';
 
 let pass = 0;
 let fail = 0;
@@ -48,6 +49,23 @@ function evidenceFeatures(card: any): string[] {
 }
 
 console.log('PR-8 transit luck report surface\n');
+
+const canonicalTwelveSal = [
+  'JI_SAL',
+  'DOHWA',
+  'WOL_SAL',
+  'MANG_SHIN_SAL',
+  'JANGSEONG',
+  'BAN_AN_SAL',
+  'YEOKMA',
+  'YUK_HAE_SAL',
+  'HUAGAI',
+  'GEOB_SAL',
+  'JAESAL',
+  'CHEON_SAL',
+] as const;
+check('all canonical twelve-sal codes have human-readable labels',
+  canonicalTwelveSal.every((key) => twelveSalKo(key) !== key));
 
 const engine = new SpringEngine();
 const repos: any[] = [(engine as any).hanjaRepo, (engine as any).fourFrameRepo];

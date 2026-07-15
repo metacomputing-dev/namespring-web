@@ -62,6 +62,13 @@ describe('elementDistributionFromPillars position weights', () => {
     expect(invalid).toEqual(base);
   });
 
+  it('fails closed when individually finite weights overflow during composition', () => {
+    expect(() => elementDistributionFromPillars(PILLARS, {
+      heavenStemWeight: 1e308,
+      heavenPositionWeights: { month: 1e308 },
+    })).toThrow(RangeError);
+  });
+
   it('is wired through engine weights without enabling adjusted distribution output', () => {
     const req = { birth: { instant: '1986-04-19T05:45:00+09:00', calendar: 'gregorian' as const }, sex: 'M' as const };
     const base = createEngine({}).analyze(req);

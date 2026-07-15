@@ -149,11 +149,16 @@ function parseMatchedPillars(x: any): Array<'year' | 'month' | 'day' | 'hour'> |
   return out.length ? out : undefined;
 }
 
+type ShinsalPillarName = 'year' | 'month' | 'day' | 'hour';
+type ExpandedShinsalDetection = ShinsalDetection & {
+  scopePillars?: ShinsalPillarName[];
+};
+
 function parseQuality(x: any): 'FULL' | 'WEAK' | undefined {
   return x === 'FULL' || x === 'WEAK' ? x : undefined;
 }
 
-function expandDetections(x: JsonValue): ShinsalDetection[] {
+function expandDetections(x: JsonValue): ExpandedShinsalDetection[] {
   if (!x || typeof x !== 'object') return [];
   if (Array.isArray(x)) {
     // Allow emitting an array of payloads.
@@ -165,16 +170,18 @@ function expandDetections(x: JsonValue): ShinsalDetection[] {
 
   const basedOn = parseBasedOn(o.basedOn);
   const matchedPillars = parseMatchedPillars(o.matchedPillars);
+  const scopePillars = parseMatchedPillars(o.scopePillars);
   const quality = parseQuality(o.quality);
   const qualityWeight = typeof o.qualityWeight === 'number' && Number.isFinite(o.qualityWeight) ? o.qualityWeight : undefined;
   const category = typeof o.category === 'string' && o.category.length > 0 ? o.category : undefined;
 
-  const base: ShinsalDetection = {
+  const base: ExpandedShinsalDetection = {
     name: o.name,
     category,
     basedOn,
     targetKind: 'NONE',
     matchedPillars,
+    scopePillars,
     quality,
     qualityWeight,
   };
@@ -242,6 +249,15 @@ function readQualityModelFromConfig(config: EngineConfig): ShinsalQualityModel {
   };
 
   const raw = (config.strategies as any)?.shinsal?.conditions;
+  const finalizeGongmangGate = (): ShinsalQualityModel => {
+    const enabled = (config.strategies as any)?.shinsal?.gongmangResolution?.enabled === true;
+    if (enabled) {
+      base.excludeNames = base.excludeNames.filter((name) => name !== 'GONGMANG');
+    } else if (!base.excludeNames.includes('GONGMANG')) {
+      base.excludeNames.push('GONGMANG');
+    }
+    return base;
+  };
 
   if (raw && typeof raw === 'object') {
     const enabled = (raw as any).enabled;
@@ -280,7 +296,7 @@ function readQualityModelFromConfig(config: EngineConfig): ShinsalQualityModel {
       base.excludeNames = exclude.map(String);
     }
 
-    return base;
+    return finalizeGongmangGate();
   }
 
   // Backward-compatible fallback:
@@ -293,7 +309,7 @@ function readQualityModelFromConfig(config: EngineConfig): ShinsalQualityModel {
   base.weakThreshold = 1;
   base.invalidateThreshold = 0;
 
-  return base;
+  return finalizeGongmangGate();
 }
 
 function clamp01(x: number): number {
@@ -451,21 +467,45 @@ function matchedPillarsForStemTarget(facts: RuleFacts, s: StemIdx): Array<'year'
   return out;
 }
 
+function restrictToExplicitScope(
+  targetMatches: ShinsalPillarName[],
+  scopePillars: readonly ShinsalPillarName[] | undefined,
+): ShinsalPillarName[] {
+  if (!Array.isArray(scopePillars)) return targetMatches;
+  const allowed = new Set(scopePillars);
+  return targetMatches.filter((pillar) => allowed.has(pillar));
+}
+
 /**
  * Canonicalize matchedPillars after fan-out.
  *
  * Facts-side catalogs often compute matchedPillars for a *set* of candidate targets.
- * After we split into per-target detections, we re-bind matchedPillars to the specific target.
+ * After we split into per-target detections, re-bind matchedPillars to the specific target.
+ * Only a separately emitted scope may restrict those target matches; matchedPillars itself
+ * is provenance and must not be reused as a scope proxy.
  */
-function normalizeMatchedPillarsByTarget(facts: RuleFacts, dets: ShinsalDetection[]): ShinsalDetection[] {
+function normalizeMatchedPillarsByTarget(facts: RuleFacts, dets: ExpandedShinsalDetection[]): ShinsalDetection[] {
   return dets.map((d) => {
-    if (d.targetKind === 'BRANCH' && typeof d.targetBranch === 'number') {
-      return { ...d, matchedPillars: matchedPillarsForBranchTarget(facts, d.targetBranch) };
+    const { scopePillars, ...detection } = d;
+    if (detection.targetKind === 'BRANCH' && typeof detection.targetBranch === 'number') {
+      return {
+        ...detection,
+        matchedPillars: restrictToExplicitScope(
+          matchedPillarsForBranchTarget(facts, detection.targetBranch),
+          scopePillars,
+        ),
+      };
     }
-    if (d.targetKind === 'STEM' && typeof d.targetStem === 'number') {
-      return { ...d, matchedPillars: matchedPillarsForStemTarget(facts, d.targetStem) };
+    if (detection.targetKind === 'STEM' && typeof detection.targetStem === 'number') {
+      return {
+        ...detection,
+        matchedPillars: restrictToExplicitScope(
+          matchedPillarsForStemTarget(facts, detection.targetStem),
+          scopePillars,
+        ),
+      };
     }
-    return d;
+    return detection;
   });
 }
 function applyQualityModel(args: {

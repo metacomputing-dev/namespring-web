@@ -195,24 +195,15 @@ function overlapLength(aStart: number, aEnd: number, bStart: number, bEnd: numbe
   return Math.max(0, Math.min(aEnd, bEnd) - Math.max(aStart, bStart));
 }
 
-function bestDecadeForYear(decades: readonly DecadeLuck[], year: YearLuck): DecadeLuck | null {
-  let best: DecadeLuck | null = null;
-  let bestOverlap = 0;
-
-  for (const decade of decades) {
-    const overlap = overlapLength(
+function overlappingDecadesForYear(decades: readonly DecadeLuck[], year: YearLuck): DecadeLuck[] {
+  return decades.filter((decade) =>
+    overlapLength(
       decade.startAgeYears,
       decade.endAgeYears,
       year.approxStartAgeYears,
       year.approxEndAgeYears,
-    );
-    if (overlap > bestOverlap) {
-      best = decade;
-      bestOverlap = overlap;
-    }
-  }
-
-  return bestOverlap > 0 ? best : null;
+    ) > 0,
+  );
 }
 
 function buildDecadeYearEntry(decade: DecadeLuck, year: YearLuck): DecadeYearRelationEntry | null {
@@ -240,10 +231,10 @@ function buildDecadeYearEntry(decade: DecadeLuck, year: YearLuck): DecadeYearRel
 function buildDecadeYearRelations(timeline: FortuneTimeline): DecadeYearRelationEntry[] {
   const entries: DecadeYearRelationEntry[] = [];
   for (const year of timeline.years) {
-    const decade = bestDecadeForYear(timeline.decades, year);
-    if (!decade) continue;
-    const entry = buildDecadeYearEntry(decade, year);
-    if (entry) entries.push(entry);
+    for (const decade of overlappingDecadesForYear(timeline.decades, year)) {
+      const entry = buildDecadeYearEntry(decade, year);
+      if (entry) entries.push(entry);
+    }
   }
   return entries;
 }

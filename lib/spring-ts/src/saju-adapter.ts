@@ -26,9 +26,17 @@ import type {
   SajuAxisStrengthMap, SajuJudgmentStrength, SajuInputUncertaintyAxis,
   GyeokgukCandidateSummary, JonggyeokCandidateSummary, SourceTierMetadata,
   YongshinConsensusScoreboard, LunarConversionSummary, JieProximitySummary,
+  CheonganRelationScore,
 } from './types.js';
-import { lunarToSolar } from './calendar/korean-lunar-calendar.js';
+import { leapMonthOfLunarYear, lunarToSolar } from './calendar/korean-lunar-calendar.js';
 import { kasiLunarToSolar } from './calendar/kasi-lunar-api.js';
+import {
+  SajuRequestValidationError,
+  requiredMaxMonthsForRequest,
+  requiredMaxYearsForRequest,
+  validateSajuConfigFortuneHorizon,
+  validateSajuRequestOptions,
+} from './saju-request-policy.js';
 
 // ---------------------------------------------------------------------------
 //  Configuration loaded from JSON files
@@ -37,6 +45,7 @@ import cheonganJijiConfig from '../config/cheongan-jiji.json';
 import engineConfig from '../config/engine.json';
 import sajuScoringConfig from '../config/saju-scoring.json';
 import { KOREA_REGION_COORDINATES, type RegionCoordinate } from './region-coordinates.js';
+import { extractGyeokgukSeongpae } from './saju-seongpae-contract.js';
 
 /** Maps uppercase element codes ("WOOD") to display keys ("Wood"). */
 const ELEMENT_CODE_TO_KEY: Record<string, ElementKey> = cheonganJijiConfig.elementCodeToKey as Record<string, ElementKey>;
@@ -1168,13 +1177,13 @@ function buildPartialSajuSummary(birth: BirthInfo, parts: KnownBirthParts): Saju
 
 /**
  * 감사 B1: 음력 입력을 변환할 수 없을 때의 비활성 요약.
- * 정상 음력 입력은 이제 내장 테이블(KASI/KARI 표준, 제품 보장 1900~2050)로 변환되어
+ * 정상 음력 입력은 내장 테이블(KASI/KARI 표준, 제품 보장 1900-01-01~2050-11-18 음력)로 변환되어
  * 분석된다 — 이 경로는 부분 입력·범위 밖·존재하지 않는 날짜 전용이다.
  */
 function buildUnsupportedLunarSajuSummary(
   birth: BirthInfo,
   parts: KnownBirthParts,
-  cause: 'partial-lunar-input' | 'conversion-failed',
+  cause: 'partial-lunar-input' | 'ambiguous-leap-month' | 'conversion-failed',
 ): SajuSummary {
   const summary = emptySaju() as SajuSummary & Record<string, unknown>;
   const mutableSummary = summary as Record<string, any>;
@@ -1182,7 +1191,9 @@ function buildUnsupportedLunarSajuSummary(
   mutableSummary.partialInterpretation = [
     cause === 'partial-lunar-input'
       ? '음력 생년월일은 연·월·일이 모두 있어야 양력으로 변환해 사주를 세울 수 있습니다.'
-      : '입력한 음력 날짜를 양력으로 변환하지 못했습니다. 지원 범위(1900~2050년)와 윤달 여부를 확인해 주세요.',
+      : cause === 'ambiguous-leap-month'
+        ? '입력한 음력 달에는 평달과 윤달이 모두 있습니다. 윤달 여부를 반드시 선택해 주세요.'
+        : '입력한 음력 날짜를 양력으로 변환하지 못했습니다. 지원 범위(1900년~2050년 음력 11월 18일)와 윤달 여부를 확인해 주세요.',
   ];
   mutableSummary.partialBirthInput = {
     year: parts.year,
@@ -1191,14 +1202,14 @@ function buildUnsupportedLunarSajuSummary(
     hour: parts.hour,
     minute: parts.minute,
     calendarType: birth.calendarType ?? 'lunar',
-    isLeapMonth: birth.isLeapMonth === true,
+    isLeapMonth: birth.isLeapMonth ?? null,
   };
   mutableSummary.disabledReason = 'lunar-conversion-unavailable';
   mutableSummary.calendarPolicy = {
     inputCalendar: 'lunar',
-    conversionRequired: 'builtin korean-lunar-calendar(1900~2050) | KASI LrsrCldInfoService(opt-in)',
+    conversionRequired: 'builtin korean-lunar-calendar(1900~2050-11-18 lunar) | KASI LrsrCldInfoService(opt-in)',
     conversionStatus: cause,
-    leapMonth: birth.isLeapMonth === true,
+    leapMonth: birth.isLeapMonth ?? null,
   };
 
   return summary;
@@ -1303,12 +1314,18 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
       // 음력은 연·월·일 전부 있어야 변환 가능 — 부분 입력은 비활성 경로 유지.
       return buildUnsupportedLunarSajuSummary(birth, parts, 'partial-lunar-input');
     }
+    const leapMonth = leapMonthOfLunarYear(parts.year);
+    if (birth.isLeapMonth === undefined && leapMonth === parts.month) {
+      // 같은 월 번호의 평달·윤달이 모두 존재한다. 누락을 false로 추정하면
+      // 서로 다른 양력 날짜와 사주를 조용히 만들므로 반드시 호출자에게 되묻는다.
+      return buildUnsupportedLunarSajuSummary(birth, parts, 'ambiguous-leap-month');
+    }
     lunarConversion = await resolveLunarConversion(
       { year: parts.year, month: parts.month, day: parts.day, isLeapMonth: birth.isLeapMonth === true },
       options,
     );
     if (!lunarConversion) {
-      // 제품 보장 범위(1900~2050) 밖 또는 존재하지 않는 음력 날짜(없는 윤달 등).
+      // 제품 보장 범위(1900-01-01~2050-11-18 음력) 밖 또는 존재하지 않는 음력 날짜(없는 윤달 등).
       return buildUnsupportedLunarSajuSummary(birth, parts, 'conversion-failed');
     }
     effectiveParts = {
@@ -1329,6 +1346,8 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
   if (birthYear == null || birthMonth == null || birthDay == null) {
     return buildPartialSajuSummary(birth, effectiveParts);
   }
+  validateSajuRequestOptions(options?.sajuOptions, birthYear);
+  validateSajuConfigFortuneHorizon(options?.sajuConfig);
   const resolvedCoordinates = resolveBirthCoordinates(birth);
 
   try {
@@ -1427,24 +1446,27 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
     }
     if (options?.sajuConfig) config = { ...config, ...options.sajuConfig };
 
-    const wolunStartYear = options?.sajuOptions?.wolunStartYear;
-    if (typeof wolunStartYear === 'number') {
-      const requestedMonthCount = typeof options?.sajuOptions?.wolunMonthCount === 'number'
-        ? options.sajuOptions.wolunMonthCount
-        : 24;
-      const yearsToCover = Math.max(2, wolunStartYear - birthYear + 2);
-      const requiredMaxMonths = Math.max(24, yearsToCover * 12 + requestedMonthCount);
+    const requiredMaxYears = requiredMaxYearsForRequest(options?.sajuOptions, birthYear);
+    const requiredMaxMonths = requiredMaxMonthsForRequest(options?.sajuOptions, birthYear);
+    if (requiredMaxYears !== null || requiredMaxMonths !== null) {
       const strategies = (config.strategies ?? {}) as Record<string, any>;
       const fortune = (strategies.fortune ?? {}) as Record<string, any>;
-      const existingMaxMonths = Number(fortune.maxMonths);
+      const nextFortune = { ...fortune };
+      if (requiredMaxYears !== null) {
+        const existingMaxYears = fortune.maxYears;
+        nextFortune.maxYears = typeof existingMaxYears === 'number' && Number.isFinite(existingMaxYears)
+          ? Math.max(existingMaxYears, requiredMaxYears)
+          : requiredMaxYears;
+      }
+      if (requiredMaxMonths !== null) {
+        const existingMaxMonths = fortune.maxMonths;
+        nextFortune.maxMonths = typeof existingMaxMonths === 'number' && Number.isFinite(existingMaxMonths)
+          ? Math.max(existingMaxMonths, requiredMaxMonths)
+          : requiredMaxMonths;
+      }
       config.strategies = {
         ...strategies,
-        fortune: {
-          ...fortune,
-          maxMonths: Number.isFinite(existingMaxMonths)
-            ? Math.max(existingMaxMonths, requiredMaxMonths)
-            : requiredMaxMonths,
-        },
+        fortune: nextFortune,
       };
     }
 
@@ -1562,7 +1584,10 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
     }
 
     return summary;
-  } catch { return emptySaju(); }
+  } catch (error) {
+    if (error instanceof SajuRequestValidationError) throw error;
+    return emptySaju();
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -1921,6 +1946,7 @@ function extractGyeokgukBasis(value: any) {
 }
 
 function extractGyeokguk(gyeokgukResult: any) {
+  const seongpae = extractGyeokgukSeongpae(gyeokgukResult?.seongpae);
   return {
     type:          formatGyeokgukTypeDisplay(gyeokgukResult?.type),
     category:      formatGyeokgukCategoryDisplay(gyeokgukResult?.category),
@@ -1931,9 +1957,9 @@ function extractGyeokguk(gyeokgukResult: any) {
     jonggyeokCandidates: extractJonggyeokCandidates(gyeokgukResult?.jonggyeokCandidates),
     basis: extractGyeokgukBasis(gyeokgukResult?.basis),
     scores: extractNumericRecord(gyeokgukResult?.scores),
-    // PR-6 (additive): 격국 성패 — 상신·순용/역용·성격/파격 passthrough.
-    ...(gyeokgukResult?.seongpae && typeof gyeokgukResult.seongpae === 'object'
-      ? { seongpae: gyeokgukResult.seongpae }
+    // PR-6 (additive): explicitly mapped at the saju-ts -> spring-ts boundary.
+    ...(seongpae
+      ? { seongpae }
       : {}),
   };
 }
@@ -2091,8 +2117,13 @@ function extractTenGodAnalysis(tenGodResult: any, dayStemCode: string) {
 // ---------------------------------------------------------------------------
 
 function extractShinsalHits(rawSajuOutput: any) {
-  /** Assigns a letter grade based on weight: 80+ = A, 50+ = B, else C. */
-  const gradeFromWeight = (weight: number) => weight >= 80 ? 'A' : weight >= 50 ? 'B' : 'C';
+  /** Mirrors the producer contract: 85+ = A, 50+ = B, else C. */
+  const gradeFromWeight = (weight: number) => weight >= 85 ? 'A' : weight >= 50 ? 'B' : 'C';
+  const gradeMatchesRoundedWeight = (grade: string, weight: number): boolean => {
+    if (weight === 85) return grade === 'A' || grade === 'B';
+    if (weight === 50) return grade === 'B' || grade === 'C';
+    return grade === gradeFromWeight(weight);
+  };
 
   const weightedHits = ensureArray(rawSajuOutput.weightedShinsalHits);
   const sourceHits   = weightedHits.length > 0 ? weightedHits : ensureArray(rawSajuOutput.shinsalHits);
@@ -2102,27 +2133,75 @@ function extractShinsalHits(rawSajuOutput: any) {
 
   return sourceHits.map((item: any) => {
     const hitData    = isWeighted ? item.hit : item;
-    const baseWeight = isWeighted ? Number(item.baseWeight) || 0 : 0;
-    const gradeCode = String(hitData?.grade || '') || (isWeighted ? gradeFromWeight(baseWeight) : 'C');
-    const seatPillars = ensureArray(hitData?.seatPillars).filter(
-      (p: unknown): p is 'year' | 'month' | 'day' | 'hour' => typeof p === 'string' && SEAT_VALUES.has(p),
+    if (!hitData || typeof hitData !== 'object' || Array.isArray(hitData)) return null;
+    const rawBaseWeight = item?.baseWeight;
+    const rawPositionMultiplier = item?.positionMultiplier;
+    const rawWeightedScore = item?.weightedScore;
+    const rawCount = item?.count;
+    const validWeightedContract = !isWeighted || (
+      typeof rawBaseWeight === 'number' && Number.isFinite(rawBaseWeight) && rawBaseWeight >= 0 && rawBaseWeight <= 100
+      && Number.isInteger(rawBaseWeight)
+      && typeof rawPositionMultiplier === 'number' && Number.isFinite(rawPositionMultiplier)
+      && rawPositionMultiplier >= 0 && rawPositionMultiplier <= 1
+      && typeof rawWeightedScore === 'number' && Number.isFinite(rawWeightedScore)
+      && rawWeightedScore >= 0 && rawWeightedScore <= 100
+      && Number.isInteger(rawWeightedScore)
+      && rawWeightedScore === Math.round(rawBaseWeight * rawPositionMultiplier)
+      && (rawCount == null || (Number.isInteger(rawCount) && rawCount >= 1))
     );
-    const qualityReasons = ensureArray(hitData?.qualityReasons).map(String).filter(Boolean);
-    const conditionPenalty = Number(hitData?.conditionPenalty);
+    if (!validWeightedContract) return null;
+    const baseWeight = isWeighted ? rawBaseWeight : 0;
+    if (typeof hitData.type !== 'string' || hitData.type.trim() === '') return null;
+    if (typeof hitData.position !== 'string' || hitData.position.trim() === '') return null;
+    const gradeCode = hitData.grade;
+    if (typeof gradeCode !== 'string' || (isWeighted && !gradeMatchesRoundedWeight(gradeCode, baseWeight))) return null;
+    const rawSeatPillars = hitData.seatPillars;
+    if (rawSeatPillars != null && (
+      !Array.isArray(rawSeatPillars)
+      || !rawSeatPillars.every((p: unknown) => typeof p === 'string' && SEAT_VALUES.has(p))
+    )) return null;
+    const seatPillars = (rawSeatPillars ?? []) as ('year' | 'month' | 'day' | 'hour')[];
+    if (isWeighted) {
+      const expectedEnabledMultiplier = seatPillars.length > 0
+        ? Math.max(...seatPillars.map((seat) => ({ day: 1, month: 0.85, year: 0.7, hour: 0.6 })[seat]))
+        : 1;
+      if (rawPositionMultiplier !== 1 && rawPositionMultiplier !== expectedEnabledMultiplier) return null;
+    }
+    const rawQualityReasons = hitData.qualityReasons;
+    if (rawQualityReasons != null && (
+      !Array.isArray(rawQualityReasons)
+      || !rawQualityReasons.every((reason: unknown) => typeof reason === 'string' && reason.trim() !== '')
+    )) return null;
+    const qualityReasons = (rawQualityReasons ?? []).map((reason: string) => reason.trim());
+    const conditionPenalty = hitData?.conditionPenalty;
+    const validConditionPenalty = conditionPenalty == null || (
+      typeof conditionPenalty === 'number'
+      && Number.isFinite(conditionPenalty)
+      && conditionPenalty >= 0
+      && conditionPenalty <= 1
+    );
+    if (!validConditionPenalty) return null;
+    if ((conditionPenalty == null) !== (qualityReasons.length === 0)) return null;
+    if (conditionPenalty != null && conditionPenalty <= 0) return null;
+    if (conditionPenalty != null) {
+      const expectedBaseWeight = Math.round((1 - conditionPenalty) * 100);
+      if (Math.abs(baseWeight - expectedBaseWeight) > 1) return null;
+    }
+    if (hitData.basedOn != null && typeof hitData.basedOn !== 'string') return null;
     return {
       type:               formatShinsalTypeDisplay(hitData?.type),
       position:           formatShinsalPositionDisplay(hitData?.position),
       grade:              formatCodeDisplay(null, gradeCode),
       baseWeight,
-      positionMultiplier: isWeighted ? Number(item.positionMultiplier) || 0 : 0,
-      weightedScore:      isWeighted ? Number(item.weightedScore)      || 0 : 0,
-      basedOn:            hitData?.basedOn != null ? String(hitData.basedOn) : undefined,
+      positionMultiplier: isWeighted ? rawPositionMultiplier : 0,
+      weightedScore:      isWeighted ? rawWeightedScore : 0,
+      basedOn:            typeof hitData?.basedOn === 'string' ? hitData.basedOn : undefined,
       seatPillars,
-      count:              isWeighted && Number.isFinite(item.count) ? Number(item.count) : undefined,
+      count:              isWeighted && rawCount != null ? rawCount : undefined,
       qualityReasons:     qualityReasons.length ? qualityReasons : undefined,
-      conditionPenalty:   Number.isFinite(conditionPenalty) ? conditionPenalty : undefined,
+      conditionPenalty:   conditionPenalty ?? undefined,
     };
-  });
+  }).filter((hit): hit is NonNullable<typeof hit> => hit !== null);
 }
 
 
@@ -2163,13 +2242,78 @@ function extractJijiRelations(rawSajuOutput: any) {
 //  Cheongan relations (heavenly stem interactions)
 // ---------------------------------------------------------------------------
 
+function extractCheonganRelationScore(value: unknown): CheonganRelationScore | null {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
+  const raw = value as Record<string, unknown>;
+  const numericKeys = ['baseScore', 'adjacencyBonus', 'outcomeMultiplier', 'finalScore'] as const;
+  if (numericKeys.some((key) => typeof raw[key] !== 'number' || !Number.isFinite(raw[key]))) return null;
+  const numbers = raw as Record<(typeof numericKeys)[number], number> & Record<string, unknown>;
+  const pairCount = raw.pairCount;
+  const positionGap = raw.positionGap;
+  const positionGaps = raw.positionGaps;
+  if (!Number.isInteger(pairCount) || (pairCount as number) < 1) return null;
+  if (positionGap !== null && (!Number.isInteger(positionGap) || (positionGap as number) < 0 || (positionGap as number) > 3)) return null;
+  if (!Array.isArray(positionGaps) || positionGaps.length !== pairCount) return null;
+  if (positionGaps.some((gap) => !Number.isInteger(gap) || gap < 0 || gap > 3)) return null;
+  if (positionGaps.some((gap, index) => index > 0 && gap < positionGaps[index - 1])) return null;
+  if ((positionGaps[0] ?? null) !== positionGap) return null;
+  if (
+    numbers.baseScore < 0 || numbers.baseScore > 100
+    || numbers.adjacencyBonus < 0 || numbers.adjacencyBonus > 100
+    || numbers.outcomeMultiplier < 0 || numbers.outcomeMultiplier > 1
+    || numbers.finalScore < 0 || numbers.finalScore > 100
+  ) return null;
+  if (typeof raw.rationale !== 'string' || raw.rationale.trim() === '') return null;
+  const expectedFinalScore = Math.round(Math.min(
+    100,
+    numbers.baseScore * numbers.outcomeMultiplier + numbers.adjacencyBonus,
+  ) * 1_000) / 1_000;
+  if (numbers.finalScore !== expectedFinalScore) return null;
+  if (
+    raw.model !== 'legacy_heuristic_v1'
+    || raw.unit !== '0_100'
+    || raw.status !== 'provisional'
+    || raw.evidenceOnly !== true
+    || raw.authorityTruthEligible !== false
+    || raw.provisional !== true
+  ) return null;
+
+  return {
+    model: 'legacy_heuristic_v1',
+    unit: '0_100',
+    status: 'provisional',
+    evidenceOnly: true,
+    authorityTruthEligible: false,
+    provisional: true,
+    pairCount: pairCount as number,
+    positionGap: positionGap as number | null,
+    positionGaps: [...positionGaps],
+    baseScore: numbers.baseScore,
+    adjacencyBonus: numbers.adjacencyBonus,
+    outcomeMultiplier: numbers.outcomeMultiplier,
+    finalScore: numbers.finalScore,
+    rationale: cleanAdapterText(typeof raw.rationale === 'string' ? raw.rationale : ''),
+  };
+}
+
 function extractCheonganRelations(rawSajuOutput: any) {
   // Build a lookup for scored cheongan relations (if available)
   const scoredRelations = ensureArray(rawSajuOutput.scoredCheonganRelations);
   const scoreByKey = new Map<string, any>();
+  const ambiguousKeys = new Set<string>();
   for (const scored of scoredRelations) {
+    if (!scored?.hit || typeof scored.hit !== 'object' || Array.isArray(scored.hit)) continue;
+    if (typeof scored.hit.type !== 'string' || !Array.isArray(scored.hit.members)) continue;
+    if (!scored.hit.members.every((member: unknown) => typeof member === 'string' && member.length > 0)) continue;
     const lookupKey = normalizeRelationTypeCode(scored.hit?.type ?? '') + ':' + toStringArray(scored.hit?.members).sort().join(',');
-    scoreByKey.set(lookupKey, scored.score);
+    const score = extractCheonganRelationScore(scored.score);
+    if (!score) continue;
+    if (scoreByKey.has(lookupKey) || ambiguousKeys.has(lookupKey)) {
+      scoreByKey.delete(lookupKey);
+      ambiguousKeys.add(lookupKey);
+      continue;
+    }
+    scoreByKey.set(lookupKey, score);
   }
 
   return ensureArray(rawSajuOutput.cheonganRelations).map((relation: any) => {
@@ -2189,13 +2333,7 @@ function extractCheonganRelations(rawSajuOutput: any) {
             resultConfirmed: relation.resultConfirmed === true,
           }
         : {}),
-      score: scoreData ? {
-        baseScore:          Number(scoreData.baseScore)          || 0,
-        adjacencyBonus:     Number(scoreData.adjacencyBonus)     || 0,
-        outcomeMultiplier:  Number(scoreData.outcomeMultiplier)  || 0,
-        finalScore:         Number(scoreData.finalScore)         || 0,
-        rationale:          cleanAdapterText(String(scoreData.rationale ?? '')),
-      } : null,
+      score: scoreData ?? null,
     };
   });
 }
@@ -2362,8 +2500,8 @@ function withLuckPillarAnnotations<T extends Record<string, unknown>>(out: T, ra
 }
 
 function nullableNumber(value: unknown): number | null {
-  const n = Number(value);
-  return Number.isFinite(n) ? n : null;
+  return typeof value === 'number' && Number.isFinite(value)
+    ? value : null;
 }
 
 function extractDaeunInfo(rawSajuOutput: any) {
@@ -2455,7 +2593,8 @@ export async function analyzeSajuSafe(
     // If analyzeSaju returned an empty saju (module missing), detect via dayMaster
     const isRealAnalysis = !!summary.dayMaster?.element;
     return { summary, sajuEnabled: isRealAnalysis };
-  } catch {
+  } catch (error) {
+    if (error instanceof SajuRequestValidationError) throw error;
     return { summary: emptySaju(), sajuEnabled: false };
   }
 }
