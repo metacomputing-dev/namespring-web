@@ -4,6 +4,7 @@ import type { TenGod } from '../core/tenGod.js';
 
 export type BigyeopSubtype = 'GEONROK' | 'YANGIN' | 'WOLGEOB';
 export type StructuralMonthFrameBaseTenGod = 'BI_GYEON' | 'GEOB_JAE';
+export type EarthMixedMonthFramePolicy = 'strict' | 'geonrok_compat';
 
 const STRUCTURAL_MONTH_FRAME_BASE_TEN_GOD: Record<BigyeopSubtype, StructuralMonthFrameBaseTenGod> = {
   GEONROK: 'BI_GYEON',
@@ -53,14 +54,16 @@ export function isCompanionTenGod(tenGod: TenGod): boolean {
  * - the ten canonical lu branches include the fire/earth shared-palace cases;
  * - 戊午 is not promoted merely because 午 is the emperor branch: its month
  *   main stem 丁 is 正印 under the adopted policy;
- * - earth-day mixed months whose main qi is 比肩 retain the documented
- *   compatibility convention and are labelled 建祿.
+ * - earth-day mixed months whose main qi is 比肩 are not canonical lu
+ *   branches. They remain ordinary mixed-month judgments unless the caller
+ *   explicitly opts into the historical compatibility label.
  */
 export function classifyStructuralMonthFrame(args: {
   dayStem: StemIdx;
   monthBranch: BranchIdx;
   monthMainStem: StemIdx;
   monthMainTenGod: TenGod;
+  earthMixedMonthPolicy?: EarthMixedMonthFramePolicy;
 }): StructuralMonthFrame | null {
   const dayStem = mod(args.dayStem, 10) as StemIdx;
   const lokBranch = GYEOKGUK_LOK_BRANCH[dayStem];
@@ -83,7 +86,10 @@ export function classifyStructuralMonthFrame(args: {
     };
   }
 
-  if (args.monthMainTenGod === 'BI_GYEON') {
+  if (
+    args.monthMainTenGod === 'BI_GYEON'
+    && args.earthMixedMonthPolicy === 'geonrok_compat'
+  ) {
     return {
       subtype: 'GEONROK',
       anchorStem: args.monthMainStem,

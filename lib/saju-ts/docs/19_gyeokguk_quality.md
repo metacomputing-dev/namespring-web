@@ -118,16 +118,34 @@
 SEONGGYEOK 1.08 / PAJUNG_YUGU 1.0 / SEONGJUNG_YUPA 0.9 / PAGYEOK 0.75 / UNDETERMINED 0.95.
 이 배율은 독립 권위 코퍼스 캘리브레이션 전까지 provisional이다(코드 주석 명기).
 
-### 3.4 건록·양인·월겁과 레거시 명명 — `src/rules/facts.ts`
+### 3.4 건록·양인·월겁 구조격과 일반 취격 — `src/rules/gyeokgukMonthFrame.ts`
 
-월지 격 십성이 비견/겁재일 때 `month.gyeok.bigyeopSubtype`(감사 B4)이 세분한다:
-비견→`GEONROK`, 겁재→양간이며 월지가 제왕지(록+1)면 `YANGIN`, 그 외 `WOLGEOB`.
-록 조견은 격국 전용 상수 `GYEOKGUK_LOK_BRANCH`(甲寅 乙卯 丙巳 丁午 戊巳 己午 庚申 辛酉
-壬亥 癸子 — 화토동궁)로 고정해 신살 카탈로그·12운성 설정 변경에 끌려가지 않게 했다.
-설정 키는 `strategies.gyeokguk.bigyeopGyeok`이며 `'legacy'`로 두면 세분 없이 비견격/겁재격
-레거시 명명이 유지된다(`bigyeopSubtype: null`). `tieBreakOrder`와 경쟁축
-십신 그룹(`TEN_GOD_GROUP_KEYS`)에서도 `GEONROK`/`YANGIN`/`WOLGEOB`이 레거시
-`BI_GYEON`/`GEOB_JAE` 키보다 앞선다.
+일반 취격의 투간은 년·월·시 천간에서만 확인한다. 일간 자신은 투간 증거가 아니다. 구조격은
+일반 지장간 후보 점수와 분리해 다음 순서로 판정한다.
+
+1. 월지가 일간의 록지이면 `GEONROK` — 甲寅 乙卯 丙巳 丁午 戊巳 己午 庚申 辛酉
+   壬亥 癸子(화토동궁)를 모두 포함한다.
+2. 월지 본기가 겁재이면 양간 제왕지는 `YANGIN`, 나머지는 `WOLGEOB`.
+3. 월지 본기가 비견인 토 일간 잡기월(戊辰·戊戌·己丑·己未)은 기본값에서
+   `GEONROK`으로 자동 승격하지 않는다. 과거 호환 표기는
+   `earthMixedMonthFrame: 'geonrok_compat'`를 명시한 경우에만 사용한다.
+4. 구조가 성립하지 않으면 비견·겁재 지장간은 일반 취격 후보가 될 수 없다.
+
+`selectionRule`은 4번의 일반 후보 선택에 적용되며 구조격이 있으면 구조격이 우선한다.
+탈락 후보는 감사 증거를 위해 `month.gyeok.candidates`에 남되
+`eligibleForGyeokSelection: false`와 배제 사유를 기록한다. 품질 계산과 Spring 공개 후보는
+선택 가능 후보만 소비한다.
+구조격의 기반 비견·겁재는 동일 근거의 중복 후보로 다시 공개하지 않는다.
+
+설정 키 `strategies.gyeokguk.bigyeopGyeok='legacy'`는 비견격/겁재격 **출력 명명 호환**만
+유지한다(`bigyeopSubtype: null`). 성패 판정은 기존 계약대로 비견→건록, 겁재→월겁 대응표를
+계속 사용한다. 따라서 이 옵션을 구조격 교리 전체를 끄는 kill switch로 해석하면 안 된다.
+토 잡기월 호환 여부는 이 명명 옵션과 독립적인
+`strategies.gyeokguk.earthMixedMonthFrame` 정책이다.
+
+원문 근거는 『子平真詮』 「論用神」의 월령 중심 취격 및 일간 자체 불용 설명과
+「論建祿月劫」의 월지 록당 정의를 우선 참조했다. 연속 점수와 opt-in 토 잡기월 호환 표기는
+외부 인간 전문가 승인을 받지 않은 제품 정책이며 기본 판정 근거로 쓰지 않는다.
 
 ## 4. 학파 이설과 프리셋 선택지
 
@@ -140,7 +158,7 @@ SEONGGYEOK 1.08 / PAJUNG_YUGU 1.0 / SEONGJUNG_YUPA 0.9 / PAGYEOK 0.75 / UNDETERM
 - **양인의 범위**: 코드는 양간+제왕지만 `YANGIN`으로 본다. 「병무오월(丙戊午月) 양인」 전통에서
   戊일간 午월은 본기 丁이 정인이라 이 분기에 들어오지 않고 정인격이 유지된다(십성 무관 제왕지
   승격은 이설이 커서 미채택 — `facts.ts` 주석에 스코프 한정 명기). 토 일간 잡기월의 본기
-  비견도 통칭 록겁 관례대로 `GEONROK` 처리(엄밀 유파는 잡기격으로 본다).
+  비견은 기본적으로 잡기월 판단을 유지하며, 통칭 록겁 호환 표기는 명시적 opt-in에서만 제공한다.
 - **상관견관의 구제**: 고전은 조건부 구제(인성 제상 등)를 논하나 v0 룰 표는 상관격의 정관
   파격에 rescue를 두지 않는 보수적 대표값이다(config 확장 여지 — `SEONGPAE_RULES` 주석).
 - **특수격의 지위**: 적천수 계열은 종·화·전왕의 기세를 적극 인정하지만, 본 문서의 두 프리셋은

@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 import initSqlJs, { type SqlJsStatic } from 'sql.js';
 
@@ -355,6 +356,45 @@ test('default sql.js WASM is version-pinned and fails closed on digest mismatch'
     (error: unknown) => error instanceof RepositoryIntegrityError
       && error.code === 'REPOSITORY_WASM_INTEGRITY_MISMATCH',
   );
+});
+
+test('default loader executes the verified WASM snapshot, not a mutable transport alias', async () => {
+  const transportBytes = new Uint8Array(await readFile(
+    new URL('../node_modules/sql.js/dist/sql-wasm.wasm', import.meta.url),
+  )).slice();
+  const transportBuffer = transportBytes.buffer;
+  const expectedSha256 = createHash('sha256').update(transportBytes).digest('hex');
+  const originalCryptoDescriptor = Object.getOwnPropertyDescriptor(globalThis, 'crypto');
+  const originalCrypto = globalThis.crypto;
+  let sourceAliasMutated = false;
+
+  assert.ok(originalCryptoDescriptor);
+  Object.defineProperty(globalThis, 'crypto', {
+    configurable: true,
+    enumerable: true,
+    value: {
+      subtle: {
+        digest: async (algorithm: AlgorithmIdentifier, data: BufferSource) => {
+          const digest = await originalCrypto.subtle.digest(algorithm, data);
+          transportBytes[0] = transportBytes[0]! ^ 0xff;
+          sourceAliasMutated = true;
+          return digest;
+        },
+      },
+    } as Crypto,
+  });
+
+  try {
+    const runtime = createRepositoryRuntime({
+      fetch: async () => response(transportBuffer),
+    });
+    const SQL = await runtime.initializeSqlJs('memory://verified.wasm', expectedSha256);
+    const database = new SQL.Database();
+    database.close();
+    assert.equal(sourceAliasMutated, true);
+  } finally {
+    Object.defineProperty(globalThis, 'crypto', originalCryptoDescriptor);
+  }
 });
 
 test('custom WASM URL requires a digest unless the caller owns the loader', () => {
