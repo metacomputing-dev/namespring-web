@@ -51,6 +51,78 @@ function assertSameFile(source, built, label) {
   assert.equal(sha256(built), sha256(source), `${label}: sha256`);
 }
 
+function escapeRegex(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/gu, '\\$&');
+}
+
+function hasLiteral(source, value) {
+  return source.includes(`'${value}'`)
+    || source.includes(`"${value}"`)
+    || source.includes(`\`${value}\``);
+}
+
+function hasLiteralPrefix(source, value) {
+  return source.includes(`'${value}`)
+    || source.includes(`"${value}`)
+    || source.includes(`\`${value}`);
+}
+
+/**
+ * Prove that generated-pack routing is actually coupled to the configured
+ * application base. Merely finding both strings in a bundle is insufficient:
+ * an unrelated router basename plus a root-relative pack URL is still broken
+ * on project Pages.
+ */
+function hasBaseAwareGeneratedPackReference(source, base) {
+  if (hasLiteralPrefix(source, `${base}generated-packed/`)) return true;
+
+  const routeCall = /([A-Za-z_$][\w$]*)\(\s*([`'"])generated-packed\//gu;
+  for (const match of source.matchAll(routeCall)) {
+    const resolverName = match[1];
+    const resolverStart = source.search(
+      new RegExp(`function\\s+${escapeRegex(resolverName)}\\s*\\(`, 'u'),
+    );
+    if (resolverStart < 0) continue;
+    const resolverSource = source.slice(resolverStart, resolverStart + 2_000);
+    if (!resolverSource.includes('new URL(')) continue;
+
+    const baseHelper = resolverSource.match(
+      /\.applicationBaseUrl\s*\?\?\s*([A-Za-z_$][\w$]*)\(\)/u,
+    )?.[1];
+    if (!baseHelper) continue;
+    const helperPattern = new RegExp(
+      `function\\s+${escapeRegex(baseHelper)}\\s*\\(\\)\\s*\\{\\s*return`,
+      'u',
+    );
+    const helperStart = source.search(helperPattern);
+    if (helperStart < 0) continue;
+    if (hasLiteral(source.slice(helperStart, helperStart + 256), base)) return true;
+  }
+  return false;
+}
+
+assert.equal(
+  hasBaseAwareGeneratedPackReference(
+    "function b(){return'/namespring-web/'}function r(p,o={}){let a=o.applicationBaseUrl??b();return new URL(p,new URL(a,'https://example/'))}r('generated-packed/career/key.json')",
+    '/namespring-web/',
+  ),
+  true,
+  'structured project-base generated-pack reference self-test',
+);
+assert.equal(
+  hasBaseAwareGeneratedPackReference(
+    "const unrelated='/namespring-web/';fetch('/generated-packed/career/key.json')",
+    '/namespring-web/',
+  ),
+  false,
+  'unrelated base plus root-relative generated pack must fail',
+);
+assert.equal(
+  hasBaseAwareGeneratedPackReference("fetch('/generated-packed/career/key.json')", '/'),
+  true,
+  'root deployment may use a root-relative generated pack',
+);
+
 const base = normalizeBase(argumentValue('--base'));
 const indexFile = path.join(DIST, 'index.html');
 const fallbackFile = path.join(DIST, '404.html');
@@ -126,7 +198,7 @@ let generatedPackReferenceFound = false;
 for (const file of javascriptFiles) {
   const source = fs.readFileSync(file, 'utf8');
   if (source.includes(path.basename(emittedWasm))) wasmReferenceFound = true;
-  if (source.includes('generated-packed/') && source.includes(base)) generatedPackReferenceFound = true;
+  if (hasBaseAwareGeneratedPackReference(source, base)) generatedPackReferenceFound = true;
   assert.equal(source.includes('https://cdn.jsdelivr.net/npm/sql.js@1.14.0/dist/sql-wasm.wasm'), false, 'legacy sql.js CDN');
 }
 assert.equal(wasmReferenceFound, true, 'JS reference to emitted WASM');
