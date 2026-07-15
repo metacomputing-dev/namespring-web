@@ -1,8 +1,9 @@
-import { EnergyCalculator, type EnergyVisitor } from './energy-calculator';
-import { Energy } from '../model/energy';
-import { Element } from '../model/element';
-import { Polarity } from '../model/polarity';
-import type { HanjaEntry } from '../database/hanja-repository';
+import { EnergyCalculator, type EnergyVisitor } from './energy-calculator.js';
+import { Energy } from '../model/energy.js';
+import { Element } from '../model/element.js';
+import { Polarity } from '../model/polarity.js';
+import type { HanjaEntry } from '../database/hanja-repository.js';
+import { SeedCalculationError } from '../errors.js';
 
 /**
  * Calculator for the Hanja (Chinese Character) Resource Five Elements and Yin-Yang.
@@ -33,7 +34,7 @@ export class HanjaCalculator extends EnergyCalculator {
    * @param surnameEntries Array of Hanja entries for the surname
    * @param firstNameEntries Array of Hanja entries for the first name
    */
-  constructor(surnameEntries: HanjaEntry[], firstNameEntries: HanjaEntry[]) {
+  constructor(surnameEntries: readonly HanjaEntry[], firstNameEntries: readonly HanjaEntry[]) {
     super();
 
     const fullEntries = [...surnameEntries, ...firstNameEntries];
@@ -46,16 +47,28 @@ export class HanjaCalculator extends EnergyCalculator {
    * Triggers the energy calculation for all Hanja units.
    */
   public calculate(): void {
-    const needsCalculation = this.hanjaNameBlocks.some(h => h.energy === null);
-
-    if (needsCalculation) {
-      const visitor = new HanjaCalculator.CalculationVisitor();
-      this.accept(visitor);
-    }
+    if (!this.shouldCalculate()) return;
+    const visitor = new HanjaCalculator.CalculationVisitor();
+    this.accept(visitor);
+    this.markReady();
   }
 
   public getScore(): number {
-    return Energy.getScore(this.hanjaNameBlocks.map(b => b.energy).filter((e): e is Energy => e !== null));
+    const calculationStatus = this.requireReadyOrExcluded('hanja.nameBlocks');
+    if (calculationStatus === 'excluded') return 0;
+
+    const energies = this.hanjaNameBlocks
+      .map(block => block.energy)
+      .filter((energy): energy is Energy => energy !== null);
+    if (energies.length !== this.hanjaNameBlocks.length) {
+      throw new SeedCalculationError(
+        'EMPTY_ENERGY_SET',
+        'All Hanja energies must be calculated before scoring.',
+        'hanja.nameBlocks',
+        { blockCount: this.hanjaNameBlocks.length, energyCount: energies.length },
+      );
+    }
+    return Energy.getScore(energies);
   }
 
   /**

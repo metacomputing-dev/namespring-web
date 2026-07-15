@@ -26,7 +26,19 @@ export interface LegacySajuOptionsContract {
   readonly wolunMonthCount?: number;
 }
 
+export interface LegacyCivilDateTimeContract {
+  readonly y: number;
+  readonly m: number;
+  readonly d: number;
+  readonly h: number;
+  readonly min: number;
+}
+
 export interface RuntimeLegacySajuConfig extends Record<string, unknown> {
+  longitudeCorrectionPolicy?:
+    | { readonly mode: 'off' }
+    | { readonly mode: 'civilOffsetMeridian' }
+    | { readonly mode: 'fixedMeridian'; readonly meridianDeg: number };
   calendar?: {
     solarTerms?: {
       method?: 'meeus' | 'approx';
@@ -70,18 +82,28 @@ export interface LegacyStrengthResultContract {
   readonly details: readonly string[];
 }
 
+interface LegacyYongshinRecommendationContract {
+  readonly type: string;
+  readonly primaryElement: string;
+  readonly secondaryElement: string | null;
+  /** Spring compatibility boundary: 0..100 confidence points. */
+  readonly confidence: number;
+  readonly reasoning: string;
+}
+
 interface LegacyYongshinResultContract {
   readonly finalYongshin: string;
   readonly finalHeesin: string | null;
   readonly gisin: string | null;
   readonly gusin: string | null;
+  /** Spring compatibility boundary: 0..100 confidence points. */
   readonly finalConfidence: number;
   readonly agreement: string;
   readonly consensus: unknown;
   readonly methodBreakdown: unknown;
   readonly warnings: readonly string[];
   readonly jonggyeokRisk: unknown;
-  readonly recommendations: readonly unknown[];
+  readonly recommendations: readonly LegacyYongshinRecommendationContract[];
 }
 
 interface LegacyLuckAnnotationsContract {
@@ -185,6 +207,10 @@ export type SajuModule = {
   ) => LegacySajuOutputV1Contract;
   createBirthInput: (params: LegacyBirthInputContract) => LegacyBirthInputContract;
   configFromPreset: (preset: string) => RuntimeLegacySajuConfig;
+  resolveOffsetMinutes: (
+    timeZone: string,
+    civil: LegacyCivilDateTimeContract,
+  ) => number;
 };
 
 export const SAJU_BRIDGE_SCHEMA_VERSION = 'saju-legacy.v1' as const;
@@ -279,6 +305,9 @@ export function assertSajuModuleContract(value: unknown): asserts value is SajuM
   if (typeof value.analyzeSaju !== 'function') mismatch('module.analyzeSaju is missing');
   if (typeof value.createBirthInput !== 'function') mismatch('module.createBirthInput is missing');
   if (typeof value.configFromPreset !== 'function') mismatch('module.configFromPreset is missing');
+  if (typeof value.resolveOffsetMinutes !== 'function') {
+    mismatch('module.resolveOffsetMinutes is missing');
+  }
 }
 
 export interface SajuPalaceCapability {

@@ -11,8 +11,28 @@ import { TWELVE_SAL_KEYS, twelveSalStartOf } from '../rules/facts.js';
 import { baseTenGodOfStructuralMonthFrame, type BigyeopSubtype } from '../rules/gyeokgukMonthFrame.js';
 import type {
   LegacyJieProximityV1,
+  LegacyLongitudeCorrectionPolicy,
   LegacySajuOutputV1,
 } from './springLegacyContract.js';
+import {
+  addCivilMinutes,
+  civilDateTimeToUtcMs,
+  civilToIsoInstant,
+  dstMinutesAtUtcMs,
+  resolveOffsetMinutes,
+  type CivilDateTime,
+} from './springLegacyTimezone.js';
+
+export {
+  LegacyAmbiguousTimeError,
+  LegacyCivilTimeError,
+  LegacyNonexistentTimeError,
+  LegacyTimezoneDataUnsupportedError,
+  LegacyTimezoneError,
+  dstMinutesAtUtcMs,
+  parseOffsetToken,
+  resolveOffsetMinutes,
+} from './springLegacyTimezone.js';
 
 export type {
   LegacyCoreResultV1,
@@ -20,6 +40,7 @@ export type {
   LegacyDaeunPillarV1,
   LegacyGyeokgukResultV1,
   LegacyJieProximityV1,
+  LegacyLongitudeCorrectionPolicy,
   LegacyLuckAnnotationsV1,
   LegacyPillarV1,
   LegacySaeunPillarV1,
@@ -222,8 +243,15 @@ export interface LegacySajuConfig {
   includeEquationOfTime?: boolean;
 
   /**
-   * Apply manseoryeok baseline-meridian correction to longitude.
-   * Default: true
+   * Explicit longitude-correction policy. When present, this takes precedence
+   * over longitudeCorrectionEnabled and lmtBaselineLongitude.
+   */
+  longitudeCorrectionPolicy?: LegacyLongitudeCorrectionPolicy;
+
+  /**
+   * Legacy compatibility switch. `false` historically meant that no synthetic
+   * baseline adjustment was made, so it maps to civilOffsetMeridian (not off).
+   * Use longitudeCorrectionPolicy.mode='off' for actual no-correction behavior.
    */
   longitudeCorrectionEnabled?: boolean;
 
@@ -237,6 +265,7 @@ export interface LegacySajuConfig {
   yazaEnabled?: boolean;
   yazaMode?: LegacyYazaMode;
 
+  /** Legacy fixed reference meridian retained for preset compatibility. */
   lmtBaselineLongitude?: number;
   calendar?: Partial<EngineConfig['calendar']>;
   toggles?: Partial<EngineConfig['toggles']>;
@@ -285,23 +314,23 @@ export class LegacyContractOutputError extends Error {
   }
 }
 
-export class LegacyTimezoneError extends Error {
-  readonly code = 'SAJU_LEGACY_TIMEZONE_INVALID';
-  readonly timeZone: string;
+export type LegacyBirthLocationErrorCode =
+  | 'SAJU_LEGACY_BIRTH_LOCATION_PARTIAL'
+  | 'SAJU_LEGACY_BIRTH_LOCATION_INVALID';
 
-  constructor(timeZone: string, cause?: unknown) {
-    super(`Invalid or unsupported legacy timezone: ${timeZone}`, { cause });
-    this.name = 'LegacyTimezoneError';
-    this.timeZone = timeZone;
+/** Raised when legacy callers provide a non-atomic or invalid location tuple. */
+export class LegacyBirthLocationError extends Error {
+  readonly code: LegacyBirthLocationErrorCode;
+
+  constructor(code: LegacyBirthLocationErrorCode) {
+    super(
+      code === 'SAJU_LEGACY_BIRTH_LOCATION_PARTIAL'
+        ? 'Legacy birth location requires timezone, latitude, and longitude together.'
+        : 'Legacy birth location contains an invalid timezone or coordinate.',
+    );
+    this.name = 'LegacyBirthLocationError';
+    this.code = code;
   }
-}
-
-interface CivilDateTime {
-  y: number;
-  m: number;
-  d: number;
-  h: number;
-  min: number;
 }
 
 interface DayCutMapping {
@@ -337,7 +366,6 @@ const PRESET_CONFIGS: Record<string, LegacySajuConfig> = {
 };
 
 const DEFAULT_TRUE_SOLAR_TIME_ENABLED = false;
-const DEFAULT_LONGITUDE_CORRECTION_ENABLED = true;
 // 감사 결정① (2026-07-08): 기본 = 정자시설(ziSplit23, 23:00 모드).
 // 실무 약 80% 주류 정렬 — 자정설은 yazaEnabled=false 명시로 복귀.
 const DEFAULT_YAZA_ENABLED = true;
@@ -410,144 +438,6 @@ function resolveDayCutMode(legacy: LegacySajuConfig): LegacyDayCutMode {
   return 'MIDNIGHT_00';
 }
 
-// export: 표준시 변천 픽스처 테스트(springLegacyTimezone.test.ts)가 소비 (감사 B10/A15a).
-export function parseOffsetToken(token: string): number | null {
-  const s = token.trim().toUpperCase().replace('UTC', 'GMT');
-  if (s === 'GMT' || s === 'GMT+0' || s === 'GMT+00' || s === 'GMT+00:00') return 0;
-
-  // 초 성분까지 허용 — 1908-04 이전 서울 LMT는 'GMT+8:27:52'로 온다 (감사 A15a).
-  const m = s.match(/GMT([+-])(\d{1,2})(?::?(\d{2}))?(?::(\d{2}))?$/);
-  if (!m) return null;
-
-  const sign = m[1] === '-' ? -1 : 1;
-  const hh = Number(m[2]);
-  const mm = Number(m[3] ?? 0);
-  const ss = Number(m[4] ?? 0);
-  if (!Number.isFinite(hh) || !Number.isFinite(mm) || !Number.isFinite(ss)) return null;
-
-  return sign * Math.round(hh * 60 + mm + ss / 60);
-}
-
-let warnedOffsetFailure = false;
-
-function offsetAtUtcMs(utcMs: number, timeZone: string): number {
-  try {
-    const parts = new Intl.DateTimeFormat('en-US', {
-      timeZone,
-      timeZoneName: 'shortOffset',
-      hour: '2-digit',
-      minute: '2-digit',
-      hourCycle: 'h23',
-    }).formatToParts(new Date(utcMs));
-
-    const zoneName = parts.find((p) => p.type === 'timeZoneName')?.value ?? 'GMT+00:00';
-    const parsed = parseOffsetToken(zoneName);
-    if (parsed == null && !warnedOffsetFailure) {
-      warnedOffsetFailure = true;
-      // 무경고 +09:00 폴백은 약 32분 오차를 침묵시킨다 — 최소한 한 번은 드러낸다 (감사 A15a).
-      console.warn(`[saju-ts/springLegacy] failed to parse tz offset token "${zoneName}" (${timeZone}); rejecting input`);
-    }
-    if (parsed == null) throw new LegacyTimezoneError(timeZone);
-    return parsed;
-  } catch (cause) {
-    if (cause instanceof LegacyTimezoneError) throw cause;
-    if (!warnedOffsetFailure) {
-      warnedOffsetFailure = true;
-      console.warn(`[saju-ts/springLegacy] Intl offset lookup failed for tz "${timeZone}"; rejecting input`);
-    }
-    throw new LegacyTimezoneError(timeZone, cause);
-  }
-}
-
-function longZoneNameAtUtcMs(utcMs: number, timeZone: string): string {
-  try {
-    const parts = new Intl.DateTimeFormat('en-US', { timeZone, timeZoneName: 'long' })
-      .formatToParts(new Date(utcMs));
-    return parts.find((p) => p.type === 'timeZoneName')?.value ?? '';
-  } catch {
-    return '';
-  }
-}
-
-const DST_SCAN_STEP_MS = 30 * 24 * 60 * 60 * 1000;
-
-/**
- * 서머타임(DST) 보정분 실측 (감사 A9).
- *
- * 1) ICU long name이 'Standard'면 0, 'Daylight/Summer'면 DST 확정.
- * 2) 이름이 오프셋 문자열이면(한국 1961년 이전 구간은 ICU 표시명 부재) 전후
- *    각 ±270일 표본으로 판정: DST는 일시적 초과라 양쪽 모두 낮은 표준
- *    오프셋이 보이고, 표준 자오선 변경(1954/1961)은 한쪽에만 보인다.
- *    → 초과분 = offset - max(전측 최소, 후측 최소).
- */
-// export: 표준시 변천 픽스처 테스트(springLegacyTimezone.test.ts)가 소비 (감사 B10).
-export function dstMinutesAtUtcMs(utcMs: number, timeZone: string): number {
-  const name = longZoneNameAtUtcMs(utcMs, timeZone);
-  if (/standard/i.test(name)) return 0;
-  const isNamedDst = /daylight|summer/i.test(name);
-  const offset = offsetAtUtcMs(utcMs, timeZone);
-  let minBefore = offset;
-  let minAfter = offset;
-  for (let k = 1; k <= 9; k++) {
-    minBefore = Math.min(minBefore, offsetAtUtcMs(utcMs - k * DST_SCAN_STEP_MS, timeZone));
-    minAfter = Math.min(minAfter, offsetAtUtcMs(utcMs + k * DST_SCAN_STEP_MS, timeZone));
-  }
-  const excess = Math.max(0, offset - Math.max(minBefore, minAfter));
-  return isNamedDst ? (excess || 60) : excess;
-}
-
-// export: 표준시 변천 픽스처 테스트(springLegacyTimezone.test.ts)가 소비 (감사 B10).
-export function resolveOffsetMinutes(timeZone: string, civil: CivilDateTime): number {
-  const parsedFromToken = parseOffsetToken(timeZone);
-  if (parsedFromToken != null) return parsedFromToken;
-
-  const utcGuess = Date.UTC(civil.y, civil.m - 1, civil.d, civil.h, civil.min, 0);
-  try {
-    const probeParts = new Intl.DateTimeFormat('en-US', {
-      timeZone,
-      timeZoneName: 'shortOffset',
-      hour: '2-digit',
-      minute: '2-digit',
-      hourCycle: 'h23',
-    }).formatToParts(new Date(utcGuess));
-    const probeToken = probeParts
-      .find((part) => part.type === 'timeZoneName')
-      ?.value ?? '';
-    if (parseOffsetToken(probeToken) == null) {
-      throw new LegacyTimezoneError(timeZone);
-    }
-  } catch (cause) {
-    if (cause instanceof LegacyTimezoneError) throw cause;
-    throw new LegacyTimezoneError(timeZone, cause);
-  }
-  const first = offsetAtUtcMs(utcGuess, timeZone);
-  const correctedUtc = utcGuess - first * 60_000;
-  const second = offsetAtUtcMs(correctedUtc, timeZone);
-  return second;
-}
-
-function formatOffset(minutes: number): string {
-  const sign = minutes >= 0 ? '+' : '-';
-  const abs = Math.abs(minutes);
-  const hh = String(Math.floor(abs / 60)).padStart(2, '0');
-  const mm = String(abs % 60).padStart(2, '0');
-  return `${sign}${hh}:${mm}`;
-}
-
-function addMinutes(civil: CivilDateTime, deltaMinutes: number): CivilDateTime {
-  if (!deltaMinutes) return { ...civil };
-
-  const utcMs = Date.UTC(civil.y, civil.m - 1, civil.d, civil.h, civil.min, 0);
-  const shifted = new Date(utcMs + deltaMinutes * 60_000);
-  return {
-    y: shifted.getUTCFullYear(),
-    m: shifted.getUTCMonth() + 1,
-    d: shifted.getUTCDate(),
-    h: shifted.getUTCHours(),
-    min: shifted.getUTCMinutes(),
-  };
-}
-
 function toCivilFromBirthInput(input: LegacyBirthInput): CivilDateTime {
   return {
     y: toInt(input.birthYear, 0),
@@ -556,15 +446,6 @@ function toCivilFromBirthInput(input: LegacyBirthInput): CivilDateTime {
     h: clampHour(input.birthHour),
     min: clampMinute(input.birthMinute),
   };
-}
-
-function civilToIsoInstant(civil: CivilDateTime, offsetMinutes: number): string {
-  const y = String(civil.y).padStart(4, '0');
-  const m = String(civil.m).padStart(2, '0');
-  const d = String(civil.d).padStart(2, '0');
-  const h = String(civil.h).padStart(2, '0');
-  const min = String(civil.min).padStart(2, '0');
-  return `${y}-${m}-${d}T${h}:${min}:00${formatOffset(offsetMinutes)}`;
 }
 
 function normalizeTenGod(v: unknown): string {
@@ -810,10 +691,10 @@ function scoreDiffConfidence(top: number, second: number): number {
   return Math.max(0.35, Math.min(1, diff));
 }
 
-function confidenceToPoints(confidence: number): number {
-  if (!Number.isFinite(confidence)) return 0;
-  const normalized = Math.max(0, Math.min(1, confidence <= 1 ? confidence : confidence / 100));
-  return Math.round(normalized * 100);
+/** Convert a contractually ratio-based confidence to rounded 0..100 points. */
+export function ratioToPoints(confidence: unknown): number {
+  if (typeof confidence !== 'number' || !Number.isFinite(confidence)) return 0;
+  return Math.round(Math.max(0, Math.min(1, confidence)) * 100);
 }
 
 function ohaengKoLabel(code: unknown): string {
@@ -888,12 +769,12 @@ function buildYongshinReasoning(
   rank: number,
   entry: { element: string; score: number },
   topElement: string,
+  confidencePoint: number,
   methodBreakdown?: any,
   primaryMethod?: unknown,
 ): string {
   const primaryLabel = ohaengKoLabel(entry.element);
   const topLabel = ohaengKoLabel(topElement || '상위');
-  const confidencePoint = confidenceToPoints(Number(entry.score));
   const evidence = rank === 0 ? buildYongshinMethodEvidence(entry, primaryMethod, methodBreakdown) : null;
   const evidenceText = evidence ? ` ${evidence}.` : '';
   if (rank === 0) {
@@ -1387,9 +1268,31 @@ function pickEngineConfigPatch(legacy: LegacySajuConfig): Partial<EngineConfig> 
   return patch;
 }
 
+function resolveLegacyLongitudeCorrectionPolicy(
+  legacy: LegacySajuConfig,
+): LegacyLongitudeCorrectionPolicy {
+  if (legacy.longitudeCorrectionPolicy !== undefined) {
+    return legacy.longitudeCorrectionPolicy;
+  }
+
+  // Preserve the old switch's real behavior: false skipped the synthetic
+  // preset-baseline transform and therefore let the core use the civil offset.
+  if (legacy.longitudeCorrectionEnabled === false) {
+    return { mode: 'civilOffsetMeridian' };
+  }
+
+  if (Number.isFinite(legacy.lmtBaselineLongitude)) {
+    return {
+      mode: 'fixedMeridian',
+      meridianDeg: Number(legacy.lmtBaselineLongitude),
+    };
+  }
+
+  return { mode: 'civilOffsetMeridian' };
+}
+
 function buildEngineConfig(
   legacy: LegacySajuConfig,
-  timeZone: string,
 ): { config: EngineConfig } {
   const dayCut = mapDayCutMode(resolveDayCutMode(legacy));
   const trueSolarTimeEnabled = legacy.trueSolarTimeEnabled ?? DEFAULT_TRUE_SOLAR_TIME_ENABLED;
@@ -1405,6 +1308,7 @@ function buildEngineConfig(
   // legacy.calendar.dayCutShiftMinutes 수동 오버라이드가 살아있다.
   cfg.calendar.dayCutShiftMinutes = dayCut.dayCutShiftMinutes;
   cfg.calendar.trueSolarTime.enabled = trueSolarTimeEnabled;
+  cfg.calendar.trueSolarTime.longitudeCorrectionPolicy = resolveLegacyLongitudeCorrectionPolicy(legacy);
   cfg.calendar.trueSolarTime.equationOfTime = trueSolarTimeEnabled && includeEquationOfTime ? 'approx' : 'off';
   cfg.calendar.trueSolarTime.applyTo = 'dayAndHour';
   cfg.calendar.solarTerms = {
@@ -1413,6 +1317,11 @@ function buildEngineConfig(
   };
 
   cfg = deepMerge(cfg, pickEngineConfigPatch(legacy));
+  // The dedicated legacy policy is the unambiguous public override even when
+  // a caller also supplies a nested calendar patch.
+  if (legacy.longitudeCorrectionPolicy !== undefined) {
+    cfg.calendar.trueSolarTime.longitudeCorrectionPolicy = legacy.longitudeCorrectionPolicy;
+  }
   const disabledToggles = LEGACY_REQUIRED_TOGGLES
     .filter((toggle) => cfg.toggles[toggle] !== true);
   if (disabledToggles.length > 0) {
@@ -1421,22 +1330,8 @@ function buildEngineConfig(
   return { config: cfg };
 }
 
-function inferStandardMeridian(offsetMinutes: number): number {
-  return (offsetMinutes / 60) * 15;
-}
-
-function effectiveLongitudeForLegacyLmt(
-  longitude: number,
-  baselineLongitude: number | undefined,
-  stdMeridianDeg: number,
-): number {
-  if (!Number.isFinite(baselineLongitude)) return longitude;
-  return longitude - ((baselineLongitude as number) - stdMeridianDeg);
-}
-
 function makeRequest(
   input: LegacyBirthInput,
-  legacy: LegacySajuConfig,
 ): { request: SajuRequest; standard: CivilDateTime } {
   const standard = toCivilFromBirthInput(input);
   // 감사 A11: 과거에는 YAZA_23_30의 -30분을 여기(민간시→인스턴트)에 적용해
@@ -1444,17 +1339,8 @@ function makeRequest(
   // config.calendar.dayCutShiftMinutes로 엔진의 경계 분류 노드만 이동한다.
   const timeZone = input.timezone ?? DEFAULT_TIMEZONE;
   const offsetMinutes = resolveOffsetMinutes(timeZone, standard);
-  const stdMeridian = inferStandardMeridian(offsetMinutes);
   const rawLongitude = Number.isFinite(input.longitude) ? Number(input.longitude) : DEFAULT_LONGITUDE;
   const latitude = Number.isFinite(input.latitude) ? Number(input.latitude) : DEFAULT_LATITUDE;
-  const longitudeCorrectionEnabled = legacy.longitudeCorrectionEnabled ?? DEFAULT_LONGITUDE_CORRECTION_ENABLED;
-  const baselineLongitude = Number.isFinite(legacy.lmtBaselineLongitude)
-    ? Number(legacy.lmtBaselineLongitude)
-    : stdMeridian;
-
-  const effectiveLongitude = longitudeCorrectionEnabled
-    ? effectiveLongitudeForLegacyLmt(rawLongitude, baselineLongitude, stdMeridian)
-    : rawLongitude;
 
   const instant = civilToIsoInstant(standard, offsetMinutes);
   const sex: SajuRequest['sex'] = input.gender === 'FEMALE' ? 'F' : 'M';
@@ -1465,7 +1351,7 @@ function makeRequest(
       sex,
       location: {
         lat: latitude,
-        lon: effectiveLongitude,
+        lon: rawLongitude,
         name: input.name,
       },
     },
@@ -1621,12 +1507,12 @@ function normalizeLegacyOutput(
         h: toInt(adjustedFact.time.h, standard.h),
         min: toInt(adjustedFact.time.min, standard.min),
       }
-    : addMinutes(standard, Math.round(Number(correction.totalCorrectionMinutes ?? 0)));
+    : addCivilMinutes(standard, Math.round(Number(correction.totalCorrectionMinutes ?? 0)));
 
   // 서머타임 보정 실측치 — 기존에는 0 하드코딩으로 미보정 서비스처럼 표기됐다 (감사 A9).
   const tz = timeZone ?? DEFAULT_TIMEZONE;
   const offsetAtBirth = resolveOffsetMinutes(tz, standard);
-  const birthUtcMs = Date.UTC(standard.y, standard.m - 1, standard.d, standard.h, standard.min, 0) - offsetAtBirth * 60_000;
+  const birthUtcMs = civilDateTimeToUtcMs(standard) - offsetAtBirth * 60_000;
   const dstCorrectionMinutes = dstMinutesAtUtcMs(birthUtcMs, tz);
 
   const pillars = getSummaryPillars(bundle);
@@ -1651,16 +1537,16 @@ function normalizeLegacyOutput(
   const yongshinRanking: Array<{ element: string; score: number }> = Array.isArray(yongshin?.ranking)
     ? yongshin.ranking.map((item: any) => ({
         element: String(item?.element ?? ''),
-        score: Number(item?.score ?? 0),
+        score: typeof item?.score === 'number' && Number.isFinite(item.score) ? item.score : 0,
       }))
     : [];
   const [topElement, secondElement] = topTwo(yongshinRanking);
   const worst = yongshinRanking.length ? yongshinRanking[yongshinRanking.length - 1]?.element ?? null : null;
   const secondWorst = yongshinRanking.length > 1 ? yongshinRanking[yongshinRanking.length - 2]?.element ?? null : null;
-  const topScore = Number(yongshinRanking[0]?.score ?? 0);
-  const secondScore = Number(yongshinRanking[1]?.score ?? 0);
+  const topScore = yongshinRanking[0]?.score ?? 0;
+  const secondScore = yongshinRanking[1]?.score ?? 0;
   const yongshinConfidence = scoreDiffConfidence(topScore, secondScore);
-  const yongshinConfidencePoints = confidenceToPoints(yongshinConfidence);
+  const yongshinConfidencePoints = ratioToPoints(yongshinConfidence);
   const yongshinConsensus =
     yongshin?.consensus && typeof yongshin.consensus === 'object'
       ? yongshin.consensus
@@ -2225,22 +2111,26 @@ function normalizeLegacyOutput(
       // 감사 B5 (additive): 종격 가능성 신호. daeunInfo.warnings 선례를 따른다.
       warnings: yongshinWarnings,
       jonggyeokRisk,
-      recommendations: yongshinRanking.slice(0, 3).map((entry: { element: string; score: number }, i: number) => ({
-        // 1위 type은 엔진이 산출한 실제 지배 방법(primaryMethod)에서 유도한다 (감사 A2·B6).
-        // 기본 정책(억부 1.0 + 조후 0.25)에서는 EOKBU 또는 JOHU만 나온다.
-        // primaryMethod 부재(구 dist 등) 시 EOKBU 폴백 — 기본 정책 최빈값.
-        type: i === 0 ? (LEGACY_YONGSHIN_TYPE[String(yongshin?.primaryMethod ?? '')] ?? 'EOKBU') : 'RANKING',
-        primaryElement: entry.element,
-        secondaryElement: yongshinRanking[i + 1]?.element ?? null,
-        confidence: confidenceToPoints(Math.max(0, Math.min(1, Number(entry.score)))),
-        reasoning: buildYongshinReasoning(
-          i,
-          entry,
-          topElement,
-          yongshin?.methodBreakdown,
-          i === 0 ? yongshin?.primaryMethod : undefined,
-        ),
-      })),
+      recommendations: yongshinRanking.slice(0, 3).map((entry: { element: string; score: number }, i: number) => {
+        const confidence = ratioToPoints(entry.score);
+        return {
+          // 1위 type은 엔진이 산출한 실제 지배 방법(primaryMethod)에서 유도한다 (감사 A2·B6).
+          // 기본 정책(억부 1.0 + 조후 0.25)에서는 EOKBU 또는 JOHU만 나온다.
+          // primaryMethod 부재(구 dist 등) 시 EOKBU 폴백 — 기본 정책 최빈값.
+          type: i === 0 ? (LEGACY_YONGSHIN_TYPE[String(yongshin?.primaryMethod ?? '')] ?? 'EOKBU') : 'RANKING',
+          primaryElement: entry.element,
+          secondaryElement: yongshinRanking[i + 1]?.element ?? null,
+          confidence,
+          reasoning: buildYongshinReasoning(
+            i,
+            entry,
+            topElement,
+            confidence,
+            yongshin?.methodBreakdown,
+            i === 0 ? yongshin?.primaryMethod : undefined,
+          ),
+        };
+      }),
     },
     gyeokgukResult: {
       type: bestKeyCore,
@@ -2320,6 +2210,42 @@ function normalizeLegacyOutput(
 }
 
 export function createBirthInput(params: LegacyBirthInput): LegacyBirthInput {
+  const timezoneProvided = params.timezone !== undefined;
+  const latitudeProvided = params.latitude !== undefined;
+  const longitudeProvided = params.longitude !== undefined;
+  const anyLocationProvided = timezoneProvided || latitudeProvided || longitudeProvided;
+  const completeLocationProvided = timezoneProvided && latitudeProvided && longitudeProvided;
+
+  if (anyLocationProvided && !completeLocationProvided) {
+    throw new LegacyBirthLocationError('SAJU_LEGACY_BIRTH_LOCATION_PARTIAL');
+  }
+
+  let timezone = DEFAULT_TIMEZONE;
+  let latitude = DEFAULT_LATITUDE;
+  let longitude = DEFAULT_LONGITUDE;
+  if (completeLocationProvided) {
+    const rawTimezone = params.timezone;
+    const rawLatitude = params.latitude;
+    const rawLongitude = params.longitude;
+    if (
+      typeof rawTimezone !== 'string'
+      || rawTimezone.trim().length === 0
+      || typeof rawLatitude !== 'number'
+      || !Number.isFinite(rawLatitude)
+      || rawLatitude < -90
+      || rawLatitude > 90
+      || typeof rawLongitude !== 'number'
+      || !Number.isFinite(rawLongitude)
+      || rawLongitude < -180
+      || rawLongitude > 180
+    ) {
+      throw new LegacyBirthLocationError('SAJU_LEGACY_BIRTH_LOCATION_INVALID');
+    }
+    timezone = rawTimezone.trim();
+    latitude = rawLatitude;
+    longitude = rawLongitude;
+  }
+
   return {
     birthYear: toInt(params.birthYear, 0),
     birthMonth: toInt(params.birthMonth, 1),
@@ -2329,9 +2255,9 @@ export function createBirthInput(params: LegacyBirthInput): LegacyBirthInput {
     gender: params.gender === 'FEMALE' ? 'FEMALE' : 'MALE',
     calendarType: params.calendarType === 'LUNAR' ? 'LUNAR' : 'SOLAR',
     isLeapMonth: params.isLeapMonth,
-    timezone: params.timezone ?? DEFAULT_TIMEZONE,
-    latitude: Number.isFinite(params.latitude) ? Number(params.latitude) : DEFAULT_LATITUDE,
-    longitude: Number.isFinite(params.longitude) ? Number(params.longitude) : DEFAULT_LONGITUDE,
+    timezone,
+    latitude,
+    longitude,
     name: params.name,
   };
 }
@@ -2353,8 +2279,8 @@ export function analyzeSaju(
 
   const legacy = normalizeLegacyConfig(rawConfig);
   const tz = normalizedInput.timezone ?? DEFAULT_TIMEZONE;
-  const { config } = buildEngineConfig(legacy, tz);
-  const { request, standard } = makeRequest(normalizedInput, legacy);
+  const { config } = buildEngineConfig(legacy);
+  const { request, standard } = makeRequest(normalizedInput);
 
   const engine = createEngine(config);
   const bundle = engine.analyze(request);

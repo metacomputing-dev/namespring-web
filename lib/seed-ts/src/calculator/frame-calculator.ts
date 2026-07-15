@@ -1,9 +1,63 @@
-import { EnergyCalculator, type EnergyVisitor } from './energy-calculator';
-import { Energy } from '../model/energy';
-import { Element } from '../model/element';
-import { Polarity } from '../model/polarity';
-import type { HanjaEntry } from '../database/hanja-repository';
-import { FourframeRepository, type FourframeMeaningEntry } from '../database/fourframe-repository';
+import { EnergyCalculator, type EnergyVisitor } from './energy-calculator.js';
+import { Energy } from '../model/energy.js';
+import { Element } from '../model/element.js';
+import { Polarity } from '../model/polarity.js';
+import type { HanjaEntry } from '../database/hanja-repository.js';
+import { SeedCalculationError, SeedValidationError } from '../errors.js';
+import type { FourFrameEnrichmentState } from '../types.js';
+import {
+  FOURFRAME_CATALOG_PROVENANCE,
+  getFourframeMeaningByNumber,
+  type FourframeMeaningEntry,
+} from '../fourframe-catalog.js';
+import { normalizeFourFrameNumber } from '../fourframe-contract.js';
+import { sanitizeImmutableServiceValue } from '../service-text-policy.js';
+
+const FOUR_FRAME_ENRICHMENT = Object.freeze({
+  status: 'embedded_versioned_snapshot',
+  source: 'embedded_fourframe_catalog',
+  includedInScore: false,
+  mutableAfterReturn: false,
+  schemaVersion: FOURFRAME_CATALOG_PROVENANCE.schemaVersion,
+  snapshotVersion: FOURFRAME_CATALOG_PROVENANCE.snapshotVersion,
+  contentSha256: FOURFRAME_CATALOG_PROVENANCE.canonicalContentSha256,
+  sourceDatabaseSha256: FOURFRAME_CATALOG_PROVENANCE.sourceDatabaseSha256,
+  rowCount: FOURFRAME_CATALOG_PROVENANCE.rowCount,
+  reason: 'Versioned four-frame meanings are embedded for display and do not alter scoring.',
+} satisfies FourFrameEnrichmentState);
+
+function sum(values: readonly number[]): number {
+  return values.reduce((total, value) => total + value, 0);
+}
+
+function extractStrokeCounts(
+  entries: readonly HanjaEntry[],
+  path: 'surnameEntries' | 'firstNameEntries',
+): readonly number[] {
+  if (entries.length === 0) {
+    throw new SeedValidationError(
+      path === 'surnameEntries' ? 'EMPTY_SURNAME' : 'EMPTY_GIVEN_NAME',
+      path === 'surnameEntries'
+        ? 'At least one surname syllable is required.'
+        : 'At least one given-name syllable is required.',
+      path,
+      entries,
+    );
+  }
+
+  return Object.freeze(entries.map((entry, index) => {
+    const strokes = entry.strokes;
+    if (!Number.isFinite(strokes) || !Number.isInteger(strokes) || strokes <= 0) {
+      throw new SeedValidationError(
+        'INVALID_STROKE_COUNT',
+        'Stroke count must be a positive finite integer.',
+        `${path}[${index}].strokes`,
+        strokes,
+      );
+    }
+    return strokes;
+  }));
+}
 
 /**
  * Calculator for the Four Frames (Won, Hyung, Lee, Jung) in naming theory.
@@ -12,53 +66,36 @@ import { FourframeRepository, type FourframeMeaningEntry } from '../database/fou
  */
 export class FourFrameCalculator extends EnergyCalculator {
   public readonly type = "FourFrame";
-  protected surnameStrokes: number[] = [];
-  protected firstNameStrokes: number[] = [];
+  protected readonly surnameStrokes: readonly number[];
+  protected readonly firstNameStrokes: readonly number[];
+  public readonly enrichment: FourFrameEnrichmentState = FOUR_FRAME_ENRICHMENT;
+  public readonly luckScore: null = null;
   
   /**
    * Represents an individual frame (Sagyuk) with its calculated stroke sum and energy.
    */
   public static Frame = class {
-    public static repository: FourframeRepository | null = null;
-    public static repositoryInitPromise: Promise<void> | null = null;
-
-    // Stores the calculated energy (Polarity and Element)
     public energy: Energy | null = null;
-    public luckLevel: number = -1;
-    public entry: FourframeMeaningEntry | null = null;
+    public readonly luckLevel: null = null;
+    public readonly entry: FourframeMeaningEntry;
+    public readonly enrichmentStatus = 'embedded_versioned_snapshot' as const;
+    public readonly strokeSum: number;
     
     constructor(
       public readonly type: 'won' | 'hyung' | 'lee' | 'jung',
-      public readonly strokeSum: number // Total stroke count for this frame
+      strokeSum: number,
+      fullHangul: string = '',
     ) {
-      void this.getLuckLevel(strokeSum);
-    }
-
-    public async getLuckLevel(index: number): Promise<number> {
-      if (this.luckLevel >= 0) {
-        return this.luckLevel;
-      }
-      
-      if (!FourFrameCalculator.Frame.repository) {
-        FourFrameCalculator.Frame.repository = new FourframeRepository();
-      }
-      if (!FourFrameCalculator.Frame.repositoryInitPromise) {
-        FourFrameCalculator.Frame.repositoryInitPromise = FourFrameCalculator.Frame.repository.init();
-      }
-
-      await FourFrameCalculator.Frame.repositoryInitPromise;
-      const entry = await FourFrameCalculator.Frame.repository.findByNumber(this.strokeSum);
-      this.entry = entry;
-      const parsed = Number.parseInt(entry?.lucky_level ?? '0', 10);
-      this.luckLevel = Number.isNaN(parsed) ? 0 : parsed;
-      
-      return this.luckLevel;
+      this.strokeSum = normalizeFourFrameNumber(strokeSum);
+      this.entry = sanitizeImmutableServiceValue(
+        getFourframeMeaningByNumber(this.strokeSum),
+        fullHangul,
+      );
     }
 
   };
 
-  public frames: InstanceType<typeof FourFrameCalculator.Frame>[];
-  public luckScore: number = 0;
+  public readonly frames: readonly InstanceType<typeof FourFrameCalculator.Frame>[];
 
   /**
    * Initializes the four frames using Hanja entries to derive total stroke counts.
@@ -66,38 +103,30 @@ export class FourFrameCalculator extends EnergyCalculator {
    * @param surnameEntries Array of Hanja entries for the surname
    * @param firstNameEntries Array of Hanja entries for the first name
    */
-  constructor(surnameEntries: HanjaEntry[], firstNameEntries: HanjaEntry[]) {
+  constructor(surnameEntries: readonly HanjaEntry[], firstNameEntries: readonly HanjaEntry[]) {
     super();
-    // TODO replace it to a new visitor future
-    // Extract stroke counts from the database entries
-    this.surnameStrokes = surnameEntries.map(e => e.strokes);
-    this.firstNameStrokes = firstNameEntries.map(e => e.strokes);
+    this.surnameStrokes = extractStrokeCounts(surnameEntries, 'surnameEntries');
+    this.firstNameStrokes = extractStrokeCounts(firstNameEntries, 'firstNameEntries');
 
-    // Calculate basic sums for internal logic
-    const totalSurname = this.surnameStrokes.reduce((acc, val) => acc + val, 0);
-    const totalFirstName = this.firstNameStrokes.reduce((acc, val) => acc + val, 0);
-    const firstCharOfName = this.firstNameStrokes[0] || 0;
-    const lastCharOfName = this.firstNameStrokes.length > 0 
-      ? this.firstNameStrokes[this.firstNameStrokes.length - 1] 
-      : 0;
+    const paddedGivenStrokes = [...this.firstNameStrokes];
+    if (paddedGivenStrokes.length === 1) paddedGivenStrokes.push(0);
 
-    // Internal calculation logic for Sagyuk (Four Frames)
-    // Won (元): Initial luck (Sum of all first name characters)
-    const won = totalFirstName;
-    // Hyung (亨): Middle luck (Sum of surname + first character of name)
-    const hyung = totalSurname + firstCharOfName;
-    // Lee (利): Adult luck (Sum of surname + last character of name)
-    const lee = totalSurname + lastCharOfName;
-    // Jung (貞): Total luck (Sum of all characters)
-    const jung = totalSurname + totalFirstName;
+    const midpoint = Math.floor(paddedGivenStrokes.length / 2);
+    const surnameTotal = sum(this.surnameStrokes);
+    const givenTotal = sum(this.firstNameStrokes);
+    const upperGivenTotal = sum(paddedGivenStrokes.slice(0, midpoint));
+    const lowerGivenTotal = sum(paddedGivenStrokes.slice(midpoint));
+    const fullHangul = [...surnameEntries, ...firstNameEntries]
+      .map((entry) => entry.hangul)
+      .join('');
 
-    // Initialize frames with calculated stroke sums
-    this.frames = [
-      new FourFrameCalculator.Frame('won', won),
-      new FourFrameCalculator.Frame('hyung', hyung),
-      new FourFrameCalculator.Frame('lee', lee),
-      new FourFrameCalculator.Frame('jung', jung)
-    ];
+    // Build each frame exactly once. No constructor side effects or later replacement.
+    this.frames = Object.freeze([
+      new FourFrameCalculator.Frame('won', givenTotal, fullHangul),
+      new FourFrameCalculator.Frame('hyung', surnameTotal + upperGivenTotal, fullHangul),
+      new FourFrameCalculator.Frame('lee', surnameTotal + lowerGivenTotal, fullHangul),
+      new FourFrameCalculator.Frame('jung', surnameTotal + givenTotal, fullHangul),
+    ]);
   }
 
   /**
@@ -105,16 +134,28 @@ export class FourFrameCalculator extends EnergyCalculator {
    * Execution is skipped if all frames have already been calculated.
    */
   public calculate(): void {
-    const needsCalculation = this.frames.some(frame => frame.energy === null);
-    
-    if (needsCalculation) {
-      const visitor = new FourFrameCalculator.CalculationVisitor();
-      this.accept(visitor);
-    }
+    if (!this.shouldCalculate()) return;
+    const visitor = new FourFrameCalculator.CalculationVisitor();
+    this.accept(visitor);
+    this.markReady();
   }
 
   public getScore(): number {
-    return Energy.getScore(this.frames.map(f => f.energy).filter((e): e is Energy => e !== null));
+    const calculationStatus = this.requireReadyOrExcluded('fourFrames.frames');
+    if (calculationStatus === 'excluded') return 0;
+
+    const energies = this.frames
+      .map(frame => frame.energy)
+      .filter((energy): energy is Energy => energy !== null);
+    if (energies.length !== this.frames.length) {
+      throw new SeedCalculationError(
+        'EMPTY_ENERGY_SET',
+        'All four frame energies must be calculated before scoring.',
+        'fourFrames.frames',
+        { frameCount: this.frames.length, energyCount: energies.length },
+      );
+    }
+    return Energy.getScore(energies);
   }
 
   /**
@@ -149,10 +190,6 @@ export class FourFrameCalculator extends EnergyCalculator {
 
     public visit(calculator: EnergyCalculator): void {
       if (calculator instanceof FourFrameCalculator) {
-        this.calculateFourFrameNumbersFromStrokes(calculator, 
-          calculator.surnameStrokes, 
-          calculator.firstNameStrokes);
-
         // Calculate energy attributes for every frame in the calculator
         calculator.getFrames().forEach(frame => {
           frame.energy = {
@@ -161,16 +198,7 @@ export class FourFrameCalculator extends EnergyCalculator {
             element: this.calculateElementFromDigit(frame.strokeSum)
           };
         });
-        
-        // TODO Implement calculation model in future.
-        const frameScore = this.calculateFourFrameElementScore(calculator.getFrames()) * 50;
-        let localLuckScoreSum = 0;
-        let avrFrameLuckScore = 0;
-        calculator.getFrames().forEach(frame => {
-          localLuckScoreSum += frame.luckLevel * 10;
-        });
-        avrFrameLuckScore = localLuckScoreSum / calculator.getFrames().length;
-        calculator.luckScore = frameScore + avrFrameLuckScore;
+
       }
     }
 
@@ -178,34 +206,19 @@ export class FourFrameCalculator extends EnergyCalculator {
       // Finalization after all frames are processed
     }
 
-    // TODO temporal logic
-    public calculateFourFrameElementScore(frames: InstanceType<typeof FourFrameCalculator.Frame>[]): number {
-      let energies = frames.map(b => b.energy).filter((e): e is Energy => e !== null);
-
-      // loop energies in 0 .. length-2 to calculate element score based on the relationship between adjacent blocks
-      for(let i = 0; i < energies.length - 1; i++) {
-        const current = energies[i];
-        const next = energies[i + 1];
-        
-        if (current.element.isOvercoming(next.element)) {
-          return 0;
-        }
-      }
-
-      const first = energies[0].element;
-      const last = energies[energies.length - 1].element;
-      if (first.isOvercoming(last)) {
-        return 0;
-      }
-
-      return 1;
-    }
-
     /**
      * Determines the Element based on the last digit of the stroke sum.
      * Follows the 1,2: Wood / 3,4: Fire / 5,6: Earth / 7,8: Metal / 9,0: Water rule.
      */
     public calculateElementFromDigit(strokeSum: number): Element {
+      if (!Number.isFinite(strokeSum) || !Number.isInteger(strokeSum) || strokeSum <= 0) {
+        throw new SeedValidationError(
+          'INVALID_STROKE_COUNT',
+          'Frame stroke sum must be a positive finite integer.',
+          'fourFrames.strokeSum',
+          strokeSum,
+        );
+      }
       const lastDigit = strokeSum % 10;
       switch (lastDigit) {
         case 1: case 2: return Element.Wood;
@@ -216,42 +229,5 @@ export class FourFrameCalculator extends EnergyCalculator {
       }
     }
 
-    public calculateFourFrameNumbersFromStrokes(
-      calculator: FourFrameCalculator,
-      surnameStrokeCounts: readonly number[],
-      givenStrokeCounts: readonly number[],
-    ) {
-      const padded = [...givenStrokeCounts];
-      if (padded.length === 1) {
-        padded.push(0);
-      }
-      const mid = Math.floor(padded.length / 2);
-      const givenUpperSum = this.sum(padded.slice(0, mid));
-      const givenLowerSum = this.sum(padded.slice(mid));
-      const surnameTotal = this.sum(surnameStrokeCounts);
-      const givenTotal = this.sum(givenStrokeCounts);
-
-      calculator.frames = [
-        new FourFrameCalculator.Frame('won', this.sum(padded)),
-        new FourFrameCalculator.Frame('hyung', this.adjustTo81(surnameTotal + givenUpperSum)),
-        new FourFrameCalculator.Frame('lee', this.adjustTo81(surnameTotal + givenLowerSum)),
-        new FourFrameCalculator.Frame('jung', this.adjustTo81(surnameTotal + givenTotal))
-      ];
-    }
-
-    public adjustTo81(value: number): number {
-      if (value <= 81) {
-        return value;
-      }
-      return ((value - 1) % 81) + 1;
-    }
-
-    public sum(values: readonly number[]): number {
-      let out = 0;
-      for (const value of values) {
-        out += value;
-      }
-      return out;
-    }
   }
 }

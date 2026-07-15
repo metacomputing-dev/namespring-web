@@ -1,5 +1,6 @@
 import { utcMsToJulianDay, julianDayToUtcMs } from './julian.js';
 import { solarTermUtcMsForLongitude, type SolarTermMethod } from './solarTerms.js';
+import { utcMsFromParts } from './utc.js';
 
 /**
  * Lunar New Year boundary helper (설날/춘절).
@@ -193,7 +194,7 @@ export function computeLunarNewYearBoundary(
   const m = dt.getUTCMonth() + 1;
   const d = dt.getUTCDate();
 
-  const boundaryUtcMs = Date.UTC(y, m - 1, d, 0, 0, 0) - offsetMinutes * 60_000;
+  const boundaryUtcMs = utcMsFromParts(y, m - 1, d) - offsetMinutes * 60_000;
 
   return {
     localYear,

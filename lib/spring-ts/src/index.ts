@@ -1,7 +1,36 @@
 // ─────────────────────────────────────────────────────────────────────────────
 //  1. SPRING ENGINE & EVALUATOR
 // ─────────────────────────────────────────────────────────────────────────────
-export { FortuneSajuUnavailableError, SpringEngine } from './spring-engine.js';
+export {
+  FortuneSajuUnavailableError,
+  SPRING_ENGINE_INIT_CANCELLED,
+  SPRING_ENGINE_OPERATION_CANCELLED,
+  SpringEngine,
+  SpringEngineInitializationCancelledError,
+  SpringEngineOperationCancelledError,
+} from './spring-engine.js';
+export {
+  FOURFRAME_CONTRACT_INVALID,
+  FOURFRAME_EXPECTED_RECORD_COUNT,
+  FOURFRAME_LUCKY_LEVELS,
+  FOURFRAME_MAX_NUMBER,
+  FOURFRAME_MIN_NUMBER,
+  FourFrameContractError,
+  compileFourFrameContract,
+  type CompiledFourFrameContract,
+  type FourFrameContractIssue,
+  type FourFrameContractRecord,
+  type FourFrameLuckyLevel,
+} from './fourframe-contract.js';
+export {
+  NAME_STAT_LOOKUP_UNAVAILABLE,
+  NameStatLookupUnavailableError,
+  type NameStatLookupResult,
+} from './name-stat-contract.js';
+export {
+  REPOSITORY_DATA_INVALID,
+  RepositoryDataError,
+} from '../../seed-ts/src/database/repository-errors.js';
 export {
   SAJU_ANALYSIS_UNAVAILABLE,
   SajuAnalysisUnavailableError,

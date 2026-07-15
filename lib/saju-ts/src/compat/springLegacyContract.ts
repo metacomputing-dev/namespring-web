@@ -1,3 +1,8 @@
+import type { LongitudeCorrectionPolicy } from '../api/types.js';
+
+/** Stable typed longitude policy accepted by the legacy Spring bridge. */
+export type LegacyLongitudeCorrectionPolicy = LongitudeCorrectionPolicy;
+
 /** Stable V1 pillar shape consumed by the spring-ts compatibility adapter. */
 export interface LegacyPillarV1 {
   readonly cheongan: string;
@@ -56,6 +61,7 @@ export interface LegacyYongshinRecommendationV1 {
   readonly type: string;
   readonly primaryElement: string;
   readonly secondaryElement: string | null;
+  /** Spring compatibility boundary: 0..100 confidence points. */
   readonly confidence: number;
   readonly reasoning: string;
 }
@@ -65,6 +71,7 @@ export interface LegacyYongshinResultV1 {
   readonly finalHeesin: string | null;
   readonly gisin: string | null;
   readonly gusin: string | null;
+  /** Spring compatibility boundary: 0..100 confidence points. */
   readonly finalConfidence: number;
   readonly agreement: string;
   readonly consensus: unknown;

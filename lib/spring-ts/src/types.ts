@@ -60,6 +60,11 @@ export interface SpringOptions {
   readonly offset?: number;
   readonly schoolPreset?: SchoolPresetName;
   readonly sajuTimePolicy?: SajuTimePolicyOptions;
+  /**
+   * Advanced raw saju-ts escape hatch. Product time controls in
+   * `sajuTimePolicy` are authoritative over conflicting top-level or nested
+   * calendar fields supplied here.
+   */
   readonly sajuConfig?: Record<string, unknown>;
   readonly sajuOptions?: SajuRequestOptions;
   readonly pureHangulNameMode?: 'auto' | 'on' | 'off';
@@ -153,15 +158,16 @@ export interface PrecisionConfig {
    *    weight system. Replaces the linear cliff with `0.5 + 0.5·tanh(…)`. */
   readonly sajuPriorityCurve?: 'linear' | 'tanh';
 
-  /** Unknown-hour safety guard.
-   *  When true AND the birth.hour is missing, the evaluator dampens the
-   *  saju priority by `unknownTimeSajuDamp` (default 0.5) so a 시간미상
-   *  saju cannot dominate the adaptive policy. Declared here; wiring lands
-   *  alongside the curve change so both paths share a single test fixture. */
+  /** Input-time uncertainty safety guard.
+   *  When true, the evaluator dampens saju priority for a normalized unknown
+   *  hour or a missing minute whose HH:00..HH:59 envelope crosses a discrete
+   *  result boundary. A stable missing-minute envelope is recorded but is not
+   *  dampened. The legacy option name remains for API compatibility. */
   readonly unknownHourGuard?: boolean;
 
   /** Multiplier applied to saju priority when `unknownHourGuard` is true
-   *  and birth.hour is missing. Default 0.5 (halve). Range [0, 1]. */
+   *  and normalized input-time uncertainty requires the guard. Default 0.5
+   *  (halve). Range [0, 1]. */
   readonly unknownTimeSajuDamp?: number;
 
   // ── PR11: data / naming-specific opt-in flags ─────────────────────────
@@ -427,6 +433,11 @@ export interface CounterexampleRow {
 export interface SajuTimePolicyOptions {
   readonly trueSolarTime?: 'on' | 'off';
   readonly longitudeCorrection?: 'on' | 'off';
+  /**
+   * Meridian used for longitude correction. Product default is the physical
+   * civil-offset meridian; legacyPreset is an explicit compatibility opt-in.
+   */
+  readonly longitudeReference?: 'civilOffsetMeridian' | 'legacyPreset';
   readonly yaza?: 'on' | 'off';
   readonly yazaMode?: '23:00' | '23:30';
 }
@@ -580,6 +591,10 @@ export interface SajuSummary {
   readonly daeunInfo?: DaeunInfoSummary | null;
   readonly saeunPillars?: readonly SaeunPillarSummary[];
   readonly wolunPillars?: readonly WolunPillarSummary[];
+  /** Neutral requests never select a male/female fortune direction implicitly. */
+  readonly neutralGenderBasis?: 'MALE' | 'FEMALE' | 'UNKNOWN';
+  /** Present when daeun and daeun-coupled relations were omitted for a neutral request. */
+  readonly genderDependentFortuneStatus?: 'unavailable_neutral_gender';
   readonly [key: string]: unknown;
 }
 
@@ -651,9 +666,21 @@ export type SajuAnalysisReasonCode =
   | 'BIRTH_INPUT_INSUFFICIENT'
   | 'BIRTH_DATE_INVALID'
   | 'BIRTH_TIME_INVALID'
+  | 'BIRTH_TIME_POLICY_INVALID'
+  | 'BIRTH_TIMEZONE_INVALID'
+  | 'BIRTH_TIMEZONE_DATA_UNSUPPORTED'
+  | 'BIRTH_TIME_NONEXISTENT'
+  | 'BIRTH_TIME_AMBIGUOUS'
+  | 'BIRTH_TIME_RANGE_TRANSITION'
+  | 'BIRTH_LOCATION_INVALID'
+  | 'BIRTH_LOCATION_PARTIAL'
+  | 'BIRTH_LOCATION_UNRESOLVED'
+  | 'BIRTH_LOCATION_CONFLICT'
+  | 'BIRTH_LOCATION_TIMEZONE_MISMATCH'
   | 'LUNAR_INPUT_INSUFFICIENT'
   | 'LUNAR_CONVERSION_UNAVAILABLE'
   | 'NEUTRAL_GENDER_ANALYSIS_PARTIAL'
+  | 'NEUTRAL_GENDER_NATAL_MISMATCH'
   | 'NEUTRAL_GENDER_ANALYSIS_FAILED'
   | 'SAJU_INVALID_SCHOOL_PRESET_SELECTOR'
   | 'SAJU_UNKNOWN_SCHOOL_PRESET'
@@ -720,8 +747,10 @@ export interface YongshinSummary {
   readonly heeshin: string | null;
   readonly gishin: string | null;
   readonly gushin: string | null;
+  /** Legacy/public summary confidence expressed as 0..100 points. */
   readonly confidence: number;
   readonly agreement: string;
+  /** Recommendation confidence values are 0..100 points on this boundary. */
   readonly recommendations: YongshinRecommendation[];
   readonly consensus?: YongshinConsensusScoreboard;
   readonly methodBreakdown?: Record<string, unknown>;
@@ -743,8 +772,17 @@ export interface YongshinJonggyeokRisk {
   readonly confidenceAttenuated: boolean;
 }
 
-/** A single yongshin recommendation with its rationale. */
+/** A public yongshin recommendation; confidence is expressed as 0..100 points. */
 export interface YongshinRecommendation {
+  readonly type: string;
+  readonly primaryElement: string;
+  readonly secondaryElement: string | null;
+  readonly confidence: number;
+  readonly reasoning: string;
+}
+
+/** Score-facing yongshin recommendation; confidence is a 0..1 ratio. */
+export interface SajuYongshinRecommendation {
   readonly type: string;
   readonly primaryElement: string;
   readonly secondaryElement: string | null;
@@ -764,7 +802,9 @@ export type YongshinConsensusConflictLevel = 'none' | 'low' | 'medium' | 'high';
 
 export interface YongshinConsensusAxisScore {
   readonly element: string | null;
+  /** Upstream consensus ratio in the closed interval 0..1. */
   readonly score: number;
+  /** Per-element upstream consensus ratios in the closed interval 0..1. */
   readonly scores: Readonly<Record<string, number>>;
   readonly evidence: readonly string[];
 }
@@ -778,6 +818,7 @@ export interface YongshinConsensusScoreboard {
   readonly siksangFlow: YongshinConsensusAxisScore;
   readonly final: {
     readonly element: string;
+    /** Upstream consensus ratio in the closed interval 0..1. */
     readonly confidence: number;
     readonly topMargin: number;
     readonly conflictLevel: YongshinConsensusConflictLevel;
@@ -791,6 +832,7 @@ export interface GyeokgukSummary {
   readonly type: string;
   readonly category: string;
   readonly baseTenGod: string | null;
+  /** Upstream gyeokguk confidence ratio in the closed interval 0..1. */
   readonly confidence: number;
   readonly reasoning: string;
   readonly candidates?: readonly GyeokgukCandidateSummary[];
@@ -872,7 +914,7 @@ export type JonggyeokSubtype =
   | 'zhuan_wang'
   | 'hua_qi';
 
-/** Evidence-only jonggyeok classifier output. */
+/** Evidence-only jonggyeok classifier output; numeric signals are 0..1 ratios. */
 export interface JonggyeokCandidateSummary {
   readonly subtype: JonggyeokSubtype;
   readonly status: JonggyeokCandidateStatus;
@@ -889,7 +931,7 @@ export interface JonggyeokCandidateSummary {
   readonly sourceTier: SourceTierMetadata;
 }
 
-/** Display-only candidate evidence for the selected gyeokguk. */
+/** Display-only candidate evidence; score and confidence are 0..1 ratios. */
 export interface GyeokgukCandidateSummary {
   readonly type: string;
   readonly category: string;
@@ -1555,20 +1597,47 @@ export interface SajuAxisStrengthMap {
 }
 
 export type SajuInputUncertaintyAxis =
+  | 'yearPillar'
+  | 'monthPillar'
+  | 'dayPillar'
   | 'hourPillar'
   | 'yongshin'
   | 'gyeokguk'
   | 'strength'
   | 'tenGod'
+  | 'relations'
+  | 'shinsal'
   | 'fortuneTiming';
 
 export interface SajuInputUncertainty {
   readonly unknownHour?: {
     readonly fallbackHour: number;
     readonly fallbackMinute: number;
+    readonly fallbackTimezone?: string;
     readonly affectedAxes: readonly SajuInputUncertaintyAxis[];
     readonly affectedAxisLabels?: readonly string[];
     readonly confidenceTierShift: 'downgrade-one-step';
+    readonly message: string;
+  };
+  /** A known hour whose minute was omitted. The adapter evaluates the whole
+   *  HH:00..HH:59 envelope under the selected time-correction policy instead
+   *  of silently treating the imputed :00 value as exact. */
+  readonly unknownMinute?: {
+    readonly fallbackHour: number;
+    readonly fallbackMinute: number;
+    readonly fallbackTimezone?: string;
+    readonly evaluatedMinuteRange: {
+      readonly from: 0;
+      readonly to: 59;
+    };
+    readonly comparedMinutes: readonly [0, 59];
+    /** True because minute imputation always limits continuous fortune timing
+     *  precision even when no discrete pillar/output boundary is crossed. */
+    readonly continuousTimingAffected: true;
+    readonly boundarySensitive: boolean;
+    readonly affectedAxes: readonly SajuInputUncertaintyAxis[];
+    readonly affectedAxisLabels?: readonly string[];
+    readonly confidenceTierShift: 'none' | 'downgrade-affected-axes-one-step';
     readonly message: string;
   };
 }
@@ -1620,6 +1689,7 @@ export interface SajuTenGodPositionGroup {
 export interface SajuGyeokgukOutputSummary {
   category: string;
   type: string;
+  /** Internal score-facing confidence ratio in the closed interval 0..1. */
   confidence: number;
   basis?: GyeokgukBasisSummary;
   scores?: Readonly<Record<string, number>>;
@@ -1630,8 +1700,10 @@ export interface SajuYongshinSummary {
   finalHeesin: string | null;
   gisin: string | null;
   gusin: string | null;
+  /** Internal score-facing confidence ratio in the closed interval 0..1. */
   finalConfidence: number;
-  recommendations: YongshinRecommendation[];
+  /** Recommendation confidence values are 0..1 ratios on this boundary. */
+  recommendations: SajuYongshinRecommendation[];
   consensus?: YongshinConsensusScoreboard;
   methodBreakdown?: Record<string, unknown>;
 }

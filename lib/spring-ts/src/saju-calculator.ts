@@ -48,7 +48,7 @@ import type {
   YongshinConsensusConflictLevel,
   YongshinConsensusScoreboard,
 } from './types.js';
-import { elementFromSajuCode } from './saju-adapter.js';
+import { elementFromSajuCode } from './saju/element-code.js';
 import { SAJU_FRAME } from './spring-evaluator.js';
 import {
   type ElementKey,
@@ -1347,9 +1347,9 @@ export function computeSajuNameScore(
 export interface SajuEvaluatorHints {
   readonly sajuPriorityCurve?: 'linear' | 'tanh';
   readonly unknownHourGuard?: boolean;
-  /** Multiplier applied when guard fires AND birth.hour is missing. */
+  /** Multiplier applied when the normalized input-time uncertainty guard fires. */
   readonly unknownTimeSajuDamp?: number;
-  /** Set by spring-engine when the request's birth.hour is null/undefined. */
+  /** Compatibility name: true for unknown hour or boundary-sensitive minute. */
   readonly isHourUnknown?: boolean;
   /** Evaluator priority extraction mode (PR-Q-7).
    *  - 'single' (default): existing balance + yongshin × confidence path.

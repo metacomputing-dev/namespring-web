@@ -1,5 +1,6 @@
-import { Polarity } from "./polarity";
-import type { Element } from "./element";
+import { Polarity } from './polarity.js';
+import type { Element } from './element.js';
+import { SeedCalculationError } from '../errors.js';
 
 export class Energy {
   public polarity: Polarity;
@@ -10,11 +11,13 @@ export class Energy {
     this.element = element;
   }
 
-  public static getScore(energies: Energy[]): number {
+  public static getScore(energies: readonly Energy[]): number {
+    Energy.assertNonEmpty(energies);
     return Energy.getPolarityScore(energies) * 0.5 + Energy.getElementScore(energies) * 0.5;
   }
 
-  public static getPolarityScore(energies: Energy[]): number {
+  public static getPolarityScore(energies: readonly Energy[]): number {
+    Energy.assertNonEmpty(energies);
     let scoreSum = 0;
 
     energies.forEach(e => {
@@ -28,7 +31,8 @@ export class Energy {
   }
   
   
-  public static getElementScore(energies: Energy[]): number {
+  public static getElementScore(energies: readonly Energy[]): number {
+    Energy.assertNonEmpty(energies);
     let genCount = 0;
     let overCount = 0;
     let sameCount = 0;
@@ -49,5 +53,16 @@ export class Energy {
 
     const score = 70 + genCount * 15 - overCount * 20 - sameCount * 5;
     return Math.min(100, Math.max(0, score));
+  }
+
+  private static assertNonEmpty(energies: readonly Energy[]): void {
+    if (energies.length === 0) {
+      throw new SeedCalculationError(
+        'EMPTY_ENERGY_SET',
+        'At least one calculated energy is required for scoring.',
+        'energies',
+        energies,
+      );
+    }
   }
 }

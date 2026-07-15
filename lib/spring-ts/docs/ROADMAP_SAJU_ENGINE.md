@@ -15,11 +15,16 @@
 > `20/100`이다. 이는 실패 17건이 아니라 진리값 부족 17건이다. D1 필수 7필드의
 > scope-eligible 진리값, 제품 표면·안전 카피 계약, 종격 birth-time 권위 사례,
 > exact diff 승인, 그리고 exact commit에 결속된 외부 명리 전문가 signoff가 완결되기
-> 전에는 **전문가급 상용 릴리스·기본값 승격을 금지한다.** 다만 이번 backend-only
-> guardrail/refactor PR은 현재 diff의 고위험 스파게티와 논리 결함을 정리하고,
-> 변경 범위 회귀가 통과하며, 프론트·기본값 승격을 포함하지 않고, 위 한계를 PR에
-> 명시한 뒤 점진적 병합 대상으로 검토할 수 있다. WIP 해제 전에는 근거와 잔여 위험을
-> 프로젝트 소유자에게 먼저 보고한다.
+> 전에는 **전문가급 상용 릴리스·명리 판정 모델의 추가 기본값 승격을 금지한다.**
+> 이번 backend-only 체크포인트는 격국·용신·강약 판정 모델을 승격하지 않지만, 시간
+> 보정 정합성 수정으로 제품 기본 경도 기준을 legacy preset 고정 자오선에서 출생
+> 민간시의 civil-offset 자오선으로 변경한다. Korean/modern의 현대 UTC+9 입력은
+> 보정량이 같지만 traditional-Chinese preset, 역사 표준시·DST, 해외 입력, 부분 위치
+> 입력에는 의도적인 default/API 변화가 있다. 따라서 전용 시간정책 행렬과 exact-diff
+> 검토 없이 무파급 리팩터링으로 분류하지 않는다. 현재 diff의 고위험 스파게티와 논리
+> 결함을 정리하고 변경 범위 회귀가 통과하며 위 한계를 PR에 명시한 뒤 점진적 병합
+> 대상으로 검토할 수 있다. WIP 해제 전에는 근거와 잔여 위험을 프로젝트 소유자에게
+> 먼저 보고한다.
 
 ---
 
@@ -90,6 +95,7 @@
 | lib/spring-ts | `npm run test:tiered-shape` | 1378/0 |
 | lib/spring-ts | `npm run test:service-visible-output` | 13/0 |
 | lib/spring-ts | `npm run test:adapter-daewoon` | 31/0 |
+| lib/spring-ts | `npm run test:time-policy` | 위치 튜플·글로벌 경도·역사 KST/DST·gap/fold·분 미상 전환·시간 불확실성 전부 PASS |
 | lib/spring-ts | `npm run test:transit-luck-report` | 13/0 |
 | lib/spring-ts | `npm run test:boundary-goldens` | 867/0 |
 | lib/spring-ts | `npm run test:jonggyeok` | 111/0 |
@@ -268,6 +274,8 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 | P0-2 테스트 체인 무결성 | ✅ 코드·CI 준비 | pending | 2026-07-10 | saju-ts 42 files/254 tests, spring-ts release regression 및 bridge typecheck 전부 PASS. pull_request workflow와 fail-closed expert-readiness gate 추가 |
 | P0-4 학파 출처 무결성 | 🔶 저작 완료·독립 검토 대기 | 49a785cfa | 2026-07-10 | 누락 10개 출처 문서(docs/11·16·17·18·19·20·22·25·26·27) 전부 저작 — 교리 요약·고전 서지·엔진 매핑(file:line 검증)·검토자 체크리스트 포함, 헤더에 독립 검토 대기 명시. `validate:school-sources` FAIL(23)→PASS(18 프리셋), test:release-tools PASS. 게이트 완결 조건인 독립 검토 메타데이터는 검토 후 기록 |
 | P0-5 호환 계층 분해 | 🔶 부분 완료 | pending | 2026-07-10 | follow potential·strength component·bridge contract·운 관계 계산 중복을 분리/삭제. 대형 adapter와 legacy seam의 mapper 단위 분리는 후속 |
+| backend 런타임·데이터 경계 | ✅ 코드 체크포인트 / 🔶 release 검토 대기 | 23ce799a6 | 2026-07-11 | Spring init/close 원자성·요청별 rejection 격리·neutral 오류 보존·NameStat fail-closed/세대 취소, Seed deterministic/frozen API·strict row decoder·WASM SHA-256·패키지 경계, 공용 81수리 contract와 DB SHA/81행 exact parity를 완료했다. 검증: seed 35/35, saju 49 files/301 tests, Spring typecheck/build·compat 208/0·service 13/0·fortune fail-closed 13/0, frontend production build PASS. 단, quality report는 Overall N/A(D1~D5 미완), composite는 미승인 default diff 17건(`sha256:2b92727a…b074`) 때문에 6/1이며 외부 전문가 signoff manifest도 없다. embedded 81수리 서사는 점수에서 제외되고 DB 정합성만 검증되었을 뿐 권위·카피 검토 완료가 아니다. 원문 전수 스캔에도 의료 인접(`검진` 21 등), 단정(`반드시` 118 등), 성인 맥락(`투자` 111 등)이 남아 별도 content gate가 필요하다. |
+| 글로벌·역사 시간정책 | ✅ backend 체크포인트 / 🔶 상용 claim 검토 대기 | 0e91b8ec9 | 2026-07-12 | Spring 기본을 civil-offset 자오선으로 정합화하고, legacy 135°/120°는 지역 호환 opt-in으로 분리했다. 물리 경도 비변조, 위치 tuple·충돌 fail-closed, IANA gap/fold·분 미상 전환 거부, 런타임 tzdb canary, 1~99년 literal-year UTC를 구현했다. modern Chinese preset·역사/DST·해외·부분입력은 의도적 default/API 변화다. 글로벌 geocoder·좌표/timezone 지리 검증·전 세계 역사 tzdb 인증·외부 권위 검토는 미완이다. |
 | P0-3 baseline 픽스처 보강 | ✅ | 75c3cdef5 | 2026-07-09 | 17/17(야자시 창 fix-16 + 음력 윤달 fix-17). 픽스처 수 하드코딩 2곳 동적화(baseline-metrics·quality-gate) |
 | 9-1 운-원국 관계 | ✅ | 8c310a014 | 2026-07-09 | canonical fortune.relations node; springLegacy relationsWithNatal; adapter/report evidence. Natal-only relations and scoring unchanged. Verified: saju-ts 202/0, baseline 17/0, compat 208/0, tiered-shape 1378/0, service-visible 13/0, adapter-daewoon 24/0, transit-luck-report 12/0 |
 | 9-2 대운↔세운 | ✅ | ade45f9c0 | 2026-07-09 | decade-year fortune relations in fortune.relations.decadeYears; saeun relationsWithDecade; yearly report evidence. Pre-start years omitted; natal scoring unchanged. Verified: saju-ts 204/0, baseline 17/0, compat 208/0, tiered-shape 1378/0, service-visible 13/0, adapter-daewoon 25/0, transit-luck-report 13/0 |

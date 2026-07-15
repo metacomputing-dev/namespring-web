@@ -19,11 +19,8 @@
  *  Gongmang (공망): Void branches
  *  Daeun (대운): 10-year luck cycles
  */
-import { type ElementKey, emptyDistribution } from './core/scoring.js';
 import type {
-  SajuOutputSummary, SpringRequest, SajuSummary, PillarSummary, BirthInfo,
-  SajuPillarPosition, SajuTenGodPositionGroup,
-  SajuAxisStrengthMap, SajuJudgmentStrength, SajuInputUncertaintyAxis,
+  SpringRequest, SajuSummary, PillarSummary, BirthInfo,
   GyeokgukCandidateSummary, JonggyeokCandidateSummary, SourceTierMetadata,
   YongshinConsensusScoreboard, LunarConversionSummary, JieProximitySummary,
   DaeunInfoSummary, SaeunPillarSummary, WolunPillarSummary,
@@ -51,30 +48,59 @@ import {
   validateSajuRequestOptions,
 } from './saju-request-policy.js';
 import { isScorableSajuSummary } from './saju-analysis-contract.js';
+import {
+  deriveAxisStrength,
+} from './saju/context-builder.js';
+import {
+  applyUnknownHourUncertainty,
+  applyUnknownMinuteUncertainty,
+  assessUnknownMinuteSensitivity,
+  DEFAULT_UNKNOWN_HOUR,
+  DEFAULT_UNKNOWN_MINUTE,
+} from './saju/time-uncertainty.js';
+import {
+  ELEMENT_CODES,
+  normalizeElementCode,
+  normalizeElementCodeList,
+} from './saju/element-code.js';
+import {
+  clampPoints,
+  clampRatio,
+} from './saju/confidence-units.js';
+import {
+  GYEOKGUK_KO_LABEL,
+  normalizeCodeToken,
+  normalizeGyeokgukCategoryCode,
+  normalizeGyeokgukTypeCode,
+  normalizeTenGodCode,
+  normalizeYongshinTypeCode,
+  stripWhitespace,
+  TEN_GOD_KO_LABEL,
+} from './saju/legacy-codec.js';
+import { resolveBirthLocation } from './saju/birth-location.js';
+import {
+  applyAuthoritativeSajuTimePolicyConfig,
+  isLongitudeCorrectionEnabled,
+  isValidSajuTimePolicy,
+  legacyTimeFailureReasonCode,
+  preflightKnownHourCivilTimeRange,
+} from './saju/time-policy.js';
+
+export { buildSajuContext } from './saju/context-builder.js';
+export { collectElements, elementFromSajuCode } from './saju/element-code.js';
 
 // ---------------------------------------------------------------------------
 //  Configuration loaded from JSON files
 // ---------------------------------------------------------------------------
 import cheonganJijiConfig from '../config/cheongan-jiji.json';
 import engineConfig from '../config/engine.json';
-import sajuScoringConfig from '../config/saju-scoring.json';
-import { KOREA_REGION_COORDINATES, type RegionCoordinate } from './region-coordinates.js';
 import { extractGyeokgukSeongpae } from './saju-seongpae-contract.js';
-
-/** Maps uppercase element codes ("WOOD") to display keys ("Wood"). */
-const ELEMENT_CODE_TO_KEY: Record<string, ElementKey> = cheonganJijiConfig.elementCodeToKey as Record<string, ElementKey>;
-
-/** Canonical list of the five elements in order. */
-const ELEMENT_CODES: readonly string[] = cheonganJijiConfig.elementCodes;
 
 /** Heavenly Stems reference table (hangul, hanja, element, polarity). */
 const CHEONGAN: Record<string, { hangul: string; hanja: string; element: string; polarity: string }> = cheonganJijiConfig.cheongan;
 
 /** Earthly Branches reference table (hangul, hanja). */
 const JIJI: Record<string, { hangul: string; hanja: string }> = cheonganJijiConfig.jiji;
-
-/** Maps each ten-god name to its group: friend/output/wealth/authority/resource. */
-const TEN_GOD_GROUP: Record<string, string> = sajuScoringConfig.tenGodGroups;
 
 /** Maps user-facing preset names ("korean") to internal preset codes ("KOREAN_MAINSTREAM"). */
 const PRESET_MAP: Record<string, string> = engineConfig.presetMapping;
@@ -84,27 +110,6 @@ const PRESET_MAP: Record<string, string> = engineConfig.presetMapping;
 const DEFAULT_LATITUDE: number = engineConfig.defaultCoordinates.latitude;
 const DEFAULT_LONGITUDE: number = engineConfig.defaultCoordinates.longitude;
 const DEFAULT_TIMEZONE: string = engineConfig.defaultTimezone;
-const DEFAULT_UNKNOWN_HOUR = 12;
-const DEFAULT_UNKNOWN_MINUTE = 0;
-const UNKNOWN_HOUR_AFFECTED_AXES: readonly SajuInputUncertaintyAxis[] = [
-  'hourPillar',
-  'yongshin',
-  'gyeokguk',
-  'strength',
-  'tenGod',
-  'fortuneTiming',
-];
-const INPUT_UNCERTAINTY_AXIS_LABELS: Record<SajuInputUncertaintyAxis, string> = {
-  hourPillar: '시주',
-  yongshin: '용신 후보',
-  gyeokguk: '격국',
-  strength: '신강약',
-  tenGod: '십성 위치',
-  fortuneTiming: '운세 시점',
-};
-const UNKNOWN_HOUR_AFFECTED_AXIS_LABELS = UNKNOWN_HOUR_AFFECTED_AXES.map(
-  (axis) => INPUT_UNCERTAINTY_AXIS_LABELS[axis],
-);
 const DISTRIBUTION_ROUND_DIGITS = 1;
 const DEFICIENT_AVERAGE_RATIO = 0.5;
 const EXCESSIVE_AVERAGE_RATIO = 1.7;
@@ -123,15 +128,6 @@ const GYEOKGUK_CANDIDATE_SOURCE_TIER: SourceTierMetadata = {
 const YEAR_STEM_CODES = ['GAP', 'EUL', 'BYEONG', 'JEONG', 'MU', 'GI', 'GYEONG', 'SIN', 'IM', 'GYE'] as const;
 const YEAR_BRANCH_CODES = ['JA', 'CHUK', 'IN', 'MYO', 'JIN', 'SA', 'O', 'MI', 'SIN', 'YU', 'SUL', 'HAE'] as const;
 const HOUR_BRANCH_CODES = ['JA', 'CHUK', 'IN', 'MYO', 'JIN', 'SA', 'O', 'MI', 'SIN', 'YU', 'SUL', 'HAE'] as const;
-const TEN_GOD_CODES = [
-  'BI_GYEON', 'GYEOB_JAE', 'SIK_SIN', 'SANG_GWAN',
-  'PYEON_JAE', 'JEONG_JAE', 'PYEON_GWAN', 'JEONG_GWAN',
-  'PYEON_IN', 'JEONG_IN',
-] as const;
-const YONGSHIN_TYPE_CODES = [
-  'EOKBU', 'JOHU', 'RANKING', 'GYEOKGUK', 'TONGGWAN', 'HAPWHA_YONGSHIN', 'ILHAENG',
-] as const;
-const GYEOKGUK_CATEGORY_CODES = ['NORMAL', 'JONGGYEOK'] as const;
 const YONGSHIN_CONFLICT_LEVELS = ['none', 'low', 'medium', 'high'] as const;
 const JONGGYEOK_SUBTYPE_CODES = [
   'cong_cai',
@@ -144,17 +140,6 @@ const JONGGYEOK_SUBTYPE_CODES = [
   'hua_qi',
 ] as const;
 const JONGGYEOK_STATUS_CODES = ['none', 'possible', 'candidate', 'selected', 'blocked'] as const;
-
-/** Alias map: alternative romanizations → canonical code used in label tables. */
-const CODE_ALIASES: Record<string, string> = {
-  SIK_SHIN: 'SIK_SIN',
-  GEOB_JAE: 'GYEOB_JAE',
-};
-
-/** Resolves code aliases to canonical form. */
-function resolveCodeAlias(code: string): string {
-  return CODE_ALIASES[code] ?? code;
-}
 
 const ELEMENT_KO_LABEL: Record<string, string> = {
   WOOD: '\uBAA9',
@@ -187,46 +172,9 @@ const YONGSHIN_TYPE_KO_LABEL: Record<string, string> = {
   HAPWHA_YONGSHIN: '\uD569\uD654\uC6A9\uC2E0',
   ILHAENG: '\uC77C\uD589 \uC6A9\uC2E0',
 };
-const TEN_GOD_KO_LABEL: Record<string, string> = {
-  BI_GYEON: '비견',
-  GYEOB_JAE: '겁재',
-  SIK_SIN: '식신',
-  SANG_GWAN: '상관',
-  PYEON_JAE: '편재',
-  JEONG_JAE: '정재',
-  PYEON_GWAN: '편관',
-  JEONG_GWAN: '정관',
-  PYEON_IN: '편인',
-  JEONG_IN: '정인',
-};
 const GYEOKGUK_CATEGORY_KO_LABEL: Record<string, string> = {
   NORMAL: '\uC77C\uBC18',
   JONGGYEOK: '\uC885\uACA9',
-};
-const GYEOKGUK_KO_LABEL: Record<string, string> = {
-  BI_GYEON: '비견격',
-  GYEOB_JAE: '겁재격',
-  // 감사 B4: 월지 비겁의 주류 격명 (기본 모드). 누락 시 원시 코드 노출됨.
-  GEONROK: '건록격',
-  YANGIN: '양인격',
-  WOLGEOB: '월겁격',
-  JEONG_GWAN: '정관격',
-  PYEON_GWAN: '편관격',
-  JEONG_JAE: '정재격',
-  PYEON_JAE: '편재격',
-  SIK_SIN: '식신격',
-  SANG_GWAN: '상관격',
-  JEONG_IN: '정인격',
-  PYEON_IN: '편인격',
-  HUA_QI: '화기격',
-  ZHUAN_WANG: '전왕격',
-  CONG_GE: '종격',
-  CONG_CAI: '종재격',
-  CONG_GUAN: '종관격',
-  CONG_SHA: '종살격',
-  CONG_ER: '종아격',
-  CONG_YIN: '종인격',
-  CONG_BI: '종비격',
 };
 const JIJI_RELATION_NOTE_KO_LABEL: Record<string, string> = {
   CHUNG: '\uC9C0\uC9C0 \uCDA9 \uAD00\uACC4',
@@ -359,19 +307,6 @@ const TC_KEYS = [
   'dstCorrectionMinutes', 'longitudeCorrectionMinutes', 'equationOfTimeMinutes',
 ] as const;
 
-// ---------------------------------------------------------------------------
-//  Public: element code conversion
-// ---------------------------------------------------------------------------
-
-/**
- * Converts a saju element code like "WOOD" into a display key like "Wood".
- * Returns `null` when the input is missing or unrecognized.
- */
-export function elementFromSajuCode(value: string | null | undefined): ElementKey | null {
-  const code = normalizeElementCode(value);
-  return code ? (ELEMENT_CODE_TO_KEY[code] ?? null) : null;
-}
-
 function roundTo(value: unknown, digits: number): number {
   const n = Number(value);
   if (!Number.isFinite(n)) return 0;
@@ -411,128 +346,6 @@ function extractJieProximity(raw: any): JieProximitySummary | undefined {
     isNearBoundary: raw.isNearBoundary === true,
   };
 }
-
-function stripWhitespace(value: string): string {
-  return value.replace(/\s+/g, '');
-}
-
-function normalizeRegionToken(value: unknown): string {
-  return stripWhitespace(String(value ?? ''))
-    .toLowerCase()
-    .replace(/[.,()_/-]/g, '');
-}
-
-const REGION_ALIAS_ENTRIES = KOREA_REGION_COORDINATES
-  .flatMap((region) => region.aliases.map((alias) => ({
-    alias: normalizeRegionToken(alias),
-    region,
-  })))
-  .filter((entry) => entry.alias.length > 0)
-  .sort((a, b) => b.alias.length - a.alias.length);
-
-const DEFAULT_REGION_COORDINATE = KOREA_REGION_COORDINATES.find((entry) => entry.code === DEFAULT_REGION_CODE)
-  ?? KOREA_REGION_COORDINATES[0]
-  ?? {
-    code: DEFAULT_REGION_CODE,
-    latitude: DEFAULT_LATITUDE,
-    longitude: DEFAULT_LONGITUDE,
-    timezone: DEFAULT_TIMEZONE,
-    aliases: ['서울'],
-  };
-
-interface ResolvedBirthCoordinates {
-  latitude: number;
-  longitude: number;
-  timezone: string;
-  regionCode: string | null;
-  source: 'explicit' | 'region' | 'default';
-}
-
-function toFiniteNumber(value: unknown): number | null {
-  const n = Number(value);
-  return Number.isFinite(n) ? n : null;
-}
-
-function pickBirthRegionCandidates(birth: BirthInfo): string[] {
-  const birthAny = birth as unknown as Record<string, unknown>;
-  const rawCandidates = [
-    birth.region,
-    birth.city,
-    birth.birthPlace,
-    birthAny['location'],
-    birthAny['place'],
-    birthAny['regionName'],
-    birthAny['cityName'],
-    birthAny['address'],
-    birthAny['birthRegion'],
-    birthAny['birthCity'],
-    birthAny['birthLocation'],
-    birth.name,
-  ];
-
-  return rawCandidates
-    .filter((item): item is string => typeof item === 'string')
-    .map((item) => item.trim())
-    .filter((item) => item.length > 0);
-}
-
-function findRegionCoordinateFromText(text: string): RegionCoordinate | null {
-  const normalized = normalizeRegionToken(text);
-  if (!normalized) return null;
-
-  for (const entry of REGION_ALIAS_ENTRIES) {
-    if (normalized === entry.alias || normalized.includes(entry.alias)) {
-      return entry.region;
-    }
-  }
-  return null;
-}
-
-function resolveBirthCoordinates(birth: BirthInfo): ResolvedBirthCoordinates {
-  const explicitLatitude = toFiniteNumber(birth.latitude);
-  const explicitLongitude = toFiniteNumber(birth.longitude);
-  const explicitTimezone = typeof birth.timezone === 'string' && birth.timezone.trim()
-    ? birth.timezone.trim()
-    : null;
-
-  if (explicitLatitude != null && explicitLongitude != null) {
-    return {
-      latitude: explicitLatitude,
-      longitude: explicitLongitude,
-      timezone: explicitTimezone ?? DEFAULT_TIMEZONE,
-      regionCode: null,
-      source: 'explicit',
-    };
-  }
-
-  const region = pickBirthRegionCandidates(birth)
-    .map((candidate) => findRegionCoordinateFromText(candidate))
-    .find((matched): matched is RegionCoordinate => Boolean(matched))
-    ?? null;
-
-  const base = region ?? DEFAULT_REGION_COORDINATE;
-  return {
-    latitude: explicitLatitude ?? base.latitude,
-    longitude: explicitLongitude ?? base.longitude,
-    timezone: explicitTimezone ?? base.timezone ?? DEFAULT_TIMEZONE,
-    regionCode: region?.code ?? base.code,
-    source: region ? 'region' : 'default',
-  };
-}
-
-function normalizeCodeToken(value: unknown): string {
-  const raw = String(value ?? '').trim();
-  if (!raw) return '';
-
-  const upper = raw.toUpperCase();
-  if (/^[A-Z_]+$/.test(upper)) return resolveCodeAlias(upper);
-
-  const bracketMatch = upper.match(/\(([A-Z_]+)\)\s*$/);
-  if (bracketMatch) return resolveCodeAlias(bracketMatch[1] ?? '');
-
-  return '';
-}
-
 function formatCodeDisplay(koreanLabel: string | null, code: string): string {
   if (koreanLabel) return koreanLabel;
   return code;
@@ -566,30 +379,6 @@ function cleanAdapterText(value: string): string {
   out = applyKoreanParticlePlaceholder(out, /(\S+?)\uACFC\(\uC640\)/g, '\uACFC', '\uC640');
   out = applyKoreanParticlePlaceholder(out, /(\S+?)\uC640\(\uACFC\)/g, '\uACFC', '\uC640');
   return out;
-}
-
-function normalizeElementCode(value: unknown): string | null {
-  const raw = String(value ?? '').trim();
-  if (!raw) return null;
-
-  const codeToken = normalizeCodeToken(raw);
-  if (codeToken && (ELEMENT_CODES as readonly string[]).includes(codeToken)) return codeToken;
-
-  const upper = raw.toUpperCase();
-  if ((ELEMENT_CODES as readonly string[]).includes(upper)) return upper;
-  if (/\bWOOD\b/.test(upper)) return 'WOOD';
-  if (/\bFIRE\b/.test(upper)) return 'FIRE';
-  if (/\bEARTH\b/.test(upper)) return 'EARTH';
-  if (/\bMETAL\b/.test(upper)) return 'METAL';
-  if (/\bWATER\b/.test(upper)) return 'WATER';
-
-  const compact = stripWhitespace(raw);
-  if (compact.includes('목') || compact.includes('木')) return 'WOOD';
-  if (compact.includes('화') || compact.includes('火')) return 'FIRE';
-  if (compact.includes('토') || compact.includes('土')) return 'EARTH';
-  if (compact.includes('금') || compact.includes('金')) return 'METAL';
-  if (compact.includes('수') || compact.includes('水')) return 'WATER';
-  return null;
 }
 
 function formatElementDisplay(value: unknown): string {
@@ -671,48 +460,10 @@ function formatYongshinAgreementDisplay(value: unknown): string {
   return formatCodeDisplay(YONGSHIN_AGREEMENT_KO_LABEL[code] ?? null, code);
 }
 
-function normalizeYongshinTypeCode(value: unknown): string {
-  const raw = String(value ?? '').trim();
-  if (!raw) return '';
-
-  const codeToken = normalizeCodeToken(raw);
-  if (codeToken && (YONGSHIN_TYPE_CODES as readonly string[]).includes(codeToken)) return codeToken;
-
-  const upper = raw.toUpperCase();
-  if ((YONGSHIN_TYPE_CODES as readonly string[]).includes(upper)) return upper;
-
-  const compact = stripWhitespace(raw);
-  if (compact.includes('순위')) return 'RANKING';
-  if (compact.includes('조후')) return 'JOHU';
-  if (compact.includes('억부')) return 'EOKBU';
-  if (compact.includes('격국')) return 'GYEOKGUK';
-  if (compact.includes('통관')) return 'TONGGWAN';
-  if (compact.includes('합화')) return 'HAPWHA_YONGSHIN';
-  if (compact.includes('일행')) return 'ILHAENG';
-  return upper;
-}
-
 function formatYongshinTypeDisplay(value: unknown): string {
   const code = normalizeYongshinTypeCode(value);
   if (!code) return '';
   return formatCodeDisplay(YONGSHIN_TYPE_KO_LABEL[code] ?? null, code);
-}
-
-function normalizeTenGodCode(value: unknown): string {
-  const raw = String(value ?? '').trim();
-  if (!raw) return '';
-
-  const codeToken = normalizeCodeToken(raw);
-  if (codeToken && (TEN_GOD_CODES as readonly string[]).includes(codeToken)) return codeToken;
-
-  const upper = raw.toUpperCase();
-  if ((TEN_GOD_CODES as readonly string[]).includes(upper)) return upper;
-
-  const compact = stripWhitespace(raw);
-  for (const [code, label] of Object.entries(TEN_GOD_KO_LABEL)) {
-    if (compact.includes(label)) return code;
-  }
-  return upper;
 }
 
 function formatTenGodDisplay(value: unknown): string {
@@ -721,43 +472,10 @@ function formatTenGodDisplay(value: unknown): string {
   return formatCodeDisplay(TEN_GOD_KO_LABEL[code] ?? null, code);
 }
 
-function normalizeGyeokgukCategoryCode(value: unknown): string {
-  const raw = String(value ?? '').trim();
-  if (!raw) return '';
-
-  const codeToken = normalizeCodeToken(raw);
-  if (codeToken && (GYEOKGUK_CATEGORY_CODES as readonly string[]).includes(codeToken)) return codeToken;
-
-  const upper = raw.toUpperCase();
-  if ((GYEOKGUK_CATEGORY_CODES as readonly string[]).includes(upper)) return upper;
-
-  const compact = stripWhitespace(raw);
-  if (compact.includes('종격')) return 'JONGGYEOK';
-  if (compact.includes('일반')) return 'NORMAL';
-  return upper;
-}
-
 function formatGyeokgukCategoryDisplay(value: unknown): string {
   const code = normalizeGyeokgukCategoryCode(value);
   if (!code) return '';
   return formatCodeDisplay(GYEOKGUK_CATEGORY_KO_LABEL[code] ?? null, code);
-}
-
-function normalizeGyeokgukTypeCode(value: unknown): string {
-  const raw = String(value ?? '').trim();
-  if (!raw) return '';
-
-  const codeToken = normalizeCodeToken(raw);
-  if (codeToken) return codeToken;
-
-  const upper = raw.toUpperCase();
-  if (/^[A-Z_]+$/.test(upper)) return upper;
-
-  const compact = stripWhitespace(raw);
-  for (const [code, label] of Object.entries(GYEOKGUK_KO_LABEL)) {
-    if (compact.includes(label)) return code;
-  }
-  return upper;
 }
 
 function formatGyeokgukTypeDisplay(value: unknown): string {
@@ -836,30 +554,6 @@ function formatShinsalPositionDisplay(value: unknown): string {
   return formatCodeDisplay(SHINSAL_POSITION_KO_LABEL[code] ?? null, code);
 }
 
-function normalizeElementCodeList(value: unknown): string[] {
-  if (!Array.isArray(value)) return [];
-  const dedup = new Set<string>();
-  for (const item of value) {
-    const code = normalizeElementCode(item);
-    if (code) dedup.add(code);
-  }
-  return [...dedup];
-}
-
-function confidenceToPoints(value: unknown): number {
-  const n = Number(value);
-  if (!Number.isFinite(n)) return 0;
-  const normalized = Math.max(0, Math.min(1, n <= 1 ? n : n / 100));
-  return Math.round(normalized * 100);
-}
-
-function confidenceToRatio(value: unknown): number {
-  const n = Number(value);
-  if (!Number.isFinite(n)) return 0;
-  const normalized = n > 1 ? n / 100 : n;
-  return Math.max(0, Math.min(1, normalized));
-}
-
 function classifyDeficientAndExcessive(distribution: Record<string, number>): {
   deficientElements: string[];
   excessiveElements: string[];
@@ -885,8 +579,9 @@ function classifyDeficientAndExcessive(distribution: Record<string, number>): {
 // ---------------------------------------------------------------------------
 
 let sajuModule: SajuModule | null = null;
+let sajuModulePromise: Promise<SajuModule | null> | null = null;
 
-async function loadSajuModule(): Promise<SajuModule | null> {
+async function importSajuModule(): Promise<SajuModule | null> {
   if (sajuModule) return sajuModule;
 
   // Two-stage import — order matters:
@@ -930,6 +625,20 @@ async function loadSajuModule(): Promise<SajuModule | null> {
     );
     return null;
   }
+}
+async function loadSajuModule(): Promise<SajuModule | null> {
+  if (sajuModule) return sajuModule;
+  if (sajuModulePromise) return sajuModulePromise;
+
+  let trackedPromise: Promise<SajuModule | null>;
+  trackedPromise = importSajuModule().finally(() => {
+    // A failed load remains retryable, while concurrent callers share the
+    // exact same attempt. Identity guarding prevents an older attempt from
+    // clearing a newer retry.
+    if (sajuModulePromise === trackedPromise) sajuModulePromise = null;
+  });
+  sajuModulePromise = trackedPromise;
+  return trackedPromise;
 }
 
 // ---------------------------------------------------------------------------
@@ -1007,64 +716,6 @@ function toStringArray(value: any): string[] {
   return [];
 }
 
-type PolicyToggle = 'on' | 'off';
-
-function resolvePolicyToggle(value: unknown, fallback: PolicyToggle): PolicyToggle {
-  if (value === 'on' || value === 'off') return value;
-  return fallback;
-}
-
-function toLegacySajuTimePolicyConfig(
-  options: SpringRequest['options'] | undefined,
-  longitudeForLmtNeutralization: number,
-): Record<string, unknown> {
-  const policy = options?.sajuTimePolicy;
-
-  // Product defaults (감사 결정① 2026-07-08):
-  // - true solar time: off
-  // - longitude correction: on
-  // - day boundary: 정자시설 — yaza 기본 'on' + 23:00 모드(엔진 ziSplit23).
-  //   경도 보정과 결합하면 서울 기준 시계 약 23:32에 일주·자시가 개시된다.
-  //   자정설(구 기본)은 sajuTimePolicy.yaza='off'로 복귀 가능.
-  const trueSolarTimeToggle = resolvePolicyToggle(policy?.trueSolarTime, 'off');
-  const longitudeCorrectionToggle = resolvePolicyToggle(policy?.longitudeCorrection, 'on');
-  const yazaToggle = resolvePolicyToggle(policy?.yaza, 'on');
-
-  const patch: Record<string, unknown> = {};
-
-  // In legacy bridge, both longitude correction and equation-of-time are behind
-  // `trueSolarTimeEnabled`. Keep the two product toggles independent by:
-  // - enabling trueSolar pipeline if either toggle is on
-  // - enabling equation-of-time only when trueSolarTime toggle is on
-  // - neutralizing longitude shift when longitude toggle is off
-  const shouldEnableTrueSolarPipeline = trueSolarTimeToggle === 'on' || longitudeCorrectionToggle === 'on';
-  patch.trueSolarTimeEnabled = shouldEnableTrueSolarPipeline;
-  patch.includeEquationOfTime = trueSolarTimeToggle === 'on';
-  patch.longitudeCorrectionEnabled = true;
-  if (longitudeCorrectionToggle === 'off') {
-    // Neutralize longitude correction by aligning baseline to raw longitude.
-    // In legacy bridge this yields effectiveLongitude == standardMeridian.
-    patch.lmtBaselineLongitude = longitudeForLmtNeutralization;
-  }
-
-  patch.yazaEnabled = yazaToggle === 'on';
-  if (yazaToggle === 'on') {
-    // 23:30 모드는 경도 보정 off 유파용 레거시 옵션 — 경도 보정과 중첩하면
-    // 이중 보정(-62분)이 된다 (감사 A11).
-    const legacyMode =
-      policy?.yazaMode === '23:30' ? 'YAZA_23_30_TO_01_30_NEXTDAY' : 'YAZA_23_TO_01_NEXTDAY';
-    patch.yazaMode = legacyMode;
-    // dayCutMode를 반드시 명시: resolveDayCutMode(springLegacy)가 dayCutMode를
-    // yazaMode보다 먼저 평가하므로, preset(KOREAN_MAINSTREAM)의 dayCutMode가
-    // 남아 있으면 여기서 고른 모드에 그림자를 드리운다.
-    patch.dayCutMode = legacyMode;
-  } else {
-    patch.dayCutMode = 'MIDNIGHT_00'; // 자정설 옵션 (yaza:'off')
-  }
-
-  return patch;
-}
-
 function toOptionalInt(value: unknown): number | null {
   if (value == null || value === '') return null;
   const parsed = Number(value);
@@ -1103,7 +754,6 @@ function hasAnyKnownBirthPart(parts: KnownBirthParts): boolean {
 function canRunFullSaju(parts: KnownBirthParts): boolean {
   return parts.year != null && parts.month != null && parts.day != null;
 }
-
 function hasProvidedValue(value: unknown): boolean {
   return value != null && value !== '';
 }
@@ -1133,14 +783,16 @@ function hasInvalidSolarDateInput(birth: BirthInfo, parts: KnownBirthParts): boo
 }
 
 function hasInvalidTimeInput(birth: BirthInfo, parts: KnownBirthParts): boolean {
-  const fields: ReadonlyArray<readonly [unknown, number | null]> = [
-    [birth.hour, parts.hour],
-    [birth.minute, parts.minute],
+  const fields: ReadonlyArray<readonly [unknown, number | null, number, number]> = [
+    [birth.hour, parts.hour, 0, 23],
+    [birth.minute, parts.minute, 0, 59],
   ];
-  return fields.some(([raw, resolved]) => raw != null && (
+  return fields.some(([raw, resolved, minimum, maximum]) => raw != null && (
     typeof raw !== 'number'
     || !Number.isFinite(raw)
     || !Number.isInteger(raw)
+    || raw < minimum
+    || raw > maximum
     || resolved == null
   ));
 }
@@ -1324,6 +976,50 @@ const SAJU_ANALYSIS_FAILURES: Readonly<Record<
     status: 'failed',
     message: '출생 시각은 0~23시와 0~59분의 정수로 입력해야 합니다.',
   },
+  BIRTH_TIME_POLICY_INVALID: {
+    status: 'failed',
+    message: '사주 시간 보정 정책 값이 지원되는 옵션이 아닙니다.',
+  },
+  BIRTH_TIMEZONE_INVALID: {
+    status: 'failed',
+    message: '출생지 시간대가 올바른 IANA 시간대 또는 UTC 오프셋이 아닙니다.',
+  },
+  BIRTH_TIMEZONE_DATA_UNSUPPORTED: {
+    status: 'failed',
+    message: '현재 실행 환경의 시간대 자료가 역사 출생시각 계산에 필요한 범위를 지원하지 않습니다.',
+  },
+  BIRTH_TIME_NONEXISTENT: {
+    status: 'failed',
+    message: '입력한 출생 시각은 해당 지역의 시계 전환으로 존재하지 않습니다.',
+  },
+  BIRTH_TIME_AMBIGUOUS: {
+    status: 'failed',
+    message: '입력한 출생 시각은 해당 지역의 시계 전환으로 두 번 존재해 하나로 확정할 수 없습니다.',
+  },
+  BIRTH_TIME_RANGE_TRANSITION: {
+    status: 'failed',
+    message: '출생 분이 없어 확인해야 할 한 시간 범위에 존재하지 않거나 두 번 존재하는 시각이 포함되어 출생 시각을 안전하게 확정할 수 없습니다.',
+  },
+  BIRTH_LOCATION_INVALID: {
+    status: 'failed',
+    message: '출생지 좌표 또는 시간대 입력 형식이 올바르지 않습니다.',
+  },
+  BIRTH_LOCATION_PARTIAL: {
+    status: 'failed',
+    message: '출생지 좌표와 시간대가 일부만 입력되어 안전하게 계산할 수 없습니다.',
+  },
+  BIRTH_LOCATION_UNRESOLVED: {
+    status: 'failed',
+    message: '출생지 이름을 지원 좌표로 확인할 수 없습니다. 좌표와 시간대를 함께 입력해 주세요.',
+  },
+  BIRTH_LOCATION_CONFLICT: {
+    status: 'failed',
+    message: '입력한 출생 지역 정보가 서로 다른 지역을 가리켜 안전하게 계산할 수 없습니다.',
+  },
+  BIRTH_LOCATION_TIMEZONE_MISMATCH: {
+    status: 'failed',
+    message: '선택한 출생 지역과 입력한 시간대가 일치하지 않습니다.',
+  },
   LUNAR_INPUT_INSUFFICIENT: {
     status: 'partial',
     message: '음력 사주 분석에는 출생 연·월·일이 모두 필요합니다.',
@@ -1335,6 +1031,10 @@ const SAJU_ANALYSIS_FAILURES: Readonly<Record<
   NEUTRAL_GENDER_ANALYSIS_PARTIAL: {
     status: 'partial',
     message: '중성 기준 비교에서 남성·여성 계산 중 하나만 완료되었습니다.',
+  },
+  NEUTRAL_GENDER_NATAL_MISMATCH: {
+    status: 'failed',
+    message: '중성 기준의 두 원국 계산이 일치하지 않아 결과를 사용할 수 없습니다.',
   },
   NEUTRAL_GENDER_ANALYSIS_FAILED: {
     status: 'failed',
@@ -1408,6 +1108,23 @@ export interface NeutralGenderAnalysisResolution {
   readonly interpretationNote: string | null;
 }
 
+function withoutGenderDependentFortune(summary: SajuSummary): SajuSummary {
+  const saeunPillars = summary.saeunPillars?.map(({ relationsWithDecade: _ignored, ...pillar }) => pillar);
+  return {
+    ...summary,
+    daeunInfo: null,
+    ...(saeunPillars ? { saeunPillars } : {}),
+  };
+}
+
+function hasSameGenderIndependentAnalysis(
+  maleSummary: SajuSummary,
+  femaleSummary: SajuSummary,
+): boolean {
+  return JSON.stringify(withoutGenderDependentFortune(maleSummary))
+    === JSON.stringify(withoutGenderDependentFortune(femaleSummary));
+}
+
 function withAnalysisDiagnostic(
   summary: SajuSummary,
   reasonCode: SajuAnalysisReasonCode,
@@ -1433,21 +1150,36 @@ export function resolveNeutralGenderAnalysis(
 ): NeutralGenderAnalysisResolution {
   let maleSummary: SajuSummary | null = null;
   let femaleSummary: SajuSummary | null = null;
+  let maleError: unknown = null;
+  let femaleError: unknown = null;
 
   try {
     maleSummary = analyzeWithGender('MALE');
   } catch (error) {
     if (isGlobalSajuFailure(error)) throw error;
+    maleError = error;
     maleSummary = null;
   }
   try {
     femaleSummary = analyzeWithGender('FEMALE');
   } catch (error) {
     if (isGlobalSajuFailure(error)) throw error;
+    femaleError = error;
     femaleSummary = null;
   }
 
   if (!maleSummary && !femaleSummary) {
+    // Configuration, input and module failures are gender-independent. When
+    // both paths fail for the same structured reason, preserve that root cause
+    // for the outer adapter boundary instead of mislabelling it as a neutral
+    // comparison failure.
+    if (
+      maleError != null
+      && femaleError != null
+      && failureReasonCode(maleError) === failureReasonCode(femaleError)
+    ) {
+      throw maleError;
+    }
     return {
       summary: emptySaju('NEUTRAL_GENDER_ANALYSIS_FAILED'),
       basis: null,
@@ -1460,15 +1192,11 @@ export function resolveNeutralGenderAnalysis(
 
   const maleConfidence = maleSummary?.yongshin?.confidence ?? null;
   const femaleConfidence = femaleSummary?.yongshin?.confidence ?? null;
-  const basis: NeutralGenderCode =
+  const completedGender: NeutralGenderCode =
     maleSummary && !femaleSummary
       ? 'MALE'
-      : !maleSummary && femaleSummary
-        ? 'FEMALE'
-        : (femaleConfidence ?? -1) > (maleConfidence ?? -1)
-          ? 'FEMALE'
-          : 'MALE';
-  const selectedSummary = basis === 'FEMALE' ? femaleSummary! : maleSummary!;
+      : 'FEMALE';
+  const completedSummary = completedGender === 'FEMALE' ? femaleSummary! : maleSummary!;
   const completedGenders: NeutralGenderCode[] = [
     ...(maleSummary ? ['MALE' as const] : []),
     ...(femaleSummary ? ['FEMALE' as const] : []),
@@ -1477,22 +1205,36 @@ export function resolveNeutralGenderAnalysis(
   const femaleConfidenceText = femaleConfidence != null ? femaleConfidence.toFixed(2) : '-';
 
   if (maleSummary && femaleSummary) {
+    if (!hasSameGenderIndependentAnalysis(maleSummary, femaleSummary)) {
+      return {
+        summary: emptySaju('NEUTRAL_GENDER_NATAL_MISMATCH'),
+        basis: null,
+        maleConfidence,
+        femaleConfidence,
+        completedGenders,
+        interpretationNote: null,
+      };
+    }
+
     return {
-      summary: selectedSummary,
-      basis,
+      summary: withoutGenderDependentFortune(maleSummary),
+      basis: null,
       maleConfidence,
       femaleConfidence,
       completedGenders,
       interpretationNote:
-        `중성 선택으로 남녀 기준을 모두 계산했고, 신뢰도 기준으로 ${basis} 결과를 사용했습니다. (남성 ${maleConfidenceText}, 여성 ${femaleConfidenceText})`,
+        '중성 선택으로 성별과 무관한 원국·세운·월운만 사용했습니다. 성별에 따라 순행·역행이 달라지는 대운과 세운-대운 관계는 임의로 선택하지 않았습니다.',
     };
   }
 
-  const completedLabel = basis === 'MALE' ? '남성' : '여성';
-  const failedLabel = basis === 'MALE' ? '여성' : '남성';
+  const completedLabel = completedGender === 'MALE' ? '남성' : '여성';
+  const failedLabel = completedGender === 'MALE' ? '여성' : '남성';
   return {
-    summary: withAnalysisDiagnostic(selectedSummary, 'NEUTRAL_GENDER_ANALYSIS_PARTIAL'),
-    basis,
+    summary: withAnalysisDiagnostic(
+      withoutGenderDependentFortune(completedSummary),
+      'NEUTRAL_GENDER_ANALYSIS_PARTIAL',
+    ),
+    basis: null,
     maleConfidence,
     femaleConfidence,
     completedGenders,
@@ -1527,22 +1269,9 @@ function failureReasonCode(error: unknown): SajuAnalysisReasonCode {
   if (code === 'SAJU_BRIDGE_CONTRACT_MISMATCH') {
     return 'SAJU_BRIDGE_CONTRACT_MISMATCH';
   }
+  const legacyTimeReasonCode = legacyTimeFailureReasonCode(error);
+  if (legacyTimeReasonCode) return legacyTimeReasonCode;
   return 'SAJU_CALCULATION_FAILED';
-}
-
-// ---------------------------------------------------------------------------
-//  Public: collect element keys from mixed sources
-// ---------------------------------------------------------------------------
-
-export function collectElements(...sources: (string | null | undefined | string[])[]): Set<string> {
-  const result = new Set<string>();
-  for (const source of sources) {
-    for (const item of (Array.isArray(source) ? source : source ? [source] : [])) {
-      const elementKey = elementFromSajuCode(item);
-      if (elementKey) result.add(elementKey);
-    }
-  }
-  return result;
 }
 
 // ---------------------------------------------------------------------------
@@ -1550,6 +1279,13 @@ export function collectElements(...sources: (string | null | undefined | string[
 // ---------------------------------------------------------------------------
 
 export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['options']): Promise<SajuSummary> {
+  const parts = resolveKnownBirthParts(birth);
+  if (hasInvalidTimeInput(birth, parts)) {
+    return emptySaju('BIRTH_TIME_INVALID');
+  }
+  if (!isValidSajuTimePolicy(options)) {
+    return emptySaju('BIRTH_TIME_POLICY_INVALID');
+  }
   let saju: SajuModule | null;
   try {
     saju = await loadSajuModule();
@@ -1558,12 +1294,8 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
   }
   if (!saju) return emptySaju('SAJU_MODULE_UNAVAILABLE');
 
-  const parts = resolveKnownBirthParts(birth);
   if (!hasAnyKnownBirthPart(parts)) {
     return emptySaju('BIRTH_INPUT_INSUFFICIENT');
-  }
-  if (hasInvalidTimeInput(birth, parts)) {
-    return emptySaju('BIRTH_TIME_INVALID');
   }
   if (birth.calendarType !== 'lunar' && hasInvalidSolarDateInput(birth, parts)) {
     return emptySaju('BIRTH_DATE_INVALID');
@@ -1612,7 +1344,30 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
   }
   validateSajuRequestOptions(options?.sajuOptions, birthYear);
   validateSajuConfigFortuneHorizon(options?.sajuConfig);
-  const resolvedCoordinates = resolveBirthCoordinates(birth);
+  const locationResolution = resolveBirthLocation(
+    birth,
+    {
+      latitude: DEFAULT_LATITUDE,
+      longitude: DEFAULT_LONGITUDE,
+      timezone: DEFAULT_TIMEZONE,
+      regionCode: DEFAULT_REGION_CODE,
+    },
+    { requireLongitude: isLongitudeCorrectionEnabled(options) },
+  );
+  if (!locationResolution.ok) return emptySaju(locationResolution.reasonCode);
+  const resolvedCoordinates = locationResolution.value;
+
+  if (parts.hour != null && parts.minute == null) {
+    const timeRangePreflight = preflightKnownHourCivilTimeRange({
+      year: birthYear,
+      month: birthMonth,
+      day: birthDay,
+      hour: parts.hour,
+      timeZone: resolvedCoordinates.timezone,
+      resolveOffsetMinutes: saju.resolveOffsetMinutes,
+    });
+    if (!timeRangePreflight.ok) return emptySaju(timeRangePreflight.reasonCode);
+  }
 
   try {
     // Always seed legacy config from a preset first.
@@ -1620,8 +1375,14 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
     const presetKey = options?.schoolPreset ?? 'korean';
     const presetCode = PRESET_MAP[presetKey] ?? PRESET_MAP.korean ?? 'KOREAN_MAINSTREAM';
     let config: RuntimeLegacySajuConfig = { ...(saju.configFromPreset(presetCode) ?? {}) };
-    const timePolicyConfig = toLegacySajuTimePolicyConfig(options, resolvedCoordinates.longitude);
-    if (Object.keys(timePolicyConfig).length) config = { ...config, ...timePolicyConfig };
+    let legacyPresetMeridian: number | undefined;
+    const configuredMeridian = config['lmtBaselineLongitude'];
+    if (
+      typeof configuredMeridian === 'number'
+      && Number.isFinite(configuredMeridian)
+    ) {
+      legacyPresetMeridian = configuredMeridian;
+    }
     // PR-H-S2 — request Newton root-finder for solar-term boundary lookup.
     // saju-ts (api/types.ts:79-89) documents that 'newton' has the same target
     // tolerance as 'bisection' so the resulting instant agrees to the chosen
@@ -1657,18 +1418,6 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
         : 'iau1980_top10',
       ...(advancedAberration === 'rCorrected' || advancedAberration === 'constant'
         ? { aberrationModel: advancedAberration }
-        : {}),
-      // PR-H-S4 — when the caller opts into trueSolarTime, use saju-ts's
-      // 'precise' Equation-of-Time model. Keep default mode longitude-only:
-      // setting equationOfTime here while trueSolarTime is off would override
-      // the legacy bridge's `includeEquationOfTime=false` policy.
-      ...(options?.sajuTimePolicy?.trueSolarTime === 'on'
-        ? {
-            trueSolarTime: {
-              ...(config.calendar?.trueSolarTime ?? {}),
-              equationOfTime: 'precise',
-            },
-          }
         : {}),
     };
     // PR-H-S5 — opt-in routing of a saju-ts-side school.id when the caller
@@ -1733,6 +1482,12 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
       };
     }
 
+    config = applyAuthoritativeSajuTimePolicyConfig(
+      config,
+      options,
+      legacyPresetMeridian,
+    ) as RuntimeLegacySajuConfig;
+
     const finalConfig = Object.keys(config).length > 0 ? config : undefined;
 
     const sajuOpts = options?.sajuOptions ? {
@@ -1743,13 +1498,25 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
       wolunMonthCount: options.sajuOptions.wolunMonthCount,
     } : undefined;
 
-    const analyzeWithGender = (genderCode: 'MALE' | 'FEMALE'): SajuSummary => {
+    // Hour and minute have different uncertainty contracts. A missing hour
+    // makes any supplied minute unusable and falls back to noon. A known hour
+    // with a missing minute keeps that hour and applies only a :00 default.
+    const resolvedBirthHour = parts.hour ?? DEFAULT_UNKNOWN_HOUR;
+    const resolvedBirthMinute = parts.hour == null
+      ? DEFAULT_UNKNOWN_MINUTE
+      : (parts.minute ?? DEFAULT_UNKNOWN_MINUTE);
+
+    const analyzeWithGender = (
+      genderCode: 'MALE' | 'FEMALE',
+      birthHour = resolvedBirthHour,
+      birthMinute = resolvedBirthMinute,
+    ): SajuSummary => {
       const birthInput = saju.createBirthInput({
         birthYear,
         birthMonth,
         birthDay,
-        birthHour: parts.hour ?? DEFAULT_UNKNOWN_HOUR,
-        birthMinute: parts.minute ?? DEFAULT_UNKNOWN_MINUTE,
+        birthHour,
+        birthMinute,
         gender: genderCode,
         // 감사 B1: 음력 입력은 상단에서 양력 변환 완료 — 브리지에는 항상 SOLAR
         // (springLegacy의 LUNAR throw 가드에 도달하지 않는다).
@@ -1768,7 +1535,9 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
 
     if (birth.gender === 'neutral') {
       const neutral = resolveNeutralGenderAnalysis(analyzeWithGender);
-      if (!neutral.basis) return neutral.summary;
+      if (neutral.completedGenders.length === 0 || neutral.summary.analysisStatus === 'failed') {
+        return neutral.summary;
+      }
       summary = neutral.summary;
       neutralBasis = neutral.basis;
       neutralInterpretationNote = neutral.interpretationNote;
@@ -1777,15 +1546,46 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
     }
 
     const notes: string[] = [];
-    if (parts.hour == null || parts.minute == null) {
-      notes.push(
-        `출생 시/분 미상으로 ${String(DEFAULT_UNKNOWN_HOUR).padStart(2, '0')}:${String(DEFAULT_UNKNOWN_MINUTE).padStart(2, '0')} 기준 계산을 적용했습니다.`,
+    if (parts.hour == null) {
+      applyUnknownHourUncertainty(summary, resolvedCoordinates.timezone);
+      if (parts.minute != null) {
+        notes.push(
+          `출생 시가 없어 입력된 ${parts.minute}분만으로는 출생 시각을 확정할 수 없습니다. ${String(DEFAULT_UNKNOWN_HOUR).padStart(2, '0')}:${String(DEFAULT_UNKNOWN_MINUTE).padStart(2, '0')} 기준 계산을 적용했습니다.`,
+        );
+      } else {
+        notes.push(
+          `출생 시/분 미상으로 ${String(DEFAULT_UNKNOWN_HOUR).padStart(2, '0')}:${String(DEFAULT_UNKNOWN_MINUTE).padStart(2, '0')} 기준 계산을 적용했습니다.`,
+        );
+      }
+    } else if (parts.minute == null) {
+      const minuteFiftyNineSummary = birth.gender === 'neutral'
+        ? resolveNeutralGenderAnalysis(
+            (genderCode) => analyzeWithGender(genderCode, resolvedBirthHour, 59),
+          ).summary
+        : analyzeWithGender(
+            birth.gender === 'female' ? 'FEMALE' : 'MALE',
+            resolvedBirthHour,
+            59,
+          );
+      const minuteSensitivity = assessUnknownMinuteSensitivity(summary, minuteFiftyNineSummary);
+      applyUnknownMinuteUncertainty(
+        summary,
+        resolvedBirthHour,
+        minuteSensitivity,
+        resolvedCoordinates.timezone,
       );
-      applyUnknownHourUncertainty(summary);
+      notes.push(summary.inputUncertainty?.unknownMinute?.message
+        ?? `출생 분 미상이라 00분을 적용해 ${String(resolvedBirthHour).padStart(2, '0')}:00 기준 계산했습니다.`);
     }
     if (birth.gender === 'neutral') {
       if (neutralInterpretationNote) notes.push(neutralInterpretationNote);
-      summary = { ...summary, neutralGenderBasis: neutralBasis ?? 'UNKNOWN' };
+      summary = {
+        ...summary,
+        neutralGenderBasis: neutralBasis ?? 'UNKNOWN',
+        ...(!neutralBasis
+          ? { genderDependentFortuneStatus: 'unavailable_neutral_gender' as const }
+          : {}),
+      };
     }
     // 감사 B1: 음력 변환 기록 attach + 사용자 검증 노트.
     // lunar 경로에서만 붙인다 — solar 경로에 undefined 키를 세팅하면
@@ -2093,7 +1893,7 @@ function extractYongshin(yongshinResult: any) {
     heeshin:    normalizeElementCode(heeshin) ?? toNullableString(heeshin),
     gishin:     normalizeElementCode(gishin) ?? toNullableString(gishin),
     gushin:     normalizeElementCode(gushin) ?? toNullableString(gushin),
-    confidence: confidenceToPoints(yongshinResult?.finalConfidence),
+    confidence: clampPoints(yongshinResult?.finalConfidence),
     agreement:  formatYongshinAgreementDisplay(yongshinResult?.agreement),
     consensus,
     ...(methodBreakdown ? { methodBreakdown } : {}),
@@ -2108,7 +1908,7 @@ function extractYongshin(yongshinResult: any) {
         type:             formatYongshinTypeDisplay(type),
         primaryElement:   formatElementDisplay(primaryElement),
         secondaryElement: secondaryElement == null ? null : formatElementDisplay(secondaryElement),
-        confidence:       confidenceToPoints(confidence),
+        confidence:       clampPoints(confidence),
         reasoning:        cleanAdapterText(String(reasoning ?? '')),
       }),
     ),
@@ -2125,11 +1925,11 @@ function extractYongshinConsensus(value: any): YongshinConsensusScoreboard | und
       : {};
     const scores: Record<string, number> = {};
     for (const element of ELEMENT_CODES) {
-      scores[element] = confidenceToRatio((scoresRaw as any)[element]);
+      scores[element] = clampRatio((scoresRaw as any)[element]);
     }
     return {
       element: normalizeElementCode(axis.element),
-      score: confidenceToRatio(axis.score),
+      score: clampRatio(axis.score),
       scores,
       evidence: ensureArray(axis.evidence).map((entry) => String(entry)),
     };
@@ -2150,7 +1950,7 @@ function extractYongshinConsensus(value: any): YongshinConsensusScoreboard | und
     siksangFlow: extractAxis('siksangFlow'),
     final: {
       element: normalizeElementCode(finalRaw.element) ?? '',
-      confidence: confidenceToRatio(finalRaw.confidence),
+      confidence: clampRatio(finalRaw.confidence),
       topMargin: Number.isFinite(Number(finalRaw.topMargin)) ? Number(finalRaw.topMargin) : 0,
       conflictLevel,
       competingElements: ensureArray(finalRaw.competingElements)
@@ -2189,7 +1989,7 @@ function extractGyeokguk(gyeokgukResult: any) {
     type:          formatGyeokgukTypeDisplay(gyeokgukResult?.type),
     category:      formatGyeokgukCategoryDisplay(gyeokgukResult?.category),
     baseTenGod:    gyeokgukResult?.baseSipseong ? formatTenGodDisplay(gyeokgukResult.baseSipseong) : null,
-    confidence:    Number(gyeokgukResult?.confidence) || 0,
+    confidence:    clampRatio(gyeokgukResult?.confidence),
     reasoning:     cleanAdapterText(String(gyeokgukResult?.reasoning ?? '')),
     candidates:    extractGyeokgukCandidates(gyeokgukResult?.candidates),
     jonggyeokCandidates: extractJonggyeokCandidates(gyeokgukResult?.jonggyeokCandidates),
@@ -2213,7 +2013,7 @@ function extractGyeokgukCandidates(value: unknown): readonly GyeokgukCandidateSu
         category: formatGyeokgukCategoryDisplay(candidate?.category),
         baseTenGod: candidate?.baseSipseong ? formatTenGodDisplay(candidate.baseSipseong) : null,
         score: Number.isFinite(score) ? score : 0,
-        confidence: confidenceToRatio(candidate?.confidence),
+        confidence: clampRatio(candidate?.confidence),
         supportingRules: ensureArray(candidate?.supportingRules).map((rule) => String(rule)),
         blockingRules: ensureArray(candidate?.blockingRules).map((rule) => String(rule)),
         compositeClassical: extractCompositeClassicalScore(candidate?.compositeClassical),
@@ -2237,13 +2037,13 @@ function extractJonggyeokCandidates(value: unknown): readonly JonggyeokCandidate
       return {
         subtype: subtype as JonggyeokCandidateSummary['subtype'],
         status: status as JonggyeokCandidateSummary['status'],
-        score: confidenceToRatio(candidate?.score),
-        confidence: confidenceToRatio(candidate?.confidence),
-        followPressure: confidenceToRatio(candidate?.followPressure),
-        dayMasterIsolation: confidenceToRatio(candidate?.dayMasterIsolation),
-        rootWeakness: confidenceToRatio(candidate?.rootWeakness),
-        dominantElementShare: confidenceToRatio(candidate?.dominantElementShare),
-        breakerPenalty: confidenceToRatio(candidate?.breakerPenalty),
+        score: clampRatio(candidate?.score),
+        confidence: clampRatio(candidate?.confidence),
+        followPressure: clampRatio(candidate?.followPressure),
+        dayMasterIsolation: clampRatio(candidate?.dayMasterIsolation),
+        rootWeakness: clampRatio(candidate?.rootWeakness),
+        dominantElementShare: clampRatio(candidate?.dominantElementShare),
+        breakerPenalty: clampRatio(candidate?.breakerPenalty),
         selectedReason: typeof candidate?.selectedReason === 'string' ? candidate.selectedReason : undefined,
         blockedReason: typeof candidate?.blockedReason === 'string' ? candidate.blockedReason : undefined,
         evidence: ensureArray(candidate?.evidence).map((entry) => String(entry)),
@@ -2278,8 +2078,8 @@ function extractCompositeClassicalScore(value: any): GyeokgukCandidateSummary['c
 
   return {
     model: 'composite_classical',
-    score: confidenceToRatio(value.score),
-    confidence: confidenceToRatio(value.confidence),
+    score: clampRatio(value.score),
+    confidence: clampRatio(value.confidence),
     status,
     selectionPolicy: 'evidence_only_never_promote',
     selectedByComposite: false,
@@ -2290,7 +2090,7 @@ function extractCompositeClassicalScore(value: any): GyeokgukCandidateSummary['c
         if (!featureNames.has(name)) return null;
         return {
           name: name as any,
-          score: confidenceToRatio(feature?.score),
+          score: clampRatio(feature?.score),
           weight: Number.isFinite(Number(feature?.weight)) ? Number(feature.weight) : 0,
           contribution: Number.isFinite(Number(feature?.contribution)) ? Number(feature.contribution) : 0,
           reason: String(feature?.reason ?? ''),
@@ -2908,253 +2708,4 @@ export async function analyzeSajuSafe(
       diagnostics: summary.diagnostics,
     };
   }
-}
-
-// ---------------------------------------------------------------------------
-//  Public: build a condensed saju context for the name-scoring pipeline
-// ---------------------------------------------------------------------------
-
-export function buildSajuContext(
-  sajuSummary: SajuSummary,
-  options: { readonly includeTenGodByPosition?: boolean } = {},
-): { dist: Record<ElementKey, number>; output: SajuOutputSummary | null } {
-  const dist = emptyDistribution();
-  if (!isScorableSajuSummary(sajuSummary)) return { dist, output: null };
-
-  for (const [code, count] of Object.entries(sajuSummary.elementDistribution)) {
-    const key = elementFromSajuCode(code);
-    if (key) dist[key] += count;
-  }
-
-  const dayMasterKey = elementFromSajuCode(sajuSummary.dayMaster.element);
-  const yongshinData = sajuSummary.yongshin;
-  const yongshinConsensus = sajuSummary.yongshinConsensus ?? yongshinData.consensus;
-  const finalYongshin = normalizeElementCode(yongshinData.element);
-  const finalHeesin = normalizeElementCode(yongshinData.heeshin);
-  const gisin = normalizeElementCode(yongshinData.gishin);
-  const gusin = normalizeElementCode(yongshinData.gushin);
-
-  // Count ten-god group occurrences across all pillar positions, AND surface
-  // the per-pillar detail so callers (e.g., precisionConfig.tenGodMode=
-  // 'positional_weighted') can apply pillar-specific weights without
-  // re-deriving them from the raw saju summary.
-  let tenGod: SajuOutputSummary['tenGod'];
-  if (sajuSummary.tenGodAnalysis?.byPosition) {
-    const groupCounts: Record<string, number> = { friend: 0, output: 0, wealth: 0, authority: 0, resource: 0 };
-    const byPosition: Partial<Record<SajuPillarPosition, SajuTenGodPositionGroup>> = {};
-
-    // First pass — replicate the original groupCounts logic exactly so the
-    // existing aggregate value is preserved bit-for-bit. The byPosition
-    // detail is built in a separate pass that only enumerates the four
-    // canonical pillar positions.
-    for (const positionInfo of Object.values(sajuSummary.tenGodAnalysis.byPosition)) {
-      const stemGroup   = TEN_GOD_GROUP[normalizeTenGodCode(positionInfo.cheonganTenGod)];
-      const branchGroup = TEN_GOD_GROUP[normalizeTenGodCode(positionInfo.jijiPrincipalTenGod)];
-      if (stemGroup)   groupCounts[stemGroup]++;
-      if (branchGroup) groupCounts[branchGroup]++;
-    }
-
-    // Second pass — surface the per-pillar detail (year/month/day/hour) for
-    // precisionConfig.tenGodMode='positional_weighted_v2'. Pillars outside the
-    // four canonical positions are intentionally skipped here; they still
-    // contribute to groupCounts above.
-    const canonicalPositions: ReadonlyArray<{ readonly out: SajuPillarPosition; readonly aliases: readonly string[] }> = [
-      { out: 'year', aliases: ['year', 'YEAR'] },
-      { out: 'month', aliases: ['month', 'MONTH'] },
-      { out: 'day', aliases: ['day', 'DAY'] },
-      { out: 'hour', aliases: ['hour', 'HOUR'] },
-    ];
-    for (const { out, aliases } of canonicalPositions) {
-      const allowedAliases = options.includeTenGodByPosition ? aliases : [out];
-      const positionInfo = allowedAliases
-        .map((alias) => sajuSummary.tenGodAnalysis?.byPosition[alias])
-        .find(Boolean);
-      if (!positionInfo) continue;
-
-      const cheonganGroup        = TEN_GOD_GROUP[normalizeTenGodCode(positionInfo.cheonganTenGod)];
-      const jijiPrincipalGroup   = TEN_GOD_GROUP[normalizeTenGodCode(positionInfo.jijiPrincipalTenGod)];
-
-      const hiddenStemTenGodMap = new Map<string, string>();
-      for (const hs of positionInfo.hiddenStemTenGod ?? []) {
-        if (hs.stem) hiddenStemTenGodMap.set(hs.stem, hs.tenGod);
-      }
-      const hiddenStems = (positionInfo.hiddenStems ?? []).map((hs) => ({
-        stem: hs.stem,
-        element: elementFromSajuCode(hs.element) ?? null,
-        ratio: Number(hs.ratio) || 0,
-        group: TEN_GOD_GROUP[normalizeTenGodCode(hiddenStemTenGodMap.get(hs.stem) ?? '')],
-      }));
-
-      byPosition[out] = {
-        cheonganGroup,
-        jijiPrincipalGroup,
-        hiddenStems: hiddenStems.length > 0 ? hiddenStems : undefined,
-      };
-    }
-
-    tenGod = {
-      groupCounts,
-      byPosition: Object.keys(byPosition).length > 0
-        ? byPosition as Record<SajuPillarPosition, SajuTenGodPositionGroup>
-        : undefined,
-    };
-  }
-
-  return {
-    dist,
-    output: {
-      dayMaster: dayMasterKey ? { element: dayMasterKey } : undefined,
-      strength: {
-        isStrong:     sajuSummary.strength.isStrong,
-        totalSupport: sajuSummary.strength.totalSupport,
-        totalOppose:  sajuSummary.strength.totalOppose,
-      },
-      yongshin: {
-        finalYongshin:   finalYongshin ?? String(yongshinData.element ?? ''),
-        finalHeesin:     finalHeesin ?? null,
-        gisin:           gisin ?? null,
-        gusin:           gusin ?? null,
-        finalConfidence: confidenceToRatio(yongshinData.confidence),
-        consensus:        yongshinConsensus,
-        methodBreakdown:  yongshinData.methodBreakdown,
-        recommendations: yongshinData.recommendations.map(
-          ({ type, primaryElement, secondaryElement, confidence, reasoning }) => ({
-            type: normalizeYongshinTypeCode(type),
-            primaryElement: normalizeElementCode(primaryElement) ?? String(primaryElement ?? ''),
-            secondaryElement: normalizeElementCode(secondaryElement),
-            confidence: confidenceToRatio(confidence),
-            reasoning,
-          }),
-        ),
-      },
-      yongshinConsensus,
-      tenGod,
-      gyeokguk: sajuSummary.gyeokguk?.type ? {
-        category:   normalizeGyeokgukCategoryCode(sajuSummary.gyeokguk.category ?? ''),
-        type:       normalizeGyeokgukTypeCode(sajuSummary.gyeokguk.type ?? ''),
-        confidence: Number(sajuSummary.gyeokguk.confidence) || 0,
-        basis:      sajuSummary.gyeokguk.basis,
-        scores:     sajuSummary.gyeokguk.scores,
-      } : undefined,
-      deficientElements: sajuSummary.deficientElements?.length
-        ? normalizeElementCodeList(sajuSummary.deficientElements)
-        : undefined,
-      excessiveElements: sajuSummary.excessiveElements?.length
-        ? normalizeElementCodeList(sajuSummary.excessiveElements)
-        : undefined,
-      axisStrength: sajuSummary.axisStrength ?? deriveAxisStrength(sajuSummary),
-      inputUncertainty: sajuSummary.inputUncertainty,
-      jieProximity: sajuSummary.jieProximity,
-      // PR-H-A: surface the 천간/지지 relation arrays that SajuSummary already
-      // carries. Adapter passthrough — the upstream engine is the source of
-      // truth; we do not re-derive. When the source is empty/absent we leave
-      // the field undefined (rather than emit []) so downstream consumers can
-      // distinguish "no relations on this chart" from "absent in the summary".
-      cheonganRelations: sajuSummary.cheonganRelations?.length
-        ? sajuSummary.cheonganRelations
-        : undefined,
-      jijiRelations: sajuSummary.jijiRelations?.length
-        ? sajuSummary.jijiRelations
-        : undefined,
-      // PR-H-B: surface 신살 hits + 공망 with the same additive-passthrough
-      // policy as PR-H-A. shinsalHits arrives already weighted (qualityWeight
-      // × positionMultiplier) from the upstream summary; we do not re-derive.
-      shinsalHits: sajuSummary.shinsalHits?.length
-        ? sajuSummary.shinsalHits
-        : undefined,
-      gongmang: sajuSummary.gongmang ?? undefined,
-      // PR-H-D: surface 대운 / 세운 richness so the LifeStageFortuneCard +
-      // PeriodFortuneCard builders can read transitions without re-fetching
-      // the full SajuSummary. Both are already produced by extractDaeunInfo
-      // / extractSaeunPillars; we just lift them into the output path.
-      daeunInfo: sajuSummary.daeunInfo ?? undefined,
-      saeunPillars: sajuSummary.saeunPillars?.length
-        ? sajuSummary.saeunPillars
-        : undefined,
-      wolunPillars: sajuSummary.wolunPillars?.length
-        ? sajuSummary.wolunPillars
-        : undefined,
-      // PR-Q-5: forward palace summary when the adapter populated it
-      // (precisionConfig.surfacePalace=true). undefined otherwise.
-      palace: sajuSummary.palace ?? undefined,
-      // PR-Q-6: forward naeum summary when surfaceNaeum=true. undefined otherwise.
-      naeum: sajuSummary.naeum ?? undefined,
-    },
-  };
-}
-
-/** Bins each axis's saju-engine confidence into the 4-tier rhetoric model
- *  (PR9). Returns undefined when no axis carries usable confidence so the
- *  optional field stays absent rather than empty.
- *
- *  Thresholds match saju_master/judgment_expression_engine.py:_score_to_mode
- *  (≥0.85 definite / ≥0.65 practical / ≥0.45 candidate / else deferred). */
-function deriveAxisStrength(sajuSummary: SajuSummary): SajuAxisStrengthMap | undefined {
-  const out: { -readonly [K in keyof SajuAxisStrengthMap]?: SajuJudgmentStrength } = {};
-
-  // yongshin axis — direct confidence from the engine.
-  const yongshinConf = sajuSummary.yongshin?.confidence;
-  if (typeof yongshinConf === 'number' && Number.isFinite(yongshinConf)) {
-    out.yongshin = toJudgmentStrength(confidenceToRatio(yongshinConf));
-  }
-
-  // gyeokguk axis — direct confidence on `sajuSummary.gyeokguk.confidence`.
-  const gyeokgukConf = sajuSummary.gyeokguk?.confidence;
-  if (typeof gyeokgukConf === 'number' && Number.isFinite(gyeokgukConf)) {
-    out.gyeokguk = toJudgmentStrength(gyeokgukConf);
-  }
-
-  // strength axis — derive a confidence from the support / oppose lopsidedness.
-  const support = Number(sajuSummary.strength?.totalSupport) || 0;
-  const oppose  = Number(sajuSummary.strength?.totalOppose)  || 0;
-  const total   = Math.abs(support) + Math.abs(oppose);
-  if (total > 0) {
-    const lopsidedness = Math.abs(Math.abs(support) - Math.abs(oppose)) / total;
-    out.strength = toJudgmentStrength(lopsidedness);
-  }
-
-  // chengbai / johu / fortuneHierarchy / rectification — saju-ts does not yet
-  // surface explicit confidences for these. Future PR can populate.
-
-  return Object.keys(out).length > 0 ? (out as SajuAxisStrengthMap) : undefined;
-}
-
-function applyUnknownHourUncertainty(summary: SajuSummary & Record<string, unknown>): void {
-  const mutableSummary = summary as Record<string, any>;
-  const current = summary.axisStrength ?? deriveAxisStrength(summary);
-  const downgraded: { -readonly [K in keyof SajuAxisStrengthMap]?: SajuJudgmentStrength } = { ...(current ?? {}) };
-
-  for (const axis of ['yongshin', 'gyeokguk', 'strength'] as const) {
-    const next = downgradeJudgmentStrength(current?.[axis]);
-    if (next) downgraded[axis] = next;
-  }
-
-  if (Object.keys(downgraded).length > 0) {
-    mutableSummary.axisStrength = downgraded as SajuAxisStrengthMap;
-  }
-
-  mutableSummary.inputUncertainty = {
-    ...(summary.inputUncertainty as object | undefined),
-    unknownHour: {
-      fallbackHour: DEFAULT_UNKNOWN_HOUR,
-      fallbackMinute: DEFAULT_UNKNOWN_MINUTE,
-      affectedAxes: UNKNOWN_HOUR_AFFECTED_AXES,
-      affectedAxisLabels: UNKNOWN_HOUR_AFFECTED_AXIS_LABELS,
-      confidenceTierShift: 'downgrade-one-step',
-      message: '출생 시각 정보가 없어 계산에는 낮 12시를 임시 기준으로 사용했어요. 시간에 따라 달라질 수 있는 해석은 참고용으로 보세요.',
-    },
-  };
-}
-
-function downgradeJudgmentStrength(value: SajuJudgmentStrength | undefined): SajuJudgmentStrength | undefined {
-  if (value === 'definite') return 'practical';
-  if (value === 'practical') return 'candidate';
-  return value;
-}
-
-function toJudgmentStrength(confidence: number): SajuJudgmentStrength {
-  if (confidence >= 0.85) return 'definite';
-  if (confidence >= 0.65) return 'practical';
-  if (confidence >= 0.45) return 'candidate';
-  return 'deferred';
 }

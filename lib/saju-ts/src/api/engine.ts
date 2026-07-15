@@ -5,7 +5,10 @@ import { stableStringify } from '../utils/json.js';
 import { deepFreeze } from '../utils/deepMerge.js';
 import { buildGraph } from '../graph/graphFactory.js';
 import { evaluate } from '../graph/evaluator.js';
-import { normalizeRequest } from '../calendar/normalizeRequest.js';
+import {
+  assertRequestMeetsCalendarPolicy,
+  normalizeRequest,
+} from '../calendar/normalizeRequest.js';
 import { toBranchView, toHiddenStemTenGodView, toHiddenStemView, toPillarView, toStemView } from './views.js';
 import { packAnalysisBundleZip } from '../artifacts/analysisZip.js';
 import { ENGINE_NAME, ENGINE_VERSION } from '../meta/version.js';
@@ -121,6 +124,7 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
 
     analyze(request: SajuRequest): AnalysisBundle {
       const { request: normalizedRequest, parsed } = normalizeRequest(request);
+      assertRequestMeetsCalendarPolicy(normalizedRequest, normalizedConfig);
 
       const ctx = {
         request: normalizedRequest,

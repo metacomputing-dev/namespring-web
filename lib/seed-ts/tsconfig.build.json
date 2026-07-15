@@ -1,0 +1,22 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "declaration": true,
+    "declarationMap": false,
+    "sourceMap": false,
+    "noEmit": false,
+    "noEmitOnError": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": [
+    "src/utils/decrypt-dict-to-db.ts",
+    "src/utils/name-stat-json-to-sharded-db.ts",
+    "src/utils/sagyeoksu-json-to-db.ts",
+    "src/utils/update-surname-db.ts"
+  ]
+}

@@ -94,8 +94,8 @@ export interface FourFrameAnalysis {
     /** The Yin/Yang polarity based on odd/even stroke sum. */
     polarity: string;
 
-    /** A 0-25 luck rating drawn from the fortune lookup table. */
-    luckyLevel: number;
+    /** A 0-25 luck rating drawn from the fortune lookup table, or null when unavailable. */
+    luckyLevel: number | null;
   }>;
 
   /** 0-100 score measuring element-cycle harmony across the four frames. */

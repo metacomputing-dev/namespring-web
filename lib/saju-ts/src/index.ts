@@ -1,5 +1,9 @@
 export { createEngine } from './api/engine.js';
-export { defaultConfig, InvalidSchoolPresetSelectorError } from './api/config.js';
+export {
+  defaultConfig,
+  InvalidLongitudeCorrectionPolicyError,
+  InvalidSchoolPresetSelectorError,
+} from './api/config.js';
 export { UnsupportedConfigSchemaVersionError } from './api/migrations.js';
 export { InvalidIsoInstantError } from './calendar/iso.js';
 export { SajuRequestValidationError } from './calendar/normalizeRequest.js';
@@ -7,12 +11,20 @@ export {
   analyzeSaju,
   configFromPreset,
   createBirthInput,
+  LegacyAmbiguousTimeError,
+  LegacyBirthLocationError,
+  LegacyCivilTimeError,
   LegacyContractConfigError,
   LegacyContractOutputError,
+  LegacyNonexistentTimeError,
+  LegacyTimezoneDataUnsupportedError,
   LegacyTimezoneError,
+  resolveOffsetMinutes,
 } from './compat/springLegacy.js';
 export type {
+  LegacyBirthLocationErrorCode,
   LegacyBirthInput,
+  LegacyLongitudeCorrectionPolicy,
   LegacySajuConfig,
   LegacySajuOptions,
   LegacySajuOutputV1,
@@ -43,6 +55,7 @@ export type {
   Artifact,
   EngineConfig,
   EngineWeights,
+  LongitudeCorrectionPolicy,
   SchoolConfig,
   FullReport,
   SajuRequest,

@@ -6,6 +6,7 @@ import {
   type AberrationModel,
   type SolarPrecision,
 } from './solar.js';
+import { utcMsFromParts } from './utc.js';
 
 /**
  * Solar-term utilities.
@@ -209,7 +210,7 @@ function roughApproxDateForLongitude(year: number, longitude: number): { m: numb
   // Very rough mapping: assume longitude increases ~360° per tropical year.
   // For bracketing we just need a guess within ±30 days.
   // Map 0° (~春分) to Mar 20.
-  const base = Date.UTC(year, 2, 20, 0, 0, 0); // Mar 20
+  const base = utcMsFromParts(year, 2, 20); // Mar 20
   const days = Math.round((modDeg(longitude) / 360) * 365.2422);
   const ms = base + days * MS_PER_DAY;
   const dt = new Date(ms);
@@ -224,7 +225,7 @@ function findBracketForLongitude(
   solarPrecision: SolarPrecision = DEFAULT_PRECISION,
 ): { aJd: number; bJd: number } {
   // Start from a rough UTC guess and scan for a sign change.
-  const guessUtcMs = Date.UTC(year, approx.m - 1, approx.d, 0, 0, 0);
+  const guessUtcMs = utcMsFromParts(year, approx.m - 1, approx.d);
   const guessJd = utcMsToJulianDay(guessUtcMs);
 
   const windowDays = 30; // conservative
@@ -353,7 +354,7 @@ export function solarTermUtcMsForLongitude(
   const approx = APPROX_BY_LONGITUDE.get(normalized) ?? roughApproxDateForLongitude(year, normalized);
 
   if (method === 'approx') {
-    return Date.UTC(year, approx.m - 1, approx.d, 0, 0, 0);
+    return utcMsFromParts(year, approx.m - 1, approx.d);
   }
 
   const { aJd, bJd } = findBracketForLongitude(year, normalized, approx, aberrationModel, solarPrecision);

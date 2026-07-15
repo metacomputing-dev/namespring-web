@@ -61,22 +61,60 @@ function buildRequired<T>(context: string, builder: () => T): T {
   }
 }
 
-function buildReportUncertainties(saju: SajuSummary): readonly ReportUncertainty[] | undefined {
-  const uncertainty = saju.inputUncertainty?.unknownHour;
-  if (!uncertainty) return undefined;
+function resolveUncertaintyTimezone(
+  uncertaintyTimezone: string | undefined,
+  birthTimezone: string | undefined,
+): string {
+  for (const value of [uncertaintyTimezone, birthTimezone]) {
+    if (typeof value === 'string' && value.trim().length > 0) return value.trim();
+  }
+  return 'Asia/Seoul';
+}
 
-  return [{
-    id: 'unknown-hour',
-    severity: 'medium',
-    message: uncertainty.message,
-    affectedAxes: uncertainty.affectedAxes,
-    affectedAxisLabels: uncertainty.affectedAxisLabels,
-    fallback: {
-      hour: uncertainty.fallbackHour,
-      minute: uncertainty.fallbackMinute,
-      timezone: 'Asia/Seoul',
-    },
-  }];
+function buildReportUncertainties(
+  saju: SajuSummary,
+  birth?: BirthInfo,
+): readonly ReportUncertainty[] | undefined {
+  const rows: ReportUncertainty[] = [];
+  const unknownHour = saju.inputUncertainty?.unknownHour;
+  if (unknownHour) {
+    const timezone = resolveUncertaintyTimezone(unknownHour.fallbackTimezone, birth?.timezone);
+    rows.push({
+      id: 'unknown-hour',
+      severity: 'medium',
+      message: unknownHour.message,
+      affectedAxes: unknownHour.affectedAxes,
+      affectedAxisLabels: unknownHour.affectedAxisLabels,
+      fallback: {
+        hour: unknownHour.fallbackHour,
+        minute: unknownHour.fallbackMinute,
+        timezone,
+      },
+    });
+  }
+
+  const unknownMinute = saju.inputUncertainty?.unknownMinute;
+  if (unknownMinute) {
+    const timezone = resolveUncertaintyTimezone(unknownMinute.fallbackTimezone, birth?.timezone);
+    rows.push({
+      id: 'unknown-minute',
+      severity: unknownMinute.boundarySensitive ? 'medium' : 'info',
+      message: unknownMinute.message,
+      affectedAxes: unknownMinute.affectedAxes,
+      affectedAxisLabels: unknownMinute.affectedAxisLabels,
+      fallback: {
+        hour: unknownMinute.fallbackHour,
+        minute: unknownMinute.fallbackMinute,
+        timezone,
+      },
+      evaluatedMinuteRange: unknownMinute.evaluatedMinuteRange,
+      boundarySensitive: unknownMinute.boundarySensitive,
+      continuousTimingAffected: unknownMinute.continuousTimingAffected,
+      confidenceTierShift: unknownMinute.confidenceTierShift,
+    });
+  }
+
+  return rows.length > 0 ? rows : undefined;
 }
 
 // ---------------------------------------------------------------------------
@@ -202,7 +240,7 @@ export async function buildFortuneReport(
     version: '1.0.0',
     generatedAt: new Date().toISOString(),
     schoolPreset: options?.schoolPreset,
-    uncertainties: buildReportUncertainties(saju),
+    uncertainties: buildReportUncertainties(saju, birth),
   };
 
   return {
