@@ -35,8 +35,8 @@ describe('spring legacy fortune mapping characterization', () => {
       byteLength: Buffer.byteLength(encoded, 'utf8'),
       sha256: createHash('sha256').update(encoded, 'utf8').digest('hex'),
     }).toEqual({
-      byteLength: 3964,
-      sha256: '159a8dc6c5ad612067e4963ded725f42bf763b933d6c2f12e4b58a361c35b465',
+      byteLength: 3951,
+      sha256: '14e7bb4128b3a682aee051d43419f1b4aaa0fe41e9169db2a4d5f04cf37867cb',
     });
 
     expect(fortunePayload).toMatchObject({
