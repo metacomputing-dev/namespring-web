@@ -5,6 +5,10 @@ import {
 } from './database-asset-contract.js';
 import { GENERATED_DATABASE_ASSET_MANIFEST } from './database-asset-manifest.generated.js';
 import { RepositoryConfigurationError } from './repository-runtime.js';
+import {
+  NAME_STAT_SHARD_KEYS,
+  nameStatShardFilename,
+} from '../utils/name-stat-shard.js';
 
 function invalidContract(message: string): RepositoryConfigurationError {
   return new RepositoryConfigurationError(message);
@@ -126,3 +130,36 @@ function requireGeneratedAsset(assetId: string): DatabaseAssetManifestEntry {
 
 export const FOURFRAME_DATABASE_ASSET = requireGeneratedAsset('fourframe');
 export const HANJA_DATABASE_ASSET = requireGeneratedAsset('hanja');
+
+const expectedNameStatAssetIds = new Set(
+  NAME_STAT_SHARD_KEYS.map((shardKey) => {
+    const filename = nameStatShardFilename(shardKey);
+    return `name-stat-${filename.slice(0, -3)}`;
+  }),
+);
+for (const assetId of ASSET_BY_ID.keys()) {
+  if (assetId.startsWith('name-stat-') && !expectedNameStatAssetIds.has(assetId)) {
+    throw invalidContract(
+      `Generated database asset manifest contains unknown NameStat asset ${assetId}.`,
+    );
+  }
+}
+
+/** Canonical NameStat contracts in the same stable order as the 14 shard keys. */
+export const NAME_STAT_DATABASE_ASSETS: readonly DatabaseAssetManifestEntry[] =
+  Object.freeze(NAME_STAT_SHARD_KEYS.map((shardKey) => {
+    const filename = nameStatShardFilename(shardKey);
+    const assetId = `name-stat-${filename.slice(0, -3)}`;
+    const asset = requireGeneratedAsset(assetId);
+    if (asset.shardKey !== shardKey) {
+      throw invalidContract(
+        `Generated database asset ${assetId} has unexpected shardKey ${String(asset.shardKey)}.`,
+      );
+    }
+    if (!asset.relativePath.endsWith(`/name-stat-shards/${filename}`)) {
+      throw invalidContract(
+        `Generated database asset ${assetId} has an unexpected relativePath.`,
+      );
+    }
+    return asset;
+  }));

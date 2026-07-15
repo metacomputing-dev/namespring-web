@@ -22,6 +22,7 @@ import {
   type NameStatEntry,
 } from '../../seed-ts/src/database/name-stat-repository.js';
 import { RepositoryDataError } from '../../seed-ts/src/database/repository-errors.js';
+import { RepositoryDatabaseIntegrityError } from '../../seed-ts/src/database/database-integrity.js';
 import {
   sanitizeServiceValue,
 } from '../../seed-ts/src/service-text-policy.js';
@@ -90,10 +91,19 @@ import {
   sliceCandidatePage,
 } from './candidate-selection.js';
 import {
+  assertExplicitNameIdentity,
+  assertNameCharacterSyntax,
   resolveFixedNameCharacterPool,
   resolveNameEntries,
   type ResolveNameEntriesOptions,
+  type NameEntryRole,
+  type PreverifiedExplicitPairContext,
 } from './name-entry-resolver.js';
+import {
+  snapshotFortuneReportRequest,
+  snapshotSpringRequest,
+  snapshotSajuReport,
+} from './public-request-snapshot.js';
 
 export {
   NAME_ENTRY_RESOLUTION_FAILED,
@@ -461,16 +471,19 @@ function hasWeakRecommendationHanjaMeaning(entry: HanjaEntry): boolean {
 /** Convert a HanjaEntry into the minimal NameCharInput shape. */
 function toNameCharInput(entry: HanjaEntry, pool: HanjaPool = 'curated'): NameCharInput {
   const legal = getLegalAnnotation(entry, { pool });
+  const elementLabel = elementDisplayLabel(entry.resource_element);
   return {
     hangul: entry.hangul,
     hanja: entry.hanja,
     meaning: entry.meaning,
     strokes: entry.strokes,
     element: entry.resource_element,
-    elementLabel: elementDisplayLabel(entry.resource_element),
+    ...(elementLabel === undefined ? {} : { elementLabel }),
     legalStatus: legal.legalStatus,
-    legalRegistrable: legal.legalRegistrable,
-    isVariantOf: legal.isVariantOf,
+    ...(legal.legalRegistrable === undefined
+      ? {}
+      : { legalRegistrable: legal.legalRegistrable }),
+    ...(legal.isVariantOf === undefined ? {} : { isVariantOf: legal.isVariantOf }),
   };
 }
 
@@ -511,6 +524,11 @@ type SpringEngineOperationName =
 interface SpringEngineOperationLease {
   readonly operation: SpringEngineOperationName;
   readonly generation: number;
+}
+
+interface CachedExplicitNameIdentity {
+  readonly generation: number;
+  readonly entry: HanjaEntry;
 }
 
 export const SPRING_ENGINE_INIT_CANCELLED = 'SPRING_ENGINE_INIT_CANCELLED' as const;
@@ -566,6 +584,10 @@ export class SpringEngine {
   private optimizer: FourFrameOptimizer | null = null;
   private readonly nameStatInfoCache = new Map<string, NameStatLookupResult>();
 
+  private explicitNameIdentityCache = new WeakMap<
+    NameCharInput,
+    Map<string, CachedExplicitNameIdentity>
+  >();
   /** Expose the hanja repository so the UI can perform hanja lookups. */
   getHanjaRepository(): HanjaRepository { return this.hanjaRepo; }
 
@@ -898,6 +920,87 @@ export class SpringEngine {
     };
   }
 
+  private explicitNameIdentityKey(context: PreverifiedExplicitPairContext): string {
+    return `${context.role}:${context.hanjaPool}`;
+  }
+
+  private preverifiedExplicitNameIdentity(
+    input: NameCharInput,
+    context: PreverifiedExplicitPairContext,
+  ): HanjaEntry | undefined {
+    const byContext = this.explicitNameIdentityCache.get(input);
+    if (!byContext) return undefined;
+    const key = this.explicitNameIdentityKey(context);
+    const cached = byContext.get(key);
+    if (cached?.generation === this.lifecycleGeneration) return cached.entry;
+    if (cached) byContext.delete(key);
+    return undefined;
+  }
+
+  private cacheExplicitNameIdentities(
+    resolved: ReadonlyMap<NameCharInput, HanjaEntry>,
+    context: PreverifiedExplicitPairContext,
+  ): void {
+    const key = this.explicitNameIdentityKey(context);
+    for (const [input, entry] of resolved) {
+      const byContext = this.explicitNameIdentityCache.get(input) ?? new Map();
+      byContext.set(key, {
+        generation: this.lifecycleGeneration,
+        entry,
+      });
+      this.explicitNameIdentityCache.set(input, byContext);
+    }
+  }
+
+  private async assertExplicitRequestNameIdentity(
+    request: SpringRequest,
+    operation: SpringEngineOperationLease,
+  ): Promise<void> {
+    const hanjaPool = this.resolveHanjaPool(request.options);
+    const preverifiedExplicitPair = (
+      input: NameCharInput,
+      context: PreverifiedExplicitPairContext,
+    ): HanjaEntry | undefined => this.preverifiedExplicitNameIdentity(input, context);
+
+    const surnameContext = { role: 'surname', hanjaPool } as const;
+    const resolvedSurname = await this.awaitOperationStep(
+      operation,
+      () => assertExplicitNameIdentity(request.surname, this.hanjaRepo, {
+        isSurname: true,
+        hanjaPool,
+        fullPoolEntries: getFullLegalPoolEntries,
+        preverifiedExplicitPair,
+      }),
+    );
+    this.cacheExplicitNameIdentities(resolvedSurname, surnameContext);
+
+    if (!request.givenName?.length) return;
+    const givenNameContext = { role: 'givenName', hanjaPool } as const;
+    const resolvedGivenName = await this.awaitOperationStep(
+      operation,
+      () => assertExplicitNameIdentity(request.givenName!, this.hanjaRepo, {
+        hanjaPool,
+        fullPoolEntries: getFullLegalPoolEntries,
+        preverifiedExplicitPair,
+      }),
+    );
+    this.cacheExplicitNameIdentities(resolvedGivenName, givenNameContext);
+  }
+
+  private assertRequestNameSyntax(
+    request: SpringRequest,
+    allowGivenNameGenerationFilters: boolean,
+  ): void {
+    assertNameCharacterSyntax(request.surname, { role: 'surname' });
+    if (!request.givenName?.length) return;
+    assertNameCharacterSyntax(request.givenName, {
+      role: 'givenName',
+      ...(allowGivenNameGenerationFilters
+        ? { allowGenerationFilter: (char) => parseJamoFilter(char.hangul) !== null }
+        : {}),
+    });
+  }
+
   private resolveNameTrend(
     givenName: NameCharInput[] | undefined,
     birth: BirthInfo,
@@ -1060,8 +1163,11 @@ export class SpringEngine {
   // -------------------------------------------------------------------------
 
   async getNamingReport(request: SpringRequest): Promise<NamingReport> {
+    request = snapshotSpringRequest(request);
     const operation = this.beginOperation('getNamingReport');
+    this.assertRequestNameSyntax(request, false);
     await this.awaitOperationStep(operation, () => this.init());
+    await this.assertExplicitRequestNameIdentity(request, operation);
 
     const resolutionPolicy = this.resolveNameResolutionPolicy(
       request.givenName,
@@ -1145,6 +1251,7 @@ export class SpringEngine {
   // -------------------------------------------------------------------------
 
   async getSajuReport(request: SpringRequest): Promise<SajuReport> {
+    request = snapshotSpringRequest(request);
     const operation = this.beginOperation('getSajuReport');
     const { summary, sajuEnabled } = await this.awaitOperationStep(
       operation,
@@ -1161,12 +1268,24 @@ export class SpringEngine {
     request: SpringRequest,
     sajuReportOverride?: SajuReport,
   ): Promise<SpringReport> {
-    const operation = this.beginOperation('getSpringReport');
-    await this.awaitOperationStep(operation, () => this.init());
+    const stableRequest = snapshotSpringRequest(request);
+    const stableOverride = sajuReportOverride === undefined
+      ? undefined
+      : snapshotSajuReport(sajuReportOverride);
+    return this.getSpringReportFromSnapshot(stableRequest, stableOverride);
+  }
 
+  private async getSpringReportFromSnapshot(
+    request: SpringRequest,
+    sajuReportOverride?: SajuReport,
+  ): Promise<SpringReport> {
+    const operation = this.beginOperation('getSpringReport');
     if (!request.givenName?.length) {
       throw new Error('getSpringReport requires givenName input.');
     }
+    this.assertRequestNameSyntax(request, false);
+    await this.awaitOperationStep(operation, () => this.init());
+    await this.assertExplicitRequestNameIdentity(request, operation);
 
     const sajuReport = sajuReportOverride ?? await this.awaitOperationStep(
       operation,
@@ -1314,8 +1433,11 @@ export class SpringEngine {
   // -------------------------------------------------------------------------
 
   async getNameCandidates(request: SpringRequest): Promise<SpringReport[]> {
+    request = snapshotSpringRequest(request);
     const operation = this.beginOperation('getNameCandidates');
+    this.assertRequestNameSyntax(request, true);
     await this.awaitOperationStep(operation, () => this.init());
+    await this.assertExplicitRequestNameIdentity(request, operation);
     const candidateRejections: CandidateRejectionAccumulator = new Map();
 
     // 1. Saju analysis
@@ -1345,10 +1467,13 @@ export class SpringEngine {
       );
       if (nameStatInfo.status === 'not_found') continue;
       if (this.isGenderMismatch(request.birth.gender, nameStatInfo.nameGender)) continue;
-      results.push(await this.awaitOperationStep(operation, () => this.getSpringReport(
-        { ...request, givenName: givenNameInput, mode: 'evaluate' },
-        sajuReport,
-      )));
+      results.push(await this.awaitOperationStep(
+        operation,
+        () => this.getSpringReportFromSnapshot(
+          snapshotSpringRequest({ ...request, givenName: givenNameInput, mode: 'evaluate' }),
+          sajuReport,
+        ),
+      ));
     }
 
     return this.completeOperation(operation, this.pageOrderedCandidates(
@@ -1362,8 +1487,11 @@ export class SpringEngine {
   // -------------------------------------------------------------------------
 
   async getNameCandidateSummaries(request: SpringRequest): Promise<SpringCandidateSummary[]> {
+    request = snapshotSpringRequest(request);
     const operation = this.beginOperation('getNameCandidateSummaries');
+    this.assertRequestNameSyntax(request, true);
     await this.awaitOperationStep(operation, () => this.init());
+    await this.assertExplicitRequestNameIdentity(request, operation);
     const candidateRejections: CandidateRejectionAccumulator = new Map();
 
     const sajuReport = await this.awaitOperationStep(
@@ -1584,8 +1712,11 @@ export class SpringEngine {
   // -------------------------------------------------------------------------
 
   async analyze(request: SpringRequest): Promise<SpringResponse> {
+    request = snapshotSpringRequest(request);
     const operation = this.beginOperation('analyze');
+    this.assertRequestNameSyntax(request, true);
     await this.awaitOperationStep(operation, () => this.init());
+    await this.assertExplicitRequestNameIdentity(request, operation);
     const candidateRejections: CandidateRejectionAccumulator = new Map();
 
     // 1. Determine the operating mode
@@ -1819,7 +1950,10 @@ export class SpringEngine {
       );
     } catch (cause) {
       this.assertActiveOperation(operation.generation, operation.operation);
-      if (cause instanceof RepositoryDataError) {
+      if (
+        cause instanceof RepositoryDataError
+        || cause instanceof RepositoryDatabaseIntegrityError
+      ) {
         throw cause;
       }
       // Infrastructure failures must not become a durable "name does not
@@ -2467,6 +2601,10 @@ export class SpringEngine {
       hanjaPool,
       poolLimit: POOL_LIMIT_SINGLE_CHAR,
       fullPoolEntries: getFullLegalPoolEntries,
+      preverifiedEntry: this.preverifiedExplicitNameIdentity(givenNameChar, {
+        role: 'givenName',
+        hanjaPool,
+      }),
     });
   }
 
@@ -2481,6 +2619,8 @@ export class SpringEngine {
     return resolveNameEntries(chars, this.hanjaRepo, {
       ...options,
       fullPoolEntries: getFullLegalPoolEntries,
+      preverifiedExplicitPair: (input, context) =>
+        this.preverifiedExplicitNameIdentity(input, context),
     });
   }
 
@@ -2489,6 +2629,7 @@ export class SpringEngine {
   // -------------------------------------------------------------------------
 
   async getFortuneReport(request: FortuneReportRequest): Promise<FortuneReport> {
+    request = snapshotFortuneReportRequest(request);
     const operation = this.beginOperation('getFortuneReport');
     // 1. Reject malformed or unbounded horizons before database or astronomy work.
     const birthYear = request.birth.year;
@@ -2499,7 +2640,19 @@ export class SpringEngine {
     const reportOptions = optionsForFortuneTarget(request.options, targetDate, birthYear);
     validateSajuRequestOptions(reportOptions.sajuOptions, birthYear);
     validateSajuConfigFortuneHorizon(reportOptions.sajuConfig);
+    const explicitNameRequest: SpringRequest | null = request.givenName?.length
+      ? {
+          birth: request.birth,
+          surname: request.surname ?? [],
+          givenName: request.givenName,
+          options: request.options,
+        }
+       : null;
+    if (explicitNameRequest) this.assertRequestNameSyntax(explicitNameRequest, false);
     await this.awaitOperationStep(operation, () => this.init());
+    if (explicitNameRequest) {
+      await this.assertExplicitRequestNameIdentity(explicitNameRequest, operation);
+    }
 
     // 2. Run saju analysis
     const sajuReport = await this.awaitOperationStep(operation, () => this.getSajuReport({
@@ -2527,16 +2680,19 @@ export class SpringEngine {
       // corruption, cancellation and infrastructure failures must remain
       // visible rather than silently degrading to a successful nameless
       // fortune report.
-      springReport = await this.awaitOperationStep(operation, () => this.getSpringReport(
-        {
-          birth: request.birth,
-          surname: request.surname ?? [],
-          givenName: request.givenName,
-          mode: 'evaluate',
-          options: reportOptions,
-        },
-        sajuReport,
-      ));
+      springReport = await this.awaitOperationStep(
+        operation,
+        () => this.getSpringReportFromSnapshot(
+          snapshotSpringRequest({
+            birth: request.birth,
+            surname: request.surname ?? [],
+            givenName: request.givenName,
+            mode: 'evaluate',
+            options: reportOptions,
+          }),
+          sajuReport,
+        ),
+      );
     }
 
     // 4. Build the fortune report
@@ -2580,6 +2736,10 @@ export class SpringEngine {
     this.fourFrameMeaningByNumber = new Map();
     this.validFourFrameNumbers = new Set();
     this.nameStatInfoCache.clear();
+    this.explicitNameIdentityCache = new WeakMap<
+      NameCharInput,
+      Map<string, CachedExplicitNameIdentity>
+    >();
     this.optimizer = null;
 
     const closeErrors: unknown[] = [];

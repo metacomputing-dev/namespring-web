@@ -92,6 +92,8 @@ export {
   type NameStatEntry,
 } from './database/name-stat-repository.js';
 export {
+  DEFAULT_SQL_JS_VERSION,
+  DEFAULT_SQL_JS_WASM_BYTE_LENGTH,
   DEFAULT_SQL_JS_WASM_SHA256,
   DEFAULT_SQL_JS_WASM_URL,
   RepositoryConfigurationError,
@@ -114,11 +116,15 @@ export type {
 } from './database/database-asset-contract.js';
 export type {
   CanonicalRepositoryDatabaseIntegrityPolicy,
+  CanonicalRepositoryDatabaseShardSetIntegrityPolicy,
   PinnedRepositoryDatabaseIntegrityPolicy,
+  PinnedRepositoryDatabaseShardSetIntegrityPolicy,
   RepositoryDatabaseIntegrityPolicy,
+  RepositoryDatabaseShardSetIntegrityPolicy,
 } from './database/repository-database-policy.js';
 export type {
   RepositoryFetch,
+  RepositoryFetchOptions,
   RepositoryFetchResponse,
   RepositoryRuntimeOverrides,
   RepositoryWasmOptions,

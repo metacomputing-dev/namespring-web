@@ -274,9 +274,9 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 | P0-2 테스트 체인 무결성 | 🔶 로컬 회귀 통과·CI 보완 필요 | bc4134ecc | 2026-07-12 | Seed 전체 `npm test`와 Spring typecheck/build·bridge·lifecycle·snapshot 17/17·compat 208/0은 통과했다. 그러나 현재 workflow는 Seed install/typecheck/test/build를 실행하지 않고, 구조 회귀와 외부 인증 red gate를 한 job에 혼합한다. GitHub Actions billing 잠금으로 최신 HEAD 성공 이력도 없으므로 CI 완료로 표기하지 않는다. |
 | P0-4 학파 출처 무결성 | 🔶 저작 완료·독립 검토 대기 | 49a785cfa | 2026-07-10 | 누락 10개 출처 문서(docs/11·16·17·18·19·20·22·25·26·27) 전부 저작 — 교리 요약·고전 서지·엔진 매핑(file:line 검증)·검토자 체크리스트 포함, 헤더에 독립 검토 대기 명시. `validate:school-sources` FAIL(23)→PASS(18 프리셋), test:release-tools PASS. 게이트 완결 조건인 독립 검토 메타데이터는 검토 후 기록 |
 | P0-5 호환 계층 분해 | 🔶 부분 완료 | pending | 2026-07-10 | follow potential·strength component·bridge contract·운 관계 계산 중복을 분리/삭제. 대형 adapter와 legacy seam의 mapper 단위 분리는 후속 |
-| backend 런타임·데이터 경계 | ✅ 코드 체크포인트 / 🔶 NameStat 배선·release 검토 대기 | bc4134ecc | 2026-07-12 | `3f08b2754..bc4134ecc`: legacy fortune mapper 분리, 이름 identity fail-closed, Seed 점수정책·입력 계약, zero signal-cap 보존, Hanja 질의 결정성, Spring public operation generation lease, 16개 DB asset manifest와 공용 verifier를 추가했다. Hanja/Fourframe는 byteLength·SHA 검증 후 같은 snapshot으로 열고 userVersion·전체 schema·row count를 통과한 DB만 publish한다. Seed 전체 `npm test`와 package 4/4, Spring lifecycle·fourframe·name resolver·snapshot 17/17·compat 208/0·package boundary가 통과했다. NameStat 14개 shard runtime 배선, same-element `-5` 정책의 전문가 검토, 진행 중 fetch의 네트워크 abort는 후속이다. 이 행은 구조·무결성 guardrail이며 격국·강약·용신 권위 인증이 아니다. |
+| backend 런타임·데이터 경계 | ✅ 코드 체크포인트 / 🔶 release 검토 대기 | 352a1303c | 2026-07-12 | `3f08b2754..352a1303c`: legacy fortune mapper 분리, 이름 identity fail-closed, Seed 점수정책·입력 계약, Hanja 질의 결정성, Spring operation lease와 16개 DB asset verifier를 추가했다. Hanja/Fourframe뿐 아니라 NameStat도 선택된 shard의 byteLength·SHA를 검증한 동일 snapshot을 열고 userVersion·전체 schema·row count 통과 후에만 publish한다. NameStat 원본 19초성과 14-shard routing을 분리하고 실제 50,194행을 전수 고정했으며, 진행 중 shard fetch/body는 repository close 시 abort하고 signal을 무시하는 custom transport도 호출자 관점에서 즉시 취소한다(`0af887ad3`). sql.js JS/WASM은 1.14.1로 정확히 맞추고 package-relative WASM·MIT notice·byteLength·SHA 계약을 함께 배포하며 CDN fallback을 제거했다(`352a1303c`). 최종 Seed/Spring typecheck, test typecheck, 자산 3/3, lifecycle 35/35, 실제 npm tarball 설치 스모크 5/5, package boundary 2/2가 통과했다. Vite production build의 최종 자산 방출·모바일 peak memory 실측, 원본 통계 JSON provenance, same-element `-5` 전문가 검토는 후속이다. 이 행은 구조·무결성 guardrail이며 격국·강약·용신 권위 인증이 아니다. |
 | 글로벌·역사 시간정책 | ✅ backend 체크포인트 / 🔶 상용 claim 검토 대기 | 0e91b8ec9 | 2026-07-12 | Spring 기본을 civil-offset 자오선으로 정합화하고, legacy 135°/120°는 지역 호환 opt-in으로 분리했다. 물리 경도 비변조, 위치 tuple·충돌 fail-closed, IANA gap/fold·분 미상 전환 거부, 런타임 tzdb canary, 1~99년 literal-year UTC를 구현했다. modern Chinese preset·역사/DST·해외·부분입력은 의도적 default/API 변화다. 글로벌 geocoder·좌표/timezone 지리 검증·전 세계 역사 tzdb 인증·외부 권위 검토는 미완이다. |
-| PR #653 리뷰 범위 | 🔶 분할 전 Draft 유지 | bc4134ecc | 2026-07-12 | `origin/main...HEAD`는 133커밋·418파일(+80,717/-13,817)이며 frontend diff는 0이다. 읽기 전용 이력·merge-tree 감사는 커밋 재작성 없이 연속 prefix 스택 17개(운영 축소안 14개)를 권고했다. 분할 방식과 freeze tip은 프로젝트 소유자 승인 전 실행하지 않으며, 누적 PR 자체는 리뷰 가능 크기가 아니다. |
+| PR #653 리뷰 범위 | 🔶 분할 전 Draft 유지 | 6fb2f68a4 | 2026-07-12 | freeze `origin/main...6fb2f68a4`는 134커밋·418파일이며 frontend diff는 0이다. 읽기 전용 이력·merge-tree 감사는 커밋 재작성 없이 연속 prefix 스택 17개(운영 축소안 14개)를 권고했다. 이번 NameStat 체크포인트는 freeze 이후 별도 브랜치에 있으며, 분할 방식 확정 전 누적 PR에 섞지 않는다. 누적 PR 자체는 리뷰 가능 크기가 아니다. |
 | P0-3 baseline 픽스처 보강 | ✅ | 75c3cdef5 | 2026-07-09 | 17/17(야자시 창 fix-16 + 음력 윤달 fix-17). 픽스처 수 하드코딩 2곳 동적화(baseline-metrics·quality-gate) |
 | 9-1 운-원국 관계 | ✅ | 8c310a014 | 2026-07-09 | canonical fortune.relations node; springLegacy relationsWithNatal; adapter/report evidence. Natal-only relations and scoring unchanged. Verified: saju-ts 202/0, baseline 17/0, compat 208/0, tiered-shape 1378/0, service-visible 13/0, adapter-daewoon 24/0, transit-luck-report 12/0 |
 | 9-2 대운↔세운 | ✅ | ade45f9c0 | 2026-07-09 | decade-year fortune relations in fortune.relations.decadeYears; saeun relationsWithDecade; yearly report evidence. Pre-start years omitted; natal scoring unchanged. Verified: saju-ts 204/0, baseline 17/0, compat 208/0, tiered-shape 1378/0, service-visible 13/0, adapter-daewoon 25/0, transit-luck-report 13/0 |
@@ -314,3 +314,24 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 | 엔진 불일치 판결 (10픽스처) | ✅ 도시에 완결 | pending (도시에) | 2026-07-10 | ENGINE_BUG 3(fix-04 강약 일간 자기셈입·fix-07/11 격국 오배속)/CALIBRATION 6/DOCTRINE_AMBIGUITY 2/PANEL_ERROR 0 + 종합. **핵심: scoring.ts:106-113 일간 자기 셈입 단방향 강측 편향(제거만으로 2건 반전 실측)**. 수정 착수 순서는 도시에 §6 — 전 항목 GUIDE §1 계측 필수 |
 | 강약 일간 자기 셈입 제거 | 🔶 opt-in 구현·기본 보류 | 4eefcd154 | 2026-07-10 | `strength.excludeDayMasterSelf=true`에서 strength 전용 원장만 자기 비견을 제외. 범용 scorer 불변, provenance 단일 경계, 가중치 1/2 불변식 테스트. default-on 반사실: 17픽스처/158 leaf, strength 7·희신 6·종격위험 4·서사 17 이동, regression 0, fingerprint `377227…69143`. 순환 골든화 금지 — 독립 exact-diff 승인 전 기본 off |
 | CT-1~CT-3·CT-5 | ⬜ | | | 병렬 가능 |
+
+---
+
+## 2026-07-13: 저장소 취소·공개 요청 경계 체크포인트 (PR #653 freeze 이후 격리 브랜치)
+
+| 영역 | 상태 | 커밋 | 검증 근거와 한계 |
+|---|---|---|---|
+| Seed 저장소 초기화 취소 | ✅ 코드 체크포인트 | `165d31ab1` | Hanja/Fourframe의 fetch·body와 NameStat의 WASM·shard·digest·DB open까지 하나의 lifecycle coordinator로 묶었다. 마지막 WASM 구독자가 취소되면 기저 transport도 취소하고 identity-safe하게 flight를 제거하며, 검증 중 취소된 DB 후보는 정확히 한 번 닫힌다. `typecheck`, `typecheck:test`, repository lifecycle 40/40, database integrity 7/7, package contract 5/5 통과. |
+| Spring 공개 요청·이름 정체성 경계 | ✅ 코드 체크포인트 | `b09fb6311` | 7개 public async route가 첫 await 전에 caller graph를 descriptor 기반으로 snapshot/freeze한다. cycle·sparse/accessor·symbol·비유한 수·과대 depth/property/array를 fail-closed하고 Proxy 원문 오류를 고정 TypeError로 정규화해 PII 노출을 막는다. 객체 own `undefined`는 JSON semantics로 생략하되 배열의 `undefined`는 거부한다. Hangul 음절과 명시적 Hangul/Hanja pair를 사전 검증하고 pair 캐시는 role·pool·lifecycle generation으로 격리한다. |
+| 회귀·리뷰 | 🔶 핵심 회귀 통과 / 전체 baseline 재실행 필요 | `b09fb6311` | Spring `typecheck`, `test:name-stat-fail-closed`, `test:name-entry-resolver`, `test:spring-engine-lifecycle`, `test:scoring` 34/34, `typecheck:saju-bridge`, package boundary 2/2 통과. 독립 exact-diff 재리뷰 P0/P1 0. baseline 전체 17개는 두 번째 검증이 90초를 넘겨 중단했고, 일반(fix-01)·야자시(fix-16)·윤달(fix-17) 표본은 3/3 무변화였다. merge 전 전체 17/17을 CI 또는 시간 제한을 늘린 전용 실행에서 다시 확인해야 한다. |
+
+### 남은 한계와 release 판단
+
+- 이 체크포인트는 입력·저장소 무결성·동시성 경계를 강화한 것이며, 격국·강약·용신·조후 수치가 외부 명리 권위로 승인됐다는 뜻이 아니다.
+- trusted snapshot은 모듈 내부 WeakSet으로만 식별되고 public package API로 노출되지 않는다. 다만 deep import와 반복 재래핑까지 적대 경계로 간주하면 nested graph budget을 다시 합산하지 않는 P2가 남는다.
+- JavaScript Proxy trap 실행 자체는 막을 수 없고, trap 오류를 고정 메시지로 정규화해 원문 PII가 밖으로 나가지 않게 한다.
+- explicit Hangul/Hanja identity는 DB가 필요하므로 통합 초기화 실패가 pair mismatch보다 먼저 보일 수 있다. 둘 다 fail-closed지만 오류 우선순위는 후속 API 정책 항목이다.
+- 응답에 원 요청 객체를 그대로 반영하는 기존 표면의 PII 최소화는 API 호환성 검토가 필요한 별도 후속이다.
+- Vite production build의 Seed WASM 최종 방출 URL·브라우저 로딩·모바일 peak memory 스모크는 아직 완료되지 않았다.
+- 전체 baseline 장시간 원인은 17개 fixture 각각에서 후보 생성·DB 조회·사주·리포트를 직렬 반복하는 검증 구조다. correctness 변경과 분리해 profiler로 병목을 계측하고, 독립 fixture 병렬화 또는 빠른 smoke/full suite 이원화를 검토한다.
+- `codex/namestat-integrity`는 아직 원격에 push하지 않았다. frontend 변경은 0이며, PR #653에 섞기 전에 별도 리뷰 단위와 merge 순서를 확정한다.
