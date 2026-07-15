@@ -121,8 +121,13 @@ export function createRepositoryRuntime(
           + response.status + ' ' + response.statusText,
         );
       }
-      const wasmBinary = await response.arrayBuffer();
-      await verifySha256Digest(new Uint8Array(wasmBinary), expectedSha256, {
+      const fetchedWasmBinary = await response.arrayBuffer();
+      // The transport owns its ArrayBuffer and may retain a mutable alias.
+      // Snapshot once, then verify and execute only that same owned copy so a
+      // post-digest mutation cannot swap unverified bytes into sql.js.
+      const wasmBytes = new Uint8Array(fetchedWasmBinary).slice();
+      const wasmBinary = wasmBytes.buffer;
+      await verifySha256Digest(wasmBytes, expectedSha256, {
         cryptoUnavailable: () => new RepositoryConfigurationError(
           'Web Crypto SHA-256 support is required to initialize sql.js safely.',
         ),
