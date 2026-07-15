@@ -135,6 +135,8 @@ npm run audit:generated                       # 코퍼스 다양성 감사
 
 #### 작업 5-후속 (별도 PR 예정) — 귀인 궁위 세분 + 극 노출: 엔진 레벨 스펙
 
+> ⚠ **2026-07-08 업데이트: 이 항목은 엔진 무결성 감사에 흡수됨.** `feature/saju-engine-integrity-audit` 브랜치에서 전면 감사(103건)가 완료되어 seatPillars(=C2)·극 방출(=B2)은 그 PR-2 패키지의 일부가 됐다. **후속 작업은 `HANDOFF_SAJU_ENGINE.md` + `AUDIT_SAJU_ENGINE_INTEGRITY.md`를 정본으로 진행할 것.** 아래 스펙은 배경 참고용으로 유지.
+
 > 2026-07-06 조사 결과. **이건 데이터 추가가 아니라 엔진(saju-ts) 변경**이다. PR #649에는 얹지 말고 별도 브랜치에서.
 
 **(A) 귀인 궁위 세분 — 실제 위치(seat pillar)는 이미 계산돼 있으나 버려진다:**

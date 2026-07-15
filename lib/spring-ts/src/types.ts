@@ -274,6 +274,13 @@ export interface PrecisionConfig {
    *  then `surfaceNaeum: true` produces no additional output. */
   readonly surfaceNaeum?: boolean;
 
+  /** 감사 B1: 음력→양력 변환 소스. 기본 'builtin'(내장 KASI/KARI 표준 테이블,
+   *  제품 보장 1900-01-01~2050-11-18 음력, 오프라인 결정적). 'kasi' = Node 전용 옵트인 —
+   *  data.go.kr LrsrCldInfoService/getSpcifyLunCalInfo를 먼저 시도하고
+   *  실패(키 부재·네트워크·타임아웃·브라우저 런타임) 시 내장 테이블로 폴백하며
+   *  SajuSummary.lunarConversion.kasiFallback으로 표기한다. */
+  readonly lunarConversionSource?: 'builtin' | 'kasi';
+
   /** Surface johu (조후 / climate balance) on `SajuOutputSummary` and
    *  `OverviewSummaryCard` evidence rows when `true`. Off by default —
    *  consumers must opt-in.
@@ -429,6 +436,8 @@ export interface SajuRequestOptions {
   readonly daeunCount?: number;
   readonly saeunStartYear?: number | null;
   readonly saeunYearCount?: number;
+  readonly wolunStartYear?: number | null;
+  readonly wolunMonthCount?: number;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -552,7 +561,40 @@ export interface SajuSummary {
    *  `options.precisionConfig.surfaceNaeum === true`. */
   readonly naeum?: NaeumSummary;
   readonly inputUncertainty?: SajuInputUncertainty;
+  /** 감사 B1: 음력 입력 변환 기록. calendarType='lunar' 요청에서만 채워진다(사용자 검증용). */
+  readonly lunarConversion?: LunarConversionSummary;
+  /** PR-12-4 (감사 C6): 음양 균형 — 8글자 체(體) 기준 개수 집계 (additive). */
+  readonly yinYangBalance?: YinYangBalanceSummary;
   readonly [key: string]: unknown;
+}
+
+/** PR-12-4 (감사 C6): 음양 균형 개수 — 지지는 체(體) 기준(子寅辰午申戌=양). */
+export interface YinYangBalanceSummary {
+  readonly yang: number;
+  readonly yin: number;
+  readonly stems: { readonly yang: number; readonly yin: number };
+  readonly branches: { readonly yang: number; readonly yin: number };
+  readonly dominant: 'YANG' | 'YIN' | 'EVEN';
+}
+
+/** 감사 B1: 음력 입력 → 양력 변환 기록. 사용자 검증용 additive 필드 —
+ *  음력 입력일 때만 존재하며 양력 입력 리포트에는 나타나지 않는다. */
+export interface LunarConversionSummary {
+  readonly lunar: {
+    readonly year: number;
+    readonly month: number;
+    readonly day: number;
+    readonly isLeapMonth: boolean;
+  };
+  readonly solar: {
+    readonly year: number;
+    readonly month: number;
+    readonly day: number;
+  };
+  /** 실제 사용된 변환 소스. 'builtin' = 내장 KASI/KARI 표준 테이블(기본). */
+  readonly source: 'builtin' | 'kasi';
+  /** kasi 옵트인이었으나 실패해 내장 테이블로 폴백했음. */
+  readonly kasiFallback?: boolean;
 }
 
 /** The heavenly stem and earthly branch that form one pillar. */
@@ -598,8 +640,11 @@ export interface StrengthSummary {
   readonly isStrong: boolean;
   readonly totalSupport: number;
   readonly totalOppose: number;
+  /** 득령 여부 (0|1): 월지 본기 십성이 비겁·인성인가. (과거에는 비겁 점수 합의 재라벨이었다 — 감사 A1) */
   readonly deukryeong: number;
+  /** 득지 강도 (0~1): 일지 지장간 통근(비견·겁재) — 본기 1 > 중기 0.6 > 여기 0.3. */
   readonly deukji: number;
+  /** 득세 개수 (0~7): 일간 제외 7글자(년·월·시 천간 + 4지지 본기) 중 비겁·인성 개수. */
   readonly deukse: number;
   readonly details: string[];
 }
@@ -614,6 +659,22 @@ export interface YongshinSummary {
   readonly agreement: string;
   readonly recommendations: YongshinRecommendation[];
   readonly consensus?: YongshinConsensusScoreboard;
+  /** 감사 B5: 종격 가능성 경고 문구 (springLegacy yongshinResult.warnings passthrough). */
+  readonly warnings?: readonly string[];
+  /** 감사 B5: 종격(從格) 리스크 신호 — 억부 용신 신뢰도 게이트의 구조화 근거. */
+  readonly jonggyeokRisk?: YongshinJonggyeokRisk;
+}
+
+/** 감사 B5: 종격 가능성 신호 상세. */
+export interface YongshinJonggyeokRisk {
+  readonly level: 'HIGH' | 'INFO';
+  readonly direction: 'PRESSURE' | 'SUPPORT';
+  readonly strengthIndex: number;
+  readonly dominanceRatio: number;
+  readonly subtypes: readonly string[];
+  readonly maxCandidateScore: number;
+  /** HIGH 리스크로 finalConfidence cap(35점)이 실제 적용됐는지. */
+  readonly confidenceAttenuated: boolean;
 }
 
 /** A single yongshin recommendation with its rationale. */
@@ -668,6 +729,19 @@ export interface GyeokgukSummary {
   readonly reasoning: string;
   readonly candidates?: readonly GyeokgukCandidateSummary[];
   readonly jonggyeokCandidates?: readonly JonggyeokCandidateSummary[];
+  /** PR-6: 격국 성패(成敗) 판정 — 상신·순용/역용·성격/파격 (additive). */
+  readonly seongpae?: GyeokgukSeongpaeSummary | null;
+}
+
+/** PR-6: 격국 성패 판정 상세 (자평진전 순용/역용 계열). */
+export interface GyeokgukSeongpaeSummary {
+  readonly verdict: 'SEONGGYEOK' | 'PAGYEOK' | 'PAJUNG_YUGU' | 'SEONGJUNG_YUPA' | 'UNDETERMINED';
+  readonly usage: 'SUNYONG' | 'YEOKYONG';
+  readonly sangshin: string | null;
+  readonly sangshinStemHanja: string | null;
+  readonly pagyeokFactor: string | null;
+  readonly gueung: string | null;
+  readonly reasons: readonly string[];
 }
 
 /** Source-tier metadata matching test/baseline/schema/sourceTier.schema.json. */
@@ -762,6 +836,12 @@ export interface CheonganRelationSummary {
   readonly resultElement: string | null;
   readonly note: string;
   readonly score: CheonganRelationScore | null;
+  /** PR-5 (감사 B531): 합 상태 — 'HUA' | 'HAPGEO' | 'JAENGHAP' | 'YOHAP' (HAP만). */
+  readonly hapState?: string;
+  /** 합 상태 한글 표기 (예: '합이불화 — 기반(묶임)'). */
+  readonly hapStateKo?: string;
+  /** resultElement(화기 오행)를 확정 표기해도 되는지 — 합화(HUA) 성립 시에만 true. */
+  readonly resultConfirmed?: boolean;
 }
 
 /** Numeric breakdown of a heavenly-stem relation's score. */
@@ -812,20 +892,100 @@ export interface HiddenStemTenGod {
 /** A divine-sha (shinsal) hit and its weighted score. */
 export interface ShinsalHitSummary {
   readonly type: string;
+  /** ⚠ 산출 기준(basedOn)의 축약이지 앉은 궁위가 아니다 — 궁위는 seatPillars를 볼 것. */
   readonly position: string;
   readonly grade: string;
   readonly baseWeight: number;
   readonly positionMultiplier: number;
   readonly weightedScore: number;
+  /** 산출 기준 원값: YEAR_BRANCH | DAY_BRANCH | MONTH_BRANCH | DAY_STEM | YEAR_STEM | OTHER. */
+  readonly basedOn?: string;
+  /** 실제 앉은 기둥(궁위) — 근묘화실 통변의 전제 (감사 C2, HANDOFF 작업 5-후속 스펙). */
+  readonly seatPillars?: readonly ('year' | 'month' | 'day' | 'hour')[];
+  /** 같은 (type, position) 키로 합쳐진 발동 횟수 (예: 도화 2개). */
+  readonly count?: number;
 }
 
 /** A single 대운 (10-year luck cycle) pillar entry. */
-export interface DaeunPillarSummary {
+export interface TransitShinsalSummary {
+  readonly anchor: 'YEAR_BRANCH' | string;
+  readonly anchorBranch: string;
+  readonly targetBranch: string;
+  readonly twelveSal: string;
+  readonly samjae?: {
+    readonly active: boolean;
+    readonly phase: 'DEUL' | 'NUL' | 'NAL' | null | string;
+    readonly group: readonly string[];
+  };
+  readonly sangmun?: boolean;
+  readonly jogaek?: boolean;
+}
+
+export interface LuckPillarRelationSummary {
+  readonly type: string;
+  readonly members: readonly string[];
+  readonly natalPositions: readonly ('year' | 'month' | 'day' | 'hour' | string)[];
+  readonly luckPosition: 'luck' | string;
+  readonly resultElement?: string | null;
+}
+
+export interface LuckPillarRelationsWithNatalSummary {
+  readonly stemRelations: readonly LuckPillarRelationSummary[];
+  readonly branchRelations: readonly LuckPillarRelationSummary[];
+}
+
+export interface LuckPairRelationSummary {
+  readonly type: string;
+  readonly members: readonly string[];
+  readonly luckPositions: readonly ('decade' | 'year' | string)[];
+  readonly resultElement?: string | null;
+}
+
+export interface LuckDecadeYearRelationSummary {
+  readonly decadeIndex: number;
+  readonly decadePillar: {
+    readonly cheongan: string;
+    readonly jiji: string;
+  };
+  readonly stemRelations: readonly LuckPairRelationSummary[];
+  readonly branchRelations: readonly LuckPairRelationSummary[];
+}
+
+export interface LuckPillarRelationsWithDecadeSummary {
+  readonly decadeRelations: readonly LuckDecadeYearRelationSummary[];
+}
+
+export interface LuckPillarStemBranchInteractionSummary {
+  readonly gaedoo?: boolean;
+  readonly geogak?: boolean;
+  readonly labels?: readonly string[];
+  readonly stemElement?: ElementKey | string;
+  readonly branchElement?: ElementKey | string;
+}
+
+export interface LuckPillarAnnotationSummary {
+  readonly tenGod?: string;
+  readonly lifeStage?: string;
+  readonly lifeStageKo?: string;
+  readonly transitShinsal?: TransitShinsalSummary;
+  readonly relationsWithNatal?: LuckPillarRelationsWithNatalSummary;
+  readonly relationsWithDecade?: LuckPillarRelationsWithDecadeSummary;
+  readonly stemBranchInteraction?: LuckPillarStemBranchInteractionSummary;
+}
+
+export interface DaeunPillarSummary extends LuckPillarAnnotationSummary {
   readonly stem: string;
   readonly branch: string;
+  /** Inclusive start of the continuous daewoon age interval. */
   readonly startAge: number;
+  /** Exclusive end of the continuous daewoon age interval. */
   readonly endAge: number;
   readonly order: number;
+  readonly displayStartAge?: number | null;
+  readonly displayEndAge?: number | null;
+  /** Approximate UTC boundary for display/timeline only; continuous age remains authoritative. */
+  readonly approxStartUtcMs?: number | null;
+  readonly approxEndUtcMs?: number | null;
 }
 
 /** Daeun (대운, 10-year luck cycles) overview for a chart. Mirrors the
@@ -837,17 +997,44 @@ export interface DaeunPillarSummary {
 export interface DaeunInfoSummary {
   readonly isForward: boolean;
   readonly firstDaeunStartAge: number;
+  /** 표기용 정수 대운수 — 반올림 유파(기본: 1일 버림·2일 올림) + 하한 1. 상용 만세력 표기와 정합 (감사 B11). */
+  readonly firstDaeunStartAgeDisplay?: number | null;
+  readonly ageDisplayMode?: string | null;
+  readonly ageDisplayLabel?: string | null;
   readonly firstDaeunStartMonths: number;
+  /** 대운 기산 절기 id (예: 'LICHUN'). 과거에는 무관한 일경계 정책 문자열이 들어갔다. */
   readonly boundaryMode: string;
+  /** 기산 절기의 UTC ms — 절기 경계 부재 시 null. */
+  readonly boundaryUtcMs?: number | null;
+  /** 출생→기산 절기까지 일수 (소수 3자리). */
+  readonly deltaDays?: number | null;
+  /** 대운수 산출 공식 문자열 (예: 'startAgeYears = (Δdays / 3)  // 三日一歲'). */
+  readonly formula?: string | null;
   readonly warnings: readonly string[];
   readonly pillars: readonly DaeunPillarSummary[];
 }
 
 /** A single 세운 (yearly luck) pillar entry. */
-export interface SaeunPillarSummary {
+export interface SaeunPillarSummary extends LuckPillarAnnotationSummary {
   readonly year: number;
   readonly stem: string;
   readonly branch: string;
+  readonly startUtcMs?: number | null;
+  readonly endUtcMs?: number | null;
+  readonly approxStartAgeYears?: number | null;
+  readonly approxEndAgeYears?: number | null;
+}
+
+export interface WolunPillarSummary extends LuckPillarAnnotationSummary {
+  readonly year: number;
+  readonly monthOrder: number;
+  readonly startJie: string;
+  readonly stem: string;
+  readonly branch: string;
+  readonly startUtcMs?: number | null;
+  readonly endUtcMs?: number | null;
+  readonly approxStartAgeYears?: number | null;
+  readonly approxEndAgeYears?: number | null;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1160,6 +1347,7 @@ export interface SajuOutputSummary {
    *  SajuSummary.saeunPillars production. Used by the period fortune card
    *  builders for year-level trace + transitions. */
   saeunPillars?: readonly SaeunPillarSummary[];
+  wolunPillars?: readonly WolunPillarSummary[];
   /** 12궁 palace analysis (PR-Q-5). Surfaced by the saju-adapter only when
    *  `precisionConfig.surfacePalace === true` and the adapter has access to
    *  saju-ts's `analyzePalaces`. Each position carries the canonical

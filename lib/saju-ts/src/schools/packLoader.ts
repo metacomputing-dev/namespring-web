@@ -83,14 +83,18 @@ function resolveExtends(def: SchoolPresetDefinition, pack: SchoolPresetPack, sta
 
   const mergedOverlay = deepMerge(parentResolved.overlay ?? {}, def.overlay ?? {}) as any;
   const mergedInclude = mergeInclude(parentResolved.include, def.include);
-  const mergedAliases = uniq([...(parentResolved.aliases ?? []), ...(def.aliases ?? [])]);
   const mergedSources = uniq([...(parentResolved.sources ?? []), ...(def.sources ?? [])]);
 
   return {
     ...def,
     overlay: Object.keys(mergedOverlay ?? {}).length ? (mergedOverlay as any) : def.overlay,
     include: mergedInclude,
-    aliases: mergedAliases.length ? mergedAliases : def.aliases,
+    // aliases는 부모에게서 상속하지 않는다(자기 것만 유지). 프리셋들이 자기 id를
+    // aliases에도 넣는 관례 때문에, 부모 aliases를 상속하면 나중에 등록되는 자식이
+    // 인덱스에서 부모의 id/alias 키를 가로챈다 — qiongTongBaoJian 오버레이 분화(감사
+    // B12) 시 school.id='johoo.strict' 조회가 궁통보감 테이블을 받는 형태로 실제
+    // 발현·검출된 잠복 버그.
+    aliases: def.aliases,
     sources: mergedSources.length ? mergedSources : def.sources,
   };
 }
@@ -148,14 +152,21 @@ export function buildPresetIndex(packs: SchoolPresetPack[]): Record<string, { pr
   const out: Record<string, { preset: SchoolPreset; packId: string }> = {};
 
   // Later packs override earlier ones.
+  const materialized: Array<{ preset: SchoolPreset; packId: string }> = [];
   for (const pack of packs) {
     for (const def of pack.presets ?? []) {
       if (!def || typeof def.id !== 'string') continue;
-      const p = materializePreset(def as any, pack);
-
-      out[p.id] = { preset: p, packId: pack.id };
-      for (const a of p.aliases ?? []) out[a] = { preset: p, packId: pack.id };
+      materialized.push({ preset: materializePreset(def as any, pack), packId: pack.id });
     }
+  }
+
+  // 1차: aliases (alias끼리는 나중 것이 승 — 기존 의미 유지, 예: qiongtong).
+  for (const entry of materialized) {
+    for (const a of entry.preset.aliases ?? []) out[a] = entry;
+  }
+  // 2차: ids — 정확한 id 조회는 다른 프리셋의 alias에 가로채이지 않는다.
+  for (const entry of materialized) {
+    out[entry.preset.id] = entry;
   }
 
   return out;

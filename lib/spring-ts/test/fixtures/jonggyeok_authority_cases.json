@@ -1,0 +1,406 @@
+{
+  "_meta": {
+    "schemaVersion": "spring-ts.jonggyeok-authority-fixture.v1",
+    "purpose": "Source-anchored special-frame chart intake for PR-7/9 jonggyeok calibration. Public web interpretations remain non-authority until independently reviewed; pillar-only rows are not engine-comparable.",
+    "intakeRequirements": {
+      "sourceTier": "T3_AUTHORED_INTERPRETATION or higher with source metadata. T3 web intake remains authorityTruthEligible=false until explicit independent review.",
+      "requiredFields": ["id", "label", "birth", "pillars", "expectedJonggyeokType", "expectedYongshinElement", "sourceTier"],
+      "expectedJonggyeokType": "CONG_CAI | CONG_GUAN | CONG_SHA | CONG_ER | CONG_YIN | CONG_BI | ZHUAN_WANG | HUA_QI",
+      "note": "When birth is unavailable, birth is null and pillars is a four-ganji string in year month day hour order. Engine comparison is skipped until direct-pillar analysis is supported."
+    },
+    "promotionCriteria": "80%+ calibrated match on 20+ authorityTruthEligible birth-time cases. Pillar-only or unreviewed web cases are source intake and subtype coverage evidence, never an accuracy denominator.",
+    "accessedAt": "2026-07-08",
+    "sourceTier": {
+      "tier": "T3_AUTHORED_INTERPRETATION",
+      "sourceType": "authority_corpus_scaffold_with_web_cases",
+      "sourceUrl": null,
+      "accessedAt": "2026-07-08",
+      "quoteShort": null,
+      "humanInterpretation": "The fixture now contains reviewed public web/source-anchored special-frame cases. Case-level sourceTier blocks provide the authority anchor.",
+      "copyrightNote": "Stores only four-pillar facts, short quotes, URLs, and human paraphrase; no bulk prose copied.",
+      "authorityTruthEligible": false
+    }
+  },
+  "cases": [
+    {
+      "id": "auth-jong-001",
+      "label": "Di Tian Sui Jia-Ji earth transformation minister chart",
+      "birth": null,
+      "pillars": "己巳 甲戌 甲子 己巳",
+      "expectedJonggyeokType": "HUA_QI",
+      "expectedYongshinElement": "EARTH",
+      "doctrineNote": "The cited case presents double Jia-Ji combinations, Xu month earth command, no strong Jia root, and exposed Ji earth, so the chart is treated as Jia-Ji transforming to earth.",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "web_authored_classical_case",
+        "sourceUrl": "https://www.fatemaster.ai/en/guides/geju/jia-ji-hua-tu-ge",
+        "accessedAt": "2026-07-08",
+        "quoteShort": "Earth transformation established",
+        "humanInterpretation": "FateMaster records this Di Tian Sui example as a Jia-Ji earth transformation case and gives the four pillars.",
+        "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "auth-jong-002",
+      "label": "Di Tian Sui Yi-Geng metal transformation commander chart",
+      "birth": null,
+      "pillars": "甲申 癸酉 乙丑 庚辰",
+      "expectedJonggyeokType": "HUA_QI",
+      "expectedYongshinElement": "METAL",
+      "doctrineNote": "The page marks Yi-Geng pairing, You month metal command, and lack of strong wood root as satisfying metal transformation.",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "web_authored_classical_case",
+        "sourceUrl": "https://www.fatemaster.ai/en/guides/geju/yi-geng-hua-jin-ge",
+        "accessedAt": "2026-07-08",
+        "quoteShort": "Metal transformation established",
+        "humanInterpretation": "FateMaster records this Di Tian Sui example as an Yi-Geng metal transformation case and gives the four pillars.",
+        "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "auth-jong-003",
+      "label": "Di Tian Sui Bing-Xin water transformation chancellor chart",
+      "birth": null,
+      "pillars": "壬辰 辛亥 丙子 壬辰",
+      "expectedJonggyeokType": "HUA_QI",
+      "expectedYongshinElement": "WATER",
+      "doctrineNote": "The source frames Bing-Xin combination in Hai month with exposed Ren water and no fire root as water transformation.",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "web_authored_classical_case",
+        "sourceUrl": "https://www.fatemaster.ai/en/guides/geju/bing-xin-hua-shui-ge",
+        "accessedAt": "2026-07-08",
+        "quoteShort": "Water transformation established",
+        "humanInterpretation": "FateMaster records this Di Tian Sui example as a Bing-Xin water transformation case and gives the four pillars.",
+        "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "auth-jong-004",
+      "label": "Di Tian Sui Ding-Ren wood transformation Yuan official chart",
+      "birth": null,
+      "pillars": "己卯 丁卯 壬午 癸卯",
+      "expectedJonggyeokType": "HUA_QI",
+      "expectedYongshinElement": "WOOD",
+      "doctrineNote": "The source identifies Ren combining with Ding, Mao month wood command, and triple Mao branch support as wood transformation.",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "web_authored_classical_case",
+        "sourceUrl": "https://www.fatemaster.ai/en/guides/geju/ding-ren-hua-mu-ge",
+        "accessedAt": "2026-07-08",
+        "quoteShort": "Wood transformation established",
+        "humanInterpretation": "FateMaster records this Di Tian Sui example as a Ding-Ren wood transformation case and gives the four pillars.",
+        "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "auth-jong-005",
+      "label": "Di Tian Sui Wu-Gui fire transformation top scholar chart",
+      "birth": null,
+      "pillars": "丙戌 癸巳 戊午 丁巳",
+      "expectedJonggyeokType": "HUA_QI",
+      "expectedYongshinElement": "FIRE",
+      "doctrineNote": "The page treats Wu-Gui combination in Si month with Bing and Ding fire revealed as a fire transformation case.",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "web_authored_classical_case",
+        "sourceUrl": "https://www.fatemaster.ai/en/guides/geju/wu-gui-hua-huo-ge",
+        "accessedAt": "2026-07-08",
+        "quoteShort": "Fire transformation established",
+        "humanInterpretation": "FateMaster records this Di Tian Sui example as a Wu-Gui fire transformation case and gives the four pillars.",
+        "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "auth-jong-006",
+      "label": "Li Hongzhang curving-straight wood dominant chart",
+      "birth": null,
+      "pillars": "癸未 甲寅 乙亥 己卯",
+      "expectedJonggyeokType": "ZHUAN_WANG",
+      "expectedYongshinElement": "WOOD",
+      "doctrineNote": "Hai-Mao-Wei wood combination with Yin month and no metal control is recorded as a wood-dominant Qu Zhi pattern.",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "web_authored_classical_case",
+        "sourceUrl": "https://www.fatemaster.ai/en/guides/geju/qu-zhi-ge",
+        "accessedAt": "2026-07-08",
+        "quoteShort": "Wood dominates without control",
+        "humanInterpretation": "FateMaster records this Xu Lewu/Di Tian Sui commentary case as Curving & Straight wood dominant pattern.",
+        "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "auth-jong-007",
+      "label": "Di Tian Sui blazing-upward fire dominant example",
+      "birth": null,
+      "pillars": "丙寅 甲午 丙戌 乙未",
+      "expectedJonggyeokType": "ZHUAN_WANG",
+      "expectedYongshinElement": "FIRE",
+      "doctrineNote": "The source identifies Yin-Wu-Xu fire combination, Wu month command, and absence of water as Yan Shang fire dominance.",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "web_authored_classical_case",
+        "sourceUrl": "https://www.fatemaster.ai/en/guides/geju/yan-shang-ge",
+        "accessedAt": "2026-07-08",
+        "quoteShort": "meets Yan Shang criteria",
+        "humanInterpretation": "FateMaster records this Ren Tieqiao commentary example as Blazing Upward fire dominant pattern.",
+        "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "auth-jong-008",
+      "label": "Master Zhang sowing-reaping earth dominant chart",
+      "birth": null,
+      "pillars": "戊戌 己未 戊辰 癸丑",
+      "expectedJonggyeokType": "ZHUAN_WANG",
+      "expectedYongshinElement": "EARTH",
+      "doctrineNote": "The case completes Chen-Xu-Chou-Wei earth storages in Wei month with earth stems exposed, matching Jia Se earth dominance.",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "web_authored_classical_case",
+        "sourceUrl": "https://www.fatemaster.ai/en/guides/geju/jia-se-ge",
+        "accessedAt": "2026-07-08",
+        "quoteShort": "meets Jia Se criteria",
+        "humanInterpretation": "FateMaster records this Ren Tieqiao commentary example as Sowing & Reaping earth dominant pattern.",
+        "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "auth-jong-009",
+      "label": "Qing military general metal reform dominant chart",
+      "birth": null,
+      "pillars": "庚申 乙酉 庚戌 庚辰",
+      "expectedJonggyeokType": "ZHUAN_WANG",
+      "expectedYongshinElement": "METAL",
+      "doctrineNote": "The source records Shen-You-Xu western metal direction plus triple Geng stems in You month as metal-dominant Cong Ge pattern.",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "web_authored_classical_case",
+        "sourceUrl": "https://www.fatemaster.ai/en/guides/geju/cong-ge-ge",
+        "accessedAt": "2026-07-08",
+        "quoteShort": "Metal energy consolidates",
+        "humanInterpretation": "FateMaster records this Ren Tieqiao commentary example as Following Reform metal dominant pattern.",
+        "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "auth-jong-010",
+      "label": "Wang Yangming moistening-downward water dominant chart",
+      "birth": null,
+      "pillars": "壬辰 辛亥 癸亥 癸亥",
+      "expectedJonggyeokType": "ZHUAN_WANG",
+      "expectedYongshinElement": "WATER",
+      "doctrineNote": "Three Hai branches, Ren/Gui water stems, and Hai month command are recorded as Run Xia water dominance.",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "web_authored_classical_case",
+        "sourceUrl": "https://www.fatemaster.ai/en/guides/geju/run-xia-ge",
+        "accessedAt": "2026-07-08",
+        "quoteShort": "meets Run Xia criteria",
+        "humanInterpretation": "FateMaster records this Wang Shouren case as Moistening Downward water dominant pattern.",
+        "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "auth-jong-011",
+      "label": "Cantian true blazing-upward fire dominant Taibao chart",
+      "birth": null,
+      "pillars": "乙未 辛巳 丙午 甲午",
+      "expectedJonggyeokType": "ZHUAN_WANG",
+      "expectedYongshinElement": "FIRE",
+      "doctrineNote": "Cantian identifies Si-Wu-Wei southern fire direction, fire in command, wood seals feeding fire, and no water killing as a pure Yan Shang case.",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "web_authored_case_analysis",
+        "sourceUrl": "https://www.cantian.ai/wiki/zh-Hans/other_geju/yanshangge/",
+        "accessedAt": "2026-07-08",
+        "quoteShort": "真纯的炎上格",
+        "humanInterpretation": "Cantian records this four-pillar example as a pure Yan Shang fire-dominant special frame.",
+        "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "auth-jong-012",
+      "label": "Di Tian Sui great merchant following-wealth chart",
+      "birth": null,
+      "pillars": "丙戌 甲午 壬午 丙午",
+      "expectedJonggyeokType": "CONG_CAI",
+      "expectedYongshinElement": "FIRE",
+      "doctrineNote": "Ren water is rootless in Wu month while triple Wu branches and double Bing stems make fire wealth dominant.",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "web_authored_classical_case",
+        "sourceUrl": "https://www.fatemaster.ai/en/guides/geju/cong-cai-ge",
+        "accessedAt": "2026-07-08",
+        "quoteShort": "chart is Cong Cai",
+        "humanInterpretation": "FateMaster records this Di Tian Sui merchant chart as a follow-wealth case.",
+        "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "auth-jong-013",
+      "label": "Sohu female Ren-Zi following-wealth chart",
+      "birth": null,
+      "pillars": "壬子 壬子 戊子 癸亥",
+      "expectedJonggyeokType": "CONG_CAI",
+      "expectedYongshinElement": "WATER",
+      "doctrineNote": "The article states Wu earth is born in Zi month without root or seal support, while water wealth is exposed and forceful, so the chart follows wealth.",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "web_authored_case_analysis",
+        "sourceUrl": "https://www.sohu.com/a/242623921_100209262",
+        "accessedAt": "2026-07-08",
+        "quoteShort": "所以为从财格",
+        "humanInterpretation": "The Sohu article gives this female chart and explicitly classifies it as follow-wealth.",
+        "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "auth-jong-014",
+      "label": "Sohu Wu-Wu Jia-Xu following-wealth chart",
+      "birth": null,
+      "pillars": "戊戌 戊午 甲戌 戊辰",
+      "expectedJonggyeokType": "CONG_CAI",
+      "expectedYongshinElement": "EARTH",
+      "doctrineNote": "The article says Jia wood in Wu month has its Chen root broken by Chen-Xu clash, with Wu earth in command and no seal support, so the chart follows wealth.",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "web_authored_case_analysis",
+        "sourceUrl": "https://www.sohu.com/a/242623921_100209262",
+        "accessedAt": "2026-07-08",
+        "quoteShort": "所以为从财格",
+        "humanInterpretation": "The Sohu article gives this male chart and explicitly classifies it as follow-wealth.",
+        "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "auth-jong-015",
+      "label": "Sanming example Jia-Xu following-wealth chart",
+      "birth": null,
+      "pillars": "丙戌 甲午 甲戌 戊辰",
+      "expectedJonggyeokType": "CONG_CAI",
+      "expectedYongshinElement": "EARTH",
+      "doctrineNote": "Suanzhun cites this as a Sanming example, explaining that the Wu month and earth branches gather energy into wealth and the Chen-Xu clash removes the slight Jia root.",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "web_authored_case_analysis",
+        "sourceUrl": "https://www.suanzhun.net/article/2568.html",
+        "accessedAt": "2026-07-08",
+        "quoteShort": "格局从真",
+        "humanInterpretation": "Suanzhun records this Sanming example under follow-wealth formation and breakage.",
+        "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "auth-jong-016",
+      "label": "Suanzhun Ding-Si Ren-Wu following-wealth chart",
+      "birth": null,
+      "pillars": "丁巳 乙巳 壬午 丙午",
+      "expectedJonggyeokType": "CONG_CAI",
+      "expectedYongshinElement": "FIRE",
+      "doctrineNote": "The source says Ren water is born in Si month with fire wealth in command, fire branches forming the wealth force, and Yi wood output feeding wealth, making the follow-wealth frame true.",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "web_authored_case_analysis",
+        "sourceUrl": "https://www.suanzhun.net/article/2568.html",
+        "accessedAt": "2026-07-08",
+        "quoteShort": "从财格很真",
+        "humanInterpretation": "Suanzhun records this chart as a true follow-wealth case.",
+        "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "auth-jong-017",
+      "label": "Fan Zhongyan following-wealth chart",
+      "birth": null,
+      "pillars": "己丑 癸酉 丁丑 辛丑",
+      "expectedJonggyeokType": "CONG_CAI",
+      "expectedYongshinElement": "METAL",
+      "doctrineNote": "Cantian cites Fan Zhongyan's chart, with Ding fire in You month, three Chou plus You forming metal wealth force, no wood/fire support, and labels it true abandoned-life following wealth.",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "web_authored_case_analysis",
+        "sourceUrl": "https://www.cantian.ai/wiki/zh-Hans/other_geju/congcaige/",
+        "accessedAt": "2026-07-08",
+        "quoteShort": "弃命从财之真格",
+        "humanInterpretation": "Cantian records this Fan Zhongyan chart as a true follow-wealth case.",
+        "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "auth-jong-018",
+      "label": "Di Tian Sui minister of war following-children chart",
+      "birth": null,
+      "pillars": "壬寅 壬寅 癸卯 乙卯",
+      "expectedJonggyeokType": "CONG_ER",
+      "expectedYongshinElement": "WOOD",
+      "doctrineNote": "Gui water in Yin month produces a continuous Yin-Yin-Mao-Mao wood output field; the source says the chart centers on output and is an authoritative Cong Er example.",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "web_authored_classical_case",
+        "sourceUrl": "https://www.fatemaster.ai/en/guides/geju/cong-er-ge",
+        "accessedAt": "2026-07-08",
+        "quoteShort": "authoritative Cong Er example",
+        "humanInterpretation": "FateMaster records this Di Tian Sui Shun Ju case as follow-children/output.",
+        "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "auth-jong-019",
+      "label": "Cantian Ding-Mao following-children chart",
+      "birth": null,
+      "pillars": "丁卯 壬寅 癸卯 丙辰",
+      "expectedJonggyeokType": "CONG_ER",
+      "expectedYongshinElement": "WOOD",
+      "doctrineNote": "Cantian describes Yin-Mao-Chen eastern wood output, rootless Gui water, and Bing fire wealth as a smooth water-to-wood-to-fire follow-children structure.",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "web_authored_case_analysis",
+        "sourceUrl": "https://www.cantian.ai/wiki/zh-Hans/other_geju/congerge/",
+        "accessedAt": "2026-07-08",
+        "quoteShort": "真从儿格",
+        "humanInterpretation": "Cantian records this chart as a true follow-children case.",
+        "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
+        "authorityTruthEligible": false
+      }
+    },
+    {
+      "id": "auth-jong-020",
+      "label": "Ren Tieqiao true following-killings chart",
+      "birth": null,
+      "pillars": "辛巳 辛丑 乙酉 乙酉",
+      "expectedJonggyeokType": "CONG_SHA",
+      "expectedYongshinElement": "METAL",
+      "doctrineNote": "Xin killings repeat in stems, Si-You-Chou forms metal, double You roots the killing force, and the source says Yi wood has no support, making a true following-killings frame.",
+      "sourceTier": {
+        "tier": "T3_AUTHORED_INTERPRETATION",
+        "sourceType": "web_authored_classical_case",
+        "sourceUrl": "https://www.fatemaster.ai/en/guides/geju/cong-sha-ge",
+        "accessedAt": "2026-07-08",
+        "quoteShort": "satisfies Cong Sha criteria",
+        "humanInterpretation": "FateMaster records this Ren Tieqiao commentary example as following killings.",
+        "copyrightNote": "Four-pillar facts plus short phrase only; no copied analysis body.",
+        "authorityTruthEligible": false
+      }
+    }
+  ]
+}

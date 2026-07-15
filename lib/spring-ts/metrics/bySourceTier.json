@@ -1,10 +1,10 @@
 {
   "schemaVersion": "spring-ts.by-source-tier.v1",
   "baseline": {
-    "fixtureCount": 15,
+    "fixtureCount": 17,
     "snapshotVersion": "1.0.0",
     "snapshotTargetDate": "2026-04-30T00:00:00.000Z",
-    "snapshotFixtureCount": 15
+    "snapshotFixtureCount": 17
   },
   "qualityGateByReferenceTier": {
     "T2_REFERENCE_IMPLEMENTATION": {
@@ -51,51 +51,51 @@
       }
     },
     "NO_REFERENCE": {
-      "fixtureCount": 3,
+      "fixtureCount": 5,
       "fixtureStatus": {
         "PASS": 3,
         "FAIL": 0,
-        "N/A": 0
+        "N/A": 2
       },
       "dimensionStatus": {
         "D1": {
           "PASS": 0,
           "FAIL": 0,
-          "N/A": 3
+          "N/A": 5
         },
         "D2": {
           "PASS": 0,
           "FAIL": 0,
-          "N/A": 3
+          "N/A": 5
         },
         "D3": {
           "PASS": 0,
           "FAIL": 0,
-          "N/A": 3
+          "N/A": 5
         },
         "D4": {
           "PASS": 0,
           "FAIL": 0,
-          "N/A": 3
+          "N/A": 5
         },
         "D5": {
           "PASS": 3,
           "FAIL": 0,
-          "N/A": 0
+          "N/A": 2
         }
       },
       "truthBuckets": {
-        "insufficient_source_truth": 3,
+        "insufficient_source_truth": 5,
         "authority_match": 0,
         "engine_rule_failure": 0
       },
       "references": {
-        "none": 3
+        "none": 5
       }
     }
   },
   "truthSeparation": {
-    "insufficientSourceTruthCount": 15,
+    "insufficientSourceTruthCount": 17,
     "authorityMatchCount": 0,
     "engineRuleFailureCount": 0
   },
@@ -716,9 +716,9 @@
     ],
     "presets": {
       "korean": {
-        "fixtureCount": 15,
+        "fixtureCount": 17,
         "changedFromDefault": 0,
-        "unchangedFromDefault": 15,
+        "unchangedFromDefault": 17,
         "averageTotalDelta": 0,
         "averageSajuDelta": 0,
         "minTotalDelta": 0,
@@ -732,9 +732,9 @@
             "unchangedFromDefault": 12
           },
           "NO_REFERENCE": {
-            "fixtureCount": 3,
+            "fixtureCount": 5,
             "changedFromDefault": 0,
-            "unchangedFromDefault": 3
+            "unchangedFromDefault": 5
           }
         },
         "bySourceType": {
@@ -744,29 +744,29 @@
             "unchangedFromDefault": 12
           },
           "none": {
-            "fixtureCount": 3,
+            "fixtureCount": 5,
             "changedFromDefault": 0,
-            "unchangedFromDefault": 3
+            "unchangedFromDefault": 5
           }
         },
         "byTruthBucket": {
           "insufficient_source_truth": {
-            "fixtureCount": 15,
+            "fixtureCount": 17,
             "changedFromDefault": 0,
-            "unchangedFromDefault": 15
+            "unchangedFromDefault": 17
           }
         }
       },
       "chinese": {
-        "fixtureCount": 15,
-        "changedFromDefault": 15,
+        "fixtureCount": 17,
+        "changedFromDefault": 17,
         "unchangedFromDefault": 0,
-        "averageTotalDelta": -0.7067,
-        "averageSajuDelta": -2.5933,
-        "minTotalDelta": -7.2,
-        "maxTotalDelta": 2.8,
-        "minSajuDelta": -26.9,
-        "maxSajuDelta": 13.7,
+        "averageTotalDelta": -1.0118,
+        "averageSajuDelta": -3.9706,
+        "minTotalDelta": -7.3,
+        "maxTotalDelta": 0.6,
+        "minSajuDelta": -27,
+        "maxSajuDelta": 2.6,
         "byReferenceTier": {
           "T2_REFERENCE_IMPLEMENTATION": {
             "fixtureCount": 12,
@@ -774,8 +774,8 @@
             "unchangedFromDefault": 0
           },
           "NO_REFERENCE": {
-            "fixtureCount": 3,
-            "changedFromDefault": 3,
+            "fixtureCount": 5,
+            "changedFromDefault": 5,
             "unchangedFromDefault": 0
           }
         },
@@ -786,70 +786,28 @@
             "unchangedFromDefault": 0
           },
           "none": {
-            "fixtureCount": 3,
-            "changedFromDefault": 3,
+            "fixtureCount": 5,
+            "changedFromDefault": 5,
             "unchangedFromDefault": 0
           }
         },
         "byTruthBucket": {
           "insufficient_source_truth": {
-            "fixtureCount": 15,
-            "changedFromDefault": 15,
+            "fixtureCount": 17,
+            "changedFromDefault": 17,
             "unchangedFromDefault": 0
           }
         }
       },
       "modern": {
-        "fixtureCount": 15,
-        "changedFromDefault": 14,
-        "unchangedFromDefault": 1,
-        "averageTotalDelta": -0.1133,
-        "averageSajuDelta": -0.4467,
+        "fixtureCount": 17,
+        "changedFromDefault": 17,
+        "unchangedFromDefault": 0,
+        "averageTotalDelta": -0.1118,
+        "averageSajuDelta": -0.4118,
         "minTotalDelta": -0.3,
         "maxTotalDelta": 0.1,
-        "minSajuDelta": -1,
-        "maxSajuDelta": 0.3,
-        "byReferenceTier": {
-          "T2_REFERENCE_IMPLEMENTATION": {
-            "fixtureCount": 12,
-            "changedFromDefault": 11,
-            "unchangedFromDefault": 1
-          },
-          "NO_REFERENCE": {
-            "fixtureCount": 3,
-            "changedFromDefault": 3,
-            "unchangedFromDefault": 0
-          }
-        },
-        "bySourceType": {
-          "reference_implementation": {
-            "fixtureCount": 12,
-            "changedFromDefault": 11,
-            "unchangedFromDefault": 1
-          },
-          "none": {
-            "fixtureCount": 3,
-            "changedFromDefault": 3,
-            "unchangedFromDefault": 0
-          }
-        },
-        "byTruthBucket": {
-          "insufficient_source_truth": {
-            "fixtureCount": 15,
-            "changedFromDefault": 14,
-            "unchangedFromDefault": 1
-          }
-        }
-      },
-      "korean_modern": {
-        "fixtureCount": 15,
-        "changedFromDefault": 15,
-        "unchangedFromDefault": 0,
-        "averageTotalDelta": -0.18,
-        "averageSajuDelta": -0.6733,
-        "minTotalDelta": -0.4,
-        "maxTotalDelta": 0.1,
-        "minSajuDelta": -1.5,
+        "minSajuDelta": -0.8,
         "maxSajuDelta": 0.4,
         "byReferenceTier": {
           "T2_REFERENCE_IMPLEMENTATION": {
@@ -858,8 +816,8 @@
             "unchangedFromDefault": 0
           },
           "NO_REFERENCE": {
-            "fixtureCount": 3,
-            "changedFromDefault": 3,
+            "fixtureCount": 5,
+            "changedFromDefault": 5,
             "unchangedFromDefault": 0
           }
         },
@@ -870,29 +828,71 @@
             "unchangedFromDefault": 0
           },
           "none": {
-            "fixtureCount": 3,
-            "changedFromDefault": 3,
+            "fixtureCount": 5,
+            "changedFromDefault": 5,
             "unchangedFromDefault": 0
           }
         },
         "byTruthBucket": {
           "insufficient_source_truth": {
-            "fixtureCount": 15,
-            "changedFromDefault": 15,
+            "fixtureCount": 17,
+            "changedFromDefault": 17,
+            "unchangedFromDefault": 0
+          }
+        }
+      },
+      "korean_modern": {
+        "fixtureCount": 17,
+        "changedFromDefault": 17,
+        "unchangedFromDefault": 0,
+        "averageTotalDelta": -0.1647,
+        "averageSajuDelta": -0.6118,
+        "minTotalDelta": -0.4,
+        "maxTotalDelta": 0.1,
+        "minSajuDelta": -1.2,
+        "maxSajuDelta": 0.5,
+        "byReferenceTier": {
+          "T2_REFERENCE_IMPLEMENTATION": {
+            "fixtureCount": 12,
+            "changedFromDefault": 12,
+            "unchangedFromDefault": 0
+          },
+          "NO_REFERENCE": {
+            "fixtureCount": 5,
+            "changedFromDefault": 5,
+            "unchangedFromDefault": 0
+          }
+        },
+        "bySourceType": {
+          "reference_implementation": {
+            "fixtureCount": 12,
+            "changedFromDefault": 12,
+            "unchangedFromDefault": 0
+          },
+          "none": {
+            "fixtureCount": 5,
+            "changedFromDefault": 5,
+            "unchangedFromDefault": 0
+          }
+        },
+        "byTruthBucket": {
+          "insufficient_source_truth": {
+            "fixtureCount": 17,
+            "changedFromDefault": 17,
             "unchangedFromDefault": 0
           }
         }
       },
       "classical_text": {
-        "fixtureCount": 15,
-        "changedFromDefault": 15,
+        "fixtureCount": 17,
+        "changedFromDefault": 17,
         "unchangedFromDefault": 0,
-        "averageTotalDelta": -0.8267,
-        "averageSajuDelta": -3.0867,
-        "minTotalDelta": -7.4,
-        "maxTotalDelta": 3,
-        "minSajuDelta": -27.7,
-        "maxSajuDelta": 14.5,
+        "averageTotalDelta": -1.1412,
+        "averageSajuDelta": -4.5176,
+        "minTotalDelta": -7.5,
+        "maxTotalDelta": 0.7,
+        "minSajuDelta": -27.9,
+        "maxSajuDelta": 3.4,
         "byReferenceTier": {
           "T2_REFERENCE_IMPLEMENTATION": {
             "fixtureCount": 12,
@@ -900,8 +900,8 @@
             "unchangedFromDefault": 0
           },
           "NO_REFERENCE": {
-            "fixtureCount": 3,
-            "changedFromDefault": 3,
+            "fixtureCount": 5,
+            "changedFromDefault": 5,
             "unchangedFromDefault": 0
           }
         },
@@ -912,29 +912,29 @@
             "unchangedFromDefault": 0
           },
           "none": {
-            "fixtureCount": 3,
-            "changedFromDefault": 3,
+            "fixtureCount": 5,
+            "changedFromDefault": 5,
             "unchangedFromDefault": 0
           }
         },
         "byTruthBucket": {
           "insufficient_source_truth": {
-            "fixtureCount": 15,
-            "changedFromDefault": 15,
+            "fixtureCount": 17,
+            "changedFromDefault": 17,
             "unchangedFromDefault": 0
           }
         }
       },
       "naming_safe": {
-        "fixtureCount": 15,
-        "changedFromDefault": 15,
+        "fixtureCount": 17,
+        "changedFromDefault": 17,
         "unchangedFromDefault": 0,
-        "averageTotalDelta": 0.1667,
-        "averageSajuDelta": 0.7067,
+        "averageTotalDelta": 0.1353,
+        "averageSajuDelta": 0.5412,
         "minTotalDelta": -0.1,
-        "maxTotalDelta": 0.4,
-        "minSajuDelta": -0.5,
-        "maxSajuDelta": 1.6,
+        "maxTotalDelta": 0.3,
+        "minSajuDelta": -0.4,
+        "maxSajuDelta": 1.1,
         "byReferenceTier": {
           "T2_REFERENCE_IMPLEMENTATION": {
             "fixtureCount": 12,
@@ -942,8 +942,8 @@
             "unchangedFromDefault": 0
           },
           "NO_REFERENCE": {
-            "fixtureCount": 3,
-            "changedFromDefault": 3,
+            "fixtureCount": 5,
+            "changedFromDefault": 5,
             "unchangedFromDefault": 0
           }
         },
@@ -954,15 +954,15 @@
             "unchangedFromDefault": 0
           },
           "none": {
-            "fixtureCount": 3,
-            "changedFromDefault": 3,
+            "fixtureCount": 5,
+            "changedFromDefault": 5,
             "unchangedFromDefault": 0
           }
         },
         "byTruthBucket": {
           "insufficient_source_truth": {
-            "fixtureCount": 15,
-            "changedFromDefault": 15,
+            "fixtureCount": 17,
+            "changedFromDefault": 17,
             "unchangedFromDefault": 0
           }
         }
@@ -971,7 +971,7 @@
     "rows": [
       {
         "fixtureId": "fix-01",
-        "label": "1986-04-19 male — 戊土 일간 (README example)",
+        "label": "1986-04-19 male — 癸水 일간 (README example)",
         "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
         "referenceKind": "oracle",
         "sourceType": "reference_implementation",
@@ -979,19 +979,19 @@
         "authorityTruthEligible": false,
         "scores": {
           "default": {
-            "total": 56.2,
-            "saju": 35.5
+            "total": 56.1,
+            "saju": 35.4
           },
           "korean": {
-            "total": 56.2,
-            "saju": 35.5
+            "total": 56.1,
+            "saju": 35.4
           },
           "chinese": {
             "total": 55.9,
-            "saju": 34.5
+            "saju": 34.3
           },
           "modern": {
-            "total": 56.1,
+            "total": 56,
             "saju": 35
           },
           "korean_modern": {
@@ -999,12 +999,12 @@
             "saju": 34.8
           },
           "classical_text": {
-            "total": 55.8,
-            "saju": 33.9
+            "total": 55.7,
+            "saju": 33.6
           },
           "naming_safe": {
             "total": 56.3,
-            "saju": 36.2
+            "saju": 35.9
           }
         },
         "deltaVsDefault": {
@@ -1013,30 +1013,30 @@
             "saju": 0
           },
           "chinese": {
-            "total": -0.3,
-            "saju": -1
+            "total": -0.2,
+            "saju": -1.1
           },
           "modern": {
             "total": -0.1,
-            "saju": -0.5
+            "saju": -0.4
           },
           "korean_modern": {
-            "total": -0.2,
-            "saju": -0.7
+            "total": -0.1,
+            "saju": -0.6
           },
           "classical_text": {
             "total": -0.4,
-            "saju": -1.6
+            "saju": -1.8
           },
           "naming_safe": {
-            "total": 0.1,
-            "saju": 0.7
+            "total": 0.2,
+            "saju": 0.5
           }
         }
       },
       {
         "fixtureId": "fix-02",
-        "label": "1992-09-15 female — 壬水 일간, 가을",
+        "label": "1992-09-15 female — 甲木 일간, 가을",
         "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
         "referenceKind": "oracle",
         "sourceType": "reference_implementation",
@@ -1044,32 +1044,32 @@
         "authorityTruthEligible": false,
         "scores": {
           "default": {
-            "total": 53.8,
-            "saju": 42.1
+            "total": 53.9,
+            "saju": 42.2
           },
           "korean": {
-            "total": 53.8,
-            "saju": 42.1
+            "total": 53.9,
+            "saju": 42.2
           },
           "chinese": {
-            "total": 53.6,
-            "saju": 40.9
+            "total": 53.5,
+            "saju": 40.8
           },
           "modern": {
             "total": 53.7,
-            "saju": 41.5
+            "saju": 41.7
           },
           "korean_modern": {
-            "total": 53.6,
-            "saju": 41.3
+            "total": 53.7,
+            "saju": 41.4
           },
           "classical_text": {
             "total": 53.4,
-            "saju": 40.2
+            "saju": 40.1
           },
           "naming_safe": {
             "total": 54,
-            "saju": 42.9
+            "saju": 42.8
           }
         },
         "deltaVsDefault": {
@@ -1078,24 +1078,24 @@
             "saju": 0
           },
           "chinese": {
-            "total": -0.2,
-            "saju": -1.2
+            "total": -0.4,
+            "saju": -1.4
           },
           "modern": {
-            "total": -0.1,
-            "saju": -0.6
+            "total": -0.2,
+            "saju": -0.5
           },
           "korean_modern": {
             "total": -0.2,
             "saju": -0.8
           },
           "classical_text": {
-            "total": -0.4,
-            "saju": -1.9
+            "total": -0.5,
+            "saju": -2.1
           },
           "naming_safe": {
-            "total": 0.2,
-            "saju": 0.8
+            "total": 0.1,
+            "saju": 0.6
           }
         }
       },
@@ -1109,747 +1109,32 @@
         "authorityTruthEligible": false,
         "scores": {
           "default": {
-            "total": 62.9,
-            "saju": 57
+            "total": 65,
+            "saju": 64.9
           },
           "korean": {
-            "total": 62.9,
-            "saju": 57
+            "total": 65,
+            "saju": 64.9
           },
           "chinese": {
-            "total": 64.9,
-            "saju": 64.6
+            "total": 64.5,
+            "saju": 63.1
           },
           "modern": {
-            "total": 62.7,
-            "saju": 56.2
+            "total": 64.8,
+            "saju": 64.2
           },
           "korean_modern": {
-            "total": 62.6,
-            "saju": 55.8
+            "total": 64.7,
+            "saju": 63.8
           },
           "classical_text": {
-            "total": 64.6,
-            "saju": 63.5
-          },
-          "naming_safe": {
-            "total": 63.2,
-            "saju": 58.1
-          }
-        },
-        "deltaVsDefault": {
-          "korean": {
-            "total": 0,
-            "saju": 0
-          },
-          "chinese": {
-            "total": 2,
-            "saju": 7.6
-          },
-          "modern": {
-            "total": -0.2,
-            "saju": -0.8
-          },
-          "korean_modern": {
-            "total": -0.3,
-            "saju": -1.2
-          },
-          "classical_text": {
-            "total": 1.7,
-            "saju": 6.5
-          },
-          "naming_safe": {
-            "total": 0.3,
-            "saju": 1.1
-          }
-        }
-      },
-      {
-        "fixtureId": "fix-04",
-        "label": "1965-08-08 19:00 female — 丙火 일간, 종왕 후보 (강한 火)",
-        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
-        "referenceKind": "oracle",
-        "sourceType": "reference_implementation",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
-        "scores": {
-          "default": {
-            "total": 57.6,
-            "saju": 34.9
-          },
-          "korean": {
-            "total": 57.6,
-            "saju": 34.9
-          },
-          "chinese": {
-            "total": 55.5,
-            "saju": 25.9
-          },
-          "modern": {
-            "total": 57.4,
-            "saju": 34.3
-          },
-          "korean_modern": {
-            "total": 57.4,
-            "saju": 34
-          },
-          "classical_text": {
-            "total": 55.5,
-            "saju": 26
-          },
-          "naming_safe": {
-            "total": 57.8,
-            "saju": 35.9
-          }
-        },
-        "deltaVsDefault": {
-          "korean": {
-            "total": 0,
-            "saju": 0
-          },
-          "chinese": {
-            "total": -2.1,
-            "saju": -9
-          },
-          "modern": {
-            "total": -0.2,
-            "saju": -0.6
-          },
-          "korean_modern": {
-            "total": -0.2,
-            "saju": -0.9
-          },
-          "classical_text": {
-            "total": -2.1,
-            "saju": -8.9
-          },
-          "naming_safe": {
-            "total": 0.2,
-            "saju": 1
-          }
-        }
-      },
-      {
-        "fixtureId": "fix-05",
-        "label": "2005-12-25 06:00 male — 겨울 조후 case (한랭)",
-        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
-        "referenceKind": "oracle",
-        "sourceType": "reference_implementation",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
-        "scores": {
-          "default": {
-            "total": 58.1,
-            "saju": 57.6
-          },
-          "korean": {
-            "total": 58.1,
-            "saju": 57.6
-          },
-          "chinese": {
-            "total": 57.4,
-            "saju": 55.1
-          },
-          "modern": {
-            "total": 57.8,
-            "saju": 56.6
-          },
-          "korean_modern": {
-            "total": 57.7,
-            "saju": 56.1
-          },
-          "classical_text": {
-            "total": 57,
-            "saju": 53.5
-          },
-          "naming_safe": {
-            "total": 58.5,
-            "saju": 59.2
-          }
-        },
-        "deltaVsDefault": {
-          "korean": {
-            "total": 0,
-            "saju": 0
-          },
-          "chinese": {
-            "total": -0.7,
-            "saju": -2.5
-          },
-          "modern": {
-            "total": -0.3,
-            "saju": -1
-          },
-          "korean_modern": {
-            "total": -0.4,
-            "saju": -1.5
-          },
-          "classical_text": {
-            "total": -1.1,
-            "saju": -4.1
-          },
-          "naming_safe": {
-            "total": 0.4,
-            "saju": 1.6
-          }
-        }
-      },
-      {
-        "fixtureId": "fix-06",
-        "label": "1978-06-15 14:00 female — 庚金 일간, 여름",
-        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
-        "referenceKind": "oracle",
-        "sourceType": "reference_implementation",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
-        "scores": {
-          "default": {
-            "total": 57.9,
-            "saju": 40.9
-          },
-          "korean": {
-            "total": 57.9,
-            "saju": 40.9
-          },
-          "chinese": {
-            "total": 57.6,
-            "saju": 39.8
-          },
-          "modern": {
-            "total": 57.8,
-            "saju": 40.5
-          },
-          "korean_modern": {
-            "total": 57.7,
-            "saju": 40.2
-          },
-          "classical_text": {
-            "total": 57.5,
-            "saju": 39.1
-          },
-          "naming_safe": {
-            "total": 58.1,
-            "saju": 41.7
-          }
-        },
-        "deltaVsDefault": {
-          "korean": {
-            "total": 0,
-            "saju": 0
-          },
-          "chinese": {
-            "total": -0.3,
-            "saju": -1.1
-          },
-          "modern": {
-            "total": -0.1,
-            "saju": -0.4
-          },
-          "korean_modern": {
-            "total": -0.2,
-            "saju": -0.7
-          },
-          "classical_text": {
-            "total": -0.4,
-            "saju": -1.8
-          },
-          "naming_safe": {
-            "total": 0.2,
-            "saju": 0.8
-          }
-        }
-      },
-      {
-        "fixtureId": "fix-07",
-        "label": "1957-02-04 male — 입춘 boundary",
-        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
-        "referenceKind": "oracle",
-        "sourceType": "reference_implementation",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
-        "scores": {
-          "default": {
             "total": 64.2,
-            "saju": 43
-          },
-          "korean": {
-            "total": 64.2,
-            "saju": 43
-          },
-          "chinese": {
-            "total": 63.8,
-            "saju": 41.1
-          },
-          "modern": {
-            "total": 64,
-            "saju": 42.1
-          },
-          "korean_modern": {
-            "total": 63.9,
-            "saju": 41.7
-          },
-          "classical_text": {
-            "total": 63.5,
-            "saju": 40
+            "saju": 62
           },
           "naming_safe": {
-            "total": 64.6,
-            "saju": 44.4
-          }
-        },
-        "deltaVsDefault": {
-          "korean": {
-            "total": 0,
-            "saju": 0
-          },
-          "chinese": {
-            "total": -0.4,
-            "saju": -1.9
-          },
-          "modern": {
-            "total": -0.2,
-            "saju": -0.9
-          },
-          "korean_modern": {
-            "total": -0.3,
-            "saju": -1.3
-          },
-          "classical_text": {
-            "total": -0.7,
-            "saju": -3
-          },
-          "naming_safe": {
-            "total": 0.4,
-            "saju": 1.4
-          }
-        }
-      },
-      {
-        "fixtureId": "fix-08",
-        "label": "2020-08-23 female — 처서 boundary",
-        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
-        "referenceKind": "oracle",
-        "sourceType": "reference_implementation",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
-        "scores": {
-          "default": {
-            "total": 57.6,
-            "saju": 55.1
-          },
-          "korean": {
-            "total": 57.6,
-            "saju": 55.1
-          },
-          "chinese": {
-            "total": 54.6,
-            "saju": 43
-          },
-          "modern": {
-            "total": 57.7,
-            "saju": 55.4
-          },
-          "korean_modern": {
-            "total": 57.7,
-            "saju": 55.5
-          },
-          "classical_text": {
-            "total": 54.9,
-            "saju": 43.9
-          },
-          "naming_safe": {
-            "total": 57.5,
-            "saju": 54.6
-          }
-        },
-        "deltaVsDefault": {
-          "korean": {
-            "total": 0,
-            "saju": 0
-          },
-          "chinese": {
-            "total": -3,
-            "saju": -12.1
-          },
-          "modern": {
-            "total": 0.1,
-            "saju": 0.3
-          },
-          "korean_modern": {
-            "total": 0.1,
-            "saju": 0.4
-          },
-          "classical_text": {
-            "total": -2.7,
-            "saju": -11.2
-          },
-          "naming_safe": {
-            "total": -0.1,
-            "saju": -0.5
-          }
-        }
-      },
-      {
-        "fixtureId": "fix-09",
-        "label": "1988-05-05 male — 입하 boundary",
-        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
-        "referenceKind": "oracle",
-        "sourceType": "reference_implementation",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
-        "scores": {
-          "default": {
-            "total": 61.9,
-            "saju": 47.9
-          },
-          "korean": {
-            "total": 61.9,
-            "saju": 47.9
-          },
-          "chinese": {
-            "total": 61.7,
-            "saju": 47
-          },
-          "modern": {
-            "total": 61.8,
-            "saju": 47.5
-          },
-          "korean_modern": {
-            "total": 61.8,
-            "saju": 47.3
-          },
-          "classical_text": {
-            "total": 61.6,
-            "saju": 46.5
-          },
-          "naming_safe": {
-            "total": 62.1,
-            "saju": 48.6
-          }
-        },
-        "deltaVsDefault": {
-          "korean": {
-            "total": 0,
-            "saju": 0
-          },
-          "chinese": {
-            "total": -0.2,
-            "saju": -0.9
-          },
-          "modern": {
-            "total": -0.1,
-            "saju": -0.4
-          },
-          "korean_modern": {
-            "total": -0.1,
-            "saju": -0.6
-          },
-          "classical_text": {
-            "total": -0.3,
-            "saju": -1.4
-          },
-          "naming_safe": {
-            "total": 0.2,
-            "saju": 0.7
-          }
-        }
-      },
-      {
-        "fixtureId": "fix-10",
-        "label": "2018-11-22 female — 소설 boundary",
-        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
-        "referenceKind": "oracle",
-        "sourceType": "reference_implementation",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
-        "scores": {
-          "default": {
-            "total": 76.1,
-            "saju": 81.6
-          },
-          "korean": {
-            "total": 76.1,
-            "saju": 81.6
-          },
-          "chinese": {
-            "total": 68.9,
-            "saju": 54.7
-          },
-          "modern": {
-            "total": 76,
-            "saju": 81.2
-          },
-          "korean_modern": {
-            "total": 75.9,
-            "saju": 81
-          },
-          "classical_text": {
-            "total": 68.7,
-            "saju": 53.9
-          },
-          "naming_safe": {
-            "total": 76.3,
-            "saju": 82.2
-          }
-        },
-        "deltaVsDefault": {
-          "korean": {
-            "total": 0,
-            "saju": 0
-          },
-          "chinese": {
-            "total": -7.2,
-            "saju": -26.9
-          },
-          "modern": {
-            "total": -0.1,
-            "saju": -0.4
-          },
-          "korean_modern": {
-            "total": -0.2,
-            "saju": -0.6
-          },
-          "classical_text": {
-            "total": -7.4,
-            "saju": -27.7
-          },
-          "naming_safe": {
-            "total": 0.2,
-            "saju": 0.6
-          }
-        }
-      },
-      {
-        "fixtureId": "fix-11",
-        "label": "1995-08-15 female — 시간미상 (unknown-hour)",
-        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
-        "referenceKind": "oracle",
-        "sourceType": "reference_implementation",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
-        "scores": {
-          "default": {
-            "total": 54.3,
-            "saju": 46.8
-          },
-          "korean": {
-            "total": 54.3,
-            "saju": 46.8
-          },
-          "chinese": {
-            "total": 54.2,
-            "saju": 46.4
-          },
-          "modern": {
-            "total": 54.3,
-            "saju": 46.8
-          },
-          "korean_modern": {
-            "total": 54.2,
-            "saju": 46.7
-          },
-          "classical_text": {
-            "total": 54.1,
-            "saju": 46.2
-          },
-          "naming_safe": {
-            "total": 54.3,
-            "saju": 47
-          }
-        },
-        "deltaVsDefault": {
-          "korean": {
-            "total": 0,
-            "saju": 0
-          },
-          "chinese": {
-            "total": -0.1,
-            "saju": -0.4
-          },
-          "modern": {
-            "total": 0,
-            "saju": 0
-          },
-          "korean_modern": {
-            "total": -0.1,
-            "saju": -0.1
-          },
-          "classical_text": {
-            "total": -0.2,
-            "saju": -0.6
-          },
-          "naming_safe": {
-            "total": 0,
-            "saju": 0.2
-          }
-        }
-      },
-      {
-        "fixtureId": "fix-12",
-        "label": "1991-03-20 male — borderline-strength (춘분 즈음, 중화 후보)",
-        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
-        "referenceKind": "oracle",
-        "sourceType": "reference_implementation",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
-        "scores": {
-          "default": {
-            "total": 54.2,
-            "saju": 22.8
-          },
-          "korean": {
-            "total": 54.2,
-            "saju": 22.8
-          },
-          "chinese": {
-            "total": 57,
-            "saju": 36.5
-          },
-          "modern": {
-            "total": 54.2,
-            "saju": 22.7
-          },
-          "korean_modern": {
-            "total": 54.2,
-            "saju": 22.7
-          },
-          "classical_text": {
-            "total": 57.2,
-            "saju": 37.3
-          },
-          "naming_safe": {
-            "total": 54.2,
-            "saju": 23.1
-          }
-        },
-        "deltaVsDefault": {
-          "korean": {
-            "total": 0,
-            "saju": 0
-          },
-          "chinese": {
-            "total": 2.8,
-            "saju": 13.7
-          },
-          "modern": {
-            "total": 0,
-            "saju": -0.1
-          },
-          "korean_modern": {
-            "total": 0,
-            "saju": -0.1
-          },
-          "classical_text": {
-            "total": 3,
-            "saju": 14.5
-          },
-          "naming_safe": {
-            "total": 0,
-            "saju": 0.3
-          }
-        }
-      },
-      {
-        "fixtureId": "fix-13",
-        "label": "1989-07-23 male — borderline-strength practical tier (정재격, 여름 yongshin=WATER)",
-        "referenceTier": "NO_REFERENCE",
-        "referenceKind": "none",
-        "sourceType": "none",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
-        "scores": {
-          "default": {
-            "total": 58.3,
-            "saju": 41.3
-          },
-          "korean": {
-            "total": 58.3,
-            "saju": 41.3
-          },
-          "chinese": {
-            "total": 58.1,
-            "saju": 40.7
-          },
-          "modern": {
-            "total": 58.2,
-            "saju": 41
-          },
-          "korean_modern": {
-            "total": 58.2,
-            "saju": 40.9
-          },
-          "classical_text": {
-            "total": 58.1,
-            "saju": 40.4
-          },
-          "naming_safe": {
-            "total": 58.4,
-            "saju": 41.6
-          }
-        },
-        "deltaVsDefault": {
-          "korean": {
-            "total": 0,
-            "saju": 0
-          },
-          "chinese": {
-            "total": -0.2,
-            "saju": -0.6
-          },
-          "modern": {
-            "total": -0.1,
-            "saju": -0.3
-          },
-          "korean_modern": {
-            "total": -0.1,
-            "saju": -0.4
-          },
-          "classical_text": {
-            "total": -0.2,
-            "saju": -0.9
-          },
-          "naming_safe": {
-            "total": 0.1,
-            "saju": 0.3
-          }
-        }
-      },
-      {
-        "fixtureId": "fix-14",
-        "label": "1980-08-07 male — borderline-strength candidate tier (정관격, 가을 yongshin=WOOD)",
-        "referenceTier": "NO_REFERENCE",
-        "referenceKind": "none",
-        "sourceType": "none",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
-        "scores": {
-          "default": {
-            "total": 70.5,
-            "saju": 69.7
-          },
-          "korean": {
-            "total": 70.5,
-            "saju": 69.7
-          },
-          "chinese": {
-            "total": 70,
-            "saju": 67.9
-          },
-          "modern": {
-            "total": 70.3,
-            "saju": 69
-          },
-          "korean_modern": {
-            "total": 70.2,
-            "saju": 68.6
-          },
-          "classical_text": {
-            "total": 69.7,
-            "saju": 66.8
-          },
-          "naming_safe": {
-            "total": 70.7,
-            "saju": 70.7
+            "total": 65.2,
+            "saju": 65.7
           }
         },
         "deltaVsDefault": {
@@ -1875,6 +1160,721 @@
           },
           "naming_safe": {
             "total": 0.2,
+            "saju": 0.8
+          }
+        }
+      },
+      {
+        "fixtureId": "fix-04",
+        "label": "1965-08-08 19:00 female — 甲木 일간, 종왕 후보 (강한 木)",
+        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
+        "referenceKind": "oracle",
+        "sourceType": "reference_implementation",
+        "truthBucket": "insufficient_source_truth",
+        "authorityTruthEligible": false,
+        "scores": {
+          "default": {
+            "total": 58.7,
+            "saju": 40
+          },
+          "korean": {
+            "total": 58.7,
+            "saju": 40
+          },
+          "chinese": {
+            "total": 55.4,
+            "saju": 25.5
+          },
+          "modern": {
+            "total": 58.6,
+            "saju": 39.7
+          },
+          "korean_modern": {
+            "total": 58.5,
+            "saju": 39.5
+          },
+          "classical_text": {
+            "total": 55.4,
+            "saju": 25.6
+          },
+          "naming_safe": {
+            "total": 58.8,
+            "saju": 40.7
+          }
+        },
+        "deltaVsDefault": {
+          "korean": {
+            "total": 0,
+            "saju": 0
+          },
+          "chinese": {
+            "total": -3.3,
+            "saju": -14.5
+          },
+          "modern": {
+            "total": -0.1,
+            "saju": -0.3
+          },
+          "korean_modern": {
+            "total": -0.2,
+            "saju": -0.5
+          },
+          "classical_text": {
+            "total": -3.3,
+            "saju": -14.4
+          },
+          "naming_safe": {
+            "total": 0.1,
+            "saju": 0.7
+          }
+        }
+      },
+      {
+        "fixtureId": "fix-05",
+        "label": "2005-12-25 06:00 male — 겨울 조후 case (한랭)",
+        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
+        "referenceKind": "oracle",
+        "sourceType": "reference_implementation",
+        "truthBucket": "insufficient_source_truth",
+        "authorityTruthEligible": false,
+        "scores": {
+          "default": {
+            "total": 61,
+            "saju": 68.2
+          },
+          "korean": {
+            "total": 61,
+            "saju": 68.2
+          },
+          "chinese": {
+            "total": 60.5,
+            "saju": 66.4
+          },
+          "modern": {
+            "total": 60.7,
+            "saju": 67.4
+          },
+          "korean_modern": {
+            "total": 60.6,
+            "saju": 67.1
+          },
+          "classical_text": {
+            "total": 60.2,
+            "saju": 65.3
+          },
+          "naming_safe": {
+            "total": 61.2,
+            "saju": 69
+          }
+        },
+        "deltaVsDefault": {
+          "korean": {
+            "total": 0,
+            "saju": 0
+          },
+          "chinese": {
+            "total": -0.5,
+            "saju": -1.8
+          },
+          "modern": {
+            "total": -0.3,
+            "saju": -0.8
+          },
+          "korean_modern": {
+            "total": -0.4,
+            "saju": -1.1
+          },
+          "classical_text": {
+            "total": -0.8,
+            "saju": -2.9
+          },
+          "naming_safe": {
+            "total": 0.2,
+            "saju": 0.8
+          }
+        }
+      },
+      {
+        "fixtureId": "fix-06",
+        "label": "1978-06-15 14:00 female — 戊土 일간, 여름",
+        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
+        "referenceKind": "oracle",
+        "sourceType": "reference_implementation",
+        "truthBucket": "insufficient_source_truth",
+        "authorityTruthEligible": false,
+        "scores": {
+          "default": {
+            "total": 57,
+            "saju": 36.8
+          },
+          "korean": {
+            "total": 57,
+            "saju": 36.8
+          },
+          "chinese": {
+            "total": 56.6,
+            "saju": 35.4
+          },
+          "modern": {
+            "total": 56.8,
+            "saju": 36.3
+          },
+          "korean_modern": {
+            "total": 56.8,
+            "saju": 36
+          },
+          "classical_text": {
+            "total": 56.4,
+            "saju": 34.5
+          },
+          "naming_safe": {
+            "total": 57.1,
+            "saju": 37.6
+          }
+        },
+        "deltaVsDefault": {
+          "korean": {
+            "total": 0,
+            "saju": 0
+          },
+          "chinese": {
+            "total": -0.4,
+            "saju": -1.4
+          },
+          "modern": {
+            "total": -0.2,
+            "saju": -0.5
+          },
+          "korean_modern": {
+            "total": -0.2,
+            "saju": -0.8
+          },
+          "classical_text": {
+            "total": -0.6,
+            "saju": -2.3
+          },
+          "naming_safe": {
+            "total": 0.1,
+            "saju": 0.8
+          }
+        }
+      },
+      {
+        "fixtureId": "fix-07",
+        "label": "1957-02-04 male — 입춘 boundary",
+        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
+        "referenceKind": "oracle",
+        "sourceType": "reference_implementation",
+        "truthBucket": "insufficient_source_truth",
+        "authorityTruthEligible": false,
+        "scores": {
+          "default": {
+            "total": 64.8,
+            "saju": 45.5
+          },
+          "korean": {
+            "total": 64.8,
+            "saju": 45.5
+          },
+          "chinese": {
+            "total": 64.4,
+            "saju": 43.8
+          },
+          "modern": {
+            "total": 64.6,
+            "saju": 44.8
+          },
+          "korean_modern": {
+            "total": 64.5,
+            "saju": 44.5
+          },
+          "classical_text": {
+            "total": 64.1,
+            "saju": 42.7
+          },
+          "naming_safe": {
+            "total": 65,
+            "saju": 46.6
+          }
+        },
+        "deltaVsDefault": {
+          "korean": {
+            "total": 0,
+            "saju": 0
+          },
+          "chinese": {
+            "total": -0.4,
+            "saju": -1.7
+          },
+          "modern": {
+            "total": -0.2,
+            "saju": -0.7
+          },
+          "korean_modern": {
+            "total": -0.3,
+            "saju": -1
+          },
+          "classical_text": {
+            "total": -0.7,
+            "saju": -2.8
+          },
+          "naming_safe": {
+            "total": 0.2,
+            "saju": 1.1
+          }
+        }
+      },
+      {
+        "fixtureId": "fix-08",
+        "label": "2020-08-23 female — 처서 boundary",
+        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
+        "referenceKind": "oracle",
+        "sourceType": "reference_implementation",
+        "truthBucket": "insufficient_source_truth",
+        "authorityTruthEligible": false,
+        "scores": {
+          "default": {
+            "total": 57.6,
+            "saju": 55.2
+          },
+          "korean": {
+            "total": 57.6,
+            "saju": 55.2
+          },
+          "chinese": {
+            "total": 54.7,
+            "saju": 43.2
+          },
+          "modern": {
+            "total": 57.7,
+            "saju": 55.3
+          },
+          "korean_modern": {
+            "total": 57.7,
+            "saju": 55.4
+          },
+          "classical_text": {
+            "total": 54.9,
+            "saju": 44
+          },
+          "naming_safe": {
+            "total": 57.5,
+            "saju": 54.9
+          }
+        },
+        "deltaVsDefault": {
+          "korean": {
+            "total": 0,
+            "saju": 0
+          },
+          "chinese": {
+            "total": -2.9,
+            "saju": -12
+          },
+          "modern": {
+            "total": 0.1,
+            "saju": 0.1
+          },
+          "korean_modern": {
+            "total": 0.1,
+            "saju": 0.2
+          },
+          "classical_text": {
+            "total": -2.7,
+            "saju": -11.2
+          },
+          "naming_safe": {
+            "total": -0.1,
+            "saju": -0.3
+          }
+        }
+      },
+      {
+        "fixtureId": "fix-09",
+        "label": "1988-05-05 male — 입하 boundary",
+        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
+        "referenceKind": "oracle",
+        "sourceType": "reference_implementation",
+        "truthBucket": "insufficient_source_truth",
+        "authorityTruthEligible": false,
+        "scores": {
+          "default": {
+            "total": 62,
+            "saju": 48.4
+          },
+          "korean": {
+            "total": 62,
+            "saju": 48.4
+          },
+          "chinese": {
+            "total": 61.8,
+            "saju": 47.4
+          },
+          "modern": {
+            "total": 61.9,
+            "saju": 48
+          },
+          "korean_modern": {
+            "total": 61.9,
+            "saju": 47.8
+          },
+          "classical_text": {
+            "total": 61.7,
+            "saju": 46.9
+          },
+          "naming_safe": {
+            "total": 62.2,
+            "saju": 48.9
+          }
+        },
+        "deltaVsDefault": {
+          "korean": {
+            "total": 0,
+            "saju": 0
+          },
+          "chinese": {
+            "total": -0.2,
+            "saju": -1
+          },
+          "modern": {
+            "total": -0.1,
+            "saju": -0.4
+          },
+          "korean_modern": {
+            "total": -0.1,
+            "saju": -0.6
+          },
+          "classical_text": {
+            "total": -0.3,
+            "saju": -1.5
+          },
+          "naming_safe": {
+            "total": 0.2,
+            "saju": 0.5
+          }
+        }
+      },
+      {
+        "fixtureId": "fix-10",
+        "label": "2018-11-22 female — 소설 boundary",
+        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
+        "referenceKind": "oracle",
+        "sourceType": "reference_implementation",
+        "truthBucket": "insufficient_source_truth",
+        "authorityTruthEligible": false,
+        "scores": {
+          "default": {
+            "total": 76.3,
+            "saju": 82.3
+          },
+          "korean": {
+            "total": 76.3,
+            "saju": 82.3
+          },
+          "chinese": {
+            "total": 69,
+            "saju": 55.3
+          },
+          "modern": {
+            "total": 76.2,
+            "saju": 81.8
+          },
+          "korean_modern": {
+            "total": 76.1,
+            "saju": 81.6
+          },
+          "classical_text": {
+            "total": 68.8,
+            "saju": 54.4
+          },
+          "naming_safe": {
+            "total": 76.5,
+            "saju": 82.8
+          }
+        },
+        "deltaVsDefault": {
+          "korean": {
+            "total": 0,
+            "saju": 0
+          },
+          "chinese": {
+            "total": -7.3,
+            "saju": -27
+          },
+          "modern": {
+            "total": -0.1,
+            "saju": -0.5
+          },
+          "korean_modern": {
+            "total": -0.2,
+            "saju": -0.7
+          },
+          "classical_text": {
+            "total": -7.5,
+            "saju": -27.9
+          },
+          "naming_safe": {
+            "total": 0.2,
+            "saju": 0.5
+          }
+        }
+      },
+      {
+        "fixtureId": "fix-11",
+        "label": "1995-08-15 female — 시간미상 (unknown-hour)",
+        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
+        "referenceKind": "oracle",
+        "sourceType": "reference_implementation",
+        "truthBucket": "insufficient_source_truth",
+        "authorityTruthEligible": false,
+        "scores": {
+          "default": {
+            "total": 54.3,
+            "saju": 46.8
+          },
+          "korean": {
+            "total": 54.3,
+            "saju": 46.8
+          },
+          "chinese": {
+            "total": 54.2,
+            "saju": 46.6
+          },
+          "modern": {
+            "total": 54.2,
+            "saju": 46.6
+          },
+          "korean_modern": {
+            "total": 54.2,
+            "saju": 46.6
+          },
+          "classical_text": {
+            "total": 54.2,
+            "saju": 46.4
+          },
+          "naming_safe": {
+            "total": 54.3,
+            "saju": 46.9
+          }
+        },
+        "deltaVsDefault": {
+          "korean": {
+            "total": 0,
+            "saju": 0
+          },
+          "chinese": {
+            "total": -0.1,
+            "saju": -0.2
+          },
+          "modern": {
+            "total": -0.1,
+            "saju": -0.2
+          },
+          "korean_modern": {
+            "total": -0.1,
+            "saju": -0.2
+          },
+          "classical_text": {
+            "total": -0.1,
+            "saju": -0.4
+          },
+          "naming_safe": {
+            "total": 0,
+            "saju": 0.1
+          }
+        }
+      },
+      {
+        "fixtureId": "fix-12",
+        "label": "1991-03-20 male — borderline-strength (춘분 즈음, 중화 후보)",
+        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
+        "referenceKind": "oracle",
+        "sourceType": "reference_implementation",
+        "truthBucket": "insufficient_source_truth",
+        "authorityTruthEligible": false,
+        "scores": {
+          "default": {
+            "total": 56.4,
+            "saju": 33.5
+          },
+          "korean": {
+            "total": 56.4,
+            "saju": 33.5
+          },
+          "chinese": {
+            "total": 57,
+            "saju": 36.1
+          },
+          "modern": {
+            "total": 56.5,
+            "saju": 33.9
+          },
+          "korean_modern": {
+            "total": 56.5,
+            "saju": 34
+          },
+          "classical_text": {
+            "total": 57.1,
+            "saju": 36.9
+          },
+          "naming_safe": {
+            "total": 56.3,
+            "saju": 33.1
+          }
+        },
+        "deltaVsDefault": {
+          "korean": {
+            "total": 0,
+            "saju": 0
+          },
+          "chinese": {
+            "total": 0.6,
+            "saju": 2.6
+          },
+          "modern": {
+            "total": 0.1,
+            "saju": 0.4
+          },
+          "korean_modern": {
+            "total": 0.1,
+            "saju": 0.5
+          },
+          "classical_text": {
+            "total": 0.7,
+            "saju": 3.4
+          },
+          "naming_safe": {
+            "total": -0.1,
+            "saju": -0.4
+          }
+        }
+      },
+      {
+        "fixtureId": "fix-13",
+        "label": "1989-07-23 male — borderline-strength practical tier (정재격, 여름 yongshin=WATER)",
+        "referenceTier": "NO_REFERENCE",
+        "referenceKind": "none",
+        "sourceType": "none",
+        "truthBucket": "insufficient_source_truth",
+        "authorityTruthEligible": false,
+        "scores": {
+          "default": {
+            "total": 57.1,
+            "saju": 35.4
+          },
+          "korean": {
+            "total": 57.1,
+            "saju": 35.4
+          },
+          "chinese": {
+            "total": 56.8,
+            "saju": 34.2
+          },
+          "modern": {
+            "total": 57,
+            "saju": 34.9
+          },
+          "korean_modern": {
+            "total": 56.9,
+            "saju": 34.7
+          },
+          "classical_text": {
+            "total": 56.7,
+            "saju": 33.5
+          },
+          "naming_safe": {
+            "total": 57.3,
+            "saju": 36.1
+          }
+        },
+        "deltaVsDefault": {
+          "korean": {
+            "total": 0,
+            "saju": 0
+          },
+          "chinese": {
+            "total": -0.3,
+            "saju": -1.2
+          },
+          "modern": {
+            "total": -0.1,
+            "saju": -0.5
+          },
+          "korean_modern": {
+            "total": -0.2,
+            "saju": -0.7
+          },
+          "classical_text": {
+            "total": -0.4,
+            "saju": -1.9
+          },
+          "naming_safe": {
+            "total": 0.2,
+            "saju": 0.7
+          }
+        }
+      },
+      {
+        "fixtureId": "fix-14",
+        "label": "1980-08-07 male — borderline-strength candidate tier (정관격, 가을 yongshin=WOOD)",
+        "referenceTier": "NO_REFERENCE",
+        "referenceKind": "none",
+        "sourceType": "none",
+        "truthBucket": "insufficient_source_truth",
+        "authorityTruthEligible": false,
+        "scores": {
+          "default": {
+            "total": 70,
+            "saju": 68
+          },
+          "korean": {
+            "total": 70,
+            "saju": 68
+          },
+          "chinese": {
+            "total": 69.5,
+            "saju": 66
+          },
+          "modern": {
+            "total": 69.8,
+            "saju": 67.2
+          },
+          "korean_modern": {
+            "total": 69.7,
+            "saju": 66.8
+          },
+          "classical_text": {
+            "total": 69.2,
+            "saju": 64.8
+          },
+          "naming_safe": {
+            "total": 70.3,
+            "saju": 69
+          }
+        },
+        "deltaVsDefault": {
+          "korean": {
+            "total": 0,
+            "saju": 0
+          },
+          "chinese": {
+            "total": -0.5,
+            "saju": -2
+          },
+          "modern": {
+            "total": -0.2,
+            "saju": -0.8
+          },
+          "korean_modern": {
+            "total": -0.3,
+            "saju": -1.2
+          },
+          "classical_text": {
+            "total": -0.8,
+            "saju": -3.2
+          },
+          "naming_safe": {
+            "total": 0.3,
             "saju": 1
           }
         }
@@ -1890,31 +1890,161 @@
         "scores": {
           "default": {
             "total": 62.3,
-            "saju": 50.2
+            "saju": 50.5
           },
           "korean": {
             "total": 62.3,
-            "saju": 50.2
+            "saju": 50.5
           },
           "chinese": {
             "total": 62.1,
-            "saju": 49.4
-          },
-          "modern": {
-            "total": 62.2,
-            "saju": 49.9
-          },
-          "korean_modern": {
-            "total": 62.1,
             "saju": 49.7
           },
+          "modern": {
+            "total": 62.3,
+            "saju": 50.2
+          },
+          "korean_modern": {
+            "total": 62.2,
+            "saju": 50
+          },
           "classical_text": {
-            "total": 61.9,
-            "saju": 48.9
+            "total": 62,
+            "saju": 49.2
           },
           "naming_safe": {
-            "total": 62.4,
-            "saju": 50.8
+            "total": 62.5,
+            "saju": 51
+          }
+        },
+        "deltaVsDefault": {
+          "korean": {
+            "total": 0,
+            "saju": 0
+          },
+          "chinese": {
+            "total": -0.2,
+            "saju": -0.8
+          },
+          "modern": {
+            "total": 0,
+            "saju": -0.3
+          },
+          "korean_modern": {
+            "total": -0.1,
+            "saju": -0.5
+          },
+          "classical_text": {
+            "total": -0.3,
+            "saju": -1.3
+          },
+          "naming_safe": {
+            "total": 0.2,
+            "saju": 0.5
+          }
+        }
+      },
+      {
+        "fixtureId": "fix-16",
+        "label": "2003-05-10 23:40 male — 야자시 창(정자시설+경도보정, 시계 23:32 이후 자시) 경계",
+        "referenceTier": "NO_REFERENCE",
+        "referenceKind": "none",
+        "sourceType": "none",
+        "truthBucket": "insufficient_source_truth",
+        "authorityTruthEligible": false,
+        "scores": {
+          "default": {
+            "total": 57.9,
+            "saju": 42.9
+          },
+          "korean": {
+            "total": 57.9,
+            "saju": 42.9
+          },
+          "chinese": {
+            "total": 57.5,
+            "saju": 41.5
+          },
+          "modern": {
+            "total": 57.8,
+            "saju": 42.4
+          },
+          "korean_modern": {
+            "total": 57.7,
+            "saju": 42.1
+          },
+          "classical_text": {
+            "total": 57.3,
+            "saju": 40.6
+          },
+          "naming_safe": {
+            "total": 58.1,
+            "saju": 43.8
+          }
+        },
+        "deltaVsDefault": {
+          "korean": {
+            "total": 0,
+            "saju": 0
+          },
+          "chinese": {
+            "total": -0.4,
+            "saju": -1.4
+          },
+          "modern": {
+            "total": -0.1,
+            "saju": -0.5
+          },
+          "korean_modern": {
+            "total": -0.2,
+            "saju": -0.8
+          },
+          "classical_text": {
+            "total": -0.6,
+            "saju": -2.3
+          },
+          "naming_safe": {
+            "total": 0.2,
+            "saju": 0.9
+          }
+        }
+      },
+      {
+        "fixtureId": "fix-17",
+        "label": "음력 2004-윤2-15 10:00 female — 음력 윤달 입력 변환(calendarType=lunar)",
+        "referenceTier": "NO_REFERENCE",
+        "referenceKind": "none",
+        "sourceType": "none",
+        "truthBucket": "insufficient_source_truth",
+        "authorityTruthEligible": false,
+        "scores": {
+          "default": {
+            "total": 61.1,
+            "saju": 45.9
+          },
+          "korean": {
+            "total": 61.1,
+            "saju": 45.9
+          },
+          "chinese": {
+            "total": 60.9,
+            "saju": 45.1
+          },
+          "modern": {
+            "total": 61,
+            "saju": 45.5
+          },
+          "korean_modern": {
+            "total": 61,
+            "saju": 45.4
+          },
+          "classical_text": {
+            "total": 60.8,
+            "saju": 44.6
+          },
+          "naming_safe": {
+            "total": 61.2,
+            "saju": 46.3
           }
         },
         "deltaVsDefault": {
@@ -1928,26 +2058,26 @@
           },
           "modern": {
             "total": -0.1,
-            "saju": -0.3
+            "saju": -0.4
           },
           "korean_modern": {
-            "total": -0.2,
+            "total": -0.1,
             "saju": -0.5
           },
           "classical_text": {
-            "total": -0.4,
+            "total": -0.3,
             "saju": -1.3
           },
           "naming_safe": {
             "total": 0.1,
-            "saju": 0.6
+            "saju": 0.4
           }
         }
       }
     ],
     "authorityFixtureCoverage": {
       "scorableAuthorityFixtures": 0,
-      "nonScorableAuthorityFixtures": 76,
+      "nonScorableAuthorityFixtures": 78,
       "pillarOnlyAuthorityFixtures": 75,
       "ruleSnippetCollections": 1,
       "note": "Authority casebooks are source-tiered, but current records are not full naming-score inputs with birth + surname + givenName."

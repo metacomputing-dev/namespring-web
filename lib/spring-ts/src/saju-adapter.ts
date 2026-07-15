@@ -25,8 +25,17 @@ import type {
   SajuPillarPosition, SajuTenGodPositionGroup,
   SajuAxisStrengthMap, SajuJudgmentStrength, SajuInputUncertaintyAxis,
   GyeokgukCandidateSummary, JonggyeokCandidateSummary, SourceTierMetadata,
-  YongshinConsensusScoreboard,
+  YongshinConsensusScoreboard, LunarConversionSummary,
 } from './types.js';
+import { leapMonthOfLunarYear, lunarToSolar } from './calendar/korean-lunar-calendar.js';
+import { kasiLunarToSolar } from './calendar/kasi-lunar-api.js';
+import {
+  SajuRequestValidationError,
+  requiredMaxMonthsForRequest,
+  requiredMaxYearsForRequest,
+  validateSajuConfigFortuneHorizon,
+  validateSajuRequestOptions,
+} from './saju-request-policy.js';
 
 // ---------------------------------------------------------------------------
 //  Configuration loaded from JSON files
@@ -181,6 +190,10 @@ const GYEOKGUK_CATEGORY_KO_LABEL: Record<string, string> = {
 const GYEOKGUK_KO_LABEL: Record<string, string> = {
   BI_GYEON: '비견격',
   GYEOB_JAE: '겁재격',
+  // 감사 B4: 월지 비겁의 주류 격명 (기본 모드). 누락 시 원시 코드 노출됨.
+  GEONROK: '건록격',
+  YANGIN: '양인격',
+  WOLGEOB: '월겁격',
   JEONG_GWAN: '정관격',
   PYEON_GWAN: '편관격',
   JEONG_JAE: '정재격',
@@ -204,9 +217,14 @@ const JIJI_RELATION_NOTE_KO_LABEL: Record<string, string> = {
   HAE: '\uC9C0\uC9C0 \uD574 \uAD00\uACC4',
   PA: '\uC9C0\uC9C0 \uD30C \uAD00\uACC4',
   WONJIN: '\uC9C0\uC9C0 \uC6D0\uC9C4 \uAD00\uACC4',
+  GWIMUN: '\uC9C0\uC9C0 \uADC0\uBB38 \uAD00\uACC4',
   HYEONG: '\uC9C0\uC9C0 \uD615 \uAD00\uACC4',
+  JA_HYEONG: '\uC9C0\uC9C0 \uC790\uD615 \uAD00\uACC4',
+  SAMHYEONG: '\uC9C0\uC9C0 \uC0BC\uD615 \uAD00\uACC4',
   HAP: '\uC9C0\uC9C0 \uD569 \uAD00\uACC4',
+  YUKHAP: '\uC9C0\uC9C0 \uC721\uD569 \uAD00\uACC4',
   SAMHAP: '\uC9C0\uC9C0 \uC0BC\uD569 \uAD00\uACC4',
+  BANHAP: '\uC9C0\uC9C0 \uBC18\uD569 \uAD00\uACC4',
   BANGHAP: '\uC9C0\uC9C0 \uBC29\uD569 \uAD00\uACC4',
 };
 const JIJI_RELATION_OUTCOME_KO_LABEL: Record<string, string> = {
@@ -214,9 +232,14 @@ const JIJI_RELATION_OUTCOME_KO_LABEL: Record<string, string> = {
   HAE: '\uD574',
   PA: '\uD30C',
   WONJIN: '\uC6D0\uC9C4',
+  GWIMUN: '\uADC0\uBB38',
   HYEONG: '\uD615',
+  JA_HYEONG: '\uC790\uD615',
+  SAMHYEONG: '\uC0BC\uD615',
   HAP: '\uD569',
+  YUKHAP: '\uC721\uD569',
   SAMHAP: '\uC0BC\uD569',
+  BANHAP: '\uBC18\uD569',
   BANGHAP: '\uBC29\uD569',
 };
 const CHEONGAN_RELATION_NOTE_KO_LABEL: Record<string, string> = {
@@ -226,13 +249,18 @@ const CHEONGAN_RELATION_NOTE_KO_LABEL: Record<string, string> = {
 };
 const RELATION_TYPE_KO_LABEL: Record<string, string> = {
   HAP: '\uD569',
+  YUKHAP: '\uC721\uD569',
   CHUNG: '\uCDA9',
   GEUK: '\uADF9',
   HAE: '\uD574',
   PA: '\uD30C',
   WONJIN: '\uC6D0\uC9C4',
+  GWIMUN: '\uADC0\uBB38',
   HYEONG: '\uD615',
+  JA_HYEONG: '\uC790\uD615',
+  SAMHYEONG: '\uC0BC\uD615',
   SAMHAP: '\uC0BC\uD569',
+  BANHAP: '\uBC18\uD569',
   BANGHAP: '\uBC29\uD569',
 };
 const SHINSAL_TYPE_KO_LABEL: Record<string, string> = {
@@ -242,6 +270,9 @@ const SHINSAL_TYPE_KO_LABEL: Record<string, string> = {
   HAE_SAL: '해살',
   PA_SAL: '파살',
   WONJIN_SAL: '원진살',
+  GWIMUN_SAL: '귀문관살',
+  GOSIN_SAL: '고신살',
+  GWASUK_SAL: '과숙살',
   GEOKGAK_SAL: '격각살',
   // 12신살 (twelve sal)
   JI_SAL: '지살',
@@ -928,13 +959,15 @@ function toLegacySajuTimePolicyConfig(
 ): Record<string, unknown> {
   const policy = options?.sajuTimePolicy;
 
-  // Product defaults:
+  // Product defaults (감사 결정① 2026-07-08):
   // - true solar time: off
   // - longitude correction: on
-  // - yaza: off
+  // - day boundary: 정자시설 — yaza 기본 'on' + 23:00 모드(엔진 ziSplit23).
+  //   경도 보정과 결합하면 서울 기준 시계 약 23:32에 일주·자시가 개시된다.
+  //   자정설(구 기본)은 sajuTimePolicy.yaza='off'로 복귀 가능.
   const trueSolarTimeToggle = resolvePolicyToggle(policy?.trueSolarTime, 'off');
   const longitudeCorrectionToggle = resolvePolicyToggle(policy?.longitudeCorrection, 'on');
-  const yazaToggle = resolvePolicyToggle(policy?.yaza, 'off');
+  const yazaToggle = resolvePolicyToggle(policy?.yaza, 'on');
 
   const patch: Record<string, unknown> = {};
 
@@ -954,8 +987,19 @@ function toLegacySajuTimePolicyConfig(
   }
 
   patch.yazaEnabled = yazaToggle === 'on';
-  if (policy?.yazaMode === '23:00') patch.yazaMode = 'YAZA_23_TO_01_NEXTDAY';
-  else if (policy?.yazaMode === '23:30') patch.yazaMode = 'YAZA_23_30_TO_01_30_NEXTDAY';
+  if (yazaToggle === 'on') {
+    // 23:30 모드는 경도 보정 off 유파용 레거시 옵션 — 경도 보정과 중첩하면
+    // 이중 보정(-62분)이 된다 (감사 A11).
+    const legacyMode =
+      policy?.yazaMode === '23:30' ? 'YAZA_23_30_TO_01_30_NEXTDAY' : 'YAZA_23_TO_01_NEXTDAY';
+    patch.yazaMode = legacyMode;
+    // dayCutMode를 반드시 명시: resolveDayCutMode(springLegacy)가 dayCutMode를
+    // yazaMode보다 먼저 평가하므로, preset(KOREAN_MAINSTREAM)의 dayCutMode가
+    // 남아 있으면 여기서 고른 모드에 그림자를 드리운다.
+    patch.dayCutMode = legacyMode;
+  } else {
+    patch.dayCutMode = 'MIDNIGHT_00'; // 자정설 옵션 (yaza:'off')
+  }
 
   return patch;
 }
@@ -1085,12 +1129,25 @@ function buildPartialSajuSummary(birth: BirthInfo, parts: KnownBirthParts): Saju
   return summary;
 }
 
-function buildUnsupportedLunarSajuSummary(birth: BirthInfo, parts: KnownBirthParts): SajuSummary {
+/**
+ * 감사 B1: 음력 입력을 변환할 수 없을 때의 비활성 요약.
+ * 정상 음력 입력은 내장 테이블(KASI/KARI 표준, 제품 보장 1900-01-01~2050-11-18 음력)로 변환되어
+ * 분석된다 — 이 경로는 부분 입력·범위 밖·존재하지 않는 날짜 전용이다.
+ */
+function buildUnsupportedLunarSajuSummary(
+  birth: BirthInfo,
+  parts: KnownBirthParts,
+  cause: 'partial-lunar-input' | 'ambiguous-leap-month' | 'conversion-failed',
+): SajuSummary {
   const summary = emptySaju() as SajuSummary & Record<string, unknown>;
   const mutableSummary = summary as Record<string, any>;
 
   mutableSummary.partialInterpretation = [
-    '음력 생년월일은 KASI 음양력 변환으로 양력 생년월일을 확정한 뒤 사주 분석해야 합니다. 현재 엔진은 자동 변환을 적용하지 않아 사주 분석을 비활성화했습니다.',
+    cause === 'partial-lunar-input'
+      ? '음력 생년월일은 연·월·일이 모두 있어야 양력으로 변환해 사주를 세울 수 있습니다.'
+      : cause === 'ambiguous-leap-month'
+        ? '입력한 음력 달에는 평달과 윤달이 모두 있습니다. 윤달 여부를 반드시 선택해 주세요.'
+        : '입력한 음력 날짜를 양력으로 변환하지 못했습니다. 지원 범위(1900년~2050년 음력 11월 18일)와 윤달 여부를 확인해 주세요.',
   ];
   mutableSummary.partialBirthInput = {
     year: parts.year,
@@ -1099,17 +1156,44 @@ function buildUnsupportedLunarSajuSummary(birth: BirthInfo, parts: KnownBirthPar
     hour: parts.hour,
     minute: parts.minute,
     calendarType: birth.calendarType ?? 'lunar',
-    isLeapMonth: birth.isLeapMonth === true,
+    isLeapMonth: birth.isLeapMonth ?? null,
   };
-  mutableSummary.disabledReason = 'lunar-input-requires-kasi-conversion';
+  mutableSummary.disabledReason = 'lunar-conversion-unavailable';
   mutableSummary.calendarPolicy = {
     inputCalendar: 'lunar',
-    conversionRequired: 'KASI LrsrCldInfoService',
-    conversionStatus: 'not-integrated',
-    leapMonth: birth.isLeapMonth === true,
+    conversionRequired: 'builtin korean-lunar-calendar(1900~2050-11-18 lunar) | KASI LrsrCldInfoService(opt-in)',
+    conversionStatus: cause,
+    leapMonth: birth.isLeapMonth ?? null,
   };
 
   return summary;
+}
+
+/** 제품 보장 범위 (결정③ — 내장 테이블 자체는 1000~2050이나 오라클 검증 범위로 한정). */
+const PRODUCT_LUNAR_MIN_YEAR = 1900;
+const PRODUCT_LUNAR_MAX_YEAR = 2050;
+
+/**
+ * 감사 B1: 음력 생년월일을 양력으로 변환한다.
+ * - 기본: 내장 테이블(korean-lunar-calendar.ts — KASI/KARI 표준).
+ * - precisionConfig.lunarConversionSource==='kasi' 옵트인 시 KASI API를 먼저 시도하고
+ *   실패하면 내장 테이블로 폴백(kasiFallback 표기) — 결정③: 외부 호출은 옵션.
+ */
+async function resolveLunarConversion(
+  lunar: { year: number; month: number; day: number; isLeapMonth: boolean },
+  options?: SpringRequest['options'],
+): Promise<LunarConversionSummary | null> {
+  if (lunar.year < PRODUCT_LUNAR_MIN_YEAR || lunar.year > PRODUCT_LUNAR_MAX_YEAR) return null;
+
+  const wantKasi = (options?.precisionConfig as any)?.lunarConversionSource === 'kasi';
+  if (wantKasi) {
+    const viaKasi = await kasiLunarToSolar(lunar);
+    if (viaKasi) return { lunar, solar: viaKasi, source: 'kasi' };
+  }
+
+  const viaBuiltin = lunarToSolar(lunar);
+  if (!viaBuiltin) return null;
+  return { lunar, solar: viaBuiltin, source: 'builtin', ...(wantKasi ? { kasiFallback: true } : {}) };
 }
 
 // ---------------------------------------------------------------------------
@@ -1175,20 +1259,49 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
     return emptySaju();
   }
 
+  // 감사 B1: 음력 입력은 내장 테이블(기본) 또는 KASI API(옵트인)로 양력 변환 후 분석.
+  // analyzeWithGender 클로저가 아래 birthYear/Month/Day를 캡처하므로 변환은 반드시 이 지점.
+  let effectiveParts = parts;
+  let lunarConversion: LunarConversionSummary | null = null;
   if (birth.calendarType === 'lunar') {
-    return buildUnsupportedLunarSajuSummary(birth, parts);
+    if (parts.year == null || parts.month == null || parts.day == null) {
+      // 음력은 연·월·일 전부 있어야 변환 가능 — 부분 입력은 비활성 경로 유지.
+      return buildUnsupportedLunarSajuSummary(birth, parts, 'partial-lunar-input');
+    }
+    const leapMonth = leapMonthOfLunarYear(parts.year);
+    if (birth.isLeapMonth === undefined && leapMonth === parts.month) {
+      // 같은 월 번호의 평달·윤달이 모두 존재한다. 누락을 false로 추정하면
+      // 서로 다른 양력 날짜와 사주를 조용히 만들므로 반드시 호출자에게 되묻는다.
+      return buildUnsupportedLunarSajuSummary(birth, parts, 'ambiguous-leap-month');
+    }
+    lunarConversion = await resolveLunarConversion(
+      { year: parts.year, month: parts.month, day: parts.day, isLeapMonth: birth.isLeapMonth === true },
+      options,
+    );
+    if (!lunarConversion) {
+      // 제품 보장 범위(1900-01-01~2050-11-18 음력) 밖 또는 존재하지 않는 음력 날짜(없는 윤달 등).
+      return buildUnsupportedLunarSajuSummary(birth, parts, 'conversion-failed');
+    }
+    effectiveParts = {
+      ...parts,
+      year: lunarConversion.solar.year,
+      month: lunarConversion.solar.month,
+      day: lunarConversion.solar.day,
+    };
   }
 
-  if (!canRunFullSaju(parts)) {
-    return buildPartialSajuSummary(birth, parts);
+  if (!canRunFullSaju(effectiveParts)) {
+    return buildPartialSajuSummary(birth, effectiveParts);
   }
 
-  const birthYear = parts.year;
-  const birthMonth = parts.month;
-  const birthDay = parts.day;
+  const birthYear = effectiveParts.year;
+  const birthMonth = effectiveParts.month;
+  const birthDay = effectiveParts.day;
   if (birthYear == null || birthMonth == null || birthDay == null) {
-    return buildPartialSajuSummary(birth, parts);
+    return buildPartialSajuSummary(birth, effectiveParts);
   }
+  validateSajuRequestOptions(options?.sajuOptions, birthYear);
+  validateSajuConfigFortuneHorizon(options?.sajuConfig);
   const resolvedCoordinates = resolveBirthCoordinates(birth);
 
   try {
@@ -1286,12 +1399,39 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
       };
     }
     if (options?.sajuConfig) config = { ...config, ...options.sajuConfig };
+
+    const requiredMaxYears = requiredMaxYearsForRequest(options?.sajuOptions, birthYear);
+    const requiredMaxMonths = requiredMaxMonthsForRequest(options?.sajuOptions, birthYear);
+    if (requiredMaxYears !== null || requiredMaxMonths !== null) {
+      const strategies = (config.strategies ?? {}) as Record<string, any>;
+      const fortune = (strategies.fortune ?? {}) as Record<string, any>;
+      const nextFortune = { ...fortune };
+      if (requiredMaxYears !== null) {
+        const existingMaxYears = fortune.maxYears;
+        nextFortune.maxYears = typeof existingMaxYears === 'number' && Number.isFinite(existingMaxYears)
+          ? Math.max(existingMaxYears, requiredMaxYears)
+          : requiredMaxYears;
+      }
+      if (requiredMaxMonths !== null) {
+        const existingMaxMonths = fortune.maxMonths;
+        nextFortune.maxMonths = typeof existingMaxMonths === 'number' && Number.isFinite(existingMaxMonths)
+          ? Math.max(existingMaxMonths, requiredMaxMonths)
+          : requiredMaxMonths;
+      }
+      config.strategies = {
+        ...strategies,
+        fortune: nextFortune,
+      };
+    }
+
     const finalConfig = Object.keys(config).length > 0 ? config : undefined;
 
     const sajuOpts = options?.sajuOptions ? {
-      daeunCount:     options.sajuOptions.daeunCount,
-      saeunStartYear: options.sajuOptions.saeunStartYear,
-      saeunYearCount: options.sajuOptions.saeunYearCount,
+      daeunCount:      options.sajuOptions.daeunCount,
+      saeunStartYear:  options.sajuOptions.saeunStartYear,
+      saeunYearCount:  options.sajuOptions.saeunYearCount,
+      wolunStartYear:  options.sajuOptions.wolunStartYear,
+      wolunMonthCount: options.sajuOptions.wolunMonthCount,
     } : undefined;
 
     const analyzeWithGender = (genderCode: 'MALE' | 'FEMALE'): SajuSummary & Record<string, unknown> => {
@@ -1302,8 +1442,9 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
         birthHour: parts.hour ?? DEFAULT_UNKNOWN_HOUR,
         birthMinute: parts.minute ?? DEFAULT_UNKNOWN_MINUTE,
         gender: genderCode,
-        calendarType: birth.calendarType === 'lunar' ? 'LUNAR' : 'SOLAR',
-        isLeapMonth: typeof birth.isLeapMonth === 'boolean' ? birth.isLeapMonth : undefined,
+        // 감사 B1: 음력 입력은 상단에서 양력 변환 완료 — 브리지에는 항상 SOLAR
+        // (springLegacy의 LUNAR throw 가드에 도달하지 않는다).
+        calendarType: 'SOLAR',
         timezone:  resolvedCoordinates.timezone,
         latitude:  resolvedCoordinates.latitude,
         longitude: resolvedCoordinates.longitude,
@@ -1363,6 +1504,18 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
       );
       summary.neutralGenderBasis = neutralBasis ?? 'UNKNOWN';
     }
+    // 감사 B1: 음력 변환 기록 attach + 사용자 검증 노트.
+    // lunar 경로에서만 붙인다 — solar 경로에 undefined 키를 세팅하면
+    // deepSerialize/스냅샷 표면에 키가 등장한다.
+    if (lunarConversion) {
+      (summary as Record<string, any>).lunarConversion = lunarConversion;
+      const lc = lunarConversion;
+      notes.push(
+        `음력 ${lc.lunar.year}년 ${lc.lunar.isLeapMonth ? '윤' : ''}${lc.lunar.month}월 ${lc.lunar.day}일을 `
+        + `양력 ${lc.solar.year}년 ${lc.solar.month}월 ${lc.solar.day}일로 변환해 분석했습니다`
+        + (lc.source === 'kasi' ? ' (KASI 음양력 API 기준).' : ' (한국천문연구원 표준 음양력 테이블 기준).'),
+      );
+    }
     if (notes.length > 0) {
       const existing = Array.isArray(summary.partialInterpretation)
         ? summary.partialInterpretation.filter((line) => typeof line === 'string')
@@ -1385,7 +1538,10 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
     }
 
     return summary;
-  } catch { return emptySaju(); }
+  } catch (error) {
+    if (error instanceof SajuRequestValidationError) throw error;
+    return emptySaju();
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -1423,6 +1579,7 @@ export function extractSaju(rawSajuOutput: any): SajuSummary {
     hapHwaEvaluations:    extractHapHwaEvaluations(rawSajuOutput),
     jijiRelations:        extractJijiRelations(rawSajuOutput),
     sibiUnseong:          extractSibiUnseong(rawSajuOutput),
+    yinYangBalance:       extractYinYangBalance(rawSajuOutput),
     gongmang:             extractGongmang(rawSajuOutput),
     tenGodAnalysis:       extractTenGodAnalysis(rawSajuOutput.tenGodAnalysis, dayStemCode),
     shinsalHits:          extractShinsalHits(rawSajuOutput),
@@ -1430,6 +1587,7 @@ export function extractSaju(rawSajuOutput: any): SajuSummary {
     palaceAnalysis:       extractPalaceAnalysis(rawSajuOutput),
     daeunInfo:            extractDaeunInfo(rawSajuOutput),
     saeunPillars:         extractSaeunPillars(rawSajuOutput),
+    wolunPillars:         extractWolunPillars(rawSajuOutput),
     trace:                extractTrace(rawSajuOutput),
   } as SajuSummary;
 
@@ -1443,15 +1601,16 @@ export function extractSaju(rawSajuOutput: any): SajuSummary {
  *  `analyzePalaces` (PR-Q-4) on the summary's four pillars. Returns undefined
  *  when day pillar is unresolvable. */
 function computePalaceSummary(pillars: SajuSummary['pillars']): import('./types.js').PalaceSummary | undefined {
-  // Lazy import — saju-ts's `analyzePalaces` is only loaded when the opt-in
-  // is active. Avoids paying the cost on every analyzeSaju call.
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const sajuTsCore = require('../../saju-ts/src/index.js') as {
+  // 캐시된 sajuModule 재사용 — 기존 require() 경로는 ESM(tsx/Vite)에서 정의되지
+  // 않아 throw → analyzeSaju 외곽 catch가 전체를 emptySaju로 만들었다 (감사 A5).
+  // analyzeSaju가 loadSajuModule()을 이미 await했으므로 이 시점엔 캐시가 차 있다.
+  const sajuTsCore = sajuModule as unknown as {
     analyzePalaces: (input: any) => any;
     stemIdxFromHanja: (h: string) => number | null;
     branchIdxFromHanja: (h: string) => number | null;
     stemHanja: (idx: number) => string;
-  };
+  } | null;
+  if (!sajuTsCore) return undefined;
 
   const day = pillars.day;
   if (!day) return undefined;
@@ -1502,10 +1661,11 @@ function computePalaceSummary(pillars: SajuSummary['pillars']): import('./types.
  *  `analyzeNaeum` (PR-Q-6) on the summary's four pillars (using ganzhi
  *  hanja strings). Returns undefined when day pillar is unresolvable. */
 function computeNaeumSummary(pillars: SajuSummary['pillars']): import('./types.js').NaeumSummary | undefined {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const sajuTsCore = require('../../saju-ts/src/index.js') as {
+  // 캐시된 sajuModule 재사용 (감사 A5 — computePalaceSummary와 동일한 require() 붕괴 수정).
+  const sajuTsCore = sajuModule as unknown as {
     analyzeNaeum: (input: any) => any;
-  };
+  } | null;
+  if (!sajuTsCore) return undefined;
 
   const day = pillars.day;
   if (!day) return undefined;
@@ -1649,6 +1809,12 @@ function extractYongshin(yongshinResult: any) {
     confidence: confidenceToPoints(yongshinResult?.finalConfidence),
     agreement:  formatYongshinAgreementDisplay(yongshinResult?.agreement),
     consensus,
+    // 감사 B5 (additive): 종격 가능성 경고 + 구조화 리스크 신호 passthrough.
+    warnings: ensureArray(yongshinResult?.warnings).map((w: any) => String(w)),
+    jonggyeokRisk:
+      yongshinResult?.jonggyeokRisk && typeof yongshinResult.jonggyeokRisk === 'object'
+        ? yongshinResult.jonggyeokRisk
+        : undefined,
     recommendations: ensureArray(yongshinResult?.recommendations).map(
       ({ type, primaryElement, secondaryElement, confidence, reasoning }: any) => ({
         type:             formatYongshinTypeDisplay(type),
@@ -1720,6 +1886,10 @@ function extractGyeokguk(gyeokgukResult: any) {
     reasoning:     cleanAdapterText(String(gyeokgukResult?.reasoning ?? '')),
     candidates:    extractGyeokgukCandidates(gyeokgukResult?.candidates),
     jonggyeokCandidates: extractJonggyeokCandidates(gyeokgukResult?.jonggyeokCandidates),
+    // PR-6 (additive): 격국 성패 — 상신·순용/역용·성격/파격 passthrough.
+    ...(gyeokgukResult?.seongpae && typeof gyeokgukResult.seongpae === 'object'
+      ? { seongpae: gyeokgukResult.seongpae }
+      : {}),
   };
 }
 
@@ -1883,10 +2053,15 @@ function extractShinsalHits(rawSajuOutput: any) {
   const sourceHits   = weightedHits.length > 0 ? weightedHits : ensureArray(rawSajuOutput.shinsalHits);
   const isWeighted   = weightedHits.length > 0;
 
+  const SEAT_VALUES = new Set(['year', 'month', 'day', 'hour']);
+
   return sourceHits.map((item: any) => {
     const hitData    = isWeighted ? item.hit : item;
     const baseWeight = isWeighted ? Number(item.baseWeight) || 0 : 0;
     const gradeCode = String(hitData?.grade || '') || (isWeighted ? gradeFromWeight(baseWeight) : 'C');
+    const seatPillars = ensureArray(hitData?.seatPillars).filter(
+      (p: unknown): p is 'year' | 'month' | 'day' | 'hour' => typeof p === 'string' && SEAT_VALUES.has(p),
+    );
     return {
       type:               formatShinsalTypeDisplay(hitData?.type),
       position:           formatShinsalPositionDisplay(hitData?.position),
@@ -1894,6 +2069,9 @@ function extractShinsalHits(rawSajuOutput: any) {
       baseWeight,
       positionMultiplier: isWeighted ? Number(item.positionMultiplier) || 0 : 0,
       weightedScore:      isWeighted ? Number(item.weightedScore)      || 0 : 0,
+      basedOn:            hitData?.basedOn != null ? String(hitData.basedOn) : undefined,
+      seatPillars,
+      count:              isWeighted && Number.isFinite(item.count) ? Number(item.count) : undefined,
     };
   });
 }
@@ -1966,6 +2144,14 @@ function extractCheonganRelations(rawSajuOutput: any) {
       stems:         toStringArray(relation.members).map(formatStemDisplay),
       resultElement: relation.resultOhaeng != null ? formatElementDisplay(relation.resultOhaeng) : null,
       note:          String(relation.note ?? CHEONGAN_RELATION_NOTE_KO_LABEL[typeCode] ?? ''),
+      // PR-5 (감사 B531) additive: 합 상태 — 합화 성립/기반/쟁합/요합 표기 정직성.
+      ...(relation.hapState
+        ? {
+            hapState: String(relation.hapState),
+            hapStateKo: String(relation.hapStateKo ?? relation.hapState),
+            resultConfirmed: relation.resultConfirmed === true,
+          }
+        : {}),
       score: scoreData ? {
         baseScore:          Number(scoreData.baseScore)          || 0,
         adjacencyBonus:     Number(scoreData.adjacencyBonus)     || 0,
@@ -2010,6 +2196,25 @@ function extractSibiUnseong(rawSajuOutput: any) {
 }
 
 // ---------------------------------------------------------------------------
+//  YinYang balance (PR-12-4 / 감사 C6)
+// ---------------------------------------------------------------------------
+
+function extractYinYangBalance(rawSajuOutput: any) {
+  const raw = rawSajuOutput.yinYangBalance;
+  if (!raw || typeof raw !== 'object') return undefined;
+  const num = (v: any): number => (Number.isFinite(Number(v)) ? Number(v) : 0);
+  const pair = (v: any) => ({ yang: num(v?.yang), yin: num(v?.yin) });
+  const dominant = raw.dominant === 'YANG' || raw.dominant === 'YIN' ? raw.dominant : 'EVEN';
+  return {
+    yang: num(raw.yang),
+    yin: num(raw.yin),
+    stems: pair(raw.stems),
+    branches: pair(raw.branches),
+    dominant,
+  };
+}
+
+// ---------------------------------------------------------------------------
 //  Gongmang (void branches)
 // ---------------------------------------------------------------------------
 
@@ -2047,6 +2252,83 @@ function extractPalaceAnalysis(rawSajuOutput: any) {
 //  Daeun info (major luck cycles)
 // ---------------------------------------------------------------------------
 
+function extractLuckRelationsWithNatal(raw: any) {
+  const source = raw?.relationsWithNatal;
+  if (!source || typeof source !== 'object') return undefined;
+  const normalizeHit = (hit: any) => {
+    const members = ensureArray(hit?.members).map(String).filter(Boolean);
+    const natalPositions = ensureArray(hit?.natalPositions).map(String).filter(Boolean);
+    if (!hit?.type || members.length === 0 || natalPositions.length === 0) return null;
+    return {
+      type: String(hit.type),
+      members,
+      natalPositions,
+      luckPosition: String(hit.luckPosition ?? 'luck'),
+      ...(hit.resultElement || hit.resultOhaeng ? { resultElement: String(hit.resultElement ?? hit.resultOhaeng) } : {}),
+    };
+  };
+  const stemRelations = ensureArray(source.stemRelations).map(normalizeHit).filter(Boolean);
+  const branchRelations = ensureArray(source.branchRelations).map(normalizeHit).filter(Boolean);
+  if (stemRelations.length === 0 && branchRelations.length === 0) return undefined;
+  return { stemRelations, branchRelations };
+}
+function extractLuckRelationsWithDecade(raw: any) {
+  const source = raw?.relationsWithDecade;
+  if (!source || typeof source !== 'object') return undefined;
+  const normalizeHit = (hit: any) => {
+    const members = ensureArray(hit?.members).map(String).filter(Boolean);
+    const luckPositions = ensureArray(hit?.luckPositions).map(String).filter(Boolean);
+    if (!hit?.type || members.length === 0) return null;
+    return {
+      type: String(hit.type),
+      members,
+      luckPositions: luckPositions.length ? luckPositions : ['decade', 'year'],
+      ...(hit.resultElement || hit.resultOhaeng ? { resultElement: String(hit.resultElement ?? hit.resultOhaeng) } : {}),
+    };
+  };
+  const decadeRelations = ensureArray(source.decadeRelations).map((entry: any) => {
+    const stemRelations = ensureArray(entry?.stemRelations).map(normalizeHit).filter(Boolean);
+    const branchRelations = ensureArray(entry?.branchRelations).map(normalizeHit).filter(Boolean);
+    if (stemRelations.length === 0 && branchRelations.length === 0) return null;
+    return {
+      decadeIndex: Number(entry?.decadeIndex ?? 0),
+      decadePillar: {
+        cheongan: String(entry?.decadePillar?.cheongan ?? ''),
+        jiji: String(entry?.decadePillar?.jiji ?? ''),
+      },
+      stemRelations,
+      branchRelations,
+    };
+  }).filter(Boolean);
+  if (decadeRelations.length === 0) return undefined;
+  return { decadeRelations };
+}
+function withLuckPillarAnnotations<T extends Record<string, unknown>>(out: T, raw: any): T {
+  const tenGod = toNullableString(raw?.tenGod);
+  const lifeStage = toNullableString(raw?.lifeStage);
+  const lifeStageKo = toNullableString(raw?.lifeStageKo);
+  const transitShinsal = raw?.transitShinsal ? deepSerialize(raw.transitShinsal) : null;
+  const relationsWithNatal = extractLuckRelationsWithNatal(raw);
+  const relationsWithDecade = extractLuckRelationsWithDecade(raw);
+  const stemBranchInteraction = raw?.stemBranchInteraction ? deepSerialize(raw.stemBranchInteraction) : null;
+
+  return {
+    ...out,
+    ...(tenGod ? { tenGod } : {}),
+    ...(lifeStage ? { lifeStage } : {}),
+    ...(lifeStageKo ? { lifeStageKo } : {}),
+    ...(transitShinsal ? { transitShinsal } : {}),
+    ...(relationsWithNatal ? { relationsWithNatal } : {}),
+    ...(relationsWithDecade ? { relationsWithDecade } : {}),
+    ...(stemBranchInteraction ? { stemBranchInteraction } : {}),
+  };
+}
+
+function nullableNumber(value: unknown): number | null {
+  return typeof value === 'number' && Number.isFinite(value)
+    ? value : null;
+}
+
 function extractDaeunInfo(rawSajuOutput: any) {
   const daeunInfoRaw = rawSajuOutput.daeunInfo;
   if (!daeunInfoRaw) return null;
@@ -2054,16 +2336,28 @@ function extractDaeunInfo(rawSajuOutput: any) {
   return {
     isForward:              !!daeunInfoRaw.isForward,
     firstDaeunStartAge:     Number(daeunInfoRaw.firstDaeunStartAge)    || 0,
+    firstDaeunStartAgeDisplay: Number.isFinite(daeunInfoRaw.firstDaeunStartAgeDisplay)
+      ? Number(daeunInfoRaw.firstDaeunStartAgeDisplay)
+      : null,
+    ageDisplayMode:        toNullableString(daeunInfoRaw.ageDisplayMode),
+    ageDisplayLabel:       toNullableString(daeunInfoRaw.ageDisplayLabel),
     firstDaeunStartMonths:  Number(daeunInfoRaw.firstDaeunStartMonths) || 0,
     boundaryMode:           String(daeunInfoRaw.boundaryMode ?? ''),
+    boundaryUtcMs:          Number.isFinite(daeunInfoRaw.boundaryUtcMs) ? Number(daeunInfoRaw.boundaryUtcMs) : null,
+    deltaDays:              Number.isFinite(daeunInfoRaw.deltaDays) ? Number(daeunInfoRaw.deltaDays) : null,
+    formula:                toNullableString(daeunInfoRaw.formula),
     warnings:               ensureArray(daeunInfoRaw.warnings).map((warning) => cleanAdapterText(String(warning))),
-    pillars: ensureArray(daeunInfoRaw.daeunPillars).map((pillarData: any) => ({
+    pillars: ensureArray(daeunInfoRaw.daeunPillars).map((pillarData: any) => withLuckPillarAnnotations({
       stem:     String(pillarData.pillar?.cheongan ?? ''),
       branch:   String(pillarData.pillar?.jiji     ?? ''),
       startAge: Number(pillarData.startAge)        || 0,
       endAge:   Number(pillarData.endAge)          || 0,
       order:    Number(pillarData.order)           || 0,
-    })),
+      displayStartAge: nullableNumber(pillarData.displayStartAge),
+      displayEndAge: nullableNumber(pillarData.displayEndAge),
+      approxStartUtcMs: nullableNumber(pillarData.approxStartUtcMs),
+      approxEndUtcMs: nullableNumber(pillarData.approxEndUtcMs),
+    }, pillarData)),
   };
 }
 
@@ -2072,11 +2366,29 @@ function extractDaeunInfo(rawSajuOutput: any) {
 // ---------------------------------------------------------------------------
 
 function extractSaeunPillars(rawSajuOutput: any) {
-  return ensureArray(rawSajuOutput.saeunPillars).map((saeun: any) => ({
+  return ensureArray(rawSajuOutput.saeunPillars).map((saeun: any) => withLuckPillarAnnotations({
     year:   Number(saeun.year) || 0,
     stem:   String(saeun.pillar?.cheongan ?? ''),
     branch: String(saeun.pillar?.jiji     ?? ''),
-  }));
+    startUtcMs: nullableNumber(saeun.startUtcMs),
+    endUtcMs: nullableNumber(saeun.endUtcMs),
+    approxStartAgeYears: nullableNumber(saeun.approxStartAgeYears),
+    approxEndAgeYears: nullableNumber(saeun.approxEndAgeYears),
+  }, saeun));
+}
+
+function extractWolunPillars(rawSajuOutput: any) {
+  return ensureArray(rawSajuOutput.wolunPillars).map((wolun: any) => withLuckPillarAnnotations({
+    year: Number(wolun.year) || 0,
+    monthOrder: Number(wolun.monthOrder) || 0,
+    startJie: String(wolun.startJie ?? ''),
+    stem: String(wolun.pillar?.cheongan ?? ''),
+    branch: String(wolun.pillar?.jiji ?? ''),
+    startUtcMs: nullableNumber(wolun.startUtcMs),
+    endUtcMs: nullableNumber(wolun.endUtcMs),
+    approxStartAgeYears: nullableNumber(wolun.approxStartAgeYears),
+    approxEndAgeYears: nullableNumber(wolun.approxEndAgeYears),
+  }, wolun));
 }
 
 // ---------------------------------------------------------------------------
@@ -2106,7 +2418,8 @@ export async function analyzeSajuSafe(
     // If analyzeSaju returned an empty saju (module missing), detect via dayMaster
     const isRealAnalysis = !!summary.dayMaster?.element;
     return { summary, sajuEnabled: isRealAnalysis };
-  } catch {
+  } catch (error) {
+    if (error instanceof SajuRequestValidationError) throw error;
     return { summary: emptySaju(), sajuEnabled: false };
   }
 }
@@ -2267,6 +2580,9 @@ export function buildSajuContext(
       daeunInfo: (sajuSummary as any).daeunInfo ?? undefined,
       saeunPillars: ((sajuSummary as any).saeunPillars as readonly any[] | undefined)?.length
         ? (sajuSummary as any).saeunPillars
+        : undefined,
+      wolunPillars: ((sajuSummary as any).wolunPillars as readonly any[] | undefined)?.length
+        ? (sajuSummary as any).wolunPillars
         : undefined,
       // PR-Q-5: forward palace summary when the adapter populated it
       // (precisionConfig.surfacePalace=true). undefined otherwise.

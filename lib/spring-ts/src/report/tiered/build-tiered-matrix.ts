@@ -58,6 +58,11 @@ import { computeClassIdCandidates, packKeyFor, minorPackKeyFor, ALL_CATEGORIES }
 import { getGeneratedArticle, preloadGeneratedForPerson } from './generated-registry.js';
 import { buildPeriodMeta, periodFortuneElement } from './period-meta-builder.js';
 import { getInsightInterpretation } from './insight-registry.js';
+import {
+  containsDaeunAge,
+  daeunDisplayOffset,
+  resolveDaeunDisplayInterval,
+} from '../common/daeun-display.js';
 import { loadGlossary } from './glossary-loader.js';
 import { buildTagGlossary } from './tag-inliner.js';
 import {
@@ -88,6 +93,8 @@ interface DaeunPillarLike {
   readonly branch: string;
   readonly startAge: number;
   readonly endAge: number;
+  readonly displayStartAge?: unknown;
+  readonly displayEndAge?: unknown;
 }
 
 interface LifeStageBandSpec {
@@ -206,10 +213,18 @@ function extractDaeunPillars(saju: SajuSummary): readonly DaeunPillarLike[] {
       const data = pillar as Record<string, unknown>;
       const stem = typeof data.stem === 'string' ? data.stem : '';
       const branch = typeof data.branch === 'string' ? data.branch : '';
-      const startAge = typeof data.startAge === 'number' ? data.startAge : Number(data.startAge);
-      const endAge = typeof data.endAge === 'number' ? data.endAge : Number(data.endAge);
-      if (!stem || !branch || !Number.isFinite(startAge) || !Number.isFinite(endAge)) return null;
-      return { stem, branch, startAge, endAge };
+      const startAge = typeof data.startAge === 'number' ? data.startAge : Number.NaN;
+      const endAge = typeof data.endAge === 'number' ? data.endAge : Number.NaN;
+      if (!stem || !branch || !Number.isFinite(startAge) || !Number.isFinite(endAge) || endAge <= startAge) {
+        return null;
+      }
+      const hasDisplayStart = Object.prototype.hasOwnProperty.call(data, 'displayStartAge');
+      const hasDisplayEnd = Object.prototype.hasOwnProperty.call(data, 'displayEndAge');
+      return {
+        stem, branch, startAge, endAge,
+        ...(hasDisplayStart ? { displayStartAge: data.displayStartAge } : {}),
+        ...(hasDisplayEnd ? { displayEndAge: data.displayEndAge } : {}),
+      };
     })
     .filter((pillar): pillar is DaeunPillarLike => Boolean(pillar))
     .sort((a, b) => a.startAge - b.startAge);
@@ -227,9 +242,9 @@ function lifeFortuneElementForAge(saju: SajuSummary, representativeAge: number):
   const pillars = extractDaeunPillars(saju);
   if (!pillars.length) return null;
 
-  const matched = pillars.find((pillar) => (
-    representativeAge >= pillar.startAge && representativeAge <= pillar.endAge
-  )) ?? pillars.find((pillar) => representativeAge <= pillar.endAge) ?? pillars[pillars.length - 1];
+  const matched = pillars.find((pillar) => containsDaeunAge(
+    representativeAge, pillar.startAge, pillar.endAge,
+  )) ?? pillars.find((pillar) => representativeAge < pillar.endAge) ?? pillars[pillars.length - 1];
 
   return matched ? elementFromStemOrBranch(matched.stem, matched.branch) : null;
 }
@@ -407,15 +422,16 @@ function buildPeriodScoped(
   feature: FeatureVector,
   seedKey: string,
   targetDate: Date,
+  saju: SajuSummary | null | undefined,
   sajuCompat: SajuCompatibility | null | undefined,
   periodLabelOverride?: string,
   fortuneElementOverride?: ElementCode | null,
   audienceOverride?: ArticleAudience,
 ): PeriodScopedFortunes {
-  const meta = buildPeriodMeta(period, targetDate);
+  const meta = buildPeriodMeta(period, targetDate, saju);
   const periodLabel = periodLabelOverride ?? meta.label;
   const fortuneElement = fortuneElementOverride
-    ?? (period === 'life' ? feature.dayMasterElement : periodFortuneElement(period, targetDate));
+    ?? (period === 'life' ? feature.dayMasterElement : periodFortuneElement(period, targetDate, saju));
   const overallGrade = gradeCell(
     fortuneElement,
     feature.yongshinElement,
@@ -482,6 +498,7 @@ function buildAgeBandScoped(
     feature,
     seedKey,
     targetDate,
+    saju,
     sajuCompat,
     band.label,
     fortuneElement,
@@ -568,9 +585,16 @@ function buildLifeByDaeun(
   const pillars = extractDaeunPillars(saju);
   if (!pillars.length) return [];
 
+  // 감사 B11: 표기용 정수 대운수(반올림 유파) 오프셋 — ageLabel/startAge/endAge에만
+  // 적용. rep(채점 나이)는 연속값 기반 유지 — display 기반으로 바꾸면 밴드/오디언스/
+  // fragment 선택이 흔들려 텍스트가 나이 표기 이상으로 변한다.
+  const displayOffset = daeunDisplayOffset((saju as Record<string, unknown>)['daeunInfo']);
+
   return pillars.map((pillar, index) => {
-    const floorStart = Math.floor(pillar.startAge);
-    const floorEnd = Math.floor(pillar.endAge);
+    const displayInterval = resolveDaeunDisplayInterval(pillar, displayOffset);
+    if (!displayInterval) throw new RangeError('Invalid daeun display interval');
+    const floorStart = displayInterval.startInclusive;
+    const floorEnd = displayInterval.endExclusive;
     const repRaw = Math.floor((pillar.startAge + pillar.endAge) / 2);
     const rep = Math.min(Math.max(repRaw, 10), 105);
     const bandSpec = LIFE_STAGE_BANDS.find((b) => rep >= b.startAge && rep <= b.endAge)
@@ -697,7 +721,7 @@ export function buildTieredMatrix(
   const sajuCompat = options.sajuCompatibility ?? null;
   const periods = {} as Record<TieredPeriodKind, PeriodScopedFortunes>;
   for (const period of PERIOD_ORDER) {
-    const scoped = buildPeriodScoped(period, registry, allGlossaryEntries, feature, seedKey, targetDate, sajuCompat);
+    const scoped = buildPeriodScoped(period, registry, allGlossaryEntries, feature, seedKey, targetDate, saju, sajuCompat);
     periods[period] = period === 'life'
       ? {
         ...scoped,

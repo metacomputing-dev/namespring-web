@@ -29,6 +29,16 @@ import type { ElementCode } from '../types.js';
 
 import { getFortuneGrade } from '../common/fortuneCalculator.js';
 import {
+  containsDaeunAge,
+  daeunDisplayOffset,
+  resolveDaeunDisplayInterval,
+} from '../common/daeun-display.js';
+import {
+  luckAnnotationFeatures,
+  luckAnnotationHighlights,
+  type LuckPillarAnnotationsForReport,
+} from '../common/transit-luck-metadata.js';
+import {
   STEM_BY_CODE,
   BRANCH_BY_CODE,
   ELEMENT_GENERATES,
@@ -90,10 +100,6 @@ function gradeToStars(grade: number): StarRating {
   return 1;
 }
 
-function floorAge(value: number): number {
-  if (!Number.isFinite(value)) return 0;
-  return Math.floor(value);
-}
 
 /**
  * Adjust the stem-only fortune grade by considering the branch element.
@@ -118,11 +124,13 @@ function adjustGradeForBranch(
 //  Daeun pillar interface for runtime access
 // ---------------------------------------------------------------------------
 
-interface DaeunPillar {
+interface DaeunPillar extends LuckPillarAnnotationsForReport {
   readonly stem: string;
   readonly branch: string;
   readonly startAge: number;
   readonly endAge: number;
+  readonly displayStartAge?: unknown;
+  readonly displayEndAge?: unknown;
   readonly order: number;
 }
 
@@ -147,12 +155,39 @@ function extractDaeunInfo(saju: SajuSummary): DaeunInfo | null {
     const pp = p as Record<string, unknown>;
     if (typeof pp.stem !== 'string' || typeof pp.branch !== 'string') continue;
 
+    const startAge = typeof pp.startAge === 'number' ? pp.startAge : Number.NaN;
+    const endAge = typeof pp.endAge === 'number' ? pp.endAge : Number.NaN;
+    if (
+      !Number.isFinite(startAge)
+      || !Number.isFinite(endAge)
+      || endAge <= startAge
+    ) continue;
+
+    const hasDisplayStart = Object.prototype.hasOwnProperty.call(pp, 'displayStartAge');
+    const hasDisplayEnd = Object.prototype.hasOwnProperty.call(pp, 'displayEndAge');
     pillars.push({
       stem: pp.stem as string,
       branch: pp.branch as string,
-      startAge: typeof pp.startAge === 'number' ? pp.startAge : 0,
-      endAge: typeof pp.endAge === 'number' ? pp.endAge : 0,
+      startAge,
+      endAge,
       order: typeof pp.order === 'number' ? pp.order : 0,
+      ...(hasDisplayStart ? { displayStartAge: pp.displayStartAge } : {}),
+      ...(hasDisplayEnd ? { displayEndAge: pp.displayEndAge } : {}),
+      tenGod: typeof pp.tenGod === 'string' ? pp.tenGod : undefined,
+      lifeStage: typeof pp.lifeStage === 'string' ? pp.lifeStage : undefined,
+      lifeStageKo: typeof pp.lifeStageKo === 'string' ? pp.lifeStageKo : undefined,
+      transitShinsal: pp.transitShinsal && typeof pp.transitShinsal === 'object'
+        ? pp.transitShinsal as LuckPillarAnnotationsForReport['transitShinsal']
+        : undefined,
+      relationsWithNatal: pp.relationsWithNatal && typeof pp.relationsWithNatal === 'object'
+        ? pp.relationsWithNatal as LuckPillarAnnotationsForReport['relationsWithNatal']
+        : undefined,
+      relationsWithDecade: pp.relationsWithDecade && typeof pp.relationsWithDecade === 'object'
+        ? pp.relationsWithDecade as LuckPillarAnnotationsForReport['relationsWithDecade']
+        : undefined,
+      stemBranchInteraction: pp.stemBranchInteraction && typeof pp.stemBranchInteraction === 'object'
+        ? pp.stemBranchInteraction as LuckPillarAnnotationsForReport['stemBranchInteraction']
+        : undefined,
     });
   }
 
@@ -243,6 +278,22 @@ function makeHighlights(
 //  Main builder
 // ---------------------------------------------------------------------------
 
+function buildMissingDaeunCard(): LifeStageFortuneCard {
+  return {
+    title: '생애 시기별 운세',
+    stages: [{
+      ageRange: '대운 정보 없음',
+      startAge: 0,
+      endAge: 0,
+      pillarDisplay: '-',
+      stars: 3,
+      summary: '대운 정보가 부족해서 시기별 세부 분석을 보여 드리기 어려워요. 기본 사주 원국의 흐름을 참고해 주세요.',
+      highlights: ['대운 데이터가 추가되면 시기별 운세를 더 또렷하게 보여 드릴 수 있어요.'],
+    }],
+    currentStageIndex: null,
+  };
+}
+
 export function buildLifeStageFortuneCard(
   saju: SajuSummary,
   currentAge: number | null,
@@ -259,23 +310,14 @@ export function buildLifeStageFortuneCard(
 
   if (!daeunInfo || daeunInfo.pillars.length === 0) {
     // No daeun data: return a single default stage
-    return {
-      title: '생애 시기별 운세',
-      stages: [{
-        ageRange: '대운 정보 없음',
-        startAge: 0,
-        endAge: 0,
-        pillarDisplay: '-',
-        stars: 3,
-        summary: '대운 정보가 부족해서 시기별 세부 분석을 보여 드리기 어려워요. 기본 사주 원국의 흐름을 참고해 주세요.',
-        highlights: ['대운 데이터가 추가되면 시기별 운세를 더 또렷하게 보여 드릴 수 있어요.'],
-      }],
-      currentStageIndex: null,
-    };
+    return buildMissingDaeunCard();
   }
 
   // Sort pillars by startAge to ensure correct order
   const sortedPillars = [...daeunInfo.pillars].sort((a, b) => a.startAge - b.startAge);
+  const renderedPillars: DaeunPillar[] = [];
+  // 감사 B11: 표기용 정수 대운수(반올림 유파) 오프셋 — 라벨·stages 나이에만 적용.
+  const displayOffset = daeunDisplayOffset((saju as Record<string, unknown>)['daeunInfo']);
 
   for (let i = 0; i < sortedPillars.length; i++) {
     const dp = sortedPillars[i];
@@ -300,24 +342,28 @@ export function buildLifeStageFortuneCard(
     const branchHangul = branchInfo?.hangul ?? branchCode;
     const pillarDisplay = `${stemHangul}${branchHangul}`;
 
-    // Age range
-    const flooredStartAge = floorAge(dp.startAge);
-    const flooredEndAge = floorAge(dp.endAge);
+    // Age range — 표기용 정수(반올림 유파 오프셋 반영, 감사 B11).
+    const displayInterval = resolveDaeunDisplayInterval(dp, displayOffset);
+    if (!displayInterval) continue;
+    const flooredStartAge = displayInterval.startInclusive;
+    const flooredEndAge = displayInterval.endExclusive;
     // 폐구간 표기: 다음 대운 시작 나이와 겹치지 않게 (25세~34세 / 35세~44세).
-    // startAge/endAge 필드는 구간 매칭용으로 원값(내림) 유지, 표시만 -1.
     const ageRange = `${flooredStartAge}세 ~ ${Math.max(flooredStartAge, flooredEndAge - 1)}세`;
+    const stageIndex = stages.length;
 
     // Check if this is the current stage
     if (
-      currentAge !== null &&
-      currentAge >= dp.startAge &&
-      currentAge <= dp.endAge
+      currentAge !== null
+      && containsDaeunAge(currentAge, dp.startAge, dp.endAge)
     ) {
-      currentStageIndex = i;
+      currentStageIndex = stageIndex;
     }
 
-    const summary = makeStageSummary(stemEl, branchEl, grade, flooredStartAge, flooredEndAge);
-    const highlights = makeHighlights(stemEl, branchEl, grade, yongshinElement);
+    const summary = makeStageSummary(stemEl, branchEl, grade, flooredStartAge, displayInterval.endInclusive);
+    const highlights = [
+      ...makeHighlights(stemEl, branchEl, grade, yongshinElement),
+      ...luckAnnotationHighlights(dp),
+    ];
 
     stages.push({
       ageRange,
@@ -328,7 +374,10 @@ export function buildLifeStageFortuneCard(
       summary,
       highlights,
     });
+    renderedPillars.push(dp);
   }
+
+  if (stages.length === 0) return buildMissingDaeunCard();
 
   // ── PR-J-7b — narrative foundations (axisStrength + evidence) ──
   const sajuAxis = (saju as unknown as { axisStrength?: SajuAxisStrengthMap }).axisStrength;
@@ -339,6 +388,7 @@ export function buildLifeStageFortuneCard(
   // the current stage (or first stage when current is unknown).
   const focusIndex = currentStageIndex ?? 0;
   const focusStage = stages[focusIndex];
+  const focusPillar = renderedPillars[focusIndex];
   if (focusStage) {
     const supporting: string[] = [
       `현재 시기: ${focusStage.ageRange}`,
@@ -349,6 +399,7 @@ export function buildLifeStageFortuneCard(
     if (yongshinEl) {
       supporting.push(`용신: ${elementKo(yongshinEl)}`);
     }
+    supporting.push(...luckAnnotationFeatures(focusPillar));
     evidence.push({
       axis: 'daewoon',
       claim: focusStage.summary || `${focusStage.ageRange}에는 ${focusStage.pillarDisplay} 대운에 따라 흐름이 잡혀요.`,

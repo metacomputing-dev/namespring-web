@@ -1,8 +1,16 @@
 import type { EngineConfig, SajuRequest } from '../api/types.js';
-import type { JieBoundariesAround, JieTermId, SolarTermMethod, SolarTermInstant } from '../calendar/solarTerms.js';
+import type {
+  JieBoundariesAround,
+  JieTermId,
+  SolarTermAlgorithm,
+  SolarTermMethod,
+  SolarTermInstant,
+} from '../calendar/solarTerms.js';
 import { getJieBoundaries, getLiChunUtcMs, jieTermMonthOrder } from '../calendar/solarTerms.js';
+import type { AberrationModel, SolarPrecision } from '../calendar/solar.js';
 import type { LocalDate } from '../calendar/iso.js';
 import type { LocalDateTime } from '../calendar/iso.js';
+import { computeLunarNewYearBoundary } from '../calendar/lunarNewYear.js';
 import { addDays, calcDayPillar, calcMonthPillarFromOrder, effectiveDayDate } from '../calendar/pillars.js';
 import type { PillarIdx, StemIdx } from '../core/cycle.js';
 import { pillar as makePillar, stemYinYang } from '../core/cycle.js';
@@ -19,9 +27,34 @@ import type {
   DecadeLuck,
   YearLuck,
 } from './types.js';
+import { assertFortuneHorizonPolicy } from './policy.js';
 
 const MS_PER_DAY = 86_400_000;
 const AVG_DAYS_PER_YEAR = 365.2425;
+
+interface SolarTermComputationPolicy {
+  method: SolarTermMethod;
+  algorithm: SolarTermAlgorithm;
+  aberrationModel: AberrationModel;
+  solarPrecision: SolarPrecision;
+}
+
+function resolveSolarTermComputationPolicy(
+  calendar: EngineConfig['calendar'],
+  method: SolarTermMethod,
+): SolarTermComputationPolicy {
+  return {
+    method,
+    algorithm: calendar.solarTerms?.algorithm === 'newton' ? 'newton' : 'bisection',
+    aberrationModel: calendar.aberrationModel === 'rCorrected' ? 'rCorrected' : 'constant',
+    solarPrecision:
+      calendar.solarPrecision === 'iau1980_full'
+        ? 'iau1980_full'
+        : calendar.solarPrecision === 'iau1980_top10'
+          ? 'iau1980_top10'
+          : 'classical',
+  };
+}
 
 function shiftPillar(p: PillarIdx, steps: number): PillarIdx {
   return { stem: mod(p.stem + steps, 10), branch: mod(p.branch + steps, 12) };
@@ -104,6 +137,52 @@ function startAgeYears(deltaMs: number, method: FortunePolicy['startAgeMethod'])
   return ratioDays(3, '三日一歲(fallback)');
 }
 
+/**
+ * 표기용 정수 대운수 (감사 B11). deltaDays 기반으로 유파별 반올림을 적용하고
+ * minStartAge 하한을 건다. 연속값(startAgeYears)은 별도로 병존한다.
+ */
+function daysPerYearOfMethod(method: FortunePolicy['startAgeMethod']): number {
+  if (method === 'threeDaysOneYear' || method === 'oneDayFourMonths') return 3;
+  if (typeof method === 'object' && method) {
+    const m: any = method;
+    if (m.kind === 'ratioDaysPerYear' && Number.isFinite(m.daysPerYear) && m.daysPerYear > 0) return m.daysPerYear;
+    if (m.kind === 'ratioMsPerYear' && Number.isFinite(m.msPerYear) && m.msPerYear > 0) return m.msPerYear / MS_PER_DAY;
+  }
+  return 3;
+}
+
+function startAgeDisplayOf(
+  startAgeYears: number,
+  policy: FortunePolicy,
+): number {
+  const rounding = policy.startAgeRounding ?? 'none';
+  const floorYears = Math.max(0, Math.floor(startAgeYears));
+  // 나머지를 해당 유파의 '일수'로 환산 (3일=1년 기본, 커스텀 환산비 지원).
+  const remDays = (startAgeYears - floorYears) * daysPerYearOfMethod(policy.startAgeMethod);
+
+  let display: number;
+  switch (rounding) {
+    case 'round1down2up':
+      // 나머지 1일 버림·2일 올림 (다수 관행) — 2일 이상이면 올림.
+      display = remDays >= 2 ? floorYears + 1 : floorYears;
+      break;
+    case 'threshold8months':
+      // 나머지를 1일=4개월로 환산해 8개월 초과 시 올림 (삼명통회 계열).
+      display = remDays * 4 > 8 ? floorYears + 1 : floorYears;
+      break;
+    case 'ceil':
+      display = Math.ceil(startAgeYears);
+      break;
+    case 'floor':
+    case 'none':
+    default:
+      display = floorYears;
+      break;
+  }
+
+  return Math.max(policy.minStartAge ?? 0, display);
+}
+
 function localToUtcMs(date: LocalDate, time: { h: number; min: number }, offsetMinutes: number): number {
   return Date.UTC(date.y, date.m - 1, date.d, time.h, time.min, 0) - offsetMinutes * 60_000;
 }
@@ -129,6 +208,62 @@ function addYearsUtc(utcMs: number, years: number): number {
   return d.getTime();
 }
 
+function localYearAtUtc(utcMs: number, offsetMinutes: number): number {
+  return new Date(utcMs + offsetMinutes * 60_000).getUTCFullYear();
+}
+
+function yearBoundaryStartUtcMs(
+  y: number,
+  calendar: EngineConfig['calendar'],
+  offsetMinutes: number,
+  solarTermPolicy: SolarTermComputationPolicy,
+): number {
+  if (calendar.yearBoundary === 'lunarNewYear') {
+    return computeLunarNewYearBoundary(y, offsetMinutes, solarTermPolicy.method).boundaryUtcMs;
+  }
+  if (calendar.yearBoundary === 'jan1') {
+    return localToUtcMs({ y, m: 1, d: 1 }, { h: 0, min: 0 }, offsetMinutes);
+  }
+  return getLiChunUtcMs(
+    y,
+    solarTermPolicy.method,
+    solarTermPolicy.algorithm,
+    solarTermPolicy.aberrationModel,
+    solarTermPolicy.solarPrecision,
+  );
+}
+
+function yearLabelAtUtc(
+  utcMs: number,
+  calendar: EngineConfig['calendar'],
+  offsetMinutes: number,
+  solarTermPolicy: SolarTermComputationPolicy,
+): number {
+  const y = localYearAtUtc(utcMs, offsetMinutes);
+  return utcMs < yearBoundaryStartUtcMs(y, calendar, offsetMinutes, solarTermPolicy) ? y - 1 : y;
+}
+
+function ageDisplayLabelOf(mode: FortunePolicy['ageDisplay']): string {
+  return mode === 'koreanCountingAge'
+    ? 'Korean counting age by configured year boundary'
+    : 'Continuous age from birth';
+}
+
+function displayAgeAt(
+  ageYears: number,
+  utcMsApprox: number,
+  birthUtcMs: number,
+  calendar: EngineConfig['calendar'],
+  offsetMinutes: number,
+  solarTermPolicy: SolarTermComputationPolicy,
+  policy: FortunePolicy,
+): number {
+  if (policy.ageDisplay !== 'koreanCountingAge') return startAgeDisplayOf(ageYears, policy);
+  const birthYear = yearLabelAtUtc(birthUtcMs, calendar, offsetMinutes, solarTermPolicy);
+  const targetYear = yearLabelAtUtc(utcMsApprox, calendar, offsetMinutes, solarTermPolicy);
+  return Math.max(1, targetYear - birthYear + 1);
+}
+
 function yearPillarOfSolarYear(y: number): PillarIdx {
   // Same formula as calcYearPillarFromLiChunUtc after applying LiChun boundary:
   // stem = (y-4) mod 10, branch = (y-4) mod 12
@@ -152,15 +287,22 @@ export function computeFortuneTimeline(args: {
   policy: FortunePolicy;
 }): FortuneTimeline {
   const { request, parsedUtcMs, birthLocalDateTime, localYear, solarTermMethod, jieBoundariesAround, natalYearPillar, natalMonthPillar, policy, calendar } = args;
+  assertFortuneHorizonPolicy(policy);
+  const solarTermPolicy = resolveSolarTermComputationPolicy(calendar, solarTermMethod);
 
   if (!jieBoundariesAround) {
     // If boundaries are not computed (policy doesn't need them), fall back to a trivial timeline.
+    // boundary is null — a fabricated LICHUN-at-birth value would be indistinguishable
+    // from a real solar-term instant downstream (감사 A15b).
     const direction = computeDirection(request.sex, natalYearPillar.stem, policy.directionRule);
     const start: FortuneStart = {
       direction,
-      boundary: { id: 'LICHUN', utcMs: parsedUtcMs },
+      boundary: null,
       deltaMs: 0,
       startAgeYears: 0,
+      startAgeDisplay: displayAgeAt(0, parsedUtcMs, parsedUtcMs, calendar, birthLocalDateTime.offsetMinutes, solarTermPolicy, policy),
+      ageDisplay: policy.ageDisplay,
+      ageDisplayLabel: ageDisplayLabelOf(policy.ageDisplay),
       startUtcMsApprox: parsedUtcMs,
       formula: 'startAgeYears = 0 (no solar-term boundaries available)',
     };
@@ -184,6 +326,9 @@ export function computeFortuneTimeline(args: {
     boundary: { id: boundary.id, utcMs: boundary.utcMs },
     deltaMs,
     startAgeYears: startAge,
+    startAgeDisplay: displayAgeAt(startAge, startUtcMsApprox, parsedUtcMs, calendar, birthLocalDateTime.offsetMinutes, solarTermPolicy, policy),
+    ageDisplay: policy.ageDisplay,
+    ageDisplayLabel: ageDisplayLabelOf(policy.ageDisplay),
     startAgeParts: parts,
     startUtcMsApprox,
     formula,
@@ -201,33 +346,46 @@ export function computeFortuneTimeline(args: {
 
     const startAgeYears = startAge + i * decadeLen;
     const endAgeYears = startAgeYears + decadeLen;
+    const approxStartUtcMs = addYearsUtc(startUtcMsApprox, i * decadeLen);
+    const approxEndUtcMs = addYearsUtc(startUtcMsApprox, (i + 1) * decadeLen);
 
     const rec: DecadeLuck = {
       kind: 'DECADE',
       index: i,
       startAgeYears,
       endAgeYears,
+      displayStartAge: policy.ageDisplay === 'continuousFromBirth'
+        ? start.startAgeDisplay + i * decadeLen
+        : displayAgeAt(startAgeYears, approxStartUtcMs, parsedUtcMs, calendar, birthLocalDateTime.offsetMinutes, solarTermPolicy, policy),
+      displayEndAge: policy.ageDisplay === 'continuousFromBirth'
+        ? start.startAgeDisplay + (i + 1) * decadeLen
+        : displayAgeAt(endAgeYears, approxEndUtcMs, parsedUtcMs, calendar, birthLocalDateTime.offsetMinutes, solarTermPolicy, policy),
       pillar,
     };
 
     if (policy.axis === 'utcByGregorianYear') {
-      // Interpret axis as “a human-friendly Gregorian timeline starting from the (approx) 起運 moment”.
-      rec.startUtcMs = addYearsUtc(startUtcMsApprox, i * decadeLen);
-      rec.endUtcMs = addYearsUtc(startUtcMsApprox, (i + 1) * decadeLen);
+      // Interpret axis as approximate human-friendly Gregorian timeline starting from the daeun moment.
+      rec.startUtcMs = approxStartUtcMs;
+      rec.endUtcMs = approxEndUtcMs;
     }
 
     decades.push(rec);
   }
 
-  // --- Years (歲運) by LiChun solar year boundary
-  const liChunThisLocalYearUtcMs = getLiChunUtcMs(localYear, solarTermMethod);
-  const baseSolarYear = calendar.yearBoundary === 'liChun' && parsedUtcMs < liChunThisLocalYearUtcMs ? localYear - 1 : localYear;
+  // --- Years (歲運) segmented by the configured year boundary.
+  // A12: natal year pillar (calcYearPillarFromLiChunUtc) honors calendar.yearBoundary
+  // (liChun/lunarNewYear/jan1), so 세운 labels and segments must follow the same rule —
+  // otherwise under non-liChun configs the 세운 row containing birth disagrees with the
+  // natal year pillar. Default (liChun) behavior is byte-identical to the previous code.
+  const yearStartUtcMs = (y: number): number =>
+    yearBoundaryStartUtcMs(y, calendar, birthLocalDateTime.offsetMinutes, solarTermPolicy);
+  const baseSolarYear = parsedUtcMs < yearStartUtcMs(localYear) ? localYear - 1 : localYear;
 
   const years: YearLuck[] = [];
   for (let k = 0; k < policy.maxYears; k++) {
     const y = baseSolarYear + k;
-    const startUtcMs = getLiChunUtcMs(y, solarTermMethod);
-    const endUtcMs = getLiChunUtcMs(y + 1, solarTermMethod);
+    const startUtcMs = yearStartUtcMs(y);
+    const endUtcMs = yearStartUtcMs(y + 1);
 
     years.push({
       kind: 'YEAR',
@@ -241,19 +399,41 @@ export function computeFortuneTimeline(args: {
   }
 
   // --- Months (月運) segments by jie boundaries
+  // Months are always jie-based regardless of calendar.yearBoundary (월주·월운은 절기 기준),
+  // so the enumeration anchor uses the liChun-adjusted year — not the year-boundary-adjusted
+  // baseSolarYear above. Identical under the default (liChun) config.
   let months: MonthLuck[] | undefined;
   if (policy.maxMonths > 0) {
+    const jieBaseSolarYear =
+      parsedUtcMs <
+      getLiChunUtcMs(
+        localYear,
+        solarTermPolicy.method,
+        solarTermPolicy.algorithm,
+        solarTermPolicy.aberrationModel,
+        solarTermPolicy.solarPrecision,
+      )
+        ? localYear - 1
+        : localYear;
     const spanYears = Math.ceil(policy.maxMonths / 12) + 2;
     const terms: SolarTermInstant[] = [];
-    for (let y = baseSolarYear; y <= baseSolarYear + spanYears; y++) {
-      terms.push(...getJieBoundaries(y, solarTermMethod));
+    for (let y = jieBaseSolarYear; y <= jieBaseSolarYear + spanYears; y++) {
+      terms.push(
+        ...getJieBoundaries(
+          y,
+          solarTermPolicy.method,
+          solarTermPolicy.algorithm,
+          solarTermPolicy.aberrationModel,
+          solarTermPolicy.solarPrecision,
+        ),
+      );
     }
     terms.sort((a, b) => a.utcMs - b.utcMs);
 
-    const startIdx = terms.findIndex((t) => t.year === baseSolarYear && t.id === 'LICHUN');
+    const startIdx = terms.findIndex((t) => t.year === jieBaseSolarYear && t.id === 'LICHUN');
     if (startIdx >= 0) {
       months = [];
-      let solarYearCursor = baseSolarYear;
+      let solarYearCursor = jieBaseSolarYear;
 
       for (let i = 0; i < policy.maxMonths; i++) {
         const a = terms[startIdx + i];

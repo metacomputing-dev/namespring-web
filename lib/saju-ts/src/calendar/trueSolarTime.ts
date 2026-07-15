@@ -86,8 +86,17 @@ export function computeTrueSolarTimeCorrection(args: {
   offsetMinutes: number;
   location: SajuRequest['location'] | undefined;
   policy: EngineConfig['calendar']['trueSolarTime'];
+  /**
+   * 엔진의 calendar 정밀도 설정 — 'precise' EoT가 절기 계산과 동일한
+   * solarPrecision/aberrationModel을 상속하도록 전달한다 (감사 A15f.
+   * 미전달 시 solar.ts 기본값으로 계산).
+   */
+  precision?: {
+    solarPrecision?: EngineConfig['calendar']['solarPrecision'];
+    aberrationModel?: EngineConfig['calendar']['aberrationModel'];
+  };
 }): TrueSolarTimeCorrection {
-  const { utcMs, offsetMinutes, location, policy } = args;
+  const { utcMs, offsetMinutes, location, policy, precision } = args;
 
   if (!policy?.enabled) {
     return {
@@ -118,7 +127,11 @@ export function computeTrueSolarTimeCorrection(args: {
   let eot: number;
   let method: TrueSolarTimeCorrection['method'];
   if (policy.equationOfTime === 'precise') {
-    eot = equationOfTimeMinutesPrecise(utcMsToJulianDay(utcMs));
+    eot = equationOfTimeMinutesPrecise(
+      utcMsToJulianDay(utcMs),
+      precision?.aberrationModel,
+      precision?.solarPrecision,
+    );
     method = 'precise';
   } else if (policy.equationOfTime === 'approx') {
     eot = equationOfTimeMinutesApprox(utcMs);

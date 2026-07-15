@@ -38,7 +38,7 @@ import {
 import { springEvaluateName, SAJU_FRAME } from './spring-evaluator.js';
 import { analyzeSaju, analyzeSajuSafe, buildSajuContext, collectElements } from './saju-adapter.js';
 import type {
-  SpringRequest, SpringResponse, SpringCandidate, SajuSummary,
+  SpringRequest, SpringResponse, SpringCandidate, SajuSummary, SpringOptions,
   SajuReport, NamingReport, NamingReportFrame, SpringReport, SpringCandidateSummary,
   NameCharInput, CharDetail, NameGenderTendency, BirthInfo, NamingScoreVector,
   CandidateStrengthProfile, NameElementStrategy,
@@ -47,6 +47,13 @@ import engineConfig from '../config/engine.json';
 import { buildFortuneReport } from './report/buildFortuneReport.js';
 import type { FortuneReportRequest, FortuneReport } from './report/types.js';
 import { getLegalAnnotation, normalizeToOrthodoxHanja, type HanjaLegalStatus, type HanjaPool } from './hanja-annotations.js';
+import {
+  SajuRequestValidationError,
+  parseFortuneTargetDate,
+  validateSajuConfigFortuneHorizon,
+  validateSajuRequestOptions,
+} from './saju-request-policy.js';
+import { targetCalendarYear } from './target-date.js';
 import inmyeongyongFullData from '../data/inmyeongyong_9389_full.json';
 import { getEnrichedStrokeCount, getUnihanMetadata } from './hanja-unihan.js';
 import { getNameTrendAnalysis, type NameTrendAnalysis } from './name-trend.js';
@@ -74,6 +81,47 @@ const DEFAULT_USE_SURNAME_HANJA_IN_PURE = false;
 const ENABLE_HANJA_NAME_EVALUATION = true;
 const ENABLE_FOURFRAME_NAME_EVALUATION = true;
 const FULL_POOL_ID_BASE = 900_000;
+
+function hasOwnKey(obj: object, key: string): boolean {
+  return Object.prototype.hasOwnProperty.call(obj, key);
+}
+
+function optionsForFortuneTarget(
+  options: SpringOptions | undefined,
+  targetDate: Date,
+  birthYear: number,
+): SpringOptions {
+  const targetYear = targetCalendarYear(targetDate);
+  const inputSajuOptions = options?.sajuOptions ?? {};
+  const sajuOptions: {
+    daeunCount?: number;
+    saeunStartYear?: number | null;
+    saeunYearCount?: number;
+    wolunStartYear?: number | null;
+    wolunMonthCount?: number;
+  } = { ...inputSajuOptions };
+
+  if (!hasOwnKey(inputSajuOptions, 'saeunStartYear')) {
+    sajuOptions.saeunStartYear = targetYear - 1;
+  }
+  if (!hasOwnKey(inputSajuOptions, 'saeunYearCount')) {
+    const start = typeof sajuOptions.saeunStartYear === 'number'
+      ? sajuOptions.saeunStartYear : targetYear - 1;
+    sajuOptions.saeunYearCount = Math.max(1, Math.min(4, birthYear + 120 - start + 1));
+  }
+  if (!hasOwnKey(inputSajuOptions, 'wolunStartYear')) {
+    sajuOptions.wolunStartYear = targetYear - 1;
+  }
+  if (!hasOwnKey(inputSajuOptions, 'wolunMonthCount')) {
+    const start = typeof sajuOptions.wolunStartYear === 'number'
+      ? sajuOptions.wolunStartYear : targetYear - 1;
+    const remainingMonths = Math.max(1, (birthYear + 120 - start + 1) * 12);
+    sajuOptions.wolunMonthCount = Math.min(24, remainingMonths);
+  }
+
+  return { ...(options ?? {}), sajuOptions };
+}
+
 const UNSAFE_HANJA_MEANING_PATTERNS = [
   /장물/,
   /뇌물/,
@@ -2837,17 +2885,26 @@ export class SpringEngine {
   // -------------------------------------------------------------------------
 
   async getFortuneReport(request: FortuneReportRequest): Promise<FortuneReport> {
+    // 1. Reject malformed or unbounded horizons before database or astronomy work.
+    const birthYear = request.birth.year;
+    if (typeof birthYear !== 'number' || !Number.isInteger(birthYear)) {
+      throw new SajuRequestValidationError('birth year must be a finite integer');
+    }
+    const targetDate = parseFortuneTargetDate(request.targetDate, request.birth);
+    const reportOptions = optionsForFortuneTarget(request.options, targetDate, birthYear);
+    validateSajuRequestOptions(reportOptions.sajuOptions, birthYear);
+    validateSajuConfigFortuneHorizon(reportOptions.sajuConfig);
     await this.init();
 
-    // 1. Run saju analysis
+    // 2. Run saju analysis
     const sajuReport = await this.getSajuReport({
       birth: request.birth,
       surname: request.surname ?? [],
-      options: request.options,
+      options: reportOptions,
     });
     const saju: SajuSummary = sajuReport;
 
-    // 2. Optionally run spring report if name is provided
+    // 3. Optionally run spring report if name is provided
     let springReport: SpringReport | null = null;
     if (request.givenName && request.givenName.length > 0) {
       try {
@@ -2857,7 +2914,7 @@ export class SpringEngine {
             surname: request.surname ?? [],
             givenName: request.givenName,
             mode: 'evaluate',
-            options: request.options,
+            options: reportOptions,
           },
           sajuReport,
         );
@@ -2867,19 +2924,11 @@ export class SpringEngine {
       }
     }
 
-    // 3. Parse target date
-    const parsedTargetDate = request.targetDate
-      ? new Date(request.targetDate)
-      : new Date();
-    const targetDate = Number.isNaN(parsedTargetDate.getTime())
-      ? new Date()
-      : parsedTargetDate;
-
     // 4. Build the fortune report
     // PR-Q-12 (Phase M-D6): fortuneCascadeMode default flips
     // 'simple' → 'jie_based'. saju-ts 의 정확한 절기 boundary 사용 — 60 일 / 년
     // (16%) 정확도 회복. Callers can opt out via explicit 'simple'.
-    const pc = request.options?.precisionConfig;
+    const pc = reportOptions.precisionConfig;
     const fortuneCascadeMode = pc?.fortuneCascadeMode ?? 'jie_based';
     return buildFortuneReport(saju, targetDate, springReport, {
       fortuneCascadeMode: fortuneCascadeMode === 'jie_based' || fortuneCascadeMode === 'full_5layer'
@@ -2887,7 +2936,7 @@ export class SpringEngine {
         : 'simple',
       narrativeStyle: pc?.narrativeStyle,
       readingFocus: pc?.readingFocus,
-      schoolPreset: this.resolveSchoolPresetMeta(request.options),
+      schoolPreset: this.resolveSchoolPresetMeta(reportOptions),
       // PR-Q-16 (Phase K-1 PR-B): surfaceSubDomains default flips
       // false → true. Each CategoryFortuneCard now carries 1-3 sub-domain
       // rows (saju_master/event_domain_map.py doctrine). Callers can opt

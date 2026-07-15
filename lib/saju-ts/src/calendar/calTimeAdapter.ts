@@ -3,6 +3,11 @@ import type { ParsedInstant } from './iso.js';
 
 // Optional dev-time helper:
 //
+// ⚠ 이 리포지토리 사본에는 /cal 패키지가 벤더링되어 있지 않다 — import가 항상
+// 실패해 calLoadError만 남고, adjustInstantWithCal은 **항상 throw하는 도달
+// 불가(사문화) 코드**다 (감사 A15g). NONE/LMT/APPARENT 모드 전체가 비활성.
+// 살리려면 /cal을 실제 벤더링하거나, 쓰지 않을 것이면 모듈 제거를 검토할 것.
+//
 // This adapter delegates to the vendored /cal package **if it is built**.
 // The core engine does NOT depend on /cal for normal operation.
 //

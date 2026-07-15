@@ -16,6 +16,7 @@ export type LifeStage =
   | 'TAE'
   | 'YANG';
 
+/** ⚠ 'INDEPENDENT'(戊己 독립 장생지)는 선언만 있고 미구현 — 선택 시 명시적으로 throw한다 (감사 A14). */
 export type EarthLifeStageRule = 'FOLLOW_FIRE' | 'FOLLOW_WATER' | 'INDEPENDENT';
 
 export interface LifeStagePolicy {
@@ -68,7 +69,12 @@ const START_FOLLOW_WATER: readonly BranchIdx[] = [
 function startBranchForChangSaeng(stem: StemIdx, policy: LifeStagePolicy): BranchIdx {
   const s = mod(stem, 10);
   if (policy.earthRule === 'FOLLOW_WATER') return START_FOLLOW_WATER[s] ?? 0;
-  // INDEPENDENT defaults to FOLLOW_FIRE for now.
+  if (policy.earthRule === 'INDEPENDENT') {
+    // 戊·己 독립 장생지 표는 미구현 — 침묵 폴백 대신 명시적으로 거부한다 (감사 A14).
+    throw new Error(
+      "LifeStagePolicy.earthRule 'INDEPENDENT' is not implemented — use 'FOLLOW_FIRE' (화토동궁, 주류) or 'FOLLOW_WATER' (수토동궁).",
+    );
+  }
   return START_FOLLOW_FIRE[s] ?? 0;
 }
 

@@ -586,6 +586,7 @@
               "transformations": 1.1,
               "oneElement": 0
             },
+            "climate": { "enabled": false },
             "methodSelector": { "enabled": true, "transformations": { "enabled": true, "threshold": 0.55 } }
           },
           "gyeokguk": {
@@ -625,10 +626,32 @@
             }
           },
           "yongshin": {
-            "weights": { "balance": 0.45, "role": 0.2, "climate": 0, "medicine": 0, "tongguan": 0, "follow": 0, "johooTemplate": 0, "transformations": 0, "oneElement": 0 }
+            "weights": { "balance": 0.45, "role": 0.2, "climate": 0, "medicine": 0, "tongguan": 0, "follow": 0, "johooTemplate": 0, "transformations": 0, "oneElement": 0 },
+            "climate": { "enabled": false }
           },
           "gyeokguk": {
             "competition": { "enabled": true, "methods": ["tenGod", "follow", "transformations", "oneElement"], "power": 2.0, "minKeep": 0.2, "renormalize": true }
+          }
+        }
+      }
+    },
+
+    {
+      "id": "jonggyeok.calibrated",
+      "name": "종격 승격(실측 재보정, 실험)",
+      "description": "[PR-7 틀] follow 팩의 승격 임계 재보정 실험 프로필(weakThreshold ±0.78→±0.55). ⚠ 실측(2026-07-08): 임계 재보정 단독으로는 potential 램프 수식((threshold-s)/(threshold+1))이 극단 교리 명식(idx≈-0.63)의 factor를 ~0.19로 눌러 CONG 게이트(0.6)에 여전히 미달 — 완전 승격에는 램프 재설계 또는 게이트 인하 + 권위 코퍼스(T3+, test/fixtures/jonggyeok_authority_cases.json) 확보가 선행이다(감사 B5 반려 사유의 실체). 기본 경로는 리스크 신호+확신 감쇠(PR-3 ③) 유지.",
+      "extends": "follow",
+      "aliases": ["jonggyeokCalibrated", "종격승격", "종격보정"],
+      "sources": ["docs/27_jonggyeok_condition_pack.md"],
+      "overlay": {
+        "strategies": {
+          "yongshin": {
+            "follow": {
+              "enabled": true,
+              "weakThreshold": -0.55,
+              "strongThreshold": 0.55,
+              "minDominanceRatio": 2.2
+            }
           }
         }
       }
@@ -646,7 +669,7 @@
     {
       "id": "qiongTongBaoJian",
       "name": "穷通宝鉴/궁통보감 프로필",
-      "description": "조후(調候) 중심 접근을 빠르게 적용하기 위한 프로필. 현재 엔진에서는 johoo.strict와 동일하게 동작(확장 여지).",
+      "description": "궁통보감 조후용신표(일간×월지 120셀 전체 수록 — 서락오 평주본 계열 통용표) 조회 기반 조후 프로필. johoo.strict 위에 월별 주용신/보좌 표 조회를 활성화한다 [감사 B12].",
       "extends": "johoo.strict",
       "aliases": [
         "qiongTong",
@@ -657,7 +680,18 @@
         "窮通寶鑑",
         "穷通宝鉴"
       ],
-      "sources": ["docs/18_school_sources.md"]
+      "sources": ["docs/18_school_sources.md"],
+      "overlay": {
+        "strategies": {
+          "yongshin": {
+            "johooTemplate": {
+              "monthTable": "qiongTongBaoJian",
+              "monthTablePrimaryBoost": 0.5,
+              "monthTableSecondaryBoost": 0.25
+            }
+          }
+        }
+      }
     },
 
     {

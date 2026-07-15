@@ -9,11 +9,14 @@ import { toBranchView, toHiddenStemTenGodView, toHiddenStemView, toPillarView, t
 import { packAnalysisBundleZip } from '../artifacts/analysisZip.js';
 import { ENGINE_NAME, ENGINE_VERSION } from '../meta/version.js';
 import type { FortuneTimeline } from '../fortune/types.js';
+import type { DecadeYearRelationEntry, FortuneRelationEntry, FortuneRelationsTimeline } from '../fortune/relations.js';
 import type { StrengthFacts } from '../rules/facts.js';
 import type { YongshinResult } from '../rules/yongshin.js';
 import type { GyeokgukResult } from '../rules/gyeokguk.js';
 import type { ShinsalResult } from '../rules/shinsal.js';
-import type { PillarIdx } from '../core/cycle.js';
+import type { Element, PillarIdx } from '../core/cycle.js';
+import { branchYinYang, stemYinYang } from '../core/cycle.js';
+import { ALL_ELEMENTS, SEASONAL_STATE_KO, monthCommandElement, seasonalStatesForMonth } from '../core/seasonalStates.js';
 import type { DetectedRelation } from '../core/branchRelations.js';
 import type { HiddenStem } from '../core/hiddenStems.js';
 import type { ElementDistribution } from '../core/elementDistribution.js';
@@ -57,6 +60,50 @@ function readAnalysisZipStrategy(config: EngineConfig): {
 
 type HiddenStemTenGod = HiddenStem & { tenGod: TenGod };
 
+function toFortuneRelationEntryView(entry: FortuneRelationEntry) {
+  return {
+    luckKind: entry.luckKind,
+    index: entry.index,
+    solarYear: entry.solarYear,
+    monthOrder: entry.monthOrder,
+    localDate: entry.localDate,
+    pillar: toPillarView(entry.pillar),
+    stemRelations: entry.stemRelations.map((relation) => ({
+      type: relation.type,
+      members: relation.members.map(toStemView),
+      resultElement: relation.resultElement,
+      natalPositions: relation.natalPositions,
+      luckPosition: relation.luckPosition,
+    })),
+    branchRelations: entry.branchRelations.map((relation) => ({
+      type: relation.type,
+      members: relation.members.map(toBranchView),
+      natalPositions: relation.natalPositions,
+      luckPosition: relation.luckPosition,
+    })),
+  };
+}
+function toFortuneDecadeYearRelationEntryView(entry: DecadeYearRelationEntry) {
+  return {
+    luckKind: entry.luckKind,
+    solarYear: entry.solarYear,
+    decadeIndex: entry.decadeIndex,
+    decadePillar: toPillarView(entry.decadePillar),
+    yearPillar: toPillarView(entry.yearPillar),
+    stemRelations: entry.stemRelations.map((relation) => ({
+      type: relation.type,
+      members: relation.members.map(toStemView),
+      resultElement: relation.resultElement,
+      luckPositions: relation.luckPositions,
+    })),
+    branchRelations: entry.branchRelations.map((relation) => ({
+      type: relation.type,
+      members: relation.members.map(toBranchView),
+      luckPositions: relation.luckPositions,
+    })),
+  };
+}
+
 export function createEngine(config: Partial<EngineConfig> = {}): Engine {
   const normalizedConfig = normalizeConfig(config);
   const configDigest = `sha256:${sha256Hex(stableStringify(normalizedConfig))}`;
@@ -91,6 +138,10 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
       }
       if (normalizedConfig.toggles.elementDistribution) {
         wanted.push('elements.distribution');
+        // PR-5 (감사 B448) 옵션 틀: 합충 보정 분포 — 기본 off.
+        if ((normalizedConfig.strategies as any)?.elements?.interactionAdjusted === true) {
+          wanted.push('elements.distributionAdjusted');
+        }
       }
       if (normalizedConfig.toggles.lifeStages) {
         wanted.push('lifeStages.pillars');
@@ -103,7 +154,7 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
       }
 
       if (normalizedConfig.toggles.fortune) {
-        wanted.push('fortune.timeline');
+        wanted.push('fortune.timeline', 'fortune.relations');
       }
 
       if (normalizedConfig.toggles.rules) {
@@ -125,6 +176,36 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
           month: toPillarView(month),
           day: toPillarView(day),
           hour: toPillarView(hour),
+        };
+
+        // PR-10-1 (감사 B434 선행): 왕상휴수사 — 월지 당령 기준 오행별 계절 상태.
+        // 순수 조견(월지만의 함수)이라 그래프 노드 없이 직접 산출한다. additive 표면 —
+        // springLegacy 재방출은 별도 결정(스냅샷 파급)이므로 여기서는 saju-ts summary까지만.
+        const states = seasonalStatesForMonth(month.branch);
+        const statesKo = {} as Record<Element, string>;
+        for (const el of ALL_ELEMENTS) statesKo[el] = SEASONAL_STATE_KO[states[el]];
+        summary.seasonalStates = {
+          command: monthCommandElement(month.branch),
+          states,
+          statesKo,
+        };
+
+        // PR-12-4 (감사 C6): 음양 균형 — 8글자 체(體) 기준 개수 (만세력 기본 표기 축).
+        // core YinYangScore(가중 집계)와 별개로, 표기용은 단순 개수가 표준이다.
+        const yyStems = { yang: 0, yin: 0 };
+        const yyBranches = { yang: 0, yin: 0 };
+        for (const p of [year, month, day, hour]) {
+          yyStems[stemYinYang(p.stem) === 'YANG' ? 'yang' : 'yin'] += 1;
+          yyBranches[branchYinYang(p.branch) === 'YANG' ? 'yang' : 'yin'] += 1;
+        }
+        const yangTotal = yyStems.yang + yyBranches.yang;
+        const yinTotal = yyStems.yin + yyBranches.yin;
+        summary.yinYangBalance = {
+          yang: yangTotal,
+          yin: yinTotal,
+          stems: yyStems,
+          branches: yyBranches,
+          dominant: yangTotal > yinTotal ? 'YANG' : yinTotal > yangTotal ? 'YIN' : 'EVEN',
         };
       }
 
@@ -154,6 +235,10 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
 
       if (normalizedConfig.toggles.elementDistribution) {
         summary.elementDistribution = results.get('elements.distribution') as ElementDistribution;
+        // PR-5 (감사 B448) 옵션 틀: 옵트인 시에만 additive 노출 — 기본 분포·소비자 불변.
+        if ((normalizedConfig.strategies as any)?.elements?.interactionAdjusted === true) {
+          (summary as any).elementDistributionAdjusted = results.get('elements.distributionAdjusted');
+        }
       }
 
       if (normalizedConfig.toggles.lifeStages) {
@@ -180,12 +265,17 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
       if (normalizedConfig.toggles.fortune) {
         const ft = results.get('fortune.timeline') as FortuneTimeline;
 
+        const fortuneRelations = results.get('fortune.relations') as FortuneRelationsTimeline;
+
         summary.fortune = {
           start: {
             direction: ft.start.direction,
-            boundary: { id: ft.start.boundary.id, utcMs: ft.start.boundary.utcMs },
+            boundary: ft.start.boundary ? { id: ft.start.boundary.id, utcMs: ft.start.boundary.utcMs } : null,
             deltaMs: ft.start.deltaMs,
             startAgeYears: ft.start.startAgeYears,
+            startAgeDisplay: ft.start.startAgeDisplay,
+            ageDisplay: ft.start.ageDisplay,
+            ageDisplayLabel: ft.start.ageDisplayLabel,
             startAgeParts: ft.start.startAgeParts,
             startUtcMsApprox: ft.start.startUtcMsApprox,
             formula: ft.start.formula,
@@ -194,6 +284,8 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
             index: d.index,
             startAgeYears: d.startAgeYears,
             endAgeYears: d.endAgeYears,
+            displayStartAge: d.displayStartAge,
+            displayEndAge: d.displayEndAge,
             pillar: toPillarView(d.pillar),
             startUtcMs: d.startUtcMs,
             endUtcMs: d.endUtcMs,
@@ -224,6 +316,13 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
             approxStartAgeYears: d.approxStartAgeYears,
             approxEndAgeYears: d.approxEndAgeYears,
           })),
+          relations: {
+            decades: fortuneRelations.decades.map(toFortuneRelationEntryView),
+            years: fortuneRelations.years.slice(0, 30).map(toFortuneRelationEntryView),
+            months: fortuneRelations.months?.slice(0, 24).map(toFortuneRelationEntryView),
+            days: fortuneRelations.days?.slice(0, 60).map(toFortuneRelationEntryView),
+            decadeYears: fortuneRelations.decadeYears.slice(0, 30).map(toFortuneDecadeYearRelationEntryView),
+          },
         };
       }
 
@@ -237,6 +336,8 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
           ranking: ys.ranking,
           strengthIndex: ys.base.strengthIndex,
           consensus: ys.consensus,
+          // [감사 A2·B6] 실제 지배 방법 — 레거시 추천 1위 type 유도용.
+          primaryMethod: ys.primaryMethod,
         };
 
         const gg = results.get('rules.gyeokguk') as GyeokgukResult;

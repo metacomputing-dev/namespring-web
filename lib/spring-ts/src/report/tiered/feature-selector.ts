@@ -9,6 +9,7 @@
 import type { SajuSummary, BirthInfo } from '../../types.js';
 import type { ElementCode } from '../types.js';
 import type { TieredAgeBand } from '../types.js';
+import { targetCalendarMonth, targetCalendarYear } from '../../target-date.js';
 
 export type TieredAgePhase =
   | 'child_0_9' | 'early_teen' | 'late_teen'
@@ -115,6 +116,10 @@ const GYEOKGUK_KO_TO_CANONICAL: Record<string, string> = {
   '종아격': 'jongagyeok',
   '종인격': 'jongingyeok',
   '종비격': 'jongbigyeok',
+  // 감사 B4: 건록/양인/월겁 — 글로서리 기존 id(geonrokgyeok/yangingyeok)와 일치.
+  '건록격': 'geonrokgyeok',
+  '양인격': 'yangingyeok',
+  '월겁격': 'wolgeobgyeok',
 };
 const GYEOKGUK_CODE_TO_CANONICAL: Record<string, string> = {
   JEONG_IN: 'jeongingyeok',
@@ -136,6 +141,10 @@ const GYEOKGUK_CODE_TO_CANONICAL: Record<string, string> = {
   CONG_ER: 'jongagyeok',
   CONG_YIN: 'jongingyeok',
   CONG_BI: 'jongbigyeok',
+  // 감사 B4
+  GEONROK: 'geonrokgyeok',
+  YANGIN: 'yangingyeok',
+  WOLGEOB: 'wolgeobgyeok',
 };
 
 const GYEOKGUK_ORDINAL: Record<string, number> = {
@@ -158,6 +167,10 @@ const GYEOKGUK_ORDINAL: Record<string, number> = {
   jongagyeok: 17,
   jongingyeok: 18,
   jongbigyeok: 19,
+  // 감사 B4
+  geonrokgyeok: 20,
+  yangingyeok: 21,
+  wolgeobgyeok: 22,
 };
 
 function ordinalOrZero(value: string | null, table: Record<string, number>): number {
@@ -414,13 +427,14 @@ function buildFeatureVectorInternal(
   const yongshinElement = toElement(saju.yongshin?.element ?? null);
   const heeshinElement = toElement(saju.yongshin?.heeshin ?? null);
   const gishinElement = toElement(saju.yongshin?.gishin ?? null);
-  const birthYear = saju.timeCorrection?.standardYear ?? birth.year ?? targetDate.getFullYear();
+  const targetYear = targetCalendarYear(targetDate);
+  const birthYear = saju.timeCorrection?.standardYear ?? birth.year ?? targetYear;
   const birthMonth = saju.timeCorrection?.standardMonth ?? birth.month ?? null;
-  const inferredAge = targetDate.getFullYear() - (birthYear ?? targetDate.getFullYear());
+  const inferredAge = targetYear - (birthYear ?? targetYear);
   const age = Math.max(0, ageYearsOverride ?? inferredAge);
   const agePhase = toAgePhase(age);
   const birthSeason = toSeason(birthMonth);
-  const currentSeason = toSeason(targetDate.getMonth() + 1);
+  const currentSeason = toSeason(targetCalendarMonth(targetDate));
   const dayMasterStrength = toStrengthBand(saju);
   const gyeokguk = toGyeokgukCanonical(saju.gyeokguk?.type ?? null);
   const gender = toGender(birth.gender);
@@ -467,7 +481,7 @@ function buildFeatureVectorInternal(
     cheonganRelationCount: arrayLength(saju.cheonganRelations),
     jijiRelationCount: arrayLength(saju.jijiRelations),
     birthMonth: birthMonth ?? 0,
-    currentMonth: targetDate.getMonth() + 1,
+    currentMonth: targetCalendarMonth(targetDate),
     woodCount: elementDistributionCount(elementDistribution, 'WOOD'),
     fireCount: elementDistributionCount(elementDistribution, 'FIRE'),
     earthCount: elementDistributionCount(elementDistribution, 'EARTH'),

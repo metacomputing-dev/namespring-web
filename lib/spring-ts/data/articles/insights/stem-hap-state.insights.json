@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "spring-ts.insights.v1",
+  "domain": "stemHapState",
+  "entries": [
+    {
+      "factId": "stemHapState.HUA",
+      "text": "천간합이 실제로 한 기운으로 변하려는 힘이 뚜렷해요. 관계나 선택에서도 둘이 만나 새 결을 만드는 장면으로 읽어요.",
+      "expertText": "합화 성립 — 합의 결과 오행을 조심스럽게 표시할 수 있는 상태예요. 원국의 계절·뿌리·방해 요소까지 맞물려 변화를 지지해요.",
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "ai_authored_insight_text", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-authored Korean narrative for display-only heavenly-stem combination state text.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "factId": "stemHapState.HAPGEO",
+      "text": "천간이 서로 묶이지만 완전히 변한 것으로 보기는 어려워요. 끌림과 보류가 함께 있어 속도를 천천히 맞추면 좋아요.",
+      "expertText": "합거 — 합은 성립하되 화기 오행을 확정하지 않는 상태예요. 두 천간이 서로를 붙잡아 힘의 방향을 늦추거나 묶는 쪽으로 읽어요.",
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "ai_authored_insight_text", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-authored Korean narrative for display-only heavenly-stem combination state text.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "factId": "stemHapState.JAENGHAP",
+      "text": "하나의 합을 두고 서로 끌어당기는 쟁합이에요. 마음이 분산되기 쉬우니 우선순위를 한 줄로 세우는 게 도움이 돼요.",
+      "expertText": "쟁합 — 합의 대상이 겹치거나 경쟁하는 구조예요. 선택지가 많다는 장점도 있지만, 결정 지연과 관계 긴장을 함께 관리해야 해요.",
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "ai_authored_insight_text", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-authored Korean narrative for display-only heavenly-stem combination state text.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+    },
+    {
+      "factId": "stemHapState.YOHAP",
+      "text": "멀리서 합의 손짓이 오가는 요합이에요. 가능성은 있지만 바로 확정하기보다 조건이 갖춰지는지 지켜보는 편이 좋아요.",
+      "expertText": "요합 — 인접한 결속보다 간접적인 합 신호에 가까워요. 실제 작동은 운의 보조나 다른 구조의 확인이 붙을 때 더 선명해져요.",
+      "aiGenerated": true,
+      "sourceTier": { "tier": "T1_HYPOTHESIS", "sourceType": "ai_authored_insight_text", "sourceUrl": null, "accessedAt": "2026-07-08", "quoteShort": null, "humanInterpretation": "AI-authored Korean narrative for display-only heavenly-stem combination state text.", "copyrightNote": "No third-party prose copied.", "authorityTruthEligible": false }
+    }
+  ]
+}

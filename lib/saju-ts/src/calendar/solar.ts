@@ -465,8 +465,7 @@ const DEFAULT_SOLAR_PRECISION: SolarPrecision = 'classical';
  *  - `solarPrecision`: nutation model.
  *      • 'classical' (default): single dominant Ω term, ≈ ±9″ residual
  *      • 'iau1980_top10': top-10 IAU 1980 longitude rows, ≈ ±1″
- *      • 'iau1980_full': full 63 IAU 1980 rows (added in a later
- *        commit; falls through to top10 for now)
+ *      • 'iau1980_full': full 63 IAU 1980 rows ('nutationLongitudeDegFull' 실호출)
  */
 export function solarApparentLongitudeDeg(
   jdUtc: number,
@@ -624,8 +623,9 @@ export function solarApparentRADeg(
  * accuracy is set by `solarPrecision` rather than by a fixed Fourier
  * truncation.
  *
- * Not yet called from any production path; the dispatch flag follows
- * in a later commit.
+ * Production path: trueSolarTime.computeTrueSolarTimeCorrection의
+ * equationOfTime='precise' 분기가 호출하며, calendar.solarPrecision/
+ * aberrationModel 설정을 상속한다 (감사 A15f).
  */
 export function equationOfTimeMinutesPrecise(
   jdUtc: number,

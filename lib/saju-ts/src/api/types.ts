@@ -1,4 +1,4 @@
-import type { BranchIdx, PillarIdx, StemIdx } from '../core/cycle.js';
+import type { BranchIdx, Element, PillarIdx, StemIdx } from '../core/cycle.js';
 import type { ElementVector } from '../core/elementVector.js';
 import type { HiddenStemRole, HiddenStemWeightPolicy } from '../core/hiddenStems.js';
 import type { LifeStage } from '../core/lifeStage.js';
@@ -64,6 +64,12 @@ export interface EngineConfig {
     monthBoundary: 'jieqi' | 'gregorianMonth';
     dayBoundary: 'midnight' | 'ziSplit23';
     hourBoundary: 'doubleHour';
+    /**
+     * 일/시 경계 분류용 로컬 시각 이동(분). UTC 인스턴트는 불변 —
+     * 년주(입춘)·월주(절입) 비교와 대운 기산에는 영향 없음 (감사 A11).
+     * YAZA_23_30(자시 23:30 개시) 등 고정 시프트 유파 전용. 기본 0.
+     */
+    dayCutShiftMinutes?: number;
 
     /**
      * Solar-term computation policy.
@@ -206,6 +212,12 @@ export interface SummaryReport {
 
   elementDistribution?: ElementDistributionView;
 
+  /** Optional: 왕상휴수사(旺相休囚死) — 월지 당령 기준 오행별 계절 상태 (PR-10-1, additive) */
+  seasonalStates?: SeasonalStatesView;
+
+  /** Optional: 음양 균형 — 8글자(천간4+지지4) 체(體) 기준 개수 집계 (PR-12-4/감사 C6, additive) */
+  yinYangBalance?: YinYangBalanceView;
+
   /** Optional (future): 十二運星 */
   lifeStages?: FourPillars<LifeStage>;
 
@@ -237,6 +249,25 @@ export interface SummaryReport {
 
   /** Optional: 신살 스코어(관계/품질 기반 보정; forward-compatible) */
   shinsalScoresAdjusted?: Array<{ key: string; score: number }>;
+}
+
+export interface YinYangBalanceView {
+  /** 8글자 합계 개수 */
+  yang: number;
+  yin: number;
+  stems: { yang: number; yin: number };
+  /** 지지는 체(體) 기준 — 子寅辰午申戌=양 (만세력 표준 표기와 동일) */
+  branches: { yang: number; yin: number };
+  dominant: 'YANG' | 'YIN' | 'EVEN';
+}
+
+export interface SeasonalStatesView {
+  /** 당령 오행 (사계 辰戌丑未월은 본기 土 기준) */
+  command: Element;
+  /** 오행별 왕상휴수사 상태 코드 */
+  states: Record<Element, 'WANG' | 'SANG' | 'HYU' | 'SU' | 'SA'>;
+  /** 오행별 한글 라벨 (왕/상/휴/수/사) */
+  statesKo: Record<Element, string>;
 }
 
 export interface StemView {
@@ -283,9 +314,14 @@ export interface StemRelationView {
 
 export interface FortuneStartView {
   direction: 'FORWARD' | 'BACKWARD';
-  boundary: { id: string; utcMs: number };
+  /** null = solar-term boundaries unavailable (trivial fallback timeline). */
+  boundary: { id: string; utcMs: number } | null;
   deltaMs: number;
   startAgeYears: number;
+  /** 표기용 정수 대운수 (startAgeRounding 유파 + minStartAge 적용). */
+  startAgeDisplay?: number;
+  ageDisplay?: 'continuousFromBirth' | 'koreanCountingAge';
+  ageDisplayLabel?: string;
   startAgeParts?: { years: number; months: number; days: number };
   startUtcMsApprox?: number;
   formula: string;
@@ -293,8 +329,12 @@ export interface FortuneStartView {
 
 export interface DecadeLuckView {
   index: number;
+  /** Inclusive start of the continuous daewoon age interval. */
   startAgeYears: number;
+  /** Exclusive end of the continuous daewoon age interval. */
   endAgeYears: number;
+  displayStartAge?: number;
+  displayEndAge?: number;
   pillar: PillarView;
   startUtcMs?: number;
   endUtcMs?: number;
@@ -329,6 +369,62 @@ export interface DayLuckView {
   approxEndAgeYears: number;
 }
 
+export interface FortuneStemRelationView {
+  type: StemRelationType;
+  members: StemView[];
+  resultElement?: string;
+  natalPositions: Array<'year' | 'month' | 'day' | 'hour'>;
+  luckPosition: 'luck';
+}
+
+export interface FortuneBranchRelationView {
+  type: RelationType;
+  members: BranchView[];
+  natalPositions: Array<'year' | 'month' | 'day' | 'hour'>;
+  luckPosition: 'luck';
+}
+
+export interface FortuneLuckPairStemRelationView {
+  type: StemRelationType;
+  members: StemView[];
+  resultElement?: string;
+  luckPositions: Array<'decade' | 'year'>;
+}
+
+export interface FortuneLuckPairBranchRelationView {
+  type: RelationType;
+  members: BranchView[];
+  luckPositions: Array<'decade' | 'year'>;
+}
+
+export interface FortuneDecadeYearRelationEntryView {
+  luckKind: 'DECADE_YEAR';
+  solarYear: number;
+  decadeIndex: number;
+  decadePillar: PillarView;
+  yearPillar: PillarView;
+  stemRelations: FortuneLuckPairStemRelationView[];
+  branchRelations: FortuneLuckPairBranchRelationView[];
+}
+
+export interface FortuneRelationEntryView {
+  luckKind: 'DECADE' | 'YEAR' | 'MONTH' | 'DAY';
+  index?: number;
+  solarYear?: number;
+  monthOrder?: number;
+  localDate?: { y: number; m: number; d: number };
+  pillar: PillarView;
+  stemRelations: FortuneStemRelationView[];
+  branchRelations: FortuneBranchRelationView[];
+}
+
+export interface FortuneRelationsSummaryView {
+  decades: FortuneRelationEntryView[];
+  years: FortuneRelationEntryView[];
+  months?: FortuneRelationEntryView[];
+  days?: FortuneRelationEntryView[];
+  decadeYears: FortuneDecadeYearRelationEntryView[];
+}
 export interface FortuneSummaryView {
   start: FortuneStartView;
   decades: DecadeLuckView[];
@@ -340,6 +436,9 @@ export interface FortuneSummaryView {
 
   /** Optional: 일운(정책 dayBoundary 기반). Potentially large; summary includes a prefix. */
   days?: DayLuckView[];
+
+  /** Optional: 운 기둥이 원국 4주와 맺는 천간/지지 관계(PR-9-1, additive). */
+  relations?: FortuneRelationsSummaryView;
 }
 
 export interface StrengthView {
@@ -361,6 +460,11 @@ export interface YongshinView {
   ranking: Array<{ element: string; score: number }>;
   strengthIndex: number;
   consensus?: YongshinConsensusView;
+  /**
+   * [감사 A2·B6] best 오행에 가장 크게 기여한 방법군 (base 항 기준).
+   * 'EOKBU' | 'JOHU' | 'BYEONGYAK' | 'TONGGWAN' | 'JONGHWA'.
+   */
+  primaryMethod?: string;
 }
 
 export type YongshinConsensusConflictLevelView = 'none' | 'low' | 'medium' | 'high';
@@ -412,13 +516,13 @@ export interface JonggyeokCandidateView {
 
 export interface ShinsalView {
   name: string;
-  basedOn: 'YEAR_BRANCH' | 'DAY_BRANCH' | 'MONTH_BRANCH' | 'OTHER';
+  basedOn: 'YEAR_BRANCH' | 'DAY_BRANCH' | 'MONTH_BRANCH' | 'DAY_STEM' | 'YEAR_STEM' | 'OTHER';
   targetBranch: BranchView;
 }
 
 export interface ShinsalHitView {
   name: string;
-  basedOn: 'YEAR_BRANCH' | 'DAY_BRANCH' | 'MONTH_BRANCH' | 'OTHER';
+  basedOn: 'YEAR_BRANCH' | 'DAY_BRANCH' | 'MONTH_BRANCH' | 'DAY_STEM' | 'YEAR_STEM' | 'OTHER';
   targetKind: 'BRANCH' | 'STEM' | 'NONE';
   targetBranch?: BranchView;
   targetStem?: StemView;

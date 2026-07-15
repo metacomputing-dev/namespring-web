@@ -33,7 +33,7 @@
  * from the engine confidence tier.
  */
 
-/** Union type for all 19 gyeokguk codes used in the system */
+/** Union type for all 22 gyeokguk codes used in the system */
 export type GyeokgukCode =
   // Normal 10 (ten-god-based)
   | 'BI_GYEON' | 'GYEOB_JAE'
@@ -41,6 +41,9 @@ export type GyeokgukCode =
   | 'JEONG_JAE' | 'PYEON_JAE'
   | 'SIK_SIN' | 'SANG_GWAN'
   | 'JEONG_IN' | 'PYEON_IN'
+  // 감사 B4: 월지 비겁의 주류 격명 (기본 모드에서 비견격/겁재격을 대체;
+  // BI_GYEON/GYEOB_JAE 엔트리는 bigyeopGyeok='legacy' 모드용으로 존치)
+  | 'GEONROK' | 'YANGIN' | 'WOLGEOB'
   // Special 9
   | 'HUA_QI' | 'ZHUAN_WANG'
   | 'CONG_GE' | 'CONG_CAI' | 'CONG_GUAN'
@@ -123,6 +126,84 @@ export const GYEOKGUK_ENCYCLOPEDIA: Record<GyeokgukCode, GyeokgukEncyclopediaEnt
     helpful: ['관성·식상이 비겁을 다스리는 구조', '재성을 보호하는 인성의 통관'],
     disease: ['재성이 약한데 비겁이 다투는 군겁쟁재', '관성 부재로 통제가 풀려 충동적 손실 발생'],
     remedy: ['관성 운으로 통제력 회복', '식상 운으로 비겁의 힘을 설기하여 재성 보호'],
+  },
+  // ---------------------------------------------------------------------------
+  //  감사 B4: 건록/양인/월겁 — 월지 비겁의 주류 격명 (자평진전 계열)
+  // ---------------------------------------------------------------------------
+  GEONROK: {
+    korean: '건록격',
+    hanja: '建祿格',
+    category: '비겁',
+    description: [
+      '월지에 내 뿌리(록)가 자리해 스스로 서는 힘이 큰 구조예요.',
+      '자립심과 꾸준한 추진력이 바탕이 돼요.',
+    ],
+    strengths: [
+      '자기 힘으로 기반을 만드는 자수성가형 에너지가 강해요.',
+      '체력과 지구력이 좋고, 꾸준함으로 성과를 쌓아요.',
+    ],
+    cautions: [
+      '월지를 직접 쓰지 못하는 격이라, 방향을 정해 줄 다른 축(재·관·식)이 중요해요.',
+      '독립심이 강해 협업에서 고집으로 비칠 수 있어요.',
+    ],
+    careerHints: [
+      '자기 사업, 전문직, 현장 지휘처럼 자립 기반이 중요한 분야가 잘 맞아요.',
+      '조직에서도 자율 재량이 큰 역할에서 힘을 발휘해요.',
+    ],
+    principle: '월지가 일간의 건록(祿)이라 월지를 용하지 않고, 재·관·식 등 상신을 다른 곳에서 구해 격을 이룬다.',
+    helpful: ['천간에 투출한 재성·관성을 상신으로 쓰는 구조', '식상으로 힘을 설기해 재를 생하는 흐름'],
+    disease: ['재·관이 모두 약해 힘을 쓸 곳이 없는 구조', '비겁이 중첩되어 군겁쟁재로 흐르는 배치'],
+    remedy: ['재성·관성 운에서 출로가 열림', '식상 운으로 설기하여 흐름 형성'],
+  },
+  YANGIN: {
+    korean: '양인격',
+    hanja: '陽刃格',
+    category: '비겁',
+    description: [
+      '양간이 제왕지를 얻어 기세가 극에 달한 구조예요.',
+      '강렬한 추진력과 승부사 기질이 특징이에요.',
+    ],
+    strengths: [
+      '결단력과 돌파력이 탁월하고 위기에 강해요.',
+      '큰 목표를 향해 밀어붙이는 집중력이 있어요.',
+    ],
+    cautions: [
+      '기세가 넘치는 만큼 제어 장치(관살)가 없으면 과격해질 수 있어요.',
+      '경쟁이 소모전이 되지 않도록 명확한 규칙을 두는 게 좋아요.',
+    ],
+    careerHints: [
+      '군·경·의료·스포츠·수사처럼 칼 같은 결단이 필요한 분야에 강해요.',
+      '고강도 프로젝트, 구조조정, 위기 관리 업무와 잘 맞아요.',
+    ],
+    principle: '양간이 월지 제왕(帝旺)을 얻어 기세가 극왕하니, 편관(칠살)로 제어해야 격이 완성된다(양인가살).',
+    helpful: ['칠살이 투출해 양인을 다스리는 양인가살(陽刃駕殺) 구조', '재성이 칠살을 생조하는 배치'],
+    disease: ['관살이 없어 왕한 기세가 제어되지 않는 구조', '양인이 중첩되고 충을 만나 기세가 폭주하는 배치'],
+    remedy: ['관살 운에서 제어력 확보', '식상 운으로 설기하여 압력 완화'],
+  },
+  WOLGEOB: {
+    korean: '월겁격',
+    hanja: '月劫格',
+    category: '비겁',
+    description: [
+      '월지에 겁재가 자리해 경쟁 속에서 단련되는 구조예요.',
+      '동료·경쟁자와의 관계가 인생의 주요 무대가 돼요.',
+    ],
+    strengths: [
+      '실전 감각과 순발력이 뛰어나고 손해를 빨리 회복해요.',
+      '함께 뛰는 환경에서 기량이 크게 올라와요.',
+    ],
+    cautions: [
+      '재물 관리에서 동업·보증 등 나눠 갖는 구조는 신중해야 해요.',
+      '경쟁심이 과열되면 실속을 놓칠 수 있어요.',
+    ],
+    careerHints: [
+      '영업·중개·스포츠·트레이딩처럼 경쟁이 상수인 분야에 강해요.',
+      '성과가 명확히 측정되는 역할에서 동기부여가 잘 돼요.',
+    ],
+    principle: '월지 겁재는 격으로 용하지 않고, 관성으로 다스리거나 식상으로 설기해 상신을 밖에서 구한다.',
+    helpful: ['정관이 투출해 겁재를 제어하는 구조', '식상이 힘을 재성으로 이어주는 흐름'],
+    disease: ['재성이 노출된 채 겁재가 다투는 군겁쟁재', '관성 부재로 경쟁이 통제되지 않는 구조'],
+    remedy: ['관성 운으로 질서 회복', '식상 운으로 출로를 열어 재성 보호'],
   },
   JEONG_GWAN: {
     korean: '정관격',
@@ -573,6 +654,10 @@ const GYEOKGUK_ALIASES: Readonly<Record<string, GyeokgukCode>> = {
   '상관격': 'SANG_GWAN', '상관': 'SANG_GWAN', 'sang_gwan': 'SANG_GWAN', 'sanggwan': 'SANG_GWAN',
   '정인격': 'JEONG_IN', '정인': 'JEONG_IN', 'jeong_in': 'JEONG_IN', 'jeongin': 'JEONG_IN',
   '편인격': 'PYEON_IN', '편인': 'PYEON_IN', 'pyeon_in': 'PYEON_IN', 'pyeonin': 'PYEON_IN',
+  // 감사 B4: 건록/양인/월겁
+  '건록격': 'GEONROK', '건록': 'GEONROK', 'geonrok': 'GEONROK', 'geonrokgyeok': 'GEONROK',
+  '양인격': 'YANGIN', '양인': 'YANGIN', 'yangin': 'YANGIN', 'yangingyeok': 'YANGIN',
+  '월겁격': 'WOLGEOB', '월겁': 'WOLGEOB', 'wolgeob': 'WOLGEOB', 'wolgeobgyeok': 'WOLGEOB',
   // Special 9
   '화기격': 'HUA_QI', '화기': 'HUA_QI', 'hua_qi': 'HUA_QI', 'huaqi': 'HUA_QI',
   '전왕격': 'ZHUAN_WANG', '전왕': 'ZHUAN_WANG', 'zhuan_wang': 'ZHUAN_WANG', 'zhuanwang': 'ZHUAN_WANG',

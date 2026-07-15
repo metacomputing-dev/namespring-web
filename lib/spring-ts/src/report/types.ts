@@ -532,6 +532,8 @@ export interface TieredPeriodMeta {
   readonly branches?: ReadonlyArray<{ readonly position: string; readonly branch: string; readonly element: string }>;
   /** Free-form note describing the period anchor — e.g., "이번 달 戊辰 — 무토와 진토가 만나". */
   readonly relativeNote?: string;
+  /** Deterministic luck-pillar annotation evidence for the period anchor. */
+  readonly transitEvidence?: readonly string[];
 }
 
 /** A life-period cell group for one user-facing 10-year age band. */
@@ -557,7 +559,7 @@ export interface DaeunScopedFortunes extends AgeBandScopedFortunes {
   readonly daeunIndex: number;
   /** 대운 간지 표시 (예: '갑자'). */
   readonly pillarDisplay: string;
-  /** '13세~22세' — floor 표시 규약. */
+  /** '13세~22세' — 표기용 정수 나이 규약 (반올림 유파 표기 오프셋 반영, 감사 B11). */
   readonly ageLabel: string;
   /** 60갑자별 저작 리드 문장 (daeun-leads.insights.json). 같은 버킷×등급으로
    *  본문이 겹치는 인접 대운도 이 리드로 그 간지 고유의 글로 읽힌다. 없으면 생략. */

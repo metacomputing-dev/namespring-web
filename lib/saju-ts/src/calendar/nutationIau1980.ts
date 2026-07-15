@@ -15,10 +15,9 @@
  * handle the wrap, and skipping the mod call avoids unnecessary loss
  * of precision in long T values.
  *
- * This module is currently library-only: the functions are exported
- * but no production code path reaches them yet. Subsequent commits add
- * (a) the IAU 1980 longitude term tables, (b) a `solarPrecision`
- * config flag, and (c) the dispatch from `solarApparentLongitudeDeg`.
+ * Production path: solarApparentLongitudeDeg가 solarPrecision
+ * ('iau1980_top10'는 제품 기본, 'iau1980_full')에 따라 이 모듈의 항 테이블을
+ * 사용한다.
  */
 
 export interface FundamentalArgsDeg {

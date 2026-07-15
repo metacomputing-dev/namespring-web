@@ -20,6 +20,8 @@ import { applyMinuteOffsetToLocalDateTime, computeTrueSolarTimeCorrection } from
 import type { DetectedRelation } from '../core/branchRelations.js';
 import { detectBranchRelations } from '../core/branchRelations.js';
 import type { ElementDistribution } from '../core/elementDistribution.js';
+import type { AdjustedElementDistribution } from '../core/elementInteractionAdjust.js';
+import { applyInteractionAdjustments } from '../core/elementInteractionAdjust.js';
 import { elementDistributionFromPillars } from '../core/elementDistribution.js';
 import type { HiddenStem } from '../core/hiddenStems.js';
 import { hiddenStemsOfBranch } from '../core/hiddenStems.js';
@@ -37,6 +39,8 @@ import { scorePillars } from '../core/scoring.js';
 import type { FortuneTimeline } from '../fortune/types.js';
 import { readFortunePolicy } from '../fortune/policy.js';
 import { computeFortuneTimeline } from '../fortune/compute.js';
+import type { FortuneRelationsTimeline } from '../fortune/relations.js';
+import { buildFortuneRelations } from '../fortune/relations.js';
 
 import type { RuleFacts, StrengthFacts } from '../rules/facts.js';
 import { buildRuleFacts } from '../rules/facts.js';
@@ -118,6 +122,7 @@ export function buildGraph(): Graph {
           offsetMinutes: ldt.offsetMinutes,
           location: ctx.request.location,
           policy: cal.trueSolarTime,
+          precision: { solarPrecision: cal.solarPrecision, aberrationModel: cal.aberrationModel },
         });
       },
     }),
@@ -142,14 +147,18 @@ export function buildGraph(): Graph {
     n<LocalDateTime>({
       id: 'time.localDateTimeForDay',
       deps: ['time.localDateTime', 'time.solarLocalDateTime', 'policy.calendar'],
-      explain: '일주/일경계 계산에 사용할 로컬 dateTime(trueSolarTime.applyTo 정책 반영).',
+      explain: '일주/일경계 계산에 사용할 로컬 dateTime(trueSolarTime.applyTo 정책 + dayCutShiftMinutes 반영).',
       compute: (_ctx, get) => {
         const civil = get<LocalDateTime>('time.localDateTime');
         const solar = get<LocalDateTime>('time.solarLocalDateTime');
         const cal = get<any>('policy.calendar');
         const t = cal.trueSolarTime;
         const applyTo = t?.applyTo ?? 'hourOnly';
-        return t?.enabled && applyTo === 'dayAndHour' ? solar : civil;
+        const base = t?.enabled && applyTo === 'dayAndHour' ? solar : civil;
+        // 감사 A11: 고정 시프트 유파(YAZA_23_30)는 인스턴트가 아니라 경계 분류용
+        // 로컬 시각만 이동한다 — 절입/입춘 비교(UTC)와 대운 기산은 불변.
+        const shift = Number(cal.dayCutShiftMinutes ?? 0);
+        return Number.isFinite(shift) && shift !== 0 ? applyMinuteOffsetToLocalDateTime(base, shift) : base;
       },
     }),
   );
@@ -158,7 +167,7 @@ export function buildGraph(): Graph {
     n<LocalDateTime>({
       id: 'time.localDateTimeForHour',
       deps: ['time.localDateTime', 'time.solarLocalDateTime', 'policy.calendar'],
-      explain: '시주/시지 경계 판정에 사용할 로컬 dateTime(trueSolarTime.enabled 반영).',
+      explain: '시주/시지 경계 판정에 사용할 로컬 dateTime(trueSolarTime.enabled + dayCutShiftMinutes 반영).',
       compute: (_ctx, get) => {
         const civil = get<LocalDateTime>('time.localDateTime');
         const solar = get<LocalDateTime>('time.solarLocalDateTime');
@@ -166,7 +175,11 @@ export function buildGraph(): Graph {
         const t = cal.trueSolarTime;
         const applyTo = t?.applyTo ?? 'hourOnly';
         const useSolar = !!t?.enabled && (applyTo === 'hourOnly' || applyTo === 'dayAndHour');
-        return useSolar ? solar : civil;
+        const base = useSolar ? solar : civil;
+        // 감사 A11: day와 동일 시프트를 hour에도 적용해야 YAZA_23_30의 의미
+        // (자시=23:30~01:30, 12시진 경계 전체 30분 이동)가 유지된다.
+        const shift = Number(cal.dayCutShiftMinutes ?? 0);
+        return Number.isFinite(shift) && shift !== 0 ? applyMinuteOffsetToLocalDateTime(base, shift) : base;
       },
     }),
   );
@@ -193,12 +206,16 @@ export function buildGraph(): Graph {
       id: 'calendar.solarTermsAround',
       deps: ['time.localDateTime', 'policy.calendar'],
       explain: '24절기(정기) 시각(UTC) — baseYear±1을 포함한 정렬된 목록. (절입/진단/확장 기능에서 재사용)',
-      compute: (_ctx, get) => {
+      compute: (ctx, get) => {
         const ldt = get<any>('time.localDateTime');
         const cal = get<any>('policy.calendar');
 
         // Only compute if some policy actually needs solar terms.
-        const needs = cal.monthBoundary === 'jieqi' || cal.yearBoundary === 'liChun' || !!cal?.solarTerms?.alwaysCompute;
+        const needs =
+          ctx.config.toggles.fortune === true ||
+          cal.monthBoundary === 'jieqi' ||
+          cal.yearBoundary === 'liChun' ||
+          !!cal?.solarTerms?.alwaysCompute;
         if (!needs) return null;
 
         const method = cal.solarTerms?.method === 'approx' ? 'approx' : 'meeus';
@@ -356,7 +373,7 @@ export function buildGraph(): Graph {
       id: 'pillars.month',
       deps: ['time.localDateTime', 'time.utcMs', 'policy.calendar', 'calendar.jieBoundariesAround', 'pillars.year'],
       formula: 'base = ((yearStem mod 5)*2 + 2) mod 10, monthStem = (base + m) mod 10',
-      explain: '월 경계(monthBoundary)를 적용해 월주를 결정한다(절기 경계는 실제 절기 시각을 사용).',
+      explain: '월 경계(monthBoundary)를 적용해 월주를 결정한다. 절기월의 월간은 연주 표시 정책과 분리된 입춘 연간을 사용한다.',
       compute: (_ctx, get) => {
         const ldt = get<any>('time.localDateTime');
         const utcMs = get<number>('time.utcMs');
@@ -364,7 +381,17 @@ export function buildGraph(): Graph {
         const boundaries = get<JieBoundariesAround | null>('calendar.jieBoundariesAround');
         const year = get<PillarIdx>('pillars.year');
         const order = monthOrderByPolicy(utcMs, ldt, cal.monthBoundary, boundaries);
-        return calcMonthPillarFromOrder(year.stem, order);
+        const monthYearStem = cal.monthBoundary === 'jieqi'
+          ? calcYearPillarFromLiChunUtc(
+              ldt.date.y,
+              utcMs,
+              boundaries ? liChunUtcMsFromBoundaries(boundaries) : null,
+              'liChun',
+              ldt.offsetMinutes,
+              cal.solarTerms?.method === 'approx' ? 'approx' : 'meeus',
+            ).stem
+          : year.stem;
+        return calcMonthPillarFromOrder(monthYearStem, order);
       },
     }),
   );
@@ -465,6 +492,31 @@ export function buildGraph(): Graph {
     }),
   );
 
+  // --- Element distribution (합충 보정, 옵션) [감사 B448 — PR-5 옵션 틀]
+  // strategies.elements.interactionAdjusted=true일 때만 engine이 요청한다.
+  // 기본 분포(elements.distribution)는 불변 — 소비 전환은 κ 코퍼스 재생성
+  // 계획과 세트인 별도 결정(스위치 없음).
+  nodes.push(
+    n<AdjustedElementDistribution>({
+      id: 'elements.distributionAdjusted',
+      deps: ['pillars.year', 'pillars.month', 'pillars.day', 'pillars.hour', 'relations.branches', 'relations.stems', 'policy.weights'],
+      explain: '충 손상/회국/합거를 반영한 보정 오행 분포 (옵트인). 기본 분포는 불변.',
+      compute: (ctx, get) => {
+        const w = get<EngineWeights>('policy.weights');
+        const ed = w.elementDistribution ?? {};
+        const rawPolicy: any = (ctx.config.strategies as any)?.elements?.interactionPolicy ?? {};
+        return applyInteractionAdjustments({
+          pillars: [get('pillars.year'), get('pillars.month'), get('pillars.day'), get('pillars.hour')],
+          branchRelations: get('relations.branches'),
+          stemRelations: get('relations.stems'),
+          hiddenStemPolicy: w.hiddenStems,
+          heavenStemWeight: ed.heavenStemWeight,
+          policy: rawPolicy,
+        });
+      },
+    }),
+  );
+
   // --- Branch relations
   nodes.push(
     n<DetectedRelation[]>({
@@ -535,6 +587,22 @@ export function buildGraph(): Graph {
           natalMonthPillar: m,
           policy,
         });
+      },
+    }),
+  );
+
+  nodes.push(
+    n<FortuneRelationsTimeline>({
+      id: 'fortune.relations',
+      deps: ['pillars.year', 'pillars.month', 'pillars.day', 'pillars.hour', 'fortune.timeline'],
+      explain: '운 기둥이 원국 4주와 맺는 천간/지지 관계를 별도 표면으로 산출한다.',
+      compute: (_ctx, get) => {
+        const y = get<PillarIdx>('pillars.year');
+        const m = get<PillarIdx>('pillars.month');
+        const d = get<PillarIdx>('pillars.day');
+        const h = get<PillarIdx>('pillars.hour');
+        const timeline = get<FortuneTimeline>('fortune.timeline');
+        return buildFortuneRelations([y, m, d, h], timeline);
       },
     }),
   );

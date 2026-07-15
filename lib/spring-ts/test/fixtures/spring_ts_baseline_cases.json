@@ -1,22 +1,72 @@
 {
-  "version": "1.0.2",
-  "generatedNote": "12 diverse fixtures for spring-ts regression baseline. Covers 5-element × 2-polarity sample + 자시/입춘/곡우/입하/처서/소설 jie boundaries + 조후 winter + 종왕 candidate + unknown-hour + borderline-strength. Each PR's snapshot test runs against this fixture set. PR-M-3 added per-fixture `disagreementNotes`. PR-N-3 reframes those notes: saju_master is no longer treated as a presumed authority — PR-N-2 found saju_master's chengbai logic disagrees with the published 명리심리상담사 prose on 7/11 lecture cases (saju-ts agrees 11/11). Where spring-ts and saju_master disagree on the 12 fixtures, the published-prose evidence skews in favor of spring-ts/saju-ts.",
+  "version": "1.0.4",
+  "generatedNote": "17 regression fixtures covering element/polarity samples, 절기 boundaries, 조후, 종왕, unknown-hour, strength borders, yaza-window, and lunar leap-month input. disagreementNotes record unresolved authority differences without treating comparison engines as ground truth.",
   "fixtures": [
     {
       "id": "fix-01",
-      "label": "1986-04-19 male — 戊土 일간 (README example)",
-      "axis": ["normal", "yang-earth", "spring"],
-      "birth": { "year": 1986, "month": 4, "day": 19, "hour": 5, "minute": 45, "gender": "male" },
-      "surname": [{ "hangul": "최", "hanja": "崔" }],
-      "givenName": [{ "hangul": "성", "hanja": "成" }, { "hangul": "수", "hanja": "秀" }]
+      "label": "1986-04-19 male — 癸水 일간 (README example)",
+      "axis": [
+        "normal",
+        "yin-water",
+        "spring"
+      ],
+      "birth": {
+        "year": 1986,
+        "month": 4,
+        "day": 19,
+        "hour": 5,
+        "minute": 45,
+        "gender": "male"
+      },
+      "surname": [
+        {
+          "hangul": "최",
+          "hanja": "崔"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "성",
+          "hanja": "成"
+        },
+        {
+          "hangul": "수",
+          "hanja": "秀"
+        }
+      ]
     },
     {
       "id": "fix-02",
-      "label": "1992-09-15 female — 壬水 일간, 가을",
-      "axis": ["normal", "yang-water", "autumn"],
-      "birth": { "year": 1992, "month": 9, "day": 15, "hour": 12, "minute": 0, "gender": "female" },
-      "surname": [{ "hangul": "김", "hanja": "金" }],
-      "givenName": [{ "hangul": "지", "hanja": "智" }, { "hangul": "은", "hanja": "恩" }],
+      "label": "1992-09-15 female — 甲木 일간, 가을",
+      "axis": [
+        "normal",
+        "yang-wood",
+        "autumn"
+      ],
+      "birth": {
+        "year": 1992,
+        "month": 9,
+        "day": 15,
+        "hour": 12,
+        "minute": 0,
+        "gender": "female"
+      },
+      "surname": [
+        {
+          "hangul": "김",
+          "hanja": "金"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "지",
+          "hanja": "智"
+        },
+        {
+          "hangul": "은",
+          "hanja": "恩"
+        }
+      ],
       "disagreementNotes": [
         {
           "field": "sajuReport.gyeokgukType",
@@ -30,34 +80,84 @@
     {
       "id": "fix-03",
       "label": "2000-01-01 00:30 male — 子時 boundary edge",
-      "axis": ["jaza-edge", "yang-water", "winter"],
-      "birth": { "year": 2000, "month": 1, "day": 1, "hour": 0, "minute": 30, "gender": "male" },
-      "surname": [{ "hangul": "이", "hanja": "李" }],
-      "givenName": [{ "hangul": "민", "hanja": "敏" }, { "hangul": "준", "hanja": "俊" }],
+      "axis": [
+        "jaza-edge",
+        "yang-earth",
+        "winter"
+      ],
+      "birth": {
+        "year": 2000,
+        "month": 1,
+        "day": 1,
+        "hour": 0,
+        "minute": 30,
+        "gender": "male"
+      },
+      "surname": [
+        {
+          "hangul": "이",
+          "hanja": "李"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "민",
+          "hanja": "敏"
+        },
+        {
+          "hangul": "준",
+          "hanja": "俊"
+        }
+      ],
       "disagreementNotes": [
         {
           "field": "sajuReport.gyeokgukType",
-          "spring_ts": "편관격",
+          "spring_ts": "정재격",
           "saju_master": "편재격",
-          "reason": "자시 boundary edge. saju_master self-flags as status='미정/혼잡' with confidence score 1.812. Different night-zi policies produce different month branches and therefore different 격국. PR-N-2 evidence: saju_master's chengbai rule diverges from published prose 7/11; spring-ts/saju-ts's classical 월지 정기 rule matches prose 11/11. Authority adjudication still required for this specific fixture.",
+          "reason": "자시 boundary edge. saju_master self-flags as status='미정/혼잡' with confidence score 1.812. 감사 결정①(2026-07-08) 정자시설 기본 전환으로 spring-ts 일주가 丁巳→戊午로 이동, 격국이 편관격→정재격으로 재판정(재성 계열로 saju_master와 근접). Authority adjudication still required for this specific fixture.",
           "pendingAuthority": true
         },
         {
           "field": "sajuReport.yongshinElement",
-          "spring_ts": "WOOD",
+          "spring_ts": "FIRE",
           "saju_master": "FIRE",
-          "reason": "Driven by the gyeokguk diff above; resolves once gyeokguk is adjudicated.",
-          "pendingAuthority": true
+          "reason": "감사 결정① 정자시설 전환 후 용신이 saju_master와 일치(FIRE)로 수렴 — 격국 축만 잔여 이견 (2026-07-08 현행화).",
+          "pendingAuthority": false
         }
       ]
     },
     {
       "id": "fix-04",
-      "label": "1965-08-08 19:00 female — 丙火 일간, 종왕 후보 (강한 火)",
-      "axis": ["jonggwang-candidate", "yang-fire", "summer"],
-      "birth": { "year": 1965, "month": 8, "day": 8, "hour": 19, "minute": 0, "gender": "female" },
-      "surname": [{ "hangul": "박", "hanja": "朴" }],
-      "givenName": [{ "hangul": "영", "hanja": "英" }, { "hangul": "희", "hanja": "姬" }],
+      "label": "1965-08-08 19:00 female — 甲木 일간, 종왕 후보 (강한 木)",
+      "axis": [
+        "jonggwang-candidate",
+        "yang-wood",
+        "summer"
+      ],
+      "birth": {
+        "year": 1965,
+        "month": 8,
+        "day": 8,
+        "hour": 19,
+        "minute": 0,
+        "gender": "female"
+      },
+      "surname": [
+        {
+          "hangul": "박",
+          "hanja": "朴"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "영",
+          "hanja": "英"
+        },
+        {
+          "hangul": "희",
+          "hanja": "姬"
+        }
+      ],
       "disagreementNotes": [
         {
           "field": "sajuReport.strengthLevel",
@@ -72,24 +172,74 @@
     {
       "id": "fix-05",
       "label": "2005-12-25 06:00 male — 겨울 조후 case (한랭)",
-      "axis": ["johu-winter", "yin-wood", "winter"],
-      "birth": { "year": 2005, "month": 12, "day": 25, "hour": 6, "minute": 0, "gender": "male" },
-      "surname": [{ "hangul": "정", "hanja": "鄭" }],
-      "givenName": [{ "hangul": "서", "hanja": "瑞" }, { "hangul": "준", "hanja": "俊" }]
+      "axis": [
+        "johu-winter",
+        "yin-water",
+        "winter"
+      ],
+      "birth": {
+        "year": 2005,
+        "month": 12,
+        "day": 25,
+        "hour": 6,
+        "minute": 0,
+        "gender": "male"
+      },
+      "surname": [
+        {
+          "hangul": "정",
+          "hanja": "鄭"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "서",
+          "hanja": "瑞"
+        },
+        {
+          "hangul": "준",
+          "hanja": "俊"
+        }
+      ]
     },
     {
       "id": "fix-06",
-      "label": "1978-06-15 14:00 female — 庚金 일간, 여름",
-      "axis": ["normal", "yang-metal", "summer"],
-      "birth": { "year": 1978, "month": 6, "day": 15, "hour": 14, "minute": 0, "gender": "female" },
-      "surname": [{ "hangul": "강", "hanja": "姜" }],
-      "givenName": [{ "hangul": "수", "hanja": "秀" }, { "hangul": "빈", "hanja": "彬" }],
+      "label": "1978-06-15 14:00 female — 戊土 일간, 여름",
+      "axis": [
+        "normal",
+        "yang-earth",
+        "summer"
+      ],
+      "birth": {
+        "year": 1978,
+        "month": 6,
+        "day": 15,
+        "hour": 14,
+        "minute": 0,
+        "gender": "female"
+      },
+      "surname": [
+        {
+          "hangul": "강",
+          "hanja": "姜"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "수",
+          "hanja": "秀"
+        },
+        {
+          "hangul": "빈",
+          "hanja": "彬"
+        }
+      ],
       "disagreementNotes": [
         {
           "field": "sajuReport.gyeokgukType",
-          "spring_ts": "겁재격",
+          "spring_ts": "정인격",
           "saju_master": "비견격",
-          "reason": "saju_master geok_codes=['BiJian','JieCai'] — both 비견·겁재 present. The chart is 1978-06-15 14:00 female with 庚 day master in 午 month (午 정기=丁=정관, but 午 has no 비견 in main hidden — saju-ts/spring-ts derives 겁재 from a different pillar root). PR-N-2 evidence shows saju_master's chengbai rule diverges from published prose 7/11 on similar tie-breaks. Both 비견 and 겁재 selection rules are 자평-traditional. Documented school-level tie-break disagreement.",
+          "reason": "Stack02 structural-month-frame correction supersedes the earlier tie-break diagnosis: day-master or residual companion evidence cannot create a structural frame unless the month command itself is 비견/겁재. For this 戊 day master, 午 main 丁 maps to 정인. saju_master remains 비견격; independent authority adjudication of the adopted month-command policy is still pending.",
           "pendingAuthority": true
         }
       ]
@@ -97,16 +247,41 @@
     {
       "id": "fix-07",
       "label": "1957-02-04 male — 입춘 boundary",
-      "axis": ["jie-ipchun", "edge", "spring-onset"],
-      "birth": { "year": 1957, "month": 2, "day": 4, "hour": 12, "minute": 0, "gender": "male" },
-      "surname": [{ "hangul": "윤", "hanja": "尹" }],
-      "givenName": [{ "hangul": "태", "hanja": "泰" }, { "hangul": "호", "hanja": "鎬" }],
+      "axis": [
+        "jie-ipchun",
+        "edge",
+        "spring-onset"
+      ],
+      "birth": {
+        "year": 1957,
+        "month": 2,
+        "day": 4,
+        "hour": 12,
+        "minute": 0,
+        "gender": "male"
+      },
+      "surname": [
+        {
+          "hangul": "윤",
+          "hanja": "尹"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "태",
+          "hanja": "泰"
+        },
+        {
+          "hangul": "호",
+          "hanja": "鎬"
+        }
+      ],
       "disagreementNotes": [
         {
           "field": "sajuReport.gyeokgukType",
-          "spring_ts": "겁재격",
+          "spring_ts": "정인격",
           "saju_master": "비견격",
-          "reason": "Same pattern as fix-06: saju_master geok_codes=['BiJian','JieCai']. spring-ts picks JieCai, saju_master picks BiJian. 겸격 tie-break disagreement. PR-N-2 evidence: saju_master's chengbai rule diverges from published prose 7/11 on lecture cases; spring-ts's classical 월지 추출 매핑 matches prose 11/11. The choice between 비견/겁재 here is school-level.",
+          "reason": "Stack02 structural-month-frame correction supersedes the earlier tie-break diagnosis: residual 丙 겁재 is evidence but is not selectable when the 寅 month command is 甲 정인 for the 丁 day master. saju_master remains 비견격; independent authority adjudication of the adopted month-command policy is still pending.",
           "pendingAuthority": true
         }
       ]
@@ -114,26 +289,101 @@
     {
       "id": "fix-08",
       "label": "2020-08-23 female — 처서 boundary",
-      "axis": ["jie-cheoseo", "yin-earth", "late-summer"],
-      "birth": { "year": 2020, "month": 8, "day": 23, "hour": 9, "minute": 0, "gender": "female" },
-      "surname": [{ "hangul": "조", "hanja": "趙" }],
-      "givenName": [{ "hangul": "하", "hanja": "夏" }, { "hangul": "은", "hanja": "恩" }]
+      "axis": [
+        "jie-cheoseo",
+        "yang-earth",
+        "late-summer"
+      ],
+      "birth": {
+        "year": 2020,
+        "month": 8,
+        "day": 23,
+        "hour": 9,
+        "minute": 0,
+        "gender": "female"
+      },
+      "surname": [
+        {
+          "hangul": "조",
+          "hanja": "趙"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "하",
+          "hanja": "夏"
+        },
+        {
+          "hangul": "은",
+          "hanja": "恩"
+        }
+      ]
     },
     {
       "id": "fix-09",
       "label": "1988-05-05 male — 입하 boundary",
-      "axis": ["jie-ipha", "edge", "summer-onset"],
-      "birth": { "year": 1988, "month": 5, "day": 5, "hour": 10, "minute": 0, "gender": "male" },
-      "surname": [{ "hangul": "최", "hanja": "崔" }],
-      "givenName": [{ "hangul": "명", "hanja": "明" }, { "hangul": "수", "hanja": "秀" }]
+      "axis": [
+        "jie-ipha",
+        "edge",
+        "summer-onset"
+      ],
+      "birth": {
+        "year": 1988,
+        "month": 5,
+        "day": 5,
+        "hour": 10,
+        "minute": 0,
+        "gender": "male"
+      },
+      "surname": [
+        {
+          "hangul": "최",
+          "hanja": "崔"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "명",
+          "hanja": "明"
+        },
+        {
+          "hangul": "수",
+          "hanja": "秀"
+        }
+      ]
     },
     {
       "id": "fix-10",
       "label": "2018-11-22 female — 소설 boundary",
-      "axis": ["jie-soseol", "winter-onset", "yin-water"],
-      "birth": { "year": 2018, "month": 11, "day": 22, "hour": 15, "minute": 0, "gender": "female" },
-      "surname": [{ "hangul": "한", "hanja": "韓" }],
-      "givenName": [{ "hangul": "서", "hanja": "瑞" }, { "hangul": "연", "hanja": "蓮" }],
+      "axis": [
+        "jie-soseol",
+        "winter-onset",
+        "yang-earth"
+      ],
+      "birth": {
+        "year": 2018,
+        "month": 11,
+        "day": 22,
+        "hour": 15,
+        "minute": 0,
+        "gender": "female"
+      },
+      "surname": [
+        {
+          "hangul": "한",
+          "hanja": "韓"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "서",
+          "hanja": "瑞"
+        },
+        {
+          "hangul": "연",
+          "hanja": "蓮"
+        }
+      ],
       "disagreementNotes": [
         {
           "field": "sajuReport.gyeokgukType",
@@ -163,18 +413,68 @@
     {
       "id": "fix-11",
       "label": "1995-08-15 female — 시간미상 (unknown-hour)",
-      "axis": ["unknown-hour", "edge", "yin-fire"],
-      "birth": { "year": 1995, "month": 8, "day": 15, "hour": null, "minute": 0, "gender": "female" },
-      "surname": [{ "hangul": "이", "hanja": "李" }],
-      "givenName": [{ "hangul": "지", "hanja": "智" }, { "hangul": "혜", "hanja": "慧" }]
+      "axis": [
+        "unknown-hour",
+        "edge",
+        "yang-earth"
+      ],
+      "birth": {
+        "year": 1995,
+        "month": 8,
+        "day": 15,
+        "hour": null,
+        "minute": 0,
+        "gender": "female"
+      },
+      "surname": [
+        {
+          "hangul": "이",
+          "hanja": "李"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "지",
+          "hanja": "智"
+        },
+        {
+          "hangul": "혜",
+          "hanja": "慧"
+        }
+      ]
     },
     {
       "id": "fix-12",
       "label": "1991-03-20 male — borderline-strength (춘분 즈음, 중화 후보)",
-      "axis": ["borderline-strength", "edge", "yang-wood"],
-      "birth": { "year": 1991, "month": 3, "day": 20, "hour": 11, "minute": 30, "gender": "male" },
-      "surname": [{ "hangul": "정", "hanja": "鄭" }],
-      "givenName": [{ "hangul": "민", "hanja": "敏" }, { "hangul": "재", "hanja": "在" }],
+      "axis": [
+        "borderline-strength",
+        "edge",
+        "yin-earth"
+      ],
+      "birth": {
+        "year": 1991,
+        "month": 3,
+        "day": 20,
+        "hour": 11,
+        "minute": 30,
+        "gender": "male"
+      },
+      "surname": [
+        {
+          "hangul": "정",
+          "hanja": "鄭"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "민",
+          "hanja": "敏"
+        },
+        {
+          "hangul": "재",
+          "hanja": "在"
+        }
+      ],
       "disagreementNotes": [
         {
           "field": "sajuReport.strengthLevel",
@@ -189,29 +489,172 @@
     {
       "id": "fix-13",
       "label": "1989-07-23 male — borderline-strength practical tier (정재격, 여름 yongshin=WATER)",
-      "axis": ["borderline-strength", "practical-tier", "summer"],
-      "birth": { "year": 1989, "month": 7, "day": 23, "hour": 10, "minute": 0, "gender": "male" },
-      "surname": [{ "hangul": "김", "hanja": "金" }],
-      "givenName": [{ "hangul": "민", "hanja": "敏" }, { "hangul": "수", "hanja": "秀" }],
+      "axis": [
+        "borderline-strength",
+        "practical-tier",
+        "summer"
+      ],
+      "birth": {
+        "year": 1989,
+        "month": 7,
+        "day": 23,
+        "hour": 10,
+        "minute": 0,
+        "gender": "male"
+      },
+      "surname": [
+        {
+          "hangul": "김",
+          "hanja": "金"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "민",
+          "hanja": "敏"
+        },
+        {
+          "hangul": "수",
+          "hanja": "秀"
+        }
+      ],
       "expectedAxisStrengthTier": "practical"
     },
     {
       "id": "fix-14",
       "label": "1980-08-07 male — borderline-strength candidate tier (정관격, 가을 yongshin=WOOD)",
-      "axis": ["borderline-strength", "candidate-tier", "autumn"],
-      "birth": { "year": 1980, "month": 8, "day": 7, "hour": 4, "minute": 0, "gender": "male" },
-      "surname": [{ "hangul": "박", "hanja": "朴" }],
-      "givenName": [{ "hangul": "지", "hanja": "智" }, { "hangul": "현", "hanja": "賢" }],
+      "axis": [
+        "borderline-strength",
+        "candidate-tier",
+        "autumn"
+      ],
+      "birth": {
+        "year": 1980,
+        "month": 8,
+        "day": 7,
+        "hour": 4,
+        "minute": 0,
+        "gender": "male"
+      },
+      "surname": [
+        {
+          "hangul": "박",
+          "hanja": "朴"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "지",
+          "hanja": "智"
+        },
+        {
+          "hangul": "현",
+          "hanja": "賢"
+        }
+      ],
       "expectedAxisStrengthTier": "candidate"
     },
     {
       "id": "fix-15",
       "label": "1985-03-21 male — borderline-strength deferred tier (편관격, 춘분 yongshin=METAL)",
-      "axis": ["borderline-strength", "deferred-tier", "spring"],
-      "birth": { "year": 1985, "month": 3, "day": 21, "hour": 4, "minute": 0, "gender": "male" },
-      "surname": [{ "hangul": "이", "hanja": "李" }],
-      "givenName": [{ "hangul": "성", "hanja": "成" }, { "hangul": "민", "hanja": "敏" }],
+      "axis": [
+        "borderline-strength",
+        "deferred-tier",
+        "spring"
+      ],
+      "birth": {
+        "year": 1985,
+        "month": 3,
+        "day": 21,
+        "hour": 4,
+        "minute": 0,
+        "gender": "male"
+      },
+      "surname": [
+        {
+          "hangul": "이",
+          "hanja": "李"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "성",
+          "hanja": "成"
+        },
+        {
+          "hangul": "민",
+          "hanja": "敏"
+        }
+      ],
       "expectedAxisStrengthTier": "deferred"
+    },
+    {
+      "id": "fix-16",
+      "label": "2003-05-10 23:40 male — 야자시 창(정자시설+경도보정, 시계 23:32 이후 자시) 경계",
+      "axis": [
+        "yaza-window",
+        "boundary-hour",
+        "spring"
+      ],
+      "birth": {
+        "year": 2003,
+        "month": 5,
+        "day": 10,
+        "hour": 23,
+        "minute": 40,
+        "gender": "male"
+      },
+      "surname": [
+        {
+          "hangul": "최",
+          "hanja": "崔"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "성",
+          "hanja": "成"
+        },
+        {
+          "hangul": "수",
+          "hanja": "秀"
+        }
+      ]
+    },
+    {
+      "id": "fix-17",
+      "label": "음력 2004-윤2-15 10:00 female — 음력 윤달 입력 변환(calendarType=lunar)",
+      "axis": [
+        "lunar-input",
+        "leap-month",
+        "spring"
+      ],
+      "birth": {
+        "year": 2004,
+        "month": 2,
+        "day": 15,
+        "hour": 10,
+        "minute": 0,
+        "gender": "female",
+        "calendarType": "lunar",
+        "isLeapMonth": true
+      },
+      "surname": [
+        {
+          "hangul": "이",
+          "hanja": "李"
+        }
+      ],
+      "givenName": [
+        {
+          "hangul": "성",
+          "hanja": "成"
+        },
+        {
+          "hangul": "민",
+          "hanja": "敏"
+        }
+      ]
     }
   ]
 }

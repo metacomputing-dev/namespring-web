@@ -31,6 +31,17 @@ export interface AgePartsApprox {
   days: number;
 }
 
+/**
+ * 표기용 정수 대운수의 반올림 유파 (감사 B11 — 연속값은 정밀 필드로 병존):
+ * - 'round1down2up': 나머지 1일 버림·2일 올림 (한국 실무 다수 관행, 기본)
+ * - 'threshold8months': 나머지 환산 8개월 초과 시 올림 (삼명통회 계열)
+ * - 'floor' | 'ceil': 단순 절사/올림
+ * - 'none': 정책 없음 — 연속값 floor (레거시 소비자와 동일)
+ */
+export type StartAgeRounding = 'round1down2up' | 'threshold8months' | 'floor' | 'ceil' | 'none';
+
+export type AgeDisplayMode = 'continuousFromBirth' | 'koreanCountingAge';
+
 export interface FortunePolicy {
   /** Direction policy for 大運 progression (순행/역행). */
   directionRule: 'sex_yearStemYinYang' | 'fixedForward' | 'fixedBackward';
@@ -40,6 +51,12 @@ export interface FortunePolicy {
 
   /** How to convert boundary delta time into starting age. */
   startAgeMethod: StartAgeMethodSpec;
+
+  /** 표기용 정수 대운수 반올림 유파 (기본 'round1down2up'). */
+  startAgeRounding?: StartAgeRounding;
+
+  /** 표기용 대운수 하한 (기본 1 — 절입 3일 이내 출생의 0세 표기 방지). */
+  minStartAge?: number;
 
   /** First decade pillar offset (in stem/branch steps from natal month pillar). Usually 1. */
   firstDecadeOffsetSteps: number;
@@ -59,6 +76,9 @@ export interface FortunePolicy {
   /** How many day segments (일운) to generate (0 = disabled). */
   maxDays: number;
 
+  /** Display-only age convention for luck-cycle labels. */
+  ageDisplay: AgeDisplayMode;
+
   /**
    * Timeline axis:
    * - ageOnly: report only ages; avoid pseudo precision for boundaries
@@ -70,17 +90,33 @@ export interface FortunePolicy {
 export interface FortuneStart {
   direction: FortuneDirection;
 
-  /** The solar-term boundary used for 起運 (기산점). */
+  /**
+   * The solar-term boundary used for 起運 (기산점).
+   * `null` when solar-term boundaries were unavailable (trivial fallback
+   * timeline) — never fabricated from the birth instant.
+   */
   boundary: {
     id: JieTermId;
     utcMs: number;
-  };
+  } | null;
 
   /** Δt between birth and boundary (ms, always positive). */
   deltaMs: number;
 
   /** Starting age in years (floating), computed from delta via policy.startAgeMethod. */
   startAgeYears: number;
+
+  /**
+   * 표기용 정수 대운수 — policy.startAgeRounding 유파 + minStartAge 하한 적용
+   * (감사 B11: 상용 만세력과의 이원 표기 정합). 연속값(startAgeYears)과 병존.
+   */
+  startAgeDisplay: number;
+
+  /** Display-only convention for the start age label. */
+  ageDisplay: AgeDisplayMode;
+
+  /** Human-readable label for the display-only age convention. */
+  ageDisplayLabel: string;
 
   /**
    * Approximate UTC instant when the first decade starts (birth + startAgeYears).
@@ -100,8 +136,12 @@ export interface FortuneStart {
 export interface DecadeLuck {
   kind: 'DECADE';
   index: number; // 0-based
+  /** Inclusive start of the continuous daewoon age interval. */
   startAgeYears: number;
+  /** Exclusive end of the continuous daewoon age interval. */
   endAgeYears: number;
+  displayStartAge: number;
+  displayEndAge: number;
   pillar: PillarIdx;
   startUtcMs?: number;
   endUtcMs?: number;

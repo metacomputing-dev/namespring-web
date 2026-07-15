@@ -142,6 +142,10 @@ if (tm) {
     }
   }
 
+  const thisYearEvidence = tm.periods.thisYear?.periodMeta?.transitEvidence;
+  check('thisYear.periodMeta consumes saeun annotation evidence',
+    Array.isArray(thisYearEvidence) && thisYearEvidence.length >= 3,
+    Array.isArray(thisYearEvidence) ? thisYearEvidence.join(' | ') : String(thisYearEvidence));
   const lifeByAgeBand = tm.periods.life?.byAgeBand ?? {};
   check('life.byAgeBand has 10 user-facing bands',
     Object.keys(lifeByAgeBand).length === LIFE_STAGE_BANDS.length,

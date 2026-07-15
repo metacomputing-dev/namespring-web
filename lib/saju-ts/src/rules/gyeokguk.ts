@@ -197,6 +197,10 @@ const TEN_GOD_GROUP_KEYS: string[] = [
   'gyeokguk.PYEON_IN',
   'gyeokguk.BI_GYEON',
   'gyeokguk.GEOB_JAE',
+  // 감사 B4: 건록/양인/월겁 — 월지 비겁의 주류 격명 (tenGod 경쟁축 질량에 포함).
+  'gyeokguk.GEONROK',
+  'gyeokguk.YANGIN',
+  'gyeokguk.WOLGEOB',
 ];
 
 const DEFAULT_COMP_GROUPS: Record<GyeokgukCompetitionMethod, CompetitionKeyGroupSpec> = {
@@ -224,6 +228,10 @@ const DEFAULT_POLICY: GyeokgukPolicy = {
     'gyeokguk.SANG_GWAN',
     'gyeokguk.JEONG_IN',
     'gyeokguk.PYEON_IN',
+    // 감사 B4: 건록/양인/월겁 (월지 비겁의 주류 격명 — 레거시 비견/겁재보다 앞)
+    'gyeokguk.GEONROK',
+    'gyeokguk.YANGIN',
+    'gyeokguk.WOLGEOB',
     'gyeokguk.BI_GYEON',
     'gyeokguk.GEOB_JAE',
 

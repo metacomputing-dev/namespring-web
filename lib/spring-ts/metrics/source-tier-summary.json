@@ -1,16 +1,32 @@
 {
   "schemaVersion": "spring-ts.source-tier-summary.v1",
   "status": "PASS",
-  "scanned": 97,
+  "scanned": 99,
   "violationCount": 0,
-  "authorityTruthEligibleCount": 55,
-  "nonEligibleCount": 32,
+  "authorityTruthEligibleCount": 56,
+  "nonEligibleCount": 33,
   "byTier": {
+    "T1_HYPOTHESIS": {
+      "recordCount": 8,
+      "authorityTruthEligible": 0,
+      "nonEligible": 8,
+      "files": [
+        "test/baseline/authority/_authority_intake_template/EXAMPLE_demonstration_only.json",
+        "test/baseline/authority/training_derived/td_01_jeonggwan_sinkang.json",
+        "test/baseline/authority/training_derived/td_02_jongjae_buwi.json",
+        "test/baseline/authority/training_derived/td_03_siksinsangaeng.json",
+        "test/baseline/authority/training_derived/td_04_insungtuchu_haksja.json",
+        "test/baseline/authority/training_derived/td_05_chunggeuk_hyungmyeong.json",
+        "test/baseline/authority/training_derived/td_06_johu_hanmyeong.json",
+        "test/fixtures/jonggyeok_cases.json"
+      ]
+    },
     "T3_AUTHORED_INTERPRETATION": {
-      "recordCount": 31,
-      "authorityTruthEligible": 25,
+      "recordCount": 32,
+      "authorityTruthEligible": 26,
       "nonEligible": 6,
       "files": [
+        "test/baseline/authority/_authority_intake_template/template.flat-case.json",
         "test/baseline/authority/chumyeongga/chu_32.json",
         "test/baseline/authority/chumyeongga/chu_37.json",
         "test/baseline/authority/figures/jeong_juyeong.json",
@@ -61,20 +77,6 @@
         "data/sources/classical-myeongri.sources.json#sources[0].sourceTier:yuanhai_ziping",
         "data/sources/classical-myeongri.sources.json#sources[1].sourceTier:ditian_sui_chanwei",
         "data/sources/classical-myeongri.sources.json#sources[2].sourceTier:sanming_tonghui"
-      ]
-    },
-    "T1_HYPOTHESIS": {
-      "recordCount": 7,
-      "authorityTruthEligible": 0,
-      "nonEligible": 7,
-      "files": [
-        "test/baseline/authority/training_derived/td_01_jeonggwan_sinkang.json",
-        "test/baseline/authority/training_derived/td_02_jongjae_buwi.json",
-        "test/baseline/authority/training_derived/td_03_siksinsangaeng.json",
-        "test/baseline/authority/training_derived/td_04_insungtuchu_haksja.json",
-        "test/baseline/authority/training_derived/td_05_chunggeuk_hyungmyeong.json",
-        "test/baseline/authority/training_derived/td_06_johu_hanmyeong.json",
-        "test/fixtures/jonggyeok_cases.json"
       ]
     },
     "T2_REFERENCE_IMPLEMENTATION": {
@@ -130,6 +132,16 @@
     }
   },
   "bySourceType": {
+    "training_derived": {
+      "recordCount": 8,
+      "authorityTruthEligible": 0,
+      "nonEligible": 8
+    },
+    "book": {
+      "recordCount": 1,
+      "authorityTruthEligible": 1,
+      "nonEligible": 0
+    },
     "modern_korean_myeongri_extract": {
       "recordCount": 11,
       "authorityTruthEligible": 11,
@@ -154,11 +166,6 @@
       "recordCount": 14,
       "authorityTruthEligible": 14,
       "nonEligible": 0
-    },
-    "training_derived": {
-      "recordCount": 7,
-      "authorityTruthEligible": 0,
-      "nonEligible": 7
     },
     "reference_implementation": {
       "recordCount": 12,

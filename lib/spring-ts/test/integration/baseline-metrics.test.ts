@@ -118,7 +118,10 @@ check('composite_classical improves classical candidate coverage over selected a
 const presets = bySourceTier.schoolPresetBreakdown?.presets ?? {};
 const expectedPresetNames = ['korean', 'chinese', 'modern', 'korean_modern', 'classical_text', 'naming_safe'];
 for (const preset of expectedPresetNames) {
-  check(`${preset} schoolPreset breakdown is present`, presets[preset]?.fixtureCount === 15);
+  // P0-3: 픽스처 수 하드코딩 금지 — baseline.fixtureCount와 동적 비교 (15→17 확장 대응)
+  check(`${preset} schoolPreset breakdown is present`,
+    presets[preset]?.fixtureCount === bySourceTier.baseline?.fixtureCount,
+    `preset=${presets[preset]?.fixtureCount}, baseline=${bySourceTier.baseline?.fixtureCount}`);
 }
 const presetRows = bySourceTier.schoolPresetBreakdown?.rows ?? [];
 check('schoolPreset rows cover the baseline fixtures',
@@ -153,7 +156,8 @@ check('RPI truth separation reports no current engine rule failures',
 check('RPI rule-quality axis stays truth-insufficient instead of fitting low-tier rows',
   rpiSummary.axisScores?.C_gyeokgukYongshinRuleQuality?.status === 'INSUFFICIENT_TRUTH' &&
     rpiSummary.axisScores.C_gyeokgukYongshinRuleQuality.score === 0 &&
-    rpiSummary.truthSeparation?.insufficientSourceTruthCount === 15 &&
+    // P0-3: 전 baseline 픽스처가 T1(권위 분모 0)인 한 fixtureCount와 동행 (15 하드코딩 제거)
+    rpiSummary.truthSeparation?.insufficientSourceTruthCount === bySourceTier.baseline?.fixtureCount &&
     rpiSummary.truthSeparation?.authorityMatchCount === 0,
   JSON.stringify(rpiSummary.axisScores?.C_gyeokgukYongshinRuleQuality));
 check('ten-god v1/v2 comparison artifact is present',
