@@ -314,16 +314,18 @@ const emptyMinuteResult = await analyzeSajuSafe({
 } as any, {
   sajuTimePolicy: { trueSolarTime: 'off', longitudeCorrection: 'off', yaza: 'off' },
 });
-check('empty minute string preserves the established missing-value contract',
-  emptyMinuteResult.sajuEnabled === true
-    && (emptyMinuteResult.summary as Record<string, any>).inputUncertainty?.unknownMinute != null);
+check('empty minute string is explicit invalid input rather than an unknown-minute sentinel',
+  emptyMinuteResult.sajuEnabled === false
+    && emptyMinuteResult.analysisStatus === 'failed'
+    && emptyMinuteResult.diagnostics?.[0]?.reasonCode === 'BIRTH_TIME_INVALID');
 
 const emptyHourResult = await analyzeSajuSafe({
   year: 1986, month: 4, day: 19, hour: '', minute: '', gender: 'male',
 } as any);
-check('empty hour/minute strings preserve the established unknown-hour contract',
-  emptyHourResult.sajuEnabled === true
-    && (emptyHourResult.summary as Record<string, any>).inputUncertainty?.unknownHour != null);
+check('empty hour/minute strings fail closed rather than fabricating an unknown-hour chart',
+  emptyHourResult.sajuEnabled === false
+    && emptyHourResult.analysisStatus === 'failed'
+    && emptyHourResult.diagnostics?.[0]?.reasonCode === 'BIRTH_TIME_INVALID');
 
 const report = await buildFortuneReport(unknownResult.summary, new Date('2026-05-01T00:00:00+09:00'), null);
 const reportUncertainty = report.meta.uncertainties?.find((row) => row.id === 'unknown-hour');

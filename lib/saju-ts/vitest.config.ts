@@ -19,5 +19,9 @@ export default defineConfig({
       'tests/precision/**/*.test.ts',
     ],
     globals: true,
+    // Global civil-time and solar-term suites intentionally exercise multiple
+    // engine/cache instances. Keep a deterministic per-test budget that also
+    // holds on contended CI runners instead of relying on Vitest's 5s default.
+    testTimeout: 15_000,
   },
 });
