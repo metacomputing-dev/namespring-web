@@ -11,7 +11,7 @@
           "kind": "stacked-review-dossier",
           "reference": "lib/spring-ts/docs/dossiers/default-change-stack22-git-bound-2026-07-15/DOSSIER.md",
           "summary": "The moving monolithic PR #653 comparison was replaced by exact-parent incremental stack reviews; this is not external doctrine certification.",
-          "sha256": "sha256:e824a0d4676f64f0ff5ae1226aa00109b0ba431e05534f8c243e1f32c7ef95f4"
+          "sha256": "sha256:6f70b7533a3e2fe434b229fe160651d3025cf5d65df0122d4ff650cd9fb09b48"
         }
       ],
       "note": "Historical cumulative comparison only; no longer a live branch delta."
@@ -26,7 +26,7 @@
           "kind": "stacked-review-dossier",
           "reference": "lib/spring-ts/docs/dossiers/default-change-stack22-git-bound-2026-07-15/DOSSIER.md",
           "summary": "Stack 01 landed through PR #654 after incremental review; supersession records baseline integration rather than independent expert approval.",
-          "sha256": "sha256:e824a0d4676f64f0ff5ae1226aa00109b0ba431e05534f8c243e1f32c7ef95f4"
+          "sha256": "sha256:6f70b7533a3e2fe434b229fe160651d3025cf5d65df0122d4ff650cd9fb09b48"
         }
       ],
       "note": "Historical Stack 01 comparison against its pre-merge baseline."
@@ -41,7 +41,7 @@
           "kind": "stacked-review-dossier",
           "reference": "lib/spring-ts/docs/dossiers/default-change-stack22-git-bound-2026-07-15/DOSSIER.md",
           "summary": "The pre-rebuild Stack 18 comparison was replaced by the reviewed implementation merged in PR #671; doctrine certification remains separate.",
-          "sha256": "sha256:e824a0d4676f64f0ff5ae1226aa00109b0ba431e05534f8c243e1f32c7ef95f4"
+          "sha256": "sha256:6f70b7533a3e2fe434b229fe160651d3025cf5d65df0122d4ff650cd9fb09b48"
         }
       ],
       "note": "Historical pre-rebuild Stack 18 comparison."
