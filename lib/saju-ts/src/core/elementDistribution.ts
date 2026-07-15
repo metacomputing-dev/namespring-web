@@ -44,6 +44,14 @@ function readPositionWeight(
   return finiteNonNegativeWeight(weights?.[position], fallback);
 }
 
+function assertFiniteDistribution(label: string, vector: ElementVector): void {
+  for (const value of Object.values(vector)) {
+    if (!Number.isFinite(value)) {
+      throw new RangeError(`${label} produced a non-finite element weight`);
+    }
+  }
+}
+
 export function elementDistributionFromPillars(
   pillars: [PillarIdx, PillarIdx, PillarIdx, PillarIdx],
   opts: ElementDistributionOptions = {},
@@ -75,6 +83,10 @@ export function elementDistributionFromPillars(
     }
   }
 
+  assertFiniteDistribution('heaven distribution', heaven);
+  assertFiniteDistribution('hidden-stem distribution', hidden);
+
   const total = addVectors(cloneElementVector(heaven), hidden);
+  assertFiniteDistribution('total distribution', total);
   return { heaven, hidden, total };
 }

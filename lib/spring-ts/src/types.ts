@@ -275,7 +275,7 @@ export interface PrecisionConfig {
   readonly surfaceNaeum?: boolean;
 
   /** 감사 B1: 음력→양력 변환 소스. 기본 'builtin'(내장 KASI/KARI 표준 테이블,
-   *  제품 보장 1900~2050, 오프라인 결정적). 'kasi' = Node 전용 옵트인 —
+   *  제품 보장 1900-01-01~2050-11-18 음력, 오프라인 결정적). 'kasi' = Node 전용 옵트인 —
    *  data.go.kr LrsrCldInfoService/getSpcifyLunCalInfo를 먼저 시도하고
    *  실패(키 부재·네트워크·타임아웃·브라우저 런타임) 시 내장 테이블로 폴백하며
    *  SajuSummary.lunarConversion.kasiFallback으로 표기한다. */
@@ -649,6 +649,7 @@ export type SajuAnalysisReasonCode =
   | 'NEUTRAL_GENDER_ANALYSIS_FAILED'
   | 'SAJU_INVALID_SCHOOL_PRESET_SELECTOR'
   | 'SAJU_UNKNOWN_SCHOOL_PRESET'
+  | 'SAJU_BRIDGE_CONTRACT_MISMATCH'
   | 'SAJU_CALCULATION_FAILED';
 
 export interface SajuAnalysisDiagnostic {
@@ -805,6 +806,8 @@ export interface GyeokgukBasisSummary {
 /** PR-6: 격국 성패 판정 상세 (자평진전 순용/역용 계열). */
 export interface GyeokgukSeongpaeSummary {
   readonly verdict: 'SEONGGYEOK' | 'PAGYEOK' | 'PAJUNG_YUGU' | 'SEONGJUNG_YUPA' | 'UNDETERMINED';
+  /** Score-only evidence retained when month damage lowered the reported verdict. */
+  readonly verdictBeforeMonthBroken?: GyeokgukSeongpaeSummary['verdict'];
   readonly usage: 'SUNYONG' | 'YEOKYONG';
   readonly sangshin: string | null;
   readonly sangshinStemHanja: string | null;
@@ -920,6 +923,15 @@ export interface CheonganRelationSummary {
 
 /** Numeric breakdown of a heavenly-stem relation's score. */
 export interface CheonganRelationScore {
+  readonly model: 'legacy_heuristic_v1';
+  readonly unit: '0_100';
+  readonly status: 'provisional';
+  readonly evidenceOnly: true;
+  readonly authorityTruthEligible: false;
+  readonly provisional: true;
+  readonly pairCount: number;
+  readonly positionGap: number | null;
+  readonly positionGaps: readonly number[];
   readonly baseScore: number;
   readonly adjacencyBonus: number;
   readonly outcomeMultiplier: number;
@@ -988,13 +1000,13 @@ export interface TransitShinsalSummary {
   readonly anchorBranch: string;
   readonly targetBranch: string;
   readonly twelveSal: string;
-  readonly samjae: {
+  readonly samjae?: {
     readonly active: boolean;
     readonly phase: 'DEUL' | 'NUL' | 'NAL' | null | string;
     readonly group: readonly string[];
   };
-  readonly sangmun: boolean;
-  readonly jogaek: boolean;
+  readonly sangmun?: boolean;
+  readonly jogaek?: boolean;
 }
 
 export interface LuckPillarRelationSummary {
@@ -1052,7 +1064,9 @@ export interface LuckPillarAnnotationSummary {
 export interface DaeunPillarSummary extends LuckPillarAnnotationSummary {
   readonly stem: string;
   readonly branch: string;
+  /** Inclusive start of the continuous daewoon age interval. */
   readonly startAge: number;
+  /** Exclusive end of the continuous daewoon age interval. */
   readonly endAge: number;
   readonly order: number;
   readonly displayStartAge?: number | null;

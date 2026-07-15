@@ -27,6 +27,12 @@ describe('school preset resolution', () => {
   it.each([
     { id: '' },
     { id: ' + ' },
+    { id: undefined as unknown as string },
+    { id: 'ziping.strict,' },
+    { id: ',ziping.strict' },
+    { id: 'ziping.strict,,johoo.strict' },
+    { id: '+ziping.strict' },
+    { id: 'ziping.strict+' },
     { id: 123 as unknown as string },
     { id: null as unknown as string },
   ])('rejects malformed explicit selector %#', (school) => {
@@ -44,6 +50,26 @@ describe('school preset resolution', () => {
     expect(config.school).toBeUndefined();
     expect(config.calendar.yearBoundary).toBe('liChun');
     expect((config.strategies as any).strength.model).toBe('deLingDiShi');
+  });
+
+  it.each([
+    { extensions: { presets: { school: undefined } } },
+    { extensions: { preset: { school: null } } },
+    { extensions: { school: undefined } },
+    { strategies: { school: undefined } },
+    { strategies: { schoolId: null } },
+  ])('rejects malformed selectors from soft selector paths %#', (config) => {
+    expect(() => normalizeConfig(config as any)).toThrow(InvalidSchoolPresetSelectorError);
+  });
+
+  it('keeps valid composed selectors in explicit order', () => {
+    const config = normalizeConfig({ school: { id: 'ziping.strict+johoo.strict' } } as any);
+    expect(config.school?.id).toBe('ziping.strict+johoo.strict');
+    expect((config.strategies as any).gyeokguk.competition).toMatchObject({
+      enabled: true,
+      power: 2.3,
+    });
+    expect((config.strategies as any).yongshin.johooTemplate.enabled).toBe(true);
   });
 
   it('applies a known preset normally', () => {

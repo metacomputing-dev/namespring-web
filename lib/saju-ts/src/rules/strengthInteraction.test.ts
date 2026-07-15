@@ -116,6 +116,23 @@ describe('삼형 구성쌍별 해소와 단일 감쇠', () => {
     const interaction = (strength.details as any)?.delingdiShi?.interaction;
     expect(interaction?.branchDamageFactors).toEqual([0.7, 0.7, 0.7, 1]);
   });
+
+  it('궁위 차등 경로에서도 부분 해소된 삼형 구성쌍만 한 번씩 감쇠한다', () => {
+    const strength = strengthOf(PARTIAL, {
+      root: {
+        damageFactors: { CHUNG: 1, HYEONG: 1, JA_HYEONG: 1, SAMHYEONG: 0.7 },
+        positional: { enabled: true, distanceScales: { d1: 1, d2: 1, d3: 1 } },
+      },
+      seasonal: { enabled: false },
+    });
+    const interaction = (strength.details as any)?.delingdiShi?.interaction;
+    expect(interaction?.branchDamageFactors).toEqual([1, 0.7, 0.7, 1]);
+    expect(interaction?.resolved).toEqual(expect.arrayContaining([
+      { type: 'HYEONG', members: [1, 7] },
+      { type: 'HYEONG', members: [1, 10] },
+    ]));
+    expect(interaction?.resolved?.some((relation: any) => relation.type === 'SAMHYEONG')).toBe(false);
+  });
 });
 
 describe('회국 보정 (감사 B448 — 삼합/반합)', () => {
@@ -164,9 +181,15 @@ describe('pressure 축 천간합 기반(羈絆) 감쇠 (PR-10-3)', () => {
   // 丙子년 辛丑월 甲寅일 戊辰시 — 甲 일간에게 辛은 정관, 丙辛合으로 관성 투간이 묶인다.
   const CHART = { year: [2, 0], month: [7, 1], day: [0, 2], hour: [4, 4] } as const;
 
-  it('기본값이면 묶인 정관 辛의 pressure 기여가 감쇠되어 index가 신강 방향으로 이동한다', () => {
-    const on = strengthOf(CHART);
-    const off = strengthOf(CHART, { stemBind: { applyToPressure: false } });
+  it('does not add pressure evidence keys on the default path', () => {
+    const strength = strengthOf(CHART);
+    const interaction = (strength.details as any)?.delingdiShi?.interaction;
+    expect(Object.hasOwn(interaction ?? {}, 'pressureStemBinds')).toBe(false);
+  });
+
+  it('명시 opt-in이면 묶인 정관 辛의 pressure 기여가 감쇠되어 index가 신강 방향으로 이동한다', () => {
+    const off = strengthOf(CHART);
+    const on = strengthOf(CHART, { stemBind: { applyToPressure: true } });
 
     expect(on.pressure).toBeLessThan(off.pressure);
     expect(on.index).toBeGreaterThan(off.index);
@@ -193,6 +216,15 @@ describe('pressure 축 천간합 기반(羈絆) 감쇠 (PR-10-3)', () => {
       basePressure * inter.pressureStemBindPenalty.factor,
       12,
     );
+  });
+
+  it('falls back to governed unit factors for values outside [0,1]', () => {
+    const baseline = strengthOf(CHART, { stemBind: { applyToPressure: true } });
+    const invalid = strengthOf(CHART, {
+      stemBind: { applyToPressure: true, factor: -5, jaenghapFactor: 2 },
+    });
+    expect(invalid.index).toBeCloseTo(baseline.index, 12);
+    expect(invalid.pressure).toBeCloseTo(baseline.pressure, 12);
   });
 });
 

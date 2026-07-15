@@ -1,7 +1,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 //  1. SPRING ENGINE & EVALUATOR
 // ─────────────────────────────────────────────────────────────────────────────
-export { SpringEngine } from './spring-engine.js';
+export { FortuneSajuUnavailableError, SpringEngine } from './spring-engine.js';
 export { springEvaluateName, SAJU_FRAME } from './spring-evaluator.js';
 
 // ─────────────────────────────────────────────────────────────────────────────

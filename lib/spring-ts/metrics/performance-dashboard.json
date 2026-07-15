@@ -78,29 +78,29 @@
   },
   "sourceTierCoverageReport": {
     "status": "PASS",
-    "scanned": 97,
+    "scanned": 99,
     "violationCount": 0,
-    "authorityTruthEligibleCount": 55,
-    "nonEligibleCount": 32,
-    "authorityTruthEligibleRate": 63.2184,
+    "authorityTruthEligibleCount": 56,
+    "nonEligibleCount": 33,
+    "authorityTruthEligibleRate": 62.9213,
     "byTier": {
+      "T1_HYPOTHESIS": {
+        "recordCount": 8,
+        "authorityTruthEligible": 0,
+        "nonEligible": 8,
+        "eligibleRate": 0
+      },
       "T3_AUTHORED_INTERPRETATION": {
-        "recordCount": 31,
-        "authorityTruthEligible": 25,
+        "recordCount": 32,
+        "authorityTruthEligible": 26,
         "nonEligible": 6,
-        "eligibleRate": 80.6452
+        "eligibleRate": 81.25
       },
       "T4_PRIMARY_TEXT": {
         "recordCount": 12,
         "authorityTruthEligible": 9,
         "nonEligible": 3,
         "eligibleRate": 75
-      },
-      "T1_HYPOTHESIS": {
-        "recordCount": 7,
-        "authorityTruthEligible": 0,
-        "nonEligible": 7,
-        "eligibleRate": 0
       },
       "T2_REFERENCE_IMPLEMENTATION": {
         "recordCount": 13,
@@ -125,16 +125,16 @@
         }
       },
       "NO_REFERENCE": {
-        "fixtureCount": 3,
+        "fixtureCount": 5,
         "truthBuckets": {
-          "insufficient_source_truth": 3,
+          "insufficient_source_truth": 5,
           "authority_match": 0,
           "engine_rule_failure": 0
         }
       }
     },
     "truthSeparation": {
-      "insufficientSourceTruthCount": 15,
+      "insufficientSourceTruthCount": 17,
       "authorityMatchCount": 0,
       "engineRuleFailureCount": 0
     }
@@ -418,11 +418,11 @@
     "metricLimit": "feedback proxy; direct candidate-list diversity is asserted in pareto-candidates.test.ts today",
     "schoolPresetDiversity": {
       "presetCount": 6,
-      "fixtureCount": 15,
+      "fixtureCount": 17,
       "changedPresetCount": 5,
       "authorityFixtureCoverage": {
         "scorableAuthorityFixtures": 0,
-        "nonScorableAuthorityFixtures": 76,
+        "nonScorableAuthorityFixtures": 78,
         "pillarOnlyAuthorityFixtures": 75,
         "ruleSnippetCollections": 1,
         "note": "Authority casebooks are source-tiered, but current records are not full naming-score inputs with birth + surname + givenName."
@@ -430,7 +430,7 @@
       "presets": [
         {
           "presetId": "korean",
-          "fixtureCount": 15,
+          "fixtureCount": 17,
           "changedFromDefault": 0,
           "changedRate": 0,
           "averageTotalDelta": 0,
@@ -438,43 +438,43 @@
         },
         {
           "presetId": "chinese",
-          "fixtureCount": 15,
-          "changedFromDefault": 15,
+          "fixtureCount": 17,
+          "changedFromDefault": 17,
           "changedRate": 100,
-          "averageTotalDelta": -0.7067,
-          "averageSajuDelta": -2.5933
+          "averageTotalDelta": -1.0118,
+          "averageSajuDelta": -3.9706
         },
         {
           "presetId": "modern",
-          "fixtureCount": 15,
-          "changedFromDefault": 14,
-          "changedRate": 93.3333,
-          "averageTotalDelta": -0.1133,
-          "averageSajuDelta": -0.4467
+          "fixtureCount": 17,
+          "changedFromDefault": 17,
+          "changedRate": 100,
+          "averageTotalDelta": -0.1118,
+          "averageSajuDelta": -0.4118
         },
         {
           "presetId": "korean_modern",
-          "fixtureCount": 15,
-          "changedFromDefault": 15,
+          "fixtureCount": 17,
+          "changedFromDefault": 17,
           "changedRate": 100,
-          "averageTotalDelta": -0.1667,
-          "averageSajuDelta": -0.6733
+          "averageTotalDelta": -0.1647,
+          "averageSajuDelta": -0.6118
         },
         {
           "presetId": "classical_text",
-          "fixtureCount": 15,
-          "changedFromDefault": 15,
+          "fixtureCount": 17,
+          "changedFromDefault": 17,
           "changedRate": 100,
-          "averageTotalDelta": -0.8133,
-          "averageSajuDelta": -3.0867
+          "averageTotalDelta": -1.1412,
+          "averageSajuDelta": -4.5176
         },
         {
           "presetId": "naming_safe",
-          "fixtureCount": 15,
-          "changedFromDefault": 15,
+          "fixtureCount": 17,
+          "changedFromDefault": 17,
           "changedRate": 100,
-          "averageTotalDelta": 0.18,
-          "averageSajuDelta": 0.7067
+          "averageTotalDelta": 0.1353,
+          "averageSajuDelta": 0.5412
         }
       ]
     },

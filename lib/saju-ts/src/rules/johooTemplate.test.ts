@@ -123,6 +123,7 @@ describe('궁통보감 조후용신표 배선 (감사 B12)', () => {
       },
     };
     const r = run(patched, 0, 2)!;
+    expect(r.monthTable?.source).toBe('custom');
     expect(r.monthTable?.primaryStemHanja).toBe('庚'); // 패치 적용
     expect(r.bonus.METAL).toBeCloseTo(0.5, 12);
     // 패치 밖 셀은 내장 표 유지
