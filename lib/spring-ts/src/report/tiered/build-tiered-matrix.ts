@@ -58,7 +58,11 @@ import { computeClassIdCandidates, packKeyFor, minorPackKeyFor, ALL_CATEGORIES }
 import { getGeneratedArticle, preloadGeneratedForPerson } from './generated-registry.js';
 import { buildPeriodMeta, periodFortuneElement } from './period-meta-builder.js';
 import { getInsightInterpretation } from './insight-registry.js';
-import { daeunDisplayAgeRange, daeunDisplayOffset } from '../common/daeun-display.js';
+import {
+  containsDaeunAge,
+  daeunDisplayOffset,
+  resolveDaeunDisplayInterval,
+} from '../common/daeun-display.js';
 import { loadGlossary } from './glossary-loader.js';
 import { buildTagGlossary } from './tag-inliner.js';
 import {
@@ -89,8 +93,8 @@ interface DaeunPillarLike {
   readonly branch: string;
   readonly startAge: number;
   readonly endAge: number;
-  readonly displayStartAge?: number;
-  readonly displayEndAge?: number;
+  readonly displayStartAge?: unknown;
+  readonly displayEndAge?: unknown;
 }
 
 interface LifeStageBandSpec {
@@ -209,12 +213,18 @@ function extractDaeunPillars(saju: SajuSummary): readonly DaeunPillarLike[] {
       const data = pillar as Record<string, unknown>;
       const stem = typeof data.stem === 'string' ? data.stem : '';
       const branch = typeof data.branch === 'string' ? data.branch : '';
-      const startAge = typeof data.startAge === 'number' ? data.startAge : Number(data.startAge);
-      const endAge = typeof data.endAge === 'number' ? data.endAge : Number(data.endAge);
-      const displayStartAge = typeof data.displayStartAge === 'number' ? data.displayStartAge : undefined;
-      const displayEndAge = typeof data.displayEndAge === 'number' ? data.displayEndAge : undefined;
-      if (!stem || !branch || !Number.isFinite(startAge) || !Number.isFinite(endAge)) return null;
-      return { stem, branch, startAge, endAge, displayStartAge, displayEndAge };
+      const startAge = typeof data.startAge === 'number' ? data.startAge : Number.NaN;
+      const endAge = typeof data.endAge === 'number' ? data.endAge : Number.NaN;
+      if (!stem || !branch || !Number.isFinite(startAge) || !Number.isFinite(endAge) || endAge <= startAge) {
+        return null;
+      }
+      const hasDisplayStart = Object.prototype.hasOwnProperty.call(data, 'displayStartAge');
+      const hasDisplayEnd = Object.prototype.hasOwnProperty.call(data, 'displayEndAge');
+      return {
+        stem, branch, startAge, endAge,
+        ...(hasDisplayStart ? { displayStartAge: data.displayStartAge } : {}),
+        ...(hasDisplayEnd ? { displayEndAge: data.displayEndAge } : {}),
+      };
     })
     .filter((pillar): pillar is DaeunPillarLike => Boolean(pillar))
     .sort((a, b) => a.startAge - b.startAge);
@@ -232,9 +242,9 @@ function lifeFortuneElementForAge(saju: SajuSummary, representativeAge: number):
   const pillars = extractDaeunPillars(saju);
   if (!pillars.length) return null;
 
-  const matched = pillars.find((pillar) => (
-    representativeAge >= pillar.startAge && representativeAge <= pillar.endAge
-  )) ?? pillars.find((pillar) => representativeAge <= pillar.endAge) ?? pillars[pillars.length - 1];
+  const matched = pillars.find((pillar) => containsDaeunAge(
+    representativeAge, pillar.startAge, pillar.endAge,
+  )) ?? pillars.find((pillar) => representativeAge < pillar.endAge) ?? pillars[pillars.length - 1];
 
   return matched ? elementFromStemOrBranch(matched.stem, matched.branch) : null;
 }
@@ -581,9 +591,10 @@ function buildLifeByDaeun(
   const displayOffset = daeunDisplayOffset((saju as Record<string, unknown>)['daeunInfo']);
 
   return pillars.map((pillar, index) => {
-    const displayAges = daeunDisplayAgeRange(pillar, displayOffset);
-    const floorStart = displayAges.startAge;
-    const floorEnd = displayAges.endAge;
+    const displayInterval = resolveDaeunDisplayInterval(pillar, displayOffset);
+    if (!displayInterval) throw new RangeError('Invalid daeun display interval');
+    const floorStart = displayInterval.startInclusive;
+    const floorEnd = displayInterval.endExclusive;
     const repRaw = Math.floor((pillar.startAge + pillar.endAge) / 2);
     const rep = Math.min(Math.max(repRaw, 10), 105);
     const bandSpec = LIFE_STAGE_BANDS.find((b) => rep >= b.startAge && rep <= b.endAge)

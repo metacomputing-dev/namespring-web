@@ -143,4 +143,110 @@ describe('fortune.relations', () => {
 
     expect(buildFortuneRelations(natal, timeline).decadeYears).toEqual([]);
   });
+
+  it('keeps relations for every decade that overlaps a transition year', () => {
+    const natal = [pillar(1, 1), pillar(2, 2), pillar(3, 3), pillar(4, 4)] as const;
+    const timeline = {
+      policy: {} as any,
+      start: {} as any,
+      decades: [
+        {
+          kind: 'DECADE',
+          index: 0,
+          startAgeYears: 1,
+          endAgeYears: 11,
+          pillar: pillar(0, 0), // Jia-Zi: Ji-Wu와 합·충
+        },
+        {
+          kind: 'DECADE',
+          index: 1,
+          startAgeYears: 11,
+          endAgeYears: 21,
+          pillar: pillar(4, 0), // Wu-Zi: Ji-Wu와 지지 충
+        },
+      ],
+      years: [{
+        kind: 'YEAR',
+        solarYear: 2010,
+        pillar: pillar(5, 6), // Ji-Wu
+        startUtcMs: 0,
+        endUtcMs: 1,
+        approxStartAgeYears: 10.8,
+        approxEndAgeYears: 11.8,
+      }],
+    } as FortuneTimeline;
+
+    const entries = buildFortuneRelations(natal, timeline).decadeYears;
+    expect(entries.map((entry) => entry.decadeIndex)).toEqual([0, 1]);
+  });
+
+  it('does not discard a relation that exists only in the shorter overlap', () => {
+    const natal = [pillar(1, 1), pillar(2, 2), pillar(3, 3), pillar(4, 4)] as const;
+    const timeline = {
+      policy: {} as any,
+      start: {} as any,
+      decades: [
+        {
+          kind: 'DECADE',
+          index: 0,
+          startAgeYears: 1,
+          endAgeYears: 11,
+          pillar: pillar(0, 0), // relation-bearing short overlap
+        },
+        {
+          kind: 'DECADE',
+          index: 1,
+          startAgeYears: 11,
+          endAgeYears: 21,
+          pillar: pillar(2, 4), // no relation with Ji-Wu
+        },
+      ],
+      years: [{
+        kind: 'YEAR',
+        solarYear: 2010,
+        pillar: pillar(5, 6),
+        startUtcMs: 0,
+        endUtcMs: 1,
+        approxStartAgeYears: 10.8,
+        approxEndAgeYears: 11.8,
+      }],
+    } as FortuneTimeline;
+
+    expect(buildFortuneRelations(natal, timeline).decadeYears.map((entry) => entry.decadeIndex)).toEqual([0]);
+  });
+
+  it('uses half-open decade boundaries when a year starts exactly at transition', () => {
+    const natal = [pillar(1, 1), pillar(2, 2), pillar(3, 3), pillar(4, 4)] as const;
+    const timeline = {
+      policy: {} as any,
+      start: {} as any,
+      decades: [
+        {
+          kind: 'DECADE',
+          index: 0,
+          startAgeYears: 1,
+          endAgeYears: 11,
+          pillar: pillar(0, 0),
+        },
+        {
+          kind: 'DECADE',
+          index: 1,
+          startAgeYears: 11,
+          endAgeYears: 21,
+          pillar: pillar(4, 0),
+        },
+      ],
+      years: [{
+        kind: 'YEAR',
+        solarYear: 2011,
+        pillar: pillar(5, 6),
+        startUtcMs: 0,
+        endUtcMs: 1,
+        approxStartAgeYears: 11,
+        approxEndAgeYears: 12,
+      }],
+    } as FortuneTimeline;
+
+    expect(buildFortuneRelations(natal, timeline).decadeYears.map((entry) => entry.decadeIndex)).toEqual([1]);
+  });
 });

@@ -129,9 +129,15 @@ describe('pressure 축 천간합 기반(羈絆) 감쇠 (PR-10-3)', () => {
   // 丙子년 辛丑월 甲寅일 戊辰시 — 甲 일간에게 辛은 정관, 丙辛合으로 관성 투간이 묶인다.
   const CHART = { year: [2, 0], month: [7, 1], day: [0, 2], hour: [4, 4] } as const;
 
-  it('기본값이면 묶인 정관 辛의 pressure 기여가 감쇠되어 index가 신강 방향으로 이동한다', () => {
-    const on = strengthOf(CHART);
-    const off = strengthOf(CHART, { stemBind: { applyToPressure: false } });
+  it('does not add pressure evidence keys on the default path', () => {
+    const strength = strengthOf(CHART);
+    const interaction = (strength.details as any)?.delingdiShi?.interaction;
+    expect(Object.hasOwn(interaction ?? {}, 'pressureStemBinds')).toBe(false);
+  });
+
+  it('명시 opt-in이면 묶인 정관 辛의 pressure 기여가 감쇠되어 index가 신강 방향으로 이동한다', () => {
+    const off = strengthOf(CHART);
+    const on = strengthOf(CHART, { stemBind: { applyToPressure: true } });
 
     expect(on.pressure).toBeLessThan(off.pressure);
     expect(on.index).toBeGreaterThan(off.index);
@@ -152,6 +158,15 @@ describe('pressure 축 천간합 기반(羈絆) 감쇠 (PR-10-3)', () => {
       basePressure * inter.pressureStemBindPenalty.factor,
       12,
     );
+  });
+
+  it('falls back to governed unit factors for values outside [0,1]', () => {
+    const baseline = strengthOf(CHART, { stemBind: { applyToPressure: true } });
+    const invalid = strengthOf(CHART, {
+      stemBind: { applyToPressure: true, factor: -5, jaenghapFactor: 2 },
+    });
+    expect(invalid.index).toBeCloseTo(baseline.index, 12);
+    expect(invalid.pressure).toBeCloseTo(baseline.pressure, 12);
   });
 });
 

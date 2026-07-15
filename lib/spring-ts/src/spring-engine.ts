@@ -47,6 +47,13 @@ import engineConfig from '../config/engine.json';
 import { buildFortuneReport } from './report/buildFortuneReport.js';
 import type { FortuneReportRequest, FortuneReport } from './report/types.js';
 import { getLegalAnnotation, normalizeToOrthodoxHanja, type HanjaLegalStatus, type HanjaPool } from './hanja-annotations.js';
+import {
+  SajuRequestValidationError,
+  parseFortuneTargetDate,
+  validateSajuConfigFortuneHorizon,
+  validateSajuRequestOptions,
+} from './saju-request-policy.js';
+import { targetCalendarYear } from './target-date.js';
 import inmyeongyongFullData from '../data/inmyeongyong_9389_full.json';
 import { getEnrichedStrokeCount, getUnihanMetadata } from './hanja-unihan.js';
 import { getNameTrendAnalysis, type NameTrendAnalysis } from './name-trend.js';
@@ -75,17 +82,16 @@ const ENABLE_HANJA_NAME_EVALUATION = true;
 const ENABLE_FOURFRAME_NAME_EVALUATION = true;
 const FULL_POOL_ID_BASE = 900_000;
 
-function parseFortuneTargetDate(raw: string | undefined): Date {
-  const parsed = raw ? new Date(raw) : new Date();
-  return Number.isNaN(parsed.getTime()) ? new Date() : parsed;
-}
-
 function hasOwnKey(obj: object, key: string): boolean {
   return Object.prototype.hasOwnProperty.call(obj, key);
 }
 
-function optionsForFortuneTarget(options: SpringOptions | undefined, targetDate: Date): SpringOptions {
-  const targetYear = targetDate.getFullYear();
+function optionsForFortuneTarget(
+  options: SpringOptions | undefined,
+  targetDate: Date,
+  birthYear: number,
+): SpringOptions {
+  const targetYear = targetCalendarYear(targetDate);
   const inputSajuOptions = options?.sajuOptions ?? {};
   const sajuOptions: {
     daeunCount?: number;
@@ -99,13 +105,18 @@ function optionsForFortuneTarget(options: SpringOptions | undefined, targetDate:
     sajuOptions.saeunStartYear = targetYear - 1;
   }
   if (!hasOwnKey(inputSajuOptions, 'saeunYearCount')) {
-    sajuOptions.saeunYearCount = 4;
+    const start = typeof sajuOptions.saeunStartYear === 'number'
+      ? sajuOptions.saeunStartYear : targetYear - 1;
+    sajuOptions.saeunYearCount = Math.max(1, Math.min(4, birthYear + 120 - start + 1));
   }
   if (!hasOwnKey(inputSajuOptions, 'wolunStartYear')) {
     sajuOptions.wolunStartYear = targetYear - 1;
   }
   if (!hasOwnKey(inputSajuOptions, 'wolunMonthCount')) {
-    sajuOptions.wolunMonthCount = 24;
+    const start = typeof sajuOptions.wolunStartYear === 'number'
+      ? sajuOptions.wolunStartYear : targetYear - 1;
+    const remainingMonths = Math.max(1, (birthYear + 120 - start + 1) * 12);
+    sajuOptions.wolunMonthCount = Math.min(24, remainingMonths);
   }
 
   return { ...(options ?? {}), sajuOptions };
@@ -2874,11 +2885,16 @@ export class SpringEngine {
   // -------------------------------------------------------------------------
 
   async getFortuneReport(request: FortuneReportRequest): Promise<FortuneReport> {
+    // 1. Reject malformed or unbounded horizons before database or astronomy work.
+    const birthYear = request.birth.year;
+    if (typeof birthYear !== 'number' || !Number.isInteger(birthYear)) {
+      throw new SajuRequestValidationError('birth year must be a finite integer');
+    }
+    const targetDate = parseFortuneTargetDate(request.targetDate, request.birth);
+    const reportOptions = optionsForFortuneTarget(request.options, targetDate, birthYear);
+    validateSajuRequestOptions(reportOptions.sajuOptions, birthYear);
+    validateSajuConfigFortuneHorizon(reportOptions.sajuConfig);
     await this.init();
-
-    // 1. Parse target date, then request the surrounding transit rows.
-    const targetDate = parseFortuneTargetDate(request.targetDate);
-    const reportOptions = optionsForFortuneTarget(request.options, targetDate);
 
     // 2. Run saju analysis
     const sajuReport = await this.getSajuReport({

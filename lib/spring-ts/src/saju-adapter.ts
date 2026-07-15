@@ -27,8 +27,15 @@ import type {
   GyeokgukCandidateSummary, JonggyeokCandidateSummary, SourceTierMetadata,
   YongshinConsensusScoreboard, LunarConversionSummary,
 } from './types.js';
-import { lunarToSolar } from './calendar/korean-lunar-calendar.js';
+import { leapMonthOfLunarYear, lunarToSolar } from './calendar/korean-lunar-calendar.js';
 import { kasiLunarToSolar } from './calendar/kasi-lunar-api.js';
+import {
+  SajuRequestValidationError,
+  requiredMaxMonthsForRequest,
+  requiredMaxYearsForRequest,
+  validateSajuConfigFortuneHorizon,
+  validateSajuRequestOptions,
+} from './saju-request-policy.js';
 
 // ---------------------------------------------------------------------------
 //  Configuration loaded from JSON files
@@ -37,6 +44,7 @@ import cheonganJijiConfig from '../config/cheongan-jiji.json';
 import engineConfig from '../config/engine.json';
 import sajuScoringConfig from '../config/saju-scoring.json';
 import { KOREA_REGION_COORDINATES, type RegionCoordinate } from './region-coordinates.js';
+import { extractGyeokgukSeongpae } from './saju-seongpae-contract.js';
 
 /** Maps uppercase element codes ("WOOD") to display keys ("Wood"). */
 const ELEMENT_CODE_TO_KEY: Record<string, ElementKey> = cheonganJijiConfig.elementCodeToKey as Record<string, ElementKey>;
@@ -1124,13 +1132,13 @@ function buildPartialSajuSummary(birth: BirthInfo, parts: KnownBirthParts): Saju
 
 /**
  * 감사 B1: 음력 입력을 변환할 수 없을 때의 비활성 요약.
- * 정상 음력 입력은 이제 내장 테이블(KASI/KARI 표준, 제품 보장 1900~2050)로 변환되어
+ * 정상 음력 입력은 내장 테이블(KASI/KARI 표준, 제품 보장 1900-01-01~2050-11-18 음력)로 변환되어
  * 분석된다 — 이 경로는 부분 입력·범위 밖·존재하지 않는 날짜 전용이다.
  */
 function buildUnsupportedLunarSajuSummary(
   birth: BirthInfo,
   parts: KnownBirthParts,
-  cause: 'partial-lunar-input' | 'conversion-failed',
+  cause: 'partial-lunar-input' | 'ambiguous-leap-month' | 'conversion-failed',
 ): SajuSummary {
   const summary = emptySaju() as SajuSummary & Record<string, unknown>;
   const mutableSummary = summary as Record<string, any>;
@@ -1138,7 +1146,9 @@ function buildUnsupportedLunarSajuSummary(
   mutableSummary.partialInterpretation = [
     cause === 'partial-lunar-input'
       ? '음력 생년월일은 연·월·일이 모두 있어야 양력으로 변환해 사주를 세울 수 있습니다.'
-      : '입력한 음력 날짜를 양력으로 변환하지 못했습니다. 지원 범위(1900~2050년)와 윤달 여부를 확인해 주세요.',
+      : cause === 'ambiguous-leap-month'
+        ? '입력한 음력 달에는 평달과 윤달이 모두 있습니다. 윤달 여부를 반드시 선택해 주세요.'
+        : '입력한 음력 날짜를 양력으로 변환하지 못했습니다. 지원 범위(1900년~2050년 음력 11월 18일)와 윤달 여부를 확인해 주세요.',
   ];
   mutableSummary.partialBirthInput = {
     year: parts.year,
@@ -1147,14 +1157,14 @@ function buildUnsupportedLunarSajuSummary(
     hour: parts.hour,
     minute: parts.minute,
     calendarType: birth.calendarType ?? 'lunar',
-    isLeapMonth: birth.isLeapMonth === true,
+    isLeapMonth: birth.isLeapMonth ?? null,
   };
   mutableSummary.disabledReason = 'lunar-conversion-unavailable';
   mutableSummary.calendarPolicy = {
     inputCalendar: 'lunar',
-    conversionRequired: 'builtin korean-lunar-calendar(1900~2050) | KASI LrsrCldInfoService(opt-in)',
+    conversionRequired: 'builtin korean-lunar-calendar(1900~2050-11-18 lunar) | KASI LrsrCldInfoService(opt-in)',
     conversionStatus: cause,
-    leapMonth: birth.isLeapMonth === true,
+    leapMonth: birth.isLeapMonth ?? null,
   };
 
   return summary;
@@ -1259,12 +1269,18 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
       // 음력은 연·월·일 전부 있어야 변환 가능 — 부분 입력은 비활성 경로 유지.
       return buildUnsupportedLunarSajuSummary(birth, parts, 'partial-lunar-input');
     }
+    const leapMonth = leapMonthOfLunarYear(parts.year);
+    if (birth.isLeapMonth === undefined && leapMonth === parts.month) {
+      // 같은 월 번호의 평달·윤달이 모두 존재한다. 누락을 false로 추정하면
+      // 서로 다른 양력 날짜와 사주를 조용히 만들므로 반드시 호출자에게 되묻는다.
+      return buildUnsupportedLunarSajuSummary(birth, parts, 'ambiguous-leap-month');
+    }
     lunarConversion = await resolveLunarConversion(
       { year: parts.year, month: parts.month, day: parts.day, isLeapMonth: birth.isLeapMonth === true },
       options,
     );
     if (!lunarConversion) {
-      // 제품 보장 범위(1900~2050) 밖 또는 존재하지 않는 음력 날짜(없는 윤달 등).
+      // 제품 보장 범위(1900-01-01~2050-11-18 음력) 밖 또는 존재하지 않는 음력 날짜(없는 윤달 등).
       return buildUnsupportedLunarSajuSummary(birth, parts, 'conversion-failed');
     }
     effectiveParts = {
@@ -1285,6 +1301,8 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
   if (birthYear == null || birthMonth == null || birthDay == null) {
     return buildPartialSajuSummary(birth, effectiveParts);
   }
+  validateSajuRequestOptions(options?.sajuOptions, birthYear);
+  validateSajuConfigFortuneHorizon(options?.sajuConfig);
   const resolvedCoordinates = resolveBirthCoordinates(birth);
 
   try {
@@ -1383,24 +1401,27 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
     }
     if (options?.sajuConfig) config = { ...config, ...options.sajuConfig };
 
-    const wolunStartYear = options?.sajuOptions?.wolunStartYear;
-    if (typeof wolunStartYear === 'number') {
-      const requestedMonthCount = typeof options?.sajuOptions?.wolunMonthCount === 'number'
-        ? options.sajuOptions.wolunMonthCount
-        : 24;
-      const yearsToCover = Math.max(2, wolunStartYear - birthYear + 2);
-      const requiredMaxMonths = Math.max(24, yearsToCover * 12 + requestedMonthCount);
+    const requiredMaxYears = requiredMaxYearsForRequest(options?.sajuOptions, birthYear);
+    const requiredMaxMonths = requiredMaxMonthsForRequest(options?.sajuOptions, birthYear);
+    if (requiredMaxYears !== null || requiredMaxMonths !== null) {
       const strategies = (config.strategies ?? {}) as Record<string, any>;
       const fortune = (strategies.fortune ?? {}) as Record<string, any>;
-      const existingMaxMonths = Number(fortune.maxMonths);
+      const nextFortune = { ...fortune };
+      if (requiredMaxYears !== null) {
+        const existingMaxYears = fortune.maxYears;
+        nextFortune.maxYears = typeof existingMaxYears === 'number' && Number.isFinite(existingMaxYears)
+          ? Math.max(existingMaxYears, requiredMaxYears)
+          : requiredMaxYears;
+      }
+      if (requiredMaxMonths !== null) {
+        const existingMaxMonths = fortune.maxMonths;
+        nextFortune.maxMonths = typeof existingMaxMonths === 'number' && Number.isFinite(existingMaxMonths)
+          ? Math.max(existingMaxMonths, requiredMaxMonths)
+          : requiredMaxMonths;
+      }
       config.strategies = {
         ...strategies,
-        fortune: {
-          ...fortune,
-          maxMonths: Number.isFinite(existingMaxMonths)
-            ? Math.max(existingMaxMonths, requiredMaxMonths)
-            : requiredMaxMonths,
-        },
+        fortune: nextFortune,
       };
     }
 
@@ -1518,7 +1539,10 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
     }
 
     return summary;
-  } catch { return emptySaju(); }
+  } catch (error) {
+    if (error instanceof SajuRequestValidationError) throw error;
+    return emptySaju();
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -1855,6 +1879,7 @@ function extractYongshinConsensus(value: any): YongshinConsensusScoreboard | und
 // ---------------------------------------------------------------------------
 
 function extractGyeokguk(gyeokgukResult: any) {
+  const seongpae = extractGyeokgukSeongpae(gyeokgukResult?.seongpae);
   return {
     type:          formatGyeokgukTypeDisplay(gyeokgukResult?.type),
     category:      formatGyeokgukCategoryDisplay(gyeokgukResult?.category),
@@ -1863,9 +1888,9 @@ function extractGyeokguk(gyeokgukResult: any) {
     reasoning:     cleanAdapterText(String(gyeokgukResult?.reasoning ?? '')),
     candidates:    extractGyeokgukCandidates(gyeokgukResult?.candidates),
     jonggyeokCandidates: extractJonggyeokCandidates(gyeokgukResult?.jonggyeokCandidates),
-    // PR-6 (additive): 격국 성패 — 상신·순용/역용·성격/파격 passthrough.
-    ...(gyeokgukResult?.seongpae && typeof gyeokgukResult.seongpae === 'object'
-      ? { seongpae: gyeokgukResult.seongpae }
+    // PR-6 (additive): explicitly mapped at the saju-ts -> spring-ts boundary.
+    ...(seongpae
+      ? { seongpae }
       : {}),
   };
 }
@@ -2302,8 +2327,8 @@ function withLuckPillarAnnotations<T extends Record<string, unknown>>(out: T, ra
 }
 
 function nullableNumber(value: unknown): number | null {
-  const n = Number(value);
-  return Number.isFinite(n) ? n : null;
+  return typeof value === 'number' && Number.isFinite(value)
+    ? value : null;
 }
 
 function extractDaeunInfo(rawSajuOutput: any) {
@@ -2395,7 +2420,8 @@ export async function analyzeSajuSafe(
     // If analyzeSaju returned an empty saju (module missing), detect via dayMaster
     const isRealAnalysis = !!summary.dayMaster?.element;
     return { summary, sajuEnabled: isRealAnalysis };
-  } catch {
+  } catch (error) {
+    if (error instanceof SajuRequestValidationError) throw error;
     return { summary: emptySaju(), sajuEnabled: false };
   }
 }
