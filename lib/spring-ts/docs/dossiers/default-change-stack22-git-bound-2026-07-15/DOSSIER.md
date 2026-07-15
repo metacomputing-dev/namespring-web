@@ -4,7 +4,7 @@ Date: 2026-07-15
 
 Baseline: `c5d25a6046c670ac0392409021eca883f74921c3` (merged Stack 21)
 
-Reviewed code freeze: `54fce187d637b3e0ef33cd9185d03a878cd19607`
+Reviewed code freeze: `22629480d83c4773fc6e76870c9d23a77ae8eaa2`
 
 ## Scope and conclusion
 
