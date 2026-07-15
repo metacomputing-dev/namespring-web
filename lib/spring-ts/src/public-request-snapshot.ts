@@ -1,17 +1,26 @@
 import type { FortuneReportRequest } from './report/types.js';
 import type { SajuReport, SpringRequest } from './types.js';
 
-const TRUSTED_PUBLIC_REQUEST_SNAPSHOTS = new WeakSet<object>();
-
 const MAX_PUBLIC_INPUT_DEPTH = 64;
 const MAX_PUBLIC_INPUT_PROPERTIES = 100_000;
 const MAX_PUBLIC_INPUT_ARRAY_LENGTH = 10_000;
+const MAX_PUBLIC_INPUT_STRING_LENGTH = 16_384;
+const MAX_PUBLIC_INPUT_STRING_CODE_UNITS = 1_048_576;
+
+interface PublicInputMetrics {
+  readonly properties: number;
+  readonly stringCodeUnits: number;
+}
+
+const TRUSTED_PUBLIC_REQUEST_SNAPSHOTS = new WeakMap<object, PublicInputMetrics>();
 
 interface PublicInputTraversalState {
   readonly seen: WeakMap<object, unknown>;
+  readonly completedMetrics: WeakMap<object, PublicInputMetrics>;
   readonly active: WeakSet<object>;
   readonly omitUndefinedObjectProperties: boolean;
   totalProperties: number;
+  totalStringCodeUnits: number;
 }
 
 const PUBLIC_REQUEST_DATA_ERROR =
@@ -21,9 +30,12 @@ function invalidPublicRequestData(): TypeError {
   return new TypeError(PUBLIC_REQUEST_DATA_ERROR);
 }
 
-function freezeTrustedSnapshot<T extends object>(value: T): T {
+function freezeTrustedSnapshot<T extends object>(
+  value: T,
+  metrics: PublicInputMetrics,
+): T {
   Object.freeze(value);
-  TRUSTED_PUBLIC_REQUEST_SNAPSHOTS.add(value);
+  TRUSTED_PUBLIC_REQUEST_SNAPSHOTS.set(value, metrics);
   return value;
 }
 
@@ -61,6 +73,30 @@ function claimPublicInputProperties(
   state.totalProperties += count;
 }
 
+function claimPublicInputStringCodeUnits(
+  state: PublicInputTraversalState,
+  count: number,
+  enforceSingleValueLimit: boolean,
+): void {
+  if (
+    !Number.isSafeInteger(count)
+    || count < 0
+    || (enforceSingleValueLimit && count > MAX_PUBLIC_INPUT_STRING_LENGTH)
+    || state.totalStringCodeUnits + count > MAX_PUBLIC_INPUT_STRING_CODE_UNITS
+  ) {
+    throw invalidPublicRequestData();
+  }
+  state.totalStringCodeUnits += count;
+}
+
+function claimCompletedMetrics(
+  state: PublicInputTraversalState,
+  metrics: PublicInputMetrics,
+): void {
+  claimPublicInputProperties(state, metrics.properties);
+  claimPublicInputStringCodeUnits(state, metrics.stringCodeUnits, false);
+}
+
 /**
  * Clone caller-owned request data before an endpoint performs its first await.
  *
@@ -78,7 +114,11 @@ function cloneAndFreezePublicInput<T>(
   if (depth > MAX_PUBLIC_INPUT_DEPTH) throw invalidPublicRequestData();
   if (value === null) return value;
 
-  if (typeof value === 'string' || typeof value === 'boolean') return value;
+  if (typeof value === 'string') {
+    claimPublicInputStringCodeUnits(state, value.length, true);
+    return value;
+  }
+  if (typeof value === 'boolean') return value;
   if (typeof value === 'number') {
     if (!Number.isFinite(value)) throw invalidPublicRequestData();
     return value;
@@ -86,12 +126,26 @@ function cloneAndFreezePublicInput<T>(
   if (typeof value !== 'object') throw invalidPublicRequestData();
 
   if (value instanceof Date) throw invalidPublicRequestData();
-  if (TRUSTED_PUBLIC_REQUEST_SNAPSHOTS.has(value)) return value;
   if (state.active.has(value)) throw invalidPublicRequestData();
 
   const prior = state.seen.get(value);
-  if (prior !== undefined) return prior as T;
+  if (prior !== undefined) {
+    const metrics = state.completedMetrics.get(value);
+    if (!metrics) throw invalidPublicRequestData();
+    claimCompletedMetrics(state, metrics);
+    return prior as T;
+  }
 
+  const trustedMetrics = TRUSTED_PUBLIC_REQUEST_SNAPSHOTS.get(value);
+  if (trustedMetrics) {
+    claimCompletedMetrics(state, trustedMetrics);
+    state.seen.set(value, value);
+    state.completedMetrics.set(value, trustedMetrics);
+    return value;
+  }
+
+  const propertiesBefore = state.totalProperties;
+  const stringsBefore = state.totalStringCodeUnits;
   state.active.add(value);
   try {
     if (Array.isArray(value)) {
@@ -116,6 +170,7 @@ function cloneAndFreezePublicInput<T>(
         const key = keys[cursor];
         if (key === 'length') continue;
         if (typeof key !== 'string') throw invalidPublicRequestData();
+        claimPublicInputStringCodeUnits(state, key.length, true);
         const index = arrayIndexFromKey(key);
         if (index === null || index >= length) throw invalidPublicRequestData();
         const descriptor = requireDataDescriptor(value, key);
@@ -129,7 +184,12 @@ function cloneAndFreezePublicInput<T>(
         });
       }
       if (presentIndexes !== length) throw invalidPublicRequestData();
-      return freezeTrustedSnapshot(clone) as T;
+      const metrics = {
+        properties: state.totalProperties - propertiesBefore,
+        stringCodeUnits: state.totalStringCodeUnits - stringsBefore,
+      } satisfies PublicInputMetrics;
+      state.completedMetrics.set(value, metrics);
+      return freezeTrustedSnapshot(clone, metrics) as T;
     }
 
     const prototype = Object.getPrototypeOf(value);
@@ -146,6 +206,7 @@ function cloneAndFreezePublicInput<T>(
     for (let cursor = 0; cursor < keys.length; cursor += 1) {
       const key = keys[cursor];
       if (typeof key !== 'string') throw invalidPublicRequestData();
+      claimPublicInputStringCodeUnits(state, key.length, true);
       const descriptor = requireDataDescriptor(value, key);
       if (!descriptor.enumerable) throw invalidPublicRequestData();
       if (descriptor.value === undefined && state.omitUndefinedObjectProperties) {
@@ -158,7 +219,12 @@ function cloneAndFreezePublicInput<T>(
         configurable: true,
       });
     }
-    return freezeTrustedSnapshot(clone) as T;
+    const metrics = {
+      properties: state.totalProperties - propertiesBefore,
+      stringCodeUnits: state.totalStringCodeUnits - stringsBefore,
+    } satisfies PublicInputMetrics;
+    state.completedMetrics.set(value, metrics);
+    return freezeTrustedSnapshot(clone, metrics) as T;
   } finally {
     state.active.delete(value);
   }
@@ -171,9 +237,11 @@ function snapshotPublicInput<T>(
   try {
     return cloneAndFreezePublicInput(value, {
       seen: new WeakMap(),
+      completedMetrics: new WeakMap(),
       active: new WeakSet(),
       omitUndefinedObjectProperties: options.omitUndefinedObjectProperties === true,
       totalProperties: 0,
+      totalStringCodeUnits: 0,
     }, 0);
   } catch {
     throw invalidPublicRequestData();
