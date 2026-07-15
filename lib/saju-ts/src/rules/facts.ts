@@ -2210,9 +2210,11 @@ function computeMonthGyeokQuality(args: {
 
   // --- Purity: every exposed month hidden stem is evidence, including a
   // companion candidate that is ineligible for ordinary frame selection.
-  const visibleTenGods = new Set(
-    exposureEvidenceCandidates.filter((candidate) => candidate.visibleInChart).map((candidate) => candidate.tenGod));
-  const visibleKinds = visibleTenGods.size;
+  const purityTenGods = new Set<TenGod>([gyeokTenGod]);
+  for (const candidate of exposureEvidenceCandidates) {
+    if (candidate.visibleInChart) purityTenGods.add(candidate.tenGod);
+  }
+  const visibleKinds = purityTenGods.size;
   const mixed = visibleKinds > 1;
   const purity = visibleKinds <= 1 ? 1 : clamp01(1 - 0.3 * (visibleKinds - 1));
 

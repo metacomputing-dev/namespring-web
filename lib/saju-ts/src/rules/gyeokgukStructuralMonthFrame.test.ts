@@ -188,6 +188,20 @@ describe('month hidden-stem transparency', () => {
     const { facts } = analyze(pillarSpec);
     expect(facts.month.hiddenStems.find((candidate) => candidate.stem === 0)?.visibleInChart).toBe(true);
   });
+
+  it('counts the selected unexposed frame together with a different exposed hidden stem for purity', () => {
+    const { facts } = analyze({
+      year: [8, 0], month: [0, 4], day: [0, 0], hour: [1, 1],
+    });
+    expect(facts.month.gyeok).toMatchObject({
+      tenGod: 'PYEON_JAE',
+      method: 'MAIN_FALLBACK',
+      quality: {
+        mixed: true,
+      },
+    });
+    expect(facts.month.gyeok.quality.reasons).toContain('mixedVisible:2');
+  });
 });
 
 describe('structural month-gyeok integration', () => {
