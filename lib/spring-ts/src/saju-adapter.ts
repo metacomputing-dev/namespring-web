@@ -25,7 +25,8 @@ import type {
   SajuPillarPosition, SajuTenGodPositionGroup,
   SajuAxisStrengthMap, SajuJudgmentStrength, SajuInputUncertaintyAxis,
   GyeokgukCandidateSummary, JonggyeokCandidateSummary, SourceTierMetadata,
-  YongshinConsensusScoreboard, LunarConversionSummary,
+  YongshinConsensusScoreboard, LunarConversionSummary, JieProximitySummary,
+  CheonganRelationScore,
 } from './types.js';
 import { leapMonthOfLunarYear, lunarToSolar } from './calendar/korean-lunar-calendar.js';
 import { kasiLunarToSolar } from './calendar/kasi-lunar-api.js';
@@ -301,6 +302,7 @@ const SHINSAL_TYPE_KO_LABEL: Record<string, string> = {
   HAK_DANG_GUI_IN: '학당귀인',
   BI_IN_SAL: '비인살',
   YANG_IN: '양인',
+  EUM_IN: '\uC74C\uC778',
   LOK_SHIN: '록신',
   GUK_IN_GUI_IN: '국인귀인',
   CHEON_JU_GUI_IN: '천주귀인',
@@ -361,6 +363,39 @@ function roundTo(value: unknown, digits: number): number {
   if (!Number.isFinite(n)) return 0;
   const scale = 10 ** digits;
   return Math.round(n * scale) / scale;
+}
+
+function extractJieProximity(raw: any): JieProximitySummary | undefined {
+  if (!raw || typeof raw !== 'object') return undefined;
+  const nearestDirection = raw.nearestDirection === 'previous' || raw.nearestDirection === 'next'
+    ? raw.nearestDirection
+    : undefined;
+  const numeric = {
+    birthUtcMs: Number(raw.birthUtcMs),
+    previousUtcMs: Number(raw.previousUtcMs),
+    nextUtcMs: Number(raw.nextUtcMs),
+    hoursSincePrevious: Number(raw.hoursSincePrevious),
+    hoursUntilNext: Number(raw.hoursUntilNext),
+    daysSincePrevious: Number(raw.daysSincePrevious),
+    daysUntilNext: Number(raw.daysUntilNext),
+    monthLengthDays: Number(raw.monthLengthDays),
+    nearestHours: Number(raw.nearestHours),
+  };
+  if (!nearestDirection || Object.values(numeric).some((value) => !Number.isFinite(value))) return undefined;
+  const previousTermId = String(raw.previousTermId ?? '');
+  const nextTermId = String(raw.nextTermId ?? '');
+  const nearestTermId = String(raw.nearestTermId ?? '');
+  if (!previousTermId || !nextTermId || !nearestTermId) return undefined;
+
+  return {
+    ...numeric,
+    solarTermMethod: String(raw.solarTermMethod ?? ''),
+    previousTermId,
+    nextTermId,
+    nearestTermId,
+    nearestDirection,
+    isNearBoundary: raw.isNearBoundary === true,
+  };
 }
 
 function stripWhitespace(value: string): string {
@@ -901,6 +936,16 @@ function extractNumericFields(source: any, keys: readonly string[]): Record<stri
   const result: Record<string, number> = {};
   for (const key of keys) result[key] = Number(source?.[key]) || 0;
   return result;
+}
+
+function extractNumericRecord(source: any): Record<string, number> | undefined {
+  if (!source || typeof source !== 'object' || Array.isArray(source)) return undefined;
+  const result: Record<string, number> = {};
+  for (const [key, value] of Object.entries(source)) {
+    const n = Number(value);
+    if (Number.isFinite(n)) result[key] = n;
+  }
+  return Object.keys(result).length > 0 ? result : undefined;
 }
 
 /**
@@ -1568,6 +1613,7 @@ export function extractSaju(rawSajuOutput: any): SajuSummary {
 
     pillars,
     timeCorrection:       extractNumericFields(coreResult, TC_KEYS) as any,
+    jieProximity:         extractJieProximity(rawSajuOutput.jieProximity),
     dayMaster:            extractDayMaster(dayStemCode, rawSajuOutput.strengthResult),
     strength:             extractStrength(rawSajuOutput.strengthResult),
     yongshin:             extractYongshin(rawSajuOutput.yongshinResult),
@@ -1584,7 +1630,6 @@ export function extractSaju(rawSajuOutput: any): SajuSummary {
     gongmang:             extractGongmang(rawSajuOutput),
     tenGodAnalysis:       extractTenGodAnalysis(rawSajuOutput.tenGodAnalysis, dayStemCode),
     shinsalHits:          extractShinsalHits(rawSajuOutput),
-    shinsalComposites:    extractShinsalComposites(rawSajuOutput),
     palaceAnalysis:       extractPalaceAnalysis(rawSajuOutput),
     daeunInfo:            extractDaeunInfo(rawSajuOutput),
     saeunPillars:         extractSaeunPillars(rawSajuOutput),
@@ -1802,6 +1847,9 @@ function extractYongshin(yongshinResult: any) {
   const gishin = yongshinResult?.gisin;
   const gushin = yongshinResult?.gusin;
   const consensus = extractYongshinConsensus(yongshinResult?.consensus);
+  const methodBreakdown = yongshinResult?.methodBreakdown && typeof yongshinResult.methodBreakdown === 'object'
+    ? deepSerialize(yongshinResult.methodBreakdown)
+    : undefined;
   return {
     element:    normalizeElementCode(element) ?? String(element ?? ''),
     heeshin:    normalizeElementCode(heeshin) ?? toNullableString(heeshin),
@@ -1810,6 +1858,7 @@ function extractYongshin(yongshinResult: any) {
     confidence: confidenceToPoints(yongshinResult?.finalConfidence),
     agreement:  formatYongshinAgreementDisplay(yongshinResult?.agreement),
     consensus,
+    ...(methodBreakdown ? { methodBreakdown } : {}),
     // 감사 B5 (additive): 종격 가능성 경고 + 구조화 리스크 신호 passthrough.
     warnings: ensureArray(yongshinResult?.warnings).map((w: any) => String(w)),
     jonggyeokRisk:
@@ -1878,6 +1927,24 @@ function extractYongshinConsensus(value: any): YongshinConsensusScoreboard | und
 //  Gyeokguk: the structural pattern of the chart
 // ---------------------------------------------------------------------------
 
+function extractGyeokgukBasis(value: any) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined;
+  const out: Record<string, unknown> = {};
+  for (const key of ['monthMainTenGod', 'monthGyeokTenGod', 'monthGyeokMethod', 'monthGyeokSelectionRule'] as const) {
+    if (value[key] != null) out[key] = cleanAdapterText(String(value[key]));
+  }
+  if (value.monthGyeokQuality && typeof value.monthGyeokQuality === 'object') {
+    out.monthGyeokQuality = deepSerialize(value.monthGyeokQuality) as Record<string, unknown>;
+  }
+  if (value.competition && typeof value.competition === 'object') {
+    out.competition = deepSerialize(value.competition) as Record<string, unknown>;
+  }
+  if (value.seongpaeScoreAdjustment && typeof value.seongpaeScoreAdjustment === 'object') {
+    out.seongpaeScoreAdjustment = deepSerialize(value.seongpaeScoreAdjustment) as Record<string, unknown>;
+  }
+  return Object.keys(out).length > 0 ? out : undefined;
+}
+
 function extractGyeokguk(gyeokgukResult: any) {
   const seongpae = extractGyeokgukSeongpae(gyeokgukResult?.seongpae);
   return {
@@ -1888,6 +1955,8 @@ function extractGyeokguk(gyeokgukResult: any) {
     reasoning:     cleanAdapterText(String(gyeokgukResult?.reasoning ?? '')),
     candidates:    extractGyeokgukCandidates(gyeokgukResult?.candidates),
     jonggyeokCandidates: extractJonggyeokCandidates(gyeokgukResult?.jonggyeokCandidates),
+    basis: extractGyeokgukBasis(gyeokgukResult?.basis),
+    scores: extractNumericRecord(gyeokgukResult?.scores),
     // PR-6 (additive): explicitly mapped at the saju-ts -> spring-ts boundary.
     ...(seongpae
       ? { seongpae }
@@ -2048,8 +2117,13 @@ function extractTenGodAnalysis(tenGodResult: any, dayStemCode: string) {
 // ---------------------------------------------------------------------------
 
 function extractShinsalHits(rawSajuOutput: any) {
-  /** Assigns a letter grade based on weight: 80+ = A, 50+ = B, else C. */
-  const gradeFromWeight = (weight: number) => weight >= 80 ? 'A' : weight >= 50 ? 'B' : 'C';
+  /** Mirrors the producer contract: 85+ = A, 50+ = B, else C. */
+  const gradeFromWeight = (weight: number) => weight >= 85 ? 'A' : weight >= 50 ? 'B' : 'C';
+  const gradeMatchesRoundedWeight = (grade: string, weight: number): boolean => {
+    if (weight === 85) return grade === 'A' || grade === 'B';
+    if (weight === 50) return grade === 'B' || grade === 'C';
+    return grade === gradeFromWeight(weight);
+  };
 
   const weightedHits = ensureArray(rawSajuOutput.weightedShinsalHits);
   const sourceHits   = weightedHits.length > 0 ? weightedHits : ensureArray(rawSajuOutput.shinsalHits);
@@ -2059,37 +2133,77 @@ function extractShinsalHits(rawSajuOutput: any) {
 
   return sourceHits.map((item: any) => {
     const hitData    = isWeighted ? item.hit : item;
-    const baseWeight = isWeighted ? Number(item.baseWeight) || 0 : 0;
-    const gradeCode = String(hitData?.grade || '') || (isWeighted ? gradeFromWeight(baseWeight) : 'C');
-    const seatPillars = ensureArray(hitData?.seatPillars).filter(
-      (p: unknown): p is 'year' | 'month' | 'day' | 'hour' => typeof p === 'string' && SEAT_VALUES.has(p),
+    if (!hitData || typeof hitData !== 'object' || Array.isArray(hitData)) return null;
+    const rawBaseWeight = item?.baseWeight;
+    const rawPositionMultiplier = item?.positionMultiplier;
+    const rawWeightedScore = item?.weightedScore;
+    const rawCount = item?.count;
+    const validWeightedContract = !isWeighted || (
+      typeof rawBaseWeight === 'number' && Number.isFinite(rawBaseWeight) && rawBaseWeight >= 0 && rawBaseWeight <= 100
+      && Number.isInteger(rawBaseWeight)
+      && typeof rawPositionMultiplier === 'number' && Number.isFinite(rawPositionMultiplier)
+      && rawPositionMultiplier >= 0 && rawPositionMultiplier <= 1
+      && typeof rawWeightedScore === 'number' && Number.isFinite(rawWeightedScore)
+      && rawWeightedScore >= 0 && rawWeightedScore <= 100
+      && Number.isInteger(rawWeightedScore)
+      && rawWeightedScore === Math.round(rawBaseWeight * rawPositionMultiplier)
+      && (rawCount == null || (Number.isInteger(rawCount) && rawCount >= 1))
     );
+    if (!validWeightedContract) return null;
+    const baseWeight = isWeighted ? rawBaseWeight : 0;
+    if (typeof hitData.type !== 'string' || hitData.type.trim() === '') return null;
+    if (typeof hitData.position !== 'string' || hitData.position.trim() === '') return null;
+    const gradeCode = hitData.grade;
+    if (typeof gradeCode !== 'string' || (isWeighted && !gradeMatchesRoundedWeight(gradeCode, baseWeight))) return null;
+    const rawSeatPillars = hitData.seatPillars;
+    if (rawSeatPillars != null && (
+      !Array.isArray(rawSeatPillars)
+      || !rawSeatPillars.every((p: unknown) => typeof p === 'string' && SEAT_VALUES.has(p))
+    )) return null;
+    const seatPillars = (rawSeatPillars ?? []) as ('year' | 'month' | 'day' | 'hour')[];
+    if (isWeighted) {
+      const expectedEnabledMultiplier = seatPillars.length > 0
+        ? Math.max(...seatPillars.map((seat) => ({ day: 1, month: 0.85, year: 0.7, hour: 0.6 })[seat]))
+        : 1;
+      if (rawPositionMultiplier !== 1 && rawPositionMultiplier !== expectedEnabledMultiplier) return null;
+    }
+    const rawQualityReasons = hitData.qualityReasons;
+    if (rawQualityReasons != null && (
+      !Array.isArray(rawQualityReasons)
+      || !rawQualityReasons.every((reason: unknown) => typeof reason === 'string' && reason.trim() !== '')
+    )) return null;
+    const qualityReasons = (rawQualityReasons ?? []).map((reason: string) => reason.trim());
+    const conditionPenalty = hitData?.conditionPenalty;
+    const validConditionPenalty = conditionPenalty == null || (
+      typeof conditionPenalty === 'number'
+      && Number.isFinite(conditionPenalty)
+      && conditionPenalty >= 0
+      && conditionPenalty <= 1
+    );
+    if (!validConditionPenalty) return null;
+    if ((conditionPenalty == null) !== (qualityReasons.length === 0)) return null;
+    if (conditionPenalty != null && conditionPenalty <= 0) return null;
+    if (conditionPenalty != null) {
+      const expectedBaseWeight = Math.round((1 - conditionPenalty) * 100);
+      if (Math.abs(baseWeight - expectedBaseWeight) > 1) return null;
+    }
+    if (hitData.basedOn != null && typeof hitData.basedOn !== 'string') return null;
     return {
       type:               formatShinsalTypeDisplay(hitData?.type),
       position:           formatShinsalPositionDisplay(hitData?.position),
       grade:              formatCodeDisplay(null, gradeCode),
       baseWeight,
-      positionMultiplier: isWeighted ? Number(item.positionMultiplier) || 0 : 0,
-      weightedScore:      isWeighted ? Number(item.weightedScore)      || 0 : 0,
-      basedOn:            hitData?.basedOn != null ? String(hitData.basedOn) : undefined,
+      positionMultiplier: isWeighted ? rawPositionMultiplier : 0,
+      weightedScore:      isWeighted ? rawWeightedScore : 0,
+      basedOn:            typeof hitData?.basedOn === 'string' ? hitData.basedOn : undefined,
       seatPillars,
-      count:              isWeighted && Number.isFinite(item.count) ? Number(item.count) : undefined,
+      count:              isWeighted && rawCount != null ? rawCount : undefined,
+      qualityReasons:     qualityReasons.length ? qualityReasons : undefined,
+      conditionPenalty:   conditionPenalty ?? undefined,
     };
-  });
+  }).filter((hit): hit is NonNullable<typeof hit> => hit !== null);
 }
 
-// ---------------------------------------------------------------------------
-//  Shinsal composites
-// ---------------------------------------------------------------------------
-
-function extractShinsalComposites(rawSajuOutput: any) {
-  return ensureArray(rawSajuOutput.shinsalComposites).map((composite: any) => ({
-    patternName:     String(composite.patternName     ?? ''),
-    interactionType: String(composite.interactionType ?? ''),
-    interpretation:  String(composite.interpretation  ?? ''),
-    bonusScore:      Number(composite.bonusScore)     || 0,
-  }));
-}
 
 // ---------------------------------------------------------------------------
 //  Jiji relations (earthly branch interactions)
@@ -2128,13 +2242,78 @@ function extractJijiRelations(rawSajuOutput: any) {
 //  Cheongan relations (heavenly stem interactions)
 // ---------------------------------------------------------------------------
 
+function extractCheonganRelationScore(value: unknown): CheonganRelationScore | null {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
+  const raw = value as Record<string, unknown>;
+  const numericKeys = ['baseScore', 'adjacencyBonus', 'outcomeMultiplier', 'finalScore'] as const;
+  if (numericKeys.some((key) => typeof raw[key] !== 'number' || !Number.isFinite(raw[key]))) return null;
+  const numbers = raw as Record<(typeof numericKeys)[number], number> & Record<string, unknown>;
+  const pairCount = raw.pairCount;
+  const positionGap = raw.positionGap;
+  const positionGaps = raw.positionGaps;
+  if (!Number.isInteger(pairCount) || (pairCount as number) < 1) return null;
+  if (positionGap !== null && (!Number.isInteger(positionGap) || (positionGap as number) < 0 || (positionGap as number) > 3)) return null;
+  if (!Array.isArray(positionGaps) || positionGaps.length !== pairCount) return null;
+  if (positionGaps.some((gap) => !Number.isInteger(gap) || gap < 0 || gap > 3)) return null;
+  if (positionGaps.some((gap, index) => index > 0 && gap < positionGaps[index - 1])) return null;
+  if ((positionGaps[0] ?? null) !== positionGap) return null;
+  if (
+    numbers.baseScore < 0 || numbers.baseScore > 100
+    || numbers.adjacencyBonus < 0 || numbers.adjacencyBonus > 100
+    || numbers.outcomeMultiplier < 0 || numbers.outcomeMultiplier > 1
+    || numbers.finalScore < 0 || numbers.finalScore > 100
+  ) return null;
+  if (typeof raw.rationale !== 'string' || raw.rationale.trim() === '') return null;
+  const expectedFinalScore = Math.round(Math.min(
+    100,
+    numbers.baseScore * numbers.outcomeMultiplier + numbers.adjacencyBonus,
+  ) * 1_000) / 1_000;
+  if (numbers.finalScore !== expectedFinalScore) return null;
+  if (
+    raw.model !== 'legacy_heuristic_v1'
+    || raw.unit !== '0_100'
+    || raw.status !== 'provisional'
+    || raw.evidenceOnly !== true
+    || raw.authorityTruthEligible !== false
+    || raw.provisional !== true
+  ) return null;
+
+  return {
+    model: 'legacy_heuristic_v1',
+    unit: '0_100',
+    status: 'provisional',
+    evidenceOnly: true,
+    authorityTruthEligible: false,
+    provisional: true,
+    pairCount: pairCount as number,
+    positionGap: positionGap as number | null,
+    positionGaps: [...positionGaps],
+    baseScore: numbers.baseScore,
+    adjacencyBonus: numbers.adjacencyBonus,
+    outcomeMultiplier: numbers.outcomeMultiplier,
+    finalScore: numbers.finalScore,
+    rationale: cleanAdapterText(typeof raw.rationale === 'string' ? raw.rationale : ''),
+  };
+}
+
 function extractCheonganRelations(rawSajuOutput: any) {
   // Build a lookup for scored cheongan relations (if available)
   const scoredRelations = ensureArray(rawSajuOutput.scoredCheonganRelations);
   const scoreByKey = new Map<string, any>();
+  const ambiguousKeys = new Set<string>();
   for (const scored of scoredRelations) {
+    if (!scored?.hit || typeof scored.hit !== 'object' || Array.isArray(scored.hit)) continue;
+    if (typeof scored.hit.type !== 'string' || !Array.isArray(scored.hit.members)) continue;
+    if (!scored.hit.members.every((member: unknown) => typeof member === 'string' && member.length > 0)) continue;
     const lookupKey = normalizeRelationTypeCode(scored.hit?.type ?? '') + ':' + toStringArray(scored.hit?.members).sort().join(',');
-    scoreByKey.set(lookupKey, scored.score);
+    const score = extractCheonganRelationScore(scored.score);
+    if (!score) continue;
+    if (scoreByKey.has(lookupKey) || ambiguousKeys.has(lookupKey)) {
+      scoreByKey.delete(lookupKey);
+      ambiguousKeys.add(lookupKey);
+      continue;
+    }
+    scoreByKey.set(lookupKey, score);
   }
 
   return ensureArray(rawSajuOutput.cheonganRelations).map((relation: any) => {
@@ -2154,13 +2333,7 @@ function extractCheonganRelations(rawSajuOutput: any) {
             resultConfirmed: relation.resultConfirmed === true,
           }
         : {}),
-      score: scoreData ? {
-        baseScore:          Number(scoreData.baseScore)          || 0,
-        adjacencyBonus:     Number(scoreData.adjacencyBonus)     || 0,
-        outcomeMultiplier:  Number(scoreData.outcomeMultiplier)  || 0,
-        finalScore:         Number(scoreData.finalScore)         || 0,
-        rationale:          cleanAdapterText(String(scoreData.rationale ?? '')),
-      } : null,
+      score: scoreData ?? null,
     };
   });
 }
@@ -2532,6 +2705,7 @@ export function buildSajuContext(
         gusin:           gusin ?? null,
         finalConfidence: confidenceToRatio(yongshinData.confidence),
         consensus:        yongshinConsensus,
+        methodBreakdown:  yongshinData.methodBreakdown,
         recommendations: yongshinData.recommendations.map(
           ({ type, primaryElement, secondaryElement, confidence, reasoning }) => ({
             type: normalizeYongshinTypeCode(type),
@@ -2548,6 +2722,8 @@ export function buildSajuContext(
         category:   normalizeGyeokgukCategoryCode(sajuSummary.gyeokguk.category ?? ''),
         type:       normalizeGyeokgukTypeCode(sajuSummary.gyeokguk.type ?? ''),
         confidence: Number(sajuSummary.gyeokguk.confidence) || 0,
+        basis:      sajuSummary.gyeokguk.basis,
+        scores:     sajuSummary.gyeokguk.scores,
       } : undefined,
       deficientElements: sajuSummary.deficientElements?.length
         ? normalizeElementCodeList(sajuSummary.deficientElements)
@@ -2557,6 +2733,7 @@ export function buildSajuContext(
         : undefined,
       axisStrength: sajuSummary.axisStrength ?? deriveAxisStrength(sajuSummary),
       inputUncertainty: sajuSummary.inputUncertainty,
+      jieProximity: sajuSummary.jieProximity,
       // PR-H-A: surface the 천간/지지 relation arrays that SajuSummary already
       // carries. Adapter passthrough — the upstream engine is the source of
       // truth; we do not re-derive. When the source is empty/absent we leave

@@ -338,12 +338,35 @@ export function createEngine(config: Partial<EngineConfig> = {}): Engine {
           consensus: ys.consensus,
           // [감사 A2·B6] 실제 지배 방법 — 레거시 추천 1위 type 유도용.
           primaryMethod: ys.primaryMethod,
+          methodBreakdown: {
+            balance: { deficiency: ys.base.deficiency, role: ys.base.role },
+            climate: ys.base.climate,
+            medicine: ys.base.medicine,
+            tongguan: ys.base.tongguan,
+            follow: ys.base.follow,
+            johooTemplate: ys.base.johooTemplate,
+            transformations: ys.base.transformations,
+            oneElement: ys.base.oneElement,
+            methodSelector: ys.base.methodSelector,
+            effectiveWeights: ys.base.effectiveWeights,
+            climateUrgency: ys.base.climateUrgency,
+          },
         };
 
         const gg = results.get('rules.gyeokguk') as GyeokgukResult;
         summary.gyeokguk = {
           best: gg.best,
           ranking: gg.ranking,
+          scores: gg.scores,
+          basis: {
+            monthMainTenGod: gg.basis.monthMainTenGod,
+            monthGyeokTenGod: gg.basis.monthGyeokTenGod,
+            monthGyeokMethod: gg.basis.monthGyeokMethod,
+            monthGyeokSelectionRule: gg.basis.monthGyeokSelectionRule,
+            monthGyeokQuality: gg.basis.monthGyeokQuality as Record<string, unknown> | undefined,
+            competition: gg.basis.competition as Record<string, unknown> | undefined,
+            seongpaeScoreAdjustment: gg.basis.seongpaeScoreAdjustment as Record<string, unknown> | undefined,
+          },
           jonggyeokCandidates: gg.jonggyeokCandidates,
         };
 

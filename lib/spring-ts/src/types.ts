@@ -536,6 +536,7 @@ export interface CharDetail {
 export interface SajuSummary {
   readonly pillars: Record<'year' | 'month' | 'day' | 'hour', PillarSummary>;
   readonly timeCorrection: TimeCorrectionSummary;
+  readonly jieProximity?: JieProximitySummary;
   readonly dayMaster: DayMasterSummary;
   readonly strength: StrengthSummary;
   readonly yongshin: YongshinSummary;
@@ -627,6 +628,25 @@ export interface TimeCorrectionSummary {
   readonly equationOfTimeMinutes: number;
 }
 
+/** Birth-time proximity to the surrounding jie solar-term boundaries. */
+export interface JieProximitySummary {
+  readonly birthUtcMs: number;
+  readonly solarTermMethod: string;
+  readonly previousTermId: string;
+  readonly previousUtcMs: number;
+  readonly nextTermId: string;
+  readonly nextUtcMs: number;
+  readonly hoursSincePrevious: number;
+  readonly hoursUntilNext: number;
+  readonly daysSincePrevious: number;
+  readonly daysUntilNext: number;
+  readonly monthLengthDays: number;
+  readonly nearestTermId: string;
+  readonly nearestDirection: 'previous' | 'next';
+  readonly nearestHours: number;
+  readonly isNearBoundary: boolean;
+}
+
 /** The day master (il-gan): the stem of the day pillar. */
 export interface DayMasterSummary {
   readonly stem: string;
@@ -659,6 +679,7 @@ export interface YongshinSummary {
   readonly agreement: string;
   readonly recommendations: YongshinRecommendation[];
   readonly consensus?: YongshinConsensusScoreboard;
+  readonly methodBreakdown?: Record<string, unknown>;
   /** 감사 B5: 종격 가능성 경고 문구 (springLegacy yongshinResult.warnings passthrough). */
   readonly warnings?: readonly string[];
   /** 감사 B5: 종격(從格) 리스크 신호 — 억부 용신 신뢰도 게이트의 구조화 근거. */
@@ -729,8 +750,20 @@ export interface GyeokgukSummary {
   readonly reasoning: string;
   readonly candidates?: readonly GyeokgukCandidateSummary[];
   readonly jonggyeokCandidates?: readonly JonggyeokCandidateSummary[];
+  readonly basis?: GyeokgukBasisSummary;
+  readonly scores?: Readonly<Record<string, number>>;
   /** PR-6: 격국 성패(成敗) 판정 — 상신·순용/역용·성격/파격 (additive). */
   readonly seongpae?: GyeokgukSeongpaeSummary | null;
+}
+
+export interface GyeokgukBasisSummary {
+  readonly monthMainTenGod?: string;
+  readonly monthGyeokTenGod?: string;
+  readonly monthGyeokMethod?: string;
+  readonly monthGyeokSelectionRule?: string;
+  readonly monthGyeokQuality?: Record<string, unknown>;
+  readonly competition?: Record<string, unknown>;
+  readonly seongpaeScoreAdjustment?: Record<string, unknown>;
 }
 
 /** PR-6: 격국 성패 판정 상세 (자평진전 순용/역용 계열). */
@@ -848,6 +881,15 @@ export interface CheonganRelationSummary {
 
 /** Numeric breakdown of a heavenly-stem relation's score. */
 export interface CheonganRelationScore {
+  readonly model: 'legacy_heuristic_v1';
+  readonly unit: '0_100';
+  readonly status: 'provisional';
+  readonly evidenceOnly: true;
+  readonly authorityTruthEligible: false;
+  readonly provisional: true;
+  readonly pairCount: number;
+  readonly positionGap: number | null;
+  readonly positionGaps: readonly number[];
   readonly baseScore: number;
   readonly adjacencyBonus: number;
   readonly outcomeMultiplier: number;
@@ -906,6 +948,8 @@ export interface ShinsalHitSummary {
   readonly seatPillars?: readonly ('year' | 'month' | 'day' | 'hour')[];
   /** 같은 (type, position) 키로 합쳐진 발동 횟수 (예: 도화 2개). */
   readonly count?: number;
+  readonly qualityReasons?: readonly string[];
+  readonly conditionPenalty?: number;
 }
 
 /** A single 대운 (10-year luck cycle) pillar entry. */
@@ -1307,7 +1351,7 @@ export interface SajuOutputSummary {
      *  position-specific weights (천간 4.0, 지지 정기 1.8, 지장간 1.2/0.7/0.45). */
     byPosition?: Record<SajuPillarPosition, SajuTenGodPositionGroup>;
   };
-  gyeokguk?: { category: string; type: string; confidence: number };
+  gyeokguk?: SajuGyeokgukOutputSummary;
   deficientElements?: string[];
   excessiveElements?: string[];
   /** Per-axis judgment strength (PR9). Bins each axis's saju-engine
@@ -1364,6 +1408,7 @@ export interface SajuOutputSummary {
    *  documented fallback time, so hour-sensitive conclusions should be
    *  labeled and hedged even when the calculated chart is internally valid. */
   inputUncertainty?: SajuInputUncertainty;
+  jieProximity?: JieProximitySummary;
 }
 
 /** 12궁 palace analysis surfaced on SajuOutputSummary (PR-Q-5).
@@ -1504,6 +1549,14 @@ export interface SajuTenGodPositionGroup {
 }
 
 /** Yongshin details as returned by the saju calculator. */
+export interface SajuGyeokgukOutputSummary {
+  category: string;
+  type: string;
+  confidence: number;
+  basis?: GyeokgukBasisSummary;
+  scores?: Readonly<Record<string, number>>;
+}
+
 export interface SajuYongshinSummary {
   finalYongshin: string;
   finalHeesin: string | null;
@@ -1512,4 +1565,5 @@ export interface SajuYongshinSummary {
   finalConfidence: number;
   recommendations: YongshinRecommendation[];
   consensus?: YongshinConsensusScoreboard;
+  methodBreakdown?: Record<string, unknown>;
 }

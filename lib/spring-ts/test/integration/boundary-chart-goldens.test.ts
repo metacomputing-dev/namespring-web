@@ -138,6 +138,34 @@ function assertTimeCorrection(
   }
 }
 
+function assertJieProximity(
+  label: string,
+  summary: SajuSummary,
+  termId: string,
+  direction: 'previous' | 'next',
+): void {
+  const proximity = summary.jieProximity;
+  check(`${label}: jieProximity exists`, !!proximity);
+  if (!proximity) return;
+
+  const boundaryTermId = direction === 'previous' ? proximity.previousTermId : proximity.nextTermId;
+  check(`${label}: jieProximity boundary term`,
+    boundaryTermId === termId,
+    `actual=${boundaryTermId}, expected=${termId}`);
+  check(`${label}: jieProximity nearest term`,
+    proximity.nearestTermId === termId && proximity.nearestDirection === direction,
+    `actual=${proximity.nearestDirection}:${proximity.nearestTermId}, expected=${direction}:${termId}`);
+  check(`${label}: jieProximity flags near-boundary`, proximity.isNearBoundary === true);
+  check(`${label}: jieProximity nearestHours is within guard window`,
+    proximity.nearestHours >= 0 && proximity.nearestHours <= 0.2,
+    `nearestHours=${proximity.nearestHours}`);
+
+  const context = buildSajuContext(summary);
+  check(`${label}: buildSajuContext surfaces jieProximity`,
+    context.output?.jieProximity?.nearestTermId === termId,
+    `output=${context.output?.jieProximity?.nearestTermId ?? 'missing'}`);
+}
+
 function assertZeroCorrectionPreservesInput(label: string, summary: SajuSummary, birth: BirthInfo): void {
   assertTimeCorrection(label, summary, {
     standardYear: Number(birth.year),
@@ -222,6 +250,8 @@ for (const termCase of fixture.solarTermBoundaryCases) {
     true,
   );
   termResults.set(termCase.termId, { before, after });
+  assertJieProximity(`${termCase.id}-before`, before, termCase.termId, 'next');
+  assertJieProximity(`${termCase.id}-after`, after, termCase.termId, 'previous');
 
   check(`${termCase.id}: month pillar changes across jie boundary`,
     pillarCode(before, 'month') !== pillarCode(after, 'month'),

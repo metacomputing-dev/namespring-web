@@ -67,6 +67,12 @@ export interface EngineConfig {
     yearBoundary: 'liChun' | 'lunarNewYear' | 'jan1';
     monthBoundary: 'jieqi' | 'gregorianMonth';
     dayBoundary: 'midnight' | 'ziSplit23';
+    /**
+     * Optional day-boundary used only for deriving the hour-pillar stem.
+     * Omitted, or equal to dayBoundary, reuses pillars.day. A different value
+     * is an explicit split policy such as JOJA_SPLIT.
+     */
+    hourStemDayBoundary?: 'midnight' | 'ziSplit23';
     hourBoundary: 'doubleHour';
     /**
      * 일/시 경계 분류용 로컬 시각 이동(분). UTC 인스턴트는 불변 —
@@ -465,10 +471,29 @@ export interface YongshinView {
   strengthIndex: number;
   consensus?: YongshinConsensusView;
   /**
-   * [감사 A2·B6] best 오행에 가장 크게 기여한 방법군 (base 항 기준).
+   * [감사 A2/B6] best 오행에 가장 크게 기여한 방법군(base 점수 기준).
    * 'EOKBU' | 'JOHU' | 'BYEONGYAK' | 'TONGGWAN' | 'JONGHWA'.
    */
   primaryMethod?: string;
+  /** Additive explanation payload for why each yongshin method contributed. */
+  methodBreakdown?: YongshinMethodBreakdownView;
+}
+
+export interface YongshinMethodBreakdownView {
+  balance: {
+    deficiency: Record<string, number>;
+    role: Record<string, { role: string; preference: number }>;
+  };
+  climate?: Record<string, unknown>;
+  medicine?: Record<string, unknown>;
+  tongguan?: Record<string, unknown>;
+  follow?: Record<string, unknown>;
+  johooTemplate?: Record<string, unknown>;
+  transformations?: Record<string, unknown>;
+  oneElement?: Record<string, unknown>;
+  methodSelector?: Record<string, unknown>;
+  effectiveWeights: Record<string, number>;
+  climateUrgency?: Record<string, unknown>;
 }
 
 export type YongshinConsensusConflictLevelView = 'none' | 'low' | 'medium' | 'high';
@@ -500,7 +525,19 @@ export interface YongshinConsensusView {
 export interface GyeokgukView {
   best: string | null;
   ranking: Array<{ key: string; score: number }>;
+  scores?: Record<string, number>;
+  basis?: GyeokgukBasisView;
   jonggyeokCandidates?: JonggyeokCandidateView[];
+}
+
+export interface GyeokgukBasisView {
+  monthMainTenGod: string;
+  monthGyeokTenGod: string;
+  monthGyeokMethod: string;
+  monthGyeokSelectionRule: string;
+  monthGyeokQuality?: Record<string, unknown>;
+  competition?: Record<string, unknown>;
+  seongpaeScoreAdjustment?: Record<string, unknown>;
 }
 
 export interface JonggyeokCandidateView {

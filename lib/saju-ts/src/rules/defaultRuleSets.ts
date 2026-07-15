@@ -349,6 +349,7 @@ const DEFAULT_SHINSAL_RULES: Rule[] = [
       { key: 'HAK_DANG_GUI_IN', scoreMode: 'lenPresent', explain: '학당귀인(學堂): 일간의 장생지(십이운성) 지지가 명식에 존재' },
       { key: 'BI_IN_SAL', scoreMode: 'lenPresent', explain: '비인살(飛刃): 통용 정의=冲羊刃, 일간 기준 대응 지지가 명식에 존재(양인 테이블에서 도출)' },
       { key: 'YANG_IN', scoreMode: 'lenPresent', explain: '양인(羊刃): 일간 기준 대응 지지가 명식에 존재' },
+      { key: 'EUM_IN', scoreMode: 'lenPresent', explain: 'EUM_IN: yin-stem split of YANG_IN when strategies.shinsal.yinYanginSplit=true' },
       { key: 'LOK_SHIN', scoreMode: 'lenPresent', explain: '록신(祿神): 일간 기준 대응 지지가 명식에 존재' },
       { key: 'GUK_IN_GUI_IN', scoreMode: 'lenPresent', explain: '국인귀인(國印貴人): 일간 기준 대응 지지가 명식에 존재' },
       { key: 'CHEON_JU_GUI_IN', scoreMode: 'lenPresent', explain: '천주귀인(天廚): 일간 기준 대응 지지가 명식에 존재' },

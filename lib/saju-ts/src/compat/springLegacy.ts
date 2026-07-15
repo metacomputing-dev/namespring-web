@@ -236,6 +236,7 @@ interface CivilDateTime {
 
 interface DayCutMapping {
   dayBoundary: EngineConfig['calendar']['dayBoundary'];
+  hourStemDayBoundary?: EngineConfig['calendar']['dayBoundary'];
   dayCutShiftMinutes: number;
 }
 
@@ -312,7 +313,7 @@ function mapDayCutMode(mode: LegacyDayCutMode | undefined): DayCutMapping {
     case 'MIDNIGHT_00':
       return { dayBoundary: 'midnight', dayCutShiftMinutes: 0 };
     case 'JOJA_SPLIT':
-      return { dayBoundary: 'midnight', dayCutShiftMinutes: 0 };
+      return { dayBoundary: 'midnight', hourStemDayBoundary: 'ziSplit23', dayCutShiftMinutes: 0 };
     case 'YAZA_23_TO_01_NEXTDAY':
       return { dayBoundary: 'ziSplit23', dayCutShiftMinutes: 0 };
     case 'YAZA_23_30_TO_01_30_NEXTDAY':
@@ -735,19 +736,79 @@ function gyeokgukKoLabel(code: unknown): string {
   return GYEOKGUK_KO_LABEL[canonical] ?? GYEOKGUK_KO_LABEL[normalized] ?? (normalized || '-');
 }
 
+function methodScore(record: any, element: string): number | null {
+  if (!record || typeof record !== 'object') return null;
+  return finiteNumberOrNull(record[element]);
+}
+
+function formatMethodScore(value: number | null): string | null {
+  return value === null ? null : value.toFixed(2);
+}
+
+function firstReason(value: any): string | null {
+  if (!Array.isArray(value)) return null;
+  const found = value.find((entry) => typeof entry === 'string' && entry.trim().length > 0);
+  return found ? String(found) : null;
+}
+
+function buildYongshinMethodEvidence(entry: { element: string; score: number }, primaryMethod: unknown, methodBreakdown: any): string | null {
+  if (!methodBreakdown || typeof methodBreakdown !== 'object') return null;
+  const element = String(entry.element ?? '').toUpperCase();
+  const method = String(primaryMethod ?? '').toUpperCase();
+
+  if (method === 'JOHU') {
+    const template = methodBreakdown.johooTemplate;
+    const reason = firstReason(template?.reasons);
+    if (String(template?.primary ?? '').toUpperCase() === element && reason) return `조후: ${reason}`;
+    const climateScore = formatMethodScore(methodScore(methodBreakdown.climate?.scores, element));
+    return climateScore ? `조후: 계절·한난조습 점수 ${climateScore} 반영` : null;
+  }
+
+  if (method === 'BYEONGYAK') {
+    const medicineScore = formatMethodScore(methodScore(methodBreakdown.medicine?.scores, element));
+    return medicineScore ? `병약: 과다한 오행을 덜어내는 점수 ${medicineScore} 반영` : null;
+  }
+
+  if (method === 'TONGGWAN') {
+    const intensity = formatMethodScore(finiteNumberOrNull(methodBreakdown.tongguan?.effectiveMaxIntensity ?? methodBreakdown.tongguan?.maxIntensity));
+    return intensity ? `통관: 충돌을 이어 주는 강도 ${intensity} 반영` : null;
+  }
+
+  if (method === 'JONGHWA') {
+    const follow = methodBreakdown.follow;
+    const potential = formatMethodScore(finiteNumberOrNull(follow?.potential ?? follow?.potentialRaw));
+    if (potential) return `종화: 한쪽 세력으로 따르는 잠재도 ${potential} 반영`;
+    const transformation = methodBreakdown.transformations?.best;
+    if (transformation?.pair && transformation?.resultElement) return `종화: ${transformation.pair} 합화 후보 반영`;
+    const oneElement = methodBreakdown.oneElement?.element;
+    return oneElement ? `종화: ${ohaengKoLabel(oneElement)} 단일 세력 신호 반영` : null;
+  }
+
+  const deficiency = formatMethodScore(methodScore(methodBreakdown.balance?.deficiency, element));
+  const preference = formatMethodScore(finiteNumberOrNull(methodBreakdown.balance?.role?.[element]?.preference));
+  if (deficiency && preference) return `억부: 부족도 ${deficiency}, 십신 선호 ${preference} 반영`;
+  if (deficiency) return `억부: 부족도 ${deficiency} 반영`;
+  if (preference) return `억부: 십신 선호 ${preference} 반영`;
+  return null;
+}
+
 function buildYongshinReasoning(
   rank: number,
   entry: { element: string; score: number },
   topElement: string,
+  methodBreakdown?: any,
+  primaryMethod?: unknown,
 ): string {
   const primaryLabel = ohaengKoLabel(entry.element);
   const topLabel = ohaengKoLabel(topElement || '상위');
   const confidencePoint = confidenceToPoints(Number(entry.score));
+  const evidence = rank === 0 ? buildYongshinMethodEvidence(entry, primaryMethod, methodBreakdown) : null;
+  const evidenceText = evidence ? ` ${evidence}.` : '';
   if (rank === 0) {
-    return `${primaryLabel} 기운이 가장 강해 용신 1순위입니다 (신뢰도 ${confidencePoint}점).`;
+    return `${primaryLabel}이(가) 현재 판정에서 가장 높은 용신 후보입니다.${evidenceText} (신뢰도 ${confidencePoint}점).`;
   }
   if (rank === 1) {
-    return `${primaryLabel} 기운은 ${topLabel} 기운을 보조하는 희신 후보입니다 (신뢰도 ${confidencePoint}점).`;
+    return `${primaryLabel}이(가) 현재 판정에서 두 번째인 균형 보완 후보입니다 (신뢰도 ${confidencePoint}점).`;
   }
   return `${primaryLabel} 기운은 후순위 균형 보완 후보입니다 (신뢰도 ${confidencePoint}점).`;
 }
@@ -761,11 +822,98 @@ function relationPositionFromBasedOn(v: unknown): string {
 }
 
 function gradeFromQualityWeight(v: unknown): string {
-  const weight = Number(v);
-  if (!Number.isFinite(weight)) return 'C';
+  const weight = typeof v === 'number' && Number.isFinite(v) && v >= 0 && v <= 1 ? v : 0;
   if (weight >= 0.85) return 'A';
   if (weight >= 0.5) return 'B';
   return 'C';
+}
+
+const SHINSAL_SEAT_ORDER = ['year', 'month', 'day', 'hour'] as const;
+type ShinsalSeatPillar = (typeof SHINSAL_SEAT_ORDER)[number];
+
+interface LegacyEvidencePolicy {
+  readonly shinsalPositionWeightingEnabled: boolean;
+  readonly stemRelationHeuristicsEnabled: boolean;
+}
+
+function readLegacyEvidencePolicy(config: EngineConfig): LegacyEvidencePolicy {
+  const strategies = (config.strategies ?? {}) as Record<string, any>;
+  return {
+    shinsalPositionWeightingEnabled: strategies.shinsal?.positionWeighting?.enabled === true,
+    stemRelationHeuristicsEnabled: strategies.stemRelations?.heuristicScores?.enabled === true,
+  };
+}
+const SHINSAL_SEAT_MULTIPLIER: Record<ShinsalSeatPillar, number> = {
+  day: 1,
+  month: 0.85,
+  year: 0.7,
+  hour: 0.6,
+};
+
+function shinsalPositionMultiplier(
+  seatPillars: readonly ShinsalSeatPillar[],
+  enabled: boolean,
+): number {
+  if (!enabled) return 1;
+  const seatMultipliers = seatPillars
+    .map((seat) => SHINSAL_SEAT_MULTIPLIER[seat])
+    .filter((value) => Number.isFinite(value));
+  if (seatMultipliers.length > 0) return Math.max(...seatMultipliers);
+  return 1;
+}
+
+const JIE_TERM_IDS = new Set([
+  'XIAOHAN', 'LICHUN', 'JINGZHE', 'QINGMING', 'LIXIA', 'MANGZHONG',
+  'XIAOSHU', 'LIQIU', 'BAILU', 'HANLU', 'LIDONG', 'DAXUE',
+]);
+const JIE_PROXIMITY_NEAR_HOURS = 24;
+
+function buildJieProximity(facts: Record<string, unknown> | undefined) {
+  const birthUtcMs = Number(facts?.['time.utcMs']);
+  const around = facts?.['calendar.solarTermsAround'] as any;
+  const terms = Array.isArray(around?.terms) ? around.terms : [];
+  if (!Number.isFinite(birthUtcMs) || terms.length === 0) return null;
+
+  const jieTerms = terms
+    .filter((term: any) => JIE_TERM_IDS.has(String(term?.id)) && Number.isFinite(Number(term?.utcMs)))
+    .map((term: any) => ({ id: String(term.id), utcMs: Number(term.utcMs) }))
+    .sort((a: { utcMs: number }, b: { utcMs: number }) => a.utcMs - b.utcMs);
+
+  let previous: { id: string; utcMs: number } | null = null;
+  let next: { id: string; utcMs: number } | null = null;
+  for (const term of jieTerms) {
+    if (term.utcMs <= birthUtcMs) {
+      previous = term;
+    } else {
+      next = term;
+      break;
+    }
+  }
+  if (!previous || !next) return null;
+
+  const hoursSincePrevious = roundTo((birthUtcMs - previous.utcMs) / 3_600_000, 3);
+  const hoursUntilNext = roundTo((next.utcMs - birthUtcMs) / 3_600_000, 3);
+  const nearestDirection = hoursSincePrevious <= hoursUntilNext ? 'previous' : 'next';
+  const nearestHours = nearestDirection === 'previous' ? hoursSincePrevious : hoursUntilNext;
+  const nearestTerm = nearestDirection === 'previous' ? previous : next;
+
+  return {
+    birthUtcMs,
+    solarTermMethod: String(around?.method ?? ''),
+    previousTermId: previous.id,
+    previousUtcMs: previous.utcMs,
+    nextTermId: next.id,
+    nextUtcMs: next.utcMs,
+    hoursSincePrevious,
+    hoursUntilNext,
+    daysSincePrevious: roundTo(hoursSincePrevious / 24, 3),
+    daysUntilNext: roundTo(hoursUntilNext / 24, 3),
+    monthLengthDays: roundTo((next.utcMs - previous.utcMs) / 86_400_000, 3),
+    nearestTermId: nearestTerm.id,
+    nearestDirection,
+    nearestHours,
+    isNearBoundary: nearestHours <= JIE_PROXIMITY_NEAR_HOURS,
+  };
 }
 
 function topTwo(values: Array<{ element: string; score: number }>): [string, string | null] {
@@ -1155,6 +1303,9 @@ function buildEngineConfig(
 
   let cfg = cloneConfig();
   cfg.calendar.dayBoundary = dayCut.dayBoundary;
+  if (dayCut.hourStemDayBoundary != null) {
+    cfg.calendar.hourStemDayBoundary = dayCut.hourStemDayBoundary;
+  }
   // 감사 A11: YAZA_23_30의 -30분은 인스턴트가 아니라 일/시 경계 분류용 시프트로
   // 엔진에 전달한다(graphFactory ForDay/ForHour). deepMerge 이전에 세팅해야
   // legacy.calendar.dayCutShiftMinutes 수동 오버라이드가 살아있다.
@@ -1306,6 +1457,7 @@ function computeDeukScores(
 function normalizeLegacyOutput(
   bundle: AnalysisBundle,
   standard: CivilDateTime,
+  evidencePolicy: LegacyEvidencePolicy,
   daeunCount?: number,
   saeunStartYear?: number | null,
   saeunYearCount?: number,
@@ -1315,6 +1467,7 @@ function normalizeLegacyOutput(
 ) {
   const facts = bundle.report?.facts as Record<string, unknown>;
   const correction = (facts?.['time.trueSolarCorrection'] ?? {}) as TrueSolarCorrectionView;
+  const jieProximity = buildJieProximity(facts);
   const adjustedFact = (facts?.['time.solarLocalDateTime'] ?? facts?.['time.localDateTimeForHour'] ?? null) as any;
 
   const adjusted = adjustedFact?.date && adjustedFact?.time
@@ -1520,12 +1673,10 @@ function normalizeLegacyOutput(
     const pairKey = [...memberIdxs].sort((a, b) => a - b).join('-');
     const hapState = type === 'HAP' ? hapStateByPair.get(pairKey) : undefined;
     return {
-      // 기존 4필드 불변 (감사 A3 라벨 계약)
       type,
       members: memberIdxs.map((m) => stemCodeFromIdx(m)),
       resultOhaeng: relation?.resultElement ? String(relation.resultElement) : null,
       note: relationNoteForType(type, CHEONGAN_RELATION_NOTES),
-      // PR-5 additive (감사 B531): 합 상태 — 합화 성립 여부 표기 정직성.
       ...(hapState
         ? {
             hapState,
@@ -1535,6 +1686,54 @@ function normalizeLegacyOutput(
         : {}),
     };
   });
+
+  const chartStemCodes = chartStems.map((stem) => stemCodeFromIdx(stem));
+  const stemPositionStats = (members: string[]): { gaps: number[]; pairCount: number } => {
+    const positions = members.map((member) => chartStemCodes
+      .map((stem, index) => stem === member ? index : -1)
+      .filter((index) => index >= 0));
+    if (positions.length < 2 || positions.some((items) => items.length === 0)) return { gaps: [], pairCount: 0 };
+    const gaps: number[] = [];
+    for (const a of positions[0]!) {
+      for (const b of positions[1]!) {
+        gaps.push(Math.abs(a - b));
+      }
+    }
+    gaps.sort((a, b) => a - b);
+    return { gaps, pairCount: gaps.length };
+  };
+  const scoredCheonganRelations = evidencePolicy.stemRelationHeuristicsEnabled ? cheonganRelations.map((relation: any) => {
+    const type = String(relation?.type ?? '').toUpperCase();
+    const members = Array.isArray(relation?.members) ? relation.members.map(String) : [];
+    const { gaps, pairCount } = stemPositionStats(members);
+    const gap = gaps[0] ?? null;
+    const state = String(relation?.hapState ?? '');
+    const baseScore = type === 'CHUNG' ? 70 : type === 'HAP' ? 60 : 40;
+    const outcomeMultiplier = type === 'HAP'
+      ? state === 'HUA' ? 1 : state === 'HAPGEO' ? 0.62 : state === 'JAENGHAP' ? 0.42 : state === 'YOHAP' ? 0.3 : 0.5
+      : type === 'CHUNG' ? 0.75 : 0.5;
+    const adjacencyBonus = gap === 1 ? 15 : gap === 2 ? 5 : 0;
+    const finalScore = roundTo(Math.min(100, baseScore * outcomeMultiplier + adjacencyBonus), 3);
+    return {
+      hit: { type, members },
+      score: {
+        model: 'legacy_heuristic_v1',
+        unit: '0_100',
+        status: 'provisional',
+        evidenceOnly: true,
+        authorityTruthEligible: false,
+        provisional: true,
+        pairCount,
+        positionGap: gap,
+        positionGaps: gaps,
+        baseScore,
+        adjacencyBonus,
+        outcomeMultiplier,
+        finalScore,
+        rationale: `type=${type};state=${state || 'NA'};positionGap=${gap ?? 'NA'}`,
+      },
+    };
+  }) : [];
 
   const branchRelations = Array.isArray(bundle.summary?.relations) ? bundle.summary.relations : [];
   const jijiRelations = branchRelations.map((relation: any) => {
@@ -1629,10 +1828,10 @@ function normalizeLegacyOutput(
   }
 
   const shinsalHitsRaw = Array.isArray(bundle.summary?.shinsalHits) ? bundle.summary.shinsalHits : [];
-  const SEAT_ORDER = ['year', 'month', 'day', 'hour'] as const;
-  type SeatPillar = (typeof SEAT_ORDER)[number];
+  const SEAT_ORDER = SHINSAL_SEAT_ORDER;
+  type SeatPillar = ShinsalSeatPillar;
   const weightedByKey = new Map<string, {
-    hit: { type: string; position: string; grade: string; basedOn: string; seatPillars: SeatPillar[] };
+    hit: { type: string; position: string; grade: string; basedOn: string; seatPillars: SeatPillar[]; qualityReasons?: string[]; conditionPenalty?: number };
     baseWeight: number;
     positionMultiplier: number;
     weightedScore: number;
@@ -1646,13 +1845,41 @@ function normalizeLegacyOutput(
     const basedOn = String(hit?.basedOn ?? 'OTHER');
     const seatPillars = (Array.isArray(hit?.matchedPillars) ? hit.matchedPillars : [])
       .filter((p: unknown): p is SeatPillar => SEAT_ORDER.includes(p as SeatPillar));
-    const grade = gradeFromQualityWeight(hit?.qualityWeight);
-    const qualityWeight = Number(hit?.qualityWeight ?? 0.6);
-    const positionMultiplier = 1;
+    const rawQualityWeight = hit?.qualityWeight == null ? 0.6 : hit.qualityWeight;
+    const qualityWeight = typeof rawQualityWeight === 'number'
+      && Number.isFinite(rawQualityWeight)
+      && rawQualityWeight >= 0
+      && rawQualityWeight <= 1
+      ? rawQualityWeight
+      : 0;
+    const grade = gradeFromQualityWeight(qualityWeight);
+    const qualityReasons = (Array.isArray(hit?.qualityReasons) ? hit.qualityReasons : [])
+      .filter((reason: unknown): reason is string => typeof reason === 'string')
+      .map((reason) => reason.trim())
+      .filter(Boolean);
+    const rawConditionPenalty = hit?.conditionPenalty;
+    const conditionPenalty = typeof rawConditionPenalty === 'number'
+      && Number.isFinite(rawConditionPenalty)
+      && rawConditionPenalty >= 0
+      && rawConditionPenalty <= 1
+      ? roundTo(rawConditionPenalty, 3)
+      : null;
+    const positionMultiplier = shinsalPositionMultiplier(
+      seatPillars,
+      evidencePolicy.shinsalPositionWeightingEnabled,
+    );
     const baseWeight = Math.max(0, Math.min(100, Math.round(qualityWeight * 100)));
-    const weightedScore = baseWeight * positionMultiplier;
+    const weightedScore = Math.round(baseWeight * positionMultiplier);
     const payload = {
-      hit: { type, position, grade, basedOn, seatPillars },
+      hit: {
+        type,
+        position,
+        grade,
+        basedOn,
+        seatPillars,
+        ...(qualityReasons.length ? { qualityReasons } : {}),
+        ...(conditionPenalty !== null ? { conditionPenalty } : {}),
+      },
       baseWeight,
       positionMultiplier,
       weightedScore,
@@ -1663,12 +1890,9 @@ function normalizeLegacyOutput(
     if (!existing) {
       weightedByKey.set(dedupeKey, payload);
     } else {
-      // 같은 키 중복 발동: 높은 점수 페이로드를 유지하되 앉은 기둥은 합집합,
-      // 발동 횟수는 count로 보존 (기존에는 소거되어 소실 — 감사 C2/A15).
+      // 같은 키 중복 발동: 점수와 근거가 서로 다른 인스턴스에서 섞이지 않도록
+      // 높은 점수 페이로드를 통째로 유지하고 발동 횟수만 합산한다.
       const winner = weightedScore > existing.weightedScore ? payload : existing;
-      winner.hit.seatPillars = SEAT_ORDER.filter(
-        (p) => existing.hit.seatPillars.includes(p) || seatPillars.includes(p),
-      );
       winner.count = existing.count + 1;
       weightedByKey.set(dedupeKey, winner);
     }
@@ -1820,6 +2044,7 @@ function normalizeLegacyOutput(
       longitudeCorrectionMinutes: Number(correction.longitudeCorrectionMinutes ?? 0),
       equationOfTimeMinutes: Number(correction.equationOfTimeMinutes ?? 0),
     },
+    jieProximity,
     strengthResult: {
       dayMasterElement: String((pillars as any)?.day?.stem?.element ?? ''),
       level: strengthLevelCode,
@@ -1852,6 +2077,7 @@ function normalizeLegacyOutput(
           : yongshinConfidencePoints,
       agreement: 'RANKING',
       consensus: yongshinConsensus,
+      methodBreakdown: yongshin?.methodBreakdown ?? null,
       // 감사 B5 (additive): 종격 가능성 신호. daeunInfo.warnings 선례를 따른다.
       warnings: yongshinWarnings,
       jonggyeokRisk,
@@ -1863,7 +2089,13 @@ function normalizeLegacyOutput(
         primaryElement: entry.element,
         secondaryElement: yongshinRanking[i + 1]?.element ?? null,
         confidence: confidenceToPoints(Math.max(0, Math.min(1, Number(entry.score)))),
-        reasoning: buildYongshinReasoning(i, entry, topElement),
+        reasoning: buildYongshinReasoning(
+          i,
+          entry,
+          topElement,
+          yongshin?.methodBreakdown,
+          i === 0 ? yongshin?.primaryMethod : undefined,
+        ),
       })),
     },
     gyeokgukResult: {
@@ -1871,6 +2103,8 @@ function normalizeLegacyOutput(
       category: isJonggyeok ? 'JONGGYEOK' : 'NORMAL',
       baseSipseong,
       confidence: Math.max(0, Math.min(1, bestScore)),
+      basis: (bundle.summary?.gyeokguk as any)?.basis ?? null,
+      scores: (bundle.summary?.gyeokguk as any)?.scores ?? {},
       reasoning: bestKeyCore
         ? `격국 후보 중 ${gyeokgukKoLabel(bestKeyCore)}이(가) 가장 유력합니다.`
         : '격국 후보를 확정하기 어려워 추가 검토가 필요합니다.',
@@ -1883,7 +2117,7 @@ function normalizeLegacyOutput(
     deficientElements,
     excessiveElements,
     cheonganRelations,
-    scoredCheonganRelations: [],
+    scoredCheonganRelations,
     // PR-5 (감사 B531): 합화 평가 죽은 배관 소생 — 어댑터 extractHapHwaEvaluations가
     // 대기 중이던 스키마(stem1/2, position1/2, resultOhaeng, state, confidence,
     // reasoning, dayMasterInvolved)에 맞춰 인스턴스(궁위) 단위로 방출.
@@ -1913,7 +2147,6 @@ function normalizeLegacyOutput(
     },
     shinsalHits,
     weightedShinsalHits,
-    shinsalComposites: [],
     sibiUnseong,
     // PR-12-4 (감사 C6): 음양 균형 — summary 집계를 additive로 재방출 (만세력 기본 표기 축).
     yinYangBalance: (bundle.summary as any)?.yinYangBalance ?? null,
@@ -1984,6 +2217,7 @@ export function analyzeSaju(
   return normalizeLegacyOutput(
     bundle,
     standard,
+    readLegacyEvidencePolicy(config),
     options?.daeunCount,
     options?.saeunStartYear,
     options?.saeunYearCount,

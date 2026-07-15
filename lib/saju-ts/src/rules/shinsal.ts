@@ -249,6 +249,15 @@ function readQualityModelFromConfig(config: EngineConfig): ShinsalQualityModel {
   };
 
   const raw = (config.strategies as any)?.shinsal?.conditions;
+  const finalizeGongmangGate = (): ShinsalQualityModel => {
+    const enabled = (config.strategies as any)?.shinsal?.gongmangResolution?.enabled === true;
+    if (enabled) {
+      base.excludeNames = base.excludeNames.filter((name) => name !== 'GONGMANG');
+    } else if (!base.excludeNames.includes('GONGMANG')) {
+      base.excludeNames.push('GONGMANG');
+    }
+    return base;
+  };
 
   if (raw && typeof raw === 'object') {
     const enabled = (raw as any).enabled;
@@ -287,7 +296,7 @@ function readQualityModelFromConfig(config: EngineConfig): ShinsalQualityModel {
       base.excludeNames = exclude.map(String);
     }
 
-    return base;
+    return finalizeGongmangGate();
   }
 
   // Backward-compatible fallback:
@@ -300,7 +309,7 @@ function readQualityModelFromConfig(config: EngineConfig): ShinsalQualityModel {
   base.weakThreshold = 1;
   base.invalidateThreshold = 0;
 
-  return base;
+  return finalizeGongmangGate();
 }
 
 function clamp01(x: number): number {
@@ -580,6 +589,7 @@ function applyQualityModel(args: {
           kk === 'PA' ||
           kk === 'WONJIN' ||
           kk === 'HYEONG' ||
+          kk === 'HAP' ||
           kk === 'GONGMANG'
         ) {
           const n = typeof v === 'number' ? v : Number(v);

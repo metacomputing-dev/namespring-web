@@ -339,13 +339,16 @@ export function buildGraph(): Graph {
     n<PillarIdx>({
       id: 'pillars.hour',
       deps: ['time.localDateTimeForHour', 'policy.calendar', 'pillars.day'],
-      formula: 'hourStemIdx = ((dayStemIdx mod 5)*2 + hourBranchIdx) mod 10',
-      explain: '시지(2시간 단위)와 일간으로 시간(時干)을 결정한다.',
+      formula: 'hourStemIdx = ((hourStemDayStemIdx mod 5)*2 + hourBranchIdx) mod 10',
+      explain: '시주(2시간 단위)는 정책상 시주 천간 기준 일간으로 시간(天干)을 결정한다.',
       compute: (_ctx, get) => {
         const ldt = get<any>('time.localDateTimeForHour');
         const cal = get<any>('policy.calendar');
-        const day = get<PillarIdx>('pillars.day');
-        return calcHourPillar(day.stem, ldt.time, cal.hourBoundary);
+        const splitBoundary = cal.hourStemDayBoundary;
+        const hourStemDay = splitBoundary == null || splitBoundary === cal.dayBoundary
+          ? get<PillarIdx>('pillars.day')
+          : calcDayPillar(effectiveDayDate(ldt, splitBoundary));
+        return calcHourPillar(hourStemDay.stem, ldt.time, cal.hourBoundary);
       },
     }),
   );

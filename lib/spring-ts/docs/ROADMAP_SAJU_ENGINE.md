@@ -105,6 +105,19 @@
 
 **의존 관계**: CT-4(종격 birth-time 코퍼스)는 PR-11의 선행 재료 — CT를 먼저/병렬로 돌려라. PR-13의 데이터 소스 결정(§8 D5)은 사용자와 합의 필요. PR-10은 PR-9와 독립이므로 순서 교체 가능하나, 계측 부담 때문에 상위 모델 세션에 배정하는 것을 권장.
 
+### SOTA 목표 개발 축 요약 (2026-07-09 기록)
+
+전문가를 넘어서는 수준의 사주명리학 엔진으로 가기 위한 다음 굵직한 축은 아래 순서로 본다.
+
+1. **외부 오라클·재캘리브레이션(PR-13)**: 강약·용신·격국·종격 판정을 내부 논리만이 아니라 권위 사례와 대량 대조한다. 상용/권위 만세력, 전문가 판정 코퍼스, 강약 임계값 재보정, 용신 후보 순위 검증이 핵심이다.
+2. **종격 완전 승격(PR-11 + CT-4)**: birth-time 권위 코퍼스 20건+를 확보하고, 假從 산입 정책과 potential 램프 재설계를 확정해 종재·종관·종살·종아·종인·종비·전왕·화기 판정을 실제 게이트로 승격한다.
+3. **운(運) 통변 완결(PR-9 잔여)**: 대운↔세운, 운↔원국, 월운·일운, 교운 시점, 삼재·상문·조객 같은 운 신살을 원국 불변 원칙 아래 별도 운 주석으로 완성한다.
+4. **판정 깊이 모델 고도화(PR-10 후속)**: 위치 가중, 12운성 통근 강도, 왕상휴수·사령·월률, 성패·상신·파격요인을 격국/용신 점수와 안전하게 결합하고, 모든 기본값 전환은 대조 계측 후 결정한다.
+5. **신규 고급 해석 축(PR-14)**: 육친론을 1순위로 추가하고, 묘고·입묘·개고, 현침·탕화·천라지망·암록 등 신살 확장, 귀문관살, 명궁·태원·년주 공망·납음 표면화를 additive로 연다.
+6. **후속 감사·검증 인프라(PR-15)**: graph/DAG 배선, school pack 오버라이드, 용신 방법 5종 수식, competition softmax, DSL 컴파일러, config migration/deepMerge/analysisZip을 전수 감사해 조용한 no-op과 배선 오류를 제거한다.
+
+판단 기준: 앞으로의 핵심은 기능 수가 아니라 **권위 사례로 검증되는 판정**, **운까지 연결되는 사건성 모델**, **전문가가 납득할 근거 노출**, **학파 차이를 옵션으로 관리하는 구조**다.
+
 ---
 
 ## 6. 패키지 상세
@@ -241,7 +254,17 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 | 10-6 위치 가중 | ✅ opt-in / 기본 보류 | cad382b0a | 2026-07-09 | `weights.elementDistribution.positionWeights/heavenPositionWeights/branchPositionWeights` 배선 완료. 기본값은 모두 1이라 baseline 17/0, compat 208/0 불변. 기본 on은 deficient/excessive·이름 판정 κ 파급 때문에 별도 계측 후 결정 |
 | 10-7 통근 강도 계수 | ✅ opt-in / 기본 보류 | bec68276b | 2026-07-09 | `strategies.strength.lifeStageRoot.enabled=true`일 때 deDi 통근에 12운성 단계 배율(록/왕 > 장생 > 묘고 등)을 적용하고 evidence를 기록. 기본 off라 baseline 17/0, compat 208/0 불변. 기본 on은 강약·종격 판정 계측 후 결정 |
 | 11 종격 승격 (a/b/c) | ⬜ | | | D6·CT-4 선행 |
+| 12-1 yongshin methodBreakdown | ✅ | 5cebf5b88 | 2026-07-09 | 5-layer wiring complete: saju-ts API methodBreakdown, springLegacy reasoning evidence, spring-ts adapter/context passthrough. Verified: springLegacy 12/12, yongshin-consensus 307/0, baseline 17/0, compat 208/0, service-visible 13/0 |
+| 12-2 gyeokguk basis | ✅ | 25da007e9 | 2026-07-09 | Exposes selected pattern basis, month-gyeok quality/details, and score map through saju-ts API, springLegacy, spring-ts adapter/context. Verified: springLegacy 13/13, gyeokguk candidates 257/0, baseline 17/0, compat 208/0, service-visible 13/0 |
+| 12-3 jie proximity evidence | ✅ | dfac644a2 | 2026-07-09 | Exposes birth proximity to previous/next jie boundaries via springLegacy, SajuSummary, and SajuOutputSummary. Boundary goldens now assert before/after term direction and near-boundary guard. Verified: springLegacy 15/15, boundary-goldens 867/0, baseline 17/0, compat 208/0, service-visible 13/0 |
 | 12-4 음양 균형 노출 | ✅ | e7e12fdd7 | 2026-07-09 | 5층 배선 완료(SajuSummary.yinYangBalance, test:adapter-yinyang 5/0) — 12계열 exemplar. 소비 카드 저작은 CT-3와 협업 |
+| 12-5a scoredCheonganRelations | ✅ 구현·기본 off | 58b29a47f | 2026-07-15 재검토 | 근거 미승인 휴리스틱(충70/합60 등)은 `strategies.stemRelations.heuristicScores.enabled=true`에서만 방출. 모델·단위·provisional·evidenceOnly·authorityTruthEligible=false·천간 쌍/거리 provenance가 모두 유효할 때만 어댑터가 수용하며, 기본 출력은 빈 배열이다. 독립 권위 승인 전 판정 근거로 사용 금지 |
+| 12-5b shinsal positionMultiplier | ✅ 구현·기본 off | 21c95cb0c | 2026-07-15 재검토 | 좌석 기반 배율(day 1, month 0.85, year 0.7, hour 0.6)은 `strategies.shinsal.positionWeighting.enabled=true` 명시 opt-in에서만 적용. 기본은 1.0이고 matched seat가 없으면 basedOn을 궁위로 오인하지 않고 1.0 유지. 권위 holdout 전 상품 기본값 승인 금지 |
+| 12-5c shinsalComposites pipe | ✅ | bd1e4e6c0 | 2026-07-09 | Removed the unsupported empty shinsalComposites pipe instead of fabricating composite patterns without an engine source. Verified: springLegacy 16/16, adapter-shinsal 15/0, baseline 17/0, compat 208/0, service-visible 13/0. PR-12-5 dead-pipe cleanup complete |
+| 12-6a shinsal attenuation trace | ✅ | b7552a6d3 | 2026-07-15 재검토 | qualityReasons/conditionPenalty를 표면화하되, 중복 hit은 서로 다른 인스턴스의 점수·좌석·감쇠 근거를 섞지 않는다. 최고 weightedScore 인스턴스의 payload를 원자적으로 보존하고 count만 합산한다. 모든 인스턴스 보존은 추후 별도 `instances[]` 계약 과제 |
+| 12-6b gongmang hegong | ✅ 구현·기본 off | e21987db2 | 2026-07-15 재검토 | `strategies.shinsal.gongmangResolution.enabled=true`에서만 충/형 또는 명목 합 관계에 따른 감쇠를 적용한다. 기본은 GONGMANG을 condition 감쇠에서 제외. 합 관계는 성립 강도·파합까지 판정하지 않는 `nominal_v1` 실험 정책이므로 provisional이며 독립 명리 검토 전 권위 진리값/상품 기본값으로 사용 금지 |
+| 12-8 JOJA_SPLIT | ✅ | aac1b8309 | 2026-07-09 | Implements JOJA_SPLIT by separating day-pillar boundary from hour-stem day boundary: dayBoundary=midnight, hourStemDayBoundary=ziSplit23. Verified: saju-ts typecheck/build, spring-ts typecheck/build, springLegacy 20/20, yaza-opt-in 4/0, baseline 17/0, compat 208/0, service-visible 13/0 |
+| 12-9 yin-stem Yangin split | done | e2ab5da58 | 2026-07-09 | Backend-only opt-in strategies.shinsal.yinYanginSplit: default keeps YANG_IN; true emits EUM_IN for yin stems and keeps BI_IN_SAL derived from YANG_IN/EUM_IN targets. Verified: saju-ts typecheck/build, shinsalDerivedTables+springLegacy 28/0, spring-ts typecheck/build, adapter-shinsal 16/0, baseline 17/0, compat 208/0, service-visible 13/0 |
 | 12-1~12-10 잔여 설명가능성 | ⬜ | | | 항목별 커밋 — 12-4 커밋(e7e12fdd7)을 본보기로 |
 | 13 오라클·재캘리브레이션 | ⬜ | | | D5 선행 |
 | 14 신규 해석 축 | ⬜ | | | 육친 우선 |

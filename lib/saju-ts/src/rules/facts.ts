@@ -186,6 +186,8 @@ export interface RuleFacts {
 
       /** 六合 (합) */
       yukhapBranches: BranchIdx[];
+      /** Branches involved in void-resolving 합: 육합/삼합/방합. */
+      hapBranches: BranchIdx[];
       /** 支破 (파) */
       paBranches: BranchIdx[];
       /** 怨嗔 (원진) */
@@ -3338,53 +3340,51 @@ function buildCatalogFacts(args: {
     dayStemFacts.HAK_DANG_GUI_IN = { targets, present, count, matchedPillars };
   }
 
-  // Computed: 羊刃(양인살) — 유파별 정의가 존재하므로 "전략"으로 분기한다.
+  // Computed: Yangin is derived from Lokshin; optional split emits EUM_IN for yin stems.
   //
   // Two common modes:
-  // - 'luNext' (default, KR-mainstream): 羊刃 = (禄神 지지) + 1 (지지 순환 기준)
-  // - 'diWang' (classic, many CN sources): 羊刃 = 帝旺 (양간:+1, 음간:-1) (禄신 기준)
+  // - 'luNext' (default, KR-mainstream): Yangin = Lokshin + 1.
+  // - 'diWang' (classic): yang stems use Lokshin + 1, yin stems use Lokshin - 1.
   //
-  // Users can still override explicitly by providing YANG_IN in the catalog.
-  if (!dayStemFacts.YANG_IN) {
-    const modeRaw = (config.strategies as any)?.shinsal?.yanginMode;
-    const mode: 'luNext' | 'diWang' = modeRaw === 'diWang' ? 'diWang' : 'luNext';
+  // `yinYanginSplit` is intentionally opt-in. When false, every stem continues
+  // to populate YANG_IN so existing compatibility snapshots remain stable.
+  const yanginStrategy: any = (config.strategies as any)?.shinsal ?? {};
+  const yanginMode: 'luNext' | 'diWang' = yanginStrategy.yanginMode === 'diWang' ? 'diWang' : 'luNext';
+  const yinYanginSplit = yanginStrategy.yinYanginSplit === true;
+  const lokFallback: BranchIdx[] = [2, 3, 5, 6, 5, 6, 8, 9, 11, 0] as BranchIdx[];
 
-    const lok = dayStemFacts.LOK_SHIN?.targets?.[0] as BranchIdx | undefined;
-    // Fallback: canonical 建禄/禄神 table (kept tiny; can be overridden by catalog anyway).
-    const lokFallback: BranchIdx[] = [2, 3, 5, 6, 5, 6, 8, 9, 11, 0] as BranchIdx[]; // 寅卯巳午巳午申酉亥子
-    const lokBranch = (lok ?? lokFallback[mod(dayStem, 10)]) as BranchIdx;
+  const assignYanginFact = (
+    facts: Record<
+      string,
+      { targets: BranchIdx[]; present: BranchIdx[]; count: number; matchedPillars: Array<'year' | 'month' | 'day' | 'hour'> }
+    >,
+    stem: StemIdx,
+  ) => {
+    const normalizedStem = mod(stem, 10) as StemIdx;
+    const isYinStem = mod(normalizedStem, 2) === 1;
+    const factKey = yinYanginSplit && isYinStem ? 'EUM_IN' : 'YANG_IN';
+    if (facts[factKey]) return;
 
-    const isYinStem = mod(dayStem, 2) === 1;
-    const delta = mode === 'diWang' && isYinStem ? -1 : 1;
+    const lok = facts.LOK_SHIN?.targets?.[0] as BranchIdx | undefined;
+    const lokBranch = (lok ?? lokFallback[normalizedStem]) as BranchIdx;
+    const delta = yanginMode === 'diWang' && isYinStem ? -1 : 1;
     const yangBranch = mod(lokBranch + delta, 12) as BranchIdx;
     const targets = [yangBranch] as BranchIdx[];
     const { present, count } = presentBranchesAndCount(targets, chartBranches);
     const matchedPillars = matchedPillarsForBranchTargets(targets, pillars);
-    dayStemFacts.YANG_IN = { targets, present, count, matchedPillars };
-  }
+    facts[factKey] = { targets, present, count, matchedPillars };
+  };
 
-  if (!yearStemFacts.YANG_IN) {
-    const modeRaw = (config.strategies as any)?.shinsal?.yanginMode;
-    const mode: 'luNext' | 'diWang' = modeRaw === 'diWang' ? 'diWang' : 'luNext';
+  assignYanginFact(dayStemFacts, dayStem);
+  assignYanginFact(yearStemFacts, yearStem);
 
-    const lok = yearStemFacts.LOK_SHIN?.targets?.[0] as BranchIdx | undefined;
-    const lokFallback: BranchIdx[] = [2, 3, 5, 6, 5, 6, 8, 9, 11, 0] as BranchIdx[];
-    const lokBranch = (lok ?? lokFallback[yearStem]) as BranchIdx;
-
-    const isYinStem = mod(yearStem, 2) === 1;
-    const delta = mode === 'diWang' && isYinStem ? -1 : 1;
-    const yangBranch = mod(lokBranch + delta, 12) as BranchIdx;
-    const targets = [yangBranch] as BranchIdx[];
-    const { present, count } = presentBranchesAndCount(targets, chartBranches);
-    const matchedPillars = matchedPillarsForBranchTargets(targets, pillars);
-    yearStemFacts.YANG_IN = { targets, present, count, matchedPillars };
-  }
-
-  // Computed: 飛刃(비인살) — 통용 정의: "冲羊刃".
-  // 즉, (日干의 羊刃 지지)와 정충(沖) 관계인 지지를 타깃으로 본다.
+  // Computed: Bi-in is the branch opposite Yangin/Eum-in.
   // Users may override by providing the same key in extensions.catalogs.shinsal.dayStem.
+  const yanginTargetsOf = (facts: Record<string, { targets: BranchIdx[] }>) =>
+    uniqueBranches([...(facts.YANG_IN?.targets ?? []), ...(facts.EUM_IN?.targets ?? [])] as BranchIdx[]);
+
   if (!dayStemFacts.BI_IN_SAL) {
-    const yangTargets = dayStemFacts.YANG_IN?.targets ?? [];
+    const yangTargets = yanginTargetsOf(dayStemFacts);
     const targets = uniqueBranches(yangTargets.map((b) => branchChungPartner(mod(b, 12) as BranchIdx)) as BranchIdx[]);
     const { present, count } = presentBranchesAndCount(targets, chartBranches);
     const matchedPillars = matchedPillarsForBranchTargets(targets, pillars);
@@ -3392,13 +3392,12 @@ function buildCatalogFacts(args: {
   }
 
   if (!yearStemFacts.BI_IN_SAL) {
-    const yangTargets = yearStemFacts.YANG_IN?.targets ?? [];
+    const yangTargets = yanginTargetsOf(yearStemFacts);
     const targets = uniqueBranches(yangTargets.map((b) => branchChungPartner(mod(b, 12) as BranchIdx)) as BranchIdx[]);
     const { present, count } = presentBranchesAndCount(targets, chartBranches);
     const matchedPillars = matchedPillarsForBranchTargets(targets, pillars);
     yearStemFacts.BI_IN_SAL = { targets, present, count, matchedPillars };
   }
-
   // --- month-branch → stem tables
   const monthBranch = mod(pillars.month.branch, 12) as BranchIdx;
 
@@ -3658,6 +3657,11 @@ export function buildRuleFacts(args: {
   const chungBranches = gatherBranches('CHUNG');
   const haeBranches = gatherBranches('HAE');
   const yukhapBranches = gatherBranches('YUKHAP');
+  const hapBranches = uniqueBranches([
+    ...yukhapBranches,
+    ...(((byType.SAMHAP ?? []).flatMap((m) => m)) as BranchIdx[]),
+    ...(((byType.BANGHAP ?? []).flatMap((m) => m)) as BranchIdx[]),
+  ]);
   const paBranches = gatherBranches('PA');
   const wonjinBranches = gatherBranches('WONJIN');
   const hyeongBranches = uniqueBranches(
@@ -3975,6 +3979,7 @@ export function buildRuleFacts(args: {
         chungBranches,
         haeBranches,
         yukhapBranches,
+        hapBranches,
         paBranches,
         wonjinBranches,
         hyeongBranches,

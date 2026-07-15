@@ -12,7 +12,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { analyzeSaju } from '../../src/saju-adapter.js';
+import { analyzeSaju, buildSajuContext } from '../../src/saju-adapter.js';
 import type { BirthInfo, GyeokgukCandidateSummary, JonggyeokCandidateSummary } from '../../src/types.js';
 
 interface BaselineFixture {
@@ -146,6 +146,7 @@ for (const fixture of fixtures) {
   const candidates = selected.candidates ?? [];
   const jonggyeokCandidates = selected.jonggyeokCandidates ?? [];
   const storedSelected = selectedById.get(fixture.id);
+  const context = buildSajuContext(summary);
 
   check(`${fixture.id}: selected type unchanged`,
     selected.type === storedSelected?.gyeokgukType,
@@ -156,6 +157,20 @@ for (const fixture of fixtures) {
   check(`${fixture.id}: selected confidence unchanged`,
     Math.abs(selected.confidence - Number(storedSelected?.gyeokgukConfidence)) <= 1e-9,
     `actual=${selected.confidence}, baseline=${storedSelected?.gyeokgukConfidence}`);
+
+  const basis = selected.basis as any;
+  const scoreKeys = Object.keys(selected.scores ?? {});
+  check(`${fixture.id}: selected gyeokguk carries month-gyeok basis`,
+    typeof basis?.monthGyeokTenGod === 'string' &&
+      typeof basis?.monthGyeokMethod === 'string' &&
+      typeof basis?.monthGyeokQuality?.multiplier === 'number',
+    basis ? `${basis.monthGyeokTenGod}/${basis.monthGyeokMethod}` : 'missing');
+  check(`${fixture.id}: selected gyeokguk carries score map`,
+    scoreKeys.some((key) => key.startsWith('gyeokguk.')),
+    `keys=${scoreKeys.length}`);
+  check(`${fixture.id}: SajuOutputSummary.gyeokguk surfaces basis and scores`,
+    typeof (context.output?.gyeokguk as any)?.basis?.monthGyeokTenGod === 'string' &&
+      Object.keys((context.output?.gyeokguk as any)?.scores ?? {}).some((key) => key.startsWith('gyeokguk.')));
 
   check(`${fixture.id}: candidates non-empty`, candidates.length > 0, `count=${candidates.length}`);
   const legacyDuplicateType = ({
