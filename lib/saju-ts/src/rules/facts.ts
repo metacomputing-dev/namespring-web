@@ -2,7 +2,12 @@ import type { EngineConfig } from '../api/types.js';
 import type { BranchIdx, Element, PillarIdx, StemIdx } from '../core/cycle.js';
 import { branchElement, branchIdxFromHanja, ganzhiIndex, pillar, stemElement, stemIdxFromHanja } from '../core/cycle.js';
 import type { DetectedRelation, RelationType } from '../core/branchRelations.js';
-import { detectBranchRelations, samhapGroup } from '../core/branchRelations.js';
+import {
+  detectBranchRelations,
+  relationMatchesTarget,
+  relationResolutionUnits,
+  samhapGroup,
+} from '../core/branchRelations.js';
 import { controls, generates } from '../core/elements.js';
 import type { ElementDistribution } from '../core/elementDistribution.js';
 import type { ElementVector } from '../core/elementVector.js';
@@ -26,6 +31,8 @@ import { DEFAULT_CLIMATE_MODEL, computeClimateScores, mergeClimateModel } from '
 import type { JohooTemplateResult } from './johooTemplate.js';
 import { computeJohooTemplate } from './johooTemplate.js';
 import { computeGyeokgukSeongpae } from './gyeokgukSeongpae.js';
+import { computeFollowPotential } from './followPotential.js';
+import { strengthDecisionComponents, type StrengthComponents } from './strengthComponents.js';
 import { classifyStructuralMonthFrame, isCompanionTenGod, type BigyeopSubtype } from './gyeokgukMonthFrame.js';
 import type { SeasonGroup } from './season.js';
 import { seasonGroupOfMonthBranch } from './season.js';
@@ -74,13 +81,10 @@ export interface StrengthFacts {
   support: number;
   pressure: number;
   total: number;
-  components: {
-    companions: number;
-    resources: number;
-    outputs: number;
-    wealth: number;
-    officers: number;
-  };
+  /** Pre-adjustment scoring contributions retained for audit compatibility. */
+  components: StrengthComponents;
+  /** Contributions reconciled to the final support and pressure totals. */
+  effectiveComponents?: StrengthComponents;
 
   /** Strength model id used for this run (e.g., 'base', 'seasonalRoots'). */
   model?: string;
@@ -318,7 +322,16 @@ export interface RuleFacts {
           /** PR-5 (감사 B510) additive: 탐합망충 해소 前 damage 합. */
           damageRaw?: number;
           /** PR-5 additive: 해소된 관계와 해소자·잔존 계수. */
-          damageResolved?: Array<{ relation: DetectedRelation; via: DetectedRelation[]; residualFactor: number }>;
+          damageResolved?: Array<{
+            relation: DetectedRelation;
+            via: DetectedRelation[];
+            residualFactor: number;
+            resolutionUnits?: Array<{
+              members: BranchIdx[];
+              residualFactor: number;
+              via: DetectedRelation[];
+            }>;
+          }>;
         };
       };
     };
@@ -1158,37 +1171,21 @@ function applyFollowPattern(config: EngineConfig, facts: RuleFacts): void {
   // We also look at yongshin.methodSelector.follow.oneElementBoost for convenience.
   const oneElementBoost = num((pol0 as any).oneElementBoost, num(yFollow?.oneElementBoost, 0));
 
-  const s = facts.strength.index;
-  const support = facts.strength.support;
-  const pressure = facts.strength.pressure;
-  const eps = 1e-9;
+  const { index: s, support, pressure } = facts.strength;
+  const {
+    potential: potentialRaw,
+    mode,
+    dominanceRatio,
+  } = computeFollowPotential({
+    strengthIndex: s,
+    support,
+    pressure,
+    weakThreshold,
+    strongThreshold,
+    minDominanceRatio: minDom,
+  });
 
-  // --- Base follow potentials (same math as yongshin.followPotentialFromStrength)
-  const weakFactor = s < weakThreshold ? clamp01((weakThreshold - s) / Math.max(eps, weakThreshold + 1)) : 0;
-  const weakDomRatio = pressure / Math.max(eps, support);
-  const weakDomFactor = clamp01((weakDomRatio - minDom) / Math.max(eps, minDom));
-  const weakPotential = clamp01(weakFactor * weakDomFactor);
-
-  const strongFactor = s > strongThreshold ? clamp01((s - strongThreshold) / Math.max(eps, 1 - strongThreshold)) : 0;
-  const strongDomRatio = support / Math.max(eps, pressure);
-  const strongDomFactor = clamp01((strongDomRatio - minDom) / Math.max(eps, minDom));
-  const strongPotential = clamp01(strongFactor * strongDomFactor);
-
-  let mode: 'PRESSURE' | 'SUPPORT' | 'NONE' = 'NONE';
-  let dominanceRatio = 0;
-  let potentialRaw = 0;
-
-  if (strongPotential > weakPotential) {
-    potentialRaw = strongPotential;
-    mode = strongPotential > 0 ? 'SUPPORT' : 'NONE';
-    dominanceRatio = strongDomRatio;
-  } else {
-    potentialRaw = weakPotential;
-    mode = weakPotential > 0 ? 'PRESSURE' : 'NONE';
-    dominanceRatio = weakDomRatio;
-  }
-
-  const comps = facts.strength.components;
+  const comps = strengthDecisionComponents(facts.strength);
   const dominantSupportRole: DayMasterRole = comps.companions >= comps.resources ? 'COMPANION' : 'RESOURCE';
   const dominantPressureRole: DayMasterRole = (() => {
     const o = comps.outputs;
@@ -2311,18 +2308,17 @@ function computeMonthGyeokQuality(args: {
 
   const tan = policy.tanhap;
   const chungGroups = (byType.CHUNG ?? []) as BranchIdx[][];
-  const resolveOf = (rel: DetectedRelation): { residual: number; via: DetectedRelation[] } => {
-    if (!tan.enabled || !tan.targetTypes.includes(rel.type)) return { residual: 1, via: [] };
+  const resolveMembers = (members: BranchIdx[]): { residual: number; via: DetectedRelation[] } => {
     let residual = 1;
     const via: DetectedRelation[] = [];
     for (const hap of detectedRelations) {
       const rf = (tan.resolvers as any)[hap.type];
       if (typeof rf !== 'number') continue;
-      if (!hap.members.some((m) => (rel.members as BranchIdx[]).includes(m))) continue;
+      if (!hap.members.some((m) => members.includes(m as BranchIdx))) continue;
       if (tan.resolverMustBeClean) {
         // 합신(충 당사자 외 제3지)이 자체 충을 맞으면 해소자 불인정.
         // 합 그룹은 충 쌍 양쪽을 동시 포함 불가(거리 산술)라 rel 자신 제외 로직 불요.
-        const thirds = hap.members.filter((m) => !(rel.members as BranchIdx[]).includes(m));
+        const thirds = hap.members.filter((m) => !members.includes(m as BranchIdx));
         if (thirds.some((m) => chungGroups.some((g) => g.includes(m)))) continue;
       }
       via.push(hap);
@@ -2330,20 +2326,54 @@ function computeMonthGyeokQuality(args: {
     }
     return { residual, via };
   };
+  const resolveOf = (rel: DetectedRelation): {
+    residual: number;
+    via: DetectedRelation[];
+    resolutionUnits?: Array<{ members: BranchIdx[]; residualFactor: number; via: DetectedRelation[] }>;
+  } => {
+    const targeted = tan.targetTypes.some((target) => relationMatchesTarget(rel.type, target));
+    if (!tan.enabled || !targeted) return { residual: 1, via: [] };
+    const units = relationResolutionUnits(rel);
+    const resolutionUnits = units.map((members) => {
+      const result = resolveMembers(members);
+      return { members, residualFactor: result.residual, via: result.via };
+    });
+    const residual = resolutionUnits.reduce((sum, unit) => sum + unit.residualFactor, 0) / resolutionUnits.length;
+    const viaByKey = new Map<string, DetectedRelation>();
+    for (const unit of resolutionUnits) {
+      for (const resolver of unit.via) {
+        viaByKey.set(`${resolver.type}:${resolver.members.join('-')}`, resolver);
+      }
+    }
+    return {
+      residual,
+      via: [...viaByKey.values()],
+      ...(rel.type === 'SAMHYEONG' ? { resolutionUnits } : {}),
+    };
+  };
 
   const w = policy.damageWeights as any;
   const cnt: Record<string, number> = { CHUNG: 0, HAE: 0, PA: 0, WONJIN: 0, HYEONG: 0 };
-  const damageResolved: Array<{ relation: DetectedRelation; via: DetectedRelation[]; residualFactor: number }> = [];
+  const damageResolved: NonNullable<
+    NonNullable<RuleFacts['month']['gyeok']['quality']['details']>['damageResolved']
+  > = [];
   let damageRaw = 0;
   let damage = 0;
   for (const rel of damageRelations) {
     const wk = weightKeyOf(rel.type);
     cnt[wk] = (cnt[wk] ?? 0) + 1; // damageByType는 해소 前 원 카운트 유지 (스키마 불변)
     const base = typeof w[wk] === 'number' ? w[wk] : 0;
-    const { residual, via } = resolveOf(rel);
+    const { residual, via, resolutionUnits } = resolveOf(rel);
     damageRaw += base;
     damage += base * residual;
-    if (residual < 1) damageResolved.push({ relation: rel, via, residualFactor: residual });
+    if (residual < 1) {
+      damageResolved.push({
+        relation: rel,
+        via,
+        residualFactor: residual,
+        ...(resolutionUnits ? { resolutionUnits } : {}),
+      });
+    }
   }
   const integrity = clamp01(1 / (1 + Math.max(0, damage)));
   const broken = damage >= policy.brokenDamageThreshold;
@@ -2474,7 +2504,7 @@ interface StrengthInteractionPolicy {
     resolveByHap: boolean;
     resolveTypes: RelationType[];
     samePairHapResolves: boolean;
-    /** PR-10-2 (감사 B524/B538): 궁위 pairs 기반 인접/원격 차등 손상 — 기본 off (판정 변경). */
+    /** PR-10-2: 궁위 pairs 기반 인접/원격 차등 손상 — 명시 opt-in, 권위 캘리브레이션 대기. */
     positional: {
       enabled: boolean;
       /** 기둥 거리별 손상 강도 배율 — d1 인접 / d2 한 칸 건너 / d3 원격(년-시) */
@@ -2495,7 +2525,7 @@ interface StrengthInteractionPolicy {
     jaenghapFactor: number;
     applyToPressure: boolean;
   };
-  /** PR-10-1 (감사 B434): 왕상휴수 연동 비대칭 뿌리 손상 — 기본 off (판정 변경, 계측 후 기본화 별도). */
+  /** PR-10-1: 왕상휴수 연동 비대칭 뿌리 손상 — 명시 opt-in, 권위 캘리브레이션 대기. */
   seasonal: {
     enabled: boolean;
     /** 손상 강도 배율 — eff = 1 − (1 − f) × mult(state). mult<1 경감(왕상), >1 가중(수사). */
@@ -2587,9 +2617,9 @@ function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
 }
 
 /** 충/형 손상 → 지지별 통근 감쇠 계수 (1.0 = 무손상). 탐합망충 해소 판정 포함.
- *  seasonal이 주어지고 enabled면 왕상휴수 비대칭(감사 B434)을 적용한다 — 기본 off.
- *  pol.positional.enabled + relationsDetailed(pairs 보존)면 인접/원격 차등(감사 B524) —
- *  기본 off. 둘 다 off면 기존 값 매칭 경로와 바이트 동일. */
+ *  seasonal이 주어지고 enabled면 왕상휴수 비대칭(감사 B434)을 적용한다.
+ *  pol.positional.enabled + relationsDetailed(pairs 보존)면 인접/원격 차등(감사 B524)을 적용한다.
+ *  둘 다 명시 opt-in이며, 미지정/false일 때 기존 균일 감쇠 경로를 유지한다. */
 export function computeBranchInteractionFactors(
   branches: BranchIdx[],
   byType: Partial<Record<RelationType, BranchIdx[][]>>,
@@ -2635,7 +2665,25 @@ export function computeBranchInteractionFactors(
     for (const rel of relationsDetailed) {
       const f = (pol.damageFactors as any)[rel.type];
       if (!(typeof f === 'number' && Number.isFinite(f) && f >= 0 && f < 1)) continue;
-      if (isResolved(rel.members as BranchIdx[])) {
+      const triplePairs = rel.type === 'SAMHYEONG'
+        ? relationResolutionUnits(rel)
+        : null;
+      const unresolvedTriplePairs = triplePairs?.filter((pair) => !isResolved(pair));
+      const unresolvedTriplePairKeys = new Set(
+        unresolvedTriplePairs?.map((pair) => pair.join(',')) ?? [],
+      );
+      if (triplePairs && unresolvedTriplePairs!.length === 0) {
+        resolved.push({ type: rel.type, members: rel.members as BranchIdx[] });
+        continue;
+      }
+      if (triplePairs) {
+        for (const pair of triplePairs) {
+          if (!unresolvedTriplePairKeys.has(pair.join(','))) {
+            resolved.push({ type: 'HYEONG', members: pair });
+          }
+        }
+      }
+      if (!triplePairs && isResolved(rel.members as BranchIdx[])) {
         resolved.push({ type: rel.type, members: rel.members as BranchIdx[] });
         continue;
       }
@@ -2649,7 +2697,22 @@ export function computeBranchInteractionFactors(
         effByIdx.set(i, Math.min(effByIdx.get(i) ?? 1, eff));
       };
       const pairs = Array.isArray(rel.pairs) && rel.pairs.length > 0 ? rel.pairs : null;
-      if (pairs) {
+      if (triplePairs) {
+        // 삼형은 canonical relation 하나로 점수화하되, 탐합망형 해소는
+        // 세 구성쌍별로 평가한다. 남은 쌍에 참여하는 기둥만 한 번 감쇠한다.
+        for (const [a, b] of unresolvedTriplePairs!) {
+          for (let i = 0; i < branches.length; i++) {
+            for (let j = i + 1; j < branches.length; j++) {
+              const bi = mod(branches[i]!, 12);
+              const bj = mod(branches[j]!, 12);
+              if (!((bi === a && bj === b) || (bi === b && bj === a))) continue;
+              const scale = dScaleOf(Math.abs(i - j));
+              noteEff(i, scale);
+              noteEff(j, scale);
+            }
+          }
+        }
+      } else if (pairs) {
         for (const [i, j] of pairs as Array<[number, number]>) {
           const scale = dScaleOf(Math.abs(i - j));
           noteEff(i, scale);
@@ -2673,6 +2736,27 @@ export function computeBranchInteractionFactors(
   for (const [t, f] of Object.entries(pol.damageFactors) as Array<[RelationType, number]>) {
     if (!(typeof f === 'number' && Number.isFinite(f) && f >= 0 && f < 1)) continue;
     for (const g of byType[t] ?? []) {
+      if (t === 'SAMHYEONG') {
+        const pairs = relationResolutionUnits({ type: t, members: g as BranchIdx[] });
+        const unresolvedPairs = pairs.filter((pair) => !isResolved(pair));
+        const unresolvedPairKeys = new Set(unresolvedPairs.map((pair) => pair.join(',')));
+        if (unresolvedPairs.length === 0) {
+          resolved.push({ type: t, members: g as BranchIdx[] });
+          continue;
+        }
+        for (const pair of pairs) {
+          if (!unresolvedPairKeys.has(pair.join(','))) {
+            resolved.push({ type: 'HYEONG', members: pair });
+          }
+        }
+        const activeMembers = new Set(unresolvedPairs.flat() as number[]);
+        for (let i = 0; i < branches.length; i++) {
+          if (!activeMembers.has(mod(branches[i]!, 12))) continue;
+          const mult = seasonalMultOf(i);
+          factors[i]! *= mult === 1 ? f : clamp01(1 - (1 - f) * mult);
+        }
+        continue;
+      }
       if (isResolved(g as BranchIdx[])) {
         resolved.push({ type: t, members: g as BranchIdx[] });
         continue;
@@ -2897,7 +2981,7 @@ function computeStrengthFacts(args: {
     ];
 
     // PR-5 (감사 B448/B510): 충/형 손상 → 통근 감쇠 (탐합망충 해소 포함).
-    // PR-10-1 (감사 B434): seasonal opt-in 시 왕상휴수 비대칭 — 기본 off라 무전달과 동일.
+    // PR-10-1 (감사 B434): opt-in 왕상휴수 비대칭 보정 재료.
     const interactionPol = readStrengthInteractionPolicy(pol);
     const rootDamage = computeBranchInteractionFactors(
       args.branches,
@@ -2987,12 +3071,22 @@ function computeStrengthFacts(args: {
     const pressureAdj = Math.max(0, pressureBase * Math.max(0, 1 + hui.pressureBonus - officerBind.factor));
     const totalAdj = supportAdj + pressureAdj;
     const indexAdj = totalAdj <= 0 ? 0 : (supportAdj - pressureAdj) / totalAdj;
+    const supportScale = base.support > 0 ? supportAdj / base.support : 0;
+    const pressureScale = pressureBase > 0 ? pressureAdj / pressureBase : 0;
+    const effectiveComponents: StrengthComponents = {
+      companions: base.components.companions * supportScale,
+      resources: base.components.resources * supportScale,
+      outputs: base.components.outputs * pressureScale,
+      wealth: base.components.wealth * pressureScale,
+      officers: base.components.officers * pressureScale,
+    };
     return {
       index: indexAdj,
       support: supportAdj,
       pressure: pressureAdj,
       total: totalAdj,
       components: base.components,
+      effectiveComponents,
       model: 'deLingDiShi',
       details: {
         delingdiShi: {
@@ -3067,12 +3161,21 @@ function computeStrengthFacts(args: {
   const pressureAdj = base.pressure;
   const totalAdj = supportAdj + pressureAdj;
   const indexAdj = totalAdj <= 0 ? 0 : (supportAdj - pressureAdj) / totalAdj;
+  const supportScale = base.support > 0 ? supportAdj / base.support : 0;
+  const effectiveComponents: StrengthComponents = {
+    companions: base.components.companions * supportScale,
+    resources: base.components.resources * supportScale,
+    outputs: base.components.outputs,
+    wealth: base.components.wealth,
+    officers: base.components.officers,
+  };
   return {
     index: indexAdj,
     support: supportAdj,
     pressure: pressureAdj,
     total: totalAdj,
     components: base.components,
+    effectiveComponents,
     model: 'seasonalRoots',
     details: {
       season: {
@@ -4047,7 +4150,7 @@ export function buildRuleFacts(args: {
       seasonGroup: seasonGroupOfMonthBranch(pillars.month.branch),
       // PR-5 (감사 B448): 합충 상호작용 재료 — 탐지·합화 판정 재계산 없이 전달만.
       relationsByType: byType,
-      // PR-10-2 (감사 B524): pairs 보존 원본 — positional(기본 off) 경로 전용.
+      // PR-10-2 (감사 B524): pairs 보존 원본 — positional opt-in 경로 전용.
       relationsDetailed: detectedRelations,
       transformations,
     }),

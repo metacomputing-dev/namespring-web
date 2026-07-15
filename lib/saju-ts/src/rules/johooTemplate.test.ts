@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { normalizeConfig } from '../api/config.js';
 import type { BranchIdx, Element, StemIdx } from '../core/cycle.js';
-import { STEM_HANJA, BRANCH_HANJA, stemIdxFromHanja } from '../core/cycle.js';
+import { STEM_HANJA, BRANCH_HANJA, stemElement, stemIdxFromHanja } from '../core/cycle.js';
 import { computeJohooTemplate } from './johooTemplate.js';
 import { QIONG_TONG_BAO_JIAN_TABLE } from './packs/johooQiongTongBaoJianTable.js';
 
@@ -47,14 +47,35 @@ describe('궁통보감 조후용신표 배선 (감사 B12)', () => {
     expect(r.reasons.join('|')).toContain('monthTable:甲寅:丙(癸)');
   });
 
-  it('겨울 셀(甲子=丁(庚丙)): 冬丙 힌트 이중 가산 금지 — FIRE = 0.45+0.5+0.25 정확히', () => {
+  it('겨울 셀(甲子=丁(庚丙)): 표 적중 시 일반 계절 힌트를 대체한다', () => {
     const r = run(QTBJ, 0, 0)!; // 甲 × 子
-    // johoo.strict: seasonMandatoryBoost=0.45. 셀: 丁(primary 0.5, FIRE) + 庚·丙(secondary 각 0.25).
-    // 冬丙 seasonStemHelper가 살아 있으면 FIRE에 +0.3이 더 붙는다 — 그게 없어야 한다.
-    expect(r.bonus.FIRE).toBeCloseTo(0.45 + 0.5 + 0.25, 12);
+    // 셀: 丁(primary 0.5, FIRE) + 庚·丙(secondary 각 0.25).
+    // 일반 seasonMandatory/seasonStemHelper는 표 자체의 우선순위를 뒤집지 않도록 제외한다.
+    expect(r.bonus.FIRE).toBeCloseTo(0.5 + 0.25, 12);
     expect(r.bonus.METAL).toBeCloseTo(0.25, 12); // 庚
+    expect(r.reasons.join('|')).not.toContain('seasonMandatory');
     expect(r.reasons.join('|')).not.toContain('seasonStemHelper');
     expect(r.monthTable?.primaryStemHanja).toBe('丁');
+  });
+
+  it('동일 오행 보좌가 여러 개여도 월표 주용신과 top-level primary가 정합한다', () => {
+    const r = run(QTBJ, 0, 3)!; // 甲 × 卯 = 庚(丙丁戊己)
+    expect(r.monthTable?.primaryStemHanja).toBe('庚');
+    expect(r.bonus.METAL).toBeCloseTo(0.5, 12);
+    expect(r.bonus.FIRE).toBeCloseTo(0.25, 12);
+    expect(r.bonus.EARTH).toBeCloseTo(0.25, 12);
+    expect(r.primary).toBe('METAL');
+  });
+
+  it('기후 결합 순위와 템플릿 단독 순위를 명시적으로 분리한다', () => {
+    const climateScores = { WOOD: 0, FIRE: 2, EARTH: 0, METAL: 0, WATER: 0 };
+    const result = computeJohooTemplate(
+      normalizeConfig(QTBJ as any),
+      { dayStem: 0, monthBranch: 11, climateScores },
+    )!;
+    expect(result.monthTable?.primaryElement).toBe('METAL');
+    expect(result.templatePrimary).toBe('METAL');
+    expect(result.primary).toBe('FIRE');
   });
 
   it('감사 앵커 셀: 丙午=壬(庚), 辛子=丙(戊壬甲), 庚寅=戊(甲壬丙丁)', () => {
@@ -120,6 +141,15 @@ describe('궁통보감 조후용신표 배선 (감사 B12)', () => {
         for (const sec of cell.secondary) {
           expect(stemIdxFromHanja(sec), `${s}${b} secondary ${sec}`).not.toBeNull();
         }
+        const result = run(QTBJ, STEM_HANJA.indexOf(s), BRANCH_HANJA.indexOf(b))!;
+        const primaryStem = stemIdxFromHanja(cell.primary)!;
+        const primaryElement = stemElement(primaryStem);
+        expect(result.monthTable?.primaryElement, `${s}${b} table primary element`).toBe(primaryElement);
+        expect(result.monthTable?.secondaryElements, `${s}${b} unique secondary elements`).toEqual(
+          [...new Set(cell.secondary.map((stem) => stemElement(stemIdxFromHanja(stem)!)))],
+        );
+        expect(result.templatePrimary, `${s}${b} template-only primary`).toBe(primaryElement);
+        expect(result.primary, `${s}${b} zero-climate primary`).toBe(primaryElement);
         count += 1;
       }
     }

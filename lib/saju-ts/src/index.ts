@@ -1,9 +1,25 @@
 export { createEngine } from './api/engine.js';
-export { defaultConfig } from './api/config.js';
+export { defaultConfig, InvalidSchoolPresetSelectorError } from './api/config.js';
 export { analyzeSaju, configFromPreset, createBirthInput } from './compat/springLegacy.js';
-export type { LegacyBirthInput, LegacySajuConfig, LegacySajuOptions } from './compat/springLegacy.js';
+export type {
+  LegacyBirthInput,
+  LegacySajuConfig,
+  LegacySajuOptions,
+  LegacySajuOutputV1,
+  LegacyPillarV1,
+  LegacyCoreResultV1,
+  LegacyJieProximityV1,
+  LegacyStrengthResultV1,
+  LegacyYongshinResultV1,
+  LegacyGyeokgukResultV1,
+  LegacyDaeunInfoV1,
+  LegacyDaeunPillarV1,
+  LegacySaeunPillarV1,
+  LegacyWolunPillarV1,
+  LegacyTraceEntryV1,
+} from './compat/springLegacy.js';
 
-export { listSchoolPresets, getSchoolPreset, applySchoolPreset } from './schools/index.js';
+export { UnknownSchoolPresetError, listSchoolPresets, getSchoolPreset, applySchoolPreset } from './schools/index.js';
 export type { SchoolPreset } from './schools/index.js';
 
 export { packAnalysisBundleZip, unpackAnalysisBundleZip } from './artifacts/index.js';

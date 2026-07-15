@@ -9,6 +9,27 @@ import { mod } from '../core/mod.js';
 import { tenGodOf } from '../core/tenGod.js';
 import { TWELVE_SAL_KEYS, twelveSalStartOf } from '../rules/facts.js';
 import { baseTenGodOfStructuralMonthFrame, type BigyeopSubtype } from '../rules/gyeokgukMonthFrame.js';
+import type {
+  LegacyJieProximityV1,
+  LegacySajuOutputV1,
+} from './springLegacyContract.js';
+
+export type {
+  LegacyCoreResultV1,
+  LegacyDaeunInfoV1,
+  LegacyDaeunPillarV1,
+  LegacyGyeokgukResultV1,
+  LegacyJieProximityV1,
+  LegacyLuckAnnotationsV1,
+  LegacyPillarV1,
+  LegacySaeunPillarV1,
+  LegacySajuOutputV1,
+  LegacyStrengthResultV1,
+  LegacyTraceEntryV1,
+  LegacyWolunPillarV1,
+  LegacyYongshinRecommendationV1,
+  LegacyYongshinResultV1,
+} from './springLegacyContract.js';
 
 const STEM_CODES = ['GAP', 'EUL', 'BYEONG', 'JEONG', 'MU', 'GI', 'GYEONG', 'SIN', 'IM', 'GYE'] as const;
 const BRANCH_CODES = ['JA', 'CHUK', 'IN', 'MYO', 'JIN', 'SA', 'O', 'MI', 'SIN', 'YU', 'SUL', 'HAE'] as const;
@@ -652,7 +673,9 @@ function formatLuckRelationsWithNatal(entry: any) {
   const branchRelations = Array.isArray(entry.branchRelations)
     ? entry.branchRelations.map((rel: any) => formatFortuneRelationHit('BRANCH', rel)).filter(Boolean)
     : [];
-  if (stemRelations.length === 0 && branchRelations.length === 0) return undefined;
+  // Preserve an evaluated-empty result. Downstream consumers must be able to
+  // distinguish “the engine found no relation” from “this period was never
+  // evaluated by the canonical relation engine”.
   return { stemRelations, branchRelations };
 }
 
@@ -868,7 +891,9 @@ const JIE_TERM_IDS = new Set([
 ]);
 const JIE_PROXIMITY_NEAR_HOURS = 24;
 
-function buildJieProximity(facts: Record<string, unknown> | undefined) {
+function buildJieProximity(
+  facts: Record<string, unknown> | undefined,
+): LegacyJieProximityV1 | null {
   const birthUtcMs = Number(facts?.['time.utcMs']);
   const around = facts?.['calendar.solarTermsAround'] as any;
   const terms = Array.isArray(around?.terms) ? around.terms : [];
@@ -1464,7 +1489,7 @@ function normalizeLegacyOutput(
   wolunStartYear?: number | null,
   wolunMonthCount?: number,
   timeZone?: string,
-) {
+): LegacySajuOutputV1 {
   const facts = bundle.report?.facts as Record<string, unknown>;
   const correction = (facts?.['time.trueSolarCorrection'] ?? {}) as TrueSolarCorrectionView;
   const jieProximity = buildJieProximity(facts);
@@ -2023,6 +2048,7 @@ function normalizeLegacyOutput(
   }));
 
   return {
+    bridgeSchemaVersion: 'saju-legacy.v1',
     pillars: {
       year: { cheongan: yearStemCode, jiji: yearBranchCode },
       month: { cheongan: monthStemCode, jiji: monthBranchCode },
@@ -2201,7 +2227,7 @@ export function analyzeSaju(
   birthInput: LegacyBirthInput,
   rawConfig?: unknown,
   options?: LegacySajuOptions,
-) {
+): LegacySajuOutputV1 {
   const normalizedInput = createBirthInput(birthInput);
   if (normalizedInput.calendarType === 'LUNAR') {
     throw new Error('Legacy lunar input is not supported in the current engine bridge.');

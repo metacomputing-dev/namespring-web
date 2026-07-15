@@ -41,7 +41,7 @@ import type {
   SpringRequest, SpringResponse, SpringCandidate, SajuSummary, SpringOptions,
   SajuReport, NamingReport, NamingReportFrame, SpringReport, SpringCandidateSummary,
   NameCharInput, CharDetail, NameGenderTendency, BirthInfo, NamingScoreVector,
-  CandidateStrengthProfile, NameElementStrategy,
+  CandidateStrengthProfile, NameElementStrategy, SajuAnalysisReasonCode, SajuAnalysisStatus,
 } from './types.js';
 import engineConfig from '../config/engine.json';
 import { buildFortuneReport } from './report/buildFortuneReport.js';
@@ -724,6 +724,23 @@ interface ResolveEntriesOptions {
   readonly forceHangulOnly?: boolean;
   readonly isSurname?: boolean;
   readonly hanjaPool?: HanjaPool;
+}
+
+/** Prevents fortune cards from being synthesized from an unavailable saju placeholder. */
+export class FortuneSajuUnavailableError extends Error {
+  readonly code = 'FORTUNE_SAJU_UNAVAILABLE' as const;
+  readonly reasonCode: SajuAnalysisReasonCode;
+  readonly analysisStatus: SajuAnalysisStatus;
+
+  constructor(
+    reasonCode: SajuAnalysisReasonCode = 'SAJU_CALCULATION_FAILED',
+    analysisStatus: SajuAnalysisStatus = 'failed',
+  ) {
+    super('Fortune report requires a usable saju analysis.');
+    this.name = 'FortuneSajuUnavailableError';
+    this.reasonCode = reasonCode;
+    this.analysisStatus = analysisStatus;
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -2902,6 +2919,16 @@ export class SpringEngine {
       surname: request.surname ?? [],
       options: reportOptions,
     });
+    if (
+      !sajuReport.sajuEnabled
+      || sajuReport.analysisStatus === 'failed'
+      || sajuReport.analysisStatus === 'unavailable'
+    ) {
+      throw new FortuneSajuUnavailableError(
+        sajuReport.diagnostics?.[0]?.reasonCode ?? 'SAJU_CALCULATION_FAILED',
+        sajuReport.analysisStatus ?? 'failed',
+      );
+    }
     const saju: SajuSummary = sajuReport;
 
     // 3. Optionally run spring report if name is provided

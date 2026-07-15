@@ -550,6 +550,10 @@ export interface SajuSummary {
   readonly tenGodAnalysis: TenGodSummary | null;
   readonly shinsalHits: ShinsalHitSummary[];
   readonly gongmang: [string, string] | null;
+  /** Present only when the adapter could not produce a complete analysis. */
+  readonly analysisStatus?: SajuAnalysisStatus;
+  /** Safe, machine-readable failure context. Raw exception text is never exposed. */
+  readonly diagnostics?: readonly SajuAnalysisDiagnostic[];
   /** Per-axis judgment strength (PR9). Mirrors SajuOutputSummary.axisStrength
    *  so card builders that receive only the SajuSummary can access the same
    *  4-tier rhetoric model the adapter derives. */
@@ -566,6 +570,10 @@ export interface SajuSummary {
   readonly lunarConversion?: LunarConversionSummary;
   /** PR-12-4 (감사 C6): 음양 균형 — 8글자 체(體) 기준 개수 집계 (additive). */
   readonly yinYangBalance?: YinYangBalanceSummary;
+  /** Fortune timeline fields normalized from the saju-ts V1 bridge. */
+  readonly daeunInfo?: DaeunInfoSummary | null;
+  readonly saeunPillars?: readonly SaeunPillarSummary[];
+  readonly wolunPillars?: readonly WolunPillarSummary[];
   readonly [key: string]: unknown;
 }
 
@@ -626,6 +634,35 @@ export interface TimeCorrectionSummary {
   readonly dstCorrectionMinutes: number;
   readonly longitudeCorrectionMinutes: number;
   readonly equationOfTimeMinutes: number;
+}
+
+/** Fail-closed state emitted only for unavailable, partial, or failed analyses. */
+export type SajuAnalysisStatus = 'unavailable' | 'partial' | 'failed';
+
+/** Stable reason codes for adapter-level analysis failures. */
+export type SajuAnalysisReasonCode =
+  | 'SAJU_MODULE_UNAVAILABLE'
+  | 'BIRTH_INPUT_INSUFFICIENT'
+  | 'LUNAR_INPUT_INSUFFICIENT'
+  | 'LUNAR_CONVERSION_UNAVAILABLE'
+  | 'NEUTRAL_GENDER_ANALYSIS_PARTIAL'
+  | 'NEUTRAL_GENDER_ANALYSIS_FAILED'
+  | 'SAJU_INVALID_SCHOOL_PRESET_SELECTOR'
+  | 'SAJU_UNKNOWN_SCHOOL_PRESET'
+  | 'SAJU_BRIDGE_CONTRACT_MISMATCH'
+  | 'SAJU_CALCULATION_FAILED';
+
+export interface SajuAnalysisDiagnostic {
+  readonly reasonCode: SajuAnalysisReasonCode;
+  readonly message: string;
+}
+
+/** Backward-compatible safe adapter result with optional failure metadata. */
+export interface SajuSafeAnalysisResult {
+  readonly summary: SajuSummary;
+  readonly sajuEnabled: boolean;
+  readonly analysisStatus?: SajuAnalysisStatus;
+  readonly diagnostics?: readonly SajuAnalysisDiagnostic[];
 }
 
 /** Birth-time proximity to the surrounding jie solar-term boundaries. */
@@ -789,6 +826,11 @@ export interface SourceTierMetadata {
   readonly humanInterpretation: string;
   readonly copyrightNote: string;
   readonly authorityTruthEligible: boolean;
+  readonly authorityReview?: {
+    readonly status: 'approved';
+    readonly reviewedBy: string;
+    readonly reviewedAt: string;
+  };
 }
 
 export type JonggyeokCandidateStatus = 'none' | 'possible' | 'candidate' | 'selected' | 'blocked';
@@ -1037,9 +1079,8 @@ export interface DaeunPillarSummary extends LuckPillarAnnotationSummary {
 /** Daeun (대운, 10-year luck cycles) overview for a chart. Mirrors the
  *  shape that `saju-adapter.ts:extractDaeunInfo` already produces and that
  *  the LifeStageFortuneCard / FortuneCascade builders consume. PR-H-D
- *  formalises this as an interface so SajuOutputSummary can declare it
- *  type-safely; SajuSummary picks it up via the existing
- *  `[key: string]: unknown` index signature without a breaking change. */
+ *  formalises this as an interface so SajuSummary and SajuOutputSummary can
+ *  declare it type-safely without changing the runtime payload. */
 export interface DaeunInfoSummary {
   readonly isForward: boolean;
   readonly firstDaeunStartAge: number;

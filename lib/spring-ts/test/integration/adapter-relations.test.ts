@@ -40,6 +40,7 @@ const originalFetch = globalThis.fetch;
 import { buildSajuContext, extractSaju } from '../../src/saju-adapter.js';
 import { analyzeSaju } from '../../src/saju-adapter.js';
 import type { SajuSummary } from '../../src/types.js';
+import { createLegacySajuOutputFixture } from '../helpers/legacy-saju-output.js';
 
 let pass = 0;
 let fail = 0;
@@ -121,6 +122,7 @@ check('empty source jijiRelations → output undefined',
   emptyCtx.output?.jijiRelations === undefined);
 
 const relation = { type: 'CHUNG', members: ['GAP', 'GYEONG'] };
+const rawFixture = await createLegacySajuOutputFixture();
 const validScore = {
   model: 'legacy_heuristic_v1',
   unit: '0_100',
@@ -138,6 +140,7 @@ const validScore = {
   rationale: 'type=CHUNG;positionGap=1',
 };
 const scoreFrom = (score: unknown, duplicates: unknown[] = []) => extractSaju({
+  ...rawFixture,
   cheonganRelations: [relation],
   scoredCheonganRelations: [{ hit: relation, score }, ...duplicates],
 }).cheonganRelations[0]?.score;

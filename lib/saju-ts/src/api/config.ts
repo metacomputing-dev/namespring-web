@@ -46,19 +46,33 @@ export const defaultConfig: EngineConfig = {
   },
 };
 
+/** Raised when an explicit school selector cannot be parsed into preset ids. */
+export class InvalidSchoolPresetSelectorError extends Error {
+  readonly code = 'SAJU_INVALID_SCHOOL_PRESET_SELECTOR';
+
+  constructor() {
+    super('School preset selector must contain one or more non-empty string ids.');
+    this.name = 'InvalidSchoolPresetSelectorError';
+  }
+}
+
 function parsePresetIds(x: unknown): string[] {
   const out: string[] = [];
 
   const add = (v: unknown) => {
-    if (typeof v !== 'string') return;
+    if (typeof v !== 'string') throw new InvalidSchoolPresetSelectorError();
     const t = v.trim();
-    if (!t) return;
+    if (!t) throw new InvalidSchoolPresetSelectorError();
     // Allow simple composition: "a+b" or "a,b".
-    const parts = t.split(/[+,]/).map((s) => s.trim()).filter(Boolean);
+    const parts = t.split(/[+,]/).map((s) => s.trim());
+    if (parts.length === 0 || parts.some((part) => part.length === 0)) {
+      throw new InvalidSchoolPresetSelectorError();
+    }
     out.push(...parts);
   };
 
   if (Array.isArray(x)) {
+    if (x.length === 0) throw new InvalidSchoolPresetSelectorError();
     for (const v of x) add(v);
   } else {
     add(x);
@@ -90,22 +104,41 @@ export function normalizeConfig(input: Partial<EngineConfig> | unknown): EngineC
   // This keeps API stable while enabling new schools without code changes.
   const packs = resolveSchoolPresetPacks(migrated);
 
-  const presetRef: unknown = (() => {
-    const bySchool = (migrated as any)?.school?.id;
-    if (bySchool != null) return bySchool;
+  const NO_PRESET_SELECTOR = Symbol('NO_PRESET_SELECTOR');
+  const presetRef: unknown | typeof NO_PRESET_SELECTOR = (() => {
+    if (Object.prototype.hasOwnProperty.call(migrated as object, 'school')) {
+      const school = (migrated as any).school;
+      if (
+        !school ||
+        typeof school !== 'object' ||
+        Array.isArray(school) ||
+        !Object.prototype.hasOwnProperty.call(school, 'id')
+      ) {
+        throw new InvalidSchoolPresetSelectorError();
+      }
+      return school.id;
+    }
 
     const ext: any = (migrated.extensions as any) ?? {};
-    const byExt = ext?.presets?.school ?? ext?.preset?.school ?? ext?.school;
-    if (byExt != null) return byExt;
+    for (const parentKey of ['presets', 'preset'] as const) {
+      const parent = ext?.[parentKey];
+      if (
+        parent
+        && typeof parent === 'object'
+        && !Array.isArray(parent)
+        && Object.prototype.hasOwnProperty.call(parent, 'school')
+      ) return parent.school;
+    }
+    if (Object.prototype.hasOwnProperty.call(ext, 'school')) return ext.school;
 
     const st: any = (migrated.strategies as any) ?? {};
-    const byStrat = st?.school ?? st?.schoolId;
-    if (byStrat != null) return byStrat;
+    if (Object.prototype.hasOwnProperty.call(st, 'school')) return st.school;
+    if (Object.prototype.hasOwnProperty.call(st, 'schoolId')) return st.schoolId;
 
-    return null;
+    return NO_PRESET_SELECTOR;
   })();
 
-  const presetIds = parsePresetIds(presetRef);
+  const presetIds = presetRef === NO_PRESET_SELECTOR ? [] : parsePresetIds(presetRef);
 
   let base: EngineConfig = defaultConfig;
   for (const id of presetIds) {

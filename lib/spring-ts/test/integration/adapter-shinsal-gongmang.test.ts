@@ -36,6 +36,7 @@ const originalFetch = globalThis.fetch;
 
 import { buildSajuContext, analyzeSaju, extractSaju } from '../../src/saju-adapter.js';
 import type { SajuSummary } from '../../src/types.js';
+import { createLegacySajuOutputFixture } from '../helpers/legacy-saju-output.js';
 
 let pass = 0;
 let fail = 0;
@@ -147,7 +148,11 @@ const validWeighted = {
   weightedScore: 0,
   count: 1,
 };
-const shinsalFrom = (row: unknown) => extractSaju({ weightedShinsalHits: [row] }).shinsalHits;
+const rawFixture = await createLegacySajuOutputFixture();
+const shinsalFrom = (row: unknown) => extractSaju({
+  ...rawFixture,
+  weightedShinsalHits: [row],
+}).shinsalHits;
 check('valid zero-weight shinsal remains an explicit finite zero',
   shinsalFrom(validWeighted)[0]?.weightedScore === 0);
 check('rounding boundary accepts producer-valid B at rounded weight 85',

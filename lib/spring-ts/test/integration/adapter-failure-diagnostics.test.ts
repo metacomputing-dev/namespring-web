@@ -1,0 +1,159 @@
+import {
+  analyzeSajuSafe,
+  emptySaju,
+  resolveNeutralGenderAnalysis,
+} from '../../src/saju-adapter.js';
+import type { SajuAnalysisReasonCode, SajuSummary } from '../../src/types.js';
+
+let pass = 0;
+let fail = 0;
+
+function check(label: string, condition: boolean, evidence?: string): void {
+  if (condition) {
+    pass += 1;
+    console.log(`  PASS ${label}`);
+    return;
+  }
+  fail += 1;
+  console.error(`  FAIL ${label}${evidence ? ` (${evidence})` : ''}`);
+}
+
+function assertFailureMapping(
+  reasonCode: SajuAnalysisReasonCode,
+  expectedStatus: 'unavailable' | 'partial' | 'failed',
+): void {
+  const summary = emptySaju(reasonCode);
+  const diagnostic = summary.diagnostics?.[0];
+  check(`${reasonCode}: status`, summary.analysisStatus === expectedStatus, String(summary.analysisStatus));
+  check(`${reasonCode}: reason code`, diagnostic?.reasonCode === reasonCode, diagnostic?.reasonCode);
+  check(`${reasonCode}: safe message`,
+    typeof diagnostic?.message === 'string'
+      && diagnostic.message.length > 0
+      && !diagnostic.message.includes('Error')
+      && !diagnostic.message.includes('\\'),
+    diagnostic?.message);
+}
+
+console.log('Adapter failure diagnostics regression\n');
+
+function successfulSummary(confidence: number): SajuSummary {
+  const base = emptySaju();
+  return {
+    ...base,
+    dayMaster: { stem: 'GAP', element: 'WOOD', polarity: 'YANG' },
+    yongshin: { ...base.yongshin, confidence },
+  };
+}
+
+const success = await analyzeSajuSafe({
+  year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male',
+});
+check('successful analysis remains enabled', success.sajuEnabled === true);
+check('successful summary does not gain analysisStatus', !('analysisStatus' in success.summary));
+check('successful safe result does not gain diagnostics', !('diagnostics' in success));
+const provenanceCandidate = success.summary.gyeokguk.candidates?.[0];
+check('candidate keeps the upstream human interpretation',
+  provenanceCandidate?.sourceTier.humanInterpretation.startsWith('Derived from saju-ts') === true,
+  provenanceCandidate?.sourceTier.humanInterpretation);
+check('candidate keeps the upstream copyright note',
+  provenanceCandidate?.sourceTier.copyrightNote.startsWith('No quoted source text') === true,
+  provenanceCandidate?.sourceTier.copyrightNote);
+
+const missing = await analyzeSajuSafe({ gender: 'neutral' });
+check('missing birth input remains disabled', missing.sajuEnabled === false);
+check('missing input exposes partial status on summary and safe result',
+  missing.analysisStatus === 'partial' && missing.summary.analysisStatus === 'partial');
+check('missing input preserves structured reason',
+  missing.diagnostics?.[0]?.reasonCode === 'BIRTH_INPUT_INSUFFICIENT'
+    && missing.summary.diagnostics?.[0]?.reasonCode === 'BIRTH_INPUT_INSUFFICIENT');
+
+const unsupportedLunar = await analyzeSajuSafe({
+  year: 1850, month: 1, day: 1, hour: 12, minute: 0,
+  gender: 'female', calendarType: 'lunar',
+});
+check('unsupported lunar conversion is unavailable',
+  unsupportedLunar.analysisStatus === 'unavailable'
+    && unsupportedLunar.diagnostics?.[0]?.reasonCode === 'LUNAR_CONVERSION_UNAVAILABLE');
+
+const maleSummary = successfulSummary(0.72);
+const femaleSummary = successfulSummary(0.81);
+const completeNeutral = resolveNeutralGenderAnalysis(
+  (gender) => gender === 'MALE' ? maleSummary : femaleSummary,
+);
+check('complete neutral comparison keeps the higher-confidence result enabled',
+  completeNeutral.summary === femaleSummary && completeNeutral.basis === 'FEMALE');
+check('complete neutral comparison keeps the success payload free of failure metadata',
+  !('analysisStatus' in completeNeutral.summary) && !('diagnostics' in completeNeutral.summary));
+check('complete neutral note states that both calculations completed',
+  completeNeutral.interpretationNote?.includes('남녀 기준을 모두 계산') === true);
+
+const partialNeutral = resolveNeutralGenderAnalysis((gender) => {
+  if (gender === 'FEMALE') throw new Error('synthetic female-path failure');
+  return maleSummary;
+});
+check('one-sided neutral comparison is explicitly partial',
+  partialNeutral.summary.analysisStatus === 'partial'
+    && partialNeutral.summary.diagnostics?.[0]?.reasonCode === 'NEUTRAL_GENDER_ANALYSIS_PARTIAL');
+check('one-sided neutral comparison records only the completed basis',
+  partialNeutral.basis === 'MALE'
+    && partialNeutral.completedGenders.length === 1
+    && partialNeutral.completedGenders[0] === 'MALE');
+check('one-sided neutral comparison keeps a usable day-master payload',
+  typeof partialNeutral.summary.dayMaster?.element === 'string'
+    && partialNeutral.summary.dayMaster.element.length > 0);
+check('one-sided neutral note names the incomplete path without claiming both completed',
+  partialNeutral.interpretationNote?.includes('여성 기준 계산은 완료되지 않았습니다') === true
+    && !partialNeutral.interpretationNote.includes('남녀 기준을 모두 계산'));
+
+for (const code of [
+  'SAJU_INVALID_SCHOOL_PRESET_SELECTOR',
+  'SAJU_UNKNOWN_SCHOOL_PRESET',
+  'SAJU_BRIDGE_CONTRACT_MISMATCH',
+] as const) {
+  let propagated: unknown = null;
+  try {
+    resolveNeutralGenderAnalysis(() => {
+      throw Object.assign(new Error('synthetic global failure'), { code });
+    });
+  } catch (error) {
+    propagated = error;
+  }
+  check(`neutral comparison propagates global error ${code}`,
+    (propagated as { code?: unknown } | null)?.code === code);
+}
+
+const unknownPreset = await analyzeSajuSafe({
+  year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male',
+}, {
+  precisionConfig: { sajuSchoolId: 'missing.school.for-diagnostic-test' },
+} as any);
+check('unknown school preset remains disabled and preserves its structured reason',
+  unknownPreset.sajuEnabled === false
+    && unknownPreset.analysisStatus === 'failed'
+    && unknownPreset.diagnostics?.[0]?.reasonCode === 'SAJU_UNKNOWN_SCHOOL_PRESET');
+check('unknown school preset diagnostic exposes only a safe message',
+  unknownPreset.diagnostics?.[0]?.message.includes('missing.school') === false);
+
+const invalidPresetSelector = await analyzeSajuSafe({
+  year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male',
+}, {
+  sajuConfig: { school: { id: 123 } },
+} as any);
+check('malformed school preset selector preserves its structured configuration reason',
+  invalidPresetSelector.sajuEnabled === false
+    && invalidPresetSelector.analysisStatus === 'failed'
+    && invalidPresetSelector.diagnostics?.[0]?.reasonCode === 'SAJU_INVALID_SCHOOL_PRESET_SELECTOR');
+check('malformed school preset selector diagnostic exposes only a safe message',
+  invalidPresetSelector.diagnostics?.[0]?.message.includes('123') === false);
+
+assertFailureMapping('SAJU_MODULE_UNAVAILABLE', 'unavailable');
+assertFailureMapping('LUNAR_INPUT_INSUFFICIENT', 'partial');
+assertFailureMapping('NEUTRAL_GENDER_ANALYSIS_PARTIAL', 'partial');
+assertFailureMapping('NEUTRAL_GENDER_ANALYSIS_FAILED', 'failed');
+assertFailureMapping('SAJU_INVALID_SCHOOL_PRESET_SELECTOR', 'failed');
+assertFailureMapping('SAJU_UNKNOWN_SCHOOL_PRESET', 'failed');
+assertFailureMapping('SAJU_BRIDGE_CONTRACT_MISMATCH', 'failed');
+assertFailureMapping('SAJU_CALCULATION_FAILED', 'failed');
+
+console.log(`\nAdapter failure diagnostics: ${pass} PASS / ${fail} FAIL`);
+process.exit(fail > 0 ? 1 : 0);

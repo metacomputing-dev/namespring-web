@@ -83,6 +83,58 @@ describe('탐합망충 해소 (감사 B510)', () => {
   });
 });
 
+describe('삼형 구성쌍별 해소와 단일 감쇠', () => {
+  // 丑未戌 삼형 + 子丑 육합. 丑이 참여한 丑未·丑戌은 해소되지만 未戌 형은 남는다.
+  const PARTIAL = { year: [0, 1], month: [1, 7], day: [2, 10], hour: [3, 0] } as const;
+
+  it('부분 해소가 삼형 전체를 지우지 않고 남은 未戌만 한 번 감쇠한다', () => {
+    const strength = strengthOf(PARTIAL, {
+      root: {
+        damageFactors: { CHUNG: 1, HYEONG: 1, JA_HYEONG: 1, SAMHYEONG: 0.7 },
+        positional: { distanceScales: { d1: 1, d2: 1, d3: 1 } },
+      },
+      seasonal: { enabled: false },
+    });
+    const interaction = (strength.details as any)?.delingdiShi?.interaction;
+    expect(interaction?.branchDamageFactors).toEqual([1, 0.7, 0.7, 1]);
+    expect(
+      interaction?.resolved?.some(
+        (relation: any) => relation.type === 'SAMHYEONG',
+      ),
+    ).toBe(false);
+  });
+
+  it('해소를 끄면 삼형 세 기둥을 중첩 없이 한 번씩 감쇠한다', () => {
+    const strength = strengthOf(PARTIAL, {
+      root: {
+        resolveByHap: false,
+        damageFactors: { CHUNG: 1, HYEONG: 1, JA_HYEONG: 1, SAMHYEONG: 0.7 },
+        positional: { distanceScales: { d1: 1, d2: 1, d3: 1 } },
+      },
+      seasonal: { enabled: false },
+    });
+    const interaction = (strength.details as any)?.delingdiShi?.interaction;
+    expect(interaction?.branchDamageFactors).toEqual([0.7, 0.7, 0.7, 1]);
+  });
+
+  it('궁위 차등 경로에서도 부분 해소된 삼형 구성쌍만 한 번씩 감쇠한다', () => {
+    const strength = strengthOf(PARTIAL, {
+      root: {
+        damageFactors: { CHUNG: 1, HYEONG: 1, JA_HYEONG: 1, SAMHYEONG: 0.7 },
+        positional: { enabled: true, distanceScales: { d1: 1, d2: 1, d3: 1 } },
+      },
+      seasonal: { enabled: false },
+    });
+    const interaction = (strength.details as any)?.delingdiShi?.interaction;
+    expect(interaction?.branchDamageFactors).toEqual([1, 0.7, 0.7, 1]);
+    expect(interaction?.resolved).toEqual(expect.arrayContaining([
+      { type: 'HYEONG', members: [1, 7] },
+      { type: 'HYEONG', members: [1, 10] },
+    ]));
+    expect(interaction?.resolved?.some((relation: any) => relation.type === 'SAMHYEONG')).toBe(false);
+  });
+});
+
 describe('회국 보정 (감사 B448 — 삼합/반합)', () => {
   // 癸亥년 丁卯월 甲午일 辛未시 — 亥卯未 완전 삼합 목국(甲 일간과 동일 오행).
   const SAMHAP_CHART = { year: [9, 11], month: [3, 3], day: [0, 6], hour: [7, 7] } as const;
@@ -149,6 +201,12 @@ describe('pressure 축 천간합 기반(羈絆) 감쇠 (PR-10-3)', () => {
     expect(bind?.tenGod).toBe('JEONG_GWAN');
     expect(bind?.factor).toBeCloseTo(0.5, 12);
     expect(bind?.reduction).toBeCloseTo(0.5, 12);
+
+    expect(on.effectiveComponents).toBeDefined();
+    const effective = on.effectiveComponents!;
+    expect(effective.companions + effective.resources).toBeCloseTo(on.support, 12);
+    expect(effective.outputs + effective.wealth + effective.officers).toBeCloseTo(on.pressure, 12);
+    expect(effective.officers).toBeLessThan(on.components.officers);
     expect(inter?.pressureStemBindPenalty?.score).toBeGreaterThan(0);
     expect(inter?.pressureStemBindPenalty?.normalized).toBeGreaterThan(0);
     expect(inter?.pressureStemBindPenalty?.factor).toBeGreaterThan(0);

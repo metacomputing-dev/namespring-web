@@ -23,7 +23,7 @@ import type {
   FortuneCategory,
   FortuneTimeSeries,
 } from '../types.js';
-import type { ElementCode, BranchCode } from '../types.js';
+import type { ElementCode } from '../types.js';
 
 import {
   getYearlyFortune,
@@ -32,7 +32,6 @@ import {
   getWeeklyFortunes,
   getFortuneGrade,
   getHourStemElement,
-  checkFortuneRelations,
 } from '../common/fortuneCalculator.js';
 import type { FortuneGanzhi } from '../common/fortuneCalculator.js';
 import {
@@ -133,7 +132,6 @@ interface NatalData {
   readonly yongshinElement: ElementCode;
   readonly heeshinElement: ElementCode | null;
   readonly gishinElement: ElementCode | null;
-  readonly natalBranches: BranchCode[];
   readonly deficientElements: ElementCode[];
 }
 
@@ -142,20 +140,6 @@ function extractNatalData(saju: SajuSummary): NatalData {
   const yongshinElement = toElementCode(saju.yongshin?.element) ?? 'WATER';
   const heeshinElement = toElementCode(saju.yongshin?.heeshin);
   const gishinElement = toElementCode(saju.yongshin?.gishin);
-
-  const natalBranches: BranchCode[] = [];
-  const pillars = saju.pillars;
-  if (pillars) {
-    for (const pos of ['year', 'month', 'day', 'hour'] as const) {
-      const branch = pillars[pos]?.branch;
-      if (branch) {
-        const code = branch.code?.toUpperCase?.();
-        if (code && BRANCH_BY_CODE[code]) {
-          natalBranches.push(code as BranchCode);
-        }
-      }
-    }
-  }
 
   const deficientElements: ElementCode[] = [];
   if (Array.isArray(saju.deficientElements)) {
@@ -170,7 +154,6 @@ function extractNatalData(saju: SajuSummary): NatalData {
     yongshinElement,
     heeshinElement,
     gishinElement,
-    natalBranches,
     deficientElements,
   };
 }
@@ -566,56 +549,91 @@ function makeBadActions(
 //  Warning generator
 // ---------------------------------------------------------------------------
 
+// Presentation priority preserves the former warning order while relation
+// existence itself comes exclusively from the engine annotation.
+const CAUTIONARY_NATAL_BRANCH_RELATION_PRIORITY: readonly string[] = [
+  'CHUNG',
+  'HYEONG',
+  'JA_HYEONG',
+  'SAMHYEONG',
+  'PA',
+  'HAE',
+  'WONJIN',
+];
+
+const CAUTIONARY_RELATION_TYPE_KO: Readonly<Record<string, string>> = {
+  CHUNG: '충',
+  HYEONG: '형',
+  JA_HYEONG: '자형',
+  SAMHYEONG: '삼형',
+  HAE: '해',
+  PA: '파',
+  WONJIN: '원진',
+};
+
+const RELATION_WARNING_VOICE: Readonly<Record<string, FortuneWarning>> = {
+  '충': {
+    signal: '원국 지지와 충이 걸려 흐름이 흔들리기 쉬워요.',
+    response: '큰 결정은 한 박자 미루고, 새 일을 시작하기 전 한 번 더 점검해 보세요.',
+    reason: '이 시기의 지지가 원국과 부딪쳐 자리를 흔드는 흐름이 생겨요.',
+  },
+  '형': {
+    signal: '원국 지지와 형이 만나 긴장과 마찰이 늘 수 있어요.',
+    response: '말 한마디를 더 다듬고, 다투는 자리는 잠시 거리를 두는 편이 좋아요.',
+    reason: '이 시기의 지지가 원국과 형 관계로 얽혀 신경전이 잦아질 수 있어요.',
+  },
+  '자형': {
+    signal: '원국 지지와 자형이 겹쳐 같은 고민이나 긴장이 반복되기 쉬워요.',
+    response: '익숙한 반응을 되풀이하지 않는지 살피고, 결론을 내리기 전 한 번 더 점검해 보세요.',
+    reason: '이 시기의 지지가 원국과 자형 관계를 이루어 반복되는 부담이 커질 수 있어요.',
+  },
+  '삼형': {
+    signal: '원국 지지와 삼형이 완성되어 긴장과 마찰이 커질 수 있어요.',
+    response: '일정과 대화를 단순하게 정리하고, 갈등이 커지기 전 잠시 거리를 두는 편이 좋아요.',
+    reason: '이 시기의 지지가 원국의 형 구성과 결합해 삼형 관계를 완성해요.',
+  },
+  '해': {
+    signal: '원국 지지와 해가 닿아 잔잔한 어긋남이 생기기 쉬워요.',
+    response: '약속과 일정은 한 번 더 확인하고, 사소한 오해는 바로 풀어 두세요.',
+    reason: '이 시기의 지지가 원국과 해 관계를 이뤄 작은 어긋남이 누적될 수 있어요.',
+  },
+  '파': {
+    signal: '원국 지지와 파가 걸려 자리나 분위기가 흔들리기 쉬워요.',
+    response: '갑작스러운 변동에 휘둘리지 않도록 우선순위를 미리 정해 두세요.',
+    reason: '이 시기의 지지가 원국과 파 관계를 만들어 안정감이 약해질 수 있어요.',
+  },
+  '원진': {
+    signal: '원국 지지와 원진이 닿아 사람 사이의 거리감이 어색해질 수 있어요.',
+    response: '감정적 반응은 한 박자 늦추고, 가까운 사이일수록 표현을 또렷이 해 보세요.',
+    reason: '이 시기의 지지가 원국과 원진 관계로 얽혀 미묘한 긴장이 흐를 수 있어요.',
+  },
+};
+
+function firstCautionaryNatalBranchRelationType(
+  annotations: LuckPillarAnnotationsForReport | undefined,
+): string | null {
+  const relationTypes = (annotations?.relationsWithNatal?.branchRelations ?? [])
+    .map((candidate) => typeof candidate?.type === 'string' ? candidate.type.trim().toUpperCase() : '')
+    .filter(Boolean);
+  return CAUTIONARY_NATAL_BRANCH_RELATION_PRIORITY.find((type) => relationTypes.includes(type)) ?? null;
+}
+
 function makeWarning(
   ganzhi: FortuneGanzhi,
   natal: NatalData,
+  annotations?: LuckPillarAnnotationsForReport,
   grade?: number,
 ): FortuneWarning {
-  // Check branch relations with natal chart
-  const branchCode = ganzhi.branch.code as BranchCode;
-  const relations = checkFortuneRelations(branchCode, natal.natalBranches);
-  const negativeRelations = relations.filter((r) => r.tone === 'negative');
-
-  if (negativeRelations.length > 0) {
-    const first = negativeRelations[0];
-    const relType = first.type;
-    const typeKo =
-      relType === 'CHUNG' ? '충' :
-      relType === 'HYEONG' ? '형' :
-      relType === 'HAE' ? '해' :
-      relType === 'PA' ? '파' :
-      relType === 'WONJIN' ? '원진' : relType;
-
-    // Per-relation phrasing so signal/response/reason don't collapse to a single
-    // monotone line across daily/weekly/monthly/yearly + 5 relation types.
-    const RELATION_VOICE: Record<string, { signal: string; response: string; reason: string }> = {
-      '충': {
-        signal: '원국 지지와 충이 걸려 흐름이 흔들리기 쉬워요.',
-        response: '큰 결정은 한 박자 미루고, 새 일을 시작하기 전 한 번 더 점검해 보세요.',
-        reason: '이 시기의 지지가 원국과 부딪쳐 자리를 흔드는 흐름이 생겨요.',
-      },
-      '형': {
-        signal: '원국 지지와 형이 만나 긴장과 마찰이 늘 수 있어요.',
-        response: '말 한마디를 더 다듬고, 다투는 자리는 잠시 거리를 두는 편이 좋아요.',
-        reason: '이 시기의 지지가 원국과 형 관계로 얽혀 신경전이 잦아질 수 있어요.',
-      },
-      '해': {
-        signal: '원국 지지와 해가 닿아 잔잔한 어긋남이 생기기 쉬워요.',
-        response: '약속과 일정은 한 번 더 확인하고, 사소한 오해는 바로 풀어 두세요.',
-        reason: '이 시기의 지지가 원국과 해 관계를 이뤄 작은 어긋남이 누적될 수 있어요.',
-      },
-      '파': {
-        signal: '원국 지지와 파가 걸려 자리나 분위기가 흔들리기 쉬워요.',
-        response: '갑작스러운 변동에 휘둘리지 않도록 우선순위를 미리 정해 두세요.',
-        reason: '이 시기의 지지가 원국과 파 관계를 만들어 안정감이 약해질 수 있어요.',
-      },
-      '원진': {
-        signal: '원국 지지와 원진이 닿아 사람 사이의 거리감이 어색해질 수 있어요.',
-        response: '감정적 반응은 한 박자 늦추고, 가까운 사이일수록 표현을 또렷이 해 보세요.',
-        reason: '이 시기의 지지가 원국과 원진 관계로 얽혀 미묘한 긴장이 흐를 수 있어요.',
-      },
-    };
-    const voice = RELATION_VOICE[typeKo];
+  // Relationship rules are owned by saju-ts. The report layer only interprets
+  // the canonical relationsWithNatal annotation; it must never recompute the
+  // natal/luck relationship from branch codes.
+  const relationJudgementAvailable = Array.isArray(
+    annotations?.relationsWithNatal?.branchRelations,
+  );
+  const relType = firstCautionaryNatalBranchRelationType(annotations);
+  if (relType) {
+    const typeKo = CAUTIONARY_RELATION_TYPE_KO[relType] ?? relType;
+    const voice = RELATION_WARNING_VOICE[typeKo];
     if (voice) return voice;
     return {
       signal: `원국 지지와 ${typeKo} 관계가 생겨 흐름이 흔들리기 쉬워요.`,
@@ -650,6 +668,14 @@ function makeWarning(
       signal: '전체적으로 기운이 약한 시기라 컨디션 관리에 신경 써야 해요.',
       response: '과로를 피하고 충분한 휴식을 취하세요. 중요한 결정은 여유를 두고 다시 확인하면 좋아요.',
       reason: '운세 흐름이 약한 시기에는 기본기를 지키는 것이 가장 중요해요.',
+    };
+  }
+
+  if (!relationJudgementAvailable) {
+    return {
+      signal: '운과 원국의 지지 관계 판정 자료가 없어, 관계성 주의 신호는 이번 결과에서 제외했어요.',
+      response: '현재 표시된 오행 흐름만 참고하고, 합충형파해 판단이 필요한 결정은 관계 주석이 있는 결과에서 다시 확인해 주세요.',
+      reason: '이 기간에는 엔진의 원국-운 관계 주석이 제공되지 않아 지지 관계를 별도로 단정하지 않았어요.',
     };
   }
 
@@ -973,7 +999,7 @@ export function buildPeriodFortuneCard(
   const summary = makeSummary(periodKind, stars, effectiveStemEl, effectiveBranchEl, natal);
   const goodActions = makeGoodActions(effectiveStemEl, effectiveBranchEl, natal, Math.round(grade), periodKind);
   const badActions = makeBadActions(effectiveStemEl, effectiveBranchEl, natal, Math.round(grade), periodKind, context);
-  const warning = makeWarning(ganzhi, natal, Math.round(grade));
+  const warning = makeWarning(ganzhi, natal, pillarResult?.annotations, Math.round(grade));
   const categoryScores = periodKind === 'weekly'
     ? computeWeeklyCategoryScores(targetDate, natal)
     : computeCategoryScores(effectiveStemEl, natal);

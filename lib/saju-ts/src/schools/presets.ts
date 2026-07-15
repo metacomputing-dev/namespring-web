@@ -21,6 +21,26 @@ const BUILTIN_INDEX: Record<string, { preset: SchoolPreset; packId: string }> = 
 
 export type { SchoolPreset, SchoolPresetPack } from './packTypes.js';
 
+/**
+ * Raised when a caller explicitly selects a school preset that cannot be
+ * resolved from the built-in and caller-provided preset packs.
+ *
+ * Keeping this as a structured error lets API consumers distinguish a
+ * configuration mistake from an analysis/runtime failure.
+ */
+export class UnknownSchoolPresetError extends Error {
+  readonly code = 'SAJU_UNKNOWN_SCHOOL_PRESET';
+  readonly presetId: string;
+  readonly availablePresetIds: string[];
+
+  constructor(presetId: string, availablePresetIds: string[]) {
+    super(`Unknown school preset: ${JSON.stringify(presetId)}`);
+    this.name = 'UnknownSchoolPresetError';
+    this.presetId = presetId;
+    this.availablePresetIds = [...availablePresetIds];
+  }
+}
+
 export function listSchoolPresets(): SchoolPreset[] {
   return [...BUILTIN_PRESETS];
 }
@@ -56,6 +76,14 @@ function resolvePresetFromPacks(presetId: string, packs: SchoolPresetPack[]): Sc
   return idx[presetId]?.preset ?? null;
 }
 
+function listAvailablePresetIds(packs: SchoolPresetPack[]): string[] {
+  return [...new Set(
+    packs.flatMap((pack) => (pack.presets ?? [])
+      .flatMap((preset) => [preset?.id, ...(preset?.aliases ?? [])])
+      .filter((id): id is string => typeof id === 'string' && id.length > 0)),
+  )].sort();
+}
+
 function concatRuleSpecsLocal(baseRuleSpecs: any, overlayRuleSpecs: any): any {
   // Re-exported helper, but keep a local wrapper to avoid leaking 'any' at call sites.
   return concatRuleSpecs(baseRuleSpecs, overlayRuleSpecs);
@@ -68,8 +96,11 @@ function concatRuleSpecsLocal(baseRuleSpecs: any, overlayRuleSpecs: any): any {
  * - Concatenates extensions.ruleSpecs buckets to allow composition ("a+b")
  */
 export function applySchoolPreset(baseConfig: EngineConfig, presetId: string, packs?: SchoolPresetPack[]): EngineConfig {
-  const p = resolvePresetFromPacks(presetId, packs?.length ? packs : [BUILTIN_PACK]);
-  if (!p) return baseConfig;
+  const resolvedPacks = packs?.length ? packs : [BUILTIN_PACK];
+  const p = resolvePresetFromPacks(presetId, resolvedPacks);
+  if (!p) {
+    throw new UnknownSchoolPresetError(presetId, listAvailablePresetIds(resolvedPacks));
+  }
 
   const baseRuleSpecs = (baseConfig.extensions as any)?.ruleSpecs;
   const overlayRuleSpecs = (p.overlay.extensions as any)?.ruleSpecs;
