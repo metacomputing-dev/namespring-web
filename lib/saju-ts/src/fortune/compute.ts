@@ -152,6 +152,10 @@ function daysPerYearOfMethod(method: FortunePolicy['startAgeMethod']): number {
   return 3;
 }
 
+// Floating-point conversion from milliseconds to fractional years can land a
+// mathematically exact two-day remainder just below the policy boundary.
+const START_AGE_ROUNDING_EPSILON_DAYS = 1e-9;
+
 function startAgeDisplayOf(
   startAgeYears: number,
   policy: FortunePolicy,
@@ -165,11 +169,11 @@ function startAgeDisplayOf(
   switch (rounding) {
     case 'round1down2up':
       // 나머지 1일 버림·2일 올림 (다수 관행) — 2일 이상이면 올림.
-      display = remDays >= 2 ? floorYears + 1 : floorYears;
+      display = remDays >= 2 - START_AGE_ROUNDING_EPSILON_DAYS ? floorYears + 1 : floorYears;
       break;
     case 'threshold8months':
       // 나머지를 1일=4개월로 환산해 8개월 초과 시 올림 (삼명통회 계열).
-      display = remDays * 4 > 8 ? floorYears + 1 : floorYears;
+      display = remDays - 2 > START_AGE_ROUNDING_EPSILON_DAYS ? floorYears + 1 : floorYears;
       break;
     case 'ceil':
       display = Math.ceil(startAgeYears);
