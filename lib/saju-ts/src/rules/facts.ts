@@ -14,7 +14,7 @@ import type { TenGod } from '../core/tenGod.js';
 import type { HiddenStemRole } from '../core/hiddenStems.js';
 import { hiddenStemsOfBranch } from '../core/hiddenStems.js';
 import { lifeStageOf } from '../core/lifeStage.js';
-import type { LifeStagePolicy } from '../core/lifeStage.js';
+import type { LifeStage, LifeStagePolicy } from '../core/lifeStage.js';
 import { seasonalStateOf } from '../core/seasonalStates.js';
 import type { SeasonalState } from '../core/seasonalStates.js';
 
@@ -117,6 +117,11 @@ export interface StrengthFacts {
         score: number;
         normalized: number;
         factor: number;
+        lifeStageRoot?: {
+          enabled: boolean;
+          multipliers: Record<LifeStage, number>;
+          branches: Array<{ position: 'year' | 'month' | 'day' | 'hour'; branch: BranchIdx; stage: LifeStage; multiplier: number }>;
+        };
       };
       deShi: {
         sameElement: number;
@@ -141,6 +146,13 @@ export interface StrengthFacts {
         };
         /** 천간합 기반(羈絆)으로 감쇠된 투간 목록. */
         stemBinds: Array<{ pos: string; stem: StemIdx; factor: number }>;
+        /** Visible officer stems whose pressure contribution was reduced by hap binding. */
+        pressureStemBinds?: Array<{ pos: string; stem: StemIdx; tenGod: TenGod; factor: number; reduction: number }>;
+        /**
+         * 관성 기반 감쇠를 raw 십성 원장이 아닌 득세와 같은 정규화·배율 층에
+         * 적용한 내역. factor는 pressure의 (1+f) 배율에서 차감된다.
+         */
+        pressureStemBindPenalty?: { score: number; normalized: number; factor: number };
       };
     };
 
@@ -2479,6 +2491,7 @@ interface StrengthInteractionPolicy {
     enabled: boolean;
     factor: number;
     jaenghapFactor: number;
+    applyToPressure: boolean;
   };
   /** PR-10-1 (감사 B434): 왕상휴수 연동 비대칭 뿌리 손상 — 기본 off (판정 변경, 계측 후 기본화 별도). */
   seasonal: {
@@ -2491,6 +2504,9 @@ interface StrengthInteractionPolicy {
 function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
   const raw: any = pol?.interaction ?? {};
   const num = (v: any, d: number) => (typeof v === 'number' && Number.isFinite(v) ? v : d);
+  const unit = (v: any, d: number) => (
+    typeof v === 'number' && Number.isFinite(v) && v >= 0 && v <= 1 ? v : d
+  );
   const enabled = raw.enabled !== false; // PR-5 기본 on — 판정 변경(계측 절차 동반)
   const rootRaw: any = raw.root ?? {};
   const huiRaw: any = raw.hui ?? {};
@@ -2545,8 +2561,11 @@ function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
     stemBind: {
       enabled: enabled && bindRaw.enabled !== false,
       // 합이불화 = 기반(묶임) — 역할 절반 상실 (감사 B531 표준: 현대 주류는 합화 거의 불인정).
-      factor: num(bindRaw.factor, 0.5),
-      jaenghapFactor: num(bindRaw.jaenghapFactor, 0.75), // 쟁합·투합은 합력 분산 → 감쇠 완화
+      factor: unit(bindRaw.factor, 0.5),
+      jaenghapFactor: unit(bindRaw.jaenghapFactor, 0.75), // 쟁합·투합은 합력 분산 → 감쇠 완화
+      // Pressure damping remains experimental until authority calibration and
+      // must be requested explicitly. Support-side stem binding is unchanged.
+      applyToPressure: bindRaw.applyToPressure === true,
     },
     seasonal: {
       // PR-10-1 (감사 B434) — 왕상휴수 비대칭 감쇠는 전문가 승인 전 명시적 opt-in.
@@ -2740,6 +2759,84 @@ function stemHapBindFactor(
   return 1;
 }
 
+function computeOfficerBindPenalty(args: {
+  dayMasterStem: StemIdx;
+  stems: Array<{ pos: 'year' | 'month' | 'hour'; stem: StemIdx; w: number }>;
+  transformations: any;
+  pol: StrengthInteractionPolicy['stemBind'];
+  norm: number;
+  scale: number;
+}): {
+  score: number;
+  normalized: number;
+  factor: number;
+  binds: Array<{ pos: string; stem: StemIdx; tenGod: TenGod; factor: number; reduction: number }>;
+} {
+  if (!args.pol.enabled || !args.pol.applyToPressure) {
+    return { score: 0, normalized: 0, factor: 0, binds: [] };
+  }
+
+  let score = 0;
+  const binds: Array<{ pos: string; stem: StemIdx; tenGod: TenGod; factor: number; reduction: number }> = [];
+  for (const s0 of args.stems) {
+    const tenGod = tenGodOf(args.dayMasterStem, s0.stem);
+    if (tenGod !== 'JEONG_GWAN' && tenGod !== 'PYEON_GWAN') continue;
+
+    const factor = stemHapBindFactor(s0.stem, args.transformations, args.pol);
+    if (factor >= 1) continue;
+
+    const entryReduction = 1 - factor;
+    score += s0.w * entryReduction;
+    binds.push({ pos: s0.pos, stem: s0.stem, tenGod, factor, reduction: entryReduction });
+  }
+
+  const normalized = clamp01(score / Math.max(1e-9, args.norm));
+  return {
+    score,
+    normalized,
+    factor: normalized * Math.max(0, args.scale),
+    binds,
+  };
+}
+
+type StrengthRootPosition = 'year' | 'month' | 'day' | 'hour';
+
+const STRENGTH_ROOT_POSITIONS: readonly StrengthRootPosition[] = ['year', 'month', 'day', 'hour'];
+
+const DEFAULT_LIFE_STAGE_ROOT_MULTIPLIERS: Record<LifeStage, number> = {
+  JANG_SAENG: 1.12,
+  MOK_YOK: 0.92,
+  GWAN_DAE: 1.08,
+  GEON_ROK: 1.22,
+  JE_WANG: 1.28,
+  SWOE: 0.9,
+  BYEONG: 0.78,
+  SA: 0.7,
+  MYO: 1.05,
+  JEOL: 0.6,
+  TAE: 0.88,
+  YANG: 0.98,
+};
+
+interface LifeStageRootPolicy {
+  enabled: boolean;
+  multipliers: Record<LifeStage, number>;
+}
+
+function nonNegativeFinite(v: any, d: number): number {
+  return typeof v === 'number' && Number.isFinite(v) && v >= 0 ? v : d;
+}
+
+function readLifeStageRootPolicy(pol: any): LifeStageRootPolicy {
+  const raw = pol?.lifeStageRoot ?? pol?.rootLifeStage ?? pol?.twelveStageRoot ?? {};
+  const custom = raw?.multipliers ?? raw?.stageMultipliers ?? {};
+  const multipliers = { ...DEFAULT_LIFE_STAGE_ROOT_MULTIPLIERS };
+  for (const stage of Object.keys(multipliers) as LifeStage[]) {
+    multipliers[stage] = nonNegativeFinite(custom?.[stage], multipliers[stage]);
+  }
+  return { enabled: raw?.enabled === true, multipliers };
+}
+
 function computeStrengthFacts(args: {
   config: EngineConfig;
   tenGods: TenGodScore;
@@ -2808,11 +2905,27 @@ function computeStrengthFacts(args: {
       args.relationsDetailed,
     );
 
+    const lifeStageRootPol = readLifeStageRootPolicy(pol);
+    const lifeStagePolicy = lifeStageRootPol.enabled ? readLifeStagePolicyFromConfig(args.config) : null;
+    const lifeStageRootBranches = lifeStageRootPol.enabled
+      ? STRENGTH_ROOT_POSITIONS.map((position, i) => {
+          const branch = mod(args.branches[i]!, 12) as BranchIdx;
+          const detail = lifeStageOf(args.dayMasterStem, branch, lifeStagePolicy!);
+          return {
+            position,
+            branch,
+            stage: detail.stage,
+            multiplier: lifeStageRootPol.multipliers[detail.stage] ?? 1,
+          };
+        })
+      : [];
+
     let same = 0;
     let res = 0;
     for (let i = 0; i < args.branches.length; i++) {
       const b = args.branches[i]!;
-      const bw = (branchWeights[i] ?? 1) * (rootDamage.factors[i] ?? 1);
+      const lifeStageMultiplier = lifeStageRootPol.enabled ? (lifeStageRootBranches[i]?.multiplier ?? 1) : 1;
+      const bw = (branchWeights[i] ?? 1) * (rootDamage.factors[i] ?? 1) * lifeStageMultiplier;
       for (const h of hiddenStemsOfBranch(b, args.hiddenStemPolicy ?? {})) {
         const el = stemElement(h.stem);
         if (el === dmEl) same += h.weight * bw;
@@ -2820,6 +2933,9 @@ function computeStrengthFacts(args: {
       }
     }
     const diScore = Math.max(0, same + rootResAlpha * res);
+    if (![same, res, diScore].every(Number.isFinite)) {
+      throw new RangeError('life-stage root multipliers produced a non-finite strength score');
+    }
     const diNormed = clamp01(diScore / Math.max(1e-9, rootNorm));
     const diFactor = diNormed * diScale;
 
@@ -2855,12 +2971,20 @@ function computeStrengthFacts(args: {
     );
 
     const supportAdj = Math.max(0, base.support * (1 + lingFactor + diFactor + shiFactor + hui.supportBonus));
-    // 기존 pressure 불변 규칙을 회국(식·재·관 국)에서 처음 깬다 — 재국·관국 성립이
-    // 신약 방향으로 미는 것이 표준. applyToPressure=false로 복귀 가능.
-    const pressureAdj = Math.max(0, base.pressure * (1 + hui.pressureBonus));
+    const officerBind = computeOfficerBindPenalty({
+      dayMasterStem: args.dayMasterStem,
+      stems: stemsOther,
+      transformations: args.transformations,
+      pol: interactionPol.stemBind,
+      norm: shiNorm,
+      scale: shiScale,
+    });
+    // 상호작용은 원장(base.components)을 바꾸지 않고 (1+f) 배율 층에서만 적용한다.
+    // 관성 기반도 득세와 같은 position weight → shiNorm → shiScale 경로를 사용한다.
+    const pressureBase = base.components.outputs + base.components.wealth + base.components.officers;
+    const pressureAdj = Math.max(0, pressureBase * Math.max(0, 1 + hui.pressureBonus - officerBind.factor));
     const totalAdj = supportAdj + pressureAdj;
     const indexAdj = totalAdj <= 0 ? 0 : (supportAdj - pressureAdj) / totalAdj;
-
     return {
       index: indexAdj,
       support: supportAdj,
@@ -2871,7 +2995,16 @@ function computeStrengthFacts(args: {
       details: {
         delingdiShi: {
           deLing: { monthElement: monthEl, dayMasterElement: dmEl, score: lingScore, factor: lingScale },
-          deDi: { sameElement: same, resourceElement: res, score: diScore, normalized: diNormed, factor: diScale },
+          deDi: {
+            sameElement: same,
+            resourceElement: res,
+            score: diScore,
+            normalized: diNormed,
+            factor: diScale,
+            ...(lifeStageRootPol.enabled
+              ? { lifeStageRoot: { enabled: true, multipliers: lifeStageRootPol.multipliers, branches: lifeStageRootBranches } }
+              : {}),
+          },
           deShi: { sameElement: shiSame, resourceElement: shiRes, score: shiScore, normalized: shiNormed, factor: shiScale, positionWeights: posW },
           adjusted: { support: supportAdj, pressure: pressureAdj, total: totalAdj },
           // PR-5 (감사 B448/B510/B531): 상호작용 보정 내역 — 계측·서사 재료 (additive).
@@ -2881,6 +3014,16 @@ function computeStrengthFacts(args: {
                 resolved: rootDamage.resolved,
                 hui: { supportBonus: hui.supportBonus, pressureBonus: hui.pressureBonus, groups: hui.groups },
                 stemBinds,
+                ...(interactionPol.stemBind.applyToPressure
+                  ? {
+                      pressureStemBinds: officerBind.binds,
+                      pressureStemBindPenalty: {
+                        score: officerBind.score,
+                        normalized: officerBind.normalized,
+                        factor: officerBind.factor,
+                      },
+                    }
+                  : {}),
               }
             : undefined,
         },
@@ -2922,7 +3065,6 @@ function computeStrengthFacts(args: {
   const pressureAdj = base.pressure;
   const totalAdj = supportAdj + pressureAdj;
   const indexAdj = totalAdj <= 0 ? 0 : (supportAdj - pressureAdj) / totalAdj;
-
   return {
     index: indexAdj,
     support: supportAdj,
@@ -3483,6 +3625,8 @@ export function buildRuleFacts(args: {
   pillars: { year: PillarIdx; month: PillarIdx; day: PillarIdx; hour: PillarIdx };
   elementDistribution: ElementDistribution;
   scoring: PillarsScoringResult;
+  /** Direct day-stem contribution inside scoring.tenGods.BI_GYEON. */
+  dayMasterSelfScore?: number;
   /**
    * Optional 月令 司令字 facts (only present when the engine resolved
    * a saryeongScheme + jieData pair). Forwarded onto `facts.month.saryeong`.
@@ -3762,6 +3906,14 @@ export function buildRuleFacts(args: {
   });
 
   // PR-6: 격국 성패(상신·순용/역용·성격/파격) — additive 판정 표면.
+  const seongpaeStrategy: any = (config.strategies as any)?.gyeokguk?.seongpae ?? {};
+  const seongpaeScoreEnabled = (config.strategies as any)?.gyeokguk?.seongpaeScore?.enabled === true;
+  // Hidden-sangshin and strength comparison are doctrinal extensions and stay
+  // opt-in until an independent authority holdout approves their defaults.
+  const seongpaeV1Enabled = seongpaeStrategy.enabled === true
+    || (seongpaeStrategy.enabled !== false && seongpaeStrategy.v1?.enabled === true);
+  const hiddenSangshinStrategy: any = seongpaeStrategy.hiddenSangshin ?? {};
+  const strengthCompareStrategy: any = seongpaeStrategy.strengthCompare ?? {};
   const gyeokSeongpae = computeGyeokgukSeongpae({
     gyeokTenGod,
     // bigyeopGyeok='legacy' is a public naming compatibility option only.
@@ -3770,6 +3922,21 @@ export function buildRuleFacts(args: {
     dayStem,
     otherStems: [pillars.year.stem, pillars.month.stem, pillars.hour.stem],
     monthBroken: monthGyeokQuality.broken,
+    monthHiddenStems,
+    tenGodScores: scoring.tenGods,
+    dayMasterSelfScore: args.dayMasterSelfScore,
+    policy: {
+      retainPreMonthVerdict: seongpaeScoreEnabled,
+      hiddenSangshin: {
+        enabled: seongpaeV1Enabled && hiddenSangshinStrategy.enabled !== false,
+        minWeight: typeof hiddenSangshinStrategy.minWeight === 'number' ? hiddenSangshinStrategy.minWeight : undefined,
+        allowResidual: hiddenSangshinStrategy.allowResidual === true,
+      },
+      strengthCompare: {
+        enabled: seongpaeV1Enabled && strengthCompareStrategy.enabled !== false,
+        decisiveMargin: typeof strengthCompareStrategy.decisiveMargin === 'number' ? strengthCompareStrategy.decisiveMargin : undefined,
+      },
+    },
   });
 
   const climateBase = computeClimateFacts(config, pillars.month.branch);

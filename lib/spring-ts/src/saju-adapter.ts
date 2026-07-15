@@ -44,6 +44,7 @@ import cheonganJijiConfig from '../config/cheongan-jiji.json';
 import engineConfig from '../config/engine.json';
 import sajuScoringConfig from '../config/saju-scoring.json';
 import { KOREA_REGION_COORDINATES, type RegionCoordinate } from './region-coordinates.js';
+import { extractGyeokgukSeongpae } from './saju-seongpae-contract.js';
 
 /** Maps uppercase element codes ("WOOD") to display keys ("Wood"). */
 const ELEMENT_CODE_TO_KEY: Record<string, ElementKey> = cheonganJijiConfig.elementCodeToKey as Record<string, ElementKey>;
@@ -1878,6 +1879,7 @@ function extractYongshinConsensus(value: any): YongshinConsensusScoreboard | und
 // ---------------------------------------------------------------------------
 
 function extractGyeokguk(gyeokgukResult: any) {
+  const seongpae = extractGyeokgukSeongpae(gyeokgukResult?.seongpae);
   return {
     type:          formatGyeokgukTypeDisplay(gyeokgukResult?.type),
     category:      formatGyeokgukCategoryDisplay(gyeokgukResult?.category),
@@ -1886,9 +1888,9 @@ function extractGyeokguk(gyeokgukResult: any) {
     reasoning:     cleanAdapterText(String(gyeokgukResult?.reasoning ?? '')),
     candidates:    extractGyeokgukCandidates(gyeokgukResult?.candidates),
     jonggyeokCandidates: extractJonggyeokCandidates(gyeokgukResult?.jonggyeokCandidates),
-    // PR-6 (additive): 격국 성패 — 상신·순용/역용·성격/파격 passthrough.
-    ...(gyeokgukResult?.seongpae && typeof gyeokgukResult.seongpae === 'object'
-      ? { seongpae: gyeokgukResult.seongpae }
+    // PR-6 (additive): explicitly mapped at the saju-ts -> spring-ts boundary.
+    ...(seongpae
+      ? { seongpae }
       : {}),
   };
 }

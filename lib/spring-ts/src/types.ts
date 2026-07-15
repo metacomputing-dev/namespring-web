@@ -736,6 +736,8 @@ export interface GyeokgukSummary {
 /** PR-6: 격국 성패 판정 상세 (자평진전 순용/역용 계열). */
 export interface GyeokgukSeongpaeSummary {
   readonly verdict: 'SEONGGYEOK' | 'PAGYEOK' | 'PAJUNG_YUGU' | 'SEONGJUNG_YUPA' | 'UNDETERMINED';
+  /** Score-only evidence retained when month damage lowered the reported verdict. */
+  readonly verdictBeforeMonthBroken?: GyeokgukSeongpaeSummary['verdict'];
   readonly usage: 'SUNYONG' | 'YEOKYONG';
   readonly sangshin: string | null;
   readonly sangshinStemHanja: string | null;

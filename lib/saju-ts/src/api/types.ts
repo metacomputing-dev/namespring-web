@@ -1,4 +1,5 @@
 import type { BranchIdx, Element, PillarIdx, StemIdx } from '../core/cycle.js';
+import type { ElementDistributionPositionWeights } from '../core/elementDistribution.js';
 import type { ElementVector } from '../core/elementVector.js';
 import type { HiddenStemRole, HiddenStemWeightPolicy } from '../core/hiddenStems.js';
 import type { LifeStage } from '../core/lifeStage.js';
@@ -37,6 +38,9 @@ export interface EngineWeights {
   elementDistribution?: {
     heavenStemWeight?: number;
     branchTotalWeight?: number;
+    positionWeights?: ElementDistributionPositionWeights;
+    heavenPositionWeights?: ElementDistributionPositionWeights;
+    branchPositionWeights?: ElementDistributionPositionWeights;
   };
   [k: string]: unknown;
 }

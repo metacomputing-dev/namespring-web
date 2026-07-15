@@ -487,6 +487,9 @@ export function buildGraph(): Graph {
           heavenStemWeight: ed.heavenStemWeight,
           branchTotalWeight: ed.branchTotalWeight,
           hiddenStemWeights: w.hiddenStems,
+          positionWeights: ed.positionWeights,
+          heavenPositionWeights: ed.heavenPositionWeights,
+          branchPositionWeights: ed.branchPositionWeights,
         });
       },
     }),
@@ -511,6 +514,10 @@ export function buildGraph(): Graph {
           stemRelations: get('relations.stems'),
           hiddenStemPolicy: w.hiddenStems,
           heavenStemWeight: ed.heavenStemWeight,
+          branchTotalWeight: ed.branchTotalWeight,
+          positionWeights: ed.positionWeights,
+          heavenPositionWeights: ed.heavenPositionWeights,
+          branchPositionWeights: ed.branchPositionWeights,
           policy: rawPolicy,
         });
       },
@@ -654,6 +661,9 @@ export function buildGraph(): Graph {
           pillars: { year: y, month: m, day: d, hour: h },
           elementDistribution: ed,
           scoring,
+          // scores.pillars uses a fixed stemWeight=1 above. Pass this internal
+          // provenance separately so the public scoring result shape stays stable.
+          dayMasterSelfScore: 1,
           saryeong: sar && jieData
             ? {
                 scheme: sar.scheme,
