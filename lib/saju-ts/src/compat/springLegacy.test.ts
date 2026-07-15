@@ -83,23 +83,68 @@ describe('normalizeLegacyOutput 정직성 (감사 A1/A2/A9/A15d)', () => {
     expect(Object.keys(gyeokguk?.scores ?? {}).some((key) => key.startsWith('gyeokguk.'))).toBe(true);
   });
 
-  it('surfaces scored cheongan relation payloads', () => {
-    expect(output.scoredCheonganRelations).toHaveLength(output.cheonganRelations.length);
-    if (output.scoredCheonganRelations.length > 0) {
-      const first = output.scoredCheonganRelations[0];
+  it('keeps heuristic cheongan scores opt-in and labels their provenance', () => {
+    expect(output.scoredCheonganRelations).toEqual([]);
+    const scored: any = analyzeSaju(createBirthInput({
+      birthYear: 1986, birthMonth: 4, birthDay: 19,
+      birthHour: 5, birthMinute: 45, gender: 'MALE',
+    }), { strategies: { stemRelations: { heuristicScores: { enabled: true } } } });
+    expect(scored.scoredCheonganRelations).toHaveLength(scored.cheonganRelations.length);
+    if (scored.scoredCheonganRelations.length > 0) {
+      const first = scored.scoredCheonganRelations[0];
       expect(first.hit?.type).toEqual(expect.any(String));
       expect(first.hit?.members).toEqual(expect.any(Array));
       expect(first.score?.finalScore).toEqual(expect.any(Number));
       expect(first.score?.rationale).toContain('type=');
+      expect(first.score).toMatchObject({
+        model: 'legacy_heuristic_v1',
+        unit: '0_100',
+        status: 'provisional',
+        evidenceOnly: true,
+        authorityTruthEligible: false,
+        provisional: true,
+      });
+      expect(first.score.pairCount).toBe(first.score.positionGaps.length);
+      expect(first.score.positionGap).toBe(first.score.positionGaps[0] ?? null);
     }
   });
 
-  it('applies shinsal position multipliers from matched seat pillars', () => {
+  it('does not describe suitability ranking as raw elemental strength', () => {
+    const reasons = output.yongshinResult.recommendations
+      .map((candidate: any) => String(candidate.reasoning ?? ''))
+      .join('\n');
+    expect(reasons).not.toContain('기운이 가장 강해 용신');
+    expect(reasons).not.toContain('기운을 보조하는 희신 후보');
+  });
+
+  it('applies shinsal position multipliers only under explicit opt-in', () => {
     expect(output.weightedShinsalHits.length).toBeGreaterThan(0);
-    const attenuatedHit = output.weightedShinsalHits.find((item: any) => item.positionMultiplier < 1);
+    expect(output.weightedShinsalHits.every((item: any) => item.positionMultiplier === 1)).toBe(true);
+    const weighted: any = analyzeSaju(createBirthInput({
+      birthYear: 1986, birthMonth: 4, birthDay: 19,
+      birthHour: 5, birthMinute: 45, gender: 'MALE',
+    }), { strategies: { shinsal: { positionWeighting: { enabled: true } } } });
+    const attenuatedHit = weighted.weightedShinsalHits.find((item: any) => item.positionMultiplier < 1);
     expect(attenuatedHit?.hit?.seatPillars?.some((seat: string) => seat !== 'day')).toBe(true);
-    for (const item of output.weightedShinsalHits) {
+    for (const item of weighted.weightedShinsalHits) {
       expect(item.weightedScore).toBe(Math.round(item.baseWeight * item.positionMultiplier));
+      if ((item.hit?.seatPillars ?? []).length === 0) expect(item.positionMultiplier).toBe(1);
+    }
+  });
+
+  it('keeps duplicate shinsal winner trace atomic and changes only count', () => {
+    const duplicates = output.weightedShinsalHits.filter((item: any) => item.count > 1);
+    expect(duplicates.length).toBeGreaterThan(0);
+    for (const item of duplicates) {
+      expect(item.weightedScore).toBe(Math.round(item.baseWeight * item.positionMultiplier));
+      const expectedGrade = item.baseWeight >= 85 ? 'A' : item.baseWeight >= 50 ? 'B' : 'C';
+      expect(item.hit.grade).toBe(expectedGrade);
+      if (item.hit.conditionPenalty == null) {
+        expect(item.hit.qualityReasons).toBeUndefined();
+      } else {
+        expect(item.hit.conditionPenalty).toBeGreaterThan(0);
+        expect(item.hit.qualityReasons?.length).toBeGreaterThan(0);
+      }
     }
   });
 
@@ -117,10 +162,17 @@ describe('normalizeLegacyOutput 정직성 (감사 A1/A2/A9/A15d)', () => {
   });
 
   it('attenuates gongmang when a void branch is resolved by clash or punishment', () => {
-    const hegong: any = analyzeSaju(createBirthInput({
+    const input = createBirthInput({
       birthYear: 2000, birthMonth: 1, birthDay: 1,
       birthHour: 0, birthMinute: 30, gender: 'MALE',
-    }));
+    });
+    const base: any = analyzeSaju(input);
+    const baseGongmang = base.weightedShinsalHits.find((item: any) => item.hit?.type === 'GONGMANG');
+    expect(baseGongmang?.baseWeight).toBe(100);
+    expect(baseGongmang?.hit?.qualityReasons).toBeUndefined();
+    const hegong: any = analyzeSaju(input, {
+      strategies: { shinsal: { gongmangResolution: { enabled: true } } },
+    });
     const gongmang = hegong.weightedShinsalHits.find((item: any) => item.hit?.type === 'GONGMANG');
     expect(gongmang).toBeTruthy();
     if (!gongmang) throw new Error('expected gongmang hit');
@@ -132,10 +184,17 @@ describe('normalizeLegacyOutput 정직성 (감사 A1/A2/A9/A15d)', () => {
   });
 
   it('attenuates gongmang when a void branch is resolved by a branch combination', () => {
-    const hegong: any = analyzeSaju(createBirthInput({
+    const input = createBirthInput({
       birthYear: 1960, birthMonth: 1, birthDay: 20,
       birthHour: 6, birthMinute: 0, gender: 'MALE',
-    }));
+    });
+    const base: any = analyzeSaju(input);
+    const baseGongmang = base.weightedShinsalHits.find((item: any) => item.hit?.type === 'GONGMANG');
+    expect(baseGongmang?.baseWeight).toBe(100);
+    expect(baseGongmang?.hit?.qualityReasons).toBeUndefined();
+    const hegong: any = analyzeSaju(input, {
+      strategies: { shinsal: { gongmangResolution: { enabled: true } } },
+    });
     const gongmang = hegong.weightedShinsalHits.find((item: any) => item.hit?.type === 'GONGMANG');
     expect(gongmang).toBeTruthy();
     if (!gongmang) throw new Error('expected gongmang hit');
@@ -229,5 +288,25 @@ describe('normalizeLegacyOutput 정직성 (감사 A1/A2/A9/A15d)', () => {
     expect(output.daeunInfo.boundaryMode).toMatch(/^[A-Z_]+$/);
     expect(output.daeunInfo.deltaDays).toBeGreaterThan(0);
     expect(String(output.daeunInfo.formula)).toContain('startAgeYears');
+  });
+});
+
+describe('structural month-frame public candidates', () => {
+  it('does not duplicate a Geonrok frame under the legacy companion name', () => {
+    const output: any = analyzeSaju(createBirthInput({
+      birthYear: 2005,
+      birthMonth: 12,
+      birthDay: 25,
+      birthHour: 6,
+      birthMinute: 0,
+      gender: 'MALE',
+    }));
+
+    const candidates = output.gyeokgukResult.candidates as Array<{ type: string }>;
+    const types = candidates.map((candidate) => candidate.type);
+
+    expect(output.gyeokgukResult.type).toBe('GEONROK');
+    expect(types).toContain('GEONROK');
+    expect(types).not.toContain('BI_GYEON');
   });
 });

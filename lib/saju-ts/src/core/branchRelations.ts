@@ -32,6 +32,39 @@ export interface DetectedRelation {
   pairs?: Array<[number, number]>;
 }
 
+/** Broad HYEONG policy includes the canonical three-punishment relation. */
+export function relationMatchesTarget(actual: RelationType, target: RelationType): boolean {
+  return actual === target || (target === 'HYEONG' && actual === 'SAMHYEONG');
+}
+
+/**
+ * Returns the independently resolvable units of a canonical relation.
+ * SAMHYEONG is emitted once for scoring but its three constituent pairs can
+ * be resolved independently by 탐합망형. Malformed triples fail closed.
+ */
+export function relationResolutionUnits(
+  relation: Pick<DetectedRelation, 'type' | 'members'>,
+): BranchIdx[][] {
+  if (relation.type !== 'SAMHYEONG') return [[...(relation.members as BranchIdx[])]];
+  if (relation.members.some((member) => !Number.isInteger(member) || member < 0 || member > 11)) {
+    throw new Error('SAMHYEONG relation members must be branch indexes from 0 through 11.');
+  }
+  const members = [...new Set(relation.members)]
+    .sort((a, b) => a - b) as BranchIdx[];
+  if (members.length !== 3) {
+    throw new Error('SAMHYEONG relation must contain exactly three unique branches.');
+  }
+  const key = members.join('-');
+  if (key !== '1-7-10' && key !== '2-5-8') {
+    throw new Error('SAMHYEONG relation members do not form a canonical three-punishment set.');
+  }
+  return [
+    [members[0]!, members[1]!],
+    [members[0]!, members[2]!],
+    [members[1]!, members[2]!],
+  ];
+}
+
 /** 방출 가능한 지지 관계 타입 전수 (라벨 커버리지 테스트가 소비). */
 export const RELATION_ORDER: readonly RelationType[] = [
   'CHUNG',
@@ -246,16 +279,16 @@ export function detectBranchRelations(branches: BranchIdx[]): DetectedRelation[]
 
   const tripleDeduped = uniqByKey(tripleRels, (r) => `${r.type}:${tripleKey(r.members)}`);
 
-  // A full 三刑 already represents all three constituent punishment pairs.
-  // Keep the canonical SAMHYEONG relation and suppress its HYEONG subsets so
-  // scoring consumers do not apply the same punishment four times.
+  // A complete 三刑 already represents its three constituent punishment
+  // pairs. Keep one canonical SAMHYEONG relation so every downstream scoring
+  // layer cannot charge the same punishment four times.
   const fullSamhyeongGroups = tripleDeduped
     .filter((relation) => relation.type === 'SAMHYEONG')
     .map((relation) => new Set<number>(relation.members));
   const effectivePairs = pairDeduped.filter(
     (relation) =>
-      relation.type !== 'HYEONG' ||
-      !fullSamhyeongGroups.some((group) => relation.members.every((member) => group.has(member))),
+      relation.type !== 'HYEONG'
+      || !fullSamhyeongGroups.some((group) => relation.members.every((member) => group.has(member))),
   );
 
   return [...effectivePairs, ...tripleDeduped].sort(compareDetectedRelation);

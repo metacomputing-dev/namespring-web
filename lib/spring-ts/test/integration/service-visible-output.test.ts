@@ -75,7 +75,7 @@ await engine.init();
 
 console.log('Service-visible output quality\n');
 
-const targetDate = new Date('2026-05-04T00:00:00+09:00');
+const targetDate = '2026-05-04T00:00:00+09:00';
 
 const choiReport: any = await engine.getFortuneReport({
   targetDate,

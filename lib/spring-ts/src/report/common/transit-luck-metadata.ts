@@ -85,7 +85,7 @@ const TWELVE_SAL_KO: Record<string, string> = {
   YUK_HAE_SAL: '육해살',
   HWA_GAE_SAL: '화개살',
   HUAGAI: '화개살',
-  GEOP_SAL: '겁살',
+  GEOB_SAL: '겁살',
   JAE_SAL: '재살',
   JAESAL: '재살',
   CHEON_SAL: '천살',

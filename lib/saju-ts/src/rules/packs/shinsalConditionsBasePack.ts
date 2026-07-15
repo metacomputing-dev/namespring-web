@@ -85,5 +85,5 @@ export const DEFAULT_SHINSAL_QUALITY_MODEL: ShinsalQualityModel = {
   weakThreshold: 1,
   invalidateThreshold: 0,
   // GWIMUN_SAL·GEOKGAK_SAL: 관계 기반 살이므로 WONJIN_SAL과 동일하게 감쇠 제외 (감사 B9·A7).
-  excludeNames: ['CHUNG_SAL', 'HYEONG_SAL', 'HAE_SAL', 'PA_SAL', 'WONJIN_SAL', 'GWIMUN_SAL', 'GEOKGAK_SAL', 'GONGMANG_SAL'],
+  excludeNames: ['CHUNG_SAL', 'HYEONG_SAL', 'HAE_SAL', 'PA_SAL', 'WONJIN_SAL', 'GWIMUN_SAL', 'GEOKGAK_SAL', 'GONGMANG', 'GONGMANG_SAL'],
 };

@@ -20,23 +20,72 @@ export function daeunDisplayOffset(daeunInfoRaw: unknown): number {
   return Math.max(0, Math.min(1, Math.trunc(display - Math.max(0, Math.floor(first)))));
 }
 
-function finiteNumber(value: unknown): number | null {
-  const n = Number(value);
-  return Number.isFinite(n) ? n : null;
+export interface DaeunDisplayInterval {
+  readonly startInclusive: number;
+  readonly endExclusive: number;
+  readonly endInclusive: number;
 }
 
-export function daeunDisplayAgeRange(pillarRaw: unknown, fallbackOffset: number): { startAge: number; endAge: number } {
-  if (!pillarRaw || typeof pillarRaw !== 'object') return { startAge: 0, endAge: 0 };
+function finiteNumber(value: unknown): number | null {
+  return typeof value === 'number' && Number.isFinite(value) ? value : null;
+}
+
+/**
+ * Resolves the display interval without changing the engine's continuous
+ * [startAge, endAge) source interval. Future display metadata uses the same
+ * exclusive-end contract.
+ */
+export function resolveDaeunDisplayInterval(
+  pillarRaw: unknown,
+  fallbackOffset = 0,
+): DaeunDisplayInterval | null {
+  if (!pillarRaw || typeof pillarRaw !== 'object') return null;
   const pillar = pillarRaw as Record<string, unknown>;
-  const explicitStart = finiteNumber(pillar['displayStartAge']);
-  const explicitEnd = finiteNumber(pillar['displayEndAge']);
-  if (explicitStart !== null && explicitEnd !== null && explicitEnd >= explicitStart) {
-    return { startAge: Math.floor(explicitStart), endAge: Math.floor(explicitEnd) };
+  const displayStartRaw = pillar['displayStartAge'];
+  const displayEndRaw = pillar['displayEndAge'];
+  const displayStart = finiteNumber(displayStartRaw);
+  const displayEnd = finiteNumber(displayEndRaw);
+  const displayMetadataAbsent = displayStartRaw == null && displayEndRaw == null;
+
+  let startInclusive: number;
+  let endExclusive: number;
+  if (!displayMetadataAbsent) {
+    if (
+      displayStart === null
+      || displayEnd === null
+      || !Number.isInteger(displayStart)
+      || !Number.isInteger(displayEnd)
+      || displayStart < 0
+      || displayEnd <= displayStart
+    ) return null;
+    startInclusive = displayStart;
+    endExclusive = displayEnd;
+  } else {
+    const rawStart = finiteNumber(pillar['startAge']);
+    const rawEnd = finiteNumber(pillar['endAge']);
+    if (rawStart === null || rawEnd === null || rawStart < 0 || rawEnd <= rawStart) return null;
+    const offset = Number.isFinite(fallbackOffset) ? Math.trunc(fallbackOffset) : 0;
+    startInclusive = Math.floor(rawStart) + offset;
+    endExclusive = Math.floor(rawEnd) + offset;
   }
-  const startAge = finiteNumber(pillar['startAge']);
-  const endAge = finiteNumber(pillar['endAge']);
+
+  if (startInclusive < 0 || endExclusive <= startInclusive) return null;
   return {
-    startAge: Math.floor(startAge ?? 0) + fallbackOffset,
-    endAge: Math.floor(endAge ?? 0) + fallbackOffset,
+    startInclusive,
+    endExclusive,
+    endInclusive: endExclusive - 1,
   };
+}
+
+export function containsDaeunAge(
+  age: unknown,
+  startInclusive: number,
+  endExclusive: number,
+): boolean {
+  return typeof age === 'number'
+    && Number.isFinite(age)
+    && Number.isFinite(startInclusive)
+    && Number.isFinite(endExclusive)
+    && age >= startInclusive
+    && age < endExclusive;
 }

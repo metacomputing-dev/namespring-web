@@ -154,6 +154,7 @@ export interface LegacyTraceEntryV1 {
  * intentionally opaque here and remains normalized by the spring adapter.
  */
 export interface LegacySajuOutputV1 {
+  readonly bridgeSchemaVersion: 'saju-legacy.v1';
   readonly pillars: Readonly<Record<'year' | 'month' | 'day' | 'hour', LegacyPillarV1>>;
   readonly coreResult: LegacyCoreResultV1;
   readonly jieProximity: LegacyJieProximityV1 | null;

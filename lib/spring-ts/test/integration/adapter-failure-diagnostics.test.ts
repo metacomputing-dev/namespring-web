@@ -98,9 +98,29 @@ check('one-sided neutral comparison records only the completed basis',
   partialNeutral.basis === 'MALE'
     && partialNeutral.completedGenders.length === 1
     && partialNeutral.completedGenders[0] === 'MALE');
+check('one-sided neutral comparison keeps a usable day-master payload',
+  typeof partialNeutral.summary.dayMaster?.element === 'string'
+    && partialNeutral.summary.dayMaster.element.length > 0);
 check('one-sided neutral note names the incomplete path without claiming both completed',
   partialNeutral.interpretationNote?.includes('여성 기준 계산은 완료되지 않았습니다') === true
     && !partialNeutral.interpretationNote.includes('남녀 기준을 모두 계산'));
+
+for (const code of [
+  'SAJU_INVALID_SCHOOL_PRESET_SELECTOR',
+  'SAJU_UNKNOWN_SCHOOL_PRESET',
+  'SAJU_BRIDGE_CONTRACT_MISMATCH',
+] as const) {
+  let propagated: unknown = null;
+  try {
+    resolveNeutralGenderAnalysis(() => {
+      throw Object.assign(new Error('synthetic global failure'), { code });
+    });
+  } catch (error) {
+    propagated = error;
+  }
+  check(`neutral comparison propagates global error ${code}`,
+    (propagated as { code?: unknown } | null)?.code === code);
+}
 
 const unknownPreset = await analyzeSajuSafe({
   year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male',
@@ -132,6 +152,7 @@ assertFailureMapping('NEUTRAL_GENDER_ANALYSIS_PARTIAL', 'partial');
 assertFailureMapping('NEUTRAL_GENDER_ANALYSIS_FAILED', 'failed');
 assertFailureMapping('SAJU_INVALID_SCHOOL_PRESET_SELECTOR', 'failed');
 assertFailureMapping('SAJU_UNKNOWN_SCHOOL_PRESET', 'failed');
+assertFailureMapping('SAJU_BRIDGE_CONTRACT_MISMATCH', 'failed');
 assertFailureMapping('SAJU_CALCULATION_FAILED', 'failed');
 
 console.log(`\nAdapter failure diagnostics: ${pass} PASS / ${fail} FAIL`);

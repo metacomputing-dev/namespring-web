@@ -35,8 +35,8 @@ export const defaultConfig: EngineConfig = {
     // [감사 B7] 신강약 기본 모델: 월지 가중 得令/得地/得势 (deLingDiShi).
     // 월지 무가중 'base' 모델은 어느 학파도 채택하지 않는 이설 밖 동작이라 옵션으로 강등.
     // 명시적으로 strategies.strength.model='base'를 주면 이전 동작으로 복귀한다.
-    // [PR-5] strength.interaction.* (합충→신강약 주입, 기본 on)의 세부 기본값은
-    // rules/facts.ts readStrengthInteractionPolicy에 있다 — enabled:false로 완전 opt-out.
+    // [PR-5] strength.interaction.*의 기본 합충 계층은 on이다. 권위 분모가 없는
+    // seasonal/positional 확장 계층은 명시 opt-in이며, enabled:false로 전체 opt-out한다.
     strength: { model: 'deLingDiShi' },
     // [감사 B448 · PR-5 옵션 틀] 합충 보정 오행 분포 — 기본 off.
     // true로 켜면 summary.elementDistributionAdjusted가 additive로 산출될 뿐,
@@ -57,7 +57,6 @@ export class InvalidSchoolPresetSelectorError extends Error {
 }
 
 function parsePresetIds(x: unknown): string[] {
-  if (x === undefined) return [];
   const out: string[] = [];
 
   const add = (v: unknown) => {
@@ -65,8 +64,10 @@ function parsePresetIds(x: unknown): string[] {
     const t = v.trim();
     if (!t) throw new InvalidSchoolPresetSelectorError();
     // Allow simple composition: "a+b" or "a,b".
-    const parts = t.split(/[+,]/).map((s) => s.trim()).filter(Boolean);
-    if (parts.length === 0) throw new InvalidSchoolPresetSelectorError();
+    const parts = t.split(/[+,]/).map((s) => s.trim());
+    if (parts.length === 0 || parts.some((part) => part.length === 0)) {
+      throw new InvalidSchoolPresetSelectorError();
+    }
     out.push(...parts);
   };
 
@@ -103,7 +104,8 @@ export function normalizeConfig(input: Partial<EngineConfig> | unknown): EngineC
   // This keeps API stable while enabling new schools without code changes.
   const packs = resolveSchoolPresetPacks(migrated);
 
-  const presetRef: unknown = (() => {
+  const NO_PRESET_SELECTOR = Symbol('NO_PRESET_SELECTOR');
+  const presetRef: unknown | typeof NO_PRESET_SELECTOR = (() => {
     if (Object.prototype.hasOwnProperty.call(migrated as object, 'school')) {
       const school = (migrated as any).school;
       if (
@@ -118,17 +120,25 @@ export function normalizeConfig(input: Partial<EngineConfig> | unknown): EngineC
     }
 
     const ext: any = (migrated.extensions as any) ?? {};
-    const byExt = ext?.presets?.school ?? ext?.preset?.school ?? ext?.school;
-    if (byExt != null) return byExt;
+    for (const parentKey of ['presets', 'preset'] as const) {
+      const parent = ext?.[parentKey];
+      if (
+        parent
+        && typeof parent === 'object'
+        && !Array.isArray(parent)
+        && Object.prototype.hasOwnProperty.call(parent, 'school')
+      ) return parent.school;
+    }
+    if (Object.prototype.hasOwnProperty.call(ext, 'school')) return ext.school;
 
     const st: any = (migrated.strategies as any) ?? {};
-    const byStrat = st?.school ?? st?.schoolId;
-    if (byStrat != null) return byStrat;
+    if (Object.prototype.hasOwnProperty.call(st, 'school')) return st.school;
+    if (Object.prototype.hasOwnProperty.call(st, 'schoolId')) return st.schoolId;
 
-    return undefined;
+    return NO_PRESET_SELECTOR;
   })();
 
-  const presetIds = parsePresetIds(presetRef);
+  const presetIds = presetRef === NO_PRESET_SELECTOR ? [] : parsePresetIds(presetRef);
 
   let base: EngineConfig = defaultConfig;
   for (const id of presetIds) {

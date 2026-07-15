@@ -78,6 +78,13 @@ Run:
 npm run ci:no-ai-policy
 ```
 
+The CI command runs the policy's negative-test suite and binds the existing
+legacy `ai_missing_sourceTier` debt to an exact count and SHA-256 fingerprint.
+Adding, removing, renaming, or replacing any acknowledged row fails CI until
+the debt fingerprint is deliberately reviewed and updated. To run the raw
+zero-debt audit (which remains red until the legacy corpus is migrated), use
+`npm run audit:no-ai-policy:strict`.
+
 The gate scans:
 
 - `test/baseline/authority/**/*.json`

@@ -19,7 +19,11 @@ import { mod } from './mod.js';
 import type { DetectedRelation } from './branchRelations.js';
 import { samhapGroup } from './branchRelations.js';
 import type { StemRelation } from './stemRelations.js';
-import type { ElementDistribution } from './elementDistribution.js';
+import type {
+  ElementDistribution,
+  ElementDistributionPosition,
+  ElementDistributionPositionWeights,
+} from './elementDistribution.js';
 import type { HiddenStemWeightPolicy } from './hiddenStems.js';
 import { hiddenStemsOfBranch } from './hiddenStems.js';
 
@@ -52,6 +56,29 @@ export interface AdjustedElementDistribution extends ElementDistribution {
 
 const SAMHAP_EL: Record<string, Element> = { '0,4,8': 'WATER', '1,5,9': 'METAL', '2,6,10': 'FIRE', '3,7,11': 'WOOD' };
 const BANGHAP_EL: Record<string, Element> = { '2,3,4': 'WOOD', '5,6,7': 'FIRE', '8,9,10': 'METAL', '0,1,11': 'WATER' };
+const POSITIONS: readonly ElementDistributionPosition[] = ['year', 'month', 'day', 'hour'];
+
+function finiteNonNegative(value: number | undefined, fallback: number): number {
+  return typeof value === 'number' && Number.isFinite(value) && value >= 0 ? value : fallback;
+}
+
+function positionWeight(
+  weights: ElementDistributionPositionWeights | undefined,
+  position: ElementDistributionPosition,
+  fallback: number,
+): number {
+  return finiteNonNegative(weights?.[position], fallback);
+}
+
+function assertFiniteAdjustedDistribution(
+  vectors: Array<Record<Element, number>>,
+  adjustments: DistributionAdjustment[],
+): void {
+  const values = [...vectors.flatMap((vector) => Object.values(vector)), ...adjustments.map((item) => item.delta)];
+  if (!values.every(Number.isFinite)) {
+    throw new RangeError('interaction-adjusted element distribution produced a non-finite value');
+  }
+}
 
 function keyOf(members: BranchIdx[]): string {
   return [...members].sort((a, b) => a - b).join(',');
@@ -63,12 +90,15 @@ export function applyInteractionAdjustments(args: {
   stemRelations: StemRelation[];
   hiddenStemPolicy?: HiddenStemWeightPolicy;
   heavenStemWeight?: number;
+  branchTotalWeight?: number;
+  positionWeights?: ElementDistributionPositionWeights;
+  heavenPositionWeights?: ElementDistributionPositionWeights;
+  branchPositionWeights?: ElementDistributionPositionWeights;
   policy?: Partial<ElementInteractionPolicy>;
 }): AdjustedElementDistribution {
   const pol: ElementInteractionPolicy = { ...DEFAULT_ELEMENT_INTERACTION_POLICY, ...(args.policy ?? {}) };
-  const heavenW = typeof args.heavenStemWeight === 'number' && Number.isFinite(args.heavenStemWeight)
-    ? args.heavenStemWeight
-    : 1.0;
+  const heavenW = finiteNonNegative(args.heavenStemWeight, 1);
+  const branchW = finiteNonNegative(args.branchTotalWeight, 1);
 
   const zero = (): Record<Element, number> => ({ WOOD: 0, FIRE: 0, EARTH: 0, METAL: 0, WATER: 0 });
   const heaven = zero();
@@ -97,24 +127,31 @@ export function applyInteractionAdjustments(args: {
   for (let i = 0; i < 4; i++) {
     const s = mod(args.pillars[i]!.stem, 10) as StemIdx;
     const el = stemElement(s);
+    const position = POSITIONS[i]!;
+    const sharedPositionWeight = positionWeight(args.positionWeights, position, 1);
+    const baseWeight = heavenW * positionWeight(args.heavenPositionWeights, position, sharedPositionWeight);
     const damped = i !== 2 && hapStems.has(s);
-    const w = heavenW * (damped ? pol.hapgeoDamping : 1);
+    const w = baseWeight * (damped ? pol.hapgeoDamping : 1);
     heaven[el] += w;
     if (damped) {
-      adjustments.push({ kind: 'HAPGEO_DAMPING', element: el, delta: -(heavenW - w), source: `HAP@${i}` });
+      adjustments.push({ kind: 'HAPGEO_DAMPING', element: el, delta: -(baseWeight - w), source: `HAP@${i}` });
     }
   }
 
   // 지장간 기여
   for (let i = 0; i < 4; i++) {
     const b = branches[i]!;
+    const position = POSITIONS[i]!;
+    const sharedPositionWeight = positionWeight(args.positionWeights, position, 1);
+    const basePositionWeight = branchW * positionWeight(args.branchPositionWeights, position, sharedPositionWeight);
     const damped = chungValues.has(b);
     const factor = damped ? pol.chungDamping : 1;
     for (const h of hiddenStemsOfBranch(b, args.hiddenStemPolicy ?? { scheme: 'standard' })) {
       const el = stemElement(h.stem);
-      hidden[el] += h.weight * factor;
+      const baseWeight = basePositionWeight * h.weight;
+      hidden[el] += baseWeight * factor;
       if (damped) {
-        adjustments.push({ kind: 'CHUNG_DAMAGE', element: el, delta: -(h.weight * (1 - factor)), source: `CHUNG@${i}` });
+        adjustments.push({ kind: 'CHUNG_DAMAGE', element: el, delta: -(baseWeight * (1 - factor)), source: `CHUNG@${i}` });
       }
     }
   }
@@ -135,5 +172,6 @@ export function applyInteractionAdjustments(args: {
   for (const el of Object.keys(total) as Element[]) {
     total[el] = Math.max(0, heaven[el] + hidden[el]);
   }
+  assertFiniteAdjustedDistribution([heaven, hidden, total], adjustments);
   return { heaven, hidden, total, adjustments } as AdjustedElementDistribution;
 }

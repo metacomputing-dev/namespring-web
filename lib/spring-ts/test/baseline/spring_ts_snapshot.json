@@ -1,15 +1,15 @@
 {
   "version": "1.0.0",
-  "capturedAt": "2026-07-09T02:03:31.928Z",
+  "capturedAt": "2026-07-14T09:34:45.372Z",
   "targetDate": "2026-04-30T00:00:00.000Z",
   "fixtureCount": 17,
   "results": [
     {
       "id": "fix-01",
-      "label": "1986-04-19 male — 戊土 일간 (README example)",
+      "label": "1986-04-19 male — 癸水 일간 (README example)",
       "axis": [
         "normal",
-        "yang-earth",
+        "yin-water",
         "spring"
       ],
       "output": {
@@ -36,7 +36,7 @@
           "yongshinHeeshin": "WATER",
           "gyeokgukType": "식신격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.562957219251337,
+          "gyeokgukConfidence": 0.538903743315508,
           "deficientElements": [
             "EARTH",
             "METAL"
@@ -88,10 +88,10 @@
     },
     {
       "id": "fix-02",
-      "label": "1992-09-15 female — 壬水 일간, 가을",
+      "label": "1992-09-15 female — 甲木 일간, 가을",
       "axis": [
         "normal",
-        "yang-water",
+        "yang-wood",
         "autumn"
       ],
       "output": {
@@ -118,7 +118,7 @@
           "yongshinHeeshin": "WOOD",
           "gyeokgukType": "정관격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.9396000000000002,
+          "gyeokgukConfidence": 0.8700000000000001,
           "deficientElements": [],
           "excessiveElements": []
         },
@@ -168,7 +168,7 @@
       "label": "2000-01-01 00:30 male — 子時 boundary edge",
       "axis": [
         "jaza-edge",
-        "yang-water",
+        "yang-earth",
         "winter"
       ],
       "output": {
@@ -195,7 +195,7 @@
           "yongshinHeeshin": "METAL",
           "gyeokgukType": "정재격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.25982142857142854,
+          "gyeokgukConfidence": 0.3464285714285714,
           "deficientElements": [
             "METAL"
           ],
@@ -246,10 +246,10 @@
     },
     {
       "id": "fix-04",
-      "label": "1965-08-08 19:00 female — 丙火 일간, 종왕 후보 (강한 火)",
+      "label": "1965-08-08 19:00 female — 甲木 일간, 종왕 후보 (강한 木)",
       "axis": [
         "jonggwang-candidate",
-        "yang-fire",
+        "yang-wood",
         "summer"
       ],
       "output": {
@@ -276,7 +276,7 @@
           "yongshinHeeshin": "FIRE",
           "gyeokgukType": "편관격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.2993538461538462,
+          "gyeokgukConfidence": 0.33261538461538465,
           "deficientElements": [
             "EARTH"
           ],
@@ -330,7 +330,7 @@
       "label": "2005-12-25 06:00 male — 겨울 조후 case (한랭)",
       "axis": [
         "johu-winter",
-        "yin-wood",
+        "yin-water",
         "winter"
       ],
       "output": {
@@ -357,7 +357,7 @@
           "yongshinHeeshin": "FIRE",
           "gyeokgukType": "건록격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.23716216216216215,
+          "gyeokgukConfidence": 0.2635135135135135,
           "deficientElements": [
             "FIRE"
           ],
@@ -367,31 +367,31 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 80.5,
+            "finalScore": 80.9,
             "fullHangul": "정인수",
             "fullHanja": "鄭仁琇",
             "rank": 1
           },
           {
-            "finalScore": 80.5,
+            "finalScore": 80.9,
             "fullHangul": "정일정",
             "fullHanja": "鄭日珽",
             "rank": 2
           },
           {
-            "finalScore": 80.5,
+            "finalScore": 80.9,
             "fullHangul": "정일수",
             "fullHanja": "鄭日琇",
             "rank": 3
           },
           {
-            "finalScore": 80.3,
+            "finalScore": 80.7,
             "fullHangul": "정일정",
             "fullHanja": "鄭日晶",
             "rank": 4
           },
           {
-            "finalScore": 80.3,
+            "finalScore": 80.7,
             "fullHangul": "정일정",
             "fullHanja": "鄭日晸",
             "rank": 5
@@ -408,10 +408,10 @@
     },
     {
       "id": "fix-06",
-      "label": "1978-06-15 14:00 female — 庚金 일간, 여름",
+      "label": "1978-06-15 14:00 female — 戊土 일간, 여름",
       "axis": [
         "normal",
-        "yang-metal",
+        "yang-earth",
         "summer"
       ],
       "output": {
@@ -436,9 +436,9 @@
           "isStrong": true,
           "yongshinElement": "METAL",
           "yongshinHeeshin": "WATER",
-          "gyeokgukType": "양인격",
+          "gyeokgukType": "정인격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.35000000000000003,
+          "gyeokgukConfidence": 0.5111111111111111,
           "deficientElements": [
             "WOOD",
             "METAL",
@@ -519,9 +519,9 @@
           "isStrong": true,
           "yongshinElement": "EARTH",
           "yongshinHeeshin": "METAL",
-          "gyeokgukType": "월겁격",
+          "gyeokgukType": "정인격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.6168,
+          "gyeokgukConfidence": 0.565,
           "deficientElements": [
             "WOOD"
           ],
@@ -531,33 +531,33 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 78.9,
-            "fullHangul": "윤수반",
-            "fullHanja": "尹隧磻",
+            "finalScore": 78.3,
+            "fullHangul": "윤장만",
+            "fullHanja": "尹掌鏋",
             "rank": 1
           },
           {
-            "finalScore": 77.7,
-            "fullHangul": "윤정달",
-            "fullHanja": "尹珽獺",
+            "finalScore": 77.4,
+            "fullHangul": "윤장용",
+            "fullHanja": "尹掌鏞",
             "rank": 2
           },
           {
-            "finalScore": 77.6,
-            "fullHangul": "윤해진",
-            "fullHanja": "尹邂璡",
+            "finalScore": 77.4,
+            "fullHangul": "윤장정",
+            "fullHanja": "尹薔珽",
             "rank": 3
           },
           {
-            "finalScore": 77.1,
-            "fullHangul": "윤달수",
-            "fullHanja": "尹獺琇",
+            "finalScore": 77.4,
+            "fullHangul": "윤선장",
+            "fullHanja": "尹璿掌",
             "rank": 4
           },
           {
-            "finalScore": 77,
-            "fullHangul": "윤리규",
-            "fullHanja": "尹理奎",
+            "finalScore": 77.4,
+            "fullHangul": "윤용장",
+            "fullHanja": "尹鏞掌",
             "rank": 5
           }
         ],
@@ -575,7 +575,7 @@
       "label": "2020-08-23 female — 처서 boundary",
       "axis": [
         "jie-cheoseo",
-        "yin-earth",
+        "yang-earth",
         "late-summer"
       ],
       "output": {
@@ -602,7 +602,7 @@
           "yongshinHeeshin": "EARTH",
           "gyeokgukType": "식신격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.65625,
+          "gyeokgukConfidence": 0.905,
           "deficientElements": [],
           "excessiveElements": []
         },
@@ -679,7 +679,7 @@
           "yongshinHeeshin": "WOOD",
           "gyeokgukType": "편인격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.5875,
+          "gyeokgukConfidence": 0.5439814814814815,
           "deficientElements": [
             "WOOD",
             "WATER"
@@ -690,13 +690,13 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 77.6,
+            "finalScore": 77.5,
             "fullHangul": "최오정",
             "fullHanja": "崔鼇靖",
             "rank": 1
           },
           {
-            "finalScore": 77.6,
+            "finalScore": 77.5,
             "fullHangul": "최염정",
             "fullHanja": "崔鹽靖",
             "rank": 2
@@ -735,7 +735,7 @@
       "axis": [
         "jie-soseol",
         "winter-onset",
-        "yin-water"
+        "yang-earth"
       ],
       "output": {
         "namingReport": {
@@ -761,7 +761,7 @@
           "yongshinHeeshin": "WOOD",
           "gyeokgukType": "편재격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.6025367647058824,
+          "gyeokgukConfidence": 0.8033823529411764,
           "deficientElements": [
             "WOOD",
             "METAL"
@@ -817,7 +817,7 @@
       "axis": [
         "unknown-hour",
         "edge",
-        "yin-fire"
+        "yang-earth"
       ],
       "output": {
         "namingReport": {
@@ -841,9 +841,9 @@
           "isStrong": false,
           "yongshinElement": "FIRE",
           "yongshinHeeshin": "METAL",
-          "gyeokgukType": "건록격",
+          "gyeokgukType": "식신격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.2540192307692308,
+          "gyeokgukConfidence": 0.26717948717948714,
           "deficientElements": [
             "METAL"
           ],
@@ -898,7 +898,7 @@
       "axis": [
         "borderline-strength",
         "edge",
-        "yang-wood"
+        "yin-earth"
       ],
       "output": {
         "namingReport": {
@@ -924,7 +924,7 @@
           "yongshinHeeshin": "METAL",
           "gyeokgukType": "편관격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.9936,
+          "gyeokgukConfidence": 0.9199999999999999,
           "deficientElements": [
             "WATER"
           ],
@@ -1005,7 +1005,7 @@
           "yongshinHeeshin": "WOOD",
           "gyeokgukType": "정재격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 1,
+          "gyeokgukConfidence": 0.9636538461538462,
           "deficientElements": [
             "WATER"
           ],
@@ -1086,7 +1086,7 @@
           "yongshinHeeshin": "EARTH",
           "gyeokgukType": "정관격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.3340384615384615,
+          "gyeokgukConfidence": 0.3711538461538461,
           "deficientElements": [
             "WOOD",
             "FIRE",
@@ -1098,13 +1098,13 @@
         },
         "candidatesTop5": [
           {
-            "finalScore": 85.3,
+            "finalScore": 85.2,
             "fullHangul": "박수신",
             "fullHanja": "朴修辰",
             "rank": 1
           },
           {
-            "finalScore": 85.2,
+            "finalScore": 85.1,
             "fullHangul": "박구대",
             "fullHanja": "朴舊旲",
             "rank": 2
@@ -1169,7 +1169,7 @@
           "yongshinHeeshin": "WATER",
           "gyeokgukType": "편관격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 1,
+          "gyeokgukConfidence": 0.9750000000000001,
           "deficientElements": [
             "METAL",
             "WATER"
@@ -1251,7 +1251,7 @@
           "yongshinHeeshin": "FIRE",
           "gyeokgukType": "식신격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.24721153846153848,
+          "gyeokgukConfidence": 0.32961538461538464,
           "deficientElements": [
             "EARTH"
           ],
@@ -1330,7 +1330,7 @@
           "yongshinHeeshin": "WATER",
           "gyeokgukType": "식신격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.6624,
+          "gyeokgukConfidence": 0.6133333333333333,
           "deficientElements": [
             "EARTH"
           ],

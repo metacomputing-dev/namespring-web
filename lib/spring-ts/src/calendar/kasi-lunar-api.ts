@@ -3,7 +3,7 @@
  *
  * data.go.kr LrsrCldInfoService/getSpcifyLunCalInfo 로 음력→양력을 조회한다.
  * 기본 경로가 아니다 — 결정③에 따라 기본은 내장 테이블(korean-lunar-calendar.ts)이고,
- * 이 API는 교차 검증·내장 범위 밖 연도용 옵트인(precisionConfig.lunarConversionSource='kasi')이다.
+ * 이 API는 제품 보장 범위 안의 교차 검증용 옵트인(precisionConfig.lunarConversionSource='kasi')이다.
  * 서비스키 부재·네트워크 실패·타임아웃·브라우저 런타임이면 null을 반환하고
  * 호출자(saju-adapter resolveLunarConversion)가 내장 테이블로 폴백한다.
  *
@@ -57,6 +57,14 @@ function xmlItems(xml: string): string[] {
   return xml.match(/<item>[\s\S]*?<\/item>/g) ?? [];
 }
 
+function isValidSolarDate(year: number, month: number, day: number): boolean {
+  if (!Number.isInteger(year) || !Number.isInteger(month) || !Number.isInteger(day)) return false;
+  const date = new Date(Date.UTC(year, month - 1, day));
+  return date.getUTCFullYear() === year
+    && date.getUTCMonth() === month - 1
+    && date.getUTCDate() === day;
+}
+
 /**
  * 음력 → 양력 (KASI API). 실패 시 null (throw하지 않음).
  */
@@ -83,13 +91,16 @@ export async function kasiLunarToSolar(lunar: LunarDate, opts?: KasiCallOptions)
     const xml = await response.text();
     if (xmlField(xml, 'resultCode') !== '00') return null;
 
-    // 연 범위 검색이라 이듬해 동일 음력 월일이 함께 올 수 있다 — lunYear 필터 필수.
+    // 연 범위 검색은 오염 행을 포함할 수 있으므로 요청한 음력 tuple 전체를 대조한다.
     for (const item of xmlItems(xml)) {
       if (Number(xmlField(item, 'lunYear')) !== lunar.year) continue;
+      if (Number(xmlField(item, 'lunMonth')) !== lunar.month) continue;
+      if (Number(xmlField(item, 'lunDay')) !== lunar.day) continue;
+      if (xmlField(item, 'lunLeapmonth') !== (lunar.isLeapMonth ? '윤' : '평')) continue;
       const year = Number(xmlField(item, 'solYear'));
       const month = Number(xmlField(item, 'solMonth'));
       const day = Number(xmlField(item, 'solDay'));
-      if (Number.isInteger(year) && Number.isInteger(month) && Number.isInteger(day)) {
+      if (isValidSolarDate(year, month, day)) {
         return { year, month, day };
       }
     }

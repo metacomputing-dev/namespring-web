@@ -50,6 +50,7 @@ describe('life-stage root multipliers for deDi', () => {
 
     expect(deDiOf(base)?.lifeStageRoot).toBeUndefined();
     expect(deDiOf(explicitOff)?.lifeStageRoot).toBeUndefined();
+    expect(Object.hasOwn(deDiOf(base) ?? {}, 'lifeStageRoot')).toBe(false);
     expect(explicitOff.index).toBe(base.index);
     expect(deDiOf(explicitOff)?.score).toBe(deDiOf(base)?.score);
   });
@@ -93,5 +94,19 @@ describe('life-stage root multipliers for deDi', () => {
     expect(meta?.multipliers.GEON_ROK).toBeCloseTo(1.22, 12);
     expect(meta?.multipliers.JE_WANG).toBeCloseTo(1.28, 12);
     expect(Number.isFinite(deDiOf(weighted)?.score)).toBe(true);
+  });
+
+  it('fails closed when finite custom multipliers overflow the aggregate root score', () => {
+    expect(() => strengthOf({
+      lifeStageRoot: {
+        enabled: true,
+        multipliers: {
+          MOK_YOK: 1e308,
+          GEON_ROK: 1e308,
+          JE_WANG: 1e308,
+          JANG_SAENG: 1e308,
+        },
+      },
+    })).toThrow(RangeError);
   });
 });
