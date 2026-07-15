@@ -49,10 +49,10 @@ describe('strength facts model characterization', () => {
         "model": "base"
       },
       "deLingDiShi": {
-        "index": 0.522183819757746,
-        "support": 7.64570418181818,
+        "index": 0.5167334697218874,
+        "support": 7.532407272727272,
         "pressure": 2.4000000000000004,
-        "total": 10.04570418181818,
+        "total": 9.932407272727271,
         "components": {
           "companions": 4.6,
           "resources": 1,
@@ -61,8 +61,8 @@ describe('strength facts model characterization', () => {
           "officers": 1
         },
         "effectiveComponents": {
-          "companions": 6.2803998636363625,
-          "resources": 1.365304318181818,
+          "companions": 6.1873345454545445,
+          "resources": 1.3450727272727272,
           "outputs": 1.3,
           "wealth": 0.10000000000000002,
           "officers": 1
@@ -77,10 +77,10 @@ describe('strength facts model characterization', () => {
               "factor": 0.18
             },
             "deDi": {
-              "sameElement": 1.1799250000000003,
-              "resourceElement": 0.595,
-              "score": 1.5369250000000003,
-              "normalized": 0.6986022727272728,
+              "sameElement": 0.9250000000000002,
+              "resourceElement": 0.48999999999999994,
+              "score": 1.219,
+              "normalized": 0.5540909090909091,
               "factor": 0.14
             },
             "deShi": {
@@ -96,16 +96,16 @@ describe('strength facts model characterization', () => {
               }
             },
             "adjusted": {
-              "support": 7.64570418181818,
+              "support": 7.532407272727272,
               "pressure": 2.4000000000000004,
-              "total": 10.04570418181818
+              "total": 9.932407272727271
             },
             "interaction": {
               "branchDamageFactors": [
-                0.42500000000000004,
-                0.58175,
+                0.5,
+                0.35,
                 1,
-                0.85
+                0.7
               ],
               "resolved": [],
               "hui": {
@@ -113,13 +113,7 @@ describe('strength facts model characterization', () => {
                 "pressureBonus": 0,
                 "groups": []
               },
-              "stemBinds": [],
-              "pressureStemBinds": [],
-              "pressureStemBindPenalty": {
-                "score": 0,
-                "normalized": 0,
-                "factor": 0
-              }
+              "stemBinds": []
             }
           }
         }

@@ -1,6 +1,6 @@
 import type { EngineConfig } from '../api/types.js';
 import type { DetectedRelation, RelationType } from '../core/branchRelations.js';
-import { samhapGroup } from '../core/branchRelations.js';
+import { relationResolutionUnits, samhapGroup } from '../core/branchRelations.js';
 import type { BranchIdx, Element, StemIdx } from '../core/cycle.js';
 import { branchElement, stemElement } from '../core/cycle.js';
 import { controls, generates } from '../core/elements.js';
@@ -97,7 +97,12 @@ export interface StrengthFacts {
         /** 천간합 기반(羈絆)으로 감쇠된 투간 목록. */
         stemBinds: Array<{ pos: string; stem: StemIdx; factor: number }>;
         /** Visible officer stems whose pressure contribution was reduced by hap binding. */
-        pressureStemBinds: Array<{ pos: string; stem: StemIdx; tenGod: TenGod; factor: number; reduction: number }>;
+        pressureStemBinds?: Array<{ pos: string; stem: StemIdx; tenGod: TenGod; factor: number; reduction: number }>;
+        /**
+         * 관성 기반 감쇠를 raw 십성 원장이 아닌 득세와 같은 정규화·배율 층에
+         * 적용한 내역. factor는 pressure의 (1+f) 배율에서 차감된다.
+         */
+        pressureStemBindPenalty?: { score: number; normalized: number; factor: number };
       };
     };
 
@@ -145,11 +150,10 @@ export function banghapElementOf(members: BranchIdx[]): Element | null {
 // 설계 원칙:
 // - 감쇠·보정은 deLingDiShi의 (1+f) 배율 층에만 주입한다. hiddenStemsOfBranch·
 //   elementDistribution·tenGodScores는 절대 건드리지 않는다(이중 감쇠 + κ 파급 방지).
-// - relationsDetailed의 pairs가 있으면 궁위별 인접/원격 감쇠를 적용한다.
-//   pairs가 없는 직접 호출만 값 기반 members 폴백을 사용하므로 동일 지지 중복은
-//   그 폴백에서 함께 감쇠될 수 있다.
-// - seasonal 정책이 켜진 기본 경로는 왕상휴수 상태별 비대칭 감쇠를 적용한다.
-//   두 보정 모두 provisional 계수이므로 authority holdout 재캘리브레이션 대상이다.
+// - 기본 경로는 값 기반 균일 감쇠로 기존 판정을 보존한다.
+//   positional.enabled=true일 때만 pillarIndexes 기반 거리 차등을 적용한다.
+// - seasonal.enabled=true일 때만 왕상휴수 비대칭 감쇠를 적용한다.
+//   두 확장 경로는 전문가 승인 전까지 명시적 opt-in이다.
 
 interface StrengthInteractionPolicy {
   enabled: boolean;
@@ -160,7 +164,7 @@ interface StrengthInteractionPolicy {
     resolveByHap: boolean;
     resolveTypes: RelationType[];
     samePairHapResolves: boolean;
-    /** PR-10-2: 궁위 pairs 기반 인접/원격 차등 손상 — 현재 기본 on, 권위 캘리브레이션 대기. */
+    /** PR-10-2: 궁위 pairs 기반 인접/원격 차등 손상 — 명시 opt-in, 권위 캘리브레이션 대기. */
     positional: {
       enabled: boolean;
       /** 기둥 거리별 손상 강도 배율 — d1 인접 / d2 한 칸 건너 / d3 원격(년-시) */
@@ -181,7 +185,7 @@ interface StrengthInteractionPolicy {
     jaenghapFactor: number;
     applyToPressure: boolean;
   };
-  /** PR-10-1: 왕상휴수 연동 비대칭 뿌리 손상 — 현재 기본 on, 권위 캘리브레이션 대기. */
+  /** PR-10-1: 왕상휴수 연동 비대칭 뿌리 손상 — 명시 opt-in, 권위 캘리브레이션 대기. */
   seasonal: {
     enabled: boolean;
     /** 손상 강도 배율 — eff = 1 − (1 − f) × mult(state). mult<1 경감(왕상), >1 가중(수사). */
@@ -192,6 +196,9 @@ interface StrengthInteractionPolicy {
 function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
   const raw: any = pol?.interaction ?? {};
   const num = (v: any, d: number) => (typeof v === 'number' && Number.isFinite(v) ? v : d);
+  const unit = (v: any, d: number) => (
+    typeof v === 'number' && Number.isFinite(v) && v >= 0 && v <= 1 ? v : d
+  );
   const enabled = raw.enabled !== false; // PR-5 기본 on — 판정 변경(계측 절차 동반)
   const rootRaw: any = raw.root ?? {};
   const huiRaw: any = raw.hui ?? {};
@@ -218,9 +225,9 @@ function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
         : (['YUKHAP', 'SAMHAP'] as RelationType[]), // 반합의 해충력은 이설 커서 기본 제외 (hui 파국 판정과의 순환 방지)
       samePairHapResolves: rootRaw.samePairHapResolves !== false, // 巳申 동일쌍 합+형 → 형합 유정
       positional: {
-        // PR-10-2 기본 on (감사 B524) — 인접/원격 차등. 현재 main 대비 변화는
-        // REVIEW_REQUIRED이며 authority holdout 승인 전까지 provisional. enabled:false로 완전 opt-out.
-        enabled: rootRaw.positional?.enabled !== false,
+        // PR-10-2 (감사 B524) — 인접/원격 차등은 전문가 승인 전 명시적 opt-in.
+        // enabled:true일 때만 적용하며, 미지정/false는 기존 판정을 보존한다.
+        enabled: rootRaw.positional?.enabled === true,
         // 인접(d=1) 완전 성립 / 한 칸 건너(d=2) 절반 / 원격 년-시(d=3) 1/4 —
         // 자평 실무 인접성 통설의 보수 개시값 (계측 후 조정 전제).
         distanceScales: {
@@ -246,14 +253,16 @@ function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
     stemBind: {
       enabled: enabled && bindRaw.enabled !== false,
       // 합이불화 = 기반(묶임) — 역할 절반 상실 (감사 B531 표준: 현대 주류는 합화 거의 불인정).
-      factor: num(bindRaw.factor, 0.5),
-      jaenghapFactor: num(bindRaw.jaenghapFactor, 0.75), // 쟁합·투합은 합력 분산 → 감쇠 완화
-      applyToPressure: bindRaw.applyToPressure !== false,
+      factor: unit(bindRaw.factor, 0.5),
+      jaenghapFactor: unit(bindRaw.jaenghapFactor, 0.75), // 쟁합·투합은 합력 분산 → 감쇠 완화
+      // Pressure damping remains experimental until authority calibration and
+      // must be requested explicitly. Support-side stem binding is unchanged.
+      applyToPressure: bindRaw.applyToPressure === true,
     },
     seasonal: {
-      // PR-10-1 기본 on (감사 B434) — 왕상휴수 비대칭 감쇠. 현재 main 대비 변화는
-      // REVIEW_REQUIRED이며 authority holdout 승인 전까지 provisional. enabled:false로 완전 opt-out.
-      enabled: enabled && seasonalRaw.enabled !== false,
+      // PR-10-1 (감사 B434) — 왕상휴수 비대칭 감쇠는 전문가 승인 전 명시적 opt-in.
+      // enabled:true일 때만 적용하며, 미지정/false는 기존 판정을 보존한다.
+      enabled: enabled && seasonalRaw.enabled === true,
       // 왕한 오행의 뿌리는 충·형 손상을 30% 경감, 사(死)한 오행은 30% 가중 —
       // "왕상한 쪽이 덜 상한다"는 통설의 보수적 개시값 (계측 후 조정 전제).
       multipliers: {
@@ -270,7 +279,7 @@ function readStrengthInteractionPolicy(pol: any): StrengthInteractionPolicy {
 /** 충/형 손상 → 지지별 통근 감쇠 계수 (1.0 = 무손상). 탐합망충 해소 판정 포함.
  *  seasonal이 주어지고 enabled면 왕상휴수 비대칭(감사 B434)을 적용한다.
  *  pol.positional.enabled + relationsDetailed(pairs 보존)면 인접/원격 차등(감사 B524)을 적용한다.
- *  둘 다 현재 기본 on이며, 명시적 enabled:false일 때 기존 균일 감쇠 경로로 돌아간다. */
+ *  둘 다 명시 opt-in이며, 미지정/false일 때 기존 균일 감쇠 경로를 유지한다. */
 export function computeBranchInteractionFactors(
   branches: BranchIdx[],
   byType: Partial<Record<RelationType, BranchIdx[][]>>,
@@ -307,15 +316,6 @@ export function computeBranchInteractionFactors(
     return false;
   };
 
-  const samhyeongPairs = (members: BranchIdx[]): BranchIdx[][] => {
-    if (members.length !== 3) return [];
-    return [
-      [members[0]!, members[1]!],
-      [members[0]!, members[2]!],
-      [members[1]!, members[2]!],
-    ];
-  };
-
   // ── PR-10-2 (감사 B524/B538): 궁위 pairs 기반 인접/원격 차등 경로 ──
   // 해소(탐합망충)는 값 수준 그대로 둔다 — 탐지 자체가 값 기반이라 동일 값 중복에서
   // 위치별 해소 차이는 원리상 발생하지 않는다. 차등은 손상 강도(거리)에만 적용.
@@ -326,22 +326,22 @@ export function computeBranchInteractionFactors(
       const f = (pol.damageFactors as any)[rel.type];
       if (!(typeof f === 'number' && Number.isFinite(f) && f >= 0 && f < 1)) continue;
       const triplePairs = rel.type === 'SAMHYEONG'
-        ? samhyeongPairs(rel.members as BranchIdx[])
+        ? relationResolutionUnits(rel)
         : null;
       const unresolvedTriplePairs = triplePairs?.filter((pair) => !isResolved(pair));
       const unresolvedTriplePairKeys = new Set(
         unresolvedTriplePairs?.map((pair) => pair.join(',')) ?? [],
       );
+      if (triplePairs && unresolvedTriplePairs!.length === 0) {
+        resolved.push({ type: rel.type, members: rel.members as BranchIdx[] });
+        continue;
+      }
       if (triplePairs) {
         for (const pair of triplePairs) {
           if (!unresolvedTriplePairKeys.has(pair.join(','))) {
             resolved.push({ type: 'HYEONG', members: pair });
           }
         }
-      }
-      if (triplePairs && unresolvedTriplePairs!.length === 0) {
-        resolved.push({ type: rel.type, members: rel.members as BranchIdx[] });
-        continue;
       }
       if (!triplePairs && isResolved(rel.members as BranchIdx[])) {
         resolved.push({ type: rel.type, members: rel.members as BranchIdx[] });
@@ -397,17 +397,17 @@ export function computeBranchInteractionFactors(
     if (!(typeof f === 'number' && Number.isFinite(f) && f >= 0 && f < 1)) continue;
     for (const g of byType[t] ?? []) {
       if (t === 'SAMHYEONG') {
-        const pairs = samhyeongPairs(g as BranchIdx[]);
+        const pairs = relationResolutionUnits({ type: t, members: g as BranchIdx[] });
         const unresolvedPairs = pairs.filter((pair) => !isResolved(pair));
         const unresolvedPairKeys = new Set(unresolvedPairs.map((pair) => pair.join(',')));
+        if (unresolvedPairs.length === 0) {
+          resolved.push({ type: t, members: g as BranchIdx[] });
+          continue;
+        }
         for (const pair of pairs) {
           if (!unresolvedPairKeys.has(pair.join(','))) {
             resolved.push({ type: 'HYEONG', members: pair });
           }
-        }
-        if (unresolvedPairs.length === 0) {
-          resolved.push({ type: t, members: g as BranchIdx[] });
-          continue;
         }
         const activeMembers = new Set(unresolvedPairs.flat() as number[]);
         for (let i = 0; i < branches.length; i++) {
@@ -505,19 +505,24 @@ function stemHapBindFactor(
   return 1;
 }
 
-function boundOfficerPressure(args: {
+function computeOfficerBindPenalty(args: {
   dayMasterStem: StemIdx;
-  stems: Array<{ pos: 'year' | 'month' | 'hour'; stem: StemIdx }>;
+  stems: Array<{ pos: 'year' | 'month' | 'hour'; stem: StemIdx; w: number }>;
   transformations: any;
   pol: StrengthInteractionPolicy['stemBind'];
-  officers: number;
+  norm: number;
+  scale: number;
 }): {
-  officers: number;
+  score: number;
+  normalized: number;
+  factor: number;
   binds: Array<{ pos: string; stem: StemIdx; tenGod: TenGod; factor: number; reduction: number }>;
 } {
-  if (!args.pol.enabled || !args.pol.applyToPressure || args.officers <= 0) return { officers: args.officers, binds: [] };
+  if (!args.pol.enabled || !args.pol.applyToPressure) {
+    return { score: 0, normalized: 0, factor: 0, binds: [] };
+  }
 
-  let reduction = 0;
+  let score = 0;
   const binds: Array<{ pos: string; stem: StemIdx; tenGod: TenGod; factor: number; reduction: number }> = [];
   for (const s0 of args.stems) {
     const tenGod = tenGodOf(args.dayMasterStem, s0.stem);
@@ -527,11 +532,17 @@ function boundOfficerPressure(args: {
     if (factor >= 1) continue;
 
     const entryReduction = 1 - factor;
-    reduction += entryReduction;
+    score += s0.w * entryReduction;
     binds.push({ pos: s0.pos, stem: s0.stem, tenGod, factor, reduction: entryReduction });
   }
 
-  return { officers: Math.max(0, args.officers - Math.min(args.officers, reduction)), binds };
+  const normalized = clamp01(score / Math.max(1e-9, args.norm));
+  return {
+    score,
+    normalized,
+    factor: normalized * Math.max(0, args.scale),
+    binds,
+  };
 }
 
 type StrengthRootPosition = 'year' | 'month' | 'day' | 'hour';
@@ -637,7 +648,7 @@ export function computeStrengthFacts(args: {
     ];
 
     // PR-5 (감사 B448/B510): 충/형 손상 → 통근 감쇠 (탐합망충 해소 포함).
-    // PR-10-1 (감사 B434): 현재 기본 on인 왕상휴수 비대칭 보정 재료.
+    // PR-10-1 (감사 B434): opt-in 왕상휴수 비대칭 보정 재료.
     const interactionPol = readStrengthInteractionPolicy(pol);
     const rootDamage = computeBranchInteractionFactors(
       args.branches,
@@ -675,6 +686,9 @@ export function computeStrengthFacts(args: {
       }
     }
     const diScore = Math.max(0, same + rootResAlpha * res);
+    if (![same, res, diScore].every(Number.isFinite)) {
+      throw new RangeError('life-stage root multipliers produced a non-finite strength score');
+    }
     const diNormed = clamp01(diScore / Math.max(1e-9, rootNorm));
     const diFactor = diNormed * diScale;
 
@@ -710,16 +724,18 @@ export function computeStrengthFacts(args: {
     );
 
     const supportAdj = Math.max(0, base.support * (1 + lingFactor + diFactor + shiFactor + hui.supportBonus));
-    const officerPressure = boundOfficerPressure({
+    const officerBind = computeOfficerBindPenalty({
       dayMasterStem: args.dayMasterStem,
       stems: stemsOther,
       transformations: args.transformations,
       pol: interactionPol.stemBind,
-      officers: base.components.officers,
+      norm: shiNorm,
+      scale: shiScale,
     });
-    // Hui pressure remains a pressure-side multiplier; stem bind only reduces visible officer stems.
-    const pressureBase = base.components.outputs + base.components.wealth + officerPressure.officers;
-    const pressureAdj = Math.max(0, pressureBase * (1 + hui.pressureBonus));
+    // 상호작용은 원장(base.components)을 바꾸지 않고 (1+f) 배율 층에서만 적용한다.
+    // 관성 기반도 득세와 같은 position weight → shiNorm → shiScale 경로를 사용한다.
+    const pressureBase = base.components.outputs + base.components.wealth + base.components.officers;
+    const pressureAdj = Math.max(0, pressureBase * Math.max(0, 1 + hui.pressureBonus - officerBind.factor));
     const totalAdj = supportAdj + pressureAdj;
     const indexAdj = totalAdj <= 0 ? 0 : (supportAdj - pressureAdj) / totalAdj;
     const supportScale = base.support > 0 ? supportAdj / base.support : 0;
@@ -729,9 +745,8 @@ export function computeStrengthFacts(args: {
       resources: base.components.resources * supportScale,
       outputs: base.components.outputs * pressureScale,
       wealth: base.components.wealth * pressureScale,
-      officers: officerPressure.officers * pressureScale,
+      officers: base.components.officers * pressureScale,
     };
-
     return {
       index: indexAdj,
       support: supportAdj,
@@ -750,13 +765,7 @@ export function computeStrengthFacts(args: {
             normalized: diNormed,
             factor: diScale,
             ...(lifeStageRootPol.enabled
-              ? {
-                  lifeStageRoot: {
-                    enabled: true,
-                    multipliers: lifeStageRootPol.multipliers,
-                    branches: lifeStageRootBranches,
-                  },
-                }
+              ? { lifeStageRoot: { enabled: true, multipliers: lifeStageRootPol.multipliers, branches: lifeStageRootBranches } }
               : {}),
           },
           deShi: { sameElement: shiSame, resourceElement: shiRes, score: shiScore, normalized: shiNormed, factor: shiScale, positionWeights: posW },
@@ -768,7 +777,16 @@ export function computeStrengthFacts(args: {
                 resolved: rootDamage.resolved,
                 hui: { supportBonus: hui.supportBonus, pressureBonus: hui.pressureBonus, groups: hui.groups },
                 stemBinds,
-                pressureStemBinds: officerPressure.binds,
+                ...(interactionPol.stemBind.applyToPressure
+                  ? {
+                      pressureStemBinds: officerBind.binds,
+                      pressureStemBindPenalty: {
+                        score: officerBind.score,
+                        normalized: officerBind.normalized,
+                        factor: officerBind.factor,
+                      },
+                    }
+                  : {}),
               }
             : undefined,
         },
@@ -818,7 +836,6 @@ export function computeStrengthFacts(args: {
     wealth: base.components.wealth,
     officers: base.components.officers,
   };
-
   return {
     index: indexAdj,
     support: supportAdj,
