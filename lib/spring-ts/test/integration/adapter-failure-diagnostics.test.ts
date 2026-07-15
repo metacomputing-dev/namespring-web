@@ -1,5 +1,6 @@
 import {
   analyzeSajuSafe,
+  buildSajuContext,
   emptySaju,
   resolveNeutralGenderAnalysis,
 } from '../../src/saju-adapter.js';
@@ -24,8 +25,13 @@ function assertFailureMapping(
 ): void {
   const summary = emptySaju(reasonCode);
   const diagnostic = summary.diagnostics?.[0];
+  const context = buildSajuContext(summary);
   check(`${reasonCode}: status`, summary.analysisStatus === expectedStatus, String(summary.analysisStatus));
   check(`${reasonCode}: reason code`, diagnostic?.reasonCode === reasonCode, diagnostic?.reasonCode);
+  check(`${reasonCode}: empty summary has no fabricated yongshin`, summary.yongshin.element === '');
+  check(`${reasonCode}: failure cannot create a scoring context`, context.output === null);
+  check(`${reasonCode}: failure distribution stays empty`,
+    Object.values(context.dist).every((value) => value === 0));
   check(`${reasonCode}: safe message`,
     typeof diagnostic?.message === 'string'
       && diagnostic.message.length > 0
@@ -51,6 +57,8 @@ const success = await analyzeSajuSafe({
 check('successful analysis remains enabled', success.sajuEnabled === true);
 check('successful summary does not gain analysisStatus', !('analysisStatus' in success.summary));
 check('successful safe result does not gain diagnostics', !('diagnostics' in success));
+check('successful analysis creates a scoring context',
+  buildSajuContext(success.summary).output !== null);
 const provenanceCandidate = success.summary.gyeokguk.candidates?.[0];
 check('candidate keeps the upstream human interpretation',
   provenanceCandidate?.sourceTier.humanInterpretation.startsWith('Derived from saju-ts') === true,
@@ -104,6 +112,8 @@ check('one-sided neutral comparison keeps a usable day-master payload',
 check('one-sided neutral note names the incomplete path without claiming both completed',
   partialNeutral.interpretationNote?.includes('여성 기준 계산은 완료되지 않았습니다') === true
     && !partialNeutral.interpretationNote.includes('남녀 기준을 모두 계산'));
+check('one-sided neutral analysis cannot create a scoring context',
+  buildSajuContext(partialNeutral.summary).output === null);
 
 for (const code of [
   'SAJU_INVALID_SCHOOL_PRESET_SELECTOR',
@@ -133,6 +143,8 @@ check('unknown school preset remains disabled and preserves its structured reaso
     && unknownPreset.diagnostics?.[0]?.reasonCode === 'SAJU_UNKNOWN_SCHOOL_PRESET');
 check('unknown school preset diagnostic exposes only a safe message',
   unknownPreset.diagnostics?.[0]?.message.includes('missing.school') === false);
+check('unknown school preset cannot create a scoring context',
+  buildSajuContext(unknownPreset.summary).output === null);
 
 const invalidPresetSelector = await analyzeSajuSafe({
   year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male',
@@ -147,6 +159,8 @@ check('malformed school preset selector diagnostic exposes only a safe message',
   invalidPresetSelector.diagnostics?.[0]?.message.includes('123') === false);
 
 assertFailureMapping('SAJU_MODULE_UNAVAILABLE', 'unavailable');
+assertFailureMapping('BIRTH_DATE_INVALID', 'failed');
+assertFailureMapping('BIRTH_TIME_INVALID', 'failed');
 assertFailureMapping('LUNAR_INPUT_INSUFFICIENT', 'partial');
 assertFailureMapping('NEUTRAL_GENDER_ANALYSIS_PARTIAL', 'partial');
 assertFailureMapping('NEUTRAL_GENDER_ANALYSIS_FAILED', 'failed');

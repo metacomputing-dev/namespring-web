@@ -19,6 +19,8 @@ import { getDailyFortune } from '../../src/report/common/fortuneCalculator.js';
 import { buildPeriodMeta } from '../../src/report/tiered/period-meta-builder.js';
 import { buildFeatureVector } from '../../src/report/tiered/feature-selector.js';
 import { buildFortuneReport } from '../../src/report/buildFortuneReport.js';
+import { FortuneReportBuildError } from '../../src/report/report-input-contract.js';
+import { analyzeSajuSafe } from '../../src/saju-adapter.js';
 
 let pass = 0;
 let fail = 0;
@@ -223,9 +225,16 @@ check('primitive interval row is normalized to a range error',
     null,
   ] as any, liChun)));
 
+const validAnalysis = await analyzeSajuSafe({
+  year: 1986,
+  month: 4,
+  day: 19,
+  hour: 5,
+  minute: 45,
+  gender: 'male',
+});
 const ambiguousSaju = {
-  dayMaster: { element: 'WOOD' },
-  yongshin: { element: 'WATER' },
+  ...validAnalysis.summary,
   saeunPillars: [
     { year: 2026, stem: 'GAP', branch: 'JA', startUtcMs: liChun - 10, endUtcMs: liChun + 10 },
     { year: 2026, stem: 'EUL', branch: 'CHUK', startUtcMs: liChun - 5, endUtcMs: liChun + 5 },
@@ -258,6 +267,7 @@ check('period monthly card rejects a malformed selected pillar',
 check('category cards reject a malformed selected year pillar',
   throwsRangeError(() => buildCategoryFortuneCards(malformedPillarSaju, boundaryTarget)));
 let topLevelRejected = false;
+let topLevelError: unknown = null;
 const originalConsoleError = console.error;
 try {
   // The deliberately minimal fixture triggers unrelated card fallbacks; keep
@@ -265,11 +275,20 @@ try {
   console.error = () => {};
   await buildFortuneReport(ambiguousSaju, boundaryTarget, null);
 } catch (error) {
-  topLevelRejected = error instanceof RangeError;
+  topLevelError = error;
+  topLevelRejected = error instanceof FortuneReportBuildError
+    && error.cause instanceof RangeError;
 } finally {
   console.error = originalConsoleError;
 }
-check('top-level fortune report does not swallow ambiguous intervals', topLevelRejected);
+check(
+  'top-level fortune report does not swallow ambiguous intervals',
+  topLevelRejected,
+  topLevelError instanceof FortuneReportBuildError
+    ? `component=${topLevelError.component}, cause=${topLevelError.cause instanceof Error
+      ? topLevelError.cause.constructor.name : typeof topLevelError.cause}`
+    : `error=${topLevelError instanceof Error ? topLevelError.constructor.name : typeof topLevelError}`,
+);
 
 console.log(`\nFortune request guards: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);

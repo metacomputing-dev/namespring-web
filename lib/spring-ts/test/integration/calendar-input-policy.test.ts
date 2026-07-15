@@ -85,6 +85,7 @@ check('용신 동일', lunarBirth.summary.yongshin.element === solarBirth.summar
 check('양력 입력 리포트에는 lunarConversion 키가 없다',
   !('lunarConversion' in (solarBirth.summary as Record<string, unknown>)));
 
+// ── 3. 윤달 여부가 모호한 입력은 추정하지 않고 fail-closed ──
 const ambiguousLeapMonth = await analyzeSajuSafe({
   year: 2025, month: 6, day: 1, hour: 9, minute: 30,
   gender: 'female', calendarType: 'lunar', timezone: 'Asia/Seoul',
@@ -115,7 +116,68 @@ check('명시적 윤달 플래그는 동일 월일의 다른 양력 날짜를 �
     && conversion?.solar?.month === 7
     && conversion?.solar?.day === 25);
 
-// ── 3. 변환 불가 경로만 비활성 ──
+// ── 4. 존재하지 않는 양력 날짜는 Date 정규화 전에 fail-closed ──
+for (const invalidDate of [
+  { year: 2025, month: 2, day: 29 },
+  { year: 2025, month: 4, day: 31 },
+  { year: 2024, month: 2, day: 30 },
+]) {
+  const result = await analyzeSajuSafe({
+    ...invalidDate,
+    hour: 12,
+    minute: 0,
+    gender: 'male',
+    calendarType: 'solar',
+    timezone: 'Asia/Seoul',
+  });
+  check(`존재하지 않는 양력 ${invalidDate.year}-${invalidDate.month}-${invalidDate.day}은 비활성`,
+    result.sajuEnabled === false
+      && result.analysisStatus === 'failed'
+      && result.diagnostics?.[0]?.reasonCode === 'BIRTH_DATE_INVALID');
+}
+
+const validLeapDay = await analyzeSajuSafe({
+  year: 2024, month: 2, day: 29, hour: 12, minute: 0,
+  gender: 'female', calendarType: 'solar', timezone: 'Asia/Seoul',
+});
+check('실제 윤일 2024-02-29는 활성', validLeapDay.sajuEnabled === true);
+
+for (const invalidTime of [
+  { hour: 24, minute: 0 },
+  { hour: -1, minute: 0 },
+  { hour: 12, minute: 60 },
+  { hour: '12' as unknown as number, minute: 0 },
+  { hour: 12, minute: '' as unknown as number },
+]) {
+  const result = await analyzeSajuSafe({
+    year: 2025, month: 3, day: 3,
+    ...invalidTime,
+    gender: 'male', calendarType: 'solar', timezone: 'Asia/Seoul',
+  });
+  check(`명시적으로 잘못된 시각 ${JSON.stringify(invalidTime)}은 비활성`,
+    result.sajuEnabled === false
+      && result.analysisStatus === 'failed'
+      && result.diagnostics?.[0]?.reasonCode === 'BIRTH_TIME_INVALID');
+}
+
+const unknownTime = await analyzeSajuSafe({
+  year: 2025, month: 3, day: 3, hour: null, minute: null,
+  gender: 'male', calendarType: 'solar', timezone: 'Asia/Seoul',
+});
+check('누락 또는 null인 출생 시각만 unknown-hour 경로로 허용',
+  unknownTime.sajuEnabled === true
+    && unknownTime.summary.inputUncertainty?.unknownHour?.fallbackHour === 12
+    && unknownTime.summary.inputUncertainty?.unknownHour?.fallbackMinute === 0);
+
+const normalizedTarget = await analyzeSajuSafe({
+  year: 2025, month: 3, day: 3, hour: 12, minute: 0,
+  gender: 'male', calendarType: 'solar', timezone: 'Asia/Seoul',
+});
+check('잘못된 2025-02-31이 2025-03-03 사주로 정규화되지 않는다',
+  normalizedTarget.sajuEnabled === true
+    && normalizedTarget.summary.dayMaster.element !== '');
+
+// ── 5. 변환 불가 음력 경로만 비활성 ──
 const outOfRange = await analyzeSajuSafe({
   year: 1850, month: 1, day: 1, hour: 12, minute: 0,
   gender: 'male', calendarType: 'lunar', timezone: 'Asia/Seoul',

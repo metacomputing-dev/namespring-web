@@ -1,5 +1,8 @@
 import assert from 'node:assert/strict';
-import { scoreAxisFromDimension } from '../../scripts/rpi-scoring.js';
+import {
+  scoreAccuracyAxisFromDimension,
+  scoreAxisFromDimension,
+} from '../../scripts/rpi-scoring.js';
 
 const partial = scoreAxisFromDimension({
   dimensions: {
@@ -25,5 +28,15 @@ const unavailable = scoreAxisFromDimension({
 }, 'D5', 15, 'not measured');
 assert.equal(unavailable.status, 'NOT_MEASURED');
 assert.equal(unavailable.score, 0);
+
+const truthInsufficient = scoreAccuracyAxisFromDimension({
+  dimensions: {
+    D5: { pass: 0, fail: 0, na: 14, notApplicable: 3, status: 'N/A' },
+  },
+}, 'D5', 15, 'eligible calculation truth is unavailable');
+assert.equal(truthInsufficient.status, 'INSUFFICIENT_TRUTH');
+assert.equal(truthInsufficient.score, 0);
+assert.equal(truthInsufficient.coverageRate, 0);
+assert.equal(truthInsufficient.notApplicable, 3);
 
 console.log('RPI partial coverage scoring: PASS');

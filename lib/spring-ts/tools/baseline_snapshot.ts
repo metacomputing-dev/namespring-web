@@ -29,6 +29,34 @@ const FIXTURES_PATH = path.resolve(SPRING_TS_ROOT, 'test/fixtures/spring_ts_base
 const SNAPSHOT_PATH = path.resolve(SPRING_TS_ROOT, 'test/baseline/spring_ts_snapshot.json');
 const SNAPSHOT_TARGET_DATE = '2026-04-30T00:00:00.000Z';
 
+function collectSurfacedCardTypes(report: any): string[] {
+  const tokens = new Set<string>();
+  const evidenceRows = [
+    report?.overviewSummary?.evidence,
+    report?.lifeFortuneOverview?.evidence,
+    report?.personality?.evidence,
+    report?.strengthsWeaknesses?.evidence,
+    report?.cautions?.evidence,
+    report?.lifeStageFortune?.evidence,
+  ].flatMap((rows) => Array.isArray(rows) ? rows : []);
+  for (const row of evidenceRows) {
+    if (row?.axis === 'gyeokguk') tokens.add('gyeokguk');
+    if (row?.axis === 'yongshin') {
+      tokens.add('yongshin');
+      const features = Array.isArray(row.supportingFeatures) ? row.supportingFeatures : [];
+      if (features.some((value) => typeof value === 'string' && value.includes('조후:'))) {
+        tokens.add('johu');
+      }
+    }
+    if (row?.axis === 'tenGod' || row?.axis === 'tenGodPosition') tokens.add('sipsin');
+    if (row?.axis === 'daewoon') tokens.add('daewoon');
+  }
+  if (report?.insightFacts?.facts?.some?.((fact: any) => fact?.kind === 'shinsal')) {
+    tokens.add('shinsal');
+  }
+  return [...tokens].sort();
+}
+
 // ── fetch patch (same pattern as test/compare-output.ts) ──────────────────
 const originalFetch = globalThis.fetch;
 (globalThis as any).fetch = async (url: string | URL | Request, options?: any) => {
@@ -73,6 +101,9 @@ interface FixtureSnapshot {
   id: string;
   label: string;
   axis: string[];
+  qualityEvidence: {
+    surfacedCardTypes: string[];
+  };
   output: Record<string, unknown>;
 }
 
@@ -122,6 +153,9 @@ async function runFixtures(): Promise<SnapshotFile> {
       id: fix.id,
       label: fix.label,
       axis: fix.axis,
+      qualityEvidence: {
+        surfacedCardTypes: collectSurfacedCardTypes(fortuneReport),
+      },
       output: {
         namingReport: {
           totalScore: namingReport.totalScore,

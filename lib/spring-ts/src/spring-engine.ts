@@ -46,6 +46,8 @@ import type {
 import engineConfig from '../config/engine.json';
 import { buildFortuneReport } from './report/buildFortuneReport.js';
 import type { FortuneReportRequest, FortuneReport } from './report/types.js';
+import { assertScorableSajuSummary, isScorableSajuSummary } from './saju-analysis-contract.js';
+import { resolveFortuneTargetDate } from './report/report-input-contract.js';
 import { getLegalAnnotation, normalizeToOrthodoxHanja, type HanjaLegalStatus, type HanjaPool } from './hanja-annotations.js';
 import {
   SajuRequestValidationError,
@@ -2351,6 +2353,12 @@ export class SpringEngine {
         hanjaPool: this.resolveHanjaPool(request.options),
         schoolPreset: this.resolveSchoolPresetMeta(request.options),
         candidateRejections: this.candidateRejectionSummary(),
+        sajuAnalysis: {
+          enabled: isScorableSajuSummary(sajuSummary),
+          generationMode: isScorableSajuSummary(sajuSummary) ? 'saju_guided' : 'name_only',
+          ...(sajuSummary.analysisStatus ? { status: sajuSummary.analysisStatus } : {}),
+          ...(sajuSummary.diagnostics?.length ? { diagnostics: sajuSummary.diagnostics } : {}),
+        },
       },
     };
   }
@@ -2512,18 +2520,26 @@ export class SpringEngine {
     const nameLength     = request.givenNameLength ?? jamoFilters?.length ?? 2;
     const hasJamoFilter  = jamoFilters?.some(filter => filter !== null) ?? false;
 
-    // Determine which elements to favour / avoid based on saju analysis
-    const targetElements = collectElements(
-      sajuSummary.yongshin.element,
-      sajuSummary.yongshin.heeshin,
-      sajuSummary.deficientElements,
-    );
-    const avoidElements = collectElements(
-      sajuSummary.yongshin.gishin,
-      sajuSummary.yongshin.gushin,
-      sajuSummary.excessiveElements,
-    );
-    if (targetElements.size === 0) targetElements.add(DEFAULT_TARGET_ELEMENT);
+    // A failed or partial analysis must not be converted into the configured
+    // default element. In that case generation is explicitly name-only.
+    const hasSajuGuidance = isScorableSajuSummary(sajuSummary);
+    const targetElements = hasSajuGuidance
+      ? collectElements(
+          sajuSummary.yongshin.element,
+          sajuSummary.yongshin.heeshin,
+          sajuSummary.deficientElements,
+        )
+      : new Set<string>();
+    const avoidElements = hasSajuGuidance
+      ? collectElements(
+          sajuSummary.yongshin.gishin,
+          sajuSummary.yongshin.gushin,
+          sajuSummary.excessiveElements,
+        )
+      : new Set<string>();
+    if (hasSajuGuidance && targetElements.size === 0) {
+      targetElements.add(DEFAULT_TARGET_ELEMENT);
+    }
 
     // Build per-position character pools
     const pools = await this.buildPositionPools(
@@ -2905,7 +2921,7 @@ export class SpringEngine {
     // 1. Reject malformed or unbounded horizons before database or astronomy work.
     const birthYear = request.birth.year;
     if (typeof birthYear !== 'number' || !Number.isInteger(birthYear)) {
-      throw new SajuRequestValidationError('birth year must be a finite integer');
+      throw new SajuRequestValidationError('birth year must be a finite integer', 'BIRTH_DATE_INVALID');
     }
     const targetDate = parseFortuneTargetDate(request.targetDate, request.birth);
     const reportOptions = optionsForFortuneTarget(request.options, targetDate, birthYear);
@@ -2930,6 +2946,7 @@ export class SpringEngine {
       );
     }
     const saju: SajuSummary = sajuReport;
+    assertScorableSajuSummary(sajuReport);
 
     // 3. Optionally run spring report if name is provided
     let springReport: SpringReport | null = null;

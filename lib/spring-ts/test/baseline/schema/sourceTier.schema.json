@@ -26,9 +26,17 @@
       "description": "Stable source class such as official_api, primary_text, lecture, training_derived, or reference_implementation."
     },
     "sourceUrl": {
-      "type": ["string", "null"],
-      "format": "uri",
-      "description": "Canonical public URL when available. Null is allowed for local user-provided or implementation-derived artifacts."
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://[^@/?#]+(?:[/?#]|$)"
+        }
+      ],
+      "description": "Credential-free HTTPS locator metadata when available. URL presence is never sufficient for T4 authority eligibility. Null is allowed for local user-provided or implementation-derived artifacts."
     },
     "accessedAt": {
       "type": "string",
@@ -43,7 +51,7 @@
     "humanInterpretation": {
       "type": "string",
       "minLength": 1,
-      "description": "Human-authored summary of how the source supports this fixture or rule."
+      "description": "Interpretive summary of how the source supports this fixture or rule. Authorship is disclosed separately by sourceType and aiGenerated."
     },
     "copyrightNote": {
       "type": "string",
@@ -54,6 +62,77 @@
       "type": "boolean",
       "description": "True only when this record may be used in pass/fail authority accuracy denominators."
     },
+    "aiGenerated": {
+      "type": "boolean",
+      "description": "Explicit AI provenance disclosure. Required and true for panel-adjudicated interpretation records."
+    },
+    "panelAdjudication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "models",
+        "scopes",
+        "adversarialVerification",
+        "dossier",
+        "recordId",
+        "contentDigest"
+      ],
+      "properties": {
+        "models": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["provider", "family", "version"],
+                "properties": {
+                  "provider": { "const": "anthropic" },
+                  "family": { "const": "claude" },
+                  "version": { "const": "5" }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["provider", "family", "version"],
+                "properties": {
+                  "provider": { "const": "openai" },
+                  "family": { "const": "gpt" },
+                  "version": { "const": "5" }
+                }
+              }
+            ]
+          }
+        },
+        "scopes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "const": "saju_doctrine" },
+          "description": "Exact denominator scopes bound to the full panel record. AI panels are currently limited to reviewed saju doctrine claims."
+        },
+        "adversarialVerification": { "const": true },
+        "dossier": {
+          "type": "string",
+          "pattern": "^docs/dossiers/.+",
+          "description": "Repository-relative dossier directory. Runtime policy also verifies containment and existence."
+        },
+        "recordId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Exact identifier of the authority record reviewed by the panel."
+        },
+        "contentDigest": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$",
+          "description": "Canonical digest of the full authority record excluding only this self-referential contentDigest field."
+        }
+      }
+    },
     "authorityReview": {
       "type": "object",
       "additionalProperties": false,
@@ -63,7 +142,7 @@
         "reviewedBy": { "type": "string", "minLength": 1 },
         "reviewedAt": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" }
       },
-      "description": "Independent review evidence required before T3 authored interpretations can enter authority denominators."
+      "description": "Owner accountability and review metadata. This field does not authenticate reviewer identity or constitute external expert certification."
     }
   },
   "allOf": [
@@ -77,6 +156,46 @@
       },
       "then": {
         "required": ["authorityReview"]
+      }
+    },
+    {
+      "if": {
+        "allOf": [
+          {
+            "properties": {
+              "sourceType": { "const": "ai_panel_adjudicated_interpretation" }
+            },
+            "required": ["sourceType"]
+          },
+          {
+            "anyOf": [
+              {
+                "properties": {
+                  "authorityTruthEligible": { "const": true }
+                },
+                "required": ["authorityTruthEligible"]
+              },
+              {
+                "properties": {
+                  "tier": { "pattern": "^T[3-5]_" }
+                },
+                "required": ["tier"]
+              }
+            ]
+          }
+        ]
+      },
+      "then": {
+        "required": [
+          "aiGenerated",
+          "panelAdjudication",
+          "authorityReview"
+        ],
+        "properties": {
+          "tier": { "const": "T3_AUTHORED_INTERPRETATION" },
+          "aiGenerated": { "const": true },
+          "authorityTruthEligible": { "const": true }
+        }
       }
     }
   ]

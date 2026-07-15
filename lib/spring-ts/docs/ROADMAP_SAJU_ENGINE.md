@@ -9,10 +9,17 @@
 >
 > 브랜치: `feature/saju-engine-integrity-audit` (P0-1 머지 전까지). 진행 상태는 §9 표에 커밋 해시와 함께 갱신한다.
 >
-> **2026-07-10 merge-readiness 정정:** PR #653은 Draft를 유지한다. 회귀 테스트 통과는
-> 필요조건일 뿐 전문가급 판정의 충분조건이 아니다. `D1~D4=N/A`, `D5=PARTIAL(8/17)`,
-> 독립 검토 없는 T3 authority 25건, 종격 비교 가능 birth 사례 0건, school source 문서
-> 10종 누락, snapshot diff 승인 `pending`, composite 실패 상태에서는 WIP를 풀거나 머지하지 않는다.
+> **2026-07-11 merge-readiness 정정:** PR #653은 현재 Draft로 유지한다. 현재
+> source-tier/no-AI/quality 정책 테스트와 구조 게이트는 통과하지만, 17개 release fixture의
+> `D1~D4=N/A`, `D5=0 PASS / 0 FAIL / 14 N/A / 3 NOT_APPLICABLE`, raw RPI
+> `20/100`이다. 이는 실패 17건이 아니라 진리값 부족 17건이다. D1 필수 7필드의
+> scope-eligible 진리값, 제품 표면·안전 카피 계약, 종격 birth-time 권위 사례,
+> exact diff 승인, 그리고 exact commit에 결속된 외부 명리 전문가 signoff가 완결되기
+> 전에는 **전문가급 상용 릴리스·기본값 승격을 금지한다.** 다만 이번 backend-only
+> guardrail/refactor PR은 현재 diff의 고위험 스파게티와 논리 결함을 정리하고,
+> 변경 범위 회귀가 통과하며, 프론트·기본값 승격을 포함하지 않고, 위 한계를 PR에
+> 명시한 뒤 점진적 병합 대상으로 검토할 수 있다. WIP 해제 전에는 근거와 잔여 위험을
+> 프로젝트 소유자에게 먼저 보고한다.
 
 ---
 
@@ -91,6 +98,7 @@
 | lib/spring-ts | `npx tsx test/integration/insight-registry-content.test.ts` | 54/0 (콘텐츠 추가 시 증가) |
 | 판정 변경 시 | `npm run validate:default-change` | 정답 없는 categorical 변화는 REVIEW_REQUIRED(비정상 종료) |
 | release 판정 | `npm run quality:gate:release` | D1~D5 전 차원 PASS; N/A/PARTIAL은 실패 |
+| 외부 전문가 signoff | `npm run quality:gate:expert-signoff` | exact 17 fixtures/D1~D5, reviewed commit ancestry, attestation-only diff, tracked evidence SHA; 신원 진위는 protected PR에서 별도 확인 |
 | release 회귀 | `npm run test:saju-engine-release` | 연결된 엔진·어댑터·오라클 회귀 전부 PASS |
 | release 종격 | `npm run test:jonggyeok-authority:release` | 20+ independently reviewed birth rows, 80%+ match; 미달 시 실패 |
 | default diff 승인 | `node tools/measure_default_change.mjs --baseline origin/main --branch HEAD` | exact fingerprint의 reviewer/date/evidence 승인 필요 |
@@ -256,7 +264,7 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 
 | 항목 | 상태 | 커밋 | 일자 | 파급 실측/비고 |
 |---|---|---|---|---|
-| P0-1 Draft PR | 🔶 WIP 유지 | PR #653 | 2026-07-10 | review 0건. T3 미검토 25건은 270a0fd66에서 non-eligible로 강등(소스티어 감사 118건 0위반, gate FAIL→PARTIAL). 기본 출력 변경 도시에 `docs/REVIEW_DEFAULT_CHANGE_PR653.md` 작성 — fingerprint 승인은 독립 리뷰어 몫. composite의 default-change 검사는 승인 전 FAIL 유지이므로 undraft/merge 금지. ⚠ GitHub Actions가 org 결제 잠금으로 미기동(2026-07-10) — 잠금 해제 전 CI 검증 불가 |
+| P0-1 Draft PR | 🔶 WIP 유지 | PR #653 | 2026-07-11 | 권위 scope를 분리하고 D1 필수 7필드 미만 PASS, D5 안정성=정확도 과대계상, URL-only T4 승격, panel raw-array 세탁을 차단했다. T4는 Git 추적 page+quote transcript/SHA/realpath를 요구하고, 6개 Jonheom은 non-eligible이다. source-tier는 thin facade + 5개 모듈과 exact DAG/immutable guard로 분해했다. RPI 20/100이며 외부 전문가 signoff manifest도 없으므로 release-complete 실패와 Draft 유지가 정상이다. |
 | P0-2 테스트 체인 무결성 | ✅ 코드·CI 준비 | pending | 2026-07-10 | saju-ts 42 files/254 tests, spring-ts release regression 및 bridge typecheck 전부 PASS. pull_request workflow와 fail-closed expert-readiness gate 추가 |
 | P0-4 학파 출처 무결성 | 🔶 저작 완료·독립 검토 대기 | 49a785cfa | 2026-07-10 | 누락 10개 출처 문서(docs/11·16·17·18·19·20·22·25·26·27) 전부 저작 — 교리 요약·고전 서지·엔진 매핑(file:line 검증)·검토자 체크리스트 포함, 헤더에 독립 검토 대기 명시. `validate:school-sources` FAIL(23)→PASS(18 프리셋), test:release-tools PASS. 게이트 완결 조건인 독립 검토 메타데이터는 검토 후 기록 |
 | P0-5 호환 계층 분해 | 🔶 부분 완료 | pending | 2026-07-10 | follow potential·strength component·bridge contract·운 관계 계산 중복을 분리/삭제. 대형 adapter와 legacy seam의 mapper 단위 분리는 후속 |
@@ -293,7 +301,7 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 | 14 신규 해석 축 | ⬜ | | | 육친 우선 |
 | 15 후속 감사 | ⬜ | | | 방법 설계부터 |
 | CT-4 종격 birth 후보 수집 | 🔶 2차 완료 | pending (도시에) | 2026-07-10 | 2차 채굴+적대검증 완결: **ACCEPT 46 / HOLD 5 / REJECT 0**(기존 9건 별도) — `docs/dossiers/truth-panel-2026-07-10/mining-output-final.json`. 이재승 KCI 2편(한국어 T3) 9건 확보로 저자 편중 완화. 신규 N-01~15 달력 정합 14/15(N-15는 야자시 시두법 — JOJA_SPLIT 경로). 假從 산입은 정책 패널 만장일치 권고 완료(§8 D6) — 소유자 승인 후 intake 8단계 진행 |
-| 진리값 패널 (17픽스처) | ✅ 도시에 완결 | pending (도시에) | 2026-07-10 | 105/105 에이전트(블라인드 3렌즈×17+화해+적대검증 2×17+정책 3) + Codex gpt-5.5 교차검증(CONFIRM 46/WEAKEN 2/REJECT 1/SKIP 2) — `docs/dossiers/truth-panel-2026-07-10/`. authority truth 승격은 NO_AI_POLICY v2 요건(소유자 authorityReview) 대기 |
+| 진리값 패널 (17픽스처) | ✅ repository evidence 완결 / 외부 인증 미완 | pending (도시에) | 2026-07-10 | 105/105 에이전트 + Codex 교차검증 dossier는 repository consistency와 정책 토론 기록이다. 실제 provider origin, reviewer identity, 외부 명리 전문가 자격을 인증하지 않으며 owner review 후에도 merge approval이 아니다. external expert signoff와 7-field truth intake가 별도 blocker다. |
 | 엔진 불일치 판결 (10픽스처) | ✅ 도시에 완결 | pending (도시에) | 2026-07-10 | ENGINE_BUG 3(fix-04 강약 일간 자기셈입·fix-07/11 격국 오배속)/CALIBRATION 6/DOCTRINE_AMBIGUITY 2/PANEL_ERROR 0 + 종합. **핵심: scoring.ts:106-113 일간 자기 셈입 단방향 강측 편향(제거만으로 2건 반전 실측)**. 수정 착수 순서는 도시에 §6 — 전 항목 GUIDE §1 계측 필수 |
 | 강약 일간 자기 셈입 제거 | 🔶 opt-in 구현·기본 보류 | 4eefcd154 | 2026-07-10 | `strength.excludeDayMasterSelf=true`에서 strength 전용 원장만 자기 비견을 제외. 범용 scorer 불변, provenance 단일 경계, 가중치 1/2 불변식 테스트. default-on 반사실: 17픽스처/158 leaf, strength 7·희신 6·종격위험 4·서사 17 이동, regression 0, fingerprint `377227…69143`. 순환 골든화 금지 — 독립 exact-diff 승인 전 기본 off |
 | CT-1~CT-3·CT-5 | ⬜ | | | 병렬 가능 |

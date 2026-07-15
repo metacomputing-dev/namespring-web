@@ -1,7 +1,7 @@
 /**
  * test/integration/gyeokguk-rule-mode-matrix.test.ts
  *
- * Guards the Phase P authority matrix used to keep monthly_main as the
+ * Guards the historical Phase-P label matrix used to keep monthly_main as the
  * production default while exposing jungki_transparent as an opt-in selector
  * and composite_classical as evidence-only candidates.
  *
@@ -55,7 +55,7 @@ const jonheom = countCells(sourceRows[1] ?? '');
 const koreanModern = countCells(sourceRows[2] ?? '');
 const total = countCells(totalRow);
 
-check('authority matrix has three source groups', sourceRows.length === 3, `rows=${sourceRows.length}`);
+check('historical label matrix has three source groups', sourceRows.length === 3, `rows=${sourceRows.length}`);
 check('monthly_main total remains 17/27', total[0]?.pass === 17 && total[0]?.comparable === 27, totalRow.trim());
 check('jungki_transparent total remains 14/27', total[1]?.pass === 14 && total[1]?.comparable === 27, totalRow.trim());
 check('full_transparent comparison remains 13/27', total[2]?.pass === 13 && total[2]?.comparable === 27, totalRow.trim());
