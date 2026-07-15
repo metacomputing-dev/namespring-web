@@ -38,6 +38,9 @@ describe('SajuRequest runtime validation', () => {
 
   it.each([
     [{ ...base, sex: 'X' }, 'sex must be'],
+    [{ ...base, sex: ['M'] }, 'sex must be'],
+    [{ ...base, sex: true }, 'sex must be'],
+    [{ ...base, sex: null }, 'sex must be'],
     [{ ...base, birth: { ...base.birth, calendar: 'lunar' } }, 'gregorian'],
     [{ ...base, location: { lat: 91, lon: 126.978 } }, 'location.lat'],
     [{ ...base, location: { lat: -91, lon: 126.978 } }, 'location.lat'],
@@ -53,6 +56,11 @@ describe('SajuRequest runtime validation', () => {
     [{ ...base, location: { lat: 37.5665, lon: Number.NaN } }, 'location.lon'],
     [{ ...base, location: { lat: Number.POSITIVE_INFINITY, lon: 126.978 } }, 'location.lat'],
     [{ ...base, location: { lat: 37.5665, lon: Number.NEGATIVE_INFINITY } }, 'location.lon'],
+    [{ ...base, location: { ...base.location, altitudeM: '12' } }, 'location.altitudeM'],
+    [{ ...base, location: { ...base.location, altitudeM: true } }, 'location.altitudeM'],
+    [{ ...base, location: { ...base.location, altitudeM: null } }, 'location.altitudeM'],
+    [{ ...base, location: { ...base.location, altitudeM: Number.NaN } }, 'location.altitudeM'],
+    [{ ...base, location: { ...base.location, altitudeM: Number.POSITIVE_INFINITY } }, 'location.altitudeM'],
     [{ ...base, meta: [] }, 'meta must be'],
   ])('rejects invalid runtime request fields', (request, issue) => {
     let caught: unknown;
@@ -74,6 +82,13 @@ describe('SajuRequest runtime validation', () => {
     { lat: 0, lon: 0 },
   ])('accepts finite numeric coordinate boundaries %#', (location) => {
     expect(() => normalizeRequest({ ...base, location })).not.toThrow();
+  });
+
+  it('accepts a finite numeric altitude', () => {
+    expect(() => normalizeRequest({
+      ...base,
+      location: { ...base.location, altitudeM: 12.5 },
+    })).not.toThrow();
   });
 
   it('owns normalized top-level request objects', () => {

@@ -47,7 +47,10 @@ export function normalizeRequest(input: SajuRequest): NormalizedRequestInternal 
   if (birth.calendar !== undefined && birth.calendar !== 'gregorian') {
     issues.push('birth.calendar must be gregorian');
   }
-  if (!['M', 'F', 'U'].includes(String(record.sex))) {
+  if (
+    typeof record.sex !== 'string'
+    || !['M', 'F', 'U'].includes(record.sex)
+  ) {
     issues.push('sex must be M, F, or U');
   }
   if (location !== undefined) {
@@ -62,7 +65,10 @@ export function normalizeRequest(input: SajuRequest): NormalizedRequestInternal 
       }
       if (
         location.altitudeM !== undefined &&
-        !Number.isFinite(Number(location.altitudeM))
+        (
+          typeof location.altitudeM !== 'number'
+          || !Number.isFinite(location.altitudeM)
+        )
       ) {
         issues.push('location.altitudeM must be finite when provided');
       }

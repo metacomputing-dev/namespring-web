@@ -54,4 +54,26 @@ describe('config migrations', () => {
     expect(() => migrateConfig(weird))
       .toThrow(UnsupportedConfigSchemaVersionError);
   });
+
+  it.each([
+    undefined,
+    null,
+    '',
+    '   ',
+    true,
+    false,
+    {},
+    [],
+    1.9,
+    Number.NaN,
+    Number.POSITIVE_INFINITY,
+  ])('rejects an explicitly invalid schemaVersion %#', (schemaVersion) => {
+    expect(() => migrateConfig({ schemaVersion }))
+      .toThrow(UnsupportedConfigSchemaVersionError);
+  });
+
+  it.each([0, 1])('accepts finite integer schemaVersion compatibility value %s', (schemaVersion) => {
+    expect(migrateConfig({ schemaVersion }).schemaVersion)
+      .toBe(CURRENT_CONFIG_SCHEMA_VERSION);
+  });
 });
