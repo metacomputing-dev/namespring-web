@@ -1,0 +1,1022 @@
+[
+  {
+    "id": "fix-01",
+    "label": "1986-04-19 male — 戊土 일간 (README example)",
+    "axis": [
+      "normal",
+      "yang-earth",
+      "spring"
+    ],
+    "birth": {
+      "year": 1986,
+      "month": 4,
+      "day": 19,
+      "hour": 5,
+      "minute": 45,
+      "gender": "male"
+    },
+    "pillars": [
+      "丙寅",
+      "壬辰",
+      "癸巳",
+      "乙卯"
+    ],
+    "blind": {
+      "pillars": [
+        "丙寅",
+        "壬辰",
+        "癸巳",
+        "乙卯"
+      ],
+      "birth": {
+        "year": 1986,
+        "month": 4,
+        "day": 19,
+        "hour": 5,
+        "minute": 45,
+        "gender": "male"
+      },
+      "dayMaster": {
+        "stem": "계",
+        "element": "WATER",
+        "polarity": "음"
+      },
+      "note": "한국 출생 기본(경도 보정 적용), 시각은 birth.hour/minute. hour 부재 = 시간 미상."
+    },
+    "engine": {
+      "strengthLevel": "신약",
+      "isStrong": false,
+      "yongshinElement": "METAL",
+      "yongshinHeeshin": "WATER",
+      "gyeokgukType": "식신격",
+      "gyeokgukCategory": "일반",
+      "gyeokgukConfidence": 0.562957219251337,
+      "deficientElements": [
+        "EARTH",
+        "METAL"
+      ],
+      "excessiveElements": [
+        "WOOD"
+      ]
+    }
+  },
+  {
+    "id": "fix-02",
+    "label": "1992-09-15 female — 壬水 일간, 가을",
+    "axis": [
+      "normal",
+      "yang-water",
+      "autumn"
+    ],
+    "birth": {
+      "year": 1992,
+      "month": 9,
+      "day": 15,
+      "hour": 12,
+      "minute": 0,
+      "gender": "female"
+    },
+    "pillars": [
+      "壬申",
+      "己酉",
+      "甲午",
+      "庚午"
+    ],
+    "blind": {
+      "pillars": [
+        "壬申",
+        "己酉",
+        "甲午",
+        "庚午"
+      ],
+      "birth": {
+        "year": 1992,
+        "month": 9,
+        "day": 15,
+        "hour": 12,
+        "minute": 0,
+        "gender": "female"
+      },
+      "dayMaster": {
+        "stem": "갑",
+        "element": "WOOD",
+        "polarity": "양"
+      },
+      "note": "한국 출생 기본(경도 보정 적용), 시각은 birth.hour/minute. hour 부재 = 시간 미상."
+    },
+    "engine": {
+      "strengthLevel": "신약",
+      "isStrong": false,
+      "yongshinElement": "WATER",
+      "yongshinHeeshin": "WOOD",
+      "gyeokgukType": "정관격",
+      "gyeokgukCategory": "일반",
+      "gyeokgukConfidence": 0.9396000000000002,
+      "deficientElements": [],
+      "excessiveElements": []
+    }
+  },
+  {
+    "id": "fix-03",
+    "label": "2000-01-01 00:30 male — 子時 boundary edge",
+    "axis": [
+      "jaza-edge",
+      "yang-water",
+      "winter"
+    ],
+    "birth": {
+      "year": 2000,
+      "month": 1,
+      "day": 1,
+      "hour": 0,
+      "minute": 30,
+      "gender": "male"
+    },
+    "pillars": [
+      "己卯",
+      "丙子",
+      "戊午",
+      "壬子"
+    ],
+    "blind": {
+      "pillars": [
+        "己卯",
+        "丙子",
+        "戊午",
+        "壬子"
+      ],
+      "birth": {
+        "year": 2000,
+        "month": 1,
+        "day": 1,
+        "hour": 0,
+        "minute": 30,
+        "gender": "male"
+      },
+      "dayMaster": {
+        "stem": "무",
+        "element": "EARTH",
+        "polarity": "양"
+      },
+      "note": "한국 출생 기본(경도 보정 적용), 시각은 birth.hour/minute. hour 부재 = 시간 미상."
+    },
+    "engine": {
+      "strengthLevel": "중화(신강 경향)",
+      "isStrong": true,
+      "yongshinElement": "FIRE",
+      "yongshinHeeshin": "METAL",
+      "gyeokgukType": "정재격",
+      "gyeokgukCategory": "일반",
+      "gyeokgukConfidence": 0.25982142857142854,
+      "deficientElements": [
+        "METAL"
+      ],
+      "excessiveElements": [
+        "WATER"
+      ]
+    }
+  },
+  {
+    "id": "fix-04",
+    "label": "1965-08-08 19:00 female — 丙火 일간, 종왕 후보 (강한 火)",
+    "axis": [
+      "jonggwang-candidate",
+      "yang-fire",
+      "summer"
+    ],
+    "birth": {
+      "year": 1965,
+      "month": 8,
+      "day": 8,
+      "hour": 19,
+      "minute": 0,
+      "gender": "female"
+    },
+    "pillars": [
+      "乙巳",
+      "甲申",
+      "甲午",
+      "癸酉"
+    ],
+    "blind": {
+      "pillars": [
+        "乙巳",
+        "甲申",
+        "甲午",
+        "癸酉"
+      ],
+      "birth": {
+        "year": 1965,
+        "month": 8,
+        "day": 8,
+        "hour": 19,
+        "minute": 0,
+        "gender": "female"
+      },
+      "dayMaster": {
+        "stem": "갑",
+        "element": "WOOD",
+        "polarity": "양"
+      },
+      "note": "한국 출생 기본(경도 보정 적용), 시각은 birth.hour/minute. hour 부재 = 시간 미상."
+    },
+    "engine": {
+      "strengthLevel": "중화(신강 경향)",
+      "isStrong": true,
+      "yongshinElement": "WATER",
+      "yongshinHeeshin": "FIRE",
+      "gyeokgukType": "편관격",
+      "gyeokgukCategory": "일반",
+      "gyeokgukConfidence": 0.2993538461538462,
+      "deficientElements": [
+        "EARTH"
+      ],
+      "excessiveElements": [
+        "WOOD"
+      ]
+    }
+  },
+  {
+    "id": "fix-05",
+    "label": "2005-12-25 06:00 male — 겨울 조후 case (한랭)",
+    "axis": [
+      "johu-winter",
+      "yin-wood",
+      "winter"
+    ],
+    "birth": {
+      "year": 2005,
+      "month": 12,
+      "day": 25,
+      "hour": 6,
+      "minute": 0,
+      "gender": "male"
+    },
+    "pillars": [
+      "乙酉",
+      "戊子",
+      "癸未",
+      "乙卯"
+    ],
+    "blind": {
+      "pillars": [
+        "乙酉",
+        "戊子",
+        "癸未",
+        "乙卯"
+      ],
+      "birth": {
+        "year": 2005,
+        "month": 12,
+        "day": 25,
+        "hour": 6,
+        "minute": 0,
+        "gender": "male"
+      },
+      "dayMaster": {
+        "stem": "계",
+        "element": "WATER",
+        "polarity": "음"
+      },
+      "note": "한국 출생 기본(경도 보정 적용), 시각은 birth.hour/minute. hour 부재 = 시간 미상."
+    },
+    "engine": {
+      "strengthLevel": "중화(신약 경향)",
+      "isStrong": false,
+      "yongshinElement": "METAL",
+      "yongshinHeeshin": "FIRE",
+      "gyeokgukType": "건록격",
+      "gyeokgukCategory": "일반",
+      "gyeokgukConfidence": 0.23716216216216215,
+      "deficientElements": [
+        "FIRE"
+      ],
+      "excessiveElements": [
+        "WOOD"
+      ]
+    }
+  },
+  {
+    "id": "fix-06",
+    "label": "1978-06-15 14:00 female — 庚金 일간, 여름",
+    "axis": [
+      "normal",
+      "yang-metal",
+      "summer"
+    ],
+    "birth": {
+      "year": 1978,
+      "month": 6,
+      "day": 15,
+      "hour": 14,
+      "minute": 0,
+      "gender": "female"
+    },
+    "pillars": [
+      "戊午",
+      "戊午",
+      "戊申",
+      "己未"
+    ],
+    "blind": {
+      "pillars": [
+        "戊午",
+        "戊午",
+        "戊申",
+        "己未"
+      ],
+      "birth": {
+        "year": 1978,
+        "month": 6,
+        "day": 15,
+        "hour": 14,
+        "minute": 0,
+        "gender": "female"
+      },
+      "dayMaster": {
+        "stem": "무",
+        "element": "EARTH",
+        "polarity": "양"
+      },
+      "note": "한국 출생 기본(경도 보정 적용), 시각은 birth.hour/minute. hour 부재 = 시간 미상."
+    },
+    "engine": {
+      "strengthLevel": "신강",
+      "isStrong": true,
+      "yongshinElement": "METAL",
+      "yongshinHeeshin": "WATER",
+      "gyeokgukType": "양인격",
+      "gyeokgukCategory": "일반",
+      "gyeokgukConfidence": 0.35000000000000003,
+      "deficientElements": [
+        "WOOD",
+        "METAL",
+        "WATER"
+      ],
+      "excessiveElements": [
+        "EARTH"
+      ]
+    }
+  },
+  {
+    "id": "fix-07",
+    "label": "1957-02-04 male — 입춘 boundary",
+    "axis": [
+      "jie-ipchun",
+      "edge",
+      "spring-onset"
+    ],
+    "birth": {
+      "year": 1957,
+      "month": 2,
+      "day": 4,
+      "hour": 12,
+      "minute": 0,
+      "gender": "male"
+    },
+    "pillars": [
+      "丁酉",
+      "壬寅",
+      "丁未",
+      "丙午"
+    ],
+    "blind": {
+      "pillars": [
+        "丁酉",
+        "壬寅",
+        "丁未",
+        "丙午"
+      ],
+      "birth": {
+        "year": 1957,
+        "month": 2,
+        "day": 4,
+        "hour": 12,
+        "minute": 0,
+        "gender": "male"
+      },
+      "dayMaster": {
+        "stem": "정",
+        "element": "FIRE",
+        "polarity": "음"
+      },
+      "note": "한국 출생 기본(경도 보정 적용), 시각은 birth.hour/minute. hour 부재 = 시간 미상."
+    },
+    "engine": {
+      "strengthLevel": "신강",
+      "isStrong": true,
+      "yongshinElement": "EARTH",
+      "yongshinHeeshin": "METAL",
+      "gyeokgukType": "월겁격",
+      "gyeokgukCategory": "일반",
+      "gyeokgukConfidence": 0.6168,
+      "deficientElements": [
+        "WOOD"
+      ],
+      "excessiveElements": [
+        "FIRE"
+      ]
+    }
+  },
+  {
+    "id": "fix-08",
+    "label": "2020-08-23 female — 처서 boundary",
+    "axis": [
+      "jie-cheoseo",
+      "yin-earth",
+      "late-summer"
+    ],
+    "birth": {
+      "year": 2020,
+      "month": 8,
+      "day": 23,
+      "hour": 9,
+      "minute": 0,
+      "gender": "female"
+    },
+    "pillars": [
+      "庚子",
+      "甲申",
+      "戊戌",
+      "丙辰"
+    ],
+    "blind": {
+      "pillars": [
+        "庚子",
+        "甲申",
+        "戊戌",
+        "丙辰"
+      ],
+      "birth": {
+        "year": 2020,
+        "month": 8,
+        "day": 23,
+        "hour": 9,
+        "minute": 0,
+        "gender": "female"
+      },
+      "dayMaster": {
+        "stem": "무",
+        "element": "EARTH",
+        "polarity": "양"
+      },
+      "note": "한국 출생 기본(경도 보정 적용), 시각은 birth.hour/minute. hour 부재 = 시간 미상."
+    },
+    "engine": {
+      "strengthLevel": "신약",
+      "isStrong": false,
+      "yongshinElement": "FIRE",
+      "yongshinHeeshin": "EARTH",
+      "gyeokgukType": "식신격",
+      "gyeokgukCategory": "일반",
+      "gyeokgukConfidence": 0.65625,
+      "deficientElements": [],
+      "excessiveElements": []
+    }
+  },
+  {
+    "id": "fix-09",
+    "label": "1988-05-05 male — 입하 boundary",
+    "axis": [
+      "jie-ipha",
+      "edge",
+      "summer-onset"
+    ],
+    "birth": {
+      "year": 1988,
+      "month": 5,
+      "day": 5,
+      "hour": 10,
+      "minute": 0,
+      "gender": "male"
+    },
+    "pillars": [
+      "戊辰",
+      "丙辰",
+      "庚申",
+      "辛巳"
+    ],
+    "blind": {
+      "pillars": [
+        "戊辰",
+        "丙辰",
+        "庚申",
+        "辛巳"
+      ],
+      "birth": {
+        "year": 1988,
+        "month": 5,
+        "day": 5,
+        "hour": 10,
+        "minute": 0,
+        "gender": "male"
+      },
+      "dayMaster": {
+        "stem": "경",
+        "element": "METAL",
+        "polarity": "양"
+      },
+      "note": "한국 출생 기본(경도 보정 적용), 시각은 birth.hour/minute. hour 부재 = 시간 미상."
+    },
+    "engine": {
+      "strengthLevel": "신강",
+      "isStrong": true,
+      "yongshinElement": "WATER",
+      "yongshinHeeshin": "WOOD",
+      "gyeokgukType": "편인격",
+      "gyeokgukCategory": "일반",
+      "gyeokgukConfidence": 0.5875,
+      "deficientElements": [
+        "WOOD",
+        "WATER"
+      ],
+      "excessiveElements": [
+        "METAL"
+      ]
+    }
+  },
+  {
+    "id": "fix-10",
+    "label": "2018-11-22 female — 소설 boundary",
+    "axis": [
+      "jie-soseol",
+      "winter-onset",
+      "yin-water"
+    ],
+    "birth": {
+      "year": 2018,
+      "month": 11,
+      "day": 22,
+      "hour": 15,
+      "minute": 0,
+      "gender": "female"
+    },
+    "pillars": [
+      "戊戌",
+      "癸亥",
+      "戊午",
+      "己未"
+    ],
+    "blind": {
+      "pillars": [
+        "戊戌",
+        "癸亥",
+        "戊午",
+        "己未"
+      ],
+      "birth": {
+        "year": 2018,
+        "month": 11,
+        "day": 22,
+        "hour": 15,
+        "minute": 0,
+        "gender": "female"
+      },
+      "dayMaster": {
+        "stem": "무",
+        "element": "EARTH",
+        "polarity": "양"
+      },
+      "note": "한국 출생 기본(경도 보정 적용), 시각은 birth.hour/minute. hour 부재 = 시간 미상."
+    },
+    "engine": {
+      "strengthLevel": "신강",
+      "isStrong": true,
+      "yongshinElement": "METAL",
+      "yongshinHeeshin": "WOOD",
+      "gyeokgukType": "편재격",
+      "gyeokgukCategory": "일반",
+      "gyeokgukConfidence": 0.6025367647058824,
+      "deficientElements": [
+        "WOOD",
+        "METAL"
+      ],
+      "excessiveElements": [
+        "EARTH"
+      ]
+    }
+  },
+  {
+    "id": "fix-11",
+    "label": "1995-08-15 female — 시간미상 (unknown-hour)",
+    "axis": [
+      "unknown-hour",
+      "edge",
+      "yin-fire"
+    ],
+    "birth": {
+      "year": 1995,
+      "month": 8,
+      "day": 15,
+      "hour": null,
+      "minute": 0,
+      "gender": "female"
+    },
+    "pillars": [
+      "乙亥",
+      "甲申",
+      "戊寅",
+      "戊午"
+    ],
+    "blind": {
+      "pillars": [
+        "乙亥",
+        "甲申",
+        "戊寅",
+        "戊午"
+      ],
+      "birth": {
+        "year": 1995,
+        "month": 8,
+        "day": 15,
+        "hour": null,
+        "minute": 0,
+        "gender": "female"
+      },
+      "dayMaster": {
+        "stem": "무",
+        "element": "EARTH",
+        "polarity": "양"
+      },
+      "note": "한국 출생 기본(경도 보정 적용), 시각은 birth.hour/minute. hour 부재 = 시간 미상."
+    },
+    "engine": {
+      "strengthLevel": "중화(신약 경향)",
+      "isStrong": false,
+      "yongshinElement": "FIRE",
+      "yongshinHeeshin": "METAL",
+      "gyeokgukType": "건록격",
+      "gyeokgukCategory": "일반",
+      "gyeokgukConfidence": 0.2540192307692308,
+      "deficientElements": [
+        "METAL"
+      ],
+      "excessiveElements": [
+        "WOOD"
+      ]
+    }
+  },
+  {
+    "id": "fix-12",
+    "label": "1991-03-20 male — borderline-strength (춘분 즈음, 중화 후보)",
+    "axis": [
+      "borderline-strength",
+      "edge",
+      "yang-wood"
+    ],
+    "birth": {
+      "year": 1991,
+      "month": 3,
+      "day": 20,
+      "hour": 11,
+      "minute": 30,
+      "gender": "male"
+    },
+    "pillars": [
+      "辛未",
+      "辛卯",
+      "己丑",
+      "己巳"
+    ],
+    "blind": {
+      "pillars": [
+        "辛未",
+        "辛卯",
+        "己丑",
+        "己巳"
+      ],
+      "birth": {
+        "year": 1991,
+        "month": 3,
+        "day": 20,
+        "hour": 11,
+        "minute": 30,
+        "gender": "male"
+      },
+      "dayMaster": {
+        "stem": "기",
+        "element": "EARTH",
+        "polarity": "음"
+      },
+      "note": "한국 출생 기본(경도 보정 적용), 시각은 birth.hour/minute. hour 부재 = 시간 미상."
+    },
+    "engine": {
+      "strengthLevel": "중화(신강 경향)",
+      "isStrong": true,
+      "yongshinElement": "FIRE",
+      "yongshinHeeshin": "METAL",
+      "gyeokgukType": "편관격",
+      "gyeokgukCategory": "일반",
+      "gyeokgukConfidence": 0.9936,
+      "deficientElements": [
+        "WATER"
+      ],
+      "excessiveElements": [
+        "EARTH"
+      ]
+    }
+  },
+  {
+    "id": "fix-13",
+    "label": "1989-07-23 male — borderline-strength practical tier (정재격, 여름 yongshin=WATER)",
+    "axis": [
+      "borderline-strength",
+      "practical-tier",
+      "summer"
+    ],
+    "birth": {
+      "year": 1989,
+      "month": 7,
+      "day": 23,
+      "hour": 10,
+      "minute": 0,
+      "gender": "male"
+    },
+    "pillars": [
+      "己巳",
+      "辛未",
+      "甲申",
+      "己巳"
+    ],
+    "blind": {
+      "pillars": [
+        "己巳",
+        "辛未",
+        "甲申",
+        "己巳"
+      ],
+      "birth": {
+        "year": 1989,
+        "month": 7,
+        "day": 23,
+        "hour": 10,
+        "minute": 0,
+        "gender": "male"
+      },
+      "dayMaster": {
+        "stem": "갑",
+        "element": "WOOD",
+        "polarity": "양"
+      },
+      "note": "한국 출생 기본(경도 보정 적용), 시각은 birth.hour/minute. hour 부재 = 시간 미상."
+    },
+    "engine": {
+      "strengthLevel": "신약",
+      "isStrong": false,
+      "yongshinElement": "WATER",
+      "yongshinHeeshin": "WOOD",
+      "gyeokgukType": "정재격",
+      "gyeokgukCategory": "일반",
+      "gyeokgukConfidence": 1,
+      "deficientElements": [
+        "WATER"
+      ],
+      "excessiveElements": [
+        "EARTH"
+      ]
+    }
+  },
+  {
+    "id": "fix-14",
+    "label": "1980-08-07 male — borderline-strength candidate tier (정관격, 가을 yongshin=WOOD)",
+    "axis": [
+      "borderline-strength",
+      "candidate-tier",
+      "autumn"
+    ],
+    "birth": {
+      "year": 1980,
+      "month": 8,
+      "day": 7,
+      "hour": 4,
+      "minute": 0,
+      "gender": "male"
+    },
+    "pillars": [
+      "庚申",
+      "癸未",
+      "壬子",
+      "壬寅"
+    ],
+    "blind": {
+      "pillars": [
+        "庚申",
+        "癸未",
+        "壬子",
+        "壬寅"
+      ],
+      "birth": {
+        "year": 1980,
+        "month": 8,
+        "day": 7,
+        "hour": 4,
+        "minute": 0,
+        "gender": "male"
+      },
+      "dayMaster": {
+        "stem": "임",
+        "element": "WATER",
+        "polarity": "양"
+      },
+      "note": "한국 출생 기본(경도 보정 적용), 시각은 birth.hour/minute. hour 부재 = 시간 미상."
+    },
+    "engine": {
+      "strengthLevel": "신강",
+      "isStrong": true,
+      "yongshinElement": "WOOD",
+      "yongshinHeeshin": "EARTH",
+      "gyeokgukType": "정관격",
+      "gyeokgukCategory": "일반",
+      "gyeokgukConfidence": 0.3340384615384615,
+      "deficientElements": [
+        "WOOD",
+        "FIRE",
+        "EARTH"
+      ],
+      "excessiveElements": [
+        "WATER"
+      ]
+    }
+  },
+  {
+    "id": "fix-15",
+    "label": "1985-03-21 male — borderline-strength deferred tier (편관격, 춘분 yongshin=METAL)",
+    "axis": [
+      "borderline-strength",
+      "deferred-tier",
+      "spring"
+    ],
+    "birth": {
+      "year": 1985,
+      "month": 3,
+      "day": 21,
+      "hour": 4,
+      "minute": 0,
+      "gender": "male"
+    },
+    "pillars": [
+      "乙丑",
+      "己卯",
+      "己未",
+      "丙寅"
+    ],
+    "blind": {
+      "pillars": [
+        "乙丑",
+        "己卯",
+        "己未",
+        "丙寅"
+      ],
+      "birth": {
+        "year": 1985,
+        "month": 3,
+        "day": 21,
+        "hour": 4,
+        "minute": 0,
+        "gender": "male"
+      },
+      "dayMaster": {
+        "stem": "기",
+        "element": "EARTH",
+        "polarity": "음"
+      },
+      "note": "한국 출생 기본(경도 보정 적용), 시각은 birth.hour/minute. hour 부재 = 시간 미상."
+    },
+    "engine": {
+      "strengthLevel": "신강",
+      "isStrong": true,
+      "yongshinElement": "METAL",
+      "yongshinHeeshin": "WATER",
+      "gyeokgukType": "편관격",
+      "gyeokgukCategory": "일반",
+      "gyeokgukConfidence": 1,
+      "deficientElements": [
+        "METAL",
+        "WATER"
+      ],
+      "excessiveElements": [
+        "EARTH"
+      ]
+    }
+  },
+  {
+    "id": "fix-16",
+    "label": "2003-05-10 23:40 male — 야자시 창(정자시설+경도보정, 시계 23:32 이후 자시) 경계",
+    "axis": [
+      "yaza-window",
+      "boundary-hour",
+      "spring"
+    ],
+    "birth": {
+      "year": 2003,
+      "month": 5,
+      "day": 10,
+      "hour": 23,
+      "minute": 40,
+      "gender": "male"
+    },
+    "pillars": [
+      "癸未",
+      "丁巳",
+      "甲申",
+      "甲子"
+    ],
+    "blind": {
+      "pillars": [
+        "癸未",
+        "丁巳",
+        "甲申",
+        "甲子"
+      ],
+      "birth": {
+        "year": 2003,
+        "month": 5,
+        "day": 10,
+        "hour": 23,
+        "minute": 40,
+        "gender": "male"
+      },
+      "dayMaster": {
+        "stem": "갑",
+        "element": "WOOD",
+        "polarity": "양"
+      },
+      "note": "한국 출생 기본(경도 보정 적용), 시각은 birth.hour/minute. hour 부재 = 시간 미상."
+    },
+    "engine": {
+      "strengthLevel": "중화(신강 경향)",
+      "isStrong": true,
+      "yongshinElement": "WATER",
+      "yongshinHeeshin": "FIRE",
+      "gyeokgukType": "식신격",
+      "gyeokgukCategory": "일반",
+      "gyeokgukConfidence": 0.24721153846153848,
+      "deficientElements": [
+        "EARTH"
+      ],
+      "excessiveElements": []
+    }
+  },
+  {
+    "id": "fix-17",
+    "label": "음력 2004-윤2-15 10:00 female — 음력 윤달 입력 변환(calendarType=lunar)",
+    "axis": [
+      "lunar-input",
+      "leap-month",
+      "spring"
+    ],
+    "birth": {
+      "year": 2004,
+      "month": 2,
+      "day": 15,
+      "hour": 10,
+      "minute": 0,
+      "gender": "female",
+      "calendarType": "lunar",
+      "isLeapMonth": true
+    },
+    "pillars": [
+      "甲申",
+      "丁卯",
+      "癸丑",
+      "丁巳"
+    ],
+    "blind": {
+      "pillars": [
+        "甲申",
+        "丁卯",
+        "癸丑",
+        "丁巳"
+      ],
+      "birth": {
+        "year": 2004,
+        "month": 2,
+        "day": 15,
+        "hour": 10,
+        "minute": 0,
+        "gender": "female",
+        "calendarType": "lunar",
+        "isLeapMonth": true
+      },
+      "dayMaster": {
+        "stem": "계",
+        "element": "WATER",
+        "polarity": "음"
+      },
+      "note": "한국 출생 기본(경도 보정 적용), 시각은 birth.hour/minute. hour 부재 = 시간 미상."
+    },
+    "engine": {
+      "strengthLevel": "신약",
+      "isStrong": false,
+      "yongshinElement": "METAL",
+      "yongshinHeeshin": "WATER",
+      "gyeokgukType": "식신격",
+      "gyeokgukCategory": "일반",
+      "gyeokgukConfidence": 0.6624,
+      "deficientElements": [
+        "EARTH"
+      ],
+      "excessiveElements": []
+    }
+  }
+]

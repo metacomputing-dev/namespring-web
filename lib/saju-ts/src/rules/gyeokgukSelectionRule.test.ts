@@ -3,9 +3,10 @@ import { describe, expect, it } from 'vitest';
 import { normalizeConfig } from '../api/config.js';
 import { pillar } from '../core/cycle.js';
 import { elementDistributionFromPillars } from '../core/elementDistribution.js';
-import { DEFAULT_SCORE_POLICY, scorePillars } from '../core/scoring.js';
+import { DEFAULT_SCORE_POLICY } from '../core/scoring.js';
 import { buildRuleFacts, type GyeokgukSelectionRule } from './facts.js';
 import { computeGyeokguk } from './gyeokguk.js';
+import { scorePillarsForRuleFacts } from './ruleFactsScoring.js';
 
 function analyzeWithSelectionRule(
   selectionRule?: GyeokgukSelectionRule,
@@ -54,8 +55,8 @@ function analyzeWithSelectionRule(
     [pillars.year, pillars.month, pillars.day, pillars.hour],
     { hiddenStemWeights: (config.weights as any)?.hiddenStems },
   );
-  const scoring = scorePillars(pillars, DEFAULT_SCORE_POLICY);
-  const facts = buildRuleFacts({ config, pillars, elementDistribution, scoring, dayMasterSelfScore: 1 });
+  const scoring = scorePillarsForRuleFacts(pillars, DEFAULT_SCORE_POLICY);
+  const facts = buildRuleFacts({ config, pillars, elementDistribution, scoring });
   const result = computeGyeokguk(config, facts);
 
   return { config, facts, result };
@@ -76,8 +77,8 @@ function analyzeHiddenSeongpae(gyeokgukOverrides: Record<string, unknown> = {}) 
     [pillars.year, pillars.month, pillars.day, pillars.hour],
     { hiddenStemWeights: (config.weights as any)?.hiddenStems },
   );
-  const scoring = scorePillars(pillars, DEFAULT_SCORE_POLICY);
-  return buildRuleFacts({ config, pillars, elementDistribution, scoring, dayMasterSelfScore: 1 });
+  const scoring = scorePillarsForRuleFacts(pillars, DEFAULT_SCORE_POLICY);
+  return buildRuleFacts({ config, pillars, elementDistribution, scoring });
 }
 
 describe('gyeokguk selectionRule', () => {

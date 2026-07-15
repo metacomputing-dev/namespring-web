@@ -4,8 +4,9 @@ import { normalizeConfig } from '../api/config.js';
 import type { BranchIdx, StemIdx } from '../core/cycle.js';
 import { pillar } from '../core/cycle.js';
 import { elementDistributionFromPillars } from '../core/elementDistribution.js';
-import { DEFAULT_SCORE_POLICY, scorePillars } from '../core/scoring.js';
+import { DEFAULT_SCORE_POLICY } from '../core/scoring.js';
 import { buildRuleFacts } from './facts.js';
+import { scorePillarsForRuleFacts } from './ruleFactsScoring.js';
 
 const CHART = {
   year: [8, 0],
@@ -35,7 +36,7 @@ function strengthOf(strength: Record<string, unknown> = {}) {
     [pillars.year, pillars.month, pillars.day, pillars.hour],
     { hiddenStemWeights: config.weights?.hiddenStems },
   );
-  const scoring = scorePillars(pillars, DEFAULT_SCORE_POLICY);
+  const scoring = scorePillarsForRuleFacts(pillars, DEFAULT_SCORE_POLICY);
   return buildRuleFacts({ config, pillars, elementDistribution, scoring }).strength;
 }
 
@@ -95,7 +96,6 @@ describe('life-stage root multipliers for deDi', () => {
     expect(meta?.multipliers.JE_WANG).toBeCloseTo(1.28, 12);
     expect(Number.isFinite(deDiOf(weighted)?.score)).toBe(true);
   });
-
   it('fails closed when finite custom multipliers overflow the aggregate root score', () => {
     expect(() => strengthOf({
       lifeStageRoot: {

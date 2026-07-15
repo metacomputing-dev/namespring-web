@@ -1,0 +1,104 @@
+{
+  "fix-01": {
+    "strength": "CONFIRM",
+    "yongshin": "CONFIRM",
+    "gyeokguk": "WEAKEN",
+    "notes": "癸水가 辰월에 壬·辰중癸를 얻지만 寅卯木과 巳火로 설·소모되어 신약 판정이 맞다. 金印이 부재해 생신·제목 용도로 METAL은 타당하다. 다만 辰월 본기 戊를 중시하면 정관격도 가능해 식신격은 방어 가능하나 약화된다."
+  },
+  "fix-02": {
+    "strength": "CONFIRM",
+    "yongshin": "CONFIRM",
+    "gyeokguk": "REJECT",
+    "notes": "甲木이 酉월·申年·庚時의 금세에 눌리고 목근이 없어 극신약이다. 水印은 살중신약에서 통관·생신하므로 용신으로 맞다. 그러나 酉의 지장간은 辛 단독이고 甲에게 辛은 정관이므로 월령 격은 정관격이지 편관격이 아니다."
+  },
+  "fix-03": {
+    "strength": "CONFIRM",
+    "yongshin": "CONFIRM",
+    "gyeokguk": "CONFIRM",
+    "notes": "戊土가 子월 두 子水와 壬透로 재가 왕하고 午火·丙印은 子午충으로 힘이 깎여 신약이다. 겨울 戊土는 火印으로 조후와 생신을 겸해야 한다. 子월 癸正財 본기로 정재격이 성립한다."
+  },
+  "fix-04": {
+    "strength": "CONFIRM",
+    "yongshin": "CONFIRM",
+    "gyeokguk": "CONFIRM",
+    "notes": "甲木이 申월·酉시 금왕지에 놓이고 천간 비겁은 통근이 약해 극신약이다. 癸水 인성은 살을 화하고 일간을 생하므로 WATER가 우선이다. 申중 庚이 월령 본기라 甲日 기준 편관격이다."
+  },
+  "fix-05": {
+    "strength": "CONFIRM",
+    "yongshin": "CONFIRM",
+    "gyeokguk": "CONFIRM",
+    "notes": "癸水가 子월 건록과 酉印을 얻지만 乙卯 식상과 戊官·未土가 있어 중화 속 신강 경향이다. 한겨울 수왕 명식은 火로 온난·재성 운용을 보아야 한다. 癸日 子월은 월지 비겁의 현대 명명상 건록격이다."
+  },
+  "fix-06": {
+    "strength": "CONFIRM",
+    "yongshin": "WEAKEN",
+    "gyeokguk": "CONFIRM",
+    "notes": "戊土가 午월에 戊戊己와 午午未를 얻어 극신강이다. 金 식상으로 왕토를 설기하는 논리는 가능하나, 조후상 水를 먼저 보는 이설도 강하다. 戊日 午월은 양인격으로 보는 것이 정명이다."
+  },
+  "fix-07": {
+    "strength": "CONFIRM",
+    "yongshin": "SKIP",
+    "gyeokguk": "CONFIRM",
+    "notes": "丁火가 寅월 장생에 丙午·丁未로 뿌리와 동류가 강해 극신강이다. expected 용신이 빈 문자열이므로 용신 판정은 SKIP한다. 寅중 甲印이 월령 본기라 丁日 기준 정인격이 맞다."
+  },
+  "fix-08": {
+    "strength": "CONFIRM",
+    "yongshin": "CONFIRM",
+    "gyeokguk": "CONFIRM",
+    "notes": "戊土가 申월에 설기되나 戌·辰에 통근하고 丙印을 얻어 중화에 가까운 신약 경향이다. 火印은 가을 토의 생조와 냉습 완화에 필요하다. 申중 庚食神이 年干에 투해 식신격으로 볼 수 있다."
+  },
+  "fix-09": {
+    "strength": "CONFIRM",
+    "yongshin": "CONFIRM",
+    "gyeokguk": "CONFIRM",
+    "notes": "庚金이 申일지에 좌록하고 辰辰戊印·辛劫을 얻어 신강하다. 火官殺은 왕금 제련과 토금 과다 제어에 실효가 있어 용신으로 방어된다. 辰중 戊가 월령 본기라 庚日 기준 편인격이다."
+  },
+  "fix-10": {
+    "strength": "CONFIRM",
+    "yongshin": "CONFIRM",
+    "gyeokguk": "CONFIRM",
+    "notes": "戊土가 亥월에 실령했지만 戌午未와 戊己로 토화 근기가 매우 두터워 신강이다. 木官殺이 왕토를 제어하는 핵심 용도다. 亥중 壬偏財를 월령 본기로 보아 편재격이 성립한다."
+  },
+  "fix-11": {
+    "strength": "CONFIRM",
+    "yongshin": "CONFIRM",
+    "gyeokguk": "CONFIRM",
+    "notes": "시간미상은 3주 기준으로 보며 戊土가 申월에 설기되고 甲乙관살·亥水가 있어 신약하다. 寅중 丙火가 필요하므로 FIRE 인성이 생신·조후의 관건이다. 申중 庚食神 월령으로 식신격 판정이 가능하다."
+  },
+  "fix-12": {
+    "strength": "CONFIRM",
+    "yongshin": "SKIP",
+    "gyeokguk": "CONFIRM",
+    "notes": "己土가 卯월 관살지에 놓이나 未丑巳와 己比로 뿌리가 있어 중화의 신강 경향이다. expected 용신이 빈 문자열이므로 용신 판정은 SKIP한다. 卯중 乙은 己日의 편관이므로 편관격이다."
+  },
+  "fix-13": {
+    "strength": "CONFIRM",
+    "yongshin": "CONFIRM",
+    "gyeokguk": "CONFIRM",
+    "notes": "甲木이 未월에 실령하고 巳巳申·己己辛으로 재관식상이 몰려 목근과 수원이 빈약해 극신약이다. 水印이 생목과 조후를 겸하므로 우선 용신이다. 未중 己正財가 두 己로 투출해 정재격이 타당하다."
+  },
+  "fix-14": {
+    "strength": "CONFIRM",
+    "yongshin": "CONFIRM",
+    "gyeokguk": "CONFIRM",
+    "notes": "壬水가 未월에 실령했어도 申印·子刃·癸壬比劫으로 신강하다. 木食傷은 왕수를 설하고 관과 연결하는 용도가 분명하다. 未중 己正官을 월령 본기로 잡아 정관격으로 본다."
+  },
+  "fix-15": {
+    "strength": "CONFIRM",
+    "yongshin": "CONFIRM",
+    "gyeokguk": "CONFIRM",
+    "notes": "己土가 卯월 목왕지에서 乙卯寅 관살을 크게 받으며 丑未 통근은 있으나 압박이 우세해 신약이다. 丙火 인성은 살인상생과 생신을 겸한다. 卯중 乙은 己日의 편관이므로 편관격이다."
+  },
+  "fix-16": {
+    "strength": "CONFIRM",
+    "yongshin": "CONFIRM",
+    "gyeokguk": "CONFIRM",
+    "notes": "甲木이 巳월에 설기되고 申金이 압박하지만 癸子印·甲比가 있어 신약 선에서 멈춘다. WATER는 여름 목의 생신·조후를 동시에 해결한다. 巳중 丙이 월령 본기라 식신격이며 丁상관 투간은 부격 요소다."
+  },
+  "fix-17": {
+    "strength": "CONFIRM",
+    "yongshin": "CONFIRM",
+    "gyeokguk": "CONFIRM",
+    "notes": "癸水가 卯월 식상지에 설기되고 丁丁財가 투해 신약하나 申·丑 속 金水로 극단까지는 아니다. METAL 인성이 생수·제목을 맡는 용신으로 타당하다. 卯중 乙은 癸日의 식신이므로 식신격이다."
+  }
+}

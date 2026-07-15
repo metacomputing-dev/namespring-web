@@ -1167,7 +1167,7 @@
       },
       {
         "fixtureId": "fix-04",
-        "label": "1965-08-08 19:00 female — 甲木 일간, 종왕 후보 (강한 木)",
+        "label": "1965-08-08 19:00 female — 甲木 일간, 申月 강약 방향 판정",
         "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
         "referenceKind": "oracle",
         "sourceType": "reference_implementation",

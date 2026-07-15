@@ -464,7 +464,7 @@ export interface StrengthView {
   support: number;
   pressure: number;
   total: number;
-  /** Pre-adjustment contributions retained for audit compatibility. */
+  /** Unadjusted strength ledger under the selected strength policy. */
   components: StrengthComponentsView;
   /**
    * Contributions reconciled to the final support/pressure totals.

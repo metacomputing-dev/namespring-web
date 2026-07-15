@@ -93,7 +93,7 @@ const d5PassIds = d5Pass.map((f: any) => f.fixtureId).sort();
 check('D5 detects at least 3 edge fixtures from existing axis tags',
   d5Pass.length >= 3, `detected: ${d5PassIds.join(', ')}`);
 check('D5 includes fix-03 (jaza-edge)', d5PassIds.includes('fix-03'));
-check('D5 includes fix-04 (jonggwang-candidate)', d5PassIds.includes('fix-04'));
+check('D5 includes fix-04 (strength-direction)', d5PassIds.includes('fix-04'));
 
 const violationPath = path.join(AUTHORITY_DIR, '__source_tier_violation_test__.json');
 try {

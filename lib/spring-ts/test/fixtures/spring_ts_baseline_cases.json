@@ -128,11 +128,11 @@
     },
     {
       "id": "fix-04",
-      "label": "1965-08-08 19:00 female — 甲木 일간, 종왕 후보 (강한 木)",
+      "label": "1965-08-08 19:00 female — 甲木 일간, 申月 강약 방향 판정",
       "axis": [
-        "jonggwang-candidate",
+        "strength-direction",
         "yang-wood",
-        "summer"
+        "autumn"
       ],
       "birth": {
         "year": 1965,
@@ -163,7 +163,7 @@
           "field": "sajuReport.strengthLevel",
           "spring_ts": "중화(신강 경향)",
           "saju_master": "신약",
-          "reason": "Engine-level scoring disagreement (PR-M-7 diagnosed). saju-ts strengthIndex = +0.075 (BALANCED, slightly positive); saju_master raw_score = -16.0 (clearly negative). Same chart, two implementations. Both internally consistent. The difference is weighting: saju-ts gives 인성+비겁 stems (乙·甲) more weight than saju_master gives them. Both are 자평-traditional; this is school-level disagreement, not a bug. tools/diagnose_strength_direction.ts confirms.",
+          "reason": "Panel-diagnosed engine accounting bug: the generic ten-god ledger counts the day master's own 甲 as BI_GYEON +1.0 in strength support. The opt-in exclusion moves strengthIndex +0.03478 → -0.097244 while saju_master remains -16.0. Default promotion is pending exact-diff expert review.",
           "pendingAuthority": true,
           "needsCodeReview": false
         }

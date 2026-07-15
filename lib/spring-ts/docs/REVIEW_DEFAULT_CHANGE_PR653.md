@@ -144,3 +144,24 @@
    — 를 기록한다.
 4. `npm run test:measure-default-change`와 `npm run test:composite-quality-gate`가 PASS로
    전환되는지 확인한다. **구조 회귀(필드 소실)는 승인으로 우회되지 않는다**(분류기가 차단).
+
+## 7. 후속 opt-in: 일간 자기 셈입 제거 (기본화 미승인)
+
+`4eefcd154`는 `strategies.strength.excludeDayMasterSelf=true`일 때만 일간의 직접 비견
+기여를 강약 원장에서 제외한다. 기본값은 off라 이 문서 §1의 기존 `origin/main → HEAD`
+승인 대상 스냅샷을 바꾸지 않는다.
+
+임시 default-on 캡처를 직전 HEAD와 비교한 별도 증분 결과:
+
+| 항목 | 값 |
+|---|---|
+| 판정 | `REVIEW_REQUIRED` |
+| fixture / leaf | 17 / 158 |
+| 분류 | review 7 / regression 0 / unchanged 10 |
+| 강약 표면 이동 | fix-03·04·12·16 강→약 hedge, fix-05·11 중화약→신약, fix-15 신강→중화강 |
+| 2차 파급 | 희신 6건, 종격 위험/경고 4건, 서사 golden 17건, 이름 후보 점수·순위 |
+| fingerprint | `sha256:3772274798d96e9e9fe1b9a7ad5a2b72ef6b918b967242066b99f5169fb69143` |
+
+이 fingerprint는 **승인되지 않았다**. 특히 희신·종격·서사 기대값을 현재 엔진 출력으로
+재캡처하는 것은 순환 검증이므로 금지한다. 외부 명리 전문가가 158 leaf의 방향과 fix-04
+메타 정정(`甲木 / 申月`)을 확인한 뒤에만 기본값 전환과 새 누적 fingerprint 승인을 진행한다.
