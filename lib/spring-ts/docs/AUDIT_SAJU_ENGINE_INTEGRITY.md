@@ -983,9 +983,10 @@ matchedPillars 없음. shinsalHits 항목 키셋은 단일: {type, position, gra
 - NameStat의 커밋된 14개 DB·manifest·50,194행 초성 귀속은 전수 검증하지만,
   원본 통계 JSON은 저장소에 없어 현재 DB를 원천 데이터에서 byte-for-byte
   재생성하는 provenance 사슬은 아직 닫히지 않았다.
-- 기본 sql.js WASM의 package-relative Node 경로와 실제 npm tarball 실행은 검증했다.
-  다만 Vite production build가 이 정확한 자산을 최종 배포 URL로 방출하는 통합 검증은
-  프론트엔드 비변경 범위를 지키기 위해 실행하지 않았다.
+- 기본 sql.js WASM의 package-relative Node 경로와 실제 npm tarball 실행에 더해,
+  Vite production build가 검토된 1.14.1 WASM을 `dist/assets`에 방출하고 최종 JS가
+  해당 파일을 참조하는 것까지 검증했다.
+  실제 배포 뒤 브라우저 fetch와 모바일 peak memory·지연 상한은 아직 미검증이다.
 - NameStat은 선택 shard만 lazy 검증하지만 최대 shard는 약 24.5MB다. 진행 중
   fetch/body 취소는 구현했으나 응답은 `arrayBuffer()`로 완전히 materialize한 뒤 크기를
   검사하므로 모바일 브라우저의 peak memory·지연 실측은 후속이다.
@@ -1018,6 +1019,26 @@ matchedPillars 없음. shinsalHits 항목 키셋은 단일: {type, position, gra
 
 1. 내부 trusted snapshot을 deep import로 반복 중첩하는 비정상 경로의 누적 depth/property budget 재산정은 하지 않는다. 현재 public export와 정상 endpoint에서는 접근할 수 없으므로 P2로 기록한다.
 2. 전체 baseline suite의 직렬 후보 생성 비용을 프로파일링하지 않았다. smoke 3축과 full 17축을 분리하고 full은 CI 전용으로 병렬화할 여지가 있다.
-3. Seed WASM의 package-relative Node 실행은 확인했지만 Vite production emitted asset과 브라우저 fetch, 모바일 메모리 상한은 미검증이다.
+3. Seed WASM의 package-relative Node 실행과 Vite production emitted asset·JS 참조는 확인했다. 실제 배포 뒤 브라우저 fetch와 모바일 메모리 상한은 미검증이다.
 4. 이 두 커밋은 backend-only이고 frontend diff는 없다. 외부 명리 전문가 signoff, default-change fingerprint 승인, authority D1-D5 gate가 완료되기 전에는 WIP 해제의 단독 근거로 사용할 수 없다.
 5. 원격 push와 PR #653 편입은 사용자 명시 승인 전까지 보류한다.
+
+---
+
+## 부록 F. 2026-07-13 Pages·CI 통합 체크포인트
+
+이 부록은 로컬 통합 브랜치의 `4a7387d67`과 `8a63450a2`를 기록한다. 프론트엔드
+소스는 수정하지 않았고, backend workspace source와 공개 자산이 실제 Pages 산출물로
+재현되는지를 검증했다. 이 결과는 배포 무결성과 회귀 자동화의 근거이며 명리 판정의
+외부 권위 인증은 아니다.
+
+| 검증 항목 | 결과 | 잔여 한계 |
+|---|---|---|
+| 공개 자산 URL | Vite `BASE_URL`을 애플리케이션 base로 우선해 BrowserRouter 직접 진입에서도 DB·generated pack URL이 저장소 하위 경로를 유지한다(`4a7387d67`). | 실제 Pages 배포 후 네트워크 fetch 스모크는 원격 push 뒤 확인한다. |
+| 재현 가능한 Pages 산출물 | 21,060 source article을 1,116 bundle로 pack하고 `/ci/`와 `/namespring-web/` base에서 Vite build 통과. 산출물은 1,142 files, 154.22 MiB다. | main JS 약 5.3 MiB 및 Node builtin externalization 경고는 P2 성능·브라우저 스모크 과제다. |
+| 배포 자산 계약 | `index.html=404.html`, 16 DB의 source↔dist byte/SHA, pinned sql.js 1.14.1 WASM 1개(659,730 bytes, canonical SHA), JS의 WASM·base-aware generated pack 참조, legacy CDN·`dist/saju-ts` 부재를 verifier가 확인한다. | source filename/articleId/category와 21,060개 bundle key/articleId·8-token·category·route를 destructive exact-set으로 대조하고, public↔dist byte/SHA 동일성까지 fail-closed로 고정했다(`fe68bfd04`). 정상 산출물과 key/articleId fault injection이 모두 기대대로 통과했다. |
+| CI 의미 분리 | `regression`은 구조·회귀·빌드, `expert-readiness`는 authority·provenance·exact-diff·signoff를 별도 fail-closed job으로 실행한다(`8a63450a2`). | GitHub Actions 원격 성공 이력은 아직 없고, 외부 전문가 signoff·default-change 승인이 없으므로 expert job red와 PR Draft 유지가 정상이다. |
+
+전체 17-fixture snapshot과 40개 이상 명령의 full release chain은 로컬 장시간 실행을
+반복하지 않았다. fix-01·16·17 표본과 개별 계약·타입·빌드·산출물 검증을 사용했고,
+full chain은 원격 CI에서 시간 제한과 로그를 가진 상태로 완주해야 한다.

@@ -14,15 +14,15 @@
     },
     "bySourceTier": {
       "path": "metrics/bySourceTier.json",
-      "sha256": "sha256:8b0c0d1aef4acb8e79b78479ea617b1d25da0c1a79e27148f46c031aa0b04dc8"
+      "sha256": "sha256:58da19d7be5a06c48351306c666d758304c674236c319df1ffa050df5cd09a07"
     },
     "deterministicCalibration": {
       "path": "metrics/deterministic-calibration.json",
-      "sha256": "sha256:cc749af0d7f6771f8dafde7553f3257d985db55255f38f2d539a9e65f93434e9"
+      "sha256": "sha256:331e856f569b50e251cd7bbfc27a734b60d4a65be7f9a96a95a276a8e0cb5075"
     },
     "ruleAbTests": {
       "path": "metrics/rule-ab-tests.json",
-      "sha256": "sha256:ce50b4b110e09937b43647cf7fc92671d2c3733e8c58e9fd4a23072d48037482"
+      "sha256": "sha256:bbbf867f3c0e6f3ea5190fffa691c2bf5e3ef9efc1ac03e8b6a8f590b951f9de"
     }
   },
   "privacy": {
@@ -1026,8 +1026,8 @@
           "fixtureCount": 17,
           "changedFromDefault": 17,
           "changedRate": 100,
-          "averageTotalDelta": -1.0118,
-          "averageSajuDelta": -3.9706
+          "averageTotalDelta": -0.2647,
+          "averageSajuDelta": -1.0118
         },
         {
           "presetId": "modern",
@@ -1050,8 +1050,8 @@
           "fixtureCount": 17,
           "changedFromDefault": 17,
           "changedRate": 100,
-          "averageTotalDelta": -1.1412,
-          "averageSajuDelta": -4.5176
+          "averageTotalDelta": -0.4118,
+          "averageSajuDelta": -1.6353
         },
         {
           "presetId": "naming_safe",

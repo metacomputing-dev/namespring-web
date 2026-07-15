@@ -27,6 +27,7 @@ jobs:
           node-version: "20"
           cache: npm
           cache-dependency-path: |
+            namespring/package-lock.json
             lib/saju-ts/package-lock.json
             lib/seed-ts/package-lock.json
             lib/spring-ts/package-lock.json
@@ -43,6 +44,14 @@ jobs:
         working-directory: lib/spring-ts
         run: npm ci
 
+      - name: Install application dependencies
+        working-directory: namespring
+        run: npm ci
+
+      - name: Verify Seed repository contracts
+        working-directory: lib/seed-ts
+        run: npm test
+
       - name: Typecheck, test, and build saju engine
         working-directory: lib/saju-ts
         run: |
@@ -51,7 +60,7 @@ jobs:
           npm run build
           npm run validate:all
 
-      - name: Verify adapter and release regression suite
+      - name: Verify adapter release regression suite
         working-directory: lib/spring-ts
         run: |
           npm run typecheck
@@ -59,7 +68,58 @@ jobs:
           npm run build
           npm run test:saju-engine-release
 
-      - name: Expert-readiness gates (fail closed)
+      - name: Pack generated report assets
+        working-directory: lib/spring-ts
+        run: npx --no-install tsx tools/generation/pack-generated.ts
+
+      - name: Build Vite application from workspace sources
+        working-directory: namespring
+        env:
+          VITE_BASE_PATH: /ci/
+        run: npm run build:pages
+
+      - name: Prepare and verify Pages artifact
+        run: |
+          cp namespring/dist/index.html namespring/dist/404.html
+          node .github/scripts/verify-pages-artifact.mjs --base "/ci/"
+
+      - name: Ensure regression checks did not rewrite tracked evidence
+        if: always()
+        run: git diff --exit-code
+
+  expert-readiness:
+    name: Expert readiness (fail closed)
+    needs: regression
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: |
+            lib/saju-ts/package-lock.json
+            lib/seed-ts/package-lock.json
+            lib/spring-ts/package-lock.json
+
+      - name: Install saju engine dependencies
+        working-directory: lib/saju-ts
+        run: npm ci
+
+      - name: Install Seed repository dependencies
+        working-directory: lib/seed-ts
+        run: npm ci
+
+      - name: Install report adapter dependencies
+        working-directory: lib/spring-ts
+        run: npm ci
+
+      - name: Run authority, provenance, and exact-diff gates
         working-directory: lib/spring-ts
         shell: bash
         env:
@@ -75,7 +135,6 @@ jobs:
           npm run test:composite-quality-gate || status=1
           exit "$status"
 
-      - name: Ensure validation did not rewrite tracked evidence
+      - name: Ensure readiness gates did not rewrite tracked evidence
         if: always()
         run: git diff --exit-code
-
