@@ -75,6 +75,10 @@ import {
   type NameStatLookupResult,
 } from './name-stat-contract.js';
 import {
+  projectNameStatEntry,
+  toFoundNameStatLookupResult,
+} from './name-stat-projection.js';
+import {
   FOURFRAME_MAX_NUMBER,
   compileFourFrameContract,
 } from './fourframe-contract.js';
@@ -2148,95 +2152,6 @@ export class SpringEngine {
     return givenName.map((char) => String(char?.hangul ?? '')).join('').trim();
   }
 
-  private latestPopularityRankFromEntry(entry: NameStatEntry): number | null {
-    const source = entry?.yearly_rank || {};
-    const totalBucket = source?.['전체'];
-
-    if (totalBucket && typeof totalBucket === 'object' && !Array.isArray(totalBucket)) {
-      const sorted = Object.entries(totalBucket)
-        .map(([year, rank]) => ({ year: Number(year), rank: Number(rank) }))
-        .filter((item) => Number.isFinite(item.year) && Number.isFinite(item.rank))
-        .sort((a, b) => a.year - b.year);
-      const latestFromTotal = sorted.length ? sorted[sorted.length - 1].rank : null;
-      return Number.isFinite(Number(latestFromTotal)) && Number(latestFromTotal) > 0
-        ? Number(latestFromTotal)
-        : null;
-    }
-
-    const valuesByYear = new Map<number, number[]>();
-    for (const [bucketKey, bucket] of Object.entries(source)) {
-      const flatYear = Number(bucketKey);
-      const flatValue = Number(bucket);
-      if (Number.isFinite(flatYear) && Number.isFinite(flatValue)) {
-        const list = valuesByYear.get(flatYear) || [];
-        list.push(flatValue);
-        valuesByYear.set(flatYear, list);
-        continue;
-      }
-
-      if (!bucket || typeof bucket !== 'object' || Array.isArray(bucket)) continue;
-      for (const [year, value] of Object.entries(bucket)) {
-        const y = Number(year);
-        const v = Number(value);
-        if (!Number.isFinite(y) || !Number.isFinite(v)) continue;
-        const list = valuesByYear.get(y) || [];
-        list.push(v);
-        valuesByYear.set(y, list);
-      }
-    }
-
-    if (!valuesByYear.size) return null;
-    const latestYear = Math.max(...valuesByYear.keys());
-    const values = valuesByYear.get(latestYear) || [];
-    if (!values.length) return null;
-    const avg = values.reduce((sum, value) => sum + value, 0) / values.length;
-    return Number.isFinite(avg) && avg > 0 ? avg : null;
-  }
-
-  private normalizeRatio(value: number): number {
-    if (value <= 0) return 0;
-    if (value >= 1) return 1;
-    return value;
-  }
-
-  private sumBirthsByBucket(
-    yearlyBirth: Record<string, Record<string, number>>,
-    bucketNames: string[],
-  ): number {
-    let total = 0;
-    for (const bucketName of bucketNames) {
-      const bucket = yearlyBirth?.[bucketName];
-      if (!bucket || typeof bucket !== 'object') continue;
-      for (const value of Object.values(bucket)) {
-        const count = Number(value);
-        if (Number.isFinite(count) && count > 0) {
-          total += count;
-        }
-      }
-    }
-    return total;
-  }
-
-  private getGenderInfoFromEntry(entry: NameStatEntry | null): { maleRatio: number | null; nameGender: NameGenderTendency } {
-    if (!entry) {
-      return { maleRatio: null, nameGender: 'unknown' };
-    }
-
-    const maleBirths = this.sumBirthsByBucket(entry.yearly_birth, ['남자', '남']);
-    const femaleBirths = this.sumBirthsByBucket(entry.yearly_birth, ['여자', '여']);
-    const totalBirths = maleBirths + femaleBirths;
-
-    if (totalBirths <= 0) {
-      return { maleRatio: null, nameGender: 'unknown' };
-    }
-
-    const maleRatio = this.normalizeRatio(maleBirths / totalBirths);
-    return {
-      maleRatio,
-      nameGender: maleRatio >= 0.5 ? 'male' : 'female',
-    };
-  }
-
   private isGenderMismatch(
     userGender: 'male' | 'female' | 'neutral',
     nameGender: NameGenderTendency,
@@ -2297,13 +2212,7 @@ export class SpringEngine {
 
     // Decode-derived data errors and programming defects remain non-retryable;
     // only repository access failures above are wrapped as infrastructure.
-    const genderInfo = this.getGenderInfoFromEntry(found);
-    const info: NameStatLookupResult = {
-      status: 'found',
-      popularityRank: this.latestPopularityRankFromEntry(found),
-      maleRatio: genderInfo.maleRatio,
-      nameGender: genderInfo.nameGender,
-    };
+    const info = toFoundNameStatLookupResult(projectNameStatEntry(found));
     this.cacheSetNameStatInfo(key, info);
     return info;
   }
