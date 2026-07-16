@@ -11,7 +11,7 @@
  */
 
 import type { TieredCategoryId, TieredPeriodKind } from '../types.js';
-import { snapshotArticle } from './article-snapshot.js';
+import { snapshotJsonValue } from './immutable-json-snapshot.js';
 
 declare global {
   interface ImportMeta {
@@ -152,7 +152,7 @@ const EMPTY_ARTICLES: readonly Article[] = Object.freeze([]);
 function buildRegistry(articles: Article[]): ArticleRegistry {
   // Deterministic pool order regardless of file-system enumeration order.
   const snapshots = articles
-    .map(snapshotArticle)
+    .map(snapshotJsonValue)
     .sort((a, b) => a.articleId.localeCompare(b.articleId));
   const map = new Map<PoolKey, Article[]>();
   let aiGenerated = 0;

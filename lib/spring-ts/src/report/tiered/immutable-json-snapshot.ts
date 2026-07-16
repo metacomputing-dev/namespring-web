@@ -1,5 +1,4 @@
 import { deepFreeze } from '../../../../seed-ts/src/utils/deep-freeze.js';
-import type { Article } from './article-registry.js';
 
 function cloneJsonValue<T>(value: T): T {
   if (Array.isArray(value)) {
@@ -15,7 +14,7 @@ function cloneJsonValue<T>(value: T): T {
 }
 
 /**
- * Copies an Article into a process-owned immutable value.
+ * Copies a JSON-decoded value into a process-owned immutable snapshot.
  *
  * JSON loaders and browser fetch implementations can retain references to
  * their decoded payloads. Building an exact snapshot prevents those external
@@ -23,6 +22,6 @@ function cloneJsonValue<T>(value: T): T {
  * Unknown JSON fields are preserved so cache isolation does not also become an
  * implicit schema migration.
  */
-export function snapshotArticle(article: Article): Article {
-  return deepFreeze(cloneJsonValue(article));
+export function snapshotJsonValue<T>(value: T): T {
+  return deepFreeze(cloneJsonValue(value));
 }

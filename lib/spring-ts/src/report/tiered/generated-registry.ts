@@ -14,7 +14,7 @@
  */
 import { resolvePublicAssetUrl } from '../../../../seed-ts/src/database/runtime-url.js';
 import type { Article } from './article-registry.js';
-import { snapshotArticle } from './article-snapshot.js';
+import { snapshotJsonValue } from './immutable-json-snapshot.js';
 import type {
   TieredGeneratedContentIssueCode,
   TieredGeneratedContentMeta,
@@ -344,7 +344,7 @@ async function loadGeneratedPack(
 
     const snapshots = articles.map(([classId, article]) => [
       classId,
-      snapshotArticle(article as Article),
+      snapshotJsonValue(article as Article),
     ] as const);
     for (const [classId, article] of snapshots) {
       browserCache.set(classId, article);
@@ -557,7 +557,7 @@ export function getGeneratedArticle(category: string, classId: string): Article 
         && articleIdentityMatchesClassId(parsed, classId)
         && parsed.category === category
       ) {
-        article = snapshotArticle(parsed);
+        article = snapshotJsonValue(parsed);
       }
     }
   } catch {
