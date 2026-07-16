@@ -205,6 +205,65 @@ describe('engine config runtime validation', () => {
     expect((config.extensions as any).customExtension.version).toBe('x');
   });
 
+  it.each(['rulesets', 'rules'] as const)(
+    'rejects a direct %s rule set with an unsupported DSL operator',
+    (containerKey) => {
+      const error = captureInvalidConfig({
+        extensions: {
+          [containerKey]: {
+            yongshin: {
+              id: 'invalid-direct-rules',
+              version: '1',
+              rules: [{
+                id: 'INVALID_OPERATOR',
+                when: { op: 'unsupported-op', args: [true] },
+                score: { 'yongshin.WOOD': 1 },
+              }],
+            },
+          },
+        },
+      });
+
+      expect(error.path).toBe(
+        `extensions.${containerKey}.yongshin.rules[0].when.op`,
+      );
+      expect(error.message).not.toContain('unsupported-op');
+    },
+  );
+
+  it.each(['rulesets', 'rules'] as const)(
+    'rejects a malformed direct %s container instead of silently using defaults',
+    (containerKey) => {
+      const error = captureInvalidConfig({
+        extensions: { [containerKey]: 123 },
+      });
+
+      expect(error.path).toBe(`extensions.${containerKey}`);
+    },
+  );
+
+  it('preserves a valid direct rule set after runtime validation', () => {
+    const config = normalizeConfig({
+      extensions: {
+        rulesets: {
+          yongshin: {
+            id: 'valid-direct-rules',
+            version: '1',
+            rules: [{
+              id: 'VALID_DIRECT_RULE',
+              when: { op: 'eq', args: [1, 1] },
+              score: { 'yongshin.WOOD': 0.25 },
+            }],
+          },
+        },
+      },
+    });
+
+    expect(
+      (config.extensions as any).rulesets.yongshin.rules[0].id,
+    ).toBe('VALID_DIRECT_RULE');
+  });
+
   it('keeps undefined optional values compatible with omission', () => {
     const config = normalizeConfig({
       calendar: {

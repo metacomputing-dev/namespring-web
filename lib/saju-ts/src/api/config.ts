@@ -5,6 +5,10 @@ import {
   assertUniqueCompiledRuleIds,
   InvalidSchoolPresetPackError,
 } from '../schools/schoolPackValidation.js';
+import {
+  assertValidRuleSet,
+  InvalidRuleSpecError,
+} from '../rules/spec/ruleSpecValidation.js';
 import { deepFreeze, deepMerge } from '../utils/deepMerge.js';
 import {
   assertEngineConfigObject,
@@ -125,6 +129,61 @@ function assertEffectiveSchoolRuleSpecs(config: EngineConfig): void {
   }
 }
 
+const DIRECT_RULE_TARGETS = [
+  'yongshin',
+  'gyeokguk',
+  'shinsal',
+  'shinsalConditions',
+] as const;
+
+function assertEffectiveDirectRuleSets(config: EngineConfig): void {
+  const extensions = (config.extensions as Record<string, unknown> | undefined)
+    ?? {};
+
+  for (const containerKey of ['rulesets', 'rules'] as const) {
+    const container = extensions[containerKey];
+    if (container === undefined) continue;
+    if (
+      !container
+      || typeof container !== 'object'
+      || Array.isArray(container)
+      || (
+        Object.getPrototypeOf(container) !== Object.prototype
+        && Object.getPrototypeOf(container) !== null
+      )
+    ) {
+      throw new InvalidEngineConfigError(
+        `extensions.${containerKey}`,
+        'an object containing direct rule sets',
+      );
+    }
+
+    const record = container as Record<string, unknown>;
+    for (const target of DIRECT_RULE_TARGETS) {
+      if (
+        !Object.prototype.hasOwnProperty.call(record, target)
+        || record[target] === undefined
+      ) continue;
+
+      try {
+        assertValidRuleSet(
+          record[target],
+          `config.extensions.${containerKey}.${target}`,
+          target,
+        );
+      } catch (error) {
+        if (error instanceof InvalidRuleSpecError) {
+          const path = error.path.startsWith('config.')
+            ? error.path.slice('config.'.length)
+            : error.path;
+          throw new InvalidEngineConfigError(path, error.expected);
+        }
+        throw error;
+      }
+    }
+  }
+}
+
 /**
  * Minimal normalization:
  * - apply defaults
@@ -187,5 +246,6 @@ export function normalizeConfig(input: Partial<EngineConfig> | unknown): EngineC
   const effective = deepMerge(base, migrated) as EngineConfig;
   assertKnownEngineConfig(effective);
   assertEffectiveSchoolRuleSpecs(effective);
+  assertEffectiveDirectRuleSets(effective);
   return effective;
 }

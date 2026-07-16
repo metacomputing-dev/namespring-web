@@ -103,6 +103,7 @@ export type {
   ShinsalConditionsRuleSpecMode,
 } from './rules/spec/shinsalConditionsSpec.js';
 export { compileShinsalConditionsRuleSpec } from './rules/spec/compileShinsalConditionsSpec.js';
+export { InvalidRuleSpecError } from './rules/spec/ruleSpecValidation.js';
 
 
 export { stemHanja, branchHanja, stemElement, branchElement, stemYinYang, branchYinYang } from './core/cycle.js';

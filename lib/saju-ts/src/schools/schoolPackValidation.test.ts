@@ -277,6 +277,52 @@ describe('school preset pack integrity', () => {
     ));
   });
 
+  it('rejects an empty persisted rule-spec block while the compiler helper keeps its fallback', () => {
+    expect(compileYongshinRuleSpec([]).id).toBeTruthy();
+
+    const error = captureEngineConfigError(() => normalizeConfig({
+      extensions: {
+        ruleSpecs: {
+          yongshin: [],
+        },
+      },
+    }));
+
+    expect(error.path).toBe('extensions.ruleSpecs.yongshin');
+  });
+
+  it('preserves the precise macro field path when pack rule validation fails', () => {
+    const customPack = pack(
+      [preset('child', { include: { ruleSpecBlocks: ['rule'] } })],
+      {
+        ruleSpecBlocks: {
+          rule: {
+            target: 'yongshin',
+            spec: {
+              id: 'invalid-bonus',
+              version: '1',
+              base: 'none',
+              macros: [{
+                kind: 'elementBoost',
+                elements: ['WOOD'],
+                bonus: 'not-a-number',
+              }],
+            },
+          },
+        },
+      },
+    );
+
+    const error = capturePackError(() => normalizeConfig(
+      configWithPack(customPack) as any,
+    ));
+
+    expect(error.path).toContain('ruleSpecBlocks.rule');
+    expect(error.path).toMatch(/macros\[0\]\.bonus$/);
+    expect(error.packId).toBe('custom-pack');
+    expect(error.message).not.toContain('not-a-number');
+  });
+
   it('keeps unknown rule targets open without prototype-key pollution', () => {
     const customPack = pack(
       [preset('child', { include: { ruleSpecBlocks: ['future'] } })],

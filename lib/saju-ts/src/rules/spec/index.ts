@@ -14,3 +14,8 @@ export type {
 
 export { compileShinsalRuleSpec } from './compileShinsalSpec.js';
 export { compileShinsalConditionsRuleSpec } from './compileShinsalConditionsSpec.js';
+export {
+  assertValidKnownRuleSpec,
+  assertValidRuleSet,
+  InvalidRuleSpecError,
+} from './ruleSpecValidation.js';

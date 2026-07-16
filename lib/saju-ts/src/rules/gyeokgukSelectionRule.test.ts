@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
-import { normalizeConfig } from '../api/config.js';
+import {
+  InvalidEngineConfigError,
+  normalizeConfig,
+} from '../api/config.js';
 import { pillar } from '../core/cycle.js';
 import { elementDistributionFromPillars } from '../core/elementDistribution.js';
 import { DEFAULT_SCORE_POLICY } from '../core/scoring.js';
@@ -312,45 +315,43 @@ describe('gyeokguk selectionRule', () => {
     expect(result.basis.seongpaeScoreAdjustment?.suppressedBy).toBeUndefined();
   });
 
-  it('fails closed when duplicate rule ids make score provenance ambiguous', () => {
-    const { facts } = analyzeWithSelectionRule();
-    const config = normalizeConfig({
-      strategies: { gyeokguk: { seongpaeScore: { enabled: true } } },
-      extensions: {
-        rulesets: {
-          gyeokguk: {
-            id: 'test.gyeokguk.duplicate-rule-id',
-            version: '1.0',
-            rules: [
-              {
-                id: 'DUPLICATE',
-                score: {
-                  'gyeokguk.PYEON_IN': {
-                    op: 'mul',
-                    args: [1, { var: 'month.gyeok.quality.multiplier' }],
+  it('fails closed at config normalization when duplicate rule ids make score provenance ambiguous', () => {
+    let captured: unknown;
+    try {
+      normalizeConfig({
+        strategies: { gyeokguk: { seongpaeScore: { enabled: true } } },
+        extensions: {
+          rulesets: {
+            gyeokguk: {
+              id: 'test.gyeokguk.duplicate-rule-id',
+              version: '1.0',
+              rules: [
+                {
+                  id: 'DUPLICATE',
+                  score: {
+                    'gyeokguk.PYEON_IN': {
+                      op: 'mul',
+                      args: [1, { var: 'month.gyeok.quality.multiplier' }],
+                    },
                   },
                 },
-              },
-              {
-                id: 'DUPLICATE',
-                score: { 'gyeokguk.PYEON_IN': 1 },
-              },
-            ],
+                {
+                  id: 'DUPLICATE',
+                  score: { 'gyeokguk.PYEON_IN': 1 },
+                },
+              ],
+            },
           },
         },
-      },
-    });
-    facts.month.gyeok.quality.multiplier = 0.5;
-    facts.month.gyeok.seongpae = {
-      ...facts.month.gyeok.seongpae!,
-      verdict: 'PAGYEOK',
-      verdictBeforeMonthBroken: 'UNDETERMINED',
-    };
+      });
+    } catch (error) {
+      captured = error;
+    }
 
-    const result = computeGyeokguk(config, facts);
-    expect(result.basis.seongpaeScoreAdjustment?.before).toBeCloseTo(1.5, 12);
-    expect(result.scores['gyeokguk.PYEON_IN']).toBeCloseTo(1.125, 12);
-    expect(result.basis.seongpaeScoreAdjustment?.suppressedBy).toBeUndefined();
+    expect(captured).toBeInstanceOf(InvalidEngineConfigError);
+    expect((captured as InvalidEngineConfigError).path).toBe(
+      'extensions.rulesets.gyeokguk.rules[1].id',
+    );
   });
   it('falls back to the governed verdict multiplier when an override is negative', () => {
     const got = analyzeWithSelectionRule(undefined, {

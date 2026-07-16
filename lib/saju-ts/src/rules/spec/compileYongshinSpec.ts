@@ -3,6 +3,11 @@ import { ELEMENT_ORDER } from '../../core/elementVector.js';
 import { DEFAULT_YONGSHIN_RULESET } from '../defaultRuleSets.js';
 import { deepClone } from '../../utils/deepMerge.js';
 import type { YongshinMacro, YongshinRuleSpec, YongshinRuleSpecMode } from './yongshinSpec.js';
+import {
+  assertValidKnownRuleSpec,
+  assertValidRuleSet,
+} from './ruleSpecValidation.js';
+import { finalizeGeneratedRuleSet } from './ruleSpecGeneratedData.js';
 
 function renderTemplate(template: string, vars: Record<string, string>): string {
   return template.replace(/\{([a-zA-Z0-9_]+)\}/g, (_m, k) => (k in vars ? String(vars[k]) : `{${k}}`));
@@ -511,8 +516,16 @@ function applyMode(baseRules: Rule[], compiled: Rule[], mode: YongshinRuleSpecMo
 }
 
 export function compileYongshinRuleSpec(specInput: YongshinRuleSpec | YongshinRuleSpec[]): RuleSet {
+  assertValidKnownRuleSpec('yongshin', specInput, 'ruleSpecs.yongshin');
   const specs = Array.isArray(specInput) ? specInput : [specInput];
-  if (specs.length === 0) return deepClone(DEFAULT_YONGSHIN_RULESET);
+  if (specs.length === 0) {
+    const result = finalizeGeneratedRuleSet(
+      deepClone(DEFAULT_YONGSHIN_RULESET),
+      'compiledRuleSets.yongshin',
+    );
+    assertValidRuleSet(result, 'compiledRuleSets.yongshin', 'yongshin');
+    return result;
+  }
 
   let rules: Rule[] = [];
   let meta: Pick<RuleSet, 'id' | 'version' | 'description'> = {
@@ -542,10 +555,15 @@ export function compileYongshinRuleSpec(specInput: YongshinRuleSpec | YongshinRu
     }
   }
 
-  return deepClone({
-    id: meta.id,
-    version: meta.version,
-    description: meta.description,
-    rules,
-  });
+  const result = finalizeGeneratedRuleSet(
+    deepClone({
+      id: meta.id,
+      version: meta.version,
+      description: meta.description,
+      rules,
+    }),
+    'compiledRuleSets.yongshin',
+  );
+  assertValidRuleSet(result, 'compiledRuleSets.yongshin', 'yongshin');
+  return result;
 }
