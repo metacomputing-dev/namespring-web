@@ -1062,14 +1062,6 @@ export function computeTenGodScoreDiagnostics(
   };
 }
 
-function computeTenGodScore(
-  rootDist: Record<ElementKey, number>,
-  sajuOutput: SajuOutputSummary | null,
-  mode: TenGodScoreMode = 'simple_count',
-): number {
-  return computeTenGodScoreDiagnostics(rootDist, sajuOutput, mode).score;
-}
-
 function roundEvidenceNumber(value: number | undefined): number | undefined {
   return value == null || !Number.isFinite(value)
     ? undefined
@@ -1255,13 +1247,18 @@ function computeDeficiencyBonus(
 //  MAIN SCORING FUNCTION — composes all sub-scores into a final result
 // =========================================================================
 
-export function computeSajuNameScore(
+interface SajuNameScoreComputation {
+  readonly scoreResult: SajuNameScoreResult;
+  readonly tenGodDiagnostics: TenGodScoreDiagnostics;
+}
+
+function computeSajuNameScoreWithDiagnostics(
   sajuDist: Record<ElementKey, number>,
   rootDist: Record<ElementKey, number>,
   sajuOutput: SajuOutputSummary | null,
   presetOverride?: SchoolPresetData | null,
   scoringOverrides?: ScoringPrecisionOverrides,
-): SajuNameScoreResult {
+): SajuNameScoreComputation {
 
   // School preset routing — null preset (the default for legacy callers)
   // means "use the saju-scoring.json defaults", which equals the 'korean'
@@ -1283,10 +1280,11 @@ export function computeSajuNameScore(
     rootDist, sajuOutput,
     scoringOverrides?.strengthMode ?? 'binary',
   );
-  const tenGodScore     = computeTenGodScore(
+  const tenGodDiagnostics = computeTenGodScoreDiagnostics(
     rootDist, sajuOutput,
     scoringOverrides?.tenGodMode ?? 'simple_count',
   );
+  const tenGodScore = tenGodDiagnostics.score;
 
   // --- Resolve adaptive weights (balance vs. yongshin trade-off) ---
   const weight = resolveAdaptiveWeights(balanceResult.score, yongshinResult, adaptiveOverride);
@@ -1321,26 +1319,45 @@ export function computeSajuNameScore(
     && (sajuOutput?.yongshin == null || (yongshinResult.score >= PASSING.minYongshinScore && yongshinResult.gusinRatio < PASSING.maxGusinRatio));
 
   return {
-    score,
-    isPassed,
-    combined: balanceResult.combined,
-    breakdown: {
-      balance:  balanceResult.score,
-      yongshin: yongshinResult.score,
-      strength: strengthScore,
-      tenGod:   tenGodScore,
-      penalties: {
-        gisin:    yongshinResult.gisinPenalty,
-        gusin:    yongshinResult.gusinPenalty,
-        gyeokguk: gyeokgukPenalty,
-        total:    totalPenalty,
+    scoreResult: {
+      score,
+      isPassed,
+      combined: balanceResult.combined,
+      breakdown: {
+        balance:  balanceResult.score,
+        yongshin: yongshinResult.score,
+        strength: strengthScore,
+        tenGod:   tenGodScore,
+        penalties: {
+          gisin:    yongshinResult.gisinPenalty,
+          gusin:    yongshinResult.gusinPenalty,
+          gyeokguk: gyeokgukPenalty,
+          total:    totalPenalty,
+        },
+        deficiencyBonus,
+        elementMatches: yongshinResult.elementMatches,
+        yongshinConsensus: yongshinResult.consensus,
+        safetyProfile: yongshinResult.safetyProfile,
       },
-      deficiencyBonus,
-      elementMatches: yongshinResult.elementMatches,
-      yongshinConsensus: yongshinResult.consensus,
-      safetyProfile: yongshinResult.safetyProfile,
     },
+    tenGodDiagnostics,
   };
+}
+
+export function computeSajuNameScore(
+  sajuDist: Record<ElementKey, number>,
+  rootDist: Record<ElementKey, number>,
+  sajuOutput: SajuOutputSummary | null,
+  presetOverride?: SchoolPresetData | null,
+  scoringOverrides?: ScoringPrecisionOverrides,
+): SajuNameScoreResult {
+  return computeSajuNameScoreWithDiagnostics(
+    sajuDist,
+    rootDist,
+    sajuOutput,
+    presetOverride,
+    scoringOverrides,
+  ).scoreResult;
 }
 
 // =========================================================================
@@ -1602,15 +1619,10 @@ export class SajuCalculator implements EvaluableCalculator {
     const rootDist = distributionFromArrangement(
       arrangement,
     );
-    const scoreResult = computeSajuNameScore(
+    const { scoreResult, tenGodDiagnostics } = computeSajuNameScoreWithDiagnostics(
       this.sajuDistribution, rootDist, this.sajuOutput,
       this.presetData,
       this.scoringOverrides,
-    );
-    const tenGodDiagnostics = computeTenGodScoreDiagnostics(
-      rootDist,
-      this.sajuOutput,
-      this.scoringOverrides?.tenGodMode ?? 'simple_count',
     );
     putInsight(ctx, SAJU_FRAME, scoreResult.score, scoreResult.isPassed, 'SAJU+ELEMENT', {
       sajuDistribution: this.sajuDistribution,
