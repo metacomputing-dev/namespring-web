@@ -13,10 +13,7 @@
 // ---------------------------------------------------------------------------
 
 import { HanjaRepository, type HanjaEntry } from '../../seed-ts/src/database/hanja-repository.js';
-import {
-  FourframeRepository,
-  type FourframeMeaningEntry,
-} from '../../seed-ts/src/database/fourframe-repository.js';
+import { FourframeRepository } from '../../seed-ts/src/database/fourframe-repository.js';
 import {
   NameStatRepository,
   type NameStatEntry,
@@ -609,7 +606,6 @@ export class SpringEngine {
   private initPromise: Promise<void> | null = null;
   private lifecycleGeneration = 0;
   private luckyMap = new Map<number, string>();
-  private fourFrameMeaningByNumber = new Map<number, FourframeMeaningEntry>();
   private validFourFrameNumbers = new Set<number>();
   private optimizer: FourFrameOptimizer | null = null;
   private readonly nameStatInfoCache = new Map<string, NameStatLookupResult>();
@@ -661,9 +657,6 @@ export class SpringEngine {
 
     const compiled = compileFourFrameContract(records);
     const luckyMap = new Map<number, string>(compiled.luckyByNumber);
-    const fourFrameMeaningByNumber = new Map<number, FourframeMeaningEntry>(
-      compiled.recordsByNumber,
-    );
     const validFourFrameNumbers = new Set<number>(compiled.favorableNumbers);
     const optimizer = new FourFrameOptimizer(validFourFrameNumbers);
     this.assertActiveInitialization(generation);
@@ -671,7 +664,6 @@ export class SpringEngine {
     // No await is allowed between these assignments: consumers observe either
     // the previous closed state or this complete validated state.
     this.luckyMap = luckyMap;
-    this.fourFrameMeaningByNumber = fourFrameMeaningByNumber;
     this.validFourFrameNumbers = validFourFrameNumbers;
     this.optimizer = optimizer;
     this.initialized = true;
@@ -1690,7 +1682,6 @@ export class SpringEngine {
     const fourFrameScore = roundScore(categoryMap.FOURFRAME_LUCK?.score ?? 0);
 
     const enrichedFrames: NamingReportFrame[] = frames.map((frame) => {
-      const meaning = this.fourFrameMeaningByNumber.get(frame.strokeSum);
       return {
         type: frame.type,
         strokeSum: frame.strokeSum,
@@ -1698,7 +1689,10 @@ export class SpringEngine {
         elementLabel: elementDisplayLabel(frame.energy?.element.english),
         polarity: frame.energy?.polarity.english ?? '',
         luckyLevel: bucketFromFortune(this.luckyMap.get(frame.strokeSum) ?? ''),
-        meaning: meaning ? sanitizeServiceValue(meaning, fullHangul) : null,
+        // Frame construction already owns the canonical, name-specific and
+        // immutable display DTO. Re-reading and sanitizing the same row here
+        // multiplied service-text work for every hydrated candidate.
+        meaning: frame.entry,
       };
     });
 
@@ -2833,7 +2827,6 @@ export class SpringEngine {
     this.initialized = false;
     this.initPromise = null;
     this.luckyMap = new Map();
-    this.fourFrameMeaningByNumber = new Map();
     this.validFourFrameNumbers = new Set();
     this.nameStatInfoCache.clear();
     this.explicitNameIdentityCache = new WeakMap<
