@@ -156,6 +156,14 @@ const JIE_IDS: readonly JieTermId[] = [
   'DAXUE',
 ];
 
+function requireTermSpec(id: SolarTermId): TermSpec {
+  const spec = SPEC_BY_ID.get(id);
+  if (!spec) throw new Error(`Invariant: solar term spec missing for ${id}`);
+  return spec;
+}
+
+const JIE_SPECS: readonly TermSpec[] = JIE_IDS.map(requireTermSpec);
+const LICHUN_SPEC = requireTermSpec('LICHUN');
 const JIE_SET = new Set<SolarTermId>(JIE_IDS);
 
 const MS_PER_DAY = 86_400_000;
@@ -365,24 +373,77 @@ export function solarTermUtcMsForLongitude(
   return Math.round(julianDayToUtcMs(rootJd));
 }
 
-type FrozenSolarTermList = readonly Readonly<SolarTermInstant>[];
+type FrozenSolarTerm = Readonly<SolarTermInstant>;
 
-function freezeSolarTermList(
-  terms: readonly SolarTermInstant[],
-): FrozenSolarTermList {
-  return Object.freeze(
-    terms.map((term) => Object.freeze({ ...term })),
-  );
+const cacheByYearAndPolicy = new Map<string, Map<SolarTermId, FrozenSolarTerm>>();
+
+function solarTermCacheKey(
+  year: number,
+  method: SolarTermMethod,
+  algorithm: SolarTermAlgorithm,
+  aberrationModel: AberrationModel,
+  solarPrecision: SolarPrecision,
+): string {
+  return `${method}:${algorithm}:${aberrationModel}:${solarPrecision}:${year}`;
 }
 
-function cloneSolarTermList(
-  terms: FrozenSolarTermList,
+function getOrComputeSolarTerm(
+  year: number,
+  spec: TermSpec,
+  method: SolarTermMethod,
+  algorithm: SolarTermAlgorithm,
+  aberrationModel: AberrationModel,
+  solarPrecision: SolarPrecision,
+): FrozenSolarTerm {
+  const key = solarTermCacheKey(year, method, algorithm, aberrationModel, solarPrecision);
+  let termsById = cacheByYearAndPolicy.get(key);
+  if (!termsById) {
+    termsById = new Map<SolarTermId, FrozenSolarTerm>();
+    cacheByYearAndPolicy.set(key, termsById);
+  }
+
+  const cached = termsById.get(spec.id);
+  if (cached) return cached;
+
+  const term = Object.freeze({
+    id: spec.id,
+    year,
+    longitude: modDeg(spec.longitude),
+    utcMs: solarTermUtcMsForLongitude(
+      year,
+      spec.longitude,
+      method,
+      algorithm,
+      aberrationModel,
+      solarPrecision,
+    ),
+  });
+  termsById.set(spec.id, term);
+  return term;
+}
+
+function getSolarTermsForSpecs(
+  year: number,
+  specs: readonly TermSpec[],
+  method: SolarTermMethod,
+  algorithm: SolarTermAlgorithm,
+  aberrationModel: AberrationModel,
+  solarPrecision: SolarPrecision,
 ): SolarTermInstant[] {
-  return terms.map((term) => ({ ...term }));
+  return specs
+    .map((spec) =>
+      getOrComputeSolarTerm(
+        year,
+        spec,
+        method,
+        algorithm,
+        aberrationModel,
+        solarPrecision,
+      ),
+    )
+    .sort((a, b) => a.utcMs - b.utcMs)
+    .map((term) => ({ ...term }));
 }
-
-const cacheSolar = new Map<string, FrozenSolarTermList>();
-const cacheJie = new Map<string, FrozenSolarTermList>();
 
 export function getSolarTerms(
   year: number,
@@ -391,20 +452,14 @@ export function getSolarTerms(
   aberrationModel: AberrationModel = DEFAULT_ABERRATION,
   solarPrecision: SolarPrecision = DEFAULT_PRECISION,
 ): SolarTermInstant[] {
-  const key = `${method}:${algorithm}:${aberrationModel}:${solarPrecision}:${year}`;
-  const cached = cacheSolar.get(key);
-  if (cached) return cloneSolarTermList(cached);
-
-  const out: SolarTermInstant[] = SOLAR_TERMS_24.map((spec) => ({
-    id: spec.id,
+  return getSolarTermsForSpecs(
     year,
-    longitude: modDeg(spec.longitude),
-    utcMs: solarTermUtcMsForLongitude(year, spec.longitude, method, algorithm, aberrationModel, solarPrecision),
-  })).sort((a, b) => a.utcMs - b.utcMs);
-
-  const frozen = freezeSolarTermList(out);
-  cacheSolar.set(key, frozen);
-  return cloneSolarTermList(frozen);
+    SOLAR_TERMS_24,
+    method,
+    algorithm,
+    aberrationModel,
+    solarPrecision,
+  );
 }
 
 export function getJieBoundaries(
@@ -414,17 +469,14 @@ export function getJieBoundaries(
   aberrationModel: AberrationModel = DEFAULT_ABERRATION,
   solarPrecision: SolarPrecision = DEFAULT_PRECISION,
 ): SolarTermInstant[] {
-  const key = `${method}:${algorithm}:${aberrationModel}:${solarPrecision}:${year}`;
-  const cached = cacheJie.get(key);
-  if (cached) return cloneSolarTermList(cached);
-
-  const out = getSolarTerms(year, method, algorithm, aberrationModel, solarPrecision)
-    .filter((t) => isJieTermId(t.id))
-    .sort((a, b) => a.utcMs - b.utcMs);
-
-  const frozen = freezeSolarTermList(out);
-  cacheJie.set(key, frozen);
-  return cloneSolarTermList(frozen);
+  return getSolarTermsForSpecs(
+    year,
+    JIE_SPECS,
+    method,
+    algorithm,
+    aberrationModel,
+    solarPrecision,
+  );
 }
 
 export function getSolarTermsAround(
@@ -466,10 +518,14 @@ export function getLiChunUtcMs(
   aberrationModel: AberrationModel = DEFAULT_ABERRATION,
   solarPrecision: SolarPrecision = DEFAULT_PRECISION,
 ): number {
-  const terms = getJieBoundaries(year, method, algorithm, aberrationModel, solarPrecision);
-  const liChun = terms.find((t) => t.id === 'LICHUN');
-  if (!liChun) throw new Error('Invariant: LICHUN missing from Jie terms');
-  return liChun.utcMs;
+  return getOrComputeSolarTerm(
+    year,
+    LICHUN_SPEC,
+    method,
+    algorithm,
+    aberrationModel,
+    solarPrecision,
+  ).utcMs;
 }
 
 // --- Optional conveniences
