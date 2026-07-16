@@ -166,3 +166,22 @@ holdout과 재캘리브레이션 전에는 제품 기본값으로 승인하지 �
   병합하지 못하게 하는 사유로 사용하지 않는다.
 - 예전 schema v2 blocker 구현은 폐기한다. Git blob·commit·fixture·default/candidate
   snapshot을 결박하는 현재 v3 승인 게이트를 정본으로 유지한다.
+
+## K. 2026-07-16 PR #653 25개 스택 종결 인계
+
+> 정본: `docs/dossiers/pr653-stack-completion-2026-07-16/DOSSIER.md`.
+> Stack 25 runtime freeze와 최종 PR 상태는 dossier 및 PR #678 참조.
+
+- 기존 단일 WIP PR #653은 25개 순차 backend 스택으로 분해해 exact-parent 검토했다.
+  Stack 25는 공개 입력·오류·패키지 계약을 fail-closed로 보강했고,
+  `namespring/` frontend source는 변경하지 않았다.
+- 기본 17개 명리 snapshot과 default-change 측정 결과는 무변이다.
+  다만 Seed 공개 오류·질의 계약과 Node 최소 버전은 snapshot 비포착 API 변경이므로
+  dossier의 소비자 migration 항목을 따른다.
+- GitHub Actions는 billing lock으로 runner 배정 전에 종료되어 원격 성공 이력이 없다.
+  검증 증거는 로컬 release suite와 패키지 소비자 smoke test다.
+- 이 종결은 incremental backend merge 완료를 뜻한다. complete-D1 truth,
+  birth-based 종격 authority, 독립 명리 전문가 exact-commit signoff가 없으므로
+  expert-grade certified release를 뜻하지 않는다.
+- 다음 우선순위는 후보 생성 계산 예산·top-K benchmark, D1 authority corpus,
+  배포 브라우저·모바일 smoke test, 남은 구조 hotspot 분해다.
