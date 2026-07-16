@@ -154,6 +154,11 @@ function isOneHanCharacter(value: string): boolean {
   return isRecognizedHanjaGlyph(value);
 }
 
+function isOrdinaryHanCharacter(value: string): boolean {
+  const character = singleCodePoint(value);
+  return character !== null && /^\p{Script=Han}$/u.test(character);
+}
+
 /** Validate name-character syntax without retaining or exposing the raw name. */
 export function assertNameCharacterSyntax(
   chars: readonly NameCharInput[],
@@ -255,7 +260,12 @@ async function resolveAuthoritativeSurnameEntry(
     return { ...(exactRepositoryPair ?? exactFullPair!), is_surname: true };
   }
 
-  const byHanja = await repository.findByHanja(targetHanja);
+  // Seed repository Hanja queries deliberately accept ordinary Han only.
+  // Court-mirror PUA glyphs are resolved exclusively from the active full
+  // pool, so a recognized legal glyph never crosses the repository boundary.
+  const byHanja = isOrdinaryHanCharacter(targetHanja)
+    ? await repository.findByHanja(targetHanja)
+    : null;
   if (byHanja?.hangul === input.hangul) {
     return { ...byHanja, is_surname: true };
   }
@@ -327,6 +337,29 @@ async function resolveVerifiedExplicitPair(
 ): Promise<HanjaEntry> {
   const hangul = input.hangul;
   const hanja = normalizeNameHanja(input);
+
+  if (!isOneHanCharacter(hanja)) {
+    throw new NameEntryResolutionError(
+      'invalid_hanja_character',
+      options.role,
+      options.characterIndex,
+    );
+  }
+
+  if (!isOrdinaryHanCharacter(hanja)) {
+    const activeFullPool = fullPool(options);
+    const exactFullPair = activeFullPool.find(
+      (entry) => entry.hanja === hanja && entry.hangul === hangul,
+    );
+    if (exactFullPair) return { ...exactFullPair, is_surname: options.isSurname };
+    const glyphExists = activeFullPool.some((entry) => entry.hanja === hanja);
+    throw new NameEntryResolutionError(
+      glyphExists ? 'hangul_hanja_reading_mismatch' : 'explicit_hanja_not_found',
+      options.role,
+      options.characterIndex,
+    );
+  }
+
   const byHanja = await repository.findByHanja(hanja);
   if (byHanja?.hangul === hangul) return { ...byHanja, is_surname: options.isSurname };
 

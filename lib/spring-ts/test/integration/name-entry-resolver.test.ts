@@ -538,19 +538,121 @@ function fakeEntry(overrides: Record<string, unknown> = {}): any {
 }
 
 {
+  const recognizedPua = String.fromCodePoint(0xF04C4);
   assert.doesNotThrow(() => assertNameCharacterSyntax([
     { hangul: '\uC9D1', hanja: String.fromCodePoint(0xA022D) },
+    { hangul: '\uB839', hanja: recognizedPua },
   ], { role: 'givenName' }));
-  assert.throws(
-    () => assertNameCharacterSyntax([
-      { hangul: '\uC9D1', hanja: String.fromCodePoint(0xE000) },
-    ], { role: 'givenName' }),
+
+  let puaFindByHanjaCalls = 0;
+  let puaFindByHangulCalls = 0;
+  const puaEngine = new SpringEngine() as any;
+  puaEngine.hanjaRepo = {
+    findByHanja: async () => {
+      puaFindByHanjaCalls += 1;
+      throw new Error('recognized PUA must not cross the Seed Hanja query boundary');
+    },
+    findByHangul: async () => {
+      puaFindByHangulCalls += 1;
+      throw new Error('recognized PUA must resolve from the active full pool');
+    },
+  };
+
+  for (const hangul of ['\uB839', '\uC601']) {
+    const [resolved] = await puaEngine.resolveEntries(
+      [{ hangul, hanja: recognizedPua }],
+      { hanjaPool: 'inmyeongyong_full' },
+    );
+    assert.equal(resolved.hangul, hangul);
+    assert.equal(resolved.hanja, recognizedPua);
+    assert.equal(resolved.is_surname, false);
+  }
+
+  await assert.rejects(
+    puaEngine.resolveEntries(
+      [{ hangul: '\uB839', hanja: recognizedPua }],
+      { hanjaPool: 'curated' },
+    ),
+    (error: unknown) => {
+      assert.ok(error instanceof NameEntryResolutionError);
+      assert.equal(error.reason, 'explicit_hanja_not_found');
+      return true;
+    },
+    'a recognized PUA glyph must remain unavailable outside the active full pool',
+  );
+
+  await assert.rejects(
+    puaEngine.resolveEntries(
+      [{ hangul: '\uB155', hanja: recognizedPua }],
+      { hanjaPool: 'inmyeongyong_full' },
+    ),
+    (error: unknown) => {
+      assert.ok(error instanceof NameEntryResolutionError);
+      assert.equal(error.reason, 'hangul_hanja_reading_mismatch');
+      return true;
+    },
+    'a recognized PUA glyph with an unsupported reading must fail as a mismatch',
+  );
+
+  await assert.rejects(
+    puaEngine.resolveEntries(
+      [{ hangul: '\uC9D1', hanja: String.fromCodePoint(0xE000) }],
+      { hanjaPool: 'inmyeongyong_full' },
+    ),
     (error: unknown) => {
       assert.ok(error instanceof NameEntryResolutionError);
       assert.equal(error.reason, 'invalid_hanja_character');
       return true;
     },
+    'an arbitrary PUA glyph must fail before any repository query',
   );
+  assert.equal(puaFindByHanjaCalls, 0);
+  assert.equal(puaFindByHangulCalls, 0);
+
+  let surnameRepositoryCalls = 0;
+  const surnamePuaEngine = new SpringEngine() as any;
+  surnamePuaEngine.hanjaRepo = {
+    findByHanja: async () => {
+      surnameRepositoryCalls += 1;
+      throw new Error('unverified surname PUA must not reach findByHanja');
+    },
+    findByHangul: async () => {
+      surnameRepositoryCalls += 1;
+      throw new Error('unverified surname PUA must not reach findByHangul');
+    },
+  };
+  await assert.rejects(
+    surnamePuaEngine.resolveEntries(
+      [{ hangul: '\uAE40', hanja: recognizedPua }],
+      { isSurname: true, hanjaPool: 'inmyeongyong_full' },
+    ),
+    (error: unknown) => {
+      assert.ok(error instanceof NameEntryResolutionError);
+      assert.equal(error.reason, 'unverified_single_surname');
+      assert.equal(error.role, 'surname');
+      return true;
+    },
+    'a PUA surname outside the static authority registry must fail before repository lookup',
+  );
+  assert.equal(surnameRepositoryCalls, 0);
+
+  let ordinaryFindByHanjaCalls = 0;
+  const ordinary = fakeEntry({ hangul: '\uBBFC', hanja: '\u654F' });
+  puaEngine.hanjaRepo = {
+    findByHanja: async (hanja: string) => {
+      ordinaryFindByHanjaCalls += 1;
+      assert.equal(hanja, '\u654F');
+      return ordinary;
+    },
+    findByHangul: async () => {
+      throw new Error('exact ordinary Han lookup should not need a Hangul fallback');
+    },
+  };
+  const [resolvedOrdinary] = await puaEngine.resolveEntries([
+    { hangul: '\uBBFC', hanja: '\u654F' },
+  ]);
+  assert.equal(resolvedOrdinary.hanja, '\u654F');
+  assert.equal(ordinaryFindByHanjaCalls, 1, 'ordinary Han must retain repository verification');
 }
 
 

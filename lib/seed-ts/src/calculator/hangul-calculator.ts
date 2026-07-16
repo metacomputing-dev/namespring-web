@@ -4,6 +4,7 @@ import { Element } from '../model/element.js';
 import { Polarity } from '../model/polarity.js';
 import type { HanjaEntry } from '../database/hanja-repository.js';
 import { SeedCalculationError, SeedValidationError } from '../errors.js';
+import { countCodePointsUpTo } from '../utils/bounded-code-point-count.js';
 
 /**
  * PR-Q-26 (Phase K-3): ONSET → Element lookup table (dedup + drift hazard 제거).
@@ -179,8 +180,9 @@ export class HangulCalculator extends EnergyCalculator {
      * @param char The full Hangul character to extract onset from.
      */
     public calculateElementFromOnset(char: string): Element {
-      const code = char.charCodeAt(0) - 0xAC00;
-      if (Array.from(char).length !== 1 || code < 0 || code > 11171) {
+      const charLength = typeof char === 'string' ? countCodePointsUpTo(char, 1) : 0;
+      const code = charLength === 1 ? char.charCodeAt(0) - 0xAC00 : -1;
+      if (charLength !== 1 || code < 0 || code > 11171) {
         throw new SeedValidationError(
           'INVALID_HANGUL_SYLLABLE',
           'Element calculation requires exactly one precomposed Hangul syllable.',

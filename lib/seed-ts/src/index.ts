@@ -21,6 +21,7 @@ export type {
   SeedErrorCode,
   SeedErrorKind,
   SeedErrorPayload,
+  SeedReceivedSummary,
 } from './errors.js';
 
 export { SEED_SCORING_POLICY } from './scoring-policy.js';
@@ -132,7 +133,9 @@ export type {
 } from './database/repository-runtime.js';
 export {
   REPOSITORY_DATA_INVALID,
+  REPOSITORY_QUERY_INVALID,
   RepositoryDataError,
+  RepositoryQueryValidationError,
 } from './database/repository-errors.js';
 export type { RepositoryDataSource } from './database/repository-errors.js';
 

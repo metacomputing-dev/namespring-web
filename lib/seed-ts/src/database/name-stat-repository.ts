@@ -25,6 +25,7 @@ import {
   resolveNameStatShardKey,
   type NameStatShardKey,
 } from '../utils/name-stat-shard.js';
+import { assertRepositoryString } from './repository-query-validation.js';
 
 export interface NameStatEntry {
   readonly name: string;
@@ -109,8 +110,9 @@ export class NameStatRepository {
    */
   public async findByName(name: string): Promise<NameStatEntry | null> {
     const generation = this.lifecycle.currentGeneration;
-    const normalizedName = name?.trim();
-    if (!normalizedName) return null;
+    const normalizedName = assertRepositoryString(name, {
+      repository: 'name-stat', path: 'name', maximumLength: 64,
+    });
 
     const shardKey = resolveNameStatShardKey(normalizedName);
     if (!shardKey) return null;
