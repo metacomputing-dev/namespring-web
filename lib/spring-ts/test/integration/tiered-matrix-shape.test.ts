@@ -97,6 +97,9 @@ check('meta.fragmentCount reflects full article corpus (>=330)',
 check('meta.aiGeneratedFragmentCount matches fragmentCount',
   tm?.meta?.aiGeneratedFragmentCount === tm?.meta?.fragmentCount,
   `${tm?.meta?.aiGeneratedFragmentCount}/${tm?.meta?.fragmentCount}`);
+check('Node filesystem path omits browser generated preload diagnostics',
+  tm?.meta?.generatedContent === undefined,
+  JSON.stringify(tm?.meta?.generatedContent));
 
 if (tm) {
   for (const period of PERIODS) {

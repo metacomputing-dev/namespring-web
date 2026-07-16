@@ -613,6 +613,31 @@ export interface TagGlossary {
   readonly usedInThisReport: readonly TagId[];
 }
 
+export type TieredGeneratedContentStatus =
+  | 'not_applicable'
+  | 'complete'
+  | 'partial'
+  | 'unavailable';
+
+export type TieredGeneratedContentIssueCode =
+  | 'http_unavailable'
+  | 'network_unavailable'
+  | 'invalid_json'
+  | 'invalid_bundle';
+
+/**
+ * Aggregate-only diagnostics for browser generated-pack preload.
+ *
+ * Pack keys and URLs encode private reading axes, so this contract exposes
+ * only a coarse status and bounded issue-code set. Node omits the field because
+ * it reads generated articles directly from the repository filesystem.
+ */
+export interface TieredGeneratedContentMeta {
+  readonly schemaVersion: 'spring-ts.tiered-generated-content.v1';
+  readonly status: TieredGeneratedContentStatus;
+  readonly issues: readonly TieredGeneratedContentIssueCode[];
+}
+
 /** Top-level metadata for a tiered matrix instance. */
 export interface TieredMatrixMeta {
   readonly schemaVersion: 'spring-ts.tiered-matrix.v1';
@@ -629,6 +654,8 @@ export interface TieredMatrixMeta {
   readonly contentSource: 'placeholder' | 'authored';
   readonly fragmentCount: number;
   readonly aiGeneratedFragmentCount: number;
+  /** Browser-only generated article preload result. Optional and additive. */
+  readonly generatedContent?: TieredGeneratedContentMeta;
 }
 
 export type TieredNameFrameStage = 'earlyLife' | 'youthLife' | 'middleLife' | 'lateAndTotal';
