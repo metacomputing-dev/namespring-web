@@ -222,11 +222,14 @@ export class HanjaRepository {
     return this.execute(sql, [validatedMin, validatedMax]);
   }
 
+  /**
+   * Returns every matching entry in stable primary-key order.
+   */
   public async findByOnset(onset: string): Promise<HanjaEntry[]> {
     const validatedOnset = assertRepositoryEnum(onset, HANJA_ONSETS, {
       repository: 'hanja', path: 'onset',
     });
-    const sql = `SELECT * FROM hanjas WHERE onset = ? ORDER BY id ASC LIMIT 200`;
+    const sql = `SELECT * FROM hanjas WHERE onset = ? ORDER BY id ASC`;
     return this.execute(sql, [validatedOnset]);
   }
 
