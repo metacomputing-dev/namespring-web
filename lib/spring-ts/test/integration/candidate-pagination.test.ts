@@ -70,12 +70,28 @@ const repos: any[] = [(engine as any).hanjaRepo, (engine as any).fourFrameRepo];
 for (const repo of repos) { if (repo) repo.wasmUrl = WASM_PATH; }
 await engine.init();
 
-(engine as any).getNameStatInfo = async () => ({
+function popularityRankFor(givenName: readonly { readonly hangul?: string }[]): number {
+  return givenName
+    .flatMap((char) => Array.from(String(char.hangul ?? '')))
+    .reduce((sum, char) => sum + (char.codePointAt(0) ?? 0), 0);
+}
+
+let nameStatLookupCalls = 0;
+(engine as any).getNameStatInfo = async (givenName: readonly { readonly hangul?: string }[]) => {
+  nameStatLookupCalls += 1;
+  return ({
   status: 'found',
-  popularityRank: 1,
+  popularityRank: popularityRankFor(givenName),
   maleRatio: 1,
   nameGender: 'male',
-});
+  });
+};
+const originalFilterCandidatesByNameStat = (engine as any).filterCandidatesByNameStat.bind(engine);
+let nameStatFilterInputCount = 0;
+(engine as any).filterCandidatesByNameStat = async (inputs: unknown[], ...args: unknown[]) => {
+  nameStatFilterInputCount += inputs.length;
+  return originalFilterCandidatesByNameStat(inputs, ...args);
+};
 
 const baseRequest = {
   birth: { year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male' as const },
@@ -94,7 +110,16 @@ check('getNameCandidates honors explicit limit',
 check('getNameCandidates keeps page ranks stable',
   reports.map((row) => row.rank).join(',') === '1,2,3',
   reports.map((row) => row.rank).join(','));
+check('getNameCandidates carries filtered NameStat results into report materialization',
+  nameStatFilterInputCount > 0 && nameStatLookupCalls === nameStatFilterInputCount,
+  `lookups=${nameStatLookupCalls}, filtered=${nameStatFilterInputCount}`);
+check('getNameCandidates keeps each carried NameStat result bound to its candidate',
+  reports.every((row) =>
+    row.popularityRank === popularityRankFor(row.namingReport.name.givenName)),
+  reports.map((row) => `${row.namingReport.name.fullHangul}:${row.popularityRank}`).join(','));
 
+nameStatLookupCalls = 0;
+nameStatFilterInputCount = 0;
 const summaries = await engine.getNameCandidateSummaries({
   ...baseRequest,
   options: { limit: 4, offset: 2 },
@@ -112,6 +137,12 @@ check('getNameCandidateSummaries includes display Hanja meanings',
   summaries.every((row) => row.givenName.every((char) =>
     typeof char.meaning === 'string' && char.meaning.length > 0)),
   summaries.map((row) => row.givenName.map((char) => char.meaning ?? '').join('/')).join(','));
+check('getNameCandidateSummaries carries filtered NameStat results into scoring',
+  nameStatFilterInputCount > 0 && nameStatLookupCalls === nameStatFilterInputCount,
+  `lookups=${nameStatLookupCalls}, filtered=${nameStatFilterInputCount}`);
+check('getNameCandidateSummaries keeps each carried NameStat result bound to its candidate',
+  summaries.every((row) => row.popularityRank === popularityRankFor(row.givenName)),
+  summaries.map((row) => `${row.fullHangul}:${row.popularityRank}`).join(','));
 
 const collectNameInputs = (engine as any).collectNameInputs.bind(engine);
 (engine as any).collectNameInputs = async () => [];
