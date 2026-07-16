@@ -1,0 +1,80 @@
+{
+  "schema": "namespring.spring-ts.stack23-gyeok-quality-impact-sample.v2",
+  "measuredOn": "2026-07-13",
+  "documentedOn": "2026-07-15",
+  "status": {
+    "engineeringContradiction": "resolved",
+    "externalDoctrineReview": "pending",
+    "incrementalEvidenceMerge": "allowed-if-default-unchanged",
+    "certifiedRelease": "blocked-pending-external-authority"
+  },
+  "historicalComparison": {
+    "baseCommit": "3011d1904bfe71c7005e234b4c0698b41dc686fb",
+    "changeCommit": "290b669a7",
+    "change": "Use selectable candidates for selection and gap, while retaining all visible month-hidden-stem candidates as purity and mixed-quality evidence."
+  },
+  "currentImplementation": {
+    "primaryCommit": "4426696af",
+    "followupCommits": [
+      "b50afea15",
+      "f14566c1e"
+    ],
+    "originalPatchReplayed": false,
+    "reason": "The current main implementation already contains the same separation plus stricter earth-month and selected-frame boundaries."
+  },
+  "universe": {
+    "kind": "uniform legal-cycle four-pillar grid",
+    "size": 518400,
+    "sizeFormula": "60 * 60 * 12 * 12"
+  },
+  "sampling": {
+    "kind": "deterministic systematic sample",
+    "loopOrder": [
+      "yearCycle:0..59",
+      "dayCycle:0..59",
+      "monthBranch:0..11",
+      "hourBranch:0..11"
+    ],
+    "linearIndexBase": 0,
+    "rule": "linearIndex % 101 === 0",
+    "sampleSize": 5133,
+    "random": false,
+    "populationWeighted": false,
+    "confidenceIntervalApplicable": false
+  },
+  "results": {
+    "sampledCharts": 5133,
+    "chartsWithExcludedVisibleCompanionEvidence": 358,
+    "chartsWithQualityChange": 126,
+    "qualityChangeRatePercent": 2.4547,
+    "bySelectedRegularFrame": {
+      "PYEON_GWAN": 17,
+      "PYEON_JAE": 10,
+      "SIK_SHIN": 14,
+      "JEONG_JAE": 11,
+      "PYEON_IN": 21,
+      "SANG_GWAN": 12,
+      "JEONG_IN": 26,
+      "JEONG_GWAN": 15
+    },
+    "bySelectedRegularFrameTotal": 126
+  },
+  "snapshotEvidenceAtMeasurement": {
+    "baseline": {
+      "cases": 17,
+      "changed": 0
+    },
+    "gyeokgukCandidates": {
+      "cases": 261,
+      "changed": 0
+    },
+    "classification": "snapshot-invisible default change"
+  },
+  "limitations": [
+    "The sample is not a sample of real births or service traffic.",
+    "The 2.4547 percent rate is not population prevalence, user incidence, market impact, or a statistical estimate.",
+    "Follow-up implementation commits changed additional boundaries, so the historical count is not a current prevalence estimate.",
+    "The measurement does not approve the classical authority of the rule or the numerical quality coefficients.",
+    "Incremental merge readiness is not expert-grade release certification."
+  ]
+}

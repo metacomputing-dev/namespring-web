@@ -151,3 +151,18 @@ holdout과 재캘리브레이션 전에는 제품 기본값으로 승인하지 �
 - P0 없음. **P1 4건**: 용신 가중이 비정규화 신호에 곱해짐(P1-A) / 충형파해 감쇠 4벌 서열 모순(P1-B) / 내부 계수와 프리셋 정책 표면의 소유권 혼재(P1-C) / 정규화 상수 다중 정의(P1-D). 현재 18개 프리셋 중 직접 `yongshin.weights` overlay는 12개이며, transformations·oneElement·competition·methodSelector·conditions도 제한적으로 변주한다. 단위 불일치 C-3(기반 감쇠 ×/raw 혼용)·C-4(decisiveMargin raw 단위)·C-6(신살 점수 이중 체계), rootNorm=0 가드 방향 불일치(강약 fail-open ↔ 격국 fail-closed).
 - **티켓 G1~G5는 상호 독립**이다. G1~G3은 로직 무변경, G4는 기본 config 불변이지만 비기본 `norm<=0` 산출 변경, G5는 승인 전 현행동작 characterization으로만 허용한다. 변경 허용 범위·필수 테스트·전문가 판단 여부는 DOSSIER §G에 명기했다.
 - F1은 코드 수정 완료 후 검토 대기이고 F4/F7은 별도 대기다. 이 dossier는 해당 영역을 재분석하지 않고 인벤토리에만 수록한다. [캘리브] 태그 수치는 명리적 승인 상태가 아니며 authority holdout 전 변경 금지.
+
+## J. 2026-07-15 격국 선택·품질 증거 분리 인계
+
+> 정본: `docs/dossiers/stack23-gyeok-quality-evidence-2026-07-15/`.
+
+- 일반격 선택 후보와 투간 품질 증거를 분리한 구조 수정은 현재 `main`의
+  `4426696af`에 반영됐고, 토 잡기월·선택 격 포함 경계는 `b50afea15`, `f14566c1e`에서
+  보강됐다. 예전 스택 23 패치를 다시 적용하지 않는다.
+- 2026-07-13의 결정론 표본은 5,133건 중 선택 제외 투간 동반 358건, 품질 결과 변화
+  126건을 기록했다. 이는 실제 사용자 빈도가 아닌 역사적 격자 측정치다.
+- 구조 모순 해소와 명리 권위 승인은 별개다. 현행 purity/clarity 계수와 대표 경계 사례의
+  외부 전문가 검토는 certified release 차단선으로 남지만, 판정 무변의 증거 문서 PR을
+  병합하지 못하게 하는 사유로 사용하지 않는다.
+- 예전 schema v2 blocker 구현은 폐기한다. Git blob·commit·fixture·default/candidate
+  snapshot을 결박하는 현재 v3 승인 게이트를 정본으로 유지한다.
