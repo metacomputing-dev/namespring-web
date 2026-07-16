@@ -12,6 +12,7 @@ import {
   assertServiceTextPolicy,
   auditServiceTextPolicy,
   sanitizeImmutableServiceValue,
+  sanitizeServiceText,
 } from '../src/service-text-policy.js';
 
 function countByRule(findings: ReturnType<typeof auditServiceTextPolicy>): Record<string, number> {
@@ -45,6 +46,28 @@ test('immutable sanitizer keeps the established service rewrite behavior', () =>
   assert.ok(Object.isFrozen(display));
   assert.ok(Object.isFrozen(display.nested));
   assert.doesNotThrow(() => assertServiceTextPolicy(display));
+});
+
+test('sanitizer still rewrites every established replacement literal', () => {
+  for (const [index, [search]] of SERVICE_TEXT_REPLACEMENTS.entries()) {
+    const source = `prefix:${search}:suffix`;
+    assert.notEqual(
+      sanitizeServiceText(source, '김민준'),
+      source,
+      `replacement literal ${index} must retain observable rewrite behavior`,
+    );
+  }
+});
+
+test('fast path preserves no-match identity and ordered multi-pass cascades exactly', () => {
+  assert.equal(
+    sanitizeServiceText('평온한 일상과 꾸준한 대화를 이어가요', '김민준'),
+    '평온한 일상과 꾸준한 대화를 이어가요',
+  );
+  assert.equal(
+    sanitizeServiceText('시련을 참고 견디면 반드시 뒤에 복이 온다', '김민준'),
+    '어려운 시기를 지나며 뒤늦게 안정감을 만들 수 있다',
+  );
 });
 
 test('all 81 display rows pass blocking policy while review debt stays explicit', () => {

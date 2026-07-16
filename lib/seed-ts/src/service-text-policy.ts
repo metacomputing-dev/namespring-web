@@ -209,15 +209,35 @@ export const SERVICE_TEXT_REPLACEMENTS = deepFreeze([
   ['하시되', '하되'],
 ] as const);
 
+function escapeRegExpLiteral(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/**
+ * Most service strings contain none of the legacy rewrite literals. Testing
+ * one compiled alternation avoids scanning the same string once per rule in
+ * that common case. A positive match still runs the established ordered,
+ * multi-pass loop unchanged so cascading replacements retain byte-for-byte
+ * behavior.
+ */
+const SERVICE_TEXT_REPLACEMENT_TRIGGER = new RegExp(
+  SERVICE_TEXT_REPLACEMENTS
+    .map(([search]) => escapeRegExpLiteral(search))
+    .join('|'),
+  'u',
+);
+
 export function sanitizeServiceText(value: string, fullHangul: string): string {
   const displayName = fullHangul.trim() || '이름 주인공';
   let sanitized = value.replace(/\[성함\]/g, displayName);
-  for (let pass = 0; pass < 3; pass += 1) {
-    const before = sanitized;
-    for (const [search, replacement] of SERVICE_TEXT_REPLACEMENTS) {
-      sanitized = sanitized.replaceAll(search, replacement);
+  if (SERVICE_TEXT_REPLACEMENT_TRIGGER.test(sanitized)) {
+    for (let pass = 0; pass < 3; pass += 1) {
+      const before = sanitized;
+      for (const [search, replacement] of SERVICE_TEXT_REPLACEMENTS) {
+        sanitized = sanitized.replaceAll(search, replacement);
+      }
+      if (sanitized === before) break;
     }
-    if (sanitized === before) break;
   }
   sanitized = sanitized
     .replace(/([가-힣]+)님께서도/g, '$1님도')
