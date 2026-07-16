@@ -13,6 +13,7 @@ import type {
   FortuneTieredMatrix,
   ReportMeta,
   ReportUncertainty,
+  TieredGeneratedContentMeta,
 } from './types.js';
 import { targetCalendarYear } from '../target-date.js';
 
@@ -200,15 +201,25 @@ export async function buildFortuneReport(
   // builder failure is reported instead of being omitted silently.
   // Browser: fetch the person's packed generated bundles before the (sync)
   // matrix build so class-first selection finds them. Node: no-op.
+  let generatedContent: TieredGeneratedContentMeta | undefined;
   if (options?.surfaceTieredMatrix === true && birth) {
-    await preloadGeneratedForReport(saju, birth, targetDate, springReport?.sajuCompatibility ?? null)
-      .catch(() => { /* leave on base fallback */ });
+    try {
+      generatedContent = await preloadGeneratedForReport(
+        saju,
+        birth,
+        targetDate,
+        springReport?.sajuCompatibility ?? null,
+      );
+    } catch (error) {
+      throw new FortuneReportBuildError('tieredGeneratedPreload', error);
+    }
   }
   const tieredMatrix: FortuneTieredMatrix | undefined =
     options?.surfaceTieredMatrix === true && birth
       ? buildRequired('tieredMatrix',
           () => buildTieredMatrix(saju, birth, targetDate, {
             enabled: true,
+            generatedContent,
             namingReport: springReport?.namingReport ?? null,
             sajuCompatibility: springReport?.sajuCompatibility ?? null,
           }),

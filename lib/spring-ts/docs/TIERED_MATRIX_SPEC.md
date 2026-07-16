@@ -41,7 +41,12 @@ FortuneTieredMatrix
    ├─ selectionSeed       // 결정성 입력 hash
    ├─ templateContractVersion
    ├─ contentSource: 'placeholder' | 'authored'
-   └─ fragmentCount, aiGeneratedFragmentCount
+   ├─ fragmentCount, aiGeneratedFragmentCount
+   └─ generatedContent?: {
+        schemaVersion: 'spring-ts.tiered-generated-content.v1',
+        status: 'not_applicable' | 'complete' | 'partial' | 'unavailable',
+        issues: ('http_unavailable' | 'network_unavailable' | 'invalid_json' | 'invalid_bundle')[]
+      }
 ```
 
 ### 2-1. namingEvidence
@@ -155,6 +160,9 @@ npx tsx test/integration/tiered-isolation-guard.test.ts
 - narrative fragments: 3,052개 (`_seed` placeholder 165개 + authored 2,887개)
 - glossary entries: 130개
 - `tieredMatrix.meta.contentSource`: authored fragment가 하나 이상 로드되면 `'authored'`
+- `contentSource`는 기본 authored registry의 상태이며 browser generated pack의 상태가 아니다.
+- browser generated pack 상태는 선택 필드 `tieredMatrix.meta.generatedContent`로 분리한다.
+  pack key, URL, 원본 오류, pack별 수량은 개인 판정 축을 노출할 수 있어 응답에 포함하지 않는다.
 - expert depth `numericalEvidence`: 55/55 cell populated, 0 gap
 - source-tier baseline: fragments `T1_HYPOTHESIS` 3,052개, numericalEvidence `T3_INTERNAL_ENGINE` 110개, authority-truth eligible 0개
 - axis-pair density baseline: tracked pair missing combination 0개, thin combination 0개 (`npm run ci:narrative-density`)

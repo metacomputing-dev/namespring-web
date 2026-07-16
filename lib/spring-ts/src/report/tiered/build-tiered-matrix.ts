@@ -26,6 +26,7 @@ import type {
   TaggedParagraph,
   TieredCategoryId,
   TieredFortune,
+  TieredGeneratedContentMeta,
   TieredLifeStageBand,
   TieredMatrixMeta,
   TieredNameFrameEvidence,
@@ -626,6 +627,7 @@ function buildLifeByDaeun(
 export interface BuildTieredMatrixOptions {
   readonly enabled?: boolean;
   readonly contentSource?: 'placeholder' | 'authored';
+  readonly generatedContent?: TieredGeneratedContentMeta;
   readonly namingReport?: NamingReport | null;
   /** Name↔saju compatibility (N1). Forwarded from SpringReport so the tiered
    *  layer can surface a plain "이 이름이 부족한 기운을 채워 준다" sentence. */
@@ -682,14 +684,15 @@ function buildNamingEvidence(namingReport: NamingReport | null | undefined): Tie
  * Browser preload — fetch the person's packed generated bundles (one per
  * category) BEFORE buildTieredMatrix runs, so its synchronous selection finds
  * the class articles in cache. Node is a no-op (registry reads fs on demand).
- * Never throws — a failed fetch leaves that category on base fallback.
+ * Asset failures return aggregate fallback diagnostics. Platform and internal
+ * contract defects reject for the report boundary to fail closed.
  */
 export async function preloadGeneratedForReport(
   saju: SajuSummary,
   birth: BirthInfo,
   targetDate: Date,
   sajuCompat: SajuCompatibility | null | undefined,
-): Promise<void> {
+): Promise<TieredGeneratedContentMeta | undefined> {
   const feature = buildFeatureVector(saju, birth, targetDate);
   // 사람축 팩 + (다르면) 미성년형 축 팩. stage/child/teen 클래스는 gender 'x'
   // 팩에 묶이므로, 성별 민감 분야(romance 등)에서는 사람 팩만 받으면
@@ -701,7 +704,7 @@ export async function preloadGeneratedForReport(
     if (minorKey && minorKey !== primary) list.push({ category, packKey: minorKey });
     return list;
   });
-  await preloadGeneratedForPerson(entries);
+  return preloadGeneratedForPerson(entries);
 }
 
 export function buildTieredMatrix(
@@ -763,6 +766,7 @@ export function buildTieredMatrix(
     contentSource: options.contentSource ?? (registry.totalArticleCount > 0 ? 'authored' : 'placeholder'),
     fragmentCount: registry.totalArticleCount,
     aiGeneratedFragmentCount: registry.aiGeneratedCount,
+    ...(options.generatedContent ? { generatedContent: options.generatedContent } : {}),
   };
 
   return {

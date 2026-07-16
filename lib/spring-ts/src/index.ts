@@ -319,6 +319,9 @@ export type {
   // Tiered fortune matrix (opt-in via precisionConfig.surfaceTieredMatrix)
   FortuneTieredMatrix,
   TieredMatrixMeta,
+  TieredGeneratedContentMeta,
+  TieredGeneratedContentStatus,
+  TieredGeneratedContentIssueCode,
   TieredNamingEvidence,
   TieredNameFrameEvidence,
   TieredNameFrameStage,
