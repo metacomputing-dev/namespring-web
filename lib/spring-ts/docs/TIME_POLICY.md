@@ -89,9 +89,9 @@ Supplied time-policy toggles and modes are also validated at runtime. Unknown
 values do not fall back to product defaults; they fail closed with
 `BIRTH_TIME_POLICY_INVALID`.
 
-For backward compatibility, an empty string is treated as missing. Thus an
-empty minute with a known hour follows the `HH:00`/`HH:59` policy, while empty
-hour and minute values follow the `12:00` unknown-hour policy.
+An empty string is an explicitly supplied non-numeric value, so it fails closed
+with `BIRTH_TIME_INVALID`. Only an omitted field, `null`, or `undefined` enters
+the unknown-hour or unknown-minute policy.
 
 ## Global Location And Time-Zone Contract
 
