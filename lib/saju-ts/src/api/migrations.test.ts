@@ -15,7 +15,7 @@ describe('config migrations', () => {
         monthBoundary: 'jieqi',
         dayBoundary: 'midnight',
         hourBoundary: 'doubleHour',
-        // legacy callers sometimes put invalid shapes here
+        // invalid legacy values remain visible for post-migration validation
         solarTerms: 'meeus',
         trueSolarTime: { enabled: true, equationOfTime: 'approx' },
       },
@@ -41,12 +41,28 @@ describe('config migrations', () => {
     expect(s.lifeStages).toEqual({ earthRule: 'FOLLOW_FIRE', yinReversalEnabled: true });
     expect(s.lifeStage).toBeUndefined();
 
-    // invalid shapes are removed so that defaults can be applied later
+    // Invalid shapes are not erased into defaults. normalizeConfig owns
+    // fail-closed semantic validation after aliases have migrated.
     const c: any = migrated.calendar;
-    expect(c.solarTerms).toBeUndefined();
+    expect(c.solarTerms).toBe('meeus');
     expect(c.trueSolarTime).toEqual({ enabled: true, equationOfTime: 'approx' });
 
     expect((migrated as any).extensions.foo).toBe(1);
+  });
+
+  it.each([
+    { calendar: null },
+    { calendar: { trueSolarTime: 'on' } },
+    { toggles: [] },
+    { strategies: 'base' },
+  ])('preserves explicit invalid legacy shapes for the runtime validator %#', (input) => {
+    const migrated = migrateConfig(input) as any;
+
+    for (const key of ['calendar', 'toggles', 'strategies'] as const) {
+      if (Object.prototype.hasOwnProperty.call(input, key)) {
+        expect(migrated[key]).toEqual((input as any)[key]);
+      }
+    }
   });
 
   it('rejects unknown versions instead of falsely stamping them current', () => {

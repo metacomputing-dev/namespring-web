@@ -1,4 +1,5 @@
 import type { EngineConfig } from '../api/types.js';
+import { assertKnownEngineConfig } from '../api/configValidation.js';
 import { deepClone, deepFreeze, deepMerge } from '../utils/deepMerge.js';
 
 import type { SchoolPreset, SchoolPresetPack } from './packTypes.js';
@@ -101,12 +102,14 @@ function concatRuleSpecsLocal(baseRuleSpecs: any, overlayRuleSpecs: any): any {
  * - Concatenates extensions.ruleSpecs buckets to allow composition ("a+b")
  */
 export function applySchoolPreset(baseConfig: EngineConfig, presetId: string, packs?: SchoolPresetPack[]): EngineConfig {
+  assertKnownEngineConfig(baseConfig);
   const resolvedPacks = packs?.length ? packs : [BUILTIN_PACK];
   const p = resolvePresetFromPacks(presetId, resolvedPacks);
   if (!p) {
     throw new UnknownSchoolPresetError(presetId, listAvailablePresetIds(resolvedPacks));
   }
 
+  assertKnownEngineConfig(p.overlay);
   const baseRuleSpecs = (baseConfig.extensions as any)?.ruleSpecs;
   const overlayRuleSpecs = (p.overlay.extensions as any)?.ruleSpecs;
 
@@ -121,6 +124,7 @@ export function applySchoolPreset(baseConfig: EngineConfig, presetId: string, pa
     ext.ruleSpecs = deepClone(combined);
   }
 
+  assertKnownEngineConfig(merged);
   return merged;
 }
 

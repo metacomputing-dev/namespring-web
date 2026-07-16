@@ -1,6 +1,7 @@
 export { createEngine } from './api/engine.js';
 export {
   defaultConfig,
+  InvalidEngineConfigError,
   InvalidLongitudeCorrectionPolicyError,
   InvalidSchoolPresetSelectorError,
 } from './api/config.js';

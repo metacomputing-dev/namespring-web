@@ -1,7 +1,18 @@
-import type { EngineConfig, LongitudeCorrectionPolicy } from './types.js';
+import type { EngineConfig } from './types.js';
 import { migrateConfig } from './migrations.js';
 import { applySchoolPreset, resolveSchoolPresetPacks } from '../schools/index.js';
 import { deepFreeze, deepMerge } from '../utils/deepMerge.js';
+import {
+  assertEngineConfigObject,
+  assertKnownEngineConfig,
+  InvalidEngineConfigError,
+  InvalidLongitudeCorrectionPolicyError,
+} from './configValidation.js';
+
+export {
+  InvalidEngineConfigError,
+  InvalidLongitudeCorrectionPolicyError,
+};
 
 export const defaultConfig: EngineConfig = deepFreeze({
   schemaVersion: '1',
@@ -57,36 +68,6 @@ export class InvalidSchoolPresetSelectorError extends Error {
   }
 }
 
-/** Raised when a configured longitude-correction policy is not well formed. */
-export class InvalidLongitudeCorrectionPolicyError extends Error {
-  readonly code = 'SAJU_INVALID_LONGITUDE_CORRECTION_POLICY';
-
-  constructor() {
-    super(
-      "trueSolarTime.longitudeCorrectionPolicy must be off, civilOffsetMeridian, or a finite fixedMeridian.",
-    );
-    this.name = 'InvalidLongitudeCorrectionPolicyError';
-  }
-}
-
-function assertLongitudeCorrectionPolicy(
-  policy: unknown,
-): asserts policy is LongitudeCorrectionPolicy {
-  if (!policy || typeof policy !== 'object' || Array.isArray(policy)) {
-    throw new InvalidLongitudeCorrectionPolicyError();
-  }
-
-  const candidate = policy as Record<string, unknown>;
-  if (candidate.mode === 'off' || candidate.mode === 'civilOffsetMeridian') return;
-  if (
-    candidate.mode === 'fixedMeridian'
-    && typeof candidate.meridianDeg === 'number'
-    && Number.isFinite(candidate.meridianDeg)
-  ) return;
-
-  throw new InvalidLongitudeCorrectionPolicyError();
-}
-
 function parsePresetIds(x: unknown): string[] {
   const out: string[] = [];
 
@@ -124,21 +105,14 @@ function parsePresetIds(x: unknown): string[] {
  * Minimal normalization:
  * - apply defaults
  * - apply school preset overlays (optional)
- * - preserve unknown fields
+ * - preserve open-ended data under weights/strategies/extensions
  *
  * In later versions, this is where schema migrations would live.
  */
 export function normalizeConfig(input: Partial<EngineConfig> | unknown): EngineConfig {
+  if (input !== undefined) assertEngineConfigObject(input);
   const migrated = migrateConfig(input);
-
-  const trueSolarTime = (migrated.calendar as any)?.trueSolarTime;
-  if (
-    trueSolarTime
-    && typeof trueSolarTime === 'object'
-    && Object.prototype.hasOwnProperty.call(trueSolarTime, 'longitudeCorrectionPolicy')
-  ) {
-    assertLongitudeCorrectionPolicy(trueSolarTime.longitudeCorrectionPolicy);
-  }
+  assertKnownEngineConfig(migrated);
 
   // Allow data-first extension: user can embed additional preset packs under config.extensions.
   // This keeps API stable while enabling new schools without code changes.
@@ -187,6 +161,6 @@ export function normalizeConfig(input: Partial<EngineConfig> | unknown): EngineC
 
   // Deep merge so that user overrides do not erase preset nested fields.
   const effective = deepMerge(base, migrated) as EngineConfig;
-  assertLongitudeCorrectionPolicy(effective.calendar.trueSolarTime.longitudeCorrectionPolicy);
+  assertKnownEngineConfig(effective);
   return effective;
 }
