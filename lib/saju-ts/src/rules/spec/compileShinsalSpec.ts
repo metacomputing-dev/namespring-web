@@ -12,6 +12,11 @@ import { DEFAULT_SHINSAL_RULESET } from '../defaultRuleSets.js';
 import { deepClone } from '../../utils/deepMerge.js';
 
 import type { ShinsalCatalogName, ShinsalMacro, ShinsalRuleSpec, ShinsalRuleSpecMode } from './shinsalSpec.js';
+import {
+  assertValidKnownRuleSpec,
+  assertValidRuleSet,
+} from './ruleSpecValidation.js';
+import { finalizeGeneratedRuleSet } from './ruleSpecGeneratedData.js';
 
 function renderTemplate(template: string, vars: Record<string, string>): string {
   return template.replace(/\{([a-zA-Z0-9_]+)\}/g, (_m, k) => (k in vars ? String(vars[k]) : `{${k}}`));
@@ -203,8 +208,16 @@ function applyMode(baseRules: Rule[], compiled: Rule[], mode: ShinsalRuleSpecMod
  * - avoid repetitive JSON-DSL boilerplate
  */
 export function compileShinsalRuleSpec(specInput: ShinsalRuleSpec | ShinsalRuleSpec[]): RuleSet {
+  assertValidKnownRuleSpec('shinsal', specInput, 'ruleSpecs.shinsal');
   const specs = Array.isArray(specInput) ? specInput : [specInput];
-  if (specs.length === 0) return deepClone(DEFAULT_SHINSAL_RULESET);
+  if (specs.length === 0) {
+    const result = finalizeGeneratedRuleSet(
+      deepClone(DEFAULT_SHINSAL_RULESET),
+      'compiledRuleSets.shinsal',
+    );
+    assertValidRuleSet(result, 'compiledRuleSets.shinsal', 'shinsal');
+    return result;
+  }
 
   let rules: Rule[] = [];
   let meta: Pick<RuleSet, 'id' | 'version' | 'description'> = {
@@ -237,10 +250,15 @@ export function compileShinsalRuleSpec(specInput: ShinsalRuleSpec | ShinsalRuleS
     }
   }
 
-  return deepClone({
-    id: meta.id,
-    version: meta.version,
-    description: meta.description,
-    rules,
-  });
+  const result = finalizeGeneratedRuleSet(
+    deepClone({
+      id: meta.id,
+      version: meta.version,
+      description: meta.description,
+      rules,
+    }),
+    'compiledRuleSets.shinsal',
+  );
+  assertValidRuleSet(result, 'compiledRuleSets.shinsal', 'shinsal');
+  return result;
 }

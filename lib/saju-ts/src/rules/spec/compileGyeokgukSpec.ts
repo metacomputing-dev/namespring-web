@@ -5,6 +5,11 @@ import { deepClone } from '../../utils/deepMerge.js';
 import type { GyeokgukMacro, GyeokgukRuleSpec, GyeokgukRuleSpecMode } from './gyeokgukSpec.js';
 import type { TenGod } from '../../api/types.js';
 import { baseTenGodOfStructuralMonthFrame, type BigyeopSubtype } from '../gyeokgukMonthFrame.js';
+import {
+  assertValidKnownRuleSpec,
+  assertValidRuleSet,
+} from './ruleSpecValidation.js';
+import { finalizeGeneratedRuleSet } from './ruleSpecGeneratedData.js';
 
 function renderTemplate(template: string, vars: Record<string, string>): string {
   return template.replace(/\{([a-zA-Z0-9_]+)\}/g, (_m, k) => (k in vars ? String(vars[k]) : `{${k}}`));
@@ -444,8 +449,16 @@ function applyMode(baseRules: Rule[], compiled: Rule[], mode: GyeokgukRuleSpecMo
 }
 
 export function compileGyeokgukRuleSpec(specInput: GyeokgukRuleSpec | GyeokgukRuleSpec[]): RuleSet {
+  assertValidKnownRuleSpec('gyeokguk', specInput, 'ruleSpecs.gyeokguk');
   const specs = Array.isArray(specInput) ? specInput : [specInput];
-  if (specs.length === 0) return deepClone(DEFAULT_GYEOKGUK_RULESET);
+  if (specs.length === 0) {
+    const result = finalizeGeneratedRuleSet(
+      deepClone(DEFAULT_GYEOKGUK_RULESET),
+      'compiledRuleSets.gyeokguk',
+    );
+    assertValidRuleSet(result, 'compiledRuleSets.gyeokguk', 'gyeokguk');
+    return result;
+  }
 
   let rules: Rule[] = [];
   let meta: Pick<RuleSet, 'id' | 'version' | 'description'> = {
@@ -475,10 +488,15 @@ export function compileGyeokgukRuleSpec(specInput: GyeokgukRuleSpec | GyeokgukRu
     }
   }
 
-  return deepClone({
-    id: meta.id,
-    version: meta.version,
-    description: meta.description,
-    rules,
-  });
+  const result = finalizeGeneratedRuleSet(
+    deepClone({
+      id: meta.id,
+      version: meta.version,
+      description: meta.description,
+      rules,
+    }),
+    'compiledRuleSets.gyeokguk',
+  );
+  assertValidRuleSet(result, 'compiledRuleSets.gyeokguk', 'gyeokguk');
+  return result;
 }

@@ -3,6 +3,10 @@ import { compileGyeokgukRuleSpec } from '../rules/spec/compileGyeokgukSpec.js';
 import { compileShinsalConditionsRuleSpec } from '../rules/spec/compileShinsalConditionsSpec.js';
 import { compileShinsalRuleSpec } from '../rules/spec/compileShinsalSpec.js';
 import { compileYongshinRuleSpec } from '../rules/spec/compileYongshinSpec.js';
+import {
+  assertValidKnownRuleSpec,
+  InvalidRuleSpecError,
+} from '../rules/spec/ruleSpecValidation.js';
 import type {
   SchoolPresetDefinition,
   SchoolPresetPack,
@@ -228,65 +232,6 @@ function assertSelectorToken(
   }
 }
 
-function assertKnownRuleSpecEnvelope(
-  specInput: unknown,
-  path: string,
-  packId?: string,
-): void {
-  const specs = Array.isArray(specInput) ? specInput : [specInput];
-  if (specs.length === 0) {
-    throw new InvalidSchoolPresetPackError(
-      path,
-      'a non-empty rule specification',
-      packId,
-    );
-  }
-
-  for (let index = 0; index < specs.length; index += 1) {
-    const specPath = Array.isArray(specInput) ? `${path}[${index}]` : path;
-    const spec = specs[index];
-    assertRecord(spec, specPath, packId);
-    if (!Array.isArray(spec.macros)) {
-      throw new InvalidSchoolPresetPackError(
-        `${specPath}.macros`,
-        'an array',
-        packId,
-      );
-    }
-    if (
-      hasOwn(spec, 'base')
-      && spec.base !== undefined
-      && spec.base !== 'default'
-      && spec.base !== 'none'
-    ) {
-      throw new InvalidSchoolPresetPackError(
-        `${specPath}.base`,
-        'one of "default" or "none"',
-        packId,
-      );
-    }
-    if (
-      hasOwn(spec, 'mode')
-      && spec.mode !== undefined
-      && spec.mode !== 'append'
-      && spec.mode !== 'prepend'
-      && spec.mode !== 'replace'
-    ) {
-      throw new InvalidSchoolPresetPackError(
-        `${specPath}.mode`,
-        'one of "append", "prepend", or "replace"',
-        packId,
-      );
-    }
-    for (let macroIndex = 0; macroIndex < spec.macros.length; macroIndex += 1) {
-      const macroPath = `${specPath}.macros[${macroIndex}]`;
-      const macro = spec.macros[macroIndex];
-      assertRecord(macro, macroPath, packId);
-      readRequiredString(macro, 'kind', `${macroPath}.kind`, packId);
-    }
-  }
-}
-
 /**
  * Compile every rule bucket consumed by the engine and reject duplicate
  * concrete rule ids. Unknown targets remain open for future extensions.
@@ -303,12 +248,33 @@ export function assertUniqueCompiledRuleIds(
   for (const [target, spec] of Object.entries(ruleSpecs)) {
     const compiler = RULE_SPEC_COMPILERS.get(target);
     if (!compiler) continue;
-    assertKnownRuleSpecEnvelope(spec, `${path}.${target}`, packId);
+    // Public compiler helpers keep [] as a programmatic "use defaults" shortcut.
+    // Persisted EngineConfig/school-pack payloads must be explicit instead: an
+    // empty block is much more likely to be an omitted or truncated policy.
+    if (Array.isArray(spec) && spec.length === 0) {
+      throw new InvalidSchoolPresetPackError(
+        `${path}.${target}`,
+        'a non-empty rule specification',
+        packId,
+      );
+    }
 
     let compiled: { rules: Array<{ id: string }> };
     try {
+      assertValidKnownRuleSpec(target, spec, `${path}.${target}`);
       compiled = compiler(spec);
-    } catch {
+    } catch (error) {
+      if (error instanceof InvalidRuleSpecError) {
+        const owningPath = `${path}.${target}`;
+        const errorPath = error.path.startsWith(`compiledRuleSets.${target}`)
+          ? owningPath
+          : error.path;
+        throw new InvalidSchoolPresetPackError(
+          errorPath,
+          error.expected,
+          packId,
+        );
+      }
       throw new InvalidSchoolPresetPackError(
         `${path}.${target}`,
         'a compilable rule specification',

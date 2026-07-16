@@ -7,6 +7,11 @@ import type {
   ShinsalConditionsRuleSpecMode,
 } from './shinsalConditionsSpec.js';
 import type { ShinsalDamageKey } from '../packs/shinsalConditionsBasePack.js';
+import {
+  assertValidKnownRuleSpec,
+  assertValidRuleSet,
+} from './ruleSpecValidation.js';
+import { finalizeGeneratedRuleSet } from './ruleSpecGeneratedData.js';
 
 function uniqStrings(xs: string[] | undefined): string[] | undefined {
   if (!xs) return undefined;
@@ -150,8 +155,24 @@ function applyMode(baseRules: Rule[], compiled: Rule[], mode: ShinsalConditionsR
 export function compileShinsalConditionsRuleSpec(
   specInput: ShinsalConditionsRuleSpec | ShinsalConditionsRuleSpec[],
 ): RuleSet {
+  assertValidKnownRuleSpec(
+    'shinsalConditions',
+    specInput,
+    'ruleSpecs.shinsalConditions',
+  );
   const specs = Array.isArray(specInput) ? specInput : [specInput];
-  if (specs.length === 0) return deepClone(DEFAULT_SHINSAL_CONDITIONS_RULESET);
+  if (specs.length === 0) {
+    const result = finalizeGeneratedRuleSet(
+      deepClone(DEFAULT_SHINSAL_CONDITIONS_RULESET),
+      'compiledRuleSets.shinsalConditions',
+    );
+    assertValidRuleSet(
+      result,
+      'compiledRuleSets.shinsalConditions',
+      'shinsalConditions',
+    );
+    return result;
+  }
 
   let rules: Rule[] = [];
   let meta: Pick<RuleSet, 'id' | 'version' | 'description'> = {
@@ -181,10 +202,19 @@ export function compileShinsalConditionsRuleSpec(
     }
   }
 
-  return deepClone({
-    id: meta.id,
-    version: meta.version,
-    description: meta.description,
-    rules,
-  });
+  const result = finalizeGeneratedRuleSet(
+    deepClone({
+      id: meta.id,
+      version: meta.version,
+      description: meta.description,
+      rules,
+    }),
+    'compiledRuleSets.shinsalConditions',
+  );
+  assertValidRuleSet(
+    result,
+    'compiledRuleSets.shinsalConditions',
+    'shinsalConditions',
+  );
+  return result;
 }
