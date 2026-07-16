@@ -945,7 +945,7 @@ test('HanjaRepository shares one concurrent initialization', async () => {
   repository.close();
 });
 
-test('HanjaRepository query order is deterministic across SQLite index plans', async () => {
+test('HanjaRepository returns complete deterministic query results across SQLite index plans', async () => {
   const fixture = await createHanjaOrderingFixture();
   const repository = new HanjaRepository({
     initializeSqlJs: async () => fixture.SQL,
@@ -985,7 +985,7 @@ test('HanjaRepository query order is deterministic across SQLite index plans', a
   );
   assert.deepEqual(
     (await repository.findByOnset('\u3131')).map((entry) => entry.id),
-    ids.slice(0, 200),
+    ids,
   );
 
   repository.close();
