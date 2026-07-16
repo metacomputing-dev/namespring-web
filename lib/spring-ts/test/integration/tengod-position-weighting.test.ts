@@ -11,9 +11,13 @@
 import {
   computeSajuNameScore,
   computeTenGodScoreDiagnostics,
+  SAJU_FRAME,
+  SajuCalculator,
   type SajuOutputSummary,
 } from '../../src/index.js';
 import type { ElementKey } from '../../src/core/scoring.js';
+import type { EvalContext } from '../../src/core/evaluator.js';
+import type { HanjaEntry } from '../../../seed-ts/src/database/hanja-repository.js';
 
 type FixtureId = 'monthStem' | 'hourStem' | 'monthHidden' | 'hourHidden';
 type TenGodMode = 'simple_count' | 'positional_weighted' | 'positional_weighted_v2';
@@ -22,6 +26,19 @@ const ZERO_DIST: Record<ElementKey, number> = { Wood: 0, Fire: 0, Earth: 0, Meta
 const SAJU_DIST: Record<ElementKey, number> = { Wood: 1, Fire: 1, Earth: 1, Metal: 1, Water: 1 };
 const ROOT_WOOD: Record<ElementKey, number> = { ...ZERO_DIST, Wood: 1 };
 const GROUP_COUNTS = { friend: 1, output: 4, wealth: 4, authority: 0, resource: 4 };
+const WOOD_NAME_ENTRY: HanjaEntry = {
+  id: 1,
+  hangul: '가',
+  hanja: '佳',
+  onset: 'ㄱ',
+  nucleus: 'ㅏ',
+  strokes: 8,
+  stroke_element: 'Wood',
+  resource_element: 'Wood',
+  meaning: '아름다울 가',
+  radical: '亻',
+  is_surname: false,
+};
 
 let pass = 0;
 let fail = 0;
@@ -192,6 +209,65 @@ check(
   positionalV2Rows.monthStem.diagnostics.deviations.friend !== positionalV2Rows.hourStem.diagnostics.deviations.friend ||
     positionalV2Rows.monthStem.diagnostics.elementWeights.Wood !== positionalV2Rows.hourStem.diagnostics.elementWeights.Wood,
   `monthDev=${positionalV2Rows.monthStem.diagnostics.deviations.friend.toFixed(6)}, hourDev=${positionalV2Rows.hourStem.diagnostics.deviations.friend.toFixed(6)}`,
+);
+
+check(
+  'score breakdown and surfaced diagnostics share the same ten-god score contract',
+  [simpleRows, positionalRows, positionalV2Rows].every((rows) =>
+    ids.every((id) => rows[id].score === rows[id].diagnostics.score)),
+);
+
+const instrumentedTenGod = makeSajuOutput('monthStem').tenGod!;
+let tenGodReads = 0;
+const instrumentedOutput: SajuOutputSummary = {
+  dayMaster: { element: 'Wood' },
+  get tenGod() {
+    tenGodReads += 1;
+    if (tenGodReads > 1) {
+      throw new Error('SajuCalculator recomputed ten-god diagnostics during one visit.');
+    }
+    return instrumentedTenGod;
+  },
+};
+const directDiagnostics = computeTenGodScoreDiagnostics(
+  ROOT_WOOD,
+  makeSajuOutput('monthStem'),
+  'positional_weighted_v2',
+);
+
+const visitContext: EvalContext = {
+  surnameLength: 0,
+  givenLength: 1,
+  luckyMap: new Map(),
+  insights: {},
+};
+const visitCalculator = new SajuCalculator(
+  [],
+  [WOOD_NAME_ENTRY],
+  SAJU_DIST,
+  instrumentedOutput,
+  { scoringOverrides: { tenGodMode: 'positional_weighted_v2' } },
+);
+visitCalculator.visit(visitContext);
+const visitInsight = visitContext.insights[SAJU_FRAME];
+const visitScoring = visitInsight?.details.scoring as { tenGod?: number } | undefined;
+const visitEvidence = visitInsight?.details.tenGodPositionEvidence as {
+  score?: number;
+  effectiveMode?: string;
+  normalization?: string;
+} | undefined;
+check(
+  'SajuCalculator visit computes ten-god diagnostics once and reuses it',
+  tenGodReads === 1,
+  `tenGodReads=${tenGodReads}`,
+);
+check(
+  'SajuCalculator scoring and evidence come from the same ten-god diagnostics',
+  visitScoring?.tenGod === directDiagnostics.score
+    && visitEvidence?.score === Number(directDiagnostics.score.toFixed(6))
+    && visitEvidence.effectiveMode === 'positional_weighted_v2'
+    && visitEvidence.normalization === 'presence_visibility_expected_by_chart_shape',
+  `scoring=${visitScoring?.tenGod}, evidence=${visitEvidence?.score}, direct=${directDiagnostics.score}`,
 );
 
 console.log(`\nTen-god position weighting synthetic fixtures: ${pass} PASS / ${fail} FAIL`);
