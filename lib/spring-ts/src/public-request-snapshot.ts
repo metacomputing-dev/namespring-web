@@ -1,5 +1,14 @@
-import type { FortuneReportRequest } from './report/types.js';
-import type { SajuReport, SpringRequest } from './types.js';
+import type {
+  FortuneReportOptions,
+  FortuneReportRequest,
+} from './report/types.js';
+import type {
+  BirthInfo,
+  SajuReport,
+  SajuSummary,
+  SpringReport,
+  SpringRequest,
+} from './types.js';
 
 const MAX_PUBLIC_INPUT_DEPTH = 64;
 const MAX_PUBLIC_INPUT_PROPERTIES = 100_000;
@@ -263,4 +272,36 @@ export function snapshotSajuReport(report: SajuReport): SajuReport {
   // Omit those object properties exactly as JSON serialization would, while
   // keeping arrays and all public request inputs strict and bounded.
   return snapshotPublicInput(report, { omitUndefinedObjectProperties: true });
+}
+
+export function snapshotSajuAnalysisInput(
+  birth: BirthInfo,
+  options?: SpringRequest['options'],
+): {
+  readonly birth: BirthInfo;
+  readonly options?: SpringRequest['options'];
+} {
+  return snapshotPublicInput({
+    birth,
+    ...(options === undefined ? {} : { options }),
+  }, { omitUndefinedObjectProperties: true });
+}
+
+export function snapshotFortuneReportBuildInput(
+  saju: SajuSummary,
+  springReport: SpringReport | null,
+  options?: FortuneReportOptions,
+  birth?: BirthInfo,
+): {
+  readonly saju: SajuSummary;
+  readonly springReport: SpringReport | null;
+  readonly options?: FortuneReportOptions;
+  readonly birth?: BirthInfo;
+} {
+  return snapshotPublicInput({
+    saju,
+    springReport,
+    ...(options === undefined ? {} : { options }),
+    ...(birth === undefined ? {} : { birth }),
+  }, { omitUndefinedObjectProperties: true });
 }

@@ -251,14 +251,11 @@ const namedFortuneError = await captureError(() => namedFortuneProbe.getFortuneR
 check('named fortune reports preserve name-data integrity failures',
   namedFortuneError === nameDataError);
 
-const throwingDistribution = new Proxy<Record<string, number>>({}, {
-  ownKeys() {
-    throw new Error('synthetic required-card failure');
-  },
-});
 const brokenSummary = {
   ...valid.summary,
-  elementDistribution: throwingDistribution,
+  // Keep the fixture inside the plain-data public input contract so it reaches
+  // the required-card boundary rather than failing earlier during snapshotting.
+  elementDistribution: null as any,
 };
 const buildError = await captureError(() =>
   buildFortuneReport(brokenSummary, new Date('2026-07-11T00:00:00+09:00'), null));
