@@ -14,6 +14,7 @@
  */
 import { resolvePublicAssetUrl } from '../../../../seed-ts/src/database/runtime-url.js';
 import type { Article } from './article-registry.js';
+import { snapshotArticle } from './article-snapshot.js';
 import type {
   TieredGeneratedContentIssueCode,
   TieredGeneratedContentMeta,
@@ -341,8 +342,12 @@ async function loadGeneratedPack(
       return { kind: 'invalid', issueCode: 'invalid_bundle' };
     }
 
-    for (const [classId, article] of articles) {
-      browserCache.set(classId, article as Article);
+    const snapshots = articles.map(([classId, article]) => [
+      classId,
+      snapshotArticle(article as Article),
+    ] as const);
+    for (const [classId, article] of snapshots) {
+      browserCache.set(classId, article);
     }
     loadedBrowserPacks.set(cacheKey, articles.length);
     return { kind: 'loaded', articleCount: articles.length };
@@ -552,7 +557,7 @@ export function getGeneratedArticle(category: string, classId: string): Article 
         && articleIdentityMatchesClassId(parsed, classId)
         && parsed.category === category
       ) {
-        article = parsed;
+        article = snapshotArticle(parsed);
       }
     }
   } catch {
