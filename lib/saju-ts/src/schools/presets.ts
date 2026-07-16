@@ -1,9 +1,17 @@
 import type { EngineConfig } from '../api/types.js';
-import { assertKnownEngineConfig } from '../api/configValidation.js';
+import {
+  assertKnownEngineConfig,
+  InvalidEngineConfigError,
+} from '../api/configValidation.js';
 import { deepClone, deepFreeze, deepMerge } from '../utils/deepMerge.js';
 
 import type { SchoolPreset, SchoolPresetPack } from './packTypes.js';
 import { buildPresetIndex, concatRuleSpecs, extractUserPresetPacks, materializePreset } from './packLoader.js';
+import {
+  assertUniqueCompiledRuleIds,
+  assertValidSchoolPresetPack,
+  InvalidSchoolPresetPackError,
+} from './schoolPackValidation.js';
 
 // Built-in pack (data-only). This keeps the core engine clean and allows
 // “schools” (유파) to be swapped/extended without touching code.
@@ -12,7 +20,9 @@ import { buildPresetIndex, concatRuleSpecs, extractUserPresetPacks, materializeP
 // (and NodeNext module resolution in typical ESM setups).
 import builtinPackRaw from './packs/builtin.pack.json' with { type: 'json' };
 
-const BUILTIN_PACK: SchoolPresetPack = deepFreeze(deepClone(builtinPackRaw as SchoolPresetPack));
+const builtinPackSnapshot = deepClone(builtinPackRaw as SchoolPresetPack);
+assertValidSchoolPresetPack(builtinPackSnapshot, 'builtinSchoolPresetPack');
+const BUILTIN_PACK: SchoolPresetPack = deepFreeze(builtinPackSnapshot);
 
 // Canonical list (exclude aliases) for discovery UIs.
 const BUILTIN_PRESETS: SchoolPreset[] = deepFreeze(
@@ -25,6 +35,7 @@ const BUILTIN_INDEX: Record<string, { preset: SchoolPreset; packId: string }> = 
 );
 
 export type { SchoolPreset, SchoolPresetPack } from './packTypes.js';
+export { InvalidSchoolPresetPackError };
 
 /**
  * Raised when a caller explicitly selects a school preset that cannot be
@@ -66,20 +77,36 @@ export function getSchoolPreset(id: string): SchoolPreset | null {
  */
 export function resolveSchoolPresetPacks(config: EngineConfig): SchoolPresetPack[] {
   const user = extractUserPresetPacks(config);
-  return [BUILTIN_PACK, ...deepClone(user)];
+  const packs = [BUILTIN_PACK, ...deepClone(user)];
+  const packIds = new Set<string>();
+  for (let index = 0; index < packs.length; index += 1) {
+    const pack = packs[index]!;
+    if (packIds.has(pack.id)) {
+      throw new InvalidSchoolPresetPackError(
+        `schoolPresetPacks[${index}].id`,
+        'a unique pack id including the built-in pack',
+        pack.id,
+      );
+    }
+    packIds.add(pack.id);
+  }
+  return packs;
 }
 
-function resolvePresetFromPacks(presetId: string, packs: SchoolPresetPack[]): SchoolPreset | null {
+function resolvePresetFromPacks(
+  presetId: string,
+  packs: SchoolPresetPack[],
+): { preset: SchoolPreset; packId: string } | null {
   if (!presetId) return null;
 
   // Fast-path: if packs is exactly [BUILTIN_PACK], use the static index.
   if (packs.length === 1 && packs[0] === BUILTIN_PACK) {
-    return BUILTIN_INDEX[presetId]?.preset ?? null;
+    return BUILTIN_INDEX[presetId] ?? null;
   }
 
   // Build a local index so aliases work across packs.
   const idx = buildPresetIndex(packs);
-  return idx[presetId]?.preset ?? null;
+  return idx[presetId] ?? null;
 }
 
 function listAvailablePresetIds(packs: SchoolPresetPack[]): string[] {
@@ -95,6 +122,95 @@ function concatRuleSpecsLocal(baseRuleSpecs: any, overlayRuleSpecs: any): any {
   return concatRuleSpecs(baseRuleSpecs, overlayRuleSpecs);
 }
 
+function assertConfigRuleSpecs(ruleSpecs: unknown): void {
+  try {
+    assertUniqueCompiledRuleIds(
+      ruleSpecs,
+      'config.extensions.ruleSpecs',
+    );
+  } catch (error) {
+    if (error instanceof InvalidSchoolPresetPackError) {
+      const path = error.path.startsWith('config.')
+        ? error.path.slice('config.'.length)
+        : error.path;
+      throw new InvalidEngineConfigError(
+        path,
+        'valid school rule specifications with unique compiled rule ids',
+      );
+    }
+    throw error;
+  }
+}
+
+function resolvePackArgument(packs: SchoolPresetPack[] | undefined): SchoolPresetPack[] {
+  if (packs === undefined) return [BUILTIN_PACK];
+  if (!Array.isArray(packs)) {
+    throw new InvalidSchoolPresetPackError(
+      'schoolPresetPacks',
+      'an array',
+    );
+  }
+  if (packs.length === 0) return [BUILTIN_PACK];
+
+  const snapshot: SchoolPresetPack[] = [];
+  for (let index = 0; index < packs.length; index += 1) {
+    const descriptor = Object.getOwnPropertyDescriptor(packs, String(index));
+    if (!descriptor || !('value' in descriptor)) {
+      throw new InvalidSchoolPresetPackError(
+        `schoolPresetPacks[${index}]`,
+        'a data property containing a school preset pack',
+      );
+    }
+    snapshot.push(descriptor.value);
+  }
+  return snapshot;
+}
+
+function applySchoolPresetFromPacks(
+  baseConfig: EngineConfig,
+  presetId: string,
+  resolvedPacks: SchoolPresetPack[],
+): EngineConfig {
+  const baseSnapshot = deepClone(baseConfig);
+  assertKnownEngineConfig(baseSnapshot);
+  const resolved = resolvePresetFromPacks(presetId, resolvedPacks);
+  if (!resolved) {
+    throw new UnknownSchoolPresetError(
+      presetId,
+      listAvailablePresetIds(resolvedPacks),
+    );
+  }
+  const { preset: p, packId } = resolved;
+
+  assertKnownEngineConfig(p.overlay);
+  const baseRuleSpecs = (baseSnapshot.extensions as any)?.ruleSpecs;
+  const overlayRuleSpecs = (p.overlay.extensions as any)?.ruleSpecs;
+  assertConfigRuleSpecs(baseRuleSpecs);
+  assertUniqueCompiledRuleIds(
+    overlayRuleSpecs,
+    'schoolPreset.overlay.extensions.ruleSpecs',
+    packId,
+  );
+
+  const merged = deepMerge(baseSnapshot, p.overlay) as EngineConfig;
+
+  // Allow composition by concatenating rule specs rather than replacing arrays.
+  const combined = concatRuleSpecsLocal(baseRuleSpecs, overlayRuleSpecs);
+  if (combined != null) {
+    const ext = ((merged.extensions as any) ?? {}) as any;
+    merged.extensions = ext;
+    ext.ruleSpecs = deepClone(combined);
+    assertUniqueCompiledRuleIds(
+      ext.ruleSpecs,
+      'config.extensions.ruleSpecs',
+      packId,
+    );
+  }
+
+  assertKnownEngineConfig(merged);
+  return merged;
+}
+
 /**
  * Apply a preset overlay on top of a base config.
  *
@@ -102,30 +218,11 @@ function concatRuleSpecsLocal(baseRuleSpecs: any, overlayRuleSpecs: any): any {
  * - Concatenates extensions.ruleSpecs buckets to allow composition ("a+b")
  */
 export function applySchoolPreset(baseConfig: EngineConfig, presetId: string, packs?: SchoolPresetPack[]): EngineConfig {
-  assertKnownEngineConfig(baseConfig);
-  const resolvedPacks = packs?.length ? packs : [BUILTIN_PACK];
-  const p = resolvePresetFromPacks(presetId, resolvedPacks);
-  if (!p) {
-    throw new UnknownSchoolPresetError(presetId, listAvailablePresetIds(resolvedPacks));
-  }
-
-  assertKnownEngineConfig(p.overlay);
-  const baseRuleSpecs = (baseConfig.extensions as any)?.ruleSpecs;
-  const overlayRuleSpecs = (p.overlay.extensions as any)?.ruleSpecs;
-
-  const merged = deepMerge(baseConfig, p.overlay) as EngineConfig;
-
-  // Important: allow *composition* of school packs via "a+b" by concatenating ruleSpecs.
-  // Without this, presets would overwrite each other's DSL packs due to array replacement semantics.
-  const combined = concatRuleSpecsLocal(baseRuleSpecs, overlayRuleSpecs);
-  if (combined != null) {
-    const ext = ((merged.extensions as any) ?? {}) as any;
-    merged.extensions = ext;
-    ext.ruleSpecs = deepClone(combined);
-  }
-
-  assertKnownEngineConfig(merged);
-  return merged;
+  return applySchoolPresetFromPacks(
+    baseConfig,
+    presetId,
+    resolvePackArgument(packs),
+  );
 }
 
 /**
@@ -134,9 +231,9 @@ export function applySchoolPreset(baseConfig: EngineConfig, presetId: string, pa
  */
 export function applySchoolPresets(baseConfig: EngineConfig, presetIds: string[], packs?: SchoolPresetPack[]): EngineConfig {
   let out = baseConfig;
-  const ps = packs?.length ? packs : [BUILTIN_PACK];
+  const resolvedPacks = resolvePackArgument(packs);
   for (const id of presetIds ?? []) {
-    out = applySchoolPreset(out, id, ps);
+    out = applySchoolPresetFromPacks(out, id, resolvedPacks);
   }
   return out;
 }

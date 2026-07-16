@@ -1,6 +1,10 @@
 import type { EngineConfig } from './types.js';
 import { migrateConfig } from './migrations.js';
 import { applySchoolPreset, resolveSchoolPresetPacks } from '../schools/index.js';
+import {
+  assertUniqueCompiledRuleIds,
+  InvalidSchoolPresetPackError,
+} from '../schools/schoolPackValidation.js';
 import { deepFreeze, deepMerge } from '../utils/deepMerge.js';
 import {
   assertEngineConfigObject,
@@ -101,6 +105,26 @@ function parsePresetIds(x: unknown): string[] {
   return uniq;
 }
 
+function assertEffectiveSchoolRuleSpecs(config: EngineConfig): void {
+  try {
+    assertUniqueCompiledRuleIds(
+      (config.extensions as any)?.ruleSpecs,
+      'config.extensions.ruleSpecs',
+    );
+  } catch (error) {
+    if (error instanceof InvalidSchoolPresetPackError) {
+      const path = error.path.startsWith('config.')
+        ? error.path.slice('config.'.length)
+        : error.path;
+      throw new InvalidEngineConfigError(
+        path,
+        'valid school rule specifications with unique compiled rule ids',
+      );
+    }
+    throw error;
+  }
+}
+
 /**
  * Minimal normalization:
  * - apply defaults
@@ -162,5 +186,6 @@ export function normalizeConfig(input: Partial<EngineConfig> | unknown): EngineC
   // Deep merge so that user overrides do not erase preset nested fields.
   const effective = deepMerge(base, migrated) as EngineConfig;
   assertKnownEngineConfig(effective);
+  assertEffectiveSchoolRuleSpecs(effective);
   return effective;
 }

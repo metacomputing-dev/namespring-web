@@ -14,19 +14,31 @@ function analyzeWithSelectionRule(
   options: {
     useDefaultRuleSet?: boolean;
     monthGyeokBonus?: number;
-    duplicateMonthGyeokRule?: boolean;
+    extraMonthGyeokRule?: boolean;
   } = {},
 ) {
   const {
     useDefaultRuleSet = false,
     monthGyeokBonus = 1,
-    duplicateMonthGyeokRule = false,
+    extraMonthGyeokRule = false,
   } = options;
   const gyeokgukStrategy = { ...(selectionRule ? { selectionRule } : {}), ...gyeokgukOverrides };
-  const monthGyeokMacros = Array.from(
-    { length: duplicateMonthGyeokRule ? 2 : 1 },
-    () => ({ kind: 'monthGyeokTenGod' as const, bonus: monthGyeokBonus }),
-  );
+  const monthGyeokMacros = [
+    {
+      kind: 'monthGyeokTenGod' as const,
+      bonus: monthGyeokBonus,
+      ...(extraMonthGyeokRule
+        ? { idPrefix: 'GYEOKGUK_MONTH_GYEOK_TENGOD_OVERFLOW_A' }
+        : {}),
+    },
+    ...(extraMonthGyeokRule
+      ? [{
+          kind: 'monthGyeokTenGod' as const,
+          bonus: monthGyeokBonus,
+          idPrefix: 'GYEOKGUK_MONTH_GYEOK_TENGOD_OVERFLOW_B',
+        }]
+      : []),
+  ];
   const config = normalizeConfig({
     strategies: Object.keys(gyeokgukStrategy).length > 0 ? { gyeokguk: gyeokgukStrategy } : {},
     ...(useDefaultRuleSet
@@ -377,7 +389,7 @@ describe('gyeokguk selectionRule', () => {
     expect(() => analyzeWithSelectionRule(
       undefined,
       { seongpaeScore: { enabled: true } },
-      { monthGyeokBonus: Number.MAX_VALUE, duplicateMonthGyeokRule: true },
+      { monthGyeokBonus: Number.MAX_VALUE, extraMonthGyeokRule: true },
     )).toThrow(RangeError);
   });
 

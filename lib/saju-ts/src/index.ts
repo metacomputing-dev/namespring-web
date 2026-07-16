@@ -42,8 +42,14 @@ export type {
   LegacyTraceEntryV1,
 } from './compat/springLegacy.js';
 
-export { UnknownSchoolPresetError, listSchoolPresets, getSchoolPreset, applySchoolPreset } from './schools/index.js';
-export type { SchoolPreset } from './schools/index.js';
+export {
+  InvalidSchoolPresetPackError,
+  UnknownSchoolPresetError,
+  listSchoolPresets,
+  getSchoolPreset,
+  applySchoolPreset,
+} from './schools/index.js';
+export type { SchoolPreset, SchoolPresetPack } from './schools/index.js';
 
 export { packAnalysisBundleZip, unpackAnalysisBundleZip } from './artifacts/index.js';
 export type { AnalysisZipInclude, AnalysisZipManifest, AnalysisZipOptions } from './artifacts/index.js';
