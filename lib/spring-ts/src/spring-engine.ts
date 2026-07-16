@@ -100,10 +100,16 @@ import {
   hasExplicitNameHanja,
   resolveFixedNameCharacterPool,
   resolveNameEntries,
+  type NameEntryRepository,
   type ResolveNameEntriesOptions,
   type NameEntryRole,
   type PreverifiedExplicitPairContext,
 } from './name-entry-resolver.js';
+import {
+  createOperationNameEntryCache,
+  createOperationNameEntryRepository,
+  type OperationNameEntryCache,
+} from './operation-name-entry-repository.js';
 import { assertSpringNameRequestContract } from './name-input-contract.js';
 import {
   snapshotFortuneReportRequest,
@@ -580,6 +586,7 @@ type SpringEngineOperationName =
 interface SpringEngineOperationLease {
   readonly operation: SpringEngineOperationName;
   readonly generation: number;
+  readonly nameEntryCache: OperationNameEntryCache;
 }
 
 interface CachedExplicitNameIdentity {
@@ -718,7 +725,21 @@ export class SpringEngine {
   }
 
   private beginOperation(operation: SpringEngineOperationName): SpringEngineOperationLease {
-    return { operation, generation: this.lifecycleGeneration };
+    return {
+      operation,
+      generation: this.lifecycleGeneration,
+      nameEntryCache: createOperationNameEntryCache(),
+    };
+  }
+
+  private operationNameEntryRepository(
+    lease: SpringEngineOperationLease,
+  ): NameEntryRepository {
+    return createOperationNameEntryRepository(
+      this.hanjaRepo,
+      lease.nameEntryCache,
+      (work) => this.awaitOperationStep(lease, work),
+    );
   }
 
   private async awaitOperationStep<T>(
@@ -1003,6 +1024,7 @@ export class SpringEngine {
     operation: SpringEngineOperationLease,
   ): Promise<void> {
     const hanjaPool = this.resolveHanjaPool(request.options);
+    const nameEntryRepository = this.operationNameEntryRepository(operation);
     const preverifiedExplicitPair = (
       input: NameCharInput,
       context: PreverifiedExplicitPairContext,
@@ -1012,7 +1034,7 @@ export class SpringEngine {
       const givenNameContext = { role: 'givenName', hanjaPool } as const;
       const resolvedGivenName = await this.awaitOperationStep(
         operation,
-        () => assertExplicitNameIdentity(request.givenName!, this.hanjaRepo, {
+        () => assertExplicitNameIdentity(request.givenName!, nameEntryRepository, {
           hanjaPool,
           fullPoolEntries: getFullLegalPoolEntries,
           preverifiedExplicitPair,
@@ -1025,7 +1047,7 @@ export class SpringEngine {
       const surnameContext = { role: 'surname', hanjaPool } as const;
       const resolvedSurname = await this.awaitOperationStep(
         operation,
-        () => assertExplicitNameIdentity(request.surname, this.hanjaRepo, {
+        () => assertExplicitNameIdentity(request.surname, nameEntryRepository, {
           isSurname: true,
           hanjaPool,
           fullPoolEntries: getFullLegalPoolEntries,
@@ -1230,11 +1252,11 @@ export class SpringEngine {
         && !resolutionPolicy.useSurnameHanjaInPureHangul,
       isSurname: true,
       hanjaPool,
-    }));
+    }, operation));
     const givenNameEntries = await this.awaitOperationStep(operation, () => this.resolveEntries(request.givenName!, {
       forceHangulOnly: resolutionPolicy.pureHangulGivenName,
       hanjaPool,
-    }));
+    }, operation));
 
     const hangul = new HangulCalculator(surnameEntries, givenNameEntries, this.resolveHangulSignalCap(request.options), this.resolveHangulPolarityModel(request.options));
     const hanja = new HanjaCalculator(
@@ -1356,11 +1378,11 @@ export class SpringEngine {
         && !resolutionPolicy.useSurnameHanjaInPureHangul,
       isSurname: true,
       hanjaPool,
-    }));
+    }, operation));
     const givenNameEntries = await this.awaitOperationStep(operation, () => this.resolveEntries(request.givenName!, {
       forceHangulOnly: resolutionPolicy.pureHangulGivenName,
       hanjaPool,
-    }));
+    }, operation));
 
     const hangul = new HangulCalculator(
       surnameEntries,
@@ -1421,8 +1443,9 @@ export class SpringEngine {
     request: SpringRequest,
     sajuReportOverride?: SajuReport,
     nameStatOverride?: CollectedNameInput['nameStat'],
+    parentOperation?: SpringEngineOperationLease,
   ): Promise<SpringReport> {
-    const operation = this.beginOperation('getSpringReport');
+    const operation = parentOperation ?? this.beginOperation('getSpringReport');
     this.assertRequestNameSyntax(request, false, true, true);
     await this.awaitOperationStep(operation, () => this.init());
     await this.assertExplicitRequestNameIdentity(request, operation);
@@ -1623,11 +1646,13 @@ export class SpringEngine {
   private async hydratePreparedSpringReportCandidate(
     prepared: PreparedSpringReportCandidate,
     sajuReport: SajuReport,
+    operation: SpringEngineOperationLease,
   ): Promise<SpringReport> {
     const report = await this.getSpringReportFromSnapshot(
       prepared.candidateRequest,
       sajuReport,
       prepared.nameStat,
+      operation,
     );
     this.assertPreparedCandidateHydration(prepared, report);
     return report;
@@ -1697,6 +1722,7 @@ export class SpringEngine {
             candidate.candidateRequest,
             sajuReport,
             candidate.nameStat,
+            operation,
           ),
         ));
       }
@@ -1743,7 +1769,11 @@ export class SpringEngine {
     for (const selection of rankedPage) {
       const report = await this.awaitOperationStep(
         operation,
-        () => this.hydratePreparedSpringReportCandidate(selection.source, sajuReport),
+        () => this.hydratePreparedSpringReportCandidate(
+          selection.source,
+          sajuReport,
+          operation,
+        ),
       );
       results.push(applySpringReportSelectionRanking(report, selection));
     }
@@ -1797,11 +1827,11 @@ export class SpringEngine {
           && !resolutionPolicy.useSurnameHanjaInPureHangul,
         isSurname: true,
         hanjaPool: this.resolveHanjaPool(request.options),
-      }));
+      }, operation));
       const givenNameEntries = await this.awaitOperationStep(operation, () => this.resolveEntries(givenNameInput, {
         forceHangulOnly: resolutionPolicy.pureHangulGivenName,
         hanjaPool: this.resolveHanjaPool(request.options),
-      }));
+      }, operation));
 
       const hangul = new HangulCalculator(surnameEntries, givenNameEntries, this.resolveHangulSignalCap(request.options), this.resolveHangulPolarityModel(request.options));
       const hanja  = new HanjaCalculator(
@@ -2011,6 +2041,7 @@ export class SpringEngine {
     const scoredCandidates = await this.awaitOperationStep(operation, () => this.scoreAllCandidates(
       request.surname, nameInputs, sajuDistribution, sajuOutput, request.birth, request.options,
       this.resolveEvaluatorHints(request.birth, request.options, sajuOutput),
+      operation,
     ));
 
     // 5. Paginate and return
@@ -2093,6 +2124,7 @@ export class SpringEngine {
         sajuSummary,
         plan.hasGenerationConstraints ? [...(plan.jamoFilters ?? [])] : undefined,
         candidateRejections,
+        operation,
       ));
 
       if (plan.includeOriginalName) {
@@ -2337,6 +2369,7 @@ export class SpringEngine {
     birth: BirthInfo,
     requestOptions?: SpringRequest['options'],
     evaluatorHints?: SajuEvaluatorHints,
+    operation: SpringEngineOperationLease = this.beginOperation('analyze'),
   ): Promise<SpringCandidate[]> {
     const scored: SpringCandidate[] = [];
 
@@ -2350,6 +2383,7 @@ export class SpringEngine {
           birth,
           requestOptions,
           evaluatorHints,
+          operation,
         ),
       );
     }
@@ -2407,6 +2441,7 @@ export class SpringEngine {
     birth: BirthInfo,
     requestOptions?: SpringRequest['options'],
     evaluatorHints?: SajuEvaluatorHints,
+    operation: SpringEngineOperationLease = this.beginOperation('analyze'),
   ): Promise<SpringCandidate> {
     const resolutionPolicy = this.resolveNameResolutionPolicy(givenName, requestOptions);
     const hanjaPool = this.resolveHanjaPool(requestOptions);
@@ -2415,11 +2450,11 @@ export class SpringEngine {
         && !resolutionPolicy.useSurnameHanjaInPureHangul,
       isSurname: true,
       hanjaPool,
-    });
+    }, operation);
     const givenNameEntries = await this.resolveEntries(givenName, {
       forceHangulOnly: resolutionPolicy.pureHangulGivenName,
       hanjaPool,
-    });
+    }, operation);
 
     // Build one calculator per scoring category
     const hangul = new HangulCalculator(surnameEntries, givenNameEntries, this.resolveHangulSignalCap(requestOptions), this.resolveHangulPolarityModel(requestOptions));
@@ -2547,6 +2582,7 @@ export class SpringEngine {
     sajuSummary: SajuSummary,
     jamoFilters?: (JamoFilter | null)[],
     candidateRejections: CandidateRejectionAccumulator = new Map(),
+    operation: SpringEngineOperationLease = this.beginOperation('getNameCandidates'),
   ): Promise<NameCharInput[][]> {
     const hanjaPool      = this.resolveHanjaPool(request.options);
     const pureHangulGeneration = this.resolvePureHangulMode(request.options) === 'on';
@@ -2556,7 +2592,7 @@ export class SpringEngine {
           ?? DEFAULT_USE_SURNAME_HANJA_IN_PURE),
       isSurname: true,
       hanjaPool,
-    });
+    }, operation);
     const nameLength     = request.givenNameLength ?? jamoFilters?.length ?? 2;
     const hasPositionConstraints = jamoFilters !== undefined;
 
@@ -2585,6 +2621,7 @@ export class SpringEngine {
     const pools = await this.buildPositionPools(
       request, nameLength, jamoFilters, hasPositionConstraints,
       surnameEntries, targetElements, avoidElements, hanjaPool, candidateRejections,
+      operation,
     );
 
     // Choose the generation strategy
@@ -2751,6 +2788,7 @@ export class SpringEngine {
     avoidElements: Set<string>,
     hanjaPool: HanjaPool,
     candidateRejections: CandidateRejectionAccumulator,
+    operation: SpringEngineOperationLease,
   ): Promise<Map<number, HanjaEntry[]>> {
     const useStrokeMode = !hasPositionConstraints && nameLength <= 2;
 
@@ -2759,7 +2797,8 @@ export class SpringEngine {
           surnameEntries, nameLength, targetElements, avoidElements, hanjaPool, candidateRejections,
         )
       : this.buildJamoBasedPools(
-          request, nameLength, jamoFilters, targetElements, avoidElements, hanjaPool, candidateRejections,
+          request, nameLength, jamoFilters, targetElements, avoidElements, hanjaPool,
+          candidateRejections, operation,
         );
   }
 
@@ -2860,6 +2899,7 @@ export class SpringEngine {
     avoidElements: Set<string>,
     hanjaPool: HanjaPool,
     candidateRejections: CandidateRejectionAccumulator,
+    operation: SpringEngineOperationLease,
   ): Promise<Map<number, HanjaEntry[]>> {
     // Pre-load the full hanja pool. Full-pool resource elements are
     // stroke-derived until PR-2.3, so only curated entries use resource 오행
@@ -2888,6 +2928,7 @@ export class SpringEngine {
           hanjaPool,
           allowHangulFallback,
           Number.MAX_SAFE_INTEGER,
+          operation,
         );
         const safeHanjaEntries = this.filterPresentationSafeEntries(
           fixedEntries.filter((entry) => hasHanIdeograph(entry.hanja)),
@@ -2925,17 +2966,22 @@ export class SpringEngine {
     hanjaPool: HanjaPool,
     allowHangulFallback = false,
     poolLimit = POOL_LIMIT_SINGLE_CHAR,
+    operation?: SpringEngineOperationLease,
   ): Promise<HanjaEntry[]> {
-    return resolveFixedNameCharacterPool(givenNameChar, this.hanjaRepo, {
-      hanjaPool,
-      poolLimit,
-      allowHangulFallback,
-      fullPoolEntries: getFullLegalPoolEntries,
-      preverifiedEntry: this.preverifiedExplicitNameIdentity(givenNameChar, {
-        role: 'givenName',
+    return resolveFixedNameCharacterPool(
+      givenNameChar,
+      operation ? this.operationNameEntryRepository(operation) : this.hanjaRepo,
+      {
         hanjaPool,
-      }),
-    });
+        poolLimit,
+        allowHangulFallback,
+        fullPoolEntries: getFullLegalPoolEntries,
+        preverifiedEntry: this.preverifiedExplicitNameIdentity(givenNameChar, {
+          role: 'givenName',
+          hanjaPool,
+        }),
+      },
+    );
   }
 
   // -------------------------------------------------------------------------
@@ -2945,13 +2991,18 @@ export class SpringEngine {
   private async resolveEntries(
     chars: NameCharInput[],
     options: ResolveNameEntriesOptions = {},
+    operation?: SpringEngineOperationLease,
   ): Promise<HanjaEntry[]> {
-    return resolveNameEntries(chars, this.hanjaRepo, {
-      ...options,
-      fullPoolEntries: getFullLegalPoolEntries,
-      preverifiedExplicitPair: (input, context) =>
-        this.preverifiedExplicitNameIdentity(input, context),
-    });
+    return resolveNameEntries(
+      chars,
+      operation ? this.operationNameEntryRepository(operation) : this.hanjaRepo,
+      {
+        ...options,
+        fullPoolEntries: getFullLegalPoolEntries,
+        preverifiedExplicitPair: (input, context) =>
+          this.preverifiedExplicitNameIdentity(input, context),
+      },
+    );
   }
 
   // -------------------------------------------------------------------------
@@ -3027,6 +3078,8 @@ export class SpringEngine {
             options: reportOptions,
           }),
           sajuReport,
+          undefined,
+          operation,
         ),
       );
     }

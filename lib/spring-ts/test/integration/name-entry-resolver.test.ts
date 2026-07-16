@@ -3,6 +3,10 @@ import assert from 'node:assert/strict';
 import { parseJamoFilter } from '../../src/core/name-utils.js';
 import { assertNameCharacterSyntax } from '../../src/name-entry-resolver.js';
 import {
+  createOperationNameEntryCache,
+  createOperationNameEntryRepository,
+} from '../../src/operation-name-entry-repository.js';
+import {
   NAME_ENTRY_RESOLUTION_FAILED,
   NameEntryResolutionError,
   SpringEngine,
@@ -23,6 +27,137 @@ function fakeEntry(overrides: Record<string, unknown> = {}): any {
     is_surname: false,
     ...overrides,
   };
+}
+
+{
+  let byHanjaCalls = 0;
+  let byHangulCalls = 0;
+  let surnameCalls = 0;
+  let surnameRejectedCalls = 0;
+  let rejectedCalls = 0;
+  let concurrentCalls = 0;
+  const concurrentResolvers: Array<(entry: any) => void> = [];
+  const delegate = {
+    findByHanja: async (hanja: string) => {
+      if (hanja === '\u4E0D') {
+        rejectedCalls += 1;
+        if (rejectedCalls === 1) throw new Error('transient lookup failure');
+        return fakeEntry({ hanja });
+      }
+      if (hanja === '\u4E26') {
+        concurrentCalls += 1;
+        return new Promise<any>((resolve) => concurrentResolvers.push(resolve));
+      }
+      byHanjaCalls += 1;
+      return hanja === '\u7121' ? null : fakeEntry({ hanja });
+    },
+    findByHangul: async (hangul: string) => {
+      byHangulCalls += 1;
+      return hangul === '\uC5C6' ? [] : [fakeEntry({ hangul })];
+    },
+    findSurnamesByHangul: async (hangul: string) => {
+      if (hangul === '\uC7AC') {
+        surnameRejectedCalls += 1;
+        if (surnameRejectedCalls === 1) throw new Error('transient surname failure');
+      }
+      surnameCalls += 1;
+      return hangul === '\uBB34'
+        ? []
+        : [fakeEntry({ hangul, is_surname: true })];
+    },
+  };
+  const repository = createOperationNameEntryRepository(
+    delegate,
+    createOperationNameEntryCache(),
+    async <T>(work: () => Promise<T>): Promise<T> => work(),
+  );
+
+  const firstEntry = await repository.findByHanja('\u654F');
+  (firstEntry as any).meaning = 'caller mutation';
+  const secondEntry = await repository.findByHanja('\u654F');
+  assert.equal(byHanjaCalls, 1, 'settled Hanja values must be cached by exact key');
+  assert.equal(secondEntry?.meaning, '\uBBFC\uCCA9\uD560 \uBBFC');
+
+  assert.equal(await repository.findByHanja('\u7121'), null);
+  assert.equal(await repository.findByHanja('\u7121'), null);
+  assert.equal(byHanjaCalls, 2, 'null must be a stable negative-cache value');
+
+  const firstRows = await repository.findByHangul('\uBBFC');
+  (firstRows[0] as any).meaning = 'caller mutation';
+  firstRows.pop();
+  const secondRows = await repository.findByHangul('\uBBFC');
+  assert.equal(byHangulCalls, 1, 'settled Hangul rows must be cached by exact key');
+  assert.equal(secondRows.length, 1);
+  assert.equal(secondRows[0]?.meaning, '\uBBFC\uCCA9\uD560 \uBBFC');
+
+  assert.deepEqual(await repository.findByHangul('\uC5C6'), []);
+  assert.deepEqual(await repository.findByHangul('\uC5C6'), []);
+  assert.equal(byHangulCalls, 2, 'empty row sets must be negative-cached');
+
+  assert.ok(repository.findSurnamesByHangul);
+  const firstSurnames = await repository.findSurnamesByHangul('\uCD5C');
+  (firstSurnames[0] as any).meaning = 'caller mutation';
+  firstSurnames.pop();
+  const secondSurnames = await repository.findSurnamesByHangul('\uCD5C');
+  assert.equal(surnameCalls, 1, 'settled surname rows must be cached by exact key');
+  assert.equal(secondSurnames.length, 1);
+  assert.equal(secondSurnames[0]?.meaning, '\uBBFC\uCCA9\uD560 \uBBFC');
+
+  assert.deepEqual(await repository.findSurnamesByHangul('\uBB34'), []);
+  assert.deepEqual(await repository.findSurnamesByHangul('\uBB34'), []);
+  assert.equal(surnameCalls, 2, 'empty surname row sets must be negative-cached');
+
+  await assert.rejects(
+    repository.findSurnamesByHangul('\uC7AC'),
+    /transient surname failure/,
+  );
+  assert.equal(
+    (await repository.findSurnamesByHangul('\uC7AC'))[0]?.hangul,
+    '\uC7AC',
+  );
+  assert.equal(surnameRejectedCalls, 2, 'rejected surname lookups must remain retryable');
+
+  await assert.rejects(repository.findByHanja('\u4E0D'), /transient lookup failure/);
+  assert.equal((await repository.findByHanja('\u4E0D'))?.hanja, '\u4E0D');
+  assert.equal(rejectedCalls, 2, 'rejected lookups must remain retryable');
+
+  const concurrentA = repository.findByHanja('\u4E26');
+  const concurrentB = repository.findByHanja('\u4E26');
+  await Promise.resolve();
+  assert.equal(
+    concurrentCalls,
+    2,
+    'in-flight lookups must not be coalesced or cached before settlement',
+  );
+  concurrentResolvers[0]?.(fakeEntry({ hanja: '\u4E26' }));
+  concurrentResolvers[1]?.(fakeEntry({ hanja: '\u4E26' }));
+  await Promise.all([concurrentA, concurrentB]);
+}
+
+{
+  let active = true;
+  const repository = createOperationNameEntryRepository(
+    {
+      findByHanja: async () => fakeEntry(),
+      findByHangul: async () => [],
+    },
+    createOperationNameEntryCache(),
+    async <T>(work: () => Promise<T>): Promise<T> => {
+      if (!active) throw new Error('operation cancelled before lookup');
+      const resolved = await work();
+      if (!active) throw new Error('operation cancelled after lookup');
+      return resolved;
+    },
+  );
+  const pending = repository.findByHanja('\u654F');
+  queueMicrotask(() => {
+    active = false;
+  });
+  await assert.rejects(
+    pending,
+    /operation cancelled after lookup/,
+    'a lifecycle cancellation queued during a resolved lookup must win before publication',
+  );
 }
 
 {

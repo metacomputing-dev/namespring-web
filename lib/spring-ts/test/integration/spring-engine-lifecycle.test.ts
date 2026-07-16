@@ -204,6 +204,78 @@ validationEngine.close();
   await expectOperationCancelled(pending, 'getNamingReport');
 }
 
+// Name-entry memoization belongs to one operation lease. Warm stale leases
+// must still cancel, concurrent operations must stay isolated, and a lookup
+// that crosses close() must not publish or leak into the next lifecycle.
+{
+  const cacheEngine = new SpringEngine() as any;
+  const pendingLookup = deferred<any>();
+  const callsByKey = new Map<string, number>();
+  const entry = {
+    id: 1,
+    hangul: '\uBBFC',
+    hanja: '\u654F',
+    onset: '\u3141',
+    nucleus: '\u3163',
+    strokes: 11,
+    stroke_element: 'Wood',
+    resource_element: 'Water',
+    meaning: 'verified',
+    radical: '\u6534',
+    is_surname: false,
+  };
+  cacheEngine.hanjaRepo = {
+    findByHanja: async (hanja: string) => {
+      const calls = (callsByKey.get(hanja) ?? 0) + 1;
+      callsByKey.set(hanja, calls);
+      if (hanja === '\u4E26' && calls === 1) return pendingLookup.promise;
+      return { ...entry, hanja };
+    },
+    findByHangul: async () => [],
+    close: () => undefined,
+  };
+
+  const warmLease = cacheEngine.beginOperation('getNameCandidates');
+  const warmRepository = cacheEngine.operationNameEntryRepository(warmLease);
+  await warmRepository.findByHanja('\u654F');
+  await warmRepository.findByHanja('\u654F');
+  assert.equal(callsByKey.get('\u654F'), 1);
+
+  const parallelLease = cacheEngine.beginOperation('getNameCandidateSummaries');
+  const parallelRepository = cacheEngine.operationNameEntryRepository(parallelLease);
+  await parallelRepository.findByHanja('\u654F');
+  assert.equal(
+    callsByKey.get('\u654F'),
+    2,
+    'separate operation leases must not share lookup authority',
+  );
+
+  cacheEngine.close();
+  await expectOperationCancelled(
+    warmRepository.findByHanja('\u654F'),
+    'getNameCandidates',
+  );
+  assert.equal(callsByKey.get('\u654F'), 2, 'a stale cache hit must not reach the delegate');
+
+  const pendingLease = cacheEngine.beginOperation('getNameCandidates');
+  const pendingRepository = cacheEngine.operationNameEntryRepository(pendingLease);
+  const pending = pendingRepository.findByHanja('\u4E26');
+  await waitFor(() => callsByKey.get('\u4E26') === 1);
+  cacheEngine.close();
+  pendingLookup.resolve({ ...entry, hanja: '\u4E26' });
+  await expectOperationCancelled(pending, 'getNameCandidates');
+
+  const currentLease = cacheEngine.beginOperation('getNameCandidates');
+  const currentRepository = cacheEngine.operationNameEntryRepository(currentLease);
+  assert.equal((await currentRepository.findByHanja('\u4E26'))?.hanja, '\u4E26');
+  assert.equal(
+    callsByKey.get('\u4E26'),
+    2,
+    'a cancelled pending lookup must not populate the next lifecycle cache',
+  );
+  cacheEngine.close();
+}
+
 // Saju-only analysis deliberately does not initialize database repositories,
 // but it is still a SpringEngine operation and must not publish a stale result.
 {

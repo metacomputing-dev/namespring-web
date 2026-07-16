@@ -207,6 +207,38 @@ assert.equal(hydrateCalls, 2);
 assert.equal(fullReportCalls, 2);
 
 resetCounts();
+collectedCandidates = explicitCandidates;
+const hanjaRepository = (engine as any).hanjaRepo;
+const originalFindByHanja = hanjaRepository.findByHanja;
+const exactHanjaLookupCalls = new Map<string, number>();
+hanjaRepository.findByHanja = async (hanja: string) => {
+  exactHanjaLookupCalls.set(hanja, (exactHanjaLookupCalls.get(hanja) ?? 0) + 1);
+  return originalFindByHanja.call(hanjaRepository, hanja);
+};
+let emptyExplicitPage;
+try {
+  emptyExplicitPage = await engine.getNameCandidates({
+    ...baseRequest,
+    options: { ...explicitOptions, offset: 99, limit: 1 },
+  });
+} finally {
+  hanjaRepository.findByHanja = originalFindByHanja;
+}
+assert.deepEqual(emptyExplicitPage, []);
+assert.equal(prepareCalls, explicitCandidates.length);
+assert.equal(hydrateCalls, 0);
+assert.equal(
+  exactHanjaLookupCalls.get('\u65FB'),
+  1,
+  'one operation must query duplicate explicit Hanja only once',
+);
+assert.equal(
+  exactHanjaLookupCalls.get('\u73C9'),
+  1,
+  'one operation must query each distinct explicit Hanja exactly once',
+);
+
+resetCounts();
 collectedCandidates = [
   candidates[0]!,
   candidates[1]!,
