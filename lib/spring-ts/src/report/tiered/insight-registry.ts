@@ -10,6 +10,8 @@
  * 해석 충전은 별도 검증기를 거쳐 진행한다 (docs/DESIGN_LIFEFLOW_INSIGHTS.md §Phase 3).
  */
 
+import { snapshotJsonValue } from './immutable-json-snapshot.js';
+
 export interface InsightInterpretation {
   readonly factId: string;
   /** 평문 한 줄 해석 (해요체). */
@@ -86,7 +88,9 @@ function loadFromFs(map: Map<string, InsightInterpretation>): void {
         const mod: unknown = JSON.parse(nodeBuiltins.fs.readFileSync(nodeBuiltins.path.join(dir, f), 'utf-8'));
         if (!isValidFile(mod)) continue;
         for (const entry of mod.entries) {
-          if (isValidEntry(entry)) map.set(entry.factId, entry);
+          if (isValidEntry(entry)) {
+            map.set(entry.factId, snapshotJsonValue(entry));
+          }
         }
       } catch { /* skip malformed file */ }
     }
@@ -121,7 +125,9 @@ function loadAll(): Map<string, InsightInterpretation> {
       : raw;
     if (!isValidFile(mod)) continue;
     for (const entry of mod.entries) {
-      if (isValidEntry(entry)) map.set(entry.factId, entry);
+      if (isValidEntry(entry)) {
+        map.set(entry.factId, snapshotJsonValue(entry));
+      }
     }
   }
   cached = map;

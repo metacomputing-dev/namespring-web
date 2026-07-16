@@ -15,6 +15,7 @@
  */
 import type { SajuSummary } from '../../types.js';
 import { getInsightInterpretation, type InsightInterpretation } from '../tiered/insight-registry.js';
+import { snapshotJsonValue } from '../tiered/immutable-json-snapshot.js';
 import { SHINSAL_ENCYCLOPEDIA } from '../knowledge/shinsalEncyclopedia.js';
 import { STEM_BY_CODE, BRANCH_BY_CODE } from '../common/elementMaps.js';
 import {
@@ -218,11 +219,11 @@ const SHINSAL_BY_KOREAN: ReadonlyMap<string, InsightInterpretation> = (() => {
   const map = new Map<string, InsightInterpretation>();
   for (const entry of Object.values(SHINSAL_ENCYCLOPEDIA)) {
     if (!entry?.korean || !entry.meaning) continue;
-    map.set(entry.korean, {
+    map.set(entry.korean, snapshotJsonValue({
       factId: `shinsal.${entry.korean}`,
       text: entry.meaning,
       expertText: Array.isArray(entry.description) ? entry.description.join(' ') : undefined,
-    });
+    }));
   }
   return map;
 })();

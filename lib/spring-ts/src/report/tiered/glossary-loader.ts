@@ -12,6 +12,7 @@
  */
 
 import type { GlossaryEntry, TagId } from '../types.js';
+import { snapshotJsonValue } from './immutable-json-snapshot.js';
 
 /** Whitespace-only cleanup. Glossary prose is authored and reviewed at the
  *  source — there is deliberately no rewrite pipeline here (WYSIWYG). */
@@ -73,7 +74,7 @@ function unwrapJsonModule(moduleValue: unknown): unknown {
 
 function normalizeGlossaryEntry(entry: GlossaryEntry): GlossaryEntry | null {
   if (!entry?.id || !entry.label || !entry.hashLabel || !entry.category) return null;
-  return {
+  return snapshotJsonValue({
     id: entry.id,
     label: entry.label,
     hashLabel: entry.hashLabel,
@@ -82,7 +83,7 @@ function normalizeGlossaryEntry(entry: GlossaryEntry): GlossaryEntry | null {
     detailed: cleanGlossaryText(entry.detailed ?? ''),
     ...(entry.classicalSource ? { classicalSource: entry.classicalSource } : {}),
     related: Array.isArray(entry.related) ? entry.related : [],
-  };
+  });
 }
 
 export function loadGlossary(): Readonly<Record<TagId, GlossaryEntry>> {
