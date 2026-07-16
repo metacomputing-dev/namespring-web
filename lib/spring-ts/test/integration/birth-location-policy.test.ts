@@ -1,5 +1,9 @@
 import assert from 'node:assert/strict';
 
+import {
+  KOREA_REGION_COORDINATES,
+  KOREA_REGION_PRIMARY_ALIASES,
+} from '../../src/region-coordinates.js';
 import { resolveBirthLocation } from '../../src/saju/birth-location.js';
 import {
   isLongitudeCorrectionEnabled,
@@ -20,6 +24,26 @@ function resolve(birth: any, requireLongitude = true) {
   return resolveBirthLocation(birth, defaults, { requireLongitude });
 }
 
+const seoulRegistryEntry = KOREA_REGION_COORDINATES
+  .find((region) => region.code === 'SEOUL');
+assert.ok(seoulRegistryEntry);
+assert.equal(Object.isFrozen(KOREA_REGION_COORDINATES), true);
+assert.equal(Object.isFrozen(seoulRegistryEntry), true);
+assert.equal(Object.isFrozen(seoulRegistryEntry.aliases), true);
+assert.equal(Object.isFrozen(KOREA_REGION_PRIMARY_ALIASES), true);
+assert.throws(() => {
+  (seoulRegistryEntry as { longitude: number }).longitude = 0;
+}, TypeError);
+assert.throws(() => {
+  (seoulRegistryEntry.aliases as string[]).push('POISON');
+}, TypeError);
+assert.throws(() => {
+  (KOREA_REGION_COORDINATES as unknown as Array<{ code: string }>).splice(0, 1);
+}, TypeError);
+assert.throws(() => {
+  (KOREA_REGION_PRIMARY_ALIASES as string[]).push('POISON');
+}, TypeError);
+
 const defaultLocation = resolve({ gender: 'male' });
 assert.equal(defaultLocation.ok, true);
 assert.deepEqual(defaultLocation.ok ? defaultLocation.value : null, {
@@ -34,6 +58,7 @@ assert.equal(daegu.ok ? daegu.value.timezone : null, 'Asia/Seoul');
 
 const seoulCode = resolve({ gender: 'male', region: 'Seoul' });
 assert.equal(seoulCode.ok ? seoulCode.value.regionCode : null, 'SEOUL');
+assert.equal(seoulCode.ok ? seoulCode.value.longitude : null, defaults.longitude);
 
 const duplicateSeoulFields = resolve({
   gender: 'male',
