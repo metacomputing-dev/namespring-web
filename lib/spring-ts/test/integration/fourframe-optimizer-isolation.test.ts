@@ -44,15 +44,21 @@ test('keeps the public mutable Set contract while isolating each caller', () => 
   assert.deepEqual([...first], [...second]);
 });
 
-test('preserves the documented name-length boundary', () => {
+test('rejects every unsupported name length with the public contract error', () => {
   const optimizer = new FourFrameOptimizer(allFourFrameNumbers());
 
-  assert.throws(
-    () => optimizer.getValidCombinations([10], 0),
-    /unsupported name length: 0/,
-  );
-  assert.throws(
-    () => optimizer.getValidCombinations([10], 5),
-    /unsupported name length: 5/,
-  );
+  for (const invalidLength of [
+    Number.NaN,
+    Number.POSITIVE_INFINITY,
+    1.5,
+    -1,
+    0,
+    5,
+    Number.MAX_SAFE_INTEGER,
+  ]) {
+    assert.throws(
+      () => optimizer.getValidCombinations([10], invalidLength),
+      new RegExp(`unsupported name length: ${String(invalidLength)}`),
+    );
+  }
 });

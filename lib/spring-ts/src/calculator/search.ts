@@ -67,14 +67,18 @@ export class FourFrameOptimizer {
    * @returns a Set of comma-separated stroke strings, e.g. {"8,12", "9,7", ...}
    */
   getValidCombinations(surnameStrokeCounts: number[], nameLength: number): Set<string> {
+    if (
+      !Number.isSafeInteger(nameLength) ||
+      nameLength < 1 ||
+      nameLength > 4
+    ) {
+      throw new Error(`unsupported name length: ${nameLength}`);
+    }
+
     // -- Check cache first --------------------------------------------------
     const cacheKey = `${surnameStrokeCounts.join(',')}|${nameLength}`;
     const cached = this.cache.get(cacheKey);
     if (cached) return new Set(cached);
-
-    if (nameLength < 1 || nameLength > 4) {
-      throw new Error(`unsupported name length: ${nameLength}`);
-    }
 
     // -- Prepare constants used throughout the search -----------------------
     const surnameStrokeTotal = sum(surnameStrokeCounts);
