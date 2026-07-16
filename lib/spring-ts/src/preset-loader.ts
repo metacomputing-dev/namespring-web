@@ -15,6 +15,7 @@ import modernPreset from '../config/presets/modern.json';
 import koreanModernPreset from '../config/presets/korean_modern.json';
 import classicalTextPreset from '../config/presets/classical_text.json';
 import namingSafePreset from '../config/presets/naming_safe.json';
+import { deepFreeze } from '../../seed-ts/src/utils/deep-freeze.js';
 
 export type SchoolPresetName =
   | 'korean'
@@ -43,34 +44,34 @@ export interface SchoolPresetMetadata {
   readonly scoringEffect: 'active' | 'inactive';
 }
 
-export const SCHOOL_PRESET_ORDER: readonly SchoolPresetName[] = [
+export const SCHOOL_PRESET_ORDER: readonly SchoolPresetName[] = deepFreeze([
   'korean',
   'chinese',
   'modern',
   'korean_modern',
   'classical_text',
   'naming_safe',
-];
+]);
 
-const PRESETS: Readonly<Record<SchoolPresetName, SchoolPresetData>> = {
+const PRESETS: Readonly<Record<SchoolPresetName, SchoolPresetData>> = deepFreeze({
   korean: koreanPreset,
   chinese: chinesePreset,
   modern: modernPreset,
   korean_modern: koreanModernPreset,
   classical_text: classicalTextPreset,
   naming_safe: namingSafePreset,
-};
+});
 
-const PRESET_DOCTRINE: Readonly<Record<SchoolPresetName, string>> = {
+const PRESET_DOCTRINE: Readonly<Record<SchoolPresetName, string>> = deepFreeze({
   korean: 'mainstream_korean_default',
   chinese: 'traditional_chinese_structure',
   modern: 'modern_integrated_climate',
   korean_modern: 'contemporary_korean_naming',
   classical_text: 'public_classical_text_rule_lens',
   naming_safe: 'conservative_name_safety',
-};
+});
 
-const PRESET_TRADEOFFS: Readonly<Record<SchoolPresetName, readonly string[]>> = {
+const PRESET_TRADEOFFS: Readonly<Record<SchoolPresetName, readonly string[]>> = deepFreeze({
   korean: [
     '현재 기본 점수 체계와 동일해서 회귀 비교 기준으로 쓰기 좋아요.',
     '특정 학파 기준을 더 강하게 밀지 않고 현재 서비스 기본값을 유지해요.',
@@ -95,10 +96,10 @@ const PRESET_TRADEOFFS: Readonly<Record<SchoolPresetName, readonly string[]>> = 
     '강한 보강보다 균형과 충돌 회피를 우선해요.',
     '특정 학파에서 과감하게 좋게 보는 후보는 낮게 평가될 수 있어요.',
   ],
-};
+});
 
 export function isSchoolPresetName(name: unknown): name is SchoolPresetName {
-  return typeof name === 'string' && (SCHOOL_PRESET_ORDER as readonly string[]).includes(name);
+  return typeof name === 'string' && Object.hasOwn(PRESETS, name);
 }
 
 export function resolveSchoolPresetName(name: unknown): SchoolPresetName {
