@@ -119,18 +119,47 @@ test('all 81 display rows pass blocking policy while review debt stays explicit'
   );
 });
 
-test('Frame.entry is a fullHangul-specific immutable display DTO, not the raw row', () => {
+test('Frame.entry defers and caches its fullHangul-specific immutable display DTO', () => {
   const rawEntry = getFourframeMeaningByNumber(5);
   const rawBefore = JSON.stringify(rawEntry);
-  const frame = new FourFrameCalculator.Frame('won', 5, '김민준');
+  let trimCalls = 0;
+  const deferredDisplayName = {
+    trim(): string {
+      trimCalls += 1;
+      return '김민준';
+    },
+  } as unknown as string;
+  const frame = new FourFrameCalculator.Frame('won', 5, deferredDisplayName);
+  const entryDescriptor = Object.getOwnPropertyDescriptor(frame, 'entry');
 
-  assert.notStrictEqual(frame.entry, rawEntry);
+  assert.equal(trimCalls, 0);
+  assert.ok(entryDescriptor?.get);
+  assert.equal(entryDescriptor.enumerable, true);
+  assert.equal(Object.hasOwn(frame, 'entry'), true);
+  assert.deepEqual(Object.keys(frame), [
+    'type',
+    'energy',
+    'luckLevel',
+    'entry',
+    'enrichmentStatus',
+    'strokeSum',
+  ]);
+
+  Object.freeze(frame);
+  const displayEntry = frame.entry;
+  const trimCallsAfterFirstRead = trimCalls;
+
+  assert.ok(trimCallsAfterFirstRead > 0);
+  assert.strictEqual(frame.entry, displayEntry);
+  assert.equal(trimCalls, trimCallsAfterFirstRead);
+  assert.notStrictEqual(displayEntry, rawEntry);
   assert.equal(JSON.stringify(rawEntry), rawBefore);
   assert.ok(rawBefore.includes('[성함]'));
-  assert.equal(JSON.stringify(frame.entry).includes('[성함]'), false);
-  assert.ok(JSON.stringify(frame.entry).includes('김민준'));
-  assert.ok(Object.isFrozen(frame.entry));
-  assert.ok(Object.isFrozen(frame.entry.personality_traits));
-  assert.ok(Object.isFrozen(frame.entry.suitable_career));
-  assert.doesNotThrow(() => assertServiceTextPolicy(frame.entry));
+  assert.equal(JSON.stringify(displayEntry).includes('[성함]'), false);
+  assert.ok(JSON.stringify(displayEntry).includes('김민준'));
+  assert.ok(JSON.stringify(frame).includes('"entry"'));
+  assert.ok(Object.isFrozen(displayEntry));
+  assert.ok(Object.isFrozen(displayEntry.personality_traits));
+  assert.ok(Object.isFrozen(displayEntry.suitable_career));
+  assert.doesNotThrow(() => assertServiceTextPolicy(displayEntry));
 });

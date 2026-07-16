@@ -77,7 +77,7 @@ export class FourFrameCalculator extends EnergyCalculator {
   public static Frame = class {
     public energy: Energy | null = null;
     public readonly luckLevel: null = null;
-    public readonly entry: FourframeMeaningEntry;
+    public readonly entry!: FourframeMeaningEntry;
     public readonly enrichmentStatus = 'embedded_versioned_snapshot' as const;
     public readonly strokeSum: number;
     
@@ -87,10 +87,21 @@ export class FourFrameCalculator extends EnergyCalculator {
       fullHangul: string = '',
     ) {
       this.strokeSum = normalizeFourFrameNumber(strokeSum);
-      this.entry = sanitizeImmutableServiceValue(
-        getFourframeMeaningByNumber(this.strokeSum),
-        fullHangul,
-      );
+      const rawEntry = getFourframeMeaningByNumber(this.strokeSum);
+      let displayEntry: FourframeMeaningEntry | undefined;
+
+      // Scoring consumes only the normalized frame number and energy. Keep the
+      // existing own/enumerable public `entry` contract, but defer the
+      // presentation-only sanitizer until a report or serializer actually
+      // reads it. The closure cache remains usable after the frame is frozen.
+      Object.defineProperty(this, 'entry', {
+        configurable: true,
+        enumerable: true,
+        get: () => {
+          displayEntry ??= sanitizeImmutableServiceValue(rawEntry, fullHangul);
+          return displayEntry;
+        },
+      });
     }
 
   };
