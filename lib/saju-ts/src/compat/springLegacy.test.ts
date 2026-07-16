@@ -368,6 +368,33 @@ describe('structural month-frame public candidates', () => {
   });
 });
 
+describe('saryeong principal hidden-stem contract', () => {
+  const input = createBirthInput({
+    birthYear: 1986,
+    birthMonth: 4,
+    birthDay: 19,
+    birthHour: 5,
+    birthMinute: 45,
+    gender: 'MALE',
+  });
+
+  it.each(['classical', 'scaled'] as const)(
+    'uses the MAIN (proper-qi) hidden stem as jijiPrincipalSipseong for %s',
+    (saryeongScheme) => {
+      const output: any = analyzeSaju(input, {
+        weights: { hiddenStems: { saryeongScheme } },
+      });
+
+      for (const position of ['YEAR', 'MONTH', 'DAY', 'HOUR'] as const) {
+        const positionInfo = output.tenGodAnalysis.byPosition[position];
+        expect(positionInfo.jijiPrincipalSipseong).toBe(
+          positionInfo.hiddenStemSipseong.at(-1)?.sipseong,
+        );
+      }
+    },
+  );
+});
+
 describe('LegacySajuOutputV1 fail-closed config contract', () => {
   const input = createBirthInput({
     birthYear: 1986,

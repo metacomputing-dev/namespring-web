@@ -1845,6 +1845,10 @@ function normalizeLegacyOutput(
     const key = normalizePositionKey(pos);
     const principalList = Array.isArray(hiddenStemTenGods?.[pos]) ? hiddenStemTenGods[pos] : [];
     const hiddenList = Array.isArray(hiddenStems?.[pos]) ? hiddenStems[pos] : [];
+    // Static tables place MAIN first, while WOLLYUL saryeong rows are
+    // CHO -> JUNG -> JEONG. Select by role so "principal" always means proper qi.
+    const principalHiddenStem =
+      principalList.find((entry: any) => entry?.role === 'MAIN') ?? principalList[0];
 
     byPosition[key] = {
       cheonganSipseong:
@@ -1855,7 +1859,7 @@ function normalizeLegacyOutput(
             : pos === 'hour'
               ? normalizeTenGod(tenGods?.hourStem)
               : 'BI_GYEON',
-      jijiPrincipalSipseong: normalizeTenGod(principalList[0]?.tenGod),
+      jijiPrincipalSipseong: normalizeTenGod(principalHiddenStem?.tenGod),
       hiddenStems: hiddenList.map((entry: any) => ({
         stem: stemCodeFromIdx(entry?.stem?.idx),
         ratio: Number(entry?.weight ?? 0),
