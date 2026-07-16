@@ -79,18 +79,21 @@ import {
   compileFourFrameContract,
 } from './fourframe-contract.js';
 import {
+  applySpringReportSelectionRanking,
   averageScores,
   clampScore,
   dedupeCandidateSummariesByHangul,
   deriveCandidateStrengthProfile,
   describeCandidateName,
   finiteScore,
+  orderCandidateSelectionProjections,
   orderCandidateSummaries,
   orderSpringCandidates,
   orderSpringReports,
   roundScore,
   sliceAndRankCandidatePage,
   sliceCandidatePage,
+  type CandidateNameDiversityInfo,
 } from './candidate-selection.js';
 import {
   assertExplicitNameIdentity,
@@ -517,6 +520,32 @@ interface CollectedNameInput {
     readonly givenNameKey: string;
     readonly info: FoundNameStatLookupResult;
   };
+}
+
+type SpringSajuContext = ReturnType<typeof buildSajuContext>;
+
+interface CombinedSpringCandidateEvaluation {
+  readonly nameStatInfo: NameStatLookupResult;
+  readonly surnameEntries: HanjaEntry[];
+  readonly givenNameEntries: HanjaEntry[];
+  readonly hangul: HangulCalculator;
+  readonly hanja: HanjaCalculator;
+  readonly frame: FrameCalculator;
+  readonly saju: SajuCalculator;
+  readonly combined: EvaluationResult;
+  readonly hanjaPool: HanjaPool;
+}
+
+interface SpringReportCandidateInput {
+  readonly candidateRequest: SpringRequest;
+  readonly nameStat: NonNullable<CollectedNameInput['nameStat']>;
+}
+
+interface PreparedSpringReportCandidate extends SpringReportCandidateInput {
+  readonly finalScore: number;
+  readonly scoreVector?: NamingScoreVector;
+  readonly strengthProfile?: CandidateStrengthProfile;
+  readonly diversity: CandidateNameDiversityInfo;
 }
 
 type CandidateRejectionAccumulator = Map<string, CandidateRejectionBucket>;
@@ -1297,23 +1326,17 @@ export class SpringEngine {
     return this.getSpringReportFromSnapshot(stableRequest, stableOverride);
   }
 
-  private async getSpringReportFromSnapshot(
+  /**
+   * Resolves and evaluates the mandatory combined candidate state without
+   * assembling the presentation-heavy naming report. Recommendation callers
+   * can therefore validate and rank the whole pool before hydrating a page.
+   */
+  private async evaluateCombinedSpringCandidate(
     request: SpringRequest,
-    sajuReportOverride?: SajuReport,
+    sajuContext: SpringSajuContext,
+    operation: SpringEngineOperationLease,
     nameStatOverride?: CollectedNameInput['nameStat'],
-  ): Promise<SpringReport> {
-    const operation = this.beginOperation('getSpringReport');
-    this.assertRequestNameSyntax(request, false, true, true);
-    await this.awaitOperationStep(operation, () => this.init());
-    await this.assertExplicitRequestNameIdentity(request, operation);
-
-    const sajuReport = sajuReportOverride ?? await this.awaitOperationStep(
-      operation,
-      () => this.getSajuReport(request),
-    );
-    const { dist: sajuDistribution, output: sajuOutput } = buildSajuContext(sajuReport, {
-      includeTenGodByPosition: request.options?.precisionConfig?.tenGodMode === 'positional_weighted_v2',
-    });
+  ): Promise<CombinedSpringCandidateEvaluation> {
     const givenNameKey = this.givenNameHangulKey(request.givenName!);
     if (nameStatOverride && nameStatOverride.givenNameKey !== givenNameKey) {
       throw new Error('Internal NameStat evidence does not match the requested given name.');
@@ -1339,38 +1362,95 @@ export class SpringEngine {
       hanjaPool,
     }));
 
-    const hangul = new HangulCalculator(surnameEntries, givenNameEntries, this.resolveHangulSignalCap(request.options), this.resolveHangulPolarityModel(request.options));
-    const hanja  = new HanjaCalculator(
+    const hangul = new HangulCalculator(
+      surnameEntries,
+      givenNameEntries,
+      this.resolveHangulSignalCap(request.options),
+      this.resolveHangulPolarityModel(request.options),
+    );
+    const hanja = new HanjaCalculator(
       surnameEntries,
       givenNameEntries,
       ENABLE_HANJA_NAME_EVALUATION && !resolutionPolicy.pureHangulGivenName,
     );
-    const frame  = new FrameCalculator(
+    const frame = new FrameCalculator(
       surnameEntries,
       givenNameEntries,
       ENABLE_FOURFRAME_NAME_EVALUATION && !resolutionPolicy.pureHangulGivenName,
     );
-    const hasSajuContext = Boolean(sajuOutput);
-    const saju   = new SajuCalculator(
+    const hasSajuContext = Boolean(sajuContext.output);
+    const saju = new SajuCalculator(
       surnameEntries,
       givenNameEntries,
-      sajuDistribution,
-      sajuOutput,
+      sajuContext.dist,
+      sajuContext.output,
       {
         elementSource: resolutionPolicy.pureHangulGivenName ? 'hangul' : 'resource',
         enabled: hasSajuContext,
         ...this.resolveSajuPreset(request.options),
-        evaluatorHints: this.resolveEvaluatorHints(request.birth, request.options, sajuOutput),
+        evaluatorHints: this.resolveEvaluatorHints(
+          request.birth,
+          request.options,
+          sajuContext.output,
+        ),
       },
     );
 
     const combinedCtx: EvalContext = {
       surnameLength: surnameEntries.length,
-      givenLength:   givenNameEntries.length,
-      luckyMap:      this.luckyMap,
-      insights:      {},
+      givenLength: givenNameEntries.length,
+      luckyMap: this.luckyMap,
+      insights: {},
     };
     const combined = springEvaluateName([hangul, hanja, frame, saju], combinedCtx);
+
+    return {
+      nameStatInfo,
+      surnameEntries,
+      givenNameEntries,
+      hangul,
+      hanja,
+      frame,
+      saju,
+      combined,
+      hanjaPool,
+    };
+  }
+
+  private async getSpringReportFromSnapshot(
+    request: SpringRequest,
+    sajuReportOverride?: SajuReport,
+    nameStatOverride?: CollectedNameInput['nameStat'],
+  ): Promise<SpringReport> {
+    const operation = this.beginOperation('getSpringReport');
+    this.assertRequestNameSyntax(request, false, true, true);
+    await this.awaitOperationStep(operation, () => this.init());
+    await this.assertExplicitRequestNameIdentity(request, operation);
+
+    const sajuReport = sajuReportOverride ?? await this.awaitOperationStep(
+      operation,
+      () => this.getSajuReport(request),
+    );
+    const sajuContext = buildSajuContext(sajuReport, {
+      includeTenGodByPosition: request.options?.precisionConfig?.tenGodMode === 'positional_weighted_v2',
+    });
+    const evaluation = await this.evaluateCombinedSpringCandidate(
+      request,
+      sajuContext,
+      operation,
+      nameStatOverride,
+    );
+    const {
+      nameStatInfo,
+      surnameEntries,
+      givenNameEntries,
+      hangul,
+      hanja,
+      frame,
+      saju,
+      combined,
+      hanjaPool,
+    } = evaluation;
 
     const nameOnlyCtx: EvalContext = {
       surnameLength: surnameEntries.length,
@@ -1397,7 +1477,7 @@ export class SpringEngine {
         hangul,
         hanja,
         frame,
-        this.resolveHanjaPool(request.options),
+        hanjaPool,
         vectorEvidence.nameTrend,
         vectorEvidence.phonetic,
       )
@@ -1410,7 +1490,7 @@ export class SpringEngine {
         hangul,
         hanja,
         frame,
-        this.resolveHanjaPool(request.options),
+        hanjaPool,
         vectorEvidence.nameTrend,
         vectorEvidence.phonetic,
       )
@@ -1439,7 +1519,7 @@ export class SpringEngine {
         hangul,
         hanja,
         frame,
-        this.resolveHanjaPool(request.options),
+        hanjaPool,
         nameTrend,
         phonetic,
         namingScoreVector,
@@ -1450,6 +1530,107 @@ export class SpringEngine {
       combinedDistribution: saju.getCombinedDistribution(),
       rank: 0,
     });
+  }
+
+  private async prepareSpringReportCandidate(
+    candidateRequest: SpringRequest,
+    nameStat: NonNullable<CollectedNameInput['nameStat']>,
+    sajuContext: SpringSajuContext,
+    operation: SpringEngineOperationLease,
+  ): Promise<PreparedSpringReportCandidate> {
+    this.assertRequestNameSyntax(candidateRequest, false, true, true);
+    await this.assertExplicitRequestNameIdentity(candidateRequest, operation);
+    const evaluation = await this.evaluateCombinedSpringCandidate(
+      candidateRequest,
+      sajuContext,
+      operation,
+      nameStat,
+    );
+    const nameTrend = this.resolveNameTrend(
+      candidateRequest.givenName,
+      candidateRequest.birth,
+      candidateRequest.options,
+    );
+    const phonetic = this.resolvePhoneticAnalysis(
+      candidateRequest.surname,
+      candidateRequest.givenName,
+      candidateRequest.options,
+    );
+    const vectorEvidence = this.resolveNamingScoreVectorEvidence(
+      candidateRequest.surname,
+      candidateRequest.givenName,
+      candidateRequest.birth,
+      candidateRequest.options,
+      nameTrend,
+      phonetic,
+    );
+    const scoreVector = this.shouldSurfaceNamingScoreVector(candidateRequest.options)
+      ? this.buildNamingScoreVector(
+        evaluation.combined,
+        evaluation.surnameEntries,
+        evaluation.givenNameEntries,
+        evaluation.hangul,
+        evaluation.hanja,
+        evaluation.frame,
+        evaluation.hanjaPool,
+        vectorEvidence.nameTrend,
+        vectorEvidence.phonetic,
+      )
+      : undefined;
+    const strengthProfile = scoreVector
+      ? deriveCandidateStrengthProfile(scoreVector)
+      : undefined;
+    const diversity = describeCandidateName(
+      evaluation.givenNameEntries.map((entry) => ({
+        hangul: entry.hangul,
+        hanja: entry.hanja,
+      })),
+    );
+
+    return {
+      candidateRequest,
+      nameStat,
+      finalScore: roundScore(evaluation.combined.score),
+      ...(scoreVector ? { scoreVector } : {}),
+      ...(strengthProfile ? { strengthProfile } : {}),
+      diversity,
+    };
+  }
+
+  private assertPreparedCandidateHydration(
+    prepared: PreparedSpringReportCandidate,
+    report: SpringReport,
+  ): void {
+    const hydratedDiversity = describeCandidateName(
+      report.namingReport.name.givenName.map((char) => ({
+        hangul: char.hangul,
+        hanja: char.hanja,
+      })),
+    );
+    const nameStat = prepared.nameStat.info;
+    const matches = report.finalScore === prepared.finalScore
+      && JSON.stringify(report.scoreVector) === JSON.stringify(prepared.scoreVector)
+      && JSON.stringify(report.strengthProfile) === JSON.stringify(prepared.strengthProfile)
+      && JSON.stringify(hydratedDiversity) === JSON.stringify(prepared.diversity)
+      && report.popularityRank === nameStat.popularityRank
+      && report.maleRatio === nameStat.maleRatio
+      && report.nameGender === nameStat.nameGender;
+    if (!matches) {
+      throw new Error('Hydrated candidate report does not match its validated selection projection.');
+    }
+  }
+
+  private async hydratePreparedSpringReportCandidate(
+    prepared: PreparedSpringReportCandidate,
+    sajuReport: SajuReport,
+  ): Promise<SpringReport> {
+    const report = await this.getSpringReportFromSnapshot(
+      prepared.candidateRequest,
+      sajuReport,
+      prepared.nameStat,
+    );
+    this.assertPreparedCandidateHydration(prepared, report);
+    return report;
   }
 
   // -------------------------------------------------------------------------
@@ -1478,8 +1659,7 @@ export class SpringEngine {
       request, nameInputPlan,
       sajuSummary, candidateRejections, operation,
     ));
-    // 3. Score each candidate
-    const results: SpringReport[] = [];
+    const candidateInputs: SpringReportCandidateInput[] = [];
 
     for (const collected of nameInputs) {
       const givenNameInput = collected.givenName;
@@ -1493,20 +1673,82 @@ export class SpringEngine {
         givenNameKey: this.givenNameHangulKey(givenNameInput),
         info: nameStatInfo,
       };
-      results.push(await this.awaitOperationStep(
+      const candidateRequest = snapshotSpringRequest({
+        ...request,
+        givenName: givenNameInput,
+        mode: 'evaluate',
+      });
+      candidateInputs.push({ candidateRequest, nameStat });
+    }
+
+    if (candidateInputs.length === 0) {
+      return this.completeOperation(operation, []);
+    }
+
+    const offset = request.options?.offset ?? DEFAULT_OFFSET;
+    const hydratesWholePool = offset === 0
+      && (request.options?.limit == null || request.options.limit >= candidateInputs.length);
+    if (hydratesWholePool) {
+      const eagerResults: SpringReport[] = [];
+      for (const candidate of candidateInputs) {
+        eagerResults.push(await this.awaitOperationStep(
+          operation,
+          () => this.getSpringReportFromSnapshot(
+            candidate.candidateRequest,
+            sajuReport,
+            candidate.nameStat,
+          ),
+        ));
+      }
+      return this.completeOperation(
         operation,
-        () => this.getSpringReportFromSnapshot(
-          snapshotSpringRequest({ ...request, givenName: givenNameInput, mode: 'evaluate' }),
-          sajuReport,
-          nameStat,
-        ),
+        orderSpringReports(eagerResults, request.options, CANDIDATE_SELECTION_LIMITS),
+      );
+    }
+
+    const sajuContext = buildSajuContext(sajuReport, {
+      includeTenGodByPosition: request.options?.precisionConfig?.tenGodMode === 'positional_weighted_v2',
+    });
+
+    // 3. Validate and score the whole pool before any page-specific hydration.
+    const preparedCandidates: PreparedSpringReportCandidate[] = [];
+    for (const candidate of candidateInputs) {
+      preparedCandidates.push(await this.prepareSpringReportCandidate(
+        candidate.candidateRequest,
+        candidate.nameStat,
+        sajuContext,
+        operation,
       ));
     }
 
-    return this.completeOperation(operation, this.pageOrderedCandidates(
-      orderSpringReports(results, request.options, CANDIDATE_SELECTION_LIMITS),
+    const rankedPage = this.pageOrderedCandidates(
+      orderCandidateSelectionProjections(
+        preparedCandidates.map((prepared) => ({
+          source: prepared,
+          score: prepared.finalScore,
+          ...(prepared.scoreVector ? { vector: prepared.scoreVector } : {}),
+          ...(prepared.strengthProfile ? { profile: prepared.strengthProfile } : {}),
+          ...prepared.diversity,
+        })),
+        request.options,
+        CANDIDATE_SELECTION_LIMITS,
+      ),
       request.options,
-    ));
+    );
+
+    // 4. Materialize only the selected page. Mandatory identity, repository,
+    // combined-score and selection-vector work has completed for every row;
+    // presentation-only hydration is intentionally scoped to this page.
+    const results: SpringReport[] = [];
+    for (const selection of rankedPage) {
+      const report = await this.awaitOperationStep(
+        operation,
+        () => this.hydratePreparedSpringReportCandidate(selection.source, sajuReport),
+      );
+      results.push(applySpringReportSelectionRanking(report, selection));
+    }
+
+    return this.completeOperation(operation, results);
   }
 
   // -------------------------------------------------------------------------

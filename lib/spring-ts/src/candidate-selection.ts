@@ -472,25 +472,35 @@ export function orderSpringReports(
     ...selectionInfoForSpringReport(report),
   }));
   return orderCandidateSelectionProjections(projections, options, limits)
-    .map((projection) => {
-      const { source: report, paretoFrontier, rank } = projection;
-      if (paretoFrontier === undefined) return { ...report, rank };
+    .map(({ source, ...selection }) => applySpringReportSelectionRanking(source, selection));
+}
 
-      const strengthProfile = withParetoFlag(report.strengthProfile, paretoFrontier);
-      const namingStrengthProfile = withParetoFlag(
-        report.namingReport.strengthProfile,
-        paretoFrontier,
-      );
-      return {
-        ...report,
-        ...(strengthProfile ? { strengthProfile } : {}),
-        namingReport: {
-          ...report.namingReport,
-          ...(namingStrengthProfile ? { strengthProfile: namingStrengthProfile } : {}),
-        },
-        rank,
-      };
-    });
+/**
+ * Applies an already-computed global rank and optional Pareto classification
+ * to a hydrated report. Keeping this decoration separate lets callers rank a
+ * lightweight projection before constructing the presentation-heavy report.
+ */
+export function applySpringReportSelectionRanking(
+  report: SpringReport,
+  selection: Pick<RankedCandidateSelectionProjection<unknown>, 'rank' | 'paretoFrontier'>,
+): SpringReport {
+  const { paretoFrontier, rank } = selection;
+  if (paretoFrontier === undefined) return { ...report, rank };
+
+  const strengthProfile = withParetoFlag(report.strengthProfile, paretoFrontier);
+  const namingStrengthProfile = withParetoFlag(
+    report.namingReport.strengthProfile,
+    paretoFrontier,
+  );
+  return {
+    ...report,
+    ...(strengthProfile ? { strengthProfile } : {}),
+    namingReport: {
+      ...report.namingReport,
+      ...(namingStrengthProfile ? { strengthProfile: namingStrengthProfile } : {}),
+    },
+    rank,
+  };
 }
 
 export function orderCandidateSummaries(
