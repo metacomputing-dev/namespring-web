@@ -1,6 +1,6 @@
 import { Polarity } from './polarity.js';
-import type { Element } from './element.js';
-import { SeedCalculationError } from '../errors.js';
+import { Element } from './element.js';
+import { SeedCalculationError, SeedValidationError } from '../errors.js';
 import {
   calculateElementRelationScore,
   combineEnergyScores,
@@ -11,12 +11,14 @@ export class Energy {
   public element: Element;
 
   constructor(polarity: Polarity, element: Element) {
+    Energy.assertPolarity(polarity, 'polarity');
+    Energy.assertElement(element, 'element');
     this.polarity = polarity;
     this.element = element;
   }
 
   public static getScore(energies: readonly Energy[]): number {
-    Energy.assertNonEmpty(energies);
+    Energy.assertValidSet(energies);
     return combineEnergyScores(
       Energy.getPolarityScore(energies),
       Energy.getElementScore(energies),
@@ -24,7 +26,7 @@ export class Energy {
   }
 
   public static getPolarityScore(energies: readonly Energy[]): number {
-    Energy.assertNonEmpty(energies);
+    Energy.assertValidSet(energies);
     let scoreSum = 0;
 
     energies.forEach(e => {
@@ -39,7 +41,7 @@ export class Energy {
   
   
   public static getElementScore(energies: readonly Energy[]): number {
-    Energy.assertNonEmpty(energies);
+    Energy.assertValidSet(energies);
     let genCount = 0;
     let overCount = 0;
     let sameCount = 0;
@@ -66,13 +68,61 @@ export class Energy {
     });
   }
 
-  private static assertNonEmpty(energies: readonly Energy[]): void {
+  private static assertValidSet(energies: readonly Energy[]): void {
+    if (!Array.isArray(energies)) {
+      throw new SeedValidationError(
+        'INVALID_ENERGY',
+        'Energies must be an array.',
+        'energies',
+        energies,
+      );
+    }
     if (energies.length === 0) {
       throw new SeedCalculationError(
         'EMPTY_ENERGY_SET',
         'At least one calculated energy is required for scoring.',
         'energies',
         energies,
+      );
+    }
+    energies.forEach((energy, index) => {
+      if (
+        typeof energy !== 'object'
+        || energy === null
+        || Array.isArray(energy)
+        || !Object.hasOwn(energy, 'polarity')
+        || !Object.hasOwn(energy, 'element')
+      ) {
+        throw new SeedValidationError(
+          'INVALID_ENERGY',
+          'Each energy must contain polarity and element fields.',
+          `energies[${index}]`,
+          energy,
+        );
+      }
+      Energy.assertPolarity(energy.polarity, `energies[${index}].polarity`);
+      Energy.assertElement(energy.element, `energies[${index}].element`);
+    });
+  }
+
+  private static assertPolarity(value: unknown, path: string): asserts value is Polarity {
+    if (value !== Polarity.Positive && value !== Polarity.Negative) {
+      throw new SeedValidationError(
+        'INVALID_POLARITY',
+        'Polarity must be the exported Positive or Negative singleton.',
+        path,
+        value,
+      );
+    }
+  }
+
+  private static assertElement(value: unknown, path: string): asserts value is Element {
+    if (!Element.values().some((element) => element === value)) {
+      throw new SeedValidationError(
+        'INVALID_ELEMENT',
+        'Element must be one of the exported element singletons.',
+        path,
+        value,
       );
     }
   }

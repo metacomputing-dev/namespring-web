@@ -12,7 +12,7 @@
 
 ## Requirements
 
-- Node.js **>= 20** (ESM 전용)
+- Node.js **>= 20.10.0** (ESM 전용, JSON import attributes 사용)
 
 ## Quickstart (개발)
 

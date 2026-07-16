@@ -20,8 +20,18 @@ import {
 import { resolvePublicAssetUrl } from './runtime-url.js';
 import { RepositoryRowDecoder } from './row-decoder.js';
 import { decomposeHangulSyllable } from '../utils/hangul-name-entry.js';
+import {
+  assertOneHanCharacter,
+  assertOneHangulSyllable,
+  assertRepositoryEnum,
+  assertRepositorySafeInteger,
+} from './repository-query-validation.js';
 
 const HANJA_ELEMENTS = new Set(['Wood', 'Fire', 'Earth', 'Metal', 'Water'] as const);
+const HANJA_ONSETS = new Set([
+  'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ',
+  'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ',
+] as const);
 
 export interface HanjaEntry {
   readonly id: number;
@@ -159,47 +169,71 @@ export class HanjaRepository {
   }
 
   public async findByHanja(hanja: string): Promise<HanjaEntry | null> {
+    const validatedHanja = assertOneHanCharacter(hanja, {
+      repository: 'hanja', path: 'hanja',
+    });
     const sql = `SELECT * FROM hanjas WHERE hanja = ? ORDER BY id ASC LIMIT 1`;
-    const rows = this.execute(sql, [hanja]);
+    const rows = this.execute(sql, [validatedHanja]);
     return rows.length > 0 ? rows[0] : null;
   }
 
   public async findByHangul(hangul: string): Promise<HanjaEntry[]> {
+    const validatedHangul = assertOneHangulSyllable(hangul, {
+      repository: 'hanja', path: 'hangul',
+    });
     const sql = `SELECT * FROM hanjas WHERE hangul = ? ORDER BY strokes ASC, id ASC`;
-    return this.execute(sql, [hangul]);
+    return this.execute(sql, [validatedHangul]);
   }
 
   public async findSurnamesByHangul(hangul: string): Promise<HanjaEntry[]> {
+    const validatedHangul = assertOneHangulSyllable(hangul, {
+      repository: 'hanja', path: 'hangul',
+    });
     const sql = `SELECT * FROM hanjas WHERE hangul = ? AND is_surname = 1 ORDER BY id ASC`;
-    return this.execute(sql, [hangul]);
+    return this.execute(sql, [validatedHangul]);
   }
 
   public async findByResourceElement(element: string, hangul?: string): Promise<HanjaEntry[]> {
+    const validatedElement = assertRepositoryEnum(element, HANJA_ELEMENTS, {
+      repository: 'hanja', path: 'element',
+    });
     let sql = `SELECT * FROM hanjas WHERE resource_element = ?`;
-    const params: any[] = [element];
+    const params: Array<string | number> = [validatedElement];
 
-    if (hangul) {
+    if (hangul !== undefined) {
+      const validatedHangul = assertOneHangulSyllable(hangul, {
+        repository: 'hanja', path: 'hangul',
+      });
       sql += ` AND hangul = ?`;
-      params.push(hangul);
+      params.push(validatedHangul);
     }
     sql += ` ORDER BY id ASC`;
     return this.execute(sql, params);
   }
 
   public async findByStrokeRange(min: number, max: number): Promise<HanjaEntry[]> {
+    const validatedMin = assertRepositorySafeInteger(min, {
+      repository: 'hanja', path: 'min', minimum: 0, maximum: Number.MAX_SAFE_INTEGER,
+    });
+    const validatedMax = assertRepositorySafeInteger(max, {
+      repository: 'hanja', path: 'max', minimum: validatedMin, maximum: Number.MAX_SAFE_INTEGER,
+    });
     const sql = `SELECT * FROM hanjas WHERE strokes BETWEEN ? AND ? ORDER BY strokes ASC, id ASC`;
-    return this.execute(sql, [min, max]);
+    return this.execute(sql, [validatedMin, validatedMax]);
   }
 
   public async findByOnset(onset: string): Promise<HanjaEntry[]> {
+    const validatedOnset = assertRepositoryEnum(onset, HANJA_ONSETS, {
+      repository: 'hanja', path: 'onset',
+    });
     const sql = `SELECT * FROM hanjas WHERE onset = ? ORDER BY id ASC LIMIT 200`;
-    return this.execute(sql, [onset]);
+    return this.execute(sql, [validatedOnset]);
   }
 
   /**
    * Internal helper to execute queries and map results.
    */
-  private execute(sql: string, params: any[]): HanjaEntry[] {
+  private execute(sql: string, params: Array<string | number>): HanjaEntry[] {
     if (!this.db) throw new Error("Database not initialized. Call init() first.");
     
     const stmt = this.db.prepare(sql);

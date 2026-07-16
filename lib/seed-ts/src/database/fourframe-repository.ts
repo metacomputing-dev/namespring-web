@@ -19,8 +19,18 @@ import {
 } from './repository-runtime.js';
 import { resolvePublicAssetUrl } from './runtime-url.js';
 import { RepositoryRowDecoder } from './row-decoder.js';
-import { FOURFRAME_LUCKY_LEVELS } from '../fourframe-contract.js';
+import {
+  FOURFRAME_LUCKY_LEVELS,
+  FOURFRAME_MAX_NUMBER,
+  FOURFRAME_MIN_NUMBER,
+} from '../fourframe-contract.js';
 import type { FourframeMeaningEntry } from '../fourframe-catalog.js';
+import {
+  assertRepositoryEnum,
+  assertRepositoryLimit,
+  assertRepositorySafeInteger,
+  assertRepositoryString,
+} from './repository-query-validation.js';
 
 export type { FourframeMeaningEntry } from '../fourframe-catalog.js';
 
@@ -144,35 +154,55 @@ export class FourframeRepository {
   }
 
   public async findByNumber(number: number): Promise<FourframeMeaningEntry | null> {
+    const validatedNumber = assertRepositorySafeInteger(number, {
+      repository: 'fourframe',
+      path: 'number',
+      minimum: FOURFRAME_MIN_NUMBER,
+      maximum: FOURFRAME_MAX_NUMBER,
+    });
     const rows = this.execute(
       `SELECT * FROM sagyeoksu_meanings WHERE number = ? LIMIT 1`,
-      [number]
+      [validatedNumber]
     );
     return rows.length > 0 ? rows[0] : null;
   }
 
   public async findByLuckyLevel(luckyLevel: string): Promise<FourframeMeaningEntry[]> {
+    const validatedLevel = assertRepositoryEnum(
+      luckyLevel,
+      FOURFRAME_LUCKY_LEVEL_SET,
+      { repository: 'fourframe', path: 'luckyLevel' },
+    );
     return this.execute(
       `SELECT * FROM sagyeoksu_meanings WHERE lucky_level = ? ORDER BY number ASC`,
-      [luckyLevel]
+      [validatedLevel]
     );
   }
 
   public async searchByTitleOrSummary(keyword: string, limit = 100): Promise<FourframeMeaningEntry[]> {
-    const normalized = `%${keyword.trim()}%`;
+    const validatedKeyword = assertRepositoryString(keyword, {
+      repository: 'fourframe', path: 'keyword', maximumLength: 200,
+    });
+    const validatedLimit = assertRepositoryLimit(limit, {
+      repository: 'fourframe', path: 'limit',
+    });
+    const normalized = `%${validatedKeyword}%`;
     return this.execute(
       `SELECT * FROM sagyeoksu_meanings
        WHERE title LIKE ? OR summary LIKE ?
        ORDER BY number ASC
        LIMIT ?`,
-      [normalized, normalized, limit]
+      [normalized, normalized, validatedLimit]
     );
   }
 
   public async findAll(limit = 200): Promise<FourframeMeaningEntry[]> {
+    const validatedLimit = assertRepositoryLimit(limit, {
+      repository: 'fourframe', path: 'limit',
+    });
     return this.execute(
       `SELECT * FROM sagyeoksu_meanings ORDER BY number ASC LIMIT ?`,
-      [limit]
+      [validatedLimit]
     );
   }
 

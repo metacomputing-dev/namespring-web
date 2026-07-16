@@ -5,6 +5,10 @@ import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 import initSqlJs, { type SqlJsStatic } from 'sql.js';
 
+import {
+  REPOSITORY_QUERY_INVALID,
+  RepositoryQueryValidationError,
+} from '../src/index.js';
 import { FourframeRepository } from '../src/database/fourframe-repository.js';
 import { HanjaRepository } from '../src/database/hanja-repository.js';
 import { NameStatRepository } from '../src/database/name-stat-repository.js';
@@ -423,6 +427,11 @@ function createFakeNameStatRepository(
     ...options,
     databaseIntegrity: fake.nameStatDatabaseIntegrity,
   });
+}
+
+function isInvalidRepositoryQuery(error: unknown): boolean {
+  return error instanceof RepositoryQueryValidationError
+    && error.code === REPOSITORY_QUERY_INVALID;
 }
 
 test('default sql.js WASM is version-pinned and fails closed on digest mismatch', async () => {
@@ -980,6 +989,115 @@ test('HanjaRepository query order is deterministic across SQLite index plans', a
   );
 
   repository.close();
+});
+
+test('public repository queries reject invalid types, ranges, and negative limits before SQL', async () => {
+  const hanjaFake = createFakeSqlRuntime(HANJA_ROW);
+  const hanja = createFakeHanjaRepository(hanjaFake, {
+    initializeSqlJs: async () => hanjaFake.SQL,
+    fetch: async () => response(),
+  });
+  const fourframeFake = createFakeSqlRuntime(FOURFRAME_ROW);
+  const fourframe = createFakeFourframeRepository(fourframeFake, {
+    initializeSqlJs: async () => fourframeFake.SQL,
+    fetch: async () => response(),
+  });
+  const nameStatFake = createFakeSqlRuntime(NAME_STAT_ROW);
+  let nameStatFetches = 0;
+  const nameStat = createFakeNameStatRepository(nameStatFake, {
+    initializeSqlJs: async () => nameStatFake.SQL,
+    fetch: async () => {
+      nameStatFetches += 1;
+      return response();
+    },
+  });
+  await Promise.all([hanja.init(), fourframe.init()]);
+
+  const assertRejectedBeforeStatement = async (
+    operation: () => Promise<unknown>,
+  ): Promise<void> => {
+    const hanjaStatements = hanjaFake.statements.length;
+    const fourframeStatements = fourframeFake.statements.length;
+    await assert.rejects(operation(), isInvalidRepositoryQuery);
+    assert.equal(hanjaFake.statements.length, hanjaStatements);
+    assert.equal(fourframeFake.statements.length, fourframeStatements);
+  };
+
+  const oversizedPrivateEnum = `private-enum-marker-${'x'.repeat(1_000_000)}`;
+  const invalidHanjaQueries: Array<() => Promise<unknown>> = [
+    () => hanja.findByHanja(1 as unknown as string),
+    () => hanja.findByHanja('\u5BB6\u5BB6'),
+    () => hanja.findByHangul('A'),
+    () => hanja.findSurnamesByHangul(''),
+    () => hanja.findByResourceElement('Void'),
+    () => hanja.findByResourceElement(oversizedPrivateEnum),
+    () => hanja.findByResourceElement('Wood', '\uAC00\uB098'),
+    () => hanja.findByStrokeRange(-1, 1),
+    () => hanja.findByStrokeRange(2, 1),
+    () => hanja.findByStrokeRange(1.5, 2),
+    () => hanja.findByOnset('not-an-onset'),
+    () => hanja.findByOnset(oversizedPrivateEnum),
+  ];
+  for (const operation of invalidHanjaQueries) {
+    await assertRejectedBeforeStatement(operation);
+  }
+
+  const invalidFourframeQueries: Array<() => Promise<unknown>> = [
+    () => fourframe.findByNumber(0),
+    () => fourframe.findByNumber(82),
+    () => fourframe.findByNumber('81' as unknown as number),
+    () => fourframe.findByLuckyLevel('not-a-lucky-level'),
+    () => fourframe.findByLuckyLevel(oversizedPrivateEnum),
+    () => fourframe.searchByTitleOrSummary('', 10),
+    () => fourframe.searchByTitleOrSummary('completion', -1),
+    () => fourframe.searchByTitleOrSummary('completion', 1.5),
+    () => fourframe.searchByTitleOrSummary('x'.repeat(201), 10),
+    () => fourframe.findAll(-1),
+    () => fourframe.findAll(1_001),
+  ];
+  for (const operation of invalidFourframeQueries) {
+    await assertRejectedBeforeStatement(operation);
+  }
+
+  await assert.rejects(
+    nameStat.findByName(123 as unknown as string),
+    isInvalidRepositoryQuery,
+  );
+  await assert.rejects(
+    nameStat.findByName(''),
+    isInvalidRepositoryQuery,
+  );
+  const privateName = `private-name-marker-${'x'.repeat(1_000_000)}`;
+  await assert.rejects(
+    nameStat.findByName(privateName),
+    (error: unknown) => {
+      assert.ok(error instanceof RepositoryQueryValidationError);
+      assert.equal(error.repository, 'name-stat');
+      assert.equal(error.path, 'name');
+      assert.equal(typeof error.reason, 'string');
+      assert.equal('received' in error, false);
+      assert.equal(error.message.includes(privateName), false);
+      assert.equal(JSON.stringify(error).includes(privateName), false);
+      return true;
+    },
+  );
+  const whitespacePaddedMarker = `${' '.repeat(1_000_000)}private-name-marker`;
+  await assert.rejects(
+    nameStat.findByName(whitespacePaddedMarker),
+    (error: unknown) => {
+      assert.ok(error instanceof RepositoryQueryValidationError);
+      assert.equal(error.path, 'name');
+      assert.equal(error.message.includes('private-name-marker'), false);
+      assert.equal(JSON.stringify(error).includes('private-name-marker'), false);
+      return true;
+    },
+  );
+  assert.equal(nameStatFetches, 0, 'invalid name-stat queries must not load a shard');
+
+  assert.equal(REPOSITORY_QUERY_INVALID, 'REPOSITORY_QUERY_INVALID');
+  hanja.close();
+  fourframe.close();
+  nameStat.close();
 });
 
 test('HanjaRepository close prevents a late initialization from publishing', async () => {

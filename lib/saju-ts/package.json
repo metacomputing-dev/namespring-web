@@ -17,11 +17,15 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "clean": "node tools/clean-dist.mjs",
+    "prebuild": "npm run clean",
+    "build": "tsc -p tsconfig.build.json && node tools/copy-build-assets.mjs && node tools/verify-dist-package.mjs",
+    "prepack": "npm run build",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run --passWithNoTests",
     "test:ci": "vitest run --passWithNoTests --reporter=dot",
-    "test:release-tools": "node --test tools/validate_school_sources.test.mjs",
+    "test:package-contract": "node --test tools/package-contract.test.mjs",
+    "test:release-tools": "node --test tools/validate_school_sources.test.mjs && npm run test:package-contract",
     "validate:kasi": "npm run build --silent && node tools/validate_kasi_2027.mjs",
     "validate:xref": "npm run build --silent && node tools/validate_saju_master_xref.mjs",
     "validate:school-sources": "node tools/validate_school_sources.mjs",
@@ -38,6 +42,6 @@
     "vitest": "^4.0.18"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=20.10.0"
   }
 }

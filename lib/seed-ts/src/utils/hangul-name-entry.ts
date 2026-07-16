@@ -1,5 +1,6 @@
 import type { HanjaEntry } from '../database/hanja-repository.js';
 import { SeedValidationError } from '../errors.js';
+import { countCodePointsUpTo } from './bounded-code-point-count.js';
 
 export type NameElementKey = 'Wood' | 'Fire' | 'Earth' | 'Metal' | 'Water';
 
@@ -60,8 +61,8 @@ export interface HangulPseudoEntryOptions {
 }
 
 function exactChar(value: string): string {
-  const chars = Array.from(String(value ?? ''));
-  return chars.length === 1 ? chars[0] : '';
+  if (typeof value !== 'string') return '';
+  return countCodePointsUpTo(value, 1) === 1 ? value : '';
 }
 
 function strokeCountOf(jamo: string): number {
@@ -79,6 +80,7 @@ function strokeCountOf(jamo: string): number {
 }
 
 function requirePrecomposedHangulSyllable(value: string): string {
+  const valueLength = typeof value === 'string' ? countCodePointsUpTo(value, 1) : 0;
   const syllable = exactChar(value);
   const codePoint = syllable.codePointAt(0) ?? -1;
   if (codePoint < HANGUL_SYLLABLE_START || codePoint > HANGUL_SYLLABLE_END) {
