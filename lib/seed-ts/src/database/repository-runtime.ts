@@ -42,7 +42,15 @@ export interface RepositoryRuntimeOverrides {
 }
 
 export interface RepositoryWasmOptions extends RepositoryRuntimeOverrides {
+  /**
+   * Transport location for the canonical sql.js WASM artifact. Loading a
+   * different binary requires an explicit initializeSqlJs override.
+   */
   readonly wasmUrl?: string;
+  /**
+   * SHA-256 for wasmUrl. The stock loader accepts only the bundled canonical
+   * digest because upstream sql.js owns one module-wide initialization.
+   */
   readonly wasmSha256?: string;
 }
 
@@ -63,8 +71,7 @@ interface DefaultSqlJsInitializationFlight {
   settled: boolean;
 }
 
-const defaultSqlJsInitializationByArtifact =
-  new Map<string, DefaultSqlJsInitializationFlight>();
+let defaultSqlJsInitializationFlight: DefaultSqlJsInitializationFlight | null = null;
 
 function signalCancellationReason(
   signal: AbortSignal,
@@ -164,32 +171,52 @@ function normalizeSha256(value: string): string {
   );
 }
 
+function requireCanonicalDefaultSqlJsDigest(
+  expectedSha256: string | null,
+): string {
+  if (!expectedSha256) {
+    throw new RepositoryConfigurationError(
+      'The default sql.js loader requires an expected WASM SHA-256 digest.',
+    );
+  }
+  const normalized = normalizeSha256(expectedSha256);
+  if (normalized !== DEFAULT_SQL_JS_WASM_SHA256) {
+    throw new RepositoryConfigurationError(
+      'The default sql.js loader only supports the bundled canonical WASM '
+      + 'digest. Inject initializeSqlJs to load a different sql.js artifact.',
+    );
+  }
+  return normalized;
+}
+
 export function resolveRepositoryWasm(
   options: RepositoryWasmOptions,
 ): ResolvedRepositoryWasm {
+  let resolved: ResolvedRepositoryWasm;
   if (!options.wasmUrl) {
-    return {
+    resolved = {
       url: DEFAULT_SQL_JS_WASM_URL,
       sha256: options.wasmSha256
         ? normalizeSha256(options.wasmSha256)
         : DEFAULT_SQL_JS_WASM_SHA256,
     };
-  }
-
-  if (options.wasmSha256) {
-    return {
+  } else if (options.wasmSha256) {
+    resolved = {
       url: options.wasmUrl,
       sha256: normalizeSha256(options.wasmSha256),
     };
+  } else if (options.initializeSqlJs) {
+    resolved = { url: options.wasmUrl, sha256: null };
+  } else {
+    throw new RepositoryConfigurationError(
+      'A custom wasmUrl requires wasmSha256 when using the default sql.js loader.',
+    );
   }
 
-  if (options.initializeSqlJs) {
-    return { url: options.wasmUrl, sha256: null };
+  if (!options.initializeSqlJs) {
+    requireCanonicalDefaultSqlJsDigest(resolved.sha256);
   }
-
-  throw new RepositoryConfigurationError(
-    'A custom wasmUrl requires wasmSha256 when using the default sql.js loader.',
-  );
+  return resolved;
 }
 
 async function initializeVerifiedSqlJs(
@@ -198,11 +225,8 @@ async function initializeVerifiedSqlJs(
   expectedSha256: string | null,
   signal?: AbortSignal,
 ): Promise<SqlJsStatic> {
-  if (!expectedSha256) {
-    throw new RepositoryConfigurationError(
-      'The default sql.js loader requires an expected WASM SHA-256 digest.',
-    );
-  }
+  const canonicalExpectedSha256 =
+    requireCanonicalDefaultSqlJsDigest(expectedSha256);
   const awaitStep = <T>(operation: () => Promise<T>): Promise<T> =>
     awaitSignalAwareStep(
       operation,
@@ -239,7 +263,7 @@ async function initializeVerifiedSqlJs(
   }
   await awaitStep(() => verifySha256Digest(
     wasmBytes,
-    expectedSha256,
+    canonicalExpectedSha256,
     {
       cryptoUnavailable: () => new RepositoryConfigurationError(
         'Web Crypto SHA-256 support is required to initialize sql.js safely.',
@@ -252,7 +276,6 @@ async function initializeVerifiedSqlJs(
 }
 
 function createDefaultSqlJsFlight(
-  key: string,
   wasmUrl: string,
   expectedSha256: string,
 ): DefaultSqlJsInitializationFlight {
@@ -270,8 +293,8 @@ function createDefaultSqlJsFlight(
     },
     (error: unknown) => {
       flight.settled = true;
-      if (defaultSqlJsInitializationByArtifact.get(key) === flight) {
-        defaultSqlJsInitializationByArtifact.delete(key);
+      if (defaultSqlJsInitializationFlight === flight) {
+        defaultSqlJsInitializationFlight = null;
       }
       throw error;
     },
@@ -282,16 +305,15 @@ function createDefaultSqlJsFlight(
     promise,
     settled: false,
   };
-  defaultSqlJsInitializationByArtifact.set(key, flight);
+  defaultSqlJsInitializationFlight = flight;
   return flight;
 }
 
 function subscribeToDefaultSqlJsFlight(
-  key: string,
   flight: DefaultSqlJsInitializationFlight,
   signal?: AbortSignal,
 ): Promise<SqlJsStatic> {
-  const subscriber = Symbol(key);
+  const subscriber = Symbol('default-sql-js');
   flight.subscribers.add(subscriber);
   let released = false;
 
@@ -302,9 +324,9 @@ function subscribeToDefaultSqlJsFlight(
     if (
       !flight.settled
       && flight.subscribers.size === 0
-      && defaultSqlJsInitializationByArtifact.get(key) === flight
+      && defaultSqlJsInitializationFlight === flight
     ) {
-      defaultSqlJsInitializationByArtifact.delete(key);
+      defaultSqlJsInitializationFlight = null;
       flight.controller.abort(
         new Error('sql.js WASM initialization has no active subscribers.'),
       );
@@ -328,10 +350,12 @@ function initializeDefaultSqlJs(
   expectedSha256: string | null,
   options?: RepositoryFetchOptions,
 ): Promise<SqlJsStatic> {
-  if (!expectedSha256) {
-    return Promise.reject(new RepositoryConfigurationError(
-      'The default sql.js loader requires an expected WASM SHA-256 digest.',
-    ));
+  let canonicalExpectedSha256: string;
+  try {
+    canonicalExpectedSha256 =
+      requireCanonicalDefaultSqlJsDigest(expectedSha256);
+  } catch (error) {
+    return Promise.reject(error);
   }
   const signal = options?.signal;
   if (signal?.aborted) {
@@ -340,10 +364,9 @@ function initializeDefaultSqlJs(
       'sql.js WASM initialization was aborted.',
     ));
   }
-  const key = JSON.stringify([wasmUrl, expectedSha256]);
-  const flight = defaultSqlJsInitializationByArtifact.get(key)
-    ?? createDefaultSqlJsFlight(key, wasmUrl, expectedSha256);
-  return subscribeToDefaultSqlJsFlight(key, flight, signal);
+  const flight = defaultSqlJsInitializationFlight
+    ?? createDefaultSqlJsFlight(wasmUrl, canonicalExpectedSha256);
+  return subscribeToDefaultSqlJsFlight(flight, signal);
 }
 
 export function createRepositoryRuntime(

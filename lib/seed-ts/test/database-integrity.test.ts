@@ -12,6 +12,7 @@ import {
   verifyRepositoryDatabaseBytesBeforeOpen,
 } from '../src/database/database-integrity.js';
 import {
+  DEFAULT_SQL_JS_WASM_SHA256,
   RepositoryConfigurationError,
   RepositoryIntegrityError,
   createRepositoryRuntime,
@@ -182,7 +183,7 @@ test('exact row count is required and verifier never closes the caller database'
   db.close();
 });
 
-test('WASM digest configuration and mismatch contracts remain byte-for-byte compatible', async () => {
+test('WASM digest configuration separates unsupported binaries from byte mismatches', async () => {
   assert.throws(
     () => resolveRepositoryWasm({
       wasmUrl: 'https://example.invalid/sql-wasm.wasm',
@@ -194,20 +195,36 @@ test('WASM digest configuration and mismatch contracts remain byte-for-byte comp
   );
 
   const bytes = Uint8Array.of(1, 2, 3);
+  let fetches = 0;
   const runtime = createRepositoryRuntime({
-    fetch: async () => ({
-      ok: true,
-      status: 200,
-      statusText: 'OK',
-      arrayBuffer: async () => bytes.buffer,
-    }),
+    fetch: async () => {
+      fetches += 1;
+      return {
+        ok: true,
+        status: 200,
+        statusText: 'OK',
+        arrayBuffer: async () => bytes.buffer,
+      };
+    },
   });
   await assert.rejects(
     runtime.initializeSqlJs('https://example.invalid/sql-wasm.wasm', '0'.repeat(64)),
+    (error: unknown) => error instanceof RepositoryConfigurationError
+      && error.code === 'REPOSITORY_CONFIGURATION_INVALID'
+      && /only supports the bundled canonical WASM digest/u.test(error.message),
+  );
+  assert.equal(fetches, 0);
+
+  await assert.rejects(
+    runtime.initializeSqlJs(
+      'https://example.invalid/sql-wasm.wasm',
+      DEFAULT_SQL_JS_WASM_SHA256,
+    ),
     (error: unknown) => error instanceof RepositoryIntegrityError
       && error.code === 'REPOSITORY_WASM_INTEGRITY_MISMATCH'
       && error.message === 'The sql.js WASM artifact failed SHA-256 verification.'
-      && error.expectedSha256 === '0'.repeat(64)
+      && error.expectedSha256 === DEFAULT_SQL_JS_WASM_SHA256
       && error.actualSha256 === sha256(bytes),
   );
+  assert.equal(fetches, 1);
 });
