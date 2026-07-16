@@ -223,6 +223,64 @@ const baseIds = Object.keys(baseBundle);
 const firstId = baseIds[0];
 const secondId = baseIds[1];
 
+_clearGeneratedCacheForTesting();
+const retainedBrowserBundle = validBundle('wealth', key);
+const retainedRawArticle =
+  retainedBrowserBundle[firstId] as Record<string, unknown>;
+retainedRawArticle.caseAxes = {
+  gangyak: 'balanced',
+  gyeokgukFamily: 'siksang',
+};
+const isolatedBrowserLoad = await preloadGeneratedForPersonWithRuntime(
+  [{ category: 'wealth', packKey: key }],
+  runtime(async () => response(retainedBrowserBundle)),
+);
+const isolatedBrowserArticle =
+  _getBrowserGeneratedArticleForTesting(firstId);
+check('browser cache isolation fixture loads completely',
+  isolatedBrowserLoad.meta.status === 'complete');
+check('browser cache stores a frozen article snapshot',
+  isolatedBrowserArticle !== null
+    && Object.isFrozen(isolatedBrowserArticle)
+    && Object.isFrozen(isolatedBrowserArticle.body)
+    && Object.isFrozen(isolatedBrowserArticle.expert)
+    && Object.isFrozen(
+      (isolatedBrowserArticle as unknown as Record<string, unknown>).caseAxes,
+    ));
+const isolatedBrowserExpected = isolatedBrowserArticle === null
+  ? null
+  : {
+    summary: isolatedBrowserArticle.summary,
+    body: [...isolatedBrowserArticle.body],
+    expert: [...isolatedBrowserArticle.expert],
+    caseAxes:
+      (isolatedBrowserArticle as unknown as Record<string, unknown>).caseAxes,
+  };
+let browserMutationRejected = false;
+if (isolatedBrowserArticle !== null) {
+  try {
+    (isolatedBrowserArticle as { summary: string }).summary = 'POISON';
+  } catch (error) {
+    browserMutationRejected = error instanceof TypeError;
+  }
+}
+check('browser cache rejects consumer mutation', browserMutationRejected);
+retainedRawArticle.summary = 'RAW_POISON';
+(retainedRawArticle.body as string[]).push('RAW_POISON');
+(retainedRawArticle.expert as string[]).splice(0);
+(retainedRawArticle.caseAxes as Record<string, unknown>).gangyak = 'RAW_POISON';
+const isolatedBrowserReload =
+  _getBrowserGeneratedArticleForTesting(firstId);
+check('browser cache is detached from the fetch payload owner',
+  isolatedBrowserReload !== null
+    && JSON.stringify({
+      summary: isolatedBrowserReload.summary,
+      body: [...isolatedBrowserReload.body],
+      expert: [...isolatedBrowserReload.expert],
+      caseAxes:
+        (isolatedBrowserReload as unknown as Record<string, unknown>).caseAxes,
+    }) === JSON.stringify(isolatedBrowserExpected));
+
 function mutatedBundle(
   mutate: (bundle: Record<string, unknown>) => void,
 ): Record<string, unknown> {
@@ -342,6 +400,38 @@ for (const invalidCase of invalidCases) {
   checkAccounting(invalidCase.label, result);
   checkPublicPrivacy(invalidCase.label, result);
 }
+
+_clearGeneratedCacheForTesting();
+const snapshotFailureBundle = cloneBundle(baseBundle);
+const snapshotFailureLastId = baseIds.at(-1);
+if (snapshotFailureLastId === undefined) {
+  throw new Error('snapshot failure fixture requires at least one article');
+}
+Object.defineProperty(
+  snapshotFailureBundle[snapshotFailureLastId] as object,
+  'snapshotFailure',
+  {
+    enumerable: true,
+    get() {
+      throw new Error('snapshot failure sentinel');
+    },
+  },
+);
+let snapshotFailure: unknown;
+try {
+  await preloadGeneratedForPersonWithRuntime(
+    [{ category: 'wealth', packKey: key }],
+    runtime(async () => response(snapshotFailureBundle)),
+  );
+} catch (error) {
+  snapshotFailure = error;
+}
+check('snapshot defects reject with the original cause',
+  snapshotFailure instanceof Error
+    && snapshotFailure.message === 'snapshot failure sentinel');
+check('snapshot defects cannot partially commit a browser pack',
+  _getBrowserGeneratedArticleForTesting(firstId) === null
+    && _getBrowserGeneratedArticleForTesting(secondId) === null);
 
 _clearGeneratedCacheForTesting();
 let concurrentFetches = 0;

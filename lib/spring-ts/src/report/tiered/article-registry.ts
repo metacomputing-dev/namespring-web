@@ -11,6 +11,7 @@
  */
 
 import type { TieredCategoryId, TieredPeriodKind } from '../types.js';
+import { snapshotArticle } from './article-snapshot.js';
 
 declare global {
   interface ImportMeta {
@@ -38,12 +39,14 @@ export type ArticleAudience =
 
 export type ArticleBand = 'high' | 'mid' | 'low' | 'any';
 
-export const ARTICLE_AUDIENCES: readonly ArticleAudience[] = [
+export const ARTICLE_AUDIENCES: readonly ArticleAudience[] = Object.freeze([
   'adult', 'teen', 'child',
   'stage-teen', 'stage-early', 'stage-mid', 'stage-senior', 'stage-elder',
-] as const;
+] as const);
 
-export const ARTICLE_BANDS: readonly ArticleBand[] = ['high', 'mid', 'low', 'any'] as const;
+export const ARTICLE_BANDS: readonly ArticleBand[] = Object.freeze([
+  'high', 'mid', 'low', 'any',
+] as const);
 
 export interface Article {
   readonly schemaVersion: 'spring-ts.article.v1';
@@ -144,25 +147,32 @@ export interface ArticleRegistry {
 }
 
 let cachedRegistry: ArticleRegistry | null = null;
+const EMPTY_ARTICLES: readonly Article[] = Object.freeze([]);
 
 function buildRegistry(articles: Article[]): ArticleRegistry {
   // Deterministic pool order regardless of file-system enumeration order.
-  articles.sort((a, b) => a.articleId.localeCompare(b.articleId));
+  const snapshots = articles
+    .map(snapshotArticle)
+    .sort((a, b) => a.articleId.localeCompare(b.articleId));
   const map = new Map<PoolKey, Article[]>();
   let aiGenerated = 0;
-  for (const article of articles) {
+  for (const article of snapshots) {
     const key = poolKey(article.category, article.period, article.audience);
     const list = map.get(key);
     if (list) list.push(article);
     else map.set(key, [article]);
     if (article.aiGenerated) aiGenerated += 1;
   }
+  const immutablePools = new Map<PoolKey, readonly Article[]>(
+    [...map.entries()].map(([key, pool]) => [key, Object.freeze(pool)]),
+  );
+  const all = Object.freeze(snapshots);
   return Object.freeze({
     get(category: 'overall' | TieredCategoryId, period: TieredPeriodKind, audience: ArticleAudience) {
-      return map.get(poolKey(category, period, audience)) ?? [];
+      return immutablePools.get(poolKey(category, period, audience)) ?? EMPTY_ARTICLES;
     },
-    all: articles,
-    totalArticleCount: articles.length,
+    all,
+    totalArticleCount: all.length,
     aiGeneratedCount: aiGenerated,
   });
 }
