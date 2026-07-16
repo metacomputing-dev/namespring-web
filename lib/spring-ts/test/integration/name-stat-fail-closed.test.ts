@@ -4,7 +4,9 @@ import {
   SPRING_NAME_REQUEST_INVALID,
   SpringNameRequestValidationError,
   NAME_STAT_LOOKUP_UNAVAILABLE,
+  NAME_STAT_SUMMARY_INTEGRITY_MISMATCH,
   NameStatLookupUnavailableError,
+  NameStatSummaryIntegrityError,
   NAME_ENTRY_RESOLUTION_FAILED,
   NameEntryResolutionError,
   REPOSITORY_DATABASE_INTEGRITY_MISMATCH,
@@ -27,15 +29,37 @@ const givenName = [
 
 function foundEntry() {
   return {
-    name: '\uBBFC\uC900',
-    first_char: '\uBBFC',
-    first_choseong: '',
-    similar_names: [],
-    yearly_rank: {},
-    yearly_birth: {},
-    hanja_combinations: [],
-    raw_entry: {},
+    popularityRank: null,
+    maleBirths: 0,
+    femaleBirths: 0,
   };
+}
+
+{
+  const engine = new SpringEngine() as any;
+  const integrityError = new NameStatSummaryIntegrityError(
+    'compressed_sha256_mismatch',
+    'expected-sha256',
+    'actual-sha256',
+  );
+  engine.nameStatRepo = {
+    findByName: async () => {
+      throw integrityError;
+    },
+  };
+
+  await assert.rejects(
+    engine.getNameStatInfo(givenName),
+    (error: unknown) => {
+      assert.strictEqual(error, integrityError);
+      assert.equal(error.code, NAME_STAT_SUMMARY_INTEGRITY_MISMATCH);
+      assert.equal(error.retryable, false);
+      assert.equal(error instanceof NameStatLookupUnavailableError, false);
+      assert.equal(error.message.includes('\uBBFC\uC900'), false);
+      return true;
+    },
+    'compact-asset integrity failures must remain original and non-retryable',
+  );
 }
 
 {

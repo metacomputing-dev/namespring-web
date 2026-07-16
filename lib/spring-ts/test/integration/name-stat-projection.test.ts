@@ -141,7 +141,7 @@ test('SpringEngine publishes the same pure projection without a second policy pa
     findByName: async (name: string) => {
       lookupCount += 1;
       assert.equal(name, '가나');
-      return source;
+      return projectNameStatEntry(source);
     },
   };
 

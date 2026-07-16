@@ -8,6 +8,14 @@ const DIST = path.join(ROOT, 'namespring', 'dist');
 const PUBLIC = path.join(ROOT, 'namespring', 'public');
 const GENERATED_SOURCE = path.join(ROOT, 'lib', 'spring-ts', 'data', 'generated');
 const CANONICAL_WASM = path.join(ROOT, 'lib', 'seed-ts', 'assets', 'sql-wasm-1.14.1.wasm');
+const CANONICAL_NAME_STAT_SUMMARY = path.join(
+  ROOT,
+  'lib',
+  'spring-ts',
+  'data',
+  'name-stat',
+  'name-stat-summary.v1.bin',
+);
 const EXPECTED_ARTICLE_COUNT = 21_060;
 const EXPECTED_BUNDLE_COUNT = 1_116;
 const EXPECTED_WASM_BYTE_LENGTH = 659_730;
@@ -76,29 +84,86 @@ function hasLiteralPrefix(source, value) {
 function hasBaseAwareGeneratedPackReference(source, base) {
   if (hasLiteralPrefix(source, `${base}generated-packed/`)) return true;
 
+  if (
+    source.includes('generated-packed/')
+    && source.includes('.resolveAssetUrl(')
+  ) {
+    const resolverBinding =
+      /resolveAssetUrl\s*:\s*([A-Za-z_$][\w$]*)/gu;
+    for (const match of source.matchAll(resolverBinding)) {
+      const resolverName = match[1];
+      const resolverDefinitions = new RegExp(
+        `function\\s+${escapeRegex(resolverName)}\\s*\\(`,
+        'gu',
+      );
+      for (const resolverMatch of source.matchAll(resolverDefinitions)) {
+        const resolverSource = source.slice(
+          resolverMatch.index,
+          resolverMatch.index + 2_000,
+        );
+        if (!resolverSource.includes('new URL(')) continue;
+
+        const baseHelper = resolverSource.match(
+          /\.applicationBaseUrl\s*\?\?\s*([A-Za-z_$][\w$]*)\(\)/u,
+        )?.[1];
+        if (!baseHelper) continue;
+        const helperPattern = new RegExp(
+          `function\\s+${escapeRegex(baseHelper)}\\s*\\(\\)\\s*\\{\\s*return`,
+          'gu',
+        );
+        for (const helperMatch of source.matchAll(helperPattern)) {
+          if (
+            hasLiteral(
+              source.slice(helperMatch.index, helperMatch.index + 256),
+              base,
+            )
+          ) {
+            return true;
+          }
+        }
+      }
+    }
+  }
+
   const routeCall = /([A-Za-z_$][\w$]*)\(\s*([`'"])generated-packed\//gu;
   for (const match of source.matchAll(routeCall)) {
     const resolverName = match[1];
-    const resolverStart = source.search(
-      new RegExp(`function\\s+${escapeRegex(resolverName)}\\s*\\(`, 'u'),
+    const resolverDefinitions = new RegExp(
+      `function\\s+${escapeRegex(resolverName)}\\s*\\(`,
+      'gu',
     );
-    if (resolverStart < 0) continue;
-    const resolverSource = source.slice(resolverStart, resolverStart + 2_000);
-    if (!resolverSource.includes('new URL(')) continue;
+    for (const resolverMatch of source.matchAll(resolverDefinitions)) {
+      const resolverSource = source.slice(
+        resolverMatch.index,
+        resolverMatch.index + 2_000,
+      );
+      if (!resolverSource.includes('new URL(')) continue;
 
-    const baseHelper = resolverSource.match(
-      /\.applicationBaseUrl\s*\?\?\s*([A-Za-z_$][\w$]*)\(\)/u,
-    )?.[1];
-    if (!baseHelper) continue;
-    const helperPattern = new RegExp(
-      `function\\s+${escapeRegex(baseHelper)}\\s*\\(\\)\\s*\\{\\s*return`,
-      'u',
-    );
-    const helperStart = source.search(helperPattern);
-    if (helperStart < 0) continue;
-    if (hasLiteral(source.slice(helperStart, helperStart + 256), base)) return true;
+      const baseHelper = resolverSource.match(
+        /\.applicationBaseUrl\s*\?\?\s*([A-Za-z_$][\w$]*)\(\)/u,
+      )?.[1];
+      if (!baseHelper) continue;
+      const helperPattern = new RegExp(
+        `function\\s+${escapeRegex(baseHelper)}\\s*\\(\\)\\s*\\{\\s*return`,
+        'gu',
+      );
+      for (const helperMatch of source.matchAll(helperPattern)) {
+        if (
+          hasLiteral(
+            source.slice(helperMatch.index, helperMatch.index + 256),
+            base,
+          )
+        ) {
+          return true;
+        }
+      }
+    }
   }
   return false;
+}
+
+function hasBaseAwareNameStatSummaryReference(source, base, emittedFilename) {
+  return hasLiteral(source, `${base}assets/${emittedFilename}`);
 }
 
 assert.equal(
@@ -108,6 +173,14 @@ assert.equal(
   ),
   true,
   'structured project-base generated-pack reference self-test',
+);
+assert.equal(
+  hasBaseAwareGeneratedPackReference(
+    "function b(){return'/namespring-web/'}function r(p,o={}){let a=o.applicationBaseUrl??b();return new URL(p,new URL(a,'https://example/'))}function p(t){t.resolveAssetUrl('generated-packed/career/key.json')}p({resolveAssetUrl:r})",
+    '/namespring-web/',
+  ),
+  true,
+  'indirect generated-pack resolver binding self-test',
 );
 assert.equal(
   hasBaseAwareGeneratedPackReference(
@@ -121,6 +194,42 @@ assert.equal(
   hasBaseAwareGeneratedPackReference("fetch('/generated-packed/career/key.json')", '/'),
   true,
   'root deployment may use a root-relative generated pack',
+);
+assert.equal(
+  hasBaseAwareNameStatSummaryReference(
+    "const asset=new URL('/namespring-web/assets/name-stat-summary.v1-hash.bin',import.meta.url)",
+    '/namespring-web/',
+    'name-stat-summary.v1-hash.bin',
+  ),
+  true,
+  'project-base compact NameStat reference self-test',
+);
+assert.equal(
+  hasBaseAwareNameStatSummaryReference(
+    "const asset=new URL('/assets/name-stat-summary.v1-hash.bin',import.meta.url)",
+    '/namespring-web/',
+    'name-stat-summary.v1-hash.bin',
+  ),
+  false,
+  'project deployment must reject a root-relative compact NameStat reference',
+);
+assert.equal(
+  hasBaseAwareNameStatSummaryReference(
+    "const unrelated='/namespring-web/';const asset='name-stat-summary.v1-hash.bin'",
+    '/namespring-web/',
+    'name-stat-summary.v1-hash.bin',
+  ),
+  false,
+  'unrelated base plus compact NameStat basename must fail',
+);
+assert.equal(
+  hasBaseAwareNameStatSummaryReference(
+    "const asset=new URL('/assets/name-stat-summary.v1-hash.bin',import.meta.url)",
+    '/',
+    'name-stat-summary.v1-hash.bin',
+  ),
+  true,
+  'root deployment may use a root-relative compact NameStat reference',
 );
 
 const base = normalizeBase(argumentValue('--base'));
@@ -192,17 +301,55 @@ assert.equal(fs.statSync(emittedWasm).size, EXPECTED_WASM_BYTE_LENGTH, 'WASM byt
 assert.equal(sha256(emittedWasm), EXPECTED_WASM_SHA256, 'WASM sha256');
 assertSameFile(CANONICAL_WASM, emittedWasm, 'canonical WASM');
 
+const nameStatSummaryCandidates = listFiles(
+  path.join(DIST, 'assets'),
+  (file) => file.endsWith('.bin')
+    && fs.statSync(file).size === fs.statSync(CANONICAL_NAME_STAT_SUMMARY).size
+    && sha256(file) === sha256(CANONICAL_NAME_STAT_SUMMARY),
+);
+assert.equal(
+  nameStatSummaryCandidates.length,
+  1,
+  'one bundled compact NameStat summary asset',
+);
+const emittedNameStatSummary = nameStatSummaryCandidates[0];
+assert.match(
+  path.basename(emittedNameStatSummary),
+  /^name-stat-summary\.v1-[A-Za-z0-9_-]+\.bin$/u,
+  'compact NameStat emitted filename',
+);
+assertSameFile(
+  CANONICAL_NAME_STAT_SUMMARY,
+  emittedNameStatSummary,
+  'canonical compact NameStat summary',
+);
+
 const javascriptFiles = listFiles(path.join(DIST, 'assets'), (file) => file.endsWith('.js'));
 let wasmReferenceFound = false;
+let nameStatSummaryReferenceFound = false;
 let generatedPackReferenceFound = false;
 for (const file of javascriptFiles) {
   const source = fs.readFileSync(file, 'utf8');
   if (source.includes(path.basename(emittedWasm))) wasmReferenceFound = true;
+  if (
+    hasBaseAwareNameStatSummaryReference(
+      source,
+      base,
+      path.basename(emittedNameStatSummary),
+    )
+  ) {
+    nameStatSummaryReferenceFound = true;
+  }
   if (hasBaseAwareGeneratedPackReference(source, base)) generatedPackReferenceFound = true;
   assert.equal(source.includes('https://cdn.jsdelivr.net/npm/sql.js@1.14.0/dist/sql-wasm.wasm'), false, 'legacy sql.js CDN');
 }
 assert.equal(wasmReferenceFound, true, 'JS reference to emitted WASM');
+assert.equal(
+  nameStatSummaryReferenceFound,
+  true,
+  'JS reference to emitted compact NameStat summary',
+);
 assert.equal(generatedPackReferenceFound, true, 'base-aware generated pack reference');
 assert.equal(fs.existsSync(path.join(DIST, 'saju-ts')), false, 'legacy saju-ts copy');
 
-console.log(`Pages artifact contract: PASS (${databaseRelativePaths.length} DBs, ${distBundles.length} bundles, ${path.basename(emittedWasm)}, base=${base})`);
+console.log(`Pages artifact contract: PASS (${databaseRelativePaths.length} DBs, ${distBundles.length} bundles, ${path.basename(emittedWasm)}, ${path.basename(emittedNameStatSummary)}, base=${base})`);

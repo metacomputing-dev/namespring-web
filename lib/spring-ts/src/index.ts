@@ -36,6 +36,12 @@ export {
   type NameStatLookupResult,
 } from './name-stat-contract.js';
 export {
+  NAME_STAT_SUMMARY_INTEGRITY_MISMATCH,
+  NameStatSummaryIntegrityError,
+  type NameStatSummaryIntegrityReason,
+  type NameStatSummaryIntegrityValue,
+} from './name-stat-summary-repository.js';
+export {
   REPOSITORY_DATA_INVALID,
   RepositoryDataError,
 } from '../../seed-ts/src/database/repository-errors.js';

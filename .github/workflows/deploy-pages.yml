@@ -61,6 +61,10 @@ jobs:
           npm run check:database-asset-manifest
           npm run test:sql-js-wasm-asset
 
+      - name: Verify compact NameStat source asset
+        working-directory: lib/spring-ts
+        run: npm run check:name-stat-summary
+
       - name: Pack generated report assets
         working-directory: lib/spring-ts
         run: npx --no-install tsx tools/generation/pack-generated.ts

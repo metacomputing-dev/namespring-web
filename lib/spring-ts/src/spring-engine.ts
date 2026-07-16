@@ -14,10 +14,6 @@
 
 import { HanjaRepository, type HanjaEntry } from '../../seed-ts/src/database/hanja-repository.js';
 import { FourframeRepository } from '../../seed-ts/src/database/fourframe-repository.js';
-import {
-  NameStatRepository,
-  type NameStatEntry,
-} from '../../seed-ts/src/database/name-stat-repository.js';
 import { RepositoryDataError } from '../../seed-ts/src/database/repository-errors.js';
 import { RepositoryDatabaseIntegrityError } from '../../seed-ts/src/database/database-integrity.js';
 import {
@@ -75,9 +71,13 @@ import {
   type NameStatLookupResult,
 } from './name-stat-contract.js';
 import {
-  projectNameStatEntry,
+  type NameStatSourceProjection,
   toFoundNameStatLookupResult,
 } from './name-stat-projection.js';
+import {
+  NameStatSummaryIntegrityError,
+  NameStatSummaryRepository,
+} from './name-stat-summary-repository.js';
 import {
   FOURFRAME_MAX_NUMBER,
   compileFourFrameContract,
@@ -152,6 +152,12 @@ const DEFAULT_LIMIT             = engineConfig.pagination.defaultLimit;
 const DEFAULT_TARGET_ELEMENT    = engineConfig.defaultTargetElement;
 const ENGINE_VERSION            = engineConfig.version;
 const NAME_STAT_INFO_CACHE_LIMIT = (engineConfig as { nameStatInfoCacheLimit?: number }).nameStatInfoCacheLimit ?? 1000;
+const NAME_STAT_NOT_FOUND = Object.freeze({
+  status: 'not_found',
+  popularityRank: null,
+  maleRatio: null,
+  nameGender: 'unknown',
+}) satisfies NameStatLookupResult;
 const DEFAULT_PURE_HANGUL_MODE: 'auto' | 'on' | 'off' = 'auto';
 const DEFAULT_USE_SURNAME_HANJA_IN_PURE = false;
 const ENABLE_HANJA_NAME_EVALUATION = true;
@@ -641,7 +647,7 @@ export class SpringEngineOperationCancelledError extends Error {
 export class SpringEngine {
   private hanjaRepo = new HanjaRepository();
   private fourFrameRepo = new FourframeRepository();
-  private nameStatRepo = new NameStatRepository();
+  private nameStatRepo = new NameStatSummaryRepository();
   private initialized = false;
   private initPromise: Promise<void> | null = null;
   private lifecycleGeneration = 0;
@@ -2168,18 +2174,13 @@ export class SpringEngine {
     this.assertActiveOperation(operation.generation, operation.operation);
     const key = this.givenNameHangulKey(givenName);
     if (!key) {
-      return {
-        status: 'not_found',
-        popularityRank: null,
-        maleRatio: null,
-        nameGender: 'unknown',
-      };
+      return NAME_STAT_NOT_FOUND;
     }
 
     const cached = this.cacheGetNameStatInfo(key);
     if (cached) return cached;
 
-    let found: NameStatEntry | null;
+    let found: NameStatSourceProjection | null;
     try {
       found = await this.awaitOperationStep(
         operation,
@@ -2190,6 +2191,7 @@ export class SpringEngine {
       if (
         cause instanceof RepositoryDataError
         || cause instanceof RepositoryDatabaseIntegrityError
+        || cause instanceof NameStatSummaryIntegrityError
       ) {
         throw cause;
       }
@@ -2200,19 +2202,13 @@ export class SpringEngine {
     this.assertActiveOperation(operation.generation, operation.operation);
 
     if (!found) {
-      const notFound: NameStatLookupResult = {
-        status: 'not_found',
-        popularityRank: null,
-        maleRatio: null,
-        nameGender: 'unknown',
-      };
-      this.cacheSetNameStatInfo(key, notFound);
-      return notFound;
+      this.cacheSetNameStatInfo(key, NAME_STAT_NOT_FOUND);
+      return NAME_STAT_NOT_FOUND;
     }
 
-    // Decode-derived data errors and programming defects remain non-retryable;
-    // only repository access failures above are wrapped as infrastructure.
-    const info = toFoundNameStatLookupResult(projectNameStatEntry(found));
+    // Contract/integrity errors remain non-retryable; only repository access
+    // failures above are wrapped as infrastructure.
+    const info = Object.freeze(toFoundNameStatLookupResult(found));
     this.cacheSetNameStatInfo(key, info);
     return info;
   }

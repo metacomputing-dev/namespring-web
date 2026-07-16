@@ -18,7 +18,7 @@
     "generate:name-stat-summary": "npx tsx tools/generate-name-stat-summary.ts --write",
     "check:name-stat-summary": "npx tsx tools/generate-name-stat-summary.ts --check",
     "typecheck:name-stat-summary": "tsc -p tsconfig.name-stat-summary.json --pretty false",
-    "test:name-stat-summary": "npm run typecheck:name-stat-summary && npx tsx --test test/integration/name-stat-summary-asset.test.ts",
+    "test:name-stat-summary": "npm run typecheck:name-stat-summary && npx tsx --test test/integration/name-stat-summary-asset.test.ts test/integration/name-stat-summary-repository.test.ts",
     "test:name-stat-fail-closed": "npx tsx test/integration/name-stat-fail-closed.test.ts",
     "test:public-request-snapshot": "npx tsx test/integration/public-request-snapshot.test.ts",
     "test:hangul-signal-cap": "npx tsx test/integration/hangul-signal-cap.test.ts",

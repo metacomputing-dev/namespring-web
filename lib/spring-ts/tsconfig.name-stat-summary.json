@@ -6,9 +6,11 @@
   "include": [
     "src/name-stat-summary-asset.generated.ts",
     "src/name-stat-summary-contract.ts",
+    "src/name-stat-summary-repository.ts",
     "src/name-stat-projection.ts",
     "tools/generate-name-stat-summary.ts",
     "tools/name-stat-summary-core.ts",
-    "test/integration/name-stat-summary-asset.test.ts"
+    "test/integration/name-stat-summary-asset.test.ts",
+    "test/integration/name-stat-summary-repository.test.ts"
   ]
 }

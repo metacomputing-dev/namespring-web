@@ -101,14 +101,9 @@ const lifecycleRepositoryLookupRequest: SpringRequest = {
 
 function foundNameStatEntry() {
   return {
-    name: '\uBBFC\uC900',
-    first_char: '\uBBFC',
-    first_choseong: '',
-    similar_names: [],
-    yearly_rank: {},
-    yearly_birth: {},
-    hanja_combinations: [],
-    raw_entry: {},
+    popularityRank: null,
+    maleBirths: 0,
+    femaleBirths: 0,
   };
 }
 
