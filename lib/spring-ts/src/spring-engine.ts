@@ -511,6 +511,17 @@ interface NameInputPlan {
   readonly includeOriginalName: boolean;
 }
 
+type FoundNameStatLookupResult = Extract<NameStatLookupResult, { readonly status: 'found' }>;
+
+interface CollectedNameInput {
+  readonly givenName: NameCharInput[];
+  /** Present when recommendation filtering already resolved NameStat. */
+  readonly nameStat?: {
+    readonly givenNameKey: string;
+    readonly info: FoundNameStatLookupResult;
+  };
+}
+
 type CandidateRejectionAccumulator = Map<string, CandidateRejectionBucket>;
 
 /** Prevents fortune cards from being synthesized from an unavailable saju placeholder. */
@@ -1297,6 +1308,7 @@ export class SpringEngine {
   private async getSpringReportFromSnapshot(
     request: SpringRequest,
     sajuReportOverride?: SajuReport,
+    nameStatOverride?: CollectedNameInput['nameStat'],
   ): Promise<SpringReport> {
     const operation = this.beginOperation('getSpringReport');
     this.assertRequestNameSyntax(request, false, true, true);
@@ -1310,7 +1322,11 @@ export class SpringEngine {
     const { dist: sajuDistribution, output: sajuOutput } = buildSajuContext(sajuReport, {
       includeTenGodByPosition: request.options?.precisionConfig?.tenGodMode === 'positional_weighted_v2',
     });
-    const nameStatInfo = await this.awaitOperationStep(
+    const givenNameKey = this.givenNameHangulKey(request.givenName!);
+    if (nameStatOverride && nameStatOverride.givenNameKey !== givenNameKey) {
+      throw new Error('Internal NameStat evidence does not match the requested given name.');
+    }
+    const nameStatInfo = nameStatOverride?.info ?? await this.awaitOperationStep(
       operation,
       () => this.getNameStatInfo(request.givenName!, operation),
     );
@@ -1473,18 +1489,24 @@ export class SpringEngine {
     // 3. Score each candidate
     const results: SpringReport[] = [];
 
-    for (const givenNameInput of nameInputs) {
-      const nameStatInfo = await this.awaitOperationStep(
+    for (const collected of nameInputs) {
+      const givenNameInput = collected.givenName;
+      const nameStatInfo = collected.nameStat?.info ?? await this.awaitOperationStep(
         operation,
         () => this.getNameStatInfo(givenNameInput, operation),
       );
       if (nameStatInfo.status === 'not_found') continue;
       if (this.isGenderMismatch(request.birth.gender, nameStatInfo.nameGender)) continue;
+      const nameStat = collected.nameStat ?? {
+        givenNameKey: this.givenNameHangulKey(givenNameInput),
+        info: nameStatInfo,
+      };
       results.push(await this.awaitOperationStep(
         operation,
         () => this.getSpringReportFromSnapshot(
           snapshotSpringRequest({ ...request, givenName: givenNameInput, mode: 'evaluate' }),
           sajuReport,
+          nameStat,
         ),
       ));
     }
@@ -1524,8 +1546,9 @@ export class SpringEngine {
     ));
     const results: SpringCandidateSummary[] = [];
 
-    for (const givenNameInput of nameInputs) {
-      const nameStatInfo = await this.awaitOperationStep(
+    for (const collected of nameInputs) {
+      const givenNameInput = collected.givenName;
+      const nameStatInfo = collected.nameStat?.info ?? await this.awaitOperationStep(
         operation,
         () => this.getNameStatInfo(givenNameInput, operation),
       );
@@ -1742,10 +1765,11 @@ export class SpringEngine {
     });
 
     // 3. Build the list of name inputs to score
-    const nameInputs = await this.awaitOperationStep(operation, () => this.collectNameInputs(
+    const collectedNameInputs = await this.awaitOperationStep(operation, () => this.collectNameInputs(
       request, nameInputPlan,
       sajuSummary, candidateRejections, operation,
     ));
+    const nameInputs = collectedNameInputs.map((collected) => collected.givenName);
 
     // 4. Score every candidate and rank by total score (descending)
     const scoredCandidates = await this.awaitOperationStep(operation, () => this.scoreAllCandidates(
@@ -1821,9 +1845,9 @@ export class SpringEngine {
     sajuSummary: SajuSummary,
     candidateRejections: CandidateRejectionAccumulator,
     operation: SpringEngineOperationLease,
-  ): Promise<NameCharInput[][]> {
+  ): Promise<CollectedNameInput[]> {
     if (plan.mode === 'evaluate') {
-      return [request.givenName!];
+      return [{ givenName: request.givenName! }];
     }
 
     // Recommend or all mode -- generate candidates
@@ -2045,8 +2069,8 @@ export class SpringEngine {
     nameInputs: NameCharInput[][],
     userGender: 'male' | 'female' | 'neutral',
     operation: SpringEngineOperationLease = this.beginOperation('name-stat-lookup'),
-  ): Promise<NameCharInput[][]> {
-    const filtered: NameCharInput[][] = [];
+  ): Promise<CollectedNameInput[]> {
+    const filtered: CollectedNameInput[] = [];
     for (const givenNameInput of nameInputs) {
       const info = await this.awaitOperationStep(
         operation,
@@ -2054,7 +2078,13 @@ export class SpringEngine {
       );
       if (info.status === 'not_found') continue;
       if (this.isGenderMismatch(userGender, info.nameGender)) continue;
-      filtered.push(givenNameInput);
+      filtered.push({
+        givenName: givenNameInput,
+        nameStat: {
+          givenNameKey: this.givenNameHangulKey(givenNameInput),
+          info,
+        },
+      });
     }
     return filtered;
   }
