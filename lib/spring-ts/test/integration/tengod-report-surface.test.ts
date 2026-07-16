@@ -56,7 +56,7 @@ await engine.init();
 const request = {
   birth: { year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male' as const },
   surname: [{ hangul: '최', hanja: '崔' }],
-  givenName: [{ hangul: '성', hanja: '成' }, { hangul: '수', hanja: '燁' }],
+  givenName: [{ hangul: '성', hanja: '成' }, { hangul: '엽', hanja: '燁' }],
   mode: 'evaluate' as const,
 };
 

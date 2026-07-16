@@ -8,6 +8,7 @@
  * Each mode is checked end-to-end on the standard 1986-04-19 fixture.
  * Tanh/linear curves must produce valid scores. unknownHourGuard defaults on
  * and must change unknown-hour adaptive weighting versus explicit opt-out.
+ * Explicitly invalid time strings must fail closed before guard selection.
  *
  * Run: npm run test:adaptive
  *      (or: npx tsx test/integration/adaptive-evaluator.test.ts)
@@ -54,7 +55,13 @@ async function evalWith(
   birth: any,
   precisionConfig?: any,
   sajuTimePolicy?: any,
-): Promise<{ saju: number; total: number; isPassed: boolean }> {
+): Promise<{
+  saju: number;
+  total: number;
+  sajuEnabled: boolean;
+  analysisStatus?: string;
+  reasonCode?: string;
+}> {
   const result = await engine.analyze({
     birth, surname, givenName,
     mode: 'evaluate',
@@ -63,7 +70,13 @@ async function evalWith(
       : undefined,
   });
   const c = result.candidates[0];
-  return { saju: c.scores.saju, total: c.scores.total, isPassed: c.scores.total >= 60 };
+  return {
+    saju: c.scores.saju,
+    total: c.scores.total,
+    sajuEnabled: result.meta.sajuAnalysis?.enabled === true,
+    analysisStatus: result.meta.sajuAnalysis?.status,
+    reasonCode: result.meta.sajuAnalysis?.diagnostics?.[0]?.reasonCode,
+  };
 }
 
 const baseline             = await evalWith(fullBirth);
@@ -163,7 +176,7 @@ check('guard + unknown hour produces finite total',
   Number.isFinite(guardUnknownHour.total) && guardUnknownHour.total >= 0 && guardUnknownHour.total <= 100,
   `total ${guardUnknownHour.total}`);
 
-// — Guard inactive when precisionConfig.unknownHourGuard is unset —
+// — Guard defaults on when precisionConfig.unknownHourGuard is unset. —
 check('unknownHourGuard defaults on for unknown-hour input',
   defaultUnknownHour.total === guardUnknownHour.total,
   `default=${defaultUnknownHour.total}, explicit=${guardUnknownHour.total}`);
@@ -176,11 +189,14 @@ check('stable unknown-minute envelope does not trigger time guard',
 check('boundary-sensitive unknown-minute envelope triggers time guard',
   sensitiveUnknownMinuteGuard.total !== sensitiveUnknownMinuteNoGuard.total,
   `guard=${sensitiveUnknownMinuteGuard.total}, noGuard=${sensitiveUnknownMinuteNoGuard.total}`);
-check('normalized unknown-hour contract triggers guard for empty-string input',
-  emptyHourGuard.total !== emptyHourNoGuard.total,
-  `guard=${emptyHourGuard.total}, noGuard=${emptyHourNoGuard.total}`);
+check('empty-string time fails closed before unknown-hour guard selection',
+  emptyHourGuard.sajuEnabled === false
+    && emptyHourGuard.analysisStatus === 'failed'
+    && emptyHourGuard.reasonCode === 'BIRTH_TIME_INVALID'
+    && JSON.stringify(emptyHourGuard) === JSON.stringify(emptyHourNoGuard),
+  `guard=${JSON.stringify(emptyHourGuard)}, noGuard=${JSON.stringify(emptyHourNoGuard)}`);
 
-// — All four valid scores —
+// — Every evaluator path still returns bounded public scores. —
 const allResults = [
   baseline,
   linearExplicit,
@@ -201,7 +217,7 @@ for (const r of allResults) {
   if (!Number.isFinite(r.saju) || r.saju < 0 || r.saju > 100) allValid = false;
   if (!Number.isFinite(r.total) || r.total < 0 || r.total > 100) allValid = false;
 }
-check('all 13 paths produce valid [0,100] saju + total', allValid);
+check('all 13 result paths produce finite [0,100] saju + total', allValid);
 
 engine.close();
 
