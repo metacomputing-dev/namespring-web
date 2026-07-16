@@ -434,21 +434,39 @@ function isInvalidRepositoryQuery(error: unknown): boolean {
     && error.code === REPOSITORY_QUERY_INVALID;
 }
 
-test('default sql.js WASM is version-pinned and fails closed on digest mismatch', async () => {
+test('default sql.js WASM is version-pinned and refuses alternate stock-loader digests', async () => {
   assert.equal(DEFAULT_SQL_JS_VERSION, '1.14.1');
   assert.equal(DEFAULT_SQL_JS_WASM_BYTE_LENGTH, 659_730);
   assert.doesNotMatch(DEFAULT_SQL_JS_WASM_URL, /^https?:/iu);
   assert.doesNotMatch(DEFAULT_SQL_JS_WASM_URL, /cdn/iu);
   assert.match(DEFAULT_SQL_JS_WASM_SHA256, /^[a-f0-9]{64}$/u);
 
+  const alternateBytes = Uint8Array.from([0, 1, 2, 3]);
+  const alternateDigest = createHash('sha256').update(alternateBytes).digest('hex');
+  let fetches = 0;
   const runtime = createRepositoryRuntime({
-    fetch: async () => response(bufferWithTag(1)),
+    fetch: async () => {
+      fetches += 1;
+      return response(alternateBytes.buffer);
+    },
   });
   await assert.rejects(
-    runtime.initializeSqlJs('https://example.invalid/sql-wasm.wasm', '0'.repeat(64)),
+    runtime.initializeSqlJs('https://example.invalid/alternate.wasm', alternateDigest),
+    (error: unknown) => error instanceof RepositoryConfigurationError
+      && error.code === 'REPOSITORY_CONFIGURATION_INVALID'
+      && /only supports the bundled canonical WASM digest/u.test(error.message),
+  );
+  assert.equal(fetches, 0, 'an unsupported binary must fail before transport');
+
+  await assert.rejects(
+    runtime.initializeSqlJs(
+      'https://example.invalid/corrupt-canonical.wasm',
+      DEFAULT_SQL_JS_WASM_SHA256,
+    ),
     (error: unknown) => error instanceof RepositoryIntegrityError
       && error.code === 'REPOSITORY_WASM_INTEGRITY_MISMATCH',
   );
+  assert.equal(fetches, 1, 'canonical digest claims must still verify fetched bytes');
 
   const truncatedDefault = createRepositoryRuntime({
     fetch: async () => response(bufferWithTag(1)),
@@ -507,8 +525,18 @@ test('custom WASM URL requires a digest unless the caller owns the loader', () =
     (error: unknown) => error instanceof RepositoryConfigurationError
       && error.code === 'REPOSITORY_CONFIGURATION_INVALID',
   );
+  assert.throws(
+    () => new HanjaRepository({
+      wasmUrl: 'https://example.invalid/alternate.wasm',
+      wasmSha256: '0'.repeat(64),
+    }),
+    (error: unknown) => error instanceof RepositoryConfigurationError
+      && error.code === 'REPOSITORY_CONFIGURATION_INVALID'
+      && /only supports the bundled canonical WASM digest/u.test(error.message),
+  );
   assert.doesNotThrow(() => new HanjaRepository({
     wasmUrl: 'memory://custom.wasm',
+    wasmSha256: '0'.repeat(64),
     initializeSqlJs: async () => createFakeSqlRuntime(HANJA_ROW).SQL,
     fetch: async () => response(),
   }));
@@ -1470,27 +1498,17 @@ test('NameStatRepository removes a completed shard transport controller', async 
   );
 });
 
-test('default Node file URL initializes sql.js and opens and closes a database', async () => {
+test('default Node file transport returns the pinned artifact and rejects fallback', async () => {
   const runtime = createRepositoryRuntime();
-  const SQL = await runtime.initializeSqlJs(
-    DEFAULT_SQL_JS_WASM_URL,
+  const fetched = await runtime.fetch(DEFAULT_SQL_JS_WASM_URL);
+  assert.equal(fetched.ok, true);
+  const fetchedBytes = new Uint8Array(await fetched.arrayBuffer());
+  assert.equal(fetchedBytes.byteLength, DEFAULT_SQL_JS_WASM_BYTE_LENGTH);
+  assert.equal(
+    createHash('sha256').update(fetchedBytes).digest('hex'),
     DEFAULT_SQL_JS_WASM_SHA256,
   );
-  const db = new SQL.Database();
-  try {
-    db.run('CREATE TABLE file_transport_check (value INTEGER NOT NULL)');
-    db.run('INSERT INTO file_transport_check VALUES (7)');
-    assert.deepEqual(db.exec('SELECT value FROM file_transport_check'), [{
-      columns: ['value'],
-      values: [[7]],
-    }]);
-  } finally {
-    db.close();
-  }
-});
 
-test('default Node file transport rejects aborts and missing assets without fallback', async () => {
-  const runtime = createRepositoryRuntime();
   const controller = new AbortController();
   controller.abort();
   await assert.rejects(
@@ -1503,111 +1521,55 @@ test('default Node file transport rejects aborts and missing assets without fall
     DEFAULT_SQL_JS_WASM_URL,
   ).href;
   await assert.rejects(
-    runtime.initializeSqlJs(missingUrl, DEFAULT_SQL_JS_WASM_SHA256),
+    runtime.fetch(missingUrl),
     (error: unknown) => error instanceof Error
       && 'code' in error
       && error.code === 'ENOENT',
   );
 });
 
-test('default sql.js loader is module-wide single-flight and evicts failures', async () => {
+test('default sql.js loader owns one canonical retryable subscriber flight', async () => {
   const originalFetch = globalThis.fetch;
-  const wasmBuffer = Uint8Array.from(readFileSync(new URL(DEFAULT_SQL_JS_WASM_URL))).buffer;
-  const successUrl = 'https://example.invalid/sql-wasm.wasm?single-flight=success';
-  let successFetches = 0;
-  globalThis.fetch = (async () => {
-    successFetches += 1;
-    return response(wasmBuffer);
-  }) as unknown as typeof globalThis.fetch;
+  const firstRuntime = createRepositoryRuntime();
+  const secondRuntime = createRepositoryRuntime();
+  let fetches = 0;
+
   try {
-    const first = createRepositoryRuntime();
-    const second = createRepositoryRuntime();
-    const [firstSql, secondSql] = await Promise.all([
-      first.initializeSqlJs(successUrl, DEFAULT_SQL_JS_WASM_SHA256),
-      second.initializeSqlJs(successUrl, DEFAULT_SQL_JS_WASM_SHA256),
-    ]);
-    assert.equal(successFetches, 1);
-    assert.strictEqual(firstSql, secondSql);
-    assert.strictEqual(
-      await first.initializeSqlJs(successUrl, DEFAULT_SQL_JS_WASM_SHA256),
-      firstSql,
-    );
-    assert.equal(successFetches, 1, 'resolved same-key lookup must remain cached');
-
-    await assert.rejects(
-      first.initializeSqlJs(successUrl, '0'.repeat(64)),
-      (error: unknown) => error instanceof RepositoryIntegrityError,
-    );
-    assert.equal(successFetches, 2, 'same URL with a different digest is a separate key');
-
-    let cacheBypassFetches = 0;
-    const cacheBypass = createRepositoryRuntime({
-      fetch: async () => {
-        cacheBypassFetches += 1;
-        return response(wasmBuffer);
-      },
-    });
-    await cacheBypass.initializeSqlJs(successUrl, DEFAULT_SQL_JS_WASM_SHA256);
-    assert.equal(
-      cacheBypassFetches,
-      1,
-      'custom fetch must not reuse an already-resolved default cache entry',
-    );
-
-    const retryUrl = 'https://example.invalid/sql-wasm.wasm?single-flight=retry';
-    let retryFetches = 0;
     globalThis.fetch = (async () => {
-      retryFetches += 1;
-      return retryFetches === 1
-        ? response(bufferWithTag(0), 503, 'Unavailable')
-        : response(wasmBuffer);
+      fetches += 1;
+      return response(bufferWithTag(0), 503, 'Unavailable');
     }) as unknown as typeof globalThis.fetch;
-    const retrying = createRepositoryRuntime();
     await assert.rejects(
-      retrying.initializeSqlJs(retryUrl, DEFAULT_SQL_JS_WASM_SHA256),
+      firstRuntime.initializeSqlJs(
+        'https://example.invalid/sql-wasm.wasm?single-flight=failure',
+        DEFAULT_SQL_JS_WASM_SHA256,
+      ),
       /Failed to fetch sql\.js WASM: 503 Unavailable/u,
     );
-    await retrying.initializeSqlJs(retryUrl, DEFAULT_SQL_JS_WASM_SHA256);
-    assert.equal(retryFetches, 2);
-  } finally {
-    globalThis.fetch = originalFetch;
-  }
-});
+    assert.equal(fetches, 1);
 
-test('default sql.js flight keeps active subscribers and evicts after the last abort', async () => {
-  const originalFetch = globalThis.fetch;
-  const wasmBuffer = Uint8Array.from(readFileSync(new URL(DEFAULT_SQL_JS_WASM_URL))).buffer;
-  const url = 'https://example.invalid/sql-wasm.wasm?subscriber-cancellation';
-  const neverFetch = new Promise<RepositoryFetchResponse>(() => {});
-  let underlyingSignal: AbortSignal | undefined;
-  let fetches = 0;
-  globalThis.fetch = (async (
-    _url: string | URL | Request,
-    options?: RequestInit,
-  ) => {
-    fetches += 1;
-    if (fetches === 1) {
+    const neverFetch = new Promise<RepositoryFetchResponse>(() => {});
+    let underlyingSignal: AbortSignal | undefined;
+    globalThis.fetch = (async (
+      _url: string | URL | Request,
+      options?: RequestInit,
+    ) => {
+      fetches += 1;
       underlyingSignal = options?.signal ?? undefined;
       return neverFetch;
-    }
-    return response(wasmBuffer);
-  }) as unknown as typeof globalThis.fetch;
+    }) as unknown as typeof globalThis.fetch;
 
-  try {
-    const firstRuntime = createRepositoryRuntime();
-    const secondRuntime = createRepositoryRuntime();
     const firstController = new AbortController();
     const secondController = new AbortController();
     const firstCancellation = new Error('first subscriber closed');
     const secondCancellation = new Error('second subscriber closed');
-
     const first = firstRuntime.initializeSqlJs(
-      url,
+      'https://example.invalid/sql-wasm.wasm?single-flight=first-source',
       DEFAULT_SQL_JS_WASM_SHA256,
       { signal: firstController.signal },
     );
     const second = secondRuntime.initializeSqlJs(
-      url,
+      'https://example.invalid/sql-wasm.wasm?single-flight=second-source',
       DEFAULT_SQL_JS_WASM_SHA256,
       { signal: secondController.signal },
     );
@@ -1618,7 +1580,7 @@ test('default sql.js flight keeps active subscribers and evicts after the last a
       () => { secondSettled = true; },
       () => { secondSettled = true; },
     );
-    await waitUntil(() => fetches === 1, 'the shared never-settling WASM fetch');
+    await waitUntil(() => fetches === 2, 'the shared never-settling WASM fetch');
 
     firstController.abort(firstCancellation);
     assert.strictEqual(await firstOutcome, firstCancellation);
@@ -1627,21 +1589,63 @@ test('default sql.js flight keeps active subscribers and evicts after the last a
     assert.equal(underlyingSignal?.aborted, false);
 
     secondController.abort(secondCancellation);
-    const retry = firstRuntime.initializeSqlJs(
-      url,
-      DEFAULT_SQL_JS_WASM_SHA256,
-    );
     assert.strictEqual(await secondOutcome, secondCancellation);
     assert.equal(underlyingSignal?.aborted, true);
 
-    const retried = await retry;
-    assert.equal(fetches, 2, 'last-subscriber abort must evict the stale flight');
+    let unexpectedRemoteFetches = 0;
+    globalThis.fetch = (async () => {
+      unexpectedRemoteFetches += 1;
+      throw new Error('a joined or cached canonical flight must not refetch another URL');
+    }) as unknown as typeof globalThis.fetch;
+    const [firstSql, secondSql] = await Promise.all([
+      firstRuntime.initializeSqlJs(
+        DEFAULT_SQL_JS_WASM_URL,
+        DEFAULT_SQL_JS_WASM_SHA256,
+      ),
+      secondRuntime.initializeSqlJs(
+        'https://example.invalid/sql-wasm.wasm?single-flight=joined-mirror',
+        DEFAULT_SQL_JS_WASM_SHA256,
+      ),
+    ]);
+    assert.equal(unexpectedRemoteFetches, 0);
+    assert.strictEqual(firstSql, secondSql);
+
+    const db = new firstSql.Database();
+    try {
+      db.run('CREATE TABLE file_transport_check (value INTEGER NOT NULL)');
+      db.run('INSERT INTO file_transport_check VALUES (7)');
+      assert.deepEqual(db.exec('SELECT value FROM file_transport_check'), [{
+        columns: ['value'],
+        values: [[7]],
+      }]);
+    } finally {
+      db.close();
+    }
+
     assert.strictEqual(
-      await secondRuntime.initializeSqlJs(url, DEFAULT_SQL_JS_WASM_SHA256),
-      retried,
-      'a successful retry must remain cached',
+      await firstRuntime.initializeSqlJs(
+        'https://example.invalid/sql-wasm.wasm?single-flight=cached-mirror',
+        DEFAULT_SQL_JS_WASM_SHA256,
+      ),
+      firstSql,
     );
-    assert.equal(fetches, 2);
+    assert.equal(unexpectedRemoteFetches, 0, 'canonical success must remain one-slot cached');
+
+    const invalidBytes = Uint8Array.from([0, 1, 2, 3]);
+    const invalidDigest = createHash('sha256').update(invalidBytes).digest('hex');
+    await assert.rejects(
+      firstRuntime.initializeSqlJs(
+        'https://example.invalid/sql-wasm.wasm?single-flight=invalid-binary',
+        invalidDigest,
+      ),
+      (error: unknown) => error instanceof RepositoryConfigurationError
+        && error.code === 'REPOSITORY_CONFIGURATION_INVALID',
+    );
+    assert.equal(
+      unexpectedRemoteFetches,
+      0,
+      'non-canonical bytes must fail before transport even after canonical success',
+    );
   } finally {
     globalThis.fetch = originalFetch;
   }
@@ -1662,19 +1666,34 @@ test('custom fetches and loaders stay outside the default single-flight cache', 
   ]);
   assert.equal(customFetches, 2);
 
-  let customLoaderCalls = 0;
+  const customLoaderCalls: Array<{
+    readonly wasmUrl: string;
+    readonly expectedSha256: string | null;
+  }> = [];
   const fakeSql = createFakeSqlRuntime(HANJA_ROW).SQL;
-  const customLoader = async (): Promise<SqlJsStatic> => {
-    customLoaderCalls += 1;
+  const customLoader = async (
+    wasmUrl: string,
+    expectedSha256: string | null,
+  ): Promise<SqlJsStatic> => {
+    customLoaderCalls.push({ wasmUrl, expectedSha256 });
     return fakeSql;
   };
   const loaderRuntimeA = createRepositoryRuntime({ initializeSqlJs: customLoader });
   const loaderRuntimeB = createRepositoryRuntime({ initializeSqlJs: customLoader });
   await Promise.all([
     loaderRuntimeA.initializeSqlJs('memory://custom-loader.wasm', null),
-    loaderRuntimeB.initializeSqlJs('memory://custom-loader.wasm', null),
+    loaderRuntimeB.initializeSqlJs('memory://alternate-loader.wasm', '0'.repeat(64)),
   ]);
-  assert.equal(customLoaderCalls, 2);
+  assert.deepEqual(customLoaderCalls, [
+    {
+      wasmUrl: 'memory://custom-loader.wasm',
+      expectedSha256: null,
+    },
+    {
+      wasmUrl: 'memory://alternate-loader.wasm',
+      expectedSha256: '0'.repeat(64),
+    },
+  ]);
 });
 
 test('NameStatRepository aggregates abort and DB close failures before clean reinit', async () => {

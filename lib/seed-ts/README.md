@@ -117,11 +117,17 @@ runtime verifies the SHA-256 digest before execution. The package also ships
 the upstream MIT notice. Browser bundlers can emit the
 asset from its static `import.meta.url` reference, so the default runtime has
 no third-party CDN dependency and never falls back to one. Default
-initialization is module-wide single-flight by URL and digest; failures are
-evicted so a later call can retry. A custom `wasmUrl` must include
-`wasmSha256`, while callers that inject a custom `initializeSqlJs` loader
-own that loader's integrity boundary and are intentionally excluded from the
-default shared cache.
+initialization follows upstream sql.js's one-module-per-process contract. The
+stock loader accepts only the bundled canonical digest; a custom `wasmUrl` may
+mirror those exact bytes but cannot select a different binary. The first
+stock-loader call supplies the bootstrap transport, concurrent callers share
+that flight, and successful initialization remains cached for the process.
+Transport, response-body, and digest failures are evicted so a later call can
+retry from another URL. If upstream WebAssembly initialization itself fails,
+sql.js retains that rejected module-wide promise; recovery requires a fresh
+JavaScript realm or process rather than another URL. Loading a different sql.js
+artifact requires an explicit custom `initializeSqlJs` loader, which owns its
+integrity boundary and stays outside the default shared cache.
 
 Each caller of the default module-wide WASM flight owns a subscriber lease.
 Closing one repository cancels only its subscriber; another active subscriber
@@ -130,10 +136,12 @@ flight is identity-checked, evicted, and its underlying transport is aborted so
 an immediate retry cannot inherit a permanently pending load. Successful
 entries remain cached as before.
 
-Successful default URL/digest entries stay cached for the process lifetime.
-This bounds normal products to one reviewed bundled artifact while avoiding
-repeat transport and hashing. Arbitrarily many caller-selected pinned URLs are
-therefore not intended as a long-running multi-tenant loading strategy.
+The successful stock-loader cache has exactly one canonical runtime entry and
+does not retain caller-selected URL strings. Injecting only a custom `fetch`
+keeps transport calls outside that shared cache, but it does not permit a
+different WASM digest. A custom loader for a different binary must return an
+independently initialized `SqlJsStatic`; calling the same cached upstream
+initializer cannot create a second runtime.
 
 `HanjaRepository`, `FourframeRepository`, and `NameStatRepository`
 separately verify database artifacts before publishing them. Canonical mode
