@@ -1,4 +1,5 @@
 import type { ElementKey } from './core/scoring.js';
+import { deepFreeze } from '../../seed-ts/src/utils/deep-freeze.js';
 import unihanData from '../data/unihan-hanja-metadata.json';
 
 export type RadicalElementHintSourceTier = 'T3_AUTHORED_INTERPRETATION';
@@ -37,7 +38,10 @@ interface UnihanDataFile {
 }
 
 const metadataByHanja = new Map<string, HanjaUnihanMetadata>(
-  ((unihanData as UnihanDataFile).entries ?? []).map((entry) => [entry.hanja, entry]),
+  ((unihanData as UnihanDataFile).entries ?? []).map((entry) => [
+    entry.hanja,
+    deepFreeze(entry),
+  ]),
 );
 
 export function getUnihanMetadata(hanja: string | undefined): HanjaUnihanMetadata | undefined {

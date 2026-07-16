@@ -35,7 +35,13 @@ const originalFetch = globalThis.fetch;
   return originalFetch(url as any, options);
 };
 
-import { SCHOOL_PRESET_ORDER, SpringEngine } from '../../src/index.js';
+import {
+  SCHOOL_PRESET_ORDER,
+  SpringEngine,
+  isSchoolPresetName,
+  loadPreset,
+  resolveSchoolPresetMetadata,
+} from '../../src/index.js';
 
 const birth = { year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male' as const };
 const surname = [{ hangul: '최', hanja: '崔' }];
@@ -77,6 +83,42 @@ function check(label: string, cond: boolean, evidence?: string): void {
   }
 }
 
+const presetBeforeMutation = loadPreset('korean');
+const originalEokbuWeight = presetBeforeMutation.yongshinTypeWeights.EOKBU;
+let presetRootMutationRejected = false;
+try {
+  (presetBeforeMutation as any).schoolName = 'poison';
+} catch {
+  presetRootMutationRejected = true;
+}
+let presetWeightMutationRejected = false;
+try {
+  (presetBeforeMutation.yongshinTypeWeights as Record<string, number>).EOKBU = 999;
+} catch {
+  presetWeightMutationRejected = true;
+}
+
+const originalPresetOrder = [...SCHOOL_PRESET_ORDER];
+let presetOrderMutationRejected = false;
+try {
+  (SCHOOL_PRESET_ORDER as string[]).push('poison');
+} catch {
+  presetOrderMutationRejected = true;
+}
+
+const metadataBeforeMutation = resolveSchoolPresetMetadata('classical_text', true);
+const originalTradeoffs = [...metadataBeforeMutation.tradeoffs];
+let tradeoffMutationRejected = false;
+try {
+  (metadataBeforeMutation.tradeoffs as string[]).push('poison');
+} catch {
+  tradeoffMutationRejected = true;
+}
+const koreanAfterMutation = await evaluateWith({
+  precisionConfig: { useSchoolPreset: true },
+  schoolPreset: 'korean',
+});
+
 console.log('SchoolPreset routing — single fixture (1986-04-19 m, 최성수)\n');
 
 console.log('Baseline   :', baseline);
@@ -89,6 +131,31 @@ console.log('Naming safe:', namingSafe);
 console.log('Chinese off:', chineseOptOff);
 console.log('Safe off   :', safeOptOff);
 console.log('');
+
+check('preset roots and nested scoring weights are deeply frozen',
+  presetRootMutationRejected &&
+    presetWeightMutationRejected &&
+    Object.isFrozen(presetBeforeMutation) &&
+    Object.isFrozen(presetBeforeMutation.yongshinTypeWeights) &&
+    Object.isFrozen(presetBeforeMutation.adaptiveWeights));
+
+check('preset mutation attempts cannot change later scoring',
+  loadPreset('korean').yongshinTypeWeights.EOKBU === originalEokbuWeight &&
+    koreanAfterMutation.saju === korean.saju &&
+    koreanAfterMutation.total === korean.total,
+  JSON.stringify(koreanAfterMutation));
+
+check('public preset order rejects mutation and stays authoritative',
+  presetOrderMutationRejected &&
+    Object.isFrozen(SCHOOL_PRESET_ORDER) &&
+    SCHOOL_PRESET_ORDER.join(',') === originalPresetOrder.join(',') &&
+    !isSchoolPresetName('poison'));
+
+check('published tradeoffs reject mutation without polluting later metadata',
+  tradeoffMutationRejected &&
+    Object.isFrozen(metadataBeforeMutation.tradeoffs) &&
+    JSON.stringify(resolveSchoolPresetMetadata('classical_text', true).tradeoffs) ===
+      JSON.stringify(originalTradeoffs));
 
 check(
   'korean preset is zero-op (≡ baseline)',
