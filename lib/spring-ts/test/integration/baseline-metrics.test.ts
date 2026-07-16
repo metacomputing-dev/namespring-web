@@ -86,6 +86,22 @@ check('declared-scope source-record accounting is explicit and complete',
     !('authorityTruthEligibleCount' in sourceTierSummary) &&
     !('nonEligibleCount' in sourceTierSummary));
 
+const currentRpiBaseline = fs.readFileSync(
+  path.join(SPRING_TS_ROOT, 'test/baseline/CURRENT_RPI_BASELINE.md'),
+  'utf-8',
+);
+const currentRpiBaselineLines = currentRpiBaseline
+  .split(/\r?\n/u)
+  .map((line) => line.trim());
+const expectedSourceTierRows = [
+  `| Source-tier records scanned | ${sourceTierSummary.scanned} |`,
+  `| Declared-scope-eligible source records (not complete D1 truth) | ${sourceTierSummary.declaredScopeEligibleSourceRecordCount} |`,
+  `| Declared-scope-ineligible source records | ${sourceTierSummary.declaredScopeIneligibleSourceRecordCount} |`,
+];
+check('current RPI baseline document matches source-tier summary',
+  expectedSourceTierRows.every((row) =>
+    currentRpiBaselineLines.filter((line) => line === row).length === 1));
+
 const d1TruthCoverage = bySourceTier.d1TruthCoverage;
 const d1RequiredFields = [
   ...D1_REQUIRED_DOCTRINE_FIELDS,

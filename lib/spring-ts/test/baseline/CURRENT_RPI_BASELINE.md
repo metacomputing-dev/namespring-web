@@ -25,9 +25,9 @@ counted as calculation accuracy without eligible doctrine and naming-score truth
 | Raw governed RPI | 20 / 100 |
 | Measured-only RPI | 20 / 35 (57.1%) |
 | Source-tier audit | PASS (0 policy violations) |
-| Source-tier records scanned | 118 |
-| Declared-scope-eligible source records (not complete D1 truth) | 24 |
-| Declared-scope-ineligible source records | 94 |
+| Source-tier records scanned | 121 |
+| Declared-scope-eligible source records (not complete D1 truth) | 25 |
+| Declared-scope-ineligible source records | 96 |
 | Complete seven-field D1 fixtures | 0 / 17 |
 | Partial D1 fixtures | 0 / 17 |
 | No eligible D1 truth fields | 17 / 17 |

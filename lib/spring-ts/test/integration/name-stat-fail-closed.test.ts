@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 
 import {
+  SPRING_NAME_REQUEST_INVALID,
+  SpringNameRequestValidationError,
   NAME_STAT_LOOKUP_UNAVAILABLE,
   NameStatLookupUnavailableError,
   NAME_ENTRY_RESOLUTION_FAILED,
@@ -339,6 +341,10 @@ function foundEntry() {
     let sajuCalls = 0;
     engine.init = async () => {};
     engine.hanjaRepo = {
+
+      findSurnamesByHangul: async (hangul: string) => [
+        fakeHanjaEntry({ hangul, hanja: '\u91D1', is_surname: true }),
+      ],
       findByHanja: async () => ({ hangul: '\uC900', hanja: '\u73C9' }),
       findByHangul: async () => [],
     };
@@ -422,6 +428,10 @@ function foundEntry() {
   const engine = new SpringEngine() as any;
   engine.init = () => initGate;
   engine.hanjaRepo = {
+
+    findSurnamesByHangul: async (hangul: string) => [
+      fakeHanjaEntry({ hangul, hanja: '\u91D1', is_surname: true }),
+    ],
     findByHanja: async (hanja: string) => {
       observedHanja.push(hanja);
       return { hangul: '\uBBFC', hanja: '\u73C9' };
@@ -711,15 +721,23 @@ function foundEntry() {
   for (const [route, invoke] of cachedRoutes) {
     const engine = new SpringEngine() as any;
     let findByHanjaCalls = 0;
+    let surnameFindByHangulCalls = 0;
     engine.init = async () => {};
     engine.hanjaRepo = {
+
+      findSurnamesByHangul: async (hangul: string) => [
+        fakeHanjaEntry({ hangul, hanja: '\u91D1', is_surname: true }),
+      ],
       findByHanja: async () => {
         findByHanjaCalls += 1;
         return fakeHanjaEntry();
       },
-      findByHangul: async (hangul: string) => [
-        fakeHanjaEntry({ hangul, hanja: hangul === '\uAE40' ? '\u91D1' : '\u654F' }),
-      ],
+      findByHangul: async (hangul: string) => {
+        if (hangul === '\uAE40') surnameFindByHangulCalls += 1;
+        return [
+          fakeHanjaEntry({ hangul, hanja: hangul === '\uAE40' ? '\u91D1' : '\u654F' }),
+        ];
+      },
       close: () => {},
     };
     engine.getSajuReport = async () => ({
@@ -735,12 +753,16 @@ function foundEntry() {
     engine.resolveEntries = async (chars: any[], options: any = {}) => {
       const resolved = await resolveEntries(chars, options);
       if (!options.isSurname) throw stopAfterGivenResolution;
+      assert.ok(
+        resolved.every((entry: any) => entry.is_surname === true),
+        route + ' must preserve the verified surname role',
+      );
       return resolved;
     };
 
     const request: any = {
       birth: { year: 1990, month: 1, day: 1, gender: 'neutral' },
-      surname: [{ hangul: '\uAE40' }],
+      surname: [{ hangul: '\uAE40', hanja: '\u91D1' }],
       givenName: [{ hangul: '\uBBFC', hanja: '\u654F' }],
       mode: 'evaluate',
     };
@@ -752,12 +774,21 @@ function foundEntry() {
     assert.equal(
       findByHanjaCalls,
       1,
-      route + ' must reuse the preflight pair during resolution',
+      route + ' must reuse the given-name preflight pair during resolution',
+    );
+    assert.equal(
+      surnameFindByHangulCalls,
+      1,
+      route + ' must reuse the surname preflight pair during resolution',
     );
   }
 
   const engine = new SpringEngine() as any;
   engine.hanjaRepo = {
+
+    findSurnamesByHangul: async (hangul: string) => [
+      fakeHanjaEntry({ hangul, hanja: '\u91D1', is_surname: true }),
+    ],
     findByHanja: async () => fakeHanjaEntry(),
     findByHangul: async () => [],
     close: () => {},
@@ -914,4 +945,223 @@ function foundEntry() {
     assert.equal(error.message.includes(rawProxyMessage), false);
   }
 }
+
+{
+  const validRequest = (): any => ({
+    birth: { year: 1990, month: 1, day: 1, gender: 'neutral' },
+    surname: [{ hangul: '\uAE40', hanja: '\u91D1' }],
+    givenName: [{ hangul: '\uBBFC', hanja: '\u73C9' }],
+    givenNameLength: 1,
+    mode: 'evaluate',
+    options: {
+      pureHangulNameMode: 'off',
+      useSurnameHanjaInPureHangul: false,
+    },
+  });
+  const invalidCases: readonly [
+    string,
+    (request: any) => void,
+    string,
+    string,
+  ][] = [
+    ['empty surname', (request) => { request.surname = []; }, 'invalid_surname_cardinality', 'surname'],
+    ['long surname', (request) => {
+      request.surname = [
+        { hangul: '\uAE40', hanja: '\u91D1' },
+        { hangul: '\uC774', hanja: '\u674E' },
+        { hangul: '\uBC15', hanja: '\u6734' },
+      ];
+    }, 'invalid_surname_cardinality', 'surname'],
+    ['non-array surname', (request) => { request.surname = '\uAE40'; }, 'invalid_surname_cardinality', 'surname'],
+    ['missing evaluation name', (request) => {
+      delete request.givenName;
+      delete request.givenNameLength;
+    }, 'given_name_required', 'givenName'],
+    ['empty supplied given name', (request) => { request.givenName = []; }, 'given_name_required', 'givenName'],
+    ['long supplied given name', (request) => {
+      request.givenName = Array.from(
+        { length: 5 },
+        () => ({ hangul: '\uBBFC', hanja: '\u73C9' }),
+      );
+      delete request.givenNameLength;
+    }, 'invalid_given_name_cardinality', 'givenName'],
+    ['non-array given name', (request) => { request.givenName = '\uBBFC'; }, 'invalid_given_name_cardinality', 'givenName'],
+    ['zero given-name length', (request) => {
+      delete request.givenName;
+      request.givenNameLength = 0;
+      request.mode = 'recommend';
+    }, 'invalid_given_name_length', 'givenNameLength'],
+    ['fractional given-name length', (request) => {
+      delete request.givenName;
+      request.givenNameLength = 1.5;
+      request.mode = 'recommend';
+    }, 'invalid_given_name_length', 'givenNameLength'],
+    ['oversized given-name length', (request) => {
+      delete request.givenName;
+      request.givenNameLength = 5;
+      request.mode = 'recommend';
+    }, 'invalid_given_name_length', 'givenNameLength'],
+    ['incoherent supplied lengths', (request) => { request.givenNameLength = 2; }, 'incoherent_given_name_length', 'givenNameLength'],
+    ['evaluation generation filter', (request) => {
+      request.givenName = [{ hangul: '\u3131' }];
+      request.givenNameLength = 1;
+      request.options.pureHangulNameMode = 'auto';
+    }, 'evaluation_generation_filter_not_allowed', 'givenName'],
+    ['mixed evaluation identity', (request) => {
+      request.givenName = [
+        { hangul: '\uBBFC', hanja: '\u73C9' },
+        { hangul: '\uC218' },
+      ];
+      request.givenNameLength = 2;
+    }, 'evaluation_name_identity_incomplete', 'givenName'],
+    ['pure evaluation explicitly disabled', (request) => {
+      request.givenName = [{ hangul: '\uBBFC' }];
+      request.givenNameLength = 1;
+      request.options.pureHangulNameMode = 'off';
+    }, 'evaluation_name_identity_incomplete', 'givenName'],
+    ['invalid mode enum', (request) => { request.mode = 'surprise'; }, 'invalid_mode', 'mode'],
+    ['invalid pure-Hangul enum', (request) => {
+      request.options.pureHangulNameMode = 'sometimes';
+    }, 'invalid_pure_hangul_name_mode', 'options.pureHangulNameMode'],
+    ['invalid surname-Hanja boolean', (request) => {
+      request.options.useSurnameHanjaInPureHangul = 'yes';
+    }, 'invalid_use_surname_hanja_in_pure_hangul', 'options.useSurnameHanjaInPureHangul'],
+    ['pure-Hangul explicit-Hanja conflict', (request) => {
+      request.options.pureHangulNameMode = 'on';
+    }, 'pure_hangul_explicit_hanja_conflict', 'givenName'],
+  ];
+
+  for (const [label, mutate, reason, field] of invalidCases) {
+    const request = validRequest();
+    mutate(request);
+    const engine = new SpringEngine() as any;
+    let initCalls = 0;
+    engine.init = async () => { initCalls += 1; };
+    await assert.rejects(
+      engine.getNameCandidateSummaries(request),
+      (error: unknown) => {
+        assert.ok(error instanceof SpringNameRequestValidationError, label);
+        assert.equal(error.code, SPRING_NAME_REQUEST_INVALID, label);
+        assert.equal(error.reason, reason, label);
+        assert.equal(error.field, field, label);
+        assert.equal(error.retryable, false, label);
+        assert.equal(error.message.includes('\uAE40'), false, label);
+        assert.equal(error.message.includes('\uBBFC'), false, label);
+        return true;
+      },
+      label,
+    );
+    assert.equal(initCalls, 0, `${label} must fail before initialization`);
+  }
+}
+
+{
+  const validBase = (): any => ({
+    birth: { year: 1990, month: 1, day: 1, gender: 'neutral' },
+    surname: [{ hangul: '\uAE40', hanja: '\u91D1' }],
+    givenNameLength: 1,
+    mode: 'recommend',
+  });
+  const malformedCharacters: readonly [string, unknown][] = [
+    ['null character', null],
+    ['empty object', {}],
+    ['boolean character', true],
+    ['array Hangul', { hangul: ['\uBBFC'] }],
+  ];
+
+  for (const [label, character] of malformedCharacters) {
+    const engine = new SpringEngine() as any;
+    let initCalls = 0;
+    engine.init = async () => { initCalls += 1; };
+    await assert.rejects(
+      engine.getNameCandidateSummaries({
+        ...validBase(),
+        givenName: [character],
+      }),
+      (error: unknown) => {
+        assert.ok(error instanceof NameEntryResolutionError, label);
+        assert.equal(error.reason, 'invalid_hangul_syllable', label);
+        assert.equal(error.message.includes('\uBBFC'), false, label);
+        return true;
+      },
+      label,
+    );
+    assert.equal(initCalls, 0, `${label} must fail before initialization`);
+  }
+
+  const oversizedHanja = '\u73C9'.repeat(9);
+  const oversizedEngine = new SpringEngine() as any;
+  let oversizedInitCalls = 0;
+  oversizedEngine.init = async () => { oversizedInitCalls += 1; };
+  await assert.rejects(
+    oversizedEngine.getNameCandidateSummaries({
+      ...validBase(),
+      givenName: [{ hangul: '\uBBFC', hanja: oversizedHanja }],
+    }),
+    (error: unknown) => {
+      assert.ok(error instanceof NameEntryResolutionError);
+      assert.equal(error.reason, 'invalid_hanja_character');
+      assert.equal(error.message.includes('\u73C9'), false);
+      return true;
+    },
+    'oversized Hanja must fail without trimming or retaining the raw value',
+  );
+  assert.equal(oversizedInitCalls, 0);
+}
+
+{
+  const engine = new SpringEngine() as any;
+  const pureAutoEvaluation = {
+    birth: { year: 1990, month: 1, day: 1, gender: 'neutral' },
+    surname: [{ hangul: '\uAE40', hanja: '\u91D1' }],
+    givenName: [{ hangul: '\uBBFC' }],
+    givenNameLength: 1,
+    mode: 'evaluate',
+    options: { pureHangulNameMode: 'auto' },
+  };
+  assert.doesNotThrow(
+    () => engine.assertRequestNameSyntax(pureAutoEvaluation, true),
+    'the frontend native-Korean evaluate request must remain compatible',
+  );
+  const explicitEvaluation = {
+    ...pureAutoEvaluation,
+    givenName: [{ hangul: '\uBBFC', hanja: '\u73C9' }],
+    options: { pureHangulNameMode: 'off' },
+  };
+  assert.doesNotThrow(
+    () => engine.assertRequestNameSyntax(explicitEvaluation, true),
+    'a fully explicit Hanja evaluation must remain compatible',
+  );
+}
+
+{
+  for (const [label, suppliedGivenName] of [
+    ['missing', undefined],
+    ['empty', []],
+  ] as const) {
+    const engine = new SpringEngine() as any;
+    let initCalls = 0;
+    engine.init = async () => { initCalls += 1; };
+    const request: any = {
+      birth: { year: 1990, month: 1, day: 1, gender: 'neutral' },
+      surname: [{ hangul: '\uAE40', hanja: '\u91D1' }],
+      ...(suppliedGivenName === undefined ? {} : { givenName: suppliedGivenName }),
+      mode: 'evaluate',
+      options: { pureHangulNameMode: 'off' },
+    };
+    await assert.rejects(
+      engine.getNamingReport(request),
+      (error: unknown) => {
+        assert.ok(error instanceof SpringNameRequestValidationError, label);
+        assert.equal(error.code, SPRING_NAME_REQUEST_INVALID, label);
+        assert.equal(error.reason, 'given_name_required', label);
+        assert.equal(error.field, 'givenName', label);
+        return true;
+      },
+      `getNamingReport ${label} givenName`,
+    );
+    assert.equal(initCalls, 0, `getNamingReport ${label} givenName must fail before init`);
+  }
+}
+
 console.log('Name-stat fail-closed contract: PASS');

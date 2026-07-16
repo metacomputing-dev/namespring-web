@@ -6,11 +6,11 @@
   "inputs": {
     "rpiSummary": {
       "path": "metrics/rpi-summary.json",
-      "sha256": "sha256:4d12caab2ea8503bc1d27ea1f1116fbf619e60cd3a42f14b381d5316f93644e3"
+      "sha256": "sha256:82e4bc44a19ca7b9b20a7390a589da98cf59d237a66ebdad7d9ab6cf974bf296"
     },
     "sourceTierSummary": {
       "path": "metrics/source-tier-summary.json",
-      "sha256": "sha256:c82b5df4f93a4579c3f647b808f4fbfed5af60c618af11b9e6d4a29666198fee"
+      "sha256": "sha256:3eeb94a0f3435ceea475d4c548303a48e03b41bc931d237d870892e09f5ab64c"
     },
     "bySourceTier": {
       "path": "metrics/bySourceTier.json",
@@ -93,17 +93,17 @@
   },
   "sourceTierCoverageReport": {
     "status": "PASS",
-    "scanned": 118,
+    "scanned": 121,
     "violationCount": 0,
     "recordEligibilityDefinition": "source record is eligible for at least one policy-declared authority scope; this is not complete D1 fixture truth",
-    "declaredScopeEligibleSourceRecordCount": 24,
-    "declaredScopeIneligibleSourceRecordCount": 94,
-    "declaredScopeEligibleSourceRecordRate": 20.339,
+    "declaredScopeEligibleSourceRecordCount": 25,
+    "declaredScopeIneligibleSourceRecordCount": 96,
+    "declaredScopeEligibleSourceRecordRate": 20.6612,
     "byTier": {
       "T3_AUTHORED_INTERPRETATION": {
-        "recordCount": 52,
+        "recordCount": 53,
         "declaredScopeEligibleSourceRecordCount": 0,
-        "declaredScopeIneligibleSourceRecordCount": 52,
+        "declaredScopeIneligibleSourceRecordCount": 53,
         "declaredScopeEligibleSourceRecordRate": 0
       },
       "T4_PRIMARY_TEXT": {
@@ -119,16 +119,16 @@
         "declaredScopeEligibleSourceRecordRate": 0
       },
       "T2_REFERENCE_IMPLEMENTATION": {
-        "recordCount": 13,
+        "recordCount": 14,
         "declaredScopeEligibleSourceRecordCount": 0,
-        "declaredScopeIneligibleSourceRecordCount": 13,
+        "declaredScopeIneligibleSourceRecordCount": 14,
         "declaredScopeEligibleSourceRecordRate": 0
       },
       "T5_OFFICIAL": {
-        "recordCount": 24,
-        "declaredScopeEligibleSourceRecordCount": 21,
+        "recordCount": 25,
+        "declaredScopeEligibleSourceRecordCount": 22,
         "declaredScopeIneligibleSourceRecordCount": 3,
-        "declaredScopeEligibleSourceRecordRate": 87.5
+        "declaredScopeEligibleSourceRecordRate": 88
       }
     },
     "d1FixtureTruthCoverage": {

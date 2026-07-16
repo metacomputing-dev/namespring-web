@@ -2,7 +2,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { FortuneSajuUnavailableError, SpringEngine } from '../../src/spring-engine.js';
-import { RepositoryDataError } from '../../src/index.js';
+import {
+  RepositoryDataError,
+  SpringNameRequestValidationError,
+} from '../../src/index.js';
 import { analyzeSajuSafe, emptySaju } from '../../src/saju-adapter.js';
 import {
   SajuAnalysisUnavailableError,
@@ -93,6 +96,47 @@ for (const invalidTarget of [
 }
 check('an omitted target date is the only current-time fallback',
   Number.isFinite(resolveFortuneTargetDate(undefined).getTime()));
+
+const secretTargetDate = `private-${'x'.repeat(256)}`;
+const oversizedTargetError = await captureError(() => Promise.resolve(
+  resolveFortuneTargetDate(secretTargetDate),
+));
+check('oversized target dates fail with the typed boundary error',
+  oversizedTargetError instanceof FortuneTargetDateInvalidError);
+check('target-date errors never retain or serialize the raw input',
+  oversizedTargetError instanceof FortuneTargetDateInvalidError
+    && !('input' in oversizedTargetError)
+    && !JSON.stringify(oversizedTargetError).includes(secretTargetDate));
+
+const boundaryProbe = new SpringEngine() as any;
+let boundaryInitCalls = 0;
+boundaryProbe.init = async () => { boundaryInitCalls += 1; };
+const malformedNameError = await captureError(() => boundaryProbe.getFortuneReport({
+  birth: { year: 1990, month: 1, day: 1, gender: 'neutral' },
+  surname: [{ hangul: '\uAE40', hanja: '\u91D1' }],
+  givenName: {} as never,
+  targetDate: '2026-07-11T00:00:00+09:00',
+}));
+check('malformed optional fortune names fail at the public boundary',
+  malformedNameError instanceof SpringNameRequestValidationError);
+check('malformed fortune names fail before repository initialization',
+  boundaryInitCalls === 0);
+
+const emptyArrayProbe = new SpringEngine() as any;
+let emptyArrayInitCalls = 0;
+const emptyArrayInitSentinel = new Error('empty-array compatibility sentinel');
+emptyArrayProbe.init = async () => {
+  emptyArrayInitCalls += 1;
+  throw emptyArrayInitSentinel;
+};
+const emptyArrayError = await captureError(() => emptyArrayProbe.getFortuneReport({
+  birth: { year: 1990, month: 1, day: 1, gender: 'neutral' },
+  surname: [{ hangul: '\uAE40', hanja: '\u91D1' }],
+  givenName: [],
+  targetDate: '2026-07-11T00:00:00+09:00',
+}));
+check('an empty given-name array preserves the legacy nameless route',
+  emptyArrayError === emptyArrayInitSentinel && emptyArrayInitCalls === 1);
 
 const generationProbe = new SpringEngine() as any;
 let capturedTargetElements: Set<string> | null = null;

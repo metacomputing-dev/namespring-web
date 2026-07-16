@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "spring-ts.kosis-compound-surname-evidence.v1",
+  "capturedAt": "2026-07-16",
+  "sourceTier": {
+    "tier": "T5_OFFICIAL",
+    "sourceType": "official_kosis_statistics",
+    "sourceUrl": "https://kosis.kr/statisticsList/mass/mass_list.jsp?list_id=&org_id=101&process=statHtml&tbl_id=DT_1IN15SC&vw_cd=",
+    "accessedAt": "2026-07-16",
+    "quoteShort": null,
+    "humanInterpretation": "The six national compound-surname rows are a minimum observed allowlist, not a complete legal surname registry.",
+    "copyrightNote": "Official statistical identifiers, aggregate counts and checksum metadata only.",
+    "authorityTruthEligible": true
+  },
+  "source": {
+    "organization": "Statistics Korea",
+    "tableId": "DT_1IN15SC",
+    "year": 2015,
+    "fileId": "101_DT_1IN15SC_F_2015",
+    "fileNo": "5838",
+    "sourceUrl": "https://kosis.kr/statisticsList/mass/mass_list.jsp?list_id=&org_id=101&process=statHtml&tbl_id=DT_1IN15SC&vw_cd=",
+    "downloadEndpoint": "https://kosis.kr/file_mass/file_down.jsp",
+    "zipSha256": "sha256:f2feb50a8febc09b4d193eeacfec5e7773392b0adc357e318a64095fc5a3dd7b",
+    "csvEntry": "101_DT_1IN15SC_F_2015.csv",
+    "csvEntrySha256": "sha256:c61eb0d030e632184431027ba84d5f8800f9f8ad225c8d45202505073023dcaa",
+    "csvEncoding": "CP949",
+    "csvGeneratedAt": "2017-07-13"
+  },
+  "selection": {
+    "geographyCode": "00",
+    "geographyLabel": "\uC804\uAD6D",
+    "measure": "\uC778\uAD6C(\uB0B4\uAD6D\uC778)",
+    "surnameForm": "two_hangul_two_hanja",
+    "scope": "officially_observed_minimum_not_complete_legal_registry"
+  },
+  "rows": [
+    { "sourceCode": "0024", "id": "namgung", "hangul": "\uB0A8\uAD81", "hanja": "\u5357\u5BAE", "population": 21308, "male": 10716, "female": 10592 },
+    { "sourceCode": "0056", "id": "sagong", "hangul": "\uC0AC\uACF5", "hanja": "\u53F8\u7A7A", "population": 4476, "male": 2305, "female": 2171 },
+    { "sourceCode": "0059", "id": "seomun", "hangul": "\uC11C\uBB38", "hanja": "\u897F\u9580", "population": 2028, "male": 971, "female": 1057 },
+    { "sourceCode": "0063", "id": "seonu", "hangul": "\uC120\uC6B0", "hanja": "\u9BAE\u4E8E", "population": 3588, "male": 1793, "female": 1795 },
+    { "sourceCode": "0118", "id": "jegall", "hangul": "\uC81C\uAC08", "hanja": "\u8AF8\u845B", "population": 5655, "male": 3048, "female": 2607 },
+    { "sourceCode": "0153", "id": "hwangbo", "hangul": "\uD669\uBCF4", "hanja": "\u7687\u752B", "population": 10383, "male": 5304, "female": 5079 }
+  ]
+}

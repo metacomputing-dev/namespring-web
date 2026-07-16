@@ -68,6 +68,7 @@ const curatedJamoEntry = fakeEntry({
 });
 
 engine.hanjaRepo = {
+  findSurnamesByHangul: async () => [surnameEntry],
   findByHanja: async (hanja: string) => hanja === '崔' ? surnameEntry : null,
   findByStrokeRange: async (min: number, max: number) =>
     curatedStrokeEntry.strokes >= min && curatedStrokeEntry.strokes <= max

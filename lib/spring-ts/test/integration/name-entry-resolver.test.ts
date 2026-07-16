@@ -1,5 +1,7 @@
 import assert from 'node:assert/strict';
 
+import { parseJamoFilter } from '../../src/core/name-utils.js';
+import { assertNameCharacterSyntax } from '../../src/name-entry-resolver.js';
 import {
   NAME_ENTRY_RESOLUTION_FAILED,
   NameEntryResolutionError,
@@ -24,7 +26,7 @@ function fakeEntry(overrides: Record<string, unknown> = {}): any {
 }
 
 {
-  const exact = fakeEntry();
+  const exact = fakeEntry({ is_surname: true });
   const engine = new SpringEngine() as any;
   engine.hanjaRepo = {
     findByHanja: async () => exact,
@@ -35,7 +37,7 @@ function fakeEntry(overrides: Record<string, unknown> = {}): any {
   assert.deepEqual(
     resolved,
     [{ ...exact, hangul: '민', is_surname: false }],
-    'an exact explicit pair must preserve the existing entry shape',
+    'a given-name pair must normalize a surname-flagged repository row to its request role',
   );
 }
 
@@ -144,6 +146,450 @@ function fakeEntry(overrides: Record<string, unknown> = {}): any {
     [{ ...exact, hangul: '민', is_surname: false }],
     'a verified internally fixed candidate must retain its existing byte shape',
   );
+}
+
+{
+  const canonicalPair = fakeEntry({
+    id: 10,
+    hangul: '김',
+    hanja: '金',
+    is_surname: false,
+  });
+  const engine = new SpringEngine() as any;
+  engine.hanjaRepo = {
+    findByHanja: async () => canonicalPair,
+    findByHangul: async () => [canonicalPair],
+    findSurnamesByHangul: async () => [],
+  };
+
+  const resolved = await engine.resolveEntries(
+    [{ hangul: '김', hanja: '金' }],
+    { isSurname: true },
+  );
+  assert.deepEqual(resolved, [{ ...canonicalPair, is_surname: true }]);
+  assert.equal(
+    resolved[0].is_surname,
+    true,
+    'the immutable surname registry must establish eligibility for an exact pair',
+  );
+}
+
+{
+  const firstExactRow = fakeEntry({
+    id: 11,
+    hangul: '김',
+    hanja: '金',
+    is_surname: false,
+  });
+  const duplicateEligibleRow = fakeEntry({
+    id: 12,
+    hangul: '김',
+    hanja: '金',
+    is_surname: true,
+  });
+  const engine = new SpringEngine() as any;
+  engine.hanjaRepo = {
+    findByHanja: async () => firstExactRow,
+    findByHangul: async () => [firstExactRow],
+    findSurnamesByHangul: async () => [duplicateEligibleRow],
+  };
+
+  const resolved = await engine.resolveEntries(
+    [{ hangul: '김', hanja: '金' }],
+    { isSurname: true },
+  );
+  assert.deepEqual(resolved, [{ ...firstExactRow, is_surname: true }]);
+}
+{
+  const eligibleSurname = fakeEntry({
+    id: 13,
+    hangul: '\uAE40',
+    hanja: '\u91D1',
+    is_surname: true,
+  });
+  const engine = new SpringEngine() as any;
+  engine.hanjaRepo = {
+    findByHanja: async () => null,
+    findByHangul: async () => [eligibleSurname],
+    findSurnamesByHangul: async () => [eligibleSurname],
+  };
+  const resolved = await engine.resolveEntries(
+    [{ hangul: '\uAE40' }],
+    { isSurname: true },
+  );
+  assert.deepEqual(resolved, [eligibleSurname]);
+}
+
+{
+  const engine = new SpringEngine() as any;
+  engine.hanjaRepo = {
+    findByHanja: async () => null,
+    findByHangul: async () => [],
+    findSurnamesByHangul: async () => [
+      fakeEntry({ id: 14, hangul: '\uB958', hanja: '\u67F3', is_surname: true }),
+      fakeEntry({ id: 15, hangul: '\uB958', hanja: '\u5289', is_surname: true }),
+    ],
+  };
+  await assert.rejects(
+    engine.resolveEntries([{ hangul: '\uB958' }], { isSurname: true }),
+    (error: unknown) => {
+      assert.ok(error instanceof NameEntryResolutionError);
+      assert.equal(error.reason, 'ambiguous_surname_hanja');
+      return true;
+    },
+    'ambiguous surname readings must require explicit Hanja',
+  );
+}
+
+{
+  const inferred = fakeEntry();
+  const engine = new SpringEngine() as any;
+  let inferenceCalls = 0;
+  engine.hanjaRepo = {
+    findByHanja: async () => inferred,
+    findByHangul: async () => {
+      inferenceCalls += 1;
+      return [inferred];
+    },
+    findSurnamesByHangul: async () => [],
+  };
+
+  for (const [label, input] of [
+    ['missing', { hangul: '\uBBFC' }],
+    ['empty', { hangul: '\uBBFC', hanja: '' }],
+    ['Hangul placeholder', { hangul: '\uBBFC', hanja: '\uBBFC' }],
+  ] as const) {
+    await assert.rejects(
+      engine.resolveEntries([input]),
+      (error: unknown) => {
+        assert.ok(error instanceof NameEntryResolutionError, label);
+        assert.equal(error.reason, 'explicit_hanja_required', label);
+        assert.equal(error.role, 'givenName', label);
+        assert.equal(error.characterIndex, 0, label);
+        return true;
+      },
+      `${label} Hanja must not be inferred in a non-pure evaluation`,
+    );
+  }
+  assert.equal(inferenceCalls, 0, 'non-pure evaluation must not choose findByHangul()[0]');
+
+  const pure = await engine.resolveEntries(
+    [{ hangul: '\uBBFC' }],
+    { forceHangulOnly: true },
+  );
+  assert.equal(pure[0].hangul, '\uBBFC');
+  assert.equal(pure[0].hanja, '');
+}
+
+{
+  const expanded = fakeEntry();
+  const engine = new SpringEngine() as any;
+  engine.hanjaRepo = {
+    findByHanja: async () => null,
+    findByHangul: async () => [expanded],
+    findSurnamesByHangul: async () => [],
+  };
+  const pool = await engine.resolveFixedCharPool({ hangul: '\uBBFC' }, 'curated');
+  assert.deepEqual(pool, [expanded], 'recommendation fixed-character expansion must remain supported');
+}
+
+{
+  const malformed: readonly [string, any, 'invalid_hangul_syllable' | 'invalid_hanja_character'][] = [
+    ['array Hangul', { hangul: ['\uBBFC'] }, 'invalid_hangul_syllable'],
+    ['boolean Hangul', { hangul: true }, 'invalid_hangul_syllable'],
+    ['array Hanja', { hangul: '\uBBFC', hanja: ['\u73C9'] }, 'invalid_hanja_character'],
+    ['non-Han Hanja', { hangul: '\uBBFC', hanja: 'A' }, 'invalid_hanja_character'],
+    ['multi-glyph Hanja', { hangul: '\uBBFC', hanja: '\u73C9\u654F' }, 'invalid_hanja_character'],
+  ];
+  for (const [label, input, reason] of malformed) {
+    assert.throws(
+      () => assertNameCharacterSyntax([input], { role: 'givenName' }),
+      (error: unknown) => {
+        assert.ok(error instanceof NameEntryResolutionError, label);
+        assert.equal(error.reason, reason, label);
+        assert.equal(error.role, 'givenName', label);
+        assert.equal(error.characterIndex, 0, label);
+        assert.equal(error.message.includes('\uBBFC'), false, label);
+        assert.equal(error.message.includes('\u73C9'), false, label);
+        return true;
+      },
+      label,
+    );
+  }
+}
+
+{
+  assert.deepEqual(parseJamoFilter('\u3131'), { onset: '\u3131' });
+  assert.deepEqual(parseJamoFilter('\u314F'), { nucleus: '\u314F' });
+  assert.equal(parseJamoFilter(''), null, 'empty input must never become an empty filter');
+  assert.equal(
+    parseJamoFilter('\uAC00'.repeat(1_000_000)),
+    null,
+    'oversized input must fail in constant auxiliary space',
+  );
+  assert.equal(parseJamoFilter('\u3133'), null, 'unsupported compatibility jamo must fail');
+  assert.equal(
+    parseJamoFilter('\uAC00'),
+    null,
+    'a precomposed no-coda Hangul syllable is a literal reading, not a jamo filter',
+  );
+}
+
+{
+  const surname = fakeEntry({
+    id: 20,
+    hangul: '\uAE40',
+    hanja: '\u91D1',
+    is_surname: true,
+  });
+  const fixedGivenName = fakeEntry({
+    id: 21,
+    hangul: '\uBBFC',
+    hanja: '\u73C9',
+    meaning: '\uBC1D\uC744 \uBBFC',
+    is_surname: false,
+  });
+  const engine = new SpringEngine() as any;
+  let optimizerCalls = 0;
+  engine.optimizer = {
+    getValidCombinations: () => {
+      optimizerCalls += 1;
+      return ['11'];
+    },
+  };
+  engine.hanjaRepo = {
+    findByHanja: async (hanja: string) => hanja === '\u91D1' ? surname : null,
+    findByHangul: async (hangul: string) => hangul === '\uBBFC' ? [fixedGivenName] : [],
+    findSurnamesByHangul: async () => [surname],
+    findByStrokeRange: async () => [fixedGivenName],
+  };
+  const request: any = {
+    birth: { year: 1990, month: 1, day: 1, gender: 'neutral' },
+    surname: [{ hangul: '\uAE40', hanja: '\u91D1' }],
+    givenName: [{ hangul: '\uBBFC' }],
+    givenNameLength: 1,
+    mode: 'recommend',
+  };
+  const sajuSummary: any = {
+    yongshin: { element: 'WOOD', heeshin: null, gishin: null, gushin: null },
+    deficientElements: [],
+    excessiveElements: [],
+  };
+  const positionFilters = [parseJamoFilter('\uBBFC')];
+  assert.deepEqual(positionFilters, [null]);
+  const generated = await engine.generateCandidates(
+    request,
+    sajuSummary,
+    positionFilters,
+  );
+  assert.equal(optimizerCalls, 0, 'a literal Hangul position must not enter stroke optimization');
+  assert.ok(generated.length > 0);
+  assert.ok(generated.every(
+    (candidate: any[]) => candidate.length === 1 && candidate[0].hangul === '\uBBFC',
+  ));
+
+  let forwardedFilters: unknown;
+  engine.generateCandidates = async (
+    _request: unknown,
+    _summary: unknown,
+    filters: unknown,
+  ) => {
+    forwardedFilters = filters;
+    return [];
+  };
+  engine.filterCandidatesByNameStat = async (candidates: unknown[]) => candidates;
+  const operation = engine.beginOperation('getNameCandidates');
+  const defaultPlan = engine.buildNameInputPlan(request);
+  const collectedDefault = await engine.collectNameInputs(
+    request,
+    defaultPlan,
+    sajuSummary,
+    new Map(),
+    operation,
+  );
+  assert.deepEqual(
+    forwardedFilters,
+    [null],
+    'literal Hangul constraints must reach the position-pool generator',
+  );
+  assert.deepEqual(
+    collectedDefault,
+    [],
+    'default literal constraints must not be prepended as a pure-Hangul candidate',
+  );
+
+  const pureRequest = {
+    ...request,
+    options: { pureHangulNameMode: 'on' },
+  };
+  const collectedPure = await engine.collectNameInputs(
+    pureRequest,
+    engine.buildNameInputPlan(pureRequest),
+    sajuSummary,
+    new Map(),
+    operation,
+  );
+  assert.deepEqual(
+    collectedPure,
+    [pureRequest.givenName],
+    'explicit pure-Hangul recommendation mode may retain the caller name',
+  );
+
+  const mixedRequest = {
+    ...request,
+    givenName: [
+      { hangul: '\uBBFC', hanja: '\u73C9' },
+      { hangul: '\uC218' },
+    ],
+    givenNameLength: 2,
+  };
+  const generatedMixed = [[
+    { hangul: '\uBBFC', hanja: '\u73C9' },
+    { hangul: '\uC218', hanja: '\u79C0' },
+  ]];
+  engine.generateCandidates = async () => generatedMixed;
+  const collectedMixed = await engine.collectNameInputs(
+    mixedRequest,
+    engine.buildNameInputPlan(mixedRequest),
+    sajuSummary,
+    new Map(),
+    operation,
+  );
+  assert.deepEqual(collectedMixed, generatedMixed);
+  assert.equal(collectedMixed.includes(mixedRequest.givenName), false);
+}
+
+{
+  const safe = fakeEntry({ id: 30, hangul: '\uBBFC', hanja: '\u73C9', meaning: '\uBC1D\uC744 \uBBFC' });
+  const surnameOnly = fakeEntry({ id: 31, hangul: '\uBBFC', hanja: '\u9594', meaning: '\uBC1D\uC744 \uBBFC', is_surname: true });
+  const unsafe = fakeEntry({ id: 32, hangul: '\uBBFC', hanja: '\u65FB', meaning: '\uC8FD\uC744 \uBBFC' });
+  const opaque = fakeEntry({ id: 33, hangul: '\uBBFC', hanja: '\u6C11', meaning: '\uBBFC' });
+  const weak = fakeEntry({ id: 34, hangul: '\uBBFC', hanja: '\u654F', meaning: '\uBBFC\uCCA9\uD560 \uBBFC' });
+  const engine = new SpringEngine() as any;
+  engine.hanjaRepo = {
+    findByHangul: async () => [surnameOnly, unsafe, opaque, weak, safe],
+    findByStrokeRange: async () => [],
+  };
+  const request: any = {
+    givenName: [{ hangul: '\uBBFC' }],
+    options: { pureHangulNameMode: 'auto' },
+  };
+  const rejections = new Map();
+  const pools = await engine.buildJamoBasedPools(
+    request, 1, [null], new Set(), new Set(), 'curated', rejections,
+  );
+  assert.deepEqual(pools.get(0), [surnameOnly, safe]);
+  assert.equal(rejections.get('unsafe_hanja_meaning')?.count, 1);
+  assert.equal(rejections.get('opaque_hanja_meaning')?.count, 1);
+  assert.equal(rejections.get('weak_hanja_meaning')?.count, 1);
+
+  engine.hanjaRepo.findByHangul = async () => [];
+  const noFallbackPools = await engine.buildJamoBasedPools(
+    request, 1, [null], new Set(), new Set(), 'curated', new Map(),
+  );
+  assert.deepEqual(noFallbackPools.get(0), []);
+
+  const pureRequest = {
+    ...request,
+    options: { pureHangulNameMode: 'on' },
+  };
+  const purePools = await engine.buildJamoBasedPools(
+    pureRequest, 1, [null], new Set(), new Set(), 'curated', new Map(),
+  );
+  assert.equal(purePools.get(0)?.length, 1);
+  assert.equal(purePools.get(0)?.[0]?.hangul, '\uBBFC');
+  assert.equal(purePools.get(0)?.[0]?.hanja, '');
+}
+
+{
+  const safe = fakeEntry({
+    id: 90, hangul: '\uBBFC', hanja: '\u73C9', meaning: '\uBC1D\uC744 \uBBFC',
+  });
+  const unsafeRows = Array.from({ length: 8 }, (_, index) => fakeEntry({
+    id: 100 + index,
+    hangul: '\uBBFC',
+    hanja: String.fromCodePoint(0x4E20 + index),
+    meaning: '\uC8FD\uC744 \uBBFC',
+  }));
+  const engine = new SpringEngine() as any;
+  engine.hanjaRepo = {
+    findByHangul: async () => [...unsafeRows, safe],
+    findByStrokeRange: async () => [],
+  };
+  const request: any = {
+    givenName: [{ hangul: '\uBBFC' }],
+    options: { pureHangulNameMode: 'auto' },
+  };
+  const pools = await engine.buildJamoBasedPools(
+    request, 1, [null], new Set(), new Set(), 'curated', new Map(),
+  );
+  assert.deepEqual(pools.get(0), [safe], 'safe rows after the first eight must backfill');
+
+  engine.hanjaRepo.findByHangul = async () => [safe];
+  request.options.pureHangulNameMode = 'on';
+  const purePools = await engine.buildJamoBasedPools(
+    request, 1, [null], new Set(), new Set(), 'curated', new Map(),
+  );
+  assert.deepEqual(
+    purePools.get(0)?.map(({ hangul, hanja }: any) => ({ hangul, hanja })),
+    [{ hangul: '\uBBFC', hanja: '' }],
+    'pure-Hangul on must not prefer a registered Hanja row',
+  );
+}
+
+{
+  assert.doesNotThrow(() => assertNameCharacterSyntax([
+    { hangul: '\uC9D1', hanja: String.fromCodePoint(0xA022D) },
+  ], { role: 'givenName' }));
+  assert.throws(
+    () => assertNameCharacterSyntax([
+      { hangul: '\uC9D1', hanja: String.fromCodePoint(0xE000) },
+    ], { role: 'givenName' }),
+    (error: unknown) => {
+      assert.ok(error instanceof NameEntryResolutionError);
+      assert.equal(error.reason, 'invalid_hanja_character');
+      return true;
+    },
+  );
+}
+
+
+{
+  const engine = new SpringEngine() as any;
+  const partialRequest: any = {
+    birth: { year: 1990, month: 1, day: 1, gender: 'neutral' },
+    surname: [{ hangul: '\uAE40', hanja: '\u91D1' }],
+    givenName: [{ hangul: '\uBBFC', hanja: '\u73C9' }],
+    givenNameLength: 2,
+    mode: 'auto',
+    options: { pureHangulNameMode: 'auto' },
+  };
+  assert.doesNotThrow(() => engine.assertRequestNameSyntax(partialRequest, true));
+  const partialPlan = engine.buildNameInputPlan(partialRequest);
+  assert.equal(partialPlan.mode, 'recommend');
+  assert.equal(partialPlan.hasGenerationConstraints, true);
+  assert.equal(partialPlan.includeOriginalName, false);
+
+  const pureRequest: any = {
+    ...partialRequest,
+    givenName: [{ hangul: '\uBBFC' }],
+    givenNameLength: 1,
+    mode: 'recommend',
+    options: { pureHangulNameMode: 'on' },
+  };
+  engine.generateCandidates = async () => [
+    [{ hangul: '\uBBFC', hanja: '\u73C9' }],
+    [{ hangul: '\uBBFC', hanja: '\u654F' }],
+  ];
+  engine.filterCandidatesByNameStat = async (rows: unknown[]) => rows;
+  const canonical = await engine.collectNameInputs(
+    pureRequest,
+    engine.buildNameInputPlan(pureRequest),
+    {} as any,
+    new Map(),
+    engine.beginOperation('getNameCandidates'),
+  );
+  assert.deepEqual(canonical, [[{ hangul: '\uBBFC' }]]);
 }
 
 console.log('Name-entry resolver policy: PASS');

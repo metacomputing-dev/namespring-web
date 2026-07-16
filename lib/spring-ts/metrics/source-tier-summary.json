@@ -1,16 +1,16 @@
 {
   "schemaVersion": "spring-ts.source-tier-summary.v2",
   "status": "PASS",
-  "scanned": 118,
+  "scanned": 121,
   "violationCount": 0,
   "eligibilityDefinition": "source record is eligible for at least one policy-declared authority scope; this is not complete D1 fixture truth",
-  "declaredScopeEligibleSourceRecordCount": 24,
-  "declaredScopeIneligibleSourceRecordCount": 94,
+  "declaredScopeEligibleSourceRecordCount": 25,
+  "declaredScopeIneligibleSourceRecordCount": 96,
   "byTier": {
     "T3_AUTHORED_INTERPRETATION": {
-      "recordCount": 52,
+      "recordCount": 53,
       "declaredScopeEligibleSourceRecordCount": 0,
-      "declaredScopeIneligibleSourceRecordCount": 52,
+      "declaredScopeIneligibleSourceRecordCount": 53,
       "files": [
         "test/baseline/authority/chumyeongga/chu_32.json",
         "test/baseline/authority/chumyeongga/chu_37.json",
@@ -39,6 +39,7 @@
         "test/baseline/authority/lecture/p127_1975_female_national_professor.json",
         "data/sources/kasi-lunar-solar.sources.json#sources[5].sourceTier:spring_ts_lunar_solar_oracle_policy",
         "data/sources/kasi-solar-terms.sources.json#sources[3].sourceTier:spring_ts_solar_term_oracle_policy",
+        "data/sources/korean-surname.sources.json",
         "data/sources/phonetic.sources.json",
         "data/sources/phonetic.sources.json#sources[2].sourceTier:phonetic_flow_display_policy",
         "data/sources/phonetic.sources.json#sources[3].sourceTier:phonetic_score_separation_policy",
@@ -110,9 +111,9 @@
       ]
     },
     "T2_REFERENCE_IMPLEMENTATION": {
-      "recordCount": 13,
+      "recordCount": 14,
       "declaredScopeEligibleSourceRecordCount": 0,
-      "declaredScopeIneligibleSourceRecordCount": 13,
+      "declaredScopeIneligibleSourceRecordCount": 14,
       "files": [
         "test/baseline/oracles/fix-01.json",
         "test/baseline/oracles/fix-02.json",
@@ -126,12 +127,13 @@
         "test/baseline/oracles/fix-10.json",
         "test/baseline/oracles/fix-11.json",
         "test/baseline/oracles/fix-12.json",
+        "data/sources/korean-surname.sources.json#sources[0].sourceTier:namespring_hanja_db_surname_rows_2026_07_16",
         "data/sources/legal-hanja.sources.json#sources[3].sourceTier:delvier_koreascourtcode_2024_07_16"
       ]
     },
     "T5_OFFICIAL": {
-      "recordCount": 24,
-      "declaredScopeEligibleSourceRecordCount": 21,
+      "recordCount": 25,
+      "declaredScopeEligibleSourceRecordCount": 22,
       "declaredScopeIneligibleSourceRecordCount": 3,
       "files": [
         "data/sources/kasi-lunar-solar.sources.json",
@@ -144,6 +146,7 @@
         "data/sources/kasi-solar-terms.sources.json#sources[0].sourceTier:data_go_kr_kasi_special_day_info_15012690",
         "data/sources/kasi-solar-terms.sources.json#sources[1].sourceTier:kasi_spcde_get24divisionsinfo",
         "data/sources/kasi-solar-terms.sources.json#sources[2].sourceTier:kasi_calendar_data_24_terms_table",
+        "data/sources/korean-surname.sources.json#sources[1].sourceTier:kosis_2015_dt_1in15sc_compound_surnames",
         "data/sources/legal-hanja.sources.json",
         "data/sources/legal-hanja.sources.json#sources[0].sourceTier:law_go_kr_rule_article_37_2025_07_19",
         "data/sources/legal-hanja.sources.json#sources[1].sourceTier:law_go_kr_byeolpyo1_2024_05_30",
@@ -246,6 +249,21 @@
       "recordCount": 1,
       "declaredScopeEligibleSourceRecordCount": 0,
       "declaredScopeIneligibleSourceRecordCount": 1
+    },
+    "internal_source_registry_policy": {
+      "recordCount": 1,
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
+    },
+    "repository_database_snapshot": {
+      "recordCount": 1,
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
+    },
+    "official_kosis_statistics": {
+      "recordCount": 1,
+      "declaredScopeEligibleSourceRecordCount": 1,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "official_law_registry": {
       "recordCount": 2,

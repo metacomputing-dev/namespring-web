@@ -91,7 +91,12 @@ const lifecycleRequest: SpringRequest = {
   surname: [{ hangul: '\uAE40' }],
   givenName: [{ hangul: '\uBBFC' }, { hangul: '\uC900' }],
   mode: 'evaluate',
-  options: { pureHangulNameMode: 'off' },
+  options: { pureHangulNameMode: 'auto' },
+};
+
+const lifecycleRepositoryLookupRequest: SpringRequest = {
+  ...lifecycleRequest,
+  surname: [{ hangul: String.fromCodePoint(0xAE40), hanja: String.fromCodePoint(0x91D1) }],
 };
 
 function foundNameStatEntry() {
@@ -191,7 +196,10 @@ validationEngine.close();
     close: () => undefined,
   };
 
-  const pending = operationEngine.getNamingReport(lifecycleRequest);
+  // Pure-Hangul evaluation deliberately avoids repository lookup. Pin an
+  // explicit surname here so this cancellation test still crosses a real
+  // identity-authority repository boundary before close().
+  const pending = operationEngine.getNamingReport(lifecycleRepositoryLookupRequest);
   await waitFor(() => lookupCalls === 1);
   operationEngine.close();
   lookup.reject(rawRepositoryError);
@@ -292,7 +300,7 @@ validationEngine.close();
   };
 
   await assert.rejects(
-    errorEngine.getNamingReport(lifecycleRequest),
+    errorEngine.getNamingReport(lifecycleRepositoryLookupRequest),
     (error: unknown) => error === rawRepositoryError,
   );
   errorEngine.close();
