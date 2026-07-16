@@ -181,6 +181,30 @@ interface CandidateSelectionInfo {
   readonly orthodoxHanjas: readonly string[];
 }
 
+/**
+ * Minimal selection state paired with the original candidate payload.
+ *
+ * Keeping this projection independent from a hydrated report lets callers
+ * order and rank validated candidates before materializing presentation DTOs.
+ * This module is internal and the type is not re-exported from the package
+ * root.
+ */
+export interface CandidateSelectionProjection<T> extends CandidateSelectionInfo {
+  readonly source: T;
+}
+
+export interface RankedCandidateSelectionProjection<T>
+  extends CandidateSelectionProjection<T> {
+  /** Present only when Pareto mode explicitly classified the projection. */
+  readonly paretoFrontier?: boolean;
+  readonly rank: number;
+}
+
+interface CandidateSelectionProjectionResult<T>
+  extends CandidateSelectionProjection<T> {
+  readonly paretoFrontier?: boolean;
+}
+
 interface CandidateDiversityState {
   readonly profileCounts: Map<string, number>;
   readonly syllableCounts: Map<string, number>;
@@ -377,6 +401,25 @@ function shouldUseParetoFrontier(options?: SpringOptions): boolean {
   return options?.precisionConfig?.paretoFrontierCandidates === true;
 }
 
+/**
+ * Orders lightweight candidate projections without hydrating or de-duplicating
+ * their source payloads. Ranking is global and therefore intentionally happens
+ * before any caller-owned page slicing.
+ */
+export function orderCandidateSelectionProjections<T>(
+  projections: readonly CandidateSelectionProjection<T>[],
+  options?: SpringOptions,
+  limits?: CandidateSelectionLimits,
+): RankedCandidateSelectionProjection<T>[] {
+  return orderParetoCandidates<CandidateSelectionProjectionResult<T>>(
+    projections,
+    shouldUseParetoFrontier(options),
+    (projection) => projection,
+    (projection, paretoFrontier) => ({ ...projection, paretoFrontier }),
+    limits,
+  ).map((projection, index) => ({ ...projection, rank: index + 1 }));
+}
+
 function selectionInfoForSpringReport(report: SpringReport): CandidateSelectionInfo {
   const diversity = describeCandidateName(
     report.namingReport.name.givenName.map((char) => ({
@@ -424,12 +467,15 @@ export function orderSpringReports(
   options?: SpringOptions,
   limits?: CandidateSelectionLimits,
 ): SpringReport[] {
-  const useParetoFrontier = shouldUseParetoFrontier(options);
-  return orderParetoCandidates(
-    results,
-    useParetoFrontier,
-    selectionInfoForSpringReport,
-    (report, paretoFrontier) => {
+  const projections = results.map((report) => ({
+    source: report,
+    ...selectionInfoForSpringReport(report),
+  }));
+  return orderCandidateSelectionProjections(projections, options, limits)
+    .map((projection) => {
+      const { source: report, paretoFrontier, rank } = projection;
+      if (paretoFrontier === undefined) return { ...report, rank };
+
       const strengthProfile = withParetoFlag(report.strengthProfile, paretoFrontier);
       const namingStrengthProfile = withParetoFlag(
         report.namingReport.strengthProfile,
@@ -442,10 +488,9 @@ export function orderSpringReports(
           ...report.namingReport,
           ...(namingStrengthProfile ? { strengthProfile: namingStrengthProfile } : {}),
         },
+        rank,
       };
-    },
-    limits,
-  ).map((report, index) => ({ ...report, rank: index + 1 }));
+    });
 }
 
 export function orderCandidateSummaries(
