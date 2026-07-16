@@ -4,7 +4,7 @@ import type { NameStatSummaryAssetProvenance } from './name-stat-summary-contrac
 
 export const NAME_STAT_SUMMARY_ASSET_PROVENANCE = Object.freeze({
   schemaVersion: "namespring.spring-name-stat-summary/v1",
-  assetSourceRelativePath: "data/name-stat/name-stat-summary.v1.json.gz",
+  assetSourceRelativePath: "data/name-stat/name-stat-summary.v1.bin",
   sourceAssetSetSha256: "621446906bbc0605a0e83fee2c2b45f44d2c00fe0695b9e00867890055d00ea0",
   rowCount: 50194,
   canonicalJsonByteLength: 1182659,

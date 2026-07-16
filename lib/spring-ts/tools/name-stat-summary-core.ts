@@ -43,7 +43,7 @@ const SQL_WASM_PATH = path.resolve(
 );
 
 export const NAME_STAT_SUMMARY_ASSET_PACKAGE_RELATIVE_PATH =
-  'data/name-stat/name-stat-summary.v1.json.gz' as const;
+  'data/name-stat/name-stat-summary.v1.bin' as const;
 export const NAME_STAT_SUMMARY_ASSET_PATH = path.resolve(
   PACKAGE_ROOT,
   ...NAME_STAT_SUMMARY_ASSET_PACKAGE_RELATIVE_PATH.split('/'),
