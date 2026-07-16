@@ -15,7 +15,11 @@ import type {
   ReportUncertainty,
   TieredGeneratedContentMeta,
 } from './types.js';
-import { targetCalendarYear } from '../target-date.js';
+import {
+  snapshotTargetCalendarDate,
+  targetCalendarYear,
+} from '../target-date.js';
+import { snapshotFortuneReportBuildInput } from '../public-request-snapshot.js';
 
 // Card builders
 import { buildOverviewSummaryCard } from './cards/overview-summary-card.js';
@@ -129,6 +133,18 @@ export async function buildFortuneReport(
   options?: FortuneReportOptions,
   birth?: BirthInfo,
 ): Promise<FortuneReport> {
+  targetDate = snapshotTargetCalendarDate(targetDate);
+  const input = snapshotFortuneReportBuildInput(
+    saju,
+    springReport,
+    options,
+    birth,
+  );
+  saju = input.saju;
+  springReport = input.springReport;
+  options = input.options;
+  birth = input.birth;
+
   assertScorableSajuSummary(saju);
   const currentAge = computeCurrentAge(saju, targetDate);
 

@@ -85,6 +85,7 @@ import {
   legacyTimeFailureReasonCode,
   preflightKnownHourCivilTimeRange,
 } from './saju/time-policy.js';
+import { snapshotSajuAnalysisInput } from './public-request-snapshot.js';
 
 export { buildSajuContext } from './saju/context-builder.js';
 export { collectElements, elementFromSajuCode } from './saju/element-code.js';
@@ -1279,6 +1280,10 @@ function failureReasonCode(error: unknown): SajuAnalysisReasonCode {
 // ---------------------------------------------------------------------------
 
 export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['options']): Promise<SajuSummary> {
+  const input = snapshotSajuAnalysisInput(birth, options);
+  birth = input.birth;
+  options = input.options;
+
   const parts = resolveKnownBirthParts(birth);
   if (hasInvalidTimeInput(birth, parts)) {
     return emptySaju('BIRTH_TIME_INVALID');

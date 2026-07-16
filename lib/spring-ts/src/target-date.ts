@@ -44,6 +44,32 @@ export function targetCalendarDayOfWeek(date: Date): number {
   return new Date(Date.UTC(parts.year, parts.month - 1, parts.day)).getUTCDay();
 }
 
+/**
+ * Capture both a Date's instant and its caller-declared calendar date.
+ *
+ * Freezing a Date does not freeze its mutable internal time value, so public
+ * async builders must work with a fresh Date rather than the caller's object.
+ */
+export function snapshotTargetCalendarDate(date: Date): Date {
+  let time: number;
+  try {
+    time = Date.prototype.getTime.call(date);
+  } catch {
+    throw new TypeError('Fortune target date must be a valid Date.');
+  }
+  if (!Number.isFinite(time)) {
+    throw new TypeError('Fortune target date must be a valid Date.');
+  }
+
+  const registeredParts = TARGET_CALENDAR_PARTS.get(date);
+  const parts = registeredParts ?? {
+    year: Date.prototype.getFullYear.call(date),
+    month: Date.prototype.getMonth.call(date) + 1,
+    day: Date.prototype.getDate.call(date),
+  };
+  return registerTargetCalendarDate(new Date(time), parts);
+}
+
 export function addTargetCalendarDays(date: Date, days: number): Date {
   const parts = targetCalendarParts(date);
   const serial = new Date(Date.UTC(parts.year, parts.month - 1, parts.day + days));
