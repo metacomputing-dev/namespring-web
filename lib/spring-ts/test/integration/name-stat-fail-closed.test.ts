@@ -750,8 +750,8 @@ function foundEntry() {
     };
 
     const resolveEntries = engine.resolveEntries.bind(engine);
-    engine.resolveEntries = async (chars: any[], options: any = {}) => {
-      const resolved = await resolveEntries(chars, options);
+    engine.resolveEntries = async (chars: any[], options: any = {}, operation?: any) => {
+      const resolved = await resolveEntries(chars, options, operation);
       if (!options.isSurname) throw stopAfterGivenResolution;
       assert.ok(
         resolved.every((entry: any) => entry.is_surname === true),
