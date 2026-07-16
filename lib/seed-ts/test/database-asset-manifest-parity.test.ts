@@ -7,6 +7,14 @@ import { fileURLToPath } from 'node:url';
 import initSqlJs from 'sql.js';
 
 import { GENERATED_DATABASE_ASSET_MANIFEST } from '../src/database/database-asset-manifest.generated.js';
+import {
+  FOURFRAME_DATABASE_ASSET,
+  HANJA_DATABASE_ASSET,
+} from '../src/database/database-asset-registry.js';
+import { FourframeRepository } from '../src/database/fourframe-repository.js';
+import { HanjaRepository } from '../src/database/hanja-repository.js';
+import { decodeNameStatRow } from '../src/database/name-stat-row.js';
+import type { RepositoryFetchResponse } from '../src/database/repository-runtime.js';
 import { GENERATED_FOURFRAME_CATALOG_PROVENANCE } from '../src/fourframe-catalog.generated.js';
 import {
   extractRawNameStatChoseong,
@@ -33,6 +41,13 @@ const SQL_WASM_PATH = path.resolve(
 const EXPECTED_NAME_STAT_ROW_COUNTS = [
   4_621, 1_894, 3_247, 5_781, 3_576, 3_191, 6_968,
   13_644, 2_199, 1_152, 309, 461, 259, 2_892,
+] as const;
+
+const EXPECTED_HANJA_ONSETS = [
+  '\u3131', '\u3132', '\u3134', '\u3137', '\u3138',
+  '\u3139', '\u3141', '\u3142', '\u3143', '\u3145',
+  '\u3146', '\u3147', '\u3148', '\u3149', '\u314a',
+  '\u314b', '\u314c', '\u314d', '\u314e',
 ] as const;
 
 // Independent content oracle: these values deliberately do not come from the
@@ -64,6 +79,15 @@ const EXPECTED_TENSE_CHOSEONG_ROW_COUNTS = {
 function requiredString(value: unknown, description: string): string {
   assert.equal(typeof value, 'string', description);
   return value as string;
+}
+
+function databaseResponse(bytes: Uint8Array): RepositoryFetchResponse {
+  return {
+    ok: true,
+    status: 200,
+    statusText: 'OK',
+    arrayBuffer: async () => bytes.slice().buffer as ArrayBuffer,
+  };
 }
 
 function independentlyExtractRawChoseong(value: string): string | null {
@@ -150,6 +174,81 @@ test('manifest pins the canonical table identities and exact dataset sizes', () 
       === 'id,name,first_char,first_choseong,similar_names_json,yearly_rank_json,yearly_birth_json,hanja_combinations_json,raw_entry_json'));
 });
 
+test('all canonical Fourframe rows pass the runtime repository decoder', async () => {
+  const SQL = await initSqlJs({ locateFile: () => SQL_WASM_PATH });
+  const bytes = Uint8Array.from(fs.readFileSync(
+    path.resolve(REPOSITORY_ROOT, FOURFRAME_DATABASE_ASSET.relativePath),
+  ));
+  const databaseUrl = 'memory://canonical/fourframe.db';
+  const repository = new FourframeRepository({
+    dbUrl: databaseUrl,
+    initializeSqlJs: async () => SQL,
+    fetch: async (url) => {
+      assert.equal(url, databaseUrl);
+      return databaseResponse(bytes);
+    },
+  });
+
+  try {
+    await repository.init();
+    const rows = await repository.findAll(FOURFRAME_DATABASE_ASSET.rowCount);
+    assert.equal(rows.length, FOURFRAME_DATABASE_ASSET.rowCount);
+    assert.deepEqual(
+      rows.map((row) => row.number),
+      Array.from(
+        { length: FOURFRAME_DATABASE_ASSET.rowCount },
+        (_, index) => index + 1,
+      ),
+    );
+  } finally {
+    repository.close();
+  }
+});
+
+test('all canonical Hanja rows pass the runtime repository decoder', async () => {
+  const SQL = await initSqlJs({ locateFile: () => SQL_WASM_PATH });
+  const bytes = Uint8Array.from(fs.readFileSync(
+    path.resolve(REPOSITORY_ROOT, HANJA_DATABASE_ASSET.relativePath),
+  ));
+  const databaseUrl = 'memory://canonical/hanja.db';
+  const repository = new HanjaRepository({
+    dbUrl: databaseUrl,
+    initializeSqlJs: async () => SQL,
+    fetch: async (url) => {
+      assert.equal(url, databaseUrl);
+      return databaseResponse(bytes);
+    },
+  });
+  const seenIds = new Set<number>();
+  let decodedRows = 0;
+
+  try {
+    await repository.init();
+    for (const onset of EXPECTED_HANJA_ONSETS) {
+      const rows = await repository.findByOnset(onset);
+      for (const row of rows) {
+        assert.equal(
+          row.onset,
+          onset,
+          `canonical Hanja row ${row.id} was returned under the wrong onset`,
+        );
+        assert.equal(
+          seenIds.has(row.id),
+          false,
+          `canonical Hanja row ${row.id} appeared under multiple onsets`,
+        );
+        seenIds.add(row.id);
+        decodedRows += 1;
+      }
+    }
+  } finally {
+    repository.close();
+  }
+
+  assert.equal(decodedRows, HANJA_DATABASE_ASSET.rowCount);
+  assert.equal(seenIds.size, HANJA_DATABASE_ASSET.rowCount);
+});
+
 test('NameStat choseong contract keeps raw identity separate from 14-shard routing', () => {
   for (const [index, expectedRaw] of EXPECTED_RAW_CHOSEONG_ORDER.entries()) {
     const syllable = String.fromCodePoint(0xac00 + (index * 588));
@@ -204,22 +303,30 @@ test('all committed NameStat rows preserve raw choseong and belong to their pinn
     assert.ok(expectedShardKey, `${asset.assetId} canonical shard key`);
     const bytes = fs.readFileSync(path.resolve(REPOSITORY_ROOT, asset.relativePath));
     const db = new SQL.Database(bytes);
-    const statement = db.prepare(
-      'SELECT name, first_char, first_choseong FROM name_stats ORDER BY id',
-    );
+    const statement = (() => {
+      try {
+        return db.prepare('SELECT * FROM name_stats ORDER BY id');
+      } catch (error) {
+        db.close();
+        throw error;
+      }
+    })();
     let assetRows = 0;
     try {
       while (statement.step()) {
         const row = statement.getAsObject();
         const name = requiredString(row.name, `${asset.assetId} row name`);
-        const firstChar = requiredString(
-          row.first_char,
-          `${asset.assetId}/${name} first_char`,
-        );
-        const storedRawChoseong = requiredString(
-          row.first_choseong,
-          `${asset.assetId}/${name} first_choseong`,
-        );
+        let decoded: ReturnType<typeof decodeNameStatRow>;
+        try {
+          decoded = decodeNameStatRow(row, name);
+        } catch (error) {
+          throw new Error(
+            `${asset.assetId} row ${String(row.id)} failed the runtime decoder`,
+            { cause: error },
+          );
+        }
+        const firstChar = decoded.first_char;
+        const storedRawChoseong = decoded.first_choseong;
         const expectedFirstChar = Array.from(name)[0] ?? '';
         assert.equal(
           firstChar,
@@ -237,6 +344,11 @@ test('all committed NameStat rows preserve raw choseong and belong to their pinn
           independentlyFoldChoseong(rawChoseong),
           expectedShardKey,
           `${asset.assetId}/${name} folds to manifest shard`,
+        );
+        assert.equal(
+          resolveNameStatShardKey(decoded.name),
+          expectedShardKey,
+          `${asset.assetId}/${name} runtime routing matches manifest shard`,
         );
         if (rawChoseong !== expectedShardKey) {
           tenseCounts.set(rawChoseong, (tenseCounts.get(rawChoseong) ?? 0) + 1);
