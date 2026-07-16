@@ -66,9 +66,13 @@ export { springEvaluateName, SAJU_FRAME } from './spring-evaluator.js';
 // ─────────────────────────────────────────────────────────────────────────────
 export { analyzeSaju, analyzeSajuSafe, buildSajuContext, emptySaju, collectElements, elementFromSajuCode } from './saju-adapter.js';
 export {
+  SAJU_CALCULATOR_NOT_READY,
   SajuCalculator,
+  SajuCalculatorStateError,
   computeSajuNameScore,
   computeTenGodScoreDiagnostics,
+  type SajuCalculatorReadOperation,
+  type SajuCalculatorStateReason,
   type SajuNameScoreResult,
   type TenGodPositionContribution,
   type TenGodScoreDiagnostics,

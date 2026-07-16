@@ -52,6 +52,14 @@ const ctx: EvalContext = {
 
 console.log('SajuCalculator disabled path');
 
+// ── Disabled access remains intentionally available before visit() ───────
+check('pre-visit backward returns empty signals',
+  calculator.backward(ctx).signals.length === 0);
+check('pre-visit analysis remains the disabled zero shell',
+  calculator.getAnalysis().score === 0);
+check('pre-visit distribution remains all-zero',
+  Object.values(calculator.getCombinedDistribution()).every((value) => value === 0));
+
 // ── visit() — populates SAJU_FRAME with the disabled-shell insight ─────────
 calculator.visit(ctx);
 const insight = ctx.insights[SAJU_FRAME];
@@ -63,6 +71,14 @@ check('insight.details.disabled === true',
   (insight?.details as { disabled?: unknown })?.disabled === true);
 check('insight.details.reason === missing-or-partial-birth-context',
   (insight?.details as { reason?: unknown })?.reason === 'missing-or-partial-birth-context');
+
+calculator.visit(ctx);
+const repeatedInsight = ctx.insights[SAJU_FRAME];
+check('repeated visit preserves the disabled insight contract',
+  repeatedInsight?.score === 100
+    && repeatedInsight.isPassed === true
+    && repeatedInsight.label === 'DISABLED_NO_SAJU_CONTEXT'
+    && (repeatedInsight.details as { disabled?: unknown })?.disabled === true);
 
 // ── backward() — empty signal list (disabled path contributes nothing) ────
 const packet = calculator.backward(ctx);
