@@ -5,6 +5,7 @@
  * The full candidate pool can be large, but list consumers need bounded
  * payloads from getNameCandidates() and getNameCandidateSummaries().
  */
+import assert from 'node:assert/strict';
 import path from 'node:path';
 import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -29,6 +30,7 @@ const originalFetch = globalThis.fetch;
   throw new Error(`fetch unavailable for ${urlStr}`);
 };
 
+import { sliceCandidatePage } from '../../src/candidate-selection.js';
 import { SpringEngine } from '../../src/index.js';
 
 let pass = 0;
@@ -42,6 +44,24 @@ function check(label: string, cond: boolean, evidence?: string): void {
     console.log(`  FAIL ${label}${evidence ? ` (${evidence})` : ''}`);
   }
 }
+
+for (const [offset, limit] of [
+  [-1, 1],
+  [0, 0],
+  [0, -1],
+  [0.5, 1],
+  [0, 1.5],
+  [Number.NaN, 1],
+  [0, Number.POSITIVE_INFINITY],
+  [Number.MAX_SAFE_INTEGER, 1],
+] as const) {
+  assert.throws(
+    () => sliceCandidatePage([1, 2, 3], offset, limit),
+    RangeError,
+    'internal pagination must reject coercible or unbounded values',
+  );
+}
+assert.deepEqual(sliceCandidatePage([1, 2, 3], 1, 2), [2, 3]);
 
 console.log('Candidate API pagination\n');
 
@@ -92,6 +112,22 @@ check('getNameCandidateSummaries includes display Hanja meanings',
   summaries.every((row) => row.givenName.every((char) =>
     typeof char.meaning === 'string' && char.meaning.length > 0)),
   summaries.map((row) => row.givenName.map((char) => char.meaning ?? '').join('/')).join(','));
+
+const collectNameInputs = (engine as any).collectNameInputs.bind(engine);
+(engine as any).collectNameInputs = async () => [];
+const emptyReports = await engine.getNameCandidates({
+  ...baseRequest,
+  options: { offset: 0 },
+});
+const emptySummaries = await engine.getNameCandidateSummaries({
+  ...baseRequest,
+  options: { offset: 0 },
+});
+(engine as any).collectNameInputs = collectNameInputs;
+check('getNameCandidates returns an empty offset-only page',
+  emptyReports.length === 0);
+check('getNameCandidateSummaries returns an empty offset-only page',
+  emptySummaries.length === 0);
 
 const candidateRejections = new Map();
 const generated = await (engine as any).generateCandidates({

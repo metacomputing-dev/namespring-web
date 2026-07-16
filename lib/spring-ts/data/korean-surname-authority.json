@@ -1,0 +1,1287 @@
+{
+  "schemaVersion": "spring-ts.korean-surname-authority.v1",
+  "generatedAt": "2026-07-16",
+  "scope": {
+    "singleCharacter": "canonical_seed_database_rows",
+    "compound": "officially_observed_minimum_not_complete_legal_registry"
+  },
+  "sources": {
+    "singleCharacter": {
+      "id": "namespring_hanja_db_surname_rows_2026_07_16",
+      "sha256": "sha256:0f78eefc23e727937714b30215464783bf93882e5636d131c7113cfc1049e449",
+      "rowCount": 314,
+      "readingCount": 181
+    },
+    "compound": {
+      "id": "kosis_2015_dt_1in15sc_compound_surnames",
+      "tableId": "DT_1IN15SC",
+      "year": 2015,
+      "sourceFileId": "101_DT_1IN15SC_F_2015",
+      "sourceFileNo": "5838",
+      "sourceUrl": "https://kosis.kr/statisticsList/mass/mass_list.jsp?list_id=&org_id=101&process=statHtml&tbl_id=DT_1IN15SC&vw_cd=",
+      "zipSha256": "sha256:f2feb50a8febc09b4d193eeacfec5e7773392b0adc357e318a64095fc5a3dd7b",
+      "csvEntrySha256": "sha256:c61eb0d030e632184431027ba84d5f8800f9f8ad225c8d45202505073023dcaa",
+      "evidenceArtifactPath": "data/evidence/kosis-2015-compound-surnames.json",
+      "evidenceArtifactSha256": "sha256:22cb2c2ab65762a2074355830a5b05756d2f9c966aa4521bfc05c8a1f6ea1f97"
+    }
+  },
+  "singleCharacterSurnames": [
+    {
+      "hangul": "가",
+      "hanja": [
+        "賈"
+      ]
+    },
+    {
+      "hangul": "간",
+      "hanja": [
+        "簡"
+      ]
+    },
+    {
+      "hangul": "갈",
+      "hanja": [
+        "葛"
+      ]
+    },
+    {
+      "hangul": "감",
+      "hanja": [
+        "甘"
+      ]
+    },
+    {
+      "hangul": "강",
+      "hanja": [
+        "剛",
+        "姜",
+        "康",
+        "强",
+        "江"
+      ]
+    },
+    {
+      "hangul": "거",
+      "hanja": [
+        "車"
+      ]
+    },
+    {
+      "hangul": "견",
+      "hanja": [
+        "堅",
+        "甄"
+      ]
+    },
+    {
+      "hangul": "경",
+      "hanja": [
+        "京",
+        "慶",
+        "景",
+        "耿"
+      ]
+    },
+    {
+      "hangul": "계",
+      "hanja": [
+        "桂"
+      ]
+    },
+    {
+      "hangul": "고",
+      "hanja": [
+        "孤",
+        "賈",
+        "顧",
+        "高"
+      ]
+    },
+    {
+      "hangul": "곡",
+      "hanja": [
+        "曲",
+        "谷"
+      ]
+    },
+    {
+      "hangul": "공",
+      "hanja": [
+        "公",
+        "孔",
+        "空"
+      ]
+    },
+    {
+      "hangul": "곽",
+      "hanja": [
+        "郭"
+      ]
+    },
+    {
+      "hangul": "관",
+      "hanja": [
+        "關"
+      ]
+    },
+    {
+      "hangul": "교",
+      "hanja": [
+        "喬",
+        "橋"
+      ]
+    },
+    {
+      "hangul": "구",
+      "hanja": [
+        "丘",
+        "仇",
+        "具",
+        "邱"
+      ]
+    },
+    {
+      "hangul": "국",
+      "hanja": [
+        "國",
+        "菊",
+        "鞠",
+        "鞫"
+      ]
+    },
+    {
+      "hangul": "궁",
+      "hanja": [
+        "宮",
+        "弓"
+      ]
+    },
+    {
+      "hangul": "권",
+      "hanja": [
+        "權"
+      ]
+    },
+    {
+      "hangul": "근",
+      "hanja": [
+        "斤"
+      ]
+    },
+    {
+      "hangul": "금",
+      "hanja": [
+        "琴",
+        "金"
+      ]
+    },
+    {
+      "hangul": "기",
+      "hanja": [
+        "奇",
+        "箕"
+      ]
+    },
+    {
+      "hangul": "길",
+      "hanja": [
+        "吉"
+      ]
+    },
+    {
+      "hangul": "김",
+      "hanja": [
+        "金"
+      ]
+    },
+    {
+      "hangul": "나",
+      "hanja": [
+        "奈",
+        "羅"
+      ]
+    },
+    {
+      "hangul": "남",
+      "hanja": [
+        "南"
+      ]
+    },
+    {
+      "hangul": "낭",
+      "hanja": [
+        "浪"
+      ]
+    },
+    {
+      "hangul": "내",
+      "hanja": [
+        "乃",
+        "奈"
+      ]
+    },
+    {
+      "hangul": "노",
+      "hanja": [
+        "盧",
+        "路",
+        "魯"
+      ]
+    },
+    {
+      "hangul": "다",
+      "hanja": [
+        "多"
+      ]
+    },
+    {
+      "hangul": "단",
+      "hanja": [
+        "單",
+        "段"
+      ]
+    },
+    {
+      "hangul": "담",
+      "hanja": [
+        "譚"
+      ]
+    },
+    {
+      "hangul": "당",
+      "hanja": [
+        "唐"
+      ]
+    },
+    {
+      "hangul": "대",
+      "hanja": [
+        "大"
+      ]
+    },
+    {
+      "hangul": "도",
+      "hanja": [
+        "道",
+        "都",
+        "陶"
+      ]
+    },
+    {
+      "hangul": "독",
+      "hanja": [
+        "獨"
+      ]
+    },
+    {
+      "hangul": "돈",
+      "hanja": [
+        "頓"
+      ]
+    },
+    {
+      "hangul": "동",
+      "hanja": [
+        "東",
+        "董"
+      ]
+    },
+    {
+      "hangul": "두",
+      "hanja": [
+        "杜"
+      ]
+    },
+    {
+      "hangul": "등",
+      "hanja": [
+        "鄧"
+      ]
+    },
+    {
+      "hangul": "라",
+      "hanja": [
+        "羅"
+      ]
+    },
+    {
+      "hangul": "란",
+      "hanja": [
+        "欒"
+      ]
+    },
+    {
+      "hangul": "랑",
+      "hanja": [
+        "浪"
+      ]
+    },
+    {
+      "hangul": "량",
+      "hanja": [
+        "梁",
+        "粱"
+      ]
+    },
+    {
+      "hangul": "려",
+      "hanja": [
+        "呂",
+        "黎"
+      ]
+    },
+    {
+      "hangul": "련",
+      "hanja": [
+        "連"
+      ]
+    },
+    {
+      "hangul": "렴",
+      "hanja": [
+        "廉"
+      ]
+    },
+    {
+      "hangul": "로",
+      "hanja": [
+        "盧",
+        "路",
+        "魯"
+      ]
+    },
+    {
+      "hangul": "뢰",
+      "hanja": [
+        "雷"
+      ]
+    },
+    {
+      "hangul": "룡",
+      "hanja": [
+        "龍"
+      ]
+    },
+    {
+      "hangul": "류",
+      "hanja": [
+        "劉",
+        "柳"
+      ]
+    },
+    {
+      "hangul": "륙",
+      "hanja": [
+        "陸"
+      ]
+    },
+    {
+      "hangul": "리",
+      "hanja": [
+        "李"
+      ]
+    },
+    {
+      "hangul": "림",
+      "hanja": [
+        "林"
+      ]
+    },
+    {
+      "hangul": "마",
+      "hanja": [
+        "馬",
+        "麻"
+      ]
+    },
+    {
+      "hangul": "만",
+      "hanja": [
+        "萬"
+      ]
+    },
+    {
+      "hangul": "망",
+      "hanja": [
+        "網"
+      ]
+    },
+    {
+      "hangul": "매",
+      "hanja": [
+        "梅"
+      ]
+    },
+    {
+      "hangul": "맹",
+      "hanja": [
+        "孟"
+      ]
+    },
+    {
+      "hangul": "명",
+      "hanja": [
+        "明"
+      ]
+    },
+    {
+      "hangul": "모",
+      "hanja": [
+        "毛",
+        "牟"
+      ]
+    },
+    {
+      "hangul": "목",
+      "hanja": [
+        "木",
+        "睦"
+      ]
+    },
+    {
+      "hangul": "묘",
+      "hanja": [
+        "苗"
+      ]
+    },
+    {
+      "hangul": "무",
+      "hanja": [
+        "武"
+      ]
+    },
+    {
+      "hangul": "묵",
+      "hanja": [
+        "墨"
+      ]
+    },
+    {
+      "hangul": "문",
+      "hanja": [
+        "文",
+        "門"
+      ]
+    },
+    {
+      "hangul": "미",
+      "hanja": [
+        "山",
+        "米"
+      ]
+    },
+    {
+      "hangul": "민",
+      "hanja": [
+        "閔"
+      ]
+    },
+    {
+      "hangul": "박",
+      "hanja": [
+        "朴"
+      ]
+    },
+    {
+      "hangul": "반",
+      "hanja": [
+        "潘",
+        "班"
+      ]
+    },
+    {
+      "hangul": "방",
+      "hanja": [
+        "房",
+        "方",
+        "邦",
+        "龐"
+      ]
+    },
+    {
+      "hangul": "배",
+      "hanja": [
+        "裵"
+      ]
+    },
+    {
+      "hangul": "백",
+      "hanja": [
+        "白"
+      ]
+    },
+    {
+      "hangul": "번",
+      "hanja": [
+        "樊"
+      ]
+    },
+    {
+      "hangul": "변",
+      "hanja": [
+        "卞",
+        "邊"
+      ]
+    },
+    {
+      "hangul": "보",
+      "hanja": [
+        "寶",
+        "甫"
+      ]
+    },
+    {
+      "hangul": "복",
+      "hanja": [
+        "卜"
+      ]
+    },
+    {
+      "hangul": "본",
+      "hanja": [
+        "本"
+      ]
+    },
+    {
+      "hangul": "봉",
+      "hanja": [
+        "奉",
+        "鳳"
+      ]
+    },
+    {
+      "hangul": "부",
+      "hanja": [
+        "付",
+        "傅",
+        "夫"
+      ]
+    },
+    {
+      "hangul": "비",
+      "hanja": [
+        "丕"
+      ]
+    },
+    {
+      "hangul": "빈",
+      "hanja": [
+        "彬",
+        "賓"
+      ]
+    },
+    {
+      "hangul": "빙",
+      "hanja": [
+        "氷"
+      ]
+    },
+    {
+      "hangul": "사",
+      "hanja": [
+        "史",
+        "司",
+        "沙",
+        "舍",
+        "謝"
+      ]
+    },
+    {
+      "hangul": "산",
+      "hanja": [
+        "山"
+      ]
+    },
+    {
+      "hangul": "삼",
+      "hanja": [
+        "杉",
+        "森"
+      ]
+    },
+    {
+      "hangul": "상",
+      "hanja": [
+        "尙"
+      ]
+    },
+    {
+      "hangul": "서",
+      "hanja": [
+        "徐",
+        "西"
+      ]
+    },
+    {
+      "hangul": "석",
+      "hanja": [
+        "昔",
+        "石",
+        "釋"
+      ]
+    },
+    {
+      "hangul": "선",
+      "hanja": [
+        "宣",
+        "鮮"
+      ]
+    },
+    {
+      "hangul": "설",
+      "hanja": [
+        "楔",
+        "薛"
+      ]
+    },
+    {
+      "hangul": "섭",
+      "hanja": [
+        "葉"
+      ]
+    },
+    {
+      "hangul": "성",
+      "hanja": [
+        "成",
+        "星"
+      ]
+    },
+    {
+      "hangul": "소",
+      "hanja": [
+        "蘇",
+        "邵"
+      ]
+    },
+    {
+      "hangul": "손",
+      "hanja": [
+        "孫"
+      ]
+    },
+    {
+      "hangul": "송",
+      "hanja": [
+        "宋",
+        "松"
+      ]
+    },
+    {
+      "hangul": "수",
+      "hanja": [
+        "水",
+        "隋"
+      ]
+    },
+    {
+      "hangul": "순",
+      "hanja": [
+        "淳",
+        "筍",
+        "舜",
+        "荀",
+        "順"
+      ]
+    },
+    {
+      "hangul": "승",
+      "hanja": [
+        "承",
+        "昇"
+      ]
+    },
+    {
+      "hangul": "시",
+      "hanja": [
+        "施",
+        "柴"
+      ]
+    },
+    {
+      "hangul": "신",
+      "hanja": [
+        "愼",
+        "申",
+        "辛"
+      ]
+    },
+    {
+      "hangul": "심",
+      "hanja": [
+        "沈"
+      ]
+    },
+    {
+      "hangul": "아",
+      "hanja": [
+        "阿"
+      ]
+    },
+    {
+      "hangul": "안",
+      "hanja": [
+        "安"
+      ]
+    },
+    {
+      "hangul": "애",
+      "hanja": [
+        "艾"
+      ]
+    },
+    {
+      "hangul": "야",
+      "hanja": [
+        "夜"
+      ]
+    },
+    {
+      "hangul": "양",
+      "hanja": [
+        "梁",
+        "楊"
+      ]
+    },
+    {
+      "hangul": "어",
+      "hanja": [
+        "魚"
+      ]
+    },
+    {
+      "hangul": "엄",
+      "hanja": [
+        "嚴"
+      ]
+    },
+    {
+      "hangul": "여",
+      "hanja": [
+        "余",
+        "呂",
+        "黎"
+      ]
+    },
+    {
+      "hangul": "연",
+      "hanja": [
+        "延",
+        "燕",
+        "連"
+      ]
+    },
+    {
+      "hangul": "염",
+      "hanja": [
+        "廉",
+        "閻"
+      ]
+    },
+    {
+      "hangul": "엽",
+      "hanja": [
+        "葉"
+      ]
+    },
+    {
+      "hangul": "영",
+      "hanja": [
+        "影",
+        "榮"
+      ]
+    },
+    {
+      "hangul": "예",
+      "hanja": [
+        "芮"
+      ]
+    },
+    {
+      "hangul": "오",
+      "hanja": [
+        "伍",
+        "吳"
+      ]
+    },
+    {
+      "hangul": "옥",
+      "hanja": [
+        "玉"
+      ]
+    },
+    {
+      "hangul": "온",
+      "hanja": [
+        "溫"
+      ]
+    },
+    {
+      "hangul": "옹",
+      "hanja": [
+        "邕",
+        "雍"
+      ]
+    },
+    {
+      "hangul": "왕",
+      "hanja": [
+        "王"
+      ]
+    },
+    {
+      "hangul": "요",
+      "hanja": [
+        "姚"
+      ]
+    },
+    {
+      "hangul": "용",
+      "hanja": [
+        "龍"
+      ]
+    },
+    {
+      "hangul": "우",
+      "hanja": [
+        "于",
+        "寓",
+        "禹"
+      ]
+    },
+    {
+      "hangul": "운",
+      "hanja": [
+        "芸",
+        "雲"
+      ]
+    },
+    {
+      "hangul": "원",
+      "hanja": [
+        "元",
+        "苑",
+        "袁"
+      ]
+    },
+    {
+      "hangul": "위",
+      "hanja": [
+        "衛",
+        "韋",
+        "魏"
+      ]
+    },
+    {
+      "hangul": "유",
+      "hanja": [
+        "兪",
+        "劉",
+        "庾",
+        "柳"
+      ]
+    },
+    {
+      "hangul": "육",
+      "hanja": [
+        "陸"
+      ]
+    },
+    {
+      "hangul": "윤",
+      "hanja": [
+        "尹"
+      ]
+    },
+    {
+      "hangul": "은",
+      "hanja": [
+        "恩",
+        "殷"
+      ]
+    },
+    {
+      "hangul": "음",
+      "hanja": [
+        "陰"
+      ]
+    },
+    {
+      "hangul": "이",
+      "hanja": [
+        "伊",
+        "李",
+        "異"
+      ]
+    },
+    {
+      "hangul": "인",
+      "hanja": [
+        "印"
+      ]
+    },
+    {
+      "hangul": "임",
+      "hanja": [
+        "任",
+        "林"
+      ]
+    },
+    {
+      "hangul": "자",
+      "hanja": [
+        "慈"
+      ]
+    },
+    {
+      "hangul": "장",
+      "hanja": [
+        "張",
+        "章",
+        "臧",
+        "莊",
+        "長"
+      ]
+    },
+    {
+      "hangul": "전",
+      "hanja": [
+        "全",
+        "戰",
+        "田",
+        "錢"
+      ]
+    },
+    {
+      "hangul": "절",
+      "hanja": [
+        "切"
+      ]
+    },
+    {
+      "hangul": "점",
+      "hanja": [
+        "占"
+      ]
+    },
+    {
+      "hangul": "정",
+      "hanja": [
+        "丁",
+        "程",
+        "鄭"
+      ]
+    },
+    {
+      "hangul": "제",
+      "hanja": [
+        "諸",
+        "齊"
+      ]
+    },
+    {
+      "hangul": "조",
+      "hanja": [
+        "曺",
+        "趙"
+      ]
+    },
+    {
+      "hangul": "종",
+      "hanja": [
+        "宗",
+        "鍾"
+      ]
+    },
+    {
+      "hangul": "좌",
+      "hanja": [
+        "左"
+      ]
+    },
+    {
+      "hangul": "주",
+      "hanja": [
+        "主",
+        "周",
+        "朱"
+      ]
+    },
+    {
+      "hangul": "증",
+      "hanja": [
+        "曾"
+      ]
+    },
+    {
+      "hangul": "지",
+      "hanja": [
+        "地",
+        "智",
+        "池"
+      ]
+    },
+    {
+      "hangul": "진",
+      "hanja": [
+        "晋",
+        "眞",
+        "秦",
+        "陣",
+        "陳"
+      ]
+    },
+    {
+      "hangul": "차",
+      "hanja": [
+        "車"
+      ]
+    },
+    {
+      "hangul": "창",
+      "hanja": [
+        "倉",
+        "昌"
+      ]
+    },
+    {
+      "hangul": "채",
+      "hanja": [
+        "蔡",
+        "采"
+      ]
+    },
+    {
+      "hangul": "천",
+      "hanja": [
+        "千",
+        "天"
+      ]
+    },
+    {
+      "hangul": "체",
+      "hanja": [
+        "切"
+      ]
+    },
+    {
+      "hangul": "초",
+      "hanja": [
+        "初",
+        "楚"
+      ]
+    },
+    {
+      "hangul": "총",
+      "hanja": [
+        "叢"
+      ]
+    },
+    {
+      "hangul": "최",
+      "hanja": [
+        "催",
+        "崔"
+      ]
+    },
+    {
+      "hangul": "추",
+      "hanja": [
+        "秋",
+        "鄒"
+      ]
+    },
+    {
+      "hangul": "침",
+      "hanja": [
+        "沈"
+      ]
+    },
+    {
+      "hangul": "탁",
+      "hanja": [
+        "卓"
+      ]
+    },
+    {
+      "hangul": "탄",
+      "hanja": [
+        "彈"
+      ]
+    },
+    {
+      "hangul": "태",
+      "hanja": [
+        "太"
+      ]
+    },
+    {
+      "hangul": "판",
+      "hanja": [
+        "判"
+      ]
+    },
+    {
+      "hangul": "편",
+      "hanja": [
+        "片"
+      ]
+    },
+    {
+      "hangul": "평",
+      "hanja": [
+        "平"
+      ]
+    },
+    {
+      "hangul": "포",
+      "hanja": [
+        "包"
+      ]
+    },
+    {
+      "hangul": "표",
+      "hanja": [
+        "表"
+      ]
+    },
+    {
+      "hangul": "풍",
+      "hanja": [
+        "馮"
+      ]
+    },
+    {
+      "hangul": "피",
+      "hanja": [
+        "皮"
+      ]
+    },
+    {
+      "hangul": "필",
+      "hanja": [
+        "弼",
+        "畢"
+      ]
+    },
+    {
+      "hangul": "하",
+      "hanja": [
+        "何",
+        "夏",
+        "河"
+      ]
+    },
+    {
+      "hangul": "한",
+      "hanja": [
+        "漢",
+        "韓"
+      ]
+    },
+    {
+      "hangul": "함",
+      "hanja": [
+        "咸"
+      ]
+    },
+    {
+      "hangul": "해",
+      "hanja": [
+        "海",
+        "解"
+      ]
+    },
+    {
+      "hangul": "허",
+      "hanja": [
+        "許"
+      ]
+    },
+    {
+      "hangul": "현",
+      "hanja": [
+        "玄"
+      ]
+    },
+    {
+      "hangul": "형",
+      "hanja": [
+        "邢"
+      ]
+    },
+    {
+      "hangul": "호",
+      "hanja": [
+        "扈",
+        "胡",
+        "鎬"
+      ]
+    },
+    {
+      "hangul": "홍",
+      "hanja": [
+        "洪"
+      ]
+    },
+    {
+      "hangul": "화",
+      "hanja": [
+        "化"
+      ]
+    },
+    {
+      "hangul": "황",
+      "hanja": [
+        "皇",
+        "荒",
+        "黃"
+      ]
+    },
+    {
+      "hangul": "후",
+      "hanja": [
+        "侯",
+        "候"
+      ]
+    }
+  ],
+  "compoundSurnames": [
+    {
+      "id": "namgung",
+      "hangul": "남궁",
+      "hanja": "南宮",
+      "population": 21308
+    },
+    {
+      "id": "sagong",
+      "hangul": "사공",
+      "hanja": "司空",
+      "population": 4476
+    },
+    {
+      "id": "seomun",
+      "hangul": "서문",
+      "hanja": "西門",
+      "population": 2028
+    },
+    {
+      "id": "seonu",
+      "hangul": "선우",
+      "hanja": "鮮于",
+      "population": 3588
+    },
+    {
+      "id": "jegall",
+      "hangul": "제갈",
+      "hanja": "諸葛",
+      "population": 5655
+    },
+    {
+      "id": "hwangbo",
+      "hangul": "황보",
+      "hanja": "皇甫",
+      "population": 10383
+    }
+  ]
+}

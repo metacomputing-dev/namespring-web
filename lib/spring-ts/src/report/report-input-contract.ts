@@ -2,15 +2,15 @@ import { registerTargetCalendarDate } from '../target-date.js';
 
 export const FORTUNE_TARGET_DATE_INVALID = 'FORTUNE_TARGET_DATE_INVALID' as const;
 export const FORTUNE_REPORT_BUILD_FAILED = 'FORTUNE_REPORT_BUILD_FAILED' as const;
+const MAX_FORTUNE_TARGET_DATE_CODE_UNITS = 128;
 
 export class FortuneTargetDateInvalidError extends Error {
   readonly code = FORTUNE_TARGET_DATE_INVALID;
-  readonly input: string;
+  readonly retryable = false;
 
-  constructor(input: string) {
+  constructor() {
     super('운세 기준일 형식이 올바르지 않습니다.');
     this.name = 'FortuneTargetDateInvalidError';
-    this.input = input;
   }
 }
 
@@ -34,16 +34,20 @@ function isValidCalendarDate(year: number, month: number, day: number): boolean 
 
 export function resolveFortuneTargetDate(raw: string | undefined): Date {
   if (raw === undefined) return new Date();
-  if (typeof raw !== 'string' || raw !== raw.trim()) {
-    throw new FortuneTargetDateInvalidError(String(raw));
+  if (
+    typeof raw !== 'string'
+    || raw.length > MAX_FORTUNE_TARGET_DATE_CODE_UNITS
+    || raw !== raw.trim()
+  ) {
+    throw new FortuneTargetDateInvalidError();
   }
   const match = STRICT_TARGET_DATE.exec(raw);
-  if (!match) throw new FortuneTargetDateInvalidError(raw);
+  if (!match) throw new FortuneTargetDateInvalidError();
 
   const year = Number(match[1]);
   const month = Number(match[2]);
   const day = Number(match[3]);
-  if (!isValidCalendarDate(year, month, day)) throw new FortuneTargetDateInvalidError(raw);
+  if (!isValidCalendarDate(year, month, day)) throw new FortuneTargetDateInvalidError();
   if (match[4] !== undefined) {
     const hour = Number(match[4]);
     const minute = Number(match[5]);
@@ -53,13 +57,13 @@ export function resolveFortuneTargetDate(raw: string | undefined): Date {
     if (hour > 23 || minute > 59 || second > 59
       || (offset !== null && (offset[0] > 14 || offset[1] > 59
         || (offset[0] === 14 && offset[1] !== 0)))) {
-      throw new FortuneTargetDateInvalidError(raw);
+      throw new FortuneTargetDateInvalidError();
     }
   }
 
   const parsed = raw.length === 10
     ? new Date(Date.UTC(year, month - 1, day))
     : new Date(raw);
-  if (!Number.isFinite(parsed.getTime())) throw new FortuneTargetDateInvalidError(raw);
+  if (!Number.isFinite(parsed.getTime())) throw new FortuneTargetDateInvalidError();
   return registerTargetCalendarDate(parsed, { year, month, day });
 }

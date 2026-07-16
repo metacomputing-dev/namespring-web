@@ -1,4 +1,4 @@
-﻿import type { HanjaEntry } from '../../../seed-ts/src/database/hanja-repository.js';
+import type { HanjaEntry } from '../../../seed-ts/src/database/hanja-repository.js';
 import { buildHangulPseudoEntry } from '../../../seed-ts/src/utils/hangul-name-entry.js';
 import type { EvaluationResult } from './evaluator.js';
 import koreanPhonetics from '../../config/korean-phonetics.json';
@@ -54,40 +54,29 @@ export interface JamoFilter { readonly onset?: string; readonly nucleus?: string
 /**
  * Parses a single character into a jamo-level filter.
  *
- * Handles three cases:
+ * Handles two cases:
  *   1. Compatibility Jamo consonant (U+3131..U+314E) -- returns onset filter
  *   2. Compatibility Jamo vowel (U+314F..U+3163)     -- returns nucleus filter
- *   3. Full Hangul syllable with no coda (offset % 28 === 0)
- *      -- returns both onset and nucleus filters
  *
- * Returns null when the character is not a recognized Hangul jamo or syllable.
- * Returns an empty filter `{}` for edge cases (empty input, or a consonant
- * code point that is not in the choseong table).
+ * A precomposed Hangul syllable is a literal reading constraint, never a
+ * partial jamo filter. Unsupported or empty input fails closed as `null`.
  */
 export function parseJamoFilter(char: string): JamoFilter | null {
-  if (!char) return {};
+  const iterator = char[Symbol.iterator]();
+  const first = iterator.next();
+  if (first.done || !iterator.next().done) return null;
+  const character = first.value;
 
-  const charCode = char.charCodeAt(0);
+  const charCode = character.charCodeAt(0);
 
   // Case 1: Hangul Compatibility Jamo -- consonant range
   if (charCode >= JAMO_CONSONANT_START && charCode <= JAMO_CONSONANT_END) {
-    return CHOSEONG.includes(char) ? { onset: char } : {};
+    return CHOSEONG.includes(character) ? { onset: character } : null;
   }
 
   // Case 2: Hangul Compatibility Jamo -- vowel range
   if (charCode >= JAMO_VOWEL_START && charCode <= JAMO_VOWEL_END) {
-    return { nucleus: char };
-  }
-
-  // Case 3: Full Hangul syllable (no coda -- offset divisible by syllablesPerNucleus)
-  const syllableOffset = charCode - HANGUL_BLOCK_START;
-  const isHangulSyllable   = syllableOffset >= 0 && charCode <= HANGUL_BLOCK_END;
-  const hasNoCoda          = syllableOffset % SYLLABLES_PER_NUCLEUS === 0;
-
-  if (isHangulSyllable && hasNoCoda) {
-    const onset   = CHOSEONG[Math.floor(syllableOffset / SYLLABLES_PER_ONSET)];
-    const nucleus = JUNGSEONG[Math.floor((syllableOffset % SYLLABLES_PER_ONSET) / SYLLABLES_PER_NUCLEUS)];
-    return { onset, nucleus };
+    return { nucleus: character };
   }
 
   return null;

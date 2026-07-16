@@ -8,7 +8,10 @@
  *
  * It is an internal module, not part of the package-root public API.
  */
-import { normalizeToOrthodoxHanja } from './hanja-annotations.js';
+import {
+  isRecognizedHanjaGlyph,
+  normalizeToOrthodoxHanja,
+} from './hanja-annotations.js';
 import type {
   CandidateStrengthProfile,
   NameCharInput,
@@ -208,7 +211,7 @@ export interface CandidateNameDiversityInfo {
 
 function normalizedHanjaKey(hanja: string | undefined): string {
   const value = String(hanja ?? '').trim();
-  return /\p{Script=Han}/u.test(value) ? normalizeToOrthodoxHanja(value) : '';
+  return isRecognizedHanjaGlyph(value) ? normalizeToOrthodoxHanja(value) : '';
 }
 
 export function describeCandidateName(
@@ -484,6 +487,15 @@ export function sliceCandidatePage<T>(
   offset: number,
   limit: number,
 ): T[] {
+  if (
+    !Number.isSafeInteger(offset)
+    || offset < 0
+    || !Number.isSafeInteger(limit)
+    || limit <= 0
+    || !Number.isSafeInteger(offset + limit)
+  ) {
+    throw new RangeError('Candidate pagination requires bounded integer offset and limit values.');
+  }
   return results.slice(offset, offset + limit);
 }
 
