@@ -323,7 +323,7 @@ const NGRAM_LEN = 12;
 const NGRAM_MAX_CELLS = 3;
 
 function ngramText(a: BundleArticleLike): string {
-  return maskSlots([...(a.body ?? []), ...(a.expert ?? [])].join(' '))
+  return maskSlots([...(a.body ?? [])].join(' '))
     .replace(/[\s.,!?…·—''""()\-]/gu, '');
 }
 

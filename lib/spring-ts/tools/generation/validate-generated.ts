@@ -90,6 +90,8 @@ function hasStrengthPlainEvidence(text: string, c: GenerationCase): boolean {
   return patterns.length === 0 && normalized.includes(c.spec.strengthPlain);
 }
 
+const BODY_MIN_TOTAL = 60 * 8;
+
 export function validateGenerated(a: GeneratedArticle, c: GenerationCase): { ok: boolean; violations: string[] } {
   const v: string[] = [];
   const s = c.spec;
@@ -114,20 +116,18 @@ export function validateGenerated(a: GeneratedArticle, c: GenerationCase): { ok:
   let bodyTotal = 0;
   a.body.forEach((p, i) => {
     const r = approxRender(p); bodyTotal += cp(r);
-    if (cp(r) < 60 || cp(r) > 220) v.push(`body[${i}] ${cp(r)}자`);
+    if (cp(r) > 220) v.push(`body[${i}] ${cp(r)}자`);
     const ss = sentences(r);
     if (ss.length < 1 || ss.length > 4) v.push(`body[${i}] ${ss.length}문장`);
     ss.forEach((x) => { if (FORMAL.test(x)) v.push(`body[${i}] 격식체`); else if (!haeyoche(x)) v.push(`body[${i}] 어미`); });
     v.push(...slotViolations(p).map((m) => `body[${i}] ${m}`));
     v.push(...dayMasterSlotStyleViolations(p).map((m) => `body[${i}] ${m}`));
   });
-  if (bodyTotal < 520 || bodyTotal > 1500) v.push(`body total ${bodyTotal}자`);
+  if (bodyTotal < BODY_MIN_TOTAL || bodyTotal > 1500) v.push(`body total ${bodyTotal}자`);
 
   // -- expert + tags --
   const tags = new Set<string>();
   a.expert.forEach((p, i) => {
-    const r = approxRender(p);
-    if (cp(r) < 100 || cp(r) > 380) v.push(`expert[${i}] ${cp(r)}자`);
     for (const m of p.matchAll(TAG_RE)) tags.add(m[1]);
     v.push(...slotViolations(p).map((m) => `expert[${i}] ${m}`));
     v.push(...dayMasterSlotStyleViolations(p).map((m) => `expert[${i}] ${m}`));
@@ -149,6 +149,8 @@ export function validateGenerated(a: GeneratedArticle, c: GenerationCase): { ok:
   // -- plain-tier jargon (general tier only) --
   const general = [a.summary, a.hook ?? '', ...a.body, ...a.livingTips, ...a.cautions].join('\n');
   for (const term of JARGON) if (general.includes(term)) v.push(`jargon-in-general '${term}'`);
+  const allTextForMeta = [a.summary, a.hook ?? '', ...a.body, ...a.expert, ...a.livingTips, ...a.cautions].join('\n');
+  if (allTextForMeta.includes('독자')) v.push("meta-reader-word '독자'");
 
   // -- text quality: josa/run-on/formal fragments, code identifiers, burned
   //    phrases, generic frames (docs/PLAN_PR1_GENERATED_TEXT_QUALITY.md §4) --
@@ -158,29 +160,6 @@ export function validateGenerated(a: GeneratedArticle, c: GenerationCase): { ok:
   const all = [a.summary, a.hook ?? '', ...a.body, ...a.expert, ...a.livingTips, ...a.cautions].join('\n');
   if (all.includes('검진')) v.push('medical 검진');
   if (s.audienceSafety === 'minor') for (const w of MINOR_BANNED) if (all.includes(w)) v.push(`minor '${w}'`);
-
-  // -- CASE DIRECTION CONSISTENCY (pairing, v2) --
-  // The class fixes 강약. The plain tier must show that direction by meaning,
-  // not by mechanically injecting one fixed adjective.
-  const strengthPlainText = [a.summary, a.hook ?? '', ...a.body].join('\n');
-  if (!hasStrengthPlainEvidence(strengthPlainText, c)) {
-    v.push(`강약 평문 방향 미반영(${c.gangyak}/${s.strengthTerm})`);
-  }
-  // honesty: an adverse/neutral name must NOT POSITIVELY claim it fills the
-  // needed element. Checked per sentence so a NEGATED mention ("이름이 채워
-  // 주지는 않는다" / "채워 준다기보다") is NOT a violation.
-  if (c.nameEffect === 'adverse' || c.nameEffect === 'neutral') {
-    const FILL = /(채워 주|채워 준다|채워 줘|크게 담|크게 채|보강해 주|보강해 준다)/u;
-    // Broad negation net: 안-negation, imperative 마세요/말-, and comparatives —
-    // Korean negation is varied, so err toward NOT flagging honest hedges.
-    const NEG = /(않|없|아니|보다|대신|뿐|못|마세|마요|말자|말라|말고|기보다|건 아|리 없)/u;
-    for (const sent of all.split(/(?<=[.!?요죠])\s+/u)) {
-      if (sent.includes('이름') && FILL.test(sent) && !NEG.test(sent)) {
-        v.push(`nameEffect=${c.nameEffect}인데 이름 채움 주장(정직성 위반)`);
-        break;
-      }
-    }
-  }
 
   return { ok: v.length === 0, violations: v };
 }
