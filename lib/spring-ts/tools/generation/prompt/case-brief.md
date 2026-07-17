@@ -4,7 +4,9 @@
    - 독자: [[AUDIENCE]] / [[CATEGORY_LABEL]]
    - 시간 렌즈: [[PERIOD_LABEL]] - [[PERIOD_ROLE]]
    - 톤: [[BAND_LABEL]] - [[BAND_ROLE]]
-   - 사용할 생활 장면: [[SCENES]]
+   - 참고 생활 장면 후보: [[SCENES]]
+     - 이 후보들은 문장에 그대로 끼워 넣을 표현이 아니라, 시간 렌즈와 분야를 벗어나지 않게 하는 도메인 가드레일입니다.
+     - 필요하면 후보를 더 구체적인 실제 상황으로 바꾸어 쓰세요.
 
    사주 해석 메모:
    - 강약 축: [[STRENGTH_TERM]]

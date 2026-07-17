@@ -68,6 +68,9 @@ check('period/category filler openers banned', prompt.includes('평생의 가족
 check('all caseIds included', cases.every((c) => prompt.includes(c.caseId)));
 check('case brief md rendered', prompt.includes('사주 해석 메모:') && prompt.includes('전문가 문단 태그:') && prompt.includes('#{bigyeon}'));
 check('interpretation memo is not final prose', prompt.includes('최종 문장 후보가 아닙니다') && prompt.includes('그대로 복사하지 마세요'));
+check('period realism guidance included', prompt.includes('today에서 명절 준비') && prompt.includes('기간 현실감'));
+check('scene candidates are guardrails', prompt.includes('참고 생활 장면 후보') && prompt.includes('도메인 가드레일'));
+check('today scenes are realistic', prompt.includes('안부 문자') && !/family\.today\.adult\.low[\s\S]*?참고 생활 장면 후보: [^\n]*명절/u.test(prompt));
 check('no unresolved template tokens', !/\[\[[A-Z0-9_]+\]\]/u.test(prompt));
 
 if (process.exitCode) process.exit(process.exitCode);

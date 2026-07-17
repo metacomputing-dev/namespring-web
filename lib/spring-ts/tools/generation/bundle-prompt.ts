@@ -24,6 +24,7 @@ interface PromptMappings {
   readonly nameEffectRole: PromptMapping;
   readonly gyeokRole: PromptMapping;
   readonly categoryScenes: PromptMapping;
+  readonly categoryPeriodScenes?: PromptMapping;
   readonly stageLabel: PromptMapping;
 }
 
@@ -98,7 +99,8 @@ function stableIndex(seed: string, modulo: number): number {
 }
 
 function pickScenes(c: GenerationCase): string {
-  const scenes = PROMPT_MAPPINGS.categoryScenes[c.category] ?? PROMPT_MAPPINGS.categoryScenes.overall;
+  const periodScenes = PROMPT_MAPPINGS.categoryPeriodScenes?.[`${c.category}.${c.period}`];
+  const scenes = periodScenes ?? PROMPT_MAPPINGS.categoryScenes[c.category] ?? PROMPT_MAPPINGS.categoryScenes.overall;
   const start = stableIndex(c.caseId, scenes.length);
   return [scenes[start], scenes[(start + 2) % scenes.length], scenes[(start + 4) % scenes.length]].join(', ');
 }
