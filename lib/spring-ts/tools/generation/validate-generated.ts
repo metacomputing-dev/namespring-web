@@ -53,6 +53,12 @@ function slotViolations(text: string): string[] {
   return out;
 }
 
+function dayMasterSlotStyleViolations(text: string): string[] {
+  return /\{\{dayMasterName\}\}(?:은|는|이|가|을|를)/u.test(text)
+    ? ['dayMasterName-direct-josa']
+    : [];
+}
+
 const STRENGTH_PLAIN_PATTERNS: Readonly<Record<string, readonly RegExp[]>> = {
   balanced: [
     /(?:흐름|바탕|감정선|기류|상태|관계|리듬|기복|균형).{0,18}고른/u,
@@ -89,7 +95,7 @@ export function validateGenerated(a: GeneratedArticle, c: GenerationCase): { ok:
   const s = c.spec;
 
   // -- schema shape --
-  if (!Array.isArray(a.body) || a.body.length < 6 || a.body.length > 9) v.push(`body count ${a.body?.length}`);
+  if (!Array.isArray(a.body) || a.body.length < 8 || a.body.length > 9) v.push(`body count ${a.body?.length}`);
   if (!Array.isArray(a.expert) || a.expert.length < 1 || a.expert.length > 2) v.push(`expert count ${a.expert?.length}`);
   if (!Array.isArray(a.livingTips) || a.livingTips.length < 2 || a.livingTips.length > 3) v.push(`tips count ${a.livingTips?.length}`);
   if (!Array.isArray(a.cautions) || a.cautions.length < 1 || a.cautions.length > 2) v.push(`cautions count ${a.cautions?.length}`);
@@ -100,19 +106,22 @@ export function validateGenerated(a: GeneratedArticle, c: GenerationCase): { ok:
   if (cp(sum) > 60) v.push(`summary ${cp(sum)}자>60`);
   if (sentences(sum).length !== 1) v.push('summary not 1 sentence');
   if (!haeyoche(sum) || FORMAL.test(sum)) v.push('summary register');
+  v.push(...dayMasterSlotStyleViolations(a.summary).map((m) => `summary ${m}`));
   if (a.hook && cp(approxRender(a.hook)) > 24) v.push('hook >24');
+  if (a.hook) v.push(...dayMasterSlotStyleViolations(a.hook).map((m) => `hook ${m}`));
 
   // -- body --
   let bodyTotal = 0;
   a.body.forEach((p, i) => {
     const r = approxRender(p); bodyTotal += cp(r);
-    if (cp(r) < 80 || cp(r) > 240) v.push(`body[${i}] ${cp(r)}자`);
+    if (cp(r) < 60 || cp(r) > 220) v.push(`body[${i}] ${cp(r)}자`);
     const ss = sentences(r);
-    if (ss.length < 2 || ss.length > 5) v.push(`body[${i}] ${ss.length}문장`);
+    if (ss.length < 1 || ss.length > 4) v.push(`body[${i}] ${ss.length}문장`);
     ss.forEach((x) => { if (FORMAL.test(x)) v.push(`body[${i}] 격식체`); else if (!haeyoche(x)) v.push(`body[${i}] 어미`); });
     v.push(...slotViolations(p).map((m) => `body[${i}] ${m}`));
+    v.push(...dayMasterSlotStyleViolations(p).map((m) => `body[${i}] ${m}`));
   });
-  if (bodyTotal < 700 || bodyTotal > 1800) v.push(`body total ${bodyTotal}자`);
+  if (bodyTotal < 520 || bodyTotal > 1500) v.push(`body total ${bodyTotal}자`);
 
   // -- expert + tags --
   const tags = new Set<string>();
@@ -121,12 +130,21 @@ export function validateGenerated(a: GeneratedArticle, c: GenerationCase): { ok:
     if (cp(r) < 100 || cp(r) > 380) v.push(`expert[${i}] ${cp(r)}자`);
     for (const m of p.matchAll(TAG_RE)) tags.add(m[1]);
     v.push(...slotViolations(p).map((m) => `expert[${i}] ${m}`));
+    v.push(...dayMasterSlotStyleViolations(p).map((m) => `expert[${i}] ${m}`));
   });
   if (tags.size < 2 || tags.size > 6) v.push(`expert tags ${tags.size} (2~6)`);
 
   // -- tips / cautions --
-  a.livingTips.forEach((t, i) => { if (cp(approxRender(t)) > 30) v.push(`tip[${i}] >30`); v.push(...slotViolations(t).map((m) => `tip[${i}] ${m}`)); });
-  a.cautions.forEach((t, i) => { if (cp(approxRender(t)) > 44) v.push(`caution[${i}] >44`); v.push(...slotViolations(t).map((m) => `caution[${i}] ${m}`)); });
+  a.livingTips.forEach((t, i) => {
+    if (cp(approxRender(t)) > 30) v.push(`tip[${i}] >30`);
+    v.push(...slotViolations(t).map((m) => `tip[${i}] ${m}`));
+    v.push(...dayMasterSlotStyleViolations(t).map((m) => `tip[${i}] ${m}`));
+  });
+  a.cautions.forEach((t, i) => {
+    if (cp(approxRender(t)) > 44) v.push(`caution[${i}] >44`);
+    v.push(...slotViolations(t).map((m) => `caution[${i}] ${m}`));
+    v.push(...dayMasterSlotStyleViolations(t).map((m) => `caution[${i}] ${m}`));
+  });
 
   // -- plain-tier jargon (general tier only) --
   const general = [a.summary, a.hook ?? '', ...a.body, ...a.livingTips, ...a.cautions].join('\n');

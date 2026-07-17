@@ -54,12 +54,12 @@ export const BUNDLE_OUTPUT_SCHEMA = {
         properties: {
           caseId: { type: 'string', description: '요청된 caseId 그대로' },
           summary: { type: 'string', description: '60자 이하, 자연스러운 해요체 한 문장' },
-          hook: { type: 'string', description: '선택, 24자 이하' },
+          hook: { type: 'string', description: '선택, 24자 이하. body의 행동 기준을 압축한 주의점/권고사항 한 문장' },
           body: {
             type: 'array',
-            minItems: 6,
+            minItems: 8,
             maxItems: 9,
-            items: { type: 'string', description: '80-240자, 2-5문장, 평문 해요체. 0-3과 4-7은 각각 완결된 짧은 글, 8은 선택 종합 마무리' },
+            items: { type: 'string', description: '60-220자, 1-4문장, 평문 해요체. 0-3과 4-7은 각각 완결된 짧은 글, 8은 원칙적으로 작성하는 종합 마무리' },
           },
           expert: {
             type: 'array',
