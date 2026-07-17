@@ -89,7 +89,7 @@ export function validateGenerated(a: GeneratedArticle, c: GenerationCase): { ok:
   const s = c.spec;
 
   // -- schema shape --
-  if (!Array.isArray(a.body) || a.body.length < 3 || a.body.length > 4) v.push(`body count ${a.body?.length}`);
+  if (!Array.isArray(a.body) || a.body.length < 6 || a.body.length > 9) v.push(`body count ${a.body?.length}`);
   if (!Array.isArray(a.expert) || a.expert.length < 1 || a.expert.length > 2) v.push(`expert count ${a.expert?.length}`);
   if (!Array.isArray(a.livingTips) || a.livingTips.length < 2 || a.livingTips.length > 3) v.push(`tips count ${a.livingTips?.length}`);
   if (!Array.isArray(a.cautions) || a.cautions.length < 1 || a.cautions.length > 2) v.push(`cautions count ${a.cautions?.length}`);
@@ -112,7 +112,7 @@ export function validateGenerated(a: GeneratedArticle, c: GenerationCase): { ok:
     ss.forEach((x) => { if (FORMAL.test(x)) v.push(`body[${i}] 격식체`); else if (!haeyoche(x)) v.push(`body[${i}] 어미`); });
     v.push(...slotViolations(p).map((m) => `body[${i}] ${m}`));
   });
-  if (bodyTotal < 350 || bodyTotal > 800) v.push(`body total ${bodyTotal}자`);
+  if (bodyTotal < 700 || bodyTotal > 1800) v.push(`body total ${bodyTotal}자`);
 
   // -- expert + tags --
   const tags = new Set<string>();

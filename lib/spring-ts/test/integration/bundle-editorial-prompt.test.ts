@@ -59,7 +59,7 @@ const prompt = buildBundlePrompt(cases);
 check('bundle key stable', bundleKeyOfCase(cases[0]) === 'family.adult.balanced.bigeop.adverse.female');
 check('md prompt rendered', prompt.includes('당신은 한국어 유료 사주·성명학 리포트를 쓰는 시니어 편집자'));
 check('hidden editorial process required', prompt.includes('편집 브리프') && prompt.includes('한국어 편집'));
-check('article architecture required', prompt.includes('body[0]은 구체 상황') && prompt.includes('body[2]는 실제 행동'));
+check('article architecture required', prompt.includes('body[0]~body[3]은 첫 번째 완결 글') && prompt.includes('body[4]~body[7]은 두 번째 완결 글') && prompt.includes('body[8]은 선택'));
 check('summary copy padding banned', prompt.includes('summary를 body 문단 끝에 반복하지 마세요'));
 check('literal axis language banned', prompt.includes('"낮은 흐름에서는"') && prompt.includes('"고른 결"'));
 check('raw strengthPlain hidden from shared facts', !prompt.includes('plain direction: 안정감'));

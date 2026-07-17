@@ -56,9 +56,9 @@ export const BUNDLE_OUTPUT_SCHEMA = {
           hook: { type: 'string', description: '선택, 24자 이하' },
           body: {
             type: 'array',
-            minItems: 3,
-            maxItems: 4,
-            items: { type: 'string', description: '80-240자, 2-5문장, 평문 해요체' },
+            minItems: 6,
+            maxItems: 9,
+            items: { type: 'string', description: '80-240자, 2-5문장, 평문 해요체. 0-3과 4-7은 각각 완결된 짧은 글, 8은 선택 종합 마무리' },
           },
           expert: {
             type: 'array',
