@@ -9,12 +9,12 @@ import type {
 import { targetCalendarParts } from '../../target-date.js';
 import { assessNatalEvidenceV1 } from '../../natal-evidence.js';
 import { ENGINE_BUILD_IDENTITY_V1 } from '../../engine-build-identity.generated.js';
+import engineConfig from '../../../config/engine.json';
 import {
   normalizeGyeokgukCategoryCode,
   normalizeGyeokgukTypeCode,
   normalizeTenGodCode,
 } from '../../saju/legacy-codec.js';
-import engineConfig from '../../../config/engine.json';
 import type {
   TieredCategoryId,
   TieredDepth,
@@ -55,6 +55,7 @@ import {
   ReportDeliveryContractError,
   validateReportDeliverySelectionV1,
 } from './validation.js';
+import { FOUR_FRAME_AUTHORED_COPY_APPROVED } from './content-gates.js';
 
 const PILLAR_ORDER = ['year', 'month', 'day', 'hour'] as const;
 const ELEMENT_ORDER: readonly FiveElementIdV1[] = ['wood', 'fire', 'earth', 'metal', 'water'];
@@ -144,6 +145,17 @@ function koreanElementLabel(element: FiveElementIdV1 | null): string {
     case 'metal': return '쇠';
     case 'water': return '물';
     default: return '필요한';
+  }
+}
+
+function expertElementLabel(element: FiveElementIdV1 | null): string {
+  switch (element) {
+    case 'wood': return '목(木)';
+    case 'fire': return '화(火)';
+    case 'earth': return '토(土)';
+    case 'metal': return '금(金)';
+    case 'water': return '수(水)';
+    default: return '미확정 오행';
   }
 }
 
@@ -240,6 +252,21 @@ function nameElementDistribution(
   } : null;
 }
 
+/**
+ * Hanja stroke numerology is meaningful only when every displayed character
+ * has an explicit, resolved Hanja identity. Pure-Hangul mode deliberately
+ * disables the Hanja and four-frame calculators; their evaluator-neutral
+ * placeholder scores must never be surfaced as real naming evidence.
+ */
+function hasCompleteHanjaIdentity(namingReport: NamingReport): boolean {
+  const characters = [
+    ...namingReport.name.surname,
+    ...namingReport.name.givenName,
+  ];
+  return characters.length > 0 && characters.every((character) =>
+    typeof character.hanja === 'string' && character.hanja.trim().length > 0);
+}
+
 function metric(
   id: string,
   domain: MetricFactV1['domain'],
@@ -325,17 +352,23 @@ function nameCharacterFact(
   index: number,
 ): NameCharacterFactV1 {
   const element = canonicalElement(char.element);
+  const hasHanja = typeof char.hanja === 'string' && char.hanja.trim().length > 0;
   return {
     id: `naming.character.${position}.${index}`,
     domain: 'naming',
-    method: 'spring-ts.naming-report-character.v1',
+    method: hasHanja
+      ? 'spring-ts.naming-report-character.v1'
+      : 'spring-ts.pure-hangul-character.v1',
     kind: 'name_character',
     position,
     index,
     hangul: char.hangul,
-    ...(char.hanja ? { hanja: char.hanja } : {}),
+    ...(hasHanja ? { hanja: char.hanja } : {}),
     ...(char.meaning ? { meaning: char.meaning } : {}),
-    ...(Number.isFinite(char.strokes) ? { strokes: char.strokes } : {}),
+    // Without Hanja this value is a Hangul glyph-stroke proxy used inside the
+    // phonetic calculator, not an 81-numerology stroke count. The current DTO
+    // has no basis discriminator, so omitting it is safer than laundering it.
+    ...(hasHanja && Number.isFinite(char.strokes) ? { strokes: char.strokes } : {}),
     ...(element ? { element } : {}),
     ...(char.polarity ? { polarity: char.polarity } : {}),
     legal: legalStatus(char),
@@ -515,6 +548,7 @@ function frameInterpretation(
   frame: NamingReportFrame,
   depth: ReportDepthV1,
 ): ReportInterpretationV1 | null {
+  if (!FOUR_FRAME_AUTHORED_COPY_APPROVED) return null;
   const meaning = frame.meaning;
   if (!meaning) return null;
   const id = `naming.frame.${frame.type}.${depth}.interpretation`;
@@ -523,7 +557,9 @@ function frameInterpretation(
     domain: 'naming',
     availability: READY,
     authority: 'interpretive',
-    origin: 'deterministic_template',
+    // The frame judgment itself is deterministic, but the human-readable
+    // title/body comes from the versioned four-frame meaning asset.
+    origin: 'authored_bundle',
     factRefs: [`naming.frame.${frame.type}`],
     brief: { headline: meaning.title, hook: meaning.summary },
     ...(DEPTH_ORDER[depth] >= DEPTH_ORDER.standard ? {
@@ -560,6 +596,17 @@ function surfaceAvailability(
   }
   if (surface.id === 'naming' && !namingReport) {
     return availability('unavailable', 'NAME_ANALYSIS_UNAVAILABLE');
+  }
+  if ((surface.id === 'naming' || surface.id === 'integrated')
+    && namingReport
+    && !hasCompleteHanjaIdentity(namingReport)) {
+    reasons.push('METHOD_SCOPE_LIMITED');
+  }
+  if (surface.id === 'naming'
+    && namingReport
+    && hasCompleteHanjaIdentity(namingReport)
+    && !FOUR_FRAME_AUTHORED_COPY_APPROVED) {
+    reasons.push('CONTENT_EXPERT_REVIEW_REQUIRED');
   }
   if (surface.id === 'integrated' && !springReport) {
     reasons.push('NAME_INPUT_MISSING');
@@ -786,6 +833,9 @@ export async function buildReportDeliveryV1(
   const needsSajuFacts = requestedSurfaceIds.has('saju') || requestedSurfaceIds.has('integrated');
   const needsNamingSurfaceFacts = requestedSurfaceIds.has('naming');
   const needsInteractionFacts = requestedSurfaceIds.has('integrated');
+  const completeHanjaIdentity = input.namingReport
+    ? hasCompleteHanjaIdentity(input.namingReport)
+    : false;
   const yongshinSafetyFact = needsSajuFacts && input.saju
     ? addFact(yongshinFact(input.saju))
     : null;
@@ -1053,11 +1103,12 @@ export async function buildReportDeliveryV1(
         || saju.axisStrength?.strength === 'deferred'
         ? `${saju.strength.level} 가능성`
         : saju.strength.level;
+      const yongshinLabel = expertElementLabel(canonicalElement(saju.yongshin.element));
       const sajuHook = mustDefer
-        ? `종격·충돌·신뢰도 근거를 더 확인해야 해 ${saju.yongshin.element} 보완 단정을 보류해요`
+        ? `종격·충돌·신뢰도 근거를 더 확인해야 해 ${yongshinLabel} 보완 단정을 보류해요`
         : mustHedge
-          ? `${saju.gyeokguk.type} 후보로 보고 ${saju.yongshin.element} 보완 가능성을 함께 검토해요`
-          : `격국 ${saju.gyeokguk.type}, 보완 오행 ${saju.yongshin.element}`;
+          ? `${saju.gyeokguk.type} 후보로 보고 ${yongshinLabel} 보완 가능성을 함께 검토해요`
+          : `격국 ${saju.gyeokguk.type}, 보완 오행 ${yongshinLabel}`;
       const riskParagraphs = [
         ...yongshinWarnings,
         ...(saju.yongshin.jonggyeokRisk?.level === 'HIGH'
@@ -1101,7 +1152,8 @@ export async function buildReportDeliveryV1(
         factRefs: [pillarFact.id], presentation: 'pillars',
       });
       blocks.push({
-        id: `${sliceKey}.metrics`, kind: 'fact_group', title: '판단 단위와 신뢰도', availability: READY,
+        id: `${sliceKey}.metrics`, kind: 'fact_group', title: '판단 단위와 신뢰도',
+        availability: natalAvailability,
         factRefs: [dayMaster.id, strength.id, gyeokguk.id, yongshin.id, ...metricFacts.map((fact) => fact.id)],
         presentation: 'metrics',
       });
@@ -1153,10 +1205,16 @@ export async function buildReportDeliveryV1(
           namingCharacterFactRefs.push(factId);
         }
         const scoreFacts = [
-          addFact(metric('naming.total-score', 'naming', 'spring-ts.naming-report.v1', '이름 종합 점수', namingReport.totalScore, 'score_0_100', 0, 100, 'higher_is_better')),
+          completeHanjaIdentity
+            ? addFact(metric('naming.total-score', 'naming', 'spring-ts.naming-report.v1', '이름 종합 점수', namingReport.totalScore, 'score_0_100', 0, 100, 'higher_is_better'))
+            : null,
           addFact(metric('naming.hangul-score', 'naming', 'spring-ts.naming-report.v1', '한글 점수', namingReport.scores.hangul, 'score_0_100', 0, 100, 'higher_is_better')),
-          addFact(metric('naming.hanja-score', 'naming', 'spring-ts.naming-report.v1', '한자 점수', namingReport.scores.hanja, 'score_0_100', 0, 100, 'higher_is_better')),
-          addFact(metric('naming.four-frame-score', 'naming', 'seed-ts.fourframe.v1', '사격수리 점수', namingReport.scores.fourFrame, 'score_0_100', 0, 100, 'higher_is_better')),
+          completeHanjaIdentity
+            ? addFact(metric('naming.hanja-score', 'naming', 'spring-ts.naming-report.v1', '한자 점수', namingReport.scores.hanja, 'score_0_100', 0, 100, 'higher_is_better'))
+            : null,
+          completeHanjaIdentity
+            ? addFact(metric('naming.four-frame-score', 'naming', 'seed-ts.fourframe.v1', '사격수리 점수', namingReport.scores.fourFrame, 'score_0_100', 0, 100, 'higher_is_better'))
+            : null,
           namingReport.phonetic?.phoneticScore == null ? null : addFact(metric('naming.phonetic-score', 'naming', 'spring-ts.phonetic-display.v1', '발음 흐름 점수', namingReport.phonetic.phoneticScore, 'score_0_100', 0, 100, 'higher_is_better')),
           namingReport.nameTrend?.trendFit == null ? null : addFact(metric('naming.trend-fit', 'naming', 'spring-ts.official-name-trend-display.v1', '출생시대 이름 적합도', namingReport.nameTrend.trendFit, 'score_0_100', 0, 100, 'higher_is_better')),
           namingReport.nameTrend?.trendRisk == null ? null : addFact(metric('naming.trend-risk', 'naming', 'spring-ts.official-name-trend-display.v1', '이름 유행 주의도', namingReport.nameTrend.trendRisk, 'score_0_100', 0, 100, 'higher_is_risk')),
@@ -1165,7 +1223,9 @@ export async function buildReportDeliveryV1(
         namingFactRefs.push(...namingMetricFactRefs);
         if (namingDistribution) namingFactRefs.push(namingDistribution.id);
 
-        for (const frame of namingReport.analysis.fourFrame.frames) {
+        for (const frame of completeHanjaIdentity
+          ? namingReport.analysis.fourFrame.frames
+          : []) {
           const fact: NamingFrameFactV1 = {
             id: `naming.frame.${frame.type}`,
             domain: 'naming',

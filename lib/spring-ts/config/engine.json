@@ -34,5 +34,14 @@
     "longitude": 126.978
   },
   "sajuModulePath": "../../saju-ts/src/index.ts",
-  "nameStatInfoCacheLimit": 1000
+  "nameStatInfoCacheLimit": 1000,
+  "reportDeliveryContentGates": {
+    "fourFrameAuthoredInterpretation": {
+      "schemaVersion": "namespring.fourframe-authored-copy-approval.v1",
+      "status": "blocked_pending_external_expert_review",
+      "reviewedBy": null,
+      "reviewedAt": null,
+      "evidenceRef": null
+    }
+  }
 }

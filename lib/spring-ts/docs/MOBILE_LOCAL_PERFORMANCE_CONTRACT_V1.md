@@ -27,6 +27,24 @@ Worker를 사용할 수 없는 환경에서는 UI 스레드에서 조용히 무�
 
 ## 로딩·선행 준비 경계
 
+신규 FE의 홈/LCP 코드는 Vite alias의 경량 공개 진입점만 사용한다.
+
+```ts
+import {
+  LOCAL_HOME_CAPABILITIES_V1,
+  buildLocalBirthPreviewV1,
+} from '@spring/experience/local-device-entry';
+```
+
+`@spring` 루트와 `@spring/experience/local-menu`는 기존 소비자 호환 및 사용자가
+분석·한자 검색에 진입한 뒤의 지연 로딩용이다. 이 두 경로를 홈/LCP에서 import하면
+bundler의 shared chunk 최적화 때문에 `SpringEngine` 또는 SQL 저장소 그래프가 초기
+정적 그래프에 다시 합쳐질 수 있으므로 금지한다. 자동 경계 테스트는 entry output뿐
+아니라 모든 transitive static import를 재귀 추적하고, 사용자 의도 뒤에만 실행되는
+literal dynamic import chunk는 초기 그래프에서 명시적으로 제외한다. 현재 예산은
+minified initial static graph 48 KiB raw / 16 KiB gzip 이하이며 엔진·SQL·Hanja·
+Fourframe·NameStat 저장소와 saju 구현 입력은 0개다.
+
 | 사용자 상태 | 허용되는 준비 | 금지되는 준비 |
 | --- | --- | --- |
 | 홈 | `LocalHomeSummaryV1`, 작은 Worker bootstrap의 유휴 다운로드 | Hanja/Fourframe/NameStat DB 열기, 사주 계산, 모든 기간 기사, 원격 생성 번들 |

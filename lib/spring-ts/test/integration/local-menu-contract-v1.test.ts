@@ -114,6 +114,11 @@ assert.equal(context.name.surname[0]?.hangul, '최', 'context owns a name snapsh
 const contextId = context.contextId;
 assert.equal(contextId.includes('최'), false, 'opaque context ID contains no name');
 assert.equal(contextId.includes('1986'), false, 'opaque context ID contains no birth date');
+assertReason(
+  () => assertLocalAnalysisContextV1({ ...context, options: null } as any),
+  'INVALID_OPTIONS',
+  'persisted local context options fail through the typed contract instead of a property access error',
+);
 
 assertReason(
   () => createLocalAnalysisContextV1({
@@ -146,6 +151,39 @@ assertReason(
   }),
   'INVALID_BIRTH',
   'nonexistent solar date fails closed',
+);
+assertReason(
+  () => createLocalAnalysisContextV1({
+    ...contextInput,
+    givenName: [{ hangul: '성', hanja: '成' }, { hangul: '수' }],
+  }),
+  'PARTIAL_HANJA_IDENTITY',
+  'a local name segment cannot silently mix explicit-Hanja and Hangul-only identity',
+);
+assertReason(
+  () => createLocalAnalysisContextV1({
+    ...contextInput,
+    surname: [{ hangul: '남', hanja: '南' }, { hangul: '궁' }],
+  }),
+  'PARTIAL_HANJA_IDENTITY',
+  'compound surnames preserve the same all-or-none Hanja identity rule',
+);
+assertReason(
+  () => createLocalAnalysisContextV1({
+    ...contextInput,
+    options: { pureHangulNameMode: 'on' },
+  }),
+  'PURE_HANGUL_MODE_CONFLICT',
+  'pure-Hangul mode cannot retain explicit given-name Hanja',
+);
+assertReason(
+  () => createLocalAnalysisContextV1({
+    ...contextInput,
+    givenName: [{ hangul: '하' }, { hangul: '늘' }],
+    options: { pureHangulNameMode: 'off' },
+  }),
+  'PURE_HANGUL_MODE_DISABLED',
+  'Hangul-only identity cannot bypass an explicitly disabled pure-Hangul mode',
 );
 
 const solarPreview = buildLocalBirthPreviewV1(context.birth);
@@ -255,6 +293,10 @@ let fullReportCalls = 0;
   sajuPreviewCalls += 1;
   assert.deepEqual(request.birth, context.birth,
     'home calculation receives the exact context birth snapshot');
+  assert.deepEqual(request.surname, [],
+    'the legacy request carrier never injects the selected name into natal calculation');
+  assert.equal(Object.hasOwn(request, 'givenName'), false,
+    'home natal facts remain birth-derived when the selected candidate changes');
   return saju;
 };
 (homeEngine as any).getFortuneReport = async () => {
@@ -395,6 +437,14 @@ await assertRejectReason(
   'SPRING_ENGINE_REQUIRED',
   'detached saju summaries cannot be paired with a different local context',
 );
+
+const realHomeEngine = new SpringEngine();
+const realHome = await buildLocalHomeSummaryV1(realHomeEngine, context);
+assertLocalHomeSummaryV1(realHome);
+assert.ok(realHome.facts,
+  'the production SpringEngine accepts the birth-only carrier and returns natal home facts');
+assert.equal(realHome.computation.natalSaju, 'birth_derived_invariant');
+realHomeEngine.close();
 
 function hanjaRow(overrides: Partial<HanjaEntry> = {}): HanjaEntry {
   return {

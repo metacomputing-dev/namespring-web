@@ -186,6 +186,21 @@ assert.equal(beginOperationCalls, 0);
 await assert.rejects(
   engine.getReportDelivery({
     birth: { year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male' },
+    targetDate: '1986-04-18',
+    delivery: {
+      schemaVersion: REPORT_DELIVERY_REQUEST_SCHEMA_V1,
+      surfaces: [{ id: 'saju', depth: 'brief' }],
+    },
+  }),
+  (error: unknown) => error instanceof ReportDeliveryRequestValidationError
+    && error.reason === 'INVALID_SHAPE',
+  'a pre-birth fortune date fails before engine initialization',
+);
+assert.equal(beginOperationCalls, 0, 'semantic target-date validation runs before engine work');
+
+await assert.rejects(
+  engine.getReportDelivery({
+    birth: { year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male' },
     options: { precisionConfig: { lunarConversionSource: 'kasi' } },
     delivery: {
       schemaVersion: REPORT_DELIVERY_REQUEST_SCHEMA_V1,

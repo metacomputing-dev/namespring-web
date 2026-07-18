@@ -697,12 +697,82 @@ assert.ok(calendarCapability.availability.reasonCodes.includes('NAMING_CALENDAR_
 const fourFrames = namingSurface.blocks.find((block) => block.kind === 'four_frames');
 assert.ok(fourFrames && fourFrames.kind === 'four_frames');
 assert.equal(fourFrames.items.length, 4);
+for (const item of fourFrames.items) {
+  assert.equal(
+    item.interpretationRef,
+    undefined,
+    'unapproved four-frame authored copy must not cross the public delivery boundary',
+  );
+}
+assert.ok(namingSurface.availability.reasonCodes.includes('CONTENT_EXPERT_REVIEW_REQUIRED'));
+assert.equal(
+  naming.interpretations.some((row) => row.origin === 'authored_bundle'),
+  false,
+  'authored 81-numerology copy remains blocked until a versioned external expert approval',
+);
+assertInvalidDelivery(naming, 'FOUR_FRAME_CONTENT_GATE', (value) => {
+  value.surfaces[0].availability = { status: 'ready', reasonCodes: [] };
+  value.availability = { status: 'ready', reasonCodes: [] };
+});
 assertJsonData(naming);
 assertInvalidDelivery(naming, 'HERO_DEPTH_REF', (value) => {
   const hero = value.surfaces[0].blocks.find((block: any) => block.kind === 'hero');
   delete value.interpretations.find(
     (interpretation: any) => interpretation.id === hero.interpretationRef,
   ).expert;
+});
+
+const pureHangulNaming = await engine.getReportDelivery({
+  birth: baseRequest.birth,
+  surname: [{ hangul: '김' }],
+  givenName: [{ hangul: '하' }, { hangul: '린' }],
+  targetDate: baseRequest.targetDate,
+  delivery: {
+    schemaVersion: REPORT_DELIVERY_REQUEST_SCHEMA_V1,
+    surfaces: [{ id: 'naming', depth: 'expert' }],
+  },
+});
+assert.doesNotThrow(() => assertReportDeliveryV1(pureHangulNaming));
+assert.deepEqual(pureHangulNaming.availability, {
+  status: 'limited',
+  reasonCodes: ['METHOD_SCOPE_LIMITED'],
+}, 'pure-Hangul analysis remains usable while declaring its narrower evidence scope');
+assert.equal(
+  pureHangulNaming.facts.some((fact) => fact.id === 'naming.hanja-score'),
+  false,
+  'disabled Hanja evaluation must not surface its neutral placeholder as evidence',
+);
+assert.equal(
+  pureHangulNaming.facts.some((fact) => fact.id === 'naming.total-score'),
+  false,
+  'a Hangul-only score must not be relabeled as a cross-method total',
+);
+assert.equal(
+  pureHangulNaming.facts.some((fact) => fact.id === 'naming.four-frame-score'),
+  false,
+  'disabled four-frame evaluation must not surface its neutral placeholder as evidence',
+);
+assert.equal(
+  findSurface(pureHangulNaming, 'naming')!.blocks.some((block) => block.kind === 'four_frames'),
+  false,
+  'pure-Hangul mode must not manufacture four-frame polarity from disabled calculation',
+);
+assert.ok(
+  pureHangulNaming.facts.some((fact) => fact.id === 'naming.hangul-score'),
+  'the applicable Hangul evidence remains available',
+);
+const pureHangulCharacters = pureHangulNaming.facts.filter(
+  (fact) => fact.kind === 'name_character',
+);
+assert.equal(pureHangulCharacters.length, 3);
+for (const fact of pureHangulCharacters) {
+  assert.equal(fact.method, 'spring-ts.pure-hangul-character.v1');
+  assert.equal('hanja' in fact, false);
+  assert.equal('strokes' in fact, false,
+    'Hangul glyph-stroke proxies must not be confused with Hanja numerology strokes');
+}
+assertInvalidDelivery(pureHangulNaming, 'NAME_CHARACTER_BASIS', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'name_character').strokes = 7;
 });
 
 const originalGetNamingReport = engine.getNamingReport.bind(engine);
@@ -729,6 +799,17 @@ const saju = await engine.getReportDelivery({
 (engine as any).getSpringReportFromSnapshot = originalGetSpringReportFromSnapshot;
 assert.equal(saju.analysisId, integrated.analysisId, 'saju lazy chunk shares analysis ID');
 const sajuSurface = findSurface(saju, 'saju')!;
+const sajuHeroBlock = sajuSurface.blocks.find((block) => block.kind === 'hero');
+assert.ok(sajuHeroBlock?.kind === 'hero');
+const sajuHeroInterpretation = saju.interpretations.find(
+  (row) => row.id === sajuHeroBlock.interpretationRef,
+);
+assert.ok(sajuHeroInterpretation?.brief.hook);
+assert.equal(
+  /\b(?:WOOD|FIRE|EARTH|METAL|WATER)\b/u.test(sajuHeroInterpretation.brief.hook),
+  false,
+  'Korean report copy must not leak internal element enum labels',
+);
 assert.equal(
   saju.facts.every((fact) => fact.domain === 'saju' || fact.domain === 'fortune'),
   true,
@@ -898,6 +979,14 @@ assert.deepEqual(highRiskYongshin.jonggyeokRisk, highRiskSajuReport.yongshin.jon
 const highRiskHero = highRiskSurface.blocks.find((block) => block.kind === 'hero');
 assert.ok(highRiskHero?.kind === 'hero');
 assert.ok(highRiskHero.supportingFactRefs.includes(highRiskYongshin.id));
+const highRiskMetrics = highRiskSurface.blocks.find((block) => block.id.endsWith('.metrics'));
+assert.ok(highRiskMetrics?.kind === 'fact_group');
+assert.equal(highRiskMetrics.availability.status, 'limited',
+  'judgment metrics cannot advertise ready while gyeokguk/yongshin are deferred');
+assert.ok(highRiskMetrics.availability.reasonCodes.includes('SAJU_JUDGMENT_LOW_CONFIDENCE'));
+const highRiskPillars = highRiskSurface.blocks.find((block) => block.id.endsWith('.pillars'));
+assert.equal(highRiskPillars?.availability.status, 'ready',
+  'raw natal pillars remain usable independently of judgment confidence');
 assert.ok(
   highRiskDelivery.interpretations.find(
     (interpretation) => interpretation.id === highRiskHero.interpretationRef,
@@ -926,6 +1015,17 @@ assertInvalidDelivery(highRiskDelivery, 'YONGSHIN_HERO_BINDING', (value) => {
   const yongshin = value.facts.find((fact: any) => fact.kind === 'yongshin');
   const hero = value.surfaces[0].blocks.find((block: any) => block.kind === 'hero');
   hero.supportingFactRefs = hero.supportingFactRefs.filter((ref: string) => ref !== yongshin.id);
+});
+assertInvalidDelivery(highRiskDelivery, 'SURFACE_AVAILABILITY', (value) => {
+  const omitted = 'SAJU_JUDGMENT_LOW_CONFIDENCE';
+  value.surfaces[0].availability.reasonCodes = value.surfaces[0].availability.reasonCodes
+    .filter((reason: string) => reason !== omitted);
+  value.availability.reasonCodes = value.availability.reasonCodes
+    .filter((reason: string) => reason !== omitted);
+});
+assertInvalidDelivery(highRiskDelivery, 'SURFACE_AVAILABILITY', (value) => {
+  value.surfaces[0].availability.status = 'unavailable';
+  value.availability.status = 'unavailable';
 });
 assertInvalidDelivery(highRiskDelivery, 'UNUSED_FACT', (value) => {
   const orphan = structuredClone(value.facts.find((fact: any) => fact.kind === 'yongshin'));
