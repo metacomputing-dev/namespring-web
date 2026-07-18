@@ -394,4 +394,62 @@ describe('gyeokguk selectionRule', () => {
     )).toThrow(RangeError);
   });
 
+  it('defensively deduplicates competition methods before score attenuation', () => {
+    const { facts } = analyzeWithSelectionRule();
+    const baseConfig = normalizeConfig({
+      extensions: {
+        rulesets: {
+          gyeokguk: {
+            id: 'test.gyeokguk.competition-deduplication',
+            version: '1',
+            rules: [{
+              id: 'EQUAL_SPECIAL_FRAMES',
+              score: {
+                'gyeokguk.CONG_CAI': 1,
+                'gyeokguk.HUA_QI': 1,
+              },
+            }],
+          },
+        },
+      },
+    });
+    const withMethods = (methods: string[]) => ({
+      ...baseConfig,
+      strategies: {
+        ...baseConfig.strategies,
+        gyeokguk: {
+          competition: {
+            enabled: true,
+            methods,
+            power: 2,
+            minKeep: 0.2,
+            renormalize: true,
+          },
+        },
+      },
+    });
+
+    const unique = computeGyeokguk(
+      withMethods(['follow', 'transformations']) as any,
+      facts,
+    );
+    const duplicate = computeGyeokguk(
+      withMethods(['follow', 'follow', 'transformations']) as any,
+      facts,
+    );
+
+    expect(duplicate.scores['gyeokguk.CONG_CAI']).toBeCloseTo(
+      unique.scores['gyeokguk.CONG_CAI']!,
+      12,
+    );
+    expect(duplicate.scores['gyeokguk.HUA_QI']).toBeCloseTo(
+      unique.scores['gyeokguk.HUA_QI']!,
+      12,
+    );
+    expect(duplicate.basis.competition?.methods).toEqual([
+      'follow',
+      'transformations',
+    ]);
+  });
+
 });

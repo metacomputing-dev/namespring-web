@@ -281,6 +281,90 @@ describe('engine config runtime validation', () => {
     expect((config.strategies as any).fortune.directionRule).toBe('fixedBackward');
   });
 
+  it.each([
+    [
+      'strategies.gyeokguk.competition.methods[0]',
+      {
+        strategies: {
+          gyeokguk: {
+            competition: {
+              enabled: true,
+              methods: ['transformatons', 'follow'],
+            },
+          },
+        },
+      },
+    ],
+    [
+      'strategies.gyeokguk.competition.methods[1]',
+      {
+        strategies: {
+          gyeokguk: {
+            competition: {
+              enabled: true,
+              methods: ['follow', 'follow'],
+            },
+          },
+        },
+      },
+    ],
+    [
+      'strategies.gyeokguk.competition.methods',
+      {
+        strategies: {
+          gyeokguk: {
+            competition: { enabled: true, methods: ['follow'] },
+          },
+        },
+      },
+    ],
+    [
+      'strategies.yongshin.methodSelector.competition.methods[0]',
+      {
+        strategies: {
+          yongshin: {
+            methodSelector: {
+              competition: {
+                enabled: true,
+                methods: ['tenGod', 'follow'],
+              },
+            },
+          },
+        },
+      },
+    ],
+  ])('rejects an invalid competition contract at %s', (path, config) => {
+    expect(captureInvalidConfig(config).path).toBe(path);
+  });
+
+  it('accepts unique competition methods and requires two only when enabled', () => {
+    const config = normalizeConfig({
+      strategies: {
+        yongshin: {
+          methodSelector: {
+            competition: {
+              enabled: true,
+              methods: ['follow', 'oneElement'],
+            },
+          },
+        },
+        gyeokguk: {
+          competition: {
+            enabled: false,
+            methods: ['tenGod'],
+          },
+        },
+      },
+    } as any);
+
+    expect(
+      (config.strategies as any).yongshin.methodSelector.competition.methods,
+    ).toEqual(['follow', 'oneElement']);
+    expect(
+      (config.strategies as any).gyeokguk.competition.methods,
+    ).toEqual(['tenGod']);
+  });
+
   it.each(['rulesets', 'rules'] as const)(
     'rejects a direct %s rule set with an unsupported DSL operator',
     (containerKey) => {

@@ -804,7 +804,12 @@ function buildJonggyeokCandidates(facts: RuleFacts, best: string | null): Jonggy
 function normalizeMethods(methods: unknown, fallback: string[]): string[] {
   const xs = Array.isArray(methods) ? (methods as any[]).map(String) : fallback;
   const allowed = new Set(['follow', 'transformations', 'oneElement', 'tenGod']);
-  return xs.filter((m) => allowed.has(m));
+  const seen = new Set<string>();
+  return xs.filter((method) => {
+    if (!allowed.has(method) || seen.has(method)) return false;
+    seen.add(method);
+    return true;
+  });
 }
 
 function normalizeKeyGroupSpec(raw: any, fallback: CompetitionKeyGroupSpec): CompetitionKeyGroupSpec {

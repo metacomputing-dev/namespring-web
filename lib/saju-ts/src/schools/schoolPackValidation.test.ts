@@ -370,6 +370,30 @@ describe('school preset pack integrity', () => {
     )).toThrow(InvalidLongitudeCorrectionPolicyError);
   });
 
+  it('rejects duplicate competition methods inside a school overlay', () => {
+    const customPack = pack([
+      preset('child', {
+        overlay: {
+          strategies: {
+            gyeokguk: {
+              competition: {
+                enabled: true,
+                methods: ['follow', 'follow'],
+              },
+            },
+          },
+        },
+      }),
+    ]);
+
+    const error = captureEngineConfigError(() => normalizeConfig(
+      configWithPack(customPack) as any,
+    ));
+    expect(error.path).toBe(
+      'strategies.gyeokguk.competition.methods[1]',
+    );
+  });
+
   it.each(['presetPacks', 'schoolPacks', 'schools.packs'] as const)(
     'validates the %s soft extension path',
     (location) => {
