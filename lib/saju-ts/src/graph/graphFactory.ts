@@ -11,7 +11,11 @@ import {
   monthOrderByPolicy,
 } from '../calendar/pillars.js';
 import type { JieBoundariesAround, SolarTermsAround } from '../calendar/solarTerms.js';
-import { getSolarTermsAround, isJieTermId } from '../calendar/solarTerms.js';
+import {
+  getJieBoundariesAround,
+  getSolarTermsAround,
+  isJieTermId,
+} from '../calendar/solarTerms.js';
 import type { SolarTermInstant } from '../calendar/solarTerms.js';
 import type { LocalDateTime } from '../calendar/iso.js';
 import type { JieData } from '../core/wollyul.js';
@@ -197,7 +201,7 @@ export function buildGraph(): Graph {
     n<JieBoundariesAround | null>({
       id: 'calendar.jieBoundariesAround',
       deps: ['calendar.solarTermsAround'],
-      explain: '월/연 경계 계산용 12절(節) 시각(UTC). 24절기 결과에서 “절(節)”만 필터링한 목록(baseYear±1 포함).',
+      explain: '월/연 경계 계산용 12절(節) 시각(UTC). calendar.solarTermsAround의 선택/전체 결과에서 절만 보존한 목록(baseYear±1 포함).',
       compute: (_ctx, get) => {
         const st = get<SolarTermsAround | null>('calendar.solarTermsAround');
         if (!st) return null;
@@ -214,7 +218,7 @@ export function buildGraph(): Graph {
     n<SolarTermsAround | null>({
       id: 'calendar.solarTermsAround',
       deps: ['time.localDateTime', 'policy.calendar'],
-      explain: '24절기(정기) 시각(UTC) — baseYear±1을 포함한 정렬된 목록. (절입/진단/확장 기능에서 재사용)',
+      explain: '절기 시각(UTC) — 기본은 월주·대운에 필요한 12절(baseYear±1), solarTerms.alwaysCompute=true이면 전체 24절기를 계산한다.',
       compute: (ctx, get) => {
         const ldt = get<any>('time.localDateTime');
         const cal = get<any>('policy.calendar');
@@ -237,7 +241,12 @@ export function buildGraph(): Graph {
             : cal.solarPrecision === 'iau1980_top10'
               ? 'iau1980_top10'
               : 'classical';
-        return getSolarTermsAround(ldt.date.y, method, algorithm, aberrationModel, solarPrecision);
+        // Full 24-term materialization is an explicit diagnostics/extension
+        // contract. The default pillar and fortune paths consume only Jie
+        // boundaries, so avoid solving the twelve unused Zhongqi terms.
+        return cal?.solarTerms?.alwaysCompute
+          ? getSolarTermsAround(ldt.date.y, method, algorithm, aberrationModel, solarPrecision)
+          : getJieBoundariesAround(ldt.date.y, method, algorithm, aberrationModel, solarPrecision);
       },
     }),
   );
