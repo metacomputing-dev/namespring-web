@@ -19,6 +19,7 @@ import type { LunarDate, SolarDate } from './korean-lunar-calendar.js';
 
 const DEFAULT_BASE_URL = 'https://apis.data.go.kr/B090041/openapi/service/LrsrCldInfoService';
 const DEFAULT_TIMEOUT_MS = 4000;
+const MAX_RESPONSE_BYTES = 256 * 1024;
 
 interface KasiCallOptions {
   readonly serviceKey?: string;
@@ -57,6 +58,42 @@ function xmlItems(xml: string): string[] {
   return xml.match(/<item>[\s\S]*?<\/item>/g) ?? [];
 }
 
+async function readBoundedResponseText(response: Response): Promise<string | null> {
+  const declaredLength = response.headers.get('content-length');
+  if (declaredLength != null) {
+    const parsedLength = Number(declaredLength);
+    if (Number.isFinite(parsedLength) && parsedLength > MAX_RESPONSE_BYTES) {
+      return null;
+    }
+  }
+
+  if (!response.body) return '';
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  const chunks: string[] = [];
+  let receivedBytes = 0;
+
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      if (!value) continue;
+
+      receivedBytes += value.byteLength;
+      if (receivedBytes > MAX_RESPONSE_BYTES) {
+        await reader.cancel();
+        return null;
+      }
+      chunks.push(decoder.decode(value, { stream: true }));
+    }
+    chunks.push(decoder.decode());
+    return chunks.join('');
+  } finally {
+    reader.releaseLock();
+  }
+}
+
 function isValidSolarDate(year: number, month: number, day: number): boolean {
   if (!Number.isInteger(year) || !Number.isInteger(month) || !Number.isInteger(day)) return false;
   const date = new Date(Date.UTC(year, month - 1, day));
@@ -82,13 +119,16 @@ export async function kasiLunarToSolar(lunar: LunarDate, opts?: KasiCallOptions)
   url.searchParams.set('lunDay', pad2(lunar.day));
   url.searchParams.set('leapMonth', lunar.isLeapMonth ? '윤' : '평');
 
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), opts?.timeoutMs ?? DEFAULT_TIMEOUT_MS);
   try {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), opts?.timeoutMs ?? DEFAULT_TIMEOUT_MS);
     const response = await fetch(url, { signal: controller.signal });
-    clearTimeout(timer);
     if (!response.ok) return null;
-    const xml = await response.text();
+    const xml = await readBoundedResponseText(response);
+    if (xml == null) {
+      controller.abort();
+      return null;
+    }
     if (xmlField(xml, 'resultCode') !== '00') return null;
 
     // 연 범위 검색은 오염 행을 포함할 수 있으므로 요청한 음력 tuple 전체를 대조한다.
@@ -107,5 +147,7 @@ export async function kasiLunarToSolar(lunar: LunarDate, opts?: KasiCallOptions)
     return null;
   } catch {
     return null;
+  } finally {
+    clearTimeout(timer);
   }
 }

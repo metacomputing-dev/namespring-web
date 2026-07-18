@@ -6,8 +6,9 @@
  *   1. 정상 응답 → 양력 파싱 (lunYear 필터 포함)
  *   2. resultCode != 00 → null
  *   3. 서비스키 부재 → null (네트워크 미발생)
- *   4. 타임아웃 → null
- *   5. 어댑터 폴백: lunarConversionSource='kasi' + 키 부재 → builtin + kasiFallback
+ *   4. 헤더 전/후 타임아웃 → null
+ *   5. 제한 초과 스트리밍 응답 → 본문 종료 전 fail-closed
+ *   6. 어댑터 폴백: lunarConversionSource='kasi' + 키 부재 → builtin + kasiFallback
  *
  * Run: npm run test:kasi-lunar-api
  */
@@ -45,9 +46,19 @@ function okXml(items: MockItem[]): string {
 console.log('KASI lunar API option (감사 B1)\n');
 
 // ── 목서버 ──
-let mode: 'ok' | 'error-code' | 'hang' = 'ok';
+let mode: 'ok' | 'error-code' | 'hang' | 'body-hang' | 'oversized-body' = 'ok';
 const server = http.createServer((req, res) => {
   if (mode === 'hang') return; // 응답 보류 → 클라이언트 타임아웃
+  if (mode === 'body-hang') {
+    res.writeHead(200, { 'Content-Type': 'application/xml' });
+    res.write('<?xml version="1.0"?><response>');
+    return; // 헤더와 본문 일부만 보낸 뒤 보류 → body read 타임아웃
+  }
+  if (mode === 'oversized-body') {
+    res.writeHead(200, { 'Content-Type': 'application/xml' });
+    res.write('x'.repeat(512 * 1024));
+    return; // Content-Length 없이 상한을 넘긴 뒤 보류 → 스트리밍 상한 검증
+  }
   if (mode === 'error-code') {
     res.writeHead(200, { 'Content-Type': 'application/xml' });
     res.end('<?xml version="1.0"?><response><header><resultCode>30</resultCode><resultMsg>SERVICE_KEY_IS_NOT_REGISTERED_ERROR</resultMsg></header></response>');
@@ -93,12 +104,43 @@ mode = 'ok';
 check('서비스키 부재 → null',
   (await kasiLunarToSolar({ year: 2025, month: 6, day: 1, isLeapMonth: true }, { baseUrl })) === null);
 
-// 4. 타임아웃
+// 4. 헤더 전/후 타임아웃
 mode = 'hang';
 check('타임아웃 → null',
   (await kasiLunarToSolar({ year: 2025, month: 6, day: 1, isLeapMonth: true }, { serviceKey: 'TEST_KEY', baseUrl, timeoutMs: 300 })) === null);
 
-// 5. 어댑터 폴백: kasi 옵트인 + 키 부재 → builtin + kasiFallback (env는 여전히 비어 있음)
+mode = 'body-hang';
+const bodyHangStartedAt = Date.now();
+const bodyHangResult = await Promise.race([
+  kasiLunarToSolar(
+    { year: 2025, month: 6, day: 1, isLeapMonth: true },
+    { serviceKey: 'TEST_KEY', baseUrl, timeoutMs: 300 },
+  ).then((result) => ({ settled: true, result })),
+  new Promise<{ settled: false; result: null }>((resolve) => {
+    setTimeout(() => resolve({ settled: false, result: null }), 1_000);
+  }),
+]);
+check('헤더 수신 후 본문 보류도 타임아웃 → null',
+  bodyHangResult.settled && bodyHangResult.result === null && Date.now() - bodyHangStartedAt < 1_000,
+  JSON.stringify({ settled: bodyHangResult.settled, elapsedMs: Date.now() - bodyHangStartedAt }));
+
+// 5. 응답 크기 상한
+mode = 'oversized-body';
+const oversizedStartedAt = Date.now();
+const oversizedResult = await Promise.race([
+  kasiLunarToSolar(
+    { year: 2025, month: 6, day: 1, isLeapMonth: true },
+    { serviceKey: 'TEST_KEY', baseUrl, timeoutMs: 3_000 },
+  ).then((result) => ({ settled: true, result })),
+  new Promise<{ settled: false; result: null }>((resolve) => {
+    setTimeout(() => resolve({ settled: false, result: null }), 1_000);
+  }),
+]);
+check('제한 초과 스트리밍 응답 → 본문 종료 전 null',
+  oversizedResult.settled && oversizedResult.result === null && Date.now() - oversizedStartedAt < 1_000,
+  JSON.stringify({ settled: oversizedResult.settled, elapsedMs: Date.now() - oversizedStartedAt }));
+
+// 6. 어댑터 폴백: kasi 옵트인 + 키 부재 → builtin + kasiFallback (env는 여전히 비어 있음)
 mode = 'ok';
 const fallback = await analyzeSajuSafe(
   {
