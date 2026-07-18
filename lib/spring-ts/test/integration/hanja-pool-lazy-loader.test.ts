@@ -154,6 +154,16 @@ test('metadata glyphs must exactly match the compact registry sequence', async (
   await assert.rejects(load(), FullHanjaPoolIntegrityError);
 });
 
+test('loader configuration rejects lone UTF-16 surrogates as non-scalars', () => {
+  assert.throws(
+    () => createFullHanjaPoolLoader({
+      expectedGlyphs: ['\uD800'],
+      importer: async () => fixtureDocument(),
+    }),
+    TypeError,
+  );
+});
+
 test('curated and repository-hit resolution never invoke the full-pool provider', async () => {
   const exact = entry();
   const repository: NameEntryRepository = {

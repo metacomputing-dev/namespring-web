@@ -11,6 +11,12 @@ interface FullGlyphRegistryDocument {
 
 export const EXPECTED_FULL_HANJA_GLYPH_COUNT = 9_495;
 
+export function isSingleUnicodeScalar(value: unknown): value is string {
+  if (typeof value !== 'string' || Array.from(value).length !== 1) return false;
+  const codePoint = value.codePointAt(0);
+  return codePoint !== undefined && (codePoint < 0xD800 || codePoint > 0xDFFF);
+}
+
 function parseFullGlyphRegistry(value: unknown): {
   readonly glyphs: readonly string[];
   readonly glyphSet: ReadonlySet<string>;
@@ -30,6 +36,7 @@ function parseFullGlyphRegistry(value: unknown): {
   const glyphs = Array.from(registry.glyphs);
   const glyphSet = new Set(glyphs);
   if (glyphs.length !== EXPECTED_FULL_HANJA_GLYPH_COUNT
+    || glyphs.some((glyph) => !isSingleUnicodeScalar(glyph))
     || glyphSet.size !== EXPECTED_FULL_HANJA_GLYPH_COUNT) {
     throw new Error('Local full-pool Hanja glyph registry failed its integrity check.');
   }
