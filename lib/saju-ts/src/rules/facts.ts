@@ -29,6 +29,7 @@ import type { JohooTemplateResult } from './johooTemplate.js';
 import { computeJohooTemplate } from './johooTemplate.js';
 import { computeGyeokgukSeongpae } from './gyeokgukSeongpae.js';
 import { computeFollowPotential } from './followPotential.js';
+import { firstFiniteSignal } from './finiteSignal.js';
 import { readRuleFactsScoringProvenance } from './ruleFactsScoring.js';
 import { strengthDecisionComponents } from './strengthComponents.js';
 import { classifyStructuralMonthFrame, isCompanionTenGod, type BigyeopSubtype } from './gyeokgukMonthFrame.js';
@@ -746,6 +747,10 @@ function clamp01(x: number): number {
   return Math.max(0, Math.min(1, x));
 }
 
+function normalizePositiveContribution(score: number, norm: number): number {
+  return norm > 0 ? clamp01(score / norm) : 0;
+}
+
 function computeElementPatterns(config: EngineConfig, normalized: Record<Element, number>): RuleFacts['patterns'] {
   const vals = ELEMENT_ORDER.map((e) => ({ element: e, value: normalized[e] ?? 0 }));
   vals.sort((a, b) => b.value - a.value);
@@ -939,7 +944,7 @@ function applyZhuanwangConditionPack(config: EngineConfig, facts: RuleFacts): vo
       }
     }
     const diScore = Math.max(0, same + rootResAlpha * res);
-    diNorm = clamp01(diScore / Math.max(1e-9, rootNorm));
+    diNorm = normalizePositiveContribution(diScore, rootNorm);
 
     const stemsOther: Array<{ stem: StemIdx; w: number }> = [
       { stem: (facts as any).chart.pillars.year.stem, w: positionWeights.year },
@@ -954,7 +959,7 @@ function applyZhuanwangConditionPack(config: EngineConfig, facts: RuleFacts): vo
       if (generates(el, domEl)) shiRes += s0.w;
     }
     const shiScore = Math.max(0, shiSame + shiResAlpha * shiRes);
-    shiNormed = clamp01(shiScore / Math.max(1e-9, shiNorm));
+    shiNormed = normalizePositiveContribution(shiScore, shiNorm);
   }
 
   const fDi = clamp01((diNorm - diThreshold) / Math.max(1e-9, 1 - diThreshold));
@@ -1134,10 +1139,12 @@ function applyFollowPattern(config: EngineConfig, facts: RuleFacts): void {
   // - SUPPORT mode tends to align with 专旺/从旺 → prefer zhuanwangFactor if available
   // - PRESSURE mode uses raw oneElement.factor (distribution concentration)
   const oneEl: any = (facts as any).patterns?.elements?.oneElement;
-  const oneElRaw = typeof oneEl?.factor === 'number' && Number.isFinite(oneEl.factor) ? oneEl.factor : 0;
-  const oneElZhuanwang =
-    typeof oneEl?.zhuanwangFactor === 'number' && Number.isFinite(oneEl.zhuanwangFactor) ? oneEl.zhuanwangFactor : 0;
-  const oneElementFactor = clamp01(mode === 'SUPPORT' && oneElZhuanwang > 0 ? oneElZhuanwang : oneElRaw);
+  const oneElRaw = firstFiniteSignal(oneEl?.factor) ?? 0;
+  const oneElementFactor = clamp01(
+    mode === 'SUPPORT'
+      ? (firstFiniteSignal(oneEl?.zhuanwangFactor, oneEl?.factor) ?? 0)
+      : oneElRaw,
+  );
 
   const potential = clamp01(potentialRaw * (1 + oneElementFactor * oneElementBoost));
 

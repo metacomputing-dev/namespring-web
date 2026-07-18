@@ -8,6 +8,7 @@ import { DEFAULT_YONGSHIN_RULESET } from './defaultRuleSets.js';
 import { DEFAULT_CLIMATE_MODEL, mergeClimateModel, type ClimateModel } from './climate.js';
 import { compileYongshinRuleSpec } from './spec/compileYongshinSpec.js';
 import type { RuleFacts } from './facts.js';
+import { firstFiniteSignal } from './finiteSignal.js';
 import { computeFollowPotential } from './followPotential.js';
 import { strengthDecisionComponents } from './strengthComponents.js';
 import { compete, renormalizeScale } from '../core/competition.js';
@@ -785,15 +786,12 @@ export function computeYongshin(config: EngineConfig, facts: RuleFacts): Yongshi
 
   // Optional: “일행득기/专旺” style concentration can boost follow confidence.
   const oneEl = (facts as any).patterns?.elements?.oneElement;
-  const oneElRaw = typeof oneEl?.factor === 'number' && Number.isFinite(oneEl.factor) ? oneEl.factor : 0;
-  const oneElZhuanwang =
-    typeof oneEl?.zhuanwangFactor === 'number' && Number.isFinite(oneEl.zhuanwangFactor) ? oneEl.zhuanwangFactor : 0;
+  const oneElRaw = firstFiniteSignal(oneEl?.factor) ?? 0;
+  const canonicalOneElementSignal = firstFiniteSignal(oneEl?.zhuanwangFactor, oneEl?.factor) ?? 0;
 
   const oneElFactor = followPatEnabled
     ? (typeof followPat.oneElementFactor === 'number' && Number.isFinite(followPat.oneElementFactor) ? followPat.oneElementFactor : 0)
-    : oneElZhuanwang > 0
-      ? oneElZhuanwang
-      : oneElRaw;
+    : canonicalOneElementSignal;
 
   const oneElBoost = followPatEnabled
     ? (typeof followPat.oneElementBoost === 'number' && Number.isFinite(followPat.oneElementBoost) ? followPat.oneElementBoost : 0)
@@ -850,14 +848,11 @@ export function computeYongshin(config: EngineConfig, facts: RuleFacts): Yongshi
   // --- 合化/化气(화격) transformation best signal
   const tf: any = (facts as any).patterns?.transformations;
   const tfBest: any = tf && typeof tf === 'object' ? (tf as any).best : null;
-  const tfBestFactor: number =
-    tfBest && typeof (tfBest as any).huaqiFactor === 'number' && Number.isFinite((tfBest as any).huaqiFactor)
-      ? (tfBest as any).huaqiFactor
-      : tfBest && typeof (tfBest as any).effectiveFactor === 'number' && Number.isFinite((tfBest as any).effectiveFactor)
-        ? (tfBest as any).effectiveFactor
-        : tfBest && typeof tfBest.factor === 'number' && Number.isFinite(tfBest.factor)
-          ? tfBest.factor
-          : 0;
+  const tfBestFactor = firstFiniteSignal(
+    tfBest?.huaqiFactor,
+    tfBest?.effectiveFactor,
+    tfBest?.factor,
+  ) ?? 0;
   const tfBestElement: Element | null =
     tfBest && typeof tfBest.resultElement === 'string' && (ELEMENT_ORDER as any).includes(tfBest.resultElement)
       ? (tfBest.resultElement as Element)
@@ -869,7 +864,7 @@ export function computeYongshin(config: EngineConfig, facts: RuleFacts): Yongshi
   const oneElElement: Element | null =
     oneEl && typeof oneEl.element === 'string' && (ELEMENT_ORDER as any).includes(oneEl.element) ? (oneEl.element as Element) : null;
   const oneElSignalForTerm =
-    (selPol as any)?.oneElement?.factor === 'raw' ? oneElRaw : oneElZhuanwang > 0 ? oneElZhuanwang : oneElRaw;
+    (selPol as any)?.oneElement?.factor === 'raw' ? oneElRaw : canonicalOneElementSignal;
   const oneElementScores: Record<Element, number> = { WOOD: 0, FIRE: 0, EARTH: 0, METAL: 0, WATER: 0 };
   if (oneElElement) oneElementScores[oneElElement] = clamp01(oneElSignalForTerm);
 

@@ -1,4 +1,5 @@
 import type { Rule, RuleSet, Expr } from '../dsl.js';
+import { finiteSignalFallbackExpr } from '../finiteSignal.js';
 import { ELEMENT_ORDER } from '../../core/elementVector.js';
 import { DEFAULT_GYEOKGUK_RULESET } from '../defaultRuleSets.js';
 import { deepClone } from '../../utils/deepMerge.js';
@@ -161,14 +162,7 @@ function compileMacros(macros: GyeokgukMacro[]): Rule[] {
         const zwVar = 'patterns.elements.oneElement.zhuanwangFactor';
         const factorExpr: Expr =
           factorSel === 'zhuanwang'
-            ? {
-                op: 'if',
-                args: [
-                  { op: 'gt', args: [{ var: zwVar }, 0] },
-                  { var: zwVar },
-                  { var: rawVar },
-                ],
-              }
+            ? finiteSignalFallbackExpr(zwVar, { var: rawVar })
             : { var: rawVar };
         const elVar = 'patterns.elements.oneElement.element';
 
@@ -361,14 +355,7 @@ function compileMacros(macros: GyeokgukMacro[]): Rule[] {
           const zwVar = 'patterns.elements.oneElement.zhuanwangFactor';
           factorExpr =
             s === 'zhuanwang'
-              ? {
-                  op: 'if',
-                  args: [
-                    { op: 'gt', args: [{ var: zwVar }, 0] },
-                    { var: zwVar },
-                    { var: rawVar },
-                  ],
-                }
+              ? finiteSignalFallbackExpr(zwVar, { var: rawVar })
               : { var: rawVar };
         }
 

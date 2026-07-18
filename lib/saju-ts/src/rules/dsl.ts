@@ -121,6 +121,10 @@ export function evalExpr(expr: Expr, facts: any): any {
       return args.some((_, i) => truthy(ev(i)));
     case 'not':
       return !truthy(ev(0));
+    case 'isFiniteNumber': {
+      const value = ev(0);
+      return typeof value === 'number' && Number.isFinite(value);
+    }
 
     // --- compare
     case 'eq':

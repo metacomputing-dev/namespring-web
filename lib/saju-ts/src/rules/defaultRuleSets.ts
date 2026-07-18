@@ -1,4 +1,5 @@
-import type { Rule, RuleSet } from './dsl.js';
+import type { Expr, Rule, RuleSet } from './dsl.js';
+import { finiteSignalFallbackExpr } from './finiteSignal.js';
 import {
   buildBranchPresenceRules,
   buildCatalogDayPillarRules,
@@ -8,6 +9,20 @@ import {
   buildPillarBranchInListRules,
   buildRelationSalRules,
 } from './shinsalRuleCompiler.js';
+
+function huaqiFactorExpr(): Expr {
+  return finiteSignalFallbackExpr(
+    'patterns.transformations.best.huaqiFactor',
+    { var: 'patterns.transformations.best.effectiveFactor' },
+  );
+}
+
+function zhuanwangFactorExpr(): Expr {
+  return finiteSignalFallbackExpr(
+    'patterns.elements.oneElement.zhuanwangFactor',
+    { var: 'patterns.elements.oneElement.factor' },
+  );
+}
 
 export const DEFAULT_YONGSHIN_RULESET: RuleSet = {
   id: 'yongshin.base',
@@ -21,7 +36,7 @@ export const DEFAULT_YONGSHIN_RULESET: RuleSet = {
 
 export const DEFAULT_GYEOKGUK_RULESET: RuleSet = {
   id: 'gyeokguk.monthGyeokTenGod.quality',
-  version: '0.5',
+  version: '0.6',
   description:
     'Month “gyeok”(透干/会支) ten-god → gyeokguk baseline with quality multiplier (清濁/破格). Includes optional high-level pattern keys (化气/专旺) as continuous signals.',
   rules: [
@@ -47,32 +62,12 @@ export const DEFAULT_GYEOKGUK_RULESET: RuleSet = {
       id: 'GYEOK_HUA_QI',
       when: {
         op: 'gte',
-        args: [
-          {
-            op: 'if',
-            args: [
-              { op: 'gt', args: [{ var: 'patterns.transformations.best.huaqiFactor' }, 0] },
-              { var: 'patterns.transformations.best.huaqiFactor' },
-              { var: 'patterns.transformations.best.effectiveFactor' },
-            ],
-          },
-          0.6,
-        ],
+        args: [huaqiFactorExpr(), 0.6],
       },
       score: {
         'gyeokguk.HUA_QI': {
           op: 'mul',
-          args: [
-            {
-              op: 'if',
-              args: [
-                { op: 'gt', args: [{ var: 'patterns.transformations.best.huaqiFactor' }, 0] },
-                { var: 'patterns.transformations.best.huaqiFactor' },
-                { var: 'patterns.transformations.best.effectiveFactor' },
-              ],
-            },
-            0.85,
-          ],
+          args: [huaqiFactorExpr(), 0.85],
         },
       },
       explain: '합화(化气) 신호가 강하면 “화기격” 후보를 가산(연속값 factor×0.85)',
@@ -83,24 +78,14 @@ export const DEFAULT_GYEOKGUK_RULESET: RuleSet = {
       when: {
         op: 'and',
         args: [
-          { op: 'gte', args: [{ var: 'patterns.elements.oneElement.factor' }, 0.62] },
+          { op: 'gte', args: [zhuanwangFactorExpr(), 0.62] },
           { op: 'gte', args: [{ var: 'strength.index' }, 0] },
         ],
       },
       score: {
         'gyeokguk.ZHUAN_WANG': {
           op: 'mul',
-          args: [
-            {
-              op: 'if',
-              args: [
-                { op: 'gt', args: [{ var: 'patterns.elements.oneElement.zhuanwangFactor' }, 0] },
-                { var: 'patterns.elements.oneElement.zhuanwangFactor' },
-                { var: 'patterns.elements.oneElement.factor' },
-              ],
-            },
-            0.85,
-          ],
+          args: [zhuanwangFactorExpr(), 0.85],
         },
       },
       explain: '일행득기/专旺(편중) 신호 + 신강(>=0)일 때 “专旺格” 후보를 가산(가능하면 zhuanwangFactor×0.85, 없으면 factor×0.85)',

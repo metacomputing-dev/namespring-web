@@ -22,6 +22,7 @@ const DSL_ARITY: Readonly<Record<string, { min: number; max: number }>> = {
   and: { min: 1, max: Number.POSITIVE_INFINITY },
   or: { min: 1, max: Number.POSITIVE_INFINITY },
   not: { min: 1, max: 1 },
+  isFiniteNumber: { min: 1, max: 1 },
   eq: { min: 2, max: 2 },
   ne: { min: 2, max: 2 },
   lt: { min: 2, max: 2 },
@@ -412,6 +413,10 @@ function assertOperator(
       }
       return;
     case 'not':
+      assertOperatorResult(context, 'boolean', target, path);
+      assertPredicateExpr(args[0], target, `${path}.args[0]`);
+      return;
+    case 'isFiniteNumber':
       assertOperatorResult(context, 'boolean', target, path);
       assertPredicateExpr(args[0], target, `${path}.args[0]`);
       return;

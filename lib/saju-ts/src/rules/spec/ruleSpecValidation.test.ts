@@ -439,6 +439,7 @@ describe('known rule-spec runtime validation', () => {
       and: [true],
       or: [false],
       not: [true],
+      isFiniteNumber: [{ var: 'facts.value' }],
       eq: [1, 1],
       ne: [1, 2],
       lt: [1, 2],

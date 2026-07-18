@@ -4,6 +4,7 @@ import { evalRuleSet } from './dsl.js';
 import { DEFAULT_GYEOKGUK_RULESET } from './defaultRuleSets.js';
 import { compileGyeokgukRuleSpec } from './spec/compileGyeokgukSpec.js';
 import type { DayMasterRole, RuleFacts } from './facts.js';
+import { firstFiniteSignal } from './finiteSignal.js';
 import { strengthDecisionComponents } from './strengthComponents.js';
 import { compete, renormalizeScale } from '../core/competition.js';
 
@@ -474,28 +475,19 @@ function readTransformSignal(facts: RuleFacts, selector: TransformSignalSelector
   const raw = b?.factor;
 
   if (selector === 'raw') {
-    if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) return clamp01(raw);
-    return 0;
+    return clamp01(firstFiniteSignal(raw) ?? 0);
   }
 
   if (selector === 'effective') {
-    if (typeof eff === 'number' && Number.isFinite(eff) && eff > 0) return clamp01(eff);
-    if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) return clamp01(raw);
-    return 0;
+    return clamp01(firstFiniteSignal(eff, raw) ?? 0);
   }
 
   if (selector === 'huaqi') {
-    if (typeof huaqi === 'number' && Number.isFinite(huaqi) && huaqi > 0) return clamp01(huaqi);
-    if (typeof eff === 'number' && Number.isFinite(eff) && eff > 0) return clamp01(eff);
-    if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) return clamp01(raw);
-    return 0;
+    return clamp01(firstFiniteSignal(huaqi, eff, raw) ?? 0);
   }
 
   // auto: huaqiFactor → effectiveFactor → factor
-  if (typeof huaqi === 'number' && Number.isFinite(huaqi) && huaqi > 0) return clamp01(huaqi);
-  if (typeof eff === 'number' && Number.isFinite(eff) && eff > 0) return clamp01(eff);
-  if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) return clamp01(raw);
-  return 0;
+  return clamp01(firstFiniteSignal(huaqi, eff, raw) ?? 0);
 }
 
 function readOneElementSignal(facts: RuleFacts, selector: OneElementSignalSelector = 'auto'): number {
@@ -505,20 +497,15 @@ function readOneElementSignal(facts: RuleFacts, selector: OneElementSignalSelect
   const raw = oe?.factor;
 
   if (selector === 'raw') {
-    if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) return clamp01(raw);
-    return 0;
+    return clamp01(firstFiniteSignal(raw) ?? 0);
   }
 
   if (selector === 'zhuanwang') {
-    if (typeof zw === 'number' && Number.isFinite(zw) && zw > 0) return clamp01(zw);
-    if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) return clamp01(raw);
-    return 0;
+    return clamp01(firstFiniteSignal(zw, raw) ?? 0);
   }
 
   // auto: zhuanwangFactor → factor
-  if (typeof zw === 'number' && Number.isFinite(zw) && zw > 0) return clamp01(zw);
-  if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) return clamp01(raw);
-  return 0;
+  return clamp01(firstFiniteSignal(zw, raw) ?? 0);
 }
 
 function readFollowSignal(facts: RuleFacts, selector: FollowSignalSelector = 'auto'): number {
@@ -529,28 +516,19 @@ function readFollowSignal(facts: RuleFacts, selector: FollowSignalSelector = 'au
   const raw = f?.potentialRaw;
 
   if (selector === 'raw') {
-    if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) return clamp01(raw);
-    return 0;
+    return clamp01(firstFiniteSignal(raw) ?? 0);
   }
 
   if (selector === 'potential') {
-    if (typeof pot === 'number' && Number.isFinite(pot) && pot > 0) return clamp01(pot);
-    if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) return clamp01(raw);
-    return 0;
+    return clamp01(firstFiniteSignal(pot, raw) ?? 0);
   }
 
   if (selector === 'jonggyeok') {
-    if (typeof jong === 'number' && Number.isFinite(jong) && jong > 0) return clamp01(jong);
-    if (typeof pot === 'number' && Number.isFinite(pot) && pot > 0) return clamp01(pot);
-    if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) return clamp01(raw);
-    return 0;
+    return clamp01(firstFiniteSignal(jong, pot, raw) ?? 0);
   }
 
   // auto: jonggyeokFactor → potential → potentialRaw
-  if (typeof jong === 'number' && Number.isFinite(jong) && jong > 0) return clamp01(jong);
-  if (typeof pot === 'number' && Number.isFinite(pot) && pot > 0) return clamp01(pot);
-  if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) return clamp01(raw);
-  return 0;
+  return clamp01(firstFiniteSignal(jong, pot, raw) ?? 0);
 }
 
 function readTenGodSignal(facts: RuleFacts, selector: TenGodSignalSelector | number = 'monthQuality'): number {

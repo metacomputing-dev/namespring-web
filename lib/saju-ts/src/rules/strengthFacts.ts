@@ -21,6 +21,10 @@ function clamp01(value: number): number {
   return Math.max(0, Math.min(1, value));
 }
 
+function normalizePositiveContribution(score: number, norm: number): number {
+  return norm > 0 ? clamp01(score / norm) : 0;
+}
+
 export interface StrengthFacts {
   /** [-1, +1] where negative = weak, positive = strong (in this model). */
   index: number;
@@ -536,7 +540,7 @@ function computeOfficerBindPenalty(args: {
     binds.push({ pos: s0.pos, stem: s0.stem, tenGod, factor, reduction: entryReduction });
   }
 
-  const normalized = clamp01(score / Math.max(1e-9, args.norm));
+  const normalized = normalizePositiveContribution(score, args.norm);
   return {
     score,
     normalized,
@@ -689,7 +693,7 @@ export function computeStrengthFacts(args: {
     if (![same, res, diScore].every(Number.isFinite)) {
       throw new RangeError('life-stage root multipliers produced a non-finite strength score');
     }
-    const diNormed = clamp01(diScore / Math.max(1e-9, rootNorm));
+    const diNormed = normalizePositiveContribution(diScore, rootNorm);
     const diFactor = diNormed * diScale;
 
     // 得势/透干: supportive stems on heaven (year/month/hour; excluding day stem)
@@ -711,7 +715,7 @@ export function computeStrengthFacts(args: {
       if (generates(el, dmEl)) shiRes += s0.w * bindF;
     }
     const shiScore = Math.max(0, shiSame + shiResAlpha * shiRes);
-    const shiNormed = clamp01(shiScore / Math.max(1e-9, shiNorm));
+    const shiNormed = normalizePositiveContribution(shiScore, shiNorm);
     const shiFactor = shiNormed * shiScale;
 
     // PR-5 (감사 B448): 회국(삼합/방합/반합) 보정 — 별도 4번째 항.
