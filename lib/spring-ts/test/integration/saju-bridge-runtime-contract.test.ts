@@ -1,9 +1,11 @@
 import {
+  assertLegacySajuPresetCode,
   assertLegacySajuOutputV1Contract,
   assertSajuModuleContract,
   assertSajuNaeumCapability,
   assertSajuPalaceCapability,
   SajuBridgeContractMismatchError,
+  LEGACY_SAJU_PRESET_CODES,
 } from '../../src/saju-bridge-contract.js';
 import { extractSaju } from '../../src/saju-adapter.js';
 import { createLegacySajuOutputFixture } from '../helpers/legacy-saju-output.js';
@@ -51,6 +53,25 @@ const LEGACY_TEN_GOD_ALIAS: Readonly<Record<string, string>> = {
 };
 
 console.log('Saju bridge runtime contract\n');
+
+check(
+  'consumer bridge publishes the complete legacy preset vocabulary',
+  JSON.stringify(LEGACY_SAJU_PRESET_CODES) === JSON.stringify([
+    'KOREAN_MAINSTREAM',
+    'TRADITIONAL_CHINESE',
+    'MODERN_INTEGRATED',
+  ]),
+);
+for (const presetCode of LEGACY_SAJU_PRESET_CODES) {
+  assertLegacySajuPresetCode(presetCode);
+}
+check('all published legacy preset codes satisfy the bridge contract', true);
+for (const invalidPresetCode of ['KOREAN_MAINSTREM', '', ' korean_mainstream ', null, 123]) {
+  check(
+    `invalid legacy preset code fails as a bridge contract mismatch: ${JSON.stringify(invalidPresetCode)}`,
+    rejectsContract(() => assertLegacySajuPresetCode(invalidPresetCode)),
+  );
+}
 
 const modulePath = '../../../saju-ts/dist/index.js';
 const actualModule: unknown = await import(modulePath);

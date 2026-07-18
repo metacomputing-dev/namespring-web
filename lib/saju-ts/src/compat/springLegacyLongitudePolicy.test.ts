@@ -4,6 +4,7 @@ import {
   analyzeSaju,
   configFromPreset,
   createBirthInput,
+  UnknownLegacySajuPresetError,
   type LegacySajuConfig,
 } from './springLegacy.js';
 
@@ -94,6 +95,64 @@ const CIVIL_CASES: readonly LocationCase[] = [
 ];
 
 describe('legacy bridge longitude policy', () => {
+  it('preserves all valid preset configs including trim and case normalization', () => {
+    expect(configFromPreset('KOREAN_MAINSTREAM')).toEqual({
+      dayCutMode: 'YAZA_23_TO_01_NEXTDAY',
+      includeEquationOfTime: false,
+      lmtBaselineLongitude: 135,
+    });
+    expect(configFromPreset(' traditional_chinese ')).toEqual({
+      dayCutMode: 'YAZA_23_30_TO_01_30_NEXTDAY',
+      includeEquationOfTime: false,
+      lmtBaselineLongitude: 120,
+    });
+    expect(configFromPreset('modern_integrated')).toEqual({
+      dayCutMode: 'JOJA_SPLIT',
+      includeEquationOfTime: true,
+      lmtBaselineLongitude: 135,
+    });
+  });
+
+  it.each([
+    'KOREAN_MAINSTREM',
+    '',
+    '   ',
+    null,
+    123,
+  ])('rejects an explicit unknown preset without poisoning later calls: %j', (preset) => {
+    expect(() => configFromPreset(preset as never)).toThrow(
+      UnknownLegacySajuPresetError,
+    );
+    try {
+      configFromPreset(preset as never);
+    } catch (error) {
+      expect(error).toMatchObject({
+        name: 'UnknownLegacySajuPresetError',
+        code: 'SAJU_UNKNOWN_SCHOOL_PRESET',
+      });
+    }
+    expect(configFromPreset('KOREAN_MAINSTREAM').lmtBaselineLongitude).toBe(135);
+  });
+
+  it('does not retain or expose the rejected preset value', () => {
+    const rejectedValue = 'tenant-secret-preset';
+    let caught: unknown = null;
+    try {
+      configFromPreset(rejectedValue);
+    } catch (error) {
+      caught = error;
+    }
+    expect(caught).toBeInstanceOf(UnknownLegacySajuPresetError);
+    const presetError = caught as UnknownLegacySajuPresetError;
+    expect(Object.isFrozen(presetError)).toBe(true);
+    expect(JSON.stringify(presetError)).not.toContain(rejectedValue);
+    expect(Object.prototype.hasOwnProperty.call(presetError, 'presetCode')).toBe(false);
+    expect(() => {
+      (presetError as { code: string }).code = 'POISONED';
+    }).toThrow();
+    expect(presetError.code).toBe('SAJU_UNKNOWN_SCHOOL_PRESET');
+  });
+
   it.each(CIVIL_CASES)(
     'uses the birth instant civil-offset meridian for $label',
     (location) => {

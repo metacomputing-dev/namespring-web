@@ -33,6 +33,7 @@ import { SajuCalculator } from './saju-calculator.js';
 import type { SajuEvaluatorHints } from './saju-calculator.js';
 import {
   resolveSchoolPresetMetadata,
+  resolveSchoolPresetName,
   type SchoolPresetMetadata,
   type SchoolPresetName,
 } from './preset-loader.js';
@@ -839,6 +840,10 @@ export class SpringEngine {
     );
   }
 
+  private assertSchoolPresetSelection(options?: SpringRequest['options']): void {
+    resolveSchoolPresetName(options?.schoolPreset);
+  }
+
   /** PR-Q-24 K-4 + K-5 full wire — resolve hangul signal cap.
    *  Per spec spring-info/09_finalization/05_pure_hangul_schema_wireup.md §1.2
    *  학파별 의도 매트릭스. Cap 의 우선순위:
@@ -1247,6 +1252,7 @@ export class SpringEngine {
 
   async getNamingReport(request: SpringRequest): Promise<NamingReport> {
     request = snapshotSpringRequest(request);
+    this.assertSchoolPresetSelection(request.options);
     const operation = this.beginOperation('getNamingReport');
     this.assertRequestNameSyntax(request, false, true, true);
     await this.awaitOperationStep(operation, () => this.init());
@@ -1335,6 +1341,7 @@ export class SpringEngine {
 
   async getSajuReport(request: SpringRequest): Promise<SajuReport> {
     request = snapshotSpringRequest(request);
+    this.assertSchoolPresetSelection(request.options);
     const operation = this.beginOperation('getSajuReport');
     const { summary, sajuEnabled } = await this.awaitOperationStep(
       operation,
@@ -1352,6 +1359,7 @@ export class SpringEngine {
     sajuReportOverride?: SajuReport,
   ): Promise<SpringReport> {
     const stableRequest = snapshotSpringRequest(request);
+    this.assertSchoolPresetSelection(stableRequest.options);
     validateSajuConfigFortunePolicy(stableRequest.options?.sajuConfig);
     const stableOverride = sajuReportOverride === undefined
       ? undefined
@@ -1675,6 +1683,7 @@ export class SpringEngine {
 
   async getNameCandidates(request: SpringRequest): Promise<SpringReport[]> {
     request = snapshotSpringRequest(request);
+    this.assertSchoolPresetSelection(request.options);
     validateSajuConfigFortunePolicy(request.options?.sajuConfig);
     const operation = this.beginOperation('getNameCandidates');
     this.assertRequestNameSyntax(request, true);
@@ -1799,6 +1808,7 @@ export class SpringEngine {
 
   async getNameCandidateSummaries(request: SpringRequest): Promise<SpringCandidateSummary[]> {
     request = snapshotSpringRequest(request);
+    this.assertSchoolPresetSelection(request.options);
     validateSajuConfigFortunePolicy(request.options?.sajuConfig);
     const operation = this.beginOperation('getNameCandidateSummaries');
     this.assertRequestNameSyntax(request, true);
@@ -2025,6 +2035,7 @@ export class SpringEngine {
 
   async analyze(request: SpringRequest): Promise<SpringResponse> {
     request = snapshotSpringRequest(request);
+    this.assertSchoolPresetSelection(request.options);
     validateSajuConfigFortunePolicy(request.options?.sajuConfig);
     const operation = this.beginOperation('analyze');
     this.assertRequestNameSyntax(request, true);
@@ -2920,6 +2931,7 @@ export class SpringEngine {
 
   async getFortuneReport(request: FortuneReportRequest): Promise<FortuneReport> {
     request = snapshotFortuneReportRequest(request);
+    this.assertSchoolPresetSelection(request.options);
     const operation = this.beginOperation('getFortuneReport');
     // 1. Reject malformed or unbounded horizons before database or astronomy work.
     const birthYear = request.birth.year;

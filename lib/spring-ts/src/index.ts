@@ -226,6 +226,7 @@ export {
 export { buildNamingExplanation, selectNamingPhraseMode } from './naming-explanation.js';
 export {
   SCHOOL_PRESET_ORDER,
+  UnknownSpringSchoolPresetError,
   isSchoolPresetName,
   loadPreset,
   resolveSchoolPresetMetadata,

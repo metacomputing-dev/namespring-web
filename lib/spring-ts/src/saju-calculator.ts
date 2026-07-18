@@ -74,7 +74,12 @@ import {
 // ---------------------------------------------------------------------------
 import scoringConfig from '../config/saju-scoring.json';
 import scoringRules from '../config/scoring-rules.json';
-import { loadPreset, type SchoolPresetData, type SchoolPresetName } from './preset-loader.js';
+import {
+  loadPreset,
+  resolveSchoolPresetName,
+  type SchoolPresetData,
+  type SchoolPresetName,
+} from './preset-loader.js';
 
 /** Backward-signal weight for the SAJU_FRAME — default 1.0, externalized so
  *  schoolPreset (PR4) can re-balance saju vs name signal without code change. */
@@ -1453,10 +1458,11 @@ export class SajuCalculator implements EvaluableCalculator {
       readonly evaluatorHints?: SajuEvaluatorHints;
     } = {},
   ) {
+    const schoolPreset = resolveSchoolPresetName(options.schoolPreset);
     this.elementSource = options.elementSource ?? 'resource';
     this.enabled = options.enabled ?? true;
     this.presetData = options.useSchoolPreset === true
-      ? loadPreset(options.schoolPreset)
+      ? loadPreset(schoolPreset)
       : null;
     this.scoringOverrides = options.scoringOverrides;
     this.evaluatorHints = options.evaluatorHints;

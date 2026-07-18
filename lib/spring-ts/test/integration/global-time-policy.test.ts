@@ -112,6 +112,43 @@ await expectCorrection(
   },
 );
 
+const chineseLegacyBoundary = await analyze(
+  { ...modernSeoul, hour: 11, minute: 15 },
+  {
+    schoolPreset: 'chinese',
+    sajuTimePolicy: {
+      ...CIVIL_LONGITUDE_POLICY.sajuTimePolicy,
+      longitudeReference: 'legacyPreset',
+    },
+  },
+);
+assert.equal(chineseLegacyBoundary.sajuEnabled, true);
+assert.equal(
+  near(
+    Number(chineseLegacyBoundary.summary.timeCorrection.longitudeCorrectionMinutes),
+    27.912,
+  ),
+  true,
+);
+assert.equal(chineseLegacyBoundary.summary.pillars.hour.stem.hanja, '戊');
+assert.equal(chineseLegacyBoundary.summary.pillars.hour.branch.hanja, '午');
+
+const typoAtChineseBoundary = await analyze(
+  { ...modernSeoul, hour: 11, minute: 15 },
+  {
+    schoolPreset: 'chinesee',
+    sajuTimePolicy: {
+      ...CIVIL_LONGITUDE_POLICY.sajuTimePolicy,
+      longitudeReference: 'legacyPreset',
+    },
+  } as any,
+);
+assert.equal(typoAtChineseBoundary.sajuEnabled, false);
+assert.equal(
+  typoAtChineseBoundary.diagnostics?.[0]?.reasonCode,
+  'SAJU_UNKNOWN_SCHOOL_PRESET',
+);
+
 const RAW_TIME_OFF_OVERRIDE = {
   trueSolarTimeEnabled: false,
   includeEquationOfTime: false,

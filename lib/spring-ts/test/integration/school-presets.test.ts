@@ -38,9 +38,11 @@ const originalFetch = globalThis.fetch;
 import {
   SCHOOL_PRESET_ORDER,
   SpringEngine,
+  UnknownSpringSchoolPresetError,
   isSchoolPresetName,
   loadPreset,
   resolveSchoolPresetMetadata,
+  resolveSchoolPresetName,
 } from '../../src/index.js';
 
 const birth = { year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male' as const };
@@ -82,6 +84,71 @@ function check(label: string, cond: boolean, evidence?: string): void {
     console.log(`  FAIL ${label}${evidence ? ` (${evidence})` : ''}`);
   }
 }
+
+check(
+  'only an omitted preset selects the Korean default',
+  resolveSchoolPresetName(undefined) === 'korean',
+);
+check(
+  'all published preset names resolve without substitution',
+  SCHOOL_PRESET_ORDER.every((preset) => resolveSchoolPresetName(preset) === preset),
+  SCHOOL_PRESET_ORDER.join(','),
+);
+check(
+  'metadata distinguishes an omitted default from an explicit Korean request',
+  resolveSchoolPresetMetadata(undefined, false).source === 'default'
+    && resolveSchoolPresetMetadata('korean', false).source === 'request',
+);
+
+for (const invalidPreset of ['chinesee', '', null, 123, {}]) {
+  let resolverError: unknown = null;
+  let loaderError: unknown = null;
+  let metadataError: unknown = null;
+  try {
+    resolveSchoolPresetName(invalidPreset);
+  } catch (error) {
+    resolverError = error;
+  }
+  try {
+    loadPreset(invalidPreset as never);
+  } catch (error) {
+    loaderError = error;
+  }
+  try {
+    resolveSchoolPresetMetadata(invalidPreset, false);
+  } catch (error) {
+    metadataError = error;
+  }
+  check(
+    `explicit invalid preset fails closed across resolver, loader, and inactive metadata: ${JSON.stringify(invalidPreset)}`,
+    [resolverError, loaderError, metadataError].every((error) =>
+      error instanceof UnknownSpringSchoolPresetError
+        && error.code === 'SAJU_UNKNOWN_SCHOOL_PRESET'),
+  );
+}
+
+const privateRejectedValue = 'tenant-secret-preset';
+let privatePresetError: unknown = null;
+try {
+  resolveSchoolPresetName(privateRejectedValue);
+} catch (error) {
+  privatePresetError = error;
+}
+let privatePresetMutationRejected = false;
+try {
+  (privatePresetError as { code: string }).code = 'POISONED';
+} catch {
+  privatePresetMutationRejected = true;
+}
+check(
+  'preset errors are immutable and do not retain rejected caller input',
+  privatePresetError instanceof UnknownSpringSchoolPresetError
+    && Object.isFrozen(privatePresetError)
+    && privatePresetMutationRejected
+    && privatePresetError.code === 'SAJU_UNKNOWN_SCHOOL_PRESET'
+    && !Object.prototype.hasOwnProperty.call(privatePresetError, 'presetName')
+    && !JSON.stringify(privatePresetError).includes(privateRejectedValue),
+);
 
 const presetBeforeMutation = loadPreset('korean');
 const originalEokbuWeight = presetBeforeMutation.yongshinTypeWeights.EOKBU;

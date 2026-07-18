@@ -216,6 +216,13 @@ export type SajuModule = {
 };
 
 export const SAJU_BRIDGE_SCHEMA_VERSION = 'saju-legacy.v1' as const;
+export const LEGACY_SAJU_PRESET_CODES = Object.freeze([
+  'KOREAN_MAINSTREAM',
+  'TRADITIONAL_CHINESE',
+  'MODERN_INTEGRATED',
+] as const);
+export type LegacySajuPresetCode = (typeof LEGACY_SAJU_PRESET_CODES)[number];
+const LEGACY_SAJU_PRESET_CODE_SET = new Set<string>(LEGACY_SAJU_PRESET_CODES);
 
 export class SajuBridgeContractMismatchError extends Error {
   readonly code = 'SAJU_BRIDGE_CONTRACT_MISMATCH';
@@ -313,6 +320,15 @@ function isRecord(value: unknown): value is UnknownRecord {
 
 function mismatch(issue: string): never {
   throw new SajuBridgeContractMismatchError(issue);
+}
+
+export function assertLegacySajuPresetCode(
+  value: unknown,
+  path = 'legacy saju preset code',
+): asserts value is LegacySajuPresetCode {
+  if (typeof value !== 'string' || !LEGACY_SAJU_PRESET_CODE_SET.has(value)) {
+    mismatch(`${path} must be one of ${LEGACY_SAJU_PRESET_CODES.join(', ')}`);
+  }
 }
 
 function assertFiniteNumber(value: unknown, path: string): void {

@@ -18,6 +18,7 @@
  *      (or: npx tsx test/integration/saju-calculator-disabled.test.ts)
  */
 import { SajuCalculator } from '../../src/saju-calculator.js';
+import { UnknownSpringSchoolPresetError } from '../../src/preset-loader.js';
 import { SAJU_FRAME } from '../../src/spring-evaluator.js';
 import type { EvalContext } from '../../src/core/evaluator.js';
 
@@ -34,6 +35,28 @@ function check(label: string, cond: boolean): void {
 }
 
 const emptyDistribution = { Wood: 0, Fire: 0, Earth: 0, Metal: 0, Water: 0 } as const;
+
+let invalidInactivePresetError: unknown = null;
+try {
+  new SajuCalculator(
+    [],
+    [],
+    emptyDistribution,
+    null,
+    {
+      enabled: false,
+      useSchoolPreset: false,
+      schoolPreset: 'chinesee' as never,
+    },
+  );
+} catch (error) {
+  invalidInactivePresetError = error;
+}
+check(
+  'direct constructor rejects an invalid preset even when preset scoring is inactive',
+  invalidInactivePresetError instanceof UnknownSpringSchoolPresetError
+    && invalidInactivePresetError.code === 'SAJU_UNKNOWN_SCHOOL_PRESET',
+);
 
 const calculator = new SajuCalculator(
   [], // surnameEntries
