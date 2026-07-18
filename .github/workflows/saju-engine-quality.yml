@@ -24,13 +24,25 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
           cache: npm
           cache-dependency-path: |
             namespring/package-lock.json
             lib/saju-ts/package-lock.json
             lib/seed-ts/package-lock.json
             lib/spring-ts/package-lock.json
+
+      - name: Setup Java for Firestore emulator
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Cache Firestore emulator binary
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/firebase/emulators
+          key: firestore-emulator-${{ runner.os }}-${{ hashFiles('namespring/package-lock.json') }}
 
       - name: Install saju engine dependencies
         working-directory: lib/saju-ts
@@ -47,6 +59,17 @@ jobs:
       - name: Install application dependencies
         working-directory: namespring
         run: npm ci
+
+      - name: Verify backend API contracts
+        working-directory: namespring
+        run: |
+          npm run typecheck:backend
+          npm run test:backend-contracts
+          npm run audit:production
+
+      - name: Verify durable maintenance with Firestore emulator
+        working-directory: namespring
+        run: npm run test:emulator:maintenance
 
       - name: Verify Seed repository contracts
         working-directory: lib/seed-ts
@@ -100,7 +123,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
           cache: npm
           cache-dependency-path: |
             lib/saju-ts/package-lock.json

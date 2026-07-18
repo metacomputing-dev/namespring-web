@@ -1,7 +1,53 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "vite",
   "buildCommand": "npm run build:vercel",
   "outputDirectory": "dist",
+  "functions": {
+    "api/v1/premium/reports/register.ts": {
+      "includeFiles": "{public/data/{hanja.db,fourframe.db},../lib/seed-ts/assets/sql-wasm-1.14.1.wasm,../lib/spring-ts/data/name-stat/name-stat-summary.v1.bin}",
+      "maxDuration": 30
+    },
+    "api/v1/premium/admin/reconcile-leases.ts": {
+      "maxDuration": 60
+    },
+    "api/v1/content/admin/export-local-manifest.ts": {
+      "maxDuration": 300
+    },
+    "api/v1/content/admin/export-local-bundle.ts": {
+      "maxDuration": 300
+    },
+    "api/internal/maintenance/sync.ts": {
+      "maxDuration": 60
+    },
+    "api/internal/maintenance/auth.ts": {
+      "maxDuration": 60
+    },
+    "api/internal/maintenance/premium.ts": {
+      "maxDuration": 60
+    },
+    "api/internal/maintenance/premium-expiry.ts": {
+      "maxDuration": 60
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/internal/maintenance/sync",
+      "schedule": "17 * * * *"
+    },
+    {
+      "path": "/api/internal/maintenance/auth",
+      "schedule": "*/5 * * * *"
+    },
+    {
+      "path": "/api/internal/maintenance/premium",
+      "schedule": "*/2 * * * *"
+    },
+    {
+      "path": "/api/internal/maintenance/premium-expiry",
+      "schedule": "7,22,37,52 * * * *"
+    }
+  ],
   "rewrites": [
     {
       "source": "/support",
