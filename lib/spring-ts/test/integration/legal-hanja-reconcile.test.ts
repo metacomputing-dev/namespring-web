@@ -1,11 +1,10 @@
 /**
- * test/integration/legal-hanja-reconcile.test.ts
- *
- * Verifies Phase 2 PR-2.1 legal-Hanja reconciliation metadata and status
- * buckets without initializing SpringEngine.
+ * Verifies that legal-Hanja claims are bound to the official court lookup,
+ * including exact raw glyphs and designated Hangul readings.
  *
  * Run: npm run test:legal-hanja
  */
+import { createHash } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -21,8 +20,8 @@ const SPRING_TS_ROOT = path.resolve(__dirname, '../..');
 let pass = 0;
 let fail = 0;
 
-function check(label: string, cond: boolean, evidence?: string): void {
-  if (cond) {
+function check(label: string, condition: boolean, evidence?: string): void {
+  if (condition) {
     pass += 1;
     console.log(`  PASS ${label}${evidence ? ` (${evidence})` : ''}`);
   } else {
@@ -32,7 +31,15 @@ function check(label: string, cond: boolean, evidence?: string): void {
 }
 
 function readJson<T = any>(relativePath: string): T {
-  return JSON.parse(fs.readFileSync(path.join(SPRING_TS_ROOT, relativePath), 'utf-8')) as T;
+  return JSON.parse(fs.readFileSync(path.join(SPRING_TS_ROOT, relativePath), 'utf8')) as T;
+}
+
+function sha256(value: string): string {
+  return createHash('sha256').update(value).digest('hex');
+}
+
+function compareCodeUnits(left: string, right: string): number {
+  return left < right ? -1 : left > right ? 1 : 0;
 }
 
 function entry(hangul: string, hanja: string): any {
@@ -51,31 +58,52 @@ function entry(hangul: string, hanja: string): any {
   };
 }
 
-console.log('Phase 2 legal-Hanja reconciliation\n');
+console.log('Official legal-Hanja reconciliation\n');
 
 const full = readJson('data/inmyeongyong_9389_full.json');
-const variants = readJson('data/byeolpyo2_variants.json');
+const aliases = readJson('data/byeolpyo2_variants.json');
 const sources = readJson('data/sources/legal-hanja.sources.json');
 const reconciliation = readJson('data/legal-hanja-reconciliation.json');
+const receipt = readJson('data/official-hanja-lookup-authority.generated.json');
 const unihanMetadata = readJson('data/unihan-hanja-metadata.json');
 
-const fullEntries: Array<{ hanja: string; codepoint: string; readings: string[]; meaning: string | null; radicalId: number | null; strokeCount: number | null }> = full.entries;
-const fullSet = new Set(fullEntries.map((e) => e.hanja));
-const variantToOrthodox: Record<string, string> = variants.variantToOrthodox;
-const unihanEntries: any[] = unihanMetadata.entries ?? [];
-const unihanByHanja = new Map(unihanEntries.map((item: any) => [item.hanja, item]));
+const fullEntries: Array<{
+  hanja: string;
+  codepoint: string;
+  readings: string[];
+  meaning: string | null;
+  radicalId: number | null;
+  strokeCount: number | null;
+}> = full.entries;
+const canonicalEntries = [...fullEntries]
+  .sort((left, right) => left.hanja.codePointAt(0)! - right.hanja.codePointAt(0)!)
+  .map((item) => [item.hanja, [...item.readings].sort(compareCodeUnits)] as const);
+const glyphs = canonicalEntries.map(([glyph]) => glyph).join('');
+const pairPayload = JSON.stringify(canonicalEntries);
+const pairCount = canonicalEntries.reduce((sum, [, readings]) => sum + readings.length, 0);
+const fullSet = new Set(fullEntries.map((item) => item.hanja));
 
-check('full data count matches metadata',
-  fullEntries.length === full.totalCount && full.totalCount === 9495,
-  `entries=${fullEntries.length}, total=${full.totalCount}`);
-check('official count remains visible',
-  full.officialCount === 9389 && reconciliation.officialBasis.announcedAllowedCount === 9389);
-check('mirror delta remains explicit',
-  full.totalCount - full.officialCount === 106 &&
-    reconciliation.candidateMirror.unresolvedDeltaCount === 106);
-check('full data has unique Hanja entries',
-  fullSet.size === fullEntries.length,
-  `unique=${fullSet.size}`);
+check('local snapshot contains 9,495 unique official lookup glyph representations',
+  fullEntries.length === 9495 && fullSet.size === 9495);
+check('local snapshot contains 10,381 non-empty designated-reading pairs',
+  pairCount === 10381,
+  `pairs=${pairCount}`);
+check('glyph digest matches the official lookup receipt',
+  sha256(glyphs) === receipt.lookupSnapshot.glyphsSha256
+    && receipt.lookupSnapshot.glyphsSha256 === reconciliation.officialLookupSnapshot.glyphsSha256);
+check('glyph-reading digest matches the official lookup receipt',
+  sha256(pairPayload) === receipt.lookupSnapshot.glyphReadingPairsSha256
+    && receipt.lookupSnapshot.glyphReadingPairsSha256
+      === reconciliation.officialLookupSnapshot.glyphReadingPairsSha256);
+check('official lookup receipt records zero local differences',
+  receipt.lookupSnapshot.localMirrorGlyphDifferenceCount === 0
+    && receipt.lookupSnapshot.localMirrorGlyphReadingPairDifferenceCount === 0
+    && reconciliation.reconciliation.localGlyphDifferenceCount === 0
+    && reconciliation.reconciliation.localPairDifferenceCount === 0);
+check('9,389 announcement and 9,495 lookup representations remain separate counting layers',
+  receipt.announcedCharacterCount === 9389
+    && receipt.lookupGlyphRepresentationCount === 9495
+    && receipt.lookupRepresentationDelta === 106);
 
 let codepointMismatch = 0;
 let noReading = 0;
@@ -84,91 +112,92 @@ let noRadical = 0;
 for (const item of fullEntries) {
   const expected = `U+${item.hanja.codePointAt(0)!.toString(16).toUpperCase().padStart(5, '0')}`;
   if (item.codepoint !== expected) codepointMismatch += 1;
-  if (!Array.isArray(item.readings) || item.readings.length === 0) noReading += 1;
+  if (item.readings.length === 0) noReading += 1;
   if (item.meaning == null || item.meaning === '') noMeaning += 1;
   if (item.radicalId == null) noRadical += 1;
 }
-check('codepoint metadata round-trips to Hanja',
-  codepointMismatch === 0,
-  `mismatch=${codepointMismatch}`);
-check('fieldStats match recomputed counts',
-  noReading === full.fieldStats.noReading &&
-    noMeaning === full.fieldStats.noMeaning &&
-    noRadical === full.fieldStats.noRadical,
-  `noReading=${noReading}, noMeaning=${noMeaning}, noRadical=${noRadical}`);
+check('codepoint metadata round-trips to each raw glyph', codepointMismatch === 0);
+check('field statistics remain reproducible',
+  noReading === full.fieldStats.noReading
+    && noMeaning === full.fieldStats.noMeaning
+    && noRadical === full.fieldStats.noRadical);
+check('the one glyph without a designated reading remains fail-closed',
+  noReading === 1
+    && fullEntries.find((item) => item.hanja === '𥡴')?.readings.length === 0
+    && getLegalAnnotation(entry('계', '𥡴'), { pool: 'inmyeongyong_full' }).legalStatus === 'notAllowed');
 
-const variantAllowedInPool = fullEntries.filter((item) => {
-  const orthodox = variantToOrthodox[item.hanja];
-  return typeof orthodox === 'string' && orthodox !== item.hanja && fullSet.has(orthodox);
-}).length;
-check('variantAllowed candidate count is reproducible',
-  variantAllowedInPool === reconciliation.variantPolicy.candidateEntriesRecognizedAsVariantAllowed,
-  `variantAllowed=${variantAllowedInPool}`);
-check('candidate mirror status counts cover every local entry',
-  Object.values(reconciliation.candidateMirrorStatusCounts)
-    .reduce((sum: number, count: any) => sum + Number(count), 0) === fullEntries.length);
-check('official reconciliation status counts cover the mirror denominator',
-  Object.values(reconciliation.officialReconciliationStatusCounts)
-    .reduce((sum: number, count: any) => sum + Number(count), 0) === fullEntries.length);
-const unihanVariantLinkCount = unihanEntries
-  .reduce((sum, item) => sum + Object.values(item.variants ?? {})
-    .reduce((innerSum: number, links: any) => innerSum + (Array.isArray(links) ? links.length : 0), 0), 0);
-const unihanRadicalHintCount = unihanEntries
-  .filter((item) => item.radicalElementHint?.sourceTier === 'T3_AUTHORED_INTERPRETATION').length;
-const zeroStrokeResolvedByUnihan = fullEntries
-  .filter((item) => {
-    const localStroke = Number(item.strokeCount);
-    const unihanTotal = Number(unihanByHanja.get(item.hanja)?.totalStrokes);
-    return (!Number.isFinite(localStroke) || localStroke <= 0) && Number.isInteger(unihanTotal) && unihanTotal > 0;
-  }).length;
-check('Unihan enrichment coverage is reproducible',
-  reconciliation.unihanEnrichment?.entriesWithUnihanMetadata === unihanEntries.length &&
-    reconciliation.unihanEnrichment?.localRowsWithoutUnihan === fullEntries.length - unihanEntries.length &&
-    reconciliation.unihanEnrichment?.zeroStrokeResolvedByUnihan === zeroStrokeResolvedByUnihan &&
-    reconciliation.unihanEnrichment?.radicalHintCount === unihanRadicalHintCount &&
-    reconciliation.unihanEnrichment?.variantLinkCount === unihanVariantLinkCount,
-  JSON.stringify({
-    entriesWithUnihanMetadata: unihanEntries.length,
-    localRowsWithoutUnihan: fullEntries.length - unihanEntries.length,
-    zeroStrokeResolvedByUnihan,
-    radicalHintCount: unihanRadicalHintCount,
-    variantLinkCount: unihanVariantLinkCount,
-  }));
+const aliasMap: Record<string, string> = aliases.variantToOrthodox;
+const aliasRows = Object.entries(aliasMap);
+const bothIn = aliasRows.filter(([input, target]) => fullSet.has(input) && fullSet.has(target));
+const selfMappings = aliasRows.filter(([input, target]) => input === target);
+const aliasOnlyOutside = aliasRows.filter(([input, target]) => !fullSet.has(input) && fullSet.has(target));
+check('legacy input aliases are explicitly non-authoritative',
+  aliases.authorityTruthEligible === false
+    && reconciliation.inputAliasPolicy.authorityTruthEligible === false);
+check('input-alias partition is reproducible',
+  aliasRows.length === 112
+    && bothIn.length === 80
+    && selfMappings.length === 1
+    && aliasOnlyOutside.length === 32,
+  JSON.stringify({ total: aliasRows.length, bothIn: bothIn.length, self: selfMappings.length, aliasOnlyOutside: aliasOnlyOutside.length }));
+check('search alias normalization remains available',
+  normalizeToOrthodoxHanja('挿') === '插'
+    && normalizeToOrthodoxHanja('国') === '國');
 
-const sourceRecords = [sources.sourceTier, ...sources.sources.map((s: any) => s.sourceTier)];
-check('legal source registry includes T5 official source records',
-  sourceRecords.filter((s: any) => s?.tier === 'T5_OFFICIAL' && s.authorityTruthEligible === true).length >= 3);
-check('third-party mirror is not authority truth',
-  sourceRecords.some((s: any) => s?.tier === 'T2_REFERENCE_IMPLEMENTATION' && s.authorityTruthEligible === false));
-
-check('normalizeToOrthodoxHanja: 国 -> 國',
-  normalizeToOrthodoxHanja('国') === '國');
-
-const defaultUnknown = getLegalAnnotation(entry('최', '崔'));
-check('curated default keeps non-seed Hanja unknown',
-  defaultUnknown.legalRegistrable === undefined && defaultUnknown.legalStatus === 'unknown');
-
+const defaultOfficial = getLegalAnnotation(entry('최', '崔'));
+check('curated candidate breadth does not weaken official legal authority',
+  defaultOfficial.legalRegistrable === true && defaultOfficial.legalStatus === 'allowed');
 const seedAllowed = getLegalAnnotation(entry('가', '佳'));
-check('curated seed Hanja is allowed',
-  seedAllowed.legalRegistrable === true && seedAllowed.legalStatus === 'allowed');
+check('curated seed requires the exact official reading',
+  seedAllowed.legalRegistrable === true
+    && seedAllowed.legalStatus === 'allowed'
+    && getLegalAnnotation(entry('나', '佳')).legalStatus === 'notAllowed');
+check('curated mode rejects an off-list input alias just like full mode',
+  getLegalAnnotation(entry('삽', '挿')).legalStatus === 'notAllowed');
 
-const fullAllowed = getLegalAnnotation(entry('최', '崔'), { pool: 'inmyeongyong_full' });
-check('full pool recognizes orthodox legal Hanja',
-  fullAllowed.legalRegistrable === true && fullAllowed.legalStatus === 'allowed');
+for (const legalCase of [
+  ['국', '国'],
+  ['국', '國'],
+  ['삽', '插'],
+  ['삽', '揷'],
+  ['앵', '櫻'],
+] as const) {
+  const annotation = getLegalAnnotation(entry(...legalCase), { pool: 'inmyeongyong_full' });
+  check(`official raw pair ${legalCase.join('/')} is allowed`,
+    annotation.legalRegistrable === true
+      && annotation.legalStatus === 'allowed'
+      && annotation.isVariantOf === undefined);
+}
 
-const fullVariant = getLegalAnnotation(entry('국', '国'), { pool: 'inmyeongyong_full' });
-check('full pool recognizes legal variants',
-  fullVariant.legalRegistrable === true &&
-    fullVariant.legalStatus === 'variantAllowed' &&
-    fullVariant.isVariantOf === '國');
+for (const illegalCase of [
+  ['삽', '挿'],
+  ['앵', '桜'],
+  ['삽', '國'],
+] as const) {
+  const annotation = getLegalAnnotation(entry(...illegalCase), { pool: 'inmyeongyong_full' });
+  check(`non-authority raw pair ${illegalCase.join('/')} is rejected`,
+    annotation.legalRegistrable === false
+      && annotation.legalStatus === 'notAllowed'
+      && annotation.isVariantOf === undefined);
+}
+check('input aliases never synthesize variantAllowed',
+  aliasRows.every(([input]) => getLegalAnnotation(
+    entry(fullEntries.find((item) => item.hanja === input)?.readings[0] ?? '가', input),
+    { pool: 'inmyeongyong_full' },
+  ).legalStatus !== 'variantAllowed'));
 
-const fullRejected = getLegalAnnotation(entry('답', '龘'), { pool: 'inmyeongyong_full' });
-check('full pool marks non-list Hanja notAllowed',
-  fullRejected.legalRegistrable === false && fullRejected.legalStatus === 'notAllowed');
-
-const hangulOnly = getLegalAnnotation(entry('수', ''));
-check('blank Hanja is hangulOnly',
-  hangulOnly.legalRegistrable === undefined && hangulOnly.legalStatus === 'hangulOnly');
+const sourceRecords = [sources.sourceTier, ...sources.sources.map((source: any) => source.sourceTier)];
+check('source registry includes the authority-eligible official lookup',
+  sources.sources.some((source: any) => source.id === 'efamily_official_hanja_lookup_2026_07_18'
+    && source.sourceTier?.tier === 'T5_OFFICIAL'
+    && source.sourceTier?.authorityTruthEligible === true));
+check('third-party mirror remains non-authoritative on its own',
+  sourceRecords.some((source: any) => source?.tier === 'T2_REFERENCE_IMPLEMENTATION'
+    && source.authorityTruthEligible === false));
+check('Unihan enrichment coverage remains stable',
+  reconciliation.unihanEnrichment.entriesWithUnihanMetadata === unihanMetadata.entries.length
+    && reconciliation.unihanEnrichment.localRowsWithoutUnihan
+      === fullEntries.length - unihanMetadata.entries.length);
 
 console.log(`\nLegal Hanja reconciliation: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);

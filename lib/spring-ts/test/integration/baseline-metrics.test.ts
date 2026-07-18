@@ -258,6 +258,15 @@ check('name-input shape inventory makes no authority claim',
 check('RPI summary has A-G axis scores',
   rpiSummary.axisScores &&
     Object.keys(rpiSummary.axisScores).length === 7);
+const legalHanjaAxis = rpiSummary.axisScores?.B_legalHanjaData;
+check('legal-Hanja RPI requires a verified receipt and stays partial until Appendix 2 mapping exists',
+  legalHanjaAxis?.status === 'OFFICIAL_LOOKUP_PARITY_CONFIRMED'
+    && legalHanjaAxis?.score === 10
+    && legalHanjaAxis?.receiptVerified === true
+    && legalHanjaAxis?.localGlyphDifferenceCount === 0
+    && legalHanjaAxis?.localPairDifferenceCount === 0
+    && legalHanjaAxis?.canonicalAppendix2MappingStatus === 'NOT_EXTRACTED',
+  JSON.stringify(legalHanjaAxis));
 // cf8b08006: D5가 NOT_APPLICABLE(설계상 범위 밖)을 분모에서 제외하므로 axis A는
 // PASS/100%가 정상일 수 있다. 상태별 정직성 불변식만 강제: PASS⇔fail·na 0+만점+100%,
 // PARTIAL(na>0)⇔감점+커버리지<100, FAIL⇔fail>0.

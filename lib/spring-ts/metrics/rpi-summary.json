@@ -25,11 +25,16 @@
     "B_legalHanjaData": {
       "maxPoints": 15,
       "score": 10,
-      "status": "PARTIAL_OFFICIAL_DENOMINATOR",
-      "officialAllowedCount": 9389,
+      "status": "OFFICIAL_LOOKUP_PARITY_CONFIRMED",
+      "announcedCharacterCount": 9389,
+      "officialLookupGlyphCount": 9495,
+      "officialLookupPairCount": 10381,
       "candidateMirrorCount": 9495,
-      "unresolvedDeltaCount": 106,
-      "lawEffectiveDateDiffVisible": true,
+      "localGlyphDifferenceCount": 0,
+      "localPairDifferenceCount": 0,
+      "authorityReceipt": "data/official-hanja-lookup-authority.generated.json",
+      "receiptVerified": true,
+      "canonicalAppendix2MappingStatus": "NOT_EXTRACTED",
       "requiredStatusesPresent": true
     },
     "C_gyeokgukYongshinRuleQuality": {
@@ -919,7 +924,7 @@
       "maxPoints": 10,
       "score": 10,
       "status": "PASS",
-      "sourceTierScanned": 121,
+      "sourceTierScanned": 122,
       "sourceTierViolations": 0
     }
   },

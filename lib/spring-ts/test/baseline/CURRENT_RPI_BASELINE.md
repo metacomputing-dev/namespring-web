@@ -25,8 +25,8 @@ counted as calculation accuracy without eligible doctrine and naming-score truth
 | Raw governed RPI | 20 / 100 |
 | Measured-only RPI | 20 / 35 (57.1%) |
 | Source-tier audit | PASS (0 policy violations) |
-| Source-tier records scanned | 121 |
-| Declared-scope-eligible source records (not complete D1 truth) | 25 |
+| Source-tier records scanned | 122 |
+| Declared-scope-eligible source records (not complete D1 truth) | 26 |
 | Declared-scope-ineligible source records | 96 |
 | Complete seven-field D1 fixtures | 0 / 17 |
 | Partial D1 fixtures | 0 / 17 |
@@ -37,7 +37,7 @@ counted as calculation accuracy without eligible doctrine and naming-score truth
 | Axis | Max | Current | Status | Basis |
 |---|---:|---:|---|---|
 | A. Calculation accuracy | 15 | 0 | INSUFFICIENT_TRUTH | D5: 0 PASS / 0 FAIL / 14 N/A / 3 NOT_APPLICABLE; structural stability is tracked separately |
-| B. Legal hanja/data | 15 | 10 | PARTIAL_OFFICIAL_DENOMINATOR | 9,389 official allowed entries mirrored; 106 candidate deltas remain unresolved |
+| B. Legal hanja/data | 15 | 10 | OFFICIAL_LOOKUP_PARITY_CONFIRMED | Raw glyph/reading parity is receipt-verified; current Appendix 2 canonical variant mapping remains independently unextracted |
 | C. Gyeokguk/yongshin rules | 25 | 0 | INSUFFICIENT_TRUTH | Baseline fixtures lack the complete scoped doctrine and naming-calibration truth required by D1 |
 | D. Ten-god position weighting | 10 | 0 | MEASURED_OPT_IN_V2 | `positional_weighted_v2` is opt-in; simple vs v1 divergence remains 0 / 24 and v1/v2 baseline comparison is recorded |
 | E. Integrated naming score | 15 | 0 | NOT_MEASURED | Phase 6 score-vector metric not implemented yet |

@@ -6,11 +6,11 @@
   "inputs": {
     "rpiSummary": {
       "path": "metrics/rpi-summary.json",
-      "sha256": "sha256:82e4bc44a19ca7b9b20a7390a589da98cf59d237a66ebdad7d9ab6cf974bf296"
+      "sha256": "sha256:467fec4f997afad0d117c154f51a3bd81bc0f5a27b24958460ac522ced952ee7"
     },
     "sourceTierSummary": {
       "path": "metrics/source-tier-summary.json",
-      "sha256": "sha256:3eeb94a0f3435ceea475d4c548303a48e03b41bc931d237d870892e09f5ab64c"
+      "sha256": "sha256:5a3824fb19f232650c6def7168d1454103cd9da9b5e65118ea05a70658763c7c"
     },
     "bySourceTier": {
       "path": "metrics/bySourceTier.json",
@@ -57,7 +57,7 @@
         "score": 10,
         "maxPoints": 15,
         "percent": 66.6667,
-        "status": "PARTIAL_OFFICIAL_DENOMINATOR"
+        "status": "OFFICIAL_LOOKUP_PARITY_CONFIRMED"
       },
       "C_gyeokgukYongshinRuleQuality": {
         "score": 0,
@@ -93,12 +93,12 @@
   },
   "sourceTierCoverageReport": {
     "status": "PASS",
-    "scanned": 121,
+    "scanned": 122,
     "violationCount": 0,
     "recordEligibilityDefinition": "source record is eligible for at least one policy-declared authority scope; this is not complete D1 fixture truth",
-    "declaredScopeEligibleSourceRecordCount": 25,
+    "declaredScopeEligibleSourceRecordCount": 26,
     "declaredScopeIneligibleSourceRecordCount": 96,
-    "declaredScopeEligibleSourceRecordRate": 20.6612,
+    "declaredScopeEligibleSourceRecordRate": 21.3115,
     "byTier": {
       "T3_AUTHORED_INTERPRETATION": {
         "recordCount": 53,
@@ -125,10 +125,10 @@
         "declaredScopeEligibleSourceRecordRate": 0
       },
       "T5_OFFICIAL": {
-        "recordCount": 25,
-        "declaredScopeEligibleSourceRecordCount": 22,
+        "recordCount": 26,
+        "declaredScopeEligibleSourceRecordCount": 23,
         "declaredScopeIneligibleSourceRecordCount": 3,
-        "declaredScopeEligibleSourceRecordRate": 88
+        "declaredScopeEligibleSourceRecordRate": 88.4615
       }
     },
     "d1FixtureTruthCoverage": {

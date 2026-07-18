@@ -4,6 +4,7 @@ import { decomposeHangul } from './core/name-utils.js';
 import {
   FULL_HANJA_GLYPHS,
   isSingleUnicodeScalar,
+  matchesOfficialFullPoolHanjaReadings,
 } from './full-hanja-glyph-registry.js';
 import { getEnrichedStrokeCount, getUnihanMetadata } from './hanja-unihan.js';
 
@@ -83,7 +84,6 @@ function parseDocument(value: unknown, expectedGlyphs: readonly string[]): FullP
     failIntegrity();
   }
 
-  const seenGlyphs = new Set<string>();
   for (const [index, entry] of document.entries.entries()) {
     if (entry === null || typeof entry !== 'object' || Array.isArray(entry)) failIntegrity();
     const candidate = entry as Partial<FullPoolDataEntry>;
@@ -93,14 +93,12 @@ function parseDocument(value: unknown, expectedGlyphs: readonly string[]): FullP
       || !/^U\+[0-9A-F]{4,6}$/.test(candidate.codepoint)
       || Number.parseInt(candidate.codepoint.slice(2), 16) !== candidate.hanja.codePointAt(0)
       || !Array.isArray(candidate.readings)
-      || candidate.readings.some((reading) => typeof reading !== 'string')
+      || !matchesOfficialFullPoolHanjaReadings(candidate.hanja, candidate.readings)
       || (candidate.meaning !== null && typeof candidate.meaning !== 'string')
       || (candidate.radicalId !== null && !Number.isInteger(candidate.radicalId))
-      || (candidate.strokeCount !== null && !Number.isInteger(candidate.strokeCount))
-      || seenGlyphs.has(candidate.hanja)) {
+      || (candidate.strokeCount !== null && !Number.isInteger(candidate.strokeCount))) {
       failIntegrity();
     }
-    seenGlyphs.add(candidate.hanja);
   }
   return document as FullPoolDataDocument;
 }
@@ -160,10 +158,13 @@ export function createFullHanjaPoolLoader(
   const inputExpectedGlyphs = options.expectedGlyphs ?? FULL_HANJA_GLYPHS;
   if (!Array.isArray(inputExpectedGlyphs)
     || inputExpectedGlyphs.some((glyph) => !isSingleUnicodeScalar(glyph))
-    || new Set(inputExpectedGlyphs).size !== inputExpectedGlyphs.length) {
-    throw new TypeError('expectedGlyphs must contain unique single-code-point strings.');
+    || inputExpectedGlyphs.some((glyph, index) => index > 0
+      && glyph.codePointAt(0)! <= inputExpectedGlyphs[index - 1].codePointAt(0)!)) {
+    throw new TypeError('expectedGlyphs must be strictly code-point-sorted single scalars.');
   }
-  const expectedGlyphs = Object.freeze([...inputExpectedGlyphs]);
+  const expectedGlyphs = inputExpectedGlyphs === FULL_HANJA_GLYPHS
+    ? FULL_HANJA_GLYPHS
+    : Object.freeze([...inputExpectedGlyphs]);
 
   let cachedAttempt: Promise<readonly HanjaEntry[]> | null = null;
   return function load(): Promise<readonly HanjaEntry[]> {

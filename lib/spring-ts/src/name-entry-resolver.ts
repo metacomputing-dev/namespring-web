@@ -4,7 +4,11 @@ import {
   isRecognizedHanjaGlyph,
   type HanjaPool,
 } from './hanja-annotations.js';
-import { isLocalFullPoolHanjaGlyph } from './full-hanja-glyph-registry.js';
+import {
+  hasOfficialFullPoolHanjaReadings,
+  isLocalFullPoolHanjaGlyph,
+  isOfficialFullPoolHanjaReading,
+} from './full-hanja-glyph-registry.js';
 import {
   verifySurnameAuthority,
   type SurnameAuthorityFailureReason,
@@ -97,6 +101,10 @@ export interface ResolveNameEntriesOptions {
   readonly forceHangulOnly?: boolean;
   readonly isSurname?: boolean;
   readonly hanjaPool?: HanjaPool;
+  /** Reject explicit given-name pairs that are not in the official lookup.
+   *  Recommendation paths enable this; existing-name evaluation may resolve
+   *  the identity and surface `notAllowed` without pretending it is registrable. */
+  readonly requireLegalRegistrable?: boolean;
   readonly fullPoolEntries?: FullPoolEntriesProvider;
   readonly asyncFullPoolEntries?: AsyncFullPoolEntriesProvider;
   readonly preverifiedExplicitPair?: PreverifiedExplicitPairLookup;
@@ -113,7 +121,7 @@ export interface ResolveFixedNameCharacterPoolOptions {
 
 export interface AssertExplicitNameIdentityOptions extends Pick<
   ResolveNameEntriesOptions,
-  'isSurname' | 'hanjaPool' | 'fullPoolEntries' | 'asyncFullPoolEntries'
+  'isSurname' | 'hanjaPool' | 'requireLegalRegistrable' | 'fullPoolEntries' | 'asyncFullPoolEntries'
 > {
   readonly preverifiedExplicitPair?: PreverifiedExplicitPairLookup;
 }
@@ -247,6 +255,42 @@ function missingExplicitHanjaReason(
     return 'explicit_hanja_metadata_incomplete';
   }
   return 'explicit_hanja_not_found';
+}
+
+/**
+ * Prevent repository hits and preverified caches from bypassing the official
+ * raw-glyph + designated-reading contract. Candidate-pool breadth never
+ * changes legal authority.
+ */
+function assertOfficialGivenNamePair(
+  input: NameCharInput,
+  characterIndex: number,
+): void {
+  const hanja = normalizeNameHanja(input);
+  if (!isOneHanCharacter(hanja)) {
+    throw new NameEntryResolutionError('invalid_hanja_character', 'givenName', characterIndex);
+  }
+  if (isOfficialFullPoolHanjaReading(hanja, input.hangul)) return;
+
+  let reason: NameEntryResolutionFailureReason;
+  if (!isLocalFullPoolHanjaGlyph(hanja)) {
+    reason = 'explicit_hanja_not_found';
+  } else if (hasOfficialFullPoolHanjaReadings(hanja)) {
+    reason = 'hangul_hanja_reading_mismatch';
+  } else {
+    reason = 'explicit_hanja_metadata_incomplete';
+  }
+  throw new NameEntryResolutionError(reason, 'givenName', characterIndex);
+}
+
+function exactPreverifiedGivenNameEntry(
+  input: NameCharInput,
+  candidate: HanjaEntry | undefined,
+): HanjaEntry | undefined {
+  const hanja = normalizeNameHanja(input);
+  return candidate?.hangul === input.hangul && candidate.hanja === hanja
+    ? { ...candidate, is_surname: false }
+    : undefined;
 }
 
 function throwSurnameAuthorityFailure(
@@ -445,9 +489,15 @@ export async function assertExplicitNameIdentity(
     const hangul = char.hangul;
     const hanja = normalizeNameHanja(char);
     if (hanja.length === 0 || hanja === hangul) continue;
-    const preverified = options.preverifiedExplicitPair?.(char, { role, hanjaPool });
+    if (options.requireLegalRegistrable === true) {
+      assertOfficialGivenNamePair(char, characterIndex);
+    }
+    const preverified = exactPreverifiedGivenNameEntry(
+      char,
+      options.preverifiedExplicitPair?.(char, { role, hanjaPool }),
+    );
     const entry = preverified
-      ? { ...preverified, is_surname: false }
+      ? preverified
       : await resolveVerifiedExplicitPair(char, repository, {
         hanjaPool,
         isSurname,
@@ -482,8 +532,14 @@ export async function resolveNameEntries(
     }
 
     if (hasExplicitNameHanja(char)) {
-      const preverified = options.preverifiedExplicitPair?.(char, { role, hanjaPool });
-      if (preverified) return { ...preverified, is_surname: false };
+      if (options.requireLegalRegistrable === true) {
+        assertOfficialGivenNamePair(char, characterIndex);
+      }
+      const preverified = exactPreverifiedGivenNameEntry(
+        char,
+        options.preverifiedExplicitPair?.(char, { role, hanjaPool }),
+      );
+      if (preverified) return preverified;
 
       return resolveVerifiedExplicitPair(char, repository, {
         hanjaPool,
@@ -510,9 +566,9 @@ export async function resolveFixedNameCharacterPool(
   options: ResolveFixedNameCharacterPoolOptions,
 ): Promise<HanjaEntry[]> {
   if (hasExplicitNameHanja(input)) {
-    if (options.preverifiedEntry) {
-      return [{ ...options.preverifiedEntry, is_surname: false }];
-    }
+    assertOfficialGivenNamePair(input, 0);
+    const preverified = exactPreverifiedGivenNameEntry(input, options.preverifiedEntry);
+    if (preverified) return [preverified];
     return [await resolveVerifiedExplicitPair(input, repository, {
       hanjaPool: options.hanjaPool,
       isSurname: false,

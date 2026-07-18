@@ -3,14 +3,13 @@
  *
  * Verifies PR11 hanja-annotations module + opt-in flag declarations:
  *
- *   1. normalizeToOrthodoxHanja maps 약자 → 정자 for the seeded list
+ *   1. normalizeToOrthodoxHanja remains a search/deduplication helper
  *      and is identity for orthodox / unknown forms.
  *   2. getLegalAnnotation separates legalStatus buckets while preserving
  *      legacy boolean semantics.
- *   3. isHanjaUsableForLegalName defaults to "accept unknown" so the
- *      existing curated pool keeps flowing through unchanged.
- *   4. requireLegalRegistrable: true tightens the filter to "must be
- *      explicitly true" (rejects unknown).
+ *   3. isHanjaUsableForLegalName applies one official raw-pair authority to
+ *      both curated and full candidate pools.
+ *   4. requireLegalRegistrable: true accepts only authority-pinned pairs.
  *   5. precisionConfig.hanjaPool / pureHangulSchema declarations are
  *      callable end-to-end without breaking baseline.
  *
@@ -60,7 +59,7 @@ function check(label: string, cond: boolean, evidence?: string): void {
 
 console.log('PR11 hanja-annotations + opt-in flag declarations\n');
 
-// ── (1) 異體字 normalization ─────────────────────────────────────────────
+// ── (1) Search/deduplication alias normalization ────────────────────────
 check('normalizeToOrthodoxHanja: 国 → 國',
   normalizeToOrthodoxHanja('国') === '國',
   '약자 → 정자');
@@ -82,10 +81,10 @@ const dummyEntry = {
 const annotation = getLegalAnnotation(dummyEntry);
 check('getLegalAnnotation.legalStatus === hangulOnly for non-Han input',
   getLegalAnnotation({ ...dummyEntry, hanja: 'ㅁ' }).legalStatus === 'hangulOnly');
-check('getLegalAnnotation.legalRegistrable === undefined (崔 outside the seed)',
-  annotation.legalRegistrable === undefined);
-check('getLegalAnnotation.legalStatus === unknown (崔 outside the seed)',
-  annotation.legalStatus === 'unknown');
+check('getLegalAnnotation.legalRegistrable === true (崔 official pair)',
+  annotation.legalRegistrable === true);
+check('getLegalAnnotation.legalStatus === allowed (崔 official pair)',
+  annotation.legalStatus === 'allowed');
 check('getLegalAnnotation.isVariantOf === undefined',
   annotation.isVariantOf === undefined);
 
@@ -108,15 +107,31 @@ const variantEntry = {
   meaning: '나라 국', radical: '囗', is_surname: false,
 };
 const variantAnno = getLegalAnnotation(variantEntry);
-check('getLegalAnnotation.isVariantOf === 國 for 国',
-  variantAnno.isVariantOf === '國');
+check('search aliases do not populate authority-only isVariantOf',
+  variantAnno.isVariantOf === undefined);
 
 const fullPoolAnno = getLegalAnnotation(dummyEntry, { pool: 'inmyeongyong_full' });
 check('full pool: 崔 is allowed',
   fullPoolAnno.legalRegistrable === true && fullPoolAnno.legalStatus === 'allowed');
 const fullPoolVariantAnno = getLegalAnnotation(variantEntry, { pool: 'inmyeongyong_full' });
-check('full pool: 国 is variantAllowed',
-  fullPoolVariantAnno.legalRegistrable === true && fullPoolVariantAnno.legalStatus === 'variantAllowed');
+check('full pool: official raw pair 国/국 is allowed',
+  fullPoolVariantAnno.legalRegistrable === true
+    && fullPoolVariantAnno.legalStatus === 'allowed'
+    && fullPoolVariantAnno.isVariantOf === undefined);
+const aliasOnlyEntry = {
+  ...variantEntry,
+  hangul: '삽',
+  hanja: '挿',
+};
+const aliasOnlyAnno = getLegalAnnotation(aliasOnlyEntry, { pool: 'inmyeongyong_full' });
+check('full pool: off-list search alias 挿 is notAllowed',
+  normalizeToOrthodoxHanja(aliasOnlyEntry.hanja) === '插'
+    && aliasOnlyAnno.legalRegistrable === false
+    && aliasOnlyAnno.legalStatus === 'notAllowed');
+check('full pool: listed glyph with an unlisted reading is notAllowed',
+  getLegalAnnotation({ ...variantEntry, hangul: '삽', hanja: '國' }, {
+    pool: 'inmyeongyong_full',
+  }).legalStatus === 'notAllowed');
 const notAllowedEntry = {
   id: 4, hangul: '답', hanja: '龘', onset: 'ㄷ', nucleus: 'ㅏ',
   strokes: 48, stroke_element: 'Water', resource_element: 'Water',
@@ -126,17 +141,16 @@ const notAllowedAnno = getLegalAnnotation(notAllowedEntry, { pool: 'inmyeongyong
 check('full pool: non-list Hanja is notAllowed',
   notAllowedAnno.legalRegistrable === false && notAllowedAnno.legalStatus === 'notAllowed');
 
-// ── (3) Default isHanjaUsableForLegalName: accept unknown ────────────────
-check('isHanjaUsableForLegalName(entry) default — accept unknown',
+// ── (3) Default legal filtering uses official raw-pair authority ─────────
+check('isHanjaUsableForLegalName(entry) default — accept official pair',
   isHanjaUsableForLegalName(dummyEntry) === true,
-  'curated pool 보존');
+  'candidate pool and legal authority are separate');
 check('isHanjaUsableForLegalName(seedEntry) default — accept known-true',
   isHanjaUsableForLegalName(seedEntry) === true);
 
-// ── (4) requireLegalRegistrable: true rejects unknown, accepts known-true ──
-check('requireLegalRegistrable:true rejects 崔 (status unknown)',
-  isHanjaUsableForLegalName(dummyEntry, { requireLegalRegistrable: true }) === false,
-  '시드 외 conservative reject');
+// ── (4) requireLegalRegistrable accepts authority-pinned pairs ───────────
+check('requireLegalRegistrable:true accepts 崔 (official pair)',
+  isHanjaUsableForLegalName(dummyEntry, { requireLegalRegistrable: true }) === true);
 check('requireLegalRegistrable:true accepts 佳 (in seed)',
   isHanjaUsableForLegalName(seedEntry, { requireLegalRegistrable: true }) === true);
 

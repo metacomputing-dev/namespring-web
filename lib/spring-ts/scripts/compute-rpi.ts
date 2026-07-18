@@ -56,6 +56,10 @@ const AUTHORITY_DIR = path.resolve(SPRING_TS_ROOT, 'test/baseline/authority');
 const ORACLES_DIR = path.resolve(SPRING_TS_ROOT, 'test/baseline/oracles');
 const DATA_SOURCES_DIR = path.resolve(SPRING_TS_ROOT, 'data/sources');
 const LEGAL_HANJA_RECONCILIATION_PATH = path.resolve(SPRING_TS_ROOT, 'data/legal-hanja-reconciliation.json');
+const LEGAL_HANJA_AUTHORITY_CHECK_PATH = path.resolve(
+  SPRING_TS_ROOT,
+  'tools/fetch_official_hanja_authority.mjs',
+);
 const QUALITY_GATE = path.resolve(SPRING_TS_ROOT, 'tools/quality_gate.mjs');
 
 const TIER_NO_REFERENCE = 'NO_REFERENCE';
@@ -787,23 +791,47 @@ function scoreLegalHanjaAxis(): any {
   const policy = reconciliation.legalStatusPolicy ?? {};
   const hasRequiredStatuses = ['allowed', 'variantAllowed', 'hangulOnly', 'unknown']
     .every((status) => typeof policy[status] === 'string');
-  const officialCount = reconciliation.officialBasis?.announcedAllowedCount;
+  const announcedCharacterCount = reconciliation.officialBasis?.announcedCharacterCount;
+  const officialLookupGlyphCount = reconciliation.officialBasis?.lookupGlyphRepresentationCount;
+  const officialLookupPairCount = reconciliation.officialBasis?.lookupNonEmptyDesignatedReadingPairCount;
   const candidateCount = reconciliation.candidateMirror?.totalCount;
-  const delta = reconciliation.candidateMirror?.unresolvedDeltaCount;
-  const lawDiffVisible = reconciliation.reconciliation?.lawEffectiveDateDiffVisible === true;
-  const partialPass = hasRequiredStatuses
-    && officialCount === 9389
+  const localGlyphDifferenceCount = reconciliation.reconciliation?.localGlyphDifferenceCount;
+  const localPairDifferenceCount = reconciliation.reconciliation?.localPairDifferenceCount;
+  const authorityReceipt = reconciliation.officialBasis?.authorityReceipt;
+  const canonicalAppendix2MappingStatus =
+    reconciliation.reconciliation?.canonicalAppendix2MappingStatus;
+  const receiptCheck = spawnSync(
+    process.execPath,
+    [LEGAL_HANJA_AUTHORITY_CHECK_PATH, '--check'],
+    { cwd: SPRING_TS_ROOT, encoding: 'utf8', windowsHide: true },
+  );
+  const receiptVerified = receiptCheck.status === 0;
+  const parityConfirmed = hasRequiredStatuses
+    && announcedCharacterCount === 9389
+    && officialLookupGlyphCount === 9495
+    && officialLookupPairCount === 10381
     && candidateCount === 9495
-    && delta === 106
-    && lawDiffVisible;
+    && localGlyphDifferenceCount === 0
+    && localPairDifferenceCount === 0
+    && authorityReceipt === 'data/official-hanja-lookup-authority.generated.json'
+    && receiptVerified
+    && reconciliation.reconciliation?.status === 'OFFICIAL_LOOKUP_PARITY_CONFIRMED';
   return {
     maxPoints: 15,
-    score: partialPass ? 10 : 0,
-    status: partialPass ? 'PARTIAL_OFFICIAL_DENOMINATOR' : 'FAIL',
-    officialAllowedCount: officialCount,
+    // Raw lookup eligibility is authority-pinned, but the current Appendix 2
+    // canonical variant map remains independently unextracted. Keep this axis
+    // partial until that separate authority contract is also machine-checked.
+    score: parityConfirmed ? 10 : 0,
+    status: parityConfirmed ? 'OFFICIAL_LOOKUP_PARITY_CONFIRMED' : 'FAIL',
+    announcedCharacterCount,
+    officialLookupGlyphCount,
+    officialLookupPairCount,
     candidateMirrorCount: candidateCount,
-    unresolvedDeltaCount: delta,
-    lawEffectiveDateDiffVisible: lawDiffVisible,
+    localGlyphDifferenceCount,
+    localPairDifferenceCount,
+    authorityReceipt,
+    receiptVerified,
+    canonicalAppendix2MappingStatus,
     requiredStatusesPresent: hasRequiredStatuses,
   };
 }
@@ -1086,4 +1114,3 @@ async function main(): Promise<void> {
 }
 
 await main();
-

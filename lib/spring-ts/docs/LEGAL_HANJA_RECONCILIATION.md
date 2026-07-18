@@ -1,6 +1,6 @@
 # Legal Hanja Reconciliation
 
-As of 2026-05-01, `spring-ts` separates Korean legal-name Hanja into explicit
+As of 2026-07-18, `spring-ts` separates Korean legal-name Hanja into explicit
 status buckets instead of relying only on `legalRegistrable?: boolean`.
 
 ## Official Basis
@@ -9,7 +9,9 @@ status buckets instead of relying only on `legalRegistrable?: boolean`.
 - Current law effective date: 2025-07-19
 - 2024 expansion effective date: 2024-06-11
 - Appendix 1 amendment date: 2024-05-30
-- Official announced allowed count: 9,389
+- Official announced character count: 9,389
+- Current official lookup glyph representations: 9,495
+- Current non-empty designated-reading pairs: 10,381
 
 The official rule defines the legal range through Article 37: Education Ministry
 basic Hanja, Appendix 1 additional Hanja, and Appendix 2 variants. The local
@@ -17,30 +19,32 @@ source registry treats law.go.kr and Supreme Court sources as `T5_OFFICIAL`.
 
 ## Local Candidate Pool
 
-`data/inmyeongyong_9389_full.json` still contains 9,495 entries from the
-`delvier/KoreaSCourtCode` mirror. The mirror records the official denominator as
-9,389, so the local pool has an unresolved +106 delta.
+`data/inmyeongyong_9389_full.json` contains 9,495 entries originally ingested
+from the `delvier/KoreaSCourtCode` mirror. A 2026-07-18 extraction of all 35
+stroke buckets from the current official eFamily lookup confirmed exact parity:
+zero glyph differences and zero non-empty designated-reading-pair differences.
+The committed receipt pins both ordered SHA-256 digests and is checked offline
+before release tests.
 
-This PR does not remove the +106 entries because the official Appendix 1 HWPX is
-not yet fully machine-extracted. Instead, the delta is visible in
-`data/legal-hanja-reconciliation.json`, and third-party mirror data remains
-non-authority truth until each entry is T5-confirmed.
+The announced 9,389 characters and the lookup's 9,495 Unicode/PUA glyph
+representations are different counting layers. The +106 representation delta
+is not an unresolved legality gap, but it must not be reverse-engineered into an
+Appendix 2 canonical mapping. That mapping remains separately unextracted.
 
 ## Status Buckets
 
-- `allowed`: orthodox Hanja appears in the active legal pool.
-- `variantAllowed`: input is a known variant and its orthodox form appears in
-  the active legal pool.
+- `allowed`: the exact raw glyph and supplied Hangul reading appear as a pair in
+  the official lookup snapshot.
+- `variantAllowed`: reserved for a separately extracted current Appendix 2
+  canonical map; the legacy input-alias file never creates this status.
 - `hangulOnly`: no Hanja glyph is present.
-- `unknown`: the active pool is intentionally non-definitive or the official
-  delta is not yet resolved.
-- `notAllowed`: local full-pool lookup misses the normalized Hanja.
+- `unknown`: reserved for a future explicitly unavailable authority state.
+- `notAllowed`: the official lookup misses the raw glyph or supplied reading.
 
-Default `curated` mode preserves legacy behavior: seed hits are `allowed`, and
-non-seed entries are `unknown`. Opt-in `inmyeongyong_full` mode gives local
-mirror-backed `allowed` / `variantAllowed` / `notAllowed` decisions against the
-local full pool while still exposing the official +106 reconciliation gap in
-data.
+`curated` and `inmyeongyong_full` select different recommendation candidate
+pools, but both use the same strict official raw glyph-reading authority.
+Search aliases remain useful for discovery and deduplication but never grant
+legal eligibility.
 
 ## Candidate Generation
 
@@ -71,7 +75,9 @@ Run:
 npm run test:legal-hanja
 npm run test:hanja
 npm run test:hanja-pool
+npm run test:hanja-pool-lazy
 npm run test:unihan
+npm run check:official-hanja-authority
 ```
 
 Broader release checks should also run `npm run typecheck`, `npm run
