@@ -1,7 +1,10 @@
 import type { HanjaEntry } from '../../seed-ts/src/database/hanja-repository.js';
 import engineConfig from '../config/engine.json';
 import { decomposeHangul } from './core/name-utils.js';
-import { FULL_HANJA_GLYPHS } from './full-hanja-glyph-registry.js';
+import {
+  FULL_HANJA_GLYPHS,
+  isSingleUnicodeScalar,
+} from './full-hanja-glyph-registry.js';
 import { getEnrichedStrokeCount, getUnihanMetadata } from './hanja-unihan.js';
 
 export const FULL_HANJA_POOL_LOAD_FAILED = 'FULL_HANJA_POOL_LOAD_FAILED' as const;
@@ -156,7 +159,7 @@ export function createFullHanjaPoolLoader(
   const importer = options.importer ?? importFullHanjaPoolData;
   const inputExpectedGlyphs = options.expectedGlyphs ?? FULL_HANJA_GLYPHS;
   if (!Array.isArray(inputExpectedGlyphs)
-    || inputExpectedGlyphs.some((glyph) => typeof glyph !== 'string' || Array.from(glyph).length !== 1)
+    || inputExpectedGlyphs.some((glyph) => !isSingleUnicodeScalar(glyph))
     || new Set(inputExpectedGlyphs).size !== inputExpectedGlyphs.length) {
     throw new TypeError('expectedGlyphs must contain unique single-code-point strings.');
   }
