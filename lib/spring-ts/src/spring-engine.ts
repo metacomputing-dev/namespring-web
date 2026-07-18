@@ -58,7 +58,7 @@ import {
 import {
   SajuRequestValidationError,
   parseFortuneTargetDate,
-  validateSajuConfigFortuneHorizon,
+  validateSajuConfigFortunePolicy,
   validateSajuRequestOptions,
 } from './saju-request-policy.js';
 import { targetCalendarYear } from './target-date.js';
@@ -1352,6 +1352,7 @@ export class SpringEngine {
     sajuReportOverride?: SajuReport,
   ): Promise<SpringReport> {
     const stableRequest = snapshotSpringRequest(request);
+    validateSajuConfigFortunePolicy(stableRequest.options?.sajuConfig);
     const stableOverride = sajuReportOverride === undefined
       ? undefined
       : snapshotSajuReport(sajuReportOverride);
@@ -1674,6 +1675,7 @@ export class SpringEngine {
 
   async getNameCandidates(request: SpringRequest): Promise<SpringReport[]> {
     request = snapshotSpringRequest(request);
+    validateSajuConfigFortunePolicy(request.options?.sajuConfig);
     const operation = this.beginOperation('getNameCandidates');
     this.assertRequestNameSyntax(request, true);
     await this.awaitOperationStep(operation, () => this.init());
@@ -1797,6 +1799,7 @@ export class SpringEngine {
 
   async getNameCandidateSummaries(request: SpringRequest): Promise<SpringCandidateSummary[]> {
     request = snapshotSpringRequest(request);
+    validateSajuConfigFortunePolicy(request.options?.sajuConfig);
     const operation = this.beginOperation('getNameCandidateSummaries');
     this.assertRequestNameSyntax(request, true);
     await this.awaitOperationStep(operation, () => this.init());
@@ -2022,6 +2025,7 @@ export class SpringEngine {
 
   async analyze(request: SpringRequest): Promise<SpringResponse> {
     request = snapshotSpringRequest(request);
+    validateSajuConfigFortunePolicy(request.options?.sajuConfig);
     const operation = this.beginOperation('analyze');
     this.assertRequestNameSyntax(request, true);
     await this.awaitOperationStep(operation, () => this.init());
@@ -2925,7 +2929,7 @@ export class SpringEngine {
     const targetDate = parseFortuneTargetDate(request.targetDate, request.birth);
     const reportOptions = optionsForFortuneTarget(request.options, targetDate, birthYear);
     validateSajuRequestOptions(reportOptions.sajuOptions, birthYear);
-    validateSajuConfigFortuneHorizon(reportOptions.sajuConfig);
+    validateSajuConfigFortunePolicy(reportOptions.sajuConfig);
     const hasSuppliedGivenName = Object.prototype.hasOwnProperty.call(request, 'givenName')
       && !(Array.isArray(request.givenName) && request.givenName.length === 0);
     const explicitNameRequest: SpringRequest | null = hasSuppliedGivenName

@@ -82,9 +82,7 @@ describe('fortune start-age display policy boundaries', () => {
   it.each([
     [0, 0],
     [1, 1],
-    [2.9, 2],
-    [-1, 0],
-  ])('normalizes minStartAge=%s to the documented integer lower bound %d', (minStartAge, expected) => {
+  ])('preserves a valid minStartAge=%s lower bound', (minStartAge, expected) => {
     const result = fortune({
       startAgeMethod: { kind: 'ratioMsPerYear', msPerYear: deltaMs * 2 },
       startAgeRounding: 'floor',
@@ -95,4 +93,13 @@ describe('fortune start-age display policy boundaries', () => {
     expect(result.decades[0]?.startAgeYears).toBe(0.5);
     expect(result.decades[0]?.displayStartAge).toBe(expected);
   });
+
+  it.each([-1, 2.9, 123, Number.NaN, Number.POSITIVE_INFINITY])(
+    'rejects invalid minStartAge=%s instead of normalizing it',
+    (minStartAge) => {
+      expect(() => fortune({ minStartAge })).toThrowError(
+        /strategies\.fortune\.minStartAge/,
+      );
+    },
+  );
 });
