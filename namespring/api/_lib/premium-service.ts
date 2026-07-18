@@ -702,7 +702,8 @@ export class PremiumServiceV1 {
       throw new ApiHttpError(409, "PREMIUM_TEMPLATE_BINDING_MISMATCH", "Template product/version does not match the sample report.");
     }
     const analysis = await this.deps.repository.getAnalysis(report.binding.analysisId);
-    if (!analysis || analysis.reportId !== report.binding.reportId) {
+    if (!analysis || analysis.reportId !== report.binding.reportId
+      || !sameOwner(analysis.owner, report.registration.owner)) {
       throw new ApiHttpError(500, "PREMIUM_ANALYSIS_CORRUPT", "Sample analysis is missing.");
     }
     const now = this.deps.now();
@@ -773,7 +774,8 @@ export class PremiumServiceV1 {
       throw new ApiHttpError(409, "PREMIUM_TEMPLATE_BINDING_MISMATCH", "Template product/version does not match the sample report.");
     }
     const analysis = await this.deps.repository.getAnalysis(report.binding.analysisId);
-    if (!analysis || analysis.reportId !== report.binding.reportId) {
+    if (!analysis || analysis.reportId !== report.binding.reportId
+      || !sameOwner(analysis.owner, report.registration.owner)) {
       throw new ApiHttpError(500, "PREMIUM_ANALYSIS_CORRUPT", "Sample analysis is missing.");
     }
     validatePremiumTemplateReviewCandidateV1(approved, analysis);
@@ -899,7 +901,8 @@ export class PremiumServiceV1 {
     }
     const product = activeProductForReport(report);
     const analysis = await this.deps.repository.getAnalysis(report.binding.analysisId);
-    if (!analysis || analysis.reportId !== report.binding.reportId) {
+    if (!analysis || analysis.reportId !== report.binding.reportId
+      || !sameOwner(analysis.owner, report.registration.owner)) {
       throw new ApiHttpError(500, "PREMIUM_ANALYSIS_CORRUPT", "Server analysis is unavailable.");
     }
     const content = await this.deps.repository.getActiveContent(report.binding);

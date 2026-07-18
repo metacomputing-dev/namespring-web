@@ -1183,6 +1183,13 @@ const checkoutRequest = {
   requestId: "premium_request_v1_checkout_0123456789abcdef",
   purchaseTermsAcceptance,
 } as const;
+repository.analyses.set(analysis.analysisId, { ...analysis, owner: ownerFor(actorB) });
+await assert.rejects(
+  service.createCheckout(actorA, checkoutRequest),
+  (error: unknown) => error instanceof ApiHttpError && error.code === "PREMIUM_ANALYSIS_CORRUPT",
+  "checkout must fail closed when the trusted analysis owner is corrupted",
+);
+repository.analyses.set(analysis.analysisId, analysis);
 const checkout = await service.createCheckout(actorA, checkoutRequest);
 assert.equal(checkout.amount, 1_000);
 assert.equal(repository.reports.get(first.report.binding.reportId)!.registration.owner.subjectId, stableOwnerBeforeAuditRotation.subjectId);
@@ -1388,6 +1395,19 @@ const reusableTemplate: PremiumContentTemplateRecordV1 = {
     },
   },
 };
+repository.analyses.set(analysis.analysisId, { ...analysis, owner: ownerFor(actorB) });
+await assert.rejects(
+  service.reviewContentTemplate(
+    reviewerAdmin,
+    first.report.binding.reportId,
+    "premium_review_request_v1_template_corrupt_owner_0123456789abcdef",
+    `sha256:${"5".repeat(64)}`,
+    reusableTemplate,
+  ),
+  (error: unknown) => error instanceof ApiHttpError && error.code === "PREMIUM_ANALYSIS_CORRUPT",
+  "template review must fail closed when the sample analysis owner is corrupted",
+);
+repository.analyses.set(analysis.analysisId, analysis);
 const templateReview = await service.reviewContentTemplate(
   reviewerAdmin,
   first.report.binding.reportId,
@@ -1395,6 +1415,19 @@ const templateReview = await service.reviewContentTemplate(
   `sha256:${"5".repeat(64)}`,
   reusableTemplate,
 );
+repository.analyses.set(analysis.analysisId, { ...analysis, owner: ownerFor(actorB) });
+await assert.rejects(
+  service.activateApprovedTemplate(
+    admin,
+    first.report.binding.reportId,
+    "premium_activation_request_v1_template_corrupt_owner_0123456789abcdef",
+    templateReview.receipt.receiptId,
+    reusableTemplate,
+  ),
+  (error: unknown) => error instanceof ApiHttpError && error.code === "PREMIUM_ANALYSIS_CORRUPT",
+  "template activation must fail closed when the sample analysis owner is corrupted",
+);
+repository.analyses.set(analysis.analysisId, analysis);
 await assert.rejects(
   service.activateApprovedTemplate(
     admin,
