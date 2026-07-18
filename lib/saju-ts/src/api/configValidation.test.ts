@@ -205,6 +205,82 @@ describe('engine config runtime validation', () => {
     expect((config.extensions as any).customExtension.version).toBe('x');
   });
 
+  it.each([
+    [
+      'strategies.fortune.directionRule',
+      { strategies: { fortune: { directionRule: 'fixedBackwards' } } },
+    ],
+    [
+      'strategies.fortune.decadeLengthYears',
+      { strategies: { fortune: { decadeLengthYears: '10' } } },
+    ],
+    [
+      'strategies.fortune.decadeLengthYears',
+      { strategies: { fortune: { decadeLengthYears: 10_000 } } },
+    ],
+    [
+      'strategies.fortune.minStartAge',
+      { strategies: { fortune: { minStartAge: 1.5 } } },
+    ],
+    [
+      'strategies.fortune.firstDecadeOffsetSteps',
+      { strategies: { fortune: { firstDecadeOffsetSteps: Number.POSITIVE_INFINITY } } },
+    ],
+    [
+      'strategies.fortune.startAgeMethod.daysPerYear',
+      {
+        strategies: {
+          fortune: {
+            startAgeMethod: { kind: 'ratioDaysPerYear', daysPerYear: Number.NaN },
+          },
+        },
+      },
+    ],
+    [
+      'strategies.fortune.startAgeMethod.extra',
+      {
+        strategies: {
+          fortune: {
+            startAgeMethod: { kind: 'ratioDaysPerYear', daysPerYear: 3, extra: true },
+          },
+        },
+      },
+    ],
+    [
+      'strategies.fortune.startAge',
+      {
+        strategies: {
+          fortune: {
+            startAgeMethod: 'threeDaysOneYear',
+            startAge: 'oneDayFourMonths',
+          },
+        },
+      },
+    ],
+    [
+      'strategies.fortune.directionRules',
+      { strategies: { fortune: { directionRules: 'fixedBackward' } } },
+    ],
+  ])('rejects an invalid engine-owned fortune policy at %s', (path, config) => {
+    expect(captureInvalidConfig(config).path).toBe(path);
+  });
+
+  it('keeps unrelated strategy extensions open while validating fortune', () => {
+    const config = normalizeConfig({
+      strategies: {
+        customStrategy: { enabled: true },
+        fortune: {
+          directionRule: 'fixedBackward',
+          startAge: { kind: 'ratioDaysPerYear', daysPerYear: 3 },
+          decadeLengthYears: 10,
+        },
+      },
+    } as any);
+
+    expect((config.strategies as any).customStrategy.enabled).toBe(true);
+    expect((config.strategies as any).fortune.directionRule).toBe('fixedBackward');
+  });
+
   it.each(['rulesets', 'rules'] as const)(
     'rejects a direct %s rule set with an unsupported DSL operator',
     (containerKey) => {

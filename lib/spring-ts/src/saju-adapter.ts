@@ -44,7 +44,7 @@ import {
   SajuRequestValidationError,
   requiredMaxMonthsForRequest,
   requiredMaxYearsForRequest,
-  validateSajuConfigFortuneHorizon,
+  validateSajuConfigFortunePolicy,
   validateSajuRequestOptions,
 } from './saju-request-policy.js';
 import { isScorableSajuSummary } from './saju-analysis-contract.js';
@@ -1303,6 +1303,9 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
   if (!isValidSajuTimePolicy(options)) {
     return emptySaju('BIRTH_TIME_POLICY_INVALID');
   }
+  // Configuration errors must remain observable even when the dynamically
+  // loaded engine module is absent or broken.
+  validateSajuConfigFortunePolicy(options?.sajuConfig);
   let saju: SajuModule | null;
   try {
     saju = await loadSajuModule();
@@ -1360,7 +1363,6 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
     return buildPartialSajuSummary(birth, effectiveParts);
   }
   validateSajuRequestOptions(options?.sajuOptions, birthYear);
-  validateSajuConfigFortuneHorizon(options?.sajuConfig);
   const locationResolution = resolveBirthLocation(
     birth,
     {

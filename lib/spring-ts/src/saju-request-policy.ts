@@ -15,6 +15,33 @@ export const SAJU_REQUEST_LIMITS = Object.freeze({
   maxDays: 3_660,
 });
 
+const FORTUNE_POLICY_KEYS = [
+  'directionRule',
+  'startBoundary',
+  'startAgeMethod',
+  'startAge',
+  'startAgeRounding',
+  'minStartAge',
+  'firstDecadeOffsetSteps',
+  'decadeLengthYears',
+  'maxDecades',
+  'maxYears',
+  'maxMonths',
+  'maxDays',
+  'ageDisplay',
+  'axis',
+] as const;
+
+const FORTUNE_ENUMS = Object.freeze({
+  directionRule: ['sex_yearStemYinYang', 'fixedForward', 'fixedBackward'],
+  startBoundary: ['jie'],
+  startAgeRounding: ['round1down2up', 'threshold8months', 'floor', 'ceil', 'none'],
+  ageDisplay: ['continuousFromBirth', 'koreanCountingAge'],
+  axis: ['ageOnly', 'utcByGregorianYear'],
+} satisfies Record<string, readonly string[]>);
+
+const START_AGE_METHODS = ['threeDaysOneYear', 'oneDayFourMonths'] as const;
+
 export class SajuRequestValidationError extends RangeError {
   readonly code = 'SAJU_REQUEST_INVALID' as const;
   readonly reasonCode?: SajuAnalysisReasonCode;
@@ -26,14 +53,80 @@ export class SajuRequestValidationError extends RangeError {
   }
 }
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+  const proto = Object.getPrototypeOf(value);
+  return proto === Object.prototype || proto === null;
+}
+
 function assertIntegerInRange(value: unknown, label: string, min: number, max: number): number {
-  if (typeof value !== 'number' || !Number.isFinite(value) || !Number.isInteger(value)) {
-    throw new SajuRequestValidationError(`${label} must be a finite integer`);
+  if (typeof value !== 'number' || !Number.isSafeInteger(value)) {
+    throw new SajuRequestValidationError(`${label} must be a safe integer`);
   }
   if (value < min || value > max) {
     throw new SajuRequestValidationError(`${label} must be between ${min} and ${max}`);
   }
   return value;
+}
+
+function assertKnownKeys(
+  value: Record<string, unknown>,
+  label: string,
+  allowed: readonly string[],
+): void {
+  const allowedKeys = new Set(allowed);
+  for (const key of Object.keys(value)) {
+    if (!allowedKeys.has(key)) {
+      throw new SajuRequestValidationError(`${label}.${key} is not supported`);
+    }
+  }
+}
+
+function assertOptionalEnum(
+  value: Record<string, unknown>,
+  key: string,
+  label: string,
+  allowed: readonly string[],
+): void {
+  if (value[key] === undefined) return;
+  if (typeof value[key] !== 'string' || !allowed.includes(value[key] as string)) {
+    throw new SajuRequestValidationError(
+      `${label} must be one of ${allowed.map((entry) => JSON.stringify(entry)).join(', ')}`,
+    );
+  }
+}
+
+function assertPositiveFiniteNumber(value: unknown, label: string): void {
+  if (typeof value !== 'number' || !Number.isFinite(value) || value <= 0) {
+    throw new SajuRequestValidationError(`${label} must be a positive finite number`);
+  }
+}
+
+function validateStartAgeMethod(value: unknown, label: string): void {
+  if (typeof value === 'string' && START_AGE_METHODS.includes(
+    value as (typeof START_AGE_METHODS)[number],
+  )) return;
+  if (!isRecord(value)) {
+    throw new SajuRequestValidationError(
+      `${label} must be one of ${START_AGE_METHODS.map((entry) => JSON.stringify(entry)).join(', ')}, or a ratio object`,
+    );
+  }
+  if (value.label !== undefined && typeof value.label !== 'string') {
+    throw new SajuRequestValidationError(`${label}.label must be a string`);
+  }
+  if (value.kind === 'ratioDaysPerYear') {
+    assertKnownKeys(value, label, ['kind', 'daysPerYear', 'label']);
+    assertPositiveFiniteNumber(value.daysPerYear, `${label}.daysPerYear`);
+    return;
+  }
+  if (value.kind === 'ratioMsPerYear') {
+    assertKnownKeys(value, label, ['kind', 'msPerYear', 'label']);
+    assertPositiveFiniteNumber(value.msPerYear, `${label}.msPerYear`);
+    return;
+  }
+  throw new SajuRequestValidationError(
+    `${label}.kind must be one of "ratioDaysPerYear", "ratioMsPerYear"`,
+  );
 }
 
 function assertOptionalCount(
@@ -87,19 +180,47 @@ export function validateSajuRequestOptions(
   }
 }
 
-export function validateSajuConfigFortuneHorizon(config: Record<string, unknown> | undefined): void {
+/**
+ * Mirror the saju-ts engine-owned fortune-policy contract at the Spring
+ * boundary. This intentionally runs before dynamic module loading/database
+ * initialization; saju-ts remains the authoritative second line of defense.
+ */
+export function validateSajuConfigFortunePolicy(config: Record<string, unknown> | undefined): void {
   if (config === undefined) return;
+  if (!isRecord(config)) {
+    throw new SajuRequestValidationError('sajuConfig must be an object');
+  }
   const strategies = config.strategies;
   if (strategies === undefined) return;
-  if (!strategies || typeof strategies !== 'object' || Array.isArray(strategies)) {
+  if (!isRecord(strategies)) {
     throw new SajuRequestValidationError('sajuConfig.strategies must be an object');
   }
-  const fortune = (strategies as Record<string, unknown>).fortune;
+  const fortune = strategies.fortune;
   if (fortune === undefined) return;
-  if (!fortune || typeof fortune !== 'object' || Array.isArray(fortune)) {
+  if (!isRecord(fortune)) {
     throw new SajuRequestValidationError('sajuConfig.strategies.fortune must be an object');
   }
-  const raw = fortune as Record<string, unknown>;
+  const raw = fortune;
+  const path = 'sajuConfig.strategies.fortune';
+  assertKnownKeys(raw, path, FORTUNE_POLICY_KEYS);
+  for (const [key, allowed] of Object.entries(FORTUNE_ENUMS)) {
+    assertOptionalEnum(raw, key, `${path}.${key}`, allowed);
+  }
+
+  const hasStartAgeMethod = raw.startAgeMethod !== undefined;
+  const hasStartAgeAlias = raw.startAge !== undefined;
+  if (hasStartAgeMethod && hasStartAgeAlias) {
+    throw new SajuRequestValidationError(
+      `${path}.startAge must be omitted when startAgeMethod is supplied`,
+    );
+  }
+  if (hasStartAgeMethod) {
+    validateStartAgeMethod(raw.startAgeMethod, `${path}.startAgeMethod`);
+  }
+  if (hasStartAgeAlias) {
+    validateStartAgeMethod(raw.startAge, `${path}.startAge`);
+  }
+
   const limits: ReadonlyArray<readonly [string, number]> = [
     ['maxDecades', SAJU_REQUEST_LIMITS.daeunCount],
     ['maxYears', SAJU_REQUEST_LIMITS.maxYears],
@@ -107,7 +228,16 @@ export function validateSajuConfigFortuneHorizon(config: Record<string, unknown>
     ['maxDays', SAJU_REQUEST_LIMITS.maxDays],
   ];
   for (const [key, max] of limits) {
-    if (raw[key] !== undefined) assertIntegerInRange(raw[key], `sajuConfig.strategies.fortune.${key}`, 0, max);
+    if (raw[key] !== undefined) assertIntegerInRange(raw[key], `${path}.${key}`, 0, max);
+  }
+  if (raw.minStartAge !== undefined) {
+    assertIntegerInRange(raw.minStartAge, `${path}.minStartAge`, 0, SAJU_REQUEST_LIMITS.maxYears);
+  }
+  if (raw.firstDecadeOffsetSteps !== undefined) {
+    assertIntegerInRange(raw.firstDecadeOffsetSteps, `${path}.firstDecadeOffsetSteps`, 0, 59);
+  }
+  if (raw.decadeLengthYears !== undefined) {
+    assertIntegerInRange(raw.decadeLengthYears, `${path}.decadeLengthYears`, 1, SAJU_REQUEST_LIMITS.maxYears);
   }
 }
 

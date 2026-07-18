@@ -1,11 +1,13 @@
 import {
   SAJU_REQUEST_LIMITS,
+  SajuRequestValidationError,
   parseFortuneTargetDate,
   requiredMaxMonthsForRequest,
   requiredMaxYearsForRequest,
-  validateSajuConfigFortuneHorizon,
+  validateSajuConfigFortunePolicy,
   validateSajuRequestOptions,
 } from '../../src/saju-request-policy.js';
+import { SpringEngine } from '../../src/spring-engine.js';
 import {
   findLuckRowCoveringInstant,
   findYearLuckRowForInstant,
@@ -40,6 +42,15 @@ function throwsRangeError(fn: () => unknown): boolean {
     return false;
   } catch (error) {
     return error instanceof RangeError;
+  }
+}
+
+async function captureAsyncError(fn: () => Promise<unknown>): Promise<unknown> {
+  try {
+    await fn();
+    return null;
+  } catch (error) {
+    return error;
   }
 }
 
@@ -87,13 +98,111 @@ check('count-only month request expands to its requested count',
   requiredMaxMonthsForRequest({ wolunMonthCount: 120 }, birthYear) === 120);
 
 check('direct sajuConfig horizon rejects coercive string', throwsRangeError(() =>
-  validateSajuConfigFortuneHorizon({ strategies: { fortune: { maxMonths: '24' } } } as any)));
+  validateSajuConfigFortunePolicy({ strategies: { fortune: { maxMonths: '24' } } } as any)));
 check('direct sajuConfig horizon rejects oversized maxMonths', throwsRangeError(() =>
-  validateSajuConfigFortuneHorizon({ strategies: { fortune: { maxMonths: 1_601 } } } as any)));
+  validateSajuConfigFortunePolicy({ strategies: { fortune: { maxMonths: 1_601 } } } as any)));
 check('direct sajuConfig horizon rejects oversized maxDays', throwsRangeError(() =>
-  validateSajuConfigFortuneHorizon({ strategies: { fortune: { maxDays: 3_661 } } } as any)));
-validateSajuConfigFortuneHorizon({ strategies: { fortune: { maxMonths: 1_600, maxDays: 3_660, maxYears: 120, maxDecades: 10 } } } as any);
+  validateSajuConfigFortunePolicy({ strategies: { fortune: { maxDays: 3_661 } } } as any)));
+validateSajuConfigFortunePolicy({ strategies: { fortune: { maxMonths: 1_600, maxDays: 3_660, maxYears: 120, maxDecades: 10 } } } as any);
 check('direct sajuConfig horizon accepts documented caps', true);
+
+for (const [label, fortune] of [
+  ['direction typo', { directionRule: 'fixedBackwards' }],
+  ['coercive decade length', { decadeLengthYears: '5' }],
+  ['oversized decade length', { decadeLengthYears: 10_000 }],
+  ['fractional minimum age', { minStartAge: 1.5 }],
+  ['non-finite first offset', { firstDecadeOffsetSteps: Number.POSITIVE_INFINITY }],
+  ['negative first offset', { firstDecadeOffsetSteps: -1 }],
+  ['unknown field', { directionRules: 'fixedBackward' }],
+  ['malformed ratio', { startAgeMethod: { kind: 'ratioDaysPerYear', daysPerYear: Number.NaN } }],
+  [
+    'ambiguous start-age alias',
+    { startAgeMethod: 'threeDaysOneYear', startAge: 'oneDayFourMonths' },
+  ],
+] as const) {
+  check(`direct sajuConfig fortune policy rejects ${label}`, throwsRangeError(() =>
+    validateSajuConfigFortunePolicy({ strategies: { fortune } } as any)));
+}
+validateSajuConfigFortunePolicy({
+  strategies: {
+    customStrategy: { enabled: true },
+    fortune: {
+      directionRule: 'fixedBackward',
+      startBoundary: 'jie',
+      startAgeMethod: { kind: 'ratioDaysPerYear', daysPerYear: 3 },
+      startAgeRounding: 'ceil',
+      minStartAge: 0,
+      firstDecadeOffsetSteps: 59,
+      decadeLengthYears: 122,
+      ageDisplay: 'koreanCountingAge',
+      axis: 'utcByGregorianYear',
+    },
+  },
+} as any);
+check('direct sajuConfig fortune policy accepts every supported non-default shape', true);
+
+const invalidFortunePolicyOptions = {
+  sajuConfig: {
+    strategies: {
+      fortune: { directionRule: 'fixedBackwards' },
+    },
+  },
+} as any;
+const policyBoundaryRequest = {
+  birth: {
+    year: 1986,
+    month: 4,
+    day: 19,
+    hour: 5,
+    minute: 45,
+    gender: 'male',
+  },
+  surname: [{ hangul: '\uCD5C', hanja: '\u5D14' }],
+  givenName: [
+    { hangul: '\uC131', hanja: '\u6210' },
+    { hangul: '\uC218', hanja: '\u6D19' },
+  ],
+  mode: 'evaluate',
+  options: invalidFortunePolicyOptions,
+} as any;
+const publicPolicyRoutes: ReadonlyArray<readonly [
+  string,
+  (engine: SpringEngine) => Promise<unknown>,
+]> = [
+  ['getSajuReport', (engine) => engine.getSajuReport(policyBoundaryRequest)],
+  ['getSpringReport', (engine) => engine.getSpringReport(policyBoundaryRequest)],
+  ['getNameCandidates', (engine) => engine.getNameCandidates(policyBoundaryRequest)],
+  [
+    'getNameCandidateSummaries',
+    (engine) => engine.getNameCandidateSummaries(policyBoundaryRequest),
+  ],
+  ['analyze', (engine) => engine.analyze(policyBoundaryRequest)],
+  [
+    'getFortuneReport',
+    (engine) => engine.getFortuneReport({
+      birth: policyBoundaryRequest.birth,
+      surname: policyBoundaryRequest.surname,
+      givenName: policyBoundaryRequest.givenName,
+      targetDate: '2026-07-18T00:00:00+09:00',
+      options: invalidFortunePolicyOptions,
+    }),
+  ],
+];
+for (const [label, invoke] of publicPolicyRoutes) {
+  const engine = new SpringEngine() as any;
+  let initCalls = 0;
+  engine.init = async () => {
+    initCalls += 1;
+  };
+  const error = await captureAsyncError(() => invoke(engine));
+  check(
+    `${label} rejects an invalid fortune policy before initialization`,
+    error instanceof SajuRequestValidationError
+      && error.code === 'SAJU_REQUEST_INVALID'
+      && initCalls === 0,
+    `error=${error instanceof Error ? error.constructor.name : String(error)}, initCalls=${initCalls}`,
+  );
+}
 
 const birthDate = { year: birthYear, month: 4, day: 19 };
 check('invalid targetDate fails closed', throwsRangeError(() => parseFortuneTargetDate('not-a-date', birthDate)));

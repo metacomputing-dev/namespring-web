@@ -28,7 +28,10 @@ import type {
   DecadeLuck,
   YearLuck,
 } from './types.js';
-import { assertFortuneHorizonPolicy } from './policy.js';
+import {
+  FORTUNE_HORIZON_LIMITS,
+  assertFortuneHorizonPolicy,
+} from './policy.js';
 
 const MS_PER_DAY = 86_400_000;
 const AVG_DAYS_PER_YEAR = 365.2425;
@@ -95,6 +98,19 @@ function findPrevNextJie(utcMs: number, boundaries: JieBoundariesAround): { prev
 function startAgeYears(deltaMs: number, method: FortunePolicy['startAgeMethod']): { years: number; formula: string; parts?: AgePartsApprox } {
   const deltaDays = deltaMs / MS_PER_DAY;
 
+  const assertCalculatedYears = (years: number): number => {
+    if (
+      !Number.isFinite(years)
+      || years < 0
+      || years > FORTUNE_HORIZON_LIMITS.maxYears
+    ) {
+      throw new RangeError(
+        `calculated fortune start age must be between 0 and ${FORTUNE_HORIZON_LIMITS.maxYears}`,
+      );
+    }
+    return years;
+  };
+
   const approxPartsFromYears = (y: number): AgePartsApprox => {
     const years = Math.max(0, Math.floor(y));
     const remY = Math.max(0, y - years);
@@ -105,7 +121,7 @@ function startAgeYears(deltaMs: number, method: FortunePolicy['startAgeMethod'])
   };
 
   const ratioDays = (daysPerYear: number, label: string) => {
-    const years = deltaDays / daysPerYear;
+    const years = assertCalculatedYears(deltaDays / daysPerYear);
     return { years, formula: `startAgeYears = (Δdays / ${daysPerYear})  // ${label}`, parts: approxPartsFromYears(years) };
   };
 
@@ -128,14 +144,13 @@ function startAgeYears(deltaMs: number, method: FortunePolicy['startAgeMethod'])
     if (m.kind === 'ratioMsPerYear') {
       const mpy = m.msPerYear;
       if (typeof mpy === 'number' && Number.isFinite(mpy) && mpy > 0) {
-        const years = deltaMs / mpy;
+        const years = assertCalculatedYears(deltaMs / mpy);
         return { years, formula: `startAgeYears = (Δms / ${mpy})  // ${m.label ?? `ratioMsPerYear(${mpy})`}`, parts: approxPartsFromYears(years) };
       }
     }
   }
 
-  // Fallback to 三日一歲.
-  return ratioDays(3, '三日一歲(fallback)');
+  throw new RangeError('fortune.startAgeMethod is not supported');
 }
 
 /**
@@ -149,7 +164,7 @@ function daysPerYearOfMethod(method: FortunePolicy['startAgeMethod']): number {
     if (m.kind === 'ratioDaysPerYear' && Number.isFinite(m.daysPerYear) && m.daysPerYear > 0) return m.daysPerYear;
     if (m.kind === 'ratioMsPerYear' && Number.isFinite(m.msPerYear) && m.msPerYear > 0) return m.msPerYear / MS_PER_DAY;
   }
-  return 3;
+  throw new RangeError('fortune.startAgeMethod is not supported');
 }
 
 // Floating-point conversion from milliseconds to fractional years can land a

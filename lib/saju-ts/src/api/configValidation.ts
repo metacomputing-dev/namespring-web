@@ -1,4 +1,15 @@
 import type { LongitudeCorrectionPolicy } from './types.js';
+import {
+  FORTUNE_AGE_DISPLAY_MODES,
+  FORTUNE_AXES,
+  FORTUNE_DIRECTION_RULES,
+  FORTUNE_HORIZON_LIMITS,
+  FORTUNE_POLICY_KEYS,
+  FORTUNE_POLICY_LIMITS,
+  FORTUNE_START_AGE_METHODS,
+  FORTUNE_START_AGE_ROUNDINGS,
+  FORTUNE_START_BOUNDARIES,
+} from '../fortune/policyContract.js';
 
 /** Raised when a known engine-config field contains an unsupported runtime value. */
 export class InvalidEngineConfigError extends TypeError {
@@ -103,6 +114,54 @@ function assertFiniteNumberValue(
   }
 }
 
+function assertIntegerInRangeValue(
+  parent: Record<string, unknown>,
+  key: string,
+  path: string,
+  min: number,
+  max: number,
+): void {
+  if (!hasOwn(parent, key) || parent[key] === undefined) return;
+  const value = parent[key];
+  if (
+    typeof value !== 'number'
+    || !Number.isSafeInteger(value)
+    || value < min
+    || value > max
+  ) {
+    throw new InvalidEngineConfigError(
+      path,
+      `a safe integer between ${min} and ${max}`,
+    );
+  }
+}
+
+function assertPositiveFiniteNumberValue(
+  parent: Record<string, unknown>,
+  key: string,
+  path: string,
+): void {
+  if (
+    !hasOwn(parent, key)
+    || typeof parent[key] !== 'number'
+    || !Number.isFinite(parent[key])
+    || parent[key] <= 0
+  ) {
+    throw new InvalidEngineConfigError(path, 'a positive finite number');
+  }
+}
+
+function assertOptionalStringValue(
+  parent: Record<string, unknown>,
+  key: string,
+  path: string,
+): void {
+  if (!hasOwn(parent, key) || parent[key] === undefined) return;
+  if (typeof parent[key] !== 'string') {
+    throw new InvalidEngineConfigError(path, 'a string');
+  }
+}
+
 function assertNonNegativeFiniteNumberValue(
   parent: Record<string, unknown>,
   key: string,
@@ -197,6 +256,118 @@ const ELEMENT_DISTRIBUTION_WEIGHT_KEYS = [
   'branchPositionWeights',
 ] as const;
 const ELEMENT_DISTRIBUTION_POSITIONS = ['year', 'month', 'day', 'hour'] as const;
+
+function assertStartAgeMethod(value: unknown, path: string): void {
+  if (
+    typeof value === 'string'
+    && FORTUNE_START_AGE_METHODS.includes(
+      value as (typeof FORTUNE_START_AGE_METHODS)[number],
+    )
+  ) return;
+  if (!isRecord(value)) {
+    throw new InvalidEngineConfigError(
+      path,
+      `one of ${FORTUNE_START_AGE_METHODS.map((entry) => JSON.stringify(entry)).join(', ')}, or a ratio object`,
+    );
+  }
+
+  assertOptionalStringValue(value, 'label', `${path}.label`);
+  if (value.kind === 'ratioDaysPerYear') {
+    assertKnownKeys(value, path, ['kind', 'daysPerYear', 'label']);
+    assertPositiveFiniteNumberValue(value, 'daysPerYear', `${path}.daysPerYear`);
+    return;
+  }
+  if (value.kind === 'ratioMsPerYear') {
+    assertKnownKeys(value, path, ['kind', 'msPerYear', 'label']);
+    assertPositiveFiniteNumberValue(value, 'msPerYear', `${path}.msPerYear`);
+    return;
+  }
+  throw new InvalidEngineConfigError(
+    `${path}.kind`,
+    'one of "ratioDaysPerYear", "ratioMsPerYear"',
+  );
+}
+
+function assertKnownFortunePolicy(fortune: Record<string, unknown>): void {
+  const path = 'strategies.fortune';
+  assertKnownKeys(fortune, path, FORTUNE_POLICY_KEYS);
+  assertEnumValue(
+    fortune,
+    'directionRule',
+    `${path}.directionRule`,
+    FORTUNE_DIRECTION_RULES,
+  );
+  assertEnumValue(
+    fortune,
+    'startBoundary',
+    `${path}.startBoundary`,
+    FORTUNE_START_BOUNDARIES,
+  );
+  assertEnumValue(
+    fortune,
+    'startAgeRounding',
+    `${path}.startAgeRounding`,
+    FORTUNE_START_AGE_ROUNDINGS,
+  );
+  assertEnumValue(
+    fortune,
+    'ageDisplay',
+    `${path}.ageDisplay`,
+    FORTUNE_AGE_DISPLAY_MODES,
+  );
+  assertEnumValue(fortune, 'axis', `${path}.axis`, FORTUNE_AXES);
+
+  const hasStartAgeMethod = hasOwn(fortune, 'startAgeMethod')
+    && fortune.startAgeMethod !== undefined;
+  const hasStartAgeAlias = hasOwn(fortune, 'startAge')
+    && fortune.startAge !== undefined;
+  if (hasStartAgeMethod && hasStartAgeAlias) {
+    throw new InvalidEngineConfigError(
+      `${path}.startAge`,
+      'omitted when startAgeMethod is supplied',
+    );
+  }
+  if (hasStartAgeMethod) {
+    assertStartAgeMethod(fortune.startAgeMethod, `${path}.startAgeMethod`);
+  }
+  if (hasStartAgeAlias) {
+    assertStartAgeMethod(fortune.startAge, `${path}.startAge`);
+  }
+
+  assertIntegerInRangeValue(
+    fortune,
+    'minStartAge',
+    `${path}.minStartAge`,
+    0,
+    FORTUNE_POLICY_LIMITS.minStartAge,
+  );
+  assertIntegerInRangeValue(
+    fortune,
+    'firstDecadeOffsetSteps',
+    `${path}.firstDecadeOffsetSteps`,
+    0,
+    FORTUNE_POLICY_LIMITS.firstDecadeOffsetSteps,
+  );
+  assertIntegerInRangeValue(
+    fortune,
+    'decadeLengthYears',
+    `${path}.decadeLengthYears`,
+    1,
+    FORTUNE_POLICY_LIMITS.decadeLengthYears,
+  );
+  for (const [key, max] of Object.entries(FORTUNE_HORIZON_LIMITS)) {
+    assertIntegerInRangeValue(fortune, key, `${path}.${key}`, 0, max);
+  }
+}
+
+function assertKnownEngineStrategies(strategies: Record<string, unknown>): void {
+  const fortune = readOptionalRecord(
+    strategies,
+    'fortune',
+    'strategies.fortune',
+  );
+  if (fortune) assertKnownFortunePolicy(fortune);
+}
 
 function assertPositionWeights(
   parent: Record<string, unknown>,
@@ -349,17 +520,19 @@ function assertKnownEngineWeights(weights: Record<string, unknown>): void {
 /**
  * Validate only the closed, engine-owned portion of the public config.
  *
- * strategies/extensions/weights intentionally remain open-ended data-first
- * surfaces. Undefined values retain their historical "omitted" behavior, while
- * explicit invalid values fail before calculation instead of selecting a
- * fallback branch by accident.
+ * strategies/extensions/weights remain open-ended data-first surfaces except
+ * for engine-owned nested contracts such as strategies.fortune. Undefined
+ * values retain their historical "omitted" behavior, while explicit invalid
+ * values fail before calculation instead of selecting a fallback branch by
+ * accident.
  */
 export function assertKnownEngineConfig(config: unknown): void {
   assertEngineConfigObject(config);
   assertKnownKeys(config, 'config', CONFIG_KEYS);
   const weights = readOptionalRecord(config, 'weights', 'weights');
   if (weights) assertKnownEngineWeights(weights);
-  readOptionalRecord(config, 'strategies', 'strategies');
+  const strategies = readOptionalRecord(config, 'strategies', 'strategies');
+  if (strategies) assertKnownEngineStrategies(strategies);
   readOptionalRecord(config, 'extensions', 'extensions');
 
   const calendar = readOptionalRecord(config, 'calendar', 'calendar');
