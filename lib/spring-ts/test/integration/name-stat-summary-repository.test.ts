@@ -47,6 +47,72 @@ async function waitFor(predicate: () => boolean): Promise<void> {
   assert.fail('Timed out waiting for the repository checkpoint.');
 }
 
+interface FakeHttpStreamState {
+  readCalls: number;
+  getReaderCalls: number;
+  cancelCalls: number;
+}
+
+function fakeHttpResponse(
+  chunks: readonly Uint8Array[],
+  declaredLength?: string,
+): { readonly response: Response; readonly state: FakeHttpStreamState } {
+  const state: FakeHttpStreamState = {
+    readCalls: 0,
+    getReaderCalls: 0,
+    cancelCalls: 0,
+  };
+  let cursor = 0;
+  const body = {
+    cancel: async (): Promise<void> => {
+      state.cancelCalls += 1;
+    },
+    getReader: () => {
+      state.getReaderCalls += 1;
+      return {
+        read: async () => {
+          state.readCalls += 1;
+          if (cursor >= chunks.length) {
+            return { done: true as const, value: undefined };
+          }
+          const value = chunks[cursor++]!;
+          return { done: false as const, value };
+        },
+        cancel: async (): Promise<void> => {
+          state.cancelCalls += 1;
+        },
+        releaseLock: (): void => undefined,
+      };
+    },
+  };
+  return {
+    response: {
+      ok: true,
+      status: 200,
+      headers: new Headers(
+        declaredLength === undefined
+          ? undefined
+          : { 'content-length': declaredLength },
+      ),
+      body,
+    } as unknown as Response,
+    state,
+  };
+}
+
+async function withFetchResponse<T>(
+  response: Response,
+  operation: () => Promise<T>,
+): Promise<T> {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = (async () => response) as typeof fetch;
+  try {
+    return await operation();
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+}
+
 function sha256(bytes: Uint8Array): string {
   return createHash('sha256').update(bytes).digest('hex');
 }
@@ -584,4 +650,120 @@ test('versions HTTP asset requests with the authenticated compressed digest', as
   );
   assert.equal(observedUrl.pathname, '/name-stat-summary.v1.bin');
   repository.close();
+});
+
+test('default HTTP reader rejects a mismatched declared size before acquiring a reader', async () => {
+  for (const declaredLength of [
+    NAME_STAT_SUMMARY_ASSET_PROVENANCE.compressedByteLength - 1,
+    NAME_STAT_SUMMARY_ASSET_PROVENANCE.compressedByteLength + 1,
+  ]) {
+    const { response, state } = fakeHttpResponse([], String(declaredLength));
+    const repository = new NameStatSummaryRepository({
+      assetUrl: new URL('https://example.test/name-stat-summary.v1.bin'),
+    });
+
+    await withFetchResponse(response, async () => {
+      await expectIntegrityReason(repository, 'compressed_byte_length_mismatch');
+    });
+    assert.equal(state.getReaderCalls, 0);
+    assert.equal(state.readCalls, 0);
+    assert.equal(state.cancelCalls, 1);
+    repository.close();
+  }
+});
+
+test('default HTTP reader cancels as soon as streamed bytes exceed provenance', async () => {
+  const provenance = {
+    ...NAME_STAT_SUMMARY_ASSET_PROVENANCE,
+    compressedByteLength: 3,
+  };
+  const { response, state } = fakeHttpResponse([
+    Uint8Array.of(1, 2),
+    Uint8Array.of(3, 4),
+    Uint8Array.of(5),
+  ]);
+  const repository = new NameStatSummaryRepository({
+    assetUrl: new URL('https://example.test/name-stat-summary.v1.bin'),
+    provenance,
+  });
+
+  await withFetchResponse(response, async () => {
+    await expectIntegrityReason(repository, 'compressed_byte_length_mismatch');
+  });
+  assert.equal(state.getReaderCalls, 1);
+  assert.equal(state.readCalls, 2, 'the reader must stop at the first oversized chunk');
+  assert.equal(state.cancelCalls, 1);
+  repository.close();
+});
+
+test('default HTTP reader accepts the exact committed asset size', async () => {
+  const splitAt = Math.floor(committedBytes.byteLength / 2);
+  const { response, state } = fakeHttpResponse(
+    [committedBytes.slice(0, splitAt), committedBytes.slice(splitAt)],
+    String(committedBytes.byteLength),
+  );
+  const repository = new NameStatSummaryRepository({
+    assetUrl: new URL('https://example.test/name-stat-summary.v1.bin'),
+  });
+
+  const projection = await withFetchResponse(
+    response,
+    () => repository.findByName('\uAE30\uD0C0'),
+  );
+  assert.deepEqual(projection, {
+    popularityRank: null,
+    maleBirths: 0,
+    femaleBirths: 0,
+  });
+  assert.equal(state.getReaderCalls, 1);
+  assert.equal(state.readCalls, 3);
+  assert.equal(state.cancelCalls, 0);
+  repository.close();
+});
+
+test('close aborts the default HTTP body reader and preserves lifecycle cancellation', async () => {
+  const state: FakeHttpStreamState = {
+    readCalls: 0,
+    getReaderCalls: 0,
+    cancelCalls: 0,
+  };
+  let settleRead: ((value: { done: true; value: undefined }) => void) | undefined;
+  const response = {
+    ok: true,
+    status: 200,
+    headers: new Headers(),
+    body: {
+      cancel: async (): Promise<void> => {
+        state.cancelCalls += 1;
+      },
+      getReader: () => {
+        state.getReaderCalls += 1;
+        return {
+          read: () => {
+            state.readCalls += 1;
+            return new Promise<{ done: true; value: undefined }>((resolve) => {
+              settleRead = resolve;
+            });
+          },
+          cancel: async (): Promise<void> => {
+            state.cancelCalls += 1;
+            settleRead?.({ done: true, value: undefined });
+          },
+          releaseLock: (): void => undefined,
+        };
+      },
+    },
+  } as unknown as Response;
+  const repository = new NameStatSummaryRepository({
+    assetUrl: new URL('https://example.test/name-stat-summary.v1.bin'),
+  });
+
+  await withFetchResponse(response, async () => {
+    const lookup = repository.findByName('\uAE30\uD0C0');
+    await waitFor(() => state.readCalls === 1);
+    repository.close();
+    await assert.rejects(lookup, /cancelled by close/u);
+  });
+  assert.equal(state.getReaderCalls, 1);
+  assert.equal(state.cancelCalls, 1);
 });
