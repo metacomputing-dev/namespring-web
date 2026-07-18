@@ -133,8 +133,7 @@ check('full generator adds legal Hanja outside the fake curated repo',
   Array.from(fullHanja).some((hanja) => hanja !== '佳'),
   `full=${Array.from(fullHanja).slice(0, 8).join(',')}`);
 check('full generated chars carry legal status',
-  full.flat().every((char: NameCharInput) =>
-    char.legalStatus === 'allowed' || char.legalStatus === 'variantAllowed'));
+  full.flat().every((char: NameCharInput) => char.legalStatus === 'allowed'));
 
 const fullOnlyGenerated = full.flat().find((char: NameCharInput) => char.hanja !== '佳') as NameCharInput;
 const resolvedFullOnly = await engine.resolveEntries([fullOnlyGenerated], {
@@ -174,7 +173,10 @@ check('full jamo-filtered pool respects reading-derived onset/nucleus',
 const candidateRejections = new Map();
 const filtered = engine.filterGeneratedCandidatesByLegalStatus([
   [{ hangul: '답', hanja: '龘', legalStatus: 'notAllowed' }],
-], 'inmyeongyong_full', candidateRejections);
+], candidateRejections);
+const pureHangulFiltered = engine.filterGeneratedCandidatesByLegalStatus([
+  [{ hangul: '민', hanja: '', legalStatus: 'hangulOnly' }],
+], new Map());
 const rejections = engine.candidateRejectionSummary(candidateRejections);
 const response = engine.buildResponse(
   baseRequest,
@@ -183,8 +185,10 @@ const response = engine.buildResponse(
   [],
   candidateRejections,
 );
-check('illegal generated Hanja is removed before scoring',
+check('illegal generated Hanja is removed before scoring in every candidate pool',
   filtered.length === 0);
+check('pure-Hangul recommendations bypass the Hanja-only legal filter',
+  pureHangulFiltered.length === 1);
 check('rejection reason is exposed for filtered Hanja',
   rejections.some((row: any) => row.reason === 'outside_legal_hanja_pool' && row.count === 1),
   JSON.stringify(rejections));

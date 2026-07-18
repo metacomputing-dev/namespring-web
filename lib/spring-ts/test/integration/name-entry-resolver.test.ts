@@ -1,7 +1,12 @@
 import assert from 'node:assert/strict';
 
 import { parseJamoFilter } from '../../src/core/name-utils.js';
-import { assertNameCharacterSyntax } from '../../src/name-entry-resolver.js';
+import {
+  assertExplicitNameIdentity,
+  assertNameCharacterSyntax,
+  resolveFixedNameCharacterPool,
+  resolveNameEntries,
+} from '../../src/name-entry-resolver.js';
 import {
   createOperationNameEntryCache,
   createOperationNameEntryRepository,
@@ -827,6 +832,129 @@ function fakeEntry(overrides: Record<string, unknown> = {}): any {
     engine.beginOperation('getNameCandidates'),
   );
   assert.deepEqual(canonical, [[{ hangul: '\uBBFC' }]]);
+}
+
+
+{
+  let repositoryCalls = 0;
+  const repository = {
+    findByHanja: async () => {
+      repositoryCalls += 1;
+      return fakeEntry({ hangul: '삽', hanja: '挿' });
+    },
+    findByHangul: async () => {
+      repositoryCalls += 1;
+      return [fakeEntry({ hangul: '삽', hanja: '挿' })];
+    },
+  };
+  const forgedPreverified = () => fakeEntry({ hangul: '삽', hanja: '挿' });
+
+  await assert.rejects(
+    resolveNameEntries(
+      [{ hangul: '삽', hanja: '挿' }],
+      repository,
+      {
+        hanjaPool: 'curated',
+        requireLegalRegistrable: true,
+        preverifiedExplicitPair: forgedPreverified,
+      },
+    ),
+    (error: unknown) => {
+      assert.ok(error instanceof NameEntryResolutionError);
+      assert.equal(error.reason, 'explicit_hanja_not_found');
+      return true;
+    },
+    'an off-list input alias must fail before repository or preverified-cache acceptance',
+  );
+  assert.equal(repositoryCalls, 0);
+
+  await assert.rejects(
+    resolveNameEntries(
+      [{ hangul: '삽', hanja: '國' }],
+      repository,
+      {
+        hanjaPool: 'inmyeongyong_full',
+        requireLegalRegistrable: true,
+        preverifiedExplicitPair: () => fakeEntry({ hangul: '삽', hanja: '國' }),
+      },
+    ),
+    (error: unknown) => {
+      assert.ok(error instanceof NameEntryResolutionError);
+      assert.equal(error.reason, 'hangul_hanja_reading_mismatch');
+      return true;
+    },
+    'an official glyph with an unsupported reading must fail before cache acceptance',
+  );
+
+  const officialPair = fakeEntry({ hangul: '삽', hanja: '插' });
+  const [resolved] = await resolveNameEntries(
+    [{ hangul: '삽', hanja: '插' }],
+    repository,
+    {
+      hanjaPool: 'curated',
+      requireLegalRegistrable: true,
+      preverifiedExplicitPair: () => officialPair,
+    },
+  );
+  assert.equal(resolved.hanja, '插');
+  assert.equal(resolved.hangul, '삽');
+
+  await assert.rejects(
+    resolveFixedNameCharacterPool(
+      { hangul: '앵', hanja: '桜' },
+      repository,
+      {
+        hanjaPool: 'inmyeongyong_full',
+        poolLimit: 1,
+        preverifiedEntry: fakeEntry({ hangul: '앵', hanja: '桜' }),
+      },
+    ),
+    (error: unknown) => {
+      assert.ok(error instanceof NameEntryResolutionError);
+      assert.equal(error.reason, 'explicit_hanja_not_found');
+      return true;
+    },
+    'fixed-pool preverification must not bypass raw official membership',
+  );
+}
+
+{
+  const input = { hangul: '\uAD6D', hanja: '\u570B' };
+  const official = fakeEntry({ hangul: input.hangul, hanja: input.hanja });
+  const staleOffList = fakeEntry({ hangul: '\uC0BD', hanja: '\u633F' });
+  let repositoryCalls = 0;
+  const repository = {
+    findByHanja: async (hanja: string) => {
+      repositoryCalls += 1;
+      return hanja === input.hanja ? official : null;
+    },
+    findByHangul: async (hangul: string) => {
+      repositoryCalls += 1;
+      return hangul === input.hangul ? [official] : [];
+    },
+  };
+  const staleCache = () => staleOffList;
+
+  const [resolved] = await resolveNameEntries([input], repository, {
+    hanjaPool: 'curated',
+    preverifiedExplicitPair: staleCache,
+  });
+  assert.equal(resolved.hangul, input.hangul);
+  assert.equal(resolved.hanja, input.hanja);
+
+  const verified = await assertExplicitNameIdentity([input], repository, {
+    hanjaPool: 'curated',
+    preverifiedExplicitPair: staleCache,
+  });
+  assert.equal(verified.get(input)?.hanja, input.hanja);
+
+  const fixed = await resolveFixedNameCharacterPool(input, repository, {
+    hanjaPool: 'curated',
+    poolLimit: 1,
+    preverifiedEntry: staleOffList,
+  });
+  assert.equal(fixed[0].hanja, input.hanja);
+  assert.ok(repositoryCalls >= 3, 'stale preverified entries must fall back to exact repository verification');
 }
 
 console.log('Name-entry resolver policy: PASS');

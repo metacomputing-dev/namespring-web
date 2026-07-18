@@ -110,7 +110,7 @@ NameSpring (irumbom-poc)
 - **HanjaCalculator**: 획수 오행 + 음양
 - **FrameCalculator**: 사격 (元亨利貞) 수리 길흉
 - **인명용 한자**: 9,495 entries (isin=1 from delvier/KoreaSCourtCode)
-- **별표2 變體字**: 112 verified variant pairs
+- **입력 별칭**: 112 search/deduplication aliases (legal-authority evidence 아님)
 - **Hanja 격식 annotation**: 사주적합성 + 의미
 
 ### 3. 사주↔이름 궁합 (saju-calculator.ts)
@@ -234,7 +234,8 @@ config/
 ```
 data/
 ├── inmyeongyong_9389_full.json     인명용 9,495 한자 (isin=1)
-├── byeolpyo2_variants.json          별표2 112 변환 pair
+├── byeolpyo2_variants.json          검색/중복제거 전용 112 입력 별칭
+├── official-hanja-lookup-authority.generated.json  공식 조회 parity receipt
 └── HANJA_INGESTION_STATUS.md
 ```
 

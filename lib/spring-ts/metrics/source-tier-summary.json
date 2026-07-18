@@ -1,10 +1,10 @@
 {
   "schemaVersion": "spring-ts.source-tier-summary.v2",
   "status": "PASS",
-  "scanned": 121,
+  "scanned": 122,
   "violationCount": 0,
   "eligibilityDefinition": "source record is eligible for at least one policy-declared authority scope; this is not complete D1 fixture truth",
-  "declaredScopeEligibleSourceRecordCount": 25,
+  "declaredScopeEligibleSourceRecordCount": 26,
   "declaredScopeIneligibleSourceRecordCount": 96,
   "byTier": {
     "T3_AUTHORED_INTERPRETATION": {
@@ -128,12 +128,12 @@
         "test/baseline/oracles/fix-11.json",
         "test/baseline/oracles/fix-12.json",
         "data/sources/korean-surname.sources.json#sources[0].sourceTier:namespring_hanja_db_surname_rows_2026_07_16",
-        "data/sources/legal-hanja.sources.json#sources[3].sourceTier:delvier_koreascourtcode_2024_07_16"
+        "data/sources/legal-hanja.sources.json#sources[4].sourceTier:delvier_koreascourtcode_2024_07_16"
       ]
     },
     "T5_OFFICIAL": {
-      "recordCount": 25,
-      "declaredScopeEligibleSourceRecordCount": 22,
+      "recordCount": 26,
+      "declaredScopeEligibleSourceRecordCount": 23,
       "declaredScopeIneligibleSourceRecordCount": 3,
       "files": [
         "data/sources/kasi-lunar-solar.sources.json",
@@ -148,9 +148,10 @@
         "data/sources/kasi-solar-terms.sources.json#sources[2].sourceTier:kasi_calendar_data_24_terms_table",
         "data/sources/korean-surname.sources.json#sources[1].sourceTier:kosis_2015_dt_1in15sc_compound_surnames",
         "data/sources/legal-hanja.sources.json",
-        "data/sources/legal-hanja.sources.json#sources[0].sourceTier:law_go_kr_rule_article_37_2025_07_19",
-        "data/sources/legal-hanja.sources.json#sources[1].sourceTier:law_go_kr_byeolpyo1_2024_05_30",
-        "data/sources/legal-hanja.sources.json#sources[2].sourceTier:scourt_press_2024_05_23",
+        "data/sources/legal-hanja.sources.json#sources[0].sourceTier:efamily_official_hanja_lookup_2026_07_18",
+        "data/sources/legal-hanja.sources.json#sources[1].sourceTier:law_go_kr_rule_article_37_2025_07_19",
+        "data/sources/legal-hanja.sources.json#sources[2].sourceTier:law_go_kr_byeolpyo1_2024_05_30",
+        "data/sources/legal-hanja.sources.json#sources[3].sourceTier:scourt_press_2024_05_23",
         "data/sources/name-trend.sources.json",
         "data/sources/name-trend.sources.json#sources[0].sourceTier:scourt_birth_name_rank_1811",
         "data/sources/name-trend.sources.json#sources[1].sourceTier:scourt_statistics_service_info",
@@ -268,6 +269,11 @@
     "official_law_registry": {
       "recordCount": 2,
       "declaredScopeEligibleSourceRecordCount": 2,
+      "declaredScopeIneligibleSourceRecordCount": 0
+    },
+    "official_court_lookup": {
+      "recordCount": 1,
+      "declaredScopeEligibleSourceRecordCount": 1,
       "declaredScopeIneligibleSourceRecordCount": 0
     },
     "official_law_attachment": {

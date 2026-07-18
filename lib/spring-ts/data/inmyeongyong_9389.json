@@ -4,7 +4,7 @@
   "sourceVersion": "2024-06",
   "license": "KOGL Type 1 (공공저작물 자유이용허락) — 출처 명시 시 자유 이용 가능",
   "expectedTotalDistinct": 9389,
-  "note": "대법원 별표 1 의 인명용 한자 list. 본 file 은 PR-I-1 의 schema + 50-char seed sample 만 보유. 전체 9,389 list import 는 OCR/PDF extract 가 끝난 별도 data PR 에서 수행 — 그때까지 isHanjaUsableForLegalName 의 default 는 conservative 'accept unknown' 정책을 유지한다.",
+  "note": "추천 후보 품질을 위한 50자 curated seed. 법적 등록 가능성은 이 seed가 아니라 공식 조회와 parity가 고정된 raw 글자+독음 권위 레지스트리로 모든 후보군에서 동일하게 판정한다.",
   "registrable": [
     "佳", "家", "假", "可", "加", "嘉", "歌", "稼", "賈",
     "各", "刻", "却", "客", "脚", "覺", "閣",

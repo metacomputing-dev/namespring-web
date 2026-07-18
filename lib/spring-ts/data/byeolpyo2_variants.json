@@ -1,10 +1,18 @@
 {
-  "schemaVersion": "1.0.0",
-  "source": "대법원 가족관계의 등록 등에 관한 규칙 별표 2 (인명용 한자의 異體字)",
-  "sourceVersion": "2024-06",
-  "license": "KOGL Type 1 (공공저작물 자유이용허락) — 출처 명시 시 자유 이용 가능",
-  "expectedTotalDistinct": "~200 (estimated; 1997 PDF flat-pair count, post-2014 cumulative may be higher)",
-  "note": "별표 2 의 정자 ↔ 약자/이체자 매핑. PR-P-8 (2026-05-01) 가 1997 PDF 의 verified pairs 60+ 를 추가하여 112 entries 로 확장. 2024-05-30 별표 2 hwpx 발견 후 재 verification 필요. 매핑 방향은 항상 variant → orthodox(정자) 이며 lookup 은 단방향. CJK input-tolerance (예: 일본 신자체 → 정자) 는 별도 layer 로 분리.",
+  "schemaVersion": "1.1.0-input-alias",
+  "source": "Legacy variant and CJK input-alias corpus; not an official legal-variant authority",
+  "sourceVersion": "2026-07-18 authority separation",
+  "license": "Mixed factual alias mappings and public-rule references; retain source attribution",
+  "authorityTruthEligible": false,
+  "officialAppendix2Url": "https://www.law.go.kr/LSW/flDownload.do?bylClsCd=110201&flSeq=142530903&gubun=",
+  "mappingStats": {
+    "total": 112,
+    "bothGlyphsInOfficialLookup": 80,
+    "effectiveBothInMappings": 79,
+    "selfMappings": 1,
+    "aliasOnlyInputsOutsideOfficialLookup": 32
+  },
+  "note": "Search and deduplication aliases only. The map mixes lookup-listed forms with 32 Japanese shinjitai inputs that the official legal lookup does not return. normalizeToOrthodoxHanja may use it as an input key, but legal registrability must always test the raw glyph and designated reading. A current Appendix 2 scalar-to-scalar authority map remains a separate future extraction.",
   "variantToOrthodox": {
     "万": "萬",
     "両": "兩",

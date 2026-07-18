@@ -52,7 +52,6 @@ import { assertScorableSajuSummary, isScorableSajuSummary } from './saju-analysi
 import {
   getLegalAnnotation,
   isRecognizedHanjaGlyph,
-  normalizeToOrthodoxHanja,
   type HanjaLegalStatus,
   type HanjaPool,
 } from './hanja-annotations.js';
@@ -964,6 +963,7 @@ export class SpringEngine {
     operation: SpringEngineOperationLease,
   ): Promise<void> {
     const hanjaPool = this.resolveHanjaPool(request.options);
+    const requireLegalRegistrable = this.buildNameInputPlan(request).mode === 'recommend';
     const nameEntryRepository = this.operationNameEntryRepository(operation);
     const preverifiedExplicitPair = (
       input: NameCharInput,
@@ -976,6 +976,7 @@ export class SpringEngine {
         operation,
         () => assertExplicitNameIdentity(request.givenName!, nameEntryRepository, {
           hanjaPool,
+          requireLegalRegistrable,
           asyncFullPoolEntries: loadFullHanjaPoolEntries,
           preverifiedExplicitPair,
         }),
@@ -2476,26 +2477,25 @@ export class SpringEngine {
       ? this.generateViaStrokeOptimizer(surnameEntries, pools, nameLength, hanjaPool)
       : this.generateViaDepthFirstSearch(pools, nameLength, hanjaPool);
     const internallyDiverse = this.filterInternallyRepeatedCandidates(generated, candidateRejections);
-    return this.filterGeneratedCandidatesByLegalStatus(internallyDiverse, hanjaPool, candidateRejections);
+    return this.filterGeneratedCandidatesByLegalStatus(internallyDiverse, candidateRejections);
   }
 
   private filterGeneratedCandidatesByLegalStatus(
     candidates: NameCharInput[][],
-    hanjaPool: HanjaPool,
     candidateRejections: CandidateRejectionAccumulator,
   ): NameCharInput[][] {
-    if (hanjaPool !== 'inmyeongyong_full') return candidates;
-
     const filtered: NameCharInput[][] = [];
     for (const candidate of candidates) {
       const rejected = candidate.find((char) =>
-        char.legalStatus !== 'allowed' && char.legalStatus !== 'variantAllowed');
+        hasExplicitNameHanja(char)
+          && char.legalStatus !== 'allowed'
+          && char.legalStatus !== 'variantAllowed');
       if (rejected) {
         this.recordCandidateRejection(
           candidateRejections,
           'outside_legal_hanja_pool',
           rejected,
-          'Candidate removed before scoring because its Hanja is outside the active legal pool.',
+          'Candidate removed before scoring because its raw Hanja-reading pair is absent from the official legal lookup.',
         );
         continue;
       }

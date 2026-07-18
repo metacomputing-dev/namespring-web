@@ -1,20 +1,35 @@
 {
-  "schemaVersion": "spring-ts.legal-hanja-reconciliation.v1",
-  "asOf": "2026-05-01",
+  "schemaVersion": "spring-ts.legal-hanja-reconciliation.v2",
+  "asOf": "2026-07-18",
   "officialBasis": {
     "currentRuleEffectiveDate": "2025-07-19",
     "expansionEffectiveDate": "2024-06-11",
     "appendix1AmendmentDate": "2024-05-30",
-    "announcedAllowedCount": 9389,
-    "sourceRegistry": "data/sources/legal-hanja.sources.json"
+    "announcedCharacterCount": 9389,
+    "lookupGlyphRepresentationCount": 9495,
+    "lookupNonEmptyDesignatedReadingPairCount": 10381,
+    "sourceRegistry": "data/sources/legal-hanja.sources.json",
+    "authorityReceipt": "data/official-hanja-lookup-authority.generated.json"
+  },
+  "officialLookupSnapshot": {
+    "lookupPageUrl": "https://efamily.scourt.go.kr/cs/CsBltnWrtList.do?bltnbordId=0000010",
+    "lookupEndpointUrl": "https://efamily.scourt.go.kr/webhanja/whjsearch",
+    "strokeBuckets": 35,
+    "responseRows": 11498,
+    "distinctGlyphRepresentations": 9495,
+    "distinctNonEmptyDesignatedReadingPairs": 10381,
+    "glyphsWithoutDesignatedReading": 1,
+    "glyphsSha256": "83c79731d2dd9ba94a4550389459e4e5e5c1ecba9782575db7c660851b14acde",
+    "glyphReadingPairsSha256": "5ae74ad18c3da9ab09a45cc7663459c8d46849ce44951b6fb48d7ad3a0202df9",
+    "everyReturnedRowMarkedForPersonalName": true
   },
   "candidateMirror": {
     "file": "data/inmyeongyong_9389_full.json",
     "source": "delvier/KoreaSCourtCode webhanja.db",
     "sourceVersion": "2024-07-16 refresh, post 2024-06-11 expansion",
     "totalCount": 9495,
-    "officialCountRecordedByMirror": 9389,
-    "unresolvedDeltaCount": 106,
+    "officialLookupGlyphDifferenceCount": 0,
+    "officialLookupPairDifferenceCount": 0,
     "fieldStats": {
       "multiReading": 863,
       "noReading": 1,
@@ -22,18 +37,23 @@
       "noRadical": 0
     }
   },
-  "variantPolicy": {
+  "inputAliasPolicy": {
     "file": "data/byeolpyo2_variants.json",
-    "knownVariantPairCount": 112,
-    "candidateEntriesRecognizedAsVariantAllowed": 79,
-    "normalizationRule": "Classify a known variant as variantAllowed when its orthodox form appears in the active legal pool."
+    "purpose": "search_and_deduplication_only",
+    "authorityTruthEligible": false,
+    "mappingCount": 112,
+    "bothGlyphsInOfficialLookup": 80,
+    "effectiveBothInMappings": 79,
+    "selfMappings": 1,
+    "aliasOnlyInputsOutsideOfficialLookup": 32,
+    "legalRule": "Never infer registrability from a normalized target. Test the raw input glyph and its designated reading against the official lookup snapshot."
   },
   "legalStatusPolicy": {
-    "allowed": "Orthodox Hanja appears in the active legal pool.",
-    "variantAllowed": "Input Hanja is a known variant and the normalized orthodox Hanja appears in the active legal pool.",
+    "allowed": "The exact raw glyph and Hangul reading pair appears in the official lookup snapshot.",
+    "variantAllowed": "Reserved for a future separately extracted current Appendix 2 canonical mapping; never inferred from the legacy input-alias map.",
     "hangulOnly": "No Hanja glyph is present; name remains eligible for Hangul-only handling.",
-    "unknown": "The active curated pool is intentionally non-definitive, or official confirmation has not yet been extracted.",
-    "notAllowed": "The local full pool does not contain the normalized Hanja."
+    "unknown": "The curated default pool intentionally does not make a complete legal claim.",
+    "notAllowed": "The raw glyph or its supplied reading is absent from the official lookup snapshot."
   },
   "unihanEnrichment": {
     "file": "data/unihan-hanja-metadata.json",
@@ -47,31 +67,17 @@
     "variantLinkCount": 6208,
     "radicalElementPolicy": "Unicode radical metadata is T5 official; Five-Element radical mapping is exposed only as a T3_AUTHORED_INTERPRETATION hint."
   },
-  "candidateMirrorStatusCounts": {
-    "allowed": 9416,
-    "variantAllowed": 79,
-    "hangulOnly": 0,
-    "unknown": 0,
-    "notAllowed": 0
-  },
-  "officialReconciliationStatusCounts": {
-    "allowed": 9389,
-    "variantAllowed": 0,
-    "hangulOnly": 0,
-    "unknown": 106,
-    "notAllowed": 0
-  },
   "reconciliation": {
-    "status": "PARTIAL_OFFICIAL_DENOMINATOR",
-    "lawEffectiveDateDiffVisible": true,
-    "officialDistinctCount": 9389,
-    "candidateDistinctCount": 9495,
-    "unresolvedCandidateDeltaCount": 106,
-    "resolvedDeltaCount": 0,
+    "status": "OFFICIAL_LOOKUP_PARITY_CONFIRMED",
+    "announcedToLookupRepresentationDelta": 106,
+    "localGlyphDifferenceCount": 0,
+    "localPairDifferenceCount": 0,
+    "canonicalAppendix2MappingStatus": "NOT_EXTRACTED",
     "notes": [
-      "The current local full pool keeps the 9,495 mirror entries available for opt-in lookup.",
-      "The official 9,389 denominator is recorded from T5 official sources.",
-      "The +106 mirror delta remains unknown until the official Appendix 1/2 glyph tables are fully machine-extracted or each extra entry is T5-confirmed."
+      "The official 2024 announcement counts 9,389 personal-name characters, while the official lookup currently returns 9,495 registrable Unicode/PUA glyph representations.",
+      "All 9,495 local glyphs and all 10,381 non-empty local designated-reading pairs match the official lookup exactly.",
+      "The 106-representation counting delta must not be treated as an inferred Appendix 2 mapping.",
+      "The glyph U+25874 is returned by the lookup but has no non-empty designated personal-name reading, so runtime pair eligibility remains fail-closed."
     ]
   }
 }

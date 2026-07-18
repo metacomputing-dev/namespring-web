@@ -9,6 +9,15 @@ import {
   loadFullHanjaPoolEntries,
 } from '../../src/full-hanja-pool-loader.js';
 import {
+  EXPECTED_FULL_HANJA_GLYPH_COUNT,
+  EXPECTED_FULL_HANJA_READING_PAIR_COUNT,
+  FULL_HANJA_GLYPHS,
+  hasOfficialFullPoolHanjaReadings,
+  isLocalFullPoolHanjaGlyph,
+  isOfficialFullPoolHanjaReading,
+  matchesOfficialFullPoolHanjaReadings,
+} from '../../src/full-hanja-glyph-registry.js';
+import {
   NameEntryResolutionError,
   resolveNameEntries,
   type NameEntryRepository,
@@ -45,6 +54,22 @@ function fixtureDocument() {
     }],
   };
 }
+
+test('compact authority registry enforces raw glyph and designated reading pairs', () => {
+  assert.equal(FULL_HANJA_GLYPHS.length, EXPECTED_FULL_HANJA_GLYPH_COUNT);
+  assert.equal(EXPECTED_FULL_HANJA_READING_PAIR_COUNT, 10_381);
+  assert.equal(isOfficialFullPoolHanjaReading('国', '국'), true);
+  assert.equal(isOfficialFullPoolHanjaReading('國', '국'), true);
+  assert.equal(isOfficialFullPoolHanjaReading('挿', '삽'), false);
+  assert.equal(isOfficialFullPoolHanjaReading('插', '삽'), true);
+  assert.equal(isOfficialFullPoolHanjaReading('國', '삽'), false);
+  assert.equal(isLocalFullPoolHanjaGlyph('𥡴'), true);
+  assert.equal(hasOfficialFullPoolHanjaReadings('𥡴'), false);
+  assert.equal(isOfficialFullPoolHanjaReading('𥡴', '계'), false);
+  assert.equal(matchesOfficialFullPoolHanjaReadings('㒚', ['온', '은']), true);
+  assert.equal(matchesOfficialFullPoolHanjaReadings('㒚', ['은', '온']), true);
+  assert.equal(matchesOfficialFullPoolHanjaReadings('㒚', ['온']), false);
+});
 
 test('production full-pool conversion preserves the exact ordered output', async () => {
   const firstAttempt = loadFullHanjaPoolEntries();
@@ -140,6 +165,35 @@ test('malformed metadata fails closed without publishing a partial cache', async
   assert.strictEqual(load(), failedAttempt, 'non-retryable integrity rejection must be memoized');
   await assert.rejects(load(), FullHanjaPoolIntegrityError);
   assert.equal(imports, 1, 'immutable malformed data must not be reparsed for every request');
+});
+
+test('lazy metadata readings must exactly match compact official authority', async () => {
+  const load = createFullHanjaPoolLoader({
+    expectedGlyphs: ['佳'],
+    importer: async () => ({
+      ...fixtureDocument(),
+      entries: [{ ...fixtureDocument().entries[0], readings: ['나'] }],
+    }),
+  });
+
+  await assert.rejects(load(), FullHanjaPoolIntegrityError);
+
+  const partialMultiReading = createFullHanjaPoolLoader({
+    expectedGlyphs: ['㒚'],
+    importer: async () => ({
+      schemaVersion: '1.0.0-full',
+      totalCount: 1,
+      entries: [{
+        hanja: '㒚',
+        codepoint: 'U+0349A',
+        readings: ['온'],
+        meaning: null,
+        radicalId: 9,
+        strokeCount: 14,
+      }],
+    }),
+  });
+  await assert.rejects(partialMultiReading(), FullHanjaPoolIntegrityError);
 });
 
 test('metadata glyphs must exactly match the compact registry sequence', async () => {
