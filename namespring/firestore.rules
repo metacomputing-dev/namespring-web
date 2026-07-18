@@ -1,0 +1,11 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // All V1 account, payment, content, and synchronization records are
+    // server-owned. Firebase Admin SDK calls bypass these client rules.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

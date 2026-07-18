@@ -6,7 +6,16 @@ export const PREMIUM_ACCESS_STORAGE_KEY = "namespring_premium_access";
 export const PAYMENT_STATUSES = ["READY", "PAID", "FAILED", "CANCELED", "REFUNDED"] as const;
 
 export type PaymentStatus = (typeof PAYMENT_STATUSES)[number];
-export type RefundMode = "AUTO_REFUNDED" | "MANUAL_REQUIRED" | null;
+export const LEGACY_REFUND_STATES = [
+  "PENDING",
+  "RECONCILIATION_REQUIRED",
+  "AUTO_REFUNDED",
+  "NO_CAPTURE_FOUND",
+  "MANUAL_REQUIRED",
+] as const;
+
+export type LegacyRefundState = (typeof LEGACY_REFUND_STATES)[number];
+export type RefundMode = Exclude<LegacyRefundState, "PENDING"> | null;
 
 export interface PaymentRecord {
   orderId: string;
@@ -25,6 +34,16 @@ export interface PaymentRecord {
   refundReason?: string | null;
   refundFailureCode?: string | null;
   refundFailureMessage?: string | null;
+  /** Monotonic CAS version. Historic documents without this field are version 0. */
+  version?: number;
+  refundState?: LegacyRefundState | null;
+  refundAttemptId?: string | null;
+  refundFirstRequestedAt?: string | null;
+  refundFirstRequestedByUserId?: string | null;
+  refundRequestedAt?: string | null;
+  refundRequestedByUserId?: string | null;
+  refundProviderStatus?: string | null;
+  refundProviderObservedAt?: string | null;
 }
 
 export interface CreatePaymentRequest {
@@ -75,4 +94,5 @@ export interface RefundResponse {
   refundMode: Exclude<RefundMode, null>;
   refundedAt: string | null;
   message: string;
+  retryable: boolean;
 }
