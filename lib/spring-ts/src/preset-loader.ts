@@ -25,6 +25,10 @@ export type SchoolPresetName =
   | 'classical_text'
   | 'naming_safe';
 
+/**
+ * `fallback` is retained only so stored historical responses remain
+ * type-readable. New runtime responses never emit it.
+ */
 export type SchoolPresetSelectionSource = 'request' | 'default' | 'fallback';
 
 export interface SchoolPresetData {
@@ -52,6 +56,26 @@ export const SCHOOL_PRESET_ORDER: readonly SchoolPresetName[] = deepFreeze([
   'classical_text',
   'naming_safe',
 ]);
+
+/**
+ * Raised when a caller explicitly supplies a Spring-facing preset name that
+ * is not part of the closed public vocabulary.
+ *
+ * `SAJU_UNKNOWN_SCHOOL_PRESET` is shared with the lower-level engine boundary
+ * so safe adapters can preserve one stable reason code without coupling the
+ * two packages' concrete error classes.
+ */
+export class UnknownSpringSchoolPresetError extends RangeError {
+  readonly code = 'SAJU_UNKNOWN_SCHOOL_PRESET' as const;
+  readonly availablePresetNames: readonly SchoolPresetName[];
+
+  constructor(_presetName: unknown) {
+    super('Unknown Spring school preset.');
+    this.name = 'UnknownSpringSchoolPresetError';
+    this.availablePresetNames = SCHOOL_PRESET_ORDER;
+    Object.freeze(this);
+  }
+}
 
 const PRESETS: Readonly<Record<SchoolPresetName, SchoolPresetData>> = deepFreeze({
   korean: koreanPreset,
@@ -103,14 +127,15 @@ export function isSchoolPresetName(name: unknown): name is SchoolPresetName {
 }
 
 export function resolveSchoolPresetName(name: unknown): SchoolPresetName {
-  return isSchoolPresetName(name) ? name : 'korean';
+  if (name === undefined) return 'korean';
+  if (isSchoolPresetName(name)) return name;
+  throw new UnknownSpringSchoolPresetError(name);
 }
 
 /**
- * Resolves a SchoolPresetName to its preset data. An unknown or undefined
- * name defaults to 'korean' (= current saju-scoring.json defaults), so a
- * caller that only opts in via `useSchoolPreset:true` without choosing a
- * school still sees zero behavior change.
+ * Resolves a SchoolPresetName to its preset data. Only an omitted name
+ * defaults to 'korean' (= current saju-scoring.json defaults). An explicit
+ * unknown value fails closed instead of silently selecting another doctrine.
  */
 export function loadPreset(name: SchoolPresetName | undefined): SchoolPresetData {
   return PRESETS[resolveSchoolPresetName(name)];
@@ -121,9 +146,9 @@ export function resolveSchoolPresetMetadata(
   useSchoolPreset: boolean,
 ): SchoolPresetMetadata {
   const selected = resolveSchoolPresetName(name);
-  const source: SchoolPresetSelectionSource = name == null
+  const source: SchoolPresetSelectionSource = name === undefined
     ? 'default'
-    : isSchoolPresetName(name) ? 'request' : 'fallback';
+    : 'request';
   return {
     selected,
     source,

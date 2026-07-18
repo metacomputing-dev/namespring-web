@@ -20,6 +20,7 @@ export {
   LegacyNonexistentTimeError,
   LegacyTimezoneDataUnsupportedError,
   LegacyTimezoneError,
+  UnknownLegacySajuPresetError,
   resolveOffsetMinutes,
 } from './compat/springLegacy.js';
 export type {

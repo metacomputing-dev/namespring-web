@@ -9,6 +9,7 @@ import {
   SpringEngineOperationCancelledError,
 } from '../../src/spring-engine.js';
 import { emptySaju } from '../../src/saju-adapter.js';
+import { UnknownSpringSchoolPresetError } from '../../src/preset-loader.js';
 import type { SpringRequest } from '../../src/types.js';
 import { makeValidFourFrameRecords } from '../helpers/fourframe-fixtures.js';
 
@@ -314,6 +315,51 @@ validationEngine.close();
     routeEngine.close();
     initGate.resolve();
     await expectOperationCancelled(pending, operation);
+  }
+}
+
+// A malformed public school selector is a request-contract failure, not a
+// request to initialize repositories and silently choose the Korean preset.
+{
+  const invalidRequest = {
+    ...lifecycleRequest,
+    options: {
+      ...lifecycleRequest.options,
+      schoolPreset: 'chinesee' as never,
+    },
+  } satisfies SpringRequest;
+  const schoolPresetBoundOperations: ReadonlyArray<readonly [
+    string,
+    (engine: any) => Promise<unknown>,
+  ]> = [
+    ['getNamingReport', engine => engine.getNamingReport(invalidRequest)],
+    ['getSajuReport', engine => engine.getSajuReport(invalidRequest)],
+    ['getSpringReport', engine => engine.getSpringReport(invalidRequest)],
+    ['getNameCandidates', engine => engine.getNameCandidates(invalidRequest)],
+    ['getNameCandidateSummaries', engine => engine.getNameCandidateSummaries(invalidRequest)],
+    ['analyze', engine => engine.analyze(invalidRequest)],
+    ['getFortuneReport', engine => engine.getFortuneReport({
+      birth: invalidRequest.birth,
+      options: invalidRequest.options,
+    })],
+  ];
+
+  for (const [operation, start] of schoolPresetBoundOperations) {
+    const routeEngine = new SpringEngine() as any;
+    let initCalls = 0;
+    routeEngine.init = async () => {
+      initCalls += 1;
+    };
+
+    await assert.rejects(start(routeEngine), (error: unknown) => {
+      assert.ok(error instanceof UnknownSpringSchoolPresetError);
+      assert.equal(error.code, 'SAJU_UNKNOWN_SCHOOL_PRESET');
+      assert.equal(error.availablePresetNames.includes('chinese'), true);
+      return true;
+    }, operation);
+    assert.equal(initCalls, 0, `${operation} must reject before initialization`);
+    assert.equal(routeEngine.initialized, false);
+    routeEngine.close();
   }
 }
 

@@ -169,6 +169,36 @@ check('unknown school preset diagnostic exposes only a safe message',
 check('unknown school preset cannot create a scoring context',
   buildSajuContext(unknownPreset.summary).output === null);
 
+const unknownPublicPreset = await analyzeSajuSafe({
+  year: 2024, month: 1, day: 15, hour: 11, minute: 15, gender: 'male',
+}, {
+  schoolPreset: 'chinesee',
+  sajuTimePolicy: {
+    trueSolarTime: 'off',
+    longitudeCorrection: 'on',
+    longitudeReference: 'legacyPreset',
+    yaza: 'off',
+  },
+} as any);
+check('unknown public school preset fails instead of becoming Korean',
+  unknownPublicPreset.sajuEnabled === false
+    && unknownPublicPreset.analysisStatus === 'failed'
+    && unknownPublicPreset.diagnostics?.[0]?.reasonCode === 'SAJU_UNKNOWN_SCHOOL_PRESET');
+check('unknown public preset diagnostic does not expose the raw typo',
+  unknownPublicPreset.diagnostics?.[0]?.message.includes('chinesee') === false);
+check('unknown public preset cannot create a scoring context',
+  buildSajuContext(unknownPublicPreset.summary).output === null);
+
+const neutralUnknownPublicPreset = await analyzeSajuSafe({
+  year: 2024, month: 1, day: 15, hour: 11, minute: 15, gender: 'neutral',
+}, {
+  schoolPreset: 'chinesee',
+} as any);
+check('neutral request preserves the shared public preset failure',
+  neutralUnknownPublicPreset.sajuEnabled === false
+    && neutralUnknownPublicPreset.analysisStatus === 'failed'
+    && neutralUnknownPublicPreset.diagnostics?.[0]?.reasonCode === 'SAJU_UNKNOWN_SCHOOL_PRESET');
+
 const neutralUnknownPreset = await analyzeSajuSafe({
   year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'neutral',
 }, {

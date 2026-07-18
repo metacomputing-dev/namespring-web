@@ -28,6 +28,7 @@ import type {
   CheonganRelationScore,
 } from './types.js';
 import {
+  assertLegacySajuPresetCode,
   assertLegacySajuOutputV1Contract,
   assertSajuModuleContract,
   assertSajuNaeumCapability,
@@ -87,6 +88,7 @@ import {
   preflightKnownHourCivilTimeRange,
 } from './saju/time-policy.js';
 import { snapshotSajuAnalysisInput } from './public-request-snapshot.js';
+import { resolveSchoolPresetName } from './preset-loader.js';
 
 export { buildSajuContext } from './saju/context-builder.js';
 export { collectElements, elementFromSajuCode } from './saju/element-code.js';
@@ -1306,6 +1308,9 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
   // Configuration errors must remain observable even when the dynamically
   // loaded engine module is absent or broken.
   validateSajuConfigFortunePolicy(options?.sajuConfig);
+  const schoolPreset = resolveSchoolPresetName(options?.schoolPreset);
+  const presetCode = PRESET_MAP[schoolPreset];
+  assertLegacySajuPresetCode(presetCode, `presetMapping.${schoolPreset}`);
   let saju: SajuModule | null;
   try {
     saju = await loadSajuModule();
@@ -1391,8 +1396,6 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
   try {
     // Always seed legacy config from a preset first.
     // Some saju-ts versions throw when only partial policy patch is provided.
-    const presetKey = options?.schoolPreset ?? 'korean';
-    const presetCode = PRESET_MAP[presetKey] ?? PRESET_MAP.korean ?? 'KOREAN_MAINSTREAM';
     let config: RuntimeLegacySajuConfig = { ...(saju.configFromPreset(presetCode) ?? {}) };
     let legacyPresetMeridian: number | undefined;
     const configuredMeridian = config['lmtBaselineLongitude'];

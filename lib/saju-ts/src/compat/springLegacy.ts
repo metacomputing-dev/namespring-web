@@ -369,6 +369,23 @@ const PRESET_CONFIGS: Record<string, LegacySajuConfig> = {
   },
 };
 
+const LEGACY_PRESET_CODES: readonly string[] = Object.freeze(
+  Object.keys(PRESET_CONFIGS),
+);
+
+/** Raised when the legacy Spring bridge receives an explicit unknown preset. */
+export class UnknownLegacySajuPresetError extends RangeError {
+  readonly code = 'SAJU_UNKNOWN_SCHOOL_PRESET' as const;
+  readonly availablePresetCodes: readonly string[];
+
+  constructor(_presetCode: unknown) {
+    super('Unknown legacy saju preset.');
+    this.name = 'UnknownLegacySajuPresetError';
+    this.availablePresetCodes = LEGACY_PRESET_CODES;
+    Object.freeze(this);
+  }
+}
+
 const DEFAULT_TRUE_SOLAR_TIME_ENABLED = false;
 // 감사 결정① (2026-07-08): 기본 = 정자시설(ziSplit23, 23:00 모드).
 // 실무 약 80% 주류 정렬 — 자정설은 yazaEnabled=false 명시로 복귀.
@@ -2165,8 +2182,14 @@ export function createBirthInput(params: LegacyBirthInput): LegacyBirthInput {
 }
 
 export function configFromPreset(preset: string): LegacySajuConfig {
-  const key = String(preset ?? '').trim().toUpperCase();
-  return { ...(PRESET_CONFIGS[key] ?? PRESET_CONFIGS.KOREAN_MAINSTREAM) };
+  if (typeof preset !== 'string') {
+    throw new UnknownLegacySajuPresetError(preset);
+  }
+  const key = preset.trim().toUpperCase();
+  if (!Object.hasOwn(PRESET_CONFIGS, key)) {
+    throw new UnknownLegacySajuPresetError(preset);
+  }
+  return { ...PRESET_CONFIGS[key] };
 }
 
 export function analyzeSaju(
