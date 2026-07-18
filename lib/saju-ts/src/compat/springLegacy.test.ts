@@ -83,6 +83,33 @@ describe('structural month-frame public candidates', () => {
     expect(types).toContain('GEONROK');
     expect(types).not.toContain('BI_GYEON');
   });
+
+  it('keeps candidate provenance owned by each candidate and analysis call', () => {
+    const input = createBirthInput({
+      birthYear: 2005, birthMonth: 12, birthDay: 25,
+      birthHour: 6, birthMinute: 0, gender: 'MALE',
+    });
+    const first: any = analyzeSaju(input);
+    const firstCandidates = first.gyeokgukResult.candidates as any[];
+    const firstSourceTier = firstCandidates[0]?.sourceTier;
+
+    expect(firstSourceTier).toBeTruthy();
+    if (!firstSourceTier) throw new Error('expected at least one gyeokguk candidate');
+    if (firstCandidates.length > 1) {
+      expect(firstCandidates[1].sourceTier).not.toBe(firstSourceTier);
+    }
+
+    firstSourceTier.tier = 'T5_OFFICIAL';
+    firstSourceTier.authorityTruthEligible = true;
+
+    const second: any = analyzeSaju(input);
+    const secondSourceTier = second.gyeokgukResult.candidates[0]?.sourceTier;
+    expect(secondSourceTier).not.toBe(firstSourceTier);
+    expect(secondSourceTier).toMatchObject({
+      tier: 'T2_REFERENCE_IMPLEMENTATION',
+      authorityTruthEligible: false,
+    });
+  });
 });
 describe('normalizeLegacyOutput 정직성 (감사 A1/A2/A9/A15d)', () => {
   // 1986-04-19 05:45 남 (핸드북 프리뷰 표준 케이스)

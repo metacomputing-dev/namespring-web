@@ -141,6 +141,16 @@ const highRiskExplanation = buildNamingExplanation({
   strengthProfile: { ...profile, id: 'risk_managed', label: '위험 관리형', primaryAxis: 'risk' },
 });
 const fallbackExplanation = buildNamingExplanation({ evaluationResult: evaluationResult() });
+const provenanceIsolationInput = {
+  evaluationResult: evaluationResult(),
+  scoreVector: vector({ sajuFit: 84, yongshinFit: 83 }),
+  strengthProfile: profile,
+};
+const firstProvenanceExplanation = buildNamingExplanation(provenanceIsolationInput);
+const firstSajuFitSignal = firstProvenanceExplanation.signals
+  .find((signal) => signal.axis === 'sajuFit');
+const firstYongshinFitSignal = firstProvenanceExplanation.signals
+  .find((signal) => signal.axis === 'yongshinFit');
 
 check('low-risk explanation uses template summary',
   lowRiskExplanation.summary.includes('주요 후보 성향은 발음 안정형이에요.'));
@@ -153,6 +163,28 @@ check('high risk produces explicit caution',
   highRiskExplanation.cautions.some((phrase) => phrase.includes('더 안전한 후보와 비교')));
 check('fallback explanation avoids detailed diagnosis',
   fallbackExplanation.cautions.some((phrase) => phrase.includes('점수 벡터 근거가 없어')));
+check('derived-axis provenance is owned by each signal',
+  Boolean(firstSajuFitSignal) &&
+    Boolean(firstYongshinFitSignal) &&
+    firstSajuFitSignal?.sourceTier !== firstYongshinFitSignal?.sourceTier);
+
+if (firstSajuFitSignal) {
+  const mutableSourceTier = firstSajuFitSignal.sourceTier as {
+    tier: string;
+    authorityTruthEligible: boolean;
+  };
+  mutableSourceTier.tier = 'T5_OFFICIAL';
+  mutableSourceTier.authorityTruthEligible = true;
+}
+const secondProvenanceExplanation = buildNamingExplanation(provenanceIsolationInput);
+const secondSajuFitSignal = secondProvenanceExplanation.signals
+  .find((signal) => signal.axis === 'sajuFit');
+check('caller mutation cannot promote a later explanation to official authority',
+  secondSajuFitSignal?.sourceTier.tier === 'T2_REFERENCE_IMPLEMENTATION' &&
+    secondSajuFitSignal.sourceTier.authorityTruthEligible === false &&
+    secondSajuFitSignal.phraseMode === 'displayOnly' &&
+    secondSajuFitSignal.phrase.startsWith('표시용 점수 기준으로는') &&
+    !secondSajuFitSignal.phrase.includes('공식 자료 기준으로는'));
 
 const snapshot = {
   lowRisk: stableExplanation(lowRiskExplanation),

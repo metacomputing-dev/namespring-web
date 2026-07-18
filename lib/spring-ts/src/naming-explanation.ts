@@ -12,7 +12,7 @@ import type {
 
 type NamingAxis = keyof NamingScoreVector;
 
-const DERIVED_SCORE_TIER: SourceTierMetadata = {
+const DERIVED_SCORE_TIER: SourceTierMetadata = Object.freeze({
   tier: 'T2_REFERENCE_IMPLEMENTATION',
   sourceType: 'derived_score',
   sourceUrl: null,
@@ -21,9 +21,9 @@ const DERIVED_SCORE_TIER: SourceTierMetadata = {
   humanInterpretation: '점수 벡터에서 계산한 표시용 축이에요. 후보 정렬에는 쓸 수 있지만 단독 권위 근거로 삼지는 않아요.',
   copyrightNote: '외부 원문을 복사하지 않았습니다.',
   authorityTruthEligible: false,
-};
+});
 
-const AUTHORED_RULE_TIER: SourceTierMetadata = {
+const AUTHORED_RULE_TIER: SourceTierMetadata = Object.freeze({
   tier: 'T3_AUTHORED_INTERPRETATION',
   sourceType: 'authored_rule',
   sourceUrl: null,
@@ -32,9 +32,9 @@ const AUTHORED_RULE_TIER: SourceTierMetadata = {
   humanInterpretation: 'spring-ts 안에서 작성한 규칙 기반 이름 해석이에요. 사실로 단정하기보다 제안으로 표현하는 편이 좋아요.',
   copyrightNote: '외부 원문을 복사하지 않았습니다.',
   authorityTruthEligible: false,
-};
+});
 
-const OFFICIAL_DATA_TIER: SourceTierMetadata = {
+const OFFICIAL_DATA_TIER: SourceTierMetadata = Object.freeze({
   tier: 'T5_OFFICIAL',
   sourceType: 'official_data',
   sourceUrl: null,
@@ -43,7 +43,7 @@ const OFFICIAL_DATA_TIER: SourceTierMetadata = {
   humanInterpretation: '법령 또는 공식 데이터에 근거한, 제한된 범위의 사실 확인이에요.',
   copyrightNote: '외부 원문을 복사하지 않았습니다.',
   authorityTruthEligible: true,
-};
+});
 
 const AXIS_LABELS: Record<NamingAxis, string> = {
   legal: '인명용 한자 적합도',
@@ -57,7 +57,7 @@ const AXIS_LABELS: Record<NamingAxis, string> = {
   risk: '위험 신호 점검',
 };
 
-const AXIS_SOURCE_TIER: Record<NamingAxis, SourceTierMetadata> = {
+const AXIS_SOURCE_TIER: Readonly<Record<NamingAxis, SourceTierMetadata>> = Object.freeze({
   legal: OFFICIAL_DATA_TIER,
   eraFit: OFFICIAL_DATA_TIER,
   phonetic: AUTHORED_RULE_TIER,
@@ -67,7 +67,7 @@ const AXIS_SOURCE_TIER: Record<NamingAxis, SourceTierMetadata> = {
   yongshinFit: DERIVED_SCORE_TIER,
   elementBalance: DERIVED_SCORE_TIER,
   risk: DERIVED_SCORE_TIER,
-};
+});
 
 const AXIS_ORDER: readonly NamingAxis[] = [
   'legal',
@@ -139,7 +139,7 @@ function tierLead(sourceTier: SourceTierMetadata, phraseMode: NamingExplanationP
 function signalFor(axis: NamingAxis, vector: NamingScoreVector): NamingExplanationSignal | null {
   const value = rounded(vector[axis]);
   const label = AXIS_LABELS[axis];
-  const sourceTier = AXIS_SOURCE_TIER[axis];
+  const sourceTier = { ...AXIS_SOURCE_TIER[axis] };
   const phraseMode = selectNamingPhraseMode({
     sourceTier,
     risk: vector.risk,

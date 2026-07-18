@@ -99,7 +99,7 @@ const DISTRIBUTION_ROUND_DIGITS = 1;
 const DEFICIENT_AVERAGE_RATIO = 0.5;
 const EXCESSIVE_AVERAGE_RATIO = 1.7;
 const MIN_GYEOKGUK_CANDIDATE_SCORE = 1e-9;
-const GYEOKGUK_CANDIDATE_SOURCE_TIER = {
+const GYEOKGUK_CANDIDATE_SOURCE_TIER = Object.freeze({
   tier: 'T2_REFERENCE_IMPLEMENTATION',
   sourceType: 'reference_implementation',
   sourceUrl: null,
@@ -108,7 +108,7 @@ const GYEOKGUK_CANDIDATE_SOURCE_TIER = {
   humanInterpretation: 'Derived from saju-ts month-gyeok and gyeokguk ranking internals; display-only evidence, not authority truth.',
   copyrightNote: 'No quoted source text; implementation-derived metadata only.',
   authorityTruthEligible: false,
-} as const;
+} as const);
 
 const TEN_GOD_ALIASES: Record<string, string> = {
   GEOB_JAE: 'GYEOB_JAE',
@@ -1204,7 +1204,7 @@ function buildGyeokgukCandidates(bundle: AnalysisBundle, bestKeyCore: string, be
       supportingRules: notes.supportingRules,
       blockingRules: notes.blockingRules,
       compositeClassical,
-      sourceTier: GYEOKGUK_CANDIDATE_SOURCE_TIER,
+      sourceTier: { ...GYEOKGUK_CANDIDATE_SOURCE_TIER },
     });
   };
 
