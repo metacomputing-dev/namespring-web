@@ -664,6 +664,7 @@ export type SajuAnalysisStatus = 'unavailable' | 'partial' | 'failed';
 export type SajuAnalysisReasonCode =
   | 'SAJU_MODULE_UNAVAILABLE'
   | 'BIRTH_INPUT_INSUFFICIENT'
+  | 'BIRTH_INPUT_INVALID'
   | 'BIRTH_DATE_INVALID'
   | 'BIRTH_TIME_INVALID'
   | 'BIRTH_TIME_POLICY_INVALID'

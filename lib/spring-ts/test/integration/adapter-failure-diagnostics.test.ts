@@ -200,6 +200,7 @@ check('neutral request preserves a shared malformed-preset failure',
     && neutralInvalidPresetSelector.diagnostics?.[0]?.reasonCode === 'SAJU_INVALID_SCHOOL_PRESET_SELECTOR');
 
 assertFailureMapping('SAJU_MODULE_UNAVAILABLE', 'unavailable');
+assertFailureMapping('BIRTH_INPUT_INVALID', 'failed');
 assertFailureMapping('BIRTH_DATE_INVALID', 'failed');
 assertFailureMapping('BIRTH_TIME_INVALID', 'failed');
 assertFailureMapping('LUNAR_INPUT_INSUFFICIENT', 'partial');

@@ -78,6 +78,7 @@ import {
   TEN_GOD_KO_LABEL,
 } from './saju/legacy-codec.js';
 import { resolveBirthLocation } from './saju/birth-location.js';
+import { validateBirthInputRuntimeContract } from './saju/birth-input-contract.js';
 import {
   applyAuthoritativeSajuTimePolicyConfig,
   isLongitudeCorrectionEnabled,
@@ -718,10 +719,14 @@ function toStringArray(value: any): string[] {
 }
 
 function toOptionalInt(value: unknown): number | null {
-  if (value == null || value === '') return null;
-  const parsed = Number(value);
-  if (!Number.isFinite(parsed) || !Number.isInteger(parsed)) return null;
-  return parsed;
+  if (
+    typeof value !== 'number'
+    || !Number.isFinite(value)
+    || !Number.isInteger(value)
+  ) {
+    return null;
+  }
+  return value;
 }
 
 interface KnownBirthParts {
@@ -969,9 +974,13 @@ const SAJU_ANALYSIS_FAILURES: Readonly<Record<
     status: 'partial',
     message: '사주 분석에 필요한 출생 정보가 부족합니다.',
   },
+  BIRTH_INPUT_INVALID: {
+    status: 'failed',
+    message: '출생 정보 입력 형식이 올바르지 않습니다.',
+  },
   BIRTH_DATE_INVALID: {
     status: 'failed',
-    message: '존재하지 않거나 올바르지 않은 양력 생년월일입니다.',
+    message: '존재하지 않거나 올바르지 않은 생년월일입니다.',
   },
   BIRTH_TIME_INVALID: {
     status: 'failed',
@@ -1283,6 +1292,9 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
   const input = snapshotSajuAnalysisInput(birth, options);
   birth = input.birth;
   options = input.options;
+
+  const birthInputFailure = validateBirthInputRuntimeContract(birth);
+  if (birthInputFailure) return emptySaju(birthInputFailure);
 
   const parts = resolveKnownBirthParts(birth);
   if (hasInvalidTimeInput(birth, parts)) {
