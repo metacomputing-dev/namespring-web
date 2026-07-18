@@ -360,6 +360,59 @@ function assertKnownFortunePolicy(fortune: Record<string, unknown>): void {
   }
 }
 
+const YONGSHIN_COMPETITION_METHODS = [
+  'follow',
+  'transformations',
+  'oneElement',
+] as const;
+const GYEOKGUK_COMPETITION_METHODS = [
+  ...YONGSHIN_COMPETITION_METHODS,
+  'tenGod',
+] as const;
+
+function assertCompetitionMethods(
+  competition: Record<string, unknown>,
+  path: string,
+  allowed: readonly string[],
+): void {
+  assertBooleanValue(competition, 'enabled', `${path}.enabled`);
+
+  if (!hasOwn(competition, 'methods') || competition.methods === undefined) {
+    return;
+  }
+  if (!Array.isArray(competition.methods)) {
+    throw new InvalidEngineConfigError(
+      `${path}.methods`,
+      'an array of supported unique method names',
+    );
+  }
+
+  const seen = new Set<string>();
+  for (let index = 0; index < competition.methods.length; index += 1) {
+    const method = competition.methods[index];
+    if (typeof method !== 'string' || !allowed.includes(method)) {
+      throw new InvalidEngineConfigError(
+        `${path}.methods[${index}]`,
+        `one of ${allowed.map((value) => JSON.stringify(value)).join(', ')}`,
+      );
+    }
+    if (seen.has(method)) {
+      throw new InvalidEngineConfigError(
+        `${path}.methods[${index}]`,
+        'a unique competition method',
+      );
+    }
+    seen.add(method);
+  }
+
+  if (competition.enabled === true && competition.methods.length < 2) {
+    throw new InvalidEngineConfigError(
+      `${path}.methods`,
+      'at least two unique competition methods when enabled',
+    );
+  }
+}
+
 function assertKnownEngineStrategies(strategies: Record<string, unknown>): void {
   const fortune = readOptionalRecord(
     strategies,
@@ -367,6 +420,53 @@ function assertKnownEngineStrategies(strategies: Record<string, unknown>): void 
     'strategies.fortune',
   );
   if (fortune) assertKnownFortunePolicy(fortune);
+
+  const yongshin = readOptionalRecord(
+    strategies,
+    'yongshin',
+    'strategies.yongshin',
+  );
+  if (yongshin) {
+    const methodSelector = readOptionalRecord(
+      yongshin,
+      'methodSelector',
+      'strategies.yongshin.methodSelector',
+    );
+    if (methodSelector) {
+      const competition = readOptionalRecord(
+        methodSelector,
+        'competition',
+        'strategies.yongshin.methodSelector.competition',
+      );
+      if (competition) {
+        assertCompetitionMethods(
+          competition,
+          'strategies.yongshin.methodSelector.competition',
+          YONGSHIN_COMPETITION_METHODS,
+        );
+      }
+    }
+  }
+
+  const gyeokguk = readOptionalRecord(
+    strategies,
+    'gyeokguk',
+    'strategies.gyeokguk',
+  );
+  if (gyeokguk) {
+    const competition = readOptionalRecord(
+      gyeokguk,
+      'competition',
+      'strategies.gyeokguk.competition',
+    );
+    if (competition) {
+      assertCompetitionMethods(
+        competition,
+        'strategies.gyeokguk.competition',
+        GYEOKGUK_COMPETITION_METHODS,
+      );
+    }
+  }
 }
 
 function assertPositionWeights(
