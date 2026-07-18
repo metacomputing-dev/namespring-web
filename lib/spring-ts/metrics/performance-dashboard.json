@@ -18,11 +18,11 @@
     },
     "deterministicCalibration": {
       "path": "metrics/deterministic-calibration.json",
-      "sha256": "sha256:331e856f569b50e251cd7bbfc27a734b60d4a65be7f9a96a95a276a8e0cb5075"
+      "sha256": "sha256:8c4941ae46613050c932b350e6af665c66f3747c270d68a710adbd85a99771aa"
     },
     "ruleAbTests": {
       "path": "metrics/rule-ab-tests.json",
-      "sha256": "sha256:bbbf867f3c0e6f3ea5190fffa691c2bf5e3ef9efc1ac03e8b6a8f590b951f9de"
+      "sha256": "sha256:4fbdb6579811746251d71a02201c0420dacb4215cfcd1473d3ac5db410d452f3"
     }
   },
   "privacy": {

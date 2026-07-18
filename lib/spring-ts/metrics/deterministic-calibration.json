@@ -9237,10 +9237,10 @@
       "sweptWeights": {},
       "metrics": {
         "fixtureCount": 17,
-        "changedFromDefault": 6,
-        "unchangedFromDefault": 11,
-        "averageTotalDelta": -0.0353,
-        "averageSajuDelta": -0.1235,
+        "changedFromDefault": 2,
+        "unchangedFromDefault": 15,
+        "averageTotalDelta": -0.0176,
+        "averageSajuDelta": -0.0471,
         "minTotalDelta": -0.2,
         "maxTotalDelta": 0,
         "minSajuDelta": -0.6,
@@ -9259,16 +9259,16 @@
         "T2_REFERENCE_IMPLEMENTATION": {
           "fixtureCount": 12,
           "completeD1ObjectiveFixtureCount": 0,
-          "changedFromDefault": 5,
-          "unchangedFromDefault": 7,
+          "changedFromDefault": 2,
+          "unchangedFromDefault": 10,
           "objectiveWeight": 0,
           "includedInCompleteD1Objective": false
         },
         "NO_REFERENCE": {
           "fixtureCount": 5,
           "completeD1ObjectiveFixtureCount": 0,
-          "changedFromDefault": 1,
-          "unchangedFromDefault": 4,
+          "changedFromDefault": 0,
+          "unchangedFromDefault": 5,
           "objectiveWeight": 0,
           "includedInCompleteD1Objective": false
         }
@@ -9277,14 +9277,14 @@
         "reference_implementation": {
           "fixtureCount": 12,
           "completeD1ObjectiveFixtureCount": 0,
-          "changedFromDefault": 5,
-          "unchangedFromDefault": 7
+          "changedFromDefault": 2,
+          "unchangedFromDefault": 10
         },
         "none": {
           "fixtureCount": 5,
           "completeD1ObjectiveFixtureCount": 0,
-          "changedFromDefault": 1,
-          "unchangedFromDefault": 4
+          "changedFromDefault": 0,
+          "unchangedFromDefault": 5
         }
       },
       "rows": [
@@ -9382,11 +9382,11 @@
           },
           "score": {
             "total": 64.9,
-            "saju": 64.5
+            "saju": 64.7
           },
           "deltaVsDefault": {
             "total": -0.1,
-            "saju": -0.4
+            "saju": -0.2
           },
           "changedFromDefault": true
         },
@@ -9449,14 +9449,14 @@
             "saju": 68.2
           },
           "score": {
-            "total": 60.9,
-            "saju": 68
+            "total": 61,
+            "saju": 68.2
           },
           "deltaVsDefault": {
-            "total": -0.1,
-            "saju": -0.2
+            "total": 0,
+            "saju": 0
           },
-          "changedFromDefault": true
+          "changedFromDefault": false
         },
         {
           "fixtureId": "fix-06",
@@ -9620,13 +9620,13 @@
           },
           "score": {
             "total": 76.3,
-            "saju": 82.2
+            "saju": 82.3
           },
           "deltaVsDefault": {
             "total": 0,
-            "saju": -0.1
+            "saju": 0
           },
-          "changedFromDefault": true
+          "changedFromDefault": false
         },
         {
           "fixtureId": "fix-11",
@@ -9653,14 +9653,14 @@
             "saju": 46.8
           },
           "score": {
-            "total": 54.2,
-            "saju": 46.3
+            "total": 54.3,
+            "saju": 46.8
           },
           "deltaVsDefault": {
-            "total": -0.1,
-            "saju": -0.5
+            "total": 0,
+            "saju": 0
           },
-          "changedFromDefault": true
+          "changedFromDefault": false
         },
         {
           "fixtureId": "fix-12",
@@ -9823,14 +9823,14 @@
             "saju": 42.9
           },
           "score": {
-            "total": 57.8,
-            "saju": 42.6
+            "total": 57.9,
+            "saju": 42.9
           },
           "deltaVsDefault": {
-            "total": -0.1,
-            "saju": -0.3
+            "total": 0,
+            "saju": 0
           },
-          "changedFromDefault": true
+          "changedFromDefault": false
         },
         {
           "fixtureId": "fix-17",
