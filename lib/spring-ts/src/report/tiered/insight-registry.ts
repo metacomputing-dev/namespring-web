@@ -112,8 +112,8 @@ function loadAll(): Map<string, InsightInterpretation> {
     // Vite(브라우저): eager 인라인. 파일 소량이라 번들 영향 미미 —
     // 충전이 커지면 pack 방식으로 전환한다(설계 문서 참조).
     modules = import.meta.glob('../../../data/articles/insights/*.insights.json', {
-      eager: true,
-    }) as Record<string, unknown>;
+        eager: true,
+      }) as Record<string, unknown>;
   } catch {
     modules = {};
   }

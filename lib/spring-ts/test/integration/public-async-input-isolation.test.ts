@@ -2,7 +2,9 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import { buildFortuneReport } from '../../src/report/buildFortuneReport.js';
+import { REPORT_DELIVERY_REQUEST_SCHEMA_V1 } from '../../src/report/delivery/types.js';
 import { analyzeSaju } from '../../src/saju-adapter.js';
+import { SpringEngine } from '../../src/spring-engine.js';
 import {
   registerTargetCalendarDate,
   snapshotTargetCalendarDate,
@@ -127,7 +129,88 @@ test('public async saju and fortune builders isolate caller-owned inputs', async
   const report = await reportPromise;
   assert.equal(
     report.tieredMatrix?.meta.selectionSeed,
-    '1986|4|19|5|45|male|2026-05-03T15:00:00.000Z',
-    'buildFortuneReport must preserve the original Date instant, birth, and options',
+    'selection_v1_b98db59b795f69ac4202ec12590dd092',
+    'buildFortuneReport must snapshot inputs before producing the privacy-safe digest',
   );
+  assert.equal(
+    JSON.stringify(report).includes('1986|4|19|5|45|male'),
+    false,
+    'serialized report metadata must not expose the raw selection key',
+  );
+});
+
+test('local report and candidate endpoints isolate mutable caller-owned requests', async () => {
+  const candidateEngine = new SpringEngine() as any;
+  let releaseCandidate = (): void => {};
+  const candidateGate = new Promise<void>((resolve) => {
+    releaseCandidate = resolve;
+  });
+  let observedCandidateRequest: any;
+  candidateEngine.getNameCandidateSummariesInternal = async (request: any) => {
+    await candidateGate;
+    observedCandidateRequest = request;
+    return [{
+      finalScore: 90,
+      fullHangul: '\uAE40\uAC00',
+      fullHanja: '',
+      givenHangul: '\uAC00',
+      givenName: [{ hangul: '\uAC00' }],
+      popularityRank: null,
+      maleRatio: null,
+      nameGender: 'unknown',
+      rank: 1,
+    }];
+  };
+  const mutableCandidateRequest: any = {
+    birth: { year: 1990, month: 1, day: 1, gender: 'neutral' },
+    surname: [{ hangul: '\uAE40' }],
+    mode: 'recommend',
+    options: { limit: 1 },
+  };
+  const candidatePromise = candidateEngine.getCandidateSearch(mutableCandidateRequest);
+  mutableCandidateRequest.birth.day = 2;
+  mutableCandidateRequest.surname[0].hangul = '\uC774';
+  mutableCandidateRequest.options.limit = 2;
+  releaseCandidate();
+  const candidatePage = await candidatePromise;
+  assert.equal(observedCandidateRequest.birth.day, 1);
+  assert.equal(observedCandidateRequest.surname[0].hangul, '\uAE40');
+  assert.equal(candidatePage.pagination.requestedLimit, 1);
+  assert.equal(candidatePage.items[0]?.name.fullHangul, '\uAE40\uAC00');
+  candidateEngine.close();
+
+  const reportEngine = new SpringEngine() as any;
+  let releaseReport = (): void => {};
+  const reportGate = new Promise<void>((resolve) => {
+    releaseReport = resolve;
+  });
+  let observedNamingRequest: any;
+  const sentinel = new Error('stop after observing the snapshotted naming request');
+  reportEngine.getNamingReport = async (request: any) => {
+    await reportGate;
+    observedNamingRequest = request;
+    throw sentinel;
+  };
+  const mutableReportRequest: any = {
+    birth: { year: 1990, month: 1, day: 1, gender: 'neutral' },
+    surname: [{ hangul: '\uAE40' }],
+    givenName: [{ hangul: '\uAC00' }],
+    targetDate: '2026-07-18',
+    delivery: {
+      schemaVersion: REPORT_DELIVERY_REQUEST_SCHEMA_V1,
+      surfaces: [{ id: 'naming', depth: 'brief' }],
+    },
+  };
+  const reportPromise = reportEngine.getReportDelivery(mutableReportRequest);
+  mutableReportRequest.birth.day = 2;
+  mutableReportRequest.surname[0].hangul = '\uC774';
+  mutableReportRequest.givenName[0].hangul = '\uB098';
+  mutableReportRequest.delivery.surfaces[0].id = 'saju';
+  releaseReport();
+  await assert.rejects(reportPromise, (error: unknown) => error === sentinel);
+  assert.equal(observedNamingRequest.birth.day, 1);
+  assert.equal(observedNamingRequest.surname[0].hangul, '\uAE40');
+  assert.equal(observedNamingRequest.givenName[0].hangul, '\uAC00');
+  assert.equal(observedNamingRequest.mode, 'evaluate');
+  reportEngine.close();
 });

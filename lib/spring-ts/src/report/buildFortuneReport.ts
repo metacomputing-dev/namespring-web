@@ -31,7 +31,6 @@ import { buildCautionsCard } from './cards/cautions-card.js';
 import { buildPeriodFortuneCard } from './cards/period-fortune-card.js';
 import { buildLifeStageFortuneCard } from './cards/life-stage-fortune-card.js';
 import { buildCategoryFortuneCards } from './cards/category-fortune-card.js';
-import { buildTieredMatrix, preloadGeneratedForReport } from './tiered/build-tiered-matrix.js';
 import { buildLifeCurveCard, type LifeCurveCard } from './cards/life-curve-card.js';
 import { buildInsightFactsCard, type InsightFactsCard } from './cards/insight-facts-card.js';
 import { assertScorableSajuSummary } from '../saju-analysis-contract.js';
@@ -61,6 +60,14 @@ function computeCurrentAge(saju: SajuSummary, targetDate: Date): number | null {
 function buildRequired<T>(context: string, builder: () => T): T {
   try {
     return builder();
+  } catch (error) {
+    throw new FortuneReportBuildError(context, error);
+  }
+}
+
+async function buildRequiredAsync<T>(context: string, builder: () => Promise<T>): Promise<T> {
+  try {
+    return await builder();
   } catch (error) {
     throw new FortuneReportBuildError(context, error);
   }
@@ -218,9 +225,11 @@ export async function buildFortuneReport(
   // Browser: fetch the person's packed generated bundles before the (sync)
   // matrix build so class-first selection finds them. Node: no-op.
   let generatedContent: TieredGeneratedContentMeta | undefined;
+  let tieredModule: typeof import('./tiered/build-tiered-matrix.js') | undefined;
   if (options?.surfaceTieredMatrix === true && birth) {
     try {
-      generatedContent = await preloadGeneratedForReport(
+      tieredModule = await import('./tiered/build-tiered-matrix.js');
+      generatedContent = await tieredModule.preloadGeneratedForReport(
         saju,
         birth,
         targetDate,
@@ -231,9 +240,9 @@ export async function buildFortuneReport(
     }
   }
   const tieredMatrix: FortuneTieredMatrix | undefined =
-    options?.surfaceTieredMatrix === true && birth
-      ? buildRequired('tieredMatrix',
-          () => buildTieredMatrix(saju, birth, targetDate, {
+    options?.surfaceTieredMatrix === true && birth && tieredModule
+      ? await buildRequiredAsync('tieredMatrix',
+          () => tieredModule!.buildTieredMatrix(saju, birth, targetDate, {
             enabled: true,
             generatedContent,
             namingReport: springReport?.namingReport ?? null,

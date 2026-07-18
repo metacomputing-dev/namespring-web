@@ -126,7 +126,8 @@ function expectStateError(
   const analysis = calculator.getAnalysis();
   assert.equal(analysis.type, 'Saju');
   assert.equal(Number.isFinite(analysis.score), true);
-  assert.equal(analysis.data.nameElements.length, 1);
+  assert.equal(analysis.data.nameElements.length, 2,
+    'published element evidence uses the same full-name scope as match counts');
 
   const combined = calculator.getCombinedDistribution();
   assert.deepEqual(Object.keys(combined).sort(), [

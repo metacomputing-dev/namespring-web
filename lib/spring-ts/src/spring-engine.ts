@@ -6,8 +6,10 @@
 //   getNamingReport()   -- pure name analysis (no saju)
 //   getSajuReport()     -- saju analysis only
 //   getSpringReport()   -- single integrated report (name + saju)
+//   getReportDelivery() -- selective V1 payload for integrated/saju/naming UI
 //   getNameCandidates() -- name recommendations with saju integration
 //   getNameCandidateSummaries() -- lightweight recommendation list for UI
+//   getCandidateSearch() -- stable-ID, engine-ranked mobile candidate page
 //   analyze()           -- legacy all-in-one entry point (backward compatible)
 //   close()             -- release database resources
 // ---------------------------------------------------------------------------
@@ -48,6 +50,32 @@ import type {
 import engineConfig from '../config/engine.json';
 import { buildFortuneReport } from './report/buildFortuneReport.js';
 import type { FortuneReportRequest, FortuneReport } from './report/types.js';
+import {
+  ReportDeliveryRequestValidationError,
+  validateReportDeliveryRequestV1,
+  validateReportDeliverySelectionV1,
+} from './report/delivery/validation.js';
+import type {
+  ReportDeliveryRequestV1,
+  ReportDeliveryV1,
+} from './report/delivery/types.js';
+import {
+  candidateIdFromNameIdentityV1,
+  isCandidateIdV1,
+} from './experience/candidate-id.js';
+import {
+  buildCandidateSearchResponseV1,
+  CANDIDATE_QUERY_ID_PATTERN_V1,
+  CandidateSearchContractErrorV1,
+  type CandidateSearchContinuationV1,
+  type CandidateSearchQueryV1,
+  type CandidateSearchResponseV1,
+  type LocalCandidateSearchRequestV1,
+} from './experience/index.js';
+import {
+  AnalysisOptionsContractError,
+  assertAnalysisOptionsContractV1,
+} from './report/analysis-options-validation.js';
 import { assertScorableSajuSummary, isScorableSajuSummary } from './saju-analysis-contract.js';
 import {
   getLegalAnnotation,
@@ -61,7 +89,11 @@ import {
   validateSajuConfigFortunePolicy,
   validateSajuRequestOptions,
 } from './saju-request-policy.js';
-import { targetCalendarYear } from './target-date.js';
+import { targetCalendarParts, targetCalendarYear } from './target-date.js';
+import {
+  assessNatalEvidenceV1,
+  type NatalEvidenceAssessmentV1,
+} from './natal-evidence.js';
 import { getEnrichedStrokeCount, getUnihanMetadata } from './hanja-unihan.js';
 import { loadFullHanjaPoolEntries } from './full-hanja-pool-loader.js';
 import { getNameTrendAnalysis, type NameTrendAnalysis } from './name-trend.js';
@@ -83,6 +115,7 @@ import {
   compileFourFrameContract,
 } from './fourframe-contract.js';
 import {
+  DefaultCandidateSummaryAccumulator,
   applySpringReportSelectionRanking,
   averageScores,
   clampScore,
@@ -95,6 +128,7 @@ import {
   orderSpringCandidates,
   orderSpringReports,
   roundScore,
+  shouldUseParetoFrontier,
   sliceAndRankCandidatePage,
   sliceCandidatePage,
   type CandidateNameDiversityInfo,
@@ -116,7 +150,9 @@ import {
 } from './operation-name-entry-repository.js';
 import { assertSpringNameRequestContract } from './name-input-contract.js';
 import {
+  snapshotCandidateSearchRequestV1,
   snapshotFortuneReportRequest,
+  snapshotReportDeliveryRequestV1,
   snapshotSpringRequest,
   snapshotSajuReport,
 } from './public-request-snapshot.js';
@@ -152,6 +188,14 @@ const DEFAULT_LIMIT             = engineConfig.pagination.defaultLimit;
 const DEFAULT_TARGET_ELEMENT    = engineConfig.defaultTargetElement;
 const ENGINE_VERSION            = engineConfig.version;
 const NAME_STAT_INFO_CACHE_LIMIT = (engineConfig as { nameStatInfoCacheLimit?: number }).nameStatInfoCacheLimit ?? 1000;
+const REPORT_ANALYSIS_ID_CACHE_LIMIT = 128;
+const CANDIDATE_SEARCH_SNAPSHOT_CACHE_LIMIT = 4;
+const CANDIDATE_SEARCH_SNAPSHOT_MAX_CANDIDATES = 500;
+// Each evaluated row constructs multiple calculators, while cached name-stat
+// filtering is much cheaper. Separate intervals bound cancellation latency
+// without changing candidate admission, scoring, ordering, or identity.
+const CANDIDATE_EVALUATION_YIELD_INTERVAL = 16;
+const CANDIDATE_NAME_STAT_YIELD_INTERVAL = 128;
 const NAME_STAT_NOT_FOUND = Object.freeze({
   status: 'not_found',
   popularityRank: null,
@@ -162,6 +206,24 @@ const DEFAULT_PURE_HANGUL_MODE: 'auto' | 'on' | 'off' = 'auto';
 const DEFAULT_USE_SURNAME_HANJA_IN_PURE = false;
 const ENABLE_HANJA_NAME_EVALUATION = true;
 const ENABLE_FOURFRAME_NAME_EVALUATION = true;
+
+async function yieldCandidateEvaluationTurn(): Promise<void> {
+  const hostScheduler = (globalThis as typeof globalThis & {
+    scheduler?: { yield?: () => Promise<void> };
+  }).scheduler;
+  if (typeof hostScheduler?.yield === 'function') {
+    await hostScheduler.yield();
+    return;
+  }
+  await new Promise<void>((resolve) => setTimeout(resolve, 0));
+}
+
+interface CandidateSearchSnapshotV1 {
+  readonly query: CandidateSearchQueryV1;
+  readonly requestKey: string;
+  readonly summaries: readonly SpringCandidateSummary[];
+  readonly natalEvidence: NatalEvidenceAssessmentV1;
+}
 
 function hasOwnKey(obj: object, key: string): boolean {
   return Object.prototype.hasOwnProperty.call(obj, key);
@@ -201,6 +263,104 @@ function optionsForFortuneTarget(
   }
 
   return { ...(options ?? {}), sajuOptions };
+}
+
+function resolveReportAnchorDate(
+  birth: BirthInfo,
+  targetDateInput: string | undefined,
+): { readonly targetDate: Date; readonly birthYear: number } {
+  const birthYear = birth.year;
+  if (typeof birthYear !== 'number' || !Number.isInteger(birthYear)) {
+    throw new SajuRequestValidationError('birth year must be a finite integer', 'BIRTH_DATE_INVALID');
+  }
+  const targetDate = parseFortuneTargetDate(targetDateInput, birth);
+  return { targetDate, birthYear };
+}
+
+function resolveFortuneTargetContext(
+  birth: BirthInfo,
+  targetDateInput: string | undefined,
+  options: SpringOptions | undefined,
+): { readonly targetDate: Date; readonly reportOptions: SpringOptions } {
+  const { targetDate, birthYear } = resolveReportAnchorDate(birth, targetDateInput);
+  const reportOptions = optionsForFortuneTarget(options, targetDate, birthYear);
+  validateSajuRequestOptions(reportOptions.sajuOptions, birthYear);
+  validateSajuConfigFortunePolicy(reportOptions.sajuConfig);
+  return {
+    targetDate,
+    reportOptions,
+  };
+}
+
+function canonicalJson(value: unknown): string {
+  if (value === null || typeof value !== 'object') return JSON.stringify(value);
+  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(',')}]`;
+  const entries = Object.entries(value as Record<string, unknown>)
+    .filter(([, child]) => child !== undefined)
+    .sort(([left], [right]) => left < right ? -1 : left > right ? 1 : 0);
+  return `{${entries.map(([key, child]) => `${JSON.stringify(key)}:${canonicalJson(child)}`).join(',')}}`;
+}
+
+function createOpaqueCorrelationToken(): string {
+  const bytes = new Uint8Array(16);
+  const cryptoApi = globalThis.crypto;
+  if (cryptoApi?.getRandomValues) {
+    cryptoApi.getRandomValues(bytes);
+  } else {
+    // These values are correlation handles, never authorization secrets. This
+    // fallback preserves availability on legacy JS runtimes; paid authorization
+    // uses server-issued report/entitlement identifiers instead.
+    for (let index = 0; index < bytes.length; index += 1) {
+      bytes[index] = Math.floor(Math.random() * 256);
+    }
+  }
+  return Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('');
+}
+
+function createOpaqueAnalysisId(): string {
+  return `analysis_v1_${createOpaqueCorrelationToken()}`;
+}
+
+function createOpaqueCandidateQueryId(): string {
+  return `candidate_query_v1_${createOpaqueCorrelationToken()}`;
+}
+
+function candidateIdFromDeliveryInput(
+  request: ReportDeliveryRequestV1,
+  namingReport?: NamingReport | null,
+): string | undefined {
+  if (namingReport) {
+    return candidateIdFromNameIdentityV1({
+      surnameHangul: namingReport.name.surname.map((character) => character.hangul).join(''),
+      surnameHanja: namingReport.name.surname.map((character) => character.hanja ?? '').join(''),
+      givenHangul: namingReport.name.givenName.map((character) => character.hangul).join(''),
+      givenHanja: namingReport.name.givenName.map((character) => character.hanja ?? '').join(''),
+    });
+  }
+  if (!request.surname || request.surname.length === 0
+    || !request.givenName || request.givenName.length === 0) return undefined;
+  const characters = [...request.surname ?? [], ...request.givenName];
+  const explicitHanjaCount = characters.filter((character) =>
+    typeof character.hanja === 'string' && character.hanja.length > 0).length;
+  // Mixed unresolved/resolved input cannot establish the same canonical full
+  // identity as candidate search. Defer to the resolved NamingReport.
+  if (explicitHanjaCount !== 0 && explicitHanjaCount !== characters.length) return undefined;
+  return candidateIdFromNameIdentityV1({
+    surnameHangul: request.surname.map((character) => character.hangul).join(''),
+    surnameHanja: request.surname.map((character) => character.hanja ?? '').join(''),
+    givenHangul: request.givenName.map((character) => character.hangul).join(''),
+    givenHanja: request.givenName.map((character) => character.hanja ?? '').join(''),
+  });
+}
+
+function assertRequestedCandidateId(
+  requested: string | undefined,
+  resolved: string | undefined,
+): void {
+  if (requested === undefined) return;
+  if (!isCandidateIdV1(requested) || resolved === undefined || requested !== resolved) {
+    throw new ReportDeliveryRequestValidationError('CANDIDATE_ID_MISMATCH');
+  }
 }
 
 const UNSAFE_HANJA_MEANING_PATTERNS = [
@@ -489,6 +649,13 @@ interface PreparedSpringReportCandidate extends SpringReportCandidateInput {
   readonly diversity: CandidateNameDiversityInfo;
 }
 
+interface PreparedFortuneReportContext {
+  readonly targetDate: Date;
+  readonly reportOptions: SpringOptions;
+  readonly sajuReport: SajuReport;
+  readonly springReport: SpringReport | null;
+}
+
 type CandidateRejectionAccumulator = Map<string, CandidateRejectionBucket>;
 
 /** Prevents fortune cards from being synthesized from an unavailable saju placeholder. */
@@ -516,6 +683,7 @@ type SpringEngineOperationName =
   | 'getNameCandidateSummaries'
   | 'analyze'
   | 'getFortuneReport'
+  | 'getReportDelivery'
   | 'name-stat-lookup';
 
 interface SpringEngineOperationLease {
@@ -569,10 +737,25 @@ export class SpringEngineOperationCancelledError extends Error {
 // SpringEngine
 // ---------------------------------------------------------------------------
 
+/**
+ * Repository injection is intentionally narrow: browser callers keep the
+ * zero-argument defaults, while trusted server runtimes can provide immutable
+ * file-backed repositories instead of attempting to fetch `/data/*`.
+ */
+export interface SpringEngineRepositories {
+  readonly hanja?: HanjaRepository;
+  readonly fourFrame?: FourframeRepository;
+  readonly nameStat?: NameStatSummaryRepository;
+}
+
+export interface SpringEngineOptions {
+  readonly repositories?: SpringEngineRepositories;
+}
+
 export class SpringEngine {
-  private hanjaRepo = new HanjaRepository();
-  private fourFrameRepo = new FourframeRepository();
-  private nameStatRepo = new NameStatSummaryRepository();
+  private readonly hanjaRepo: HanjaRepository;
+  private readonly fourFrameRepo: FourframeRepository;
+  private readonly nameStatRepo: NameStatSummaryRepository;
   private initialized = false;
   private initPromise: Promise<void> | null = null;
   private lifecycleGeneration = 0;
@@ -580,11 +763,22 @@ export class SpringEngine {
   private validFourFrameNumbers = new Set<number>();
   private optimizer: FourFrameOptimizer | null = null;
   private readonly nameStatInfoCache = new Map<string, NameStatLookupResult>();
+  /** Session-local correlation only; never used as an authorization token. */
+  private readonly reportAnalysisIds = new Map<string, string>();
+  /** Bounded local snapshots keep multi-page ranking stable without a server. */
+  private readonly candidateSearchSnapshots = new Map<string, CandidateSearchSnapshotV1>();
 
   private explicitNameIdentityCache = new WeakMap<
     NameCharInput,
     Map<string, CachedExplicitNameIdentity>
   >();
+
+  public constructor(options: SpringEngineOptions = {}) {
+    this.hanjaRepo = options.repositories?.hanja ?? new HanjaRepository();
+    this.fourFrameRepo = options.repositories?.fourFrame ?? new FourframeRepository();
+    this.nameStatRepo = options.repositories?.nameStat ?? new NameStatSummaryRepository();
+  }
+
   /** Expose the hanja repository so the UI can perform hanja lookups. */
   getHanjaRepository(): HanjaRepository { return this.hanjaRepo; }
 
@@ -665,6 +859,91 @@ export class SpringEngine {
       generation: this.lifecycleGeneration,
       nameEntryCache: createOperationNameEntryCache(),
     };
+  }
+
+  private reportAnalysisId(
+    request: ReportDeliveryRequestV1,
+    targetDate: Date,
+  ): string {
+    const parts = targetCalendarParts(targetDate);
+    const { name: _displayBirthName, ...birthIdentity } = request.birth;
+    const analysisOptions = request.options ?? {};
+    const projectName = (characters: readonly NameCharInput[] | undefined) =>
+      (characters ?? []).map((character) => ({
+        hangul: character.hangul,
+        hanja: character.hanja ?? '',
+      }));
+    const key = canonicalJson({
+      birth: birthIdentity,
+      surname: projectName(request.surname),
+      givenName: projectName(request.givenName),
+      options: analysisOptions,
+      anchorDate: [parts.year, parts.month, parts.day],
+    });
+    const cached = this.reportAnalysisIds.get(key);
+    if (cached) {
+      this.reportAnalysisIds.delete(key);
+      this.reportAnalysisIds.set(key, cached);
+      return cached;
+    }
+    if (this.reportAnalysisIds.size >= REPORT_ANALYSIS_ID_CACHE_LIMIT) {
+      const oldest = this.reportAnalysisIds.keys().next().value;
+      if (oldest !== undefined) this.reportAnalysisIds.delete(oldest);
+    }
+    const id = createOpaqueAnalysisId();
+    this.reportAnalysisIds.set(key, id);
+    return id;
+  }
+
+  private candidateSearchRequestKey(request: SpringRequest): string {
+    const { name: _displayBirthName, ...birthIdentity } = request.birth;
+    const { limit: _limit, offset: _offset, ...analysisOptions } = request.options ?? {};
+    const projectName = (characters: readonly NameCharInput[] | undefined) =>
+      (characters ?? []).map((character) => ({
+        hangul: character.hangul,
+        hanja: character.hanja ?? '',
+      }));
+    return canonicalJson({
+      birth: birthIdentity,
+      surname: projectName(request.surname),
+      givenName: projectName(request.givenName),
+      givenNameLength: request.givenNameLength,
+      mode: request.mode ?? 'auto',
+      options: analysisOptions,
+    });
+  }
+
+  private cacheCandidateSearchSnapshot(snapshot: CandidateSearchSnapshotV1): void {
+    if (this.candidateSearchSnapshots.size >= CANDIDATE_SEARCH_SNAPSHOT_CACHE_LIMIT) {
+      const oldest = this.candidateSearchSnapshots.keys().next().value;
+      if (oldest !== undefined) this.candidateSearchSnapshots.delete(oldest);
+    }
+    this.candidateSearchSnapshots.set(snapshot.query.queryId, snapshot);
+  }
+
+  private getCandidateSearchSnapshot(
+    queryId: string,
+    requestKey: string,
+  ): CandidateSearchSnapshotV1 {
+    if (!CANDIDATE_QUERY_ID_PATTERN_V1.test(queryId)) {
+      throw new CandidateSearchContractErrorV1('INVALID_QUERY_ID', 'Candidate queryId is invalid.');
+    }
+    const snapshot = this.candidateSearchSnapshots.get(queryId);
+    if (!snapshot) {
+      throw new CandidateSearchContractErrorV1(
+        'QUERY_SNAPSHOT_EXPIRED',
+        'Candidate query snapshot is unavailable in this engine session.',
+      );
+    }
+    if (snapshot.requestKey !== requestKey) {
+      throw new CandidateSearchContractErrorV1(
+        'QUERY_ID_MISMATCH',
+        'Candidate queryId does not belong to this analysis request.',
+      );
+    }
+    this.candidateSearchSnapshots.delete(queryId);
+    this.candidateSearchSnapshots.set(queryId, snapshot);
+    return snapshot;
   }
 
   private operationNameEntryRepository(
@@ -1733,11 +2012,26 @@ export class SpringEngine {
   // -------------------------------------------------------------------------
 
   async getNameCandidateSummaries(request: SpringRequest): Promise<SpringCandidateSummary[]> {
+    return this.getNameCandidateSummariesInternal(request, false);
+  }
+
+  private async getNameCandidateSummariesInternal(
+    request: SpringRequest,
+    requireSajuGuidedRecommendation: boolean,
+    onSajuReport?: (report: SajuReport) => void,
+  ): Promise<SpringCandidateSummary[]> {
     request = snapshotSpringRequest(request);
     this.assertSchoolPresetSelection(request.options);
     validateSajuConfigFortunePolicy(request.options?.sajuConfig);
-    const operation = this.beginOperation('getNameCandidateSummaries');
     this.assertRequestNameSyntax(request, true);
+    const nameInputPlan = this.buildNameInputPlan(request);
+    if (requireSajuGuidedRecommendation && nameInputPlan.mode !== 'recommend') {
+      throw new CandidateSearchContractErrorV1(
+        'UNSUPPORTED_QUERY_MODE',
+        'Candidate search requires recommendation mode, not explicit-name evaluation.',
+      );
+    }
+    const operation = this.beginOperation('getNameCandidateSummaries');
     await this.awaitOperationStep(operation, () => this.init());
     await this.assertExplicitRequestNameIdentity(request, operation);
     const candidateRejections: CandidateRejectionAccumulator = new Map();
@@ -1746,18 +2040,28 @@ export class SpringEngine {
       operation,
       () => this.getSajuReport(request),
     );
+    if (requireSajuGuidedRecommendation && !isScorableSajuSummary(sajuReport)) {
+      throw new CandidateSearchContractErrorV1(
+        'SAJU_ANALYSIS_UNAVAILABLE',
+        'Saju-guided candidate search requires a scorable natal chart.',
+      );
+    }
+    onSajuReport?.(sajuReport);
     const sajuSummary: SajuSummary = sajuReport;
     const { dist: sajuDistribution, output: sajuOutput } = buildSajuContext(sajuSummary, {
       includeTenGodByPosition: request.options?.precisionConfig?.tenGodMode === 'positional_weighted_v2',
     });
 
-    const nameInputPlan = this.buildNameInputPlan(request);
-
     const nameInputs = await this.awaitOperationStep(operation, () => this.collectNameInputs(
       request, nameInputPlan,
       sajuSummary, candidateRejections, operation,
     ));
-    const results: SpringCandidateSummary[] = [];
+    const paretoMode = shouldUseParetoFrontier(request.options);
+    const paretoResults: SpringCandidateSummary[] = [];
+    const defaultResults = paretoMode ? null : new DefaultCandidateSummaryAccumulator();
+    const hanjaPool = this.resolveHanjaPool(request.options);
+    const surnameEntriesByForceHangul = new Map<boolean, HanjaEntry[]>();
+    let evaluatedCandidateCount = 0;
 
     for (const collected of nameInputs) {
       const givenNameInput = collected.givenName;
@@ -1771,15 +2075,24 @@ export class SpringEngine {
         givenNameInput,
         request.options,
       );
-      const surnameEntries = await this.awaitOperationStep(operation, () => this.resolveEntries(request.surname, {
-        forceHangulOnly: resolutionPolicy.pureHangulGivenName
-          && !resolutionPolicy.useSurnameHanjaInPureHangul,
-        isSurname: true,
-        hanjaPool: this.resolveHanjaPool(request.options),
-      }, operation));
+      const forceHangulSurname = resolutionPolicy.pureHangulGivenName
+        && !resolutionPolicy.useSurnameHanjaInPureHangul;
+      let surnameEntries = surnameEntriesByForceHangul.get(forceHangulSurname);
+      if (!surnameEntries) {
+        surnameEntries = await this.awaitOperationStep(operation, () => this.resolveEntries(
+          request.surname,
+          {
+            forceHangulOnly: forceHangulSurname,
+            isSurname: true,
+            hanjaPool,
+          },
+          operation,
+        ));
+        surnameEntriesByForceHangul.set(forceHangulSurname, surnameEntries);
+      }
       const givenNameEntries = await this.awaitOperationStep(operation, () => this.resolveEntries(givenNameInput, {
         forceHangulOnly: resolutionPolicy.pureHangulGivenName,
-        hanjaPool: this.resolveHanjaPool(request.options),
+        hanjaPool,
       }, operation));
 
       const hangul = new HangulCalculator(surnameEntries, givenNameEntries, this.resolveHangulSignalCap(request.options), this.resolveHangulPolarityModel(request.options));
@@ -1833,8 +2146,8 @@ export class SpringEngine {
           givenNameEntries,
           hangul,
           hanja,
-          frame,
-          this.resolveHanjaPool(request.options),
+            frame,
+            hanjaPool,
           vectorEvidence.nameTrend,
           vectorEvidence.phonetic,
         )
@@ -1842,32 +2155,168 @@ export class SpringEngine {
       const strengthProfile = scoreVector
         ? deriveCandidateStrengthProfile(scoreVector)
         : undefined;
-      results.push({
+      const summary: SpringCandidateSummary = {
         finalScore: roundScore(combined.score),
         ...(scoreVector ? { scoreVector } : {}),
         ...(strengthProfile ? { strengthProfile } : {}),
         fullHangul: allEntries.map(entry => entry.hangul).join(''),
         fullHanja: allEntries.map(entry => entry.hanja).join(''),
         givenHangul: givenNameEntries.map(entry => entry.hangul).join(''),
-        givenName: givenNameEntries.map(entry => toNameCharInput(entry, this.resolveHanjaPool(request.options))),
+        givenName: givenNameEntries.map(entry => toNameCharInput(entry, hanjaPool)),
         popularityRank: nameStatInfo.popularityRank,
         maleRatio: nameStatInfo.maleRatio,
         nameGender: nameStatInfo.nameGender,
         ...(nameTrend ? { nameTrend } : {}),
         ...(phonetic ? { phonetic } : {}),
         rank: 0,
-      });
+      };
+      if (defaultResults) defaultResults.add(summary);
+      else paretoResults.push(summary);
+
+      evaluatedCandidateCount += 1;
+      if (evaluatedCandidateCount % CANDIDATE_EVALUATION_YIELD_INTERVAL === 0) {
+        await this.awaitOperationStep(operation, yieldCandidateEvaluationTurn);
+      }
     }
 
-    const ordered = orderCandidateSummaries(
-      results,
-      request.options,
-      CANDIDATE_SELECTION_LIMITS,
-    );
+    const ordered = defaultResults
+      ? defaultResults.finish()
+      : dedupeCandidateSummariesByHangul(orderCandidateSummaries(
+          paretoResults,
+          request.options,
+          CANDIDATE_SELECTION_LIMITS,
+        ));
     return this.completeOperation(
       operation,
-      this.pageOrderedCandidates(dedupeCandidateSummariesByHangul(ordered), request.options),
+      this.pageOrderedCandidates(ordered, request.options),
     );
+  }
+
+  /**
+   * Mobile candidate-list boundary. Ranking remains SpringEngine-authoritative and
+   * each row carries a stable name identity that can be continued directly
+   * into getReportDelivery(). Multi-page reads reuse a bounded engine-session
+   * snapshot so page 2 cannot silently come from a different ordering.
+   */
+  async getCandidateSearch(
+    request: LocalCandidateSearchRequestV1,
+    continuation?: CandidateSearchContinuationV1,
+  ): Promise<CandidateSearchResponseV1> {
+    request = snapshotCandidateSearchRequestV1(request);
+    const requestedNameLengths = [
+      request.givenNameLength,
+      request.givenName === undefined ? undefined : request.givenName.length,
+    ];
+    if (requestedNameLengths.some((length) => length !== undefined
+      && (!Number.isSafeInteger(length) || length < 1 || length > 2))) {
+      throw new CandidateSearchContractErrorV1(
+        'UNSUPPORTED_RECOMMENDATION_NAME_LENGTH',
+        'Automatic candidate recommendation currently supports 1-2 syllable given names. '
+          + 'Explicit 3-4 syllable names remain available for naming and integrated reports.',
+      );
+    }
+    const { limit: _limit, offset: _offset, ...analysisOptions } = request.options ?? {};
+    try {
+      assertAnalysisOptionsContractV1(analysisOptions, Number(request.birth.year), {
+        allowRemoteLunarConversion: false,
+      });
+    } catch (error) {
+      if (error instanceof AnalysisOptionsContractError) {
+        if (error.kind === 'REMOTE_FORBIDDEN') {
+          throw new CandidateSearchContractErrorV1(
+            'REMOTE_COMPUTATION_FORBIDDEN',
+            'Free candidate search permits only the built-in offline lunar converter.',
+          );
+        }
+        throw new CandidateSearchContractErrorV1(
+          'INVALID_ANALYSIS_OPTIONS',
+          `Candidate analysis options are invalid: ${error.detail}`,
+        );
+      }
+      throw error;
+    }
+    const offset = request.options?.offset ?? DEFAULT_OFFSET;
+    const requestedLimit = request.options?.limit ?? DEFAULT_LIMIT;
+    if (continuation !== undefined
+      && (continuation === null
+        || typeof continuation !== 'object'
+        || Array.isArray(continuation)
+        || Object.keys(continuation).some((key) => key !== 'queryId')
+        || typeof continuation.queryId !== 'string')) {
+      throw new CandidateSearchContractErrorV1(
+        'INVALID_QUERY_ID',
+        'Candidate continuation must contain only a queryId.',
+      );
+    }
+    if (offset > 0 && continuation === undefined) {
+      throw new CandidateSearchContractErrorV1(
+        'QUERY_ID_REQUIRED',
+        'Candidate pages after the first require the engine-session queryId.',
+      );
+    }
+    const requestKey = this.candidateSearchRequestKey(request);
+    const provisionalQueryId = continuation?.queryId ?? createOpaqueCandidateQueryId();
+    const provisionalQuery: CandidateSearchQueryV1 = {
+      queryId: provisionalQueryId,
+      scope: 'engine_session',
+      expiresOn: 'engine_close_or_lru_eviction',
+      maxBrowsableCandidates: CANDIDATE_SEARCH_SNAPSHOT_MAX_CANDIDATES,
+      truncated: false,
+      clientInstruction: 'reuse_query_id_for_every_page',
+    };
+    // Fail invalid or oversized mobile pages before repository/astronomy work.
+    buildCandidateSearchResponseV1({
+      summaries: [],
+      offset,
+      requestedLimit,
+      query: provisionalQuery,
+      natalEvidence: { status: 'ready', reasonCodes: [] },
+    });
+
+    let snapshot: CandidateSearchSnapshotV1;
+    if (continuation) {
+      snapshot = this.getCandidateSearchSnapshot(continuation.queryId, requestKey);
+    } else {
+      let natalEvidence: NatalEvidenceAssessmentV1 | undefined;
+      const summariesWithLookahead = await this.getNameCandidateSummariesInternal({
+        ...request,
+        options: {
+          ...(request.options ?? {}),
+          offset: 0,
+          limit: CANDIDATE_SEARCH_SNAPSHOT_MAX_CANDIDATES + 1,
+        },
+      }, true, (report) => {
+        natalEvidence = assessNatalEvidenceV1(report);
+      });
+      const retainedNatalEvidence = natalEvidence ?? assessNatalEvidenceV1(null);
+      const query: CandidateSearchQueryV1 = {
+        ...provisionalQuery,
+        truncated: summariesWithLookahead.length > CANDIDATE_SEARCH_SNAPSHOT_MAX_CANDIDATES,
+      };
+      snapshot = {
+        query,
+        requestKey,
+        summaries: summariesWithLookahead.slice(0, CANDIDATE_SEARCH_SNAPSHOT_MAX_CANDIDATES),
+        natalEvidence: retainedNatalEvidence,
+      };
+      this.cacheCandidateSearchSnapshot(snapshot);
+    }
+    if (offset > snapshot.summaries.length) {
+      throw new CandidateSearchContractErrorV1(
+        'QUERY_OFFSET_OUT_OF_RANGE',
+        'Candidate offset is outside the retained query snapshot.',
+      );
+    }
+    const page = snapshot.summaries.slice(offset, offset + requestedLimit);
+    const hasMore = offset + page.length < snapshot.summaries.length;
+    return buildCandidateSearchResponseV1({
+      summaries: page,
+      offset,
+      requestedLimit,
+      hasMore,
+      query: snapshot.query,
+      natalEvidence: snapshot.natalEvidence,
+    });
   }
 
   // -------------------------------------------------------------------------
@@ -2185,7 +2634,15 @@ export class SpringEngine {
     operation: SpringEngineOperationLease = this.beginOperation('name-stat-lookup'),
   ): Promise<CollectedNameInput[]> {
     const filtered: CollectedNameInput[] = [];
+    let inspectedCandidateCount = 0;
     for (const givenNameInput of nameInputs) {
+      if (
+        inspectedCandidateCount > 0
+        && inspectedCandidateCount % CANDIDATE_NAME_STAT_YIELD_INTERVAL === 0
+      ) {
+        await this.awaitOperationStep(operation, yieldCandidateEvaluationTurn);
+      }
+      inspectedCandidateCount += 1;
       const info = await this.awaitOperationStep(
         operation,
         () => this.getNameStatInfo(givenNameInput, operation),
@@ -2854,19 +3311,16 @@ export class SpringEngine {
   // getFortuneReport -- fortune report combining saju + optional name analysis
   // -------------------------------------------------------------------------
 
-  async getFortuneReport(request: FortuneReportRequest): Promise<FortuneReport> {
-    request = snapshotFortuneReportRequest(request);
-    this.assertSchoolPresetSelection(request.options);
-    const operation = this.beginOperation('getFortuneReport');
-    // 1. Reject malformed or unbounded horizons before database or astronomy work.
-    const birthYear = request.birth.year;
-    if (typeof birthYear !== 'number' || !Number.isInteger(birthYear)) {
-      throw new SajuRequestValidationError('birth year must be a finite integer', 'BIRTH_DATE_INVALID');
-    }
-    const targetDate = parseFortuneTargetDate(request.targetDate, request.birth);
-    const reportOptions = optionsForFortuneTarget(request.options, targetDate, birthYear);
-    validateSajuRequestOptions(reportOptions.sajuOptions, birthYear);
-    validateSajuConfigFortunePolicy(reportOptions.sajuConfig);
+  private async prepareFortuneReportContext(
+    request: FortuneReportRequest,
+    operation: SpringEngineOperationLease,
+  ): Promise<PreparedFortuneReportContext> {
+    // Reject malformed or unbounded horizons before database or astronomy work.
+    const { targetDate, reportOptions } = resolveFortuneTargetContext(
+      request.birth,
+      request.targetDate,
+      request.options,
+    );
     const hasSuppliedGivenName = Object.prototype.hasOwnProperty.call(request, 'givenName')
       && !(Array.isArray(request.givenName) && request.givenName.length === 0);
     const explicitNameRequest: SpringRequest | null = hasSuppliedGivenName
@@ -2886,8 +3340,6 @@ export class SpringEngine {
       await this.assertExplicitRequestNameIdentity(explicitNameRequest, operation);
     }
 
-
-    // 2. Run saju analysis
     const sajuReport = await this.awaitOperationStep(operation, () => this.getSajuReport({
       birth: request.birth,
       surname: request.surname ?? [],
@@ -2903,16 +3355,12 @@ export class SpringEngine {
         sajuReport.analysisStatus ?? 'failed',
       );
     }
-    const saju: SajuSummary = sajuReport;
     assertScorableSajuSummary(sajuReport);
 
-    // 3. Optionally run spring report if name is provided
     let springReport: SpringReport | null = null;
     if (request.givenName && request.givenName.length > 0) {
       // A supplied name is an explicit request for name compatibility. Data
-      // corruption, cancellation and infrastructure failures must remain
-      // visible rather than silently degrading to a successful nameless
-      // fortune report.
+      // corruption, cancellation and infrastructure failures remain visible.
       springReport = await this.awaitOperationStep(
         operation,
         () => this.getSpringReportFromSnapshot(
@@ -2929,6 +3377,17 @@ export class SpringEngine {
         ),
       );
     }
+
+    return { targetDate, reportOptions, sajuReport, springReport };
+  }
+
+  async getFortuneReport(request: FortuneReportRequest): Promise<FortuneReport> {
+    request = snapshotFortuneReportRequest(request);
+    this.assertSchoolPresetSelection(request.options);
+    const operation = this.beginOperation('getFortuneReport');
+    const { targetDate, reportOptions, sajuReport, springReport } =
+      await this.prepareFortuneReportContext(request, operation);
+    const saju: SajuSummary = sajuReport;
 
     // 4. Build the fortune report
     // PR-Q-12 (Phase M-D6): fortuneCascadeMode default flips
@@ -2958,6 +3417,102 @@ export class SpringEngine {
     return this.completeOperation(operation, report);
   }
 
+  /**
+   * Future-frontend boundary: returns only requested integrated/saju/naming
+   * surfaces. Existing getFortuneReport() output remains byte-for-byte shaped
+   * as before, while this method can avoid unrequested tiered cells and packs.
+   */
+  async getReportDelivery(request: ReportDeliveryRequestV1): Promise<ReportDeliveryV1> {
+    request = snapshotReportDeliveryRequestV1(request);
+    request = validateReportDeliveryRequestV1(request);
+    const selection = validateReportDeliverySelectionV1(request.delivery);
+    if (request.candidateId !== undefined && !isCandidateIdV1(request.candidateId)) {
+      throw new ReportDeliveryRequestValidationError('CANDIDATE_ID_MISMATCH');
+    }
+    const provisionalCandidateId = candidateIdFromDeliveryInput(request);
+    if (request.candidateId !== undefined
+      && provisionalCandidateId !== undefined
+      && request.candidateId !== provisionalCandidateId) {
+      throw new ReportDeliveryRequestValidationError('CANDIDATE_ID_MISMATCH');
+    }
+    this.assertSchoolPresetSelection(request.options);
+    const operation = this.beginOperation('getReportDelivery');
+    const surfaceIds = new Set(selection.surfaces.map((surface) => surface.id));
+    const needsIntegrated = surfaceIds.has('integrated');
+    const needsSaju = needsIntegrated || surfaceIds.has('saju');
+    const needsNaming = needsIntegrated || surfaceIds.has('naming');
+    const baseRequest: FortuneReportRequest = {
+      birth: request.birth,
+      ...(request.surname === undefined ? {} : { surname: request.surname }),
+      ...(request.givenName === undefined ? {} : { givenName: request.givenName }),
+      ...(request.targetDate === undefined ? {} : { targetDate: request.targetDate }),
+      ...(request.options === undefined ? {} : { options: request.options }),
+    };
+    let targetDate: Date;
+    let sajuReport: SajuReport | null = null;
+    let namingReport: NamingReport | null = null;
+    let springReport: SpringReport | null = null;
+
+    if (needsIntegrated) {
+      const prepared = await this.prepareFortuneReportContext(baseRequest, operation);
+      targetDate = prepared.targetDate;
+      sajuReport = prepared.sajuReport;
+      springReport = prepared.springReport;
+      namingReport = springReport?.namingReport ?? null;
+    } else {
+      if (needsSaju) {
+        const targetContext = resolveFortuneTargetContext(
+          request.birth,
+          request.targetDate,
+          request.options,
+        );
+        targetDate = targetContext.targetDate;
+        sajuReport = await this.awaitOperationStep(operation, () => this.getSajuReport({
+          birth: request.birth,
+          surname: request.surname ?? [],
+          options: targetContext.reportOptions,
+        }));
+        if (!isScorableSajuSummary(sajuReport)) {
+          throw new FortuneSajuUnavailableError(
+            sajuReport.diagnostics?.[0]?.reasonCode ?? 'SAJU_CALCULATION_FAILED',
+            sajuReport.analysisStatus ?? 'failed',
+          );
+        }
+        assertScorableSajuSummary(sajuReport);
+      } else {
+        targetDate = resolveReportAnchorDate(request.birth, request.targetDate).targetDate;
+      }
+      if (needsNaming && request.givenName && request.givenName.length > 0) {
+        namingReport = await this.awaitOperationStep(operation, () => this.getNamingReport({
+          birth: request.birth,
+          surname: request.surname ?? [],
+          givenName: request.givenName,
+          mode: 'evaluate',
+          ...(request.options === undefined ? {} : { options: request.options }),
+        }));
+      }
+    }
+
+    const candidateId = candidateIdFromDeliveryInput(request, namingReport);
+    assertRequestedCandidateId(request.candidateId, candidateId);
+    const analysisId = this.reportAnalysisId(request, targetDate);
+    const { buildReportDeliveryV1 } = await this.awaitOperationStep(
+      operation,
+      () => import('./report/delivery/build-report-delivery.js'),
+    );
+    const delivery = await this.awaitOperationStep(operation, () => buildReportDeliveryV1({
+      selection,
+      birth: request.birth,
+      targetDate,
+      analysisId,
+      ...(candidateId === undefined ? {} : { candidateId }),
+      saju: sajuReport,
+      namingReport,
+      springReport,
+    }));
+    return this.completeOperation(operation, delivery);
+  }
+
   // -------------------------------------------------------------------------
   // close -- release database resources
   // -------------------------------------------------------------------------
@@ -2970,6 +3525,8 @@ export class SpringEngine {
     this.luckyMap = new Map();
     this.validFourFrameNumbers = new Set();
     this.nameStatInfoCache.clear();
+    this.reportAnalysisIds.clear();
+    this.candidateSearchSnapshots.clear();
     this.explicitNameIdentityCache = new WeakMap<
       NameCharInput,
       Map<string, CachedExplicitNameIdentity>

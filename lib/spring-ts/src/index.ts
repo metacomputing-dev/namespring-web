@@ -16,6 +16,8 @@ export {
   type NameEntryRole,
   type SpringNameRequestValidationField,
   type SpringNameRequestValidationReason,
+  type SpringEngineOptions,
+  type SpringEngineRepositories,
 } from './spring-engine.js';
 export {
   FOURFRAME_CONTRACT_INVALID,
@@ -304,6 +306,11 @@ export {
 //  9. FORTUNE REPORT
 // ─────────────────────────────────────────────────────────────────────────────
 export { buildFortuneReport } from './report/buildFortuneReport.js';
+export * from './report/delivery/index.js';
+export * from './report/premium/index.js';
+export * from './experience/index.js';
+export * from './experience/local-menu.js';
+export * from './experience/local-menu-types.js';
 export type {
   FortuneReport,
   FortuneReportRequest,

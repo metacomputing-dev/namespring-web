@@ -190,6 +190,38 @@ for (const boundaryCase of [
 const summary = extractSaju(validOutput);
 check('bridge schema marker does not leak into service-visible SajuSummary',
   !Object.prototype.hasOwnProperty.call(summary, 'bridgeSchemaVersion'));
+
+for (const [sourceLevel, isStrong, expectedDisplay] of [
+  ['BALANCED', true, '\uC911\uD654(\uC2E0\uAC15 \uACBD\uD5A5)'],
+  ['\uC911\uD654(\uC2E0\uAC15 \uACBD\uD5A5)', true, '\uC911\uD654(\uC2E0\uAC15 \uACBD\uD5A5)'],
+  ['\uC911\uD654(\uC2E0\uC57D \uACBD\uD5A5)', false, '\uC911\uD654(\uC2E0\uC57D \uACBD\uD5A5)'],
+] as const) {
+  const balancedOutput = structuredClone(validOutput) as any;
+  balancedOutput.strengthResult.level = sourceLevel;
+  balancedOutput.strengthResult.isStrong = isStrong;
+  const balancedSummary = extractSaju(balancedOutput);
+  check(
+    `balanced strength retains BALANCED machine code from ${JSON.stringify(sourceLevel)}`,
+    balancedSummary.strength.levelCode === 'BALANCED',
+  );
+  check(
+    `balanced strength keeps tendency only in display copy from ${JSON.stringify(sourceLevel)}`,
+    balancedSummary.strength.level === expectedDisplay,
+  );
+}
+
+const canonicalGyeokgukOutput = structuredClone(validOutput) as any;
+canonicalGyeokgukOutput.gyeokgukResult.type = 'SIK_SHIN';
+canonicalGyeokgukOutput.gyeokgukResult.category = 'NORMAL';
+canonicalGyeokgukOutput.gyeokgukResult.baseSipseong = 'SIK_SHIN';
+const canonicalGyeokgukSummary = extractSaju(canonicalGyeokgukOutput).gyeokguk;
+check('gyeokguk type preserves the canonical code independently from display copy',
+  canonicalGyeokgukSummary.typeCode === 'SIK_SIN');
+check('gyeokguk category preserves the canonical code independently from display copy',
+  canonicalGyeokgukSummary.categoryCode === 'NORMAL');
+check('gyeokguk base ten-god preserves the canonical code independently from display copy',
+  canonicalGyeokgukSummary.baseTenGodCode === 'SIK_SIN');
+
 check('direct extraction rejects a partial object before zero/empty normalization',
   rejectsContract(() => extractSaju({ weightedShinsalHits: [] })));
 

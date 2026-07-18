@@ -397,7 +397,7 @@ function withParetoFlag(
   return profile ? { ...profile, paretoFrontier } : undefined;
 }
 
-function shouldUseParetoFrontier(options?: SpringOptions): boolean {
+export function shouldUseParetoFrontier(options?: SpringOptions): boolean {
   return options?.precisionConfig?.paretoFrontierCandidates === true;
 }
 
@@ -535,6 +535,47 @@ export function dedupeCandidateSummariesByHangul(
     deduped.push(summary);
   }
   return deduped.map((summary, index) => ({ ...summary, rank: index + 1 }));
+}
+
+interface RetainedCandidateSummary {
+  readonly summary: SpringCandidateSummary;
+  readonly originalIndex: number;
+}
+
+/**
+ * Exact non-Pareto equivalent of score-sort -> Hangul de-duplication.
+ *
+ * Recommendation pools commonly contain many Hanja spellings for the same
+ * Hangul name. Retaining only the winning spelling per Hangul key keeps mobile
+ * memory proportional to distinct display rows while preserving the legacy
+ * stable score order byte-for-byte. Pareto mode deliberately uses the full
+ * pool because duplicate spellings participate in its frontier/diversity pass.
+ */
+export class DefaultCandidateSummaryAccumulator {
+  private readonly winners = new Map<string, RetainedCandidateSummary>();
+  private nextOriginalIndex = 0;
+
+  add(summary: SpringCandidateSummary): void {
+    const originalIndex = this.nextOriginalIndex;
+    this.nextOriginalIndex += 1;
+    const key = summary.fullHangul || summary.givenHangul;
+    const prior = this.winners.get(key);
+    if (!prior || summary.finalScore > prior.summary.finalScore) {
+      this.winners.set(key, { summary, originalIndex });
+    }
+  }
+
+  get retainedCount(): number {
+    return this.winners.size;
+  }
+
+  finish(): SpringCandidateSummary[] {
+    return [...this.winners.values()]
+      .sort((left, right) =>
+        right.summary.finalScore - left.summary.finalScore
+        || left.originalIndex - right.originalIndex)
+      .map(({ summary }, index) => ({ ...summary, rank: index + 1 }));
+  }
 }
 
 export function sliceCandidatePage<T>(

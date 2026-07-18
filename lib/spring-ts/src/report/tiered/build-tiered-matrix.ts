@@ -24,12 +24,15 @@ import type {
   PeriodScopedFortunes,
   StandardFortuneText,
   TaggedParagraph,
+  TagGlossary,
   TieredCategoryId,
+  TieredDepth,
   TieredFortune,
   TieredGeneratedContentMeta,
   TieredLifeStageBand,
   TieredMatrixMeta,
   TieredNameFrameEvidence,
+  TieredNameSajuReading,
   TieredNamingEvidence,
   TieredPeriodKind,
   TieredSelectedFragments,
@@ -37,7 +40,13 @@ import type {
 import type { GlossaryEntry, TagId } from '../types.js';
 
 import { buildFeatureVector, buildFeatureVectorForAge, type FeatureVector } from './feature-selector.js';
-import { loadArticleRegistry, type Article, type ArticleAudience, type ArticleRegistry } from './article-registry.js';
+import {
+  loadArticleRegistryAsync,
+  loadArticleRegistrySelection,
+  type Article,
+  type ArticleAudience,
+  type ArticleRegistry,
+} from './article-registry.js';
 import {
   bandFromStars,
   buildSelectionSeed,
@@ -56,15 +65,13 @@ import { gradeCell, gradeToStars } from './cell-grader.js';
 import { buildPersonalReading } from './personal-reading.js';
 import { buildNameSajuReading } from './name-saju-reading.js';
 import { computeClassIdCandidates, packKeyFor, minorPackKeyFor, ALL_CATEGORIES } from './class-axes.js';
-import { getGeneratedArticle, preloadGeneratedForPerson } from './generated-registry.js';
 import { buildPeriodMeta, periodFortuneElement } from './period-meta-builder.js';
-import { getInsightInterpretation } from './insight-registry.js';
 import {
   containsDaeunAge,
   daeunDisplayOffset,
   resolveDaeunDisplayInterval,
 } from '../common/daeun-display.js';
-import { loadGlossary } from './glossary-loader.js';
+import { loadGlossaryAsync, loadGlossarySelection } from './glossary-loader.js';
 import { buildTagGlossary } from './tag-inliner.js';
 import {
   BRANCH_BY_CODE,
@@ -97,6 +104,8 @@ interface DaeunPillarLike {
   readonly displayStartAge?: unknown;
   readonly displayEndAge?: unknown;
 }
+
+type InsightResolver = (factId: string) => { readonly text: string } | null;
 
 interface LifeStageBandSpec {
   readonly key: TieredLifeStageBand;
@@ -364,6 +373,8 @@ function buildCell(
   grade: CellGrade,
   sajuCompat: SajuCompatibility | null | undefined,
   audienceOverride?: ArticleAudience,
+  generatedResolver: ((category: string, classId: string) => Article | null) | null = null,
+  maxDepth: TieredDepth = 'expert',
 ): TieredFortune {
   const audience = audienceOverride ?? deriveAudience(feature.ageBand);
   const band = bandFromStars(grade.stars);
@@ -372,11 +383,13 @@ function buildCell(
   // generation fills in — the frontend improves without any FE change.
   // 미성년형(child/teen/stage-*) 오디언스는 매니페스트의 축 축소(gender 'x' 등)를
   // 미러링한 후보 목록을 [요청 band → 'any'] 순으로 시도한다 (class-axes.ts).
-  const candidates = computeClassIdCandidates(category, period, audience, band, feature, sajuCompat);
   let generated: Article | null = null;
-  for (const classId of candidates) {
-    generated = getGeneratedArticle(category, classId);
-    if (generated) break;
+  if (generatedResolver) {
+    const candidates = computeClassIdCandidates(category, period, audience, band, feature, sajuCompat);
+    for (const classId of candidates) {
+      generated = generatedResolver(category, classId);
+      if (generated) break;
+    }
   }
   const article = generated
     ?? selectArticle(registry, category, period, audience, band, seedKey);
@@ -388,23 +401,33 @@ function buildCell(
   const hook = article.hook ? renderArticleLine(article.hook, slots) : undefined;
   const brief: BriefFortuneText = hook ? { headline, hook } : { headline };
 
-  const bodyParagraphs = renderArticleParagraphs(article.body, slots, glossary);
-  const livingTips = (article.livingTips ?? []).map((tip) => renderArticleLine(tip, slots)).filter(Boolean);
-  const cautions = (article.cautions ?? []).map((caution) => renderArticleLine(caution, slots)).filter(Boolean);
+  const bodyParagraphs = maxDepth === 'brief'
+    ? EMPTY_PARAGRAPHS
+    : renderArticleParagraphs(article.body, slots, glossary);
+  const livingTips = maxDepth === 'brief'
+    ? []
+    : (article.livingTips ?? []).map((tip) => renderArticleLine(tip, slots)).filter(Boolean);
+  const cautions = maxDepth === 'brief'
+    ? []
+    : (article.cautions ?? []).map((caution) => renderArticleLine(caution, slots)).filter(Boolean);
   const standard: StandardFortuneText = {
     paragraphs: bodyParagraphs.length ? bodyParagraphs : EMPTY_PARAGRAPHS,
     ...(livingTips.length ? { livingTips } : {}),
     ...(cautions.length ? { cautions } : {}),
   };
 
-  const expertParagraphs = renderArticleParagraphs(article.expert, slots, glossary);
-  const numericalEvidence = buildNumericalEvidence(feature, fortuneElement);
+  const expertParagraphs = maxDepth === 'expert'
+    ? renderArticleParagraphs(article.expert, slots, glossary)
+    : EMPTY_PARAGRAPHS;
+  const numericalEvidence = maxDepth === 'expert'
+    ? buildNumericalEvidence(feature, fortuneElement)
+    : undefined;
   const expert: ExpertFortuneText = {
     paragraphs: expertParagraphs.length ? expertParagraphs : EMPTY_PARAGRAPHS,
     ...(numericalEvidence ? { numericalEvidence } : {}),
   };
 
-  const tags = extractTagIds(article.expert);
+  const tags = maxDepth === 'expert' ? extractTagIds(article.expert) : [];
 
   return {
     meaningfulness: grade.meaningfulness,
@@ -428,6 +451,9 @@ function buildPeriodScoped(
   periodLabelOverride?: string,
   fortuneElementOverride?: ElementCode | null,
   audienceOverride?: ArticleAudience,
+  categories: readonly TieredCategoryId[] = CATEGORY_ORDER,
+  generatedResolver: ((category: string, classId: string) => Article | null) | null = null,
+  depthByCategory: Readonly<Partial<Record<'overall' | TieredCategoryId, TieredDepth>>> = {},
 ): PeriodScopedFortunes {
   const meta = buildPeriodMeta(period, targetDate, saju);
   const periodLabel = periodLabelOverride ?? meta.label;
@@ -452,10 +478,12 @@ function buildPeriodScoped(
     overallGrade,
     sajuCompat,
     audienceOverride,
+    generatedResolver,
+    depthByCategory.overall ?? 'expert',
   );
 
   const byCategory = {} as Record<TieredCategoryId, TieredFortune>;
-  for (const cat of CATEGORY_ORDER) {
+  for (const cat of categories) {
     const categoryGrade = gradeCategoryCell(cat, fortuneElement, feature);
     byCategory[cat] = buildCell(
       cat,
@@ -469,6 +497,8 @@ function buildPeriodScoped(
       categoryGrade,
       sajuCompat,
       audienceOverride,
+      generatedResolver,
+      depthByCategory[cat] ?? 'expert',
     );
   }
 
@@ -490,6 +520,7 @@ function buildAgeBandScoped(
   seedKey: string,
   targetDate: Date,
   sajuCompat: SajuCompatibility | null | undefined,
+  generatedResolver: (category: string, classId: string) => Article | null,
 ): AgeBandScopedFortunes {
   const fortuneElement = lifeFortuneElementForAge(saju, band.representativeAge) ?? feature.dayMasterElement;
   const scoped = buildPeriodScoped(
@@ -504,6 +535,8 @@ function buildAgeBandScoped(
     band.label,
     fortuneElement,
     stageAudienceForLifeBand(band.key),
+    CATEGORY_ORDER,
+    generatedResolver,
   );
   return {
     ...scoped,
@@ -547,6 +580,7 @@ function buildLifeByAgeBand(
   seedKey: string,
   subjectIsMinor: boolean,
   sajuCompat: SajuCompatibility | null | undefined,
+  generatedResolver: (category: string, classId: string) => Article | null,
 ): Record<TieredLifeStageBand, AgeBandScopedFortunes> {
   const byAgeBand = {} as Record<TieredLifeStageBand, AgeBandScopedFortunes>;
   for (const band of LIFE_STAGE_BANDS) {
@@ -560,7 +594,17 @@ function buildLifeByAgeBand(
       byAgeBand[band.key] = placeholderAgeBandScoped(band, feature, targetDate);
       continue;
     }
-    byAgeBand[band.key] = buildAgeBandScoped(saju, band, registry, glossary, feature, seedKey, targetDate, sajuCompat);
+    byAgeBand[band.key] = buildAgeBandScoped(
+      saju,
+      band,
+      registry,
+      glossary,
+      feature,
+      seedKey,
+      targetDate,
+      sajuCompat,
+      generatedResolver,
+    );
   }
   return byAgeBand;
 }
@@ -582,6 +626,8 @@ function buildLifeByDaeun(
   seedKey: string,
   subjectIsMinor: boolean,
   sajuCompat: SajuCompatibility | null | undefined,
+  insightResolver: InsightResolver,
+  generatedResolver: (category: string, classId: string) => Article | null,
 ): readonly DaeunScopedFortunes[] {
   const pillars = extractDaeunPillars(saju);
   if (!pillars.length) return [];
@@ -614,12 +660,22 @@ function buildLifeByDaeun(
     const pillarDisplay = `${STEM_BY_CODE[pillar.stem.trim().toUpperCase()]?.hangul ?? pillar.stem}${BRANCH_BY_CODE[pillar.branch.trim().toUpperCase()]?.hangul ?? pillar.branch}`;
     const scoped = (subjectIsMinor && stageAudience !== 'stage-teen')
       ? placeholderAgeBandScoped(spec, feature, targetDate)
-      : buildAgeBandScoped(saju, spec, registry, glossary, feature, seedKey, targetDate, sajuCompat);
+      : buildAgeBandScoped(
+        saju,
+        spec,
+        registry,
+        glossary,
+        feature,
+        seedKey,
+        targetDate,
+        sajuCompat,
+        generatedResolver,
+      );
     // 60갑자 리드 — factId는 정본 코드(elementMaps)로 정규화한다.
     // saju-ts가 지지 申을 SIN으로 방출하므로(정본은 SIN_BRANCH) 원시 코드 그대로 쓰면 미스가 난다.
     const stemCode = STEM_BY_CODE[pillar.stem.trim().toUpperCase()]?.code ?? pillar.stem.trim().toUpperCase();
     const branchCode = BRANCH_BY_CODE[pillar.branch.trim().toUpperCase()]?.code ?? pillar.branch.trim().toUpperCase();
-    const daeunLead = getInsightInterpretation(`daeunLead.${stemCode}-${branchCode}`)?.text;
+    const daeunLead = insightResolver(`daeunLead.${stemCode}-${branchCode}`)?.text;
     return { ...scoped, daeunIndex: index, pillarDisplay, ageLabel, ...(daeunLead ? { daeunLead } : {}) };
   });
 }
@@ -692,13 +748,15 @@ export async function preloadGeneratedForReport(
   birth: BirthInfo,
   targetDate: Date,
   sajuCompat: SajuCompatibility | null | undefined,
+  categories: readonly string[] = ALL_CATEGORIES,
 ): Promise<TieredGeneratedContentMeta | undefined> {
+  const { preloadGeneratedForPerson } = await import('./generated-registry.js');
   const feature = buildFeatureVector(saju, birth, targetDate);
   // 사람축 팩 + (다르면) 미성년형 축 팩. stage/child/teen 클래스는 gender 'x'
   // 팩에 묶이므로, 성별 민감 분야(romance 등)에서는 사람 팩만 받으면
   // 생애단계 셀이 브라우저에서 영구 미스가 된다 (class-axes.minorPackKeyFor).
   const minorKey = minorPackKeyFor(feature, sajuCompat);
-  const entries = ALL_CATEGORIES.flatMap((category) => {
+  const entries = categories.flatMap((category) => {
     const primary = packKeyFor(category, feature, sajuCompat);
     const list: Array<{ category: string; packKey: string | null }> = [{ category, packKey: primary }];
     if (minorKey && minorKey !== primary) list.push({ category, packKey: minorKey });
@@ -707,29 +765,213 @@ export async function preloadGeneratedForReport(
   return preloadGeneratedForPerson(entries);
 }
 
-export function buildTieredMatrix(
+export interface TieredSelectedPeriod {
+  readonly periodKind: TieredPeriodKind;
+  readonly periodLabel: string;
+  readonly periodMeta: PeriodScopedFortunes['periodMeta'];
+  readonly overall: TieredFortune;
+  readonly byCategory: Readonly<Partial<Record<TieredCategoryId, TieredFortune>>>;
+}
+
+/** Internal narrow matrix used by ReportDeliveryV1. It never contains life
+ * age-band/daeun fan-out or unrequested period/category cells. */
+export interface TieredMatrixSelection {
+  readonly schemaVersion: 'spring-ts.tiered-selection.v1';
+  readonly periods: Readonly<Partial<Record<TieredPeriodKind, TieredSelectedPeriod>>>;
+  readonly glossary: TagGlossary;
+  readonly namingEvidence?: TieredNamingEvidence;
+  readonly nameSajuReading?: TieredNameSajuReading;
+  readonly meta: TieredMatrixMeta;
+}
+
+export interface BuildTieredMatrixSelectionOptions extends BuildTieredMatrixOptions {
+  readonly periods: readonly TieredPeriodKind[];
+  /** Exact non-overall category set for each requested period. */
+  readonly categoriesByPeriod: Readonly<Partial<Record<
+    TieredPeriodKind,
+    readonly (TieredCategoryId | 'overall')[]
+  >>>;
+  /** Maximum projection requested for each `period:category` cell. */
+  readonly depthByCell: Readonly<Record<string, TieredDepth>>;
+}
+
+function pseudonymousTieredMeta(
+  registry: ArticleRegistry,
+  options: Pick<BuildTieredMatrixOptions, 'contentSource' | 'generatedContent'>,
+  rawSelectionSeed: string,
+): TieredMatrixMeta {
+  const fnv64 = (value: string, offset: bigint): bigint => {
+    let hash = offset;
+    for (let index = 0; index < value.length; index += 1) {
+      const codeUnit = value.charCodeAt(index);
+      hash ^= BigInt(codeUnit & 0xff);
+      hash = (hash * 0x100000001b3n) & 0xffffffffffffffffn;
+      hash ^= BigInt(codeUnit >>> 8);
+      hash = (hash * 0x100000001b3n) & 0xffffffffffffffffn;
+    }
+    return hash;
+  };
+  const first = fnv64(`spring-ts.selection-seed.v1\u0000${rawSelectionSeed}`, 0xcbf29ce484222325n);
+  const second = fnv64(`spring-ts.selection-seed.v1\u0001${rawSelectionSeed}`, 0x6c62272e07bb0142n);
+  const selectionSeed = `selection_v1_${first.toString(16).padStart(16, '0')}${second.toString(16).padStart(16, '0')}`;
+  return {
+    schemaVersion: 'spring-ts.tiered-matrix.v1',
+    generatedAt: new Date().toISOString(),
+    selectionSeed,
+    templateContractVersion: 'article-v1',
+    contentSource: options.contentSource ?? (registry.totalArticleCount > 0 ? 'authored' : 'placeholder'),
+    fragmentCount: registry.totalArticleCount,
+    aiGeneratedFragmentCount: registry.aiGeneratedCount,
+    ...(options.generatedContent ? { generatedContent: options.generatedContent } : {}),
+  };
+}
+
+export async function buildTieredMatrixSelection(
+  saju: SajuSummary,
+  birth: BirthInfo,
+  targetDate: Date,
+  options: BuildTieredMatrixSelectionOptions,
+): Promise<TieredMatrixSelection> {
+  const feature = buildFeatureVector(saju, birth, targetDate);
+  const registry = await loadArticleRegistrySelection(options.periods, options.categoriesByPeriod);
+  for (const article of registry.all) {
+    const nonExpertTags = extractTagIds([
+      article.summary,
+      ...(article.hook ? [article.hook] : []),
+      ...article.body,
+      ...(article.livingTips ?? []),
+      ...(article.cautions ?? []),
+    ]);
+    if (nonExpertTags.length > 0) {
+      throw new Error(`Glossary tags are expert-only: ${article.articleId}`);
+    }
+  }
+  const articleTagIds = [...new Set(registry.all.flatMap((article) =>
+    options.depthByCell[`${article.period}:${article.category}`] === 'expert'
+      ? extractTagIds(article.expert)
+      : []))];
+  const allGlossaryEntries = await loadGlossarySelection(articleTagIds);
+  for (const tagId of articleTagIds) {
+    if (!allGlossaryEntries[tagId]) {
+      throw new Error(`Missing glossary entry for selected expert tag: ${tagId}`);
+    }
+  }
+  const seedKey = buildSelectionSeed(birth, targetDate);
+  const sajuCompat = options.sajuCompatibility ?? null;
+  const periods: Partial<Record<TieredPeriodKind, TieredSelectedPeriod>> = {};
+
+  for (const period of options.periods) {
+    const requestedCategories = options.categoriesByPeriod[period] ?? [];
+    const depthByCategory = Object.fromEntries(requestedCategories.map((category) => [
+      category,
+      options.depthByCell[`${period}:${category}`] ?? 'brief',
+    ])) as Readonly<Partial<Record<'overall' | TieredCategoryId, TieredDepth>>>;
+    const scoped = buildPeriodScoped(
+      period,
+      registry,
+      allGlossaryEntries,
+      feature,
+      seedKey,
+      targetDate,
+      saju,
+      sajuCompat,
+      undefined,
+      undefined,
+      undefined,
+      requestedCategories.filter(
+        (category): category is TieredCategoryId => category !== 'overall',
+      ),
+      null,
+      depthByCategory,
+    );
+    periods[period] = scoped;
+  }
+
+  const glossary = buildTagGlossary(
+    { periods: periods as Readonly<Record<TieredPeriodKind, PeriodScopedFortunes>> },
+    allGlossaryEntries,
+  );
+  const namingEvidence = buildNamingEvidence(options.namingReport);
+  const readingSlots = buildSlotValues('', feature);
+  const nameSajuReading = buildNameSajuReading({
+    yongshinMatchCount: options.sajuCompatibility?.yongshinMatchCount,
+    gishinMatchCount: options.sajuCompatibility?.gishinMatchCount,
+    yongshinName: readingSlots.yongshinName,
+    yongshinResolved: feature.yongshinElement !== null,
+  });
+
+  return {
+    schemaVersion: 'spring-ts.tiered-selection.v1',
+    periods,
+    glossary,
+    ...(namingEvidence ? { namingEvidence } : {}),
+    ...(nameSajuReading ? { nameSajuReading } : {}),
+    meta: pseudonymousTieredMeta(registry, options, seedKey),
+  };
+}
+
+export async function buildTieredMatrix(
   saju: SajuSummary,
   birth: BirthInfo,
   targetDate: Date,
   options: BuildTieredMatrixOptions,
-): FortuneTieredMatrix | undefined {
+): Promise<FortuneTieredMatrix | undefined> {
   if (options.enabled !== true) return undefined;
 
   const feature = buildFeatureVector(saju, birth, targetDate);
-  const registry = loadArticleRegistry();
-  const allGlossaryEntries = loadGlossary();
+  const [registry, allGlossaryEntries, insightModule, generatedModule] = await Promise.all([
+    loadArticleRegistryAsync(),
+    loadGlossaryAsync(),
+    import('./insight-registry.js'),
+    import('./generated-registry.js'),
+  ]);
   const seedKey = buildSelectionSeed(birth, targetDate);
 
   const subjectIsMinor = deriveAudience(feature.ageBand) !== 'adult';
   const sajuCompat = options.sajuCompatibility ?? null;
   const periods = {} as Record<TieredPeriodKind, PeriodScopedFortunes>;
   for (const period of PERIOD_ORDER) {
-    const scoped = buildPeriodScoped(period, registry, allGlossaryEntries, feature, seedKey, targetDate, saju, sajuCompat);
+    const scoped = buildPeriodScoped(
+      period,
+      registry,
+      allGlossaryEntries,
+      feature,
+      seedKey,
+      targetDate,
+      saju,
+      sajuCompat,
+      undefined,
+      undefined,
+      undefined,
+      CATEGORY_ORDER,
+      generatedModule.getGeneratedArticle,
+    );
     periods[period] = period === 'life'
       ? {
         ...scoped,
-        byAgeBand: buildLifeByAgeBand(saju, birth, targetDate, registry, allGlossaryEntries, seedKey, subjectIsMinor, sajuCompat),
-        byDaeun: buildLifeByDaeun(saju, birth, targetDate, registry, allGlossaryEntries, seedKey, subjectIsMinor, sajuCompat),
+        byAgeBand: buildLifeByAgeBand(
+          saju,
+          birth,
+          targetDate,
+          registry,
+          allGlossaryEntries,
+          seedKey,
+          subjectIsMinor,
+          sajuCompat,
+          generatedModule.getGeneratedArticle,
+        ),
+        byDaeun: buildLifeByDaeun(
+          saju,
+          birth,
+          targetDate,
+          registry,
+          allGlossaryEntries,
+          seedKey,
+          subjectIsMinor,
+          sajuCompat,
+          insightModule.getInsightInterpretation,
+          generatedModule.getGeneratedArticle,
+        ),
       }
       : scoped;
   }
@@ -754,20 +996,12 @@ export function buildTieredMatrix(
   // none of the needed element). Only when a yongshin is actually resolved.
   const nameSajuReading = buildNameSajuReading({
     yongshinMatchCount: options.sajuCompatibility?.yongshinMatchCount,
+    gishinMatchCount: options.sajuCompatibility?.gishinMatchCount,
     yongshinName: readingSlots.yongshinName,
     yongshinResolved: feature.yongshinElement !== null,
   });
 
-  const meta: TieredMatrixMeta = {
-    schemaVersion: 'spring-ts.tiered-matrix.v1',
-    generatedAt: new Date().toISOString(),
-    selectionSeed: seedKey,
-    templateContractVersion: 'article-v1',
-    contentSource: options.contentSource ?? (registry.totalArticleCount > 0 ? 'authored' : 'placeholder'),
-    fragmentCount: registry.totalArticleCount,
-    aiGeneratedFragmentCount: registry.aiGeneratedCount,
-    ...(options.generatedContent ? { generatedContent: options.generatedContent } : {}),
-  };
+  const meta = pseudonymousTieredMeta(registry, options, seedKey);
 
   return {
     schemaVersion: 'spring-ts.tiered-matrix.v1',

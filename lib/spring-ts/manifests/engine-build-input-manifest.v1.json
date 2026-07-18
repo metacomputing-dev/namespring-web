@@ -1,0 +1,2442 @@
+{
+  "schemaVersion": "namespring.engine-build-input-manifest.v1",
+  "authority": "build-time-artifact-identity-only",
+  "completeness": "declared-tracked-build-input-scope-not-execution-reproducibility",
+  "canonicalization": "raw file bytes; POSIX repository-relative paths; code-unit path order; domain-separated NUL/LF SHA-256 records",
+  "scope": {
+    "declarations": [
+      {
+        "id": "spring-runtime-code",
+        "category": "code",
+        "root": "lib/spring-ts/src",
+        "include": [
+          "**/*.ts"
+        ],
+        "exclude": [
+          "lib/spring-ts/src/engine-build-identity.generated.ts"
+        ]
+      },
+      {
+        "id": "saju-runtime-code",
+        "category": "code",
+        "root": "lib/saju-ts/src",
+        "include": [
+          "**/*.ts"
+        ],
+        "exclude": [
+          "**/*.spec.ts",
+          "**/*.test.ts"
+        ]
+      },
+      {
+        "id": "seed-runtime-code",
+        "category": "code",
+        "root": "lib/seed-ts/src",
+        "include": [
+          "**/*.ts"
+        ],
+        "exclude": [
+          "lib/seed-ts/src/utils/decrypt-dict-to-db.ts",
+          "lib/seed-ts/src/utils/name-stat-json-to-sharded-db.ts",
+          "lib/seed-ts/src/utils/sagyeoksu-json-to-db.ts",
+          "lib/seed-ts/src/utils/update-surname-db.ts"
+        ]
+      },
+      {
+        "id": "runtime-dependency-resolution",
+        "category": "code",
+        "files": [
+          "lib/saju-ts/package-lock.json",
+          "lib/saju-ts/package.json",
+          "lib/saju-ts/tsconfig.build.json",
+          "lib/saju-ts/tsconfig.json",
+          "lib/seed-ts/package-lock.json",
+          "lib/seed-ts/package.json",
+          "lib/seed-ts/tsconfig.build.json",
+          "lib/seed-ts/tsconfig.json",
+          "lib/spring-ts/package-lock.json",
+          "lib/spring-ts/package.json",
+          "lib/spring-ts/tsconfig.json"
+        ],
+        "exclude": []
+      },
+      {
+        "id": "spring-rule-configuration",
+        "category": "rules",
+        "root": "lib/spring-ts/config",
+        "include": [
+          "**/*.json"
+        ],
+        "exclude": []
+      },
+      {
+        "id": "saju-school-rule-packs",
+        "category": "rules",
+        "root": "lib/saju-ts/src/schools/packs",
+        "include": [
+          "**/*.json"
+        ],
+        "exclude": []
+      },
+      {
+        "id": "delivery-article-shards",
+        "category": "data",
+        "root": "lib/spring-ts/data/articles",
+        "include": [
+          "**/*.json"
+        ],
+        "exclude": []
+      },
+      {
+        "id": "delivery-glossary-shards",
+        "category": "data",
+        "root": "lib/spring-ts/data/narrative/_glossary",
+        "include": [
+          "**/*.json"
+        ],
+        "exclude": []
+      },
+      {
+        "id": "spring-runtime-static-data",
+        "category": "data",
+        "files": [
+          "lib/spring-ts/data/byeolpyo2_variants.json",
+          "lib/spring-ts/data/classical-vocabulary/classical-myeongri-vocabulary.json",
+          "lib/spring-ts/data/hangul-name-trends.json",
+          "lib/spring-ts/data/inmyeongyong_9389_full.json",
+          "lib/spring-ts/data/inmyeongyong_9389_glyphs.generated.json",
+          "lib/spring-ts/data/korean-surname-authority.json",
+          "lib/spring-ts/data/unihan-hanja-metadata.json"
+        ],
+        "exclude": []
+      },
+      {
+        "id": "engine-binary-data",
+        "category": "data",
+        "files": [
+          "lib/seed-ts/assets/sql-wasm-1.14.1.wasm",
+          "lib/spring-ts/data/name-stat/name-stat-summary.v1.bin",
+          "namespring/public/data/fourframe.db",
+          "namespring/public/data/hanja.db"
+        ],
+        "exclude": []
+      }
+    ],
+    "exclusions": [
+      {
+        "path": "lib/spring-ts/data/generated/**",
+        "reason": "legacy generated packs are forbidden by the ReportDeliveryV1 import boundary"
+      },
+      {
+        "path": "lib/*/dist/**",
+        "reason": "compiler output is not tracked source input and is outside this source-set identity"
+      },
+      {
+        "path": "runtime inputs, clocks, platform, environment, and remote API responses",
+        "reason": "artifact identity is not an execution transcript or correctness authority"
+      }
+    ]
+  },
+  "summary": {
+    "fileCount": 381,
+    "byteLength": 11259453,
+    "codeFileCount": 271,
+    "ruleFileCount": 15,
+    "dataFileCount": 95
+  },
+  "digests": {
+    "code": "sha256:1b872cac5f2c8fe14e1b1cf3c0f0d2fe1efa0acf04f8596c845f2c6530ba0f0f",
+    "rules": "sha256:8088301b832fb662dd1aa8d71ddd923e0ee5d53fc35468129ec69fec6eae8e8b",
+    "ruleset": "sha256:b74cf187fd03912d23f8aeece5221fedaa2e1cf41a73108515b956ec493cda60",
+    "data": "sha256:f457cd5126bee2e68ff40681971ccd4fb116065b8da1579be6405a9c755e2e78",
+    "aggregate": "sha256:b3bd38a39b75480ef07da5c78c44a71623e03d308f0225c2000255d66b071303"
+  },
+  "files": [
+    {
+      "path": "lib/saju-ts/package-lock.json",
+      "category": "code",
+      "byteLength": 42360,
+      "sha256": "sha256:7bb04320a4443e42968e3574951f204946a9fc1a0a5f2e4ddcb0871d954912cc"
+    },
+    {
+      "path": "lib/saju-ts/package.json",
+      "category": "code",
+      "byteLength": 1715,
+      "sha256": "sha256:2b8f15c90e5824a09523fa82bd0248514f8b989e4b96b66b83566d4208a9bbef"
+    },
+    {
+      "path": "lib/saju-ts/src/api/config.ts",
+      "category": "code",
+      "byteLength": 8165,
+      "sha256": "sha256:d959ff86c731c4519dfca5f7d9a5459e1bb5cc5c8a2643c74b45e4b431db5e56"
+    },
+    {
+      "path": "lib/saju-ts/src/api/configValidation.ts",
+      "category": "code",
+      "byteLength": 20187,
+      "sha256": "sha256:1d086fdc4837e62008e06c19bd09285d98c9fd9d2f403e5b699ffb8717844622"
+    },
+    {
+      "path": "lib/saju-ts/src/api/engine.ts",
+      "category": "code",
+      "byteLength": 18980,
+      "sha256": "sha256:3432c5af379edc584bf0e2d10a85d1505cf5f15d5f26f73a82938b34f4bea2b3"
+    },
+    {
+      "path": "lib/saju-ts/src/api/migrations.ts",
+      "category": "code",
+      "byteLength": 4397,
+      "sha256": "sha256:7b905166db5f0f97678f5e274189e0ceee8f98f1ce188b093673221fc3b1e0d5"
+    },
+    {
+      "path": "lib/saju-ts/src/api/types.ts",
+      "category": "code",
+      "byteLength": 19641,
+      "sha256": "sha256:cd1f8747878a906b3961cf72104dcade89e9ede7544a062ffd4fb970a5e820a7"
+    },
+    {
+      "path": "lib/saju-ts/src/api/views.ts",
+      "category": "code",
+      "byteLength": 1629,
+      "sha256": "sha256:c3002928ff0fac0ce99bfffa357e4099aa8100792906ee9d5ca9e523f69b77ff"
+    },
+    {
+      "path": "lib/saju-ts/src/artifacts/analysisZip.ts",
+      "category": "code",
+      "byteLength": 5388,
+      "sha256": "sha256:416bfef30fa6dcebc2b6fe3783f4db6874eb306fed9b1eaca9ce90fdc3cf1f5d"
+    },
+    {
+      "path": "lib/saju-ts/src/artifacts/index.ts",
+      "category": "code",
+      "byteLength": 184,
+      "sha256": "sha256:e599245e8e41fd3c6b2da69f0f596a798533d332cf2c3e14d9755341c719382a"
+    },
+    {
+      "path": "lib/saju-ts/src/calendar/calTimeAdapter.ts",
+      "category": "code",
+      "byteLength": 4704,
+      "sha256": "sha256:1bc63af7ced46c60469f900012f38118d4eb6374c66a404872258e096e44258d"
+    },
+    {
+      "path": "lib/saju-ts/src/calendar/iso.ts",
+      "category": "code",
+      "byteLength": 3456,
+      "sha256": "sha256:105be030d7c96af9091d9168d7ef0ac2225dc06f1491bb2383c91ef7a609cda3"
+    },
+    {
+      "path": "lib/saju-ts/src/calendar/julian.ts",
+      "category": "code",
+      "byteLength": 1185,
+      "sha256": "sha256:2c1c503c62eb2b078ebc28247f7a20fbbf87ea1cc4bb17724a998df4459649fb"
+    },
+    {
+      "path": "lib/saju-ts/src/calendar/lunarNewYear.ts",
+      "category": "code",
+      "byteLength": 7279,
+      "sha256": "sha256:0f39270d816dbe14b8648413e076cc182a2dc06e09d962cc78640b1b5b9eb9ff"
+    },
+    {
+      "path": "lib/saju-ts/src/calendar/normalizeRequest.ts",
+      "category": "code",
+      "byteLength": 4679,
+      "sha256": "sha256:5b7135306a6845ab79976cfc6dcfda85e68794bf6b1866b063fa1e00b081d6e2"
+    },
+    {
+      "path": "lib/saju-ts/src/calendar/nutationIau1980.ts",
+      "category": "code",
+      "byteLength": 9508,
+      "sha256": "sha256:bb257f0f173a2e12ff1e69cff891f77f0cabf0e6c7fe5de17dc47e9b0d9f9a03"
+    },
+    {
+      "path": "lib/saju-ts/src/calendar/pillars.ts",
+      "category": "code",
+      "byteLength": 6379,
+      "sha256": "sha256:14ac69fb7e66d4bebfcdb4e86b4c80781ea6c05b371ba59fb679ea6cc0da0105"
+    },
+    {
+      "path": "lib/saju-ts/src/calendar/solar.ts",
+      "category": "code",
+      "byteLength": 20415,
+      "sha256": "sha256:8dcdd714d5b533855fcf9b2d301307ec34978bc92855224ca0e28770ca287716"
+    },
+    {
+      "path": "lib/saju-ts/src/calendar/solarTerms.ts",
+      "category": "code",
+      "byteLength": 16730,
+      "sha256": "sha256:d2ba16b01f8e40a3ad79c8ff87557b5cb94dd1dd6077f79c8800ac47b89ff799"
+    },
+    {
+      "path": "lib/saju-ts/src/calendar/trueSolarTime.ts",
+      "category": "code",
+      "byteLength": 7363,
+      "sha256": "sha256:44f6dc97b68dc3ad5fc0669ca534767a504c6144cd1ee33fd483421c498f1b8d"
+    },
+    {
+      "path": "lib/saju-ts/src/calendar/utc.ts",
+      "category": "code",
+      "byteLength": 441,
+      "sha256": "sha256:fcf71cd218581acac06bb0467b90538c518b5c719774eb7aba0e2fe4e1cc34f3"
+    },
+    {
+      "path": "lib/saju-ts/src/compat/springLegacy.ts",
+      "category": "code",
+      "byteLength": 90166,
+      "sha256": "sha256:97dee92a17c9f3cb61f73c2ccb4573b7c7c7093e1800c19e27fb57232cceae0a"
+    },
+    {
+      "path": "lib/saju-ts/src/compat/springLegacyContract.ts",
+      "category": "code",
+      "byteLength": 6699,
+      "sha256": "sha256:1f4736abcaf3b5a0ec1b6e5df2384569f2c60cdfe04114111d9a1f706ddfacd7"
+    },
+    {
+      "path": "lib/saju-ts/src/compat/springLegacyFortuneMapper.ts",
+      "category": "code",
+      "byteLength": 10985,
+      "sha256": "sha256:70b10c02441ed1ccf755ca5f11663401d9eb72bb90569099f6b1f31fe760996c"
+    },
+    {
+      "path": "lib/saju-ts/src/compat/springLegacyTimezone.ts",
+      "category": "code",
+      "byteLength": 13857,
+      "sha256": "sha256:dfc448bfd3d99a106c6bb8b8bfb5d775dfba5bc51ff179de069146075fe28771"
+    },
+    {
+      "path": "lib/saju-ts/src/core/branchRelations.ts",
+      "category": "code",
+      "byteLength": 10517,
+      "sha256": "sha256:1950af61c60c30aff8bc9611d355e5190384e91aa269d008eb61ef118d5e4646"
+    },
+    {
+      "path": "lib/saju-ts/src/core/competition.ts",
+      "category": "code",
+      "byteLength": 2372,
+      "sha256": "sha256:68d0ae82f2ed95711d398c3da293588cc68dc048ee3d4afb00c180431a62729e"
+    },
+    {
+      "path": "lib/saju-ts/src/core/cycle.ts",
+      "category": "code",
+      "byteLength": 2877,
+      "sha256": "sha256:fce2e31d229c79bb8b7ecd6e86c36c37db348aada627099ca5981a1f0481b5f9"
+    },
+    {
+      "path": "lib/saju-ts/src/core/elementDistribution.ts",
+      "category": "code",
+      "byteLength": 3570,
+      "sha256": "sha256:aac4efb67256bb773f88d9a25a571a29971f9fb62a8e07ab3c4edb9a65855ef0"
+    },
+    {
+      "path": "lib/saju-ts/src/core/elementInteractionAdjust.ts",
+      "category": "code",
+      "byteLength": 7689,
+      "sha256": "sha256:052627b6eb0bd97742f3f3ee89ce420752d7d2de814cf85ed7cbde843e6169fe"
+    },
+    {
+      "path": "lib/saju-ts/src/core/elementVector.ts",
+      "category": "code",
+      "byteLength": 1102,
+      "sha256": "sha256:55beffcb455b52f2d5866bb3b8e1e153c80e9ce1e49b7582520344ec7cee7bb2"
+    },
+    {
+      "path": "lib/saju-ts/src/core/elements.ts",
+      "category": "code",
+      "byteLength": 1472,
+      "sha256": "sha256:4a9a396e48a05146335d3fc0ba5e8c762c34ae4c8ef33bb4ffb9ac2d11928f09"
+    },
+    {
+      "path": "lib/saju-ts/src/core/hiddenStems.ts",
+      "category": "code",
+      "byteLength": 3775,
+      "sha256": "sha256:326491a91fd905a2326a52861b00189316a31fb426b49af385333d1c2f0d9144"
+    },
+    {
+      "path": "lib/saju-ts/src/core/lifeStage.ts",
+      "category": "code",
+      "byteLength": 2646,
+      "sha256": "sha256:56d97e3f3863ccd8d22ce4ed834adfe001ce373ada14b38662266e884701eb68"
+    },
+    {
+      "path": "lib/saju-ts/src/core/mod.ts",
+      "category": "code",
+      "byteLength": 196,
+      "sha256": "sha256:1fc1d7832278a5ae1573f6693b7a44ab7ea8c109891ba0773f551283f31ba829"
+    },
+    {
+      "path": "lib/saju-ts/src/core/naeum.ts",
+      "category": "code",
+      "byteLength": 6698,
+      "sha256": "sha256:191ccee1dae136babc76ba5a249c0cacdb62272377ddbb038aba587e5540e2d4"
+    },
+    {
+      "path": "lib/saju-ts/src/core/palace.ts",
+      "category": "code",
+      "byteLength": 6587,
+      "sha256": "sha256:4dc01fa5245bcf43eee5833ee950b08faeeb19a248f157be0d775a22d1dfd0b0"
+    },
+    {
+      "path": "lib/saju-ts/src/core/scoring.ts",
+      "category": "code",
+      "byteLength": 4108,
+      "sha256": "sha256:9a3d459533030df68464180952f484df38c95ebce744c9297a459c60700283cb"
+    },
+    {
+      "path": "lib/saju-ts/src/core/seasonalStates.ts",
+      "category": "code",
+      "byteLength": 2452,
+      "sha256": "sha256:93408daa1a3514ad0ecc1d3d6796cc8e534332c985171caedb002da4b144d606"
+    },
+    {
+      "path": "lib/saju-ts/src/core/stemRelations.ts",
+      "category": "code",
+      "byteLength": 4659,
+      "sha256": "sha256:be227d5efc4051e25e79fe1d4db8c42b2a6abb60f04731bd7ebe68f9b924368b"
+    },
+    {
+      "path": "lib/saju-ts/src/core/tally.ts",
+      "category": "code",
+      "byteLength": 1765,
+      "sha256": "sha256:b618c14ae6d2c9cd01885ede001cd2b37eace21aefcb409fb5f2c3e73aae9871"
+    },
+    {
+      "path": "lib/saju-ts/src/core/tenGod.ts",
+      "category": "code",
+      "byteLength": 1395,
+      "sha256": "sha256:35f0d7b3bfd05cdf099a39fb2138a5839a1e3e046e9107a5fb0f4028ce8725e4"
+    },
+    {
+      "path": "lib/saju-ts/src/core/wollyul.ts",
+      "category": "code",
+      "byteLength": 5877,
+      "sha256": "sha256:9b5db6b5453be3a28f46e0b7e15e5e8418233299b2a7c84bb21c5380ef07ddd0"
+    },
+    {
+      "path": "lib/saju-ts/src/core/wollyulData.ts",
+      "category": "code",
+      "byteLength": 3679,
+      "sha256": "sha256:940967e751c7a6b71549c1b5280aa070cd1e01016f9b845ece5ea32a620f09d6"
+    },
+    {
+      "path": "lib/saju-ts/src/fflate.d.ts",
+      "category": "code",
+      "byteLength": 618,
+      "sha256": "sha256:a4dfd2d6b47a2e96f42c3d0eda4ac3b0feab60506592d76e7f2eb58f5d82021b"
+    },
+    {
+      "path": "lib/saju-ts/src/fortune/compute.ts",
+      "category": "code",
+      "byteLength": 19139,
+      "sha256": "sha256:2cc8810d484db085249febe53bd08b495fb166c370f8f16c9f54512717c1e0d2"
+    },
+    {
+      "path": "lib/saju-ts/src/fortune/policy.ts",
+      "category": "code",
+      "byteLength": 4080,
+      "sha256": "sha256:238de53ae82e59a79afe0db928a95454354d0889930588eee7a47b878ba9a3c3"
+    },
+    {
+      "path": "lib/saju-ts/src/fortune/policyContract.ts",
+      "category": "code",
+      "byteLength": 1604,
+      "sha256": "sha256:e1a3fa518253443436ac0f1e5a319d5e64254817a4dcf3e1e84a2783c43fc254"
+    },
+    {
+      "path": "lib/saju-ts/src/fortune/relations.ts",
+      "category": "code",
+      "byteLength": 8811,
+      "sha256": "sha256:e7660e0dd28867a22ebe1c2273b8e19fd68b963994c9931637dafd1d7ec28053"
+    },
+    {
+      "path": "lib/saju-ts/src/fortune/types.ts",
+      "category": "code",
+      "byteLength": 5799,
+      "sha256": "sha256:951bae683c8c74102e827c66235e8fcdbabfec055242e7ab42cece86d7d8b3b2"
+    },
+    {
+      "path": "lib/saju-ts/src/graph/evaluator.ts",
+      "category": "code",
+      "byteLength": 1566,
+      "sha256": "sha256:559fcd98f6bc6f315b1235ba4e6539c728cc0d0bba2a9e05ce4481917da75fb7"
+    },
+    {
+      "path": "lib/saju-ts/src/graph/graphFactory.ts",
+      "category": "code",
+      "byteLength": 30592,
+      "sha256": "sha256:0f61bc2dffa8dff60f8e174973e823ee946951cdf3a129a7036672d8bc1d4240"
+    },
+    {
+      "path": "lib/saju-ts/src/graph/types.ts",
+      "category": "code",
+      "byteLength": 440,
+      "sha256": "sha256:be5a6281b70cefecf8d76e042191edc27f16c86f4f027cd04be22d63cf51f8b4"
+    },
+    {
+      "path": "lib/saju-ts/src/index.ts",
+      "category": "code",
+      "byteLength": 4007,
+      "sha256": "sha256:48d366fe391379c2190b79417139bedd38448426e2f247fc5c20b1b59504a4db"
+    },
+    {
+      "path": "lib/saju-ts/src/meta/version.ts",
+      "category": "code",
+      "byteLength": 281,
+      "sha256": "sha256:1197771f156e3f559d298acb2d28c2966ea331fad7cc6d6369bc192d5d044297"
+    },
+    {
+      "path": "lib/saju-ts/src/narration/buildNarration.ts",
+      "category": "code",
+      "byteLength": 28674,
+      "sha256": "sha256:e36168d3f058f46a0797a26d0918da62aeae398e3ca33e85fabf4ed3cc599314"
+    },
+    {
+      "path": "lib/saju-ts/src/narration/index.ts",
+      "category": "code",
+      "byteLength": 161,
+      "sha256": "sha256:0aa44869f10e5956e996cec2add2af86252c6d897ef67740cf75b442721b50d1"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/climate.ts",
+      "category": "code",
+      "byteLength": 6329,
+      "sha256": "sha256:0569297a46a2085115969e33755dec366cbe18199bde0260e6f05fcb1fa05846"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/defaultRuleSets.ts",
+      "category": "code",
+      "byteLength": 21251,
+      "sha256": "sha256:8d4c17ae6f16c3368d057225922a6ba4ccc28df6e2f9600f94f3bf0ceb83b5c5"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/defaultShinsalConditions.ts",
+      "category": "code",
+      "byteLength": 4467,
+      "sha256": "sha256:eedef35c729a4f9c36a585e7468e90a99350bd65d8fb8412de849ac78c33c6d5"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/dsl.ts",
+      "category": "code",
+      "byteLength": 7909,
+      "sha256": "sha256:30b2017f129c0fb4870206ab304ae3a29df1dcc773cb48e46e8e1366a118d2f0"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/facts.ts",
+      "category": "code",
+      "byteLength": 136790,
+      "sha256": "sha256:9eeb8bf074b7911e0582dd370860882f53bbb052eeea3e778db4d99a6e494162"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/finiteSignal.ts",
+      "category": "code",
+      "byteLength": 1038,
+      "sha256": "sha256:d33c66072f732f4cb648374cbe5585522625559d4ca4a3c47bc72bc6cec048dd"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/followPotential.ts",
+      "category": "code",
+      "byteLength": 2473,
+      "sha256": "sha256:4f30a1300a843d2a029155138cfcfcc6c9fb1f6ba22320c0da92813643c2bdc4"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/gyeokguk.ts",
+      "category": "code",
+      "byteLength": 42834,
+      "sha256": "sha256:c7ff8071f263f99d2d8bc7bd6c3c2cc99444b608d82a412788b35b3e506f8bd2"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/gyeokgukMonthFrame.ts",
+      "category": "code",
+      "byteLength": 3211,
+      "sha256": "sha256:a47d69ca8b2f59bc0e2b40e63f99524ebe3451845e5c1f74d0a192502278380c"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/gyeokgukSeongpae.ts",
+      "category": "code",
+      "byteLength": 15248,
+      "sha256": "sha256:366b4bdd254e476c39b3ec3227311a183052db370c9e59328b53e13366d5fb86"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/johooTemplate.ts",
+      "category": "code",
+      "byteLength": 14145,
+      "sha256": "sha256:83a62257328fff73d49e0f4a9bfeac809c795f19e36472d2257efd65dda14adf"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/packs/conditionsBasePack.ts",
+      "category": "code",
+      "byteLength": 624,
+      "sha256": "sha256:a049c476756f4f77ea0f607f90295e427ac7c695537b1a1380c0030a909bc41a"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/packs/johooQiongTongBaoJianTable.ts",
+      "category": "code",
+      "byteLength": 10392,
+      "sha256": "sha256:0609f1fcb0407da4b7c5273f61d11653195870d876f176d28526b0c0d626bbf7"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/packs/shinsalBaseCatalog.ts",
+      "category": "code",
+      "byteLength": 9833,
+      "sha256": "sha256:261a47dc2a567e1b3f38fa4773dd33b7e967e89a776275526f2531ddce4aa711"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/packs/shinsalConditionsBasePack.ts",
+      "category": "code",
+      "byteLength": 3025,
+      "sha256": "sha256:0f1fa71178f7c8e113e6edb2f8abcede02afcfbdba6c7505415fbcae38fe05a2"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/ruleFactsScoring.ts",
+      "category": "code",
+      "byteLength": 1207,
+      "sha256": "sha256:eb5c9f47c45195f39ea78fc5b39d8c43131f2fc3b767d5016741fa1b57cddeff"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/season.ts",
+      "category": "code",
+      "byteLength": 1786,
+      "sha256": "sha256:7d0b24be9940a243b2d75b1031ca3aff78c3e108cad6ddfd5d85fb0949a0d5c8"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/shinsal.ts",
+      "category": "code",
+      "byteLength": 31112,
+      "sha256": "sha256:bd63fb9feec18dcfdf7974fb630485a549344b95d2e49a80418a7a7c98358785"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/shinsalCatalog.ts",
+      "category": "code",
+      "byteLength": 7597,
+      "sha256": "sha256:bb13a25ea4f25bde1c82cf4877a4397391da048331e7c747ace8dbcb1bb76bbb"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/shinsalRuleCompiler.ts",
+      "category": "code",
+      "byteLength": 9047,
+      "sha256": "sha256:380a8df7e3d58d7c678fec18073c8359b580779fa8fddf08857a64e911537635"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/spec/compileGyeokgukSpec.ts",
+      "category": "code",
+      "byteLength": 22592,
+      "sha256": "sha256:1a8d139a6b3e221ea0b9642a1276777e3d7a4f620401c9601bf62f2a0c2847f4"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/spec/compileShinsalConditionsSpec.ts",
+      "category": "code",
+      "byteLength": 6461,
+      "sha256": "sha256:65413114ab38ff474f4c2d32af4721e0e277db61d9d0eccdb709da51cb1ed126"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/spec/compileShinsalSpec.ts",
+      "category": "code",
+      "byteLength": 9070,
+      "sha256": "sha256:15314cb795509e158fac628eb561eda045f5502710643d9c1f42f174bde3edb3"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/spec/compileYongshinSpec.ts",
+      "category": "code",
+      "byteLength": 23025,
+      "sha256": "sha256:b4c7d0f916d96de045030f6cfc21d8810ac0322c7e5961f286a9c281bbadfb51"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/spec/gyeokgukSpec.ts",
+      "category": "code",
+      "byteLength": 8861,
+      "sha256": "sha256:526aea4834ca6e8e2bf74cb6bc773da21118c4e7928146cc3bc7bfe45ae300dd"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/spec/index.ts",
+      "category": "code",
+      "byteLength": 565,
+      "sha256": "sha256:a30b2991e20619034a04712b5d8d7e9076286388debe9bca6463a510a2cb35bd"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/spec/ruleDslValidation.ts",
+      "category": "code",
+      "byteLength": 19092,
+      "sha256": "sha256:7f831b85fbf0bde0b3b4b73a20dc2bbb6d1279b81c6830ed4bae6cc3e5079c92"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/spec/ruleSpecGeneratedData.ts",
+      "category": "code",
+      "byteLength": 1195,
+      "sha256": "sha256:a5cfe7a112a336de4b57ec6d5b64a8f7cc37210f4869a74818fca514c1b1c611"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/spec/ruleSpecValidation.ts",
+      "category": "code",
+      "byteLength": 3040,
+      "sha256": "sha256:71b72e17be97cb38622f187b717e3ad14b4c1406849400d38b62607ec8e8387b"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/spec/ruleSpecValidationCore.ts",
+      "category": "code",
+      "byteLength": 13657,
+      "sha256": "sha256:50362c8f76e3ed86714426a763dfab3728722d089bc95bad87f9ee6db912d898"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/spec/shinsalConditionsSpec.ts",
+      "category": "code",
+      "byteLength": 850,
+      "sha256": "sha256:5bc3b1f9ad322d6cc90a805cebaea3e1d7feb887e9df5a2a60fa44904370692e"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/spec/shinsalSpec.ts",
+      "category": "code",
+      "byteLength": 5122,
+      "sha256": "sha256:c4b3db9d4676fa26780ef8e80cebbcbf5ba10ad58fc7df1680d8c25fc7e56081"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/spec/validateGyeokgukSpec.ts",
+      "category": "code",
+      "byteLength": 14697,
+      "sha256": "sha256:7f70a09b1589552a89a27145da5455b3de9a2fc6b2090976400cb1a2f505a7e4"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/spec/validateShinsalSpec.ts",
+      "category": "code",
+      "byteLength": 15108,
+      "sha256": "sha256:06e3ccdc0fd69961dc7e28272a42895f670e630862714f18d574f92acbaca6af"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/spec/validateYongshinSpec.ts",
+      "category": "code",
+      "byteLength": 9393,
+      "sha256": "sha256:65cd9353cd3e5211df2fa5106e00ffed297c66499ec972624f437192d191cad1"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/spec/yongshinSpec.ts",
+      "category": "code",
+      "byteLength": 11138,
+      "sha256": "sha256:281b41ff616c33fb407934acc0ef50cf397a6cfa01eca251ddb72e8695374499"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/strengthBase.ts",
+      "category": "code",
+      "byteLength": 1880,
+      "sha256": "sha256:b4583c10a5742ac843727be1d6a7f360fa0e36cd71878f61ed5c1a54aefcd8ca"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/strengthComponents.ts",
+      "category": "code",
+      "byteLength": 715,
+      "sha256": "sha256:5c7d21daa16469b95608103154f62f24a1911fcf01bda6d3362fefd3d645d59f"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/strengthFacts.ts",
+      "category": "code",
+      "byteLength": 38661,
+      "sha256": "sha256:adc42c919ca99e695629ced030245395af5805060908c5e694ded95007e60e52"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/yongshin.ts",
+      "category": "code",
+      "byteLength": 54629,
+      "sha256": "sha256:8a719cda0b8431d8a12520c84b53e7c3c600354fbb2a5252f956cbc6668dda7d"
+    },
+    {
+      "path": "lib/saju-ts/src/rules/yongshinConsensus.ts",
+      "category": "code",
+      "byteLength": 4191,
+      "sha256": "sha256:ab33f7a5d02bf7d23502c5bd51846405ea9b6bec5dfc8fd35128761513fd9a76"
+    },
+    {
+      "path": "lib/saju-ts/src/schools/index.ts",
+      "category": "code",
+      "byteLength": 271,
+      "sha256": "sha256:930c8b780872de6858de47c2ac5e1e971fdb0ebe9cb837953be20ed71e134c56"
+    },
+    {
+      "path": "lib/saju-ts/src/schools/packLoader.ts",
+      "category": "code",
+      "byteLength": 10822,
+      "sha256": "sha256:651eb875c8a4e6c81c9fb436244c80da0ea9370b22036127fe8b97d4ba5907c6"
+    },
+    {
+      "path": "lib/saju-ts/src/schools/packTypes.ts",
+      "category": "code",
+      "byteLength": 2173,
+      "sha256": "sha256:1874676e73eeea0832eb054338c115716566968b0beeb929e740d62ca262ee08"
+    },
+    {
+      "path": "lib/saju-ts/src/schools/packs/builtin.pack.json",
+      "category": "rules",
+      "byteLength": 27368,
+      "sha256": "sha256:c3061781d12966708dcb182259677f338c8be48d6ef23ab1af72387120c097fa"
+    },
+    {
+      "path": "lib/saju-ts/src/schools/presets.ts",
+      "category": "code",
+      "byteLength": 7970,
+      "sha256": "sha256:63899a22683a251aec37d7fba519abd2edc109a9171602d3ce08b6b6d6dc5321"
+    },
+    {
+      "path": "lib/saju-ts/src/schools/schoolPackValidation.ts",
+      "category": "code",
+      "byteLength": 16493,
+      "sha256": "sha256:8d27a5d0ab0f94327890a1b12e928053b8e32d39c8e6b48e09befcd253095975"
+    },
+    {
+      "path": "lib/saju-ts/src/shims/cal-dist.d.ts",
+      "category": "code",
+      "byteLength": 490,
+      "sha256": "sha256:7e16d3d9fc181326d5335ec39b87c2f2aa2018a38c5c3307bb50e6387411b06f"
+    },
+    {
+      "path": "lib/saju-ts/src/shims/crypto.d.ts",
+      "category": "code",
+      "byteLength": 245,
+      "sha256": "sha256:d7429b44a030d040cd083f2094e0547e5ec0c8feb3b8ada88d7232f20f5baec6"
+    },
+    {
+      "path": "lib/saju-ts/src/shims/fflate.d.ts",
+      "category": "code",
+      "byteLength": 364,
+      "sha256": "sha256:0083d6b3ecfb7de98bbbbc3edd18037d7160569187383d1d30ebbbca71247b3f"
+    },
+    {
+      "path": "lib/saju-ts/src/shims/node-module.d.ts",
+      "category": "code",
+      "byteLength": 106,
+      "sha256": "sha256:74cb1fca1e55a1ca1dd971015baec0d7c60a0a2407b7ad52658577b21d0e40c0"
+    },
+    {
+      "path": "lib/saju-ts/src/utils/base64.ts",
+      "category": "code",
+      "byteLength": 1051,
+      "sha256": "sha256:73c7826b4f5f634cd9d7bcfe377e02c715589c339a419d6c4fa31f7c0f8be4ac"
+    },
+    {
+      "path": "lib/saju-ts/src/utils/deepMerge.ts",
+      "category": "code",
+      "byteLength": 3937,
+      "sha256": "sha256:6f7fe6ab3c038c3f71fa8ca7d2a743a798340a7b50fd93140a244c6a51430b3e"
+    },
+    {
+      "path": "lib/saju-ts/src/utils/hash.ts",
+      "category": "code",
+      "byteLength": 3829,
+      "sha256": "sha256:9256935d981bdc4d0e51492bee7170464476df6a816844a28de339d010579807"
+    },
+    {
+      "path": "lib/saju-ts/src/utils/json.ts",
+      "category": "code",
+      "byteLength": 796,
+      "sha256": "sha256:b78870a09577fc118e72062e0535b2ae9d9ace3b5503c75329386bf4a1b85e42"
+    },
+    {
+      "path": "lib/saju-ts/tsconfig.build.json",
+      "category": "code",
+      "byteLength": 319,
+      "sha256": "sha256:3587fc0be92223d23351264659befc811641f01052a1248825c6825d95deeef9"
+    },
+    {
+      "path": "lib/saju-ts/tsconfig.json",
+      "category": "code",
+      "byteLength": 340,
+      "sha256": "sha256:75695f5ab0d7aefeec47eaef5204d4f97934e0b09c19ae81c1049762bb8ba649"
+    },
+    {
+      "path": "lib/seed-ts/assets/sql-wasm-1.14.1.wasm",
+      "category": "data",
+      "byteLength": 659730,
+      "sha256": "sha256:438c88f666dc054ce4e9395f80fe9db4218b1a3c379960454880f048a7898aed"
+    },
+    {
+      "path": "lib/seed-ts/package-lock.json",
+      "category": "code",
+      "byteLength": 44012,
+      "sha256": "sha256:c62280d71301b4d061150f074731e576da8dd2d74b74033198781980af97979f"
+    },
+    {
+      "path": "lib/seed-ts/package.json",
+      "category": "code",
+      "byteLength": 2942,
+      "sha256": "sha256:ee17ad46dfd5aeb660932e816eeb4e88fd8dcb2620463d6dc927b3bf72b0c1e1"
+    },
+    {
+      "path": "lib/seed-ts/src/calculator/energy-calculator.ts",
+      "category": "code",
+      "byteLength": 2499,
+      "sha256": "sha256:6d84593266436c913bdb015ccdd07274ffb6e25855f7a3cc873a281a95ab1291"
+    },
+    {
+      "path": "lib/seed-ts/src/calculator/frame-calculator.ts",
+      "category": "code",
+      "byteLength": 9077,
+      "sha256": "sha256:f185de6920b83beb40bb1c7817d0e08261fad94f17e057a0009a5651ae7a6ae3"
+    },
+    {
+      "path": "lib/seed-ts/src/calculator/hangul-calculator.ts",
+      "category": "code",
+      "byteLength": 7823,
+      "sha256": "sha256:191555d5153633fdc46eeab8d75d6b1a821a9581e807ab1da4a6d6e8c06e2393"
+    },
+    {
+      "path": "lib/seed-ts/src/calculator/hanja-calculator.ts",
+      "category": "code",
+      "byteLength": 3625,
+      "sha256": "sha256:e13fde798d9cf0556676094726dfb051db1ef64be92b882521f9237dcc4d620e"
+    },
+    {
+      "path": "lib/seed-ts/src/database/database-asset-contract.ts",
+      "category": "code",
+      "byteLength": 954,
+      "sha256": "sha256:68c41989fcf3572e475ac6322cb97b94f5ae8c3faca98765985158f6b87b0d5d"
+    },
+    {
+      "path": "lib/seed-ts/src/database/database-asset-manifest.generated.ts",
+      "category": "code",
+      "byteLength": 13828,
+      "sha256": "sha256:631dc8d642aa9400d2ac0791787093546a83ed2878e7cf51bb2d0fa32669cf8e"
+    },
+    {
+      "path": "lib/seed-ts/src/database/database-asset-registry.ts",
+      "category": "code",
+      "byteLength": 6247,
+      "sha256": "sha256:15900c1871ca6f2e79fb9584d5bab73fecd14aa7a205327e1930c6946d33914c"
+    },
+    {
+      "path": "lib/seed-ts/src/database/database-integrity.ts",
+      "category": "code",
+      "byteLength": 8387,
+      "sha256": "sha256:5adb31d9b7367e32a9b7d3b32c605c7b7dfcf849c64b5a98b37b07e4814d4f8b"
+    },
+    {
+      "path": "lib/seed-ts/src/database/fourframe-repository.ts",
+      "category": "code",
+      "byteLength": 8548,
+      "sha256": "sha256:43c5f52994ee89d35ebef27309573b11778f2fc9a3a8fb1ce9ed0ad312297590"
+    },
+    {
+      "path": "lib/seed-ts/src/database/hanja-repository.ts",
+      "category": "code",
+      "byteLength": 10707,
+      "sha256": "sha256:d84fed4f8c66ffa933530ff271d5d1c9e3eac4c6fc5b9a75f7d73a2043725279"
+    },
+    {
+      "path": "lib/seed-ts/src/database/name-stat-repository.ts",
+      "category": "code",
+      "byteLength": 9923,
+      "sha256": "sha256:421450659d417020294da8ada270a9c1f11f971ee84cb7dd1d28b89352f85050"
+    },
+    {
+      "path": "lib/seed-ts/src/database/name-stat-row.ts",
+      "category": "code",
+      "byteLength": 4257,
+      "sha256": "sha256:641f12fd0c2229496dc42b041f38fdd707d3312cc3bf975042cd1177ffa6e9cb"
+    },
+    {
+      "path": "lib/seed-ts/src/database/repository-artifact-integrity.ts",
+      "category": "code",
+      "byteLength": 1157,
+      "sha256": "sha256:f0a9cd18fe178d00b7b2a7d11e34a05e2c8a1af5016c963ba41bc6b048f933cf"
+    },
+    {
+      "path": "lib/seed-ts/src/database/repository-database-opener.ts",
+      "category": "code",
+      "byteLength": 1926,
+      "sha256": "sha256:a20917b151f94bed470f6c0230cbf8782000c5149641b4d31245ba04c628eed5"
+    },
+    {
+      "path": "lib/seed-ts/src/database/repository-database-policy.ts",
+      "category": "code",
+      "byteLength": 6185,
+      "sha256": "sha256:4ff02641343f817d49a6cf6d0abf4c2a17976207adf6dd7f73c91bbc9f2e34f0"
+    },
+    {
+      "path": "lib/seed-ts/src/database/repository-errors.ts",
+      "category": "code",
+      "byteLength": 1461,
+      "sha256": "sha256:b82cbfb1fa9cb401861fee1c17d1c0d1cb4dc3f88e5c9755130ca1bf93d7967b"
+    },
+    {
+      "path": "lib/seed-ts/src/database/repository-lifecycle.ts",
+      "category": "code",
+      "byteLength": 4899,
+      "sha256": "sha256:c255d9009591c26ed0a640d32c7dd3a2552e62eddc86987147e759320a5c18bc"
+    },
+    {
+      "path": "lib/seed-ts/src/database/repository-query-validation.ts",
+      "category": "code",
+      "byteLength": 3419,
+      "sha256": "sha256:ac23d493d9e89ce5d1eefd55890aa96d57e76247586cd9683438535fe5b490ba"
+    },
+    {
+      "path": "lib/seed-ts/src/database/repository-runtime.ts",
+      "category": "code",
+      "byteLength": 11809,
+      "sha256": "sha256:be421fdd5ccbb740171b170d38fc0357e432e280ec5fe87f691cf678462c948b"
+    },
+    {
+      "path": "lib/seed-ts/src/database/row-decoder.ts",
+      "category": "code",
+      "byteLength": 4711,
+      "sha256": "sha256:35b3a1be07449b076dccaf34e2f8a7d8a79e8d6e65f571cc4f0ca61590f4190e"
+    },
+    {
+      "path": "lib/seed-ts/src/database/runtime-url.ts",
+      "category": "code",
+      "byteLength": 2212,
+      "sha256": "sha256:72a151377ccf3926b61b6d509f663e71e516ae6d2761d2e584e6fa29165a46d1"
+    },
+    {
+      "path": "lib/seed-ts/src/errors.ts",
+      "category": "code",
+      "byteLength": 3695,
+      "sha256": "sha256:eb31fb64c6cb6933fef05b714c7aff4328134165e129567826a1d68a030e0ba0"
+    },
+    {
+      "path": "lib/seed-ts/src/fourframe-catalog.generated.ts",
+      "category": "code",
+      "byteLength": 728177,
+      "sha256": "sha256:8da6d3f0311aa983be4ad6bb1127780c21e0953359088e5bdf80f92ec62aa2e8"
+    },
+    {
+      "path": "lib/seed-ts/src/fourframe-catalog.ts",
+      "category": "code",
+      "byteLength": 5961,
+      "sha256": "sha256:530b18a44d84fa00606d9182a7b4272c651d739bf0194bbdd44c0b94ff6199e0"
+    },
+    {
+      "path": "lib/seed-ts/src/fourframe-contract.ts",
+      "category": "code",
+      "byteLength": 6060,
+      "sha256": "sha256:1bdb213d37e9ef62765fc966861c10ae2e4586b9b153bdfcbe04abd052317e52"
+    },
+    {
+      "path": "lib/seed-ts/src/index.ts",
+      "category": "code",
+      "byteLength": 4234,
+      "sha256": "sha256:574ee05ead00cce3cbb8166c26b997ac601d4269290cca044f0a7795c9b4dcd5"
+    },
+    {
+      "path": "lib/seed-ts/src/model/element.ts",
+      "category": "code",
+      "byteLength": 4455,
+      "sha256": "sha256:a02aa0eaa8cd6105a5a2977f7105de221165b72212cf6bf41454974dad5ee474"
+    },
+    {
+      "path": "lib/seed-ts/src/model/energy.ts",
+      "category": "code",
+      "byteLength": 3835,
+      "sha256": "sha256:ca510976d0d47b429b31f14725d3c2e638785cb347effc940ea20b8806a95c8c"
+    },
+    {
+      "path": "lib/seed-ts/src/model/polarity.ts",
+      "category": "code",
+      "byteLength": 2712,
+      "sha256": "sha256:5442a5c570c2cadc5e36810accc4e50e8f845fb100cc7ed68dd315c45da07c90"
+    },
+    {
+      "path": "lib/seed-ts/src/scoring-policy.ts",
+      "category": "code",
+      "byteLength": 5464,
+      "sha256": "sha256:5a0c2111909b96febb958417f89ca5bc4c19fe17460382fd4daaa207ea098f0f"
+    },
+    {
+      "path": "lib/seed-ts/src/seed.ts",
+      "category": "code",
+      "byteLength": 6350,
+      "sha256": "sha256:8ba6fb593e562c1662b891da9321f70c7b74640cda9a1cbcbcd8410ec4ff55fb"
+    },
+    {
+      "path": "lib/seed-ts/src/service-text-policy.ts",
+      "category": "code",
+      "byteLength": 27166,
+      "sha256": "sha256:51bdae2d55240993a19190e5aca749fc530767e372fb0ca995c8920023f820ab"
+    },
+    {
+      "path": "lib/seed-ts/src/types.ts",
+      "category": "code",
+      "byteLength": 3474,
+      "sha256": "sha256:4d8638c79307961ed257e21102d5180e90c77c29f0cbf287d3dee61ac635097f"
+    },
+    {
+      "path": "lib/seed-ts/src/utils/bounded-code-point-count.ts",
+      "category": "code",
+      "byteLength": 430,
+      "sha256": "sha256:dcb23bd8d9e3b29822a96c23249ea080ec994814e78c475bee58707c4a3ce44b"
+    },
+    {
+      "path": "lib/seed-ts/src/utils/deep-freeze.ts",
+      "category": "code",
+      "byteLength": 629,
+      "sha256": "sha256:f12789cc2cafadf860df76afb719126955699d5bdb6d22023de376e5f9ea8771"
+    },
+    {
+      "path": "lib/seed-ts/src/utils/hangul-name-entry.ts",
+      "category": "code",
+      "byteLength": 7065,
+      "sha256": "sha256:c29456b4292ff9fc909aa1f13af9f55b9a3597f650d10adac6bfd22228306267"
+    },
+    {
+      "path": "lib/seed-ts/src/utils/name-stat-shard.ts",
+      "category": "code",
+      "byteLength": 2807,
+      "sha256": "sha256:e166dd10ae65f466c12c0fd8c1f69bdab60293287188fd59a1f2dc1672958f12"
+    },
+    {
+      "path": "lib/seed-ts/src/validation.ts",
+      "category": "code",
+      "byteLength": 14158,
+      "sha256": "sha256:f9cff3ad390c1d2e6db776001741f178928b6465331c32041a8162fc7f19d159"
+    },
+    {
+      "path": "lib/seed-ts/tsconfig.build.json",
+      "category": "code",
+      "byteLength": 538,
+      "sha256": "sha256:b31d1960a058c428e515425e224e27f7161f55686dac61802b262221c431a49a"
+    },
+    {
+      "path": "lib/seed-ts/tsconfig.json",
+      "category": "code",
+      "byteLength": 395,
+      "sha256": "sha256:503593d82423b7a6a002514402a8af79966930df4975e1b772547b95008cf75d"
+    },
+    {
+      "path": "lib/spring-ts/config/cheongan-jiji.json",
+      "category": "rules",
+      "byteLength": 1734,
+      "sha256": "sha256:c7f32b48a1af98d79c8decd1c60a1bd6c822adf95e8e58e6b46d4961e95d88c6"
+    },
+    {
+      "path": "lib/spring-ts/config/engine.json",
+      "category": "rules",
+      "byteLength": 931,
+      "sha256": "sha256:28b8feb40731ab0f6564a95abff8978a8176321765da6a3345c0dcb88ddba146"
+    },
+    {
+      "path": "lib/spring-ts/config/evaluator-policy.json",
+      "category": "rules",
+      "byteLength": 875,
+      "sha256": "sha256:4dedb3b8621b3414b4e9996ff3a2c7daf05bd58bfec645432cd17ca8a1f2eb91"
+    },
+    {
+      "path": "lib/spring-ts/config/five-elements.json",
+      "category": "rules",
+      "byteLength": 508,
+      "sha256": "sha256:882b67bdb2fea96765392a169b0a828f69afe0114613e24234c5ef0231ece38e"
+    },
+    {
+      "path": "lib/spring-ts/config/interpretation.json",
+      "category": "rules",
+      "byteLength": 847,
+      "sha256": "sha256:708faebcc423d89942d19881868d96c35749bb90ba6a02b8eb3a1f03d5013898"
+    },
+    {
+      "path": "lib/spring-ts/config/korean-phonetics.json",
+      "category": "rules",
+      "byteLength": 1006,
+      "sha256": "sha256:fa8540d314aa78a66d265db7d437af1fa5b52657bd47612f6b58efe61f1f457d"
+    },
+    {
+      "path": "lib/spring-ts/config/presets/chinese.json",
+      "category": "rules",
+      "byteLength": 964,
+      "sha256": "sha256:755b24c44a89cdb7a9bbd42ea868e7ba19024c263165684431eb1ba2f219ebcd"
+    },
+    {
+      "path": "lib/spring-ts/config/presets/classical_text.json",
+      "category": "rules",
+      "byteLength": 825,
+      "sha256": "sha256:edd1d6e14e5c1eb271f4177e7003834c1bd1f8b094e5181db59ce264feaa9422"
+    },
+    {
+      "path": "lib/spring-ts/config/presets/korean.json",
+      "category": "rules",
+      "byteLength": 860,
+      "sha256": "sha256:116e0f3c2ef95b6629b1ef985fcfa21a7cdf67b062dad8af60d6686afa48c9af"
+    },
+    {
+      "path": "lib/spring-ts/config/presets/korean_modern.json",
+      "category": "rules",
+      "byteLength": 836,
+      "sha256": "sha256:7704ff434c60aa2602218b4e8caa15ecb995554622953add07c2b696418d4d3d"
+    },
+    {
+      "path": "lib/spring-ts/config/presets/modern.json",
+      "category": "rules",
+      "byteLength": 957,
+      "sha256": "sha256:e07d330d2ee3b03934d94843742b1718e6afdafdf3b24def3e24ace654b7e398"
+    },
+    {
+      "path": "lib/spring-ts/config/presets/naming_safe.json",
+      "category": "rules",
+      "byteLength": 817,
+      "sha256": "sha256:ae32571d9e3fbce21b7faf753bd7bad363c02fed9a03704ef1b0d1254830d274"
+    },
+    {
+      "path": "lib/spring-ts/config/saju-scoring.json",
+      "category": "rules",
+      "byteLength": 2439,
+      "sha256": "sha256:9a27067c5a3284fc672da649307f803870540ebe6915897dbe7a1345151427f4"
+    },
+    {
+      "path": "lib/spring-ts/config/scoring-rules.json",
+      "category": "rules",
+      "byteLength": 1701,
+      "sha256": "sha256:68581c14ef150e3ee04e46d3446f544227381c9e40949391fc5244a5c7d00ed5"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/academic/life.articles.json",
+      "category": "data",
+      "byteLength": 12889,
+      "sha256": "sha256:ed3a19279f0d160c6dc7045d34fbd8d66526fef5c757928eb8cfd0493e5ab640"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/academic/stages.articles.json",
+      "category": "data",
+      "byteLength": 33322,
+      "sha256": "sha256:550882b28455d69d6d22f6fdbeb344ac07efa0eac11e18618e19a34aea645bc2"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/academic/thisMonth.articles.json",
+      "category": "data",
+      "byteLength": 13026,
+      "sha256": "sha256:e94eb828b913e1a1580299da58e5ecdc1700c32e82245564a9a84b6857321803"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/academic/thisWeek.articles.json",
+      "category": "data",
+      "byteLength": 12684,
+      "sha256": "sha256:571ee91ae5a6a6991fe1cd90a6e85839279eb4f3cb46bde1391964d9e3b80d42"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/academic/thisYear.articles.json",
+      "category": "data",
+      "byteLength": 12798,
+      "sha256": "sha256:34b243f6ae7bd104f080260206ebbf9852738198e0c06bea3ede51a2d396f6bf"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/academic/today.articles.json",
+      "category": "data",
+      "byteLength": 13073,
+      "sha256": "sha256:5c793bdfe1207fca93b537f4d6975b2d85d57d9909bffdeca28049e02fceeec7"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/career/life.articles.json",
+      "category": "data",
+      "byteLength": 12210,
+      "sha256": "sha256:b4901586d8bc62958f859da204f35a1981af803eafb5c604fd6895b2419bb10c"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/career/stages.articles.json",
+      "category": "data",
+      "byteLength": 11505,
+      "sha256": "sha256:848e524fee86f4b47b250f86dcfc27acd913c90d228cacf9b572cc9f2b62d1b0"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/career/thisMonth.articles.json",
+      "category": "data",
+      "byteLength": 12403,
+      "sha256": "sha256:144e0791a998b89cad5f033c3a0a0a5592cfe4781ceec3a39b2379a1eabc4112"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/career/thisWeek.articles.json",
+      "category": "data",
+      "byteLength": 12638,
+      "sha256": "sha256:e5a1d117b701df87ac3fbe4e00905f5e5e9ca9a5656b1154067ee9d8d21d27b4"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/career/thisYear.articles.json",
+      "category": "data",
+      "byteLength": 12439,
+      "sha256": "sha256:d3482eec0639b98d1389751e01ab30abb3bd804ec8c69e0a577091cb30994083"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/career/today.articles.json",
+      "category": "data",
+      "byteLength": 12524,
+      "sha256": "sha256:a2bd37dfad56ba189a8f353b02056711b3a57fed2c5ce449d093d7a41a7ca18f"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/expression_children/life.articles.json",
+      "category": "data",
+      "byteLength": 12527,
+      "sha256": "sha256:4e71ede8ae04644e03fa77473a74a3e189791894ba56c1f6af83a19dd3ee4366"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/expression_children/stages.articles.json",
+      "category": "data",
+      "byteLength": 10587,
+      "sha256": "sha256:2cac55fb35780370bc9d96a0b9efceca78a7cd05305b54feda9f56a4cb74f31b"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/expression_children/thisMonth.articles.json",
+      "category": "data",
+      "byteLength": 12208,
+      "sha256": "sha256:882ed0b1f7896623a2537b060d71455608b359665b3077d32e7b7c05f90a90dd"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/expression_children/thisWeek.articles.json",
+      "category": "data",
+      "byteLength": 12138,
+      "sha256": "sha256:7ff17d3b9b82ddcda27ee0ea36d8d8b211a369cffb3e02237b5cd6696d1bdaa6"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/expression_children/thisYear.articles.json",
+      "category": "data",
+      "byteLength": 12265,
+      "sha256": "sha256:a1d9d79ce1a954d97dccbe19d913867270528e3bf9630b6c2797d3fcb9639303"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/expression_children/today.articles.json",
+      "category": "data",
+      "byteLength": 12496,
+      "sha256": "sha256:d0a2b1940f0fd1712547fbf4c85e719b04c4decacbc28abfd99789429908c729"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/family/life.articles.json",
+      "category": "data",
+      "byteLength": 12210,
+      "sha256": "sha256:61022e0a4d4e81c591a18f47e138dcd0cea629fd9c9bbfe45b8ba34dbfbc6562"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/family/stages.articles.json",
+      "category": "data",
+      "byteLength": 32965,
+      "sha256": "sha256:fd5c57e05a348639458fc9e46a2b994dd24104b968d8edb7f0b10058f2459efd"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/family/thisMonth.articles.json",
+      "category": "data",
+      "byteLength": 12136,
+      "sha256": "sha256:f06a4ad69b40f64b20b8523dbecbbb68d7b7bf10d85f5283de47e76fc1bc03a5"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/family/thisWeek.articles.json",
+      "category": "data",
+      "byteLength": 12077,
+      "sha256": "sha256:183c08d03a60289218e2fb96f53f8824d54d9ed324a839d897fc564027098150"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/family/thisYear.articles.json",
+      "category": "data",
+      "byteLength": 11985,
+      "sha256": "sha256:0da60036ead7f7df2e3dae5c3451ae72158f2cac6f9cc58c24ddc0e7d397358e"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/family/today.articles.json",
+      "category": "data",
+      "byteLength": 12452,
+      "sha256": "sha256:dbb7264b6389b3356c3eed980d0c4e753e3db04c6d2dd567836b34efc4cf5016"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/health/life.articles.json",
+      "category": "data",
+      "byteLength": 12470,
+      "sha256": "sha256:a5c542aec633891ca2036e0b2a578b74a1835053ab20f49627f7345b7bd81302"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/health/stages.articles.json",
+      "category": "data",
+      "byteLength": 30579,
+      "sha256": "sha256:c2d6fb658a18708e184e0603231d708cf4ca4de8a0e6bae0c513cd2451d6e438"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/health/thisMonth.articles.json",
+      "category": "data",
+      "byteLength": 12096,
+      "sha256": "sha256:54670bb55e2a66847c64dbe84d2cbd26db8db2bc9d0c4f04a940dfc3508dafcd"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/health/thisWeek.articles.json",
+      "category": "data",
+      "byteLength": 12471,
+      "sha256": "sha256:b41cbb2837d702b3b13875c5af90ca5ac4b409e4e857ee2c26407b9f7815ea2d"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/health/thisYear.articles.json",
+      "category": "data",
+      "byteLength": 12616,
+      "sha256": "sha256:f524147aa5e55bf3de63732ae8cf446d2dd66a35ead90649a2f4cee5e648ae1d"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/health/today.articles.json",
+      "category": "data",
+      "byteLength": 12461,
+      "sha256": "sha256:a5079be763f50ec30c7d23444efacd03f1a9c85a3683103a3600844d8189afc2"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/health_stress/life.articles.json",
+      "category": "data",
+      "byteLength": 12178,
+      "sha256": "sha256:a6441c52945a17d65a62798a833a1fe8ea05c781a9f2a96469d6e47a67e0ff81"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/health_stress/stages.articles.json",
+      "category": "data",
+      "byteLength": 10055,
+      "sha256": "sha256:7528b498f3798c271edb6d8db84dc516ce04f32bd9924de7050a4dbd78a23885"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/health_stress/thisMonth.articles.json",
+      "category": "data",
+      "byteLength": 12184,
+      "sha256": "sha256:b91c76efc94ba11c8d41bace61012544e47f4df23a7eca394e3c044d734ae89f"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/health_stress/thisWeek.articles.json",
+      "category": "data",
+      "byteLength": 11886,
+      "sha256": "sha256:24c0c63cfc42e81717b3bff1d5f45950b1b8084fd152c9670533221280752598"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/health_stress/thisYear.articles.json",
+      "category": "data",
+      "byteLength": 12267,
+      "sha256": "sha256:2a51018d9db287a2e8ddc3c32b5595794b4782d3aafc603aeb8e4e46fd2cf9ff"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/health_stress/today.articles.json",
+      "category": "data",
+      "byteLength": 12389,
+      "sha256": "sha256:3e751334e7fb68ee454f8052f5edebad075116e031d2ca7697399e7bdbbfbdf7"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/insights/daeun-leads.insights.json",
+      "category": "data",
+      "byteLength": 10421,
+      "sha256": "sha256:0fb3f17087dc564ab964c0748f41608b067e69e7b43542f443215ae9597279d0"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/insights/gongmang.insights.json",
+      "category": "data",
+      "byteLength": 2588,
+      "sha256": "sha256:bf38f1e2d39d1edd32158e10a1a2119cc077ade3245728196b25e5bc5e2170dc"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/insights/gyeokguk-seongpae.insights.json",
+      "category": "data",
+      "byteLength": 8222,
+      "sha256": "sha256:b1f55072c224b8bacce04ed5f639faef3c4bdcf0a46f65b065d67333f48f8ca8"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/insights/hidden-stems.insights.json",
+      "category": "data",
+      "byteLength": 1434,
+      "sha256": "sha256:177c1f63e057ac8aa3f8dfcc750701e393c57eb050093a4a0f1bb348bae2ea5d"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/insights/relations.insights.json",
+      "category": "data",
+      "byteLength": 24085,
+      "sha256": "sha256:63fddfe31883f219162a2fc05fd8222a43bd7c3cd3d5b45e212060f188f630b1"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/insights/shinsal.insights.json",
+      "category": "data",
+      "byteLength": 17148,
+      "sha256": "sha256:3be83ddbd2d7f9283b7fb670aee864b0c9b5cab0a37a5e6703bc9c989389ce0b"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/insights/sibi-unseong.insights.json",
+      "category": "data",
+      "byteLength": 11282,
+      "sha256": "sha256:8907641fbb2f25980d9419c75bdaea973d5d16e1aa9d78f6d95e22e268fc2f3a"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/insights/stem-hap-state.insights.json",
+      "category": "data",
+      "byteLength": 3284,
+      "sha256": "sha256:57006e99f809d63d1ca8478274ab5e8cd26153e97568f0a2a3c078e491b277aa"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/movement/life.articles.json",
+      "category": "data",
+      "byteLength": 12228,
+      "sha256": "sha256:d684e4e78079b5c904d952b449bc7f6f6520c58ba30caf568a23d806357a5027"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/movement/stages.articles.json",
+      "category": "data",
+      "byteLength": 10521,
+      "sha256": "sha256:03ee40e7c631368d2d540d4e7a2f63021c76fb84025b592f7ac71956f4e4f6b8"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/movement/thisMonth.articles.json",
+      "category": "data",
+      "byteLength": 12187,
+      "sha256": "sha256:cb4acc039c727aed710c739dca48ec65ed6939bf762df65df544ead1776a0d23"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/movement/thisWeek.articles.json",
+      "category": "data",
+      "byteLength": 12205,
+      "sha256": "sha256:4d3aaeec849e6b8d531b718375c1b907a3baa49101c0b2027c9959b1ae7b9da3"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/movement/thisYear.articles.json",
+      "category": "data",
+      "byteLength": 12174,
+      "sha256": "sha256:411a28333126cf5596ee51bf7bc95c330c143fd93492a776e6c7f73ec1a9d92c"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/movement/today.articles.json",
+      "category": "data",
+      "byteLength": 12569,
+      "sha256": "sha256:f5dc13766158a6df473d31ef24f1658da58ee51b3d8cbaaa2ed1fc3177998c39"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/overall/life.articles.json",
+      "category": "data",
+      "byteLength": 12063,
+      "sha256": "sha256:a5b44e8d5553eea809e29f40c6ab5382e8f2837bc822ad90060523543216ca22"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/overall/stages.articles.json",
+      "category": "data",
+      "byteLength": 30666,
+      "sha256": "sha256:bfccec2cecfce71181cfd222010205fd1264d8b64835b13484b280e37b71de4b"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/overall/thisMonth.articles.json",
+      "category": "data",
+      "byteLength": 12086,
+      "sha256": "sha256:ae7bde611cd96a91114dbf9565eb789a8640feb3b2551685ee31ecdeed44c983"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/overall/thisWeek.articles.json",
+      "category": "data",
+      "byteLength": 11987,
+      "sha256": "sha256:e467d8d491cc068743361ad3f5dcee73bce054965c62510ff7e8ede937d147cb"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/overall/thisYear.articles.json",
+      "category": "data",
+      "byteLength": 12426,
+      "sha256": "sha256:f2315fe12a26b6ac6c6972d02af2f18c239ea84bd72db5ed82afdeb45f670563"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/overall/today.articles.json",
+      "category": "data",
+      "byteLength": 12622,
+      "sha256": "sha256:7e358a15d77200d0ab7d7cca100559e50fc9c6bf7f13f085bd7c0a734dd92fbf"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/romance/life.articles.json",
+      "category": "data",
+      "byteLength": 12654,
+      "sha256": "sha256:414b21980e95a2e6c287925bba35247fb7f2cb55723657459fbdb0026c6092a2"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/romance/stages.articles.json",
+      "category": "data",
+      "byteLength": 31829,
+      "sha256": "sha256:ce0c32cdb9eecc02b1dd3c646205ea5f07d447b9ccac4c454f7ad3a22e097c67"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/romance/thisMonth.articles.json",
+      "category": "data",
+      "byteLength": 12731,
+      "sha256": "sha256:bf507845457cfa31dc86b6207d10da194bd1fcfac461c27570c153fb440d1d78"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/romance/thisWeek.articles.json",
+      "category": "data",
+      "byteLength": 12830,
+      "sha256": "sha256:a2ac1fc722a54c5fa95a235ae9ea09f2306425cce7015cee19847a05ff715ea4"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/romance/thisYear.articles.json",
+      "category": "data",
+      "byteLength": 12543,
+      "sha256": "sha256:3d0b0a7d6ce03fe2e1831589c9d4cfffd185d3b7c4c186c46b75c2adbc15bd28"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/romance/today.articles.json",
+      "category": "data",
+      "byteLength": 12975,
+      "sha256": "sha256:727ceb5e061fa354cb082a8d898f3f3830077b52b73882f0c62f3525df00f3ba"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/study_document/life.articles.json",
+      "category": "data",
+      "byteLength": 12516,
+      "sha256": "sha256:dbdffe99e7b454c964be027c9d15a787c76d81dc7c4144f978eb86420ebf11ba"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/study_document/stages.articles.json",
+      "category": "data",
+      "byteLength": 11505,
+      "sha256": "sha256:9eb1ac9c500347089ab131a703f3f0cdd159f55a16efcf7daae948cdd26ac26b"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/study_document/thisMonth.articles.json",
+      "category": "data",
+      "byteLength": 12173,
+      "sha256": "sha256:0a8cd4bcaa5e1d83dd748e149da052d87785b5d2d562cec7a9d81050be971216"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/study_document/thisWeek.articles.json",
+      "category": "data",
+      "byteLength": 12304,
+      "sha256": "sha256:caf9b27ae6077a1811b678a3f0462eab8bf5ad950b1c5b3879de5922e5fa5a0d"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/study_document/thisYear.articles.json",
+      "category": "data",
+      "byteLength": 12356,
+      "sha256": "sha256:1d3186df13eb0c2dcaa5a2038bbb45e9c6a8b10db25a2750f6e3295ee83a5a16"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/study_document/today.articles.json",
+      "category": "data",
+      "byteLength": 12473,
+      "sha256": "sha256:2ff329a98b8d933efb87ecd0685cf719f9135f4c65cf37a67a6e3c4abfeba280"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/wealth/life.articles.json",
+      "category": "data",
+      "byteLength": 11529,
+      "sha256": "sha256:6f9caf43163a475d1f239e484c5810f6fd7c01cd6e93584dcdc30d886747ffc4"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/wealth/stages.articles.json",
+      "category": "data",
+      "byteLength": 29308,
+      "sha256": "sha256:e293157dd3ccea8f24142f939adb8cb16258975298fb4d00b3eec8787f70b009"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/wealth/thisMonth.articles.json",
+      "category": "data",
+      "byteLength": 12853,
+      "sha256": "sha256:6f1fc5edb22deca49e9636ba806dfedebb4f7a3171ac839c498815b55f6a9c46"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/wealth/thisWeek.articles.json",
+      "category": "data",
+      "byteLength": 13135,
+      "sha256": "sha256:cf89f04e52bf7eecc3904b53826ac0530731ec2a9de59526c0faa66042a8ef90"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/wealth/thisYear.articles.json",
+      "category": "data",
+      "byteLength": 12631,
+      "sha256": "sha256:a604c19a231753a74ee014da5db70c9002b8a4e8b7120f21c528880b86df5519"
+    },
+    {
+      "path": "lib/spring-ts/data/articles/wealth/today.articles.json",
+      "category": "data",
+      "byteLength": 12747,
+      "sha256": "sha256:cc7828405b7d7a5e0f13a362198de4d672325ad008d805fc128a3f87327c7081"
+    },
+    {
+      "path": "lib/spring-ts/data/byeolpyo2_variants.json",
+      "category": "data",
+      "byteLength": 3059,
+      "sha256": "sha256:6462007b0239f99e71419ea346770fc757a07ffb16c09a581f2cbdc21409fb99"
+    },
+    {
+      "path": "lib/spring-ts/data/classical-vocabulary/classical-myeongri-vocabulary.json",
+      "category": "data",
+      "byteLength": 47500,
+      "sha256": "sha256:3bcfa2a96c26e6b2e81a9cc0fc890d817a5eaf8cacada5d414bfc5ce2fdbc2c8"
+    },
+    {
+      "path": "lib/spring-ts/data/hangul-name-trends.json",
+      "category": "data",
+      "byteLength": 41912,
+      "sha256": "sha256:fee2d14fb9d2cdd71cf358c97614bf756bb7598c1d5e43704b584b0de0ed9c9c"
+    },
+    {
+      "path": "lib/spring-ts/data/inmyeongyong_9389_full.json",
+      "category": "data",
+      "byteLength": 1089488,
+      "sha256": "sha256:78c5fff42d195b457d2e9235c3e29d64283d825e697c0614c7d404ce5f8f2dab"
+    },
+    {
+      "path": "lib/spring-ts/data/inmyeongyong_9389_glyphs.generated.json",
+      "category": "data",
+      "byteLength": 73293,
+      "sha256": "sha256:0e749562193617a9c7550749e8781b490f659591526aef0332c8cacb0e1d0c9f"
+    },
+    {
+      "path": "lib/spring-ts/data/korean-surname-authority.json",
+      "category": "data",
+      "byteLength": 17516,
+      "sha256": "sha256:2ce1c13fc49d8361ab7c3b95dd27b117e4bd35b132b6777952d1b059da8f778e"
+    },
+    {
+      "path": "lib/spring-ts/data/name-stat/name-stat-summary.v1.bin",
+      "category": "data",
+      "byteLength": 310611,
+      "sha256": "sha256:619df9aa55db2e666458b43286232ed263c3d9f9426c17c85ad4174b44e6d689"
+    },
+    {
+      "path": "lib/spring-ts/data/narrative/_glossary/compatibility.json",
+      "category": "data",
+      "byteLength": 9529,
+      "sha256": "sha256:9085fc24f58ba975f9ab1b39fbe0ca242740a07941f2ed2cd89e542be5cafa08"
+    },
+    {
+      "path": "lib/spring-ts/data/narrative/_glossary/element.json",
+      "category": "data",
+      "byteLength": 20409,
+      "sha256": "sha256:cf1c73d9cc4fa22a37dfb22784c7d956d3ebccfbc554c7fb1e29006aa63f21e7"
+    },
+    {
+      "path": "lib/spring-ts/data/narrative/_glossary/gungsil.json",
+      "category": "data",
+      "byteLength": 6609,
+      "sha256": "sha256:2a8a3d912559f9dc716033e2a796eda42eefd76dc3ffaaced0a2565eb93bb956"
+    },
+    {
+      "path": "lib/spring-ts/data/narrative/_glossary/gyeokguk.json",
+      "category": "data",
+      "byteLength": 22340,
+      "sha256": "sha256:dfb120f2fc5a5c9b0117dec04690fedb8878dbe38f8bfd2a85c0a085ec471f2e"
+    },
+    {
+      "path": "lib/spring-ts/data/narrative/_glossary/naeum.json",
+      "category": "data",
+      "byteLength": 31397,
+      "sha256": "sha256:28b58971a8e31c6d708a9d8e0f3ebbbc2873818466c43de0bb6f522f6373bc86"
+    },
+    {
+      "path": "lib/spring-ts/data/narrative/_glossary/palace.json",
+      "category": "data",
+      "byteLength": 13363,
+      "sha256": "sha256:5b6561bb98467a81bc3c214e00905f42ec18277ca557fbb02139646f066c6056"
+    },
+    {
+      "path": "lib/spring-ts/data/narrative/_glossary/pillar.json",
+      "category": "data",
+      "byteLength": 39399,
+      "sha256": "sha256:a98c10d19f6cabf16c1fd60704371243e2d45a33b69d82c4f33f1393df356f8a"
+    },
+    {
+      "path": "lib/spring-ts/data/narrative/_glossary/shinsal.json",
+      "category": "data",
+      "byteLength": 27015,
+      "sha256": "sha256:a25a15266fe0badd497c9d29b8a60b92dd28d23d0a874ba833ed7932ebfeeaa0"
+    },
+    {
+      "path": "lib/spring-ts/data/narrative/_glossary/tenGod.json",
+      "category": "data",
+      "byteLength": 25613,
+      "sha256": "sha256:80ae9cf1c60f6c1a25fff016cd1ac656607dec25569f31639cb9ff6618ffa638"
+    },
+    {
+      "path": "lib/spring-ts/data/narrative/_glossary/yongshin.json",
+      "category": "data",
+      "byteLength": 12825,
+      "sha256": "sha256:df87dd8854e0e222b2b4babc419585a4a575c1ac5f96713013336ba5b396dbcb"
+    },
+    {
+      "path": "lib/spring-ts/data/unihan-hanja-metadata.json",
+      "category": "data",
+      "byteLength": 2650995,
+      "sha256": "sha256:d2dc4a5a2953745c53c7260039705c02a6aed1120028d72892737c4d6ce3a52f"
+    },
+    {
+      "path": "lib/spring-ts/package-lock.json",
+      "category": "code",
+      "byteLength": 38115,
+      "sha256": "sha256:0e74c6d5410c11690df2e3d19e54355258f75f41c04bd56a23f7a3dec23b0a3f"
+    },
+    {
+      "path": "lib/spring-ts/package.json",
+      "category": "code",
+      "byteLength": 23357,
+      "sha256": "sha256:d85a5bc8702e03a91c3ca3495277da38d90edf0df696f7c7169fd8a79ff83bfe"
+    },
+    {
+      "path": "lib/spring-ts/src/calculator/frame-calculator.ts",
+      "category": "code",
+      "byteLength": 6215,
+      "sha256": "sha256:00505b6d307c2f7d2eb869ac88bd50753a3a5572ee8130bb6a80c1662661e617"
+    },
+    {
+      "path": "lib/spring-ts/src/calculator/hangul-calculator.ts",
+      "category": "code",
+      "byteLength": 5718,
+      "sha256": "sha256:b2ee526ed3f6c7efbac9c641859b062774717877f9727ed55638473353a02a76"
+    },
+    {
+      "path": "lib/spring-ts/src/calculator/hanja-calculator.ts",
+      "category": "code",
+      "byteLength": 4251,
+      "sha256": "sha256:48beb6241d16b8b5c5b0083751ece0c123c9387e5132baaa039a7a769cc312e6"
+    },
+    {
+      "path": "lib/spring-ts/src/calculator/search.ts",
+      "category": "code",
+      "byteLength": 5689,
+      "sha256": "sha256:263afe90d267bf021b2f24b19b51ade4af2ff858664a91a7252a88dfca0f70af"
+    },
+    {
+      "path": "lib/spring-ts/src/calendar/kasi-lunar-api.ts",
+      "category": "code",
+      "byteLength": 6647,
+      "sha256": "sha256:43f28c67dedaa5803ca93f6407d706e415dc00540851c1f6efb64c11632f5480"
+    },
+    {
+      "path": "lib/spring-ts/src/calendar/korean-lunar-calendar.ts",
+      "category": "code",
+      "byteLength": 7620,
+      "sha256": "sha256:6be6b872b33c1f653d1562615d2d537e2c682d9b945c2efad9618a045605370e"
+    },
+    {
+      "path": "lib/spring-ts/src/calendar/korean-lunar-data.ts",
+      "category": "code",
+      "byteLength": 13774,
+      "sha256": "sha256:d32142631e1c8d483525753e57f64624ec8f5e2fab309bc315c5252ee34acca1"
+    },
+    {
+      "path": "lib/spring-ts/src/candidate-selection.ts",
+      "category": "code",
+      "byteLength": 20220,
+      "sha256": "sha256:2f84f5f81fd58448b582266b859162f76780743ea2418ca46118559aa4ee368f"
+    },
+    {
+      "path": "lib/spring-ts/src/classical-vocabulary.ts",
+      "category": "code",
+      "byteLength": 4614,
+      "sha256": "sha256:9342cd34d07efc17f5cd182d092d62773550f0c5b5f21abadbd577cba97361aa"
+    },
+    {
+      "path": "lib/spring-ts/src/core/evaluator.ts",
+      "category": "code",
+      "byteLength": 4149,
+      "sha256": "sha256:f047b7c565c7881be3595cc3f027f60b6f4a339369e05d7e1d2302bb5e92bb24"
+    },
+    {
+      "path": "lib/spring-ts/src/core/model-types.ts",
+      "category": "code",
+      "byteLength": 3301,
+      "sha256": "sha256:490a8cba2d4f2e46f1a4db3ab7d89d8953bb48cbf746e3c519d51c1931ebb088"
+    },
+    {
+      "path": "lib/spring-ts/src/core/name-utils.ts",
+      "category": "code",
+      "byteLength": 5669,
+      "sha256": "sha256:768529034ec52c6455fec245d0d68e055c87d88957fd84c4cb2c61a53663d604"
+    },
+    {
+      "path": "lib/spring-ts/src/core/scoring.ts",
+      "category": "code",
+      "byteLength": 19531,
+      "sha256": "sha256:737f9893f07fff922f7b3c9fbab04f6db04ddd91fb100295385cfd09b5e70031"
+    },
+    {
+      "path": "lib/spring-ts/src/experience/candidate-id.ts",
+      "category": "code",
+      "byteLength": 4514,
+      "sha256": "sha256:615091d6df28daf8fbc22216c7ef1b690318cfdd0a75ddaaaa5f1e587b4b75ff"
+    },
+    {
+      "path": "lib/spring-ts/src/experience/candidate-search.ts",
+      "category": "code",
+      "byteLength": 14033,
+      "sha256": "sha256:3a543845a17d8d3e707dd5076555e6c257d921ab4322041246049b9ffaa5206c"
+    },
+    {
+      "path": "lib/spring-ts/src/experience/index.ts",
+      "category": "code",
+      "byteLength": 1105,
+      "sha256": "sha256:4cfc7f2b8fb469964ae16c5fbf54a91e5539ddb620766e5dc1b2b1f494ca5c1c"
+    },
+    {
+      "path": "lib/spring-ts/src/experience/local-menu-types.ts",
+      "category": "code",
+      "byteLength": 11508,
+      "sha256": "sha256:c7a80918dd489e7133d99cb305bbae0d367b0493bbb67326e7c871b8962f33a1"
+    },
+    {
+      "path": "lib/spring-ts/src/experience/local-menu.ts",
+      "category": "code",
+      "byteLength": 46573,
+      "sha256": "sha256:1774c5a76899eefceae72737e2ca6436e0b1cfc0a1ee1d9edeb2cb5cb18a4cdd"
+    },
+    {
+      "path": "lib/spring-ts/src/experience/types.ts",
+      "category": "code",
+      "byteLength": 5475,
+      "sha256": "sha256:546e8f33ff9a1af71679508ac287335dd6f685fc79fe71ed9116f12c948253c6"
+    },
+    {
+      "path": "lib/spring-ts/src/experiments.ts",
+      "category": "code",
+      "byteLength": 16393,
+      "sha256": "sha256:7e9bc02c698dd1fb5e7003bea617c0dfe4241ee5b8dcfbfd94e044f1cbbfa7d3"
+    },
+    {
+      "path": "lib/spring-ts/src/feedback.ts",
+      "category": "code",
+      "byteLength": 12136,
+      "sha256": "sha256:165a385fa70f0d26ace1186b1dd8e5ae8d8cfb270a310ceccf944a9a677a158c"
+    },
+    {
+      "path": "lib/spring-ts/src/fourframe-contract.ts",
+      "category": "code",
+      "byteLength": 321,
+      "sha256": "sha256:81ca3594d1071650d91424b195c4e83ef65ec36de2bff28114cecebd04d1289c"
+    },
+    {
+      "path": "lib/spring-ts/src/full-hanja-glyph-registry.ts",
+      "category": "code",
+      "byteLength": 7711,
+      "sha256": "sha256:f8132d0dac93483c49651e4b700491558481d6e3445d9672d7ca23e0f5b3457c"
+    },
+    {
+      "path": "lib/spring-ts/src/full-hanja-pool-data.ts",
+      "category": "code",
+      "byteLength": 359,
+      "sha256": "sha256:5b5ac6951d5bb3fd494e1c6c1c5c01ef570d5fcdd0e1cdbb1a28d35b4fe97b70"
+    },
+    {
+      "path": "lib/spring-ts/src/full-hanja-pool-loader.ts",
+      "category": "code",
+      "byteLength": 7106,
+      "sha256": "sha256:74173943d5bdf8c91998b2c4626e5c6b6f3702cd46bb341f28228bd7a4dae8f8"
+    },
+    {
+      "path": "lib/spring-ts/src/hanja-annotations.ts",
+      "category": "code",
+      "byteLength": 6543,
+      "sha256": "sha256:d8058913e4d8984c2506eb66afa3960a2798d8b0f569b3627696244c68b95f43"
+    },
+    {
+      "path": "lib/spring-ts/src/hanja-unihan.ts",
+      "category": "code",
+      "byteLength": 2179,
+      "sha256": "sha256:f507bb04e5ad43e68c7060af6bef640ff4e753768daa0b290742784e1afc8741"
+    },
+    {
+      "path": "lib/spring-ts/src/import-meta-glob.d.ts",
+      "category": "code",
+      "byteLength": 128,
+      "sha256": "sha256:de2262a4bef2a7d417db177fcf7af5829b5bba7e8daae401e36ed0998fb8a62f"
+    },
+    {
+      "path": "lib/spring-ts/src/index.ts",
+      "category": "code",
+      "byteLength": 14619,
+      "sha256": "sha256:1e56582b57a775f47964620ee9482bd0d7d07dc0d84113859f447253b0fc7f12"
+    },
+    {
+      "path": "lib/spring-ts/src/name-entry-resolver.ts",
+      "category": "code",
+      "byteLength": 21130,
+      "sha256": "sha256:b11a09f38bbeba0cf0cce2fdf289d67f55d7c5ffbf440627618eeb583d5558ba"
+    },
+    {
+      "path": "lib/spring-ts/src/name-input-contract.ts",
+      "category": "code",
+      "byteLength": 9905,
+      "sha256": "sha256:2399573e6b5e30fb281682f61b197f5cd214e924689fccda1aeb4015f15aee02"
+    },
+    {
+      "path": "lib/spring-ts/src/name-stat-contract.ts",
+      "category": "code",
+      "byteLength": 1085,
+      "sha256": "sha256:a3ec2a17909907826c41025b7e892d61018bb979dd51bbc863484f3b645780f0"
+    },
+    {
+      "path": "lib/spring-ts/src/name-stat-projection.ts",
+      "category": "code",
+      "byteLength": 4047,
+      "sha256": "sha256:81eaec586d7a2ca332d0161c046074c5429340e0e084ff330b9cf83832b83bfd"
+    },
+    {
+      "path": "lib/spring-ts/src/name-stat-summary-asset.generated.ts",
+      "category": "code",
+      "byteLength": 983,
+      "sha256": "sha256:110c4adf4e520ef435aa2f2180ea171cdfab03a37e3304a93dc8c96ff4e1060b"
+    },
+    {
+      "path": "lib/spring-ts/src/name-stat-summary-contract.ts",
+      "category": "code",
+      "byteLength": 6849,
+      "sha256": "sha256:3e49a3bd5448acc3e33a44840f6282de9ba1ee14f7b32fe543ed8d7722ab7303"
+    },
+    {
+      "path": "lib/spring-ts/src/name-stat-summary-repository.ts",
+      "category": "code",
+      "byteLength": 15629,
+      "sha256": "sha256:4394c848d7412ae9f19802218138538fc3092523dbf239d15cc356b48c0e7cfc"
+    },
+    {
+      "path": "lib/spring-ts/src/name-trend.ts",
+      "category": "code",
+      "byteLength": 6567,
+      "sha256": "sha256:9e18f61a5bad3fb4c7178d9028164ad732355575c3368278b579eebc3de1122a"
+    },
+    {
+      "path": "lib/spring-ts/src/naming-explanation.ts",
+      "category": "code",
+      "byteLength": 8124,
+      "sha256": "sha256:b2529cfdf2737d63c5bbef58cab7f08954a489df5e7b7e93281112437571117f"
+    },
+    {
+      "path": "lib/spring-ts/src/natal-evidence.ts",
+      "category": "code",
+      "byteLength": 3050,
+      "sha256": "sha256:656b56238485e67a93a1b8d67ec79b47842305d4622bd91ecd096e2931dd706d"
+    },
+    {
+      "path": "lib/spring-ts/src/operation-name-entry-repository.ts",
+      "category": "code",
+      "byteLength": 3107,
+      "sha256": "sha256:5b246f8daa0922f34d67f72343a542e14da5ef30ec1fc17c63158826ba828b34"
+    },
+    {
+      "path": "lib/spring-ts/src/phonetic-rules.ts",
+      "category": "code",
+      "byteLength": 13213,
+      "sha256": "sha256:7f09dfafc574785401fdd5b86f8306c43264c330339ab6a8636ee9af1e153843"
+    },
+    {
+      "path": "lib/spring-ts/src/preset-loader.ts",
+      "category": "code",
+      "byteLength": 5861,
+      "sha256": "sha256:2b7310fef23cbfe0a78ab1ed2d03f5e369178386b2a8c0a3facb1816aa5c5605"
+    },
+    {
+      "path": "lib/spring-ts/src/public-request-snapshot.ts",
+      "category": "code",
+      "byteLength": 14296,
+      "sha256": "sha256:19ab3cd1071ff18180127b7b6e0ca46703289dd072973223e11b5a9e7f16633f"
+    },
+    {
+      "path": "lib/spring-ts/src/region-coordinates.ts",
+      "category": "code",
+      "byteLength": 2780,
+      "sha256": "sha256:3d9428395fcf667d7669b51ac5b607fbe28d98f565d9a2f27550c6c4bd3d3ae3"
+    },
+    {
+      "path": "lib/spring-ts/src/report/analysis-options-types.ts",
+      "category": "code",
+      "byteLength": 1342,
+      "sha256": "sha256:4757a54b4bc3db9df82f70fd05b77cc526e99ba10b12864d5d63151a828446cc"
+    },
+    {
+      "path": "lib/spring-ts/src/report/analysis-options-validation.ts",
+      "category": "code",
+      "byteLength": 7062,
+      "sha256": "sha256:fb9ed4fc99c4c917429746ab95f2761c623ab020dd4542333433bf4dab434f36"
+    },
+    {
+      "path": "lib/spring-ts/src/report/buildFortuneReport.ts",
+      "category": "code",
+      "byteLength": 10906,
+      "sha256": "sha256:27ae16931ebf6b163a54e2cc2880f97ac7274b500cd67eabd387a7d764893e9a"
+    },
+    {
+      "path": "lib/spring-ts/src/report/cards/category-fortune-card.ts",
+      "category": "code",
+      "byteLength": 33257,
+      "sha256": "sha256:c17d7c335936b0fb2c04259d3777e6013ea1f3a79c43ed10a11fb2391fe402f1"
+    },
+    {
+      "path": "lib/spring-ts/src/report/cards/category-fortune-subdomain-data.ts",
+      "category": "code",
+      "byteLength": 9444,
+      "sha256": "sha256:6cfd0edb06671aaa0902a0ef31a0843438141e0e04f428bbd3705bee6f1e4fd1"
+    },
+    {
+      "path": "lib/spring-ts/src/report/cards/cautions-card.ts",
+      "category": "code",
+      "byteLength": 12789,
+      "sha256": "sha256:732d73bed4bd4dc7fae8d1f1f9b3a6ca9bdf24a7037e6633b09284c9264b77b6"
+    },
+    {
+      "path": "lib/spring-ts/src/report/cards/insight-facts-card.ts",
+      "category": "code",
+      "byteLength": 18656,
+      "sha256": "sha256:48704e4b2555151e8436e3e665bacdd9efe753e15e8c11a7e018c6301093819e"
+    },
+    {
+      "path": "lib/spring-ts/src/report/cards/life-curve-card.ts",
+      "category": "code",
+      "byteLength": 9279,
+      "sha256": "sha256:964b27fd4221f824ccd103036e01eb30b6e35c21f3ce1637f117ac97c7e25912"
+    },
+    {
+      "path": "lib/spring-ts/src/report/cards/life-fortune-overview-card.ts",
+      "category": "code",
+      "byteLength": 12559,
+      "sha256": "sha256:cbc5cbc63e3e9f78d0f99baafb0242621db5d53705c3c029731fc550b3de59d8"
+    },
+    {
+      "path": "lib/spring-ts/src/report/cards/life-stage-fortune-card.ts",
+      "category": "code",
+      "byteLength": 15376,
+      "sha256": "sha256:710a965c353668d493e8084fe1d32aaf0957e8079a90ea7aba1d54cf416737d8"
+    },
+    {
+      "path": "lib/spring-ts/src/report/cards/name-compatibility-card.ts",
+      "category": "code",
+      "byteLength": 22314,
+      "sha256": "sha256:355444e156acc32f86970245ba58a1e519d53b851c045bb94796c5133591c621"
+    },
+    {
+      "path": "lib/spring-ts/src/report/cards/overview-summary-card.ts",
+      "category": "code",
+      "byteLength": 26156,
+      "sha256": "sha256:f208733727ffc29be97a593305ce245231d940fa5f089383129b50b600d8e08a"
+    },
+    {
+      "path": "lib/spring-ts/src/report/cards/period-fortune-card.ts",
+      "category": "code",
+      "byteLength": 42375,
+      "sha256": "sha256:c32414df4b68517a0fa160380c29d9b7795d80a5ce98aaeba4b797e52ccb682a"
+    },
+    {
+      "path": "lib/spring-ts/src/report/cards/personality-card.ts",
+      "category": "code",
+      "byteLength": 11743,
+      "sha256": "sha256:30fb864c42b903150f4ce373e4d389f8e4c29b72079d14dc7fc7500051f7e433"
+    },
+    {
+      "path": "lib/spring-ts/src/report/cards/strengths-weaknesses-card.ts",
+      "category": "code",
+      "byteLength": 11867,
+      "sha256": "sha256:de44829c027bc001a70794dc3d93fb097dc3c879ec7f66baaaddfd12aa0de452"
+    },
+    {
+      "path": "lib/spring-ts/src/report/common/daeun-display.ts",
+      "category": "code",
+      "byteLength": 3505,
+      "sha256": "sha256:5cdefbdc55b5c38df17d01bed7e41a3849beee79e30d8d1bcc50e30fdd277cc6"
+    },
+    {
+      "path": "lib/spring-ts/src/report/common/elementMaps.ts",
+      "category": "code",
+      "byteLength": 16686,
+      "sha256": "sha256:628ca313ac5bba6bdae9014b191ac19b35c8272ccf78423b88a83dfc6a357655"
+    },
+    {
+      "path": "lib/spring-ts/src/report/common/fortuneCalculator.ts",
+      "category": "code",
+      "byteLength": 18595,
+      "sha256": "sha256:8e1c4c3cf139b37d69ddfd0c3029395fa5d0975bb92602cc7d251cdce8a6d4c2"
+    },
+    {
+      "path": "lib/spring-ts/src/report/common/luck-interval.ts",
+      "category": "code",
+      "byteLength": 4006,
+      "sha256": "sha256:fb6d61209866c83709c82de4918709b682e7b4631ee7576c4cdc0ab6c9d195c7"
+    },
+    {
+      "path": "lib/spring-ts/src/report/common/transit-luck-metadata.ts",
+      "category": "code",
+      "byteLength": 8184,
+      "sha256": "sha256:998cf90d94055edcd2f60154c8d1aca2e81e41348c2927afe357c92d5a4443a2"
+    },
+    {
+      "path": "lib/spring-ts/src/report/delivery/build-report-delivery.ts",
+      "category": "code",
+      "byteLength": 54997,
+      "sha256": "sha256:6a62a2072ead91da41edece15e771e914fd86adf9d95f4db5880105f6bb86b0c"
+    },
+    {
+      "path": "lib/spring-ts/src/report/delivery/index.ts",
+      "category": "code",
+      "byteLength": 547,
+      "sha256": "sha256:db1090ce9f88d5112bc7d850281ddcfb3b3a4b59b947afc68fe8383afed202ab"
+    },
+    {
+      "path": "lib/spring-ts/src/report/delivery/types.ts",
+      "category": "code",
+      "byteLength": 15704,
+      "sha256": "sha256:b6e92420456f388f94e2156f5d07f852d8ea3280573605931cc09f7aed56a60d"
+    },
+    {
+      "path": "lib/spring-ts/src/report/delivery/validation.ts",
+      "category": "code",
+      "byteLength": 72833,
+      "sha256": "sha256:6a08cd29935eb551e4fb6843a47dd013bf1ce4f35006dc82edb289e43e1e95c9"
+    },
+    {
+      "path": "lib/spring-ts/src/report/index.ts",
+      "category": "code",
+      "byteLength": 776,
+      "sha256": "sha256:1b576dc3e1784fa5b296395280014de26e5226baa0bf6f0ed0fe421bb8387117"
+    },
+    {
+      "path": "lib/spring-ts/src/report/knowledge/gyeokgukEncyclopedia.ts",
+      "category": "code",
+      "byteLength": 37542,
+      "sha256": "sha256:1392527d9418e35d86bc5957ef8a7ae6c4c6b34e050f47fdb8860ab403faa60b"
+    },
+    {
+      "path": "lib/spring-ts/src/report/knowledge/shinsalEncyclopedia.ts",
+      "category": "code",
+      "byteLength": 31272,
+      "sha256": "sha256:13e28bd23ebd22690373b22d720b952c0b1f5983cc1a6992318d7c81b5390a1a"
+    },
+    {
+      "path": "lib/spring-ts/src/report/knowledge/stemEncyclopedia.ts",
+      "category": "code",
+      "byteLength": 26035,
+      "sha256": "sha256:3ad75a390300908994774d1ef7e8cd7db4ccd81ca3e1727945e21ad6d7f66a00"
+    },
+    {
+      "path": "lib/spring-ts/src/report/knowledge/strengthEncyclopedia.ts",
+      "category": "code",
+      "byteLength": 10552,
+      "sha256": "sha256:d8432d830bdcac1d979a4b9b7f128d98d884ff6874d4424e98a589957de027d9"
+    },
+    {
+      "path": "lib/spring-ts/src/report/knowledge/tenGodEncyclopedia.ts",
+      "category": "code",
+      "byteLength": 20652,
+      "sha256": "sha256:41ed2f316f9a9bc7322a69df336bb921109af72acff85347036fbdf0aa332676"
+    },
+    {
+      "path": "lib/spring-ts/src/report/premium/index.ts",
+      "category": "code",
+      "byteLength": 2018,
+      "sha256": "sha256:2a6caa1094af992ba5ddf160036b2d3b076204b4fc1bc800f5ca7026e11e3f68"
+    },
+    {
+      "path": "lib/spring-ts/src/report/premium/types.ts",
+      "category": "code",
+      "byteLength": 12293,
+      "sha256": "sha256:873a4091fcac2f42ef6691f5a8f3b2df35a8dbcc3f0e307af52132969bc176ee"
+    },
+    {
+      "path": "lib/spring-ts/src/report/premium/validation.ts",
+      "category": "code",
+      "byteLength": 44517,
+      "sha256": "sha256:eb8b9d5d97c8c13cd4b1d46a45f2b8269bd213173d59884e29aa31e90fdcbaf6"
+    },
+    {
+      "path": "lib/spring-ts/src/report/report-input-contract.ts",
+      "category": "code",
+      "byteLength": 2617,
+      "sha256": "sha256:95d6ff04c37063485826fdfcc9c0a9f9ad3d9c9cd13306c88858fd92adb84793"
+    },
+    {
+      "path": "lib/spring-ts/src/report/tiered/article-registry.ts",
+      "category": "code",
+      "byteLength": 17775,
+      "sha256": "sha256:999556526449f38da079823fb9d28a747e7614759d705a3c74c317bdc38c4f36"
+    },
+    {
+      "path": "lib/spring-ts/src/report/tiered/article-renderer.ts",
+      "category": "code",
+      "byteLength": 7776,
+      "sha256": "sha256:e88c4dd91c479d84c7023263450496eca10165e12f53354f3244f2ce28a5b530"
+    },
+    {
+      "path": "lib/spring-ts/src/report/tiered/article-selector.ts",
+      "category": "code",
+      "byteLength": 3074,
+      "sha256": "sha256:6c546a1292318446608a491b66f61f49d9b41ce34b260ea50faeb21edd404e30"
+    },
+    {
+      "path": "lib/spring-ts/src/report/tiered/build-tiered-matrix.ts",
+      "category": "code",
+      "byteLength": 38437,
+      "sha256": "sha256:b8e6738470471230344f18c4c1364d3a238012361cd0026bfb60489366049396"
+    },
+    {
+      "path": "lib/spring-ts/src/report/tiered/cell-grader.ts",
+      "category": "code",
+      "byteLength": 1668,
+      "sha256": "sha256:4b4e1101e5748ae464186015e9a5f30667dc17262e1ef8be5ef6dc1ca1684be7"
+    },
+    {
+      "path": "lib/spring-ts/src/report/tiered/class-axes.ts",
+      "category": "code",
+      "byteLength": 7246,
+      "sha256": "sha256:ad2659c68384558a81315e32bcdda8201e119c610ea343c5210a01a428c451c0"
+    },
+    {
+      "path": "lib/spring-ts/src/report/tiered/feature-selector.ts",
+      "category": "code",
+      "byteLength": 18790,
+      "sha256": "sha256:a82730ce2de2652a12e40fe1543c4878ba078b20c8266d811e072856bccf602d"
+    },
+    {
+      "path": "lib/spring-ts/src/report/tiered/generated-registry.ts",
+      "category": "code",
+      "byteLength": 19701,
+      "sha256": "sha256:8a5cc974912ca7989b0ebfb06fc46e51ae1f70579839ddbbd80c065c9e38af9c"
+    },
+    {
+      "path": "lib/spring-ts/src/report/tiered/glossary-loader.ts",
+      "category": "code",
+      "byteLength": 17742,
+      "sha256": "sha256:49cfd1357279511cb94c79e082f41acea21da6f4199615672f7a24be4cb0dd23"
+    },
+    {
+      "path": "lib/spring-ts/src/report/tiered/immutable-json-snapshot.ts",
+      "category": "code",
+      "byteLength": 992,
+      "sha256": "sha256:4f4688401b7387b26b5da3470a66d2c747690129fde212d3c9dcc699d0becf0f"
+    },
+    {
+      "path": "lib/spring-ts/src/report/tiered/insight-registry.ts",
+      "category": "code",
+      "byteLength": 5295,
+      "sha256": "sha256:1771dccd0e012b27a8ecc504e7760459ba881048f8285995d5d8540a105aab3c"
+    },
+    {
+      "path": "lib/spring-ts/src/report/tiered/name-saju-reading.ts",
+      "category": "code",
+      "byteLength": 3154,
+      "sha256": "sha256:0df7c505c838b44b0a386553a3d15d1da84e99a8f0c5cc9cea490680fbab7a71"
+    },
+    {
+      "path": "lib/spring-ts/src/report/tiered/period-meta-builder.ts",
+      "category": "code",
+      "byteLength": 6782,
+      "sha256": "sha256:4bedaebcc1af89a0344537f668ee71bc476d42915d6b024005599ef8d920f7ac"
+    },
+    {
+      "path": "lib/spring-ts/src/report/tiered/personal-reading.ts",
+      "category": "code",
+      "byteLength": 5238,
+      "sha256": "sha256:0f1e14776158483289f20f15c8c05b33c4208422da09810405df55edc2603d2a"
+    },
+    {
+      "path": "lib/spring-ts/src/report/tiered/tag-inliner.ts",
+      "category": "code",
+      "byteLength": 2559,
+      "sha256": "sha256:b070224b817be81b5362f96e50344e4925cccc52bf25f8493fd94d9b5e29aa41"
+    },
+    {
+      "path": "lib/spring-ts/src/report/types.ts",
+      "category": "code",
+      "byteLength": 35638,
+      "sha256": "sha256:d2df9437a848d88ae3e8bb45241ec433d727e810d1c87c4a8fa2b66bc1fff635"
+    },
+    {
+      "path": "lib/spring-ts/src/saju-adapter.ts",
+      "category": "code",
+      "byteLength": 116990,
+      "sha256": "sha256:c21bf0f842e30eb59a7da2c73ffcb880a57d6b69cf11e8f0a6b6f497eb656fed"
+    },
+    {
+      "path": "lib/spring-ts/src/saju-analysis-contract.ts",
+      "category": "code",
+      "byteLength": 1137,
+      "sha256": "sha256:74fd6e87a4aacfeab6c2c054ad352fa3fe4d3634777c571fb48e725ba3fc5c11"
+    },
+    {
+      "path": "lib/spring-ts/src/saju-bridge-contract.ts",
+      "category": "code",
+      "byteLength": 35547,
+      "sha256": "sha256:ca56182abc6825358854e2feeeeefad8bf92e3a159679249d602482ada549e96"
+    },
+    {
+      "path": "lib/spring-ts/src/saju-calculator.ts",
+      "category": "code",
+      "byteLength": 74129,
+      "sha256": "sha256:56aceaddbd0f0554e77cee4f6b946118dedc6bfed4ca39f6f4ff3cdb13f6c773"
+    },
+    {
+      "path": "lib/spring-ts/src/saju-request-policy.ts",
+      "category": "code",
+      "byteLength": 12464,
+      "sha256": "sha256:7474ccc73ddd440a1dfa73c91d52384ab89a3f2669bfccc63a071136c2df1ccf"
+    },
+    {
+      "path": "lib/spring-ts/src/saju-seongpae-contract.ts",
+      "category": "code",
+      "byteLength": 1753,
+      "sha256": "sha256:2899a405946674e6bffbfd01a047c43962ff99a86a128b4eff77e6629c7ccbc0"
+    },
+    {
+      "path": "lib/spring-ts/src/saju/birth-input-contract.ts",
+      "category": "code",
+      "byteLength": 2676,
+      "sha256": "sha256:07d99ec047c949b709f29e6e4542c11ef07f95262cd9365053fdc4cd342d36b4"
+    },
+    {
+      "path": "lib/spring-ts/src/saju/birth-location.ts",
+      "category": "code",
+      "byteLength": 6147,
+      "sha256": "sha256:cd2c0965636f3be1393748767f339b0fc1e4bf63c131688fafd77adb26045e9e"
+    },
+    {
+      "path": "lib/spring-ts/src/saju/confidence-units.ts",
+      "category": "code",
+      "byteLength": 1001,
+      "sha256": "sha256:7cd6c015f7ae100a2339f8161e319faab87f6533ee5c1027984faca9af8066c7"
+    },
+    {
+      "path": "lib/spring-ts/src/saju/context-builder.ts",
+      "category": "code",
+      "byteLength": 8955,
+      "sha256": "sha256:b2750754bed67e16ee76041dd2794d0783ef345e26e353c7fa0f7eb156bce26d"
+    },
+    {
+      "path": "lib/spring-ts/src/saju/element-code.ts",
+      "category": "code",
+      "byteLength": 3118,
+      "sha256": "sha256:a824da9efde7de090c195abe8a0812d3d43d8e25b23f29ad8054afba5ba5be1e"
+    },
+    {
+      "path": "lib/spring-ts/src/saju/legacy-codec.ts",
+      "category": "code",
+      "byteLength": 4753,
+      "sha256": "sha256:35f49d1ec3c5abf975d1c6e783aefe22d738c586f8253c93661b6f135fe1e0d6"
+    },
+    {
+      "path": "lib/spring-ts/src/saju/time-policy.ts",
+      "category": "code",
+      "byteLength": 8787,
+      "sha256": "sha256:bea0b2dbdc0b917f06ffc886872b6e9debbf73dd37df71b6f019fe6e8a22bad4"
+    },
+    {
+      "path": "lib/spring-ts/src/saju/time-uncertainty.ts",
+      "category": "code",
+      "byteLength": 9049,
+      "sha256": "sha256:dcdaf3488d107750c6da8011a1187ee918b22e4a1d5473817c1cb2450d514be0"
+    },
+    {
+      "path": "lib/spring-ts/src/spring-engine.ts",
+      "category": "code",
+      "byteLength": 134350,
+      "sha256": "sha256:1e04d56b4a6f499765c43225d3c6d6969da09588478740ad202dda776624f6e4"
+    },
+    {
+      "path": "lib/spring-ts/src/spring-evaluator.ts",
+      "category": "code",
+      "byteLength": 18288,
+      "sha256": "sha256:1188e7e6f0e0ea4a2d56ced986073a1d2675c9f4797484150b926f570b86481a"
+    },
+    {
+      "path": "lib/spring-ts/src/surname-authority.ts",
+      "category": "code",
+      "byteLength": 8147,
+      "sha256": "sha256:6ba30ec891966cf4ca5f9463129852ff9031c076669f81f2e7ab7a7782a2bd30"
+    },
+    {
+      "path": "lib/spring-ts/src/target-date.ts",
+      "category": "code",
+      "byteLength": 2558,
+      "sha256": "sha256:3e9b2195f478db9c0f89afe2ee971353df7dfd350487e469f31436a805313089"
+    },
+    {
+      "path": "lib/spring-ts/src/types.ts",
+      "category": "code",
+      "byteLength": 75879,
+      "sha256": "sha256:e990b6d9e867c7fe3a082e49e2724f469c8e3175929eb754075c63340c5cc487"
+    },
+    {
+      "path": "lib/spring-ts/tsconfig.json",
+      "category": "code",
+      "byteLength": 406,
+      "sha256": "sha256:e090270664506798caefc773f96c9a8e507a7b32206d0b040c673f1d1dea1978"
+    },
+    {
+      "path": "namespring/public/data/fourframe.db",
+      "category": "data",
+      "byteLength": 802816,
+      "sha256": "sha256:80d9ce378ee0180042f6e594785d8dd767e1c022d065cbb6ca88d505c22fe32e"
+    },
+    {
+      "path": "namespring/public/data/hanja.db",
+      "category": "data",
+      "byteLength": 376832,
+      "sha256": "sha256:0f78eefc23e727937714b30215464783bf93882e5636d131c7113cfc1049e449"
+    }
+  ]
+}
