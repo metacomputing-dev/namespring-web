@@ -1640,7 +1640,10 @@ export class SajuCalculator implements EvaluableCalculator {
     const givenNameDecisions = this.givenNameEntries.map((entry, index) => this.resolveElement(entry, 'givenName', index));
     const allDecisions = [...surnameDecisions, ...givenNameDecisions];
     const arrangement = allDecisions.map(decision => decision.selectedElement);
-    const nameElements = givenNameDecisions.map(decision => decision.selectedElement);
+    // Element match counts are computed from the full Korean name, including
+    // the fixed surname. Publish the same scope so counts and evidence cannot
+    // disagree when the surname carries a yongshin/gishin element.
+    const nameElements = allDecisions.map(decision => decision.selectedElement);
     const elementStrategyEvidence = this.buildElementStrategyEvidence(allDecisions);
     const rootDist = distributionFromArrangement(
       arrangement,
@@ -1717,7 +1720,8 @@ export class SajuCalculator implements EvaluableCalculator {
           yongshinElement: '',
           heeshinElement: null,
           gishinElement: null,
-          nameElements: this.givenNameEntries.map(entry => this.legacyElementOf(entry)),
+          nameElements: [...this.surnameEntries, ...this.givenNameEntries]
+            .map(entry => this.legacyElementOf(entry)),
           yongshinMatchCount: 0,
           gishinMatchCount: 0,
           dayMasterSupportScore: 0,
@@ -1742,7 +1746,8 @@ export class SajuCalculator implements EvaluableCalculator {
         gishinElement:         elementFromSajuCode(yongshinData?.gisin) ?? null,
         nameElements:          this.nameElements.length > 0
           ? this.nameElements
-          : this.givenNameEntries.map(entry => this.legacyElementOf(entry)),
+          : [...this.surnameEntries, ...this.givenNameEntries]
+            .map(entry => this.legacyElementOf(entry)),
         yongshinMatchCount:    elementMatches?.yongshin ?? 0,
         gishinMatchCount:      elementMatches?.gisin ?? 0,
         dayMasterSupportScore: breakdown?.strength ?? 0,

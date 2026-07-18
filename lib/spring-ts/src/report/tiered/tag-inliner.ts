@@ -60,7 +60,10 @@ export function buildTagGlossary(
   const entries: Record<TagId, GlossaryEntry> = {};
   for (const tagId of usedInThisReport) {
     const entry = allEntries[tagId];
-    if (entry) entries[tagId] = entry;
+    if (!entry) {
+      throw new Error(`Missing glossary entry for referenced tag: ${tagId}`);
+    }
+    entries[tagId] = entry;
   }
   return {
     entries,

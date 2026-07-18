@@ -21,6 +21,7 @@
  */
 import type {
   SpringRequest, SajuSummary, PillarSummary, BirthInfo,
+  StrengthSummary, GyeokgukSummary,
   GyeokgukCandidateSummary, JonggyeokCandidateSummary, SourceTierMetadata,
   YongshinConsensusScoreboard, LunarConversionSummary, JieProximitySummary,
   DaeunInfoSummary, SaeunPillarSummary, WolunPillarSummary,
@@ -424,10 +425,27 @@ function normalizeStrengthLevelCode(value: unknown): string {
   if (upper === 'STRONG' || upper === 'WEAK' || upper === 'BALANCED') return upper;
 
   const compact = stripWhitespace(raw);
+  // A balanced classification can carry an isStrong/isWeak tendency in its
+  // display text. Preserve the primary classification before inspecting the
+  // parenthetical tendency so `중화(신강 경향)` never degrades to STRONG.
+  if (compact.includes('중화') || compact.includes('균형')) return 'BALANCED';
   if (compact.includes('신강')) return 'STRONG';
   if (compact.includes('신약')) return 'WEAK';
-  if (compact.includes('중화') || compact.includes('균형')) return 'BALANCED';
   return upper;
+}
+
+function canonicalStrengthLevelCode(
+  value: unknown,
+): 'STRONG' | 'BALANCED' | 'WEAK' | 'UNKNOWN' {
+  const code = normalizeStrengthLevelCode(value);
+  if (code === 'BALANCED') return 'BALANCED';
+  if (code === 'STRONG' || code === 'EXTREME_STRONG') return 'STRONG';
+  if (code === 'WEAK' || code === 'EXTREME_WEAK') return 'WEAK';
+  return 'UNKNOWN';
+}
+
+function boundedCanonicalCode(value: string): string | null {
+  return /^[A-Z][A-Z_]{0,39}$/.test(value) ? value : null;
 }
 
 function formatStrengthLevelDisplay(levelCode: string, isStrong: boolean): string {
@@ -1842,11 +1860,12 @@ function extractDayMaster(dayStemCode: string, strengthResult: LegacyStrengthRes
 //  Strength: whether the day master is strong or weak
 // ---------------------------------------------------------------------------
 
-function extractStrength(strengthResult: LegacyStrengthResultContract) {
+function extractStrength(strengthResult: LegacyStrengthResultContract): StrengthSummary {
   const isStrong = !!strengthResult?.isStrong;
   const levelCode = normalizeStrengthLevelCode(strengthResult?.level ?? '');
   return {
     level:        formatStrengthLevelDisplay(levelCode, isStrong),
+    levelCode:    canonicalStrengthLevelCode(strengthResult?.level),
     isStrong,
     totalSupport: Number(strengthResult?.score?.totalSupport) || 0,
     totalOppose:  Number(strengthResult?.score?.totalOppose)  || 0,
@@ -2013,12 +2032,23 @@ function extractGyeokgukBasis(value: any) {
   return Object.keys(out).length > 0 ? out : undefined;
 }
 
-function extractGyeokguk(gyeokgukResult: any) {
+function extractGyeokguk(gyeokgukResult: any): GyeokgukSummary {
   const seongpae = extractGyeokgukSeongpae(gyeokgukResult?.seongpae);
+  const typeCode = boundedCanonicalCode(normalizeGyeokgukTypeCode(gyeokgukResult?.type));
+  const rawCategoryCode = normalizeGyeokgukCategoryCode(gyeokgukResult?.category);
+  const categoryCode = rawCategoryCode === 'NORMAL' || rawCategoryCode === 'JONGGYEOK'
+    ? rawCategoryCode
+    : 'UNKNOWN';
+  const baseTenGodCode = gyeokgukResult?.baseSipseong
+    ? boundedCanonicalCode(normalizeTenGodCode(gyeokgukResult.baseSipseong))
+    : null;
   return {
     type:          formatGyeokgukTypeDisplay(gyeokgukResult?.type),
+    typeCode,
     category:      formatGyeokgukCategoryDisplay(gyeokgukResult?.category),
+    categoryCode,
     baseTenGod:    gyeokgukResult?.baseSipseong ? formatTenGodDisplay(gyeokgukResult.baseSipseong) : null,
+    baseTenGodCode,
     confidence:    clampRatio(gyeokgukResult?.confidence),
     reasoning:     cleanAdapterText(String(gyeokgukResult?.reasoning ?? '')),
     candidates:    extractGyeokgukCandidates(gyeokgukResult?.candidates),

@@ -730,6 +730,8 @@ export interface DayMasterSummary {
 /** Whether the day master is strong or weak, and how that was determined. */
 export interface StrengthSummary {
   readonly level: string;
+  /** Stable machine classification. UI copy in `level` must never be parsed. */
+  readonly levelCode?: 'STRONG' | 'BALANCED' | 'WEAK' | 'UNKNOWN';
   readonly isStrong: boolean;
   readonly totalSupport: number;
   readonly totalOppose: number;
@@ -836,8 +838,12 @@ export interface YongshinConsensusScoreboard {
 /** The structural pattern (gyeokguk) of the birth chart. */
 export interface GyeokgukSummary {
   readonly type: string;
+  /** Canonical upstream code retained separately from the localized label. */
+  readonly typeCode?: string | null;
   readonly category: string;
+  readonly categoryCode?: 'NORMAL' | 'JONGGYEOK' | 'UNKNOWN';
   readonly baseTenGod: string | null;
+  readonly baseTenGodCode?: string | null;
   /** Upstream gyeokguk confidence ratio in the closed interval 0..1. */
   readonly confidence: number;
   readonly reasoning: string;
@@ -1443,6 +1449,7 @@ export interface SajuCompatibility {
   readonly yongshinElement: string;
   readonly heeshinElement: string | null;
   readonly gishinElement: string | null;
+  /** Full-name element sequence: surname first, then given-name characters. */
   readonly nameElements: string[];
   readonly yongshinMatchCount: number;
   readonly gishinMatchCount: number;

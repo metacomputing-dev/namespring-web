@@ -1,11 +1,17 @@
 import assert from 'node:assert/strict';
 
 import { SpringEngine } from '../../src/index.js';
-import { snapshotSpringRequest } from '../../src/public-request-snapshot.js';
+import {
+  snapshotCandidateSearchRequestV1,
+  snapshotSpringRequest,
+} from '../../src/public-request-snapshot.js';
 
 const PUBLIC_INPUT_ERROR =
   'Spring public request inputs must contain only bounded JSON-compatible plain data.';
 const MAX_STRING_LENGTH = 16_384;
+const LOCAL_MAX_DEPTH = 32;
+const LOCAL_MAX_ARRAY_LENGTH = 512;
+const LOCAL_MAX_STRING_LENGTH = 4_096;
 
 function baseRequest(extra: Record<string, unknown> = {}): any {
   return {
@@ -27,6 +33,26 @@ function assertInvalid(value: unknown, label: string): void {
     },
     label,
   );
+}
+
+function assertInvalidLocal(value: unknown, label: string): void {
+  assert.throws(
+    () => snapshotCandidateSearchRequestV1(value as any),
+    (error: unknown) => {
+      assert.ok(error instanceof TypeError, label);
+      assert.equal(error.message, PUBLIC_INPUT_ERROR, label);
+      return true;
+    },
+    label,
+  );
+}
+
+function nestedValue(relativeDepth: number, leaf: unknown = 'leaf'): unknown {
+  let value = leaf;
+  for (let depth = 0; depth < relativeDepth; depth += 1) {
+    value = { child: value };
+  }
+  return value;
 }
 
 {
@@ -72,6 +98,42 @@ function assertInvalid(value: unknown, label: string): void {
   assertInvalid(
     baseRequest({ options: { sajuConfig: { repeated: new Array(65).fill(trusted) } } }),
     'trusted subtree reuse must not bypass the aggregate budget',
+  );
+}
+
+{
+  const oversizedLocalValues = [
+    ['string', 'x'.repeat(LOCAL_MAX_STRING_LENGTH + 1)],
+    ['array', new Array(LOCAL_MAX_ARRAY_LENGTH + 1).fill(0)],
+    ['depth', nestedValue(LOCAL_MAX_DEPTH)],
+  ] as const;
+
+  for (const [kind, payload] of oversizedLocalValues) {
+    const raw = baseRequest({ unknownPayload: payload });
+    assertInvalidLocal(raw, `raw local ${kind} limit must fail closed`);
+    const trustedUnderDefaultLimits = snapshotSpringRequest(raw);
+    assertInvalidLocal(
+      trustedUnderDefaultLimits,
+      `trusted local ${kind} limit must match the raw path`,
+    );
+  }
+
+  const localSnapshot = snapshotCandidateSearchRequestV1(baseRequest({
+    unknownPayload: 'x'.repeat(LOCAL_MAX_STRING_LENGTH),
+  }));
+  assert.strictEqual(
+    snapshotSpringRequest(localSnapshot),
+    localSnapshot,
+    'a snapshot validated under local limits can be reused under default limits',
+  );
+}
+
+{
+  const shared = nestedValue(20);
+  const deepAlias = nestedValue(12, shared);
+  assertInvalidLocal(
+    baseRequest({ shallowAlias: shared, deepAlias }),
+    'a completed alias must retain its relative depth at every occurrence',
   );
 }
 

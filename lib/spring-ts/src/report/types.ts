@@ -642,9 +642,11 @@ export interface TieredGeneratedContentMeta {
 export interface TieredMatrixMeta {
   readonly schemaVersion: 'spring-ts.tiered-matrix.v1';
   readonly generatedAt: string;
-  /** Deterministic seed used to pick fragments from variant pools.
-   *  Same input → same fragment selection. Hash of
-   *  (birth + targetDate + period + category + depth). */
+  /**
+   * @deprecated Versioned pseudonymous fingerprint of the internal selection
+   * key. It is not cryptographic anonymization and must not be treated as an
+   * identity or authorization token. New delivery DTOs omit it entirely.
+   */
   readonly selectionSeed: string;
   /** Frozen contract version this matrix was built against
    *  (`data/narrative/_contract/v1.json`). */
@@ -705,18 +707,18 @@ export interface TieredPersonalReading {
   readonly cautions: readonly TieredCategoryId[];
 }
 
-/** N1 name↔saju reinforcement — one grounded plain-language sentence about how
- *  the name supports the chart's needed element. Jargon-free, conditioned on the
- *  real `yongshinMatchCount` (honest when zero). Optional/additive: absent when
- *  no name/compatibility data is available or the yongshin is unresolved. */
+/** N1 name↔saju element-match summary. This is deliberately a bounded signal,
+ *  not a causal claim or a combined-balance score. */
 export interface TieredNameSajuReading {
   readonly source: 'spring-ts.tiered.nameSajuReading';
-  /** One plain sentence about the name's timing benefit. No jargon. */
+  /** Short plain-language summary of the observed match counts. */
   readonly sentence: string;
-  /** Does the name carry the needed (yongshin) element at all? */
+  /** Backward-compatible positive-match flag. */
   readonly reinforces: boolean;
-  /** How many name characters carry the needed element. */
+  readonly classification: 'supportive' | 'mixed' | 'caution' | 'neutral';
   readonly yongshinMatchCount: number;
+  readonly gishinMatchCount: number;
+  readonly evidenceBasis: 'yongshin-gishin-character-count';
 }
 
 export interface FortuneTieredMatrix {

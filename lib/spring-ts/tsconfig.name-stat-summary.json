@@ -4,6 +4,7 @@
     "noEmit": true
   },
   "include": [
+    "src/import-meta-glob.d.ts",
     "src/name-stat-summary-asset.generated.ts",
     "src/name-stat-summary-contract.ts",
     "src/name-stat-summary-repository.ts",
