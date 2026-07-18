@@ -47,7 +47,9 @@ console.log('KASI lunar API option (감사 B1)\n');
 
 // ── 목서버 ──
 let mode: 'ok' | 'error-code' | 'hang' | 'body-hang' | 'oversized-body' = 'ok';
+let requestCount = 0;
 const server = http.createServer((req, res) => {
+  requestCount += 1;
   if (mode === 'hang') return; // 응답 보류 → 클라이언트 타임아웃
   if (mode === 'body-hang') {
     res.writeHead(200, { 'Content-Type': 'application/xml' });
@@ -91,15 +93,59 @@ mode = 'error-code';
 check('resultCode!=00 → null',
   (await kasiLunarToSolar({ year: 2025, month: 6, day: 1, isLeapMonth: true }, { serviceKey: 'TEST_KEY', baseUrl })) === null);
 
+check('malformed explicit base URL fails closed without throwing',
+  (await kasiLunarToSolar(
+    { year: 2025, month: 6, day: 1, isLeapMonth: true },
+    { serviceKey: 'TEST_KEY', baseUrl: 'not-a-url' },
+  )) === null);
+
+const requestCountBeforeInvalidTimeouts = requestCount;
+const invalidTimeoutResults = await Promise.all(
+  [Number.NaN, Number.POSITIVE_INFINITY, 0, -1, 60_001, 1.5].map((timeoutMs) =>
+    kasiLunarToSolar(
+      { year: 2025, month: 6, day: 1, isLeapMonth: true },
+      { serviceKey: 'TEST_KEY', baseUrl, timeoutMs },
+    )),
+);
+check('invalid timeout values fail closed without starting an external request',
+  invalidTimeoutResults.every((result) => result === null)
+    && requestCount === requestCountBeforeInvalidTimeouts,
+  JSON.stringify({ results: invalidTimeoutResults, requestCount }));
+
 // 3. 서비스키 부재 (env 트리오도 비움)
 const savedEnv = {
   KASI_LUNISOLAR_SERVICE_KEY: process.env.KASI_LUNISOLAR_SERVICE_KEY,
   KASI_DATA_GO_KR_SERVICE_KEY: process.env.KASI_DATA_GO_KR_SERVICE_KEY,
   DATA_GO_KR_SERVICE_KEY: process.env.DATA_GO_KR_SERVICE_KEY,
+  KASI_LUNISOLAR_API_URL: process.env.KASI_LUNISOLAR_API_URL,
 };
+process.env.KASI_LUNISOLAR_SERVICE_KEY = 'TEST_KEY';
+process.env.KASI_LUNISOLAR_API_URL = 'not-a-url';
+check('malformed environment base URL fails closed without throwing',
+  (await kasiLunarToSolar(
+    { year: 2025, month: 6, day: 1, isLeapMonth: true },
+  )) === null);
+const malformedEnvFallback = await analyzeSajuSafe(
+  {
+    year: 2025, month: 6, day: 1, hour: 9, minute: 30,
+    gender: 'female', calendarType: 'lunar', isLeapMonth: true, timezone: 'Asia/Seoul',
+  },
+  { precisionConfig: { lunarConversionSource: 'kasi' } as any },
+);
+const malformedEnvConversion = (malformedEnvFallback.summary as Record<string, any>).lunarConversion;
+check('malformed KASI configuration preserves the built-in lunar fallback',
+  malformedEnvFallback.sajuEnabled === true
+    && malformedEnvConversion?.source === 'builtin'
+    && malformedEnvConversion?.kasiFallback === true,
+  JSON.stringify({
+    enabled: malformedEnvFallback.sajuEnabled,
+    source: malformedEnvConversion?.source,
+    kasiFallback: malformedEnvConversion?.kasiFallback,
+  }));
 delete process.env.KASI_LUNISOLAR_SERVICE_KEY;
 delete process.env.KASI_DATA_GO_KR_SERVICE_KEY;
 delete process.env.DATA_GO_KR_SERVICE_KEY;
+delete process.env.KASI_LUNISOLAR_API_URL;
 mode = 'ok';
 check('서비스키 부재 → null',
   (await kasiLunarToSolar({ year: 2025, month: 6, day: 1, isLeapMonth: true }, { baseUrl })) === null);
