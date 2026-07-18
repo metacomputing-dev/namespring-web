@@ -14,7 +14,7 @@ import { utcMsFromParts } from './utc.js';
  * Goals:
  * - Math-first (longitude roots) rather than lookup tables
  * - Minimal, explicit data only for (id ↔ longitude ↔ rough bracket date)
- * - Cache by (method, year)
+ * - Bounded cache by the calculation inputs that can affect an instant
  */
 
 export type SolarTermMethod = 'approx' | 'meeus';
@@ -375,6 +375,9 @@ export function solarTermUtcMsForLongitude(
 
 type FrozenSolarTerm = Readonly<SolarTermInstant>;
 
+// Large enough for the supported 1900..2050 product window under several
+// precision policies, while keeping adversarial year/policy churn bounded.
+const MAX_CACHED_YEAR_POLICIES = 512;
 const cacheByYearAndPolicy = new Map<string, Map<SolarTermId, FrozenSolarTerm>>();
 
 function solarTermCacheKey(
@@ -384,7 +387,29 @@ function solarTermCacheKey(
   aberrationModel: AberrationModel,
   solarPrecision: SolarPrecision,
 ): string {
+  // The approximate path returns the rough calendar date before consulting
+  // algorithm, aberration, or precision. Canonicalizing those no-op inputs
+  // prevents twelve byte-identical policy families from occupying the cache.
+  if (method === 'approx') return `approx:${year}`;
   return `${method}:${algorithm}:${aberrationModel}:${solarPrecision}:${year}`;
+}
+
+function cacheTermsForYearPolicy(
+  key: string,
+): Map<SolarTermId, FrozenSolarTerm> {
+  const cached = cacheByYearAndPolicy.get(key);
+  if (cached) return cached;
+
+  const termsById = new Map<SolarTermId, FrozenSolarTerm>();
+  cacheByYearAndPolicy.set(key, termsById);
+
+  if (cacheByYearAndPolicy.size > MAX_CACHED_YEAR_POLICIES) {
+    // Map iteration follows insertion order. FIFO is deterministic and avoids
+    // rewriting the same key up to 24 times on a full cached-year read.
+    const oldestKey = cacheByYearAndPolicy.keys().next().value;
+    if (oldestKey !== undefined) cacheByYearAndPolicy.delete(oldestKey);
+  }
+  return termsById;
 }
 
 function getOrComputeSolarTerm(
@@ -396,11 +421,7 @@ function getOrComputeSolarTerm(
   solarPrecision: SolarPrecision,
 ): FrozenSolarTerm {
   const key = solarTermCacheKey(year, method, algorithm, aberrationModel, solarPrecision);
-  let termsById = cacheByYearAndPolicy.get(key);
-  if (!termsById) {
-    termsById = new Map<SolarTermId, FrozenSolarTerm>();
-    cacheByYearAndPolicy.set(key, termsById);
-  }
+  const termsById = cacheTermsForYearPolicy(key);
 
   const cached = termsById.get(spec.id);
   if (cached) return cached;
