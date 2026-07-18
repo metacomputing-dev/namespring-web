@@ -141,7 +141,7 @@ holdout과 재캘리브레이션 전에는 제품 기본값으로 승인하지 �
 > **정본: `docs/dossiers/f2-johoo-2026-07-12/DOSSIER.md`** (현재 checkout의 saju-ts `src/`를 직접 검증하는 `verify-f2.mjs` 동봉). freeze `6fb2f68a4`에서 시작해 현재 source 기대값으로 재검증한 감사 산출물.
 
 - **F2 조후위급**: 기본 3항 모델에서 dossier 표에 열거한 조후 오행 C와 비교 오행 B의 역할 충돌이 있고 `prefGap >= G`인 경우에만 C의 1위 역전이 불가능하다. 조후와 억부가 일치하거나 다른 역할 조합에는 일반화하지 않는다. 5표본은 조건 사례이며 극단 강약 전체에 대한 전칭 증명이 아니다. **기본 동작 변경은 dossier §7 전문가 질문 7개 답변 전 금지**(default-change 대상).
-- **감사 티켓 T1~T7**: dossier 부록 A 표 참조. T1·T3·T5는 코드 수정 완료 후 명리 검토 대기, T7은 계수 인벤토리 문서화 완료다. T2(HUA_QI/ZHUAN_WANG veto 우회)·T4(consensus conflictLevel 상수 'high')는 열려 있고, T6(희신/기신 유도)는 전문가 검토 대기다.
+- **감사 티켓 T1~T7**: dossier 부록 A 표 참조. T1·T3·T5는 코드 수정 완료 후 명리 검토 대기, T2(HUA_QI/ZHUAN_WANG veto 우회)는 `4ffed280e`, T4(consensus clarity/conflict 혼합)는 `8dc06b28d`에서 회귀 고정했고 T7은 계수 인벤토리 문서화 완료다. T6(희신/기신 유도)는 전문가 검토 대기다.
 - 확인된 불변식(재감사 불요): 시간 경계 이중 적용 없음, 관계 탐지 중복 방출 없음, 오행 분포 이중 계상 없음, 신강약 상호작용 (1+f) 층 한정 준수.
 
 ## I. 2026-07-12 정책 계수(magic number) 감사 인계 (Codex 필독)
@@ -149,8 +149,8 @@ holdout과 재캘리브레이션 전에는 제품 기본값으로 승인하지 �
 > **정본: `docs/dossiers/coefficient-policy-2026-07-12/DOSSIER.md`** (+ 기계 판독본 `inventory.json` 56건). freeze `6fb2f68a4` 기준 읽기 전용 감사 산출물 — **수치 변경 제안 없음**(캘리브레이션 절차 대상).
 
 - P0 없음. **P1 4건**: 용신 가중이 비정규화 신호에 곱해짐(P1-A) / 충형파해 감쇠 4벌 서열 모순(P1-B) / 내부 계수와 프리셋 정책 표면의 소유권 혼재(P1-C) / 정규화 상수 다중 정의(P1-D). 현재 18개 프리셋 중 직접 `yongshin.weights` overlay는 12개이며, transformations·oneElement·competition·methodSelector·conditions도 제한적으로 변주한다. 단위 불일치 C-3(기반 감쇠 ×/raw 혼용)·C-4(decisiveMargin raw 단위)·C-6(신살 점수 이중 체계), rootNorm=0 가드 방향 불일치(강약 fail-open ↔ 격국 fail-closed).
-- **티켓 G1~G5는 상호 독립**이다. G1~G3은 로직 무변경, G4는 기본 config 불변이지만 비기본 `norm<=0` 산출 변경, G5는 승인 전 현행동작 characterization으로만 허용한다. 변경 허용 범위·필수 테스트·전문가 판단 여부는 DOSSIER §G에 명기했다.
-- F1은 코드 수정 완료 후 검토 대기이고 F4/F7은 별도 대기다. 이 dossier는 해당 영역을 재분석하지 않고 인벤토리에만 수록한다. [캘리브] 태그 수치는 명리적 승인 상태가 아니며 authority holdout 전 변경 금지.
+- **티켓 G1~G5는 상호 독립**이다. G1~G3은 로직 무변경, G4는 `4ffed280e`에서 fail-closed로 완료되어 기본 config는 불변이고 비기본 `norm<=0` 산출만 변경된다. G5는 승인 전 현행동작 characterization으로만 허용한다. 변경 허용 범위·필수 테스트·전문가 판단 여부는 DOSSIER §G에 명기했다.
+- F1은 코드 수정 완료 후 검토 대기이고 F4/F7의 런타임 결함은 각각 `4ffed280e`·`8dc06b28d`에서 회귀 고정했다. 이는 명리 authority 승인을 뜻하지 않는다. [캘리브] 태그 수치는 명리적 승인 상태가 아니며 authority holdout 전 변경 금지.
 
 ## J. 2026-07-15 격국 선택·품질 증거 분리 인계
 

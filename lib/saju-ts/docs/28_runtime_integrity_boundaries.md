@@ -23,6 +23,41 @@ Solar-term caches store frozen internal records and return a fresh array with
 fresh term objects on every call. Mutating a report or trace term cannot alter
 the year/month pillars of a later request.
 
+The year-policy cache is bounded to 512 entries. Approximate-mode keys omit
+algorithm, aberration, and precision options that cannot affect that mode, so
+equivalent requests share one entry instead of creating policy-cardinality
+leaks.
+
+Default graph evaluation materializes only the 36 Jie boundaries needed for
+the requested year and its adjacent years. Explicit `alwaysCompute=true`
+retains the complete 72-term diagnostic surface. Regression tests require the
+selective and full paths to produce byte-identical legacy output.
+
+### Bounded official-calendar responses
+
+The KASI lunar-calendar transport keeps its timeout active until the response
+body is fully consumed and rejects bodies over 256 KiB by declared or observed
+size. A server that sends headers and then stalls, or streams an oversized
+payload, now fails closed instead of holding a worker or growing memory
+without a bound.
+
+### Finite signal and normalization semantics
+
+An explicit finite zero is an authoritative rule veto. HUA_QI, ZHUAN_WANG,
+follow-pattern, competition, and compiled-rule readers fall back only when a
+signal is absent, non-numeric, or non-finite.
+
+Normalization denominators that are zero, negative, or non-finite contribute
+zero. They are never replaced with a tiny positive denominator that could
+inflate an invalid signal into a maximum score.
+
+### Yongshin consensus semantics
+
+Consensus confidence measures scale-invariant top-two selection clarity.
+Conflict level is computed separately from disagreement among active method
+axes. A clear selection and a method conflict can therefore coexist without
+one field being used as a proxy for the other.
+
 ### Fail-closed legacy contract
 
 `LegacySajuOutputV1` requires every calculation node it publishes. Disabling

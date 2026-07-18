@@ -146,9 +146,9 @@ pref는 t의 1차식(RESOURCE 1.0−1.2t, COMPANION 0.6−0.7t, OUTPUT −0.2+t,
 | 티켓 | 발견 | 위치 | 내용 | 상태 |
 |---|---|---|---|---|
 | T1 | F1 (P0) | facts.ts 격 후보 선정 | 일간 자신을 투간 증거에서 제외하고 탈락 증거를 보존. 甲日亥月·丙日寅月 오분류와 토 잡기월 strict/compat 경계를 회귀 고정 | **코드 수정 완료(PR #671, `4426696af`); 독립 명리 authority 검토 대기** |
-| T2 | F4 (P1) | defaultRuleSets.ts:46-108, gyeokguk.ts:364-418 | HUA_QI/ZHUAN_WANG 룰 `if factor>0 else fallback`이 조건팩 veto(0)를 우회 — exists 검사로 0/undefined 구분 | 대기 |
+| T2 | F4 (P1) | defaultRuleSets.ts:46-108, gyeokguk.ts:364-418 | HUA_QI/ZHUAN_WANG 룰 `if factor>0 else fallback`이 조건팩 veto(0)를 우회 — exists 검사로 0/undefined 구분 | **완료 (`4ffed280e`): finite 0 veto를 보존하고 undefined·비수치·비유한 값만 fallback. HUA_QI·ZHUAN_WANG·follow 경로 회귀 테스트 통과** |
 | T3 | F3 (P1) | gyeokgukSeongpae.ts·gyeokguk.ts | 월지 형충 동일 증거의 quality/seongpae 이중 감점을 제거하고 provenance를 분리 | **완료 (`68af0eb2f`, `632d64dd1`), 회귀 테스트 통과** |
-| T4 | F7 (P1) | yongshin.ts:502-516 | consensus confidence=0.35 상수·conflictLevel 항상 'high'(6/6 실측) — margin 정규화+임계 재보정 | 대기 |
+| T4 | F7 (P1) | yongshin.ts:502-516 | consensus confidence=0.35 상수·conflictLevel 항상 'high'(6/6 실측) — margin 정규화+임계 재보정 | **완료 (`8dc06b28d`): scale-invariant top-margin과 실제 방법축 불일치를 분리. 17개 fixture 324개 합의도 검증 통과, 선택 용신·희신 불변** |
 | T5 | F6 (P1) | strengthFacts.ts | 관성 기반 감쇠를 위치가중→정규화→배율층으로 통일 | **완료 (`68af0eb2f`, `9951181a8`), 회귀 테스트 통과** |
 | T6 | F8 (P2) | springLegacy.ts:1494-1496·1940-1942 | finalHeesin=랭킹2위/gisin=최하위 기계 유도 — primaryMethod 인지형으로 (교리 검토 병행) | 대기 |
 | T7 | F12 (P2) | 계수 dossier·inventory.json | 무전거 magic 계수 56건 인벤토리 문서화(코드 무변경) | **이 스택에서 완료** |
