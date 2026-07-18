@@ -180,6 +180,7 @@
     "@types/node": "^25.2.3",
     "@types/sql.js": "^1.4.9",
     "better-sqlite3": "^12.9.0",
+    "esbuild": "0.28.1",
     "tsx": "4.23.0",
     "tyme4ts": "^1.4.6",
     "typescript": "^5.9.3"

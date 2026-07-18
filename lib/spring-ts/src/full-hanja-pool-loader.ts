@@ -1,12 +1,12 @@
 import type { HanjaEntry } from '../../seed-ts/src/database/hanja-repository.js';
 import engineConfig from '../config/engine.json';
 import { decomposeHangul } from './core/name-utils.js';
+import { FULL_HANJA_GLYPHS } from './full-hanja-glyph-registry.js';
 import { getEnrichedStrokeCount, getUnihanMetadata } from './hanja-unihan.js';
 
 export const FULL_HANJA_POOL_LOAD_FAILED = 'FULL_HANJA_POOL_LOAD_FAILED' as const;
 export const FULL_HANJA_POOL_INTEGRITY_FAILED = 'FULL_HANJA_POOL_INTEGRITY_FAILED' as const;
 
-const EXPECTED_FULL_POOL_ENTRY_COUNT = 9_495;
 const FULL_POOL_ID_BASE = 900_000;
 const STROKE_MIN = engineConfig.strokeRange.min;
 const STROKE_MAX = engineConfig.strokeRange.max;
@@ -50,15 +50,11 @@ export type FullHanjaPoolDataImporter = () => Promise<unknown>;
 
 export interface FullHanjaPoolLoaderOptions {
   readonly importer?: FullHanjaPoolDataImporter;
-  readonly expectedEntryCount?: number;
+  readonly expectedGlyphs?: readonly string[];
 }
 
 function failIntegrity(): never {
   throw new FullHanjaPoolIntegrityError();
-}
-
-function isSingleGlyph(value: string): boolean {
-  return Array.from(value.trim()).length === 1;
 }
 
 function isSingleHangulSyllable(value: string): boolean {
@@ -74,22 +70,22 @@ function elementFromStrokeCount(strokes: number): string {
   return 'Water';
 }
 
-function parseDocument(value: unknown, expectedEntryCount: number): FullPoolDataDocument {
+function parseDocument(value: unknown, expectedGlyphs: readonly string[]): FullPoolDataDocument {
   if (value === null || typeof value !== 'object' || Array.isArray(value)) failIntegrity();
   const document = value as Partial<FullPoolDataDocument>;
   if (document.schemaVersion !== '1.0.0-full'
-    || document.totalCount !== expectedEntryCount
+    || document.totalCount !== expectedGlyphs.length
     || !Array.isArray(document.entries)
-    || document.entries.length !== expectedEntryCount) {
+    || document.entries.length !== expectedGlyphs.length) {
     failIntegrity();
   }
 
   const seenGlyphs = new Set<string>();
-  for (const entry of document.entries) {
+  for (const [index, entry] of document.entries.entries()) {
     if (entry === null || typeof entry !== 'object' || Array.isArray(entry)) failIntegrity();
     const candidate = entry as Partial<FullPoolDataEntry>;
     if (typeof candidate.hanja !== 'string'
-      || !isSingleGlyph(candidate.hanja)
+      || candidate.hanja !== expectedGlyphs[index]
       || typeof candidate.codepoint !== 'string'
       || !/^U\+[0-9A-F]{4,6}$/.test(candidate.codepoint)
       || Number.parseInt(candidate.codepoint.slice(2), 16) !== candidate.hanja.codePointAt(0)
@@ -158,10 +154,13 @@ export function createFullHanjaPoolLoader(
   options: FullHanjaPoolLoaderOptions = {},
 ): () => Promise<readonly HanjaEntry[]> {
   const importer = options.importer ?? importFullHanjaPoolData;
-  const expectedEntryCount = options.expectedEntryCount ?? EXPECTED_FULL_POOL_ENTRY_COUNT;
-  if (!Number.isSafeInteger(expectedEntryCount) || expectedEntryCount < 0) {
-    throw new TypeError('expectedEntryCount must be a non-negative safe integer.');
+  const inputExpectedGlyphs = options.expectedGlyphs ?? FULL_HANJA_GLYPHS;
+  if (!Array.isArray(inputExpectedGlyphs)
+    || inputExpectedGlyphs.some((glyph) => typeof glyph !== 'string' || Array.from(glyph).length !== 1)
+    || new Set(inputExpectedGlyphs).size !== inputExpectedGlyphs.length) {
+    throw new TypeError('expectedGlyphs must contain unique single-code-point strings.');
   }
+  const expectedGlyphs = Object.freeze([...inputExpectedGlyphs]);
 
   let cachedAttempt: Promise<readonly HanjaEntry[]> | null = null;
   return function load(): Promise<readonly HanjaEntry[]> {
@@ -169,13 +168,11 @@ export function createFullHanjaPoolLoader(
 
     const attempt = Promise.resolve()
       .then(() => importer())
-      .then((value) => materializeEntries(parseDocument(value, expectedEntryCount)))
+      .then((value) => materializeEntries(parseDocument(value, expectedGlyphs)))
       .catch((error: unknown) => {
+        if (error instanceof FullHanjaPoolIntegrityError) throw error;
         if (cachedAttempt === attempt) cachedAttempt = null;
-        if (error instanceof FullHanjaPoolIntegrityError
-          || error instanceof FullHanjaPoolLoadError) {
-          throw error;
-        }
+        if (error instanceof FullHanjaPoolLoadError) throw error;
         throw new FullHanjaPoolLoadError(error);
       });
     cachedAttempt = attempt;
