@@ -323,6 +323,38 @@ describe('school preset pack integrity', () => {
     expect(error.message).not.toContain('not-a-number');
   });
 
+  it('rejects an enabled single-method competition from a pack rule-spec block', () => {
+    const customPack = pack(
+      [preset('child', { include: { ruleSpecBlocks: ['rule'] } })],
+      {
+        ruleSpecBlocks: {
+          rule: {
+            target: 'gyeokguk',
+            spec: {
+              id: 'invalid-gyeokguk-competition',
+              version: '1',
+              base: 'none',
+              mode: 'append',
+              policy: {
+                competition: {
+                  enabled: true,
+                  methods: ['follow'],
+                },
+              },
+              macros: [{ kind: 'monthMainTenGod' }],
+            },
+          },
+        },
+      },
+    );
+
+    const error = capturePackError(() => normalizeConfig(
+      configWithPack(customPack) as any,
+    ));
+    expect(error.path).toContain('ruleSpecBlocks.rule');
+    expect(error.path).toMatch(/policy\.competition\.methods$/u);
+  });
+
   it('keeps unknown rule targets open without prototype-key pollution', () => {
     const customPack = pack(
       [preset('child', { include: { ruleSpecBlocks: ['future'] } })],

@@ -56,6 +56,7 @@ interface FakeHttpStreamState {
 function fakeHttpResponse(
   chunks: readonly Uint8Array[],
   declaredLength?: string,
+  contentEncoding?: string,
 ): { readonly response: Response; readonly state: FakeHttpStreamState } {
   const state: FakeHttpStreamState = {
     readCalls: 0,
@@ -90,9 +91,14 @@ function fakeHttpResponse(
       ok: true,
       status: 200,
       headers: new Headers(
-        declaredLength === undefined
-          ? undefined
-          : { 'content-length': declaredLength },
+        {
+          ...(declaredLength === undefined
+            ? {}
+            : { 'content-length': declaredLength }),
+          ...(contentEncoding === undefined
+            ? {}
+            : { 'content-encoding': contentEncoding }),
+        },
       ),
       body,
     } as unknown as Response,
@@ -718,6 +724,53 @@ test('default HTTP reader accepts the exact committed asset size', async () => {
   assert.equal(state.getReaderCalls, 1);
   assert.equal(state.readCalls, 3);
   assert.equal(state.cancelCalls, 0);
+  repository.close();
+});
+
+test('default HTTP reader does not compare encoded wire length with the decoded body', async () => {
+  const splitAt = Math.floor(committedBytes.byteLength / 2);
+  const { response, state } = fakeHttpResponse(
+    [committedBytes.slice(0, splitAt), committedBytes.slice(splitAt)],
+    '17',
+    'br',
+  );
+  const repository = new NameStatSummaryRepository({
+    assetUrl: new URL('https://example.test/name-stat-summary.v1.bin'),
+  });
+
+  const projection = await withFetchResponse(
+    response,
+    () => repository.findByName('\uAE30\uD0C0'),
+  );
+  assert.deepEqual(projection, {
+    popularityRank: null,
+    maleBirths: 0,
+    femaleBirths: 0,
+  });
+  assert.equal(state.getReaderCalls, 1);
+  assert.equal(state.cancelCalls, 0);
+  repository.close();
+});
+
+test('default HTTP reader cancels a non-success response before throwing', async () => {
+  const { response: okResponse, state } = fakeHttpResponse([]);
+  const response = {
+    ...okResponse,
+    ok: false,
+    status: 503,
+  } as Response;
+  const repository = new NameStatSummaryRepository({
+    assetUrl: new URL('https://example.test/name-stat-summary.v1.bin'),
+  });
+
+  await withFetchResponse(response, async () => {
+    await assert.rejects(
+      repository.findByName('\uAE30\uD0C0'),
+      /HTTP 503/u,
+    );
+  });
+  assert.equal(state.getReaderCalls, 0);
+  assert.equal(state.cancelCalls, 1);
   repository.close();
 });
 

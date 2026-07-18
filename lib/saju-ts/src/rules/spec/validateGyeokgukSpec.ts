@@ -77,6 +77,17 @@ function assertGyeokgukCompetition(
     `${path}.methods`,
     { unique: true },
   );
+  if (
+    value.enabled === true
+    && Array.isArray(value.methods)
+    && value.methods.length < 2
+  ) {
+    fail(
+      target,
+      `${path}.methods`,
+      'at least two unique competition methods when enabled',
+    );
+  }
   assertOptionalFiniteNumber(
     value,
     'power',

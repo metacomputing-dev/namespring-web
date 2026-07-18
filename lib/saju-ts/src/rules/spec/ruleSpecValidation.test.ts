@@ -391,6 +391,20 @@ describe('known rule-spec runtime validation', () => {
     expect(badPower.path).toContain('.power');
   });
 
+  it('rejects an enabled gyeokguk rule-spec competition with fewer than two methods', () => {
+    const error = captureInvalid(() => compileGyeokgukRuleSpec({
+      ...spec({ kind: 'monthMainTenGod' }),
+      policy: {
+        competition: {
+          enabled: true,
+          methods: ['follow'],
+        },
+      },
+    } as any));
+
+    expect(error.path).toContain('.policy.competition.methods');
+  });
+
   it('keeps ratio and score-penalty ranges aligned with compiler semantics', () => {
     const zeroRatio = captureInvalid(() => compileYongshinRuleSpec(spec({
       kind: 'followWeakPressure',
