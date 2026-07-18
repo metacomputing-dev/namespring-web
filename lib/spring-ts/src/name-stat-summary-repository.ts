@@ -91,7 +91,103 @@ async function readLocalAsset(url: URL, signal: AbortSignal): Promise<Uint8Array
   return assertByteArray(await fileSystem.readFile(url, { signal })).slice();
 }
 
-async function readDefaultAsset(url: URL, signal: AbortSignal): Promise<Uint8Array> {
+async function readBoundedHttpAsset(
+  response: Response,
+  signal: AbortSignal,
+  expectedByteLength: number,
+): Promise<Uint8Array> {
+  const declaredLength = response.headers.get('content-length');
+  if (declaredLength !== null) {
+    const parsedLength = Number(declaredLength);
+    if (
+      !Number.isSafeInteger(parsedLength)
+      || parsedLength < 0
+      || parsedLength !== expectedByteLength
+    ) {
+      try {
+        await response.body?.cancel();
+      } catch {
+        // Preserve the integrity failure even when a transport rejects cancel.
+      }
+      throw integrityError(
+        'compressed_byte_length_mismatch',
+        expectedByteLength,
+        Number.isSafeInteger(parsedLength) && parsedLength >= 0
+          ? parsedLength
+          : declaredLength,
+      );
+    }
+  }
+
+  if (!response.body) {
+    throw integrityError(
+      'compressed_byte_length_mismatch',
+      expectedByteLength,
+      0,
+    );
+  }
+
+  const reader = response.body.getReader();
+  const bytes = new Uint8Array(expectedByteLength);
+  let receivedByteLength = 0;
+  let readerCancelled = false;
+  const cancelReader = (reason?: unknown): Promise<void> => {
+    if (readerCancelled) return Promise.resolve();
+    readerCancelled = true;
+    return reader.cancel(reason).then(() => undefined, () => undefined);
+  };
+  const onAbort = (): void => {
+    void cancelReader(signal.reason);
+  };
+
+  signal.addEventListener('abort', onAbort, { once: true });
+  try {
+    if (signal.aborted) {
+      await cancelReader(signal.reason);
+      throw signal.reason ?? new Error('NameStat summary asset read was aborted.');
+    }
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (signal.aborted) {
+        await cancelReader(signal.reason);
+        throw signal.reason ?? new Error('NameStat summary asset read was aborted.');
+      }
+      if (done) break;
+      if (!value || value.byteLength === 0) continue;
+
+      const nextByteLength = receivedByteLength + value.byteLength;
+      if (nextByteLength > expectedByteLength) {
+        await cancelReader();
+        throw integrityError(
+          'compressed_byte_length_mismatch',
+          expectedByteLength,
+          nextByteLength,
+        );
+      }
+      bytes.set(value, receivedByteLength);
+      receivedByteLength = nextByteLength;
+    }
+  } finally {
+    signal.removeEventListener('abort', onAbort);
+    reader.releaseLock();
+  }
+
+  if (receivedByteLength !== expectedByteLength) {
+    throw integrityError(
+      'compressed_byte_length_mismatch',
+      expectedByteLength,
+      receivedByteLength,
+    );
+  }
+  return bytes;
+}
+
+async function readDefaultAsset(
+  url: URL,
+  signal: AbortSignal,
+  expectedByteLength: number,
+): Promise<Uint8Array> {
   if (url.protocol === 'file:') {
     return readLocalAsset(url, signal);
   }
@@ -99,7 +195,7 @@ async function readDefaultAsset(url: URL, signal: AbortSignal): Promise<Uint8Arr
   if (!response.ok) {
     throw new Error(`NameStat summary request failed with HTTP ${response.status}.`);
   }
-  return new Uint8Array(await response.arrayBuffer());
+  return readBoundedHttpAsset(response, signal, expectedByteLength);
 }
 
 async function gunzipDefault(bytes: Uint8Array): Promise<Uint8Array> {
@@ -130,9 +226,15 @@ async function sha256Default(bytes: Uint8Array): Promise<string> {
 
 function createRuntime(
   overrides: Partial<NameStatSummaryRepositoryRuntime> | undefined,
+  expectedCompressedByteLength: number,
 ): NameStatSummaryRepositoryRuntime {
   return Object.freeze({
-    readAsset: overrides?.readAsset ?? readDefaultAsset,
+    readAsset: overrides?.readAsset
+      ?? ((url: URL, signal: AbortSignal) => readDefaultAsset(
+        url,
+        signal,
+        expectedCompressedByteLength,
+      )),
     gunzip: overrides?.gunzip ?? gunzipDefault,
     sha256: overrides?.sha256 ?? sha256Default,
   });
@@ -290,7 +392,10 @@ export class NameStatSummaryRepository {
       new URL(options.assetUrl ?? DEFAULT_ASSET_URL),
       this.provenance.compressedSha256,
     );
-    this.runtime = createRuntime(options.runtime);
+    this.runtime = createRuntime(
+      options.runtime,
+      this.provenance.compressedByteLength,
+    );
   }
 
   private versionedAssetUrl(url: URL, compressedSha256: string): URL {
