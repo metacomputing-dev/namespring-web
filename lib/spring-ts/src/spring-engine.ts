@@ -976,7 +976,7 @@ export class SpringEngine {
         operation,
         () => assertExplicitNameIdentity(request.givenName!, nameEntryRepository, {
           hanjaPool,
-          fullPoolEntries: loadFullHanjaPoolEntries,
+          asyncFullPoolEntries: loadFullHanjaPoolEntries,
           preverifiedExplicitPair,
         }),
       );
@@ -990,7 +990,7 @@ export class SpringEngine {
         () => assertExplicitNameIdentity(request.surname, nameEntryRepository, {
           isSurname: true,
           hanjaPool,
-          fullPoolEntries: loadFullHanjaPoolEntries,
+          asyncFullPoolEntries: loadFullHanjaPoolEntries,
           preverifiedExplicitPair,
         }),
       );
@@ -2820,7 +2820,7 @@ export class SpringEngine {
         hanjaPool,
         poolLimit,
         allowHangulFallback,
-        fullPoolEntries: loadFullHanjaPoolEntries,
+        asyncFullPoolEntries: loadFullHanjaPoolEntries,
         preverifiedEntry: this.preverifiedExplicitNameIdentity(givenNameChar, {
           role: 'givenName',
           hanjaPool,
@@ -2843,7 +2843,7 @@ export class SpringEngine {
       operation ? this.operationNameEntryRepository(operation) : this.hanjaRepo,
       {
         ...options,
-        fullPoolEntries: loadFullHanjaPoolEntries,
+        asyncFullPoolEntries: loadFullHanjaPoolEntries,
         preverifiedExplicitPair: (input, context) =>
           this.preverifiedExplicitNameIdentity(input, context),
       },

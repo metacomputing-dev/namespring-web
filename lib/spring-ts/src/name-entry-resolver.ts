@@ -4,6 +4,7 @@ import {
   isRecognizedHanjaGlyph,
   type HanjaPool,
 } from './hanja-annotations.js';
+import { isLocalFullPoolHanjaGlyph } from './full-hanja-glyph-registry.js';
 import {
   verifySurnameAuthority,
   type SurnameAuthorityFailureReason,
@@ -14,6 +15,7 @@ export const NAME_ENTRY_RESOLUTION_FAILED = 'NAME_ENTRY_RESOLUTION_FAILED' as co
 
 export type NameEntryResolutionFailureReason =
   | 'explicit_hanja_not_found'
+  | 'explicit_hanja_metadata_incomplete'
   | 'hangul_hanja_reading_mismatch'
   | 'explicit_hanja_not_surname_eligible'
   | 'explicit_hanja_required'
@@ -44,6 +46,8 @@ function nameEntryResolutionMessage(reason: NameEntryResolutionFailureReason): s
       return 'The compound surname is not supported by the active authority registry.';
     case 'explicit_hanja_required':
       return 'Explicit Hanja is required for non-pure name evaluation.';
+    case 'explicit_hanja_metadata_incomplete':
+      return 'The explicit Hanja is recognized by the local full pool but lacks complete scoring metadata.';
     default:
       return 'The explicit Hanja is not available in the active name-character pool.';
   }
@@ -86,14 +90,15 @@ export type PreverifiedExplicitPairLookup = (
   context: PreverifiedExplicitPairContext,
 ) => HanjaEntry | undefined;
 
-export type FullPoolEntriesProvider = (
-) => readonly HanjaEntry[] | Promise<readonly HanjaEntry[]>;
+export type FullPoolEntriesProvider = () => readonly HanjaEntry[];
+export type AsyncFullPoolEntriesProvider = () => Promise<readonly HanjaEntry[]>;
 
 export interface ResolveNameEntriesOptions {
   readonly forceHangulOnly?: boolean;
   readonly isSurname?: boolean;
   readonly hanjaPool?: HanjaPool;
   readonly fullPoolEntries?: FullPoolEntriesProvider;
+  readonly asyncFullPoolEntries?: AsyncFullPoolEntriesProvider;
   readonly preverifiedExplicitPair?: PreverifiedExplicitPairLookup;
 }
 
@@ -102,12 +107,13 @@ export interface ResolveFixedNameCharacterPoolOptions {
   readonly poolLimit: number;
   readonly allowHangulFallback?: boolean;
   readonly fullPoolEntries?: FullPoolEntriesProvider;
+  readonly asyncFullPoolEntries?: AsyncFullPoolEntriesProvider;
   readonly preverifiedEntry?: HanjaEntry;
 }
 
 export interface AssertExplicitNameIdentityOptions extends Pick<
   ResolveNameEntriesOptions,
-  'isSurname' | 'hanjaPool' | 'fullPoolEntries'
+  'isSurname' | 'hanjaPool' | 'fullPoolEntries' | 'asyncFullPoolEntries'
 > {
   readonly preverifiedExplicitPair?: PreverifiedExplicitPairLookup;
 }
@@ -222,9 +228,25 @@ export function assertNameCharacterSyntax(
 async function fullPool(options: {
   readonly hanjaPool: HanjaPool;
   readonly fullPoolEntries?: FullPoolEntriesProvider;
+  readonly asyncFullPoolEntries?: AsyncFullPoolEntriesProvider;
 }): Promise<readonly HanjaEntry[]> {
   if (options.hanjaPool !== 'inmyeongyong_full') return [];
-  return options.fullPoolEntries ? options.fullPoolEntries() : [];
+  if (options.asyncFullPoolEntries) return options.asyncFullPoolEntries();
+  return options.fullPoolEntries?.() ?? [];
+}
+
+function missingExplicitHanjaReason(
+  hanja: string,
+  glyphExistsInEntries: boolean,
+  hanjaPool: HanjaPool,
+): 'hangul_hanja_reading_mismatch'
+  | 'explicit_hanja_metadata_incomplete'
+  | 'explicit_hanja_not_found' {
+  if (glyphExistsInEntries) return 'hangul_hanja_reading_mismatch';
+  if (hanjaPool === 'inmyeongyong_full' && isLocalFullPoolHanjaGlyph(hanja)) {
+    return 'explicit_hanja_metadata_incomplete';
+  }
+  return 'explicit_hanja_not_found';
 }
 
 function throwSurnameAuthorityFailure(
@@ -241,6 +263,7 @@ async function resolveAuthoritativeSurnameEntry(
     readonly hanjaPool: HanjaPool;
     readonly characterIndex: number;
     readonly fullPoolEntries?: FullPoolEntriesProvider;
+    readonly asyncFullPoolEntries?: AsyncFullPoolEntriesProvider;
     readonly preverifiedExplicitPair?: PreverifiedExplicitPairLookup;
   },
 ): Promise<HanjaEntry> {
@@ -274,7 +297,7 @@ async function resolveAuthoritativeSurnameEntry(
   const glyphExists = byHanja != null
     || activeFullPool.some((entry) => entry.hanja === targetHanja);
   throw new NameEntryResolutionError(
-    glyphExists ? 'hangul_hanja_reading_mismatch' : 'explicit_hanja_not_found',
+    missingExplicitHanjaReason(targetHanja, glyphExists, options.hanjaPool),
     'surname',
     options.characterIndex,
   );
@@ -323,6 +346,7 @@ async function resolveVerifiedSurnameEntries(
       hanjaPool,
       characterIndex,
       fullPoolEntries: options.fullPoolEntries,
+      asyncFullPoolEntries: options.asyncFullPoolEntries,
       preverifiedExplicitPair: options.preverifiedExplicitPair,
     })));
 }
@@ -335,6 +359,7 @@ async function resolveVerifiedExplicitPair(
     readonly role: NameEntryRole;
     readonly characterIndex: number;
     readonly fullPoolEntries?: FullPoolEntriesProvider;
+    readonly asyncFullPoolEntries?: AsyncFullPoolEntriesProvider;
   },
 ): Promise<HanjaEntry> {
   const hangul = input.hangul;
@@ -356,7 +381,7 @@ async function resolveVerifiedExplicitPair(
     if (exactFullPair) return { ...exactFullPair, is_surname: options.isSurname };
     const glyphExists = activeFullPool.some((entry) => entry.hanja === hanja);
     throw new NameEntryResolutionError(
-      glyphExists ? 'hangul_hanja_reading_mismatch' : 'explicit_hanja_not_found',
+      missingExplicitHanjaReason(hanja, glyphExists, options.hanjaPool),
       options.role,
       options.characterIndex,
     );
@@ -380,7 +405,7 @@ async function resolveVerifiedExplicitPair(
   const glyphExists = byHanja != null
     || activeFullPool.some((entry) => entry.hanja === hanja);
   throw new NameEntryResolutionError(
-    glyphExists ? 'hangul_hanja_reading_mismatch' : 'explicit_hanja_not_found',
+    missingExplicitHanjaReason(hanja, glyphExists, options.hanjaPool),
     options.role,
     options.characterIndex,
   );
@@ -409,6 +434,7 @@ export async function assertExplicitNameIdentity(
       isSurname: true,
       hanjaPool,
       fullPoolEntries: options.fullPoolEntries,
+      asyncFullPoolEntries: options.asyncFullPoolEntries,
       preverifiedExplicitPair: options.preverifiedExplicitPair,
     });
     chars.forEach((char, index) => resolved.set(char, entries[index]));
@@ -428,6 +454,7 @@ export async function assertExplicitNameIdentity(
         role,
         characterIndex,
         fullPoolEntries: options.fullPoolEntries,
+        asyncFullPoolEntries: options.asyncFullPoolEntries,
       });
     resolved.set(char, entry);
   }
@@ -464,6 +491,7 @@ export async function resolveNameEntries(
         role,
         characterIndex,
         fullPoolEntries: options.fullPoolEntries,
+        asyncFullPoolEntries: options.asyncFullPoolEntries,
       });
     }
 
@@ -491,6 +519,7 @@ export async function resolveFixedNameCharacterPool(
       role: 'givenName',
       characterIndex: 0,
       fullPoolEntries: options.fullPoolEntries,
+      asyncFullPoolEntries: options.asyncFullPoolEntries,
     })];
   }
 

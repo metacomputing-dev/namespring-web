@@ -25,8 +25,8 @@
 
 import type { HanjaEntry } from '../../seed-ts/src/database/hanja-repository.js';
 import inmyeongyongData from '../data/inmyeongyong_9389.json';
-import inmyeongyongGlyphRegistry from '../data/inmyeongyong_9389_glyphs.generated.json';
 import byeolpyo2Data from '../data/byeolpyo2_variants.json';
+import { isLocalFullPoolHanjaGlyph } from './full-hanja-glyph-registry.js';
 
 export type HanjaLegalStatus =
   | 'allowed'
@@ -86,41 +86,6 @@ const REGISTRABLE_HANJA: ReadonlySet<string> = new Set(
  *  The +106 mirror delta remains non-authority until reconciled against
  *  the official 9,389-character denominator.
  *  Activated by `precisionConfig.hanjaPool: 'inmyeongyong_full'`. */
-interface FullGlyphRegistry {
-  readonly schemaVersion: '1.0.0-glyph-registry';
-  readonly sourceSchemaVersion: '1.0.0-full';
-  readonly sourceSha256: string;
-  readonly glyphsSha256: string;
-  readonly count: number;
-  readonly glyphs: string;
-}
-
-const EXPECTED_FULL_GLYPH_COUNT = 9_495;
-
-function buildFullRegistrableHanjaSet(value: unknown): ReadonlySet<string> {
-  const registry = value as Partial<FullGlyphRegistry> | null;
-  if (registry?.schemaVersion !== '1.0.0-glyph-registry'
-    || registry.sourceSchemaVersion !== '1.0.0-full'
-    || !/^[0-9a-f]{64}$/.test(registry.sourceSha256 ?? '')
-    || !/^[0-9a-f]{64}$/.test(registry.glyphsSha256 ?? '')
-    || registry.count !== EXPECTED_FULL_GLYPH_COUNT
-    || typeof registry.glyphs !== 'string') {
-    throw new Error('Local full-pool Hanja glyph registry failed its integrity check.');
-  }
-
-  // String iteration is intentionally code-point aware. split('') would split
-  // supplementary court-mirror and PUA glyphs into UTF-16 surrogate halves.
-  const glyphs = Array.from(registry.glyphs);
-  const uniqueGlyphs = new Set(glyphs);
-  if (glyphs.length !== EXPECTED_FULL_GLYPH_COUNT
-    || uniqueGlyphs.size !== EXPECTED_FULL_GLYPH_COUNT) {
-    throw new Error('Local full-pool Hanja glyph registry failed its integrity check.');
-  }
-  return uniqueGlyphs;
-}
-
-const FULL_REGISTRABLE_HANJA = buildFullRegistrableHanjaSet(inmyeongyongGlyphRegistry);
-
 export type HanjaPool = 'curated' | 'inmyeongyong_full';
 
 /**
@@ -134,7 +99,7 @@ export function isRecognizedHanjaGlyph(hanja: string): boolean {
   if (first.done || !iterator.next().done) return false;
   const glyph = first.value;
   return /^\p{Script=Han}$/u.test(glyph)
-    || FULL_REGISTRABLE_HANJA.has(normalizeToOrthodoxHanja(glyph));
+    || isLocalFullPoolHanjaGlyph(normalizeToOrthodoxHanja(glyph));
 }
 
 function isBlankHanja(hanja: string): boolean {
@@ -169,7 +134,7 @@ export function getLegalAnnotation(
   const orthodox = normalizeToOrthodoxHanja(hanja);
   const isVariant = orthodox !== hanja;
   const pool = options?.pool ?? 'curated';
-  const appearsInLocalFullPool = FULL_REGISTRABLE_HANJA.has(orthodox);
+  const appearsInLocalFullPool = isLocalFullPoolHanjaGlyph(orthodox);
   if (!isRecognizedHanjaGlyph(hanja) && !appearsInLocalFullPool) {
     return pool === 'inmyeongyong_full'
       ? { legalRegistrable: false, legalStatus: 'notAllowed', isVariantOf: isVariant ? orthodox : undefined }

@@ -9,6 +9,7 @@ import {
   loadFullHanjaPoolEntries,
 } from '../../src/full-hanja-pool-loader.js';
 import {
+  NameEntryResolutionError,
   resolveNameEntries,
   type NameEntryRepository,
 } from '../../src/name-entry-resolver.js';
@@ -66,7 +67,7 @@ test('loader is single-flight and publishes only a complete immutable cache', as
   let releaseImport!: () => void;
   const importGate = new Promise<void>((resolve) => { releaseImport = resolve; });
   const load = createFullHanjaPoolLoader({
-    expectedEntryCount: 1,
+    expectedGlyphs: ['佳'],
     importer: async () => {
       imports += 1;
       await importGate;
@@ -93,7 +94,7 @@ test('loader is single-flight and publishes only a complete immutable cache', as
 test('transient import failure is explicit and a later call retries', async () => {
   let imports = 0;
   const load = createFullHanjaPoolLoader({
-    expectedEntryCount: 1,
+    expectedGlyphs: ['佳'],
     importer: async () => {
       imports += 1;
       if (imports === 1) throw new Error('synthetic transport failure');
@@ -119,7 +120,7 @@ test('transient import failure is explicit and a later call retries', async () =
 test('malformed metadata fails closed without publishing a partial cache', async () => {
   let imports = 0;
   const load = createFullHanjaPoolLoader({
-    expectedEntryCount: 1,
+    expectedGlyphs: ['佳'],
     importer: async () => {
       imports += 1;
       return {
@@ -129,14 +130,28 @@ test('malformed metadata fails closed without publishing a partial cache', async
     },
   });
 
-  await assert.rejects(load(), (error: unknown) => {
+  const failedAttempt = load();
+  await assert.rejects(failedAttempt, (error: unknown) => {
     assert.ok(error instanceof FullHanjaPoolIntegrityError);
     assert.equal(error.code, 'FULL_HANJA_POOL_INTEGRITY_FAILED');
     assert.equal(error.retryable, false);
     return true;
   });
+  assert.strictEqual(load(), failedAttempt, 'non-retryable integrity rejection must be memoized');
   await assert.rejects(load(), FullHanjaPoolIntegrityError);
-  assert.equal(imports, 2, 'failed attempts must not poison or publish the cache');
+  assert.equal(imports, 1, 'immutable malformed data must not be reparsed for every request');
+});
+
+test('metadata glyphs must exactly match the compact registry sequence', async () => {
+  const load = createFullHanjaPoolLoader({
+    expectedGlyphs: ['佳'],
+    importer: async () => ({
+      ...fixtureDocument(),
+      entries: [{ ...fixtureDocument().entries[0], hanja: 'A ', codepoint: 'U+0041' }],
+    }),
+  });
+
+  await assert.rejects(load(), FullHanjaPoolIntegrityError);
 });
 
 test('curated and repository-hit resolution never invoke the full-pool provider', async () => {
@@ -158,12 +173,12 @@ test('curated and repository-hit resolution never invoke the full-pool provider'
   const curated = await resolveNameEntries(
     [{ hangul: '가', hanja: '佳' }],
     repository,
-    { hanjaPool: 'curated', fullPoolEntries },
+    { hanjaPool: 'curated', asyncFullPoolEntries: fullPoolEntries },
   );
   const fullRepositoryHit = await resolveNameEntries(
     [{ hangul: '가', hanja: '佳' }],
     repository,
-    { hanjaPool: 'inmyeongyong_full', fullPoolEntries },
+    { hanjaPool: 'inmyeongyong_full', asyncFullPoolEntries: fullPoolEntries },
   );
 
   assert.equal(curated[0].hanja, '佳');
@@ -184,7 +199,7 @@ test('full-pool repository miss awaits an asynchronous provider exactly once', a
     repository,
     {
       hanjaPool: 'inmyeongyong_full',
-      fullPoolEntries: async () => {
+      asyncFullPoolEntries: async () => {
         fullPoolCalls += 1;
         return [fullOnly];
       },
@@ -193,4 +208,31 @@ test('full-pool repository miss awaits an asynchronous provider exactly once', a
 
   assert.equal(resolved[0].hanja, '㒚');
   assert.equal(fullPoolCalls, 1);
+});
+
+test('recognized glyphs excluded from scoring report metadata_incomplete, not not_found', async () => {
+  const repository: NameEntryRepository = {
+    async findByHanja() { return null; },
+    async findByHangul() { return []; },
+  };
+  const entries = await loadFullHanjaPoolEntries();
+  const cases = [
+    { hangul: '익', hanja: '𥡴' }, // no reading in the mirror
+    { hangul: '귀', hanja: String.fromCodePoint(0xA0252) }, // no usable stroke count
+  ];
+
+  for (const input of cases) {
+    await assert.rejects(
+      resolveNameEntries([input], repository, {
+        hanjaPool: 'inmyeongyong_full',
+        asyncFullPoolEntries: async () => entries,
+      }),
+      (error: unknown) => {
+        assert.ok(error instanceof NameEntryResolutionError);
+        assert.equal(error.reason, 'explicit_hanja_metadata_incomplete');
+        assert.equal(error.message.includes(input.hanja), false);
+        return true;
+      },
+    );
+  }
 });
