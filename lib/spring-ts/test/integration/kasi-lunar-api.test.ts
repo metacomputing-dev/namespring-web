@@ -46,8 +46,15 @@ function okXml(items: MockItem[]): string {
 console.log('KASI lunar API option (감사 B1)\n');
 
 // ── 목서버 ──
-let mode: 'ok' | 'error-code' | 'hang' | 'body-hang' | 'oversized-body' = 'ok';
+let mode:
+  | 'ok'
+  | 'error-code'
+  | 'http-error-body-hang'
+  | 'hang'
+  | 'body-hang'
+  | 'oversized-body' = 'ok';
 let requestCount = 0;
+let resolveHttpErrorBodyClosed: (() => void) | undefined;
 const server = http.createServer((req, res) => {
   requestCount += 1;
   if (mode === 'hang') return; // 응답 보류 → 클라이언트 타임아웃
@@ -65,6 +72,12 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': 'application/xml' });
     res.end('<?xml version="1.0"?><response><header><resultCode>30</resultCode><resultMsg>SERVICE_KEY_IS_NOT_REGISTERED_ERROR</resultMsg></header></response>');
     return;
+  }
+  if (mode === 'http-error-body-hang') {
+    res.once('close', () => resolveHttpErrorBodyClosed?.());
+    res.writeHead(503, { 'Content-Type': 'application/xml' });
+    res.write('<?xml version="1.0"?><response>');
+    return; // 오류 헤더 뒤 본문을 보류해 클라이언트의 명시적 정리를 검증한다.
   }
   // 연 범위 검색이라 이듬해 동일 음력 월일이 함께 온다 — lunYear 필터 검증용 오염 행 포함.
   res.writeHead(200, { 'Content-Type': 'application/xml' });
@@ -92,6 +105,25 @@ check('정상 응답 파싱 + 음력 tuple 필터 (연도·평달 오염 행 무
 mode = 'error-code';
 check('resultCode!=00 → null',
   (await kasiLunarToSolar({ year: 2025, month: 6, day: 1, isLeapMonth: true }, { serviceKey: 'TEST_KEY', baseUrl })) === null);
+
+mode = 'http-error-body-hang';
+const httpErrorBodyClosed = new Promise<void>((resolve) => {
+  resolveHttpErrorBodyClosed = resolve;
+});
+const httpErrorResult = await kasiLunarToSolar(
+  { year: 2025, month: 6, day: 1, isLeapMonth: true },
+  { serviceKey: 'TEST_KEY', baseUrl, timeoutMs: 3_000 },
+);
+const httpErrorConnectionClosed = await new Promise<boolean>((resolve) => {
+  const timeout = setTimeout(() => resolve(false), 1_000);
+  void httpErrorBodyClosed.then(() => {
+    clearTimeout(timeout);
+    resolve(true);
+  });
+});
+resolveHttpErrorBodyClosed = undefined;
+check('non-2xx response aborts a body that never finishes',
+  httpErrorResult === null && httpErrorConnectionClosed);
 
 check('malformed explicit base URL fails closed without throwing',
   (await kasiLunarToSolar(

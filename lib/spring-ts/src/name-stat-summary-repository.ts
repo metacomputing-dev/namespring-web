@@ -97,7 +97,16 @@ async function readBoundedHttpAsset(
   expectedByteLength: number,
 ): Promise<Uint8Array> {
   const declaredLength = response.headers.get('content-length');
-  if (declaredLength !== null) {
+  const contentEncoding = response.headers.get('content-encoding');
+  const hasIdentityContentEncoding = contentEncoding === null
+    || contentEncoding.trim() === ''
+    || contentEncoding
+      .split(',')
+      .every((encoding) => encoding.trim().toLowerCase() === 'identity');
+  // Fetch exposes a decoded body, while Content-Length can still describe the
+  // encoded bytes transferred by a CDN or proxy. Only compare the header when
+  // it describes the same identity representation as the streamed body.
+  if (declaredLength !== null && hasIdentityContentEncoding) {
     const parsedLength = Number(declaredLength);
     if (
       !Number.isSafeInteger(parsedLength)
@@ -193,6 +202,11 @@ async function readDefaultAsset(
   }
   const response = await fetch(url, { signal });
   if (!response.ok) {
+    try {
+      await response.body?.cancel();
+    } catch {
+      // Preserve the HTTP failure when transport cleanup also fails.
+    }
     throw new Error(`NameStat summary request failed with HTTP ${response.status}.`);
   }
   return readBoundedHttpAsset(response, signal, expectedByteLength);

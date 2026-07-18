@@ -135,7 +135,13 @@ export async function kasiLunarToSolar(lunar: LunarDate, opts?: KasiCallOptions)
     const controller = new AbortController();
     timer = setTimeout(() => controller.abort(), timeoutMs);
     const response = await fetch(url, { signal: controller.signal });
-    if (!response.ok) return null;
+    if (!response.ok) {
+      // A server can send error headers and then keep streaming the body.
+      // Abort here so returning null does not leave that connection alive
+      // after the timeout timer is cleared in finally.
+      controller.abort();
+      return null;
+    }
     const xml = await readBoundedResponseText(response);
     if (xml == null) {
       controller.abort();
