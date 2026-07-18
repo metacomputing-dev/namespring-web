@@ -19,6 +19,7 @@ import type { LunarDate, SolarDate } from './korean-lunar-calendar.js';
 
 const DEFAULT_BASE_URL = 'https://apis.data.go.kr/B090041/openapi/service/LrsrCldInfoService';
 const DEFAULT_TIMEOUT_MS = 4000;
+const MAX_TIMEOUT_MS = 60_000;
 const MAX_RESPONSE_BYTES = 256 * 1024;
 
 interface KasiCallOptions {
@@ -47,6 +48,13 @@ function resolveServiceKey(override?: string): string | null {
 function resolveBaseUrl(override?: string): string {
   if (override) return override;
   return envOf()?.KASI_LUNISOLAR_API_URL ?? DEFAULT_BASE_URL;
+}
+
+function resolveTimeoutMs(override?: number): number | null {
+  const timeoutMs = override ?? DEFAULT_TIMEOUT_MS;
+  return Number.isInteger(timeoutMs) && timeoutMs > 0 && timeoutMs <= MAX_TIMEOUT_MS
+    ? timeoutMs
+    : null;
 }
 
 function xmlField(xml: string, tag: string): string | null {
@@ -109,19 +117,23 @@ export async function kasiLunarToSolar(lunar: LunarDate, opts?: KasiCallOptions)
   const serviceKey = resolveServiceKey(opts?.serviceKey);
   if (!serviceKey) return null;
 
-  const pad2 = (n: number) => String(n).padStart(2, '0');
-  const url = new URL(`${resolveBaseUrl(opts?.baseUrl).replace(/\/$/, '')}/getSpcifyLunCalInfo`);
-  url.searchParams.set('ServiceKey', serviceKey);
-  // 음력 y년 후반(11~12월)은 양력 y+1년에 떨어지므로 검색 연 범위는 2년.
-  url.searchParams.set('fromSolYear', String(lunar.year));
-  url.searchParams.set('toSolYear', String(lunar.year + 1));
-  url.searchParams.set('lunMonth', pad2(lunar.month));
-  url.searchParams.set('lunDay', pad2(lunar.day));
-  url.searchParams.set('leapMonth', lunar.isLeapMonth ? '윤' : '평');
+  const timeoutMs = resolveTimeoutMs(opts?.timeoutMs);
+  if (timeoutMs === null) return null;
 
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), opts?.timeoutMs ?? DEFAULT_TIMEOUT_MS);
+  let timer: ReturnType<typeof setTimeout> | undefined;
   try {
+    const pad2 = (n: number) => String(n).padStart(2, '0');
+    const url = new URL(`${resolveBaseUrl(opts?.baseUrl).replace(/\/$/, '')}/getSpcifyLunCalInfo`);
+    url.searchParams.set('ServiceKey', serviceKey);
+    // 음력 y년 후반(11~12월)은 양력 y+1년에 떨어지므로 검색 연 범위는 2년.
+    url.searchParams.set('fromSolYear', String(lunar.year));
+    url.searchParams.set('toSolYear', String(lunar.year + 1));
+    url.searchParams.set('lunMonth', pad2(lunar.month));
+    url.searchParams.set('lunDay', pad2(lunar.day));
+    url.searchParams.set('leapMonth', lunar.isLeapMonth ? '윤' : '평');
+
+    const controller = new AbortController();
+    timer = setTimeout(() => controller.abort(), timeoutMs);
     const response = await fetch(url, { signal: controller.signal });
     if (!response.ok) return null;
     const xml = await readBoundedResponseText(response);
@@ -148,6 +160,6 @@ export async function kasiLunarToSolar(lunar: LunarDate, opts?: KasiCallOptions)
   } catch {
     return null;
   } finally {
-    clearTimeout(timer);
+    if (timer !== undefined) clearTimeout(timer);
   }
 }
