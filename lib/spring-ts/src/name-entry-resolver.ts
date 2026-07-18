@@ -86,11 +86,14 @@ export type PreverifiedExplicitPairLookup = (
   context: PreverifiedExplicitPairContext,
 ) => HanjaEntry | undefined;
 
+export type FullPoolEntriesProvider = (
+) => readonly HanjaEntry[] | Promise<readonly HanjaEntry[]>;
+
 export interface ResolveNameEntriesOptions {
   readonly forceHangulOnly?: boolean;
   readonly isSurname?: boolean;
   readonly hanjaPool?: HanjaPool;
-  readonly fullPoolEntries?: () => readonly HanjaEntry[];
+  readonly fullPoolEntries?: FullPoolEntriesProvider;
   readonly preverifiedExplicitPair?: PreverifiedExplicitPairLookup;
 }
 
@@ -98,7 +101,7 @@ export interface ResolveFixedNameCharacterPoolOptions {
   readonly hanjaPool: HanjaPool;
   readonly poolLimit: number;
   readonly allowHangulFallback?: boolean;
-  readonly fullPoolEntries?: () => readonly HanjaEntry[];
+  readonly fullPoolEntries?: FullPoolEntriesProvider;
   readonly preverifiedEntry?: HanjaEntry;
 }
 
@@ -216,13 +219,12 @@ export function assertNameCharacterSyntax(
   }
 }
 
-function fullPool(options: {
+async function fullPool(options: {
   readonly hanjaPool: HanjaPool;
-  readonly fullPoolEntries?: () => readonly HanjaEntry[];
-}): readonly HanjaEntry[] {
-  return options.hanjaPool === 'inmyeongyong_full'
-    ? (options.fullPoolEntries?.() ?? [])
-    : [];
+  readonly fullPoolEntries?: FullPoolEntriesProvider;
+}): Promise<readonly HanjaEntry[]> {
+  if (options.hanjaPool !== 'inmyeongyong_full') return [];
+  return options.fullPoolEntries ? options.fullPoolEntries() : [];
 }
 
 function throwSurnameAuthorityFailure(
@@ -238,7 +240,7 @@ async function resolveAuthoritativeSurnameEntry(
   options: {
     readonly hanjaPool: HanjaPool;
     readonly characterIndex: number;
-    readonly fullPoolEntries?: () => readonly HanjaEntry[];
+    readonly fullPoolEntries?: FullPoolEntriesProvider;
     readonly preverifiedExplicitPair?: PreverifiedExplicitPairLookup;
   },
 ): Promise<HanjaEntry> {
@@ -252,13 +254,13 @@ async function resolveAuthoritativeSurnameEntry(
 
   const byHangul = await repository.findByHangul(input.hangul);
   const exactRepositoryPair = byHangul.find((entry) => entry.hanja === targetHanja);
-  const activeFullPool = fullPool(options);
+  if (exactRepositoryPair) return { ...exactRepositoryPair, is_surname: true };
+
+  const activeFullPool = await fullPool(options);
   const exactFullPair = activeFullPool.find(
     (entry) => entry.hanja === targetHanja && entry.hangul === input.hangul,
   );
-  if (exactRepositoryPair || exactFullPair) {
-    return { ...(exactRepositoryPair ?? exactFullPair!), is_surname: true };
-  }
+  if (exactFullPair) return { ...exactFullPair, is_surname: true };
 
   // Seed repository Hanja queries deliberately accept ordinary Han only.
   // Court-mirror PUA glyphs are resolved exclusively from the active full
@@ -332,7 +334,7 @@ async function resolveVerifiedExplicitPair(
     readonly isSurname: boolean;
     readonly role: NameEntryRole;
     readonly characterIndex: number;
-    readonly fullPoolEntries?: () => readonly HanjaEntry[];
+    readonly fullPoolEntries?: FullPoolEntriesProvider;
   },
 ): Promise<HanjaEntry> {
   const hangul = input.hangul;
@@ -347,7 +349,7 @@ async function resolveVerifiedExplicitPair(
   }
 
   if (!isOrdinaryHanCharacter(hanja)) {
-    const activeFullPool = fullPool(options);
+    const activeFullPool = await fullPool(options);
     const exactFullPair = activeFullPool.find(
       (entry) => entry.hanja === hanja && entry.hangul === hangul,
     );
@@ -369,7 +371,7 @@ async function resolveVerifiedExplicitPair(
     return { ...exactRepositoryPair, is_surname: options.isSurname };
   }
 
-  const activeFullPool = fullPool(options);
+  const activeFullPool = await fullPool(options);
   const exactFullPair = activeFullPool.find(
     (entry) => entry.hanja === hanja && entry.hangul === hangul,
   );
@@ -497,7 +499,7 @@ export async function resolveFixedNameCharacterPool(
   }
 
   const entries = options.hanjaPool === 'inmyeongyong_full'
-    ? fullPool(options).filter((entry) => entry.hangul === input.hangul)
+    ? (await fullPool(options)).filter((entry) => entry.hangul === input.hangul)
     : await repository.findByHangul(input.hangul);
   return entries.length > 0
     ? [...entries.slice(0, options.poolLimit)]

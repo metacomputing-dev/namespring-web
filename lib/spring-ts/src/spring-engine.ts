@@ -63,8 +63,8 @@ import {
   validateSajuRequestOptions,
 } from './saju-request-policy.js';
 import { targetCalendarYear } from './target-date.js';
-import inmyeongyongFullData from '../data/inmyeongyong_9389_full.json';
 import { getEnrichedStrokeCount, getUnihanMetadata } from './hanja-unihan.js';
+import { loadFullHanjaPoolEntries } from './full-hanja-pool-loader.js';
 import { getNameTrendAnalysis, type NameTrendAnalysis } from './name-trend.js';
 import { getPhoneticAnalysis, type PhoneticAnalysis } from './phonetic-rules.js';
 import {
@@ -163,7 +163,6 @@ const DEFAULT_PURE_HANGUL_MODE: 'auto' | 'on' | 'off' = 'auto';
 const DEFAULT_USE_SURNAME_HANJA_IN_PURE = false;
 const ENABLE_HANJA_NAME_EVALUATION = true;
 const ENABLE_FOURFRAME_NAME_EVALUATION = true;
-const FULL_POOL_ID_BASE = 900_000;
 
 function hasOwnKey(obj: object, key: string): boolean {
   return Object.prototype.hasOwnProperty.call(obj, key);
@@ -346,14 +345,6 @@ function toCharDetail(entry: HanjaEntry, pool: HanjaPool = 'curated'): CharDetai
   };
 }
 
-interface FullPoolDataEntry {
-  readonly hanja: string;
-  readonly readings: readonly string[];
-  readonly meaning: string | null;
-  readonly radicalId: number | null;
-  readonly strokeCount: number | null;
-}
-
 interface CandidateRejectionBucket {
   readonly reason: string;
   count: number;
@@ -363,72 +354,6 @@ interface CandidateRejectionBucket {
     readonly legalStatus?: HanjaLegalStatus;
     readonly detail?: string;
   }>;
-}
-
-function isSingleGlyph(value: string): boolean {
-  return Array.from(value.trim()).length === 1;
-}
-
-function isSingleHangulSyllable(value: string): boolean {
-  return /^[\uAC00-\uD7A3]$/.test(value);
-}
-
-function elementFromStrokeCount(strokes: number): ElementKey {
-  const digit = ((strokes % 10) + 10) % 10;
-  if (digit === 1 || digit === 2) return 'Wood';
-  if (digit === 3 || digit === 4) return 'Fire';
-  if (digit === 5 || digit === 6) return 'Earth';
-  if (digit === 7 || digit === 8) return 'Metal';
-  return 'Water';
-}
-
-let fullLegalPoolCache: readonly HanjaEntry[] | null = null;
-
-function getFullLegalPoolEntries(): readonly HanjaEntry[] {
-  if (fullLegalPoolCache) return fullLegalPoolCache;
-
-  const entries = ((inmyeongyongFullData as { entries: readonly FullPoolDataEntry[] }).entries ?? []);
-  const out: HanjaEntry[] = [];
-  const seen = new Set<string>();
-
-  for (const item of entries) {
-    const localStrokes = Number(item.strokeCount);
-    const strokes = getEnrichedStrokeCount(item.hanja, localStrokes);
-    if (!Number.isInteger(strokes) || strokes < STROKE_MIN || strokes > STROKE_MAX) continue;
-    if (typeof item.hanja !== 'string' || !isSingleGlyph(item.hanja)) continue;
-    const unihan = getUnihanMetadata(item.hanja);
-
-    for (const rawReading of item.readings ?? []) {
-      const hangul = String(rawReading ?? '').trim();
-      if (!isSingleHangulSyllable(hangul)) continue;
-      const decomposed = decomposeHangul(hangul);
-      if (!decomposed) continue;
-      const key = `${hangul}\u0000${item.hanja}`;
-      if (seen.has(key)) continue;
-      seen.add(key);
-
-      // The local full pool does not carry radical/resource 오행 metadata.
-      // Use a stroke-derived element so opt-in candidates remain scoreable.
-      // Unihan radical data is exposed separately as a non-authority hint.
-      const element = elementFromStrokeCount(strokes);
-      out.push({
-        id: FULL_POOL_ID_BASE + out.length,
-        hangul,
-        hanja: item.hanja,
-        onset: decomposed.onset,
-        nucleus: decomposed.nucleus,
-        strokes,
-        stroke_element: element,
-        resource_element: element,
-        meaning: item.meaning ?? '',
-        radical: String(unihan?.radicalNumber ?? item.radicalId ?? ''),
-        is_surname: false,
-      });
-    }
-  }
-
-  fullLegalPoolCache = out;
-  return fullLegalPoolCache;
 }
 
 const ELEMENT_DISPLAY_LABELS: Readonly<Record<string, string>> = {
@@ -1051,7 +976,7 @@ export class SpringEngine {
         operation,
         () => assertExplicitNameIdentity(request.givenName!, nameEntryRepository, {
           hanjaPool,
-          fullPoolEntries: getFullLegalPoolEntries,
+          fullPoolEntries: loadFullHanjaPoolEntries,
           preverifiedExplicitPair,
         }),
       );
@@ -1065,7 +990,7 @@ export class SpringEngine {
         () => assertExplicitNameIdentity(request.surname, nameEntryRepository, {
           isSurname: true,
           hanjaPool,
-          fullPoolEntries: getFullLegalPoolEntries,
+          fullPoolEntries: loadFullHanjaPoolEntries,
           preverifiedExplicitPair,
         }),
       );
@@ -2730,7 +2655,7 @@ export class SpringEngine {
     if (hanjaPool === 'curated') {
       return this.hanjaRepo.findByStrokeRange(min, max);
     }
-    return getFullLegalPoolEntries()
+    return (await loadFullHanjaPoolEntries())
       .filter((entry) => entry.strokes >= min && entry.strokes <= max);
   }
 
@@ -2895,7 +2820,7 @@ export class SpringEngine {
         hanjaPool,
         poolLimit,
         allowHangulFallback,
-        fullPoolEntries: getFullLegalPoolEntries,
+        fullPoolEntries: loadFullHanjaPoolEntries,
         preverifiedEntry: this.preverifiedExplicitNameIdentity(givenNameChar, {
           role: 'givenName',
           hanjaPool,
@@ -2918,7 +2843,7 @@ export class SpringEngine {
       operation ? this.operationNameEntryRepository(operation) : this.hanjaRepo,
       {
         ...options,
-        fullPoolEntries: getFullLegalPoolEntries,
+        fullPoolEntries: loadFullHanjaPoolEntries,
         preverifiedExplicitPair: (input, context) =>
           this.preverifiedExplicitNameIdentity(input, context),
       },

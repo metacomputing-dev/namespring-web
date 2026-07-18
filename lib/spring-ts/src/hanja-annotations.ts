@@ -25,7 +25,7 @@
 
 import type { HanjaEntry } from '../../seed-ts/src/database/hanja-repository.js';
 import inmyeongyongData from '../data/inmyeongyong_9389.json';
-import inmyeongyongFullData from '../data/inmyeongyong_9389_full.json';
+import inmyeongyongGlyphRegistry from '../data/inmyeongyong_9389_glyphs.generated.json';
 import byeolpyo2Data from '../data/byeolpyo2_variants.json';
 
 export type HanjaLegalStatus =
@@ -86,17 +86,40 @@ const REGISTRABLE_HANJA: ReadonlySet<string> = new Set(
  *  The +106 mirror delta remains non-authority until reconciled against
  *  the official 9,389-character denominator.
  *  Activated by `precisionConfig.hanjaPool: 'inmyeongyong_full'`. */
-interface FullEntry {
-  readonly hanja: string;
-  readonly codepoint: string;
-  readonly readings: readonly string[];
-  readonly meaning: string | null;
-  readonly radicalId: number | null;
-  readonly strokeCount: number | null;
+interface FullGlyphRegistry {
+  readonly schemaVersion: '1.0.0-glyph-registry';
+  readonly sourceSchemaVersion: '1.0.0-full';
+  readonly sourceSha256: string;
+  readonly glyphsSha256: string;
+  readonly count: number;
+  readonly glyphs: string;
 }
-const FULL_REGISTRABLE_HANJA: ReadonlySet<string> = new Set(
-  ((inmyeongyongFullData as { entries: readonly FullEntry[] }).entries ?? []).map((e) => e.hanja),
-);
+
+const EXPECTED_FULL_GLYPH_COUNT = 9_495;
+
+function buildFullRegistrableHanjaSet(value: unknown): ReadonlySet<string> {
+  const registry = value as Partial<FullGlyphRegistry> | null;
+  if (registry?.schemaVersion !== '1.0.0-glyph-registry'
+    || registry.sourceSchemaVersion !== '1.0.0-full'
+    || !/^[0-9a-f]{64}$/.test(registry.sourceSha256 ?? '')
+    || !/^[0-9a-f]{64}$/.test(registry.glyphsSha256 ?? '')
+    || registry.count !== EXPECTED_FULL_GLYPH_COUNT
+    || typeof registry.glyphs !== 'string') {
+    throw new Error('Local full-pool Hanja glyph registry failed its integrity check.');
+  }
+
+  // String iteration is intentionally code-point aware. split('') would split
+  // supplementary court-mirror and PUA glyphs into UTF-16 surrogate halves.
+  const glyphs = Array.from(registry.glyphs);
+  const uniqueGlyphs = new Set(glyphs);
+  if (glyphs.length !== EXPECTED_FULL_GLYPH_COUNT
+    || uniqueGlyphs.size !== EXPECTED_FULL_GLYPH_COUNT) {
+    throw new Error('Local full-pool Hanja glyph registry failed its integrity check.');
+  }
+  return uniqueGlyphs;
+}
+
+const FULL_REGISTRABLE_HANJA = buildFullRegistrableHanjaSet(inmyeongyongGlyphRegistry);
 
 export type HanjaPool = 'curated' | 'inmyeongyong_full';
 
