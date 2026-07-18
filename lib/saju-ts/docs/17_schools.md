@@ -65,6 +65,8 @@
 
 결과의 `consensus: YongshinConsensusScoreboard`는 억부(`eokbu`)·조후(`johu`)·격국(`gyeokguk`)·통관(`tonggwan`)·병약(`byeongyak`)·식상류(`siksangFlow`) 6축의 축별 최우선 오행과 정규화 점수를 독립 보고하고, `final`에 최종 오행·`confidence`·`topMargin`·`conflictLevel`(none/low/medium/high)·`competingElements`를 담는다. 축 원점수는 `eokbuRaw = 0.55·deficiency + 0.45·rolePreference`, `johuRaw = climateScores + 0.35·templateBonus` 등으로 합성 가중치와 분리 계산된다. 또한 `primaryMethod`(EOKBU/JOHU/BYEONGYAK/TONGGWAN/JONGHWA)는 최종 오행에 실제로 가장 크게 기여한 방법군을 결정적으로 보고한다(감사 A2·B6). 상충을 점수 합산 뒤에 숨기지 않고 축별로 노출하는 이 설계가 §1 말미의 교리적 요구의 구현이다.
 
+진단 계약 v1.1은 `final`에 `normalizedTopMargin`과 `methodDisagreementRatio`를 추가한다. 호환 필드인 `topMargin`은 합성 점수 단위의 원시 1·2위 차이이고, `normalizedTopMargin`과 같은 값인 `confidence`는 `(1위-2위)/(1위-최하위)`로 정규화한 선택 명확도이지 전문가 정답 확률이 아니다. `methodDisagreementRatio`와 `conflictLevel`은 활성 방법축 중 최종 오행과 다른 축의 비율만 나타내며 선택 명확도와 합성하지 않는다.
+
 ## 4. 학파 이설과 프리셋 선택지
 
 통합 모델은 이설(異說)을 소거하지 않는다. 동일 팩 안에서 단일 축 강조 프리셋이 병존하며, 사용자는 학파적 입장을 프리셋 선택으로 표명할 수 있다.

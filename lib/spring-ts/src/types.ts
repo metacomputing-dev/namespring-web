@@ -819,9 +819,14 @@ export interface YongshinConsensusScoreboard {
   readonly siksangFlow: YongshinConsensusAxisScore;
   readonly final: {
     readonly element: string;
-    /** Upstream consensus ratio in the closed interval 0..1. */
+    /** Upstream selection-clarity ratio in the closed interval 0..1. */
     readonly confidence: number;
+    /** Raw upstream producer-score gap retained for response compatibility. */
     readonly topMargin: number;
+    /** Scale- and translation-invariant top-two gap. Optional for stored legacy payloads. */
+    readonly normalizedTopMargin?: number;
+    /** Active method-axis disagreement ratio. Optional for stored legacy payloads. */
+    readonly methodDisagreementRatio?: number;
     readonly conflictLevel: YongshinConsensusConflictLevel;
     readonly competingElements: readonly string[];
     readonly evidence: readonly string[];

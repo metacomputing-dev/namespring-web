@@ -83,7 +83,8 @@ const actualConsensus = analyzed.summary.yongshinConsensus
 const actualConsensusRatios = actualConsensus
   ? [
       actualConsensus.final.confidence,
-      actualConsensus.final.topMargin,
+      actualConsensus.final.normalizedTopMargin,
+      actualConsensus.final.methodDisagreementRatio,
       ...[
         actualConsensus.eokbu,
         actualConsensus.johu,
@@ -113,10 +114,15 @@ check('analyzeSajuSafe exposes recommendation confidence as integer points',
       (entry) => entry.confidence > 1,
     ),
   `actual=${JSON.stringify(analyzed.summary.yongshin.recommendations.map((entry) => entry.confidence))}`);
-check('analyzeSajuSafe keeps consensus confidence and scores as ratios',
+check('analyzeSajuSafe keeps consensus diagnostics and scores as ratios',
   actualConsensusRatios.length > 0
     && actualConsensusRatios.every(isRatio),
   `actual=${JSON.stringify(actualConsensusRatios)}`);
+check('analyzeSajuSafe keeps raw consensus top margin as a finite score-unit delta',
+  actualConsensus != null
+    && Number.isFinite(actualConsensus.final.topMargin)
+    && actualConsensus.final.topMargin >= 0,
+  `actual=${actualConsensus?.final.topMargin}`);
 check('analyzeSajuSafe keeps gyeokguk confidence and candidate scores as ratios',
   actualGyeokgukRatios.every(isRatio),
   `actual=${JSON.stringify(actualGyeokgukRatios)}`);

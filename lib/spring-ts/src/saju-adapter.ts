@@ -1962,6 +1962,12 @@ function extractYongshinConsensus(value: any): YongshinConsensusScoreboard | und
   const conflictLevel = (YONGSHIN_CONFLICT_LEVELS as readonly string[]).includes(conflict)
     ? conflict as YongshinConsensusScoreboard['final']['conflictLevel']
     : 'none';
+  const normalizedTopMargin = typeof finalRaw.normalizedTopMargin === 'number'
+    && Number.isFinite(finalRaw.normalizedTopMargin)
+    ? clampRatio(finalRaw.normalizedTopMargin) : undefined;
+  const methodDisagreementRatio = typeof finalRaw.methodDisagreementRatio === 'number'
+    && Number.isFinite(finalRaw.methodDisagreementRatio)
+    ? clampRatio(finalRaw.methodDisagreementRatio) : undefined;
 
   return {
     eokbu: extractAxis('eokbu'),
@@ -1974,6 +1980,8 @@ function extractYongshinConsensus(value: any): YongshinConsensusScoreboard | und
       element: normalizeElementCode(finalRaw.element) ?? '',
       confidence: clampRatio(finalRaw.confidence),
       topMargin: Number.isFinite(Number(finalRaw.topMargin)) ? Number(finalRaw.topMargin) : 0,
+      ...(normalizedTopMargin !== undefined ? { normalizedTopMargin } : {}),
+      ...(methodDisagreementRatio !== undefined ? { methodDisagreementRatio } : {}),
       conflictLevel,
       competingElements: ensureArray(finalRaw.competingElements)
         .map((entry) => normalizeElementCode(entry))

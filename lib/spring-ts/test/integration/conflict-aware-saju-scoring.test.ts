@@ -66,7 +66,11 @@ const highConflictConsensus: YongshinConsensusScoreboard = {
   final: {
     element: 'WOOD',
     confidence: 0.58,
-    topMargin: 0.02,
+    // Raw producer units are intentionally much larger than the normalized
+    // selection gap. Consumers must not compare this field to ratio thresholds.
+    topMargin: 2.5,
+    normalizedTopMargin: 0.02,
+    methodDisagreementRatio: 0.666667,
     conflictLevel: 'high',
     competingElements: ['FIRE', 'EARTH'],
     evidence: ['synthetic high-conflict consensus'],
@@ -127,6 +131,15 @@ check('aggressive reinforcement exposes aggressive safety profile',
   guardedAggressive.breakdown.safetyProfile?.posture === 'aggressive' &&
     guardedAggressive.breakdown.safetyProfile?.strategy === 'aggressive_reinforcement',
   JSON.stringify(guardedAggressive.breakdown.safetyProfile));
+
+check('normalized margin drives uncertainty independently of raw producer scale',
+  guardedAggressive.breakdown.yongshinConsensus?.topMargin === 2.5 &&
+    guardedAggressive.breakdown.yongshinConsensus?.normalizedTopMargin === 0.02 &&
+    (guardedAggressive.breakdown.safetyProfile?.riskScore ?? 0) >= 60,
+  JSON.stringify({
+    consensus: guardedAggressive.breakdown.yongshinConsensus,
+    riskScore: guardedAggressive.breakdown.safetyProfile?.riskScore,
+  }));
 
 check('balanced root exposes safe_balance strategy',
   guardedBalanced.breakdown.safetyProfile?.strategy === 'safe_balance',

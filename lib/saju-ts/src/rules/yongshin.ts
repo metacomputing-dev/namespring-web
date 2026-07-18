@@ -11,6 +11,12 @@ import type { RuleFacts } from './facts.js';
 import { computeFollowPotential } from './followPotential.js';
 import { strengthDecisionComponents } from './strengthComponents.js';
 import { compete, renormalizeScale } from '../core/competition.js';
+import {
+  deriveYongshinConsensusDiagnostics,
+  type YongshinConsensusConflictLevel,
+} from './yongshinConsensus.js';
+
+export type { YongshinConsensusConflictLevel } from './yongshinConsensus.js';
 
 export type YongshinRole = 'COMPANION' | 'RESOURCE' | 'OUTPUT' | 'WEALTH' | 'OFFICER';
 
@@ -22,8 +28,6 @@ export type YongshinConsensusAxisName =
   | 'byeongyak'
   | 'siksangFlow';
 
-export type YongshinConsensusConflictLevel = 'none' | 'low' | 'medium' | 'high';
-
 export interface YongshinConsensusAxisScore {
   element: Element | null;
   score: number;
@@ -34,7 +38,12 @@ export interface YongshinConsensusAxisScore {
 export interface YongshinConsensusFinalScore {
   element: Element;
   confidence: number;
+  /** Raw producer-score gap retained for response compatibility. */
   topMargin: number;
+  /** Scale- and translation-invariant top-two gap in the closed interval 0..1. */
+  normalizedTopMargin: number;
+  /** Share of active method axes that disagree with the selected element. */
+  methodDisagreementRatio: number;
   conflictLevel: YongshinConsensusConflictLevel;
   competingElements: Element[];
   evidence: string[];
@@ -499,22 +508,7 @@ function buildYongshinConsensus(args: {
   ]);
 
   const axes = [eokbu, johu, gyeokguk, tonggwan, byeongyak, siksangFlow];
-  const top = ranking[0] ?? { element: 'WOOD' as Element, score: 0 };
-  const second = ranking[1] ?? { element: top.element, score: top.score };
-  const margin = asNumber(top.score, 0) - asNumber(second.score, 0);
-  const confidence = margin <= 0 ? 0.35 : clamp01(Math.max(0.35, margin));
-
-  const disagree = axes.filter((axis) => axis.element && axis.element !== top.element && axis.score >= 0.2);
-  const activeScore = axes.reduce((sum, axis) => sum + (axis.element ? axis.score : 0), 0);
-  const disagreeScore = disagree.reduce((sum, axis) => sum + axis.score, 0);
-  const conflictRatio = activeScore > 0 ? disagreeScore / activeScore : 0;
-  const conflictSignal = Math.max(conflictRatio, 1 - confidence);
-  const conflictLevel: YongshinConsensusConflictLevel =
-    conflictSignal >= 0.6 ? 'high' :
-      conflictSignal >= 0.38 ? 'medium' :
-        conflictSignal >= 0.18 ? 'low' :
-          'none';
-  const competingElements = Array.from(new Set(disagree.map((axis) => axis.element).filter((element): element is Element => Boolean(element))));
+  const diagnostics = deriveYongshinConsensusDiagnostics(ranking, axes);
 
   return {
     eokbu,
@@ -524,15 +518,20 @@ function buildYongshinConsensus(args: {
     byeongyak,
     siksangFlow,
     final: {
-      element: top.element,
-      confidence: round6(confidence),
-      topMargin: round6(margin),
-      conflictLevel,
-      competingElements,
+      element: diagnostics.element,
+      confidence: diagnostics.confidence,
+      topMargin: diagnostics.topMargin,
+      normalizedTopMargin: diagnostics.normalizedTopMargin,
+      methodDisagreementRatio: diagnostics.methodDisagreementRatio,
+      conflictLevel: diagnostics.conflictLevel,
+      competingElements: diagnostics.competingElements,
       evidence: [
-        `selected=${top.element}`,
-        `topMargin=${round6(margin)}`,
-        `conflictRatio=${round6(conflictRatio)}`,
+        `selected=${diagnostics.element}`,
+        `topMargin=${diagnostics.topMargin}`,
+        `normalizedTopMargin=${diagnostics.normalizedTopMargin}`,
+        `methodDisagreementRatio=${diagnostics.methodDisagreementRatio}`,
+        `activeAxes=${diagnostics.activeAxisCount}`,
+        `disagreeAxes=${diagnostics.disagreeAxisCount}`,
       ],
     },
   };

@@ -140,6 +140,8 @@ export interface SajuNameScoreResult {
       competingElements: readonly string[];
       confidence: number;
       topMargin: number;
+      normalizedTopMargin?: number;
+      methodDisagreementRatio?: number;
       scoreGuardApplied: boolean;
     };
     safetyProfile?: SajuNameSafetyProfile;
@@ -249,7 +251,14 @@ function buildSajuNameSafetyProfile(params: {
     : 0;
   const conflictSeverity = clamp(conflictWeight / CONSENSUS_CONFLICT_WEIGHT.high, 0, 1);
   const unclearFactor = params.consensus
-    ? clamp(1 - Math.max(0, params.consensus.topMargin) / CONSENSUS_CLEAR_TOP_MARGIN, 0, 1)
+    ? clamp(
+        1 - Math.max(
+          0,
+          params.consensus.normalizedTopMargin ?? params.consensus.topMargin,
+        ) / CONSENSUS_CLEAR_TOP_MARGIN,
+        0,
+        1,
+      )
     : 0;
   const aggressiveReinforcement = clamp((yongshinRatio - Math.max(0.5, heesinRatio)) / 0.5, 0, 1);
   const harmfulRatio = clamp(gishinRatio * 0.6 + gusinRatio, 0, 1);
@@ -620,6 +629,12 @@ function computeYongshinScore(
         competingElements: yongshinData.consensus.final.competingElements,
         confidence: yongshinData.consensus.final.confidence,
         topMargin: yongshinData.consensus.final.topMargin,
+        ...(yongshinData.consensus.final.normalizedTopMargin !== undefined
+          ? { normalizedTopMargin: yongshinData.consensus.final.normalizedTopMargin }
+          : {}),
+        ...(yongshinData.consensus.final.methodDisagreementRatio !== undefined
+          ? { methodDisagreementRatio: yongshinData.consensus.final.methodDisagreementRatio }
+          : {}),
         scoreGuardApplied: false,
       }
     : undefined;
@@ -679,7 +694,12 @@ function computeYongshinScore(
       const yongshinRatio = yongshinCount / totalElements;
       const heesinRatio = heesinCount / totalElements;
       const conflictSeverity = clamp(conflictWeight / CONSENSUS_CONFLICT_WEIGHT.high, 0, 1);
-      const unclearFactor = clamp(1 - Math.max(0, consensus.topMargin) / CONSENSUS_CLEAR_TOP_MARGIN, 0, 1);
+      const unclearFactor = clamp(
+        1 - Math.max(0, consensus.normalizedTopMargin ?? consensus.topMargin)
+          / CONSENSUS_CLEAR_TOP_MARGIN,
+        0,
+        1,
+      );
       const aggressiveReinforcement = clamp((yongshinRatio - Math.max(0.5, heesinRatio)) / 0.5, 0, 1);
       score = clamp(
         score - CONSENSUS_AGGRESSIVE_REINFORCEMENT_MAX_PENALTY

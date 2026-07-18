@@ -546,7 +546,12 @@ export interface YongshinConsensusView {
   final: {
     element: string;
     confidence: number;
+    /** Raw producer-score gap retained for response compatibility. */
     topMargin: number;
+    /** Scale- and translation-invariant top-two gap in the closed interval 0..1. */
+    normalizedTopMargin: number;
+    /** Share of active method axes that disagree with the selected element. */
+    methodDisagreementRatio: number;
     conflictLevel: YongshinConsensusConflictLevelView;
     competingElements: string[];
     evidence: string[];
