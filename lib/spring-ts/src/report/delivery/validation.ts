@@ -22,12 +22,14 @@ import { ENGINE_BUILD_IDENTITY_V1 } from '../../engine-build-identity.generated.
 import { validateBirthInputRuntimeContract } from '../../saju/birth-input-contract.js';
 import {
   assertNameCharacterSyntax,
-  hasExplicitNameHanja,
 } from '../../name-entry-resolver.js';
+import { findNameIdentityModeConflictV1 } from '../../name-identity-contract.js';
+import { parseFortuneTargetDate } from '../../saju-request-policy.js';
 import {
   AnalysisOptionsContractError,
   assertAnalysisOptionsContractV1,
 } from '../analysis-options-validation.js';
+import { FOUR_FRAME_AUTHORED_COPY_APPROVED } from './content-gates.js';
 
 const SURFACE_IDS = new Set(['integrated', 'saju', 'naming']);
 const DEPTHS = new Set(['brief', 'standard', 'expert']);
@@ -48,6 +50,7 @@ const AVAILABILITY_REASONS = new Set<DeliveryReasonCodeV1>([
   'GENERATED_CONTENT_PARTIAL',
   'NOT_APPLICABLE',
   'METHOD_SCOPE_LIMITED',
+  'CONTENT_EXPERT_REVIEW_REQUIRED',
   'NAMING_CALENDAR_METHOD_NOT_ESTABLISHED',
   'SERVER_ENTITLEMENT_REQUIRED',
 ]);
@@ -217,23 +220,8 @@ function validateNameIdentityMode(
     readonly pureHangulNameMode?: unknown;
   },
 ): void {
-  const explicitHanja = value.map(hasExplicitNameHanja);
-  const hasAnyExplicitHanja = explicitHanja.some(Boolean);
-  const hasEveryExplicitHanja = explicitHanja.every(Boolean);
-
-  // A segment is either wholly pure Hangul or wholly explicit Hanja. Joining
-  // only the supplied Hanja would otherwise create a different/ambiguous
-  // candidate identity before the engine can issue its precise domain error.
-  if (hasAnyExplicitHanja && !hasEveryExplicitHanja) {
-    fail('PARTIAL_HANJA_IDENTITY');
-  }
-  if (options.role !== 'givenName') return;
-  if (options.pureHangulNameMode === 'on' && hasAnyExplicitHanja) {
-    fail('PURE_HANGUL_MODE_CONFLICT');
-  }
-  if (options.pureHangulNameMode === 'off' && !hasAnyExplicitHanja) {
-    fail('PURE_HANGUL_MODE_DISABLED');
-  }
+  const conflict = findNameIdentityModeConflictV1(value, options);
+  if (conflict) fail(conflict);
 }
 
 /** Strict outer request guard. Called after the bounded public snapshot. */
@@ -281,8 +269,15 @@ export function validateReportDeliveryRequestV1(
   }
   if (value.surname !== undefined) validateNameCharacters(value.surname, 2, 'surname');
   if (value.givenName !== undefined) validateNameCharacters(value.givenName, 4, 'givenName');
-  if (value.targetDate !== undefined && typeof value.targetDate !== 'string') {
-    fail('INVALID_SHAPE');
+  if (value.targetDate !== undefined) {
+    if (typeof value.targetDate !== 'string') fail('INVALID_SHAPE');
+    try {
+      // Reject malformed and out-of-horizon dates before an engine operation,
+      // repository initialization, or paid server recomputation can begin.
+      parseFortuneTargetDate(value.targetDate, value.birth);
+    } catch {
+      fail('INVALID_SHAPE');
+    }
   }
   if (value.candidateId !== undefined && typeof value.candidateId !== 'string') {
     fail('INVALID_SHAPE');
@@ -842,6 +837,17 @@ function strictFact(value: unknown): ReportFactV1 {
     }
     if (hasOwn(value, 'strokes')) strictSafeInteger(value.strokes, 'NAME_CHARACTER_STROKES');
     if (hasOwn(value, 'element')) strictElement(value.element, 'NAME_CHARACTER_ELEMENT');
+    if (value.method === 'spring-ts.pure-hangul-character.v1') {
+      if (hasOwn(value, 'hanja') || hasOwn(value, 'strokes') || value.legal !== 'unknown') {
+        contractFail('NAME_CHARACTER_BASIS');
+      }
+    } else if (value.method === 'spring-ts.naming-report-character.v1') {
+      if (!hasOwn(value, 'hanja') || !hasOwn(value, 'strokes')) {
+        contractFail('NAME_CHARACTER_BASIS');
+      }
+    } else {
+      contractFail('NAME_CHARACTER_METHOD');
+    }
   } else if (value.kind === 'naming_frame') {
     strictObject(
       value,
@@ -1539,6 +1545,7 @@ export function assertReportDeliveryV1(
     let timelineCount = 0;
     let lifeFlowCount = 0;
     let namingCalendarCount = 0;
+    let fourFrameCount = 0;
 
     for (const rawBlock of rawSurface.blocks) {
       const block = strictBlock(rawBlock);
@@ -1695,6 +1702,7 @@ export function assertReportDeliveryV1(
           }
         }
       } else if (block.kind === 'four_frames') {
+        fourFrameCount += 1;
         if (surface.id !== 'naming') contractFail('FOUR_FRAMES_SURFACE');
         const stages = new Set<string>();
         for (const item of block.items) {
@@ -1705,6 +1713,9 @@ export function assertReportDeliveryV1(
             contractFail('FOUR_FRAME_TYPED_REF');
           }
           if (item.interpretationRef !== undefined) {
+            if (!FOUR_FRAME_AUTHORED_COPY_APPROVED) {
+              contractFail('FOUR_FRAME_CONTENT_GATE');
+            }
             const interpretation = interpretationRef(
               interpretationById,
               item.interpretationRef,
@@ -1767,12 +1778,25 @@ export function assertReportDeliveryV1(
     if (surface.id !== 'naming' && namingCalendarCount !== 0) {
       contractFail('NAMING_CALENDAR_CAPABILITY_SURFACE');
     }
+    if (!FOUR_FRAME_AUTHORED_COPY_APPROVED
+      && fourFrameCount > 0
+      && !availability.reasonCodes.includes('CONTENT_EXPERT_REVIEW_REQUIRED')) {
+      contractFail('FOUR_FRAME_CONTENT_GATE');
+    }
     const coreBlocks = surface.blocks.filter((block) =>
       block.kind !== 'capability'
       && block.kind !== 'premium_teaser'
       && block.kind !== 'deep_links');
-    if (availability.status === 'ready'
-      && coreBlocks.some((block) => block.availability.status !== 'ready')) {
+    const coreAvailability = aggregateStrictAvailability(
+      coreBlocks.map((block) => block.availability),
+    );
+    const omitsCoreReason = coreAvailability.reasonCodes.some(
+      (reason) => !availability.reasonCodes.includes(reason),
+    );
+    if (omitsCoreReason
+      || (availability.status === 'ready' && coreAvailability.status !== 'ready')
+      || (availability.status === 'unavailable'
+        && coreAvailability.status !== 'unavailable')) {
       contractFail('SURFACE_AVAILABILITY');
     }
     surfaces.push(surface);

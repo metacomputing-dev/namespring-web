@@ -407,6 +407,18 @@ assert.throws(
     && error.reason === 'INVALID_REGISTRATION_REQUEST',
   'paid registration requires a complete birth date and a real target date',
 );
+assert.throws(
+  () => assertPremiumReportRegistrationRequestV1({
+    ...registrationRequest,
+    analysisInput: {
+      ...registrationRequest.analysisInput,
+      targetDate: '1986-04-18',
+    },
+  }),
+  (error: unknown) => error instanceof PremiumContractValidationErrorV1
+    && error.reason === 'INVALID_REGISTRATION_REQUEST',
+  'paid registration rejects a fortune horizon before birth before server recomputation',
+);
 const asciiCandidateId = candidateIdFromNameIdentityV1({
   surnameHangul: 'A', surnameHanja: '', givenHangul: 'B', givenHanja: '',
 });

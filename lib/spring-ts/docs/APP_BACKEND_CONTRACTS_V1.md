@@ -109,7 +109,7 @@
 
 유료 등록 요청은 서버 통신이 시작되는 유일한 무료→유료 handoff다. 원본 `birth`, 글자 경계가 보존된 `surname`/`givenName`, `targetDate`, 허용된 분석 옵션을 보낸다. `localAnalysisId`는 추적용일 뿐이고, 서버는 로컬 점수·순위·사주·성명학·결합 판정을 신뢰하지 않는다. 서버가 같은 엔진·규칙·데이터로 재계산하고 새 영속 ID를 발급한다. 후보 ID도 분리된 성·이름 원본에서 다시 계산한다. 페이지 offset·queryId는 분석 정체성에 포함하지 않는다.
 
-현재 출시 서버는 Google, Kakao, 이메일 링크, Apple 중 하나 이상의 primary provider가 연결된 인증 계정만 유료 등록·결제·전달의 소유자로 허용한다. 로그인하지 않은 사용자는 무료 로컬 기능을 그대로 쓰지만, 익명 세션은 유료 소유권으로 승격되지 않는다.
+현재 출시 서버는 Google, Kakao OIDC, 이메일 링크 중 하나 이상의 primary provider가 연결된 인증 계정만 유료 등록·결제·전달의 소유자로 허용한다. 로그인하지 않은 사용자는 무료 로컬 기능을 그대로 쓰지만, 익명 세션은 유료 소유권으로 승격되지 않는다. Apple은 토큰 보관·철회와 credential-revoked 통지 수명주기 adapter가 구현·검증되기 전까지 환경변수만으로 활성화할 수 없는 실패 폐쇄 공급자다.
 
 유료 소유자 v2는 canonical 내부 UUIDv4를 도메인·버전 분리 SHA-256으로 변환한 안정 식별자다. 운영 키에 의존하지 않으므로 감사·암호화 키를 회전해도 저장소 인덱스, 결제, entitlement, 환불, 내보내기, 삭제의 소유권이 바뀌지 않는다. 기존 keyed v1 소유자는 런타임에서 암묵적으로 연결하지 않으며, premium write를 동결한 명시적 오프라인 마이그레이션과 전수 검증이 끝나기 전에는 실패 폐쇄한다. 감사 actor/session은 소유자 키와 분리된 전용 키링의 key-addressed HMAC 가명만 저장하고 원본 ID는 저장하지 않는다.
 
@@ -143,6 +143,10 @@ reportId + analysisId + candidateId + productId + contentVersion
 
 글자 뜻·소리·오행·수리 사격 등 이름 고유 근거를 중심으로 한다. 사격의 원형이정은 생애 프레임이지 이름만으로 만든 오늘·이번 주 운세가 아니다. 독립된 검증 방법이 없으므로 이름 단독 달력 운세는 만들지 않고 `NAMING_CALENDAR_METHOD_NOT_ESTABLISHED`로 명시한다.
 
+현재 81수리 authored 원문에는 특정 질병, 부부 갈등, 특정 연령의 사건을 실제 개인에게 일어날 일처럼 단정하는 문장이 섞여 있다. 구조화된 획수·사격·오행 사실은 로컬 개발과 UI 연결에 사용할 수 있지만, 이 원문은 외부 성명학 전문가가 버전·검토자·실제 달력 검토일·불변 검토 증거의 `sha256:`을 승인하기 전에는 `ReportDeliveryV1`에 넣지 않는다. `config/engine.json`의 `reportDeliveryContentGates.fourFrameAuthoredInterpretation`은 기본적으로 `blocked_pending_external_expert_review`이며, 차단 중에는 성명학 surface가 `CONTENT_EXPERT_REVIEW_REQUIRED`를 반환하고 four-frame `interpretationRef`를 생략한다. 상태 문자열 하나만 `approved`로 바꿔서는 열리지 않는다. 원본 DB를 대량 수정해 문제를 숨기거나 단순 문자열 필터로 승인 상태를 우회하지 않는다.
+
+또한 2026-07-19 고정 deterministic 표본 100건(1960~2010년, 남녀 교차)에서 유료 진입에 필요한 natal evidence `ready`는 0건이었고, `SAJU_JUDGMENT_LOW_CONFIDENCE` 100건, `YONGSHIN_CONSENSUS_CONFLICT` 95건이었다. 이 수치는 정확도 결론이나 모집단 추정치가 아니라 현재 유료 CTA가 사실상 닫혀 있음을 발견한 smoke evidence다. 권위 사례와 독립 전문가 검토로 판정 축을 개선하고 동일 표본 및 별도 홀드아웃에서 `ready`가 실제로 나타나는지 확인하기 전에는 threshold를 낮추거나 conflict를 무시해 유료 제안을 열지 않는다.
+
 ## 홈과 다른 무료 메뉴의 로컬 계약
 
 ### `LocalAnalysisContextV1`
@@ -172,6 +176,12 @@ reportId + analysisId + candidateId + productId + contentVersion
 ## 성능·안정성 기준
 
 신규 FE는 무료 `SpringEngine` 계산을 UI 메인 스레드에서 직접 실행하지 않고 장수 Dedicated Worker 또는 동등한 네이티브 background runtime에서 실행해야 한다. 최초 사주·통합·후보 계산은 데스크톱 특성 측정에서도 프레임 예산을 크게 넘으므로 이 규칙은 권장이 아니라 출시 계약이다. 홈에서는 계산 DB·사주·기사·생성 번들을 미리 열지 않고, 사용자가 해당 흐름에 진입할 의도를 보인 뒤 필요한 자산만 준비한다. 세부 lifecycle, LRU, 취소, 측정 계약은 [모바일 로컬 계산 성능 계약 V1](./MOBILE_LOCAL_PERFORMANCE_CONTRACT_V1.md)을 따른다.
+
+홈/LCP는 `@spring/experience/local-device-entry`에서 출생 미리보기와 정적
+capability만 import한다. 호환용 `@spring` 루트 및
+`@spring/experience/local-menu`는 초기 화면에서 금지하며, 분석·한자 검색 진입 뒤
+Worker 쪽에서만 지연 로드한다. 이 경계는 transitive static graph의 raw/gzip 예산과
+SpringEngine·SQL·저장소·saju 구현 입력 0개를 실제 esbuild metafile로 검사한다.
 
 - 기본 후보 페이지는 20개, 한 요청 최대 100개, 한 세션 탐색 상한은 500개다.
 - 첫 후보 페이지에서만 bounded top-N을 계산하고 다음 페이지는 세션 스냅샷을 사용한다.

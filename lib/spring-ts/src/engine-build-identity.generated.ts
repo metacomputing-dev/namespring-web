@@ -4,8 +4,8 @@ export const ENGINE_BUILD_IDENTITY_V1 = Object.freeze({
   "schemaVersion": "namespring.engine-build-input-manifest.v1",
   "authority": "build-time-artifact-identity-only",
   "completeness": "declared-tracked-build-input-scope-not-execution-reproducibility",
-  "aggregateDigest": "sha256:b3bd38a39b75480ef07da5c78c44a71623e03d308f0225c2000255d66b071303",
-  "rulesetDigest": "sha256:b74cf187fd03912d23f8aeece5221fedaa2e1cf41a73108515b956ec493cda60",
+  "aggregateDigest": "sha256:4b37cddbdab88c6c8c44d016b48f7b32c22b735f26591e7b28b36623b1c92c7b",
+  "rulesetDigest": "sha256:29e27920498564730507a3c169d7b3d7b9ffe2eea9bbd40a01aba31a285858b6",
   "dataDigest": "sha256:f457cd5126bee2e68ff40681971ccd4fb116065b8da1579be6405a9c755e2e78",
-  "manifestFileCount": 381
+  "manifestFileCount": 393
 } as const);
