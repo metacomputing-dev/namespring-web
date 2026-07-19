@@ -309,6 +309,96 @@ function BirthLineChart({ yearlyBirth }: { yearlyBirth: Record<string, Record<st
   );
 }
 
+interface RankSeries {
+  label: string;
+  points: { year: number; rank: number }[];
+}
+
+/** 연도별 공식 순위에서 그릴 계열을 고른다 — 전체 버킷 우선, 없으면 점이 많은 성별 버킷. */
+function pickRankSeries(yearlyRank: Record<string, Record<string, number>>): RankSeries | null {
+  const buckets = Object.entries(yearlyRank)
+    .map(([label, byYear]) => ({
+      label,
+      points: Object.entries(byYear ?? {})
+        .map(([yearText, rank]) => ({ year: Number(yearText), rank }))
+        .filter(p => Number.isFinite(p.year) && Number.isFinite(p.rank) && p.rank > 0)
+        .sort((a, b) => a.year - b.year),
+    }))
+    .filter(bucket => bucket.points.length >= 2);
+  if (buckets.length === 0) return null;
+  return (
+    buckets.find(bucket => bucket.label === '전체')
+    ?? buckets.reduce((best, bucket) => (bucket.points.length > best.points.length ? bucket : best))
+  );
+}
+
+/** 인기 순위의 변천 — 순위는 낮을수록 인기라 1위가 위로 가도록 축을 뒤집는다. */
+function RankLineChart({ series }: { series: RankSeries }) {
+  const { points } = series;
+  const w = 560;
+  const h = 150;
+  const pad = 24;
+  const years = points.map(p => p.year);
+  const ranks = points.map(p => p.rank);
+  const minYear = Math.min(...years);
+  const maxYear = Math.max(...years);
+  const bestRank = Math.min(...ranks);
+  const worstRank = Math.max(...ranks);
+  const x = (year: number) => pad + ((year - minYear) / Math.max(maxYear - minYear, 1)) * (w - pad * 2);
+  const y = (rank: number) =>
+    pad + ((rank - bestRank) / Math.max(worstRank - bestRank, 1)) * (h - pad * 2);
+  const path = points
+    .map((p, i) => `${i === 0 ? 'M' : 'L'}${x(p.year).toFixed(1)},${y(p.rank).toFixed(1)}`)
+    .join(' ');
+  const best = points.reduce((acc, p) => (p.rank < acc.rank ? p : acc), points[0]);
+  const latest = points[points.length - 1];
+  const bestX = x(best.year);
+  const bestAnchor = bestX < w * 0.18 ? 'start' : bestX > w * 0.82 ? 'end' : 'middle';
+  // 위의 '지금의 인기' 카드와 버킷(전체/남자/여자)이 다를 수 있어 기준을 항상 밝힌다.
+  const bucketNote =
+    series.label === '전체' ? ' 남녀 전체 이름 순위 기준이에요.' : ` ${series.label} 이름 순위 기준이에요.`;
+  return (
+    <div>
+      <svg
+        viewBox={`0 0 ${w} ${h}`}
+        style={{ width: '100%', height: 'auto' }}
+        role="img"
+        aria-label={`연도별 이름 인기 순위, ${minYear}년부터 ${maxYear}년까지. 위로 갈수록 순위가 높아요.`}
+      >
+        <path d={path} fill="none" stroke="var(--color-chart-line-a)" strokeWidth="2" />
+        <circle cx={bestX} cy={y(best.rank)} r="3.5" fill="var(--color-chart-line-a)" />
+        <text
+          x={bestX}
+          y={y(best.rank) - 8}
+          textAnchor={bestAnchor}
+          style={{ fill: 'var(--color-ink-2)', fontSize: '11px' }}
+        >
+          {best.year}년 · {best.rank.toLocaleString()}위
+        </text>
+        {latest.year !== best.year ? (
+          <text
+            x={x(latest.year)}
+            y={y(latest.rank) - 8}
+            textAnchor="end"
+            style={{ fill: 'var(--color-ink-3)', fontSize: '11px' }}
+          >
+            {latest.rank.toLocaleString()}위
+          </text>
+        ) : null}
+        <text x={pad} y={h - 6} style={{ fill: 'var(--color-ink-3)', fontSize: '11px' }}>{minYear}</text>
+        <text x={w - pad} y={h - 6} textAnchor="end" style={{ fill: 'var(--color-ink-3)', fontSize: '11px' }}>
+          {maxYear}
+        </text>
+      </svg>
+      <p className="v3-hint" style={{ margin: '0.3rem 0 0' }}>
+        위로 갈수록 인기 순위가 높아요.{bucketNote} 가장 높이 오른 해는{' '}
+        {best.year}년({best.rank.toLocaleString()}위)이고, 마지막 집계인 {latest.year}년에는{' '}
+        {latest.rank.toLocaleString()}위예요.
+      </p>
+    </div>
+  );
+}
+
 function GenderDonut({ gender }: { gender: NameGenderRatioEntry }) {
   const total = gender.maleBirths + gender.femaleBirths;
   if (total <= 0) return null;
@@ -352,6 +442,7 @@ function NameStatsSection({ index, profile }: { index: DeliveryIndex; profile: V
     );
   }
   const { entry, gender } = stats;
+  const rankSeries = entry ? pickRankSeries(entry.yearly_rank) : null;
   let rank = statistics?.popularityRank ?? trend?.latestPoint?.rank ?? null;
   let rankYear = trend?.latestPoint?.year ?? null;
   let rankBucket: string | null = null;
@@ -391,9 +482,15 @@ function NameStatsSection({ index, profile }: { index: DeliveryIndex; profile: V
           </div>
         ) : null}
       </div>
-      {entry && Object.keys(entry.yearly_birth).length > 1 ? (
+      {entry && rankSeries ? (
         <div className="v3-card">
-          <p className="v3-kicker">연도별 출생아 수</p>
+          <p className="v3-kicker">인기의 흐름</p>
+          <RankLineChart series={rankSeries} />
+        </div>
+      ) : entry && Object.keys(entry.yearly_birth).length > 1 ? (
+        <div className="v3-card">
+          {/* 순위 자료가 없는 이름은 출생아 비율 곡선으로 흐름을 대신 보여준다. */}
+          <p className="v3-kicker">인기의 흐름</p>
           <BirthLineChart yearlyBirth={entry.yearly_birth} />
         </div>
       ) : null}
