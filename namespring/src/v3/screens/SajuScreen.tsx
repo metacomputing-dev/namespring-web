@@ -19,11 +19,8 @@ import {
   stemWithElement,
   CATEGORY_META,
   PERIOD_META,
-  PILLAR_DOMAIN,
   PILLAR_KO,
   SEONGPAE_KO,
-  SHINSAL_BENEFIC,
-  SHINSAL_MEANINGS,
   TEN_GOD_KO,
   UNSEONG_GLOSS,
 } from '../model/saju-labels';
@@ -195,217 +192,92 @@ function YinYangCard({ index }: { index: DeliveryIndex }) {
   );
 }
 
-/* ---------- 구조 인사이트 ---------- */
+/* ---------- 구조 인사이트 (엔진 insight_facts 소비) ---------- */
 
 type SignalWeight = 'strong' | 'mid' | 'soft';
 
-interface SignalItem {
-  key: string;
-  label: string;
-  main: string;
-  expertNote?: string;
-  weight: SignalWeight;
-}
+type InsightItem = Extract<
+  import('@spring/report/delivery/types').ReportFactV1,
+  { kind: 'insight_facts' }
+>['items'][number];
 
-const WEIGHT_ORDER: Record<SignalWeight, number> = { strong: 0, mid: 1, soft: 2 };
+const GROUP_META: Record<InsightItem['group'], { id: string; title: string; sub: string }> = {
+  boon: { id: 'help', title: '도움의 신호', sub: '귀인과 합 — 힘이 되어 주는 배치' },
+  tension: { id: 'pace', title: '완급의 신호', sub: '살·충·형 — 속도를 챙기면 무기가 되는 배치' },
+  space: { id: 'blank', title: '여백의 신호', sub: '공망·지장간 — 비움과 잠재의 배치' },
+};
+const GROUP_ORDER: InsightItem['group'][] = ['boon', 'tension', 'space'];
 
-/** 신살 등급(A/B/C)을 농도로 옮긴다. */
-function shinsalWeight(grade: string): SignalWeight {
-  const normalized = grade.trim().toUpperCase();
-  if (normalized.startsWith('A')) return 'strong';
-  if (normalized.startsWith('B')) return 'mid';
+/** 엔진 salience(0~1)를 색 농도 3단계로 옮긴다. */
+function salienceWeight(salience: number): SignalWeight {
+  if (salience >= 0.6) return 'strong';
+  if (salience >= 0.32) return 'mid';
   return 'soft';
 }
 
-/** 관계 유형의 무게: 충·성립한 합은 또렷하고, 파·해는 은근하다. */
-function relationWeight(type: string, confirmed: boolean): SignalWeight {
-  if (type.includes('충')) return 'strong';
-  if (type.includes('합')) return confirmed ? 'strong' : 'mid';
-  if (type.includes('형')) return 'mid';
-  return 'soft';
-}
-
-/** 앞 낱말의 받침에 맞춰 와/과를 골라 잇는다. 자수와 축토 / 을목과 신금. */
-function joinWithGwa(items: string[]): string {
-  return items.reduce((acc, current, i) => {
-    if (i === 0) return current;
-    const prev = items[i - 1];
-    const last = prev.charCodeAt(prev.length - 1);
-    const hasBatchim = last >= 0xac00 && last <= 0xd7a3 && (last - 0xac00) % 28 !== 0;
-    return `${acc}${hasBatchim ? '과 ' : '와 '}${current}`;
-  }, '');
-}
-
-/** 글자를 오행까지 부르며 관계를 생생하게 풀어낸다. */
-function relationReading(named: string[], type: string, confirmed: boolean): string {
-  const glyphs = joinWithGwa(named);
-  if (type.includes('충')) {
-    return `${glyphs}이 예리하게 부딪히는 충이에요. 정면으로 맞서는 힘이라, 서두르지 않으면 오히려 또렷해져요.`;
+/** 칩에 걸 짧은 라벨 — 관계는 글자를 오행까지 붙여 부른다 (묘목·유금 충). */
+function signalChipLabel(item: InsightItem): string {
+  if (item.signalKind === 'stemRelation' || item.signalKind === 'branchRelation') {
+    const typeWord = item.label.replace(/^(천간|지지)\s*/u, '');
+    const named = item.members.map(item.signalKind === 'stemRelation' ? stemWithElement : branchWithElement);
+    if (named.length > 0) return `${named.join('·')} ${typeWord}`;
   }
-  if (type.includes('합')) {
-    return confirmed
-      ? `${glyphs}이 서로 끌어당겨 새 기운으로 어우러지는 합이에요. 손잡을 때 힘이 배가돼요.`
-      : `${glyphs}이 서로 끌어당기는 합이에요. 결이 맞는 사람·일과 만날 때 빛나요.`;
-  }
-  if (type.includes('형')) {
-    return `${glyphs}이 서로를 다듬는 형이에요. 규칙과 절차를 갖추면 그 긴장이 오히려 방패가 돼요.`;
-  }
-  if (type.includes('파')) {
-    return `${glyphs}이 어긋나기 쉬운 파예요. 마무리를 한 번 더 확인하면 헐거움이 메워져요.`;
-  }
-  return `${glyphs}이 은근히 어긋나는 ${type}예요. 오해는 쌓이기 전에 말로 풀면 가벼워져요.`;
-}
-
-interface SignalGroupSpec {
-  id: 'help' | 'pace' | 'blank';
-  title: string;
-  sub: string;
-  items: SignalItem[];
-}
-
-/** 레거시의 도움·완급·여백 3분류를 delivery fact 위에서 되살린다. */
-function buildSignalGroups(index: DeliveryIndex): SignalGroupSpec[] {
-  const shinsal = factOfKind(index, 'shinsal_hits');
-  const gongmang = factOfKind(index, 'gongmang');
-  const relations = factOfKind(index, 'natal_relations');
-  const tenGod = factOfKind(index, 'ten_god_analysis');
-
-  const help: SignalItem[] = [];
-  const pace: SignalItem[] = [];
-  const blank: SignalItem[] = [];
-
-  const seenShinsal = new Set<string>();
-  for (const hit of shinsal?.hits ?? []) {
-    if (seenShinsal.has(hit.name)) continue;
-    seenShinsal.add(hit.name);
-    const meaning = SHINSAL_MEANINGS[hit.name];
-    // 등급이 높을수록 진하게, 여러 자리에 겹치면 한 단계 더 또렷하게.
-    let weight = shinsalWeight(hit.grade);
-    if (hit.occurrenceCount >= 2 && weight === 'soft') weight = 'mid';
-    if (hit.occurrenceCount >= 2 && weight === 'mid') weight = 'strong';
-    const item: SignalItem = {
-      key: `shinsal-${hit.name}`,
-      label: hit.name,
-      main: meaning ?? `${hit.name}이 자리해요. 뜻풀이는 준비하고 있어요.`,
-      expertNote: `${hit.calculationBasis.label} 기준 · ${hit.grade}등급 · ${hit.occurrenceCount}곳`,
-      weight,
-    };
-    (SHINSAL_BENEFIC.has(hit.name) ? help : pace).push(item);
-  }
-
-  for (const relation of relations?.cheongan ?? []) {
-    const named = relation.stems.map(stemWithElement);
-    const item: SignalItem = {
-      key: `cheongan-${relation.type}-${relation.stems.join('')}`,
-      label: `${named.join('·')} ${relation.type}`,
-      main: relationReading(named, relation.type, relation.resultConfirmed),
-      expertNote: relation.resultConfirmed ? `천간 ${relation.type} · 합화 성립` : `천간 ${relation.type}`,
-      weight: relationWeight(relation.type, relation.resultConfirmed),
-    };
-    (relation.type.includes('합') ? help : pace).push(item);
-  }
-  for (const relation of relations?.jiji ?? []) {
-    const named = relation.branches.map(branchWithElement);
-    const item: SignalItem = {
-      key: `jiji-${relation.type}-${relation.branches.join('')}`,
-      label: `${named.join('·')} ${relation.type}`,
-      main: relationReading(named, relation.type, relation.outcome != null),
-      expertNote: relation.outcome ? `지지 ${relation.type} · ${relation.outcome}` : `지지 ${relation.type}`,
-      weight: relationWeight(relation.type, relation.outcome != null),
-    };
-    (relation.type.includes('합') ? help : pace).push(item);
-  }
-
-  if (gongmang) {
-    blank.push({
-      key: 'gongmang',
-      label: '공망',
-      main: `${gongmang.voidBranches[0]}·${gongmang.voidBranches[1]}가 비어 있는 공망이에요. 도약 직전 자리가 헐거울 수 있으니, 준비를 남보다 한 번 더 하면 좋아요.`,
-      expertNote: '일주 기준으로 계산한 빈 자리예요.',
-      // 공망은 여백 신호 중 가장 또렷한 축이다.
-      weight: 'mid',
-    });
-  }
-  for (const position of tenGod?.positions ?? []) {
-    if (position.hiddenStems.length === 0) continue;
-    const listed = position.hiddenStems
-      .map(hidden => `${hidden.stem}(${hidden.tenGod.label})`)
-      .join(' · ');
-    const domain = PILLAR_DOMAIN[position.position] ?? '';
-    // 본기가 뚜렷할수록(비중이 높을수록) 조금 더 또렷하게 본다.
-    const maxRatio = Math.max(...position.hiddenStems.map(hidden => hidden.ratio));
-    blank.push({
-      key: `hidden-${position.position}`,
-      label: `${PILLAR_KO[position.position]} 지장간`,
-      main: `${PILLAR_KO[position.position]} 땅의 글자 속에 숨은 천간이에요. ${domain}에서 드러날 재능의 원석이 여기 묻혀 있어요.`,
-      expertNote: `${listed} · 겉으로 드러나지 않지만 때가 되면 힘을 내는 잠재예요.`,
-      weight: maxRatio >= 0.9 ? 'mid' : 'soft',
-    });
-  }
-
-  const byWeight = (a: SignalItem, b: SignalItem) =>
-    WEIGHT_ORDER[a.weight] - WEIGHT_ORDER[b.weight];
-  help.sort(byWeight);
-  pace.sort(byWeight);
-  blank.sort(byWeight);
-
-  return [
-    { id: 'help', title: '도움의 신호', sub: '힘이 되어 주는 배치', items: help },
-    { id: 'pace', title: '완급의 신호', sub: '속도를 챙기면 무기가 되는 배치', items: pace },
-    { id: 'blank', title: '여백의 신호', sub: '비움과 잠재의 배치', items: blank },
-  ];
+  return item.label;
 }
 
 function InsightQuotes({ index }: { index: DeliveryIndex }) {
-  // 전체 칩 브라우저에서 눌러 연 신호(없으면 접힘).
   const [selected, setSelected] = useState<string | null>(null);
-  const groups = buildSignalGroups(index).filter(group => group.items.length > 0);
-  if (groups.length === 0) return null;
+  const fact = factOfKind(index, 'insight_facts');
+  const items = fact?.items ?? [];
+  if (items.length === 0) return null;
 
-  // 위층: 강한 순으로 최대 6개를 골라 상담처럼 먼저 풀어 준다.
-  const all = groups.flatMap(group => group.items);
-  const highlights = [...all]
-    .sort((a, b) => WEIGHT_ORDER[a.weight] - WEIGHT_ORDER[b.weight])
-    .slice(0, 6);
+  // 엔진이 salience 내림차순으로 정렬해 보낸다 — 하이라이트는 그 순서를 따른다.
+  const highlights = items.filter(item => item.highlight);
+  const lead = highlights.length > 0 ? highlights : items.slice(0, Math.min(4, items.length));
 
   return (
     <div className="v3-card">
       <div className="v3-signal-highlights">
-        {highlights.map(item => (
-          <QuoteCard key={item.key} main={item.main} expertNote={item.expertNote} />
+        {lead.map(item => (
+          <QuoteCard key={item.signalId} main={item.reading} expertNote={item.readingExpert ?? undefined} />
         ))}
       </div>
 
       <details className="v3-signal-browser" open>
-        <summary>원국 신호 전체 ({all.length})</summary>
+        <summary>원국 신호 전체 ({items.length})</summary>
         <div className="v3-signal-browser-body">
-          {groups.map(group => (
-            <div key={group.id} className="v3-signal-group">
-              <p className="v3-signal-title">
-                {group.title} <span className="v3-hint">— {group.sub}</span>
-              </p>
-              <div className="v3-signal-pills">
-                {group.items.map(item => (
-                  <button
-                    key={item.key}
-                    type="button"
-                    className={`v3-signal-pill v3-signal-pill--${group.id} v3-signal-pill--${item.weight}`}
-                    aria-expanded={selected === item.key}
-                    onClick={() => setSelected(selected === item.key ? null : item.key)}
-                  >
-                    {item.label}
-                  </button>
-                ))}
+          {GROUP_ORDER.map(groupKey => {
+            const groupItems = items.filter(item => item.group === groupKey);
+            if (groupItems.length === 0) return null;
+            const meta = GROUP_META[groupKey];
+            return (
+              <div key={groupKey} className="v3-signal-group">
+                <p className="v3-signal-title">
+                  {meta.title} <span className="v3-hint">— {meta.sub}</span>
+                </p>
+                <div className="v3-signal-pills">
+                  {groupItems.map(item => (
+                    <button
+                      key={item.signalId}
+                      type="button"
+                      className={`v3-signal-pill v3-signal-pill--${meta.id} v3-signal-pill--${salienceWeight(item.salience)}`}
+                      aria-expanded={selected === item.signalId}
+                      onClick={() => setSelected(selected === item.signalId ? null : item.signalId)}
+                    >
+                      {signalChipLabel(item)}
+                    </button>
+                  ))}
+                </div>
+                {groupItems
+                  .filter(item => item.signalId === selected)
+                  .map(item => (
+                    <div key={item.signalId} style={{ marginTop: '0.6rem' }}>
+                      <QuoteCard main={item.reading} expertNote={item.readingExpert ?? undefined} />
+                    </div>
+                  ))}
               </div>
-              {group.items
-                .filter(item => item.key === selected)
-                .map(item => (
-                  <div key={item.key} style={{ marginTop: '0.6rem' }}>
-                    <QuoteCard main={item.main} expertNote={item.expertNote} />
-                  </div>
-                ))}
-            </div>
-          ))}
+            );
+          })}
           <p className="v3-hint" style={{ margin: '0.7rem 0 0', textAlign: 'center' }}>
             신호를 누르면 풀이가 열려요.
           </p>
