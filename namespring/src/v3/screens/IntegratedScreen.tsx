@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import type { ReportSurfaceSelectionV1 } from '@spring/report/delivery/types';
 import NamingResultRenderer from '../../NamingResultRenderer';
 import { buildRenderMetricsFromSajuReport } from '../../naming-result-render-metrics';
+import { clearDeliveryCache } from '../engine/client';
 import { useDelivery } from '../engine/useDelivery';
 import {
   ELEMENT_KO,
@@ -10,8 +11,8 @@ import {
   factsOfKind,
   type DeliveryIndex,
 } from '../model/facts';
-import { personBirthLabel } from '../model/people';
-import { fullHangulName, fullHanjaName, type V3Profile } from '../model/profile';
+import { listPeople, personBirthLabel, personLabel, personName } from '../model/people';
+import { fullHangulName, fullHanjaName, saveProfile, type V3Profile } from '../model/profile';
 import ProfileSetupForm from '../ui/ProfileSetupForm';
 import {
   ElementBadge,
@@ -386,7 +387,18 @@ function SajuDetailLinkCard({ index }: { index: DeliveryIndex }) {
 export default function IntegratedScreen() {
   const [reloadKey, setReloadKey] = useState(0);
   const [editingProfile, setEditingProfile] = useState(false);
+  const [pickingFromStorage, setPickingFromStorage] = useState(false);
+  const savedPeople = useMemo(listPeople, [reloadKey]);
   const state = useDelivery(SURFACES, { redirectWhenMissing: false, reloadKey });
+
+  // 보관함(사람)에서 골라 이 보고서의 주인공으로 삼는다.
+  function loadFromPerson(profile: V3Profile) {
+    saveProfile(profile);
+    clearDeliveryCache();
+    setPickingFromStorage(false);
+    setEditingProfile(false);
+    setReloadKey(key => key + 1);
+  }
 
   if (state.status === 'loading') {
     return (
@@ -453,34 +465,72 @@ export default function IntegratedScreen() {
       </div>
 
       {/* 선택이 끝난 뒤에는 입력을 접고, 누구의 보고서인지 한 줄과 바꾸기만 남긴다. */}
-      <div
-        className="v3-card"
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '0.7rem',
-          flexWrap: 'wrap',
-        }}
-      >
-        <div>
-          <p className="v3-kicker" style={{ marginBottom: '0.15rem' }}>누구의 이름과 사주인가요?</p>
-          <p style={{ margin: 0 }}>
-            <strong>{fullHangulName(profile)}</strong>
-            {fullHanjaName(profile) ? (
-              <span className="v3-title-hanja"> {fullHanjaName(profile)}</span>
-            ) : null}
-            {' · '}
-            {personBirthLabel(profile)}
-          </p>
-        </div>
-        <button
-          type="button"
-          className="v3-button v3-button--ghost"
-          onClick={() => setEditingProfile(true)}
+      <div className="v3-card">
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '0.7rem',
+            flexWrap: 'wrap',
+          }}
         >
-          다른 정보로 바꾸기
-        </button>
+          <div>
+            <p className="v3-kicker" style={{ marginBottom: '0.15rem' }}>누구의 이름과 사주인가요?</p>
+            <p style={{ margin: 0 }}>
+              <strong>{fullHangulName(profile)}</strong>
+              {fullHanjaName(profile) ? (
+                <span className="v3-title-hanja"> {fullHanjaName(profile)}</span>
+              ) : null}
+              {' · '}
+              {personBirthLabel(profile)}
+            </p>
+          </div>
+          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+            <button
+              type="button"
+              className="v3-button v3-button--ghost"
+              onClick={() => {
+                setPickingFromStorage(false);
+                setEditingProfile(true);
+              }}
+            >
+              다른 정보로 바꾸기
+            </button>
+            {savedPeople.length > 0 ? (
+              <button
+                type="button"
+                className="v3-button v3-button--ghost"
+                aria-expanded={pickingFromStorage}
+                onClick={() => setPickingFromStorage(open => !open)}
+              >
+                보관함에서 불러오기
+              </button>
+            ) : null}
+          </div>
+        </div>
+        {pickingFromStorage ? (
+          <div style={{ marginTop: '0.8rem', display: 'grid', gap: '0.45rem' }}>
+            {savedPeople.map(person => (
+              <button
+                key={person.id}
+                type="button"
+                className="v3-hanja-option"
+                onClick={() => loadFromPerson(person.profile)}
+              >
+                <span className="v3-hanja-info">
+                  <span className="v3-hanja-meaning">
+                    {personName(person)}
+                    {personLabel(person) ? (
+                      <span className="v3-badge" style={{ marginLeft: '0.4rem' }}>{personLabel(person)}</span>
+                    ) : null}
+                  </span>
+                  <span className="v3-hint">{personBirthLabel(person.profile)}</span>
+                </span>
+              </button>
+            ))}
+          </div>
+        ) : null}
       </div>
 
       <Section title="한눈에 보기">
