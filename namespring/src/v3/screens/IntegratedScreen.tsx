@@ -34,6 +34,63 @@ const INTERACTION_KO: Record<string, string> = {
   caution_signal: '이름에 사주가 조심스러워하는 기운이 있어, 함께 읽어볼 지점이에요.',
 };
 
+/** 지지 → 고정 오행 배속 (인묘 목 · 사오 화 · 진술축미 토 · 신유 금 · 해자 수). */
+const BRANCH_ELEMENT: Record<string, 'wood' | 'fire' | 'earth' | 'metal' | 'water'> = {
+  IN: 'wood', MYO: 'wood', SA: 'fire', O: 'fire',
+  JIN: 'earth', SUL: 'earth', CHUK: 'earth', MI: 'earth',
+  SIN: 'metal', SIN_BRANCH: 'metal', YU: 'metal', JA: 'water', HAE: 'water',
+};
+
+/**
+ * 궁합의 사람 카드(PersonEchoCard)에 대응하는 한 사람 판 — 일간·일지·반기는
+ * 기운 행을 두고, 풍경 그림을 카드 안 맨 아래에 담는다.
+ */
+function GlanceCard({ index, profile }: { index: DeliveryIndex; profile: V3Profile }) {
+  const pillars = factOfKind(index, 'pillars');
+  const dayPillar = pillars?.values.find(value => value.position === 'day') ?? null;
+  const dayMaster = factOfKind(index, 'day_master');
+  const yongshin = factOfKind(index, 'yongshin');
+  const hangulName = fullHangulName(profile);
+  const hanjaName = fullHanjaName(profile);
+  const branchElement = dayPillar ? BRANCH_ELEMENT[dayPillar.branch.code] ?? null : null;
+  return (
+    <div className="v3-card" style={{ display: 'flex', flexDirection: 'column' }}>
+      <p className="v3-kicker">이름과 사주가 그린 나</p>
+      <p className="v3-core-value" style={{ marginBottom: '0.35rem' }}>
+        {hangulName}
+        {hanjaName ? <span className="v3-title-hanja"> {hanjaName}</span> : null}
+      </p>
+      <ul className="v3-plain-list">
+        {dayPillar || dayMaster ? (
+          <li>
+            일간{' '}
+            <strong>
+              {dayPillar ? `${dayPillar.stem.hangul}(${dayPillar.stem.hanja})` : dayMaster!.stem}
+            </strong>{' '}
+            {dayMaster?.element ? <ElementBadge element={dayMaster.element} suffix="기운" /> : null}
+          </li>
+        ) : null}
+        {dayPillar ? (
+          <li>
+            일지(속마음 자리){' '}
+            <strong>{dayPillar.branch.hangul}({dayPillar.branch.hanja})</strong>{' '}
+            {branchElement ? <ElementBadge element={branchElement} suffix="기운" /> : null}
+          </li>
+        ) : null}
+        {yongshin?.element ? (
+          <li>
+            반기는 기운 <ElementBadge element={yongshin.element} suffix="기운" />
+          </li>
+        ) : null}
+      </ul>
+      {/* 풍경 그림은 카드 안 맨 아래 — 궁합 사람 카드와 같은 배치다. */}
+      <div style={{ marginTop: 'auto', paddingTop: '0.8rem' }}>
+        <SceneryCard index={index} profile={profile} />
+      </div>
+    </div>
+  );
+}
+
 /** 년지 → 띠 동물. 申은 런타임 'SIN'과 보고서 계층 별칭 'SIN_BRANCH'를 모두 받는다. */
 const ZODIAC_KO: Record<string, string> = {
   JA: '쥐', CHUK: '소', IN: '호랑이', MYO: '토끼', JIN: '용', SA: '뱀',
@@ -124,26 +181,30 @@ function OverallComputationCard({ index }: { index: DeliveryIndex }) {
       : null;
   return (
     <div className="v3-card">
-      <div className="v3-grid-2">
+      <div className="v3-fortune-cell-head">
+        <p className="v3-core-value" style={{ margin: 0 }}>
+          {Math.round(main.value)}
+          <span className="v3-hint" style={{ marginLeft: '0.25rem' }}>/ 100</span>
+        </p>
+        <span className="v3-badge v3-badge--accent">{main.label}</span>
+      </div>
+      <ScoreBar score={main.value} />
+      <div className="v3-grid-2" style={{ marginTop: '0.8rem' }}>
         <div>
           <p className="v3-kicker">이름의 계산</p>
-          <div className="v3-fortune-cell-head">
-            <p className="v3-core-value" style={{ margin: 0 }}>
-              {Math.round(main.value)}
-              <span className="v3-hint" style={{ marginLeft: '0.25rem' }}>/ 100</span>
-            </p>
-            <span className="v3-badge v3-badge--accent">{main.label}</span>
-          </div>
-          <ScoreBar score={main.value} />
           {rest.length > 0 ? (
-            <ul className="v3-plain-list" style={{ margin: '0.7rem 0 0' }}>
+            <ul className="v3-plain-list">
               {rest.map(fact => (
                 <li key={fact.id}>
                   {fact.label} <strong>{Math.round(fact.value)}점</strong>
                 </li>
               ))}
             </ul>
-          ) : null}
+          ) : (
+            <p className="v3-hint" style={{ margin: 0 }}>
+              이름의 세부 점수는 이름 보고서에서 볼 수 있어요.
+            </p>
+          )}
         </div>
         <div>
           <p className="v3-kicker">사주의 결론</p>
@@ -403,7 +464,12 @@ export default function IntegratedScreen() {
         {meeting ? <p className="v3-page-lede">{meeting.main}</p> : null}
       </div>
 
-      <SceneryCard index={index} profile={profile} />
+      <Section
+        title="한눈에 보기"
+        lede="일간과 속마음 자리, 반기는 기운 — 사주가 그린 나의 풍경까지 한 장에 모았어요."
+      >
+        <GlanceCard index={index} profile={profile} />
+      </Section>
 
       <MyPlaceCard index={index} profile={profile} />
 
@@ -414,8 +480,8 @@ export default function IntegratedScreen() {
       ) : null}
 
       <Section
-        title="한눈에 보기"
-        lede="이 보고서가 실제로 셈한 값을 한자리에 모았어요. 이름은 점수로 셈하고, 사주는 점수 대신 결론으로 읽어요."
+        title="통합으로 읽기"
+        lede="이름의 점수와 사주의 결론, 이름↔사주 어울림까지 하나로 모은 결론이에요."
       >
         <OverallComputationCard index={index} />
       </Section>
