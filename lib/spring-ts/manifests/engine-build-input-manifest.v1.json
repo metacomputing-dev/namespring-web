@@ -138,18 +138,18 @@
     ]
   },
   "summary": {
-    "fileCount": 393,
-    "byteLength": 11275498,
-    "codeFileCount": 283,
+    "fileCount": 397,
+    "byteLength": 11437785,
+    "codeFileCount": 287,
     "ruleFileCount": 15,
     "dataFileCount": 95
   },
   "digests": {
-    "code": "sha256:41435a5bba48c41a21e0db714c8eaf7817c24bd7133f5930acfb859a927c8f97",
-    "rules": "sha256:a5efa83d33e31ff8d8be5ec8720f45545333071b00911adaeec5fd358f1b426d",
-    "ruleset": "sha256:29e27920498564730507a3c169d7b3d7b9ffe2eea9bbd40a01aba31a285858b6",
+    "code": "sha256:6fe297fdc5a6f2d1138b121b46c53ae33ba57352ffaf86c04b9887f7f0e65621",
+    "rules": "sha256:bfda0bc848e43cdf845562d8ea5bb9bf32f67df56020f5cf23a81314e9950518",
+    "ruleset": "sha256:0f6e2b89171d8e4b68a9bdb71899afd03fa17254ebad307a7feda5d6685043ac",
     "data": "sha256:f457cd5126bee2e68ff40681971ccd4fb116065b8da1579be6405a9c755e2e78",
-    "aggregate": "sha256:4b37cddbdab88c6c8c44d016b48f7b32c22b735f26591e7b28b36623b1c92c7b"
+    "aggregate": "sha256:a13e14dc54e4110ac50287fe5b76625aeec5000048bfb6f273e63810ca6a5427"
   },
   "files": [
     {
@@ -1103,8 +1103,8 @@
     {
       "path": "lib/spring-ts/config/engine.json",
       "category": "rules",
-      "byteLength": 1226,
-      "sha256": "sha256:b09d400cb0aedf95d59365054ba16cd749dc35ee36d08881b590db08985c44d0"
+      "byteLength": 1394,
+      "sha256": "sha256:0f29061ff456200e9b4b560bfc08d7f91cc6df2491af0dab0f6cd61e981b795a"
     },
     {
       "path": "lib/spring-ts/config/evaluator-policy.json",
@@ -1739,8 +1739,8 @@
     {
       "path": "lib/spring-ts/package.json",
       "category": "code",
-      "byteLength": 23357,
-      "sha256": "sha256:d85a5bc8702e03a91c3ca3495277da38d90edf0df696f7c7169fd8a79ff83bfe"
+      "byteLength": 23613,
+      "sha256": "sha256:407255615e8b37832fa43bcfad9bb5726d98c0ccf4291942fbe6f779deee0b28"
     },
     {
       "path": "lib/spring-ts/src/calculator/frame-calculator.ts",
@@ -1785,10 +1785,22 @@
       "sha256": "sha256:d32142631e1c8d483525753e57f64624ec8f5e2fab309bc315c5252ee34acca1"
     },
     {
+      "path": "lib/spring-ts/src/candidate-guidance-policy.ts",
+      "category": "code",
+      "byteLength": 6277,
+      "sha256": "sha256:7ccb6c4cca9fb9dc690d11073ae93ea4e39e0d02e393d3bb3dd7ff95494e288a"
+    },
+    {
+      "path": "lib/spring-ts/src/candidate-meaning-policy.ts",
+      "category": "code",
+      "byteLength": 5810,
+      "sha256": "sha256:572d2bd05153aef36e76f146bae97f0416dd038563c2dc30accbe47ab545d4ba"
+    },
+    {
       "path": "lib/spring-ts/src/candidate-selection.ts",
       "category": "code",
-      "byteLength": 20220,
-      "sha256": "sha256:2f84f5f81fd58448b582266b859162f76780743ea2418ca46118559aa4ee368f"
+      "byteLength": 26343,
+      "sha256": "sha256:63684926dc1f255df39bae8e7da382c4451d59600a440024b1e65c14580b8947"
     },
     {
       "path": "lib/spring-ts/src/classical-vocabulary.ts",
@@ -1829,14 +1841,14 @@
     {
       "path": "lib/spring-ts/src/experience/candidate-search.ts",
       "category": "code",
-      "byteLength": 14033,
-      "sha256": "sha256:3a543845a17d8d3e707dd5076555e6c257d921ab4322041246049b9ffaa5206c"
+      "byteLength": 24129,
+      "sha256": "sha256:6b5e641a0e8857a08584fe93c13a436668426ca5d7f8d2f5cc49fab14226b080"
     },
     {
       "path": "lib/spring-ts/src/experience/index.ts",
       "category": "code",
-      "byteLength": 1105,
-      "sha256": "sha256:4cfc7f2b8fb469964ae16c5fbf54a91e5539ddb620766e5dc1b2b1f494ca5c1c"
+      "byteLength": 1226,
+      "sha256": "sha256:a719e4f03de25c85cf8626ded78a83e4b717390e304c2be1db42706128d2677a"
     },
     {
       "path": "lib/spring-ts/src/experience/local-birth-preview.ts",
@@ -1859,14 +1871,14 @@
     {
       "path": "lib/spring-ts/src/experience/local-hanja-contract.ts",
       "category": "code",
-      "byteLength": 5970,
-      "sha256": "sha256:ae250c1712d62987e8a7ed769709f9297cc55c17b5477ea6102f5ce5811d771c"
+      "byteLength": 5969,
+      "sha256": "sha256:5679902bcb54274ee793c1d3d7f566ab3e701596ca67b4f7599ec126fff946ec"
     },
     {
       "path": "lib/spring-ts/src/experience/local-hanja.ts",
       "category": "code",
-      "byteLength": 6590,
-      "sha256": "sha256:1e8658420e04fd093dc8f5a453af0201386f8db220dced46fa4d924f1697d195"
+      "byteLength": 6589,
+      "sha256": "sha256:dfc17a3f8464f39c9fa1efb29eccf610505011d497353355f90d6c97cc335b3a"
     },
     {
       "path": "lib/spring-ts/src/experience/local-home-capabilities.ts",
@@ -1913,8 +1925,8 @@
     {
       "path": "lib/spring-ts/src/experience/types.ts",
       "category": "code",
-      "byteLength": 5475,
-      "sha256": "sha256:546e8f33ff9a1af71679508ac287335dd6f685fc79fe71ed9116f12c948253c6"
+      "byteLength": 8599,
+      "sha256": "sha256:f7cad01a26cc256f042b866a8d7cd7adc04e92fd981e820bd28a436939ab526b"
     },
     {
       "path": "lib/spring-ts/src/experiments.ts",
@@ -2021,8 +2033,8 @@
     {
       "path": "lib/spring-ts/src/name-stat-summary-repository.ts",
       "category": "code",
-      "byteLength": 15629,
-      "sha256": "sha256:4394c848d7412ae9f19802218138538fc3092523dbf239d15cc356b48c0e7cfc"
+      "byteLength": 18570,
+      "sha256": "sha256:f72a69de8c3db78532ec29c911a307fda8a1f821013e2a36552ee87637a46287"
     },
     {
       "path": "lib/spring-ts/src/name-trend.ts",
@@ -2033,8 +2045,8 @@
     {
       "path": "lib/spring-ts/src/naming-explanation.ts",
       "category": "code",
-      "byteLength": 8124,
-      "sha256": "sha256:b2529cfdf2737d63c5bbef58cab7f08954a489df5e7b7e93281112437571117f"
+      "byteLength": 8463,
+      "sha256": "sha256:0d83b6c2ec2899ffb7948cc866550266b8b87fa2efccee2905ede9d707d197e1"
     },
     {
       "path": "lib/spring-ts/src/natal-evidence.ts",
@@ -2135,8 +2147,8 @@
     {
       "path": "lib/spring-ts/src/report/cards/name-compatibility-card.ts",
       "category": "code",
-      "byteLength": 22314,
-      "sha256": "sha256:355444e156acc32f86970245ba58a1e519d53b851c045bb94796c5133591c621"
+      "byteLength": 22394,
+      "sha256": "sha256:4f14702da3e20690da34d6393f4393b8be79ef69dadf03a637c00163777309be"
     },
     {
       "path": "lib/spring-ts/src/report/cards/overview-summary-card.ts",
@@ -2195,8 +2207,8 @@
     {
       "path": "lib/spring-ts/src/report/delivery/build-report-delivery.ts",
       "category": "code",
-      "byteLength": 57387,
-      "sha256": "sha256:03e34b773aeaecab59a06d69a2899d5fc2842ca48227b2a0ed70fe1ca6faadc1"
+      "byteLength": 93462,
+      "sha256": "sha256:f71e0e73287d7ae1ccb2d1b0679af51e89e3b476911875be3e226cf91c24c4b6"
     },
     {
       "path": "lib/spring-ts/src/report/delivery/content-gates.ts",
@@ -2211,16 +2223,22 @@
       "sha256": "sha256:db1090ce9f88d5112bc7d850281ddcfb3b3a4b59b947afc68fe8383afed202ab"
     },
     {
+      "path": "lib/spring-ts/src/report/delivery/safe-four-frame-copy.ts",
+      "category": "code",
+      "byteLength": 2281,
+      "sha256": "sha256:c6de4e4a6042d5b195836e10349d1803bc8e88d5cc7a84121b31d8d8481225b0"
+    },
+    {
       "path": "lib/spring-ts/src/report/delivery/types.ts",
       "category": "code",
-      "byteLength": 15741,
-      "sha256": "sha256:ea58ee6ee92622a2dc9daf4ac9eca4f78110f833ec97832f90218a8d7ccb65e1"
+      "byteLength": 27964,
+      "sha256": "sha256:d0b27b7101eb4f1820d2ad11bc7ec01cef5e7ac270b9fbc2ff83716e91f4b4b1"
     },
     {
       "path": "lib/spring-ts/src/report/delivery/validation.ts",
       "category": "code",
-      "byteLength": 73872,
-      "sha256": "sha256:5541e321091336545ae3608711b8cc6391bc6c5ba2eb2c98a10b7b58a656053d"
+      "byteLength": 124966,
+      "sha256": "sha256:1ba416a565b69642e1962d2e3d1c6bff6670524392309228e18e9d9b8734d94d"
     },
     {
       "path": "lib/spring-ts/src/report/index.ts",
@@ -2303,14 +2321,14 @@
     {
       "path": "lib/spring-ts/src/report/tiered/build-tiered-matrix.ts",
       "category": "code",
-      "byteLength": 38437,
-      "sha256": "sha256:b8e6738470471230344f18c4c1364d3a238012361cd0026bfb60489366049396"
+      "byteLength": 38558,
+      "sha256": "sha256:aefe3e4ed0f6db7fc1bf6a49399e4f7c9c4f45e6ae66f36d859d8bf4f3b7a290"
     },
     {
       "path": "lib/spring-ts/src/report/tiered/cell-grader.ts",
       "category": "code",
-      "byteLength": 1668,
-      "sha256": "sha256:4b4e1101e5748ae464186015e9a5f30667dc17262e1ef8be5ef6dc1ca1684be7"
+      "byteLength": 1702,
+      "sha256": "sha256:9c1cbbe410f1b946ed976b2141ebc85523b95eca1d2fe92e8e33882fa365822e"
     },
     {
       "path": "lib/spring-ts/src/report/tiered/class-axes.ts",
@@ -2381,8 +2399,8 @@
     {
       "path": "lib/spring-ts/src/saju-adapter.ts",
       "category": "code",
-      "byteLength": 116990,
-      "sha256": "sha256:c21bf0f842e30eb59a7da2c73ffcb880a57d6b69cf11e8f0a6b6f497eb656fed"
+      "byteLength": 121104,
+      "sha256": "sha256:9c0fbb5a0ef3729572552103601c97b9b00d391f4ab4aa7ffbffbec97d417980"
     },
     {
       "path": "lib/spring-ts/src/saju-analysis-contract.ts",
@@ -2423,8 +2441,8 @@
     {
       "path": "lib/spring-ts/src/saju/birth-location.ts",
       "category": "code",
-      "byteLength": 6147,
-      "sha256": "sha256:cd2c0965636f3be1393748767f339b0fc1e4bf63c131688fafd77adb26045e9e"
+      "byteLength": 7693,
+      "sha256": "sha256:ad8e7d8ffaee307c64fc6a7b23a3f354ce383c652fd406c0da18685a7fcd1b91"
     },
     {
       "path": "lib/spring-ts/src/saju/confidence-units.ts",
@@ -2453,8 +2471,14 @@
     {
       "path": "lib/spring-ts/src/saju/time-policy.ts",
       "category": "code",
-      "byteLength": 8787,
-      "sha256": "sha256:bea0b2dbdc0b917f06ffc886872b6e9debbf73dd37df71b6f019fe6e8a22bad4"
+      "byteLength": 10402,
+      "sha256": "sha256:80fc2fbee7dfff02bec83ed92824b8b3dad4271866725f2f14ae4552ff6c32c6"
+    },
+    {
+      "path": "lib/spring-ts/src/saju/time-reference-validation.ts",
+      "category": "code",
+      "byteLength": 5367,
+      "sha256": "sha256:793a977b02fd0fb5a9d2c1ea956a3fa2cb1a71efd9c39cad3a15e5f4a032959d"
     },
     {
       "path": "lib/spring-ts/src/saju/time-uncertainty.ts",
@@ -2465,8 +2489,8 @@
     {
       "path": "lib/spring-ts/src/spring-engine.ts",
       "category": "code",
-      "byteLength": 134350,
-      "sha256": "sha256:1e04d56b4a6f499765c43225d3c6d6969da09588478740ad202dda776624f6e4"
+      "byteLength": 143294,
+      "sha256": "sha256:4d7ef00ba9857a8fbd62dfb3e169c51fbfb963d2977dc5530b8d1e2a53ecf789"
     },
     {
       "path": "lib/spring-ts/src/spring-evaluator.ts",
@@ -2489,8 +2513,8 @@
     {
       "path": "lib/spring-ts/src/types.ts",
       "category": "code",
-      "byteLength": 75879,
-      "sha256": "sha256:e990b6d9e867c7fe3a082e49e2724f469c8e3175929eb754075c63340c5cc487"
+      "byteLength": 79419,
+      "sha256": "sha256:19b0d33ea8c9eb7ad2ecf46205eada713a9b3cc444f7de7bec67d73ba2ecba57"
     },
     {
       "path": "lib/spring-ts/tsconfig.json",

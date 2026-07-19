@@ -1,7 +1,10 @@
 import type {
   BirthInfo,
+  LunarConversionSummary,
   NameCharInput,
+  SajuInputUncertainty,
   SpringOptions,
+  TimeCorrectionProvenance,
 } from '../../types.js';
 import type { LocalAnalysisPrecisionConfigV1 } from '../analysis-options-types.js';
 
@@ -93,6 +96,7 @@ export interface ReportDeliveryRequestV1 {
 export type DeliveryStatusV1 = 'ready' | 'limited' | 'unavailable';
 export type DeliveryReasonCodeV1 =
   | 'SAJU_ANALYSIS_LIMITED'
+  | 'BIRTH_TIME_IMPUTED'
   | 'SAJU_JUDGMENT_LOW_CONFIDENCE'
   | 'YONGSHIN_JONGGYEOK_RISK'
   | 'NAME_INPUT_MISSING'
@@ -114,6 +118,43 @@ export interface DeliveryAvailabilityV1 {
 
 export type FiveElementIdV1 = 'wood' | 'fire' | 'earth' | 'metal' | 'water';
 export type SajuJudgmentStrengthV1 = 'definite' | 'practical' | 'candidate' | 'deferred';
+export type ReportSchoolPresetV1 =
+  | 'korean'
+  | 'chinese'
+  | 'modern'
+  | 'korean_modern'
+  | 'classical_text'
+  | 'naming_safe';
+export type ReportYongshinModeV1 =
+  | 'classical_blend'
+  | 'chengbai_strict'
+  | 'consensus_aware';
+export type YongshinMethodAxisV1 =
+  | 'eokbu'
+  | 'johu'
+  | 'gyeokguk'
+  | 'tonggwan'
+  | 'byeongyak'
+  | 'siksangFlow';
+
+export interface YongshinInterpretationPolicyV1 {
+  /** Product default is `korean`; an explicit request remains distinguishable. */
+  readonly schoolPreset: ReportSchoolPresetV1;
+  readonly schoolLabel: string;
+  readonly schoolSelection: 'product_default' | 'user_selected';
+  /** Whether the Spring scoring preset weights were actively applied. */
+  readonly schoolWeightsApplied: boolean;
+  /** Product default is `chengbai_strict`; an explicit request remains distinguishable. */
+  readonly yongshinMode: ReportYongshinModeV1;
+  readonly yongshinModeSelection: 'product_default' | 'user_selected';
+}
+
+export interface YongshinMethodCandidateV1 {
+  readonly method: YongshinMethodAxisV1;
+  readonly element: FiveElementIdV1 | null;
+  /** The upstream method-axis signal, preserved as a 0..1 ratio. */
+  readonly score: number;
+}
 
 interface FactBaseV1 {
   readonly id: string;
@@ -171,6 +212,10 @@ export interface YongshinFactV1 extends FactBaseV1 {
   readonly confidence: number;
   readonly judgmentStrength?: SajuJudgmentStrengthV1;
   readonly warnings: readonly string[];
+  /** Additive policy provenance for new deliveries; omitted only by historical V1 payloads. */
+  readonly interpretationPolicy?: YongshinInterpretationPolicyV1;
+  /** Per-method candidates remain visible when the selected conclusion conflicts with another method. */
+  readonly methodCandidates?: readonly YongshinMethodCandidateV1[];
   readonly consensus?: {
     readonly conflictLevel: 'none' | 'low' | 'medium' | 'high';
     readonly competingElements: readonly FiveElementIdV1[];
@@ -198,13 +243,199 @@ export interface ElementDistributionFactV1 extends FactBaseV1 {
   }[];
 }
 
+export type SajuPillarPositionV1 = 'year' | 'month' | 'day' | 'hour';
+
 export interface PillarsFactV1 extends FactBaseV1 {
   readonly kind: 'pillars';
   readonly values: readonly {
-    readonly position: 'year' | 'month' | 'day' | 'hour';
+    readonly position: SajuPillarPositionV1;
     readonly stem: { readonly code: string; readonly hangul: string; readonly hanja: string };
     readonly branch: { readonly code: string; readonly hangul: string; readonly hanja: string };
   }[];
+}
+
+/**
+ * Explicit provenance shared by normalized projections of existing
+ * `SajuSummary` fields. These facts copy and normalize engine output; they do
+ * not run another naming or saju judgment and never inherit authored insight
+ * copy as fact authority.
+ */
+export interface SajuSummaryProjectionProvenanceV1 {
+  readonly source: 'spring-ts.SajuSummary';
+  readonly projection: 'normalized_without_recalculation';
+  readonly sourceFields: readonly string[];
+}
+
+export type TenGodCodeV1 =
+  | 'BI_GYEON'
+  | 'GYEOB_JAE'
+  | 'SIK_SIN'
+  | 'SANG_GWAN'
+  | 'PYEON_JAE'
+  | 'JEONG_JAE'
+  | 'PYEON_GWAN'
+  | 'JEONG_GWAN'
+  | 'PYEON_IN'
+  | 'JEONG_IN';
+
+export interface TenGodDescriptorV1 {
+  /** Engine display label, retained verbatim after bounded-text validation. */
+  readonly label: string;
+  /** Canonical code when the engine label resolves to the public ten-god vocabulary. */
+  readonly code: TenGodCodeV1 | null;
+}
+
+/**
+ * Raw shinsal detections retained even when no authored plain-language
+ * interpretation exists. Internal weights and penalties deliberately stay
+ * behind the delivery boundary.
+ */
+export interface ShinsalHitsFactV1
+  extends FactBaseV1, SajuSummaryProjectionProvenanceV1 {
+  readonly kind: 'shinsal_hits';
+  readonly domain: 'saju';
+  readonly method: 'saju-ts.shinsal-summary-projection.v1';
+  readonly sourceFields: readonly ['shinsalHits'];
+  readonly hits: readonly {
+    readonly name: string;
+    /** `position` is the engine's calculation-basis label, not a seat claim. */
+    readonly calculationBasis: {
+      readonly label: string;
+      readonly code: string | null;
+    };
+    readonly grade: string;
+    /** Actual seated pillars, when surfaced by the engine. */
+    readonly seatPillars: readonly SajuPillarPositionV1[];
+    readonly occurrenceCount: number;
+  }[];
+}
+
+/** Per-pillar ten-god structure, including the engine's hidden-stem mapping. */
+export interface TenGodAnalysisFactV1
+  extends FactBaseV1, SajuSummaryProjectionProvenanceV1 {
+  readonly kind: 'ten_god_analysis';
+  readonly domain: 'saju';
+  readonly method: 'saju-ts.ten-god-analysis-projection.v1';
+  readonly sourceFields: readonly ['tenGodAnalysis'];
+  readonly dayMasterStem: string;
+  readonly positions: readonly {
+    readonly position: SajuPillarPositionV1;
+    readonly cheongan: TenGodDescriptorV1;
+    readonly jijiPrincipal: TenGodDescriptorV1;
+    readonly hiddenStems: readonly {
+      readonly stem: string;
+      readonly element: FiveElementIdV1;
+      readonly ratio: number;
+      readonly tenGod: TenGodDescriptorV1;
+    }[];
+  }[];
+}
+
+/**
+ * Natal stem/branch relations. Free-form engine notes and provisional internal
+ * relation scores are intentionally omitted; authored explanations remain
+ * `ReportInterpretationV1`.
+ */
+export interface NatalRelationsFactV1
+  extends FactBaseV1, SajuSummaryProjectionProvenanceV1 {
+  readonly kind: 'natal_relations';
+  readonly domain: 'saju';
+  readonly method: 'saju-ts.natal-relations-projection.v1';
+  readonly sourceFields: readonly ['cheonganRelations', 'jijiRelations'];
+  readonly cheongan: readonly {
+    readonly type: string;
+    readonly stems: readonly string[];
+    readonly hapState: string | null;
+    readonly resultElement: FiveElementIdV1 | null;
+    readonly resultConfirmed: boolean;
+  }[];
+  readonly jiji: readonly {
+    readonly type: string;
+    readonly branches: readonly string[];
+    readonly outcome: string | null;
+  }[];
+}
+
+/** Engine classifications of materially deficient or excessive natal elements. */
+export interface ElementBalanceFactV1
+  extends FactBaseV1, SajuSummaryProjectionProvenanceV1 {
+  readonly kind: 'element_balance';
+  readonly domain: 'saju';
+  readonly method: 'saju-ts.element-balance-projection.v1';
+  readonly sourceFields: readonly ['deficientElements', 'excessiveElements'];
+  readonly deficient: readonly FiveElementIdV1[];
+  readonly excessive: readonly FiveElementIdV1[];
+}
+
+/**
+ * Engine-returned civil/solar time evidence used for day/hour boundary
+ * decisions. Consumers must display these values as returned and must not
+ * recompute the corrected clock time from the component offsets.
+ */
+export interface TimeCorrectionFactV1 extends FactBaseV1 {
+  readonly kind: 'time_correction';
+  /** Original calendar input and the effective solar basis used by saju-ts. */
+  readonly input: TimeCorrectionProvenance['input'];
+  /** Null for exact input; otherwise the engine-owned imputation envelope. */
+  readonly inputUncertainty: SajuInputUncertainty | null;
+  /** Non-null only when the original input calendar was lunar. */
+  readonly lunarConversion: LunarConversionSummary | null;
+  /**
+   * Location/timezone basis used by the engine. `inputLabel` is retained only
+   * as provenance. Coordinates are null for timezone-only input and must be
+   * treated as a correction basis only when `coordinatesApplied` is true.
+   */
+  readonly location: {
+    readonly inputLabel: string | null;
+    readonly resolvedRegionCode: string | null;
+    readonly latitude: number | null;
+    readonly longitude: number | null;
+    readonly timezone: string;
+    readonly source: 'explicit' | 'region' | 'timezone' | 'default';
+    readonly coordinatesApplied: boolean;
+  };
+  /**
+   * Meridian used as the longitude-correction reference. Null only when
+   * longitude correction is disabled.
+   */
+  readonly referenceMeridianDegrees: number | null;
+  /** Source used to derive and independently validate the reference meridian. */
+  readonly referenceMeridianBasis: TimeCorrectionProvenance['referenceMeridianBasis'];
+  readonly standardLocalDateTime: {
+    readonly year: number;
+    readonly month: number;
+    readonly day: number;
+    readonly hour: number;
+    readonly minute: number;
+  };
+  readonly adjustedSolarLocalDateTime: {
+    readonly year: number;
+    readonly month: number;
+    readonly day: number;
+    readonly hour: number;
+    readonly minute: number;
+  };
+  readonly corrections: {
+    readonly daylightSavingMinutes: number;
+    readonly longitudeMinutes: number;
+    readonly equationOfTimeMinutes: number;
+  };
+  readonly policy: {
+    readonly trueSolarTime: 'on' | 'off';
+    readonly longitudeCorrection: 'on' | 'off';
+    readonly longitudeReference: 'off' | 'civilOffsetMeridian' | 'legacyPreset';
+    /** Whether this request explicitly required a resolved region/coordinate tuple. */
+    readonly explicitLocationRequired: boolean;
+    readonly yaza: 'on' | 'off';
+    readonly yazaMode: '23:00' | '23:30';
+  };
+  /** Whether solar correction itself crossed the civil calendar date. */
+  readonly solarDateChanged: boolean;
+  /**
+   * Whether the corrected clock is inside the selected late-zi boundary
+   * window. This is an evidence flag, not an independent pillar calculation.
+   */
+  readonly yazaBoundaryEffect: 'disabled' | 'outside_boundary' | 'inside_boundary';
 }
 
 export interface NameCharacterFactV1 extends FactBaseV1 {
@@ -218,6 +449,95 @@ export interface NameCharacterFactV1 extends FactBaseV1 {
   readonly element?: FiveElementIdV1;
   readonly polarity?: string;
   readonly legal: 'registrable' | 'not_registrable' | 'unknown';
+}
+
+/**
+ * Selective projection of the official-name sample already attached to
+ * `NamingReport`. Free-form evidence copy is intentionally excluded: the
+ * delivery carries only source values and their authority metadata.
+ */
+export interface NamingTrendFactV1 extends FactBaseV1 {
+  readonly kind: 'naming_trend';
+  readonly domain: 'naming';
+  readonly method: 'spring-ts.official-name-trend-projection.v1';
+  readonly source: 'spring-ts.NamingReport.nameTrend';
+  readonly projection: 'selective_without_recalculation';
+  readonly sourceFields: readonly ['nameTrend'];
+  readonly sourceTier: 'T5_OFFICIAL';
+  readonly authorityTruthEligible: true;
+  readonly givenHangul: string;
+  readonly gender: 'male' | 'female' | 'unknown';
+  readonly birthYear: number | null;
+  readonly matchedYear: number | null;
+  readonly latestYear: number;
+  readonly trendFit: number | null;
+  readonly trendRisk: number | null;
+  /** Retained from the producer and required to equal `trendFit`. */
+  readonly eraFitScore: number | null;
+  readonly status: 'current' | 'era_fit' | 'dated' | 'overused' | 'unknown';
+  readonly matchedPoint: {
+    readonly year: number;
+    readonly rank: number;
+    readonly count: number;
+  } | null;
+  readonly latestPoint: {
+    readonly year: number;
+    readonly rank: number;
+    readonly count: number;
+  } | null;
+}
+
+/**
+ * Mechanical transition evidence from the existing phonetic analyzer.
+ * Authored warning/evidence sentences are not promoted to deterministic fact
+ * authority; the producer's non-authoritative tier is explicit in the DTO.
+ */
+export interface NamingPhoneticFactV1 extends FactBaseV1 {
+  readonly kind: 'naming_phonetic';
+  readonly domain: 'naming';
+  readonly method: 'spring-ts.phonetic-transition-projection.v1';
+  readonly source: 'spring-ts.NamingReport.phonetic';
+  readonly projection: 'selective_without_recalculation';
+  readonly sourceFields: readonly ['phonetic'];
+  readonly sourceTier: 'T3_AUTHORED_INTERPRETATION';
+  readonly authorityTruthEligible: false;
+  readonly fullHangul: string;
+  readonly surnameHangul: string;
+  readonly givenHangul: string;
+  readonly phoneticScore: number | null;
+  readonly transitionScore: number | null;
+  readonly familyNameFitScore: number | null;
+  readonly status: 'smooth' | 'watch' | 'awkward' | 'unknown';
+  readonly transitions: readonly {
+    readonly from: string;
+    readonly to: string;
+    readonly boundary: 'surname_given' | 'given_internal';
+    readonly score: number;
+    readonly risk: 'low' | 'medium' | 'high';
+    readonly signals: readonly {
+      readonly code: string;
+      readonly severity: 'low' | 'medium' | 'high';
+      readonly penalty: number;
+    }[];
+  }[];
+}
+
+/**
+ * Name-stat values already bound to the selected `SpringReport`. This fact is
+ * omitted when the delivery did not receive a SpringReport or when all three
+ * fields are unavailable; the delivery layer never performs a replacement
+ * lookup or manufactures a nearby rank.
+ */
+export interface NameStatisticsFactV1 extends FactBaseV1 {
+  readonly kind: 'name_statistics';
+  readonly domain: 'naming';
+  readonly method: 'spring-ts.name-stat-summary-projection.v1';
+  readonly source: 'spring-ts.SpringReport';
+  readonly projection: 'selective_without_recalculation';
+  readonly sourceFields: readonly ['popularityRank', 'maleRatio', 'nameGender'];
+  readonly popularityRank: number | null;
+  readonly maleRatio: number | null;
+  readonly nameGender: 'male' | 'female' | 'unknown';
 }
 
 export interface NamingFrameFactV1 extends FactBaseV1 {
@@ -273,7 +593,15 @@ export type ReportFactV1 =
   | YongshinFactV1
   | ElementDistributionFactV1
   | PillarsFactV1
+  | ShinsalHitsFactV1
+  | TenGodAnalysisFactV1
+  | NatalRelationsFactV1
+  | ElementBalanceFactV1
+  | TimeCorrectionFactV1
   | NameCharacterFactV1
+  | NamingTrendFactV1
+  | NamingPhoneticFactV1
+  | NameStatisticsFactV1
   | NamingFrameFactV1
   | NameSajuInteractionFactV1;
 
@@ -313,7 +641,7 @@ export type ReportBlockV1 =
       readonly kind: 'fact_group';
       readonly factRefs: readonly string[];
       readonly interpretationRef?: string;
-      readonly presentation: 'summary' | 'metrics' | 'pillars' | 'characters';
+      readonly presentation: 'summary' | 'metrics' | 'pillars' | 'characters' | 'evidence';
     })
   | (BlockBaseV1 & {
       readonly kind: 'element_comparison';

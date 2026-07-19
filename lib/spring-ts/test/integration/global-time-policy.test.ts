@@ -260,6 +260,23 @@ async function expectFailure(
 }
 
 await expectFailure(
+  'explicit longitude correction requires a resolvable birth location',
+  BASE,
+  'BIRTH_LOCATION_REQUIRED',
+);
+await expectFailure(
+  'explicit equation-of-time correction requires a resolvable birth location',
+  BASE,
+  'BIRTH_LOCATION_REQUIRED',
+  {
+    sajuTimePolicy: {
+      trueSolarTime: 'on',
+      longitudeCorrection: 'off',
+      yaza: 'off',
+    },
+  },
+);
+await expectFailure(
   'timezone-only input cannot borrow Seoul longitude',
   { ...BASE, timezone: 'America/New_York' },
   'BIRTH_LOCATION_PARTIAL',
@@ -298,6 +315,15 @@ const timezoneOnlyOff = await analyze(
 );
 assert.equal(timezoneOnlyOff.sajuEnabled, true, JSON.stringify(timezoneOnlyOff.diagnostics ?? []));
 assert.equal(timezoneOnlyOff.summary.timeCorrection.longitudeCorrectionMinutes, 0);
+assert.deepEqual(timezoneOnlyOff.summary.timeCorrection.provenance?.location, {
+  inputLabel: null,
+  resolvedRegionCode: null,
+  latitude: null,
+  longitude: null,
+  timezone: 'America/New_York',
+  source: 'timezone',
+  coordinatesApplied: false,
+}, 'timezone-only input must not surface Seoul fallback coordinates as New York provenance');
 
 const rawTimePolicyBypassAttempt = await analyze(
   { ...BASE, timezone: 'America/New_York' },

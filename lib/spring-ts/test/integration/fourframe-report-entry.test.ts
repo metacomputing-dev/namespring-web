@@ -64,6 +64,12 @@ try {
     surname: [{ hangul: '최', hanja: '崔' }],
     givenName: [{ hangul: '성', hanja: '成' }, { hangul: '수', hanja: '秀' }],
   });
+  const evaluated = await engine.analyze({
+    birth: { year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male' },
+    surname: [{ hangul: '최', hanja: '崔' }],
+    givenName: [{ hangul: '성', hanja: '成' }, { hangul: '수', hanja: '秀' }],
+    mode: 'evaluate',
+  });
   const pureHangulReport = await engine.getNamingReport({
     birth: { year: 2024, month: 3, day: 1, hour: 9, minute: 0, gender: 'male' },
     surname: [{ hangul: '박' }],
@@ -73,6 +79,23 @@ try {
 
   assertImmutablePersonalizedMeanings(hanjaReport, '최성수');
   assertImmutablePersonalizedMeanings(pureHangulReport, '박민준');
+  assert.equal(hanjaReport.analysis.hanja.polarityScore, 50);
+  assert.equal(hanjaReport.analysis.hanja.elementScore, 65);
+  assert.equal(
+    hanjaReport.scores.hanja,
+    57.5,
+    'public Hanja detail score averages the calculator-owned polarity and element scores',
+  );
+  const evaluatedCandidate = evaluated.candidates.find(
+    (candidate) => candidate.name.fullHangul === '최성수',
+  );
+  assert.equal(evaluatedCandidate?.analysis.hanja.polarityScore, 50);
+  assert.equal(evaluatedCandidate?.analysis.hanja.elementScore, 65);
+  assert.equal(
+    evaluatedCandidate?.scores.hanja,
+    57.5,
+    'candidate Hanja detail score uses the same calculator-owned values',
+  );
   assert.equal(Object.hasOwn(engine as object, 'fourFrameMeaningByNumber'), false);
 } finally {
   engine.close();

@@ -140,7 +140,7 @@ check('an empty given-name array preserves the legacy nameless route',
 
 const generationProbe = new SpringEngine() as any;
 let capturedTargetElements: Set<string> | null = null;
-let capturedAvoidElements: Set<string> | null = null;
+let capturedPreferenceStrength: string | null = null;
 generationProbe.resolveEntries = async () => [];
 generationProbe.buildPositionPools = async (
   _request: unknown,
@@ -149,10 +149,10 @@ generationProbe.buildPositionPools = async (
   _hasJamoFilter: unknown,
   _surnameEntries: unknown,
   targetElements: Set<string>,
-  avoidElements: Set<string>,
+  preferenceStrength: string,
 ) => {
   capturedTargetElements = targetElements;
-  capturedAvoidElements = avoidElements;
+  capturedPreferenceStrength = preferenceStrength;
   return new Map();
 };
 generationProbe.generateViaStrokeOptimizer = () => [];
@@ -166,8 +166,8 @@ await generationProbe.generateCandidates({
 }, missingSummary);
 check('unavailable saju recommendation has no fabricated target element',
   capturedTargetElements?.size === 0);
-check('unavailable saju recommendation has no fabricated avoid element',
-  capturedAvoidElements?.size === 0);
+check('unavailable saju recommendation has neutral element preference',
+  capturedPreferenceStrength === 'none');
 const nameOnlyResponse = generationProbe.buildResponse(
   {
     birth: { gender: 'neutral' },

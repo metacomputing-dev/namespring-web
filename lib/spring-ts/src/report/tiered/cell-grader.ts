@@ -22,8 +22,11 @@ export function gradeToStars(grade: number): StarRating {
 }
 
 /** Returns grade + meaningfulness for a tiered cell.
- *  When yongshin is unknown we fall back to grade=3 / meaningfulness='limited' —
- *  the cell can still surface narrative but UI may dim it. */
+ *
+ * A valid grade of 3 is a neutral result, not an evidence limitation. Missing
+ * inputs remain `na` with no stars so downstream delivery can distinguish
+ * "ordinary/neutral" from "not established".
+ */
 export function gradeCell(
   fortuneElement: ElementCode | null,
   yongshin: ElementCode | null,
@@ -37,5 +40,5 @@ export function gradeCell(
   if (grade < 1 || grade > 5) {
     return { grade: 3, stars: null, meaningfulness: 'na' };
   }
-  return { grade, stars: gradeToStars(grade), meaningfulness: grade === 3 ? 'limited' : 'meaningful' };
+  return { grade, stars: gradeToStars(grade), meaningfulness: 'meaningful' };
 }

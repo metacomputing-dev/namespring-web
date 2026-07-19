@@ -40,7 +40,7 @@ import {
   type SchoolPresetName,
 } from './preset-loader.js';
 import { springEvaluateName, SAJU_FRAME } from './spring-evaluator.js';
-import { analyzeSaju, analyzeSajuSafe, buildSajuContext, collectElements } from './saju-adapter.js';
+import { analyzeSaju, analyzeSajuSafe, buildSajuContext } from './saju-adapter.js';
 import type {
   SpringRequest, SpringResponse, SpringCandidate, SajuSummary, SpringOptions,
   SajuReport, NamingReport, NamingReportFrame, SpringReport, SpringCandidateSummary,
@@ -94,6 +94,17 @@ import {
   assessNatalEvidenceV1,
   type NatalEvidenceAssessmentV1,
 } from './natal-evidence.js';
+import {
+  buildCandidateElementGuidanceV1,
+  orderCandidatePoolByElementPreference,
+  type CandidateElementPreferenceStrength,
+} from './candidate-guidance-policy.js';
+import {
+  computeRecommendationMeaningConfidence,
+  hasOpaqueHanjaMeaning,
+  hasUnsafeHanjaMeaning,
+  hasWeakRecommendationHanjaMeaning,
+} from './candidate-meaning-policy.js';
 import { getEnrichedStrokeCount, getUnihanMetadata } from './hanja-unihan.js';
 import { loadFullHanjaPoolEntries } from './full-hanja-pool-loader.js';
 import { getNameTrendAnalysis, type NameTrendAnalysis } from './name-trend.js';
@@ -119,7 +130,6 @@ import {
   applySpringReportSelectionRanking,
   averageScores,
   clampScore,
-  dedupeCandidateSummariesByHangul,
   deriveCandidateStrengthProfile,
   describeCandidateName,
   finiteScore,
@@ -127,6 +137,7 @@ import {
   orderCandidateSummaries,
   orderSpringCandidates,
   orderSpringReports,
+  retainCandidateSummaryVariantsByHangul,
   roundScore,
   shouldUseParetoFrontier,
   sliceAndRankCandidatePage,
@@ -178,6 +189,16 @@ const MAX_CANDIDATES            = engineConfig.maxCandidates;
 const CANDIDATE_SELECTION_LIMITS = Object.freeze({
   paretoPoolLimit: engineConfig.candidateSelection.paretoPoolLimit,
 });
+const CANDIDATE_HANJA_VARIANTS_PER_HANGUL =
+  engineConfig.candidateSelection.hanjaVariantsPerHangul;
+const CANDIDATE_PRESENTATION_SCORE_WINDOW =
+  engineConfig.candidateSelection.presentationScoreWindow;
+const CANDIDATE_HANGUL_SEED_NAME_LIMIT =
+  engineConfig.candidateSelection.hangulSeedNameLimit;
+const CANDIDATE_HANJA_VARIANTS_PER_SEED_SYLLABLE =
+  engineConfig.candidateSelection.hanjaVariantsPerSeedSyllable;
+const CANDIDATE_SEED_VARIANTS_PER_NAME =
+  engineConfig.candidateSelection.seedVariantsPerName;
 const POOL_LIMIT_SINGLE_CHAR    = engineConfig.candidatePoolLimits.singleCharPerStroke;
 const POOL_LIMIT_DOUBLE_CHAR    = engineConfig.candidatePoolLimits.doubleCharPerPosition;
 const POOL_LIMIT_JAMO_FILTERED  = engineConfig.candidatePoolLimits.jamoFilteredPerPosition;
@@ -185,7 +206,6 @@ const STROKE_MIN                = engineConfig.strokeRange.min;
 const STROKE_MAX                = engineConfig.strokeRange.max;
 const DEFAULT_OFFSET            = engineConfig.pagination.defaultOffset;
 const DEFAULT_LIMIT             = engineConfig.pagination.defaultLimit;
-const DEFAULT_TARGET_ELEMENT    = engineConfig.defaultTargetElement;
 const ENGINE_VERSION            = engineConfig.version;
 const NAME_STAT_INFO_CACHE_LIMIT = (engineConfig as { nameStatInfoCacheLimit?: number }).nameStatInfoCacheLimit ?? 1000;
 const REPORT_ANALYSIS_ID_CACHE_LIMIT = 128;
@@ -207,12 +227,45 @@ const DEFAULT_USE_SURNAME_HANJA_IN_PURE = false;
 const ENABLE_HANJA_NAME_EVALUATION = true;
 const ENABLE_FOURFRAME_NAME_EVALUATION = true;
 
+/**
+ * Public Hanja detail score.
+ *
+ * `STROKE_ELEMENT` is an analysis insight, but it is intentionally not an
+ * evaluator signal and therefore is absent from `EvaluationResult.categoryMap`.
+ * Reading the public sub-score from that sparse map silently replaced the real
+ * element score with zero. Keep evaluator weighting unchanged and assemble the
+ * detail score from the calculator analysis that owns both values.
+ */
+function publicHanjaDetailScore(hanja: HanjaCalculator): number {
+  const analysis = hanja.getAnalysis().data;
+  return roundScore((analysis.polarityScore + analysis.elementScore) / 2);
+}
+
 async function yieldCandidateEvaluationTurn(): Promise<void> {
   const hostScheduler = (globalThis as typeof globalThis & {
     scheduler?: { yield?: () => Promise<void> };
   }).scheduler;
   if (typeof hostScheduler?.yield === 'function') {
     await hostScheduler.yield();
+    return;
+  }
+  // A zero-delay timer can be clamped to a full scheduler quantum on Windows
+  // and on backgrounded browsers. Candidate evaluation yields frequently for
+  // cancellation and rendering, so that clamp can dominate first-page wall
+  // time even though the scoring work itself is unchanged. MessageChannel is
+  // still a macrotask boundary, but avoids the timer clamp. Close both ports
+  // after every turn so Node workers and browser sessions retain no channel.
+  if (typeof globalThis.MessageChannel === 'function') {
+    await new Promise<void>((resolve) => {
+      const channel = new globalThis.MessageChannel();
+      channel.port1.onmessage = () => {
+        channel.port1.onmessage = null;
+        channel.port1.close();
+        channel.port2.close();
+        resolve();
+      };
+      channel.port2.postMessage(undefined);
+    });
     return;
   }
   await new Promise<void>((resolve) => setTimeout(resolve, 0));
@@ -363,122 +416,6 @@ function assertRequestedCandidateId(
   }
 }
 
-const UNSAFE_HANJA_MEANING_PATTERNS = [
-  /장물/,
-  /뇌물/,
-  /도둑/,
-  /훔/,
-  /죄/,
-  /형벌/,
-  /죽을/,
-  /죽음/,
-  /사망/,
-  /망할/,
-  /흉/,
-  /악할/,
-  /해칠/,
-  /다칠/,
-  /재앙/,
-  /고통/,
-  /슬플/,
-  /감출/,
-  /숨길/,
-  /가난/,
-] as const;
-const OPAQUE_HANJA_MEANING_PATTERN = /^[가-힣]{1,2}(?:\s*,\s*[가-힣]{1,2})*$/;
-const WEAK_RECOMMENDATION_HANJA_MEANING_PATTERNS = [
-  /나이/,
-  /마칠/,
-  /구기/,
-  /비수/,
-  /숟가락/,
-  /어조사/,
-  /어금니/,
-  /무기/,
-  /굽을/,
-  /갈고리/,
-  /풀벨/,
-  /흩어질/,
-  /칼/,
-  /작은배/,
-  /없을/,
-  /말 물/,
-  /나눌/,
-  /쪼갤/,
-  /창/,
-  /전쟁/,
-  /빌릴/,
-  /갚을/,
-  /돈/,
-  /닻/,
-  /배멈출/,
-  /대모/,
-  /노리개/,
-  /패옥/,
-] as const;
-const POSITIVE_RECOMMENDATION_HANJA_MEANING_PATTERNS = [
-  /어질/,
-  /착할/,
-  /바를/,
-  /높일/,
-  /빛/,
-  /밝/,
-  /클/,
-  /큰/,
-  /넓/,
-  /지혜/,
-  /슬기/,
-  /총명/,
-  /준걸/,
-  /빼어/,
-  /뛰어/,
-  /아름/,
-  /맑/,
-  /깨끗/,
-  /평안/,
-  /편안/,
-  /복/,
-  /덕/,
-  /길/,
-  /귀/,
-  /보배/,
-  /옥/,
-  /금/,
-  /별/,
-  /해/,
-  /달/,
-  /하늘/,
-  /강/,
-  /산/,
-  /샘/,
-  /꽃/,
-  /향/,
-  /숲/,
-  /영원/,
-  /오랠/,
-  /단단/,
-  /굳/,
-  /이룰/,
-  /성할/,
-  /펼/,
-  /도울/,
-  /믿/,
-  /사랑/,
-  /기쁠/,
-  /즐거/,
-  /윤택/,
-  /풍성/,
-  /예절/,
-  /공경/,
-  /참/,
-  /진실/,
-  /정성/,
-  /건강/,
-  /솜씨/,
-  /힘/,
-  /다스릴/,
-] as const;
-
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
@@ -558,29 +495,6 @@ function computeHanjaMeaningScore(entries: readonly HanjaEntry[]): number | null
     typeof entry.meaning === 'string' && entry.meaning.trim().length > 0 ? 100 : 40));
 }
 
-function hasUnsafeHanjaMeaning(entry: HanjaEntry): boolean {
-  const meaning = String(entry.meaning ?? '').trim();
-  if (!meaning) return false;
-  return UNSAFE_HANJA_MEANING_PATTERNS.some((pattern) => pattern.test(meaning));
-}
-
-function hasOpaqueHanjaMeaning(entry: HanjaEntry): boolean {
-  const meaning = String(entry.meaning ?? '').replace(/\s+/g, ' ').trim();
-  if (!meaning) return true;
-  const descriptivePart = meaning.includes(':')
-    ? meaning.split(':').slice(1).join(':').trim()
-    : meaning;
-  if (!descriptivePart) return true;
-  return OPAQUE_HANJA_MEANING_PATTERN.test(descriptivePart);
-}
-
-function hasWeakRecommendationHanjaMeaning(entry: HanjaEntry): boolean {
-  const meaning = String(entry.meaning ?? '').replace(/\s+/g, ' ').trim();
-  if (!meaning) return false;
-  if (WEAK_RECOMMENDATION_HANJA_MEANING_PATTERNS.some((pattern) => pattern.test(meaning))) return true;
-  return !POSITIVE_RECOMMENDATION_HANJA_MEANING_PATTERNS.some((pattern) => pattern.test(meaning));
-}
-
 /** Convert a HanjaEntry into the minimal NameCharInput shape. */
 function toNameCharInput(entry: HanjaEntry, pool: HanjaPool = 'curated'): NameCharInput {
   const legal = getLegalAnnotation(entry, { pool });
@@ -612,14 +526,12 @@ interface NameInputPlan {
   readonly includeOriginalName: boolean;
 }
 
-type FoundNameStatLookupResult = Extract<NameStatLookupResult, { readonly status: 'found' }>;
-
 interface CollectedNameInput {
   readonly givenName: NameCharInput[];
-  /** Present when recommendation filtering already resolved NameStat. */
+  /** Present when recommendation enrichment already resolved NameStat. */
   readonly nameStat?: {
     readonly givenNameKey: string;
-    readonly info: FoundNameStatLookupResult;
+    readonly info: NameStatLookupResult;
   };
 }
 
@@ -944,6 +856,24 @@ export class SpringEngine {
     this.candidateSearchSnapshots.delete(queryId);
     this.candidateSearchSnapshots.set(queryId, snapshot);
     return snapshot;
+  }
+
+  /**
+   * Reuses an already-ranked first-page snapshot for the exact same analysis
+   * request. Query IDs are engine-session correlation keys, so returning the
+   * existing ID keeps every pager on the same immutable ordering and avoids
+   * consuming another slot in the bounded four-snapshot LRU.
+   */
+  private getCandidateSearchSnapshotByRequestKey(
+    requestKey: string,
+  ): CandidateSearchSnapshotV1 | undefined {
+    for (const [queryId, snapshot] of this.candidateSearchSnapshots) {
+      if (snapshot.requestKey !== requestKey) continue;
+      this.candidateSearchSnapshots.delete(queryId);
+      this.candidateSearchSnapshots.set(queryId, snapshot);
+      return snapshot;
+    }
+    return undefined;
   }
 
   private operationNameEntryRepository(
@@ -1412,12 +1342,11 @@ export class SpringEngine {
     for (const entry of entries) {
       const unsafeMeaning = hasUnsafeHanjaMeaning(entry);
       const opaqueMeaning = hasOpaqueHanjaMeaning(entry);
-      const weakMeaning = hasWeakRecommendationHanjaMeaning(entry);
-      if (unsafeMeaning || opaqueMeaning || weakMeaning) {
+      if (unsafeMeaning || opaqueMeaning) {
         const legal = getLegalAnnotation(entry, { pool: hanjaPool });
         this.recordCandidateRejection(
           accumulator,
-          unsafeMeaning ? 'unsafe_hanja_meaning' : opaqueMeaning ? 'opaque_hanja_meaning' : 'weak_hanja_meaning',
+          unsafeMeaning ? 'unsafe_hanja_meaning' : 'opaque_hanja_meaning',
           {
             hangul: entry.hangul,
             hanja: entry.hanja,
@@ -1425,9 +1354,7 @@ export class SpringEngine {
           },
           unsafeMeaning
             ? 'Candidate removed before scoring because the Hanja meaning is unsuitable for public name recommendations.'
-            : opaqueMeaning
-              ? 'Candidate removed before scoring because the Hanja meaning is too opaque for public name recommendations.'
-              : 'Candidate removed before scoring because the Hanja meaning is weak for public name recommendations.',
+            : 'Candidate removed before scoring because the Hanja meaning is too opaque for public name recommendations.',
         );
         continue;
       }
@@ -1918,8 +1845,6 @@ export class SpringEngine {
         operation,
         () => this.getNameStatInfo(givenNameInput, operation),
       );
-      if (nameStatInfo.status === 'not_found') continue;
-      if (this.isGenderMismatch(request.birth.gender, nameStatInfo.nameGender)) continue;
       const nameStat = collected.nameStat ?? {
         givenNameKey: this.givenNameHangulKey(givenNameInput),
         info: nameStatInfo,
@@ -2048,6 +1973,21 @@ export class SpringEngine {
     }
     onSajuReport?.(sajuReport);
     const sajuSummary: SajuSummary = sajuReport;
+    const candidateGuidance = buildCandidateElementGuidanceV1(sajuSummary);
+    const resolvedSajuPreset = this.resolveSajuPreset(request.options);
+    const hasExplicitYongshinMode =
+      request.options?.precisionConfig?.yongshinMode !== undefined;
+    const candidateSajuPreset = requireSajuGuidedRecommendation
+      && candidateGuidance.posture === 'conservative'
+      && !hasExplicitYongshinMode
+      ? {
+          ...resolvedSajuPreset,
+          scoringOverrides: {
+            ...(resolvedSajuPreset.scoringOverrides ?? {}),
+            yongshinMode: 'consensus_aware' as const,
+          },
+        }
+      : resolvedSajuPreset;
     const { dist: sajuDistribution, output: sajuOutput } = buildSajuContext(sajuSummary, {
       includeTenGodByPosition: request.options?.precisionConfig?.tenGodMode === 'positional_weighted_v2',
     });
@@ -2058,9 +1998,25 @@ export class SpringEngine {
     ));
     const paretoMode = shouldUseParetoFrontier(request.options);
     const paretoResults: SpringCandidateSummary[] = [];
-    const defaultResults = paretoMode ? null : new DefaultCandidateSummaryAccumulator();
+    const maxVariantsPerHangul = requireSajuGuidedRecommendation
+      ? CANDIDATE_HANJA_VARIANTS_PER_HANGUL
+      : 1;
+    const defaultResults = paretoMode
+      ? null
+      : new DefaultCandidateSummaryAccumulator(
+          maxVariantsPerHangul,
+          requireSajuGuidedRecommendation,
+          requireSajuGuidedRecommendation ? CANDIDATE_PRESENTATION_SCORE_WINDOW : 0,
+        );
     const hanjaPool = this.resolveHanjaPool(request.options);
     const surnameEntriesByForceHangul = new Map<boolean, HanjaEntry[]>();
+    const surfaceNameTrend = request.options?.precisionConfig?.surfaceNameTrend === true;
+    const surfacePhonetic =
+      request.options?.precisionConfig?.surfacePhoneticEvidence === true;
+    const surfaceScoreVector = this.shouldSurfaceNamingScoreVector(request.options);
+    const needsSelectionEvidence = requireSajuGuidedRecommendation || surfaceScoreVector;
+    const nameTrendByHangul = new Map<string, NameTrendAnalysis>();
+    const phoneticByHangul = new Map<string, PhoneticAnalysis>();
     let evaluatedCandidateCount = 0;
 
     for (const collected of nameInputs) {
@@ -2069,8 +2025,6 @@ export class SpringEngine {
         operation,
         () => this.getNameStatInfo(givenNameInput, operation),
       );
-      if (nameStatInfo.status === 'not_found') continue;
-      if (this.isGenderMismatch(request.birth.gender, nameStatInfo.nameGender)) continue;
       const resolutionPolicy = this.resolveNameResolutionPolicy(
         givenNameInput,
         request.options,
@@ -2115,7 +2069,7 @@ export class SpringEngine {
         {
           elementSource: resolutionPolicy.pureHangulGivenName ? 'hangul' : 'resource',
           enabled: hasSajuContext,
-          ...this.resolveSajuPreset(request.options),
+          ...candidateSajuPreset,
           evaluatorHints: this.resolveEvaluatorHints(request.birth, request.options, sajuOutput),
         },
       );
@@ -2129,29 +2083,48 @@ export class SpringEngine {
       const combined = springEvaluateName([hangul, hanja, frame, saju], combinedCtx);
 
       const allEntries = [...surnameEntries, ...givenNameEntries];
-      const nameTrend = this.resolveNameTrend(givenNameInput, request.birth, request.options);
-      const phonetic = this.resolvePhoneticAnalysis(request.surname, givenNameInput, request.options);
-      const vectorEvidence = this.resolveNamingScoreVectorEvidence(
-        request.surname,
-        givenNameInput,
-        request.birth,
-        request.options,
-        nameTrend,
-        phonetic,
-      );
-      const scoreVector = this.shouldSurfaceNamingScoreVector(request.options)
+      const givenHangulKey = this.givenNameHangulKey(givenNameInput);
+      let selectionNameTrend = nameTrendByHangul.get(givenHangulKey);
+      if ((needsSelectionEvidence || surfaceNameTrend) && !selectionNameTrend) {
+        selectionNameTrend = getNameTrendAnalysis(givenNameInput, request.birth);
+        nameTrendByHangul.set(givenHangulKey, selectionNameTrend);
+      }
+      let selectionPhonetic = phoneticByHangul.get(givenHangulKey);
+      if ((needsSelectionEvidence || surfacePhonetic) && !selectionPhonetic) {
+        selectionPhonetic = getPhoneticAnalysis(request.surname, givenNameInput);
+        phoneticByHangul.set(givenHangulKey, selectionPhonetic);
+      }
+      const nameTrend = surfaceNameTrend ? selectionNameTrend : undefined;
+      const phonetic = surfacePhonetic ? selectionPhonetic : undefined;
+      const vectorEvidence = needsSelectionEvidence
+        ? {
+            nameTrend: selectionNameTrend,
+            phonetic: selectionPhonetic,
+          }
+        : {};
+      const completeSelectionScoreVector = needsSelectionEvidence
         ? this.buildNamingScoreVector(
           combined,
           surnameEntries,
           givenNameEntries,
           hangul,
           hanja,
-            frame,
-            hanjaPool,
+          frame,
+          hanjaPool,
           vectorEvidence.nameTrend,
           vectorEvidence.phonetic,
         )
         : undefined;
+      const meaningConfidence = requireSajuGuidedRecommendation
+        ? computeRecommendationMeaningConfidence(givenNameEntries)
+        : null;
+      const selectionScoreVector = completeSelectionScoreVector
+        ? {
+            ...completeSelectionScoreVector,
+            hanjaMeaning: meaningConfidence,
+          }
+        : undefined;
+      const scoreVector = surfaceScoreVector ? completeSelectionScoreVector : undefined;
       const strengthProfile = scoreVector
         ? deriveCandidateStrengthProfile(scoreVector)
         : undefined;
@@ -2159,6 +2132,20 @@ export class SpringEngine {
         finalScore: roundScore(combined.score),
         ...(scoreVector ? { scoreVector } : {}),
         ...(strengthProfile ? { strengthProfile } : {}),
+        ...(requireSajuGuidedRecommendation && selectionScoreVector
+          ? {
+              presentationEvidence: {
+                meaningConfidence,
+                popularityRank: nameStatInfo.popularityRank,
+                phonetic: selectionScoreVector.phonetic,
+                familyFit: selectionScoreVector.familyFit,
+                eraFit: selectionScoreVector.eraFit,
+                risk: selectionScoreVector.risk,
+                meaningBasis: 'authored_gloss_safety_v1' as const,
+                popularityBasis: 'local_official_name_stat' as const,
+              },
+            }
+          : {}),
         fullHangul: allEntries.map(entry => entry.hangul).join(''),
         fullHanja: allEntries.map(entry => entry.hanja).join(''),
         givenHangul: givenNameEntries.map(entry => entry.hangul).join(''),
@@ -2170,7 +2157,7 @@ export class SpringEngine {
         ...(phonetic ? { phonetic } : {}),
         rank: 0,
       };
-      if (defaultResults) defaultResults.add(summary);
+      if (defaultResults) defaultResults.add(summary, selectionScoreVector);
       else paretoResults.push(summary);
 
       evaluatedCandidateCount += 1;
@@ -2181,11 +2168,14 @@ export class SpringEngine {
 
     const ordered = defaultResults
       ? defaultResults.finish()
-      : dedupeCandidateSummariesByHangul(orderCandidateSummaries(
-          paretoResults,
-          request.options,
-          CANDIDATE_SELECTION_LIMITS,
-        ));
+      : retainCandidateSummaryVariantsByHangul(
+          orderCandidateSummaries(
+            paretoResults,
+            request.options,
+            CANDIDATE_SELECTION_LIMITS,
+          ),
+          maxVariantsPerHangul,
+        );
     return this.completeOperation(
       operation,
       this.pageOrderedCandidates(ordered, request.options),
@@ -2203,6 +2193,17 @@ export class SpringEngine {
     continuation?: CandidateSearchContinuationV1,
   ): Promise<CandidateSearchResponseV1> {
     request = snapshotCandidateSearchRequestV1(request);
+    const candidateSearchPlan = this.buildNameInputPlan(request);
+    const candidateSearchNameLength = request.givenNameLength
+      ?? request.givenName?.length
+      ?? 2;
+    const candidateRecallGeneration = !candidateSearchPlan.hasGenerationConstraints
+      && candidateSearchNameLength === 2
+      ? 'official_name_stat_hangul_seed_plus_legal_hanja_generation' as const
+      : 'legal_hanja_generation' as const;
+    const orderingMode = request.options?.precisionConfig?.paretoFrontierCandidates === true
+      ? 'pareto_frontier' as const
+      : 'recommended' as const;
     const requestedNameLengths = [
       request.givenNameLength,
       request.givenName === undefined ? undefined : request.givenName.length,
@@ -2213,6 +2214,13 @@ export class SpringEngine {
         'UNSUPPORTED_RECOMMENDATION_NAME_LENGTH',
         'Automatic candidate recommendation currently supports 1-2 syllable given names. '
           + 'Explicit 3-4 syllable names remain available for naming and integrated reports.',
+      );
+    }
+    if (request.options?.pureHangulNameMode === 'on') {
+      throw new CandidateSearchContractErrorV1(
+        'HANJA_REQUIRED_FOR_SAJU_GUIDED_RECOMMENDATION',
+        'Saju-guided candidate recommendation requires canonical Hanja identity. '
+          + 'Pure-Hangul exploration belongs to a separate name-only flow without natal ranking.',
       );
     }
     const { limit: _limit, offset: _offset, ...analysisOptions } = request.options ?? {};
@@ -2270,6 +2278,9 @@ export class SpringEngine {
       offset,
       requestedLimit,
       query: provisionalQuery,
+      candidateRecallGeneration,
+      orderingMode,
+      requireCanonicalHanja: true,
       natalEvidence: { status: 'ready', reasonCodes: [] },
     });
 
@@ -2277,29 +2288,34 @@ export class SpringEngine {
     if (continuation) {
       snapshot = this.getCandidateSearchSnapshot(continuation.queryId, requestKey);
     } else {
-      let natalEvidence: NatalEvidenceAssessmentV1 | undefined;
-      const summariesWithLookahead = await this.getNameCandidateSummariesInternal({
-        ...request,
-        options: {
-          ...(request.options ?? {}),
-          offset: 0,
-          limit: CANDIDATE_SEARCH_SNAPSHOT_MAX_CANDIDATES + 1,
-        },
-      }, true, (report) => {
-        natalEvidence = assessNatalEvidenceV1(report);
-      });
-      const retainedNatalEvidence = natalEvidence ?? assessNatalEvidenceV1(null);
-      const query: CandidateSearchQueryV1 = {
-        ...provisionalQuery,
-        truncated: summariesWithLookahead.length > CANDIDATE_SEARCH_SNAPSHOT_MAX_CANDIDATES,
-      };
-      snapshot = {
-        query,
-        requestKey,
-        summaries: summariesWithLookahead.slice(0, CANDIDATE_SEARCH_SNAPSHOT_MAX_CANDIDATES),
-        natalEvidence: retainedNatalEvidence,
-      };
-      this.cacheCandidateSearchSnapshot(snapshot);
+      const retainedSnapshot = this.getCandidateSearchSnapshotByRequestKey(requestKey);
+      if (retainedSnapshot) {
+        snapshot = retainedSnapshot;
+      } else {
+        let natalEvidence: NatalEvidenceAssessmentV1 | undefined;
+        const summariesWithLookahead = await this.getNameCandidateSummariesInternal({
+          ...request,
+          options: {
+            ...(request.options ?? {}),
+            offset: 0,
+            limit: CANDIDATE_SEARCH_SNAPSHOT_MAX_CANDIDATES + 1,
+          },
+        }, true, (report) => {
+          natalEvidence = assessNatalEvidenceV1(report);
+        });
+        const retainedNatalEvidence = natalEvidence ?? assessNatalEvidenceV1(null);
+        const query: CandidateSearchQueryV1 = {
+          ...provisionalQuery,
+          truncated: summariesWithLookahead.length > CANDIDATE_SEARCH_SNAPSHOT_MAX_CANDIDATES,
+        };
+        snapshot = {
+          query,
+          requestKey,
+          summaries: summariesWithLookahead.slice(0, CANDIDATE_SEARCH_SNAPSHOT_MAX_CANDIDATES),
+          natalEvidence: retainedNatalEvidence,
+        };
+        this.cacheCandidateSearchSnapshot(snapshot);
+      }
     }
     if (offset > snapshot.summaries.length) {
       throw new CandidateSearchContractErrorV1(
@@ -2315,6 +2331,9 @@ export class SpringEngine {
       requestedLimit,
       hasMore,
       query: snapshot.query,
+      candidateRecallGeneration,
+      orderingMode,
+      requireCanonicalHanja: true,
       natalEvidence: snapshot.natalEvidence,
     });
   }
@@ -2346,9 +2365,7 @@ export class SpringEngine {
     const hangulScore = roundScore(
       ((categoryMap.HANGUL_ELEMENT?.score ?? 0) + (categoryMap.HANGUL_POLARITY?.score ?? 0)) / 2,
     );
-    const hanjaScore = roundScore(
-      ((categoryMap.STROKE_POLARITY?.score ?? 0) + (categoryMap.STROKE_ELEMENT?.score ?? 0)) / 2,
-    );
+    const hanjaScore = publicHanjaDetailScore(hanja);
     const fourFrameScore = roundScore(categoryMap.FOURFRAME_LUCK?.score ?? 0);
 
     const enrichedFrames: NamingReportFrame[] = frames.map((frame) => {
@@ -2537,7 +2554,7 @@ export class SpringEngine {
 
       return this.awaitOperationStep(
         operation,
-        () => this.filterCandidatesByNameStat(candidates, request.birth.gender, operation),
+        () => this.enrichCandidatesWithNameStat(candidates, operation),
       );
     }
 
@@ -2546,15 +2563,6 @@ export class SpringEngine {
 
   private givenNameHangulKey(givenName: NameCharInput[]): string {
     return givenName.map((char) => String(char?.hangul ?? '')).join('').trim();
-  }
-
-  private isGenderMismatch(
-    userGender: 'male' | 'female' | 'neutral',
-    nameGender: NameGenderTendency,
-  ): boolean {
-    if (userGender === 'neutral') return false;
-    if (nameGender === 'unknown') return true;
-    return userGender !== nameGender;
   }
 
   private async getNameStatInfo(
@@ -2628,12 +2636,21 @@ export class SpringEngine {
     this.nameStatInfoCache.set(key, value);
   }
 
-  private async filterCandidatesByNameStat(
+  /**
+   * Attaches official usage evidence without turning absence or a statistical
+   * gender tendency into an admission gate. New, rare, and cross-gender names
+   * remain eligible for the normal legal, safety, and scoring policies.
+   */
+  private async enrichCandidatesWithNameStat(
     nameInputs: NameCharInput[][],
-    userGender: 'male' | 'female' | 'neutral',
     operation: SpringEngineOperationLease = this.beginOperation('name-stat-lookup'),
   ): Promise<CollectedNameInput[]> {
-    const filtered: CollectedNameInput[] = [];
+    const enriched: CollectedNameInput[] = [];
+    // Hanja variants of one Hangul name share the same official usage
+    // evidence. Keep that evidence request-local so a pool larger than the
+    // session LRU cannot make repeated variants churn and re-await the same
+    // lookup. This changes neither candidate admission nor the attached value.
+    const infoByGivenNameKey = new Map<string, NameStatLookupResult>();
     let inspectedCandidateCount = 0;
     for (const givenNameInput of nameInputs) {
       if (
@@ -2643,21 +2660,24 @@ export class SpringEngine {
         await this.awaitOperationStep(operation, yieldCandidateEvaluationTurn);
       }
       inspectedCandidateCount += 1;
-      const info = await this.awaitOperationStep(
-        operation,
-        () => this.getNameStatInfo(givenNameInput, operation),
-      );
-      if (info.status === 'not_found') continue;
-      if (this.isGenderMismatch(userGender, info.nameGender)) continue;
-      filtered.push({
+      const givenNameKey = this.givenNameHangulKey(givenNameInput);
+      let info = infoByGivenNameKey.get(givenNameKey);
+      if (info === undefined) {
+        info = await this.awaitOperationStep(
+          operation,
+          () => this.getNameStatInfo(givenNameInput, operation),
+        );
+        infoByGivenNameKey.set(givenNameKey, info);
+      }
+      enriched.push({
         givenName: givenNameInput,
         nameStat: {
-          givenNameKey: this.givenNameHangulKey(givenNameInput),
+          givenNameKey,
           info,
         },
       });
     }
-    return filtered;
+    return enriched;
   }
 
   // -------------------------------------------------------------------------
@@ -2834,9 +2854,7 @@ export class SpringEngine {
     const hangulScore = roundScore(
       ((categoryMap.HANGUL_ELEMENT?.score ?? 0) + (categoryMap.HANGUL_POLARITY?.score ?? 0)) / 2,
     );
-    const hanjaScore = roundScore(
-      ((categoryMap.STROKE_POLARITY?.score ?? 0) + (categoryMap.STROKE_ELEMENT?.score ?? 0)) / 2,
-    );
+    const hanjaScore = publicHanjaDetailScore(hanja);
     const sanitizedFourFrameAnalysis = sanitizeServiceValue(frame.getAnalysis().data, fullHangul);
 
     return {
@@ -2899,31 +2917,15 @@ export class SpringEngine {
     const nameLength     = request.givenNameLength ?? jamoFilters?.length ?? 2;
     const hasPositionConstraints = jamoFilters !== undefined;
 
-    // A failed or partial analysis must not be converted into the configured
-    // default element. In that case generation is explicitly name-only.
-    const hasSajuGuidance = isScorableSajuSummary(sajuSummary);
-    const targetElements = hasSajuGuidance
-      ? collectElements(
-          sajuSummary.yongshin.element,
-          sajuSummary.yongshin.heeshin,
-          sajuSummary.deficientElements,
-        )
-      : new Set<string>();
-    const avoidElements = hasSajuGuidance
-      ? collectElements(
-          sajuSummary.yongshin.gishin,
-          sajuSummary.yongshin.gushin,
-          sajuSummary.excessiveElements,
-        )
-      : new Set<string>();
-    if (hasSajuGuidance && targetElements.size === 0) {
-      targetElements.add(DEFAULT_TARGET_ELEMENT);
-    }
+    const guidance = buildCandidateElementGuidanceV1(sajuSummary);
+    const targetElements = new Set(guidance.preferredElements);
+    const elementPreferenceStrength = guidance.preferenceStrength;
 
     // Build per-position character pools
     const pools = await this.buildPositionPools(
       request, nameLength, jamoFilters, hasPositionConstraints,
-      surnameEntries, targetElements, avoidElements, hanjaPool, candidateRejections,
+      surnameEntries, targetElements, elementPreferenceStrength,
+      hanjaPool, candidateRejections,
       operation,
     );
 
@@ -2933,8 +2935,112 @@ export class SpringEngine {
     const generated = useStrokeStrategy
       ? this.generateViaStrokeOptimizer(surnameEntries, pools, nameLength, hanjaPool)
       : this.generateViaDepthFirstSearch(pools, nameLength, hanjaPool);
-    const internallyDiverse = this.filterInternallyRepeatedCandidates(generated, candidateRejections);
+    const popularHangulSeeds = !pureHangulGeneration
+      && !hasPositionConstraints
+      && nameLength === 2
+      ? await this.generatePopularHangulSeedCandidates(
+          nameLength,
+          targetElements,
+          elementPreferenceStrength,
+          hanjaPool,
+          candidateRejections,
+          operation,
+        )
+      : [];
+    const unique = new Map<string, NameCharInput[]>();
+    for (const candidate of [...popularHangulSeeds, ...generated]) {
+      const key = candidate
+        .map((character) => `${character.hangul}\u0000${character.hanja ?? ''}`)
+        .join('\u0001');
+      if (!unique.has(key)) unique.set(key, candidate);
+      if (unique.size >= MAX_CANDIDATES) break;
+    }
+    const internallyDiverse = this.filterInternallyRepeatedCandidates(
+      [...unique.values()],
+      candidateRejections,
+    );
     return this.filterGeneratedCandidatesByLegalStatus(internallyDiverse, candidateRejections);
+  }
+
+  /**
+   * Restores practical-name recall that stroke-first generation cannot provide.
+   *
+   * The compact official name-stat asset supplies a bounded Hangul universe.
+   * Each syllable is then expanded only through the local legal-Hanja
+   * repository, and every resulting full name still passes the normal
+   * saju/naming calculators. This is recall seeding, never a score shortcut.
+   */
+  private async generatePopularHangulSeedCandidates(
+    nameLength: number,
+    targetElements: ReadonlySet<string>,
+    elementPreferenceStrength: CandidateElementPreferenceStrength,
+    hanjaPool: HanjaPool,
+    candidateRejections: CandidateRejectionAccumulator,
+    operation: SpringEngineOperationLease,
+  ): Promise<NameCharInput[][]> {
+    const repository = this.nameStatRepo as NameStatSummaryRepository & {
+      findTopRankedNames?: NameStatSummaryRepository['findTopRankedNames'];
+    };
+    if (typeof repository.findTopRankedNames !== 'function') return [];
+    const rankedNames = await this.awaitOperationStep(
+      operation,
+      () => repository.findTopRankedNames!({
+        // Birth gender is not an admission rule for names. Seed from total
+        // usage, then expose tendency only as descriptive evidence.
+        gender: 'neutral',
+        hangulLength: nameLength,
+        limit: CANDIDATE_HANGUL_SEED_NAME_LIMIT,
+      }),
+    );
+    const entriesBySyllable = new Map<string, HanjaEntry[]>();
+    const seeds: NameCharInput[][] = [];
+
+    for (const rankedName of rankedNames) {
+      const syllables = Array.from(rankedName.name);
+      if (syllables.length !== nameLength) continue;
+      const positionPools: HanjaEntry[][] = [];
+      for (const syllable of syllables) {
+        let entries = entriesBySyllable.get(syllable);
+        if (!entries) {
+          const resolved = await this.resolveFixedCharPool(
+            { hangul: syllable },
+            hanjaPool,
+            false,
+            64,
+            operation,
+          );
+          entries = this.orderCandidateGenerationPool(
+            this.filterPresentationSafeEntries(
+              resolved.filter((entry) => hasHanIdeograph(entry.hanja)),
+              hanjaPool,
+              candidateRejections,
+            ),
+            targetElements,
+            elementPreferenceStrength,
+          ).slice(0, CANDIDATE_HANJA_VARIANTS_PER_SEED_SYLLABLE);
+          entriesBySyllable.set(syllable, entries);
+        }
+        positionPools.push(entries);
+      }
+      if (positionPools.some((pool) => pool.length === 0)) continue;
+
+      let variantsForName = 0;
+      const expand = (position: number, selected: HanjaEntry[]): void => {
+        if (variantsForName >= CANDIDATE_SEED_VARIANTS_PER_NAME) return;
+        if (position === positionPools.length) {
+          variantsForName += 1;
+          seeds.push(selected.map((entry) => toNameCharInput(entry, hanjaPool)));
+          return;
+        }
+        for (const entry of positionPools[position]!) {
+          if (selected.some((prior) => prior.hanja === entry.hanja)) continue;
+          expand(position + 1, [...selected, entry]);
+          if (variantsForName >= CANDIDATE_SEED_VARIANTS_PER_NAME) break;
+        }
+      };
+      expand(0, []);
+    }
+    return seeds;
   }
 
   private filterGeneratedCandidatesByLegalStatus(
@@ -3080,6 +3186,37 @@ export class SpringEngine {
   //   Jamo mode (jamo filter or 3+ chars): pools keyed by position index
   // -------------------------------------------------------------------------
 
+  private orderCandidateGenerationPool(
+    entries: readonly HanjaEntry[],
+    targetElements: ReadonlySet<string>,
+    elementPreferenceStrength: CandidateElementPreferenceStrength,
+  ): HanjaEntry[] {
+    // The positive-pattern list is an authored presentation heuristic, not an
+    // authority to reject a legal Hanja. Prefer reviewed-positive glosses in a
+    // bounded pool, then retain every otherwise safe/decodable entry.
+    const reviewedPositive: HanjaEntry[] = [];
+    const unreviewedMeaning: HanjaEntry[] = [];
+    for (const entry of entries) {
+      (hasWeakRecommendationHanjaMeaning(entry)
+        ? unreviewedMeaning
+        : reviewedPositive).push(entry);
+    }
+    return [
+      ...orderCandidatePoolByElementPreference(
+        reviewedPositive,
+        targetElements,
+        elementPreferenceStrength,
+        (entry) => entry.resource_element,
+      ),
+      ...orderCandidatePoolByElementPreference(
+        unreviewedMeaning,
+        targetElements,
+        elementPreferenceStrength,
+        (entry) => entry.resource_element,
+      ),
+    ];
+  }
+
   private async buildPositionPools(
     request: SpringRequest,
     nameLength: number,
@@ -3087,7 +3224,7 @@ export class SpringEngine {
     hasPositionConstraints: boolean,
     surnameEntries: HanjaEntry[],
     targetElements: Set<string>,
-    avoidElements: Set<string>,
+    elementPreferenceStrength: CandidateElementPreferenceStrength,
     hanjaPool: HanjaPool,
     candidateRejections: CandidateRejectionAccumulator,
     operation: SpringEngineOperationLease,
@@ -3096,10 +3233,12 @@ export class SpringEngine {
 
     return useStrokeMode
       ? this.buildStrokeBasedPools(
-          surnameEntries, nameLength, targetElements, avoidElements, hanjaPool, candidateRejections,
+          surnameEntries, nameLength, targetElements, elementPreferenceStrength,
+          hanjaPool, candidateRejections,
         )
       : this.buildJamoBasedPools(
-          request, nameLength, jamoFilters, targetElements, avoidElements, hanjaPool,
+          request, nameLength, jamoFilters, targetElements,
+          elementPreferenceStrength, hanjaPool,
           candidateRejections, operation,
         );
   }
@@ -3121,15 +3260,15 @@ export class SpringEngine {
   //
   // 1. Ask the optimizer which stroke-count combinations are valid.
   // 2. Fetch all hanja in the needed stroke range.
-  // 3. Group by stroke count, excluding surnames and avoided elements.
-  // 4. Sort each group so target-element characters come first.
+  // 3. Group by stroke count, excluding surname-only rows.
+  // 4. Apply the evidence-calibrated role preference without hard exclusion.
   // -------------------------------------------------------------------------
 
   private async buildStrokeBasedPools(
     surnameEntries: HanjaEntry[],
     nameLength: number,
     targetElements: Set<string>,
-    avoidElements: Set<string>,
+    elementPreferenceStrength: CandidateElementPreferenceStrength,
     hanjaPool: HanjaPool,
     candidateRejections: CandidateRejectionAccumulator,
   ): Promise<Map<number, HanjaEntry[]>> {
@@ -3151,10 +3290,9 @@ export class SpringEngine {
       hanjaPool,
     );
 
-    // Group into pools. Full-pool resource elements are stroke-derived until
-    // PR-2.3, so only curated entries use resource 오행 for pre-score exclusion.
+    // A resource element can guide ordering, but harmful-role evidence stays
+    // in the full-name scorer rather than deleting a character in advance.
     const pools = new Map<number, HanjaEntry[]>();
-    const canFilterAvoidedResourceElement = hanjaPool === 'curated';
 
     for (const hanjaEntry of this.filterPresentationSafeEntries(
       allHanja,
@@ -3163,7 +3301,6 @@ export class SpringEngine {
     )) {
       if (hanjaEntry.is_surname) continue;
       if (!neededStrokes.has(hanjaEntry.strokes)) continue;
-      if (canFilterAvoidedResourceElement && avoidElements.has(hanjaEntry.resource_element)) continue;
 
       let bucket = pools.get(hanjaEntry.strokes);
       if (!bucket) {
@@ -3173,11 +3310,14 @@ export class SpringEngine {
       bucket.push(hanjaEntry);
     }
 
-    // Sort each bucket: target-element characters first
+    // Ready evidence uses role-preferred characters first. Limited evidence
+    // interleaves preferred and neutral characters so bounded pools retain
+    // viable alternatives from outside the uncertain yongshin conclusion.
     for (const [strokeCount, bucket] of pools) {
-      pools.set(strokeCount, bucket.sort((a, b) =>
-        (targetElements.has(b.resource_element) ? 1 : 0)
-        - (targetElements.has(a.resource_element) ? 1 : 0),
+      pools.set(strokeCount, this.orderCandidateGenerationPool(
+        bucket,
+        targetElements,
+        elementPreferenceStrength,
       ));
     }
 
@@ -3198,22 +3338,18 @@ export class SpringEngine {
     nameLength: number,
     jamoFilters: (JamoFilter | null)[] | undefined,
     targetElements: Set<string>,
-    avoidElements: Set<string>,
+    elementPreferenceStrength: CandidateElementPreferenceStrength,
     hanjaPool: HanjaPool,
     candidateRejections: CandidateRejectionAccumulator,
     operation: SpringEngineOperationLease,
   ): Promise<Map<number, HanjaEntry[]>> {
-    // Pre-load the full hanja pool. Full-pool resource elements are
-    // stroke-derived until PR-2.3, so only curated entries use resource 오행
-    // for pre-score exclusion.
-    const canFilterAvoidedResourceElement = hanjaPool === 'curated';
+    // Pre-load the full Hanja pool. Harmful-role evidence is evaluated after
+    // full-name construction instead of deleting a character by one element.
     const fullPool = this.filterPresentationSafeEntries(
       await this.findGenerationPoolByStrokeRange(STROKE_MIN, STROKE_MAX, hanjaPool),
       hanjaPool,
       candidateRejections,
-    ).filter(entry =>
-      !entry.is_surname
-      && (!canFilterAvoidedResourceElement || !avoidElements.has(entry.resource_element)));
+    ).filter(entry => !entry.is_surname);
 
     const pools = new Map<number, HanjaEntry[]>();
 
@@ -3251,9 +3387,10 @@ export class SpringEngine {
       if (jamoFilter?.onset)   filtered = filtered.filter(entry => entry.onset === jamoFilter.onset);
       if (jamoFilter?.nucleus) filtered = filtered.filter(entry => entry.nucleus === jamoFilter.nucleus);
 
-      filtered = [...filtered].sort((a, b) =>
-        (targetElements.has(b.resource_element) ? 1 : 0)
-        - (targetElements.has(a.resource_element) ? 1 : 0),
+      filtered = this.orderCandidateGenerationPool(
+        filtered,
+        targetElements,
+        elementPreferenceStrength,
       );
 
       pools.set(position, filtered.slice(0, POOL_LIMIT_JAMO_FILTERED));
@@ -3506,6 +3643,7 @@ export class SpringEngine {
       targetDate,
       analysisId,
       ...(candidateId === undefined ? {} : { candidateId }),
+      ...(request.options === undefined ? {} : { options: request.options }),
       saju: sajuReport,
       namingReport,
       springReport,

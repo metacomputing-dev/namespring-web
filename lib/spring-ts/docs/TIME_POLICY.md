@@ -101,6 +101,15 @@ offset with an explicit `UTC` or `GMT` prefix; a bare value such as `+09:00`
 is not accepted. Built-in place-name resolution is limited to the supported
 Korean region table; an overseas place name alone is not geocoded.
 
+A supported Korean region label selects that registry entry's canonical
+coordinate/timezone tuple. If coordinates are supplied alongside the label,
+they must match the registry tuple apart from insignificant numeric rounding;
+otherwise the request fails with `BIRTH_LOCATION_CONFLICT`. Callers that need
+an arbitrary GPS point must omit the region label and send the complete
+`latitude + longitude + timezone` tuple. This is a deterministic selector
+contract, not a claim that the registry point describes every address inside
+the administrative region.
+
 With longitude correction on:
 
 - latitude and longitude must be supplied together;
@@ -116,7 +125,10 @@ conflict with `BIRTH_LOCATION_TIMEZONE_MISMATCH`.
 
 Omitting all location input retains the Seoul default for backward
 compatibility. When longitude correction is explicitly off, timezone-only
-input is accepted because longitude is not used.
+input is accepted because longitude is not used. In that case public time
+provenance exposes the timezone, null coordinates, and
+`coordinatesApplied: false`; it never relabels the Seoul compatibility
+coordinates as if they belonged to the supplied timezone.
 
 The lower-level exported saju-ts legacy facade has no separate product-policy
 location resolver. It therefore accepts either no location fields (the Seoul

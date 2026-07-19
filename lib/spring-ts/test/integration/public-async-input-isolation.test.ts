@@ -152,9 +152,9 @@ test('local report and candidate endpoints isolate mutable caller-owned requests
     return [{
       finalScore: 90,
       fullHangul: '\uAE40\uAC00',
-      fullHanja: '',
+      fullHanja: '\u91D1\u4F73',
       givenHangul: '\uAC00',
-      givenName: [{ hangul: '\uAC00' }],
+      givenName: [{ hangul: '\uAC00', hanja: '\u4F73' }],
       popularityRank: null,
       maleRatio: null,
       nameGender: 'unknown',
@@ -163,7 +163,7 @@ test('local report and candidate endpoints isolate mutable caller-owned requests
   };
   const mutableCandidateRequest: any = {
     birth: { year: 1990, month: 1, day: 1, gender: 'neutral' },
-    surname: [{ hangul: '\uAE40' }],
+    surname: [{ hangul: '\uAE40', hanja: '\u91D1' }],
     mode: 'recommend',
     options: { limit: 1 },
   };

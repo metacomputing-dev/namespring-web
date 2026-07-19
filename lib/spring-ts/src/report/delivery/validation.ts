@@ -30,6 +30,13 @@ import {
   assertAnalysisOptionsContractV1,
 } from '../analysis-options-validation.js';
 import { FOUR_FRAME_AUTHORED_COPY_APPROVED } from './content-gates.js';
+import { supportedRegionLocationMatches } from '../../saju/birth-location.js';
+import {
+  LEGACY_PRESET_REFERENCE_MERIDIANS,
+  isLegacyPresetReferenceCode,
+  normalizeReferenceMeridianDegrees,
+  resolveCivilOffsetMinutesForValidation,
+} from '../../saju/time-reference-validation.js';
 
 const SURFACE_IDS = new Set(['integrated', 'saju', 'naming']);
 const DEPTHS = new Set(['brief', 'standard', 'expert']);
@@ -40,6 +47,7 @@ const CATEGORIES = new Set<ReportCategoryIdV1>([
 ]);
 const AVAILABILITY_REASONS = new Set<DeliveryReasonCodeV1>([
   'SAJU_ANALYSIS_LIMITED',
+  'BIRTH_TIME_IMPUTED',
   'SAJU_JUDGMENT_LOW_CONFIDENCE',
   'YONGSHIN_JONGGYEOK_RISK',
   'NAME_INPUT_MISSING',
@@ -62,6 +70,13 @@ const DEPTH_WEIGHT: Readonly<Record<ReportDepthV1, number>> = {
 };
 const MAX_TIMELINE_COST = 32;
 const MAX_DELIVERY_BYTES = 256 * 1024;
+// The equation of time is physically bounded to roughly +/- 16.5 minutes.
+// Keep a conservative envelope so a self-consistent but impossible clock
+// cannot cross the public delivery boundary.
+const MAX_EQUATION_OF_TIME_MINUTES = 20;
+// The current IANA-backed producer emits non-negative whole-minute DST
+// adjustments. Three hours is a deliberately conservative global ceiling.
+const MAX_DAYLIGHT_SAVING_MINUTES = 180;
 const FORBIDDEN_OUTPUT_KEYS = new Set([
   'selectionSeed', 'selectedFragments', 'fragmentId', 'caseId', 'packKey',
   'packUrl', 'premiumBody', 'premiumContent', 'fullText', 'isUnlocked', 'paid',
@@ -365,7 +380,15 @@ const FACT_KINDS = new Set([
   'yongshin',
   'element_distribution',
   'pillars',
+  'shinsal_hits',
+  'ten_god_analysis',
+  'natal_relations',
+  'element_balance',
+  'time_correction',
   'name_character',
+  'naming_trend',
+  'naming_phonetic',
+  'name_statistics',
   'naming_frame',
   'name_saju_interaction',
 ]);
@@ -399,7 +422,44 @@ const INTERACTION_LIMITATIONS = new Set([
   'safety_profile_unavailable',
 ]);
 const FRAME_STAGES = new Set(['earlyLife', 'youthLife', 'middleLife', 'lateAndTotal']);
+const NAMING_TREND_STATUSES = new Set([
+  'current',
+  'era_fit',
+  'dated',
+  'overused',
+  'unknown',
+]);
+const NAME_GENDERS = new Set(['male', 'female', 'unknown']);
+const PHONETIC_STATUSES = new Set(['smooth', 'watch', 'awkward', 'unknown']);
+const PHONETIC_RISKS = new Set(['low', 'medium', 'high']);
+const PHONETIC_BOUNDARIES = new Set(['surname_given', 'given_internal']);
 const JUDGMENT_STRENGTHS = new Set(['definite', 'practical', 'candidate', 'deferred']);
+const SAJU_PILLAR_POSITIONS = new Set(['year', 'month', 'day', 'hour']);
+const TEN_GOD_CODES = new Set([
+  'BI_GYEON',
+  'GYEOB_JAE',
+  'SIK_SIN',
+  'SANG_GWAN',
+  'PYEON_JAE',
+  'JEONG_JAE',
+  'PYEON_GWAN',
+  'JEONG_GWAN',
+  'PYEON_IN',
+  'JEONG_IN',
+]);
+const TIME_UNCERTAINTY_AXES = new Set([
+  'yearPillar',
+  'monthPillar',
+  'dayPillar',
+  'hourPillar',
+  'yongshin',
+  'gyeokguk',
+  'strength',
+  'tenGod',
+  'relations',
+  'shinsal',
+  'fortuneTiming',
+]);
 
 function hasOwn(value: object, key: string): boolean {
   return Object.prototype.hasOwnProperty.call(value, key);
@@ -447,6 +507,19 @@ function strictArray(
 
 function strictString(value: unknown, reason: string, allowEmpty = false): asserts value is string {
   if (typeof value !== 'string' || (!allowEmpty && value.length === 0)) contractFail(reason);
+}
+
+function strictBoundedText(
+  value: unknown,
+  reason: string,
+  maxLength = 120,
+): asserts value is string {
+  strictString(value, reason);
+  if (value !== value.normalize('NFC').trim()
+    || Array.from(value).length > maxLength
+    || /[\u0000-\u001f\u007f]/u.test(value)) {
+    contractFail(reason);
+  }
 }
 
 function strictEnum(
@@ -617,6 +690,386 @@ function strictFactBase(value: Record<string, unknown>): void {
   strictString(value.method, 'FACT_METHOD');
 }
 
+function strictSajuProjectionProvenance(
+  value: Record<string, unknown>,
+  method: string,
+  sourceFields: readonly string[],
+): void {
+  strictFactBase(value);
+  if (value.domain !== 'saju'
+    || value.method !== method
+    || value.source !== 'spring-ts.SajuSummary'
+    || value.projection !== 'normalized_without_recalculation') {
+    contractFail('SAJU_PROJECTION_PROVENANCE');
+  }
+  strictStringArray(value.sourceFields, 'SAJU_PROJECTION_PROVENANCE', {
+    min: sourceFields.length,
+    max: sourceFields.length,
+    unique: true,
+  });
+  if (!sameStringArray(value.sourceFields, sourceFields)) {
+    contractFail('SAJU_PROJECTION_PROVENANCE');
+  }
+}
+
+function strictTenGodDescriptor(value: unknown, reason: string): void {
+  strictObject(value, ['label', 'code'], [], reason);
+  strictBoundedText(value.label, reason, 40);
+  if (value.code !== null) strictEnum(value.code, TEN_GOD_CODES, reason);
+}
+
+function strictLocalDateTime(
+  value: unknown,
+  reason: string,
+): asserts value is {
+  year: number;
+  month: number;
+  day: number;
+  hour: number;
+  minute: number;
+} {
+  strictObject(value, ['year', 'month', 'day', 'hour', 'minute'], [], reason);
+  strictSafeInteger(value.year, reason);
+  strictSafeInteger(value.month, reason);
+  strictSafeInteger(value.day, reason);
+  strictSafeInteger(value.hour, reason);
+  strictSafeInteger(value.minute, reason);
+  const year = value.year as number;
+  const month = value.month as number;
+  const day = value.day as number;
+  const hour = value.hour as number;
+  const minute = value.minute as number;
+  if (year < 1 || month < 1 || month > 12
+    || day < 1 || day > 31
+    || hour < 0 || hour > 23
+    || minute < 0 || minute > 59) {
+    contractFail(reason);
+  }
+  // Date.UTC aliases years 0..99 into 1900..1999.
+  const date = new Date(0);
+  date.setUTCHours(0, 0, 0, 0);
+  date.setUTCFullYear(year, month - 1, day);
+  if (date.getUTCFullYear() !== year
+    || date.getUTCMonth() !== month - 1
+    || date.getUTCDate() !== day) {
+    contractFail(reason);
+  }
+}
+
+function shiftLocalDateTimeByCorrectionMinutes(
+  value: {
+    readonly year: number;
+    readonly month: number;
+    readonly day: number;
+    readonly hour: number;
+    readonly minute: number;
+  },
+  correctionMinutes: number,
+): {
+  readonly year: number;
+  readonly month: number;
+  readonly day: number;
+  readonly hour: number;
+  readonly minute: number;
+} {
+  // saju-ts applies a fractional true-solar correction to an integer-minute
+  // civil clock and floors the resulting displayed minute. Since the input
+  // clock is integral, that is equivalent to adding floor(delta) minutes.
+  const shifted = new Date(0);
+  shifted.setUTCHours(0, 0, 0, 0);
+  shifted.setUTCFullYear(value.year, value.month - 1, value.day);
+  shifted.setUTCHours(value.hour, value.minute + Math.floor(correctionMinutes), 0, 0);
+  return {
+    year: shifted.getUTCFullYear(),
+    month: shifted.getUTCMonth() + 1,
+    day: shifted.getUTCDate(),
+    hour: shifted.getUTCHours(),
+    minute: shifted.getUTCMinutes(),
+  };
+}
+
+interface StrictCalendarDate {
+  readonly year: number;
+  readonly month: number;
+  readonly day: number;
+}
+
+function strictCalendarDate(
+  value: unknown,
+  reason: string,
+  calendar: 'gregorian' | 'lunar',
+): asserts value is StrictCalendarDate {
+  strictObject(value, ['year', 'month', 'day'], [], reason);
+  strictSafeInteger(value.year, reason);
+  strictSafeInteger(value.month, reason);
+  strictSafeInteger(value.day, reason);
+  const year = value.year as number;
+  const month = value.month as number;
+  const day = value.day as number;
+  if (year < 1 || month < 1 || month > 12
+    || day < 1 || day > (calendar === 'lunar' ? 30 : 31)) {
+    contractFail(reason);
+  }
+  if (calendar === 'gregorian') {
+    const date = new Date(0);
+    date.setUTCHours(0, 0, 0, 0);
+    date.setUTCFullYear(year, month - 1, day);
+    if (date.getUTCFullYear() !== year
+      || date.getUTCMonth() !== month - 1
+      || date.getUTCDate() !== day) {
+      contractFail(reason);
+    }
+  }
+}
+
+function strictNullableClockPart(
+  value: unknown,
+  maximum: number,
+  reason: string,
+): asserts value is number | null {
+  if (value === null) return;
+  strictSafeInteger(value, reason);
+  if (value > maximum) contractFail(reason);
+}
+
+interface StrictTimeCorrectionInput {
+  readonly calendarType: 'solar' | 'lunar';
+  readonly providedLocalDateTime: StrictCalendarDate & {
+    readonly hour: number | null;
+    readonly minute: number | null;
+  };
+  readonly effectiveSolarDate: StrictCalendarDate;
+  readonly timePrecision: 'exact' | 'unknown_hour' | 'unknown_minute';
+}
+
+function strictTimeCorrectionInput(
+  value: unknown,
+): asserts value is StrictTimeCorrectionInput {
+  strictObject(
+    value,
+    [
+      'calendarType',
+      'providedLocalDateTime',
+      'effectiveSolarDate',
+      'timePrecision',
+    ],
+    [],
+    'TIME_CORRECTION_INPUT',
+  );
+  strictEnum(value.calendarType, new Set(['solar', 'lunar']), 'TIME_CORRECTION_INPUT');
+  strictObject(
+    value.providedLocalDateTime,
+    ['year', 'month', 'day', 'hour', 'minute'],
+    [],
+    'TIME_CORRECTION_INPUT',
+  );
+  strictCalendarDate(
+    {
+      year: value.providedLocalDateTime.year,
+      month: value.providedLocalDateTime.month,
+      day: value.providedLocalDateTime.day,
+    },
+    'TIME_CORRECTION_INPUT',
+    value.calendarType === 'lunar' ? 'lunar' : 'gregorian',
+  );
+  strictNullableClockPart(
+    value.providedLocalDateTime.hour,
+    23,
+    'TIME_CORRECTION_INPUT',
+  );
+  strictNullableClockPart(
+    value.providedLocalDateTime.minute,
+    59,
+    'TIME_CORRECTION_INPUT',
+  );
+  strictCalendarDate(
+    value.effectiveSolarDate,
+    'TIME_CORRECTION_INPUT',
+    'gregorian',
+  );
+  strictEnum(
+    value.timePrecision,
+    new Set(['exact', 'unknown_hour', 'unknown_minute']),
+    'TIME_CORRECTION_INPUT',
+  );
+  const hour = value.providedLocalDateTime.hour;
+  const minute = value.providedLocalDateTime.minute;
+  if ((value.timePrecision === 'exact' && (hour === null || minute === null))
+    || (value.timePrecision === 'unknown_hour' && hour !== null)
+    || (value.timePrecision === 'unknown_minute'
+      && (hour === null || minute !== null))) {
+    contractFail('TIME_CORRECTION_INPUT_CONSISTENCY');
+  }
+}
+
+function strictFallbackClock(
+  value: Record<string, unknown>,
+  reason: string,
+): void {
+  strictSafeInteger(value.fallbackHour, reason);
+  strictSafeInteger(value.fallbackMinute, reason);
+  if (value.fallbackHour > 23 || value.fallbackMinute > 59) {
+    contractFail(reason);
+  }
+  if (hasOwn(value, 'fallbackTimezone')) {
+    strictString(value.fallbackTimezone, reason);
+  }
+}
+
+function strictUncertaintyAxes(
+  value: Record<string, unknown>,
+  reason: string,
+): void {
+  strictStringArray(value.affectedAxes, reason, {
+    min: 1,
+    max: TIME_UNCERTAINTY_AXES.size,
+    allowed: TIME_UNCERTAINTY_AXES,
+    unique: true,
+  });
+  if (hasOwn(value, 'affectedAxisLabels')) {
+    strictStringArray(value.affectedAxisLabels, reason, {
+      min: 1,
+      max: TIME_UNCERTAINTY_AXES.size,
+    });
+  }
+}
+
+function strictTimeCorrectionUncertainty(
+  value: unknown,
+  precision: StrictTimeCorrectionInput['timePrecision'],
+): void {
+  if (precision === 'exact') {
+    if (value !== null) contractFail('TIME_CORRECTION_UNCERTAINTY');
+    return;
+  }
+  if (value === null) contractFail('TIME_CORRECTION_UNCERTAINTY');
+  if (precision === 'unknown_hour') {
+    strictObject(value, ['unknownHour'], [], 'TIME_CORRECTION_UNCERTAINTY');
+    strictObject(
+      value.unknownHour,
+      [
+        'fallbackHour',
+        'fallbackMinute',
+        'affectedAxes',
+        'confidenceTierShift',
+        'message',
+      ],
+      ['fallbackTimezone', 'affectedAxisLabels'],
+      'TIME_CORRECTION_UNCERTAINTY',
+    );
+    strictFallbackClock(value.unknownHour, 'TIME_CORRECTION_UNCERTAINTY');
+    strictUncertaintyAxes(value.unknownHour, 'TIME_CORRECTION_UNCERTAINTY');
+    if (value.unknownHour.confidenceTierShift !== 'downgrade-one-step') {
+      contractFail('TIME_CORRECTION_UNCERTAINTY');
+    }
+    strictString(value.unknownHour.message, 'TIME_CORRECTION_UNCERTAINTY');
+    return;
+  }
+
+  strictObject(value, ['unknownMinute'], [], 'TIME_CORRECTION_UNCERTAINTY');
+  strictObject(
+    value.unknownMinute,
+    [
+      'fallbackHour',
+      'fallbackMinute',
+      'evaluatedMinuteRange',
+      'comparedMinutes',
+      'continuousTimingAffected',
+      'boundarySensitive',
+      'affectedAxes',
+      'confidenceTierShift',
+      'message',
+    ],
+    ['fallbackTimezone', 'affectedAxisLabels'],
+    'TIME_CORRECTION_UNCERTAINTY',
+  );
+  strictFallbackClock(value.unknownMinute, 'TIME_CORRECTION_UNCERTAINTY');
+  strictObject(
+    value.unknownMinute.evaluatedMinuteRange,
+    ['from', 'to'],
+    [],
+    'TIME_CORRECTION_UNCERTAINTY',
+  );
+  if (value.unknownMinute.evaluatedMinuteRange.from !== 0
+    || value.unknownMinute.evaluatedMinuteRange.to !== 59) {
+    contractFail('TIME_CORRECTION_UNCERTAINTY');
+  }
+  strictArray(
+    value.unknownMinute.comparedMinutes,
+    'TIME_CORRECTION_UNCERTAINTY',
+    2,
+    2,
+  );
+  if (value.unknownMinute.comparedMinutes[0] !== 0
+    || value.unknownMinute.comparedMinutes[1] !== 59
+    || value.unknownMinute.continuousTimingAffected !== true
+    || typeof value.unknownMinute.boundarySensitive !== 'boolean') {
+    contractFail('TIME_CORRECTION_UNCERTAINTY');
+  }
+  strictUncertaintyAxes(value.unknownMinute, 'TIME_CORRECTION_UNCERTAINTY');
+  strictEnum(
+    value.unknownMinute.confidenceTierShift,
+    new Set(['none', 'downgrade-affected-axes-one-step']),
+    'TIME_CORRECTION_UNCERTAINTY',
+  );
+  strictString(value.unknownMinute.message, 'TIME_CORRECTION_UNCERTAINTY');
+}
+
+function strictLunarConversion(
+  value: unknown,
+  input: StrictTimeCorrectionInput,
+): void {
+  if (value === null) {
+    if (input.calendarType === 'lunar') {
+      contractFail('TIME_CORRECTION_LUNAR_CONSISTENCY');
+    }
+    return;
+  }
+  if (input.calendarType !== 'lunar') {
+    contractFail('TIME_CORRECTION_LUNAR_CONSISTENCY');
+  }
+  strictObject(
+    value,
+    ['lunar', 'solar', 'source'],
+    ['kasiFallback'],
+    'TIME_CORRECTION_LUNAR',
+  );
+  strictObject(
+    value.lunar,
+    ['year', 'month', 'day', 'isLeapMonth'],
+    [],
+    'TIME_CORRECTION_LUNAR',
+  );
+  strictCalendarDate(
+    {
+      year: value.lunar.year,
+      month: value.lunar.month,
+      day: value.lunar.day,
+    },
+    'TIME_CORRECTION_LUNAR',
+    'lunar',
+  );
+  if (typeof value.lunar.isLeapMonth !== 'boolean') {
+    contractFail('TIME_CORRECTION_LUNAR');
+  }
+  strictCalendarDate(value.solar, 'TIME_CORRECTION_LUNAR', 'gregorian');
+  strictEnum(value.source, new Set(['builtin', 'kasi']), 'TIME_CORRECTION_LUNAR');
+  if (hasOwn(value, 'kasiFallback')
+    && (value.kasiFallback !== true || value.source !== 'builtin')) {
+    contractFail('TIME_CORRECTION_LUNAR');
+  }
+  const provided = input.providedLocalDateTime;
+  const effective = input.effectiveSolarDate;
+  if (value.lunar.year !== provided.year
+    || value.lunar.month !== provided.month
+    || value.lunar.day !== provided.day
+    || value.solar.year !== effective.year
+    || value.solar.month !== effective.month
+    || value.solar.day !== effective.day) {
+    contractFail('TIME_CORRECTION_LUNAR_CONSISTENCY');
+  }
+}
+
 function strictElement(value: unknown, reason: string, nullable = false): void {
   if (nullable && value === null) return;
   strictEnum(value, ELEMENT_IDS, reason);
@@ -628,6 +1081,44 @@ function strictElementArray(
   unique = false,
 ): asserts value is string[] {
   strictStringArray(value, reason, { allowed: ELEMENT_IDS, unique });
+}
+
+function strictNullableScore(value: unknown, reason: string): number | null {
+  if (value === null) return null;
+  strictFiniteNumber(value, reason);
+  if (value < 0 || value > 100) contractFail(reason);
+  return value;
+}
+
+function strictPositiveYear(value: unknown, reason: string): number {
+  strictSafeInteger(value, reason, 1);
+  return value;
+}
+
+function strictTrendPoint(
+  value: unknown,
+  reason: string,
+): { readonly year: number; readonly rank: number; readonly count: number } | null {
+  if (value === null) return null;
+  strictObject(value, ['year', 'rank', 'count'], [], reason);
+  strictSafeInteger(value.year, reason, 1);
+  strictSafeInteger(value.rank, reason, 1);
+  strictSafeInteger(value.count, reason, 1);
+  return value as unknown as {
+    readonly year: number;
+    readonly rank: number;
+    readonly count: number;
+  };
+}
+
+function roundedOneDecimal(value: number): number {
+  return Math.round(value * 10) / 10;
+}
+
+function expectedPhoneticRisk(score: number): 'low' | 'medium' | 'high' {
+  if (score < 72) return 'high';
+  if (score < 86) return 'medium';
+  return 'low';
 }
 
 function strictFact(value: unknown): ReportFactV1 {
@@ -705,7 +1196,13 @@ function strictFact(value: unknown): ReportFactV1 {
     strictObject(
       value,
       [...base, 'element', 'confidence', 'warnings'],
-      ['judgmentStrength', 'consensus', 'jonggyeokRisk'],
+      [
+        'judgmentStrength',
+        'interpretationPolicy',
+        'methodCandidates',
+        'consensus',
+        'jonggyeokRisk',
+      ],
       'YONGSHIN_FACT_SHAPE',
     );
     strictFactBase(value);
@@ -718,6 +1215,74 @@ function strictFact(value: unknown): ReportFactV1 {
     strictStringArray(value.warnings, 'YONGSHIN_WARNINGS', { unique: true });
     if (hasOwn(value, 'judgmentStrength')) {
       strictEnum(value.judgmentStrength, JUDGMENT_STRENGTHS, 'YONGSHIN_JUDGMENT_STRENGTH');
+    }
+    if (hasOwn(value, 'interpretationPolicy')) {
+      strictObject(
+        value.interpretationPolicy,
+        [
+          'schoolPreset',
+          'schoolLabel',
+          'schoolSelection',
+          'schoolWeightsApplied',
+          'yongshinMode',
+          'yongshinModeSelection',
+        ],
+        [],
+        'YONGSHIN_INTERPRETATION_POLICY_SHAPE',
+      );
+      strictEnum(
+        value.interpretationPolicy.schoolPreset,
+        new Set([
+          'korean',
+          'chinese',
+          'modern',
+          'korean_modern',
+          'classical_text',
+          'naming_safe',
+        ]),
+        'YONGSHIN_INTERPRETATION_SCHOOL',
+      );
+      strictString(value.interpretationPolicy.schoolLabel, 'YONGSHIN_INTERPRETATION_SCHOOL_LABEL');
+      strictEnum(
+        value.interpretationPolicy.schoolSelection,
+        new Set(['product_default', 'user_selected']),
+        'YONGSHIN_INTERPRETATION_SCHOOL_SELECTION',
+      );
+      if (typeof value.interpretationPolicy.schoolWeightsApplied !== 'boolean') {
+        contractFail('YONGSHIN_INTERPRETATION_SCHOOL_WEIGHTS');
+      }
+      strictEnum(
+        value.interpretationPolicy.yongshinMode,
+        new Set(['classical_blend', 'chengbai_strict', 'consensus_aware']),
+        'YONGSHIN_INTERPRETATION_MODE',
+      );
+      strictEnum(
+        value.interpretationPolicy.yongshinModeSelection,
+        new Set(['product_default', 'user_selected']),
+        'YONGSHIN_INTERPRETATION_MODE_SELECTION',
+      );
+    }
+    if (hasOwn(value, 'methodCandidates')) {
+      strictArray(value.methodCandidates, 'YONGSHIN_METHOD_CANDIDATES', 6, 6);
+      const expectedMethods = [
+        'eokbu',
+        'johu',
+        'gyeokguk',
+        'tonggwan',
+        'byeongyak',
+        'siksangFlow',
+      ];
+      for (const [index, candidate] of value.methodCandidates.entries()) {
+        strictObject(candidate, ['method', 'element', 'score'], [], 'YONGSHIN_METHOD_CANDIDATE_SHAPE');
+        if (candidate.method !== expectedMethods[index]) {
+          contractFail('YONGSHIN_METHOD_CANDIDATE_ORDER');
+        }
+        strictElement(candidate.element, 'YONGSHIN_METHOD_CANDIDATE_ELEMENT', true);
+        strictFiniteNumber(candidate.score, 'YONGSHIN_METHOD_CANDIDATE_SCORE');
+        if (candidate.score < 0 || candidate.score > 1) {
+          contractFail('YONGSHIN_METHOD_CANDIDATE_SCORE');
+        }
+      }
     }
     if (hasOwn(value, 'consensus')) {
       strictObject(
@@ -819,6 +1384,494 @@ function strictFact(value: unknown): ReportFactV1 {
         strictString(item[half].hanja, 'PILLAR_HANJA');
       }
     }
+  } else if (value.kind === 'shinsal_hits') {
+    strictObject(
+      value,
+      [...base, 'source', 'projection', 'sourceFields', 'hits'],
+      [],
+      'SHINSAL_HITS_FACT_SHAPE',
+    );
+    strictSajuProjectionProvenance(
+      value,
+      'saju-ts.shinsal-summary-projection.v1',
+      ['shinsalHits'],
+    );
+    strictArray(value.hits, 'SHINSAL_HITS', 0, 256);
+    for (const hit of value.hits) {
+      strictObject(
+        hit,
+        ['name', 'calculationBasis', 'grade', 'seatPillars', 'occurrenceCount'],
+        [],
+        'SHINSAL_HIT_SHAPE',
+      );
+      strictBoundedText(hit.name, 'SHINSAL_HIT_NAME', 80);
+      strictObject(
+        hit.calculationBasis,
+        ['label', 'code'],
+        [],
+        'SHINSAL_HIT_BASIS',
+      );
+      strictBoundedText(hit.calculationBasis.label, 'SHINSAL_HIT_BASIS', 40);
+      if (hit.calculationBasis.code !== null) {
+        if (typeof hit.calculationBasis.code !== 'string'
+          || !/^[A-Z][A-Z_]{0,39}$/u.test(hit.calculationBasis.code)) {
+          contractFail('SHINSAL_HIT_BASIS');
+        }
+      }
+      strictBoundedText(hit.grade, 'SHINSAL_HIT_GRADE', 16);
+      strictStringArray(hit.seatPillars, 'SHINSAL_HIT_SEATS', {
+        max: SAJU_PILLAR_POSITIONS.size,
+        allowed: SAJU_PILLAR_POSITIONS,
+        unique: true,
+      });
+      strictSafeInteger(hit.occurrenceCount, 'SHINSAL_HIT_COUNT', 1);
+    }
+  } else if (value.kind === 'ten_god_analysis') {
+    strictObject(
+      value,
+      [...base, 'source', 'projection', 'sourceFields', 'dayMasterStem', 'positions'],
+      [],
+      'TEN_GOD_ANALYSIS_FACT_SHAPE',
+    );
+    strictSajuProjectionProvenance(
+      value,
+      'saju-ts.ten-god-analysis-projection.v1',
+      ['tenGodAnalysis'],
+    );
+    strictBoundedText(value.dayMasterStem, 'TEN_GOD_DAY_MASTER', 16);
+    strictArray(value.positions, 'TEN_GOD_POSITIONS', 4, 4);
+    const expectedPositions = ['year', 'month', 'day', 'hour'];
+    for (const [index, position] of value.positions.entries()) {
+      strictObject(
+        position,
+        ['position', 'cheongan', 'jijiPrincipal', 'hiddenStems'],
+        [],
+        'TEN_GOD_POSITION_SHAPE',
+      );
+      if (position.position !== expectedPositions[index]) {
+        contractFail('TEN_GOD_POSITION_ORDER');
+      }
+      strictTenGodDescriptor(position.cheongan, 'TEN_GOD_CHEONGAN');
+      strictTenGodDescriptor(position.jijiPrincipal, 'TEN_GOD_JIJI');
+      strictArray(position.hiddenStems, 'TEN_GOD_HIDDEN_STEMS', 1, 3);
+      const seenStems = new Set<string>();
+      let ratioTotal = 0;
+      for (const hidden of position.hiddenStems) {
+        strictObject(
+          hidden,
+          ['stem', 'element', 'ratio', 'tenGod'],
+          [],
+          'TEN_GOD_HIDDEN_STEM_SHAPE',
+        );
+        strictBoundedText(hidden.stem, 'TEN_GOD_HIDDEN_STEM', 16);
+        if (seenStems.has(hidden.stem as string)) contractFail('TEN_GOD_HIDDEN_STEM');
+        seenStems.add(hidden.stem as string);
+        strictElement(hidden.element, 'TEN_GOD_HIDDEN_ELEMENT');
+        strictFiniteNumber(hidden.ratio, 'TEN_GOD_HIDDEN_STEM_RATIO');
+        if (hidden.ratio < 0 || hidden.ratio > 1) {
+          contractFail('TEN_GOD_HIDDEN_STEM_RATIO');
+        }
+        ratioTotal += hidden.ratio as number;
+        strictTenGodDescriptor(hidden.tenGod, 'TEN_GOD_HIDDEN_DESCRIPTOR');
+      }
+      if (ratioTotal !== 0 && Math.abs(ratioTotal - 1) > 1e-6) {
+        contractFail('TEN_GOD_HIDDEN_STEM_RATIO');
+      }
+    }
+  } else if (value.kind === 'natal_relations') {
+    strictObject(
+      value,
+      [...base, 'source', 'projection', 'sourceFields', 'cheongan', 'jiji'],
+      [],
+      'NATAL_RELATIONS_FACT_SHAPE',
+    );
+    strictSajuProjectionProvenance(
+      value,
+      'saju-ts.natal-relations-projection.v1',
+      ['cheonganRelations', 'jijiRelations'],
+    );
+    strictArray(value.cheongan, 'CHEONGAN_RELATIONS', 0, 64);
+    for (const relation of value.cheongan) {
+      strictObject(
+        relation,
+        ['type', 'stems', 'hapState', 'resultElement', 'resultConfirmed'],
+        [],
+        'CHEONGAN_RELATION_SHAPE',
+      );
+      strictBoundedText(relation.type, 'CHEONGAN_RELATION_TYPE', 40);
+      strictStringArray(relation.stems, 'CHEONGAN_RELATION_STEMS', {
+        min: 2,
+        max: 2,
+        unique: true,
+      });
+      for (const stem of relation.stems) {
+        strictBoundedText(stem, 'CHEONGAN_RELATION_STEMS', 16);
+      }
+      if (relation.hapState !== null) {
+        strictBoundedText(relation.hapState, 'CHEONGAN_RELATION_HAP_STATE', 40);
+      }
+      strictElement(relation.resultElement, 'CHEONGAN_RELATION_RESULT', true);
+      if (typeof relation.resultConfirmed !== 'boolean'
+        || (relation.resultConfirmed === true && relation.resultElement === null)) {
+        contractFail('CHEONGAN_RELATION_RESULT');
+      }
+    }
+    strictArray(value.jiji, 'JIJI_RELATIONS', 0, 128);
+    for (const relation of value.jiji) {
+      strictObject(
+        relation,
+        ['type', 'branches', 'outcome'],
+        [],
+        'JIJI_RELATION_SHAPE',
+      );
+      strictBoundedText(relation.type, 'JIJI_RELATION_TYPE', 40);
+      strictStringArray(relation.branches, 'JIJI_RELATION_BRANCHES', {
+        min: 2,
+        max: 4,
+        unique: true,
+      });
+      for (const branch of relation.branches) {
+        strictBoundedText(branch, 'JIJI_RELATION_BRANCHES', 16);
+      }
+      if (relation.outcome !== null) {
+        strictBoundedText(relation.outcome, 'JIJI_RELATION_OUTCOME', 80);
+      }
+    }
+  } else if (value.kind === 'element_balance') {
+    strictObject(
+      value,
+      [...base, 'source', 'projection', 'sourceFields', 'deficient', 'excessive'],
+      [],
+      'ELEMENT_BALANCE_FACT_SHAPE',
+    );
+    strictSajuProjectionProvenance(
+      value,
+      'saju-ts.element-balance-projection.v1',
+      ['deficientElements', 'excessiveElements'],
+    );
+    strictElementArray(value.deficient, 'ELEMENT_BALANCE_DEFICIENT', true);
+    strictElementArray(value.excessive, 'ELEMENT_BALANCE_EXCESSIVE', true);
+    if ((value.deficient as string[]).some((element) =>
+      (value.excessive as string[]).includes(element))) {
+      contractFail('ELEMENT_BALANCE_CONSISTENCY');
+    }
+  } else if (value.kind === 'time_correction') {
+    strictObject(
+      value,
+      [
+        ...base,
+        'input',
+        'inputUncertainty',
+        'lunarConversion',
+        'location',
+        'referenceMeridianDegrees',
+        'referenceMeridianBasis',
+        'standardLocalDateTime',
+        'adjustedSolarLocalDateTime',
+        'corrections',
+        'policy',
+        'solarDateChanged',
+        'yazaBoundaryEffect',
+      ],
+      [],
+      'TIME_CORRECTION_FACT_SHAPE',
+    );
+    strictFactBase(value);
+    if (value.domain !== 'saju' || value.method !== 'saju-ts.time-correction.v1') {
+      contractFail('TIME_CORRECTION_AUTHORITY');
+    }
+    strictTimeCorrectionInput(value.input);
+    strictTimeCorrectionUncertainty(
+      value.inputUncertainty,
+      value.input.timePrecision,
+    );
+    strictLunarConversion(value.lunarConversion, value.input);
+    strictObject(
+      value.location,
+      [
+        'inputLabel',
+        'resolvedRegionCode',
+        'latitude',
+        'longitude',
+        'timezone',
+        'source',
+        'coordinatesApplied',
+      ],
+      [],
+      'TIME_CORRECTION_LOCATION',
+    );
+    if (value.location.inputLabel !== null) {
+      strictString(value.location.inputLabel, 'TIME_CORRECTION_LOCATION');
+    }
+    if (value.location.resolvedRegionCode !== null) {
+      strictString(value.location.resolvedRegionCode, 'TIME_CORRECTION_LOCATION');
+    }
+    if (value.location.latitude !== null) {
+      strictFiniteNumber(value.location.latitude, 'TIME_CORRECTION_LOCATION');
+    }
+    if (value.location.longitude !== null) {
+      strictFiniteNumber(value.location.longitude, 'TIME_CORRECTION_LOCATION');
+    }
+    strictString(value.location.timezone, 'TIME_CORRECTION_LOCATION');
+    strictEnum(
+      value.location.source,
+      new Set(['explicit', 'region', 'timezone', 'default']),
+      'TIME_CORRECTION_LOCATION',
+    );
+    if (typeof value.location.coordinatesApplied !== 'boolean'
+      || (value.location.latitude === null) !== (value.location.longitude === null)
+      || (value.location.latitude !== null
+        && (value.location.latitude < -90 || value.location.latitude > 90))
+      || (value.location.longitude !== null
+        && (value.location.longitude < -180 || value.location.longitude > 180))) {
+      contractFail('TIME_CORRECTION_LOCATION');
+    }
+    if ((value.location.source === 'region'
+        && (value.location.inputLabel === null
+          || value.location.resolvedRegionCode === null))
+      || (value.location.source === 'default'
+        && value.location.inputLabel !== null)
+      || (value.location.source === 'timezone'
+        && (value.location.inputLabel !== null
+          || value.location.resolvedRegionCode !== null
+          || value.location.latitude !== null
+          || value.location.longitude !== null
+          || value.location.coordinatesApplied))
+      || (value.location.source !== 'timezone'
+        && (value.location.latitude === null || value.location.longitude === null))
+      || (value.location.resolvedRegionCode !== null
+        && value.location.latitude !== null
+        && value.location.longitude !== null
+        && !supportedRegionLocationMatches(
+          value.location.resolvedRegionCode,
+          value.location.latitude,
+          value.location.longitude,
+          value.location.timezone,
+        ))) {
+      contractFail('TIME_CORRECTION_LOCATION_CONSISTENCY');
+    }
+    if (value.referenceMeridianDegrees !== null) {
+      strictFiniteNumber(value.referenceMeridianDegrees, 'TIME_CORRECTION_MERIDIAN');
+      if (value.referenceMeridianDegrees < -180 || value.referenceMeridianDegrees > 180) {
+        contractFail('TIME_CORRECTION_MERIDIAN');
+      }
+    }
+    strictLocalDateTime(value.standardLocalDateTime, 'TIME_CORRECTION_STANDARD');
+    strictLocalDateTime(value.adjustedSolarLocalDateTime, 'TIME_CORRECTION_ADJUSTED');
+    strictObject(
+      value.referenceMeridianBasis,
+      ['kind'],
+      ['utcOffsetMinutes', 'presetCode'],
+      'TIME_CORRECTION_MERIDIAN_BASIS',
+    );
+    const meridianBasis = value.referenceMeridianBasis;
+    let expectedReferenceMeridianDegrees: number | null = null;
+    if (meridianBasis.kind === 'disabled') {
+      strictObject(
+        meridianBasis,
+        ['kind'],
+        [],
+        'TIME_CORRECTION_MERIDIAN_BASIS',
+      );
+    } else if (meridianBasis.kind === 'civil_offset_at_birth') {
+      strictObject(
+        meridianBasis,
+        ['kind', 'utcOffsetMinutes'],
+        [],
+        'TIME_CORRECTION_MERIDIAN_BASIS',
+      );
+      strictFiniteNumber(
+        meridianBasis.utcOffsetMinutes,
+        'TIME_CORRECTION_MERIDIAN_BASIS',
+      );
+      if (!Number.isSafeInteger(meridianBasis.utcOffsetMinutes)
+        || meridianBasis.utcOffsetMinutes < -840
+        || meridianBasis.utcOffsetMinutes > 840) {
+        contractFail('TIME_CORRECTION_MERIDIAN_BASIS');
+      }
+      const resolvedOffset = resolveCivilOffsetMinutesForValidation(
+        value.location.timezone,
+        value.standardLocalDateTime,
+      );
+      if (resolvedOffset === null
+        || resolvedOffset !== meridianBasis.utcOffsetMinutes) {
+        contractFail('TIME_CORRECTION_MERIDIAN_CONSISTENCY');
+      }
+      expectedReferenceMeridianDegrees = normalizeReferenceMeridianDegrees(
+        meridianBasis.utcOffsetMinutes / 4,
+      );
+    } else if (meridianBasis.kind === 'legacy_preset_registry') {
+      strictObject(
+        meridianBasis,
+        ['kind', 'presetCode'],
+        [],
+        'TIME_CORRECTION_MERIDIAN_BASIS',
+      );
+      if (!isLegacyPresetReferenceCode(meridianBasis.presetCode)) {
+        contractFail('TIME_CORRECTION_MERIDIAN_BASIS');
+      }
+      expectedReferenceMeridianDegrees =
+        LEGACY_PRESET_REFERENCE_MERIDIANS[meridianBasis.presetCode];
+    } else {
+      contractFail('TIME_CORRECTION_MERIDIAN_BASIS');
+    }
+    if (expectedReferenceMeridianDegrees !== null
+      && (value.referenceMeridianDegrees === null
+        || Math.abs(
+          value.referenceMeridianDegrees - expectedReferenceMeridianDegrees,
+        ) > 1e-9)) {
+      contractFail('TIME_CORRECTION_MERIDIAN_CONSISTENCY');
+    }
+    strictObject(
+      value.corrections,
+      ['daylightSavingMinutes', 'longitudeMinutes', 'equationOfTimeMinutes'],
+      [],
+      'TIME_CORRECTION_VALUES',
+    );
+    for (const key of [
+      'daylightSavingMinutes',
+      'longitudeMinutes',
+      'equationOfTimeMinutes',
+    ] as const) {
+      strictFiniteNumber(value.corrections[key], 'TIME_CORRECTION_VALUES');
+    }
+    const longitudeMinutes = value.corrections.longitudeMinutes;
+    const equationOfTimeMinutes = value.corrections.equationOfTimeMinutes;
+    const daylightSavingMinutes = value.corrections.daylightSavingMinutes;
+    strictFiniteNumber(longitudeMinutes, 'TIME_CORRECTION_VALUES');
+    strictFiniteNumber(equationOfTimeMinutes, 'TIME_CORRECTION_VALUES');
+    strictFiniteNumber(daylightSavingMinutes, 'TIME_CORRECTION_VALUES');
+    if (!Number.isSafeInteger(daylightSavingMinutes)
+      || daylightSavingMinutes < 0
+      || daylightSavingMinutes > MAX_DAYLIGHT_SAVING_MINUTES
+      || Math.abs(equationOfTimeMinutes) > MAX_EQUATION_OF_TIME_MINUTES) {
+      contractFail('TIME_CORRECTION_VALUES');
+    }
+    strictObject(
+      value.policy,
+      [
+        'trueSolarTime',
+        'longitudeCorrection',
+        'longitudeReference',
+        'explicitLocationRequired',
+        'yaza',
+        'yazaMode',
+      ],
+      [],
+      'TIME_CORRECTION_POLICY',
+    );
+    strictEnum(value.policy.trueSolarTime, new Set(['on', 'off']), 'TIME_CORRECTION_POLICY');
+    strictEnum(value.policy.longitudeCorrection, new Set(['on', 'off']), 'TIME_CORRECTION_POLICY');
+    strictEnum(
+      value.policy.longitudeReference,
+      new Set(['off', 'civilOffsetMeridian', 'legacyPreset']),
+      'TIME_CORRECTION_POLICY',
+    );
+    if (typeof value.policy.explicitLocationRequired !== 'boolean') {
+      contractFail('TIME_CORRECTION_POLICY');
+    }
+    strictEnum(value.policy.yaza, new Set(['on', 'off']), 'TIME_CORRECTION_POLICY');
+    strictEnum(value.policy.yazaMode, new Set(['23:00', '23:30']), 'TIME_CORRECTION_POLICY');
+    strictEnum(
+      value.yazaBoundaryEffect,
+      new Set(['disabled', 'outside_boundary', 'inside_boundary']),
+      'TIME_CORRECTION_YAZA',
+    );
+    if (typeof value.solarDateChanged !== 'boolean') contractFail('TIME_CORRECTION_DATE_CHANGE');
+
+    const standard = value.standardLocalDateTime;
+    const adjusted = value.adjustedSolarLocalDateTime;
+    const input = value.input;
+    const provided = input.providedLocalDateTime;
+    const effective = input.effectiveSolarDate;
+    let expectedStandardHour = provided.hour;
+    let expectedStandardMinute = provided.minute;
+    let fallbackTimezone: unknown;
+    if (input.timePrecision !== 'exact') {
+      const uncertainty = value.inputUncertainty as Record<string, unknown>;
+      const detail = uncertainty[
+        input.timePrecision === 'unknown_hour' ? 'unknownHour' : 'unknownMinute'
+      ] as Record<string, unknown>;
+      expectedStandardHour = detail.fallbackHour as number;
+      expectedStandardMinute = detail.fallbackMinute as number;
+      fallbackTimezone = detail.fallbackTimezone;
+    }
+    if (standard.year !== effective.year
+      || standard.month !== effective.month
+      || standard.day !== effective.day
+      || standard.hour !== expectedStandardHour
+      || standard.minute !== expectedStandardMinute
+      || (input.calendarType === 'solar'
+        && (provided.year !== effective.year
+          || provided.month !== effective.month
+          || provided.day !== effective.day))
+      || (fallbackTimezone !== undefined
+        && fallbackTimezone !== value.location.timezone)) {
+      contractFail('TIME_CORRECTION_INPUT_CONSISTENCY');
+    }
+    const expectedDateChanged = standard.year !== adjusted.year
+      || standard.month !== adjusted.month
+      || standard.day !== adjusted.day;
+    const expectedAdjusted = shiftLocalDateTimeByCorrectionMinutes(
+      standard,
+      longitudeMinutes + equationOfTimeMinutes,
+    );
+    const adjustedMatchesCorrection = adjusted.year === expectedAdjusted.year
+      && adjusted.month === expectedAdjusted.month
+      && adjusted.day === expectedAdjusted.day
+      && adjusted.hour === expectedAdjusted.hour
+      && adjusted.minute === expectedAdjusted.minute;
+    const insideYazaBoundary = value.policy.yazaMode === '23:30'
+      ? adjusted.hour === 23 && adjusted.minute >= 30
+      : adjusted.hour === 23;
+    const expectedBoundary = value.policy.yaza === 'off'
+      ? 'disabled'
+      : insideYazaBoundary ? 'inside_boundary' : 'outside_boundary';
+    const normalizeLongitudeDegrees = (degrees: number): number =>
+      ((degrees + 180) % 360 + 360) % 360 - 180;
+    const expectedLongitudeMinutes = value.referenceMeridianDegrees === null
+      ? 0
+      : value.location.longitude === null
+        ? Number.NaN
+      : normalizeLongitudeDegrees(
+        value.location.longitude - value.referenceMeridianDegrees,
+      ) * 4;
+    if (value.solarDateChanged !== expectedDateChanged
+      || !adjustedMatchesCorrection
+      || value.yazaBoundaryEffect !== expectedBoundary
+      || (value.policy.longitudeCorrection === 'off'
+        && (value.policy.longitudeReference !== 'off'
+          || longitudeMinutes !== 0
+          || value.referenceMeridianDegrees !== null
+          || meridianBasis.kind !== 'disabled'
+          || value.location.coordinatesApplied))
+      || (value.policy.longitudeCorrection === 'on'
+        && (value.policy.longitudeReference === 'off'
+          || value.referenceMeridianDegrees === null
+          || meridianBasis.kind === 'disabled'
+          || (value.policy.longitudeReference === 'civilOffsetMeridian'
+            && meridianBasis.kind !== 'civil_offset_at_birth')
+          || (value.policy.longitudeReference === 'legacyPreset'
+            && meridianBasis.kind !== 'legacy_preset_registry')
+          || expectedReferenceMeridianDegrees === null
+          || Math.abs(
+            value.referenceMeridianDegrees - expectedReferenceMeridianDegrees
+          ) > 1e-9
+          || !value.location.coordinatesApplied
+          || value.location.latitude === null
+          || value.location.longitude === null
+          || Math.abs(longitudeMinutes - expectedLongitudeMinutes) > 1e-6))
+      || (value.policy.explicitLocationRequired
+        && value.location.source !== 'region'
+        && value.location.source !== 'explicit')
+      || (value.policy.trueSolarTime === 'on'
+        && !value.policy.explicitLocationRequired)
+      || (value.policy.longitudeReference === 'legacyPreset'
+        && !value.policy.explicitLocationRequired)
+      || (value.policy.trueSolarTime === 'off'
+        && equationOfTimeMinutes !== 0)) {
+      contractFail('TIME_CORRECTION_CONSISTENCY');
+    }
   } else if (value.kind === 'name_character') {
     strictObject(
       value,
@@ -847,6 +1900,317 @@ function strictFact(value: unknown): ReportFactV1 {
       }
     } else {
       contractFail('NAME_CHARACTER_METHOD');
+    }
+  } else if (value.kind === 'naming_trend') {
+    strictObject(
+      value,
+      [
+        ...base,
+        'source',
+        'projection',
+        'sourceFields',
+        'sourceTier',
+        'authorityTruthEligible',
+        'givenHangul',
+        'gender',
+        'birthYear',
+        'matchedYear',
+        'latestYear',
+        'trendFit',
+        'trendRisk',
+        'eraFitScore',
+        'status',
+        'matchedPoint',
+        'latestPoint',
+      ],
+      [],
+      'NAMING_TREND_FACT_SHAPE',
+    );
+    strictFactBase(value);
+    if (value.id !== 'naming.name-trend'
+      || value.domain !== 'naming'
+      || value.method !== 'spring-ts.official-name-trend-projection.v1'
+      || value.source !== 'spring-ts.NamingReport.nameTrend'
+      || value.projection !== 'selective_without_recalculation'
+      || value.sourceTier !== 'T5_OFFICIAL'
+      || value.authorityTruthEligible !== true) {
+      contractFail('NAMING_TREND_PROVENANCE');
+    }
+    strictStringArray(value.sourceFields, 'NAMING_TREND_PROVENANCE', {
+      min: 1,
+      max: 1,
+      unique: true,
+    });
+    if (!sameStringArray(value.sourceFields, ['nameTrend'])) {
+      contractFail('NAMING_TREND_PROVENANCE');
+    }
+    strictBoundedText(value.givenHangul, 'NAMING_TREND_IDENTITY', 8);
+    if (!/^[가-힣]+$/u.test(value.givenHangul)) {
+      contractFail('NAMING_TREND_IDENTITY');
+    }
+    strictEnum(value.gender, NAME_GENDERS, 'NAMING_TREND_GENDER');
+    const birthYear = value.birthYear === null
+      ? null
+      : strictPositiveYear(value.birthYear, 'NAMING_TREND_YEAR');
+    const matchedYear = value.matchedYear === null
+      ? null
+      : strictPositiveYear(value.matchedYear, 'NAMING_TREND_YEAR');
+    const latestYear = strictPositiveYear(value.latestYear, 'NAMING_TREND_YEAR');
+    const trendFit = strictNullableScore(value.trendFit, 'NAMING_TREND_SCORE');
+    const trendRisk = strictNullableScore(value.trendRisk, 'NAMING_TREND_SCORE');
+    const eraFitScore = strictNullableScore(value.eraFitScore, 'NAMING_TREND_SCORE');
+    strictEnum(value.status, NAMING_TREND_STATUSES, 'NAMING_TREND_STATUS');
+    const matchedPoint = strictTrendPoint(
+      value.matchedPoint,
+      'NAMING_TREND_MATCHED_POINT',
+    );
+    const latestPoint = strictTrendPoint(
+      value.latestPoint,
+      'NAMING_TREND_LATEST_POINT',
+    );
+    if (trendFit !== eraFitScore
+      || (value.status === 'unknown') !== (
+        trendFit === null && trendRisk === null && eraFitScore === null
+      )
+      || (matchedPoint !== null && matchedPoint.year !== matchedYear)
+      || (latestPoint !== null && latestPoint.year !== latestYear)
+      || (matchedYear !== null && matchedYear > latestYear)
+      || (birthYear !== null && birthYear > Number.MAX_SAFE_INTEGER)) {
+      contractFail('NAMING_TREND_CONSISTENCY');
+    }
+  } else if (value.kind === 'naming_phonetic') {
+    strictObject(
+      value,
+      [
+        ...base,
+        'source',
+        'projection',
+        'sourceFields',
+        'sourceTier',
+        'authorityTruthEligible',
+        'fullHangul',
+        'surnameHangul',
+        'givenHangul',
+        'phoneticScore',
+        'transitionScore',
+        'familyNameFitScore',
+        'status',
+        'transitions',
+      ],
+      [],
+      'NAMING_PHONETIC_FACT_SHAPE',
+    );
+    strictFactBase(value);
+    if (value.id !== 'naming.phonetic'
+      || value.domain !== 'naming'
+      || value.method !== 'spring-ts.phonetic-transition-projection.v1'
+      || value.source !== 'spring-ts.NamingReport.phonetic'
+      || value.projection !== 'selective_without_recalculation'
+      || value.sourceTier !== 'T3_AUTHORED_INTERPRETATION'
+      || value.authorityTruthEligible !== false) {
+      contractFail('NAMING_PHONETIC_PROVENANCE');
+    }
+    strictStringArray(value.sourceFields, 'NAMING_PHONETIC_PROVENANCE', {
+      min: 1,
+      max: 1,
+      unique: true,
+    });
+    if (!sameStringArray(value.sourceFields, ['phonetic'])) {
+      contractFail('NAMING_PHONETIC_PROVENANCE');
+    }
+    strictBoundedText(value.fullHangul, 'NAMING_PHONETIC_IDENTITY', 12);
+    strictBoundedText(value.surnameHangul, 'NAMING_PHONETIC_IDENTITY', 4);
+    strictBoundedText(value.givenHangul, 'NAMING_PHONETIC_IDENTITY', 8);
+    if (!/^[가-힣]+$/u.test(value.fullHangul)
+      || !/^[가-힣]+$/u.test(value.surnameHangul)
+      || !/^[가-힣]+$/u.test(value.givenHangul)
+      || value.fullHangul !== `${value.surnameHangul}${value.givenHangul}`) {
+      contractFail('NAMING_PHONETIC_IDENTITY');
+    }
+    const phoneticScore = strictNullableScore(
+      value.phoneticScore,
+      'NAMING_PHONETIC_SCORE',
+    );
+    const transitionScore = strictNullableScore(
+      value.transitionScore,
+      'NAMING_PHONETIC_SCORE',
+    );
+    const familyNameFitScore = strictNullableScore(
+      value.familyNameFitScore,
+      'NAMING_PHONETIC_SCORE',
+    );
+    strictEnum(value.status, PHONETIC_STATUSES, 'NAMING_PHONETIC_STATUS');
+    strictArray(value.transitions, 'NAMING_PHONETIC_TRANSITIONS', 1, 8);
+    const surnameCharacters = Array.from(value.surnameHangul);
+    const givenCharacters = Array.from(value.givenHangul);
+    if (value.transitions.length !== givenCharacters.length) {
+      contractFail('NAMING_PHONETIC_TRANSITIONS');
+    }
+    const expectedTransitions = [
+      {
+        from: surnameCharacters[surnameCharacters.length - 1],
+        to: givenCharacters[0],
+        boundary: 'surname_given',
+      },
+      ...givenCharacters.slice(0, -1).map((from, index) => ({
+        from,
+        to: givenCharacters[index + 1],
+        boundary: 'given_internal',
+      })),
+    ];
+    const transitionValues: Array<{
+      readonly score: number;
+      readonly boundary: string;
+      readonly severities: readonly string[];
+    }> = [];
+    for (const [index, transition] of value.transitions.entries()) {
+      strictObject(
+        transition,
+        ['from', 'to', 'boundary', 'score', 'risk', 'signals'],
+        [],
+        'NAMING_PHONETIC_TRANSITION_SHAPE',
+      );
+      strictBoundedText(transition.from, 'NAMING_PHONETIC_TRANSITION_IDENTITY', 1);
+      strictBoundedText(transition.to, 'NAMING_PHONETIC_TRANSITION_IDENTITY', 1);
+      strictEnum(
+        transition.boundary,
+        PHONETIC_BOUNDARIES,
+        'NAMING_PHONETIC_TRANSITION_BOUNDARY',
+      );
+      const expected = expectedTransitions[index];
+      if (!expected
+        || transition.from !== expected.from
+        || transition.to !== expected.to
+        || transition.boundary !== expected.boundary) {
+        contractFail('NAMING_PHONETIC_TRANSITION_IDENTITY');
+      }
+      strictFiniteNumber(transition.score, 'NAMING_PHONETIC_TRANSITION_SCORE');
+      if (transition.score < 0 || transition.score > 100) {
+        contractFail('NAMING_PHONETIC_TRANSITION_SCORE');
+      }
+      strictEnum(transition.risk, PHONETIC_RISKS, 'NAMING_PHONETIC_TRANSITION_RISK');
+      if (transition.risk !== expectedPhoneticRisk(transition.score)) {
+        contractFail('NAMING_PHONETIC_TRANSITION_RISK');
+      }
+      strictArray(transition.signals, 'NAMING_PHONETIC_SIGNALS', 0, 16);
+      const signalCodes = new Set<string>();
+      const severities: string[] = [];
+      let penaltyTotal = 0;
+      for (const signal of transition.signals) {
+        strictObject(
+          signal,
+          ['code', 'severity', 'penalty'],
+          [],
+          'NAMING_PHONETIC_SIGNAL_SHAPE',
+        );
+        strictBoundedText(signal.code, 'NAMING_PHONETIC_SIGNAL_CODE', 64);
+        if (!/^[a-z][a-z0-9_]{0,63}$/u.test(signal.code)
+          || signalCodes.has(signal.code)) {
+          contractFail('NAMING_PHONETIC_SIGNAL_CODE');
+        }
+        signalCodes.add(signal.code);
+        strictEnum(signal.severity, PHONETIC_RISKS, 'NAMING_PHONETIC_SIGNAL_SEVERITY');
+        strictSafeInteger(signal.penalty, 'NAMING_PHONETIC_SIGNAL_PENALTY');
+        if (signal.penalty > 100) {
+          contractFail('NAMING_PHONETIC_SIGNAL_PENALTY');
+        }
+        penaltyTotal += signal.penalty;
+        severities.push(signal.severity);
+      }
+      const expectedScore = Math.max(
+        0,
+        Math.min(100, roundedOneDecimal(100 - penaltyTotal)),
+      );
+      if (transition.score !== expectedScore) {
+        contractFail('NAMING_PHONETIC_TRANSITION_SCORE');
+      }
+      transitionValues.push({
+        score: transition.score,
+        boundary: transition.boundary,
+        severities,
+      });
+    }
+    const expectedTransitionScore = roundedOneDecimal(
+      transitionValues.reduce((sum, transition) => sum + transition.score, 0)
+        / transitionValues.length,
+    );
+    const expectedFamilyNameFitScore = transitionValues.find(
+      (transition) => transition.boundary === 'surname_given',
+    )?.score ?? null;
+    const expectedPhoneticScore = roundedOneDecimal(
+      (expectedTransitionScore * 0.6)
+      + ((expectedFamilyNameFitScore ?? 100) * 0.4),
+    );
+    const severities = transitionValues.flatMap((transition) =>
+      transition.severities);
+    const expectedStatus = severities.includes('high')
+      ? expectedPhoneticScore < 78 ? 'awkward' : 'watch'
+      : severities.filter((severity) => severity === 'medium').length >= 2
+        ? 'watch'
+        : expectedPhoneticScore < 72
+          ? 'awkward'
+          : expectedPhoneticScore < 86 ? 'watch' : 'smooth';
+    if (transitionScore !== expectedTransitionScore
+      || familyNameFitScore !== expectedFamilyNameFitScore
+      || phoneticScore !== expectedPhoneticScore
+      || value.status !== expectedStatus) {
+      contractFail('NAMING_PHONETIC_CONSISTENCY');
+    }
+  } else if (value.kind === 'name_statistics') {
+    strictObject(
+      value,
+      [
+        ...base,
+        'source',
+        'projection',
+        'sourceFields',
+        'popularityRank',
+        'maleRatio',
+        'nameGender',
+      ],
+      [],
+      'NAME_STATISTICS_FACT_SHAPE',
+    );
+    strictFactBase(value);
+    if (value.id !== 'naming.statistics'
+      || value.domain !== 'naming'
+      || value.method !== 'spring-ts.name-stat-summary-projection.v1'
+      || value.source !== 'spring-ts.SpringReport'
+      || value.projection !== 'selective_without_recalculation') {
+      contractFail('NAME_STATISTICS_PROVENANCE');
+    }
+    strictStringArray(value.sourceFields, 'NAME_STATISTICS_PROVENANCE', {
+      min: 3,
+      max: 3,
+      unique: true,
+    });
+    if (!sameStringArray(
+      value.sourceFields,
+      ['popularityRank', 'maleRatio', 'nameGender'],
+    )) {
+      contractFail('NAME_STATISTICS_PROVENANCE');
+    }
+    if (value.popularityRank !== null) {
+      strictFiniteNumber(value.popularityRank, 'NAME_STATISTICS_RANK');
+      if (value.popularityRank <= 0
+        || value.popularityRank > Number.MAX_SAFE_INTEGER) {
+        contractFail('NAME_STATISTICS_RANK');
+      }
+    }
+    if (value.maleRatio !== null) {
+      strictFiniteNumber(value.maleRatio, 'NAME_STATISTICS_RATIO');
+      if (value.maleRatio < 0 || value.maleRatio > 1) {
+        contractFail('NAME_STATISTICS_RATIO');
+      }
+    }
+    strictEnum(value.nameGender, NAME_GENDERS, 'NAME_STATISTICS_GENDER');
+    if ((value.maleRatio === null && value.nameGender !== 'unknown')
+      || (value.maleRatio !== null
+        && value.nameGender !== (value.maleRatio >= 0.5 ? 'male' : 'female'))
+      || (value.popularityRank === null
+        && value.maleRatio === null
+        && value.nameGender === 'unknown')) {
+      contractFail('NAME_STATISTICS_CONSISTENCY');
     }
   } else if (value.kind === 'naming_frame') {
     strictObject(
@@ -1052,7 +2416,11 @@ function strictBlock(value: unknown): ReportBlockV1 {
       'FACT_GROUP_BLOCK_SHAPE',
     );
     strictStringArray(value.factRefs, 'FACT_GROUP_REFS', { min: 1, unique: true });
-    strictEnum(value.presentation, new Set(['summary', 'metrics', 'pillars', 'characters']), 'FACT_GROUP_PRESENTATION');
+    strictEnum(
+      value.presentation,
+      new Set(['summary', 'metrics', 'pillars', 'characters', 'evidence']),
+      'FACT_GROUP_PRESENTATION',
+    );
     if (hasOwn(value, 'interpretationRef')) {
       strictString(value.interpretationRef, 'FACT_GROUP_INTERPRETATION_REF');
     }
@@ -1192,7 +2560,18 @@ function interpretationAllowsFact(
   }
   if (interpretation.domain === 'naming') return fact.domain === 'naming';
   return fact.domain === 'interaction'
-    || (fact.domain === 'saju' && fact.kind === 'yongshin');
+    || (fact.domain === 'saju'
+      && new Set([
+        'yongshin',
+        'pillars',
+        'time_correction',
+        'element_distribution',
+        'day_master',
+        'strength',
+      ])
+        .has(fact.kind))
+    || (fact.domain === 'naming'
+      && new Set(['name_character', 'metric']).has(fact.kind));
 }
 
 function assertProjectionDepth(
@@ -1230,14 +2609,24 @@ function validateTypedFactGroup(
       'gyeokguk',
       'yongshin',
       'element_distribution',
+      'time_correction',
     ]),
     pillars: new Set(['pillars']),
     characters: new Set(['name_character']),
+    evidence: new Set([
+      'shinsal_hits',
+      'ten_god_analysis',
+      'natal_relations',
+      'element_balance',
+      'naming_trend',
+      'naming_phonetic',
+      'name_statistics',
+    ]),
   };
   const allowedPresentations: Readonly<Record<ReportSurfaceIdV1, ReadonlySet<string>>> = {
     integrated: new Set(['summary']),
-    saju: new Set(['metrics', 'pillars']),
-    naming: new Set(['metrics', 'characters']),
+    saju: new Set(['metrics', 'pillars', 'evidence']),
+    naming: new Set(['metrics', 'characters', 'evidence']),
   };
   if (!allowedPresentations[surfaceId].has(block.presentation)) {
     contractFail('FACT_GROUP_SURFACE_PRESENTATION');
@@ -1248,6 +2637,16 @@ function validateTypedFactGroup(
     if (!expectedKinds[block.presentation].has(fact.kind)
       || fact.domain !== expectedDomain) {
       contractFail('FACT_GROUP_TYPED_REF');
+    }
+    if (fact.kind === 'time_correction') {
+      const expectedAvailability: DeliveryAvailabilityV1 =
+        fact.input.timePrecision === 'exact'
+          ? { status: 'ready', reasonCodes: [] }
+          : { status: 'limited', reasonCodes: ['BIRTH_TIME_IMPUTED'] };
+      if (block.factRefs.length !== 1
+        || !sameAvailability(block.availability, expectedAvailability)) {
+        contractFail('TIME_CORRECTION_AVAILABILITY');
+      }
     }
   }
 }
@@ -1453,6 +2852,59 @@ export function assertReportDeliveryV1(
     if (factById.has(fact.id)) contractFail('DUPLICATE_OR_EMPTY_FACT_ID');
     factById.set(fact.id, fact);
   }
+  const namingDetailFacts = [...factById.values()].filter((fact) =>
+    fact.kind === 'naming_trend'
+    || fact.kind === 'naming_phonetic'
+    || fact.kind === 'name_statistics');
+  if (namingDetailFacts.length > 0) {
+    if (!coverageSurfaces.some((surface) => surface.id === 'naming')) {
+      contractFail('NAMING_DETAIL_SURFACE');
+    }
+    const charactersFor = (position: 'surname' | 'givenName') =>
+      [...factById.values()]
+        .filter((fact) =>
+          fact.kind === 'name_character' && fact.position === position)
+        .sort((left, right) =>
+          (left as Extract<ReportFactV1, { kind: 'name_character' }>).index
+          - (right as Extract<ReportFactV1, { kind: 'name_character' }>).index) as
+        Extract<ReportFactV1, { kind: 'name_character' }>[];
+    const surnameCharacters = charactersFor('surname');
+    const givenCharacters = charactersFor('givenName');
+    if (surnameCharacters.length < 1
+      || givenCharacters.length < 1
+      || surnameCharacters.some((fact, index) => fact.index !== index)
+      || givenCharacters.some((fact, index) => fact.index !== index)) {
+      contractFail('NAMING_DETAIL_IDENTITY');
+    }
+    const surnameHangul = surnameCharacters.map((fact) => fact.hangul).join('');
+    const givenHangul = givenCharacters.map((fact) => fact.hangul).join('');
+    const fullHangul = `${surnameHangul}${givenHangul}`;
+    if (delivery.subject.displayName !== fullHangul) {
+      contractFail('NAMING_DETAIL_IDENTITY');
+    }
+    for (const fact of namingDetailFacts) {
+      if (fact.kind === 'naming_trend' && fact.givenHangul !== givenHangul) {
+        contractFail('NAMING_DETAIL_IDENTITY');
+      }
+      if (fact.kind === 'naming_phonetic'
+        && (fact.surnameHangul !== surnameHangul
+          || fact.givenHangul !== givenHangul
+          || fact.fullHangul !== fullHangul)) {
+        contractFail('NAMING_DETAIL_IDENTITY');
+      }
+    }
+  }
+  // Integrated delivery also carries the exact natal time-correction fact so
+  // a method disagreement cannot erase the deterministic calculation basis.
+  const expectsSajuTimeCorrection = coverageSurfaces.some((surface) => surface.id === 'saju');
+  const permitsIntegratedTimeCorrection = coverageSurfaces.some((surface) => surface.id === 'integrated');
+  const timeCorrectionFactCount = [...factById.values()]
+    .filter((fact) => fact.kind === 'time_correction').length;
+  if ((expectsSajuTimeCorrection && timeCorrectionFactCount !== 1)
+    || (!expectsSajuTimeCorrection
+      && timeCorrectionFactCount > (permitsIntegratedTimeCorrection ? 1 : 0))) {
+    contractFail('TIME_CORRECTION_CARDINALITY');
+  }
 
   // An integrated interaction is meaningful only against the exact natal
   // yongshin evidence carried by the same delivery. Shape-valid facts from two
@@ -1546,6 +2998,7 @@ export function assertReportDeliveryV1(
     let lifeFlowCount = 0;
     let namingCalendarCount = 0;
     let fourFrameCount = 0;
+    let timeCorrectionBlockCount = 0;
 
     for (const rawBlock of rawSurface.blocks) {
       const block = strictBlock(rawBlock);
@@ -1583,6 +3036,9 @@ export function assertReportDeliveryV1(
         }
       } else if (block.kind === 'fact_group') {
         validateTypedFactGroup(block, factById, surface.id);
+        if (block.factRefs.some((ref) => factById.get(ref)?.kind === 'time_correction')) {
+          timeCorrectionBlockCount += 1;
+        }
         if (block.interpretationRef !== undefined) {
           const interpretation = interpretationRef(
             interpretationById,
@@ -1713,9 +3169,6 @@ export function assertReportDeliveryV1(
             contractFail('FOUR_FRAME_TYPED_REF');
           }
           if (item.interpretationRef !== undefined) {
-            if (!FOUR_FRAME_AUTHORED_COPY_APPROVED) {
-              contractFail('FOUR_FRAME_CONTENT_GATE');
-            }
             const interpretation = interpretationRef(
               interpretationById,
               item.interpretationRef,
@@ -1725,6 +3178,10 @@ export function assertReportDeliveryV1(
               || item.interpretationRef !== item.factRef + '.' + surface.depth + '.interpretation'
               || !interpretation.factRefs.includes(item.factRef)) {
               contractFail('FOUR_FRAME_INTERPRETATION_BINDING');
+            }
+            if (!FOUR_FRAME_AUTHORED_COPY_APPROVED
+              && interpretation.origin === 'authored_bundle') {
+              contractFail('FOUR_FRAME_CONTENT_GATE');
             }
             assertProjectionDepth(interpretation, surface.depth, 'FOUR_FRAME_DEPTH_REF', true);
           }
@@ -1778,10 +3235,8 @@ export function assertReportDeliveryV1(
     if (surface.id !== 'naming' && namingCalendarCount !== 0) {
       contractFail('NAMING_CALENDAR_CAPABILITY_SURFACE');
     }
-    if (!FOUR_FRAME_AUTHORED_COPY_APPROVED
-      && fourFrameCount > 0
-      && !availability.reasonCodes.includes('CONTENT_EXPERT_REVIEW_REQUIRED')) {
-      contractFail('FOUR_FRAME_CONTENT_GATE');
+    if (timeCorrectionBlockCount !== (surface.id === 'saju' ? 1 : 0)) {
+      contractFail('TIME_CORRECTION_BLOCK_REQUIRED');
     }
     const coreBlocks = surface.blocks.filter((block) =>
       block.kind !== 'capability'

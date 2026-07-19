@@ -26,7 +26,7 @@ import type {
   YongshinConsensusScoreboard, LunarConversionSummary, JieProximitySummary,
   DaeunInfoSummary, SaeunPillarSummary, WolunPillarSummary,
   SajuAnalysisReasonCode, SajuAnalysisStatus, SajuSafeAnalysisResult,
-  CheonganRelationScore,
+  CheonganRelationScore, TimeCorrectionProvenance,
 } from './types.js';
 import {
   assertLegacySajuPresetCode,
@@ -70,6 +70,11 @@ import {
   clampRatio,
 } from './saju/confidence-units.js';
 import {
+  LEGACY_PRESET_REFERENCE_MERIDIANS,
+  isLegacyPresetReferenceCode,
+  type LegacyPresetReferenceCode,
+} from './saju/time-reference-validation.js';
+import {
   GYEOKGUK_KO_LABEL,
   normalizeCodeToken,
   normalizeGyeokgukCategoryCode,
@@ -83,10 +88,10 @@ import { resolveBirthLocation } from './saju/birth-location.js';
 import { validateBirthInputRuntimeContract } from './saju/birth-input-contract.js';
 import {
   applyAuthoritativeSajuTimePolicyConfig,
-  isLongitudeCorrectionEnabled,
   isValidSajuTimePolicy,
   legacyTimeFailureReasonCode,
   preflightKnownHourCivilTimeRange,
+  resolveEffectiveSajuTimePolicy,
 } from './saju/time-policy.js';
 import { snapshotSajuAnalysisInput } from './public-request-snapshot.js';
 import { resolveSchoolPresetName } from './preset-loader.js';
@@ -311,6 +316,11 @@ const TC_KEYS = [
   'adjustedYear', 'adjustedMonth', 'adjustedDay', 'adjustedHour', 'adjustedMinute',
   'dstCorrectionMinutes', 'longitudeCorrectionMinutes', 'equationOfTimeMinutes',
 ] as const;
+
+function normalizeLongitudeDegrees(value: number): number {
+  const normalized = ((value + 180) % 360 + 360) % 360 - 180;
+  return Object.is(normalized, -0) ? 0 : normalized;
+}
 
 function roundTo(value: unknown, digits: number): number {
   const n = Number(value);
@@ -1038,6 +1048,10 @@ const SAJU_ANALYSIS_FAILURES: Readonly<Record<
     status: 'failed',
     message: '출생지 좌표와 시간대가 일부만 입력되어 안전하게 계산할 수 없습니다.',
   },
+  BIRTH_LOCATION_REQUIRED: {
+    status: 'failed',
+    message: '진태양시 또는 경도 보정에는 지원되는 출생 지역이나 좌표와 시간대를 명시해야 합니다.',
+  },
   BIRTH_LOCATION_UNRESOLVED: {
     status: 'failed',
     message: '출생지 이름을 지원 좌표로 확인할 수 없습니다. 좌표와 시간대를 함께 입력해 주세요.',
@@ -1323,6 +1337,7 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
   if (!isValidSajuTimePolicy(options)) {
     return emptySaju('BIRTH_TIME_POLICY_INVALID');
   }
+  const effectiveTimePolicy = resolveEffectiveSajuTimePolicy(options);
   // Configuration errors must remain observable even when the dynamically
   // loaded engine module is absent or broken.
   validateSajuConfigFortunePolicy(options?.sajuConfig);
@@ -1394,7 +1409,10 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
       timezone: DEFAULT_TIMEZONE,
       regionCode: DEFAULT_REGION_CODE,
     },
-    { requireLongitude: isLongitudeCorrectionEnabled(options) },
+    {
+      requireLongitude: effectiveTimePolicy.longitudeCorrection === 'on',
+      requireExplicitLocation: effectiveTimePolicy.explicitLocationRequired,
+    },
   );
   if (!locationResolution.ok) return emptySaju(locationResolution.reasonCode);
   const resolvedCoordinates = locationResolution.value;
@@ -1545,6 +1563,54 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
     const resolvedBirthMinute = parts.hour == null
       ? DEFAULT_UNKNOWN_MINUTE
       : (parts.minute ?? DEFAULT_UNKNOWN_MINUTE);
+    let referenceMeridianDegrees: number | null = null;
+    let referenceMeridianBasis: TimeCorrectionProvenance['referenceMeridianBasis'] = {
+      kind: 'disabled',
+    };
+    if (effectiveTimePolicy.longitudeCorrection === 'on') {
+      let rawReferenceMeridian: number | undefined;
+      if (effectiveTimePolicy.longitudeReference === 'legacyPreset') {
+        if (!isLegacyPresetReferenceCode(presetCode)
+          || legacyPresetMeridian === undefined
+          || Math.abs(
+            legacyPresetMeridian
+              - LEGACY_PRESET_REFERENCE_MERIDIANS[
+                presetCode as LegacyPresetReferenceCode
+              ],
+          ) > 1e-9) {
+          throw new TypeError('Legacy preset reference meridian is inconsistent.');
+        }
+        rawReferenceMeridian = legacyPresetMeridian;
+        referenceMeridianBasis = {
+          kind: 'legacy_preset_registry',
+          presetCode,
+        };
+      } else {
+        const utcOffsetMinutes = saju.resolveOffsetMinutes(
+          resolvedCoordinates.timezone,
+          {
+            y: birthYear,
+            m: birthMonth,
+            d: birthDay,
+            h: resolvedBirthHour,
+            min: resolvedBirthMinute,
+          },
+        );
+        rawReferenceMeridian = utcOffsetMinutes / 4;
+        referenceMeridianBasis = {
+          kind: 'civil_offset_at_birth',
+          utcOffsetMinutes,
+        };
+      }
+      if (!Number.isFinite(rawReferenceMeridian)) {
+        throw new TypeError('Time-correction reference meridian is unavailable.');
+      }
+      referenceMeridianDegrees = normalizeLongitudeDegrees(Number(rawReferenceMeridian));
+    }
+    const inputLocationLabel = [birth.region, birth.city, birth.birthPlace]
+      .find((value): value is string =>
+        typeof value === 'string' && value.trim().length > 0)
+      ?.trim() ?? null;
 
     const analyzeWithGender = (
       genderCode: 'MALE' | 'FEMALE',
@@ -1639,6 +1705,51 @@ export async function analyzeSaju(birth: BirthInfo, options?: SpringRequest['opt
         + (lc.source === 'kasi' ? ' (KASI 음양력 API 기준).' : ' (한국천문연구원 표준 음양력 테이블 기준).'),
       );
     }
+    const timeCorrectionProvenance: TimeCorrectionProvenance = {
+      location: {
+        inputLabel: inputLocationLabel,
+        resolvedRegionCode: resolvedCoordinates.regionCode,
+        latitude: resolvedCoordinates.source === 'timezone'
+          ? null
+          : resolvedCoordinates.latitude,
+        longitude: resolvedCoordinates.source === 'timezone'
+          ? null
+          : resolvedCoordinates.longitude,
+        timezone: resolvedCoordinates.timezone,
+        source: resolvedCoordinates.source,
+        coordinatesApplied: effectiveTimePolicy.longitudeCorrection === 'on',
+      },
+      referenceMeridianDegrees,
+      referenceMeridianBasis,
+      policy: effectiveTimePolicy,
+      input: {
+        calendarType: birth.calendarType === 'lunar' ? 'lunar' : 'solar',
+        providedLocalDateTime: {
+          year: parts.year ?? birthYear,
+          month: parts.month ?? birthMonth,
+          day: parts.day ?? birthDay,
+          hour: parts.hour,
+          minute: parts.minute,
+        },
+        effectiveSolarDate: {
+          year: birthYear,
+          month: birthMonth,
+          day: birthDay,
+        },
+        timePrecision: parts.hour == null
+          ? 'unknown_hour'
+          : parts.minute == null ? 'unknown_minute' : 'exact',
+      },
+      inputUncertainty: summary.inputUncertainty ?? null,
+      lunarConversion: summary.lunarConversion ?? null,
+    };
+    summary = {
+      ...summary,
+      timeCorrection: {
+        ...summary.timeCorrection,
+        provenance: timeCorrectionProvenance,
+      },
+    };
     if (notes.length > 0) {
       const existing = Array.isArray(summary.partialInterpretation)
         ? summary.partialInterpretation.filter((line) => typeof line === 'string')

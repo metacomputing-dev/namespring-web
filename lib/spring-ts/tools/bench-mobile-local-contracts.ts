@@ -84,7 +84,15 @@ const CANDIDATE_PAYLOAD_BUDGET_BYTES = 192 * 1024;
 const CANDIDATE_PAGE_LIMIT = 20;
 
 const subject = {
-  birth: { year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male' as const },
+  birth: {
+    year: 1986,
+    month: 4,
+    day: 19,
+    hour: 5,
+    minute: 45,
+    gender: 'male' as const,
+    region: '서울',
+  },
   surname: [{ hangul: '최', hanja: '崔' }],
   givenName: [{ hangul: '성', hanja: '成' }, { hangul: '수', hanja: '秀' }],
   targetDate: '2026-07-18',
@@ -249,7 +257,24 @@ function candidateRequest(length: 1 | 2, offset = 0, limit = CANDIDATE_PAGE_LIMI
     surname: subject.surname,
     givenNameLength: length,
     mode: 'recommend' as const,
-    options: { offset, limit },
+    options: {
+      offset,
+      limit,
+      pureHangulNameMode: 'off' as const,
+      precisionConfig: {
+        // This is the only expensive display projection requested by the V2
+        // candidate screen. Benchmark the real mobile path, not a cheaper
+        // internal candidate shape that the product never renders.
+        surfaceNamingScoreVector: true,
+      },
+      sajuTimePolicy: {
+        trueSolarTime: 'on' as const,
+        longitudeCorrection: 'on' as const,
+        longitudeReference: 'civilOffsetMeridian' as const,
+        yaza: 'on' as const,
+        yazaMode: '23:00' as const,
+      },
+    },
   };
 }
 
@@ -427,6 +452,10 @@ async function runWorker(
       if (scenario.endsWith(':pagination')) {
         assert.deepEqual(sample.repositoryOperations, {},
           'candidate continuation must not query or recompute repositories');
+      }
+      if (mode === 'warm' && scenario.endsWith(':first-page')) {
+        assert.deepEqual(sample.repositoryOperations, {},
+          'a repeated candidate first page must reuse its bounded engine-session snapshot');
       }
       const nameStatLookups = sample.repositoryOperations['nameStat.findByName']?.calls ?? 0;
       assert.ok(nameStatLookups <= 50_000, 'candidate lookup operations exceeded the engine bound');

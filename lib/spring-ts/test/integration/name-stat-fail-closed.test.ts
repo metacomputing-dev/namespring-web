@@ -148,6 +148,35 @@ function foundEntry() {
 }
 
 {
+  const rareEngine = new SpringEngine() as any;
+  rareEngine.nameStatRepo = { findByName: async () => null };
+  const rare = await rareEngine.enrichCandidatesWithNameStat([givenName]);
+  assert.equal(rare.length, 1);
+  assert.equal(
+    rare[0]?.nameStat?.info.status,
+    'not_found',
+    'absence from usage statistics is neutral evidence, not a hard rejection',
+  );
+
+  const tendencyEngine = new SpringEngine() as any;
+  tendencyEngine.nameStatRepo = {
+    findByName: async () => ({
+      popularityRank: 12,
+      maleBirths: 1,
+      femaleBirths: 99,
+    }),
+  };
+  const crossGender = await tendencyEngine.enrichCandidatesWithNameStat([givenName]);
+  assert.equal(crossGender.length, 1);
+  assert.equal(crossGender[0]?.nameStat?.info.nameGender, 'female');
+  assert.equal(
+    crossGender[0]?.nameStat?.info.popularityRank,
+    12,
+    'gender tendency remains display evidence and never removes a candidate',
+  );
+}
+
+{
   const engine = new SpringEngine() as any;
   engine.nameStatRepo = {
     findByName: async () => {
@@ -156,9 +185,9 @@ function foundEntry() {
   };
 
   await assert.rejects(
-    engine.filterCandidatesByNameStat([givenName], 'neutral'),
+    engine.enrichCandidatesWithNameStat([givenName]),
     NameStatLookupUnavailableError,
-    'candidate filtering must stop instead of silently deleting candidates',
+    'candidate enrichment must stop instead of silently deleting evidence',
   );
 }
 

@@ -147,7 +147,7 @@ function scoreVectorFeatureLabels(vector: NonNullable<SpringReport['scoreVector'
   labels.push(`사주 조화: ${vector.sajuFit ?? '자료 없음'} / 100`);
   labels.push(`용신 보강: ${vector.yongshinFit ?? '자료 없음'} / 100`);
   labels.push(`오행 균형: ${vector.elementBalance ?? '자료 없음'} / 100`);
-  labels.push(`한자 의미: ${vector.hanjaMeaning ?? '자료 없음'} / 100`);
+  labels.push(`한자 뜻풀이 확인도(뜻의 우열 아님): ${vector.hanjaMeaning ?? '자료 없음'} / 100`);
   labels.push(`발음 흐름: ${vector.phonetic ?? '자료 없음'} / 100`);
   labels.push(`시대감: ${vector.eraFit ?? '자료 없음'} / 100`);
   labels.push(`성과 이름 연결: ${vector.familyFit ?? '자료 없음'} / 100`);
@@ -452,7 +452,7 @@ export function buildNameCompatibilityCard(
   if (scoreVector) {
     evidence.push({
       axis: 'namingScoreVector',
-      claim: '최종 점수 전 단계에서 법적 사용 가능성, 사주 조화, 오행, 한자 의미, 발음, 시대감, 성과 이름 연결, 주의 신호를 나누어 보았어요.',
+      claim: '최종 점수 전 단계에서 법적 사용 가능성, 사주 조화, 오행, 한자 뜻풀이 데이터 확인도(뜻의 우열 아님), 발음, 시대감, 성과 이름 연결, 주의 신호를 나누어 보았어요.',
       supportingFeatures: scoreVectorFeatureLabels(scoreVector),
       weakness: scoreVector.risk >= 60
         ? '주의 신호가 높은 편이라 최종 점수만 보지 말고 다른 후보와 함께 비교하세요.'

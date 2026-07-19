@@ -1,7 +1,12 @@
 {
   "maxCandidates": 50000,
   "candidateSelection": {
-    "paretoPoolLimit": 500
+    "paretoPoolLimit": 500,
+    "hanjaVariantsPerHangul": 3,
+    "presentationScoreWindow": 12,
+    "hangulSeedNameLimit": 80,
+    "hanjaVariantsPerSeedSyllable": 3,
+    "seedVariantsPerName": 6
   },
   "candidatePoolLimits": {
     "singleCharPerStroke": 8,

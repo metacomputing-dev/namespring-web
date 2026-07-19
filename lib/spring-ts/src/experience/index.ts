@@ -16,6 +16,7 @@ export {
 
 export {
   CANDIDATE_ORDERING_POLICY_V1,
+  CANDIDATE_PRESENTATION_ORDERING_POLICY_V2,
   CANDIDATE_QUERY_ID_PATTERN_V1,
   CANDIDATE_SEARCH_SCHEMA_V1,
   CandidateSearchContractErrorV1,
@@ -25,6 +26,8 @@ export {
   type CandidateSearchQueryV1,
   type CandidateSearchContractReasonV1,
   type CandidateSearchItemV1,
+  type CandidateSearchNameCharacterV1,
+  type CandidateSearchNameElementV1,
   type CandidateSearchNameV1,
   type CandidateSearchOrderingV1,
   type CandidateSearchPaginationV1,

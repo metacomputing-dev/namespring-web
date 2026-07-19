@@ -51,7 +51,7 @@ const NAMING_AXIS_DISPLAY_LABELS: Readonly<
   sajuFit: '사주 보완',
   yongshinFit: '용신 보강',
   elementBalance: '오행 균형',
-  hanjaMeaning: '한자 의미',
+  hanjaMeaning: '한자 뜻풀이 확인도(뜻의 우열 아님)',
   phonetic: '발음 흐름',
   eraFit: '시대감',
   familyFit: '성과 이름 연결',
@@ -100,7 +100,7 @@ export function deriveCandidateStrengthProfile(
     },
     {
       id: 'legal_meaning',
-      label: '한자 의미 안정형',
+      label: '법적·뜻풀이 확인형',
       primaryAxis: 'legal',
       score: averageScores([vector.legal, vector.hanjaMeaning, riskQuality]),
       axes: ['legal', 'hanjaMeaning', 'riskQuality'],
@@ -175,10 +175,72 @@ interface CandidateSelectionInfo {
   readonly score: number;
   readonly vector?: NamingScoreVector;
   readonly profile?: CandidateStrengthProfile;
+  readonly popularityRank?: number | null;
   readonly givenHangul: string;
   readonly givenHanja: string;
   readonly syllables: readonly string[];
   readonly orthodoxHanjas: readonly string[];
+}
+
+/**
+ * Canonical public presentation evidence order. API metadata imports this
+ * exact tuple so runtime ranking and its disclosed contract cannot drift.
+ */
+export const CANDIDATE_PRESENTATION_EVIDENCE_ORDER_V2 = Object.freeze([
+  'meaningConfidence',
+  'risk',
+  'popularityRank',
+  'phonetic',
+  'familyFit',
+  'eraFit',
+] as const);
+
+type CandidatePresentationEvidenceAxis =
+  typeof CANDIDATE_PRESENTATION_EVIDENCE_ORDER_V2[number];
+
+const MISSING_SCORE_EVIDENCE_NEUTRAL_V2 = 50;
+
+function candidatePresentationEvidenceValue(
+  candidate: CandidateSelectionInfo,
+  axis: CandidatePresentationEvidenceAxis,
+): number {
+  if (!candidate.vector) {
+    return axis === 'popularityRank'
+      ? Number.POSITIVE_INFINITY
+      : MISSING_SCORE_EVIDENCE_NEUTRAL_V2;
+  }
+  const value = axis === 'meaningConfidence'
+    ? candidate.vector.hanjaMeaning
+    : axis === 'popularityRank'
+      ? candidate.popularityRank
+      : candidate.vector[axis];
+  if (typeof value === 'number' && Number.isFinite(value)) return value;
+  // Missing usage statistics provide no popularity bonus but never remove a
+  // candidate. Other bounded score axes use their disclosed neutral midpoint.
+  return axis === 'popularityRank'
+    ? Number.POSITIVE_INFINITY
+    : MISSING_SCORE_EVIDENCE_NEUTRAL_V2;
+}
+
+/**
+ * Presentation-only order inside a bounded raw-score window. It does not
+ * mutate the spring-ts saju/naming score and does not reject rare names.
+ * Practical naming evidence leads; the engine score remains visible.
+ */
+function compareCandidatePresentationEvidence(
+  left: CandidateSelectionInfo,
+  right: CandidateSelectionInfo,
+): number {
+  for (const axis of CANDIDATE_PRESENTATION_EVIDENCE_ORDER_V2) {
+    const leftValue = candidatePresentationEvidenceValue(left, axis);
+    const rightValue = candidatePresentationEvidenceValue(right, axis);
+    const difference = axis === 'risk' || axis === 'popularityRank'
+      ? leftValue - rightValue
+      : rightValue - leftValue;
+    if (difference !== 0) return difference;
+  }
+
+  return right.score - left.score;
 }
 
 /**
@@ -443,6 +505,7 @@ function selectionInfoForCandidateSummary(
     score: summary.finalScore,
     vector: summary.scoreVector,
     profile: summary.strengthProfile,
+    popularityRank: summary.popularityRank,
     ...diversity,
   };
 }
@@ -526,12 +589,30 @@ export function orderCandidateSummaries(
 export function dedupeCandidateSummariesByHangul(
   results: readonly SpringCandidateSummary[],
 ): SpringCandidateSummary[] {
-  const seen = new Set<string>();
+  return retainCandidateSummaryVariantsByHangul(results, 1);
+}
+
+/**
+ * Keeps a bounded number of distinct Hanja identities for each Hangul reading
+ * while preserving the caller's already-computed order (including Pareto
+ * ordering). Exact Hanja duplicates never consume another variant slot.
+ */
+export function retainCandidateSummaryVariantsByHangul(
+  results: readonly SpringCandidateSummary[],
+  maxVariantsPerHangul: number,
+): SpringCandidateSummary[] {
+  if (!Number.isSafeInteger(maxVariantsPerHangul) || maxVariantsPerHangul <= 0) {
+    throw new RangeError('maxVariantsPerHangul must be a positive safe integer');
+  }
+  const retainedHanjas = new Map<string, Set<string>>();
   const deduped: SpringCandidateSummary[] = [];
   for (const summary of results) {
-    const key = summary.fullHangul || summary.givenHangul;
-    if (seen.has(key)) continue;
-    seen.add(key);
+    const hangulKey = summary.fullHangul || summary.givenHangul;
+    const hanjaKey = describeCandidateName(summary.givenName).givenHanja || '__hangul_only__';
+    const variants = retainedHanjas.get(hangulKey) ?? new Set<string>();
+    if (variants.has(hanjaKey) || variants.size >= maxVariantsPerHangul) continue;
+    variants.add(hanjaKey);
+    retainedHanjas.set(hangulKey, variants);
     deduped.push(summary);
   }
   return deduped.map((summary, index) => ({ ...summary, rank: index + 1 }));
@@ -540,6 +621,8 @@ export function dedupeCandidateSummariesByHangul(
 interface RetainedCandidateSummary {
   readonly summary: SpringCandidateSummary;
   readonly originalIndex: number;
+  readonly orderingVector?: NamingScoreVector;
+  readonly hanjaKey: string;
 }
 
 /**
@@ -552,29 +635,109 @@ interface RetainedCandidateSummary {
  * pool because duplicate spellings participate in its frontier/diversity pass.
  */
 export class DefaultCandidateSummaryAccumulator {
-  private readonly winners = new Map<string, RetainedCandidateSummary>();
+  private readonly winners = new Map<string, RetainedCandidateSummary[]>();
   private nextOriginalIndex = 0;
 
-  add(summary: SpringCandidateSummary): void {
-    const originalIndex = this.nextOriginalIndex;
-    this.nextOriginalIndex += 1;
-    const key = summary.fullHangul || summary.givenHangul;
-    const prior = this.winners.get(key);
-    if (!prior || summary.finalScore > prior.summary.finalScore) {
-      this.winners.set(key, { summary, originalIndex });
+  constructor(
+    private readonly maxVariantsPerHangul: number = 1,
+    private readonly usePresentationEvidenceTieBreak: boolean = false,
+    private readonly presentationScoreWindow: number = 0,
+  ) {
+    if (!Number.isSafeInteger(maxVariantsPerHangul) || maxVariantsPerHangul <= 0) {
+      throw new RangeError('maxVariantsPerHangul must be a positive safe integer');
+    }
+    if (!Number.isFinite(presentationScoreWindow)
+      || presentationScoreWindow < 0
+      || presentationScoreWindow > 100) {
+      throw new RangeError('presentationScoreWindow must be a finite score from 0 to 100');
     }
   }
 
+  add(
+    summary: SpringCandidateSummary,
+    orderingVector: NamingScoreVector | undefined = summary.scoreVector,
+  ): void {
+    const originalIndex = this.nextOriginalIndex;
+    this.nextOriginalIndex += 1;
+    const hangulKey = summary.fullHangul || summary.givenHangul;
+    const hanjaKey = describeCandidateName(summary.givenName).givenHanja || '__hangul_only__';
+    const variants = this.winners.get(hangulKey) ?? [];
+    const candidate: RetainedCandidateSummary = {
+      summary,
+      originalIndex,
+      ...(this.usePresentationEvidenceTieBreak && orderingVector ? { orderingVector } : {}),
+      hanjaKey,
+    };
+    const priorIndex = variants.findIndex((variant) => variant.hanjaKey === hanjaKey);
+    if (priorIndex >= 0) {
+      const prior = variants[priorIndex]!;
+      if (this.compareRetained(candidate, prior) < 0) variants[priorIndex] = candidate;
+    } else {
+      variants.push(candidate);
+    }
+    variants.sort((left, right) => this.compareRetained(left, right));
+    this.winners.set(hangulKey, variants.slice(0, this.maxVariantsPerHangul));
+  }
+
   get retainedCount(): number {
-    return this.winners.size;
+    return [...this.winners.values()].reduce((total, variants) => total + variants.length, 0);
   }
 
   finish(): SpringCandidateSummary[] {
-    return [...this.winners.values()]
-      .sort((left, right) =>
-        right.summary.finalScore - left.summary.finalScore
-        || left.originalIndex - right.originalIndex)
+    const scoreOrdered = [...this.winners.values()]
+      .flat()
+      .sort((left, right) => this.compareRetained(left, right));
+    const ordered = this.usePresentationEvidenceTieBreak
+      ? this.orderPresentationWindows(scoreOrdered)
+      : scoreOrdered;
+    return ordered
       .map(({ summary }, index) => ({ ...summary, rank: index + 1 }));
+  }
+
+  private compareRetained(
+    left: RetainedCandidateSummary,
+    right: RetainedCandidateSummary,
+  ): number {
+    return right.summary.finalScore - left.summary.finalScore
+      || left.originalIndex - right.originalIndex;
+  }
+
+  private comparePresentation(
+    left: RetainedCandidateSummary,
+    right: RetainedCandidateSummary,
+  ): number {
+    const leftInfo = {
+      ...selectionInfoForCandidateSummary(left.summary),
+      vector: left.orderingVector,
+    };
+    const rightInfo = {
+      ...selectionInfoForCandidateSummary(right.summary),
+      vector: right.orderingVector,
+    };
+    return compareCandidatePresentationEvidence(leftInfo, rightInfo)
+      || left.originalIndex - right.originalIndex;
+  }
+
+  private orderPresentationWindows(
+    scoreOrdered: readonly RetainedCandidateSummary[],
+  ): RetainedCandidateSummary[] {
+    const result: RetainedCandidateSummary[] = [];
+    let start = 0;
+    while (start < scoreOrdered.length) {
+      const anchorScore = scoreOrdered[start]!.summary.finalScore;
+      let end = start + 1;
+      while (
+        end < scoreOrdered.length
+        && anchorScore - scoreOrdered[end]!.summary.finalScore <= this.presentationScoreWindow
+      ) {
+        end += 1;
+      }
+      const window = scoreOrdered.slice(start, end);
+      result.push(...window
+        .sort((left, right) => this.comparePresentation(left, right)));
+      start = end;
+    }
+    return result;
   }
 }
 
