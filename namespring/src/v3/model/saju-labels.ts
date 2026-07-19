@@ -45,6 +45,41 @@ export function branchGlyph(code: string): GanjiGlyph | null {
   return BRANCH_GLYPHS[code.toUpperCase()] ?? null;
 }
 
+const ELEMENT_KO_LOCAL: Record<string, string> = {
+  wood: '목',
+  fire: '화',
+  earth: '토',
+  metal: '금',
+  water: '수',
+};
+
+const STEM_ELEMENT_BY_HANGUL: Record<string, string> = Object.fromEntries(
+  Object.values(STEM_GLYPHS).map(glyph => [glyph.hangul, glyph.element]),
+);
+const BRANCH_ELEMENT_BY_HANGUL: Record<string, string> = Object.fromEntries(
+  Object.values(BRANCH_GLYPHS).map(glyph => [glyph.hangul, glyph.element]),
+);
+
+/** 하늘 글자 한글을 오행까지 붙여 부른다. 을 → 을목, 신 → 신금. */
+export function stemWithElement(hangul: string): string {
+  const element = STEM_ELEMENT_BY_HANGUL[hangul];
+  return element ? `${hangul}${ELEMENT_KO_LOCAL[element]}` : hangul;
+}
+
+/** 땅의 글자 한글을 오행까지 붙여 부른다. 묘 → 묘목, 유 → 유금. */
+export function branchWithElement(hangul: string): string {
+  const element = BRANCH_ELEMENT_BY_HANGUL[hangul];
+  return element ? `${hangul}${ELEMENT_KO_LOCAL[element]}` : hangul;
+}
+
+/** 네 기둥이 전통적으로 가리키는 삶의 영역. 지장간 풀이를 삶과 잇는 데 쓴다. */
+export const PILLAR_DOMAIN: Record<string, string> = {
+  year: '뿌리와 초년',
+  month: '사회와 활동',
+  day: '나 자신과 가까운 관계',
+  hour: '미래와 마무리',
+};
+
 export const TEN_GOD_KO: Record<string, string> = {
   BI_GYEON: '비견',
   GYEOB_JAE: '겁재',

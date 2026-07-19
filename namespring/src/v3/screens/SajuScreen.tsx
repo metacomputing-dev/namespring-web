@@ -14,11 +14,13 @@ import {
 } from '../model/facts';
 import {
   branchGlyph,
+  branchWithElement,
   stemGlyph,
+  stemWithElement,
   CATEGORY_META,
   PERIOD_META,
+  PILLAR_DOMAIN,
   PILLAR_KO,
-  RELATION_MEANINGS,
   SEONGPAE_KO,
   SHINSAL_BENEFIC,
   SHINSAL_MEANINGS,
@@ -223,6 +225,37 @@ function relationWeight(type: string, confirmed: boolean): SignalWeight {
   return 'soft';
 }
 
+/** 앞 낱말의 받침에 맞춰 와/과를 골라 잇는다. 자수와 축토 / 을목과 신금. */
+function joinWithGwa(items: string[]): string {
+  return items.reduce((acc, current, i) => {
+    if (i === 0) return current;
+    const prev = items[i - 1];
+    const last = prev.charCodeAt(prev.length - 1);
+    const hasBatchim = last >= 0xac00 && last <= 0xd7a3 && (last - 0xac00) % 28 !== 0;
+    return `${acc}${hasBatchim ? '과 ' : '와 '}${current}`;
+  }, '');
+}
+
+/** 글자를 오행까지 부르며 관계를 생생하게 풀어낸다. */
+function relationReading(named: string[], type: string, confirmed: boolean): string {
+  const glyphs = joinWithGwa(named);
+  if (type.includes('충')) {
+    return `${glyphs}이 예리하게 부딪히는 충이에요. 정면으로 맞서는 힘이라, 서두르지 않으면 오히려 또렷해져요.`;
+  }
+  if (type.includes('합')) {
+    return confirmed
+      ? `${glyphs}이 서로 끌어당겨 새 기운으로 어우러지는 합이에요. 손잡을 때 힘이 배가돼요.`
+      : `${glyphs}이 서로 끌어당기는 합이에요. 결이 맞는 사람·일과 만날 때 빛나요.`;
+  }
+  if (type.includes('형')) {
+    return `${glyphs}이 서로를 다듬는 형이에요. 규칙과 절차를 갖추면 그 긴장이 오히려 방패가 돼요.`;
+  }
+  if (type.includes('파')) {
+    return `${glyphs}이 어긋나기 쉬운 파예요. 마무리를 한 번 더 확인하면 헐거움이 메워져요.`;
+  }
+  return `${glyphs}이 은근히 어긋나는 ${type}예요. 오해는 쌓이기 전에 말로 풀면 가벼워져요.`;
+}
+
 interface SignalGroupSpec {
   id: 'help' | 'pace' | 'blank';
   title: string;
@@ -261,22 +294,22 @@ function buildSignalGroups(index: DeliveryIndex): SignalGroupSpec[] {
   }
 
   for (const relation of relations?.cheongan ?? []) {
-    const gloss = RELATION_MEANINGS[relation.type] ?? '';
+    const named = relation.stems.map(stemWithElement);
     const item: SignalItem = {
       key: `cheongan-${relation.type}-${relation.stems.join('')}`,
-      label: `${relation.stems.join('·')} ${relation.type}`,
-      main: `하늘 글자 ${relation.stems.join('과 ')}이 만나는 ${relation.type} 관계예요. ${gloss}`.trim(),
+      label: `${named.join('·')} ${relation.type}`,
+      main: relationReading(named, relation.type, relation.resultConfirmed),
       expertNote: relation.resultConfirmed ? `천간 ${relation.type} · 합화 성립` : `천간 ${relation.type}`,
       weight: relationWeight(relation.type, relation.resultConfirmed),
     };
     (relation.type.includes('합') ? help : pace).push(item);
   }
   for (const relation of relations?.jiji ?? []) {
-    const gloss = RELATION_MEANINGS[relation.type] ?? '';
+    const named = relation.branches.map(branchWithElement);
     const item: SignalItem = {
       key: `jiji-${relation.type}-${relation.branches.join('')}`,
-      label: `${relation.branches.join('·')} ${relation.type}`,
-      main: `땅의 글자 ${relation.branches.join('과 ')}이 만나는 ${relation.type} 관계예요. ${gloss}`.trim(),
+      label: `${named.join('·')} ${relation.type}`,
+      main: relationReading(named, relation.type, relation.outcome != null),
       expertNote: relation.outcome ? `지지 ${relation.type} · ${relation.outcome}` : `지지 ${relation.type}`,
       weight: relationWeight(relation.type, relation.outcome != null),
     };
@@ -287,7 +320,7 @@ function buildSignalGroups(index: DeliveryIndex): SignalGroupSpec[] {
     blank.push({
       key: 'gongmang',
       label: '공망',
-      main: `${gongmang.voidBranches[0]}·${gongmang.voidBranches[1]} 자리가 비어 있어요. 그 영역은 준비를 한 번 더 하면 든든해요.`,
+      main: `${gongmang.voidBranches[0]}·${gongmang.voidBranches[1]}가 비어 있는 공망이에요. 도약 직전 자리가 헐거울 수 있으니, 준비를 남보다 한 번 더 하면 좋아요.`,
       expertNote: '일주 기준으로 계산한 빈 자리예요.',
       // 공망은 여백 신호 중 가장 또렷한 축이다.
       weight: 'mid',
@@ -298,13 +331,14 @@ function buildSignalGroups(index: DeliveryIndex): SignalGroupSpec[] {
     const listed = position.hiddenStems
       .map(hidden => `${hidden.stem}(${hidden.tenGod.label})`)
       .join(' · ');
+    const domain = PILLAR_DOMAIN[position.position] ?? '';
     // 본기가 뚜렷할수록(비중이 높을수록) 조금 더 또렷하게 본다.
     const maxRatio = Math.max(...position.hiddenStems.map(hidden => hidden.ratio));
     blank.push({
       key: `hidden-${position.position}`,
       label: `${PILLAR_KO[position.position]} 지장간`,
-      main: `${PILLAR_KO[position.position]} 땅의 글자 속에 ${listed}이 숨어 함께 작용해요.`,
-      expertNote: '겉으로 드러나지 않지만 때가 되면 힘을 내는 잠재예요.',
+      main: `${PILLAR_KO[position.position]} 땅의 글자 속에 숨은 천간이에요. ${domain}에서 드러날 재능의 원석이 여기 묻혀 있어요.`,
+      expertNote: `${listed} · 겉으로 드러나지 않지만 때가 되면 힘을 내는 잠재예요.`,
       weight: maxRatio >= 0.9 ? 'mid' : 'soft',
     });
   }
@@ -323,50 +357,60 @@ function buildSignalGroups(index: DeliveryIndex): SignalGroupSpec[] {
 }
 
 function InsightQuotes({ index }: { index: DeliveryIndex }) {
-  // undefined = 그룹의 가장 강한 신호를 기본으로 펼침, null = 사용자가 접음,
-  // string = 사용자가 고른 신호. 그룹 구성이 바뀌어도 기본값이 자연히 갱신된다.
-  const [picks, setPicks] = useState<Record<string, string | null>>({});
+  // 전체 칩 브라우저에서 눌러 연 신호(없으면 접힘).
+  const [selected, setSelected] = useState<string | null>(null);
   const groups = buildSignalGroups(index).filter(group => group.items.length > 0);
   if (groups.length === 0) return null;
+
+  // 위층: 강한 순으로 최대 6개를 골라 상담처럼 먼저 풀어 준다.
+  const all = groups.flatMap(group => group.items);
+  const highlights = [...all]
+    .sort((a, b) => WEIGHT_ORDER[a.weight] - WEIGHT_ORDER[b.weight])
+    .slice(0, 6);
+
   return (
     <div className="v3-card">
-      {groups.map(group => {
-        const effective = group.id in picks ? picks[group.id] : group.items[0].key;
-        const openItem = group.items.find(item => item.key === effective) ?? null;
-        return (
-          <div key={group.id} className="v3-signal-group">
-            <p className="v3-signal-title">
-              {group.title} <span className="v3-hint">— {group.sub}</span>
-            </p>
-            <div className="v3-signal-pills">
-              {group.items.map(item => (
-                <button
-                  key={item.key}
-                  type="button"
-                  className={`v3-signal-pill v3-signal-pill--${group.id} v3-signal-pill--${item.weight}`}
-                  aria-expanded={effective === item.key}
-                  onClick={() =>
-                    setPicks(prev => ({
-                      ...prev,
-                      [group.id]: prev[group.id] === item.key ? null : item.key,
-                    }))
-                  }
-                >
-                  {item.label}
-                </button>
-              ))}
-            </div>
-            {openItem ? (
-              <div style={{ marginTop: '0.6rem' }}>
-                <QuoteCard main={openItem.main} expertNote={openItem.expertNote} />
+      <div className="v3-signal-highlights">
+        {highlights.map(item => (
+          <QuoteCard key={item.key} main={item.main} expertNote={item.expertNote} />
+        ))}
+      </div>
+
+      <details className="v3-signal-browser" open>
+        <summary>원국 신호 전체 ({all.length})</summary>
+        <div className="v3-signal-browser-body">
+          {groups.map(group => (
+            <div key={group.id} className="v3-signal-group">
+              <p className="v3-signal-title">
+                {group.title} <span className="v3-hint">— {group.sub}</span>
+              </p>
+              <div className="v3-signal-pills">
+                {group.items.map(item => (
+                  <button
+                    key={item.key}
+                    type="button"
+                    className={`v3-signal-pill v3-signal-pill--${group.id} v3-signal-pill--${item.weight}`}
+                    aria-expanded={selected === item.key}
+                    onClick={() => setSelected(selected === item.key ? null : item.key)}
+                  >
+                    {item.label}
+                  </button>
+                ))}
               </div>
-            ) : null}
-          </div>
-        );
-      })}
-      <p className="v3-hint" style={{ margin: '0.7rem 0 0', textAlign: 'center' }}>
-        각 줄의 가장 또렷한 신호를 먼저 펼쳐 두었어요. 다른 신호를 누르면 그 풀이로 바뀌어요.
-      </p>
+              {group.items
+                .filter(item => item.key === selected)
+                .map(item => (
+                  <div key={item.key} style={{ marginTop: '0.6rem' }}>
+                    <QuoteCard main={item.main} expertNote={item.expertNote} />
+                  </div>
+                ))}
+            </div>
+          ))}
+          <p className="v3-hint" style={{ margin: '0.7rem 0 0', textAlign: 'center' }}>
+            신호를 누르면 풀이가 열려요.
+          </p>
+        </div>
+      </details>
     </div>
   );
 }
@@ -815,7 +859,7 @@ export default function SajuScreen() {
 
       <Section
         title="원국에서 눈에 띄는 신호"
-        lede="계산으로 실제 감지된 것만 보여드려요. 좋고 나쁨을 정하는 목록이 아니에요."
+        lede="특히 눈에 띄는 배치를 골라 먼저 풀어드려요. 계산으로 실제 감지된 것만 담았고, 좋고 나쁨을 정하는 목록이 아니에요."
       >
         <InsightQuotes index={index} />
         <div style={{ marginTop: 'var(--space-sm)' }}>

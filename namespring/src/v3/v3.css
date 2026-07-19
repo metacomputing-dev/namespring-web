@@ -1135,6 +1135,35 @@
   font-weight: 700;
 }
 
+/* ---------- 원국 신호: 큐레이션 + 전체 브라우저 ---------- */
+
+.v3-signal-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.v3-signal-browser {
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: var(--rule-thin) solid var(--color-rule);
+}
+
+.v3-signal-browser > summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--color-ink-2);
+  list-style-position: inside;
+}
+
+.v3-signal-browser > summary:hover {
+  color: var(--color-accent);
+}
+
+.v3-signal-browser-body {
+  margin-top: 0.9rem;
+}
+
 /* ---------- 원국 신호 3분류 ---------- */
 
 .v3-signal-group + .v3-signal-group {
