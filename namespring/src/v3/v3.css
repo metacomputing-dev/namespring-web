@@ -1351,9 +1351,9 @@
 
 /* 반 폭 카드 안에서도 그림이 읽히도록 렌더러의 모바일 기본 비율(4/3)로 고정한다. */
 .v3-scenery-mini {
+  /* 그림이 카드에 자연스럽게 스며들도록 테두리는 두지 않는다. */
   border-radius: var(--radius-input);
   overflow: hidden;
-  border: var(--rule-thin) solid var(--color-rule);
   aspect-ratio: 4 / 3;
   margin: 0.15rem 0 0.7rem;
 }
