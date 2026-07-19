@@ -2,6 +2,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import '../styles/tokens.css';
 import './v3.css';
 import { useThemeMode } from './theme';
+import { TermsProvider } from './ui/primitives';
 import HomeScreen from './screens/HomeScreen';
 import IntegratedScreen from './screens/IntegratedScreen';
 import SajuScreen from './screens/SajuScreen';
@@ -59,14 +60,16 @@ export default function SpringApp() {
           </button>
         </div>
       </header>
-      <Routes>
-        <Route path="/" element={<HomeScreen />} />
-        <Route path="/reports/integrated" element={<IntegratedScreen />} />
-        <Route path="/reports/saju" element={<SajuScreen />} />
-        <Route path="/reports/naming" element={<NamingScreen />} />
-        <Route path="/naming/candidates" element={<CandidatesScreen />} />
-        <Route path="*" element={<HomeScreen />} />
-      </Routes>
+      <TermsProvider>
+        <Routes>
+          <Route path="/" element={<HomeScreen />} />
+          <Route path="/reports/integrated" element={<IntegratedScreen />} />
+          <Route path="/reports/saju" element={<SajuScreen />} />
+          <Route path="/reports/naming" element={<NamingScreen />} />
+          <Route path="/naming/candidates" element={<CandidatesScreen />} />
+          <Route path="*" element={<HomeScreen />} />
+        </Routes>
+      </TermsProvider>
     </div>
   );
 }

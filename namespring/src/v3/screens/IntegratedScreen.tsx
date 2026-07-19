@@ -1,10 +1,207 @@
+import { Link } from 'react-router-dom';
+import type { ReportSurfaceSelectionV1 } from '@spring/report/delivery/types';
+import { useDelivery } from '../engine/useDelivery';
+import {
+  ELEMENT_KO,
+  factOfKind,
+  factsOfKind,
+  type DeliveryIndex,
+} from '../model/facts';
+import { fullHangulName, fullHanjaName, type V3Profile } from '../model/profile';
+import { ElementBadge, Loading, Section } from '../ui/primitives';
+
+const SURFACES: ReportSurfaceSelectionV1[] = [{ id: 'integrated', depth: 'standard' }];
+
+function meetingSentence(index: DeliveryIndex): { main: string; caution: string | null } | null {
+  const interaction = factOfKind(index, 'name_saju_interaction');
+  if (!interaction || interaction.classification === 'unavailable') return null;
+  const total = interaction.nameElements.length;
+  const yongshinKo = interaction.yongshinElement ? ELEMENT_KO[interaction.yongshinElement] : null;
+  const gishinKo = interaction.gishinElement ? ELEMENT_KO[interaction.gishinElement] : null;
+  let main: string;
+  if (interaction.yongshinMatchCount > 0 && yongshinKo) {
+    main = `이름 ${total}글자 가운데 ${interaction.yongshinMatchCount}글자가 사주가 반기는 ${yongshinKo} 기운과 같아요.`;
+  } else if (yongshinKo) {
+    main = `이름에 ${yongshinKo} 기운 글자가 직접 들어 있지는 않지만, 전체 오행 구성으로 어울림을 살펴봤어요.`;
+  } else {
+    main = '이름과 사주의 오행 구성을 나란히 살펴봤어요.';
+  }
+  const caution =
+    interaction.gishinMatchCount > 0 && gishinKo
+      ? `${gishinKo} 기운 글자 ${interaction.gishinMatchCount}개는 사주가 조심스러워하는 기운과 같아, 함께 읽어볼 지점이에요.`
+      : null;
+  return { main, caution };
+}
+
+function ElementCompareBars({ index }: { index: DeliveryIndex }) {
+  const distributions = factsOfKind(index, 'element_distribution');
+  const saju = distributions.find(fact => fact.source === 'saju');
+  const name = distributions.find(fact => fact.source === 'name');
+  if (!saju || !name) return null;
+  const share = (fact: typeof saju, element: string) =>
+    fact.values.find(value => value.element === element)?.sharePercent ?? 0;
+  return (
+    <div className="v3-compare">
+      {(['wood', 'fire', 'earth', 'metal', 'water'] as const).map(element => (
+        <div key={element} className="v3-compare-row">
+          <span className="v3-compare-label">{ELEMENT_KO[element]}</span>
+          <div className="v3-compare-tracks">
+            <div className="v3-compare-track">
+              <div
+                className="v3-compare-fill v3-compare-fill--saju"
+                style={{ width: `${share(saju, element)}%` }}
+              />
+            </div>
+            <div className="v3-compare-track">
+              <div
+                className="v3-compare-fill v3-compare-fill--name"
+                style={{ width: `${share(name, element)}%` }}
+              />
+            </div>
+          </div>
+          <span className="v3-compare-values">
+            {Math.round(share(saju, element))}·{Math.round(share(name, element))}%
+          </span>
+        </div>
+      ))}
+      <p className="v3-hint" style={{ marginTop: '0.4rem' }}>
+        위 줄이 사주, 아래 줄이 이름이에요. 서로 다른 자료라 각각 100% 안에서 나눠 보여요.
+      </p>
+    </div>
+  );
+}
+
+function NameSummaryCard({ index, profile }: { index: DeliveryIndex; profile: V3Profile }) {
+  const characters = factsOfKind(index, 'name_character');
+  return (
+    <div className="v3-card">
+      <p className="v3-kicker">이름에서 확인한 것</p>
+      {characters.length > 0 ? (
+        <ul className="v3-plain-list">
+          {characters.map(fact => (
+            <li key={fact.id}>
+              <strong>{fact.hangul}</strong>
+              {fact.hanja ? ` (${fact.hanja})` : ''}
+              {fact.meaning ? ` — ${fact.meaning}` : ''}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p style={{ margin: 0 }}>{fullHangulName(profile)}의 글자 구성을 확인했어요.</p>
+      )}
+      <Link to="/reports/naming" className="v3-button v3-button--ghost v3-button--wide" style={{ marginTop: '0.9rem' }}>
+        이름 자세히 보기
+      </Link>
+    </div>
+  );
+}
+
+function SajuSummaryCard({ index }: { index: DeliveryIndex }) {
+  const dayMaster = factOfKind(index, 'day_master');
+  const strength = factOfKind(index, 'strength');
+  const yongshin = factOfKind(index, 'yongshin');
+  return (
+    <div className="v3-card">
+      <p className="v3-kicker">사주에서 확인한 것</p>
+      <ul className="v3-plain-list">
+        {dayMaster ? (
+          <li>
+            나를 나타내는 글자는 <strong>{dayMaster.stem}</strong>
+            {dayMaster.element ? (
+              <>
+                {' '}
+                — <ElementBadge element={dayMaster.element} suffix="기운" />
+              </>
+            ) : null}
+          </li>
+        ) : null}
+        {strength ? <li>타고난 기운의 세기는 <strong>{strength.level}</strong> 쪽이에요.</li> : null}
+        {yongshin?.element ? (
+          <li>
+            사주가 반기는 기운은 <ElementBadge element={yongshin.element} suffix="기운" /> 이에요.
+          </li>
+        ) : null}
+      </ul>
+      <Link to="/reports/saju" className="v3-button v3-button--ghost v3-button--wide" style={{ marginTop: '0.9rem' }}>
+        사주 자세히 보기
+      </Link>
+    </div>
+  );
+}
+
 export default function IntegratedScreen() {
+  const state = useDelivery(SURFACES);
+  if (state.status === 'loading') {
+    return (
+      <main className="v3-page">
+        <Loading message="이름과 사주를 함께 읽고 있어요…" />
+      </main>
+    );
+  }
+  if (state.status === 'error') {
+    return (
+      <main className="v3-page">
+        <div className="v3-card">
+          <p style={{ margin: 0 }}>
+            보고서를 준비하지 못했어요. 입력을 다시 확인해 주시겠어요?
+          </p>
+          <Link to="/" className="v3-button" style={{ marginTop: '0.8rem' }}>
+            입력 화면으로
+          </Link>
+        </div>
+      </main>
+    );
+  }
+
+  const { index, profile } = state;
+  const hangulName = fullHangulName(profile);
+  const hanjaName = fullHanjaName(profile);
+  const meeting = meetingSentence(index);
+  const offers = index.delivery.offers;
+
   return (
     <main className="v3-page">
       <div className="v3-page-head">
         <p className="v3-kicker">통합 보고서</p>
-        <h1 className="v3-page-title">이름과 사주가 만나는 이야기</h1>
+        <h1 className="v3-page-title">
+          {hangulName}
+          {hanjaName ? <span className="v3-title-hanja"> {hanjaName}</span> : null}
+        </h1>
+        {meeting ? <p className="v3-page-lede">{meeting.main}</p> : null}
       </div>
+
+      {meeting?.caution ? (
+        <div className="v3-card v3-card--tinted">
+          <p style={{ margin: 0 }}>{meeting.caution}</p>
+        </div>
+      ) : null}
+
+      <Section title="이름과 사주, 나란히 보기" lede="같은 크기로 두고 서로 다른 계산을 억지로 합치지 않았어요.">
+        <div className="v3-grid-2">
+          <NameSummaryCard index={index} profile={profile} />
+          <SajuSummaryCard index={index} />
+        </div>
+      </Section>
+
+      <Section title="오행으로 견주어 보기">
+        <div className="v3-card">
+          <ElementCompareBars index={index} />
+        </div>
+      </Section>
+
+      {offers.length > 0 ? (
+        <Section title="이야기 완성하기">
+          <div className="v3-card v3-card--hero">
+            <p style={{ margin: 0 }}>
+              무료 결과가 방향을 보여 준다면, 완성 리포트는 왜 이 이름과 흐름이 나에게
+              닿는지 문장으로 이어 줍니다.
+            </p>
+            <button type="button" className="v3-button" style={{ marginTop: '0.9rem' }} disabled>
+              곧 열려요
+            </button>
+          </div>
+        </Section>
+      ) : null}
     </main>
   );
 }

@@ -365,6 +365,474 @@
   }
 }
 
+/* ---------- 모달 ---------- */
+
+.v3-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm);
+  background: oklch(0.2 0.02 145 / 0.35);
+  backdrop-filter: blur(6px);
+}
+
+.v3-modal {
+  width: min(26rem, 100%);
+  max-height: min(34rem, 86vh);
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  background: var(--color-paper-2);
+  border: var(--rule-thin) solid var(--color-rule);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 1rem;
+}
+
+.v3-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.v3-modal-list {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-height: 6rem;
+}
+
+.v3-hanja-option {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius-input);
+  border: var(--rule-thin) solid var(--color-rule);
+  background: var(--color-paper);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.v3-hanja-option:hover {
+  background: var(--color-accent-quiet);
+  border-color: var(--color-accent-soft);
+}
+
+.v3-hanja-glyph {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  line-height: 1;
+  flex-shrink: 0;
+  color: var(--color-ink);
+}
+
+.v3-hanja-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.v3-hanja-meaning {
+  font-weight: 600;
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+}
+
+/* ---------- 입력 폼 ---------- */
+
+.v3-char-slots {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.v3-char-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  min-width: 4.6rem;
+  padding: 0.6rem 0.5rem;
+  border-radius: var(--radius-input);
+  border: var(--rule-thin) dashed var(--color-rule-strong);
+  background: var(--color-paper);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.v3-char-slot--filled {
+  border-style: solid;
+  border-color: var(--color-accent-soft);
+  background: var(--color-paper-2);
+}
+
+.v3-char-slot .v3-char-glyph {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  line-height: 1.2;
+  color: var(--color-ink);
+}
+
+.v3-segment {
+  display: inline-flex;
+  border: var(--rule-thin) solid var(--color-rule-strong);
+  border-radius: var(--radius-input);
+  overflow: hidden;
+}
+
+.v3-segment button {
+  padding: 0.55rem 1.1rem;
+  border: 0;
+  background: var(--color-paper-2);
+  color: var(--color-ink-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.v3-segment button[aria-pressed='true'] {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+.v3-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+  cursor: pointer;
+}
+
+.v3-check input {
+  width: 1.05rem;
+  height: 1.05rem;
+  accent-color: var(--color-accent);
+}
+
+.v3-form-row {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.v3-form-row > .v3-field {
+  flex: 1 1 10rem;
+}
+
+/* ---------- 제목 한자 병기 ---------- */
+
+.v3-title-hanja {
+  font-size: 0.62em;
+  font-weight: 500;
+  color: var(--color-ink-3);
+}
+
+/* ---------- 평문 리스트 ---------- */
+
+.v3-plain-list {
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  color: var(--color-ink-2);
+  font-size: var(--text-md);
+}
+
+/* ---------- 오행 이중 막대 ---------- */
+
+.v3-compare {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.v3-compare-row {
+  display: grid;
+  grid-template-columns: 2rem 1fr 4.2rem;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.v3-compare-label {
+  font-weight: 700;
+  color: var(--color-ink-2);
+  text-align: center;
+}
+
+.v3-compare-tracks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.22rem;
+}
+
+.v3-compare-track {
+  height: 0.5rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-paper-sunken);
+  overflow: hidden;
+}
+
+.v3-compare-fill {
+  height: 100%;
+  border-radius: inherit;
+  transition: width var(--dur-slow) var(--ease-out);
+}
+
+.v3-compare-fill--saju { background: var(--color-accent); }
+.v3-compare-fill--name { background: var(--color-earth); }
+
+.v3-compare-values {
+  font-size: var(--text-xs);
+  color: var(--color-ink-3);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 오행 글자색 ---------- */
+
+.v3-el-wood { color: var(--color-wood); }
+.v3-el-fire { color: var(--color-fire); }
+.v3-el-earth { color: var(--color-earth); }
+.v3-el-metal { color: var(--color-metal); }
+.v3-el-water { color: var(--color-water); }
+.v3-el-none { color: var(--color-ink); }
+
+/* ---------- 원국표 ---------- */
+
+.v3-pillars {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.6rem;
+  text-align: center;
+}
+
+.v3-pillar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.7rem 0.3rem;
+  border-radius: var(--radius-input);
+  background: var(--color-paper);
+  border: var(--rule-thin) solid var(--color-rule);
+}
+
+.v3-pillar-glyph {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.v3-pillar-glyph small {
+  font-size: 0.62em;
+  font-weight: 500;
+  opacity: 0.75;
+}
+
+/* ---------- 핵심 카드 ---------- */
+
+.v3-core-value {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 0.35rem 0;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+/* ---------- 음양 저울 ---------- */
+
+.v3-yinyang-track {
+  height: 0.7rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-paper-sunken);
+  overflow: hidden;
+  margin-top: 0.55rem;
+}
+
+.v3-yinyang-yang {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-earth), var(--color-fire));
+  border-radius: inherit;
+}
+
+/* ---------- 표 ---------- */
+
+.v3-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+  font-size: var(--text-sm);
+}
+
+.v3-table th,
+.v3-table td {
+  padding: 0.45rem 0.6rem;
+  border: var(--rule-thin) solid var(--color-rule);
+  text-align: center;
+}
+
+.v3-table thead th {
+  background: var(--color-paper-3);
+  font-weight: 700;
+}
+
+.v3-table tbody th {
+  background: var(--color-paper-3);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ---------- 대운 이정표 ---------- */
+
+.v3-daeun-road {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.4rem;
+}
+
+.v3-daeun-stop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  min-width: 4.4rem;
+  padding: 0.6rem 0.45rem;
+  border-radius: var(--radius-input);
+  border: var(--rule-thin) solid var(--color-rule);
+  background: var(--color-paper);
+  flex-shrink: 0;
+}
+
+.v3-daeun-stop--now {
+  border-color: var(--color-accent);
+  background: var(--color-accent-quiet);
+  box-shadow: var(--shadow-1);
+}
+
+.v3-daeun-ganji {
+  display: flex;
+  gap: 0.15rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* ---------- 기간 운세 ---------- */
+
+.v3-fortune-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-sm);
+}
+
+@media (max-width: 46rem) {
+  .v3-fortune-grid { grid-template-columns: 1fr; }
+}
+
+.v3-fortune-cell-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+/* ---------- 이름 글자 카드 ---------- */
+
+.v3-char-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: var(--space-sm);
+}
+
+.v3-char-card {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.v3-char-card-glyph {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.4rem;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  line-height: 1.1;
+}
+
+.v3-char-card-glyph small {
+  font-size: 0.4em;
+  font-weight: 500;
+  color: var(--color-ink-3);
+}
+
+.v3-char-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+/* ---------- 소리 흐름 ---------- */
+
+.v3-sound-flow {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.v3-sound-syllable {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.7rem;
+  height: 2.7rem;
+  border-radius: 50%;
+  border: var(--rule-thin) solid var(--color-rule-strong);
+  background: var(--color-paper);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.v3-sound-link {
+  display: inline-block;
+  width: 1.6rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-accent-soft);
+}
+
+.v3-sound-link--watch {
+  background: var(--color-warn);
+  height: 3px;
+}
+
 /* ---------- 로딩 ---------- */
 
 .v3-loading {
