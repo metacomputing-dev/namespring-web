@@ -1135,6 +1135,62 @@
   font-weight: 700;
 }
 
+/* ---------- 원국 신호 3분류 ---------- */
+
+.v3-signal-group + .v3-signal-group {
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: var(--rule-thin) solid var(--color-rule);
+}
+
+.v3-signal-title {
+  margin: 0 0 0.55rem;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.v3-signal-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.v3-signal-pill {
+  padding: 0.32rem 0.8rem;
+  border-radius: var(--radius-pill);
+  border: var(--rule-thin) solid var(--color-rule);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: filter var(--dur-fast) var(--ease-out);
+}
+
+.v3-signal-pill:hover { filter: brightness(0.97); }
+
+.v3-signal-pill--help {
+  background: var(--color-success-bg);
+  border-color: var(--color-success-line);
+  color: var(--color-success);
+}
+
+.v3-signal-pill--pace {
+  background: var(--color-warn-bg);
+  border-color: var(--color-warn-line);
+  color: var(--color-warn);
+}
+
+.v3-signal-pill--blank {
+  background: var(--color-neutral-bg);
+  border-color: var(--color-neutral-line);
+  color: var(--color-neutral);
+}
+
+.v3-signal-pill[aria-expanded='true'] {
+  outline: 2px solid currentColor;
+  outline-offset: 1px;
+}
+
 /* ---------- 매뉴얼 항목 ---------- */
 
 .v3-topic {

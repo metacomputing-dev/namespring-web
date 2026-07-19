@@ -20,6 +20,7 @@ import {
   PILLAR_KO,
   RELATION_MEANINGS,
   SEONGPAE_KO,
+  SHINSAL_BENEFIC,
   SHINSAL_MEANINGS,
   TEN_GOD_KO,
   UNSEONG_GLOSS,
@@ -194,77 +195,133 @@ function YinYangCard({ index }: { index: DeliveryIndex }) {
 
 /* ---------- 구조 인사이트 ---------- */
 
-function InsightQuotes({ index }: { index: DeliveryIndex }) {
+interface SignalItem {
+  key: string;
+  label: string;
+  main: string;
+  expertNote?: string;
+}
+
+interface SignalGroupSpec {
+  id: 'help' | 'pace' | 'blank';
+  title: string;
+  sub: string;
+  items: SignalItem[];
+}
+
+/** 레거시의 도움·완급·여백 3분류를 delivery fact 위에서 되살린다. */
+function buildSignalGroups(index: DeliveryIndex): SignalGroupSpec[] {
   const shinsal = factOfKind(index, 'shinsal_hits');
   const gongmang = factOfKind(index, 'gongmang');
   const relations = factOfKind(index, 'natal_relations');
-  const quotes: { key: string; main: string; expertNote?: string; tags?: string[] }[] = [];
+  const tenGod = factOfKind(index, 'ten_god_analysis');
 
-  const sortedHits = [...(shinsal?.hits ?? [])].sort((a, b) => {
-    const gradeGap = a.grade.localeCompare(b.grade);
-    if (gradeGap !== 0) return gradeGap;
-    const aKnown = SHINSAL_MEANINGS[a.name] ? 0 : 1;
-    const bKnown = SHINSAL_MEANINGS[b.name] ? 0 : 1;
-    return aKnown - bKnown;
-  });
-  for (const hit of sortedHits) {
+  const help: SignalItem[] = [];
+  const pace: SignalItem[] = [];
+  const blank: SignalItem[] = [];
+
+  const seenShinsal = new Set<string>();
+  for (const hit of shinsal?.hits ?? []) {
+    if (seenShinsal.has(hit.name)) continue;
+    seenShinsal.add(hit.name);
     const meaning = SHINSAL_MEANINGS[hit.name];
-    quotes.push({
-      key: `shinsal-${hit.name}-${hit.calculationBasis.label}`,
-      main: meaning ? `${hit.name} — ${meaning}` : `${hit.name}이 자리해요.`,
+    const item: SignalItem = {
+      key: `shinsal-${hit.name}`,
+      label: hit.name,
+      main: meaning ?? `${hit.name}이 자리해요. 뜻풀이는 준비하고 있어요.`,
       expertNote: `${hit.calculationBasis.label} 기준 · ${hit.occurrenceCount}곳`,
-      tags: ['신살'],
-    });
+    };
+    (SHINSAL_BENEFIC.has(hit.name) ? help : pace).push(item);
   }
-  if (gongmang) {
-    quotes.push({
-      key: 'gongmang',
-      main: `${gongmang.voidBranches[0]}·${gongmang.voidBranches[1]} 자리가 비어 있는 공망이에요. 그 영역은 준비를 한 번 더 하면 든든해요.`,
-      expertNote: '일주 기준으로 계산한 빈 자리예요.',
-      tags: ['공망'],
-    });
-  }
+
   for (const relation of relations?.cheongan ?? []) {
-    const gloss = RELATION_MEANINGS[relation.type];
-    quotes.push({
+    const gloss = RELATION_MEANINGS[relation.type] ?? '';
+    const item: SignalItem = {
       key: `cheongan-${relation.type}-${relation.stems.join('')}`,
-      main: `하늘 글자 ${relation.stems.join('과 ')}이(가) ${relation.type} 관계예요. ${gloss ?? ''}`.trim(),
-      expertNote: relation.resultElement
-        ? `천간 ${relation.type}${relation.resultConfirmed ? ' · 합화 성립' : ''}`
-        : `천간 ${relation.type}`,
-      tags: ['천간 관계'],
-    });
+      label: `${relation.stems.join('·')} ${relation.type}`,
+      main: `하늘 글자 ${relation.stems.join('과 ')}이 만나는 ${relation.type} 관계예요. ${gloss}`.trim(),
+      expertNote: relation.resultConfirmed ? `천간 ${relation.type} · 합화 성립` : `천간 ${relation.type}`,
+    };
+    (relation.type.includes('합') ? help : pace).push(item);
   }
   for (const relation of relations?.jiji ?? []) {
-    const gloss = RELATION_MEANINGS[relation.type];
-    quotes.push({
+    const gloss = RELATION_MEANINGS[relation.type] ?? '';
+    const item: SignalItem = {
       key: `jiji-${relation.type}-${relation.branches.join('')}`,
-      main: `땅의 글자 ${relation.branches.join('과 ')}이(가) ${relation.type} 관계예요. ${gloss ?? ''}`.trim(),
+      label: `${relation.branches.join('·')} ${relation.type}`,
+      main: `땅의 글자 ${relation.branches.join('과 ')}이 만나는 ${relation.type} 관계예요. ${gloss}`.trim(),
       expertNote: relation.outcome ? `지지 ${relation.type} · ${relation.outcome}` : `지지 ${relation.type}`,
-      tags: ['지지 관계'],
+    };
+    (relation.type.includes('합') ? help : pace).push(item);
+  }
+
+  if (gongmang) {
+    blank.push({
+      key: 'gongmang',
+      label: '공망',
+      main: `${gongmang.voidBranches[0]}·${gongmang.voidBranches[1]} 자리가 비어 있어요. 그 영역은 준비를 한 번 더 하면 든든해요.`,
+      expertNote: '일주 기준으로 계산한 빈 자리예요.',
+    });
+  }
+  for (const position of tenGod?.positions ?? []) {
+    if (position.hiddenStems.length === 0) continue;
+    const listed = position.hiddenStems
+      .map(hidden => `${hidden.stem}(${hidden.tenGod.label})`)
+      .join(' · ');
+    blank.push({
+      key: `hidden-${position.position}`,
+      label: `${PILLAR_KO[position.position]} 지장간`,
+      main: `${PILLAR_KO[position.position]} 땅의 글자 속에 ${listed}이 숨어 함께 작용해요.`,
+      expertNote: '겉으로 드러나지 않지만 때가 되면 힘을 내는 잠재예요.',
     });
   }
 
-  if (quotes.length === 0) return null;
-  const [head, rest] = [quotes.slice(0, 5), quotes.slice(5)];
+  return [
+    { id: 'help', title: '도움의 신호', sub: '힘이 되어 주는 배치', items: help },
+    { id: 'pace', title: '완급의 신호', sub: '속도를 챙기면 무기가 되는 배치', items: pace },
+    { id: 'blank', title: '여백의 신호', sub: '비움과 잠재의 배치', items: blank },
+  ];
+}
+
+function InsightQuotes({ index }: { index: DeliveryIndex }) {
+  const [selected, setSelected] = useState<string | null>(null);
+  const groups = buildSignalGroups(index);
+  if (groups.every(group => group.items.length === 0)) return null;
   return (
-    <>
-      {head.map(quote => (
-        <QuoteCard key={quote.key} main={quote.main} expertNote={quote.expertNote} tags={quote.tags} />
-      ))}
-      {rest.length > 0 ? (
-        <details style={{ marginTop: '0.6rem' }}>
-          <summary className="v3-hint" style={{ cursor: 'pointer' }}>
-            나머지 신호 {rest.length}개 더 보기
-          </summary>
-          <div style={{ marginTop: '0.6rem' }}>
-            {rest.map(quote => (
-              <QuoteCard key={quote.key} main={quote.main} expertNote={quote.expertNote} tags={quote.tags} />
-            ))}
+    <div className="v3-card">
+      {groups.map(group =>
+        group.items.length === 0 ? null : (
+          <div key={group.id} className="v3-signal-group">
+            <p className="v3-signal-title">
+              {group.title} <span className="v3-hint">— {group.sub}</span>
+            </p>
+            <div className="v3-signal-pills">
+              {group.items.map(item => (
+                <button
+                  key={item.key}
+                  type="button"
+                  className={`v3-signal-pill v3-signal-pill--${group.id}`}
+                  aria-expanded={selected === item.key}
+                  onClick={() => setSelected(selected === item.key ? null : item.key)}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+            {group.items
+              .filter(item => item.key === selected)
+              .map(item => (
+                <div key={item.key} style={{ marginTop: '0.6rem' }}>
+                  <QuoteCard main={item.main} expertNote={item.expertNote} />
+                </div>
+              ))}
           </div>
-        </details>
-      ) : null}
-    </>
+        ),
+      )}
+      <p className="v3-hint" style={{ margin: '0.7rem 0 0', textAlign: 'center' }}>
+        신호를 누르면 풀이가 열려요.
+      </p>
+    </div>
   );
 }
 
