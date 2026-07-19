@@ -9,6 +9,16 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return !!value && typeof value === 'object' && !Array.isArray(value);
 }
 
+/** Fully defaulted product policy recorded with each successful calculation. */
+export interface EffectiveSajuTimePolicy {
+  readonly trueSolarTime: PolicyToggle;
+  readonly longitudeCorrection: PolicyToggle;
+  readonly longitudeReference: 'off' | 'civilOffsetMeridian' | 'legacyPreset';
+  readonly explicitLocationRequired: boolean;
+  readonly yaza: PolicyToggle;
+  readonly yazaMode: '23:00' | '23:30';
+}
+
 export type LegacyLongitudeCorrectionPolicy =
   | { readonly mode: 'off' }
   | { readonly mode: 'civilOffsetMeridian' }
@@ -123,6 +133,33 @@ function resolvePolicyToggle(value: unknown, fallback: PolicyToggle): PolicyTogg
   return value === 'on' || value === 'off' ? value : fallback;
 }
 
+/** Resolves the single authoritative policy used by config and provenance. */
+export function resolveEffectiveSajuTimePolicy(
+  options: SpringRequest['options'] | undefined,
+): EffectiveSajuTimePolicy {
+  const requested = options?.sajuTimePolicy;
+  const trueSolarTime = resolvePolicyToggle(requested?.trueSolarTime, 'off');
+  const longitudeCorrection = resolvePolicyToggle(
+    requested?.longitudeCorrection,
+    'on',
+  );
+  const yaza = resolvePolicyToggle(requested?.yaza, 'on');
+  return {
+    trueSolarTime,
+    longitudeCorrection,
+    longitudeReference: longitudeCorrection === 'off'
+      ? 'off'
+      : requested?.longitudeReference ?? 'civilOffsetMeridian',
+    explicitLocationRequired:
+      requested?.trueSolarTime === 'on'
+      || requested?.longitudeCorrection === 'on'
+      || (longitudeCorrection === 'on'
+        && requested?.longitudeReference !== undefined),
+    yaza,
+    yazaMode: requested?.yazaMode === '23:30' ? '23:30' : '23:00',
+  };
+}
+
 /** Runtime validation for the public JSON/API time-policy surface. */
 export function isValidSajuTimePolicy(
   options: SpringRequest['options'] | undefined,
@@ -151,7 +188,18 @@ export function isValidSajuTimePolicy(
 export function isLongitudeCorrectionEnabled(
   options: SpringRequest['options'] | undefined,
 ): boolean {
-  return resolvePolicyToggle(options?.sajuTimePolicy?.longitudeCorrection, 'on') === 'on';
+  return resolveEffectiveSajuTimePolicy(options).longitudeCorrection === 'on';
+}
+
+/**
+ * Compatibility callers that omit a time policy retain the historical Seoul
+ * default. An explicitly requested physical-time correction is different: it
+ * must be tied to an explicitly resolved birth location.
+ */
+export function requiresExplicitBirthLocationForTimePolicy(
+  options: SpringRequest['options'] | undefined,
+): boolean {
+  return resolveEffectiveSajuTimePolicy(options).explicitLocationRequired;
 }
 
 /** Maps Spring's product policy onto the saju-ts legacy compatibility seam. */
@@ -159,18 +207,15 @@ export function toLegacySajuTimePolicyConfig(
   options: SpringRequest['options'] | undefined,
   legacyPresetMeridian?: number,
 ): LegacySajuTimePolicyPatch {
-  const policy = options?.sajuTimePolicy;
-
   // Product defaults (audit decision 2026-07-08): longitude correction on,
   // equation-of-time off, and zi-split at 23:00. The longitude reference is
   // now independent from the selected interpretive school.
-  const trueSolarTime = resolvePolicyToggle(policy?.trueSolarTime, 'off');
-  const longitudeCorrection = resolvePolicyToggle(policy?.longitudeCorrection, 'on');
-  const yaza = resolvePolicyToggle(policy?.yaza, 'on');
-  const trueSolarTimeEnabled = trueSolarTime === 'on' || longitudeCorrection === 'on';
-  const longitudeCorrectionPolicy = longitudeCorrection === 'off'
+  const policy = resolveEffectiveSajuTimePolicy(options);
+  const trueSolarTimeEnabled =
+    policy.trueSolarTime === 'on' || policy.longitudeCorrection === 'on';
+  const longitudeCorrectionPolicy = policy.longitudeCorrection === 'off'
     ? { mode: 'off' as const }
-    : policy?.longitudeReference === 'legacyPreset'
+    : policy.longitudeReference === 'legacyPreset'
       ? Number.isFinite(legacyPresetMeridian)
         ? {
             mode: 'fixedMeridian' as const,
@@ -181,22 +226,22 @@ export function toLegacySajuTimePolicyConfig(
           })()
       : { mode: 'civilOffsetMeridian' as const };
 
-  if (yaza === 'off') {
+  if (policy.yaza === 'off') {
     return {
       trueSolarTimeEnabled,
-      includeEquationOfTime: trueSolarTime === 'on',
+      includeEquationOfTime: policy.trueSolarTime === 'on',
       longitudeCorrectionPolicy,
       yazaEnabled: false,
       dayCutMode: 'MIDNIGHT_00',
     };
   }
 
-  const yazaMode = policy?.yazaMode === '23:30'
+  const yazaMode = policy.yazaMode === '23:30'
     ? 'YAZA_23_30_TO_01_30_NEXTDAY' as const
     : 'YAZA_23_TO_01_NEXTDAY' as const;
   return {
     trueSolarTimeEnabled,
-    includeEquationOfTime: trueSolarTime === 'on',
+    includeEquationOfTime: policy.trueSolarTime === 'on',
     longitudeCorrectionPolicy,
     yazaEnabled: true,
     yazaMode,
@@ -250,10 +295,9 @@ export function applyAuthoritativeSajuTimePolicyConfig(
     trueSolarTime,
     PRODUCT_TRUE_SOLAR_KEYS,
   );
-  const equationOfTime =
-    resolvePolicyToggle(options?.sajuTimePolicy?.trueSolarTime, 'off') === 'on'
-      ? 'precise'
-      : 'off';
+  const equationOfTime = resolveEffectiveSajuTimePolicy(options).trueSolarTime === 'on'
+    ? 'precise'
+    : 'off';
 
   return {
     ...config,

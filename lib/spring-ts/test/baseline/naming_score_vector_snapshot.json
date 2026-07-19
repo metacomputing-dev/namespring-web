@@ -4,23 +4,23 @@
     "fullHangul": "최성수",
     "fullHanja": "崔成秀",
     "scores": {
-      "final": 56.2,
+      "final": 56.1,
       "naming": 62.6,
-      "saju": 35.495945
+      "saju": 35.401571
     },
     "scoreVector": {
-      "legal": 75,
-      "sajuFit": 35.5,
-      "yongshinFit": 25.6,
+      "legal": 100,
+      "sajuFit": 35.4,
+      "yongshinFit": 24.6,
       "elementBalance": 60.5,
       "hanjaMeaning": 100,
       "phonetic": 98.2,
       "eraFit": null,
       "familyFit": 100,
-      "risk": 25
+      "risk": 5
     },
     "namingScoreVector": {
-      "legal": 75,
+      "legal": 100,
       "sajuFit": null,
       "yongshinFit": null,
       "elementBalance": 65,
@@ -28,7 +28,7 @@
       "phonetic": 98.2,
       "eraFit": null,
       "familyFit": 100,
-      "risk": 25
+      "risk": 1.8
     }
   },
   {
@@ -36,14 +36,14 @@
     "fullHangul": "박민준",
     "fullHanja": "",
     "scores": {
-      "final": 65.5,
+      "final": 66.2,
       "naming": 75,
-      "saju": 56.354052
+      "saju": 57.402059
     },
     "scoreVector": {
       "legal": 100,
-      "sajuFit": 56.4,
-      "yongshinFit": 50.6,
+      "sajuFit": 57.4,
+      "yongshinFit": 42.4,
       "elementBalance": 66.8,
       "hanjaMeaning": null,
       "phonetic": 87.4,

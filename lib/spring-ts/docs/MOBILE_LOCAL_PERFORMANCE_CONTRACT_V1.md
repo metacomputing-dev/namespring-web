@@ -22,7 +22,7 @@ Worker를 사용할 수 없는 환경에서는 UI 스레드에서 조용히 무�
 - 모든 메시지에 UI가 만든 단조 증가 `requestId`를 붙인다. 새 요청 뒤 늦게 도착한 응답은 UI가 폐기한다. `queryId`는 엔진 후보 스냅샷 전용이며 URL, 쿠키, 분석 영속 ID 또는 유료 권한으로 사용하지 않는다.
 - `close()`는 Worker 종료, 로컬 프로필 변경, 로그아웃 후 개인 로컬 상태 삭제, 전체 데이터 초기화에서 호출한다. 탭 전환이나 단일 요청 무시를 위해 매번 호출하지 않는다. `close()`는 진행 중 operation과 4개 LRU 후보 스냅샷, 이름 통계 캐시, 저장소 자원을 함께 무효화한다.
 - 계산 중 UI 취소는 우선 stale-response 폐기로 처리한다. 즉시 메모리 폐기가 필요할 때만 Worker 자체를 종료하고 새 Worker를 만든다.
-- 후보 필터는 128개, 후보의 무거운 평가 구간은 16개마다 `scheduler.yield()` 또는 timer turn으로 양보한다. 이 양보는 점수, 정렬, `rank`, `candidateId`, 의미 결과를 바꾸지 않으며 Worker 내부 취소·메시지 처리 지연을 제한하기 위한 것이다.
+- 후보 필터는 128개, 후보의 무거운 평가 구간은 16개마다 `scheduler.yield()`, `MessageChannel`, 최후 수단인 timer turn 순서로 양보한다. 이 양보는 점수, 정렬, `rank`, `candidateId`, 의미 결과를 바꾸지 않으며 Worker 내부 취소·메시지 처리 지연을 제한하기 위한 것이다.
 - Worker 메시지와 로그에는 생년월일, 이름, 한자, 원문 보고서를 남기지 않는다. 성능 telemetry가 필요하면 구간명, 익명 버전, 소요시간, 바이트, 성공/오류 코드만 수집하고 별도 동의를 적용한다.
 
 ## 로딩·선행 준비 경계
@@ -61,6 +61,7 @@ Fourframe·NameStat 저장소와 saju 구현 입력은 0개다.
 
 - 자동 작명은 현재 1~2음절만 허용한다. 3~4음절 자동 추천은 DB 조회와 후보 생성 전에 실패하며, 사용자가 확정한 3~4음절 이름의 분석은 별도 경로로 지원한다.
 - 첫 페이지는 결정론적 전체 순서를 한 번 계산하고 최대 500개 요약만 보관한다. 응답 페이지 기본값은 20개, 요청 상한은 100개다.
+- 페이지네이션을 제외한 분석 입력이 정확히 같은 첫 페이지 재요청은 보관 중인 스냅샷과 `queryId`를 재사용한다. 출생·성명·분석 옵션이 달라지면 별도 검색이며 기존 스냅샷을 공유하지 않는다.
 - 엔진은 후보 검색 스냅샷을 최대 4개만 LRU로 보관한다. 따라서 보관 가능한 요약의 이론상 상한은 엔진당 2,000개다.
 - 다음 페이지는 동일 `queryId`의 스냅샷을 slice하며 저장소 조회나 재채점을 수행하지 않는다. `close()` 또는 LRU 축출 뒤에는 명시적으로 첫 페이지를 다시 요청한다.
 - 501번째 후보는 look-ahead로 `truncated` 판단에만 쓰고 탐색 가능한 목록에는 보관하지 않는다.
@@ -80,7 +81,7 @@ npm run bench:mobile-local-contracts
 - 실제 로컬 asset read 바이트와 repository operation 횟수
 - volatile ID·시각을 제외한 semantic digest
 
-시간과 heap 수치는 개발 호스트의 특성치이며 CI 합격선이나 모바일 SLA가 아니다. 머신 부하와 `tsx` 개발 로더 영향을 받는다. CI에서는 출력 바이트, 페이지 개수, digest 결정성, warm·pagination asset read 0회, pagination repository operation 0회, exact shard/import 경계처럼 안정적인 조건만 검사한다.
+시간과 heap 수치는 개발 호스트의 특성치이며 CI 합격선이나 모바일 SLA가 아니다. 머신 부하와 `tsx` 개발 로더 영향을 받는다. CI에서는 출력 바이트, 페이지 개수, digest 결정성, warm·pagination asset read 0회, 반복 first-page와 pagination의 repository operation 0회, exact shard/import 경계처럼 안정적인 조건만 검사한다.
 
 ### 2026-07-19 기준 특성치
 
@@ -106,6 +107,17 @@ Windows x64, Node 22.18.0, i9-12900K, 128 GiB 호스트에서 cold 5회와 warm 
 최초 이름 보고서는 Hanja 376,832 bytes와 Fourframe 802,816 bytes를 읽었다. 최초 통합·후보 계산은 여기에 NameStat 310,611 bytes를 더 읽었다. 사주 전용 계산은 이름 DB를 읽지 않았다. 모든 warm 표본의 asset read는 0회였고 pagination은 asset read와 repository operation 모두 0회였다. 1음절 후보 cold는 NameStat 45건, 2음절은 618건을 조회했지만 warm 반복에서는 엔진 캐시로 NameStat repository 호출이 0회였다. 모든 반복과 독립 cold 프로세스에서 volatile ID·시각을 제외한 semantic digest가 같았다.
 
 가장 중요한 관찰은 cold 사주·통합의 약 0.65~0.69초 timer 지연과 warm 후보 첫 페이지의 약 0.15초 timer 지연이다. 고성능 데스크톱의 값조차 UI 프레임 예산을 크게 넘으므로 미측정 모바일에서 메인 스레드 실행을 허용할 근거가 없다. Worker 분리는 출시 필수이며, yield 지점은 Worker 내부의 취소 응답성을 보완할 뿐 메인 스레드 직접 실행을 정당화하지 않는다.
+
+### 법적 한자·회상 근거 확장 후 2음절 후보 재측정
+
+후보 응답에 법적 한자 정체성, 복수 한자 변형, 의미·인기도·음운·가족 조화 근거를 확장한 뒤 같은 호스트에서 cold 3회와 warm 5회를 다시 측정했다. 최적화 전후 모두 20개 응답은 33,137 bytes(32.36 KiB)였고 semantic digest는 `a77d8f6a0d482218c5a81ba8df3d80fc73cf8a74c241afd3f47ff509a1ceb016`으로 같았다.
+
+| 상태 | 최적화 전 median / p95 ms | 최적화 후 median / p95 ms | NameStat `findByName` |
+| --- | ---: | ---: | ---: |
+| cold | 2,706.18 / 2,733.03 | 1,843.93 / 1,881.31 | 1,075 |
+| warm | 1,820.03 / 1,821.41 | 1.89 / 2.49 | 0 |
+
+cold는 후보 풀이나 판정 근거를 줄이지 않고 timer-clamped yield를 macrotask yield로 바꿔 31.9% 단축했다. warm은 같은 분석의 불변 스냅샷을 4개 LRU 안에서 재사용해 저장소 조회와 재채점을 모두 0회로 만들었다. 1,075건은 성별·희소성으로 삭제하지 않은 서로 다른 2음절 한글 이름의 cold 조회 수이며, 같은 한글 이름의 여러 한자 변형은 요청 내부에서 한 번만 조회한다. 이 데스크톱 수치는 실기기 SLA가 아니며, 확대된 후보 근거 때문에 최초 cold는 이전의 더 작은 응답·후보 계약과 직접 동등 비교할 수 없다.
 
 ## 출시 전 실기기 게이트
 

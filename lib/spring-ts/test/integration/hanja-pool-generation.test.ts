@@ -108,6 +108,30 @@ const fullWithSyntheticAvoid = await engine.generateCandidates({
   ...baseRequest,
   options: { precisionConfig: { hanjaPool: 'inmyeongyong_full' } },
 }, avoidSyntheticSummary);
+const readySyntheticAvoidSummary = {
+  ...avoidSyntheticSummary,
+  axisStrength: {
+    strength: 'definite',
+    gyeokguk: 'definite',
+    yongshin: 'practical',
+  },
+  gyeokguk: {
+    type: 'fixture',
+    category: 'general',
+    baseTenGod: 'fixture',
+    confidence: 0.7,
+    reasoning: 'fixture',
+  },
+  yongshin: {
+    ...avoidSyntheticSummary.yongshin,
+    confidence: 70,
+    warnings: [],
+  },
+};
+const curatedWithReadyHarmfulRole = await engine.generateCandidates({
+  ...baseRequest,
+  options: { precisionConfig: { hanjaPool: 'curated' } },
+}, readySyntheticAvoidSummary);
 
 const curatedHanja = new Set(curated.flat().map((char: NameCharInput) => char.hanja));
 const fullHanja = new Set(full.flat().map((char: NameCharInput) => char.hanja));
@@ -129,6 +153,9 @@ check('full generator candidate count is deterministic',
 check('full generator does not exclude by synthetic resource element',
   fullWithSyntheticAvoid.length === full.length,
   `full=${full.length}, avoidSynthetic=${fullWithSyntheticAvoid.length}`);
+check('ready harmful role is scored after generation rather than hard-filtered',
+  curatedWithReadyHarmfulRole.length === curated.length,
+  `curated=${curated.length}, harmfulRole=${curatedWithReadyHarmfulRole.length}`);
 check('full generator adds legal Hanja outside the fake curated repo',
   Array.from(fullHanja).some((hanja) => hanja !== '佳'),
   `full=${Array.from(fullHanja).slice(0, 8).join(',')}`);

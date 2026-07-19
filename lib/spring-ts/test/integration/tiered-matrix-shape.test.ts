@@ -37,6 +37,7 @@ const originalFetch = globalThis.fetch;
 };
 
 import { SpringEngine } from '../../src/index.js';
+import { gradeCell } from '../../src/report/tiered/cell-grader.js';
 
 const PERIODS = ['life', 'today', 'thisWeek', 'thisMonth', 'thisYear'] as const;
 const CATEGORIES = [
@@ -74,6 +75,17 @@ for (const repo of repos) { if (repo) (repo as any).wasmUrl = WASM_PATH; }
 await engine.init();
 
 console.log('Tiered matrix shape — opt-in surface produces well-formed cube\n');
+
+const neutralCell = gradeCell('FIRE', 'WOOD', 'WATER', 'METAL');
+check('valid neutral grade remains meaningful',
+  neutralCell.grade === 3
+    && neutralCell.stars === 3
+    && neutralCell.meaningfulness === 'meaningful',
+  JSON.stringify(neutralCell));
+const ungradedCell = gradeCell('FIRE', null, 'WATER', 'METAL');
+check('missing judgment input remains unavailable rather than neutral',
+  ungradedCell.stars === null && ungradedCell.meaningfulness === 'na',
+  JSON.stringify(ungradedCell));
 
 const request = {
   birth: { year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male' as const },
@@ -116,6 +128,10 @@ if (tm) {
       isMeaningfulnessValid(overall?.meaningfulness), String(overall?.meaningfulness));
     check(`period ${period}.overall.stars valid`,
       isStarsValid(overall?.stars), String(overall?.stars));
+    if (overall?.stars === 3) {
+      check(`period ${period}.overall neutral grade is meaningful`,
+        overall.meaningfulness === 'meaningful', String(overall.meaningfulness));
+    }
     check(`period ${period}.overall.brief.headline non-empty`,
       typeof overall?.brief?.headline === 'string' && overall.brief.headline.length > 0);
     check(`period ${period}.overall.standard.paragraphs is array`,
@@ -138,6 +154,10 @@ if (tm) {
       check(`period ${period}.${cat}.meaningfulness valid`,
         isMeaningfulnessValid(cell?.meaningfulness));
       check(`period ${period}.${cat}.stars valid`, isStarsValid(cell?.stars));
+      if (cell?.stars === 3) {
+        check(`period ${period}.${cat} neutral grade is meaningful`,
+          cell.meaningfulness === 'meaningful', String(cell.meaningfulness));
+      }
       check(`period ${period}.${cat}.selectedFragments.brief has fragmentId`,
         typeof cell?.selectedFragments?.brief?.fragmentId === 'string' &&
           cell.selectedFragments.brief.fragmentId.length > 0,

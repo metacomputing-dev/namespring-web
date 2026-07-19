@@ -4,15 +4,28 @@ import {
 } from './candidate-id.js';
 import { assertNameCharacterSyntax } from '../name-entry-resolver.js';
 import {
-  CANDIDATE_ORDERING_POLICY_V1,
+  CANDIDATE_PARETO_ORDERING_POLICY_V1,
+  CANDIDATE_PRESENTATION_ORDERING_POLICY_V2,
   CANDIDATE_QUERY_ID_PATTERN_V1,
   CANDIDATE_SEARCH_SCHEMA_V1,
   CandidateSearchContractErrorV1,
   type CandidateSearchItemV1,
+  type CandidateSearchNameCharacterV1,
+  type CandidateSearchNameElementV1,
+  type CandidateSearchOrderingV1,
   type CandidateSearchQueryV1,
   type CandidateSearchResponseV1,
 } from './types.js';
+import engineConfig from '../../config/engine.json';
+import {
+  CANDIDATE_PRESENTATION_EVIDENCE_ORDER_V2,
+} from '../candidate-selection.js';
+import {
+  isRecognizedHanjaGlyph,
+  type HanjaLegalStatus,
+} from '../hanja-annotations.js';
 import type {
+  CandidatePresentationEvidence,
   CandidateStrengthProfile,
   NameCharInput,
   NamingScoreVector,
@@ -22,12 +35,29 @@ import type { NatalEvidenceAssessmentV1 } from '../natal-evidence.js';
 
 export const MAX_CANDIDATE_SEARCH_PAGE_SIZE_V1 = 100;
 
+function copyCandidatePresentationEvidenceOrderV2():
+typeof CANDIDATE_PRESENTATION_EVIDENCE_ORDER_V2 {
+  return Object.freeze([
+    ...CANDIDATE_PRESENTATION_EVIDENCE_ORDER_V2,
+  ]) as typeof CANDIDATE_PRESENTATION_EVIDENCE_ORDER_V2;
+}
+
 export interface BuildCandidateSearchResponseV1Input {
   /** Already ordered and ranked by SpringEngine.getNameCandidateSummaries(). */
   readonly summaries: readonly SpringCandidateSummary[];
   readonly offset: number;
   readonly requestedLimit: number;
   readonly query: CandidateSearchQueryV1;
+  /** Exact generation path used for this query, supplied by SpringEngine. */
+  readonly candidateRecallGeneration:
+    CandidateSearchOrderingV1['rankingBasis']['candidateRecall']['generation'];
+  /** Exact ordering path used by SpringEngine for this query. */
+  readonly orderingMode?: CandidateSearchOrderingV1['mode'];
+  /**
+   * The public saju-guided endpoint requires complete surname and given-name
+   * Hanja identity. Lower-level compatibility builders may omit this flag.
+   */
+  readonly requireCanonicalHanja?: boolean;
   /** Omission is treated as unavailable, never as implicitly trustworthy. */
   readonly natalEvidence?: NatalEvidenceAssessmentV1;
   readonly hasMore?: boolean;
@@ -63,6 +93,32 @@ function copyScoreVector(vector: NamingScoreVector): NamingScoreVector {
     eraFit: requireNullableScore(vector.eraFit, 'scoreVector.eraFit'),
     familyFit: requireNullableScore(vector.familyFit, 'scoreVector.familyFit'),
     risk: requireScore(vector.risk, 'scoreVector.risk'),
+  };
+}
+
+function copyPresentationEvidence(
+  evidence: CandidatePresentationEvidence,
+): CandidatePresentationEvidence {
+  const popularityRank = evidence.popularityRank;
+  if (popularityRank !== null
+    && (!Number.isSafeInteger(popularityRank) || popularityRank < 1)) {
+    return contractError(
+      'INVALID_POPULARITY',
+      'presentationEvidence.popularityRank must be null or a positive safe integer.',
+    );
+  }
+  return {
+    meaningConfidence: requireNullableScore(
+      evidence.meaningConfidence,
+      'presentationEvidence.meaningConfidence',
+    ),
+    popularityRank,
+    phonetic: requireNullableScore(evidence.phonetic, 'presentationEvidence.phonetic'),
+    familyFit: requireNullableScore(evidence.familyFit, 'presentationEvidence.familyFit'),
+    eraFit: requireNullableScore(evidence.eraFit, 'presentationEvidence.eraFit'),
+    risk: requireScore(evidence.risk, 'presentationEvidence.risk'),
+    meaningBasis: 'authored_gloss_safety_v1',
+    popularityBasis: 'local_official_name_stat',
   };
 }
 
@@ -120,6 +176,174 @@ function canonicalGivenName(
   });
 }
 
+const CANDIDATE_NAME_ELEMENTS = new Set<CandidateSearchNameElementV1>([
+  'Wood',
+  'Fire',
+  'Earth',
+  'Metal',
+  'Water',
+]);
+const CANDIDATE_LEGAL_STATUSES = new Set<HanjaLegalStatus>([
+  'allowed',
+  'variantAllowed',
+  'hangulOnly',
+  'unknown',
+  'notAllowed',
+]);
+
+function optionalDisplayText(
+  value: unknown,
+  label: string,
+  maxLength: number,
+): string | undefined {
+  if (value === undefined) return undefined;
+  if (typeof value !== 'string') {
+    return contractError('INVALID_NAME_PAYLOAD', `${label} must be a string when supplied.`);
+  }
+  const normalized = value.normalize('NFC');
+  if (normalized !== normalized.trim()
+    || normalized.length === 0
+    || Array.from(normalized).length > maxLength
+    || /[\u0000-\u001f\u007f]/u.test(normalized)) {
+    return contractError('INVALID_NAME_PAYLOAD', `${label} is not safe display text.`);
+  }
+  return normalized;
+}
+
+function projectGivenCharacter(
+  source: NameCharInput,
+  canonical: NameCharInput,
+  index: number,
+): CandidateSearchNameCharacterV1 {
+  const hanja = canonical.hanja ?? '';
+  const meaning = optionalDisplayText(source.meaning, `givenName[${index}].meaning`, 120);
+  const elementLabel = optionalDisplayText(
+    source.elementLabel,
+    `givenName[${index}].elementLabel`,
+    24,
+  );
+  const isVariantOf = optionalDisplayText(
+    source.isVariantOf,
+    `givenName[${index}].isVariantOf`,
+    1,
+  );
+
+  let strokes: number | undefined;
+  if (source.strokes !== undefined) {
+    if (!Number.isSafeInteger(source.strokes) || source.strokes < 1 || source.strokes > 128) {
+      return contractError(
+        'INVALID_NAME_PAYLOAD',
+        `givenName[${index}].strokes must be a positive safe Hanja stroke count.`,
+      );
+    }
+    strokes = source.strokes;
+  }
+
+  let element: CandidateSearchNameElementV1 | undefined;
+  if (source.element !== undefined) {
+    if (typeof source.element !== 'string'
+      || !CANDIDATE_NAME_ELEMENTS.has(source.element as CandidateSearchNameElementV1)) {
+      return contractError(
+        'INVALID_NAME_PAYLOAD',
+        `givenName[${index}].element is not a supported five-element value.`,
+      );
+    }
+    element = source.element as CandidateSearchNameElementV1;
+  }
+  if (elementLabel !== undefined && element === undefined) {
+    return contractError(
+      'INVALID_NAME_PAYLOAD',
+      `givenName[${index}].elementLabel requires an element key.`,
+    );
+  }
+
+  let legalStatus: HanjaLegalStatus | undefined;
+  if (source.legalStatus !== undefined) {
+    if (!CANDIDATE_LEGAL_STATUSES.has(source.legalStatus)) {
+      return contractError(
+        'INVALID_NAME_PAYLOAD',
+        `givenName[${index}].legalStatus is invalid.`,
+      );
+    }
+    legalStatus = source.legalStatus;
+  }
+  if (source.legalRegistrable !== undefined
+    && typeof source.legalRegistrable !== 'boolean') {
+    return contractError(
+      'INVALID_NAME_PAYLOAD',
+      `givenName[${index}].legalRegistrable must be boolean when supplied.`,
+    );
+  }
+  const legalRegistrable = source.legalRegistrable;
+
+  if (hanja.length === 0) {
+    if (meaning !== undefined
+      || strokes !== undefined
+      || element !== undefined
+      || legalRegistrable !== undefined
+      || isVariantOf !== undefined
+      || (legalStatus !== undefined && legalStatus !== 'hangulOnly')) {
+      return contractError(
+        'INVALID_NAME_PAYLOAD',
+        `Hangul-only givenName[${index}] cannot carry Hanja evidence.`,
+      );
+    }
+  } else {
+    if (legalStatus === 'hangulOnly') {
+      return contractError(
+        'INVALID_NAME_PAYLOAD',
+        `Hanja givenName[${index}] cannot be marked hangulOnly.`,
+      );
+    }
+    if ((legalStatus === 'allowed' || legalStatus === 'variantAllowed')
+      && legalRegistrable !== true) {
+      return contractError(
+        'INVALID_NAME_PAYLOAD',
+        `Registrable givenName[${index}] requires matching legal evidence.`,
+      );
+    }
+    if (legalStatus === 'notAllowed' && legalRegistrable !== false) {
+      return contractError(
+        'INVALID_NAME_PAYLOAD',
+        `Non-registrable givenName[${index}] requires matching legal evidence.`,
+      );
+    }
+    if (legalStatus === 'unknown' && legalRegistrable !== undefined) {
+      return contractError(
+        'INVALID_NAME_PAYLOAD',
+        `Unknown legal status for givenName[${index}] cannot claim registrability.`,
+      );
+    }
+    if (legalRegistrable !== undefined && legalStatus === undefined) {
+      return contractError(
+        'INVALID_NAME_PAYLOAD',
+        `givenName[${index}].legalRegistrable requires legalStatus.`,
+      );
+    }
+  }
+  if (isVariantOf !== undefined
+    && (legalStatus !== 'variantAllowed'
+      || !isRecognizedHanjaGlyph(isVariantOf)
+      || isVariantOf === hanja)) {
+    return contractError(
+      'INVALID_NAME_PAYLOAD',
+      `givenName[${index}].isVariantOf is inconsistent with its legal status.`,
+    );
+  }
+
+  return {
+    hangul: canonical.hangul,
+    hanja,
+    ...(meaning === undefined ? {} : { meaning }),
+    ...(strokes === undefined ? {} : { strokes }),
+    ...(element === undefined ? {} : { element }),
+    ...(elementLabel === undefined ? {} : { elementLabel }),
+    ...(legalStatus === undefined ? {} : { legalStatus }),
+    ...(legalRegistrable === undefined ? {} : { legalRegistrable }),
+    ...(isVariantOf === undefined ? {} : { isVariantOf }),
+  };
+}
+
 function canonicalResolvedSurname(
   fullHangul: string,
   fullHanja: string,
@@ -154,6 +378,8 @@ function projectCandidate(summary: SpringCandidateSummary): CandidateSearchItemV
   }
 
   const givenName = canonicalGivenName(summary.givenName);
+  const givenCharacters = summary.givenName.map((character, index) =>
+    projectGivenCharacter(character, givenName[index]!, index));
   const givenHangul = givenName.map((character) => character.hangul).join('');
   const expectedGivenHangul = summary.givenHangul.normalize('NFC');
   const fullHangul = summary.fullHangul.normalize('NFC');
@@ -240,6 +466,7 @@ function projectCandidate(summary: SpringCandidateSummary): CandidateSearchItemV
       fullHanja: identity.fullHanja,
       givenHangul,
       givenHanja,
+      givenCharacters,
     },
     score: {
       final: requireScore(summary.finalScore, 'finalScore'),
@@ -253,6 +480,9 @@ function projectCandidate(summary: SpringCandidateSummary): CandidateSearchItemV
       maleRatio,
       tendency: summary.nameGender,
     },
+    ...(summary.presentationEvidence
+      ? { presentationEvidence: copyPresentationEvidence(summary.presentationEvidence) }
+      : {}),
     reportInput: {
       candidateId,
       surname,
@@ -348,6 +578,15 @@ export function buildCandidateSearchResponseV1(
   }
 
   const items = summaries.map(projectCandidate);
+  if (input.requireCanonicalHanja === true
+    && items.some((item) =>
+      [...item.reportInput.surname, ...item.reportInput.givenName]
+        .some((character) => !character.hanja))) {
+    return contractError(
+      'HANJA_REQUIRED_FOR_SAJU_GUIDED_RECOMMENDATION',
+      'Saju-guided candidate search requires canonical Hanja for every name character.',
+    );
+  }
   const seenIds = new Set<string>();
   const seenRanks = new Set<number>();
   for (let index = 0; index < items.length; index += 1) {
@@ -369,16 +608,64 @@ export function buildCandidateSearchResponseV1(
     seenIds.add(item.candidateId);
   }
 
+  const paretoOrdering = input.orderingMode === 'pareto_frontier';
+  const evidenceOrder = paretoOrdering
+    ? Object.freeze([]) as readonly []
+    : copyCandidatePresentationEvidenceOrderV2();
   return {
     schemaVersion: CANDIDATE_SEARCH_SCHEMA_V1,
     query: { ...query },
     ordering: {
       authority: 'spring_engine',
       source: 'SpringEngine.getNameCandidateSummaries',
-      policyVersion: CANDIDATE_ORDERING_POLICY_V1,
-      mode: 'recommended',
+      policyVersion: paretoOrdering
+        ? CANDIDATE_PARETO_ORDERING_POLICY_V1
+        : CANDIDATE_PRESENTATION_ORDERING_POLICY_V2,
+      mode: paretoOrdering ? 'pareto_frontier' : 'recommended',
       clientInstruction: 'preserve_order_and_rank',
       rankScope: 'query',
+      rankingBasis: {
+        rawScore: 'engine_score_unchanged',
+        presentationScope: paretoOrdering
+          ? 'bounded_pareto_pool_with_diversity'
+          : 'bounded_equivalent_score_window',
+        rawScoreWindow: paretoOrdering
+          ? 8
+          : engineConfig.candidateSelection.presentationScoreWindow,
+        evidenceOrder,
+        missingEvidence: {
+          scoreAxes: paretoOrdering ? 'pairwise_axis_omission' : 'fixed_midpoint_50',
+          popularityRank: paretoOrdering ? 'not_used' : 'no_usage_bonus',
+        },
+        rarityPolicy: 'never_hard_reject',
+        ...(paretoOrdering ? {
+          paretoFrontier: {
+            poolLimit: engineConfig.candidateSelection.paretoPoolLimit,
+            objectives: [
+              'legal',
+              'sajuFit',
+              'yongshinFit',
+              'elementBalance',
+              'hanjaMeaning',
+              'phonetic',
+              'eraFit',
+              'familyFit',
+              'riskQuality',
+            ],
+            dominance: 'non_dominated_available_axes_v1',
+            frontierBonus: 3,
+            diversityWindow: 8,
+            diversityBasis: 'profile_hangul_hanja_syllable_v1',
+            overflowOrder: 'engine_score_desc_stable_input',
+          } as const,
+        } : {}),
+        candidateRecall: {
+          generation: input.candidateRecallGeneration,
+          hanjaVariantsPerHangul:
+            engineConfig.candidateSelection.hanjaVariantsPerHangul,
+          variantRetentionBasis: 'engine_raw_score_then_stable_input',
+        },
+      },
     },
     evaluation: {
       method: 'saju_guided_name_recommendation',

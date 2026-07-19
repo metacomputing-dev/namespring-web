@@ -223,6 +223,7 @@ const boundaryPolicy01 = {
 };
 const boundaryMinute01 = await analyzeSajuSafe({
   year: 1986, month: 4, day: 19, hour: 1, minute: null, gender: 'male',
+  region: '서울', latitude: 37.5665, longitude: 126.978, timezone: 'Asia/Seoul',
 }, boundaryPolicy01);
 const boundaryMinute01Summary = boundaryMinute01.summary as Record<string, any>;
 

@@ -10,6 +10,8 @@ import {
   isValidSajuTimePolicy,
   legacyTimeFailureReasonCode,
   preflightKnownHourCivilTimeRange,
+  requiresExplicitBirthLocationForTimePolicy,
+  resolveEffectiveSajuTimePolicy,
   toLegacySajuTimePolicyConfig,
 } from '../../src/saju/time-policy.js';
 
@@ -50,6 +52,22 @@ assert.deepEqual(defaultLocation.ok ? defaultLocation.value : null, {
   ...defaults,
   source: 'default',
 });
+assert.deepEqual(
+  resolveBirthLocation(
+    { gender: 'male' },
+    defaults,
+    { requireLongitude: true, requireExplicitLocation: true },
+  ),
+  { ok: false, reasonCode: 'BIRTH_LOCATION_REQUIRED' },
+);
+assert.deepEqual(
+  resolveBirthLocation(
+    { gender: 'male', timezone: 'Asia/Seoul' },
+    defaults,
+    { requireLongitude: true, requireExplicitLocation: true },
+  ),
+  { ok: false, reasonCode: 'BIRTH_LOCATION_REQUIRED' },
+);
 
 const daegu = resolve({ gender: 'female', birthPlace: '대구 수성구' });
 assert.equal(daegu.ok, true);
@@ -59,6 +77,12 @@ assert.equal(daegu.ok ? daegu.value.timezone : null, 'Asia/Seoul');
 const seoulCode = resolve({ gender: 'male', region: 'Seoul' });
 assert.equal(seoulCode.ok ? seoulCode.value.regionCode : null, 'SEOUL');
 assert.equal(seoulCode.ok ? seoulCode.value.longitude : null, defaults.longitude);
+const explicitPolicySeoul = resolveBirthLocation(
+  { gender: 'male', region: '서울' },
+  defaults,
+  { requireLongitude: true, requireExplicitLocation: true },
+);
+assert.equal(explicitPolicySeoul.ok ? explicitPolicySeoul.value.source : null, 'region');
 
 const duplicateSeoulFields = resolve({
   gender: 'male',
@@ -87,6 +111,47 @@ assert.deepEqual(
     longitude: -74.006,
   }),
   { ok: false, reasonCode: 'BIRTH_LOCATION_PARTIAL' },
+);
+assert.deepEqual(
+  resolve({
+    gender: 'male',
+    region: 'Seoul',
+    latitude: 40.7128,
+    longitude: -74.006,
+    timezone: 'Asia/Seoul',
+  }),
+  { ok: false, reasonCode: 'BIRTH_LOCATION_CONFLICT' },
+  'a supported Korean region label cannot be combined with unmistakably overseas coordinates',
+);
+const explicitCanonicalSeoul = resolve({
+  gender: 'male',
+  region: 'Seoul',
+  latitude: 37.5665,
+  longitude: 126.978,
+  timezone: 'Asia/Seoul',
+});
+assert.equal(explicitCanonicalSeoul.ok ? explicitCanonicalSeoul.value.source : null, 'explicit');
+assert.deepEqual(
+  resolve({
+    gender: 'male',
+    region: 'Seoul',
+    latitude: 37.57,
+    longitude: 126.99,
+    timezone: 'Asia/Seoul',
+  }),
+  { ok: false, reasonCode: 'BIRTH_LOCATION_CONFLICT' },
+  'a region label selects its canonical registry tuple; arbitrary GPS input must omit the label',
+);
+assert.deepEqual(
+  resolve({
+    gender: 'male',
+    region: 'Seoul',
+    latitude: 36.3504,
+    longitude: 127.3845,
+    timezone: 'Asia/Seoul',
+  }),
+  { ok: false, reasonCode: 'BIRTH_LOCATION_CONFLICT' },
+  'the registered center of another supported region cannot retain a Seoul region code',
 );
 assert.deepEqual(
   resolve({ gender: 'male', latitude: '37.5', longitude: 127 } as any),
@@ -118,6 +183,13 @@ const fullNewYork = resolve({
 });
 assert.equal(fullNewYork.ok, true);
 assert.equal(fullNewYork.ok ? fullNewYork.value.source : null, 'explicit');
+const explicitPolicyNewYork = resolveBirthLocation({
+  gender: 'male',
+  latitude: 40.7128,
+  longitude: -74.006,
+  timezone: 'America/New_York',
+}, defaults, { requireLongitude: true, requireExplicitLocation: true });
+assert.equal(explicitPolicyNewYork.ok ? explicitPolicyNewYork.value.source : null, 'explicit');
 
 const timezoneOnlyWhenLongitudeOff = resolve({
   gender: 'male',
@@ -136,6 +208,52 @@ assert.equal(isValidSajuTimePolicy({ sajuTimePolicy: { longitudeReference: 'lega
 assert.equal(isValidSajuTimePolicy({ sajuTimePolicy: { longitudeCorrection: 'maybe' } } as any), false);
 assert.equal(isValidSajuTimePolicy({ sajuTimePolicy: { longitudeReference: 'raw' } } as any), false);
 assert.equal(isValidSajuTimePolicy({ sajuTimePolicy: null } as any), false);
+assert.equal(requiresExplicitBirthLocationForTimePolicy(undefined), false);
+assert.equal(requiresExplicitBirthLocationForTimePolicy({
+  sajuTimePolicy: { trueSolarTime: 'off', longitudeCorrection: 'off' },
+} as any), false);
+assert.equal(requiresExplicitBirthLocationForTimePolicy({
+  sajuTimePolicy: { trueSolarTime: 'on', longitudeCorrection: 'off' },
+} as any), true);
+assert.equal(requiresExplicitBirthLocationForTimePolicy({
+  sajuTimePolicy: { trueSolarTime: 'off', longitudeCorrection: 'on' },
+} as any), true);
+assert.equal(requiresExplicitBirthLocationForTimePolicy({
+  sajuTimePolicy: { longitudeReference: 'legacyPreset' },
+} as any), true);
+assert.equal(requiresExplicitBirthLocationForTimePolicy({
+  sajuTimePolicy: { longitudeReference: 'civilOffsetMeridian' },
+} as any), true);
+assert.equal(requiresExplicitBirthLocationForTimePolicy({
+  sajuTimePolicy: {
+    longitudeCorrection: 'off',
+    longitudeReference: 'legacyPreset',
+  },
+} as any), false);
+assert.deepEqual(resolveEffectiveSajuTimePolicy(undefined), {
+  trueSolarTime: 'off',
+  longitudeCorrection: 'on',
+  longitudeReference: 'civilOffsetMeridian',
+  explicitLocationRequired: false,
+  yaza: 'on',
+  yazaMode: '23:00',
+});
+assert.deepEqual(resolveEffectiveSajuTimePolicy({
+  sajuTimePolicy: {
+    trueSolarTime: 'on',
+    longitudeCorrection: 'off',
+    longitudeReference: 'legacyPreset',
+    yaza: 'off',
+    yazaMode: '23:30',
+  },
+} as any), {
+  trueSolarTime: 'on',
+  longitudeCorrection: 'off',
+  longitudeReference: 'off',
+  explicitLocationRequired: true,
+  yaza: 'off',
+  yazaMode: '23:30',
+});
 
 assert.deepEqual(toLegacySajuTimePolicyConfig(undefined), {
   trueSolarTimeEnabled: true,

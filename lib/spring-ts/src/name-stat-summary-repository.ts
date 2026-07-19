@@ -62,6 +62,16 @@ export interface NameStatSummaryRepositoryOptions {
   readonly runtime?: Partial<NameStatSummaryRepositoryRuntime>;
 }
 
+export interface RankedNameStatProjection extends NameStatSourceProjection {
+  readonly name: string;
+}
+
+export interface RankedNameStatQuery {
+  readonly gender: 'male' | 'female' | 'neutral';
+  readonly hangulLength: number;
+  readonly limit: number;
+}
+
 const DEFAULT_ASSET_URL =
   new URL('../data/name-stat/name-stat-summary.v1.bin', import.meta.url);
 
@@ -399,6 +409,7 @@ export class NameStatSummaryRepository {
   private readonly lifecycle = new RepositoryLifecycleCoordinator();
   private entriesByName: Readonly<Record<string, NameStatSummaryTuple>> | null = null;
   private loadPromise: Promise<void> | null = null;
+  private readonly rankedQueryCache = new Map<string, readonly RankedNameStatProjection[]>();
 
   public constructor(options: NameStatSummaryRepositoryOptions = {}) {
     this.provenance = options.provenance ?? NAME_STAT_SUMMARY_ASSET_PROVENANCE;
@@ -493,10 +504,71 @@ export class NameStatSummaryRepository {
     return projectionFromTuple(entries[normalizedName]);
   }
 
+  /**
+   * Returns a bounded, deterministic view of real registered-name evidence.
+   *
+   * This is intentionally a local asset query rather than a network lookup.
+   * Candidate generation uses it only to restore practical Hangul-name recall;
+   * the returned names still pass the normal Hanja, saju, and naming scorers.
+   */
+  public async findTopRankedNames(
+    query: RankedNameStatQuery,
+  ): Promise<readonly RankedNameStatProjection[]> {
+    if (!['male', 'female', 'neutral'].includes(query.gender)) {
+      throw new RangeError('Ranked name-stat gender must be male, female, or neutral.');
+    }
+    if (!Number.isSafeInteger(query.hangulLength)
+      || query.hangulLength < 1
+      || query.hangulLength > 4) {
+      throw new RangeError('Ranked name-stat Hangul length must be an integer from 1 to 4.');
+    }
+    if (!Number.isSafeInteger(query.limit) || query.limit < 1 || query.limit > 1000) {
+      throw new RangeError('Ranked name-stat limit must be an integer from 1 to 1000.');
+    }
+
+    const generation = this.lifecycle.currentGeneration;
+    await this.ensureLoaded();
+    this.assertActive(generation);
+    const cacheKey = `${query.gender}:${query.hangulLength}:${query.limit}`;
+    const cached = this.rankedQueryCache.get(cacheKey);
+    if (cached) return cached.map((entry) => ({ ...entry }));
+
+    const entries = this.entriesByName;
+    if (!entries) return [];
+    const ranked: RankedNameStatProjection[] = [];
+    for (const [name, tuple] of Object.entries(entries)) {
+      if (Array.from(name).length !== query.hangulLength) continue;
+      const maleBirths = tuple[1];
+      const femaleBirths = tuple[2];
+      const totalBirths = maleBirths + femaleBirths;
+      if (totalBirths <= 0) continue;
+      const tendency = maleBirths >= femaleBirths ? 'male' : 'female';
+      if (query.gender !== 'neutral' && tendency !== query.gender) continue;
+      ranked.push({
+        name,
+        popularityRank: tuple[0],
+        maleBirths,
+        femaleBirths,
+      });
+    }
+    ranked.sort((left, right) =>
+      (left.popularityRank ?? Number.MAX_SAFE_INTEGER)
+        - (right.popularityRank ?? Number.MAX_SAFE_INTEGER)
+      || (right.maleBirths + right.femaleBirths)
+        - (left.maleBirths + left.femaleBirths)
+      || (left.name < right.name ? -1 : left.name > right.name ? 1 : 0));
+    const result = Object.freeze(
+      ranked.slice(0, query.limit).map((entry) => Object.freeze({ ...entry })),
+    );
+    this.rankedQueryCache.set(cacheKey, result);
+    return result.map((entry) => ({ ...entry }));
+  }
+
   public close(): void {
     const cancellation = this.lifecycle.beginCancellation();
     this.entriesByName = null;
     this.loadPromise = null;
+    this.rankedQueryCache.clear();
     const closeErrors = cancellation.abortAll(this.cancellationError());
     if (closeErrors.length > 0) {
       throw new AggregateError(

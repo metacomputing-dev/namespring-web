@@ -7,6 +7,7 @@ import {
 export type BirthLocationFailureCode =
   | 'BIRTH_LOCATION_INVALID'
   | 'BIRTH_LOCATION_PARTIAL'
+  | 'BIRTH_LOCATION_REQUIRED'
   | 'BIRTH_LOCATION_UNRESOLVED'
   | 'BIRTH_LOCATION_CONFLICT'
   | 'BIRTH_LOCATION_TIMEZONE_MISMATCH';
@@ -33,6 +34,12 @@ export type BirthLocationResolution =
 export interface BirthLocationPolicy {
   /** Physical longitude is required when longitude correction is active. */
   readonly requireLongitude: boolean;
+  /**
+   * Explicit solar/longitude correction must never borrow the configured
+   * Seoul compatibility default. A named supported region or an atomic
+   * latitude/longitude/timezone tuple is required.
+   */
+  readonly requireExplicitLocation?: boolean;
 }
 
 function normalizeRegionToken(value: string): string {
@@ -82,6 +89,27 @@ function finiteCoordinate(value: unknown): number | null {
 
 function failure(reasonCode: BirthLocationFailureCode): BirthLocationResolution {
   return { ok: false, reasonCode };
+}
+
+// A supported region label is a request for the registry's canonical tuple,
+// not a geocoding claim. When callers also provide coordinates, accept only
+// insignificant numeric rounding drift. Arbitrary GPS coordinates remain
+// supported as an atomic coordinate/timezone tuple without a region label.
+const SUPPORTED_REGION_COORDINATE_TOLERANCE_DEGREES = 1e-4;
+
+/** Shared output guard for region-tagged resolved tuples. */
+export function supportedRegionLocationMatches(
+  regionCode: string,
+  latitude: number,
+  longitude: number,
+  timezone: string,
+): boolean {
+  const region = KOREA_REGION_COORDINATES.find((entry) => entry.code === regionCode);
+  if (!region || timezone !== region.timezone) return false;
+  return Math.abs(latitude - region.latitude)
+      <= SUPPORTED_REGION_COORDINATE_TOLERANCE_DEGREES
+    && Math.abs(longitude - region.longitude)
+      <= SUPPORTED_REGION_COORDINATE_TOLERANCE_DEGREES;
 }
 
 /**
@@ -134,8 +162,16 @@ export function resolveBirthLocation(
     // timezone from a region label because that can silently mix an overseas
     // coordinate with Asia/Seoul.
     if (!timezone) return failure('BIRTH_LOCATION_PARTIAL');
-    if (region && timezone && timezone !== region.timezone) {
+    if (region && timezone !== region.timezone) {
       return failure('BIRTH_LOCATION_TIMEZONE_MISMATCH');
+    }
+    if (region && !supportedRegionLocationMatches(
+      region.code,
+      latitude,
+      longitude,
+      timezone,
+    )) {
+      return failure('BIRTH_LOCATION_CONFLICT');
     }
     return {
       ok: true,
@@ -169,6 +205,7 @@ export function resolveBirthLocation(
 
   if (timezone && timezone !== defaults.timezone) {
     if (policy.requireLongitude) return failure('BIRTH_LOCATION_PARTIAL');
+    if (policy.requireExplicitLocation) return failure('BIRTH_LOCATION_REQUIRED');
     return {
       ok: true,
       value: {
@@ -180,6 +217,8 @@ export function resolveBirthLocation(
       },
     };
   }
+
+  if (policy.requireExplicitLocation) return failure('BIRTH_LOCATION_REQUIRED');
 
   return {
     ok: true,

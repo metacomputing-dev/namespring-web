@@ -207,7 +207,9 @@ function gradeCategoryCell(
   return {
     grade: blendedGrade,
     stars: gradeToStars(roundedGrade),
-    meaningfulness: roundedGrade === 3 ? 'limited' : 'meaningful',
+    // Three stars is a valid neutral category result. `limited` is reserved
+    // for an actual method/evidence limitation, never for ordinary valence.
+    meaningfulness: 'meaningful',
   };
 }
 

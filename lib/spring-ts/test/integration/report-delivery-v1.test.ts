@@ -262,14 +262,55 @@ assert.deepEqual(integrated.provenance, {
   },
 });
 assert.equal(
-  integrated.facts.some((fact) => fact.domain === 'naming'),
+  integrated.facts.some((fact) =>
+    fact.domain === 'naming'
+    && (fact.kind === 'name_character' || fact.kind === 'metric')),
+  true,
+  'integrated payload keeps a bounded deterministic name summary beside the natal summary',
+);
+assert.equal(
+  integrated.facts.some((fact) =>
+    fact.domain === 'naming'
+    && (fact.kind === 'naming_frame' || fact.kind === 'element_distribution')),
   false,
-  'integrated payload exposes name effects as interaction facts, not a duplicate naming report',
+  'integrated payload does not duplicate the specialist naming report',
 );
 assert.equal(
   integrated.interpretations.some((row) => row.domain === 'naming'),
   false,
   'integrated narratives do not duplicate the specialist naming surface',
+);
+const integratedYongshin = integrated.facts.find((fact) => fact.kind === 'yongshin');
+assert.ok(integratedYongshin?.kind === 'yongshin');
+assert.deepEqual(
+  {
+    schoolPreset: integratedYongshin.interpretationPolicy?.schoolPreset,
+    schoolSelection: integratedYongshin.interpretationPolicy?.schoolSelection,
+    yongshinMode: integratedYongshin.interpretationPolicy?.yongshinMode,
+    yongshinModeSelection: integratedYongshin.interpretationPolicy?.yongshinModeSelection,
+  },
+  {
+    schoolPreset: 'korean',
+    schoolSelection: 'product_default',
+    yongshinMode: 'chengbai_strict',
+    yongshinModeSelection: 'product_default',
+  },
+  'an omitted interpretation choice resolves to an explicit, provenance-bound product default',
+);
+assert.deepEqual(
+  integratedYongshin.methodCandidates?.map((candidate) => candidate.method),
+  ['eokbu', 'johu', 'gyeokguk', 'tonggwan', 'byeongyak', 'siksangFlow'],
+  'method disagreement remains inspectable instead of hiding the selected result',
+);
+assert.equal(
+  integrated.facts.some((fact) => fact.kind === 'pillars'),
+  true,
+  'integrated conflict handling retains deterministic natal pillars',
+);
+assert.equal(
+  integrated.facts.some((fact) => fact.kind === 'time_correction'),
+  true,
+  'integrated conflict handling retains deterministic time-correction provenance',
 );
 assertJsonData(integrated);
 
@@ -612,11 +653,31 @@ const timeline = integratedSurface.blocks.find((block) => block.kind === 'timeli
 assert.ok(timeline && timeline.kind === 'timeline');
 assert.equal(timeline.periods.length, 1);
 assert.equal(timeline.periods[0].cells.length, 6);
+const limitedCategoryInterpretations = [];
 for (const cell of timeline.periods[0].cells) {
   const interpretation = integrated.interpretations.find((row) => row.id === cell.interpretationRef)!;
+  limitedCategoryInterpretations.push(interpretation);
   assert.ok(interpretation.standard, `${cell.category}: standard present`);
   assert.equal(interpretation.expert, undefined, `${cell.category}: expert omitted`);
+  assert.equal(interpretation.availability.status, 'limited',
+    `${cell.category}: conditional evidence is carried separately from narrative copy`);
+  assert.ok(interpretation.standard!.paragraphs.length > 0,
+    `${cell.category}: category-specific content is preserved`);
+  assert.equal(interpretation.origin, 'authored_bundle',
+    `${cell.category}: an evidence qualifier does not relabel authored content provenance`);
+  assert.equal(cell.ratingFactRef, `fortune.${timeline.periods[0].id}.${cell.category}.stars`,
+    `${cell.category}: the selected-school calculated rating remains available under a limited qualifier`);
+  assert.ok(integrated.facts.some((fact) => fact.id === cell.ratingFactRef),
+    `${cell.category}: a rating ref never invents a missing fact`);
+  assert.equal(cell.availability.reasonCodes.includes('METHOD_SCOPE_LIMITED'), false,
+    `${cell.category}: a neutral grade is not mislabeled as a method limitation`);
 }
+assert.ok(
+  new Set(limitedCategoryInterpretations.map(
+    (interpretation) => interpretation.standard!.paragraphs.join('\n'),
+  )).size > 1,
+  'limited natal evidence preserves differentiated category narratives instead of one placeholder',
+);
 
 const interaction = integrated.facts.find((fact) => fact.kind === 'name_saju_interaction');
 assert.ok(interaction && interaction.kind === 'name_saju_interaction');
@@ -690,6 +751,74 @@ assert.notDeepEqual(
 );
 const namingSurface = findSurface(naming, 'naming')!;
 assert.equal(namingSurface.blocks.some((block) => block.kind === 'timeline'), false);
+const namingTrend = naming.facts.find((fact) => fact.kind === 'naming_trend');
+assert.ok(namingTrend?.kind === 'naming_trend');
+assert.deepEqual(
+  {
+    method: namingTrend.method,
+    source: namingTrend.source,
+    projection: namingTrend.projection,
+    sourceFields: namingTrend.sourceFields,
+    sourceTier: namingTrend.sourceTier,
+    authorityTruthEligible: namingTrend.authorityTruthEligible,
+    givenHangul: namingTrend.givenHangul,
+  },
+  {
+    method: 'spring-ts.official-name-trend-projection.v1',
+    source: 'spring-ts.NamingReport.nameTrend',
+    projection: 'selective_without_recalculation',
+    sourceFields: ['nameTrend'],
+    sourceTier: 'T5_OFFICIAL',
+    authorityTruthEligible: true,
+    givenHangul: baseRequest.givenName.map((character) => character.hangul).join(''),
+  },
+  'official name-trend source values retain their authority and identity',
+);
+const namingPhonetic = naming.facts.find((fact) => fact.kind === 'naming_phonetic');
+assert.ok(namingPhonetic?.kind === 'naming_phonetic');
+assert.deepEqual(
+  {
+    method: namingPhonetic.method,
+    source: namingPhonetic.source,
+    projection: namingPhonetic.projection,
+    sourceFields: namingPhonetic.sourceFields,
+    sourceTier: namingPhonetic.sourceTier,
+    authorityTruthEligible: namingPhonetic.authorityTruthEligible,
+    fullHangul: namingPhonetic.fullHangul,
+  },
+  {
+    method: 'spring-ts.phonetic-transition-projection.v1',
+    source: 'spring-ts.NamingReport.phonetic',
+    projection: 'selective_without_recalculation',
+    sourceFields: ['phonetic'],
+    sourceTier: 'T3_AUTHORED_INTERPRETATION',
+    authorityTruthEligible: false,
+    fullHangul: naming.subject.displayName,
+  },
+  'phonetic mechanics remain explicitly non-authoritative instead of laundering copy into facts',
+);
+assert.deepEqual(
+  [...serializedKeys(namingPhonetic)]
+    .filter((key) => ['message', 'evidence', 'warnings'].includes(key)),
+  [],
+  'authored phonetic prose does not cross the structured fact boundary',
+);
+assert.equal(
+  naming.facts.some((fact) => fact.kind === 'name_statistics'),
+  false,
+  'naming-only delivery does not perform a replacement popularity lookup',
+);
+const namingDetailBlock = namingSurface.blocks.find(
+  (block) => block.kind === 'fact_group'
+    && block.presentation === 'evidence'
+    && block.factRefs.includes(namingTrend.id),
+);
+assert.ok(namingDetailBlock?.kind === 'fact_group');
+assert.deepEqual(
+  namingDetailBlock.factRefs,
+  [namingTrend.id, namingPhonetic.id],
+  'name trend and phonetic mechanics are reachable as one bounded specialist group',
+);
 const calendarCapability = namingSurface.blocks.find((block) => block.kind === 'capability');
 assert.ok(calendarCapability && calendarCapability.kind === 'capability');
 assert.equal(calendarCapability.availability.status, 'unavailable');
@@ -698,21 +827,27 @@ const fourFrames = namingSurface.blocks.find((block) => block.kind === 'four_fra
 assert.ok(fourFrames && fourFrames.kind === 'four_frames');
 assert.equal(fourFrames.items.length, 4);
 for (const item of fourFrames.items) {
-  assert.equal(
-    item.interpretationRef,
-    undefined,
-    'unapproved four-frame authored copy must not cross the public delivery boundary',
+  assert.ok(item.interpretationRef, 'calculated four-frame facts receive public-safe deterministic copy');
+  const interpretation = naming.interpretations.find((row) => row.id === item.interpretationRef);
+  assert.equal(interpretation?.origin, 'deterministic_template');
+  assert.doesNotMatch(
+    JSON.stringify(interpretation),
+    /질병|혼인|이혼|특정 나이|전문가 검토/u,
+    'safe fallback copy must not reproduce unapproved authored predictions or review labels',
   );
 }
-assert.ok(namingSurface.availability.reasonCodes.includes('CONTENT_EXPERT_REVIEW_REQUIRED'));
+assert.equal(namingSurface.availability.status, 'ready');
 assert.equal(
   naming.interpretations.some((row) => row.origin === 'authored_bundle'),
   false,
   'authored 81-numerology copy remains blocked until a versioned external expert approval',
 );
 assertInvalidDelivery(naming, 'FOUR_FRAME_CONTENT_GATE', (value) => {
-  value.surfaces[0].availability = { status: 'ready', reasonCodes: [] };
-  value.availability = { status: 'ready', reasonCodes: [] };
+  const block = value.surfaces[0].blocks.find((item: any) => item.kind === 'four_frames');
+  const interpretation = value.interpretations.find(
+    (item: any) => item.id === block.items[0].interpretationRef,
+  );
+  interpretation.origin = 'authored_bundle';
 });
 assertJsonData(naming);
 assertInvalidDelivery(naming, 'HERO_DEPTH_REF', (value) => {
@@ -721,6 +856,95 @@ assertInvalidDelivery(naming, 'HERO_DEPTH_REF', (value) => {
     (interpretation: any) => interpretation.id === hero.interpretationRef,
   ).expert;
 });
+assertInvalidDelivery(naming, 'NAMING_TREND_PROVENANCE', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'naming_trend').sourceTier =
+    'T3_AUTHORED_INTERPRETATION';
+});
+assertInvalidDelivery(naming, 'NAMING_TREND_CONSISTENCY', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'naming_trend').eraFitScore = 99;
+});
+assertInvalidDelivery(naming, 'NAMING_PHONETIC_FACT_SHAPE', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'naming_phonetic').evidence =
+    ['authored copy must not enter this fact'];
+});
+assertInvalidDelivery(naming, 'NAMING_PHONETIC_TRANSITION_SCORE', (value) => {
+  const transition = value.facts.find(
+    (fact: any) => fact.kind === 'naming_phonetic',
+  ).transitions[0];
+  transition.score = Math.max(0, transition.score - 1);
+});
+assertInvalidDelivery(naming, 'NAMING_DETAIL_IDENTITY', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'naming_trend').givenHangul = '하린';
+});
+
+const rawNamingReport = await engine.getNamingReport({
+  birth: baseRequest.birth,
+  surname: baseRequest.surname,
+  givenName: baseRequest.givenName,
+  mode: 'evaluate',
+  options: baseRequest.options,
+});
+const statisticsDelivery = await buildReportDeliveryV1({
+  selection: {
+    schemaVersion: REPORT_DELIVERY_REQUEST_SCHEMA_V1,
+    surfaces: [{ id: 'naming', depth: 'brief' }],
+  },
+  birth: baseRequest.birth,
+  targetDate: new Date('2026-07-18T00:00:00Z'),
+  analysisId: 'analysis_v1_name_statistics_001',
+  namingReport: rawNamingReport,
+  springReport: {
+    namingReport: rawNamingReport,
+    popularityRank: 42.5,
+    maleRatio: 0.35,
+    nameGender: 'female',
+  } as any,
+  saju: null,
+});
+const nameStatistics = statisticsDelivery.facts.find(
+  (fact) => fact.kind === 'name_statistics',
+);
+assert.ok(nameStatistics?.kind === 'name_statistics');
+assert.deepEqual(nameStatistics, {
+  id: 'naming.statistics',
+  domain: 'naming',
+  method: 'spring-ts.name-stat-summary-projection.v1',
+  kind: 'name_statistics',
+  source: 'spring-ts.SpringReport',
+  projection: 'selective_without_recalculation',
+  sourceFields: ['popularityRank', 'maleRatio', 'nameGender'],
+  popularityRank: 42.5,
+  maleRatio: 0.35,
+  nameGender: 'female',
+}, 'validated name statistics are copied exactly without rounding or nearby-rank substitution');
+assertInvalidDelivery(statisticsDelivery, 'NAME_STATISTICS_FACT_SHAPE', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'name_statistics').similarRank = 42;
+});
+assertInvalidDelivery(statisticsDelivery, 'NAME_STATISTICS_CONSISTENCY', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'name_statistics').nameGender = 'male';
+});
+await assert.rejects(
+  buildReportDeliveryV1({
+    selection: {
+      schemaVersion: REPORT_DELIVERY_REQUEST_SCHEMA_V1,
+      surfaces: [{ id: 'naming', depth: 'brief' }],
+    },
+    birth: baseRequest.birth,
+    targetDate: new Date('2026-07-18T00:00:00Z'),
+    analysisId: 'analysis_v1_invalid_statistics_01',
+    namingReport: rawNamingReport,
+    springReport: {
+      namingReport: rawNamingReport,
+      popularityRank: 42,
+      maleRatio: 0.35,
+      nameGender: 'male',
+    } as any,
+    saju: null,
+  }),
+  (error: unknown) => error instanceof ReportDeliveryContractError
+    && error.reason === 'NAME_STATISTICS_INVALID',
+  'a producer-side statistics mismatch fails closed instead of changing the label',
+);
 
 const pureHangulNaming = await engine.getReportDelivery({
   birth: baseRequest.birth,
@@ -790,7 +1014,10 @@ const saju = await engine.getReportDelivery({
     surfaces: [{
       id: 'saju',
       depth: 'brief',
-      timeline: { periods: ['today'], categories: ['overall'] },
+      timeline: {
+        periods: ['today', 'thisWeek', 'thisMonth', 'thisYear'],
+        categories: ['overall', 'wealth', 'health', 'academic', 'romance', 'family'],
+      },
       life: 'summary',
     }],
   },
@@ -834,6 +1061,28 @@ assert.ok(gyeokgukFact.confidence >= 0 && gyeokgukFact.confidence <= 1);
 const strengthFact = saju.facts.find((fact) => fact.kind === 'strength');
 assert.ok(strengthFact?.kind === 'strength');
 assert.ok(['STRONG', 'BALANCED', 'WEAK', 'UNKNOWN'].includes(strengthFact.levelCode));
+const timeCorrectionFact = saju.facts.find((fact) => fact.kind === 'time_correction');
+assert.ok(timeCorrectionFact?.kind === 'time_correction');
+assert.equal(timeCorrectionFact.policy.longitudeCorrection, 'on');
+assert.equal(timeCorrectionFact.policy.longitudeReference, 'civilOffsetMeridian');
+assert.equal(timeCorrectionFact.policy.yaza, 'on');
+assert.equal(timeCorrectionFact.policy.yazaMode, '23:00');
+assert.deepEqual(timeCorrectionFact.input, {
+  calendarType: 'solar',
+  providedLocalDateTime: {
+    year: 1986, month: 4, day: 19, hour: 5, minute: 45,
+  },
+  effectiveSolarDate: { year: 1986, month: 4, day: 19 },
+  timePrecision: 'exact',
+});
+assert.equal(timeCorrectionFact.inputUncertainty, null);
+assert.equal(timeCorrectionFact.lunarConversion, null);
+const timeCorrectionBlock = sajuSurface.blocks.find(
+  (block) => block.kind === 'fact_group'
+    && block.factRefs.includes(timeCorrectionFact.id),
+);
+assert.equal(timeCorrectionBlock?.availability.status, 'ready',
+  'deterministic clock-correction evidence stays ready when judgment prose is limited');
 assert.ok(
   gyeokgukFact.typeCode === null || /^[A-Z][A-Z_]{0,39}$/u.test(gyeokgukFact.typeCode),
   'gyeokguk delivery exposes a bounded canonical type code, never localized copy',
@@ -847,6 +1096,42 @@ assert.ok(
 assertInvalidDelivery(saju, 'STRENGTH_FACT_SHAPE', (value) => {
   delete value.facts.find((fact: any) => fact.kind === 'strength').levelCode;
 });
+assertInvalidDelivery(saju, 'TIME_CORRECTION_ADJUSTED', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'time_correction')
+    .adjustedSolarLocalDateTime.minute = 60;
+});
+assertInvalidDelivery(saju, 'TIME_CORRECTION_STANDARD', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'time_correction')
+    .standardLocalDateTime.minute = -1;
+});
+assertInvalidDelivery(saju, 'TIME_CORRECTION_CONSISTENCY', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'time_correction')
+    .yazaBoundaryEffect = 'inside_boundary';
+});
+assertInvalidDelivery(saju, 'TIME_CORRECTION_FACT_SHAPE', (value) => {
+  delete value.facts.find((fact: any) => fact.kind === 'time_correction').location;
+});
+assertInvalidDelivery(saju, 'TIME_CORRECTION_LOCATION', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'time_correction').location.latitude = 91;
+});
+assertInvalidDelivery(saju, 'TIME_CORRECTION_LOCATION_CONSISTENCY', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'time_correction')
+    .location.resolvedRegionCode = 'BUSAN';
+});
+assertInvalidDelivery(saju, 'TIME_CORRECTION_UNCERTAINTY', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'time_correction')
+    .inputUncertainty = { unknownHour: {} };
+});
+assertInvalidDelivery(saju, 'TIME_CORRECTION_CARDINALITY', (value) => {
+  const timeFact = value.facts.find((fact: any) => fact.kind === 'time_correction');
+  value.facts = value.facts.filter((fact: any) => fact.id !== timeFact.id);
+  value.surfaces[0].blocks = value.surfaces[0].blocks.filter(
+    (block: any) => !(
+      block.kind === 'fact_group'
+      && block.factRefs.includes(timeFact.id)
+    ),
+  );
+});
 for (const requiredCode of ['typeCode', 'categoryCode', 'baseTenGodCode'] as const) {
   assertInvalidDelivery(saju, 'GYEOKGUK_FACT_SHAPE', (value) => {
     delete value.facts.find((fact: any) => fact.kind === 'gyeokguk')[requiredCode];
@@ -859,6 +1144,280 @@ for (const interpretation of saju.interpretations.filter((row) => row.domain ===
   assert.equal(interpretation.standard, undefined, `${interpretation.id}: brief omits standard`);
   assert.equal(interpretation.expert, undefined, `${interpretation.id}: brief omits expert`);
 }
+
+const exactTimeDelivery = await engine.getReportDelivery({
+  ...baseRequest,
+  birth: {
+    ...baseRequest.birth,
+    region: '서울',
+    latitude: 37.5665,
+    longitude: 126.978,
+    timezone: 'Asia/Seoul',
+  },
+  options: {
+    ...baseRequest.options,
+    sajuTimePolicy: {
+      trueSolarTime: 'on',
+      longitudeCorrection: 'on',
+      longitudeReference: 'civilOffsetMeridian',
+      yaza: 'on',
+      yazaMode: '23:00',
+    },
+  },
+  delivery: {
+    schemaVersion: REPORT_DELIVERY_REQUEST_SCHEMA_V1,
+    surfaces: [{ id: 'saju', depth: 'brief' }],
+  },
+});
+const exactTimeFact = exactTimeDelivery.facts.find(
+  (fact) => fact.kind === 'time_correction',
+);
+assert.ok(exactTimeFact?.kind === 'time_correction');
+assert.deepEqual(exactTimeFact.standardLocalDateTime, {
+  year: 1986, month: 4, day: 19, hour: 5, minute: 45,
+});
+assert.deepEqual(exactTimeFact.input, {
+  calendarType: 'solar',
+  providedLocalDateTime: {
+    year: 1986, month: 4, day: 19, hour: 5, minute: 45,
+  },
+  effectiveSolarDate: { year: 1986, month: 4, day: 19 },
+  timePrecision: 'exact',
+});
+assert.deepEqual(exactTimeFact.adjustedSolarLocalDateTime, {
+  year: 1986, month: 4, day: 19, hour: 5, minute: 13,
+});
+assert.ok(Math.abs(exactTimeFact.corrections.longitudeMinutes - (-32.088)) < 1e-9);
+assert.ok(Math.abs(exactTimeFact.corrections.equationOfTimeMinutes - 0.686756) < 1e-6);
+assert.deepEqual(exactTimeFact.location, {
+  inputLabel: '서울',
+  resolvedRegionCode: 'SEOUL',
+  latitude: 37.5665,
+  longitude: 126.978,
+  timezone: 'Asia/Seoul',
+  source: 'explicit',
+  coordinatesApplied: true,
+});
+assert.ok(exactTimeFact.referenceMeridianDegrees !== null);
+assert.ok(Math.abs(exactTimeFact.referenceMeridianDegrees - 135) < 1e-9);
+assert.deepEqual(exactTimeFact.referenceMeridianBasis, {
+  kind: 'civil_offset_at_birth',
+  utcOffsetMinutes: 540,
+});
+assert.equal(exactTimeFact.policy.explicitLocationRequired, true);
+assert.equal(exactTimeFact.solarDateChanged, false);
+assert.equal(exactTimeFact.yazaBoundaryEffect, 'outside_boundary');
+assertInvalidDelivery(exactTimeDelivery, 'TIME_CORRECTION_MERIDIAN_CONSISTENCY', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'time_correction')
+    .referenceMeridianDegrees = 134;
+});
+assertInvalidDelivery(exactTimeDelivery, 'TIME_CORRECTION_MERIDIAN_CONSISTENCY', (value) => {
+  const timeFact = value.facts.find((fact: any) => fact.kind === 'time_correction');
+  timeFact.referenceMeridianDegrees = 120;
+  timeFact.corrections.longitudeMinutes = 27.912;
+  timeFact.adjustedSolarLocalDateTime.hour = 6;
+  timeFact.adjustedSolarLocalDateTime.minute = 13;
+});
+assertInvalidDelivery(exactTimeDelivery, 'TIME_CORRECTION_MERIDIAN_CONSISTENCY', (value) => {
+  const timeFact = value.facts.find((fact: any) => fact.kind === 'time_correction');
+  timeFact.referenceMeridianBasis.utcOffsetMinutes = 480;
+  timeFact.referenceMeridianDegrees = 120;
+  timeFact.corrections.longitudeMinutes = 27.912;
+  timeFact.adjustedSolarLocalDateTime.hour = 6;
+  timeFact.adjustedSolarLocalDateTime.minute = 13;
+});
+assertInvalidDelivery(exactTimeDelivery, 'TIME_CORRECTION_CONSISTENCY', (value) => {
+  const timeFact = value.facts.find((fact: any) => fact.kind === 'time_correction');
+  timeFact.adjustedSolarLocalDateTime.hour = 18;
+  timeFact.adjustedSolarLocalDateTime.minute = 12;
+});
+assertInvalidDelivery(exactTimeDelivery, 'TIME_CORRECTION_VALUES', (value) => {
+  const timeFact = value.facts.find((fact: any) => fact.kind === 'time_correction');
+  timeFact.corrections.equationOfTimeMinutes = 1000;
+  timeFact.adjustedSolarLocalDateTime.hour = 21;
+  timeFact.adjustedSolarLocalDateTime.minute = 52;
+});
+assertInvalidDelivery(exactTimeDelivery, 'TIME_CORRECTION_VALUES', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'time_correction')
+    .corrections.daylightSavingMinutes = 999;
+});
+assertInvalidDelivery(exactTimeDelivery, 'TIME_CORRECTION_CONSISTENCY', (value) => {
+  const timeFact = value.facts.find((fact: any) => fact.kind === 'time_correction');
+  timeFact.policy.explicitLocationRequired = false;
+  timeFact.location = {
+    inputLabel: null,
+    resolvedRegionCode: 'SEOUL',
+    latitude: 37.5665,
+    longitude: 126.978,
+    timezone: 'Asia/Seoul',
+    source: 'default',
+    coordinatesApplied: true,
+  };
+});
+assertInvalidDelivery(exactTimeDelivery, 'TIME_CORRECTION_LOCATION_CONSISTENCY', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'time_correction').location.source = 'default';
+});
+assertInvalidDelivery(exactTimeDelivery, 'TIME_CORRECTION_LOCATION_CONSISTENCY', (value) => {
+  const location = value.facts.find((fact: any) => fact.kind === 'time_correction').location;
+  location.latitude = 36.3504;
+  location.longitude = 127.3845;
+});
+
+const unknownHourDelivery = await engine.getReportDelivery({
+  ...baseRequest,
+  birth: {
+    ...baseRequest.birth,
+    hour: null,
+    minute: null,
+  },
+  delivery: {
+    schemaVersion: REPORT_DELIVERY_REQUEST_SCHEMA_V1,
+    surfaces: [{ id: 'saju', depth: 'brief' }],
+  },
+});
+const unknownHourFact = unknownHourDelivery.facts.find(
+  (fact) => fact.kind === 'time_correction',
+);
+assert.ok(unknownHourFact?.kind === 'time_correction');
+assert.equal(unknownHourFact.input.timePrecision, 'unknown_hour');
+assert.equal(unknownHourFact.input.providedLocalDateTime.hour, null);
+assert.equal(unknownHourFact.input.providedLocalDateTime.minute, null);
+assert.equal(unknownHourFact.standardLocalDateTime.hour, 12);
+assert.equal(unknownHourFact.standardLocalDateTime.minute, 0);
+assert.ok(unknownHourFact.inputUncertainty?.unknownHour);
+assert.equal(unknownHourFact.inputUncertainty?.unknownMinute, undefined);
+const unknownHourTimeBlock = findSurface(unknownHourDelivery, 'saju')!.blocks.find(
+  (block) => block.kind === 'fact_group'
+    && block.factRefs.includes(unknownHourFact.id),
+);
+assert.deepEqual(unknownHourTimeBlock?.availability, {
+  status: 'limited',
+  reasonCodes: ['BIRTH_TIME_IMPUTED'],
+});
+assert.ok(
+  findSurface(unknownHourDelivery, 'saju')!.availability.reasonCodes
+    .includes('BIRTH_TIME_IMPUTED'),
+);
+assertInvalidDelivery(
+  unknownHourDelivery,
+  'TIME_CORRECTION_AVAILABILITY',
+  (value) => {
+    const fact = value.facts.find((entry: any) => entry.kind === 'time_correction');
+    const block = value.surfaces[0].blocks.find(
+      (entry: any) => entry.kind === 'fact_group' && entry.factRefs.includes(fact.id),
+    );
+    block.availability = { status: 'ready', reasonCodes: [] };
+  },
+);
+
+const unknownMinuteDelivery = await engine.getReportDelivery({
+  ...baseRequest,
+  birth: {
+    ...baseRequest.birth,
+    minute: null,
+  },
+  delivery: {
+    schemaVersion: REPORT_DELIVERY_REQUEST_SCHEMA_V1,
+    surfaces: [{ id: 'saju', depth: 'brief' }],
+  },
+});
+const unknownMinuteFact = unknownMinuteDelivery.facts.find(
+  (fact) => fact.kind === 'time_correction',
+);
+assert.ok(unknownMinuteFact?.kind === 'time_correction');
+assert.equal(unknownMinuteFact.input.timePrecision, 'unknown_minute');
+assert.equal(unknownMinuteFact.input.providedLocalDateTime.hour, 5);
+assert.equal(unknownMinuteFact.input.providedLocalDateTime.minute, null);
+assert.equal(unknownMinuteFact.standardLocalDateTime.hour, 5);
+assert.equal(unknownMinuteFact.standardLocalDateTime.minute, 0);
+assert.ok(unknownMinuteFact.inputUncertainty?.unknownMinute);
+assert.equal(unknownMinuteFact.inputUncertainty?.unknownHour, undefined);
+
+const lunarDelivery = await engine.getReportDelivery({
+  ...baseRequest,
+  birth: {
+    ...baseRequest.birth,
+    year: 1986,
+    month: 3,
+    day: 11,
+    calendarType: 'lunar',
+    isLeapMonth: false,
+  },
+  delivery: {
+    schemaVersion: REPORT_DELIVERY_REQUEST_SCHEMA_V1,
+    surfaces: [{ id: 'saju', depth: 'brief' }],
+  },
+});
+const lunarTimeFact = lunarDelivery.facts.find(
+  (fact) => fact.kind === 'time_correction',
+);
+assert.ok(lunarTimeFact?.kind === 'time_correction');
+assert.deepEqual(lunarTimeFact.input, {
+  calendarType: 'lunar',
+  providedLocalDateTime: {
+    year: 1986, month: 3, day: 11, hour: 5, minute: 45,
+  },
+  effectiveSolarDate: { year: 1986, month: 4, day: 19 },
+  timePrecision: 'exact',
+});
+assert.deepEqual(lunarTimeFact.lunarConversion, {
+  lunar: {
+    year: 1986,
+    month: 3,
+    day: 11,
+    isLeapMonth: false,
+  },
+  solar: { year: 1986, month: 4, day: 19 },
+  source: 'builtin',
+});
+assert.deepEqual(lunarTimeFact.standardLocalDateTime, {
+  year: 1986, month: 4, day: 19, hour: 5, minute: 45,
+});
+assertInvalidDelivery(lunarDelivery, 'TIME_CORRECTION_LUNAR_CONSISTENCY', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'time_correction')
+    .lunarConversion.solar.day = 20;
+});
+assertInvalidDelivery(lunarDelivery, 'TIME_CORRECTION_LUNAR', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'time_correction')
+    .lunarConversion.kasiFallback = false;
+});
+assertInvalidDelivery(lunarDelivery, 'TIME_CORRECTION_LUNAR', (value) => {
+  const conversion = value.facts.find(
+    (fact: any) => fact.kind === 'time_correction',
+  ).lunarConversion;
+  conversion.source = 'kasi';
+  conversion.kasiFallback = true;
+});
+
+const leapMonthDelivery = await engine.getReportDelivery({
+  ...baseRequest,
+  birth: {
+    ...baseRequest.birth,
+    year: 2025,
+    month: 6,
+    day: 1,
+    calendarType: 'lunar',
+    isLeapMonth: true,
+  },
+  delivery: {
+    schemaVersion: REPORT_DELIVERY_REQUEST_SCHEMA_V1,
+    surfaces: [{ id: 'saju', depth: 'brief' }],
+  },
+});
+const leapMonthTimeFact = leapMonthDelivery.facts.find(
+  (fact) => fact.kind === 'time_correction',
+);
+assert.ok(leapMonthTimeFact?.kind === 'time_correction');
+assert.deepEqual(leapMonthTimeFact.lunarConversion, {
+  lunar: {
+    year: 2025,
+    month: 6,
+    day: 1,
+    isLeapMonth: true,
+  },
+  solar: { year: 2025, month: 7, day: 25 },
+  source: 'builtin',
+}, 'a real leap-month flag survives conversion and report-delivery provenance');
 
 const mixedDepth = await engine.getReportDelivery({
   ...baseRequest,
@@ -905,6 +1464,409 @@ const validSajuReport = await originalGetSajuReport({
   birth: baseRequest.birth,
   surname: baseRequest.surname,
 });
+const structuralEvidenceFixture = {
+  ...structuredClone(validSajuReport),
+  shinsalHits: [
+    {
+      type: '\uCC9C\uB355\uADC0\uC778',
+      position: '\uC6D4\uC8FC',
+      grade: 'A',
+      baseWeight: 80,
+      positionMultiplier: 1.2,
+      weightedScore: 96,
+      basedOn: 'MONTH_BRANCH',
+      seatPillars: ['month'],
+      count: 1,
+    },
+    {
+      type: '\uB3C4\uD654\uC0B4',
+      position: '\uC77C\uC8FC',
+      grade: 'B',
+      baseWeight: 50,
+      positionMultiplier: 1,
+      weightedScore: 50,
+      basedOn: 'DAY_BRANCH',
+      seatPillars: ['day'],
+      count: 2,
+      qualityReasons: ['HYEONG'],
+      conditionPenalty: 0.2,
+    },
+  ],
+  cheonganRelations: [
+    {
+      type: '\uD569',
+      stems: ['\uAC11', '\uAE30'],
+      resultElement: 'EARTH',
+      note: 'engine-private relation note',
+      score: {
+        model: 'legacy_heuristic_v1',
+        unit: '0_100',
+        status: 'provisional',
+        evidenceOnly: true,
+        authorityTruthEligible: false,
+        provisional: true,
+        pairCount: 1,
+        positionGap: 3,
+        positionGaps: [3],
+        baseScore: 80,
+        adjacencyBonus: 0,
+        outcomeMultiplier: 1,
+        finalScore: 80,
+        rationale: 'engine-private provisional rationale',
+      },
+      hapState: 'HUA',
+      hapStateKo: 'engine-private localized state',
+      resultConfirmed: true,
+    },
+  ],
+  jijiRelations: [
+    {
+      type: '\uCDA9',
+      branches: ['\uC790', '\uC624'],
+      note: 'engine-private branch note',
+      outcome: '\uCDA9(\u6C96)',
+      reasoning: 'engine-private interpretive reasoning',
+    },
+  ],
+  tenGodAnalysis: {
+    dayMaster: '\uAC11',
+    byPosition: {
+      YEAR: {
+        cheonganTenGod: '\uBE44\uACAC',
+        jijiPrincipalTenGod: '\uC815\uC7AC',
+        hiddenStems: [{ stem: '\uAC11', element: 'WOOD', ratio: 1 }],
+        hiddenStemTenGod: [{ stem: '\uAC11', tenGod: '\uBE44\uACAC' }],
+      },
+      MONTH: {
+        cheonganTenGod: '\uC2DD\uC2E0',
+        jijiPrincipalTenGod: '\uC0C1\uAD00',
+        hiddenStems: [{ stem: '\uBCD1', element: 'FIRE', ratio: 1 }],
+        hiddenStemTenGod: [{ stem: '\uBCD1', tenGod: '\uC2DD\uC2E0' }],
+      },
+      DAY: {
+        cheonganTenGod: '\uBE44\uACAC',
+        jijiPrincipalTenGod: '\uD3B8\uC7AC',
+        hiddenStems: [{ stem: '\uBB34', element: 'EARTH', ratio: 1 }],
+        hiddenStemTenGod: [{ stem: '\uBB34', tenGod: '\uD3B8\uC7AC' }],
+      },
+      HOUR: {
+        cheonganTenGod: '\uC815\uC778',
+        jijiPrincipalTenGod: '\uD3B8\uC778',
+        hiddenStems: [{ stem: '\uC784', element: 'WATER', ratio: 1 }],
+        hiddenStemTenGod: [{ stem: '\uC784', tenGod: '\uD3B8\uC778' }],
+      },
+    },
+  },
+  deficientElements: ['EARTH', 'METAL'],
+  excessiveElements: ['WOOD'],
+} as any;
+const structuralEvidenceDelivery = await buildReportDeliveryV1({
+  selection: {
+    schemaVersion: REPORT_DELIVERY_REQUEST_SCHEMA_V1,
+    surfaces: [{ id: 'saju', depth: 'brief' }],
+  },
+  birth: baseRequest.birth,
+  options: baseRequest.options,
+  targetDate: new Date('2026-07-18T00:00:00Z'),
+  analysisId: 'analysis_v1_structural_evidence_01',
+  saju: structuralEvidenceFixture,
+  namingReport: null,
+  springReport: null,
+});
+const shinsalEvidence = structuralEvidenceDelivery.facts.find(
+  (fact) => fact.kind === 'shinsal_hits',
+);
+assert.ok(shinsalEvidence?.kind === 'shinsal_hits');
+assert.deepEqual(
+  {
+    method: shinsalEvidence.method,
+    source: shinsalEvidence.source,
+    projection: shinsalEvidence.projection,
+    sourceFields: shinsalEvidence.sourceFields,
+  },
+  {
+    method: 'saju-ts.shinsal-summary-projection.v1',
+    source: 'spring-ts.SajuSummary',
+    projection: 'normalized_without_recalculation',
+    sourceFields: ['shinsalHits'],
+  },
+);
+assert.deepEqual(
+  shinsalEvidence.hits,
+  [
+    {
+      name: '\uCC9C\uB355\uADC0\uC778',
+      calculationBasis: { label: '\uC6D4\uC8FC', code: 'MONTH_BRANCH' },
+      grade: 'A',
+      seatPillars: ['month'],
+      occurrenceCount: 1,
+    },
+    {
+      name: '\uB3C4\uD654\uC0B4',
+      calculationBasis: { label: '\uC77C\uC8FC', code: 'DAY_BRANCH' },
+      grade: 'B',
+      seatPillars: ['day'],
+      occurrenceCount: 2,
+    },
+  ],
+  'named shinsal hits retain calculation basis and actual seat positions',
+);
+const shinsalKeys = serializedKeys(shinsalEvidence);
+for (const internalKey of [
+  'baseWeight',
+  'positionMultiplier',
+  'weightedScore',
+  'qualityReasons',
+  'conditionPenalty',
+]) {
+  assert.equal(
+    shinsalKeys.has(internalKey),
+    false,
+    `shinsal projection omits engine-internal ${internalKey}`,
+  );
+}
+
+const tenGodEvidence = structuralEvidenceDelivery.facts.find(
+  (fact) => fact.kind === 'ten_god_analysis',
+);
+assert.ok(tenGodEvidence?.kind === 'ten_god_analysis');
+assert.equal(tenGodEvidence.dayMasterStem, '\uAC11');
+assert.deepEqual(
+  tenGodEvidence.positions.map((position) => position.position),
+  ['year', 'month', 'day', 'hour'],
+);
+assert.deepEqual(
+  tenGodEvidence.positions.map((position) => position.cheongan.code),
+  ['BI_GYEON', 'SIK_SIN', 'BI_GYEON', 'JEONG_IN'],
+);
+assert.deepEqual(
+  tenGodEvidence.positions.map((position) => position.jijiPrincipal.code),
+  ['JEONG_JAE', 'SANG_GWAN', 'PYEON_JAE', 'PYEON_IN'],
+);
+assert.deepEqual(
+  tenGodEvidence.positions.map((position) => position.hiddenStems[0]),
+  [
+    {
+      stem: '\uAC11',
+      element: 'wood',
+      ratio: 1,
+      tenGod: { label: '\uBE44\uACAC', code: 'BI_GYEON' },
+    },
+    {
+      stem: '\uBCD1',
+      element: 'fire',
+      ratio: 1,
+      tenGod: { label: '\uC2DD\uC2E0', code: 'SIK_SIN' },
+    },
+    {
+      stem: '\uBB34',
+      element: 'earth',
+      ratio: 1,
+      tenGod: { label: '\uD3B8\uC7AC', code: 'PYEON_JAE' },
+    },
+    {
+      stem: '\uC784',
+      element: 'water',
+      ratio: 1,
+      tenGod: { label: '\uD3B8\uC778', code: 'PYEON_IN' },
+    },
+  ],
+  'ten-god positions retain source labels while adding bounded canonical codes',
+);
+
+const relationEvidence = structuralEvidenceDelivery.facts.find(
+  (fact) => fact.kind === 'natal_relations',
+);
+assert.ok(relationEvidence?.kind === 'natal_relations');
+assert.deepEqual(relationEvidence.cheongan, [{
+  type: '\uD569',
+  stems: ['\uAC11', '\uAE30'],
+  hapState: 'HUA',
+  resultElement: 'earth',
+  resultConfirmed: true,
+}]);
+assert.deepEqual(relationEvidence.jiji, [{
+  type: '\uCDA9',
+  branches: ['\uC790', '\uC624'],
+  outcome: '\uCDA9(\u6C96)',
+}]);
+const relationKeys = serializedKeys(relationEvidence);
+for (const internalKey of ['note', 'reasoning', 'score', 'hapStateKo']) {
+  assert.equal(
+    relationKeys.has(internalKey),
+    false,
+    `relation projection omits engine-internal ${internalKey}`,
+  );
+}
+
+const elementBalanceEvidence = structuralEvidenceDelivery.facts.find(
+  (fact) => fact.kind === 'element_balance',
+);
+assert.ok(elementBalanceEvidence?.kind === 'element_balance');
+assert.deepEqual(elementBalanceEvidence.deficient, ['earth', 'metal']);
+assert.deepEqual(elementBalanceEvidence.excessive, ['wood']);
+
+const structuralEvidenceBlock = findSurface(structuralEvidenceDelivery, 'saju')!.blocks.find(
+  (block) => block.kind === 'fact_group' && block.presentation === 'evidence',
+);
+assert.ok(structuralEvidenceBlock?.kind === 'fact_group');
+assert.deepEqual(
+  structuralEvidenceBlock.factRefs,
+  [
+    shinsalEvidence.id,
+    tenGodEvidence.id,
+    relationEvidence.id,
+    elementBalanceEvidence.id,
+  ],
+  'specialist structural facts are reachable only through the saju evidence group',
+);
+assert.deepEqual(
+  integrated.facts.filter((fact) => new Set([
+    'shinsal_hits',
+    'ten_god_analysis',
+    'natal_relations',
+    'element_balance',
+  ]).has(fact.kind)),
+  [],
+  'specialist structural facts do not broaden the integrated-only payload',
+);
+assertInvalidDelivery(structuralEvidenceDelivery, 'SAJU_PROJECTION_PROVENANCE', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'shinsal_hits').sourceFields[0] = 'shinsalHit';
+});
+assertInvalidDelivery(structuralEvidenceDelivery, 'SHINSAL_HIT_SHAPE', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'shinsal_hits').hits[0].weightedScore = 96;
+});
+assertInvalidDelivery(structuralEvidenceDelivery, 'SHINSAL_HIT_COUNT', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'shinsal_hits').hits[0].occurrenceCount = 0;
+});
+assertInvalidDelivery(structuralEvidenceDelivery, 'TEN_GOD_POSITION_ORDER', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'ten_god_analysis').positions.reverse();
+});
+assertInvalidDelivery(structuralEvidenceDelivery, 'TEN_GOD_HIDDEN_STEM_RATIO', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'ten_god_analysis')
+    .positions[0].hiddenStems[0].ratio = 0.5;
+});
+assertInvalidDelivery(structuralEvidenceDelivery, 'CHEONGAN_RELATION_RESULT', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'natal_relations')
+    .cheongan[0].resultElement = null;
+});
+assertInvalidDelivery(structuralEvidenceDelivery, 'ELEMENT_BALANCE_CONSISTENCY', (value) => {
+  value.facts.find((fact: any) => fact.kind === 'element_balance').excessive.push('earth');
+});
+
+const earlyYearSajuReport = await originalGetSajuReport({
+  birth: { ...baseRequest.birth, year: 50 },
+  surname: baseRequest.surname,
+});
+const earlyYearDelivery = await buildReportDeliveryV1({
+  selection: {
+    schemaVersion: REPORT_DELIVERY_REQUEST_SCHEMA_V1,
+    surfaces: [{ id: 'saju', depth: 'brief' }],
+  },
+  birth: { ...baseRequest.birth, year: 50 },
+  targetDate: new Date('2026-07-18T00:00:00Z'),
+  analysisId: 'analysis_v1_early_year_time_01',
+  saju: earlyYearSajuReport,
+  namingReport: null,
+  springReport: null,
+});
+assert.doesNotThrow(
+  () => assertReportDeliveryV1(earlyYearDelivery),
+  'years 1..99 retain their literal year instead of Date.UTC 1900-offset semantics',
+);
+const provenanceBoundDelivery = await buildReportDeliveryV1({
+  selection: {
+    schemaVersion: REPORT_DELIVERY_REQUEST_SCHEMA_V1,
+    surfaces: [{ id: 'saju', depth: 'brief' }],
+  },
+  birth: { ...baseRequest.birth, region: 'Busan' },
+  options: {
+    sajuTimePolicy: {
+      trueSolarTime: 'on',
+      longitudeCorrection: 'off',
+      yaza: 'off',
+    },
+  },
+  targetDate: new Date('2026-07-18T00:00:00Z'),
+  analysisId: 'analysis_v1_provenance_bound_01',
+  saju: validSajuReport,
+  namingReport: null,
+  springReport: null,
+});
+const provenanceBoundTimeFact = provenanceBoundDelivery.facts.find(
+  (fact) => fact.kind === 'time_correction',
+);
+assert.ok(provenanceBoundTimeFact?.kind === 'time_correction');
+assert.deepEqual(
+  provenanceBoundTimeFact.location,
+  validSajuReport.timeCorrection.provenance?.location,
+  'delivery location comes from the calculation atom, not a second birth lookup',
+);
+assert.deepEqual(
+  provenanceBoundTimeFact.policy,
+  validSajuReport.timeCorrection.provenance?.policy,
+  'delivery policy comes from the calculation atom, not the later builder options',
+);
+
+const legacyTimeFixture = structuredClone(validSajuReport) as any;
+delete legacyTimeFixture.timeCorrection.provenance;
+await assert.rejects(
+  buildReportDeliveryV1({
+    selection: {
+      schemaVersion: REPORT_DELIVERY_REQUEST_SCHEMA_V1,
+      surfaces: [{ id: 'saju', depth: 'brief' }],
+    },
+    birth: baseRequest.birth,
+    targetDate: new Date('2026-07-18T00:00:00Z'),
+    analysisId: 'analysis_v1_missing_time_provenance_01',
+    saju: legacyTimeFixture,
+    namingReport: null,
+    springReport: null,
+  }),
+  (error: unknown) => error instanceof ReportDeliveryContractError
+    && error.reason === 'TIME_CORRECTION_PROVENANCE_REQUIRED',
+);
+
+const invalidTimeFixture = structuredClone(validSajuReport) as any;
+invalidTimeFixture.timeCorrection.standardYear = 0;
+await assert.rejects(
+  buildReportDeliveryV1({
+    selection: {
+      schemaVersion: REPORT_DELIVERY_REQUEST_SCHEMA_V1,
+      surfaces: [{ id: 'saju', depth: 'brief' }],
+    },
+    birth: baseRequest.birth,
+    targetDate: new Date('2026-07-18T00:00:00Z'),
+    analysisId: 'analysis_v1_invalid_time_fixture_01',
+    saju: invalidTimeFixture,
+    namingReport: null,
+    springReport: null,
+  }),
+  (error: unknown) => error instanceof ReportDeliveryContractError
+    && error.reason === 'TIME_CORRECTION_INVALID',
+);
+
+const failedSajuFixture = {
+  ...structuredClone(validSajuReport),
+  analysisStatus: 'failed',
+} as any;
+await assert.rejects(
+  buildReportDeliveryV1({
+    selection: {
+      schemaVersion: REPORT_DELIVERY_REQUEST_SCHEMA_V1,
+      surfaces: [{ id: 'saju', depth: 'brief' }],
+    },
+    birth: baseRequest.birth,
+    targetDate: new Date('2026-07-18T00:00:00Z'),
+    analysisId: 'analysis_v1_failed_saju_fixture_01',
+    saju: failedSajuFixture,
+    namingReport: null,
+    springReport: null,
+  }),
+  (error: unknown) => error instanceof ReportDeliveryContractError
+    && error.reason === 'SAJU_UNAVAILABLE_FOR_REQUESTED_SURFACE',
+);
+
 const reversedPeriodDelivery = await buildReportDeliveryV1({
   selection: {
     schemaVersion: REPORT_DELIVERY_REQUEST_SCHEMA_V1,
@@ -998,13 +1960,22 @@ assert.ok(highRiskTimeline?.kind === 'timeline');
 assert.equal(highRiskTimeline.basis, 'natal_saju_calendar');
 const highRiskCell = highRiskTimeline.periods[0]?.cells[0];
 assert.equal(highRiskCell?.availability.status, 'limited');
-assert.equal(highRiskCell?.ratingFactRef, undefined,
-  'low-confidence natal evidence must not emit a fortune star rating');
-assert.equal(highRiskDelivery.facts.some((fact) => fact.id === 'fortune.today.overall.stars'), false);
+assert.equal(highRiskCell?.ratingFactRef, 'fortune.today.overall.stars',
+  'low-confidence natal evidence preserves the selected-school calculation while the cell remains limited');
+assert.equal(highRiskDelivery.facts.some((fact) => fact.id === 'fortune.today.overall.stars'), true);
 const highRiskCellInterpretation = highRiskDelivery.interpretations.find(
   (interpretation) => interpretation.id === highRiskCell?.interpretationRef,
 );
-assert.match(highRiskCellInterpretation?.brief.headline ?? '', /단정하지 않아요/u);
+assert.doesNotMatch(
+  highRiskCellInterpretation?.brief.headline ?? '',
+  /사주 판단 근거가 제한되어/u,
+  'low-confidence fortune copy stays category-specific instead of becoming a placeholder',
+);
+assert.equal(
+  highRiskCellInterpretation?.availability.status,
+  'limited',
+  'the delivery contract, rather than repeated narrative copy, marks the interpretation conditional',
+);
 assertInvalidDelivery(highRiskDelivery, 'YONGSHIN_JONGGYEOK_RANGE', (value) => {
   value.facts.find((fact: any) => fact.kind === 'yongshin').jonggyeokRisk.dominanceRatio = -1;
 });

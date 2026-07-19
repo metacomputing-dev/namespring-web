@@ -9,6 +9,7 @@ import type {
 import { targetCalendarParts } from '../../target-date.js';
 import { assessNatalEvidenceV1 } from '../../natal-evidence.js';
 import { ENGINE_BUILD_IDENTITY_V1 } from '../../engine-build-identity.generated.js';
+import { resolveSchoolPresetMetadata } from '../../preset-loader.js';
 import engineConfig from '../../../config/engine.json';
 import {
   normalizeGyeokgukCategoryCode,
@@ -29,13 +30,19 @@ import {
   type DeliveryAvailabilityV1,
   type DeliveryReasonCodeV1,
   type DeliveryStatusV1,
+  type ElementBalanceFactV1,
   type ElementDistributionFactV1,
   type FiveElementIdV1,
   type GyeokgukFactV1,
   type MetricFactV1,
+  type LocalReportOptionsV1,
   type NameCharacterFactV1,
+  type NameStatisticsFactV1,
   type NameSajuInteractionFactV1,
   type NamingFrameFactV1,
+  type NamingPhoneticFactV1,
+  type NamingTrendFactV1,
+  type NatalRelationsFactV1,
   type PillarsFactV1,
   type ReportBlockV1,
   type ReportCategoryIdV1,
@@ -48,7 +55,14 @@ import {
   type ReportSurfaceV1,
   type StrengthFactV1,
   type SajuJudgmentStrengthV1,
+  type SajuPillarPositionV1,
+  type ShinsalHitsFactV1,
+  type TenGodAnalysisFactV1,
+  type TenGodCodeV1,
+  type TenGodDescriptorV1,
+  type TimeCorrectionFactV1,
   type YongshinFactV1,
+  type YongshinMethodAxisV1,
 } from './types.js';
 import {
   assertReportDeliveryV1,
@@ -56,8 +70,27 @@ import {
   validateReportDeliverySelectionV1,
 } from './validation.js';
 import { FOUR_FRAME_AUTHORED_COPY_APPROVED } from './content-gates.js';
+import { buildSafeFourFrameCopyV1 } from './safe-four-frame-copy.js';
 
 const PILLAR_ORDER = ['year', 'month', 'day', 'hour'] as const;
+const TEN_GOD_POSITION_ORDER = [
+  { source: 'YEAR', position: 'year' },
+  { source: 'MONTH', position: 'month' },
+  { source: 'DAY', position: 'day' },
+  { source: 'HOUR', position: 'hour' },
+] as const;
+const TEN_GOD_CODES = new Set<TenGodCodeV1>([
+  'BI_GYEON',
+  'GYEOB_JAE',
+  'SIK_SIN',
+  'SANG_GWAN',
+  'PYEON_JAE',
+  'JEONG_JAE',
+  'PYEON_GWAN',
+  'JEONG_GWAN',
+  'PYEON_IN',
+  'JEONG_IN',
+]);
 const ELEMENT_ORDER: readonly FiveElementIdV1[] = ['wood', 'fire', 'earth', 'metal', 'water'];
 const DEPTH_ORDER: Readonly<Record<ReportDepthV1, number>> = { brief: 0, standard: 1, expert: 2 };
 const CATEGORY_LABELS: Readonly<Record<ReportCategoryIdV1, string>> = {
@@ -86,6 +119,7 @@ export interface BuildReportDeliveryV1Input {
   readonly targetDate: Date;
   readonly analysisId: string;
   readonly candidateId?: string;
+  readonly options?: LocalReportOptionsV1;
   readonly saju: SajuSummary | null;
   readonly namingReport: NamingReport | null;
   readonly springReport: SpringReport | null;
@@ -110,6 +144,414 @@ function canonicalElement(value: unknown): FiveElementIdV1 | null {
     case 'WATER': case '수': case '水': return 'water';
     default: return null;
   }
+}
+
+function boundedEngineText(
+  value: unknown,
+  reason: string,
+  maxLength = 120,
+): string {
+  if (typeof value !== 'string') throw new ReportDeliveryContractError(reason);
+  const normalized = value.normalize('NFC').trim();
+  if (normalized.length === 0
+    || Array.from(normalized).length > maxLength
+    || /[\u0000-\u001f\u007f]/u.test(normalized)) {
+    throw new ReportDeliveryContractError(reason);
+  }
+  return normalized;
+}
+
+function canonicalTenGodDescriptor(
+  value: unknown,
+  reason: string,
+): TenGodDescriptorV1 {
+  const label = boundedEngineText(value, reason, 40);
+  const normalizedCode = normalizeTenGodCode(label);
+  return {
+    label,
+    code: TEN_GOD_CODES.has(normalizedCode as TenGodCodeV1)
+      ? normalizedCode as TenGodCodeV1
+      : null,
+  };
+}
+
+function canonicalElementList(
+  values: unknown,
+  reason: string,
+): FiveElementIdV1[] {
+  if (!Array.isArray(values) || values.length > ELEMENT_ORDER.length) {
+    throw new ReportDeliveryContractError(reason);
+  }
+  const normalized = values.map((value) => {
+    const element = canonicalElement(value);
+    if (!element) throw new ReportDeliveryContractError(reason);
+    return element;
+  });
+  if (new Set(normalized).size !== normalized.length) {
+    throw new ReportDeliveryContractError(reason);
+  }
+  return normalized;
+}
+
+function shinsalHitsFact(saju: SajuSummary): ShinsalHitsFactV1 {
+  if (!Array.isArray(saju.shinsalHits) || saju.shinsalHits.length > 256) {
+    throw new ReportDeliveryContractError('SHINSAL_HITS_INVALID');
+  }
+  const hits = saju.shinsalHits.map((hit) => {
+    if (!hit || typeof hit !== 'object') {
+      throw new ReportDeliveryContractError('SHINSAL_HIT_INVALID');
+    }
+    const seatPillars = Array.isArray(hit.seatPillars) ? [...hit.seatPillars] : [];
+    if (seatPillars.length > PILLAR_ORDER.length
+      || seatPillars.some((position) => !PILLAR_ORDER.includes(position))
+      || new Set(seatPillars).size !== seatPillars.length) {
+      throw new ReportDeliveryContractError('SHINSAL_SEAT_PILLARS_INVALID');
+    }
+    const occurrenceCount = hit.count ?? 1;
+    if (!Number.isSafeInteger(occurrenceCount) || occurrenceCount < 1) {
+      throw new ReportDeliveryContractError('SHINSAL_COUNT_INVALID');
+    }
+    let calculationBasisCode: string | null = null;
+    if (hit.basedOn !== undefined) {
+      calculationBasisCode = boundedMachineCode(hit.basedOn);
+      if (!calculationBasisCode) {
+        throw new ReportDeliveryContractError('SHINSAL_BASIS_CODE_INVALID');
+      }
+    }
+    return {
+      name: boundedEngineText(hit.type, 'SHINSAL_NAME_INVALID', 80),
+      calculationBasis: {
+        label: boundedEngineText(hit.position, 'SHINSAL_BASIS_LABEL_INVALID', 40),
+        code: calculationBasisCode,
+      },
+      grade: boundedEngineText(hit.grade, 'SHINSAL_GRADE_INVALID', 16),
+      seatPillars: seatPillars as SajuPillarPositionV1[],
+      occurrenceCount,
+    };
+  });
+  return {
+    id: 'saju.shinsal-hits',
+    domain: 'saju',
+    method: 'saju-ts.shinsal-summary-projection.v1',
+    kind: 'shinsal_hits',
+    source: 'spring-ts.SajuSummary',
+    projection: 'normalized_without_recalculation',
+    sourceFields: ['shinsalHits'],
+    hits,
+  };
+}
+
+function tenGodAnalysisFact(saju: SajuSummary): TenGodAnalysisFactV1 | null {
+  const analysis = saju.tenGodAnalysis;
+  if (analysis === null) return null;
+  if (!analysis || typeof analysis !== 'object'
+    || !analysis.byPosition || typeof analysis.byPosition !== 'object') {
+    throw new ReportDeliveryContractError('TEN_GOD_ANALYSIS_INVALID');
+  }
+  const sourcePositionKeys = Object.keys(analysis.byPosition);
+  if (sourcePositionKeys.length !== TEN_GOD_POSITION_ORDER.length
+    || TEN_GOD_POSITION_ORDER.some(({ source }) => !sourcePositionKeys.includes(source))) {
+    throw new ReportDeliveryContractError('TEN_GOD_POSITION_SET_INVALID');
+  }
+  const positions = TEN_GOD_POSITION_ORDER.map(({ source, position }) => {
+    const cell = analysis.byPosition[source];
+    if (!cell || typeof cell !== 'object'
+      || !Array.isArray(cell.hiddenStems)
+      || !Array.isArray(cell.hiddenStemTenGod)
+      || cell.hiddenStems.length < 1
+      || cell.hiddenStems.length > 3
+      || cell.hiddenStems.length !== cell.hiddenStemTenGod.length) {
+      throw new ReportDeliveryContractError('TEN_GOD_POSITION_INVALID');
+    }
+    const hiddenStems = cell.hiddenStems.map((hidden, index) => {
+      const tenGod = cell.hiddenStemTenGod[index];
+      if (!hidden || !tenGod || typeof hidden !== 'object' || typeof tenGod !== 'object') {
+        throw new ReportDeliveryContractError('TEN_GOD_HIDDEN_STEM_INVALID');
+      }
+      const stem = boundedEngineText(hidden.stem, 'TEN_GOD_HIDDEN_STEM_INVALID', 16);
+      const tenGodStem = boundedEngineText(
+        tenGod.stem,
+        'TEN_GOD_HIDDEN_STEM_INVALID',
+        16,
+      );
+      const element = canonicalElement(hidden.element);
+      if (stem !== tenGodStem || !element
+        || !Number.isFinite(hidden.ratio)
+        || hidden.ratio < 0
+        || hidden.ratio > 1) {
+        throw new ReportDeliveryContractError('TEN_GOD_HIDDEN_STEM_INVALID');
+      }
+      return {
+        stem,
+        element,
+        ratio: hidden.ratio,
+        tenGod: canonicalTenGodDescriptor(
+          tenGod.tenGod,
+          'TEN_GOD_HIDDEN_DESCRIPTOR_INVALID',
+        ),
+      };
+    });
+    return {
+      position,
+      cheongan: canonicalTenGodDescriptor(
+        cell.cheonganTenGod,
+        'TEN_GOD_CHEONGAN_INVALID',
+      ),
+      jijiPrincipal: canonicalTenGodDescriptor(
+        cell.jijiPrincipalTenGod,
+        'TEN_GOD_JIJI_INVALID',
+      ),
+      hiddenStems,
+    };
+  });
+  return {
+    id: 'saju.ten-god-analysis',
+    domain: 'saju',
+    method: 'saju-ts.ten-god-analysis-projection.v1',
+    kind: 'ten_god_analysis',
+    source: 'spring-ts.SajuSummary',
+    projection: 'normalized_without_recalculation',
+    sourceFields: ['tenGodAnalysis'],
+    dayMasterStem: boundedEngineText(
+      analysis.dayMaster,
+      'TEN_GOD_DAY_MASTER_INVALID',
+      16,
+    ),
+    positions,
+  };
+}
+
+function natalRelationsFact(saju: SajuSummary): NatalRelationsFactV1 {
+  if (!Array.isArray(saju.cheonganRelations)
+    || !Array.isArray(saju.jijiRelations)
+    || saju.cheonganRelations.length > 64
+    || saju.jijiRelations.length > 128) {
+    throw new ReportDeliveryContractError('NATAL_RELATIONS_INVALID');
+  }
+  const cheongan = saju.cheonganRelations.map((relation) => {
+    if (!relation || typeof relation !== 'object'
+      || !Array.isArray(relation.stems)
+      || relation.stems.length !== 2) {
+      throw new ReportDeliveryContractError('CHEONGAN_RELATION_INVALID');
+    }
+    const stems = relation.stems.map((stem) =>
+      boundedEngineText(stem, 'CHEONGAN_RELATION_STEM_INVALID', 16));
+    if (new Set(stems).size !== stems.length) {
+      throw new ReportDeliveryContractError('CHEONGAN_RELATION_STEM_INVALID');
+    }
+    if (relation.resultConfirmed !== undefined
+      && typeof relation.resultConfirmed !== 'boolean') {
+      throw new ReportDeliveryContractError('CHEONGAN_RELATION_RESULT_INVALID');
+    }
+    const resultElement = relation.resultElement === null
+      ? null
+      : canonicalElement(relation.resultElement);
+    if (relation.resultElement !== null && !resultElement) {
+      throw new ReportDeliveryContractError('CHEONGAN_RELATION_RESULT_INVALID');
+    }
+    const resultConfirmed = relation.resultConfirmed === true;
+    if (resultConfirmed && resultElement === null) {
+      throw new ReportDeliveryContractError('CHEONGAN_RELATION_RESULT_INVALID');
+    }
+    return {
+      type: boundedEngineText(relation.type, 'CHEONGAN_RELATION_TYPE_INVALID', 40),
+      stems,
+      hapState: relation.hapState === undefined
+        ? null
+        : boundedEngineText(relation.hapState, 'CHEONGAN_RELATION_HAP_STATE_INVALID', 40),
+      resultElement,
+      resultConfirmed,
+    };
+  });
+  const jiji = saju.jijiRelations.map((relation) => {
+    if (!relation || typeof relation !== 'object'
+      || !Array.isArray(relation.branches)
+      || relation.branches.length < 2
+      || relation.branches.length > 4) {
+      throw new ReportDeliveryContractError('JIJI_RELATION_INVALID');
+    }
+    const branches = relation.branches.map((branch) =>
+      boundedEngineText(branch, 'JIJI_RELATION_BRANCH_INVALID', 16));
+    if (new Set(branches).size !== branches.length) {
+      throw new ReportDeliveryContractError('JIJI_RELATION_BRANCH_INVALID');
+    }
+    return {
+      type: boundedEngineText(relation.type, 'JIJI_RELATION_TYPE_INVALID', 40),
+      branches,
+      outcome: relation.outcome === null
+        ? null
+        : boundedEngineText(relation.outcome, 'JIJI_RELATION_OUTCOME_INVALID', 80),
+    };
+  });
+  return {
+    id: 'saju.natal-relations',
+    domain: 'saju',
+    method: 'saju-ts.natal-relations-projection.v1',
+    kind: 'natal_relations',
+    source: 'spring-ts.SajuSummary',
+    projection: 'normalized_without_recalculation',
+    sourceFields: ['cheonganRelations', 'jijiRelations'],
+    cheongan,
+    jiji,
+  };
+}
+
+function elementBalanceFact(saju: SajuSummary): ElementBalanceFactV1 {
+  const deficient = canonicalElementList(
+    saju.deficientElements,
+    'DEFICIENT_ELEMENTS_INVALID',
+  );
+  const excessive = canonicalElementList(
+    saju.excessiveElements,
+    'EXCESSIVE_ELEMENTS_INVALID',
+  );
+  if (deficient.some((element) => excessive.includes(element))) {
+    throw new ReportDeliveryContractError('ELEMENT_BALANCE_CONFLICT');
+  }
+  return {
+    id: 'saju.element-balance',
+    domain: 'saju',
+    method: 'saju-ts.element-balance-projection.v1',
+    kind: 'element_balance',
+    source: 'spring-ts.SajuSummary',
+    projection: 'normalized_without_recalculation',
+    sourceFields: ['deficientElements', 'excessiveElements'],
+    deficient,
+    excessive,
+  };
+}
+
+function validLocalDateTimeParts(value: {
+  readonly year: number;
+  readonly month: number;
+  readonly day: number;
+  readonly hour: number;
+  readonly minute: number;
+}): boolean {
+  if (![value.year, value.month, value.day, value.hour, value.minute]
+    .every(Number.isSafeInteger)
+    || value.year < 1
+    || value.month < 1
+    || value.month > 12
+    || value.day < 1
+    || value.day > 31
+    || value.hour < 0 || value.hour > 23 || value.minute < 0 || value.minute > 59) {
+    return false;
+  }
+  // Date.UTC treats years 0..99 as 1900..1999. Use setUTCFullYear so the
+  // engine's supported proleptic-Gregorian years retain their actual value.
+  const date = new Date(0);
+  date.setUTCHours(0, 0, 0, 0);
+  date.setUTCFullYear(value.year, value.month - 1, value.day);
+  return date.getUTCFullYear() === value.year
+    && date.getUTCMonth() === value.month - 1
+    && date.getUTCDate() === value.day;
+}
+
+function timeCorrectionFact(
+  saju: SajuSummary,
+): TimeCorrectionFactV1 {
+  const correction = saju.timeCorrection;
+  const provenance = correction?.provenance;
+  if (!provenance) {
+    throw new ReportDeliveryContractError('TIME_CORRECTION_PROVENANCE_REQUIRED');
+  }
+  const standardLocalDateTime = {
+    year: correction.standardYear,
+    month: correction.standardMonth,
+    day: correction.standardDay,
+    hour: correction.standardHour,
+    minute: correction.standardMinute,
+  };
+  const adjustedSolarLocalDateTime = {
+    year: correction.adjustedYear,
+    month: correction.adjustedMonth,
+    day: correction.adjustedDay,
+    hour: correction.adjustedHour,
+    minute: correction.adjustedMinute,
+  };
+  const correctionValues = [
+    correction.dstCorrectionMinutes,
+    correction.longitudeCorrectionMinutes,
+    correction.equationOfTimeMinutes,
+  ];
+  if (!validLocalDateTimeParts(standardLocalDateTime)
+    || !validLocalDateTimeParts(adjustedSolarLocalDateTime)
+    || !correctionValues.every(Number.isFinite)) {
+    throw new ReportDeliveryContractError('TIME_CORRECTION_INVALID');
+  }
+
+  const insideYazaBoundary = provenance.policy.yazaMode === '23:30'
+    ? adjustedSolarLocalDateTime.hour === 23 && adjustedSolarLocalDateTime.minute >= 30
+    : adjustedSolarLocalDateTime.hour === 23;
+
+  return {
+    id: 'saju.time-correction',
+    domain: 'saju',
+    method: 'saju-ts.time-correction.v1',
+    kind: 'time_correction',
+    input: {
+      calendarType: provenance.input.calendarType,
+      providedLocalDateTime: {
+        year: provenance.input.providedLocalDateTime.year,
+        month: provenance.input.providedLocalDateTime.month,
+        day: provenance.input.providedLocalDateTime.day,
+        hour: provenance.input.providedLocalDateTime.hour,
+        minute: provenance.input.providedLocalDateTime.minute,
+      },
+      effectiveSolarDate: {
+        year: provenance.input.effectiveSolarDate.year,
+        month: provenance.input.effectiveSolarDate.month,
+        day: provenance.input.effectiveSolarDate.day,
+      },
+      timePrecision: provenance.input.timePrecision,
+    },
+    inputUncertainty: provenance.inputUncertainty,
+    lunarConversion: provenance.lunarConversion,
+    location: {
+      inputLabel: provenance.location.inputLabel,
+      resolvedRegionCode: provenance.location.resolvedRegionCode,
+      latitude: provenance.location.latitude,
+      longitude: provenance.location.longitude,
+      timezone: provenance.location.timezone,
+      source: provenance.location.source,
+      coordinatesApplied: provenance.location.coordinatesApplied,
+    },
+    referenceMeridianDegrees: provenance.referenceMeridianDegrees,
+    referenceMeridianBasis: provenance.referenceMeridianBasis.kind === 'disabled'
+      ? { kind: 'disabled' }
+      : provenance.referenceMeridianBasis.kind === 'civil_offset_at_birth'
+        ? {
+            kind: 'civil_offset_at_birth',
+            utcOffsetMinutes: provenance.referenceMeridianBasis.utcOffsetMinutes,
+          }
+        : {
+            kind: 'legacy_preset_registry',
+            presetCode: provenance.referenceMeridianBasis.presetCode,
+          },
+    standardLocalDateTime,
+    adjustedSolarLocalDateTime,
+    corrections: {
+      daylightSavingMinutes: correction.dstCorrectionMinutes,
+      longitudeMinutes: correction.longitudeCorrectionMinutes,
+      equationOfTimeMinutes: correction.equationOfTimeMinutes,
+    },
+    policy: {
+      trueSolarTime: provenance.policy.trueSolarTime,
+      longitudeCorrection: provenance.policy.longitudeCorrection,
+      longitudeReference: provenance.policy.longitudeReference,
+      explicitLocationRequired: provenance.policy.explicitLocationRequired,
+      yaza: provenance.policy.yaza,
+      yazaMode: provenance.policy.yazaMode,
+    },
+    solarDateChanged:
+      standardLocalDateTime.year !== adjustedSolarLocalDateTime.year
+      || standardLocalDateTime.month !== adjustedSolarLocalDateTime.month
+      || standardLocalDateTime.day !== adjustedSolarLocalDateTime.day,
+    yazaBoundaryEffect: provenance.policy.yaza === 'off'
+      ? 'disabled'
+      : insideYazaBoundary ? 'inside_boundary' : 'outside_boundary',
+  };
 }
 
 function canonicalStrengthLevelCode(
@@ -267,6 +709,380 @@ function hasCompleteHanjaIdentity(namingReport: NamingReport): boolean {
     typeof character.hanja === 'string' && character.hanja.trim().length > 0);
 }
 
+function nullableScore(
+  value: unknown,
+  reason: string,
+): number | null {
+  if (value === null) return null;
+  if (typeof value !== 'number'
+    || !Number.isFinite(value)
+    || value < 0
+    || value > 100) {
+    throw new ReportDeliveryContractError(reason);
+  }
+  return value;
+}
+
+function positiveYear(
+  value: unknown,
+  reason: string,
+): number {
+  if (!Number.isSafeInteger(value) || Number(value) < 1) {
+    throw new ReportDeliveryContractError(reason);
+  }
+  return Number(value);
+}
+
+function optionalTrendPoint(
+  value: unknown,
+  reason: string,
+): NamingTrendFactV1['matchedPoint'] {
+  if (value === undefined) return null;
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+    throw new ReportDeliveryContractError(reason);
+  }
+  const point = value as Record<string, unknown>;
+  if (Object.keys(point).length !== 3
+    || !Object.hasOwn(point, 'year')
+    || !Object.hasOwn(point, 'rank')
+    || !Object.hasOwn(point, 'count')
+    || !Number.isSafeInteger(point.rank)
+    || Number(point.rank) < 1
+    || !Number.isSafeInteger(point.count)
+    || Number(point.count) < 1) {
+    throw new ReportDeliveryContractError(reason);
+  }
+  return {
+    year: positiveYear(point.year, reason),
+    rank: Number(point.rank),
+    count: Number(point.count),
+  };
+}
+
+function namingTrendFact(
+  namingReport: NamingReport,
+  birth: BirthInfo,
+): NamingTrendFactV1 | null {
+  const trend = namingReport.nameTrend;
+  if (!trend) return null;
+  if (trend.sourceTier !== 'T5_OFFICIAL'
+    || trend.authorityTruthEligible !== true
+    || !['male', 'female', 'unknown'].includes(trend.gender)
+    || !['current', 'era_fit', 'dated', 'overused', 'unknown'].includes(trend.status)) {
+    throw new ReportDeliveryContractError('NAMING_TREND_PROVENANCE_INVALID');
+  }
+  const givenHangul = boundedEngineText(
+    trend.givenHangul,
+    'NAMING_TREND_IDENTITY_INVALID',
+    8,
+  );
+  const expectedGivenHangul = namingReport.name.givenName
+    .map((character) => character.hangul)
+    .join('');
+  if (givenHangul !== expectedGivenHangul) {
+    throw new ReportDeliveryContractError('NAMING_TREND_IDENTITY_INVALID');
+  }
+  const birthYear = trend.birthYear === null
+    ? null
+    : positiveYear(trend.birthYear, 'NAMING_TREND_YEAR_INVALID');
+  const matchedYear = trend.matchedYear === null
+    ? null
+    : positiveYear(trend.matchedYear, 'NAMING_TREND_YEAR_INVALID');
+  const latestYear = positiveYear(trend.latestYear, 'NAMING_TREND_YEAR_INVALID');
+  if (birthYear !== null && birthYear !== birth.year) {
+    throw new ReportDeliveryContractError('NAMING_TREND_BIRTH_MISMATCH');
+  }
+  if ((birth.gender === 'male' || birth.gender === 'female')
+    && trend.gender !== birth.gender) {
+    throw new ReportDeliveryContractError('NAMING_TREND_BIRTH_MISMATCH');
+  }
+  const trendFit = nullableScore(trend.trendFit, 'NAMING_TREND_SCORE_INVALID');
+  const trendRisk = nullableScore(trend.trendRisk, 'NAMING_TREND_SCORE_INVALID');
+  const eraFitScore = nullableScore(
+    trend.eraFitScore,
+    'NAMING_TREND_SCORE_INVALID',
+  );
+  if (trendFit !== eraFitScore
+    || (trend.status === 'unknown') !== (
+      trendFit === null && trendRisk === null && eraFitScore === null
+    )) {
+    throw new ReportDeliveryContractError('NAMING_TREND_SCORE_INVALID');
+  }
+  const matchedPoint = optionalTrendPoint(
+    trend.matchedPoint,
+    'NAMING_TREND_MATCHED_POINT_INVALID',
+  );
+  const latestPoint = optionalTrendPoint(
+    trend.latestPoint,
+    'NAMING_TREND_LATEST_POINT_INVALID',
+  );
+  if ((matchedPoint !== null && matchedPoint.year !== matchedYear)
+    || (latestPoint !== null && latestPoint.year !== latestYear)
+    || (matchedYear !== null && matchedYear > latestYear)) {
+    throw new ReportDeliveryContractError('NAMING_TREND_POINT_YEAR_INVALID');
+  }
+  return {
+    id: 'naming.name-trend',
+    domain: 'naming',
+    method: 'spring-ts.official-name-trend-projection.v1',
+    kind: 'naming_trend',
+    source: 'spring-ts.NamingReport.nameTrend',
+    projection: 'selective_without_recalculation',
+    sourceFields: ['nameTrend'],
+    sourceTier: 'T5_OFFICIAL',
+    authorityTruthEligible: true,
+    givenHangul,
+    gender: trend.gender,
+    birthYear,
+    matchedYear,
+    latestYear,
+    trendFit,
+    trendRisk,
+    eraFitScore,
+    status: trend.status,
+    matchedPoint,
+    latestPoint,
+  };
+}
+
+function roundedOneDecimal(value: number): number {
+  return Math.round(value * 10) / 10;
+}
+
+function phoneticRiskForScore(
+  score: number,
+): NamingPhoneticFactV1['transitions'][number]['risk'] {
+  if (score < 72) return 'high';
+  if (score < 86) return 'medium';
+  return 'low';
+}
+
+function namingPhoneticFact(
+  namingReport: NamingReport,
+): NamingPhoneticFactV1 | null {
+  const phonetic = namingReport.phonetic;
+  if (!phonetic) return null;
+  if (phonetic.sourceTier !== 'T3_AUTHORED_INTERPRETATION'
+    || phonetic.authorityTruthEligible !== false
+    || !['smooth', 'watch', 'awkward', 'unknown'].includes(phonetic.status)) {
+    throw new ReportDeliveryContractError('NAMING_PHONETIC_PROVENANCE_INVALID');
+  }
+  const fullHangul = boundedEngineText(
+    phonetic.fullHangul,
+    'NAMING_PHONETIC_IDENTITY_INVALID',
+    12,
+  );
+  const surnameHangul = boundedEngineText(
+    phonetic.surnameHangul,
+    'NAMING_PHONETIC_IDENTITY_INVALID',
+    4,
+  );
+  const givenHangul = boundedEngineText(
+    phonetic.givenHangul,
+    'NAMING_PHONETIC_IDENTITY_INVALID',
+    8,
+  );
+  if (surnameHangul !== namingReport.name.surname.map((char) => char.hangul).join('')
+    || givenHangul !== namingReport.name.givenName.map((char) => char.hangul).join('')
+    || fullHangul !== `${surnameHangul}${givenHangul}`) {
+    throw new ReportDeliveryContractError('NAMING_PHONETIC_IDENTITY_INVALID');
+  }
+  if (!Array.isArray(phonetic.transitions)
+    || phonetic.transitions.length !== Array.from(givenHangul).length
+    || phonetic.transitions.length > 8) {
+    throw new ReportDeliveryContractError('NAMING_PHONETIC_TRANSITIONS_INVALID');
+  }
+  const surnameCharacters = Array.from(surnameHangul);
+  const givenCharacters = Array.from(givenHangul);
+  const expectedTransitions = [
+    {
+      from: surnameCharacters[surnameCharacters.length - 1],
+      to: givenCharacters[0],
+      boundary: 'surname_given' as const,
+    },
+    ...givenCharacters.slice(0, -1).map((from, index) => ({
+      from,
+      to: givenCharacters[index + 1],
+      boundary: 'given_internal' as const,
+    })),
+  ];
+  const transitions = phonetic.transitions.map((transition, index) => {
+    const expected = expectedTransitions[index];
+    if (!expected
+      || transition.from !== expected.from
+      || transition.to !== expected.to
+      || transition.boundary !== expected.boundary
+      || !Number.isFinite(transition.score)
+      || transition.score < 0
+      || transition.score > 100
+      || transition.risk !== phoneticRiskForScore(transition.score)
+      || !Array.isArray(transition.signals)
+      || transition.signals.length > 16) {
+      throw new ReportDeliveryContractError('NAMING_PHONETIC_TRANSITION_INVALID');
+    }
+    const seenSignals = new Set<string>();
+    const signals: NamingPhoneticFactV1['transitions'][number]['signals'] =
+      transition.signals.map((signal: {
+        readonly code: string;
+        readonly severity: 'low' | 'medium' | 'high';
+        readonly penalty: number;
+      }) => {
+      const code = boundedEngineText(
+        signal.code,
+        'NAMING_PHONETIC_SIGNAL_INVALID',
+        64,
+      );
+      if (!/^[a-z][a-z0-9_]{0,63}$/u.test(code)
+        || seenSignals.has(code)
+        || !['low', 'medium', 'high'].includes(signal.severity)
+        || !Number.isSafeInteger(signal.penalty)
+        || signal.penalty < 0
+        || signal.penalty > 100) {
+        throw new ReportDeliveryContractError('NAMING_PHONETIC_SIGNAL_INVALID');
+      }
+      seenSignals.add(code);
+      return {
+        code,
+        severity: signal.severity,
+        penalty: signal.penalty,
+      };
+      });
+    const expectedScore = Math.max(
+      0,
+      Math.min(
+        100,
+        roundedOneDecimal(
+          100 - signals.reduce(
+            (sum: number, signal) => sum + signal.penalty,
+            0,
+          ),
+        ),
+      ),
+    );
+    if (transition.score !== expectedScore) {
+      throw new ReportDeliveryContractError('NAMING_PHONETIC_TRANSITION_SCORE_INVALID');
+    }
+    return {
+      from: transition.from,
+      to: transition.to,
+      boundary: transition.boundary,
+      score: transition.score,
+      risk: transition.risk,
+      signals,
+    };
+  });
+  const transitionScore = nullableScore(
+    phonetic.transitionScore,
+    'NAMING_PHONETIC_SCORE_INVALID',
+  );
+  const familyNameFitScore = nullableScore(
+    phonetic.familyNameFitScore,
+    'NAMING_PHONETIC_SCORE_INVALID',
+  );
+  const phoneticScore = nullableScore(
+    phonetic.phoneticScore,
+    'NAMING_PHONETIC_SCORE_INVALID',
+  );
+  const expectedTransitionScore = transitions.length === 0
+    ? null
+    : roundedOneDecimal(
+      transitions.reduce((sum, transition) => sum + transition.score, 0)
+        / transitions.length,
+    );
+  const expectedFamilyNameFitScore =
+    transitions.find((transition) => transition.boundary === 'surname_given')?.score
+    ?? null;
+  const expectedPhoneticScore =
+    expectedTransitionScore === null && expectedFamilyNameFitScore === null
+      ? null
+      : roundedOneDecimal(
+        ((expectedTransitionScore ?? 100) * 0.6)
+        + ((expectedFamilyNameFitScore ?? 100) * 0.4),
+      );
+  const severities = transitions.flatMap((transition) =>
+    transition.signals.map((
+      signal: NamingPhoneticFactV1['transitions'][number]['signals'][number],
+    ) => signal.severity));
+  const expectedStatus = phoneticScore === null
+    ? 'unknown'
+    : severities.includes('high')
+      ? phoneticScore < 78 ? 'awkward' : 'watch'
+      : severities.filter((severity) => severity === 'medium').length >= 2
+        ? 'watch'
+        : phoneticScore < 72
+          ? 'awkward'
+          : phoneticScore < 86 ? 'watch' : 'smooth';
+  if (transitionScore !== expectedTransitionScore
+    || familyNameFitScore !== expectedFamilyNameFitScore
+    || phoneticScore !== expectedPhoneticScore
+    || phonetic.status !== expectedStatus) {
+    throw new ReportDeliveryContractError('NAMING_PHONETIC_SCORE_INVALID');
+  }
+  return {
+    id: 'naming.phonetic',
+    domain: 'naming',
+    method: 'spring-ts.phonetic-transition-projection.v1',
+    kind: 'naming_phonetic',
+    source: 'spring-ts.NamingReport.phonetic',
+    projection: 'selective_without_recalculation',
+    sourceFields: ['phonetic'],
+    sourceTier: 'T3_AUTHORED_INTERPRETATION',
+    authorityTruthEligible: false,
+    fullHangul,
+    surnameHangul,
+    givenHangul,
+    phoneticScore,
+    transitionScore,
+    familyNameFitScore,
+    status: phonetic.status,
+    transitions,
+  };
+}
+
+function nameStatisticsFact(
+  springReport: SpringReport | null,
+  namingReport: NamingReport,
+): NameStatisticsFactV1 | null {
+  if (!springReport) return null;
+  if (springReport.namingReport.name.fullHangul !== namingReport.name.fullHangul) {
+    throw new ReportDeliveryContractError('NAME_STATISTICS_IDENTITY_INVALID');
+  }
+  const popularityRank = springReport.popularityRank;
+  const maleRatio = springReport.maleRatio;
+  const nameGender = springReport.nameGender;
+  if ((popularityRank !== null
+      && (typeof popularityRank !== 'number'
+        || !Number.isFinite(popularityRank)
+        || popularityRank <= 0
+        || popularityRank > Number.MAX_SAFE_INTEGER))
+    || (maleRatio !== null
+      && (typeof maleRatio !== 'number'
+        || !Number.isFinite(maleRatio)
+        || maleRatio < 0
+        || maleRatio > 1))
+    || !['male', 'female', 'unknown'].includes(nameGender)
+    || (maleRatio === null && nameGender !== 'unknown')
+    || (maleRatio !== null
+      && nameGender !== (maleRatio >= 0.5 ? 'male' : 'female'))) {
+    throw new ReportDeliveryContractError('NAME_STATISTICS_INVALID');
+  }
+  if (popularityRank === null && maleRatio === null && nameGender === 'unknown') {
+    return null;
+  }
+  return {
+    id: 'naming.statistics',
+    domain: 'naming',
+    method: 'spring-ts.name-stat-summary-projection.v1',
+    kind: 'name_statistics',
+    source: 'spring-ts.SpringReport',
+    projection: 'selective_without_recalculation',
+    sourceFields: ['popularityRank', 'maleRatio', 'nameGender'],
+    popularityRank,
+    maleRatio,
+    nameGender,
+  };
+}
+
 function metric(
   id: string,
   domain: MetricFactV1['domain'],
@@ -304,7 +1120,19 @@ function legalStatus(char: CharDetail): NameCharacterFactV1['legal'] {
   return 'unknown';
 }
 
-function yongshinFact(saju: SajuSummary): YongshinFactV1 | null {
+const YONGSHIN_METHOD_AXES: readonly YongshinMethodAxisV1[] = [
+  'eokbu',
+  'johu',
+  'gyeokguk',
+  'tonggwan',
+  'byeongyak',
+  'siksangFlow',
+];
+
+function yongshinFact(
+  saju: SajuSummary,
+  options?: LocalReportOptionsV1,
+): YongshinFactV1 | null {
   if (!saju.yongshin) return null;
   const consensus = saju.yongshinConsensus ?? saju.yongshin.consensus;
   const competingElements = consensus?.final.competingElements.map(canonicalElement) ?? [];
@@ -315,6 +1143,24 @@ function yongshinFact(saju: SajuSummary): YongshinFactV1 | null {
   if (warnings.some((warning) => typeof warning !== 'string' || warning.trim().length === 0)) {
     throw new ReportDeliveryContractError('YONGSHIN_WARNING_INVALID');
   }
+  const school = resolveSchoolPresetMetadata(
+    options?.schoolPreset,
+    options?.precisionConfig?.useSchoolPreset === true,
+  );
+  const yongshinMode = options?.precisionConfig?.yongshinMode ?? 'chengbai_strict';
+  const methodCandidates = consensus
+    ? YONGSHIN_METHOD_AXES.map((method) => {
+        const candidate = consensus[method];
+        const element = canonicalElement(candidate.element);
+        if (candidate.element !== null && element === null) {
+          throw new ReportDeliveryContractError('YONGSHIN_METHOD_ELEMENT_INVALID');
+        }
+        if (!Number.isFinite(candidate.score) || candidate.score < 0 || candidate.score > 1) {
+          throw new ReportDeliveryContractError('YONGSHIN_METHOD_SCORE_INVALID');
+        }
+        return { method, element, score: candidate.score };
+      })
+    : [];
   return {
     id: 'saju.yongshin',
     domain: 'saju',
@@ -326,6 +1172,17 @@ function yongshinFact(saju: SajuSummary): YongshinFactV1 | null {
       ? { judgmentStrength: saju.axisStrength.yongshin }
       : {}),
     warnings: [...warnings],
+    interpretationPolicy: {
+      schoolPreset: school.selected,
+      schoolLabel: school.label,
+      schoolSelection: school.source === 'request' ? 'user_selected' : 'product_default',
+      schoolWeightsApplied: school.useSchoolPreset,
+      yongshinMode,
+      yongshinModeSelection: options?.precisionConfig?.yongshinMode === undefined
+        ? 'product_default'
+        : 'user_selected',
+    },
+    ...(methodCandidates.length > 0 ? { methodCandidates } : {}),
     ...(consensus ? {
       consensus: {
         conflictLevel: consensus.final.conflictLevel,
@@ -502,25 +1359,27 @@ function interpretationFromCell(
   origin: ReportInterpretationV1['origin'],
   natalAvailability: DeliveryAvailabilityV1,
 ): ReportInterpretationV1 {
-  const constrained = natalAvailability.status !== 'ready';
+  const evidenceUnavailable = natalAvailability.status === 'unavailable';
   const resolvedAvailability = fortuneCellAvailability(cell, natalAvailability);
-  const constrainedHeadline = '사주 판단 근거가 제한되어 이 기간의 흐름을 단정하지 않아요';
-  const constrainedParagraph = '출생 시각·신강약·격국·용신 판단이 확정되기 전에는 기간별 길흉과 행동 권고를 잠정 해석으로만 보세요.';
+  const unavailableHeadline = '사주 판단 근거가 없어 이 기간의 흐름을 해석할 수 없어요';
+  const unavailableParagraph = '출생 사주 판단 근거를 확인한 뒤 기간별 흐름을 다시 살펴보세요.';
+  const standardParagraphs = cell.standard.paragraphs.map((paragraph) => paragraph.plainText);
+  const expertParagraphs = cell.expert.paragraphs.map((paragraph) => paragraph.plainText);
   const standard = DEPTH_ORDER[depth] >= DEPTH_ORDER.standard ? {
-    paragraphs: constrained
-      ? [constrainedParagraph]
-      : cell.standard.paragraphs.map((paragraph) => paragraph.plainText),
-    ...(!constrained && cell.standard.livingTips?.length
+    paragraphs: evidenceUnavailable
+      ? [unavailableParagraph]
+      : standardParagraphs,
+    ...(!evidenceUnavailable && cell.standard.livingTips?.length
       ? { livingTips: [...cell.standard.livingTips] }
       : {}),
-    ...(!constrained && cell.standard.cautions?.length
+    ...(!evidenceUnavailable && cell.standard.cautions?.length
       ? { cautions: [...cell.standard.cautions] }
       : {}),
   } : undefined;
   const expert = DEPTH_ORDER[depth] >= DEPTH_ORDER.expert ? {
-    paragraphs: constrained
-      ? [constrainedParagraph]
-      : cell.expert.paragraphs.map((paragraph) => paragraph.plainText),
+    paragraphs: evidenceUnavailable
+      ? [unavailableParagraph]
+      : expertParagraphs,
     ...(ratingFactRef ? { numericalFactRefs: [ratingFactRef] } : {}),
   } : undefined;
   return {
@@ -528,11 +1387,17 @@ function interpretationFromCell(
     domain: 'fortune',
     availability: resolvedAvailability,
     authority: 'interpretive',
-    origin: constrained ? 'deterministic_template' : origin,
+    // Limited evidence is represented by `availability`, independently of the
+    // authored category copy. This lets consumers show one scoped warning
+    // without replacing or prefixing every card. Fully unavailable fallbacks
+    // remain deterministic delivery copy.
+    origin: evidenceUnavailable ? 'deterministic_template' : origin,
     factRefs: ratingFactRef ? [ratingFactRef] : [],
     brief: {
-      headline: constrained ? constrainedHeadline : cell.brief.headline,
-      ...(!constrained && cell.brief.hook ? { hook: cell.brief.hook } : {}),
+      headline: evidenceUnavailable
+        ? unavailableHeadline
+        : cell.brief.headline,
+      ...(!evidenceUnavailable && cell.brief.hook ? { hook: cell.brief.hook } : {}),
     },
     ...(standard ? { standard } : {}),
     ...(expert ? { expert } : {}),
@@ -548,7 +1413,25 @@ function frameInterpretation(
   frame: NamingReportFrame,
   depth: ReportDepthV1,
 ): ReportInterpretationV1 | null {
-  if (!FOUR_FRAME_AUTHORED_COPY_APPROVED) return null;
+  if (!FOUR_FRAME_AUTHORED_COPY_APPROVED) {
+    const safeCopy = buildSafeFourFrameCopyV1(frame);
+    const id = `naming.frame.${frame.type}.${depth}.interpretation`;
+    return {
+      id,
+      domain: 'naming',
+      availability: READY,
+      authority: 'interpretive',
+      origin: 'deterministic_template',
+      factRefs: [`naming.frame.${frame.type}`],
+      brief: { headline: safeCopy.headline },
+      ...(DEPTH_ORDER[depth] >= DEPTH_ORDER.standard ? {
+        standard: { paragraphs: [...safeCopy.paragraphs] },
+      } : {}),
+      ...(depth === 'expert' ? {
+        expert: { paragraphs: [...safeCopy.paragraphs] },
+      } : {}),
+    };
+  }
   const meaning = frame.meaning;
   if (!meaning) return null;
   const id = `naming.frame.${frame.type}.${depth}.interpretation`;
@@ -601,12 +1484,6 @@ function surfaceAvailability(
     && namingReport
     && !hasCompleteHanjaIdentity(namingReport)) {
     reasons.push('METHOD_SCOPE_LIMITED');
-  }
-  if (surface.id === 'naming'
-    && namingReport
-    && hasCompleteHanjaIdentity(namingReport)
-    && !FOUR_FRAME_AUTHORED_COPY_APPROVED) {
-    reasons.push('CONTENT_EXPERT_REVIEW_REQUIRED');
   }
   if (surface.id === 'integrated' && !springReport) {
     reasons.push('NAME_INPUT_MISSING');
@@ -702,8 +1579,7 @@ function timelineBlock(
         return {
           category,
           availability: status,
-          ...(natalAvailability.status === 'ready'
-            && cell?.stars !== null
+          ...(cell?.stars !== null
             && cell?.stars !== undefined
             ? { ratingFactRef: `fortune.${suffix}.stars` }
             : {}),
@@ -739,6 +1615,9 @@ export async function buildReportDeliveryV1(
     throw new ReportDeliveryContractError('SAJU_REQUIRED_FOR_REQUESTED_SURFACE');
   }
   const natalAvailability = natalJudgmentAvailability(input.saju);
+  if (needsSaju && natalAvailability.status === 'unavailable') {
+    throw new ReportDeliveryContractError('SAJU_UNAVAILABLE_FOR_REQUESTED_SURFACE');
+  }
   const requestedPeriods = new Set<TieredPeriodKind>();
   const requestedCategoriesByPeriod = new Map<
     TieredPeriodKind,
@@ -800,7 +1679,10 @@ export async function buildReportDeliveryV1(
       ),
       depthByCell: Object.fromEntries([...requestedMaxDepthByCell].map(([key, depth]) => [
         key,
-        natalAvailability.status === 'ready' ? depth : 'brief',
+        // Limited evidence keeps the user-requested category depth so the
+        // delivery layer can qualify, rather than erase, useful differentiated
+        // content. Only a fully unavailable natal basis fails closed to brief.
+        natalAvailability.status === 'unavailable' ? 'brief' : depth,
       ])),
       namingReport: input.namingReport ?? undefined,
       sajuCompatibility: input.springReport?.sajuCompatibility,
@@ -831,14 +1713,114 @@ export async function buildReportDeliveryV1(
   };
 
   const needsSajuFacts = requestedSurfaceIds.has('saju') || requestedSurfaceIds.has('integrated');
+  const requiresSajuSurface = requestedSurfaceIds.has('saju');
   const needsNamingSurfaceFacts = requestedSurfaceIds.has('naming');
   const needsInteractionFacts = requestedSurfaceIds.has('integrated');
   const completeHanjaIdentity = input.namingReport
     ? hasCompleteHanjaIdentity(input.namingReport)
     : false;
   const yongshinSafetyFact = needsSajuFacts && input.saju
-    ? addFact(yongshinFact(input.saju))
+    ? addFact(yongshinFact(input.saju, input.options))
     : null;
+  const sajuPillarFact = needsSajuFacts
+    && input.saju
+    && input.saju.pillars
+    && PILLAR_ORDER.every((position) => input.saju?.pillars?.[position])
+    ? addFact<PillarsFactV1>({
+        id: 'saju.pillars',
+        domain: 'saju',
+        method: 'saju-ts.four-pillars.v1',
+        kind: 'pillars',
+        values: PILLAR_ORDER.map((position) => ({
+          position,
+          ...input.saju!.pillars[position],
+        })),
+      })
+    : null;
+  const sajuTimeFact = needsSajuFacts
+    && input.saju
+    && (requiresSajuSurface || input.saju.timeCorrection?.provenance)
+    ? addFact(timeCorrectionFact(input.saju))
+    : null;
+  const sajuDayMasterFact = needsSajuFacts && input.saju && input.saju.dayMaster
+    ? addFact<DayMasterFactV1>({
+        id: 'saju.day-master',
+        domain: 'saju',
+        method: 'saju-ts.day-master.v1',
+        kind: 'day_master',
+        stem: input.saju.dayMaster.stem,
+        element: canonicalElement(input.saju.dayMaster.element),
+        polarity: input.saju.dayMaster.polarity,
+      })
+    : null;
+  const sajuStrengthFact = needsSajuFacts && input.saju && input.saju.strength
+    ? addFact<StrengthFactV1>({
+        id: 'saju.strength',
+        domain: 'saju',
+        method: 'saju-ts.strength.v1',
+        kind: 'strength',
+        level: input.saju.strength.level,
+        levelCode: canonicalStrengthLevelCode(input.saju.strength),
+        isStrong: input.saju.strength.isStrong,
+        ...(input.saju.axisStrength?.strength
+          ? { judgmentStrength: input.saju.axisStrength.strength }
+          : {}),
+      })
+    : null;
+  const sajuEvidenceFacts: (
+    | ShinsalHitsFactV1
+    | TenGodAnalysisFactV1
+    | NatalRelationsFactV1
+    | ElementBalanceFactV1
+  )[] = [];
+  if (requiresSajuSurface && input.saju) {
+    const projectedFacts = [
+      shinsalHitsFact(input.saju),
+      tenGodAnalysisFact(input.saju),
+      natalRelationsFact(input.saju),
+      elementBalanceFact(input.saju),
+    ];
+    for (const projected of projectedFacts) {
+      if (projected) {
+        addFact(projected);
+        sajuEvidenceFacts.push(projected);
+      }
+    }
+  }
+  const integratedNameFacts = needsInteractionFacts && input.namingReport
+    ? [
+        ...input.namingReport.name.surname.map((character, index) =>
+          addFact(nameCharacterFact(character, 'surname', index))),
+        ...input.namingReport.name.givenName.map((character, index) =>
+          addFact(nameCharacterFact(character, 'givenName', index))),
+        input.namingReport.phonetic?.phoneticScore == null
+          ? null
+          : addFact(metric(
+              'naming.phonetic-score',
+              'naming',
+              'spring-ts.phonetic-display.v1',
+              '발음 흐름 점수',
+              input.namingReport.phonetic.phoneticScore,
+              'score_0_100',
+              0,
+              100,
+              'higher_is_better',
+            )),
+        input.namingReport.nameTrend?.trendFit == null
+          ? null
+          : addFact(metric(
+              'naming.trend-fit',
+              'naming',
+              'spring-ts.official-name-trend-display.v1',
+              '출생시대 이름 적합도',
+              input.namingReport.nameTrend.trendFit,
+              'score_0_100',
+              0,
+              100,
+              'higher_is_better',
+            )),
+      ].filter((fact): fact is NameCharacterFactV1 | MetricFactV1 => fact !== null)
+    : [];
   const namingDistribution = needsNamingSurfaceFacts && input.namingReport
     ? addFact(nameElementDistribution(
       [...input.namingReport.name.surname, ...input.namingReport.name.givenName]
@@ -850,6 +1832,24 @@ export async function buildReportDeliveryV1(
       },
     ))
     : null;
+  const namingDetailFacts: (
+    | NamingTrendFactV1
+    | NamingPhoneticFactV1
+    | NameStatisticsFactV1
+  )[] = [];
+  if (needsNamingSurfaceFacts && input.namingReport) {
+    const projectedFacts = [
+      namingTrendFact(input.namingReport, input.birth),
+      namingPhoneticFact(input.namingReport),
+      nameStatisticsFact(input.springReport, input.namingReport),
+    ];
+    for (const projected of projectedFacts) {
+      if (projected) {
+        addFact(projected);
+        namingDetailFacts.push(projected);
+      }
+    }
+  }
   const interactionNameDistribution = needsInteractionFacts && input.springReport
     ? addFact(nameElementDistribution(
       input.springReport.sajuCompatibility.nameElements,
@@ -884,7 +1884,7 @@ export async function buildReportDeliveryV1(
     const cell = cellFor(matrix, period, category);
     if (!cell) continue;
     const baseId = `fortune.${period}.${category}`;
-    const rating = cell.stars === null || natalEvidenceLimited ? null : addFact(metric(
+    const rating = cell.stars === null ? null : addFact(metric(
       `${baseId}.stars`,
       'saju',
       'spring-ts.tiered-cell-grader.v1',
@@ -928,17 +1928,8 @@ export async function buildReportDeliveryV1(
         yongshinName,
         yongshinResolved: interaction?.yongshinElement !== null,
       }) : undefined;
-      const interactionHeadline = input.saju?.yongshin?.jonggyeokRisk?.level === 'HIGH'
-        ? '사주 용신의 종격 가능성을 먼저 재검토해야 해요'
-        : natalEvidenceLimited
-          ? '사주 판단 근거가 엇갈려 이름의 보완 효과를 단정하지 않아요'
-        : interaction?.safety?.posture === 'aggressive'
-        ? '보완보다 과도한 쏠림과 주의 근거를 먼저 보세요'
-        : interaction?.limitations.includes('safety_profile_unavailable')
-          ? '안전 판단 근거가 부족해 결론을 보류해요'
-          : interaction?.limitations.includes('consensus_conflict_present')
-            ? '사주 판단 축이 엇갈려 보완 신호를 단정하지 않아요'
-        : interaction?.classification === 'supportive_signal'
+      const hasMethodConflict = interaction?.limitations.includes('consensus_conflict_present') === true;
+      const selectedMethodHeadline = interaction?.classification === 'supportive_signal'
         ? '이름에 보완 신호가 보여요'
         : interaction?.classification === 'mixed_signals'
           ? '보완과 주의 신호가 함께 보여요'
@@ -947,25 +1938,45 @@ export async function buildReportDeliveryV1(
             : interaction?.classification === 'no_direct_match'
               ? '직접 일치보다 전체 근거를 보세요'
               : '이름을 더하면 통합 해석이 완성돼요';
+      const interactionHeadline = input.saju?.yongshin?.jonggyeokRisk?.level === 'HIGH'
+        ? `${yongshinName || '선택된 기운'} 후보는 계산됐지만 종격 가능성을 함께 재검토해야 해요`
+        : hasMethodConflict
+          ? `선택한 기준의 ${yongshinName || '보완 기운'} 결과에서는 ${selectedMethodHeadline}`
+        : natalEvidenceLimited
+          ? `선택한 기준에서는 ${yongshinName || '보완 기운'} 후보를 참고 범위로 보여드려요`
+        : interaction?.safety?.posture === 'aggressive'
+        ? '보완보다 과도한 쏠림과 주의 근거를 먼저 보세요'
+        : interaction?.limitations.includes('safety_profile_unavailable')
+          ? '안전 판단 근거가 부족해 결론을 보류해요'
+          : selectedMethodHeadline;
+      const integratedSupportingFactRefs = [
+        interaction?.id,
+        yongshinSafetyFact?.id,
+        sajuPillarFact?.id,
+        sajuTimeFact?.id,
+        sajuDistribution?.id,
+        sajuDayMasterFact?.id,
+        sajuStrengthFact?.id,
+        ...integratedNameFacts.map((fact) => fact.id),
+      ].filter((id): id is string => id !== undefined);
       const hero = addInterpretation({
         id: `${sliceKey}.hero.interpretation`,
         domain: 'interaction',
         availability: input.springReport ? currentAvailability : availability('limited', 'NAME_INPUT_MISSING'),
         authority: 'interpretive',
         origin: 'deterministic_template',
-        factRefs: [interaction?.id, yongshinSafetyFact?.id]
-          .filter((id): id is string => id !== undefined),
+        factRefs: [...integratedSupportingFactRefs],
         brief: { headline: interactionHeadline },
         ...(surface.depth === 'standard' ? {
           standard: {
             paragraphs: [interaction?.safety?.posture === 'aggressive'
               ? '직접 일치만 보면 보완 신호가 있어도, 정본 안전 프로필에서는 과도한 보강이나 상충 요소를 함께 경고해요. 이름의 한 요소만 떼어 길하다고 단정하지 않아요.'
+              : hasMethodConflict
+                ? `${reading?.sentence ?? `선택한 기준에서는 ${yongshinName || '보완 기운'} 후보를 계산했어요.`} 다른 방법이 고른 기운과 차이가 있어 이 결과를 모든 방법의 공통 결론으로 넓히지 않으며, 방법별 후보를 함께 보여드려요.`
               : natalEvidenceLimited
-                ? '이름의 직접 일치보다 먼저 출생 사주의 용신 신뢰도, 종격 가능성, 판단 축 충돌을 확인해야 해요. 이 근거가 제한된 상태에서는 이름이 사주를 보완한다고 단정하지 않아요.'
+                ? `${reading?.sentence ?? `선택한 기준에서는 ${yongshinName || '보완 기운'} 후보를 계산했어요.`} 신뢰도가 낮은 판단만 참고 범위로 한정하고, 네 기둥·시간 보정·오행 분포 같은 계산 사실은 그대로 표시해요.`
               : interaction?.limitations.includes('safety_profile_unavailable')
                 ? '직접 일치 수만으로는 안전한 보완인지 판단할 수 없어요. 안전 프로필 근거가 준비될 때까지 유리하다고 단정하지 않아요.'
-                : interaction?.limitations.includes('consensus_conflict_present')
-                  ? '용신 판단 축이 서로 엇갈려 이름의 직접 일치가 전체적으로 유리하다고 단정할 수 없어요. 경쟁 오행과 충돌 근거를 함께 확인해야 해요.'
               : reading?.sentence ?? '현재는 사주 흐름만 준비됐어요. 이름 분석을 더하면 두 근거의 일치와 차이를 함께 볼 수 있어요.'],
           },
         } : {}),
@@ -974,8 +1985,7 @@ export async function buildReportDeliveryV1(
         id: `${sliceKey}.hero`, kind: 'hero', title: '사주 × 이름 핵심 한 줄',
         availability: hero!.availability,
         interpretationRef: hero!.id,
-        supportingFactRefs: [interaction?.id, yongshinSafetyFact?.id]
-          .filter((id): id is string => id !== undefined),
+        supportingFactRefs: [...integratedSupportingFactRefs],
       });
       if (interaction) {
         blocks.push({
@@ -1029,26 +2039,19 @@ export async function buildReportDeliveryV1(
         throw new ReportDeliveryContractError('SAJU_REQUIRED_FOR_SAJU_SURFACE');
       }
       const saju = input.saju;
-      const pillarFact: PillarsFactV1 = {
-        id: 'saju.pillars', domain: 'saju', method: 'saju-ts.four-pillars.v1', kind: 'pillars',
-        values: PILLAR_ORDER.map((position) => ({ position, ...saju.pillars[position] })),
-      };
-      addFact(pillarFact);
-      const dayMaster: DayMasterFactV1 = {
-        id: 'saju.day-master', domain: 'saju', method: 'saju-ts.day-master.v1', kind: 'day_master',
-        stem: saju.dayMaster.stem,
-        element: canonicalElement(saju.dayMaster.element),
-        polarity: saju.dayMaster.polarity,
-      };
-      const strength: StrengthFactV1 = {
-        id: 'saju.strength', domain: 'saju', method: 'saju-ts.strength.v1', kind: 'strength',
-        level: saju.strength.level,
-        levelCode: canonicalStrengthLevelCode(saju.strength),
-        isStrong: saju.strength.isStrong,
-        ...(saju.axisStrength?.strength
-          ? { judgmentStrength: saju.axisStrength.strength }
-          : {}),
-      };
+      const pillarFact = sajuPillarFact;
+      const timeFact = sajuTimeFact;
+      if (!pillarFact || !timeFact) {
+        throw new ReportDeliveryContractError('SAJU_CORE_FACTS_REQUIRED');
+      }
+      const timeFactAvailability = timeFact.input.timePrecision === 'exact'
+        ? READY
+        : availability('limited', 'BIRTH_TIME_IMPUTED');
+      const dayMaster = sajuDayMasterFact;
+      const strength = sajuStrengthFact;
+      if (!dayMaster || !strength) {
+        throw new ReportDeliveryContractError('SAJU_CORE_JUDGMENT_FACTS_REQUIRED');
+      }
       const gyeokguk: GyeokgukFactV1 = {
         id: 'saju.gyeokguk', domain: 'saju', method: 'saju-ts.gyeokguk.v1', kind: 'gyeokguk',
         type: saju.gyeokguk.type,
@@ -1073,7 +2076,7 @@ export async function buildReportDeliveryV1(
       }
       const yongshinConsensus = saju.yongshinConsensus ?? saju.yongshin.consensus;
       const yongshinWarnings = saju.yongshin.warnings ?? [];
-      addFact(dayMaster); addFact(strength); addFact(gyeokguk);
+      addFact(gyeokguk);
       const metricFacts = [
         addFact(metric('saju.yongshin-confidence', 'saju', 'saju-ts.yongshin.v1', '용신 신뢰도', saju.yongshin.confidence, 'confidence_0_100', 0, 100, 'higher_is_better')),
         addFact(metric('saju.gyeokguk-confidence', 'saju', 'saju-ts.gyeokguk.v1', '격국 신뢰 비율', saju.gyeokguk.confidence, 'ratio_0_1', 0, 1, 'higher_is_better')),
@@ -1105,7 +2108,7 @@ export async function buildReportDeliveryV1(
         : saju.strength.level;
       const yongshinLabel = expertElementLabel(canonicalElement(saju.yongshin.element));
       const sajuHook = mustDefer
-        ? `종격·충돌·신뢰도 근거를 더 확인해야 해 ${yongshinLabel} 보완 단정을 보류해요`
+        ? `선택한 용신 방법에서는 ${yongshinLabel}을 보완 후보로 계산했어요. 종격·방법 차이·신뢰도 때문에 모든 방법의 공통 결론으로 일반화는 보류해요`
         : mustHedge
           ? `${saju.gyeokguk.type} 후보로 보고 ${yongshinLabel} 보완 가능성을 함께 검토해요`
           : `격국 ${saju.gyeokguk.type}, 보완 오행 ${yongshinLabel}`;
@@ -1152,15 +2155,39 @@ export async function buildReportDeliveryV1(
         factRefs: [pillarFact.id], presentation: 'pillars',
       });
       blocks.push({
+        id: `${sliceKey}.time-correction`,
+        kind: 'fact_group',
+        title: '시간 보정 근거',
+        availability: timeFactAvailability,
+        factRefs: [timeFact.id],
+        presentation: 'metrics',
+      });
+      blocks.push({
         id: `${sliceKey}.metrics`, kind: 'fact_group', title: '판단 단위와 신뢰도',
         availability: natalAvailability,
-        factRefs: [dayMaster.id, strength.id, gyeokguk.id, yongshin.id, ...metricFacts.map((fact) => fact.id)],
+        factRefs: [
+          dayMaster.id,
+          strength.id,
+          gyeokguk.id,
+          yongshin.id,
+          ...metricFacts.map((fact) => fact.id),
+        ],
         presentation: 'metrics',
       });
       if (sajuDistribution) {
         blocks.push({
           id: `${sliceKey}.elements`, kind: 'fact_group', title: '오행 분포', availability: READY,
           factRefs: [sajuDistribution.id], presentation: 'metrics',
+        });
+      }
+      if (sajuEvidenceFacts.length > 0) {
+        blocks.push({
+          id: `${sliceKey}.structural-evidence`,
+          kind: 'fact_group',
+          title: '세부 구조 근거',
+          availability: natalAvailability,
+          factRefs: sajuEvidenceFacts.map((fact) => fact.id),
+          presentation: 'evidence',
         });
       }
       const timeline = timelineBlock(surface, matrix, natalAvailability);
@@ -1175,8 +2202,7 @@ export async function buildReportDeliveryV1(
             id: `${sliceKey}.life-flow`, kind: 'life_flow', title: '생애 흐름',
             availability: fortuneCellAvailability(lifeCell!, natalAvailability),
             interpretationRef: ref,
-            ...(natalAvailability.status === 'ready'
-              && lifeCell?.stars !== null
+            ...(lifeCell?.stars !== null
               && lifeCell?.stars !== undefined
               ? { ratingFactRef: 'fortune.life.overall.stars' }
               : {}),
@@ -1192,6 +2218,7 @@ export async function buildReportDeliveryV1(
       const namingFactRefs: string[] = [];
       const namingCharacterFactRefs: string[] = [];
       const namingMetricFactRefs: string[] = [];
+      const namingDetailFactRefs = namingDetailFacts.map((fact) => fact.id);
       const frameItems: Array<{ stage: NamingFrameFactV1['stage']; factRef: string; interpretationRef?: string }> = [];
       if (namingReport) {
         for (const [index, char] of namingReport.name.surname.entries()) {
@@ -1221,6 +2248,7 @@ export async function buildReportDeliveryV1(
         ].filter((fact): fact is MetricFactV1 => fact !== null);
         namingMetricFactRefs.push(...scoreFacts.map((fact) => fact.id));
         namingFactRefs.push(...namingMetricFactRefs);
+        namingFactRefs.push(...namingDetailFactRefs);
         if (namingDistribution) namingFactRefs.push(namingDistribution.id);
 
         for (const frame of completeHanjaIdentity
@@ -1294,6 +2322,16 @@ export async function buildReportDeliveryV1(
         blocks.push({
           id: `${sliceKey}.elements`, kind: 'fact_group', title: '이름 오행 분포', availability: READY,
           factRefs: [namingDistribution.id], presentation: 'metrics',
+        });
+      }
+      if (namingDetailFactRefs.length > 0) {
+        blocks.push({
+          id: `${sliceKey}.name-details`,
+          kind: 'fact_group',
+          title: '이름의 소리와 시대 흐름',
+          availability: READY,
+          factRefs: namingDetailFactRefs,
+          presentation: 'evidence',
         });
       }
       if (frameItems.length > 0) {

@@ -8,6 +8,7 @@ import {
 import type { SpringCandidateSummary } from '../../src/types.js';
 import { SpringEngine } from '../../src/spring-engine.js';
 import {
+  CANDIDATE_PRESENTATION_EVIDENCE_ORDER_V2,
   DefaultCandidateSummaryAccumulator,
   dedupeCandidateSummariesByHangul,
   orderCandidateSummaries,
@@ -20,8 +21,26 @@ function summary(overrides: Partial<SpringCandidateSummary> = {}): SpringCandida
     fullHanja: '崔河訥',
     givenHangul: '하늘',
     givenName: [
-      { hangul: '하', hanja: '河', meaning: '강 하' },
-      { hangul: '늘', hanja: '訥', meaning: '말 더듬을 눌' },
+      {
+        hangul: '하',
+        hanja: '河',
+        meaning: '강 하',
+        strokes: 8,
+        element: 'Water',
+        elementLabel: '물',
+        legalStatus: 'allowed',
+        legalRegistrable: true,
+      },
+      {
+        hangul: '늘',
+        hanja: '訥',
+        meaning: '말 더듬을 눌',
+        strokes: 11,
+        element: 'Fire',
+        elementLabel: '불',
+        legalStatus: 'allowed',
+        legalRegistrable: true,
+      },
     ],
     popularityRank: 42,
     maleRatio: 0.35,
@@ -39,6 +58,8 @@ const query = {
   truncated: false,
   clientInstruction: 'reuse_query_id_for_every_page' as const,
 };
+const candidateRecallGeneration =
+  'official_name_stat_hangul_seed_plus_legal_hanja_generation' as const;
 
 const baseline = summary();
 const changedEvaluation = summary({
@@ -120,6 +141,7 @@ const second = summary({
 
 const response = buildCandidateSearchResponseV1({
   query,
+  candidateRecallGeneration,
   summaries: [baseline, second],
   offset: 0,
   requestedLimit: 20,
@@ -128,6 +150,7 @@ const response = buildCandidateSearchResponseV1({
 });
 const changedEvaluationResponse = buildCandidateSearchResponseV1({
   query,
+  candidateRecallGeneration,
   summaries: [changedEvaluation],
   offset: 72,
   requestedLimit: 1,
@@ -142,6 +165,84 @@ assert.deepEqual(response.query, query);
 assert.deepEqual(response.items.map((item) => item.rank), [1, 2]);
 assert.equal(response.ordering.authority, 'spring_engine');
 assert.equal(response.ordering.clientInstruction, 'preserve_order_and_rank');
+assert.equal(response.ordering.policyVersion, 'spring-ts.candidate-presentation.v2');
+assert.deepEqual(response.ordering.rankingBasis, {
+  rawScore: 'engine_score_unchanged',
+  presentationScope: 'bounded_equivalent_score_window',
+  rawScoreWindow: 12,
+  evidenceOrder: [
+    'meaningConfidence',
+    'risk',
+    'popularityRank',
+    'phonetic',
+    'familyFit',
+    'eraFit',
+  ],
+  missingEvidence: {
+    scoreAxes: 'fixed_midpoint_50',
+    popularityRank: 'no_usage_bonus',
+  },
+  rarityPolicy: 'never_hard_reject',
+  candidateRecall: {
+    generation: candidateRecallGeneration,
+    hanjaVariantsPerHangul: 3,
+    variantRetentionBasis: 'engine_raw_score_then_stable_input',
+  },
+});
+assert.notEqual(
+  response.ordering.rankingBasis.evidenceOrder,
+  CANDIDATE_PRESENTATION_EVIDENCE_ORDER_V2,
+  'the response must not expose the comparator tuple by mutable reference',
+);
+assert.equal(Object.isFrozen(response.ordering.rankingBasis.evidenceOrder), true);
+assert.throws(
+  () => (response.ordering.rankingBasis.evidenceOrder as unknown as string[]).reverse(),
+  TypeError,
+  'a consumer cannot mutate disclosed ordering metadata',
+);
+assert.deepEqual(CANDIDATE_PRESENTATION_EVIDENCE_ORDER_V2, [
+  'meaningConfidence',
+  'risk',
+  'popularityRank',
+  'phonetic',
+  'familyFit',
+  'eraFit',
+]);
+
+const paretoResponse = buildCandidateSearchResponseV1({
+  query,
+  candidateRecallGeneration,
+  orderingMode: 'pareto_frontier',
+  summaries: [baseline, second],
+  offset: 0,
+  requestedLimit: 20,
+});
+assert.equal(paretoResponse.ordering.policyVersion, 'spring-ts.candidate-pareto-frontier.v1');
+assert.equal(paretoResponse.ordering.mode, 'pareto_frontier');
+assert.deepEqual(paretoResponse.ordering.rankingBasis.evidenceOrder, []);
+assert.equal(
+  paretoResponse.ordering.rankingBasis.presentationScope,
+  'bounded_pareto_pool_with_diversity',
+);
+assert.deepEqual(paretoResponse.ordering.rankingBasis.paretoFrontier, {
+  poolLimit: 500,
+  objectives: [
+    'legal',
+    'sajuFit',
+    'yongshinFit',
+    'elementBalance',
+    'hanjaMeaning',
+    'phonetic',
+    'eraFit',
+    'familyFit',
+    'riskQuality',
+  ],
+  dominance: 'non_dominated_available_axes_v1',
+  frontierBonus: 3,
+  diversityWindow: 8,
+  diversityBasis: 'profile_hangul_hanja_syllable_v1',
+  overflowOrder: 'engine_score_desc_stable_input',
+});
 assert.deepEqual(response.evaluation, {
   method: 'saju_guided_name_recommendation',
   inputs: ['birth_saju', 'naming'],
@@ -161,6 +262,28 @@ assert.equal(
   '{"rank":42,"maleRatio":0.35,"tendency":"female"}',
   'existing 1-2 syllable popularity bytes must not gain new provenance fields',
 );
+assert.deepEqual(response.items[0]?.name.givenCharacters, [
+  {
+    hangul: '하',
+    hanja: '河',
+    meaning: '강 하',
+    strokes: 8,
+    element: 'Water',
+    elementLabel: '물',
+    legalStatus: 'allowed',
+    legalRegistrable: true,
+  },
+  {
+    hangul: '늘',
+    hanja: '訥',
+    meaning: '말 더듬을 눌',
+    strokes: 11,
+    element: 'Fire',
+    elementLabel: '불',
+    legalStatus: 'allowed',
+    legalRegistrable: true,
+  },
+]);
 assert.deepEqual(response.items[0]?.reportInput, {
   candidateId: response.items[0]?.candidateId,
   surname: [{ hangul: '최', hanja: '崔' }],
@@ -177,6 +300,7 @@ assert.equal(
 
 const pureHangulResponse = buildCandidateSearchResponseV1({
   query,
+  candidateRecallGeneration,
   summaries: [summary({
     fullHanja: '',
     givenName: [{ hangul: '하', hanja: '' }, { hangul: '늘', hanja: '' }],
@@ -189,15 +313,21 @@ assert.deepEqual(pureHangulResponse.items[0]?.reportInput, {
   surname: [{ hangul: '최' }],
   givenName: [{ hangul: '하' }, { hangul: '늘' }],
 });
+assert.deepEqual(pureHangulResponse.items[0]?.name.givenCharacters, [
+  { hangul: '하', hanja: '' },
+  { hangul: '늘', hanja: '' },
+]);
 
 // The response owns a canonical continuation snapshot rather than retaining
 // mutable score/display metadata from the source list.
 (baseline.givenName[0] as { hangul: string }).hangul = '나';
 assert.equal(response.items[0]?.reportInput.givenName[0]?.hangul, '하');
+assert.equal(response.items[0]?.name.givenCharacters[0]?.hangul, '하');
 
 assert.throws(
   () => buildCandidateSearchResponseV1({
     query,
+    candidateRecallGeneration,
     summaries: [summary({ rank: 2 })],
     offset: 0,
     requestedLimit: 20,
@@ -210,6 +340,7 @@ assert.throws(
 assert.throws(
   () => buildCandidateSearchResponseV1({
     query,
+    candidateRecallGeneration,
     summaries: [summary(), summary({ rank: 2 })],
     offset: 0,
     requestedLimit: 20,
@@ -222,6 +353,7 @@ assert.throws(
 assert.throws(
   () => buildCandidateSearchResponseV1({
     query,
+    candidateRecallGeneration,
     summaries: [summary({ givenHangul: '다른이름' })],
     offset: 0,
     requestedLimit: 20,
@@ -234,6 +366,7 @@ assert.throws(
 assert.throws(
   () => buildCandidateSearchResponseV1({
     query,
+    candidateRecallGeneration,
     summaries: [summary({
       fullHangul: 'KAB',
       fullHanja: '',
@@ -251,6 +384,7 @@ assert.throws(
 assert.throws(
   () => buildCandidateSearchResponseV1({
     query,
+    candidateRecallGeneration,
     summaries: [summary({ fullHanja: '崔夏訥' })],
     offset: 0,
     requestedLimit: 20,
@@ -263,6 +397,31 @@ assert.throws(
 assert.throws(
   () => buildCandidateSearchResponseV1({
     query,
+    candidateRecallGeneration,
+    summaries: [summary({
+      givenName: [
+        {
+          hangul: '하',
+          hanja: '河',
+          meaning: '강 하',
+          legalStatus: 'allowed',
+          legalRegistrable: false,
+        },
+        { hangul: '늘', hanja: '訥' },
+      ],
+    })],
+    offset: 0,
+    requestedLimit: 20,
+  }),
+  (error: unknown) => error instanceof CandidateSearchContractErrorV1
+    && error.reason === 'INVALID_NAME_PAYLOAD',
+  'candidate display evidence must reject contradictory legal registrability metadata',
+);
+
+assert.throws(
+  () => buildCandidateSearchResponseV1({
+    query,
+    candidateRecallGeneration,
     summaries: [summary({
       fullHangul: '최민준서',
       fullHanja: '崔珉俊瑞',
@@ -292,11 +451,23 @@ function pureHangulSummary(rank: number): SpringCandidateSummary {
   });
 }
 
+function canonicalHanjaSummary(rank: number): SpringCandidateSummary {
+  const given = String.fromCharCode(0xac00 + rank);
+  const hanja = String.fromCharCode(0x4e00 + rank);
+  return summary({
+    fullHangul: `최${given}`,
+    fullHanja: `崔${hanja}`,
+    givenHangul: given,
+    givenName: [{ hangul: given, hanja }],
+    rank,
+  });
+}
+
 const snapshotEngine = new SpringEngine() as any;
 let snapshotBuilds = 0;
 snapshotEngine.getNameCandidateSummariesInternal = async () => {
   snapshotBuilds += 1;
-  return [pureHangulSummary(1), pureHangulSummary(2), pureHangulSummary(3)];
+  return [canonicalHanjaSummary(1), canonicalHanjaSummary(2), canonicalHanjaSummary(3)];
 };
 const snapshotRequest = {
   birth: { year: 1986, month: 4, day: 19, gender: 'male' as const },
@@ -350,6 +521,39 @@ assert.equal(unsupportedLengthBuilds, 0,
   'unsupported recommendation lengths must fail before analysis or candidate generation');
 lengthGateEngine.close();
 
+const pureHangulModeEngine = new SpringEngine() as any;
+let pureHangulModeBuilds = 0;
+pureHangulModeEngine.getNameCandidateSummariesInternal = async () => {
+  pureHangulModeBuilds += 1;
+  return [];
+};
+await assert.rejects(
+  pureHangulModeEngine.getCandidateSearch({
+    ...snapshotRequest,
+    options: { pureHangulNameMode: 'on', limit: 1 },
+  }),
+  (error: unknown) => error instanceof CandidateSearchContractErrorV1
+    && error.reason === 'HANJA_REQUIRED_FOR_SAJU_GUIDED_RECOMMENDATION',
+  'the saju-guided recommendation boundary cannot silently erase Hanja identity',
+);
+assert.equal(pureHangulModeBuilds, 0,
+  'the Hanja policy must fail before saju analysis or repository candidate generation');
+pureHangulModeEngine.close();
+
+const leakedPureHangulEngine = new SpringEngine() as any;
+leakedPureHangulEngine.getNameCandidateSummariesInternal = async () =>
+  [pureHangulSummary(1)];
+await assert.rejects(
+  leakedPureHangulEngine.getCandidateSearch({
+    ...snapshotRequest,
+    options: { limit: 1 },
+  }),
+  (error: unknown) => error instanceof CandidateSearchContractErrorV1
+    && error.reason === 'HANJA_REQUIRED_FOR_SAJU_GUIDED_RECOMMENDATION',
+  'the public endpoint must fail closed if generation ever leaks a Hangul-only summary',
+);
+leakedPureHangulEngine.close();
+
 const snapshotPage1 = await snapshotEngine.getCandidateSearch({
   ...snapshotRequest,
   options: { offset: 0, limit: 1 },
@@ -360,6 +564,18 @@ const snapshotPage2 = await snapshotEngine.getCandidateSearch({
 }, { queryId: snapshotPage1.query.queryId });
 assert.equal(snapshotBuilds, 1, 'page 2 must not rescore the candidate pool');
 assert.deepEqual(snapshotPage2.items.map((item: { rank: number }) => item.rank), [2]);
+const repeatedSnapshotPage1 = await snapshotEngine.getCandidateSearch({
+  ...snapshotRequest,
+  options: { offset: 0, limit: 2 },
+});
+assert.equal(snapshotBuilds, 1,
+  'an identical first-page analysis must reuse the bounded engine-session snapshot');
+assert.equal(repeatedSnapshotPage1.query.queryId, snapshotPage1.query.queryId,
+  'an identical first-page analysis must continue the same immutable ordering');
+assert.deepEqual(
+  repeatedSnapshotPage1.items.map((item: { rank: number }) => item.rank),
+  [1, 2],
+);
 await assert.rejects(
   snapshotEngine.getCandidateSearch({
     ...snapshotRequest,
@@ -377,9 +593,31 @@ await assert.rejects(
     options: { offset: 1, limit: 1 },
   }, { queryId: snapshotPage1.query.queryId }),
   (error: unknown) => error instanceof CandidateSearchContractErrorV1
-    && error.reason === 'QUERY_SNAPSHOT_EXPIRED',
+  && error.reason === 'QUERY_SNAPSHOT_EXPIRED',
   'close must invalidate every local candidate snapshot',
 );
+
+const paretoSnapshotEngine = new SpringEngine() as any;
+paretoSnapshotEngine.getNameCandidateSummariesInternal = async () =>
+  [canonicalHanjaSummary(1), canonicalHanjaSummary(2)];
+const paretoSnapshotPage = await paretoSnapshotEngine.getCandidateSearch({
+  ...snapshotRequest,
+  options: {
+    offset: 0,
+    limit: 1,
+    precisionConfig: { paretoFrontierCandidates: true },
+  },
+});
+assert.equal(paretoSnapshotPage.ordering.mode, 'pareto_frontier');
+assert.equal(
+  paretoSnapshotPage.ordering.policyVersion,
+  'spring-ts.candidate-pareto-frontier.v1',
+);
+assert.equal(
+  paretoSnapshotPage.ordering.rankingBasis.missingEvidence.scoreAxes,
+  'pairwise_axis_omission',
+);
+paretoSnapshotEngine.close();
 
 const limitedEvidenceEngine = new SpringEngine() as any;
 limitedEvidenceEngine.getNameCandidateSummariesInternal = async (
@@ -406,7 +644,7 @@ limitedEvidenceEngine.getNameCandidateSummariesInternal = async (
     },
     yongshinConsensus: { final: { conflictLevel: 'high' } },
   });
-  return [pureHangulSummary(1), pureHangulSummary(2)];
+  return [canonicalHanjaSummary(1), canonicalHanjaSummary(2)];
 };
 const limitedEvidencePage1 = await limitedEvidenceEngine.getCandidateSearch({
   ...snapshotRequest,
@@ -431,7 +669,7 @@ assert.deepEqual(
 limitedEvidenceEngine.close();
 
 const lruEngine = new SpringEngine() as any;
-lruEngine.getNameCandidateSummariesInternal = async () => [pureHangulSummary(1)];
+lruEngine.getNameCandidateSummariesInternal = async () => [canonicalHanjaSummary(1)];
 const lruPages = [];
 for (let day = 1; day <= 5; day += 1) {
   lruPages.push(await lruEngine.getCandidateSearch({
@@ -456,7 +694,7 @@ const truncatedEngine = new SpringEngine() as any;
 let truncatedBuilds = 0;
 truncatedEngine.getNameCandidateSummariesInternal = async () => {
   truncatedBuilds += 1;
-  return Array.from({ length: 501 }, (_, index) => pureHangulSummary(index + 1));
+  return Array.from({ length: 501 }, (_, index) => canonicalHanjaSummary(index + 1));
 };
 const truncatedPage1 = await truncatedEngine.getCandidateSearch({
   ...snapshotRequest,

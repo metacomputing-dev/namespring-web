@@ -17,8 +17,13 @@ decomposition from authored Korean name sound-flow heuristics.
 - `precisionConfig.surfacePhoneticEvidence` is off by default.
 - Opt-in reports may include `phonetic.phoneticScore`,
   `phonetic.familyNameFitScore`, transition rows, warnings, and evidence.
-- The phonetic score is display-only and does not affect total score, ranking,
-  candidate generation, Hanja legality, Hanja/Saju scoring, or snapshots.
+- The phonetic score is display-only and does not affect total score, candidate
+  generation, Hanja legality, Hanja/Saju scoring, or legacy report ordering.
+- The versioned `getCandidateSearch()` presentation contract is the sole
+  exception: `spring-ts.candidate-presentation.v2` may use phonetic evidence
+  after risk inside a bounded 12-point raw-score window. It does not mutate the
+  raw score or reject a candidate, and the response discloses the rule in
+  `ordering.rankingBasis`. See `CANDIDATE_PRESENTATION_POLICY.md`.
 - Rules check deterministic Hangul boundaries: surname-to-given and internal
   given-name transitions.
 

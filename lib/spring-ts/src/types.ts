@@ -640,6 +640,70 @@ export interface PillarCode {
   readonly hanja: string;
 }
 
+/** Calculation-owned inputs and policy that make a time correction auditable. */
+export interface TimeCorrectionProvenance {
+  /**
+   * Location/timezone basis resolved before the engine calculation.
+   * Coordinates are null for a timezone-only request and are authoritative
+   * for the correction only when `coordinatesApplied` is true.
+   */
+  readonly location: {
+    readonly inputLabel: string | null;
+    readonly resolvedRegionCode: string | null;
+    readonly latitude: number | null;
+    readonly longitude: number | null;
+    readonly timezone: string;
+    readonly source: 'explicit' | 'region' | 'timezone' | 'default';
+    readonly coordinatesApplied: boolean;
+  };
+  /** Null only when longitude correction was disabled. */
+  readonly referenceMeridianDegrees: number | null;
+  /** Independently checkable source of the selected reference meridian. */
+  readonly referenceMeridianBasis:
+    | { readonly kind: 'disabled' }
+    | {
+        readonly kind: 'civil_offset_at_birth';
+        readonly utcOffsetMinutes: number;
+      }
+    | {
+        readonly kind: 'legacy_preset_registry';
+        readonly presetCode:
+          | 'KOREAN_MAINSTREAM'
+          | 'TRADITIONAL_CHINESE'
+          | 'MODERN_INTEGRATED';
+      };
+  /** Effective product policy after all defaults were applied. */
+  readonly policy: {
+    readonly trueSolarTime: 'on' | 'off';
+    readonly longitudeCorrection: 'on' | 'off';
+    readonly longitudeReference: 'off' | 'civilOffsetMeridian' | 'legacyPreset';
+    readonly explicitLocationRequired: boolean;
+    readonly yaza: 'on' | 'off';
+    readonly yazaMode: '23:00' | '23:30';
+  };
+  /** Original calendar input and the exact solar date/time basis sent to saju-ts. */
+  readonly input: {
+    readonly calendarType: 'solar' | 'lunar';
+    readonly providedLocalDateTime: {
+      readonly year: number;
+      readonly month: number;
+      readonly day: number;
+      readonly hour: number | null;
+      readonly minute: number | null;
+    };
+    readonly effectiveSolarDate: {
+      readonly year: number;
+      readonly month: number;
+      readonly day: number;
+    };
+    readonly timePrecision: 'exact' | 'unknown_hour' | 'unknown_minute';
+  };
+  /** Captured with the correction so delivery never reconstructs imputation state. */
+  readonly inputUncertainty: SajuInputUncertainty | null;
+  /** Captured with the correction so lunar input remains visible after conversion. */
+  readonly lunarConversion: LunarConversionSummary | null;
+}
+
 /** How the raw birth time was adjusted (DST, longitude, equation of time). */
 export interface TimeCorrectionSummary {
   readonly standardYear: number;
@@ -655,6 +719,12 @@ export interface TimeCorrectionSummary {
   readonly dstCorrectionMinutes: number;
   readonly longitudeCorrectionMinutes: number;
   readonly equationOfTimeMinutes: number;
+  /**
+   * Successful adapter analyses always populate this atomic provenance.
+   * It remains optional only for direct legacy bridge fixtures; report delivery
+   * rejects a requested saju surface when it is absent.
+   */
+  readonly provenance?: TimeCorrectionProvenance;
 }
 
 /** Fail-closed state emitted only for unavailable, partial, or failed analyses. */
@@ -675,6 +745,7 @@ export type SajuAnalysisReasonCode =
   | 'BIRTH_TIME_RANGE_TRANSITION'
   | 'BIRTH_LOCATION_INVALID'
   | 'BIRTH_LOCATION_PARTIAL'
+  | 'BIRTH_LOCATION_REQUIRED'
   | 'BIRTH_LOCATION_UNRESOLVED'
   | 'BIRTH_LOCATION_CONFLICT'
   | 'BIRTH_LOCATION_TIMEZONE_MISMATCH'
@@ -1348,6 +1419,11 @@ export interface SpringCandidateSummary {
   readonly finalScore: number;
   readonly scoreVector?: NamingScoreVector;
   readonly strengthProfile?: CandidateStrengthProfile;
+  /**
+   * Candidate-search presentation evidence. This never changes finalScore and
+   * remains separate from the externally visible naming-score semantics.
+   */
+  readonly presentationEvidence?: CandidatePresentationEvidence;
   readonly fullHangul: string;
   readonly fullHanja: string;
   readonly givenHangul: string;
@@ -1358,6 +1434,21 @@ export interface SpringCandidateSummary {
   readonly nameTrend?: NameTrendAnalysis;
   readonly phonetic?: PhoneticAnalysis;
   rank: number;
+}
+
+export interface CandidatePresentationEvidence {
+  /**
+   * Automatic-review coverage used by candidate presentation ranking; never
+   * interpreted as objective meaning superiority.
+   */
+  readonly meaningConfidence: number | null;
+  readonly popularityRank: number | null;
+  readonly phonetic: number | null;
+  readonly familyFit: number | null;
+  readonly eraFit: number | null;
+  readonly risk: number;
+  readonly meaningBasis: 'authored_gloss_safety_v1';
+  readonly popularityBasis: 'local_official_name_stat';
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

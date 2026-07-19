@@ -23,6 +23,14 @@
 
 기존 `getFortuneReport()` 응답 모양은 현재 프론트엔드 호환을 위해 유지한다. 신규 프론트엔드는 작은 버전 계약을 필요한 시점에만 호출한다.
 
+`ReportDeliveryV1`은 현재 기존 화면이 소비하는 운영 계약이 아니라 신규 V2
+프론트엔드와 함께 검토 중인 사전 출시 경계다. 이번 cutover에서
+`time_correction` fact/block이 엄격한 허용 목록에 추가되므로, V2 배포 전에
+기존 실험 캐시와 fixture를 폐기하고 생산자·소비자를 같은 빌드로 함께
+올려야 한다. 이미 배포된 별도 소비자가 발견되면 V1 응답을 조용히 확장하지
+말고 새 schemaVersion 또는 명시적 capability negotiation으로 분리한다.
+기존 `getFortuneReport()` 소비자에는 이 변경이 전파되지 않는다.
+
 ## 계약 지도
 
 | 계약 | 실행 위치와 책임 | 상태 |

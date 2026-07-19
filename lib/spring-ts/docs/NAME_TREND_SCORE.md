@@ -24,8 +24,16 @@ precisionConfig: {
 ```
 
 When enabled, reports may include `nameTrend`, `trendFit`, `trendRisk`, and
-`eraFitScore`. Default mode does not emit trend fields, does not change total
-scores, and does not change candidate order.
+`eraFitScore`. Default and legacy report modes do not emit trend fields, do
+not change total scores, and do not change candidate order.
+
+The versioned `getCandidateSearch()` surface is a separate presentation
+contract. Under `spring-ts.candidate-presentation.v2`, the raw final score
+remains unchanged, while `eraFit` is the last evidence axis inside a bounded
+12-point raw-score window. The full canonical axis order and tie-break contract
+live only in `CANDIDATE_PRESENTATION_POLICY.md` and are emitted in
+`ordering.rankingBasis`. Missing trend evidence receives no trend bonus, while
+rarity and a statistical gender tendency never hard-reject a candidate.
 
 Pre-2008 birth years, neutral gender, missing birth year, and names outside the
 small fixture are treated as `unknown`, not as negative evidence.

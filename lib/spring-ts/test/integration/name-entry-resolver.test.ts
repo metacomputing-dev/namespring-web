@@ -537,7 +537,7 @@ function fakeEntry(overrides: Record<string, unknown> = {}): any {
     forwardedFilters = filters;
     return [];
   };
-  engine.filterCandidatesByNameStat = async (candidates: unknown[]) => candidates;
+  engine.enrichCandidatesWithNameStat = async (candidates: unknown[]) => candidates;
   const operation = engine.beginOperation('getNameCandidates');
   const defaultPlan = engine.buildNameInputPlan(request);
   const collectedDefault = await engine.collectNameInputs(
@@ -618,10 +618,14 @@ function fakeEntry(overrides: Record<string, unknown> = {}): any {
   const pools = await engine.buildJamoBasedPools(
     request, 1, [null], new Set(), new Set(), 'curated', rejections,
   );
-  assert.deepEqual(pools.get(0), [surnameOnly, safe]);
+  assert.deepEqual(
+    pools.get(0),
+    [surnameOnly, weak, safe],
+    'a legal but weak automatic-recommendation meaning stays available after reviewed entries',
+  );
   assert.equal(rejections.get('unsafe_hanja_meaning')?.count, 1);
   assert.equal(rejections.get('opaque_hanja_meaning')?.count, 1);
-  assert.equal(rejections.get('weak_hanja_meaning')?.count, 1);
+  assert.equal(rejections.get('weak_hanja_meaning'), undefined);
 
   engine.hanjaRepo.findByHangul = async () => [];
   const noFallbackPools = await engine.buildJamoBasedPools(
@@ -823,7 +827,7 @@ function fakeEntry(overrides: Record<string, unknown> = {}): any {
     [{ hangul: '\uBBFC', hanja: '\u73C9' }],
     [{ hangul: '\uBBFC', hanja: '\u654F' }],
   ];
-  engine.filterCandidatesByNameStat = async (rows: unknown[]) => rows;
+  engine.enrichCandidatesWithNameStat = async (rows: unknown[]) => rows;
   const canonical = await engine.collectNameInputs(
     pureRequest,
     engine.buildNameInputPlan(pureRequest),
