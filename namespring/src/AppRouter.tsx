@@ -1,20 +1,26 @@
+import { Suspense, lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import App from "./App.jsx";
 import PaymentFailPage from "./pages/PaymentFailPage";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 import SupportPage from "./pages/SupportPage";
+
+const LegacyApp = lazy(() => import("./App.jsx"));
+const SpringApp = lazy(() => import("./v3/app"));
 
 export default function AppRouter() {
   const basename = import.meta.env.BASE_URL || "/";
 
   return (
     <BrowserRouter basename={basename}>
-      <Routes>
-        <Route path="/support" element={<SupportPage />} />
-        <Route path="/payment/success" element={<PaymentSuccessPage />} />
-        <Route path="/payment/fail" element={<PaymentFailPage />} />
-        <Route path="*" element={<App />} />
-      </Routes>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/support" element={<SupportPage />} />
+          <Route path="/payment/success" element={<PaymentSuccessPage />} />
+          <Route path="/payment/fail" element={<PaymentFailPage />} />
+          <Route path="/legacy/*" element={<LegacyApp />} />
+          <Route path="*" element={<SpringApp />} />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 }

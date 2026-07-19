@@ -1,0 +1,394 @@
+/* ============================================================
+   이름봄 v3 — 화면 레이어 스타일
+   토큰은 styles/tokens.css 를 그대로 사용한다.
+   ============================================================ */
+
+.v3-root {
+  min-height: 100vh;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+
+.v3-root *,
+.v3-root *::before,
+.v3-root *::after {
+  box-sizing: border-box;
+}
+
+/* ---------- 상단 헤더 ---------- */
+
+.v3-masthead {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: 0.65rem clamp(1rem, 4vw, 2rem);
+  background: color-mix(in oklab, var(--color-paper) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: var(--rule-thin) solid var(--color-rule);
+}
+
+.v3-brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  padding: 0.25rem 0.4rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: 0.01em;
+}
+
+.v3-brand .v3-brand-mark {
+  color: var(--color-accent);
+}
+
+.v3-masthead-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.v3-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: var(--radius-pill);
+  border: var(--rule-thin) solid var(--color-rule);
+  background: var(--color-paper-2);
+  color: var(--color-ink-2);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+
+.v3-icon-button:hover {
+  background: var(--color-paper-3);
+  border-color: var(--color-rule-strong);
+}
+
+/* ---------- 본문 컨테이너 ---------- */
+
+.v3-page {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: clamp(1.25rem, 4vw, 2.5rem) clamp(1rem, 4vw, 2rem) 6rem;
+}
+
+.v3-page-head {
+  margin-bottom: clamp(1.25rem, 3vw, 2rem);
+}
+
+.v3-kicker {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin: 0 0 0.4rem;
+}
+
+.v3-page-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.65rem, 5vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.28;
+  margin: 0;
+  color: var(--color-ink);
+}
+
+.v3-page-lede {
+  margin: 0.6rem 0 0;
+  color: var(--color-ink-2);
+  font-size: var(--text-md);
+  max-width: 44rem;
+}
+
+/* ---------- 카드 ---------- */
+
+.v3-card {
+  background: var(--color-paper-2);
+  border: var(--rule-thin) solid var(--color-rule);
+  border-radius: var(--radius-card);
+  padding: clamp(1rem, 3vw, 1.5rem);
+  box-shadow: var(--shadow-1);
+}
+
+.v3-card + .v3-card {
+  margin-top: var(--space-sm);
+}
+
+.v3-card--hero {
+  background: linear-gradient(150deg, var(--color-accent-quiet), var(--color-paper-2) 55%);
+  border-radius: var(--radius-card-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.v3-card--tinted {
+  background: var(--color-paper-3);
+}
+
+/* ---------- 섹션 ---------- */
+
+.v3-section {
+  margin-top: clamp(2rem, 6vw, 3.25rem);
+}
+
+.v3-section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 4vw, 1.85rem);
+  font-weight: 700;
+  margin: 0 0 0.35rem;
+  color: var(--color-ink);
+}
+
+.v3-section-lede {
+  margin: 0 0 var(--space-sm);
+  color: var(--color-ink-3);
+  font-size: var(--text-sm);
+}
+
+/* ---------- 배지 · 필 ---------- */
+
+.v3-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.18rem 0.62rem;
+  border-radius: var(--radius-pill);
+  border: var(--rule-thin) solid var(--color-rule);
+  background: var(--color-paper-3);
+  color: var(--color-ink-2);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.v3-badge--accent {
+  background: var(--color-accent-quiet);
+  border-color: transparent;
+  color: var(--color-accent);
+}
+
+.v3-badge--wood { background: var(--color-wood-bg); border-color: var(--color-wood-line); color: var(--color-wood); }
+.v3-badge--fire { background: var(--color-fire-bg); border-color: var(--color-fire-line); color: var(--color-fire); }
+.v3-badge--earth { background: var(--color-earth-bg); border-color: var(--color-earth-line); color: var(--color-earth); }
+.v3-badge--metal { background: var(--color-metal-bg); border-color: var(--color-metal-line); color: var(--color-metal); }
+.v3-badge--water { background: var(--color-water-bg); border-color: var(--color-water-line); color: var(--color-water); }
+
+/* ---------- 버튼 ---------- */
+
+.v3-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.7rem 1.4rem;
+  border-radius: var(--radius-input);
+  border: var(--rule-thin) solid var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  font-size: var(--text-md);
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: filter var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+
+.v3-button:hover { filter: brightness(1.06); }
+.v3-button:active { transform: translateY(1px); }
+
+.v3-button--ghost {
+  background: var(--color-paper-2);
+  border-color: var(--color-rule-strong);
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.v3-button--wide { width: 100%; }
+
+.v3-button:disabled {
+  background: var(--color-disabled-bg);
+  border-color: var(--color-disabled-bg);
+  color: var(--color-disabled-ink);
+  cursor: not-allowed;
+}
+
+/* ---------- 별점 ---------- */
+
+.v3-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.14rem;
+  color: var(--color-earth);
+}
+
+.v3-stars .v3-star--empty {
+  color: var(--color-rule-strong);
+}
+
+.v3-stars-value {
+  margin-left: 0.4rem;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-ink-3);
+}
+
+/* ---------- 인용 카드 (신살·관계 인사이트) ---------- */
+
+.v3-quote {
+  position: relative;
+  background: var(--color-paper-3);
+  border: var(--rule-thin) solid var(--color-rule);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius-input);
+  padding: 0.85rem 1rem 0.85rem 1.1rem;
+}
+
+.v3-quote + .v3-quote { margin-top: 0.6rem; }
+
+.v3-quote-main {
+  margin: 0;
+  font-size: var(--text-md);
+  color: var(--color-ink);
+}
+
+.v3-quote-expert {
+  margin: 0.45rem 0 0;
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+}
+
+.v3-quote-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+/* ---------- 탭 ---------- */
+
+.v3-tabs {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.v3-tab {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-pill);
+  border: var(--rule-thin) solid var(--color-rule);
+  background: var(--color-paper-2);
+  color: var(--color-ink-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.v3-tab[aria-selected='true'] {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+/* ---------- 폼 ---------- */
+
+.v3-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.v3-label {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-ink-2);
+}
+
+.v3-input,
+.v3-select {
+  width: 100%;
+  padding: 0.68rem 0.9rem;
+  border-radius: var(--radius-input);
+  border: var(--rule-thin) solid var(--color-rule-strong);
+  background: var(--color-paper-2);
+  color: var(--color-ink);
+  font-size: var(--text-md);
+  font-family: inherit;
+}
+
+.v3-input:focus-visible,
+.v3-select:focus-visible,
+.v3-button:focus-visible,
+.v3-tab:focus-visible,
+.v3-icon-button:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.v3-hint {
+  font-size: var(--text-xs);
+  color: var(--color-ink-3);
+}
+
+/* ---------- 그리드 ---------- */
+
+.v3-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-sm);
+}
+
+.v3-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-sm);
+}
+
+@media (max-width: 40rem) {
+  .v3-grid-2,
+  .v3-grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- 로딩 ---------- */
+
+.v3-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  padding: var(--space-2xl) 0;
+  color: var(--color-ink-3);
+}
+
+.v3-loading-leaf {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50% 50% 50% 0;
+  background: var(--color-accent-soft);
+  animation: v3-leaf-sway 1.6s var(--ease-in-out) infinite;
+}
+
+@keyframes v3-leaf-sway {
+  0%, 100% { transform: rotate(-8deg) scale(1); }
+  50% { transform: rotate(10deg) scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v3-loading-leaf { animation: none; }
+}
