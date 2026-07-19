@@ -102,7 +102,7 @@ function ElementCompareBars({ index }: { index: DeliveryIndex }) {
                 style={{ width: `${share(saju, element)}%` }}
               />
             </div>
-            <div className="v3-compare-track">
+            <div className="v3-compare-track v3-compare-track--name">
               <div
                 className="v3-compare-fill v3-compare-fill--name"
                 style={{ width: `${share(name, element)}%` }}
@@ -115,7 +115,8 @@ function ElementCompareBars({ index }: { index: DeliveryIndex }) {
         </div>
       ))}
       <p className="v3-hint" style={{ marginTop: '0.4rem' }}>
-        위 줄이 사주, 아래 줄이 이름이에요. 서로 다른 자료라 각각 100% 안에서 나눠 보여요.
+        위 줄이 사주, 아래 줄이 이름이에요. 이름 줄은 글자 두세 개가 재료의 전부라
+        절반 길이로 줄여 두었어요.
       </p>
     </div>
   );

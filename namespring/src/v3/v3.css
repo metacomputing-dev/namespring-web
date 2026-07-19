@@ -599,6 +599,12 @@
   overflow: hidden;
 }
 
+/* 이름 줄은 글자 두세 개가 재료의 전부라, 트랙 자체를 절반 길이로 두어
+   사주(여덟 글자)와 규모가 다른 자료임을 눈으로 알 수 있게 한다. */
+.v3-compare-track--name {
+  width: 50%;
+}
+
 .v3-compare-fill {
   height: 100%;
   border-radius: inherit;
@@ -1127,6 +1133,42 @@
   font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 700;
+}
+
+/* ---------- 매뉴얼 항목 ---------- */
+
+.v3-topic {
+  border-bottom: var(--rule-thin) solid var(--color-rule);
+}
+
+.v3-topic:last-child {
+  border-bottom: 0;
+}
+
+.v3-topic summary {
+  cursor: pointer;
+  padding: 0.75rem 0.2rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  list-style-position: inside;
+}
+
+.v3-topic summary:hover {
+  color: var(--color-accent);
+}
+
+.v3-topic-body {
+  padding: 0.1rem 0.2rem 0.9rem;
+  color: var(--color-ink-2);
+}
+
+.v3-topic-body p {
+  margin: 0 0 0.6rem;
+  line-height: 1.72;
+}
+
+.v3-topic-body p:last-child {
+  margin-bottom: 0;
 }
 
 /* ---------- 로딩 ---------- */

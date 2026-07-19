@@ -12,6 +12,7 @@ import NamingScreen from './screens/NamingScreen';
 import CandidatesScreen from './screens/CandidatesScreen';
 import FavoritesScreen from './screens/FavoritesScreen';
 import AccountScreen from './screens/AccountScreen';
+import InfoScreen from './screens/InfoScreen';
 
 function MoonIcon() {
   return (
@@ -125,7 +126,7 @@ const NAV_ITEMS: NavItem[] = [
     ),
   },
   {
-    path: null,
+    path: '/info',
     label: '정보',
     icon: (
       <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -214,6 +215,7 @@ export default function SpringApp() {
           <Route path="/naming/candidates" element={<CandidatesScreen />} />
           <Route path="/favorites" element={<FavoritesScreen />} />
           <Route path="/account" element={<AccountScreen />} />
+          <Route path="/info" element={<InfoScreen />} />
           <Route path="*" element={<HomeScreen />} />
         </Routes>
       </TermsProvider>
