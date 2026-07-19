@@ -585,6 +585,99 @@ export interface NameSajuInteractionFactV1 extends FactBaseV1 {
   )[];
 }
 
+/** Day-pillar-derived void (공망) branches, projected verbatim. */
+export interface GongmangFactV1
+  extends FactBaseV1, SajuSummaryProjectionProvenanceV1 {
+  readonly kind: 'gongmang';
+  readonly domain: 'saju';
+  readonly method: 'saju-ts.gongmang-projection.v1';
+  readonly sourceFields: readonly ['gongmang'];
+  /** Engine display labels for the two void branches (e.g. `진(辰)`). */
+  readonly voidBranches: readonly [string, string];
+}
+
+export type GyeokgukSeongpaeVerdictV1 =
+  | 'SEONGGYEOK'
+  | 'PAGYEOK'
+  | 'PAJUNG_YUGU'
+  | 'SEONGJUNG_YUPA'
+  | 'UNDETERMINED';
+
+/**
+ * Gyeokguk seong/pae (성패) adjudication. Free-form engine reasons stay behind
+ * the delivery boundary; authored explanations remain interpretations.
+ */
+export interface GyeokgukSeongpaeFactV1
+  extends FactBaseV1, SajuSummaryProjectionProvenanceV1 {
+  readonly kind: 'gyeokguk_seongpae';
+  readonly domain: 'saju';
+  readonly method: 'saju-ts.gyeokguk-seongpae-projection.v1';
+  readonly sourceFields: readonly ['gyeokguk'];
+  readonly verdict: GyeokgukSeongpaeVerdictV1;
+  readonly usage: 'SUNYONG' | 'YEOKYONG';
+  readonly sangshin: string | null;
+  readonly sangshinStemHanja: string | null;
+  readonly pagyeokFactor: string | null;
+  readonly gueung: string | null;
+}
+
+/** Twelve life stages (십이운성) of each natal pillar, projected verbatim. */
+export interface SibiUnseongFactV1
+  extends FactBaseV1, SajuSummaryProjectionProvenanceV1 {
+  readonly kind: 'sibi_unseong';
+  readonly domain: 'saju';
+  readonly method: 'saju-ts.sibi-unseong-projection.v1';
+  readonly sourceFields: readonly ['sibiUnseong'];
+  readonly stages: readonly {
+    readonly position: SajuPillarPositionV1;
+    /** Engine display label for the stage (e.g. `장생`). */
+    readonly stage: string;
+  }[];
+}
+
+/**
+ * Personal daeun (대운) decade intervals. Ages are the engine's continuous
+ * interval values; `startAgeDisplay` mirrors the common almanac notation.
+ */
+export interface DaeunTimelineFactV1
+  extends FactBaseV1, SajuSummaryProjectionProvenanceV1 {
+  readonly kind: 'daeun_timeline';
+  readonly domain: 'saju';
+  readonly method: 'saju-ts.daeun-info-projection.v1';
+  readonly sourceFields: readonly ['daeunInfo'];
+  readonly isForward: boolean;
+  readonly firstStartAge: number;
+  readonly firstStartAgeDisplay: number | null;
+  /** Solar-term anchor for the daeun start count (e.g. `LICHUN`). */
+  readonly boundaryTermId: string | null;
+  readonly periods: readonly {
+    readonly order: number;
+    readonly stem: string;
+    readonly branch: string;
+    /** Inclusive continuous start age. */
+    readonly startAge: number;
+    /** Exclusive continuous end age. */
+    readonly endAge: number;
+    readonly tenGod: string | null;
+    /** Twelve-life-stage label of this decade pillar, when annotated. */
+    readonly lifeStage: string | null;
+  }[];
+}
+
+/** Natal yin/yang counts over the eight characters (body basis). */
+export interface YinYangBalanceFactV1
+  extends FactBaseV1, SajuSummaryProjectionProvenanceV1 {
+  readonly kind: 'yin_yang_balance';
+  readonly domain: 'saju';
+  readonly method: 'saju-ts.yin-yang-balance-projection.v1';
+  readonly sourceFields: readonly ['yinYangBalance'];
+  readonly yang: number;
+  readonly yin: number;
+  readonly stems: { readonly yang: number; readonly yin: number };
+  readonly branches: { readonly yang: number; readonly yin: number };
+  readonly dominant: 'YANG' | 'YIN' | 'EVEN';
+}
+
 export type ReportFactV1 =
   | MetricFactV1
   | DayMasterFactV1
@@ -603,7 +696,12 @@ export type ReportFactV1 =
   | NamingPhoneticFactV1
   | NameStatisticsFactV1
   | NamingFrameFactV1
-  | NameSajuInteractionFactV1;
+  | NameSajuInteractionFactV1
+  | GongmangFactV1
+  | GyeokgukSeongpaeFactV1
+  | SibiUnseongFactV1
+  | DaeunTimelineFactV1
+  | YinYangBalanceFactV1;
 
 export interface ReportInterpretationV1 {
   readonly id: string;

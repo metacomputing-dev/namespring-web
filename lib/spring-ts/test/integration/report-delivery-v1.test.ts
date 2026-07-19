@@ -1706,6 +1706,53 @@ assert.ok(elementBalanceEvidence?.kind === 'element_balance');
 assert.deepEqual(elementBalanceEvidence.deficient, ['earth', 'metal']);
 assert.deepEqual(elementBalanceEvidence.excessive, ['wood']);
 
+const gongmangEvidence = structuralEvidenceDelivery.facts.find(
+  (fact) => fact.kind === 'gongmang',
+);
+assert.ok(gongmangEvidence?.kind === 'gongmang');
+assert.equal(gongmangEvidence.voidBranches.length, 2);
+
+const seongpaeEvidence = structuralEvidenceDelivery.facts.find(
+  (fact) => fact.kind === 'gyeokguk_seongpae',
+);
+assert.ok(seongpaeEvidence?.kind === 'gyeokguk_seongpae');
+assert.ok(['SUNYONG', 'YEOKYONG'].includes(seongpaeEvidence.usage));
+const seongpaeKeys = serializedKeys(seongpaeEvidence);
+for (const internalKey of ['reasons', 'verdictBeforeMonthBroken']) {
+  assert.equal(
+    seongpaeKeys.has(internalKey),
+    false,
+    `seongpae projection omits engine-internal ${internalKey}`,
+  );
+}
+
+const sibiUnseongEvidence = structuralEvidenceDelivery.facts.find(
+  (fact) => fact.kind === 'sibi_unseong',
+);
+assert.ok(sibiUnseongEvidence?.kind === 'sibi_unseong');
+assert.ok(sibiUnseongEvidence.stages.length >= 1);
+
+const daeunEvidence = structuralEvidenceDelivery.facts.find(
+  (fact) => fact.kind === 'daeun_timeline',
+);
+assert.ok(daeunEvidence?.kind === 'daeun_timeline');
+assert.ok(daeunEvidence.periods.length >= 1);
+assert.ok(
+  daeunEvidence.periods.every((period, index) =>
+    index === 0 || period.order > daeunEvidence.periods[index - 1].order),
+  'daeun periods stay in engine decade order',
+);
+
+const yinYangEvidence = structuralEvidenceDelivery.facts.find(
+  (fact) => fact.kind === 'yin_yang_balance',
+);
+assert.ok(yinYangEvidence?.kind === 'yin_yang_balance');
+assert.equal(
+  yinYangEvidence.yang + yinYangEvidence.yin,
+  8,
+  'a full chart counts all eight characters',
+);
+
 const structuralEvidenceBlock = findSurface(structuralEvidenceDelivery, 'saju')!.blocks.find(
   (block) => block.kind === 'fact_group' && block.presentation === 'evidence',
 );
@@ -1717,6 +1764,11 @@ assert.deepEqual(
     tenGodEvidence.id,
     relationEvidence.id,
     elementBalanceEvidence.id,
+    gongmangEvidence.id,
+    seongpaeEvidence.id,
+    sibiUnseongEvidence.id,
+    daeunEvidence.id,
+    yinYangEvidence.id,
   ],
   'specialist structural facts are reachable only through the saju evidence group',
 );
@@ -1726,6 +1778,11 @@ assert.deepEqual(
     'ten_god_analysis',
     'natal_relations',
     'element_balance',
+    'gongmang',
+    'gyeokguk_seongpae',
+    'sibi_unseong',
+    'daeun_timeline',
+    'yin_yang_balance',
   ]).has(fact.kind)),
   [],
   'specialist structural facts do not broaden the integrated-only payload',

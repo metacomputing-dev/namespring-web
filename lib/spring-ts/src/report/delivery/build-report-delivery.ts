@@ -26,6 +26,7 @@ import type { TieredMatrixSelection } from '../tiered/build-tiered-matrix.js';
 import { buildNameSajuReading } from '../tiered/name-saju-reading.js';
 import {
   REPORT_DELIVERY_SCHEMA_V1,
+  type DaeunTimelineFactV1,
   type DayMasterFactV1,
   type DeliveryAvailabilityV1,
   type DeliveryReasonCodeV1,
@@ -33,7 +34,10 @@ import {
   type ElementBalanceFactV1,
   type ElementDistributionFactV1,
   type FiveElementIdV1,
+  type GongmangFactV1,
   type GyeokgukFactV1,
+  type GyeokgukSeongpaeFactV1,
+  type GyeokgukSeongpaeVerdictV1,
   type MetricFactV1,
   type LocalReportOptionsV1,
   type NameCharacterFactV1,
@@ -53,6 +57,7 @@ import {
   type ReportInterpretationV1,
   type ReportSurfaceSelectionV1,
   type ReportSurfaceV1,
+  type SibiUnseongFactV1,
   type StrengthFactV1,
   type SajuJudgmentStrengthV1,
   type SajuPillarPositionV1,
@@ -61,6 +66,7 @@ import {
   type TenGodCodeV1,
   type TenGodDescriptorV1,
   type TimeCorrectionFactV1,
+  type YinYangBalanceFactV1,
   type YongshinFactV1,
   type YongshinMethodAxisV1,
 } from './types.js';
@@ -418,6 +424,179 @@ function elementBalanceFact(saju: SajuSummary): ElementBalanceFactV1 {
     sourceFields: ['deficientElements', 'excessiveElements'],
     deficient,
     excessive,
+  };
+}
+
+const SEONGPAE_VERDICTS = new Set<GyeokgukSeongpaeVerdictV1>([
+  'SEONGGYEOK',
+  'PAGYEOK',
+  'PAJUNG_YUGU',
+  'SEONGJUNG_YUPA',
+  'UNDETERMINED',
+]);
+
+function gongmangFact(saju: SajuSummary): GongmangFactV1 | null {
+  const gongmang = saju.gongmang;
+  if (gongmang === null || gongmang === undefined) return null;
+  if (!Array.isArray(gongmang) || gongmang.length !== 2) {
+    throw new ReportDeliveryContractError('GONGMANG_INVALID');
+  }
+  return {
+    id: 'saju.gongmang',
+    domain: 'saju',
+    method: 'saju-ts.gongmang-projection.v1',
+    kind: 'gongmang',
+    source: 'spring-ts.SajuSummary',
+    projection: 'normalized_without_recalculation',
+    sourceFields: ['gongmang'],
+    voidBranches: [
+      boundedEngineText(gongmang[0], 'GONGMANG_BRANCH_INVALID', 16),
+      boundedEngineText(gongmang[1], 'GONGMANG_BRANCH_INVALID', 16),
+    ],
+  };
+}
+
+function gyeokgukSeongpaeFact(saju: SajuSummary): GyeokgukSeongpaeFactV1 | null {
+  const seongpae = saju.gyeokguk?.seongpae;
+  if (seongpae === null || seongpae === undefined) return null;
+  if (typeof seongpae !== 'object'
+    || !SEONGPAE_VERDICTS.has(seongpae.verdict as GyeokgukSeongpaeVerdictV1)
+    || (seongpae.usage !== 'SUNYONG' && seongpae.usage !== 'YEOKYONG')) {
+    throw new ReportDeliveryContractError('GYEOKGUK_SEONGPAE_INVALID');
+  }
+  const optionalLabel = (value: unknown, reason: string): string | null =>
+    value === null || value === undefined ? null : boundedEngineText(value, reason, 40);
+  return {
+    id: 'saju.gyeokguk-seongpae',
+    domain: 'saju',
+    method: 'saju-ts.gyeokguk-seongpae-projection.v1',
+    kind: 'gyeokguk_seongpae',
+    source: 'spring-ts.SajuSummary',
+    projection: 'normalized_without_recalculation',
+    sourceFields: ['gyeokguk'],
+    verdict: seongpae.verdict as GyeokgukSeongpaeVerdictV1,
+    usage: seongpae.usage,
+    sangshin: optionalLabel(seongpae.sangshin, 'GYEOKGUK_SANGSHIN_INVALID'),
+    sangshinStemHanja: optionalLabel(
+      seongpae.sangshinStemHanja,
+      'GYEOKGUK_SANGSHIN_INVALID',
+    ),
+    pagyeokFactor: optionalLabel(seongpae.pagyeokFactor, 'GYEOKGUK_PAGYEOK_INVALID'),
+    gueung: optionalLabel(seongpae.gueung, 'GYEOKGUK_GUEUNG_INVALID'),
+  };
+}
+
+function sibiUnseongFact(saju: SajuSummary): SibiUnseongFactV1 | null {
+  const raw = (saju as Record<string, unknown>).sibiUnseong;
+  if (raw === null || raw === undefined) return null;
+  if (typeof raw !== 'object' || Array.isArray(raw)) {
+    throw new ReportDeliveryContractError('SIBI_UNSEONG_INVALID');
+  }
+  const entries = raw as Record<string, unknown>;
+  const stages: { position: SajuPillarPositionV1; stage: string }[] = [];
+  for (const position of PILLAR_ORDER) {
+    const stage = entries[position] ?? entries[position.toUpperCase()];
+    if (stage === undefined || stage === null) continue;
+    stages.push({
+      position,
+      stage: boundedEngineText(stage, 'SIBI_UNSEONG_STAGE_INVALID', 16),
+    });
+  }
+  if (stages.length === 0) return null;
+  return {
+    id: 'saju.sibi-unseong',
+    domain: 'saju',
+    method: 'saju-ts.sibi-unseong-projection.v1',
+    kind: 'sibi_unseong',
+    source: 'spring-ts.SajuSummary',
+    projection: 'normalized_without_recalculation',
+    sourceFields: ['sibiUnseong'],
+    stages,
+  };
+}
+
+function daeunTimelineFact(saju: SajuSummary): DaeunTimelineFactV1 | null {
+  const info = saju.daeunInfo;
+  if (info === null || info === undefined) return null;
+  if (typeof info !== 'object'
+    || typeof info.isForward !== 'boolean'
+    || !Number.isFinite(info.firstDaeunStartAge)
+    || !Array.isArray(info.pillars)
+    || info.pillars.length === 0
+    || info.pillars.length > 16) {
+    throw new ReportDeliveryContractError('DAEUN_INFO_INVALID');
+  }
+  const periods = info.pillars.map((pillar) => {
+    if (!pillar || typeof pillar !== 'object'
+      || !Number.isSafeInteger(pillar.order)
+      || !Number.isFinite(pillar.startAge)
+      || !Number.isFinite(pillar.endAge)
+      || pillar.endAge <= pillar.startAge) {
+      throw new ReportDeliveryContractError('DAEUN_PILLAR_INVALID');
+    }
+    return {
+      order: pillar.order,
+      stem: boundedEngineText(pillar.stem, 'DAEUN_PILLAR_STEM_INVALID', 16),
+      branch: boundedEngineText(pillar.branch, 'DAEUN_PILLAR_BRANCH_INVALID', 16),
+      startAge: pillar.startAge,
+      endAge: pillar.endAge,
+      tenGod: pillar.tenGod === undefined || pillar.tenGod === null
+        ? null
+        : boundedEngineText(pillar.tenGod, 'DAEUN_PILLAR_TEN_GOD_INVALID', 40),
+      lifeStage: pillar.lifeStageKo === undefined || pillar.lifeStageKo === null
+        ? null
+        : boundedEngineText(pillar.lifeStageKo, 'DAEUN_PILLAR_LIFE_STAGE_INVALID', 16),
+    };
+  });
+  const displayAge = info.firstDaeunStartAgeDisplay;
+  return {
+    id: 'saju.daeun-timeline',
+    domain: 'saju',
+    method: 'saju-ts.daeun-info-projection.v1',
+    kind: 'daeun_timeline',
+    source: 'spring-ts.SajuSummary',
+    projection: 'normalized_without_recalculation',
+    sourceFields: ['daeunInfo'],
+    isForward: info.isForward,
+    firstStartAge: info.firstDaeunStartAge,
+    firstStartAgeDisplay: displayAge === undefined || displayAge === null
+      ? null
+      : displayAge,
+    boundaryTermId: info.boundaryTermId === undefined || info.boundaryTermId === null
+      ? null
+      : boundedEngineText(info.boundaryTermId, 'DAEUN_BOUNDARY_TERM_INVALID', 32),
+    periods,
+  };
+}
+
+function yinYangBalanceFact(saju: SajuSummary): YinYangBalanceFactV1 | null {
+  const balance = saju.yinYangBalance;
+  if (balance === null || balance === undefined) return null;
+  const counts = [
+    balance.yang,
+    balance.yin,
+    balance.stems?.yang,
+    balance.stems?.yin,
+    balance.branches?.yang,
+    balance.branches?.yin,
+  ];
+  if (counts.some((count) => !Number.isSafeInteger(count) || (count as number) < 0)
+    || (balance.dominant !== 'YANG' && balance.dominant !== 'YIN' && balance.dominant !== 'EVEN')) {
+    throw new ReportDeliveryContractError('YIN_YANG_BALANCE_INVALID');
+  }
+  return {
+    id: 'saju.yin-yang-balance',
+    domain: 'saju',
+    method: 'saju-ts.yin-yang-balance-projection.v1',
+    kind: 'yin_yang_balance',
+    source: 'spring-ts.SajuSummary',
+    projection: 'normalized_without_recalculation',
+    sourceFields: ['yinYangBalance'],
+    yang: balance.yang,
+    yin: balance.yin,
+    stems: { yang: balance.stems.yang, yin: balance.stems.yin },
+    branches: { yang: balance.branches.yang, yin: balance.branches.yin },
+    dominant: balance.dominant,
   };
 }
 
@@ -1772,6 +1951,11 @@ export async function buildReportDeliveryV1(
     | TenGodAnalysisFactV1
     | NatalRelationsFactV1
     | ElementBalanceFactV1
+    | GongmangFactV1
+    | GyeokgukSeongpaeFactV1
+    | SibiUnseongFactV1
+    | DaeunTimelineFactV1
+    | YinYangBalanceFactV1
   )[] = [];
   if (requiresSajuSurface && input.saju) {
     const projectedFacts = [
@@ -1779,6 +1963,11 @@ export async function buildReportDeliveryV1(
       tenGodAnalysisFact(input.saju),
       natalRelationsFact(input.saju),
       elementBalanceFact(input.saju),
+      gongmangFact(input.saju),
+      gyeokgukSeongpaeFact(input.saju),
+      sibiUnseongFact(input.saju),
+      daeunTimelineFact(input.saju),
+      yinYangBalanceFact(input.saju),
     ];
     for (const projected of projectedFacts) {
       if (projected) {

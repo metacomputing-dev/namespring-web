@@ -391,6 +391,11 @@ const FACT_KINDS = new Set([
   'name_statistics',
   'naming_frame',
   'name_saju_interaction',
+  'gongmang',
+  'gyeokguk_seongpae',
+  'sibi_unseong',
+  'daeun_timeline',
+  'yin_yang_balance',
 ]);
 const BLOCK_KINDS = new Set([
   'hero',
@@ -2235,6 +2240,172 @@ function strictFact(value: unknown): ReportFactV1 {
       jung: 'lateAndTotal',
     };
     if (value.stage !== expectedStage[value.frameType as string]) contractFail('NAMING_FRAME_STAGE');
+  } else if (value.kind === 'gongmang') {
+    strictObject(
+      value,
+      [...base, 'source', 'projection', 'sourceFields', 'voidBranches'],
+      [],
+      'GONGMANG_FACT_SHAPE',
+    );
+    strictSajuProjectionProvenance(
+      value,
+      'saju-ts.gongmang-projection.v1',
+      ['gongmang'],
+    );
+    strictArray(value.voidBranches, 'GONGMANG_BRANCHES', 2, 2);
+    for (const branch of value.voidBranches) {
+      strictBoundedText(branch, 'GONGMANG_BRANCHES', 16);
+    }
+  } else if (value.kind === 'gyeokguk_seongpae') {
+    strictObject(
+      value,
+      [
+        ...base,
+        'source',
+        'projection',
+        'sourceFields',
+        'verdict',
+        'usage',
+        'sangshin',
+        'sangshinStemHanja',
+        'pagyeokFactor',
+        'gueung',
+      ],
+      [],
+      'GYEOKGUK_SEONGPAE_FACT_SHAPE',
+    );
+    strictSajuProjectionProvenance(
+      value,
+      'saju-ts.gyeokguk-seongpae-projection.v1',
+      ['gyeokguk'],
+    );
+    strictEnum(
+      value.verdict,
+      new Set(['SEONGGYEOK', 'PAGYEOK', 'PAJUNG_YUGU', 'SEONGJUNG_YUPA', 'UNDETERMINED']),
+      'GYEOKGUK_SEONGPAE_VERDICT',
+    );
+    strictEnum(value.usage, new Set(['SUNYONG', 'YEOKYONG']), 'GYEOKGUK_SEONGPAE_USAGE');
+    for (const key of ['sangshin', 'sangshinStemHanja', 'pagyeokFactor', 'gueung'] as const) {
+      if (value[key] !== null) {
+        strictBoundedText(value[key], 'GYEOKGUK_SEONGPAE_LABEL', 40);
+      }
+    }
+  } else if (value.kind === 'sibi_unseong') {
+    strictObject(
+      value,
+      [...base, 'source', 'projection', 'sourceFields', 'stages'],
+      [],
+      'SIBI_UNSEONG_FACT_SHAPE',
+    );
+    strictSajuProjectionProvenance(
+      value,
+      'saju-ts.sibi-unseong-projection.v1',
+      ['sibiUnseong'],
+    );
+    strictArray(value.stages, 'SIBI_UNSEONG_STAGES', 1, SAJU_PILLAR_POSITIONS.size);
+    const seenPositions = new Set<string>();
+    for (const entry of value.stages) {
+      strictObject(entry, ['position', 'stage'], [], 'SIBI_UNSEONG_STAGE_SHAPE');
+      strictEnum(entry.position, SAJU_PILLAR_POSITIONS, 'SIBI_UNSEONG_POSITION');
+      if (seenPositions.has(entry.position as string)) contractFail('SIBI_UNSEONG_POSITION');
+      seenPositions.add(entry.position as string);
+      strictBoundedText(entry.stage, 'SIBI_UNSEONG_STAGE', 16);
+    }
+  } else if (value.kind === 'daeun_timeline') {
+    strictObject(
+      value,
+      [
+        ...base,
+        'source',
+        'projection',
+        'sourceFields',
+        'isForward',
+        'firstStartAge',
+        'firstStartAgeDisplay',
+        'boundaryTermId',
+        'periods',
+      ],
+      [],
+      'DAEUN_TIMELINE_FACT_SHAPE',
+    );
+    strictSajuProjectionProvenance(
+      value,
+      'saju-ts.daeun-info-projection.v1',
+      ['daeunInfo'],
+    );
+    if (typeof value.isForward !== 'boolean') contractFail('DAEUN_TIMELINE_DIRECTION');
+    strictFiniteNumber(value.firstStartAge, 'DAEUN_TIMELINE_START_AGE');
+    if (value.firstStartAge < 0 || value.firstStartAge > 30) {
+      contractFail('DAEUN_TIMELINE_START_AGE');
+    }
+    if (value.firstStartAgeDisplay !== null) {
+      strictSafeInteger(value.firstStartAgeDisplay, 'DAEUN_TIMELINE_START_AGE', 1);
+    }
+    if (value.boundaryTermId !== null) {
+      strictBoundedText(value.boundaryTermId, 'DAEUN_TIMELINE_BOUNDARY', 32);
+    }
+    strictArray(value.periods, 'DAEUN_TIMELINE_PERIODS', 1, 16);
+    let previousEndAge: number | null = null;
+    for (const period of value.periods) {
+      strictObject(
+        period,
+        ['order', 'stem', 'branch', 'startAge', 'endAge', 'tenGod', 'lifeStage'],
+        [],
+        'DAEUN_TIMELINE_PERIOD_SHAPE',
+      );
+      strictSafeInteger(period.order, 'DAEUN_TIMELINE_PERIOD_ORDER');
+      strictBoundedText(period.stem, 'DAEUN_TIMELINE_PERIOD_PILLAR', 16);
+      strictBoundedText(period.branch, 'DAEUN_TIMELINE_PERIOD_PILLAR', 16);
+      strictFiniteNumber(period.startAge, 'DAEUN_TIMELINE_PERIOD_AGE');
+      strictFiniteNumber(period.endAge, 'DAEUN_TIMELINE_PERIOD_AGE');
+      // Engine interval boundaries may wobble by float epsilon between
+      // adjacent decades; tolerate that without accepting real overlaps.
+      if (period.endAge <= period.startAge
+        || period.startAge < 0
+        || period.endAge > 140
+        || (previousEndAge !== null && period.startAge < previousEndAge - 1e-6)) {
+        contractFail('DAEUN_TIMELINE_PERIOD_AGE');
+      }
+      previousEndAge = period.endAge as number;
+      if (period.tenGod !== null) {
+        strictBoundedText(period.tenGod, 'DAEUN_TIMELINE_PERIOD_TEN_GOD', 40);
+      }
+      if (period.lifeStage !== null) {
+        strictBoundedText(period.lifeStage, 'DAEUN_TIMELINE_PERIOD_LIFE_STAGE', 16);
+      }
+    }
+  } else if (value.kind === 'yin_yang_balance') {
+    strictObject(
+      value,
+      [...base, 'source', 'projection', 'sourceFields', 'yang', 'yin', 'stems', 'branches', 'dominant'],
+      [],
+      'YIN_YANG_BALANCE_FACT_SHAPE',
+    );
+    strictSajuProjectionProvenance(
+      value,
+      'saju-ts.yin-yang-balance-projection.v1',
+      ['yinYangBalance'],
+    );
+    strictSafeInteger(value.yang, 'YIN_YANG_BALANCE_COUNT');
+    strictSafeInteger(value.yin, 'YIN_YANG_BALANCE_COUNT');
+    for (const group of ['stems', 'branches'] as const) {
+      strictObject(value[group], ['yang', 'yin'], [], 'YIN_YANG_BALANCE_GROUP');
+      strictSafeInteger(
+        (value[group] as Record<string, unknown>).yang,
+        'YIN_YANG_BALANCE_COUNT',
+      );
+      strictSafeInteger(
+        (value[group] as Record<string, unknown>).yin,
+        'YIN_YANG_BALANCE_COUNT',
+      );
+    }
+    strictEnum(value.dominant, new Set(['YANG', 'YIN', 'EVEN']), 'YIN_YANG_BALANCE_DOMINANT');
+    const stems = value.stems as { yang: number; yin: number };
+    const branches = value.branches as { yang: number; yin: number };
+    if (value.yang !== stems.yang + branches.yang
+      || value.yin !== stems.yin + branches.yin) {
+      contractFail('YIN_YANG_BALANCE_COUNT');
+    }
   } else {
     strictObject(
       value,
@@ -2621,6 +2792,11 @@ function validateTypedFactGroup(
       'naming_trend',
       'naming_phonetic',
       'name_statistics',
+      'gongmang',
+      'gyeokguk_seongpae',
+      'sibi_unseong',
+      'daeun_timeline',
+      'yin_yang_balance',
     ]),
   };
   const allowedPresentations: Readonly<Record<ReportSurfaceIdV1, ReadonlySet<string>>> = {
