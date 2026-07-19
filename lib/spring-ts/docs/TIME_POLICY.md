@@ -17,6 +17,11 @@ longitude correction is on, the product default
 from the UTC offset in force at the birth civil time, including historical
 standard-time changes and daylight saving time.
 
+Equation-of-time-only correction (`trueSolarTime: 'on'` with
+`longitudeCorrection: 'off'`) does not require a longitude input. Explicitly
+turning longitude correction on still requires a resolvable birth region or a
+complete coordinate/timezone tuple.
+
 `longitudeReference: 'legacyPreset'` is a regional compatibility opt-in. The
 Korean/modern presets use a fixed 135-degree reference meridian and the
 traditional Chinese preset uses 120 degrees. It is not a global compatibility

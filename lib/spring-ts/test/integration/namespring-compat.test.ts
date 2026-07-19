@@ -270,8 +270,44 @@ const withTimePolicy = await engine.getSajuReport({
   ...namespringRequest,
   options: { sajuTimePolicy: { trueSolarTime: 'on' } },
 });
-check(`sajuTimePolicy.trueSolarTime='on' produces a saju report`,
-  (withTimePolicy as any)?.pillars != null);
+check(`legacy partial sajuTimePolicy keeps the saju calculation enabled`,
+  (withTimePolicy as any)?.sajuEnabled === true);
+
+const legacyUiDefaultTimePolicy = await engine.getSajuReport({
+  ...namespringRequest,
+  birth: {
+    ...namespringRequest.birth,
+    calendarType: 'solar' as const,
+    region: '서울',
+    birthPlace: '서울',
+  },
+  options: {
+    sajuTimePolicy: {
+      trueSolarTime: 'off',
+      longitudeCorrection: 'on',
+      yaza: 'off',
+    },
+  },
+});
+check(`legacy UI default location/time toggles keep the saju calculation enabled`,
+  (legacyUiDefaultTimePolicy as any)?.sajuEnabled === true);
+check(`legacy UI default location resolves to Seoul`,
+  (legacyUiDefaultTimePolicy as any)?.timeCorrection?.provenance?.location?.resolvedRegionCode === 'SEOUL');
+
+const legacyUiEquationOnly = await engine.getSajuReport({
+  ...namespringRequest,
+  options: {
+    sajuTimePolicy: {
+      trueSolarTime: 'on',
+      longitudeCorrection: 'off',
+      yaza: 'off',
+    },
+  },
+});
+check(`legacy UI equation-of-time-only toggle works without a longitude input`,
+  (legacyUiEquationOnly as any)?.sajuEnabled === true);
+check(`equation-of-time-only toggle leaves longitude correction at zero`,
+  (legacyUiEquationOnly as any)?.timeCorrection?.longitudeCorrectionMinutes === 0);
 
 // ── (6) tieredMatrix is OPT-IN (negative assert) ────────────────────────
 // NameSpring's request never sets `precisionConfig.surfaceTieredMatrix`.

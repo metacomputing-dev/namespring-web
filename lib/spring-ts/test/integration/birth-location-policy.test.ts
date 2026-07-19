@@ -214,7 +214,7 @@ assert.equal(requiresExplicitBirthLocationForTimePolicy({
 } as any), false);
 assert.equal(requiresExplicitBirthLocationForTimePolicy({
   sajuTimePolicy: { trueSolarTime: 'on', longitudeCorrection: 'off' },
-} as any), true);
+} as any), false);
 assert.equal(requiresExplicitBirthLocationForTimePolicy({
   sajuTimePolicy: { trueSolarTime: 'off', longitudeCorrection: 'on' },
 } as any), true);
@@ -250,7 +250,7 @@ assert.deepEqual(resolveEffectiveSajuTimePolicy({
   trueSolarTime: 'on',
   longitudeCorrection: 'off',
   longitudeReference: 'off',
-  explicitLocationRequired: true,
+  explicitLocationRequired: false,
   yaza: 'off',
   yazaMode: '23:30',
 });

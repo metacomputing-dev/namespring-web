@@ -264,10 +264,8 @@ await expectFailure(
   BASE,
   'BIRTH_LOCATION_REQUIRED',
 );
-await expectFailure(
-  'explicit equation-of-time correction requires a resolvable birth location',
+const equationOfTimeOnly = await analyze(
   BASE,
-  'BIRTH_LOCATION_REQUIRED',
   {
     sajuTimePolicy: {
       trueSolarTime: 'on',
@@ -276,6 +274,13 @@ await expectFailure(
     },
   },
 );
+assert.equal(
+  equationOfTimeOnly.sajuEnabled,
+  true,
+  'equation-of-time-only correction must not require a longitude input',
+);
+assert.equal(equationOfTimeOnly.summary.timeCorrection.longitudeCorrectionMinutes, 0);
+assert.notEqual(equationOfTimeOnly.summary.timeCorrection.equationOfTimeMinutes, 0);
 await expectFailure(
   'timezone-only input cannot borrow Seoul longitude',
   { ...BASE, timezone: 'America/New_York' },

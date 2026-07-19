@@ -151,8 +151,7 @@ export function resolveEffectiveSajuTimePolicy(
       ? 'off'
       : requested?.longitudeReference ?? 'civilOffsetMeridian',
     explicitLocationRequired:
-      requested?.trueSolarTime === 'on'
-      || requested?.longitudeCorrection === 'on'
+      requested?.longitudeCorrection === 'on'
       || (longitudeCorrection === 'on'
         && requested?.longitudeReference !== undefined),
     yaza,
