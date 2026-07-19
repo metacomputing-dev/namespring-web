@@ -1158,36 +1158,48 @@
 .v3-signal-pill {
   padding: 0.32rem 0.8rem;
   border-radius: var(--radius-pill);
-  border: var(--rule-thin) solid var(--color-rule);
+  border: var(--rule-thin) solid;
   font-size: var(--text-sm);
-  font-weight: 600;
   font-family: inherit;
   cursor: pointer;
   transition: filter var(--dur-fast) var(--ease-out);
+  /* 그룹 색(--sig)과 무게(--sig-mix, --sig-weight)를 조합해 농도를 만든다. */
+  background: color-mix(in oklab, var(--sig) var(--sig-mix), var(--color-paper-2));
+  border-color: color-mix(in oklab, var(--sig) var(--sig-line-mix), var(--color-paper-2));
+  color: var(--sig-text);
+  font-weight: var(--sig-weight);
 }
 
-.v3-signal-pill:hover { filter: brightness(0.97); }
+.v3-signal-pill:hover { filter: brightness(0.96); }
 
-.v3-signal-pill--help {
-  background: var(--color-success-bg);
-  border-color: var(--color-success-line);
-  color: var(--color-success);
+/* 그룹별 색 축 */
+.v3-signal-pill--help { --sig: var(--color-success); --sig-text: var(--color-success); }
+.v3-signal-pill--pace { --sig: var(--color-warn); --sig-text: var(--color-warn); }
+.v3-signal-pill--blank { --sig: var(--color-neutral); --sig-text: var(--color-neutral); }
+
+/* 무게별 농도 — 확실히 구분되도록 세 단계로 벌린다. */
+.v3-signal-pill--soft {
+  --sig-mix: 7%;
+  --sig-line-mix: 20%;
+  --sig-weight: 600;
+  color: var(--color-ink-3);
 }
-
-.v3-signal-pill--pace {
-  background: var(--color-warn-bg);
-  border-color: var(--color-warn-line);
-  color: var(--color-warn);
+.v3-signal-pill--mid {
+  --sig-mix: 30%;
+  --sig-line-mix: 58%;
+  --sig-weight: 700;
+  /* 옅은 칩보다 글자도 진하게: 색을 잉크 쪽으로 조금 당긴다. */
+  color: color-mix(in oklab, var(--sig) 82%, var(--color-ink));
 }
-
-.v3-signal-pill--blank {
-  background: var(--color-neutral-bg);
-  border-color: var(--color-neutral-line);
-  color: var(--color-neutral);
+.v3-signal-pill--strong {
+  --sig-mix: 68%;
+  --sig-line-mix: 92%;
+  --sig-weight: 800;
+  color: color-mix(in oklab, var(--sig) 40%, var(--color-ink));
 }
 
 .v3-signal-pill[aria-expanded='true'] {
-  outline: 2px solid currentColor;
+  outline: 2px solid var(--sig);
   outline-offset: 1px;
 }
 

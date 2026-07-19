@@ -195,11 +195,32 @@ function YinYangCard({ index }: { index: DeliveryIndex }) {
 
 /* ---------- 구조 인사이트 ---------- */
 
+type SignalWeight = 'strong' | 'mid' | 'soft';
+
 interface SignalItem {
   key: string;
   label: string;
   main: string;
   expertNote?: string;
+  weight: SignalWeight;
+}
+
+const WEIGHT_ORDER: Record<SignalWeight, number> = { strong: 0, mid: 1, soft: 2 };
+
+/** 신살 등급(A/B/C)을 농도로 옮긴다. */
+function shinsalWeight(grade: string): SignalWeight {
+  const normalized = grade.trim().toUpperCase();
+  if (normalized.startsWith('A')) return 'strong';
+  if (normalized.startsWith('B')) return 'mid';
+  return 'soft';
+}
+
+/** 관계 유형의 무게: 충·성립한 합은 또렷하고, 파·해는 은근하다. */
+function relationWeight(type: string, confirmed: boolean): SignalWeight {
+  if (type.includes('충')) return 'strong';
+  if (type.includes('합')) return confirmed ? 'strong' : 'mid';
+  if (type.includes('형')) return 'mid';
+  return 'soft';
 }
 
 interface SignalGroupSpec {
@@ -225,11 +246,16 @@ function buildSignalGroups(index: DeliveryIndex): SignalGroupSpec[] {
     if (seenShinsal.has(hit.name)) continue;
     seenShinsal.add(hit.name);
     const meaning = SHINSAL_MEANINGS[hit.name];
+    // 등급이 높을수록 진하게, 여러 자리에 겹치면 한 단계 더 또렷하게.
+    let weight = shinsalWeight(hit.grade);
+    if (hit.occurrenceCount >= 2 && weight === 'soft') weight = 'mid';
+    if (hit.occurrenceCount >= 2 && weight === 'mid') weight = 'strong';
     const item: SignalItem = {
       key: `shinsal-${hit.name}`,
       label: hit.name,
       main: meaning ?? `${hit.name}이 자리해요. 뜻풀이는 준비하고 있어요.`,
-      expertNote: `${hit.calculationBasis.label} 기준 · ${hit.occurrenceCount}곳`,
+      expertNote: `${hit.calculationBasis.label} 기준 · ${hit.grade}등급 · ${hit.occurrenceCount}곳`,
+      weight,
     };
     (SHINSAL_BENEFIC.has(hit.name) ? help : pace).push(item);
   }
@@ -241,6 +267,7 @@ function buildSignalGroups(index: DeliveryIndex): SignalGroupSpec[] {
       label: `${relation.stems.join('·')} ${relation.type}`,
       main: `하늘 글자 ${relation.stems.join('과 ')}이 만나는 ${relation.type} 관계예요. ${gloss}`.trim(),
       expertNote: relation.resultConfirmed ? `천간 ${relation.type} · 합화 성립` : `천간 ${relation.type}`,
+      weight: relationWeight(relation.type, relation.resultConfirmed),
     };
     (relation.type.includes('합') ? help : pace).push(item);
   }
@@ -251,6 +278,7 @@ function buildSignalGroups(index: DeliveryIndex): SignalGroupSpec[] {
       label: `${relation.branches.join('·')} ${relation.type}`,
       main: `땅의 글자 ${relation.branches.join('과 ')}이 만나는 ${relation.type} 관계예요. ${gloss}`.trim(),
       expertNote: relation.outcome ? `지지 ${relation.type} · ${relation.outcome}` : `지지 ${relation.type}`,
+      weight: relationWeight(relation.type, relation.outcome != null),
     };
     (relation.type.includes('합') ? help : pace).push(item);
   }
@@ -261,6 +289,8 @@ function buildSignalGroups(index: DeliveryIndex): SignalGroupSpec[] {
       label: '공망',
       main: `${gongmang.voidBranches[0]}·${gongmang.voidBranches[1]} 자리가 비어 있어요. 그 영역은 준비를 한 번 더 하면 든든해요.`,
       expertNote: '일주 기준으로 계산한 빈 자리예요.',
+      // 공망은 여백 신호 중 가장 또렷한 축이다.
+      weight: 'mid',
     });
   }
   for (const position of tenGod?.positions ?? []) {
@@ -268,13 +298,22 @@ function buildSignalGroups(index: DeliveryIndex): SignalGroupSpec[] {
     const listed = position.hiddenStems
       .map(hidden => `${hidden.stem}(${hidden.tenGod.label})`)
       .join(' · ');
+    // 본기가 뚜렷할수록(비중이 높을수록) 조금 더 또렷하게 본다.
+    const maxRatio = Math.max(...position.hiddenStems.map(hidden => hidden.ratio));
     blank.push({
       key: `hidden-${position.position}`,
       label: `${PILLAR_KO[position.position]} 지장간`,
       main: `${PILLAR_KO[position.position]} 땅의 글자 속에 ${listed}이 숨어 함께 작용해요.`,
       expertNote: '겉으로 드러나지 않지만 때가 되면 힘을 내는 잠재예요.',
+      weight: maxRatio >= 0.9 ? 'mid' : 'soft',
     });
   }
+
+  const byWeight = (a: SignalItem, b: SignalItem) =>
+    WEIGHT_ORDER[a.weight] - WEIGHT_ORDER[b.weight];
+  help.sort(byWeight);
+  pace.sort(byWeight);
+  blank.sort(byWeight);
 
   return [
     { id: 'help', title: '도움의 신호', sub: '힘이 되어 주는 배치', items: help },
@@ -300,7 +339,7 @@ function InsightQuotes({ index }: { index: DeliveryIndex }) {
                 <button
                   key={item.key}
                   type="button"
-                  className={`v3-signal-pill v3-signal-pill--${group.id}`}
+                  className={`v3-signal-pill v3-signal-pill--${group.id} v3-signal-pill--${item.weight}`}
                   aria-expanded={selected === item.key}
                   onClick={() => setSelected(selected === item.key ? null : item.key)}
                 >
