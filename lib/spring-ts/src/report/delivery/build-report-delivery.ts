@@ -38,6 +38,9 @@ import {
   type GyeokgukFactV1,
   type GyeokgukSeongpaeFactV1,
   type GyeokgukSeongpaeVerdictV1,
+  type InsightFactsFactV1,
+  type InsightGroupV1,
+  type InsightSignalKindV1,
   type MetricFactV1,
   type LocalReportOptionsV1,
   type NameCharacterFactV1,
@@ -77,6 +80,7 @@ import {
 } from './validation.js';
 import { FOUR_FRAME_AUTHORED_COPY_APPROVED } from './content-gates.js';
 import { buildSafeFourFrameCopyV1 } from './safe-four-frame-copy.js';
+import { buildInsightFactsCard } from '../cards/insight-facts-card.js';
 
 const PILLAR_ORDER = ['year', 'month', 'day', 'hour'] as const;
 const TEN_GOD_POSITION_ORDER = [
@@ -597,6 +601,69 @@ function yinYangBalanceFact(saju: SajuSummary): YinYangBalanceFactV1 | null {
     stems: { yang: balance.stems.yang, yin: balance.stems.yin },
     branches: { yang: balance.branches.yang, yin: balance.branches.yin },
     dominant: balance.dominant,
+  };
+}
+
+const INSIGHT_SURFACE_KINDS = new Set<InsightSignalKindV1>([
+  'shinsal',
+  'gongmang',
+  'stemRelation',
+  'branchRelation',
+  'gyeokgukSeongpae',
+  'stemHapState',
+  'hiddenStems',
+]);
+
+function insightFactsFact(saju: SajuSummary): InsightFactsFactV1 | null {
+  const card = buildInsightFactsCard(saju);
+  if (!card) return null;
+  // 같은 factId가 여러 자리에 히트하면 엔진이 각각 방출하므로, 주요도가 가장
+  // 높은(정렬상 앞선) 첫 항목만 남긴다.
+  const seenFactIds = new Set<string>();
+  const items = card.facts
+    .filter((fact) => {
+      if (
+        typeof fact.interpretation?.text !== 'string'
+        || fact.interpretation.text.length === 0
+        || !INSIGHT_SURFACE_KINDS.has(fact.kind as InsightSignalKindV1)
+      ) {
+        return false;
+      }
+      if (seenFactIds.has(fact.factId)) return false;
+      seenFactIds.add(fact.factId);
+      return true;
+    })
+    .map((fact) => {
+      const salience = Number.isFinite(fact.salience)
+        ? Math.max(0, Math.min(1, fact.salience as number))
+        : 0;
+      const members = Array.isArray(fact.members)
+        ? fact.members.map((member) => boundedEngineText(member, 'INSIGHT_MEMBER_INVALID', 24))
+        : [];
+      const expert = fact.interpretation?.expertText;
+      return {
+        signalId: boundedEngineText(fact.factId, 'INSIGHT_SIGNAL_ID_INVALID', 96),
+        signalKind: fact.kind as InsightSignalKindV1,
+        group: (fact.group ?? 'tension') as InsightGroupV1,
+        label: boundedEngineText(fact.label, 'INSIGHT_LABEL_INVALID', 60),
+        detail: fact.detail ? boundedEngineText(fact.detail, 'INSIGHT_DETAIL_INVALID', 96) : null,
+        members,
+        salience,
+        highlight: fact.highlight === true,
+        reading: boundedEngineText(fact.interpretation!.text, 'INSIGHT_READING_INVALID', 400),
+        readingExpert: expert ? boundedEngineText(expert, 'INSIGHT_READING_EXPERT_INVALID', 500) : null,
+      };
+    });
+  if (items.length === 0) return null;
+  // 엔진이 정한 주요도 순서를 보존한다 (salience 내림차순, 동률은 원 순서).
+  return {
+    id: 'saju.insight-facts',
+    domain: 'saju',
+    method: 'spring-ts.insight-facts-card.v1',
+    kind: 'insight_facts',
+    source: 'spring-ts.SajuSummary',
+    projection: 'engine_grouping_with_authored_reading',
+    items,
   };
 }
 
@@ -1956,6 +2023,7 @@ export async function buildReportDeliveryV1(
     | SibiUnseongFactV1
     | DaeunTimelineFactV1
     | YinYangBalanceFactV1
+    | InsightFactsFactV1
   )[] = [];
   if (requiresSajuSurface && input.saju) {
     const projectedFacts = [
@@ -1968,6 +2036,7 @@ export async function buildReportDeliveryV1(
       sibiUnseongFact(input.saju),
       daeunTimelineFact(input.saju),
       yinYangBalanceFact(input.saju),
+      insightFactsFact(input.saju),
     ];
     for (const projected of projectedFacts) {
       if (projected) {

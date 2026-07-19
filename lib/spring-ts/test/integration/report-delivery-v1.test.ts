@@ -1756,6 +1756,17 @@ assert.equal(
 const structuralEvidenceBlock = findSurface(structuralEvidenceDelivery, 'saju')!.blocks.find(
   (block) => block.kind === 'fact_group' && block.presentation === 'evidence',
 );
+const insightEvidence = structuralEvidenceDelivery.facts.find(
+  (fact) => fact.kind === 'insight_facts',
+);
+assert.ok(insightEvidence?.kind === 'insight_facts');
+assert.ok(insightEvidence.items.length >= 1);
+for (const item of insightEvidence.items) {
+  assert.ok(item.salience >= 0 && item.salience <= 1);
+  assert.equal(typeof item.highlight, 'boolean');
+  assert.ok(item.reading.length > 0, 'every surfaced insight carries an authored reading');
+}
+
 assert.ok(structuralEvidenceBlock?.kind === 'fact_group');
 assert.deepEqual(
   structuralEvidenceBlock.factRefs,
@@ -1769,6 +1780,7 @@ assert.deepEqual(
     sibiUnseongEvidence.id,
     daeunEvidence.id,
     yinYangEvidence.id,
+    insightEvidence.id,
   ],
   'specialist structural facts are reachable only through the saju evidence group',
 );
@@ -1783,6 +1795,7 @@ assert.deepEqual(
     'sibi_unseong',
     'daeun_timeline',
     'yin_yang_balance',
+    'insight_facts',
   ]).has(fact.kind)),
   [],
   'specialist structural facts do not broaden the integrated-only payload',

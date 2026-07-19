@@ -396,6 +396,7 @@ const FACT_KINDS = new Set([
   'sibi_unseong',
   'daeun_timeline',
   'yin_yang_balance',
+  'insight_facts',
 ]);
 const BLOCK_KINDS = new Set([
   'hero',
@@ -427,6 +428,16 @@ const INTERACTION_LIMITATIONS = new Set([
   'safety_profile_unavailable',
 ]);
 const FRAME_STAGES = new Set(['earlyLife', 'youthLife', 'middleLife', 'lateAndTotal']);
+const INSIGHT_SIGNAL_KINDS = new Set([
+  'shinsal',
+  'gongmang',
+  'stemRelation',
+  'branchRelation',
+  'gyeokgukSeongpae',
+  'stemHapState',
+  'hiddenStems',
+]);
+const INSIGHT_GROUPS = new Set(['boon', 'tension', 'space']);
 const NAMING_TREND_STATUSES = new Set([
   'current',
   'era_fit',
@@ -2406,6 +2417,56 @@ function strictFact(value: unknown): ReportFactV1 {
       || value.yin !== stems.yin + branches.yin) {
       contractFail('YIN_YANG_BALANCE_COUNT');
     }
+  } else if (value.kind === 'insight_facts') {
+    strictObject(
+      value,
+      [...base, 'source', 'projection', 'items'],
+      [],
+      'INSIGHT_FACTS_FACT_SHAPE',
+    );
+    strictFactBase(value);
+    if (value.domain !== 'saju'
+      || value.method !== 'spring-ts.insight-facts-card.v1'
+      || value.source !== 'spring-ts.SajuSummary'
+      || value.projection !== 'engine_grouping_with_authored_reading') {
+      contractFail('INSIGHT_FACTS_PROVENANCE');
+    }
+    strictArray(value.items, 'INSIGHT_ITEMS', 1, 128);
+    const seenSignalIds = new Set<string>();
+    for (const item of value.items) {
+      strictObject(
+        item,
+        [
+          'signalId',
+          'signalKind',
+          'group',
+          'label',
+          'detail',
+          'members',
+          'salience',
+          'highlight',
+          'reading',
+          'readingExpert',
+        ],
+        [],
+        'INSIGHT_ITEM_SHAPE',
+      );
+      strictBoundedText(item.signalId, 'INSIGHT_SIGNAL_ID', 96);
+      if (seenSignalIds.has(item.signalId as string)) contractFail('INSIGHT_SIGNAL_ID');
+      seenSignalIds.add(item.signalId as string);
+      strictEnum(item.signalKind, INSIGHT_SIGNAL_KINDS, 'INSIGHT_SIGNAL_KIND');
+      strictEnum(item.group, INSIGHT_GROUPS, 'INSIGHT_GROUP');
+      strictBoundedText(item.label, 'INSIGHT_LABEL', 60);
+      if (item.detail !== null) strictBoundedText(item.detail, 'INSIGHT_DETAIL', 96);
+      strictStringArray(item.members, 'INSIGHT_MEMBERS', { max: 6 });
+      strictFiniteNumber(item.salience, 'INSIGHT_SALIENCE');
+      if ((item.salience as number) < 0 || (item.salience as number) > 1) {
+        contractFail('INSIGHT_SALIENCE');
+      }
+      if (typeof item.highlight !== 'boolean') contractFail('INSIGHT_HIGHLIGHT');
+      strictBoundedText(item.reading, 'INSIGHT_READING', 400);
+      if (item.readingExpert !== null) strictBoundedText(item.readingExpert, 'INSIGHT_READING_EXPERT', 500);
+    }
   } else {
     strictObject(
       value,
@@ -2810,6 +2871,7 @@ function validateTypedFactGroup(
       'sibi_unseong',
       'daeun_timeline',
       'yin_yang_balance',
+      'insight_facts',
     ]),
   };
   const allowedPresentations: Readonly<Record<ReportSurfaceIdV1, ReadonlySet<string>>> = {

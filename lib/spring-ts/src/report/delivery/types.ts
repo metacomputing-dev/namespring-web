@@ -678,6 +678,45 @@ export interface YinYangBalanceFactV1
   readonly dominant: 'YANG' | 'YIN' | 'EVEN';
 }
 
+export type InsightSignalKindV1 =
+  | 'shinsal'
+  | 'gongmang'
+  | 'stemRelation'
+  | 'branchRelation'
+  | 'gyeokgukSeongpae'
+  | 'stemHapState'
+  | 'hiddenStems';
+
+export type InsightGroupV1 = 'boon' | 'tension' | 'space';
+
+/**
+ * Curated natal-signal readings from the engine's insight card. The engine
+ * groups each signal (help / pacing / blank space), ranks salience, marks the
+ * curated highlights, and pairs each with its authored reading. Only signals
+ * that already carry an authored reading are surfaced.
+ */
+export interface InsightFactsFactV1 extends FactBaseV1 {
+  readonly kind: 'insight_facts';
+  readonly domain: 'saju';
+  readonly method: 'spring-ts.insight-facts-card.v1';
+  readonly source: 'spring-ts.SajuSummary';
+  readonly projection: 'engine_grouping_with_authored_reading';
+  readonly items: readonly {
+    readonly signalId: string;
+    readonly signalKind: InsightSignalKindV1;
+    readonly group: InsightGroupV1;
+    readonly label: string;
+    readonly detail: string | null;
+    readonly members: readonly string[];
+    /** Engine salience 0..1 — drives the display density. */
+    readonly salience: number;
+    /** Chosen by the engine for the default highlight reel. */
+    readonly highlight: boolean;
+    readonly reading: string;
+    readonly readingExpert: string | null;
+  }[];
+}
+
 export type ReportFactV1 =
   | MetricFactV1
   | DayMasterFactV1
@@ -701,7 +740,8 @@ export type ReportFactV1 =
   | GyeokgukSeongpaeFactV1
   | SibiUnseongFactV1
   | DaeunTimelineFactV1
-  | YinYangBalanceFactV1;
+  | YinYangBalanceFactV1
+  | InsightFactsFactV1;
 
 export interface ReportInterpretationV1 {
   readonly id: string;
