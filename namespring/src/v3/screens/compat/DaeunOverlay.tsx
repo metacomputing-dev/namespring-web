@@ -97,23 +97,37 @@ export interface DaeunWindow {
   cls: DaeunWindowClassV1;
 }
 
-/** 창 경계가 앉을 10년 위상 — 두 사람의 첫 대운 시작 연도 위상의 중간. */
-export function decadePhase(aFirstStartYear: number, bFirstStartYear: number): number {
-  const phaseA = ((Math.round(aFirstStartYear) % 10) + 10) % 10;
-  const phaseB = ((Math.round(bFirstStartYear) % 10) + 10) % 10;
-  return Math.round((phaseA + phaseB) / 2) % 10;
+/** 해당 연도를 덮는 대운의 별점. 채점 구간 밖이면 null. */
+export function starsAtYear(segments: DecadeSegment[], year: number): number | null {
+  for (const segment of segments) {
+    if (year >= segment.startYear && year < segment.endYear) return segment.stars;
+  }
+  return null;
 }
 
 /**
- * [t0, t1)을 위상에 맞춘 연속 10년 창 경계로 자른다.
- * 첫 정렬 경계가 t0보다 뒤라면 첫 창을 t0까지 뒤로 늘려 틈을 없앤다.
- * 마지막 창은 짧을 수 있다 — 4년 미만 창은 호출부에서 버린다.
+ * 창 경계 = 두 사람의 k번째 대운 시작 연도의 평균값들.
+ * 인위적 10년 격자 대신 두 대운의 리듬 그 자체의 중간에 경계를 앉힌다 —
+ * 두 사람 모두 대운이 10년이므로 경계 간격도 자연히 약 10년이 된다.
+ * [t0, t1) 밖의 경계는 버리고, 양 끝은 t0·t1로 감싼다.
  */
-export function windowBoundaries(t0: number, t1: number, phase: number): number[] {
-  const base = Math.ceil(t0);
-  const firstAligned = base + ((((phase - (base % 10)) % 10) + 10) % 10);
+export function pairedWindowBoundaries(
+  a: DecadeSegment[],
+  b: DecadeSegment[],
+  t0: number,
+  t1: number,
+): number[] {
+  const pairCount = Math.min(a.length, b.length);
+  const mids: number[] = [];
+  for (let k = 0; k < pairCount; k += 1) {
+    const mid = (a[k].startYear + b[k].startYear) / 2;
+    if (mid > t0 && mid < t1) mids.push(mid);
+  }
+  mids.sort((left, right) => left - right);
   const bounds: number[] = [t0];
-  for (let year = firstAligned + 10; year < t1; year += 10) bounds.push(year);
+  for (const mid of mids) {
+    if (mid - bounds[bounds.length - 1] > 0.5) bounds.push(mid);
+  }
   if (t1 > bounds[bounds.length - 1]) bounds.push(t1);
   return bounds;
 }
@@ -148,15 +162,14 @@ export function classifyWindow(aAvg: number, bAvg: number): DaeunWindowClassV1 {
   return 'steady';
 }
 
-/** 겹침 구간 [t0, t1)을 10년 창으로 잘라 구간별 지표를 붙인다. */
+/** 겹침 구간 [t0, t1)을 대운 경계 평균 격자의 창으로 잘라 지표를 붙인다. */
 export function buildDaeunWindows(
   a: PersonCurve,
   b: PersonCurve,
   t0: number,
   t1: number,
 ): DaeunWindow[] {
-  const phase = decadePhase(a.segments[0].startYear, b.segments[0].startYear);
-  const bounds = windowBoundaries(t0, t1, phase);
+  const bounds = pairedWindowBoundaries(a.segments, b.segments, t0, t1);
   const windows: DaeunWindow[] = [];
   for (let i = 0; i < bounds.length - 1; i += 1) {
     const startYear = bounds[i];
@@ -327,13 +340,23 @@ export default function DaeunOverlaySection({
 
   const pathA = catmullRomPath(anchorsA.map(p => ({ x: x(p.year), y: starY(p.stars) })));
   const pathB = catmullRomPath(anchorsB.map(p => ({ x: x(p.year), y: starY(p.stars) })));
-  const pathAvg = showWindows
-    ? catmullRomPath(
-        windows.map(window => ({
-          x: x((window.startYear + window.endYear) / 2),
-          y: starY(window.combined),
-        })),
-      )
+
+  // 평균 곡선의 앵커 = 창 경계(두 사람 대운 시작 연도의 평균 지점)마다,
+  // 그 x에서 두 곡선이 갖는 별점의 평균값. 경계가 겹침 구간의 오른쪽 끝일
+  // 때는 반열린 구간 밖으로 나가지 않게 살짝 안쪽에서 읽는다.
+  const avgAnchors = showWindows
+    ? [...windows.map(window => window.startYear), overlapEnd]
+        .map(year => {
+          const lookupYear = Math.min(year, overlapEnd - 0.001);
+          const aStars = starsAtYear(a.segments, lookupYear);
+          const bStars = starsAtYear(b.segments, lookupYear);
+          if (aStars === null || bStars === null) return null;
+          return { year, stars: (aStars + bStars) / 2 };
+        })
+        .filter((anchor): anchor is { year: number; stars: number } => anchor !== null)
+    : [];
+  const pathAvg = avgAnchors.length >= 2
+    ? catmullRomPath(avgAnchors.map(p => ({ x: x(p.year), y: starY(p.stars) })))
     : '';
 
   // 축이 길면(90년 초과) 눈금을 20년 간격으로 성기게 찍어 겹침을 막는다.
@@ -410,9 +433,9 @@ export default function DaeunOverlaySection({
             marginBottom: '0.5rem',
           }}
         >
-          {legendChip('var(--color-chart-line-a)', aName)}
+          {legendChip('var(--color-indigo)', aName)}
           {legendChip('var(--color-chart-line-b)', bName)}
-          {showWindows ? legendChip('var(--color-indigo)', '두 사람의 평균') : null}
+          {showWindows ? legendChip('var(--color-chart-line-a)', '두 사람의 평균') : null}
         </div>
         {showWindows ? (
           <p style={{ margin: '0 0 0.5rem' }}>
@@ -482,7 +505,7 @@ export default function DaeunOverlaySection({
             <path
               d={pathA}
               fill="none"
-              stroke="var(--color-chart-line-a)"
+              stroke="var(--color-indigo)"
               strokeWidth="2.2"
               strokeLinecap="round"
             />
@@ -501,7 +524,7 @@ export default function DaeunOverlaySection({
                   cx={x(point.year)}
                   cy={starY(point.stars)}
                   r={3}
-                  fill="var(--color-chart-line-a)"
+                  fill="var(--color-indigo)"
                 />
               ))}
             {anchorsB
@@ -519,7 +542,7 @@ export default function DaeunOverlaySection({
               <path
                 d={pathAvg}
                 fill="none"
-                stroke="var(--color-indigo)"
+                stroke="var(--color-chart-line-a)"
                 strokeWidth="2.6"
                 strokeOpacity="0.9"
                 strokeLinecap="round"
@@ -528,8 +551,14 @@ export default function DaeunOverlaySection({
             {showWindows
               ? windows.map((window, index) => {
                   const isOpen = openIndex === index;
-                  const cx = x((window.startYear + window.endYear) / 2);
-                  const cy = starY(window.combined);
+                  // 점은 창의 시작 경계(두 대운 시작 연도의 평균 지점)에서
+                  // 평균 곡선 위에 정확히 앉는다.
+                  const anchor = avgAnchors.find(
+                    candidate => candidate.year === window.startYear,
+                  );
+                  if (!anchor) return null;
+                  const cx = x(anchor.year);
+                  const cy = starY(anchor.stars);
                   return (
                     <g
                       key={`w-${window.startYear}`}
@@ -550,8 +579,8 @@ export default function DaeunOverlaySection({
                         cx={cx}
                         cy={cy}
                         r={isOpen ? 8.5 : 6}
-                        fill={isOpen ? 'var(--color-indigo)' : 'var(--color-paper-2)'}
-                        stroke="var(--color-indigo)"
+                        fill={isOpen ? 'var(--color-chart-line-a)' : 'var(--color-paper-2)'}
+                        stroke="var(--color-chart-line-a)"
                         strokeWidth={isOpen ? 2.5 : 2}
                       />
                     </g>
@@ -566,14 +595,7 @@ export default function DaeunOverlaySection({
               <span className="v3-badge">
                 {Math.round(openWindow.startYear)}–{Math.round(openWindow.endYear)}
               </span>
-              <span
-                className="v3-badge"
-                style={{
-                  color: 'var(--color-indigo)',
-                  background: 'var(--color-indigo-bg)',
-                  borderColor: 'var(--color-indigo-line)',
-                }}
-              >
+              <span className="v3-badge v3-badge--accent">
                 {WINDOW_CLASS_KO[openWindow.cls]}
               </span>
             </div>
