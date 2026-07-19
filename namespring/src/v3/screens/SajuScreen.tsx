@@ -323,13 +323,17 @@ function buildSignalGroups(index: DeliveryIndex): SignalGroupSpec[] {
 }
 
 function InsightQuotes({ index }: { index: DeliveryIndex }) {
-  const [selected, setSelected] = useState<string | null>(null);
-  const groups = buildSignalGroups(index);
-  if (groups.every(group => group.items.length === 0)) return null;
+  // undefined = 그룹의 가장 강한 신호를 기본으로 펼침, null = 사용자가 접음,
+  // string = 사용자가 고른 신호. 그룹 구성이 바뀌어도 기본값이 자연히 갱신된다.
+  const [picks, setPicks] = useState<Record<string, string | null>>({});
+  const groups = buildSignalGroups(index).filter(group => group.items.length > 0);
+  if (groups.length === 0) return null;
   return (
     <div className="v3-card">
-      {groups.map(group =>
-        group.items.length === 0 ? null : (
+      {groups.map(group => {
+        const effective = group.id in picks ? picks[group.id] : group.items[0].key;
+        const openItem = group.items.find(item => item.key === effective) ?? null;
+        return (
           <div key={group.id} className="v3-signal-group">
             <p className="v3-signal-title">
               {group.title} <span className="v3-hint">— {group.sub}</span>
@@ -340,25 +344,28 @@ function InsightQuotes({ index }: { index: DeliveryIndex }) {
                   key={item.key}
                   type="button"
                   className={`v3-signal-pill v3-signal-pill--${group.id} v3-signal-pill--${item.weight}`}
-                  aria-expanded={selected === item.key}
-                  onClick={() => setSelected(selected === item.key ? null : item.key)}
+                  aria-expanded={effective === item.key}
+                  onClick={() =>
+                    setPicks(prev => ({
+                      ...prev,
+                      [group.id]: prev[group.id] === item.key ? null : item.key,
+                    }))
+                  }
                 >
                   {item.label}
                 </button>
               ))}
             </div>
-            {group.items
-              .filter(item => item.key === selected)
-              .map(item => (
-                <div key={item.key} style={{ marginTop: '0.6rem' }}>
-                  <QuoteCard main={item.main} expertNote={item.expertNote} />
-                </div>
-              ))}
+            {openItem ? (
+              <div style={{ marginTop: '0.6rem' }}>
+                <QuoteCard main={openItem.main} expertNote={openItem.expertNote} />
+              </div>
+            ) : null}
           </div>
-        ),
-      )}
+        );
+      })}
       <p className="v3-hint" style={{ margin: '0.7rem 0 0', textAlign: 'center' }}>
-        신호를 누르면 풀이가 열려요.
+        각 줄의 가장 또렷한 신호를 먼저 펼쳐 두었어요. 다른 신호를 누르면 그 풀이로 바뀌어요.
       </p>
     </div>
   );
