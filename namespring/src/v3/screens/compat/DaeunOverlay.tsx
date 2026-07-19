@@ -312,14 +312,12 @@ export default function DaeunOverlaySection({
   );
   if (overlapEnd - overlapStart < 10) return null;
 
-  // 그림의 x축은 두 사람 대운의 합집합 — '전 생애를 나란히'라는 제목 그대로
-  // 각자의 곡선은 자기 전체 채점 구간을 끝까지 그린다. 축의 양 끝이
-  // 비어 보이지 않도록 축 자체를 실제 데이터 범위에 맞춘다.
+  // 그림의 x축: 왼쪽은 먼저 태어난 쪽의 첫 대운부터(늦게 시작하는 곡선은
+  // 탄생처럼 중간에서 자연스럽게 시작한다), 오른쪽은 두 사람 데이터의
+  // 공통 끝에서 함께 닫는다 — 한 곡선만 축 중간에서 멎으면 생이 끊기는
+  // 것처럼 보이기 때문에, 두 곡선 모두 오른쪽 끝까지 닿게 자른다.
   const domainStart = Math.min(a.segments[0].startYear, b.segments[0].startYear);
-  const domainEnd = Math.max(
-    a.segments[a.segments.length - 1].endYear,
-    b.segments[b.segments.length - 1].endYear,
-  );
+  const domainEnd = overlapEnd;
 
   const anchorsA = curveAnchors(a, domainStart, domainEnd);
   const anchorsB = curveAnchors(b, domainStart, domainEnd);
