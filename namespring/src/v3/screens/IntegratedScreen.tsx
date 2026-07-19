@@ -412,7 +412,8 @@ export default function IntegratedScreen() {
     <main className="v3-page">
       <OverrideBanner />
       <div className="v3-page-head">
-        <h1 className="v3-page-title">통합 보고서</h1>
+        <p className="v3-kicker">통합 보고서</p>
+        <h1 className="v3-page-title">이름과 사주, 함께 읽기</h1>
       </div>
 
       <Section title="한눈에 보기">
