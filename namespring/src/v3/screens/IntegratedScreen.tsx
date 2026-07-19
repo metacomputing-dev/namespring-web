@@ -16,6 +16,7 @@ import {
   Loading,
   OverrideBanner,
   ReportActions,
+  ReportFootnote,
   Section,
 } from '../ui/primitives';
 
@@ -258,9 +259,13 @@ export default function IntegratedScreen() {
             이름과 사주에 닿는지 차분히 이어 줍니다. 이름 조합의 이유, 앞으로의 관계와
             재물 흐름, 다시 읽을 수 있는 PDF까지 한 번에 정리됩니다.
           </p>
-          <Link to="/support" className="v3-button" style={{ marginTop: '0.9rem' }}>
+          <Link to="/account?intent=premium" className="v3-button" style={{ marginTop: '0.9rem' }}>
             내 해석 완성하기
           </Link>
+          <p className="v3-hint" style={{ margin: '0.55rem 0 0' }}>
+            결제 전에 계정을 확인해요. 계정이 준비되기 전에는 이메일 영수증만으로도
+            진행할 수 있어요.
+          </p>
         </div>
       </Section>
 
@@ -270,6 +275,7 @@ export default function IntegratedScreen() {
         </p>
         <ReportActions />
       </div>
+      <ReportFootnote />
     </main>
   );
 }

@@ -229,6 +229,17 @@ export function ReportActions() {
   );
 }
 
+/* ---------- 보고서 공통 고지 (화면당 1회) ---------- */
+
+export function ReportFootnote() {
+  return (
+    <p className="v3-hint" style={{ marginTop: 'var(--space-lg)', textAlign: 'center' }}>
+      이 보고서는 전통 명리학과 성명학의 관점을 옮긴 참고 자료예요. 계산은 이 기기
+      안에서 이루어지고, 성격이나 미래를 확정하지 않아요.
+    </p>
+  );
+}
+
 /* ---------- 로딩 ---------- */
 
 export function Loading({ message }: { message: string }) {

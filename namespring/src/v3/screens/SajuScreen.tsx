@@ -30,6 +30,7 @@ import {
   Loading,
   OverrideBanner,
   QuoteCard,
+  ReportFootnote,
   Section,
   Stars,
   TermToggle,
@@ -743,6 +744,7 @@ export default function SajuScreen() {
         </div>
         <LifeSummary index={index} />
       </Section>
+      <ReportFootnote />
     </main>
   );
 }

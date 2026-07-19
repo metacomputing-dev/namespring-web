@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import '../styles/tokens.css';
 import './v3.css';
@@ -173,12 +174,21 @@ function BottomNav() {
   );
 }
 
+function ScrollToTop() {
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, [location.pathname]);
+  return null;
+}
+
 export default function SpringApp() {
   const navigate = useNavigate();
   const { isDark, toggle } = useThemeMode();
 
   return (
     <div className="v3-root">
+      <ScrollToTop />
       <header className="v3-masthead">
         <button type="button" className="v3-brand" onClick={() => navigate('/')}>
           <img src={logoSvg} alt="" className="v3-brand-leaf" draggable={false} />

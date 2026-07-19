@@ -15,6 +15,7 @@ import {
   ElementBadge,
   Loading,
   OverrideBanner,
+  ReportFootnote,
   Section,
   TermToggle,
   useTerms,
@@ -456,6 +457,7 @@ export default function NamingScreen() {
       <Section title="이 이름을 쓰는 사람들" lede="공식 이름 통계 자료에서 찾은 실제 기록이에요.">
         <NameStatsSection index={index} profile={profile} />
       </Section>
+      <ReportFootnote />
     </main>
   );
 }

@@ -125,6 +125,29 @@ export default function HomeScreen() {
         </p>
       </div>
 
+      {saved ? (
+        <section className="v3-card v3-card--tinted" style={{ marginBottom: 'var(--space-md)' }}>
+          <p style={{ margin: 0 }}>
+            <strong>
+              {saved.surname.map(c => c.hangul).join('')}
+              {saved.givenName.map(c => c.hangul).join('')}
+            </strong>
+            님의 보고서가 준비되어 있어요. 입력을 바꾸지 않았다면 바로 이어 볼 수 있어요.
+          </p>
+          <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.7rem', flexWrap: 'wrap' }}>
+            <button type="button" className="v3-button" onClick={() => navigate('/reports/integrated')}>
+              통합 보고서 이어 보기
+            </button>
+            <button type="button" className="v3-button v3-button--ghost" onClick={() => navigate('/reports/saju')}>
+              사주
+            </button>
+            <button type="button" className="v3-button v3-button--ghost" onClick={() => navigate('/reports/naming')}>
+              이름
+            </button>
+          </div>
+        </section>
+      ) : null}
+
       <section className="v3-card">
         <h2 className="v3-section-title" style={{ fontSize: '1.2rem' }}>
           어떤 이름인가요?

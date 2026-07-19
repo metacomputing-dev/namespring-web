@@ -226,6 +226,13 @@
 
 .v3-button--wide { width: 100%; }
 
+.v3-button--danger {
+  background: var(--color-danger-bg);
+  border-color: var(--color-danger-line);
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
 .v3-button:disabled {
   background: var(--color-disabled-bg);
   border-color: var(--color-disabled-bg);
