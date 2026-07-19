@@ -32,6 +32,7 @@ import type { CopyVoiceV1 } from './copy-bundles.js';
 import {
   ELEMENT_KO,
   elementKo,
+  eulReul,
   hasBatchim,
   listKo,
   renderBranchPairCopy,
@@ -955,7 +956,11 @@ function elementComplementAxis(
     if (fact.filled.length > 0) {
       paragraphs.push(
         `${receiver.displayName}님 사주에 부족한 ${listKo(fact.deficient.map(elementKo))} 기운 가운데 `
-        + `${listKo(fact.filled.map(elementKo))}${fact.filled.length === fact.deficient.length ? ' 전부를' : '를'} `
+        + `${
+          fact.filled.length === fact.deficient.length
+            ? `${listKo(fact.filled.map(elementKo))} 전부를`
+            : eulReul(listKo(fact.filled.map(elementKo)))
+        } `
         + `${giver.displayName}님이 넉넉하게 갖고 있어요. 곁에 있는 것만으로 빈 곳이 메워지는 조합이에요.`,
       );
     } else {

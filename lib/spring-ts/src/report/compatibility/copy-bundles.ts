@@ -383,6 +383,41 @@ function dayStemHapAdult(params: DayStemCopyParamsV1, coupleTone: boolean): Copy
 const DAY_STEM_HAP: CopyBundleV1<DayStemCopyParamsV1> = {
   default: params => dayStemHapAdult(params, false),
   couple: params => dayStemHapAdult(params, true),
+  companion: params => {
+    const { aName, bName, fact } = params;
+    const aStem = stemKo(fact.a);
+    const bStem = stemKo(fact.b);
+    const hapEl = fact.hapElement!;
+    const hapName = STEM_HAP_NAMES[[fact.a.code, fact.b.code].sort().join('+')];
+    const paragraphs: string[] = [];
+    const cautions: string[] = [];
+    paragraphs.push(
+      `${aName}님의 ${iGa(aStem)} ${bName}님의 ${gwaWa(bStem)} 천간합(天干合)을 이뤄요. `
+      + `우정의 자리에서 이 합은 오래 알아 온 사이처럼 말문이 쉽게 트이는 힘으로 나타나요 — 처음 만난 자리에서도 어느새 둘이서 다음 약속을 잡고 있기 쉬워요.`
+      + (hapName ? ` 고전에서는 이 합을 ${hapName.name}이라 불러요 — ${hapName.gloss}` : ''),
+    );
+    paragraphs.push(
+      `이 합이 모이면 ${elementKo(hapEl)} 기운으로 화(化)하려 해요. 함께 도모하는 일마다 ${describeElementMood(hapEl)}가 스며들기 쉬워요. `
+      + `또 천간합의 짝은 서로를 아끼고 세워 주게 되는 구조라, 동반의 신뢰가 유난히 빨리 쌓이는 쪽이에요.`,
+    );
+    if (params.hapYongshinOwnerName) {
+      paragraphs.push(
+        `게다가 그 ${ELEMENT_KO[hapEl]} 기운은 ${params.hapYongshinOwnerName}님 사주가 반기는 기운이에요 — 이 우정에 머무는 것만으로 채워지는 몫이 있다는 뜻이에요.`,
+      );
+    } else if (params.hapGishinOwnerName) {
+      cautions.push(
+        `합해서 생기는 ${ELEMENT_KO[hapEl]} 기운은 ${params.hapGishinOwnerName}님 사주가 조심스러워하는 기운이기도 해요 — 어울림이 늘 같은 색으로만 흐르지 않게, 이따금 다른 결의 시간을 섞어 주세요.`,
+      );
+    }
+    cautions.push(
+      '합은 끌림이면서 묶임이기도 해요 — 둘만의 결속이 다른 동료를 밀어내지 않게 자리를 조금 열어 두면, 이 우정이 더 넓게 자라요.',
+    );
+    return {
+      headline: '두 분의 일간이 천간합으로 이어져 있어요 — 금세 뜻이 맞는 동반의 짝이에요.',
+      paragraphs,
+      cautions,
+    };
+  },
   guardian: params => {
     const { aName, bName, fact } = params;
     const { elder, younger } = guardianRoles(params.voice);
@@ -400,11 +435,11 @@ const DAY_STEM_HAP: CopyBundleV1<DayStemCopyParamsV1> = {
     );
     if (params.hapYongshinOwnerName) {
       paragraphs.push(
-        `게다가 그 ${ELEMENT_KO[hapEl]} 기운은 ${params.hapYongshinOwnerName}님 사주가 반기는 기운이라, 함께 있는 시간이 실제로 힘이 되는 방향이에요.`,
+        `게다가 그 ${ELEMENT_KO[hapEl]} 기운은 ${params.hapYongshinOwnerName}님 사주가 반기는 기운이라, 곁을 지키는 돌봄의 시간이 그대로 보약이 되는 셈이에요.`,
       );
     } else if (params.hapGishinOwnerName) {
       cautions.push(
-        `합해서 생기는 ${ELEMENT_KO[hapEl]} 기운은 ${params.hapGishinOwnerName}님 사주가 조심스러워하는 기운이기도 해요 — 함께 만드는 분위기가 한쪽으로 짙어지지 않게 살펴 주세요.`,
+        `합해서 생기는 ${ELEMENT_KO[hapEl]} 기운은 ${params.hapGishinOwnerName}님 사주가 조심스러워하는 기운이기도 해요 — 둘 사이의 공기가 그 기운으로만 가득 차지 않게 이따금 환기해 주세요.`,
       );
     }
     cautions.push(
@@ -428,11 +463,11 @@ const DAY_STEM_HAP: CopyBundleV1<DayStemCopyParamsV1> = {
       + `아이들 사이에서 이 합은 이유를 묻기도 전에 이미 친해져 있는 힘으로 나타나요 — 서로의 장난에 가장 먼저 웃어 주는 짝이에요.`,
     );
     paragraphs.push(
-      `이 합이 모이면 ${elementKo(hapEl)} 기운으로 화(化)하려 해요. 둘이 함께 있을 때 ${describeElementMood(hapEl)}가 자라나기 쉬워요.`,
+      `이 합이 모이면 ${elementKo(hapEl)} 기운으로 화(化)하려 해요. 둘이 어울려 노는 자리마다 ${describeElementMood(hapEl)}가 피어나기 쉬워요.`,
     );
     if (params.hapYongshinOwnerName) {
       paragraphs.push(
-        `게다가 그 ${ELEMENT_KO[hapEl]} 기운은 ${params.hapYongshinOwnerName}님 사주가 반기는 기운이라, 같이 노는 시간이 실제로 힘이 되는 방향이에요.`,
+        `게다가 그 ${ELEMENT_KO[hapEl]} 기운은 ${params.hapYongshinOwnerName}님 사주가 반기는 기운이라, 신나게 노는 하루하루가 그대로 좋은 영양분이 돼요.`,
       );
     } else if (params.hapGishinOwnerName) {
       cautions.push(
@@ -464,6 +499,68 @@ const DAY_STEM_CHUNG: CopyBundleV1<DayStemCopyParamsV1> = {
       cautions: ['의견이 갈릴 때 즉답을 피하고 하루 묵혔다 다시 이야기하면 부딪힘이 훨씬 부드러워져요.'],
     };
   },
+  couple: ({ aName, bName, fact }) => {
+    const aStem = stemKo(fact.a);
+    const bStem = stemKo(fact.b);
+    return {
+      headline: '두 분의 일간이 정면으로 마주 보는 충의 짝이에요 — 뜨거움과 부딪힘이 한 뿌리예요.',
+      paragraphs: [
+        `${aName}님의 ${gwaWa(aStem)} ${bName}님의 ${eunNeun(bStem)} 천간충(天干沖)의 짝이에요. `
+        + `연인 사이의 충은 미지근함과는 거리가 먼 배치예요 — 정반대의 방식에 강하게 끌리면서도, 가까워질수록 부딪히는 순간이 잦아지기 쉬워요.`,
+        `다만 충은 이별의 선고가 아니라 서로를 흔들어 깨우는 힘으로 읽어요. 다툼의 열기를 두 사람만의 규칙으로 다듬으면, 혼자서는 못 여는 문을 함께 여는 연인이 되는 쪽이에요.`,
+      ],
+      cautions: [
+        '감정이 달아오른 날의 큰 결정은 하루 재워 두세요 — 식은 뒤에도 같은 마음이라면, 그때 움직여도 늦지 않아요.',
+      ],
+    };
+  },
+  companion: ({ aName, bName, fact }) => {
+    const aStem = stemKo(fact.a);
+    const bStem = stemKo(fact.b);
+    return {
+      headline: '두 분의 일간이 마주 보는 충의 짝이에요 — 반대라서 서로의 사각을 메워요.',
+      paragraphs: [
+        `${aName}님의 ${gwaWa(aStem)} ${bName}님의 ${eunNeun(bStem)} 천간충(天干沖)의 짝이에요. `
+        + `일하는 방식도 쉬는 방식도 정반대라, 같은 자리에 오래 있으면 부딪히는 순간이 잦기 쉬워요.`,
+        `그런데 함께 무언가를 만들 때는 이 반대가 자산이 돼요 — 한쪽이 못 보는 사각을 다른 쪽이 정확히 보고 있는 짝이라, 역할만 나누면 서로의 빈틈을 메우는 동료가 되는 쪽이에요.`,
+      ],
+      tips: [
+        '의견이 갈릴 때는 "누가 맞나" 대신 "각자 뭘 보고 있나"를 먼저 물어 주세요 — 충의 긴장이 검토의 힘으로 바뀌어요.',
+      ],
+    };
+  },
+  guardian: params => {
+    const { aName, bName, fact } = params;
+    const { elder, younger } = guardianRoles(params.voice);
+    const aStem = stemKo(fact.a);
+    const bStem = stemKo(fact.b);
+    return {
+      headline: `${gwaWa(elder)} ${younger}의 일간이 마주 보는 충의 자리예요 — 기다림이 손잡이예요.`,
+      paragraphs: [
+        `${aName}님의 ${gwaWa(aStem)} ${bName}님의 ${eunNeun(bStem)} 천간충(天干沖)의 짝이에요. `
+        + `돌봄의 자리에서 이 충은 ${elder}의 방식과 ${younger}의 기질이 정면으로 다른 모양으로 나타나요 — ${iGa(elder)} 옳다고 믿는 길을, ${eunNeun(younger)} 제 방식으로 다시 걸어 보고 싶어 해요.`,
+        `다행히 충은 서로를 깨우는 힘이기도 해요. ${younger}의 반대 방식을 틀림이 아니라 다른 답안으로 읽어 주면, 이 배치는 ${eulReul(younger)} 일찍 단단하게 세워 주는 쪽이에요.`,
+      ],
+      cautions: [
+        `${iGa(elder)} 답을 먼저 말하기 전에 ${younger}의 답을 끝까지 들어 봐 주세요 — 그 반 박자의 기다림이 충의 흔들림을 배움으로 바꿔요.`,
+      ],
+    };
+  },
+  kids: ({ aName, bName, fact }) => {
+    const aStem = stemKo(fact.a);
+    const bStem = stemKo(fact.b);
+    return {
+      headline: '두 아이의 일간이 마주 보는 충의 짝이에요 — 티격태격 속에 배움이 있어요.',
+      paragraphs: [
+        `${aName}님의 ${gwaWa(aStem)} ${bName}님의 ${eunNeun(bStem)} 천간충(天干沖)의 짝이에요. `
+        + `노는 방식이 정반대라 티격태격이 잦기 쉬운 짝이에요 — 그런데 신기하게도, 함께 놀고 난 뒤에는 서로의 노는 법을 하나씩 배워 와요.`,
+        `아이들 사이의 충은 미움이 아니라 "너무 달라서 자꾸 신경 쓰이는" 힘이에요. 둘이 어울리는 시간만큼 노는 법이 두 배가 되는 짝으로 읽어요.`,
+      ],
+      cautions: [
+        '다툼이 나면 어른은 심판보다 통역이 되어 주세요 — "쟤는 이래서 그런 거래" 한마디면, 싸움의 절반이 오해였음이 드러나요.',
+      ],
+    };
+  },
 };
 
 /** 상생: giver→receiver 역할을 fact.relation에서 푼다. */
@@ -491,6 +588,34 @@ const DAY_STEM_SAENG: CopyBundleV1<DayStemCopyParamsV1> = {
       ],
       tips: [
         `${receiver}님이 받은 만큼을 말과 마음으로 되돌려 주면, 한쪽만 소모되지 않고 흐름이 오래가요.`,
+      ],
+    };
+  },
+  couple: params => {
+    const { giver, receiver, giverStem, receiverStem } = saengRoles(params);
+    return {
+      headline: `${giver}님의 기운이 ${receiver}님을 살려 주는, 마음이 놓이는 상생의 짝이에요.`,
+      paragraphs: [
+        `${giver}님의 ${iGa(giverStem)} ${receiver}님의 ${eulReul(receiverStem)} 낳고 살리는 상생(相生) 관계예요. `
+        + `연인 사이에서 이 흐름은 ${giver}님이 먼저 살피고 ${receiver}님이 편안하게 기대는 그림으로 자주 나타나요 — 함께 있으면 이유 없이 마음이 놓이는 쪽이에요.`,
+        `주고받음의 방향이 뚜렷한 만큼, 이 사랑이 오래가는 열쇠는 받는 쪽의 화답이에요. ${receiver}님의 "고마워" 한마디가 이 흐름의 연료가 돼요.`,
+      ],
+      tips: [
+        `기념일이 아니어도 ${receiver}님이 먼저 준비하는 날을 가끔 만들어 보세요 — 방향이 한 번씩 뒤집힐 때 상생은 더 깊어져요.`,
+      ],
+    };
+  },
+  companion: params => {
+    const { giver, receiver, giverStem, receiverStem } = saengRoles(params);
+    return {
+      headline: `${giver}님이 ${receiver}님의 기운을 밀어 주는, 소모 없는 동반의 짝이에요.`,
+      paragraphs: [
+        `${giver}님의 ${iGa(giverStem)} ${receiver}님의 ${eulReul(receiverStem)} 낳고 살리는 상생(相生) 관계예요. `
+        + `동반의 자리에서 이 흐름은 ${giver}님이 판을 깔고 ${receiver}님이 그 위에서 힘을 내는 그림으로 나타나기 쉬워요.`,
+        `밀어주는 쪽과 살아나는 쪽이 자연스럽게 정해져 있는 짝이라, 함께 일을 도모하면 소모전 없이 속도가 붙는 쪽이에요.`,
+      ],
+      tips: [
+        `역할이 굳지 않게, 가끔은 ${receiver}님이 판을 까는 자리를 맡아 보세요 — 주고받음이 순환할 때 이 우정이 오래가요.`,
       ],
     };
   },
@@ -576,6 +701,34 @@ const DAY_STEM_GEUK: CopyBundleV1<DayStemCopyParamsV1> = {
       ],
     };
   },
+  couple: params => {
+    const { controller, controlled } = geukRoles(params);
+    return {
+      headline: '팽팽한 긴장이 끌림이 되는 상극의 짝이에요 — 말의 세기가 열쇠예요.',
+      paragraphs: [
+        `${controller}님의 일간이 ${controlled}님의 일간을 극(剋)하는 방향이에요. `
+        + `연인 사이의 극은 팽팽한 긴장이면서 강한 끌림이기도 해요 — ${controlled}님은 ${controller}님 앞에서 유난히 신경이 쓰이고, ${controller}님은 자꾸 ${controlled}님을 다듬어 주고 싶어지기 쉬워요.`,
+        `명리는 극을 "그릇을 만드는 힘"으로도 읽어요. ${controller}님이 말의 세기를 낮추고 ${controlled}님이 자기 선을 분명히 하면, 서로를 성장시키는 연인이 되는 쪽이에요.`,
+      ],
+      cautions: [
+        `아끼는 마음이 고치려는 말로 자주 나오면 ${controlled}님 쪽에 피로가 고이기 쉬워요 — 조언은 부탁받았을 때 아껴서 건네 주세요.`,
+      ],
+    };
+  },
+  companion: params => {
+    const { controller, controlled } = geukRoles(params);
+    return {
+      headline: '기준과 품이 만나는 상극의 짝이에요 — 역할을 나누면 완성도가 올라가요.',
+      paragraphs: [
+        `${controller}님의 일간이 ${controlled}님의 일간을 극(剋)하는 방향이에요. `
+        + `동반의 자리에서 극은 기준이 센 쪽과 맞춰 주는 쪽의 그림으로 나타나기 쉬워요 — ${controller}님이 기준을 세우고 ${controlled}님이 품을 넓히는 짝이에요.`,
+        `함께 일을 도모하면 이 긴장이 완성도를 끌어올려요. 검토와 실행처럼 결이 다른 역할을 나눠 맡을 때 특히 손발이 맞는 쪽이에요.`,
+      ],
+      cautions: [
+        `${controller}님의 점검이 잦아지면 ${controlled}님에게는 감시처럼 느껴질 수 있어요 — 점검의 횟수와 때를 미리 정해 두면 우정이 상하지 않아요.`,
+      ],
+    };
+  },
   guardian: params => {
     const { controller, controlled } = geukRoles(params);
     const { elder, younger } = guardianRoles(params.voice);
@@ -643,6 +796,49 @@ const DAY_STEM_BIHWA: CopyBundleV1<DayStemCopyParamsV1> = {
     ],
     tips: ['역할을 나눠 각자의 영역을 정해 두면, 닮은 기운이 경쟁이 아니라 연대가 돼요.'],
   }),
+  couple: ({ fact }) => ({
+    headline: '같은 오행의 일간 — 오래된 친구 같은 편안함 위에서 사랑이 자라는 짝이에요.',
+    paragraphs: [
+      `두 분 모두 ${ELEMENT_KO[fact.a.element]} 기운의 일간이에요. 연인으로 만나면 취향과 속도가 비슷해 말이 잘 통하고, `
+      + `애쓰지 않아도 되는 편안함이 관계의 바탕이 되는 쪽이에요.`,
+      `다만 닮은 만큼 설렘의 낙차가 작고 양보의 계기도 적기 쉬워요 — 비슷한 두 사람이 같은 것을 동시에 원할 때, 편안함이 문득 경쟁이 되기도 해요.`,
+    ],
+    tips: ['이끄는 자리를 번갈아 맡아 보세요 — 같은 기운이라도 리드가 바뀌면 관계에 새 바람이 들어요.'],
+  }),
+  companion: ({ fact }) => ({
+    headline: '같은 오행의 일간 — 설명이 짧아도 통하는 동류의 동반자예요.',
+    paragraphs: [
+      `두 분 모두 ${ELEMENT_KO[fact.a.element]} 기운의 일간이에요. 같은 결로 세상을 보는 동류의 짝이라, `
+      + `긴 설명 없이도 통하는 동반자예요 — 어깨를 나란히 하고 걷기에 이만한 배치가 드물어요.`,
+      `다만 잘하는 것과 원하는 것까지 닮아 있어서, 같은 자리를 두고 겨루게 되는 날이 있을 수 있어요.`,
+    ],
+    tips: ['영역을 나눠 각자의 무대를 정해 두세요 — 닮은 기운은 같은 무대에선 경쟁이지만, 다른 무대에선 서로의 가장 좋은 관객이 돼요.'],
+  }),
+  guardian: params => {
+    const { elder, younger } = guardianRoles(params.voice);
+    return {
+      headline: '같은 오행의 일간 — 마음이 잘 읽히는 만큼, 기다림이 필요한 자리예요.',
+      paragraphs: [
+        `두 분 모두 ${ELEMENT_KO[params.fact.a.element]} 기운의 일간이에요. 돌봄의 자리에서 동류의 짝은, `
+        + `${iGa(elder)} ${younger}의 마음을 자기 일처럼 알아보는 힘으로 나타나요 — "나도 그맘때 그랬지"가 자주 진심인 사이예요.`,
+        `다만 너무 잘 알아서 답을 미리 줘 버리기 쉬워요. 같은 길이라도 제 속도로 다시 걸어 보는 것까지가 ${younger}의 성장 몫이에요.`,
+      ],
+      tips: [
+        `${elder}의 경험담은 정답이 아니라 이야기로 들려주세요 — 닮은 기운은 가르침보다 공감으로 건널 때 더 깊게 닿아요.`,
+      ],
+    };
+  },
+  kids: ({ aName, bName, fact }) => ({
+    headline: '같은 오행의 일간 — 설명 없이 바로 어울리는 닮은꼴 짝이에요.',
+    paragraphs: [
+      `${aName}님과 ${bName}님 모두 ${ELEMENT_KO[fact.a.element]} 기운의 일간이에요. 좋아하는 놀이도 노는 속도도 닮아서, `
+      + `처음 만나도 설명 없이 바로 어울리는 짝이에요 — 같은 것에 동시에 웃는 날이 많아요.`,
+      `다만 닮은 만큼 같은 장난감, 같은 역할을 동시에 원하기 쉬워요. 한 번 겨루기가 시작되면 둘 다 물러서지 않는 짝이기도 해요.`,
+    ],
+    cautions: [
+      '차례 정하기 놀이를 미리 익혀 두면 좋아요 — 순서만 정해지면, 닮은 기운은 다툼 대신 두 배의 웃음이 돼요.',
+    ],
+  }),
 };
 
 /* ================================================================== */
@@ -654,6 +850,23 @@ const BRANCH_NONE: CopyBundleV1<BranchPairCopyParamsV1> = {
     headline: `${seatLabel}에는 특별한 합도 충도 없어요 — 담백하게 만나는 자리예요.`,
     paragraphs: [
       `${pairLabel} 서로 합하지도 부딪히지도 않는 무난한 짝이에요. 강한 끌림 대신, 쌓아 가는 만큼 깊어지는 관계로 읽어요.`,
+    ],
+  }),
+  couple: ({ pairLabel, seatLabel }) => ({
+    headline: `${seatLabel}에는 특별한 합도 충도 없어요 — 쌓은 만큼 깊어지는 자리예요.`,
+    paragraphs: [
+      `${pairLabel} 서로 합하지도 부딪히지도 않는 담백한 짝이에요. 연인 사이에서는 운명적 끌림의 드라마 대신, 함께 보낸 시간과 주고받은 마음이 그대로 관계의 깊이가 되는 배치로 읽어요.`,
+      `바꿔 말하면, 이 관계의 온도는 하늘이 아니라 두 분의 손에 쥐어져 있어요 — 들인 마음만큼 정직하게 데워지는 자리예요.`,
+    ],
+    tips: [
+      '둘만의 의식을 하나 만들어 보세요 — 매주 같은 산책길, 같은 메뉴 같은 반복이 이 짝에게는 합을 대신해요.',
+    ],
+  }),
+  companion: ({ pairLabel, seatLabel }) => ({
+    headline: `${seatLabel}에는 특별한 합도 충도 없어요 — 시간이 빚는 우정의 자리예요.`,
+    paragraphs: [
+      `${pairLabel} 서로 합하지도 부딪히지도 않는 담백한 짝이에요. 우정의 자리에서는 오히려 실속 있는 배치예요 — 뜨겁게 붙었다 식는 소란이 없으니, 함께 겪은 일의 목록이 곧 우정의 두께가 돼요.`,
+      `첫 만남의 불꽃보다 열 번째 만남의 익숙함이 좋은 짝이라, 서두르지 않아도 돼요.`,
     ],
   }),
   guardian: ({ pairLabel, seatLabel }) => ({
@@ -689,6 +902,40 @@ const BRANCH_YUKHAP: CopyBundleV1<BranchPairCopyParamsV1> = {
       paragraphs,
     };
   },
+  couple: ({ pairLabel, seatLabel, fact }) => {
+    const paragraphs: string[] = [
+      `${pairLabel} 육합(六合)의 짝이에요. 연인 사이의 육합은 소란한 불꽃보다 은근한 온기로 나타나요 — 함께 있는 게 그냥 편해서, 하루의 끝에 결국 서로의 곁을 찾게 되는 인연으로 읽어요.`,
+    ];
+    if (fact.yukhapElement) {
+      paragraphs.push(
+        `두 글자가 만나면 ${elementKo(fact.yukhapElement)} 기운으로 모여요 — 함께한 시간이 쌓일수록 그 기운의 결이 두 분 사이의 공기가 돼요.`,
+      );
+    }
+    return {
+      headline: `${seatLabel}가 육합으로 포개져 있어요 — 조용히 서로를 끌어당기는 배치예요.`,
+      paragraphs,
+      tips: [
+        '말하지 않아도 통한다는 믿음이 이 합의 선물이자 함정이에요 — 중요한 마음일수록 소리 내어 확인해 주면, 이 끌림이 오래가요.',
+      ],
+    };
+  },
+  companion: ({ pairLabel, seatLabel, fact }) => {
+    const paragraphs: string[] = [
+      `${pairLabel} 육합(六合)의 짝이에요. 우정의 자리에서 이 합은 약속하지 않아도 자주 만나게 되는 힘으로 나타나요 — 함께 있으면 애쓰지 않아도 편해서, 시간이 지날수록 서로의 일상에 자연스럽게 자리 잡는 사이예요.`,
+    ];
+    if (fact.yukhapElement) {
+      paragraphs.push(
+        `두 글자가 만나면 ${elementKo(fact.yukhapElement)} 기운으로 모여요 — 어울리는 시간이 길수록 그 기운의 결이 짙어져요.`,
+      );
+    }
+    return {
+      headline: `${seatLabel}가 육합으로 이어져 있어요 — 곁에 두고 오래가는 우정의 배치예요.`,
+      paragraphs,
+      tips: [
+        '가까움이 당연해지면 고마움이 말줄임표가 되기 쉬워요 — 가끔은 문장으로 돌려주세요.',
+      ],
+    };
+  },
   guardian: ({ pairLabel, seatLabel, fact, voice }) => {
     const { elder, younger } = guardianRoles(voice);
     const paragraphs: string[] = [
@@ -696,7 +943,7 @@ const BRANCH_YUKHAP: CopyBundleV1<BranchPairCopyParamsV1> = {
     ];
     if (fact.yukhapElement) {
       paragraphs.push(
-        `두 글자가 만나면 ${elementKo(fact.yukhapElement)} 기운으로 모여요 — 함께 보내는 시간이 길수록 그 기운의 결이 짙어져요.`,
+        `두 글자가 만나면 ${elementKo(fact.yukhapElement)} 기운으로 모여요 — 하루하루 쌓이는 돌봄의 시간에 그 기운의 온기가 배어들어요.`,
       );
     }
     return {
@@ -713,7 +960,7 @@ const BRANCH_YUKHAP: CopyBundleV1<BranchPairCopyParamsV1> = {
     ];
     if (fact.yukhapElement) {
       paragraphs.push(
-        `두 글자가 만나면 ${elementKo(fact.yukhapElement)} 기운으로 모여요 — 같이 노는 시간이 길수록 그 기운의 결이 짙어져요.`,
+        `두 글자가 만나면 ${elementKo(fact.yukhapElement)} 기운으로 모여요 — 둘의 놀이 속에 그 기운의 빛깔이 조금씩 스며들어요.`,
       );
     }
     return {
@@ -734,6 +981,50 @@ const BRANCH_SAMHAP: CopyBundleV1<BranchPairCopyParamsV1> = {
       + (fact.samhapElement ? ` 두 글자가 모이면 ${elementKo(fact.samhapElement)} 기운의 국(局)을 이루려 해요.` : ''),
     ],
   }),
+  couple: ({ pairLabel, seatLabel, fact }) => ({
+    headline: `${seatLabel}가 ${BRANCH_RELATION_KO.samhap}으로 같은 곳을 바라봐요.`,
+    paragraphs: [
+      `${pairLabel} 삼합(三合) 반합의 짝이에요. 삼합은 같은 목표를 향해 뜻이 모이는 합이라, 연인 사이에서는 "함께 그리는 미래"가 유난히 잘 그려지는 배치로 읽어요 — 연애가 길어질수록 오히려 힘이 나는 쪽이에요.`
+      + (fact.samhapElement ? ` 두 글자가 모이면 ${elementKo(fact.samhapElement)} 기운의 국(局)을 이루려 해요.` : ''),
+    ],
+    tips: [
+      '두 분의 계획표를 가끔 나란히 펴 보세요 — 같은 곳을 보고 있다는 확인이, 이 합의 가장 큰 연료예요.',
+    ],
+  }),
+  companion: ({ pairLabel, seatLabel, fact }) => ({
+    headline: `${seatLabel}가 ${BRANCH_RELATION_KO.samhap}으로 한 팀이 되는 배치예요.`,
+    paragraphs: [
+      `${pairLabel} 삼합(三合) 반합의 짝이에요. 삼합은 기질보다 뜻이 만나는 합이라, 우정의 자리에서는 같은 목표를 향해 팀이 되는 힘으로 나타나요 — 같이 도모하는 일이 생겼을 때 이 짝의 진가가 드러나요.`
+      + (fact.samhapElement ? ` 두 글자가 모이면 ${elementKo(fact.samhapElement)} 기운의 국(局)을 이루려 해요.` : ''),
+    ],
+    tips: [
+      '함께할 작은 프로젝트를 하나 정해 보세요 — 삼합의 짝은 나란히 걷기보다 같은 과녁을 겨눌 때 가까워져요.',
+    ],
+  }),
+  guardian: params => {
+    const { pairLabel, seatLabel, fact } = params;
+    const { elder, younger } = guardianRoles(params.voice);
+    return {
+      headline: `${seatLabel}가 ${BRANCH_RELATION_KO.samhap}으로 같은 방향을 봐요.`,
+      paragraphs: [
+        `${pairLabel} 삼합(三合) 반합의 짝이에요. 돌봄의 자리에서 삼합은 ${gwaWa(elder)} ${iGa(younger)} 같은 방향을 바라보기 쉬운 힘이에요 — ${iGa(elder)} 마음에 둔 길을 ${younger}도 어렵지 않게 제 꿈으로 삼는 배치라, 함께 세우는 계획이 잘 자라요.`
+        + (fact.samhapElement ? ` 두 글자가 모이면 ${elementKo(fact.samhapElement)} 기운의 국(局)을 이루려 해요.` : ''),
+      ],
+      cautions: [
+        `방향이 잘 맞는 만큼, 그 꿈이 ${younger}의 것인지 ${elder}의 것인지 가끔 물어봐 주세요 — 스스로 고른 목표일 때 삼합의 힘이 온전히 ${younger}의 것이 돼요.`,
+      ],
+    };
+  },
+  kids: ({ pairLabel, seatLabel, fact }) => ({
+    headline: `${seatLabel}가 ${BRANCH_RELATION_KO.samhap}으로 한 팀이 되는 짝이에요.`,
+    paragraphs: [
+      `${pairLabel} 삼합(三合) 반합의 짝이에요. 아이들 사이에서 삼합은 "우리 이거 하자!"가 잘 통하는 힘으로 나타나요 — 블록 성 쌓기든 비밀기지 만들기든, 하나의 목표가 생기면 둘이 한 팀처럼 움직여요.`
+      + (fact.samhapElement ? ` 두 글자가 모이면 ${elementKo(fact.samhapElement)} 기운의 국(局)을 이루려 해요.` : ''),
+    ],
+    tips: [
+      '같이 완성할 거리를 쥐여 주면 이 짝은 오래 몰입해요 — 퍼즐 한 판, 그림 한 장처럼 끝이 있는 놀이가 특히 잘 맞아요.',
+    ],
+  }),
 };
 
 const BRANCH_BANGHAP: CopyBundleV1<BranchPairCopyParamsV1> = {
@@ -741,6 +1032,46 @@ const BRANCH_BANGHAP: CopyBundleV1<BranchPairCopyParamsV1> = {
     headline: `${seatLabel}가 ${BRANCH_RELATION_KO.banghap}으로 손을 잡았어요.`,
     paragraphs: [
       `${pairLabel} 같은 계절의 기운이 모이는 방합의 짝이에요. 같은 풍토에서 자란 듯한 익숙함이 있어요.`,
+    ],
+  }),
+  couple: ({ pairLabel, seatLabel }) => ({
+    headline: `${seatLabel}가 ${BRANCH_RELATION_KO.banghap}으로 이어져 있어요 — 처음부터 낯설지 않은 짝이에요.`,
+    paragraphs: [
+      `${pairLabel} 같은 계절의 기운이 모이는 방합(方合)의 짝이에요. 연인 사이의 방합은 처음부터 낯섦이 적은 편안함으로 나타나요 — 같은 동네에서 자란 사람을 만난 듯, 설명 없이 통하는 익숙함이 사랑의 바탕이 되는 쪽이에요.`,
+    ],
+    tips: [
+      '익숙함이 무덤덤함으로 가라앉지 않게, 가끔은 둘 다 처음인 장소로 떠나 보세요 — 같은 계절의 기운은 새 풍경 위에서 더 반짝여요.',
+    ],
+  }),
+  companion: ({ pairLabel, seatLabel }) => ({
+    headline: `${seatLabel}가 ${BRANCH_RELATION_KO.banghap}으로 이어져 있어요 — 고향 친구 같은 결의 배치예요.`,
+    paragraphs: [
+      `${pairLabel} 같은 계절의 기운이 모이는 방합(方合)의 짝이에요. 우정의 자리에서 방합은 말투와 정서의 밑바탕이 비슷한 편안함으로 나타나요 — 오래 알던 고향 친구 같은 결이라, 곁에 두면 소모가 적은 사이예요.`,
+    ],
+    tips: [
+      '결이 비슷한 만큼 새로운 자극은 바깥에서 구해 오면 좋아요 — 각자 겪은 다른 세상 이야기가 이 우정의 좋은 장작이 돼요.',
+    ],
+  }),
+  guardian: params => {
+    const { pairLabel, seatLabel } = params;
+    const { elder, younger } = guardianRoles(params.voice);
+    return {
+      headline: `${seatLabel}가 ${BRANCH_RELATION_KO.banghap}으로 이어져 있어요 — 생활의 리듬이 포개지는 자리예요.`,
+      paragraphs: [
+        `${pairLabel} 같은 계절의 기운이 모이는 방합(方合)의 짝이에요. 돌봄의 자리에서 이 합은 생활의 리듬이 잘 포개지는 힘이에요 — 자고 일어나는 때, 좋아하는 계절과 음식까지 닮아 있기 쉬워, 함께하는 일상이 순하게 흘러가요.`,
+      ],
+      tips: [
+        `리듬이 잘 맞는 만큼, ${younger}의 결이 ${gwaWa(elder)} 다른 대목이 보이면 그건 개성의 싹이에요 — 고치기보다 반겨 주세요.`,
+      ],
+    };
+  },
+  kids: ({ pairLabel, seatLabel }) => ({
+    headline: `${seatLabel}가 ${BRANCH_RELATION_KO.banghap}으로 이어져 있어요 — 노는 온도가 잘 맞는 짝이에요.`,
+    paragraphs: [
+      `${pairLabel} 같은 계절의 기운이 모이는 방합(方合)의 짝이에요. 아이들 사이에서 방합은 노는 온도가 비슷한 편안함으로 나타나요 — 뛰고 싶은 날 같이 뛰고, 조용히 그리고 싶은 날 나란히 그리는, 리듬이 잘 맞는 짝이에요.`,
+    ],
+    tips: [
+      '잘 맞아서 조용히 오래 노는 짝이니, 어른은 끼어들기보다 간식만 챙겨 주면 돼요 — 다만 새 친구가 오면 함께 끼워 주는 연습도 시켜 주세요.',
     ],
   }),
 };
@@ -759,6 +1090,72 @@ const BRANCH_MIXED: CopyBundleV1<BranchPairCopyParamsV1> = {
       cautions: ['가까울수록 예의와 거리를 조금 남겨 두면, 합의 좋은 면이 오래가요.'],
     };
   },
+  couple: ({ pairLabel, seatLabel, fact }) => {
+    const { positives, negatives } = splitBranchRelations(fact.relations);
+    const main = positives[0];
+    const sub = negatives[0];
+    return {
+      headline: `${seatLabel}에 ${BRANCH_RELATION_KO[main]}과 ${iGa(BRANCH_RELATION_KO[sub])} 함께 있어요 — 깊어질수록 다루는 법이 필요한 짝이에요.`,
+      paragraphs: [
+        `${pairLabel} ${BRANCH_RELATION_KO[main]}으로 끌어당기면서 ${BRANCH_RELATION_KO[sub]}의 어긋남도 함께 안은 짝이에요. `
+        + `연인 사이에서는 금방 깊어지는데, 깊어진 뒤에야 사소한 결의 차이가 보이기 시작하는 순서로 흐르기 쉬워요.`,
+        `끌림이 진짜인 만큼 어긋남도 관계의 일부로 받아들이면 돼요 — 합이 이 짝의 바탕이고, 어긋남은 다루는 법을 배우라는 각주예요.`,
+      ],
+      cautions: [
+        '서운한 순간이 오면 "우리가 안 맞나"로 건너뛰지 말아 주세요 — 이 짝의 어긋남은 대개 크기가 아니라 타이밍의 문제라, 말할 때를 고르는 것만으로 절반이 풀려요.',
+      ],
+    };
+  },
+  companion: ({ pairLabel, seatLabel, fact }) => {
+    const { positives, negatives } = splitBranchRelations(fact.relations);
+    const main = positives[0];
+    const sub = negatives[0];
+    return {
+      headline: `${seatLabel}에 ${BRANCH_RELATION_KO[main]}과 ${iGa(BRANCH_RELATION_KO[sub])} 함께 있어요 — 가까움과 어긋남을 같이 쥔 짝이에요.`,
+      paragraphs: [
+        `${pairLabel} ${BRANCH_RELATION_KO[main]}으로 가까워지면서 ${BRANCH_RELATION_KO[sub]}의 긴장을 함께 안은 짝이에요. `
+        + `우정의 자리에서는 금세 절친이 되는데, 가까워진 뒤에 약속·물건·말버릇 같은 작은 데서 어긋남이 도드라지기 쉬워요.`,
+        `멀어질 신호가 아니라 거리 조절의 신호로 읽으면 돼요 — 이 짝의 우정은 예의를 남겨 둔 가까움에서 가장 오래가요.`,
+      ],
+      tips: [
+        '빌린 것·맡은 것 같은 작은 약속일수록 또렷하게 해 두세요 — 어긋남의 씨앗을 미리 줍는 습관이 합의 좋은 면만 남겨요.',
+      ],
+    };
+  },
+  guardian: params => {
+    const { pairLabel, seatLabel, fact } = params;
+    const { elder, younger } = guardianRoles(params.voice);
+    const { positives, negatives } = splitBranchRelations(fact.relations);
+    const main = positives[0];
+    const sub = negatives[0];
+    return {
+      headline: `${seatLabel}에 ${BRANCH_RELATION_KO[main]}과 ${iGa(BRANCH_RELATION_KO[sub])} 함께 있어요 — 잘 맞다가 문득 어긋나는 자리예요.`,
+      paragraphs: [
+        `${pairLabel} ${BRANCH_RELATION_KO[main]}으로 포개지면서 ${BRANCH_RELATION_KO[sub]}의 어긋남도 함께 안은 짝이에요. `
+        + `돌봄의 자리에서는 품이 잘 맞는 날과 사소한 데서 자꾸 걸리는 날이 번갈아 오기 쉬워요.`,
+        `${iGa(elder)} 그 낙차를 변덕으로 읽지 않는 것이 먼저예요 — 잘 맞는 날의 모습도, 걸리는 날의 모습도 둘 다 ${younger}의 진짜예요.`,
+      ],
+      cautions: [
+        '어긋난 날엔 그 자리에서 바로잡기보다 하루 재워 두세요 — 합이 바탕인 짝이라, 시간을 주면 스스로 제자리로 돌아오는 힘이 있어요.',
+      ],
+    };
+  },
+  kids: ({ pairLabel, seatLabel, fact }) => {
+    const { positives, negatives } = splitBranchRelations(fact.relations);
+    const main = positives[0];
+    const sub = negatives[0];
+    return {
+      headline: `${seatLabel}에 ${BRANCH_RELATION_KO[main]}과 ${iGa(BRANCH_RELATION_KO[sub])} 함께 있어요 — 단짝과 투닥거림이 한 몸인 짝이에요.`,
+      paragraphs: [
+        `${pairLabel} ${BRANCH_RELATION_KO[main]}으로 붙어 다니면서 ${BRANCH_RELATION_KO[sub]}의 투닥거림도 함께 안은 짝이에요. `
+        + `어제는 세상에 둘도 없는 단짝, 오늘은 토라져서 등을 돌린 짝 — 그 반복이 이 배치의 정상 작동이에요.`,
+        `붙어 있는 시간만큼 부딪힐 거리도 생기는 것뿐이라, 크게 걱정할 그림은 아니에요.`,
+      ],
+      cautions: [
+        '싸운 날 억지로 화해시키기보다, 간식 하나를 사이에 두고 잠시 떨어뜨려 놓아 주세요 — 합이 바탕인 짝은 금방 제 발로 다시 붙어요.',
+      ],
+    };
+  },
 };
 
 const BRANCH_CHUNG: CopyBundleV1<BranchPairCopyParamsV1> = {
@@ -771,6 +1168,32 @@ const BRANCH_CHUNG: CopyBundleV1<BranchPairCopyParamsV1> = {
     return {
       paragraphs,
       cautions: ['큰 결정은 두 사람의 리듬이 겹치는 때를 골라 천천히 정하면 충의 흔들림이 줄어요.'],
+    };
+  },
+  couple: ({ pairLabel, fact }) => {
+    const paragraphs: string[] = [
+      `${pairLabel} 정면으로 마주 보는 충(沖)의 짝이에요. 연인 사이의 충은 무관심의 반대말이에요 — 서로에게서 눈을 떼지 못해 흔들리는 자리라, 열정과 다툼이 한 뿌리에서 나와요. 원국의 다른 글자나 대운의 합이 이 충을 눌러 줄 수도 있으니, 선고가 아니라 살필 점으로 읽어 주세요.`,
+    ];
+    const nuance = CHUNG_NUANCE[[fact.a.code, fact.b.code].sort().join('+')];
+    if (nuance) paragraphs.push(nuance);
+    return {
+      paragraphs,
+      cautions: [
+        '화해의 절차를 미리 정해 두면 좋아요 — 먼저 연락하는 쪽, 다시 만나는 자리까지 정해 두면, 흔들린 날에도 돌아오는 길을 잃지 않아요.',
+      ],
+    };
+  },
+  companion: ({ pairLabel, fact }) => {
+    const paragraphs: string[] = [
+      `${pairLabel} 정면으로 마주 보는 충(沖)의 짝이에요. 동반의 자리에서 충은 생활 리듬과 일하는 방식이 자주 엇갈리는 모양으로 나타나요 — 다만 그 반대 성향이, 함께 일을 도모할 때는 서로의 사각을 비추는 등불이 되기도 해요.`,
+    ];
+    const nuance = CHUNG_NUANCE[[fact.a.code, fact.b.code].sort().join('+')];
+    if (nuance) paragraphs.push(nuance);
+    return {
+      paragraphs,
+      tips: [
+        '늘 붙어 있기보다 각자의 영역을 두고 만나는 우정이 이 짝에게 잘 맞아요 — 적당한 거리가 완충이 되어, 충의 좋은 면만 남아요.',
+      ],
     };
   },
   guardian: ({ pairLabel, voice }) => {
@@ -801,6 +1224,22 @@ const BRANCH_WONJIN: CopyBundleV1<BranchPairCopyParamsV1> = {
     ],
     cautions: ['서운함은 쌓이기 전에 짧게라도 말로 풀어 주세요 — 원진은 침묵 속에서 자라요.'],
   }),
+  couple: ({ pairLabel }) => ({
+    paragraphs: [
+      `${pairLabel} 원진(怨嗔)의 짝이에요. 연인 사이의 원진은 사랑이 식어서가 아니라, 이유를 대기 어려운 서운함이 고여서 마음이 무거워지는 배치예요 — 좋아하는 마음과 서운한 마음이 한 사람 안에 나란히 있을 수 있어요.`,
+    ],
+    cautions: [
+      '"왜 서운한지 설명해 봐"는 이 짝에게 어려운 숙제예요 — 설명을 요구하기보다 "요즘 나한테 서운한 거 있었지" 하고 먼저 알아봐 주는 쪽이 빨라요. 원진은 알아봐 주는 순간부터 얕아져요.',
+    ],
+  }),
+  companion: ({ pairLabel }) => ({
+    paragraphs: [
+      `${pairLabel} 원진(怨嗔)의 짝이에요. 우정의 자리에서 원진은 잘 지내다가도 문득 "쟤 왜 저래" 싶은 순간이 스치는 모양으로 나타나요 — 큰 사건 없이도 마음의 거리가 늘었다 줄었다 하기 쉬워요.`,
+    ],
+    cautions: [
+      '서운함이 스치면 혼자 해석을 쌓지 말고 가볍게 물어봐 주세요 — "아까 그거 무슨 뜻이었어?" 한마디면 될 일이, 침묵 속에선 이야기가 되어 자라요.',
+    ],
+  }),
   guardian: ({ pairLabel, voice }) => {
     const { elder, younger } = guardianRoles(voice);
     return {
@@ -828,17 +1267,37 @@ const BRANCH_HYEONG: CopyBundleV1<BranchPairCopyParamsV1> = {
       `${pairLabel} 형의 짝이에요. 서로를 다듬으려는 힘이 작용해, 잔소리와 기 싸움이 생기기 쉽지만 그만큼 서로를 성장시키기도 해요.`,
     ],
   }),
-  guardian: ({ pairLabel }) => ({
+  couple: ({ pairLabel }) => ({
     paragraphs: [
-      `${pairLabel} 형의 짝이에요. 서로를 다듬으려는 힘이 작용해, 잔소리와 기 싸움이 생기기 쉽지만 그만큼 서로를 성장시키기도 해요.`,
+      `${pairLabel} 형(刑)의 짝이에요. 연인 사이의 형은 서로를 더 나은 모습으로 다듬고 싶은 마음으로 나타나요 — 애정과 잔소리가 한 입에서 나오기 쉬운 자리예요.`,
     ],
     cautions: [
-      '다듬어 주려는 마음이 잔소리로 흐르기 쉬워요 — 가르침은 짧게, 칭찬은 길게 두는 것이 형의 짝을 부드럽게 해요.',
+      '고치고 싶은 점이 보이면 하나만 골라 부탁의 말로 건네 보세요 — 형의 힘은 지적이 아니라 부탁의 문장에 실릴 때, 관계를 다듬는 손이 돼요.',
     ],
   }),
+  companion: ({ pairLabel }) => ({
+    paragraphs: [
+      `${pairLabel} 형(刑)의 짝이에요. 우정의 자리에서 형은 서로의 방식에 자꾸 훈수를 두게 되는 모양으로 나타나요 — 아끼는 마음의 다른 얼굴이지만, 쌓이면 기 싸움이 되기 쉬워요.`,
+    ],
+    cautions: [
+      '훈수를 두기 전에 "듣고 싶어?" 하고 한 번 물어봐 주세요 — 허락받은 조언만 건네는 것만으로도, 형의 긴장이 배움의 긴장으로 바뀌어요.',
+    ],
+  }),
+  guardian: params => {
+    const { pairLabel } = params;
+    const { elder, younger } = guardianRoles(params.voice);
+    return {
+      paragraphs: [
+        `${pairLabel} 형(刑)의 짝이에요. 돌봄의 자리에서 형은 바르게 세우려는 마음이 앞서는 모양으로 나타나요 — ${elder}의 눈에는 고쳐 줄 대목부터 들어오기 쉽고, ${eunNeun(younger)} 그 손길이 잦아질수록 어깨가 움츠러들 수 있어요.`,
+      ],
+      cautions: [
+        '하루에 하나만 고치기로 정해 보세요 — 나머지를 눈감아 주는 여백에서, 형의 다듬는 힘이 미움 없이 스며들어요.',
+      ],
+    };
+  },
   kids: ({ pairLabel }) => ({
     paragraphs: [
-      `${pairLabel} 형의 짝이에요. 서로를 다듬으려는 힘이 작용해, 잔소리와 기 싸움이 생기기 쉽지만 그만큼 서로를 성장시키기도 해요.`,
+      `${pairLabel} 형(刑)의 짝이에요. 아이들 사이에서 형은 "그게 아니야, 이렇게 하는 거야" 하고 서로의 놀이에 참견하고 싶어지는 모양으로 나타나요 — 둘 다 지려 하지 않아 목소리가 커지는 날도 있지만, 그만큼 서로에게서 배워 오는 것도 많은 짝이에요.`,
     ],
     cautions: [
       '서로 고치려 들며 자주 다투기 쉬운 짝이에요 — 어른이 각자의 잘하는 것을 짚어 주면 다툼이 배움으로 바뀌어요.',
@@ -852,12 +1311,83 @@ const BRANCH_JAHYEONG: CopyBundleV1<BranchPairCopyParamsV1> = {
       `두 분이 같은 ${branchKo(fact.a)} 글자를 갖고 있어 자형이 성립해요. 서로의 약점을 거울처럼 비추는 짝이라, 닮은 부분에서 오히려 예민해질 수 있어요.`,
     ],
   }),
+  couple: ({ fact }) => ({
+    paragraphs: [
+      `두 분이 같은 ${branchKo(fact.a)} 글자를 갖고 있어 자형(自刑)이 성립해요. 연인 사이의 자형은 서로가 서로의 거울이 되는 배치예요 — 내 안에서 마음에 안 드는 구석을 상대에게서 발견할 때, 유난히 예민해지기 쉬워요.`,
+    ],
+    cautions: [
+      '상대의 어떤 모습에 유독 마음이 걸리면, 그게 내 모습이기도 한지 먼저 들여다봐 주세요 — 거울인 걸 아는 순간, 자형은 다툼거리가 아니라 서로를 이해하는 지름길이 돼요.',
+    ],
+  }),
+  companion: ({ fact }) => ({
+    paragraphs: [
+      `두 분이 같은 ${branchKo(fact.a)} 글자를 갖고 있어 자형(自刑)이 성립해요. 닮은 약점을 나눠 가진 짝이라, 우정의 자리에서는 서로를 누구보다 잘 이해하면서도 같은 대목에서 나란히 무너지기 쉬워요.`,
+    ],
+    tips: [
+      '둘 다 늘어지는 날엔 서로를 탓하기보다 바깥의 장치를 빌려 오세요 — 마감을 함께 정하거나 다른 친구를 끼우면, 닮은 약점이 서로를 붙드는 핑계가 되지 않아요.',
+    ],
+  }),
+  guardian: params => {
+    const { elder, younger } = guardianRoles(params.voice);
+    return {
+      paragraphs: [
+        `${gwaWa(elder)} ${iGa(younger)} 같은 ${branchKo(params.fact.a)} 글자를 갖고 있어 자형(自刑)이 성립해요. 돌봄의 자리에서 자형은, ${iGa(elder)} 자기 안에서 익히 아는 약점을 ${younger}에게서 먼저 알아보는 모양으로 나타나요 — 그래서 더 마음이 쓰이고, 그래서 더 목소리가 커지기 쉬워요.`,
+      ],
+      cautions: [
+        `그 대목을 나무라게 될 때 잠깐 멈춰 주세요 — ${younger}에게 필요한 건 같은 약점을 먼저 겪어 본 사람의 공감이지, 그 약점을 향한 두 배의 꾸중이 아니에요.`,
+      ],
+    };
+  },
+  kids: ({ aName, bName, fact }) => ({
+    paragraphs: [
+      `${aName}님과 ${bName}님이 같은 ${branchKo(fact.a)} 글자를 갖고 있어 자형(自刑)이 성립해요. 아이들 사이에서 자형은 닮은 고집이 같은 순간에 튀어나오는 모양으로 나타나요 — 평소엔 쌍둥이처럼 잘 놀다가, 한 번 뾰족해지면 둘이 동시에 뾰족해지는 짝이에요.`,
+    ],
+    cautions: [
+      '둘이 같이 달아오르면 둘 다 멈추기 어려워요 — 어른이 잠깐 자리를 바꿔 주거나 놀이를 갈아 끼워 주면, 닮은 기운이 다시 웃음 쪽으로 흘러가요.',
+    ],
+  }),
 };
 
 const BRANCH_GWIMUN: CopyBundleV1<BranchPairCopyParamsV1> = {
   default: ({ pairLabel }) => ({
     paragraphs: [
       `${pairLabel} 귀문의 짝이에요. 서로에게 예민하게 반응하고 깊이 몰입하는 배치라, 애착이 강해지는 만큼 감정 기복도 함께 커질 수 있어요.`,
+    ],
+  }),
+  couple: ({ pairLabel }) => ({
+    paragraphs: [
+      `${pairLabel} 귀문(鬼門)의 짝이에요. 연인 사이의 귀문은 깊은 몰입으로 나타나요 — 서로의 표정 하나, 말끝 하나까지 읽어 내는 예민한 안테나가 서로를 향해 켜져 있는 배치예요. 교감이 깊은 만큼, 작은 신호를 크게 해석해 마음이 출렁이는 날도 있기 쉬워요.`,
+    ],
+    cautions: [
+      '상대의 기분을 넘겨짚었다면 정답 확인을 미루지 마세요 — "지금 나 때문에 그런 거야?" 한 번의 확인이, 귀문의 상상력이 지어내는 이야기보다 언제나 짧고 정확해요.',
+    ],
+  }),
+  companion: ({ pairLabel }) => ({
+    paragraphs: [
+      `${pairLabel} 귀문(鬼門)의 짝이에요. 우정의 자리에서 귀문은 통하는 날엔 밤새 대화가 끊이지 않는 깊은 교감으로, 어긋난 날엔 상대의 말을 오래 곱씹게 되는 예민함으로 나타나요 — 얕게 사귀기 어려운, 결이 깊은 짝이에요.`,
+    ],
+    tips: [
+      '곱씹기 시작한 말이 있으면 사흘을 넘기지 말고 물어봐 주세요 — 이 짝의 오해는 대화 한 번이면 풀리는데, 혼자 두면 이야기가 되어 자라요.',
+    ],
+  }),
+  guardian: params => {
+    const { pairLabel } = params;
+    const { elder, younger } = guardianRoles(params.voice);
+    return {
+      paragraphs: [
+        `${pairLabel} 귀문(鬼門)의 짝이에요. 돌봄의 자리에서 귀문은 서로의 기분에 민감하게 물드는 모양으로 나타나요 — ${elder}의 한숨을 ${iGa(younger)} 제 탓으로 읽기도 하고, ${younger}의 뒤척임에 ${elder}의 마음이 밤새 따라 뒤척이기도 해요.`,
+      ],
+      cautions: [
+        `기분이 서로에게 물드는 짝일수록 ${elder} 쪽의 날씨 관리가 먼저예요 — "오늘 내가 좀 피곤한 건 네 탓이 아니야" 한마디가 ${younger}의 안테나를 쉬게 해 줘요.`,
+      ],
+    };
+  },
+  kids: ({ pairLabel }) => ({
+    paragraphs: [
+      `${pairLabel} 귀문(鬼門)의 짝이에요. 아이들 사이에서 귀문은 상상 놀이가 유난히 잘 통하는 힘으로 나타나요 — 둘만의 세계에 깊이 빠져드는 짝이라, 노는 모습이 한 편의 이야기 같아요. 다만 몰입이 깊은 만큼, 놀이가 끝나는 순간 마음이 쉽게 상하기도 해요.`,
+    ],
+    cautions: [
+      '놀이를 끝낼 땐 미리 예고해 주세요 — "십 분 뒤에 정리하자"의 한마디가, 깊이 빠진 둘을 부드럽게 현실로 데려와요.',
     ],
   }),
 };
@@ -873,6 +1403,82 @@ const BRANCH_HAE_PA: CopyBundleV1<BranchPairCopyParamsV1> = {
       : {
           paragraphs: [
             `${pairLabel} 해의 짝이에요. 은근히 엇갈리는 순간이 있는 배치라, 오해가 쌓이기 전에 확인하는 습관이 도움이 돼요.`,
+          ],
+        },
+  couple: ({ pairLabel, relation }) =>
+    relation === 'pa'
+      ? {
+          paragraphs: [
+            `${pairLabel} 파(破)의 짝이에요. 연인 사이의 파는 함께 세운 계획이 마무리 앞에서 어그러지기 쉬운 모양으로 나타나요 — 마음이 어긋나는 게 아니라 일이 어긋나는 자리라, 크게 겁낼 글자는 아니에요.`,
+          ],
+          tips: [
+            '둘의 약속에는 마침표 담당을 정해 두세요 — 예약 확인, 일정 리마인드 같은 마무리의 한 수가 파의 어긋남을 대부분 걷어 가요.',
+          ],
+        }
+      : {
+          paragraphs: [
+            `${pairLabel} 해(害)의 짝이에요. 연인 사이의 해는 은근한 엇갈림으로 나타나요 — 챙겨 준다는 것이 부담이 되고, 배려한다는 것이 서운함이 되는, 마음과 전달이 어긋나는 순간이 있기 쉬워요.`,
+          ],
+          tips: [
+            '주고 싶은 마음이 생기면 상대가 받고 싶은 방식을 먼저 물어봐 주세요 — 해의 엇갈림은 마음의 문제가 아니라 번역의 문제일 때가 많아요.',
+          ],
+        },
+  companion: ({ pairLabel, relation }) =>
+    relation === 'pa'
+      ? {
+          paragraphs: [
+            `${pairLabel} 파(破)의 짝이에요. 우정의 자리에서 파는 같이 도모한 일이 막판에 헐거워지기 쉬운 모양으로 나타나요 — 마음이 변한 게 아니라 손발의 아귀가 어긋나는 자리예요.`,
+          ],
+          tips: [
+            '역할과 마감을 처음에 문장으로 적어 두세요 — 적어 둔 약속은 파가 흔들어도 제자리에 남아요.',
+          ],
+        }
+      : {
+          paragraphs: [
+            `${pairLabel} 해(害)의 짝이에요. 우정의 자리에서 해는 호의가 어긋나 닿는 모양으로 나타나요 — 도와준다는 것이 참견이 되고, 사양한다는 것이 거절로 들리는 순간이 있기 쉬워요.`,
+          ],
+          tips: [
+            '어긋난 기색이 느껴지면 해석 대신 확인을 골라 주세요 — "혹시 아까 그거 불편했어?" 한마디가 해의 매듭을 미리 풀어요.',
+          ],
+        },
+  guardian: params => {
+    const { pairLabel, relation } = params;
+    const { elder, younger } = guardianRoles(params.voice);
+    if (relation === 'pa') {
+      return {
+        paragraphs: [
+          `${pairLabel} 파(破)의 짝이에요. 돌봄의 자리에서 파는 세워 둔 규칙과 일과가 자꾸 흐트러지는 모양으로 나타나요 — ${younger}의 마음이 엇나가는 게 아니라 일의 아귀가 어긋나는 것이니, 의지의 문제로 읽지 않아 주세요.`,
+        ],
+        tips: [
+          '규칙은 줄이고, 남긴 것만 단단히 지켜 주세요 — 적은 약속을 확실히 지키는 반복이, 파의 헐거움을 메우는 가장 순한 길이에요.',
+        ],
+      };
+    }
+    return {
+      paragraphs: [
+        `${pairLabel} 해(害)의 짝이에요. 돌봄의 자리에서 해는 위하는 마음이 어긋나 닿는 모양으로 나타나요 — ${elder}의 챙김이 ${younger}에게는 간섭으로, ${younger}의 사양이 ${elder}에게는 거리 두기로 읽히는 순간이 있기 쉬워요.`,
+      ],
+      cautions: [
+        '챙기기 전에 한 번 물어봐 주세요 — "이거 도와줄까, 혼자 해 볼래?"의 선택지가 해의 엇갈림을 절반으로 줄여요.',
+      ],
+    };
+  },
+  kids: ({ pairLabel, relation }) =>
+    relation === 'pa'
+      ? {
+          paragraphs: [
+            `${pairLabel} 파(破)의 짝이에요. 아이들 사이에서 파는 같이 시작한 놀이가 끝까지 가지 못하고 흩어지기 쉬운 모양으로 나타나요 — 싫어져서가 아니라 손발이 안 맞아서인 날이 대부분이에요.`,
+          ],
+          tips: [
+            '끝이 짧은 놀이를 여러 판 하는 쪽이 이 짝에게 잘 맞아요 — 한 판이 짧으면, 어긋나기 전에 완성의 기쁨이 먼저 와요.',
+          ],
+        }
+      : {
+          paragraphs: [
+            `${pairLabel} 해(害)의 짝이에요. 아이들 사이에서 해는 호의가 엇갈리는 모양으로 나타나요 — 빌려준다는 것이 뺏는 것으로, 도와준다는 것이 끼어드는 것으로 보여서 토라지는 순간이 생기기 쉬워요.`,
+          ],
+          cautions: [
+            '다툼이 나면 어른이 두 아이의 마음을 통역해 주세요 — "쟤는 너 도와주려던 거래" 한마디에, 엇갈렸던 호의가 제 이름을 찾아요.',
           ],
         },
 };
@@ -925,6 +1531,29 @@ function tenGodAdult(params: TenGodCopyParamsV1, coupleTone: boolean): CopyBlock
 const TEN_GOD_PAIR: CopyBundleV1<TenGodCopyParamsV1> = {
   default: params => tenGodAdult(params, false),
   couple: params => tenGodAdult(params, true),
+  companion: params => {
+    const { aName, bName, bForA, aForB } = params;
+    const cautions: string[] = [];
+    if (bForA === 'GYEOB_JAE' || aForB === 'GYEOB_JAE') {
+      cautions.push(
+        '겁재의 짝은 내 것과 네 것의 경계가 흐려지기 쉬워요 — 돈과 물건의 약속만 처음부터 분명히 해 두면, 승부욕은 서로를 키우는 좋은 연료가 돼요.',
+      );
+    }
+    if (bForA === 'SANG_GWAN' || aForB === 'SANG_GWAN') {
+      cautions.push(
+        '상관의 짝은 농담이 정곡을 찌르는 날이 있어요 — 재치가 날이 되지 않게 놀림의 선을 서로 일러 두면, 그 입담이 우정의 활력이 돼요.',
+      );
+    }
+    return {
+      headline: '서로를 어떤 동반자로 세워 주는가 — 십성으로 읽었어요.',
+      paragraphs: [
+        '동반의 짝에서 십성은 점수를 매기는 잣대가 아니에요 — 서로가 서로를 어떤 자리에 세워 주는 친구인지 읽는 언어예요.',
+        `${aName}님에게 ${bName}님은 ${TEN_GOD_KO[bForA]}(${TEN_GOD_RELATIONAL_GLOSS[bForA]})이고, `
+        + `${bName}님에게 ${aName}님은 ${TEN_GOD_KO[aForB]}(${TEN_GOD_RELATIONAL_GLOSS[aForB]})이에요.`,
+      ],
+      cautions,
+    };
+  },
   guardian: params => {
     const { aName, bName, bForA, aForB } = params;
     const { elder, younger } = guardianRoles(params.voice);
@@ -985,6 +1614,24 @@ const YONGSHIN_DIRECT: CopyBundleV1<YongshinCopyParamsV1> = {
       + `함께 있는 것만으로 ${receiverName}님의 부족한 기운이 채워지는, 용신 궁합에서 으뜸으로 치는 배치예요.`,
     ],
   }),
+  couple: ({ giverName, receiverName, fact }) => ({
+    paragraphs: [
+      `${giverName}님의 일간이 ${receiverName}님 사주가 반기는 ${elementKo(fact.yongshinElement)} 기운 그 자체예요. `
+      + `연인 사이에서 이 배치는 "곁에 있으면 이상하게 기운이 나는 사람"으로 나타나요 — 함께 보내는 시간 자체가 ${receiverName}님의 빈 곳을 채우는, 용신 궁합에서 으뜸으로 치는 그림이에요.`,
+    ],
+    tips: [
+      `채워 주는 쪽도 사람이라 연료가 필요해요 — ${receiverName}님이 받은 온기를 말과 표현으로 자주 돌려주면, 이 흐름이 한쪽의 소모 없이 오래가요.`,
+    ],
+  }),
+  companion: ({ giverName, receiverName, fact }) => ({
+    paragraphs: [
+      `${giverName}님의 일간이 ${receiverName}님 사주가 반기는 ${elementKo(fact.yongshinElement)} 기운 그 자체예요. `
+      + `동반의 자리에서 이 배치는 "만나고 오면 이상하게 힘이 나는 친구"로 나타나요 — 특별한 일을 하지 않아도, 곁에 있는 시간만큼 ${receiverName}님의 기운이 차오르는 그림이에요.`,
+    ],
+    tips: [
+      `지칠 때 먼저 찾게 되는 쪽이 늘 같을 수 있어요 — ${receiverName}님이 가끔 먼저 안부를 건네면, 이 우정의 흐름이 한쪽으로 기울지 않아요.`,
+    ],
+  }),
   guardian: ({ giverName, receiverName, fact }) => ({
     paragraphs: [
       `${giverName}님의 일간이 ${receiverName}님 사주가 반기는 ${elementKo(fact.yongshinElement)} 기운 그 자체예요. `
@@ -1006,6 +1653,42 @@ const YONGSHIN_GENERATES: CopyBundleV1<YongshinCopyParamsV1> = {
       + `${receiverName}님이 반기는 ${elementKo(fact.yongshinElement)} 기운을 낳아 살려 줘요.`,
     ],
   }),
+  couple: ({ giverName, receiverName, fact }) => ({
+    paragraphs: [
+      `${giverName}님의 일간${fact.partnerDayElement ? `(${elementKo(fact.partnerDayElement)} 기운)` : ''}이 `
+      + `${receiverName}님이 반기는 ${elementKo(fact.yongshinElement)} 기운을 낳아 살려 줘요. 연인 사이에서 이 흐름은 직접 채워 주기보다 살아나게 돕는 모양이에요 — ${giverName}님과 함께한 뒤에 ${receiverName}님의 일이 이상하게 잘 풀리는, 한 다리 건너 스며드는 응원의 배치예요.`,
+    ],
+    tips: [
+      `직접 주는 사랑보다 티가 덜 나는 흐름이라, 고마움도 늦게 발견되기 쉬워요 — ${receiverName}님이 "네 덕분이야"를 소리 내어 주면 이 배치가 제 빛을 찾아요.`,
+    ],
+  }),
+  companion: ({ giverName, receiverName, fact }) => ({
+    paragraphs: [
+      `${giverName}님의 일간${fact.partnerDayElement ? `(${elementKo(fact.partnerDayElement)} 기운)` : ''}이 `
+      + `${receiverName}님이 반기는 ${elementKo(fact.yongshinElement)} 기운을 낳아 살려 줘요. 동반의 자리에서 이 흐름은 판을 깔아 주는 우정이에요 — ${giverName}님이 곁에 있으면 ${receiverName}님에게 좋은 기회와 좋은 컨디션이 따라오기 쉬운 배치예요.`,
+    ],
+    tips: [
+      '이 흐름은 은은해서 당사자들도 모르고 지나가기 쉬워요 — 잘 풀린 날 "네 덕도 있다"고 짚어 주는 습관이 이 우정의 온도를 지켜 줘요.',
+    ],
+  }),
+  guardian: ({ giverName, receiverName, fact }) => ({
+    paragraphs: [
+      `${giverName}님의 일간${fact.partnerDayElement ? `(${elementKo(fact.partnerDayElement)} 기운)` : ''}이 `
+      + `${receiverName}님이 반기는 ${elementKo(fact.yongshinElement)} 기운을 낳아 살려 줘요. 돌봄의 자리에서 이 흐름은 조용한 뒷바라지의 모양이에요 — 눈에 띄게 해 주는 것이 없어도, ${giverName}님이 곁에 있는 시간만큼 ${receiverName}님이 반기는 기운이 은은하게 자라나요.`,
+    ],
+    tips: [
+      '은은한 흐름일수록 꾸준함이 힘이에요 — 특별한 이벤트보다, 매일 반복되는 짧은 시간이 이 배치를 가장 잘 살려요.',
+    ],
+  }),
+  kids: ({ giverName, receiverName, fact }) => ({
+    paragraphs: [
+      `${giverName}님의 일간${fact.partnerDayElement ? `(${elementKo(fact.partnerDayElement)} 기운)` : ''}이 `
+      + `${receiverName}님이 반기는 ${elementKo(fact.yongshinElement)} 기운을 낳아 살려 줘요. 아이들 사이에서 이 흐름은 "같이 놀면 좋은 것들이 따라오는 친구"로 나타나요 — ${giverName}님과 어울리고 난 뒤 ${receiverName}님이 새로 배워 오는 게 하나씩 늘어나기 쉬워요.`,
+    ],
+    tips: [
+      '어른이 억지로 붙여 주지 않아도 되는 순한 흐름이에요 — 둘이 어울릴 자리만 가끔 마련해 주면, 나머지는 기운이 알아서 해요.',
+    ],
+  }),
 };
 
 const YONGSHIN_CONTROLS: CopyBundleV1<YongshinCopyParamsV1> = {
@@ -1013,6 +1696,24 @@ const YONGSHIN_CONTROLS: CopyBundleV1<YongshinCopyParamsV1> = {
     paragraphs: [
       `${giverName}님의 일간은 ${receiverName}님이 반기는 ${elementKo(fact.yongshinElement)} 기운을 누르는 쪽이에요. `
       + `함께 있을 때 ${receiverName}님의 기운이 눌리지 않도록 혼자만의 회복 시간을 존중해 주는 게 좋아요.`,
+    ],
+  }),
+  couple: ({ giverName, receiverName, fact }) => ({
+    paragraphs: [
+      `${giverName}님의 일간은 ${receiverName}님이 반기는 ${elementKo(fact.yongshinElement)} 기운을 누르는 쪽이에요. `
+      + `마음의 문제가 아니라 기운의 결이 그런 것이니, 애정을 의심할 대목은 아니에요 — 다만 오래 붙어 있는 날 ${receiverName}님이 이유 없이 지치는 느낌을 받을 수 있어요.`,
+    ],
+    tips: [
+      '함께 있으면서도 각자인 시간을 설계해 보세요 — 같은 공간에서 따로 책을 읽는 저녁 같은 헐거운 동행이, 이 배치의 애정을 오래 지켜 줘요.',
+    ],
+  }),
+  companion: ({ giverName, receiverName, fact }) => ({
+    paragraphs: [
+      `${giverName}님의 일간은 ${receiverName}님이 반기는 ${elementKo(fact.yongshinElement)} 기운을 누르는 쪽이에요. `
+      + `사이가 나빠서가 아니라 기운의 결이 그런 것이라, 오래 함께한 날 ${receiverName}님이 먼저 방전되기 쉬운 배치로만 읽으면 돼요.`,
+    ],
+    tips: [
+      '길게 한 번보다 짧게 자주 만나는 쪽이 이 우정에 잘 맞아요 — 헤어진 뒤 각자 충전하는 시간까지가 이 짝의 만남이에요.',
     ],
   }),
   guardian: ({ giverName, receiverName, fact }) => ({
@@ -1033,6 +1734,26 @@ const YONGSHIN_NEUTRAL: CopyBundleV1<YongshinCopyParamsV1> = {
   default: ({ giverName, receiverName }) => ({
     paragraphs: [
       `${giverName}님의 일간은 ${receiverName}님의 용신과 직접 닿지는 않아요 — 무해하지만 특별히 채워 주지도 않는 담백한 관계예요.`,
+    ],
+  }),
+  couple: ({ giverName, receiverName }) => ({
+    paragraphs: [
+      `${giverName}님의 일간은 ${receiverName}님의 용신과 직접 닿지는 않아요. 기운으로 채워 주는 극적인 배치는 아니지만, 눌러 버리는 부담도 없는 담백한 흐름이에요 — 연인 사이라면 기운의 도움 없이도 마음이 하는 일이 많으니, 담담한 바탕 위에 두 분의 이야기를 쌓으면 돼요.`,
+    ],
+  }),
+  companion: ({ giverName, receiverName }) => ({
+    paragraphs: [
+      `${giverName}님의 일간은 ${receiverName}님의 용신과 직접 닿지는 않아요. 서로의 기운에 크게 관여하지 않는 담백한 흐름이라, 우정의 자리에서는 오히려 편한 배치예요 — 기운의 셈 없이, 마음이 맞는 만큼이 곧 우정의 크기가 돼요.`,
+    ],
+  }),
+  guardian: ({ giverName, receiverName }) => ({
+    paragraphs: [
+      `${giverName}님의 일간은 ${receiverName}님의 용신과 직접 닿지는 않아요. 기운이 채워 주지도 누르지도 않는 담백한 자리라, 돌봄의 무게를 기운의 탓으로 돌릴 일도 없는 배치예요 — 함께 쌓는 습관과 말이 그대로 관계의 살이 돼요.`,
+    ],
+  }),
+  kids: ({ giverName, receiverName }) => ({
+    paragraphs: [
+      `${giverName}님의 일간은 ${receiverName}님의 용신과 직접 닿지는 않아요. 기운이 밀어주지도 누르지도 않는 담백한 짝이라, 둘의 우정은 온전히 노는 재미가 정해요 — 어른이 기운의 셈을 얹지 않아도 되는 홀가분한 배치예요.`,
     ],
   }),
 };
@@ -1169,3 +1890,24 @@ export function renderBranchPairCopy(
     cautions,
   };
 }
+
+/* ================================================================== */
+/* 커버리지 증명 — 레지스트리에서 직접 계산한다                              */
+/* ================================================================== */
+
+/**
+ * 번들 매트릭스 커버리지. situations는 레지스트리의 상황 수,
+ * fullyCovered는 couple·companion·guardian·kids 네 프레임 전용 writer가
+ * 모두 존재하는 상황 수다. 테이블이 아니라 실제 레지스트리에서 센다.
+ */
+export const COPY_BUNDLE_COVERAGE_V1: {
+  readonly situations: number;
+  readonly fullyCovered: number;
+} = (() => {
+  const frames = ['couple', 'companion', 'guardian', 'kids'] as const;
+  const bundles = Object.values(COPY_BUNDLES) as Array<CopyBundleV1<never>>;
+  const fullyCovered = bundles.filter(bundle =>
+    frames.every(frame => typeof bundle[frame] === 'function'),
+  ).length;
+  return { situations: bundles.length, fullyCovered };
+})();

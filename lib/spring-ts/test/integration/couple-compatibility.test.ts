@@ -660,6 +660,34 @@ assert.ok(Number.isFinite(sajuOnlyResult.sections.integrated.summary.score));
 assert.equal(sajuOnlyResult.availability.status, 'limited');
 
 /* ------------------------------------------------------------------ */
+/* 5-1. 오행 보완 '부분 채움' 경로: 조사(을/를) 렌더가 던지지 않고 정확해야 함 */
+/* ------------------------------------------------------------------ */
+
+const partialFillReceiver = makeDelivery({
+  analysisId: 'partial-recv',
+  pillars: { day: ['병', '자'] },
+  deficient: ['wood', 'metal'],
+  sajuShare: { fire: 40, water: 40, earth: 20 },
+});
+const partialFillGiver = makeDelivery({
+  analysisId: 'partial-give',
+  pillars: { day: ['임', '미'] },
+  excessive: ['metal'],
+  deficient: [],
+  sajuShare: { metal: 40, earth: 30, water: 30 },
+});
+const partialFillResult = buildCoupleCompatibilityV1({
+  a: { delivery: partialFillGiver, displayName: '가람' },
+  b: { delivery: partialFillReceiver, displayName: '나봄' },
+});
+const partialAxis = partialFillResult.axes.find(
+  axis => axis.id === 'saju_element_complement',
+)!;
+const partialCopy = partialAxis.paragraphs.join(' ');
+assert.ok(partialCopy.includes('금(金)을'), `부분 채움 조사: ${partialCopy}`);
+assert.ok(!partialCopy.includes('금(金)를'), '을/를 오류 없음');
+
+/* ------------------------------------------------------------------ */
 /* 6. 완전 무자료: unavailable로 정직하게 응답                             */
 /* ------------------------------------------------------------------ */
 
