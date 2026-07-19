@@ -15,6 +15,7 @@ import {
   ElementBadge,
   Loading,
   OverrideBanner,
+  ReportActions,
   ReportFootnote,
   Section,
   TermToggle,
@@ -318,7 +319,7 @@ function GenderDonut({ gender }: { gender: NameGenderRatioEntry }) {
     <div style={{ display: 'flex', alignItems: 'center', gap: '0.9rem' }}>
       <svg viewBox="0 0 90 90" width="84" height="84" role="img"
         aria-label={`남성 ${(maleShare * 100).toFixed(1)}%, 여성 ${((1 - maleShare) * 100).toFixed(1)}%`}>
-        <circle cx="45" cy="45" r={r} fill="none" stroke="var(--color-fire-bg)" strokeWidth="12" />
+        <circle cx="45" cy="45" r={r} fill="none" stroke="var(--color-chart-line-b)" strokeWidth="12" />
         <circle
           cx="45" cy="45" r={r} fill="none"
           stroke="var(--color-water)" strokeWidth="12"
@@ -462,6 +463,12 @@ export default function NamingScreen() {
       <Section title="이 이름을 쓰는 사람들" lede="공식 이름 통계 자료에서 찾은 실제 기록이에요.">
         <NameStatsSection index={index} profile={profile} />
       </Section>
+      <div className="v3-card v3-report-tail" style={{ marginTop: 'var(--space-lg)' }}>
+        <p style={{ margin: '0 0 0.7rem', fontFamily: 'var(--font-display)', fontWeight: 700 }}>
+          읽은 결과는 저장하고, 다시 열어 볼 수 있게 남겨두세요.
+        </p>
+        <ReportActions />
+      </div>
       <ReportFootnote />
     </main>
   );

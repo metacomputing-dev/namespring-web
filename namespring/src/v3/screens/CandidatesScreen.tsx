@@ -98,14 +98,15 @@ function CandidateCard({
           .filter(Boolean)
           .join(' · ')}
       </p>
-      <button
-        type="button"
-        className="v3-button v3-button--ghost v3-button--wide"
-        style={{ marginTop: '0.7rem' }}
-        onClick={() => onOpen(item)}
-      >
-        이 이름으로 함께 읽어 보기
-      </button>
+      <div style={{ marginTop: 'auto', paddingTop: '0.7rem' }}>
+        <button
+          type="button"
+          className="v3-button v3-button--ghost v3-button--wide"
+          onClick={() => onOpen(item)}
+        >
+          이 이름으로 함께 읽어 보기
+        </button>
+      </div>
     </div>
   );
 }

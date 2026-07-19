@@ -3,6 +3,9 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { fetchAuthStatus, PROVIDER_LABELS, type AuthStatus } from '../model/session';
 import { clearProfile, loadOriginalProfile, fullHangulName } from '../model/profile';
 import { listFavorites } from '../model/favorites';
+import { listPeople } from '../model/people';
+import { compatPairName, listSavedCompats } from '../model/saved-compat';
+import { clearCompatSlot } from '../model/compat';
 import { clearDeliveryCache } from '../engine/client';
 import { Loading, Section } from '../ui/primitives';
 
@@ -52,12 +55,18 @@ export default function AccountScreen() {
 
   const profile = loadOriginalProfile();
   const favoritesCount = listFavorites().length;
+  const peopleCount = listPeople().length;
+  const savedCompats = listSavedCompats();
 
   function wipeDevice() {
     clearProfile();
     clearDeliveryCache();
+    clearCompatSlot('a');
+    clearCompatSlot('b');
     try {
       localStorage.removeItem('namespring_v3_favorites');
+      localStorage.removeItem('namespring_v3_people');
+      localStorage.removeItem('namespring_v3_saved_compat');
     } catch {
       /* storage unavailable */
     }
@@ -86,7 +95,7 @@ export default function AccountScreen() {
       {premiumIntent ? (
         <div className="v3-override-banner" role="status">
           <span>완성 리포트 결제를 이어가려는 중이에요.</span>
-          <Link to="/support" className="v3-button">
+          <Link to="/support" className="v3-button v3-button--ghost">
             이메일 영수증으로 계속하기
           </Link>
         </div>
@@ -131,8 +140,24 @@ export default function AccountScreen() {
               분석 입력 —{' '}
               {profile ? `${fullHangulName(profile)}님의 이름과 출생 정보` : '저장된 입력이 없어요'}
             </li>
-            <li>보관함 — 담아 둔 이름 {favoritesCount}개</li>
+            <li>보관함 — 담아 둔 이름 {favoritesCount}개 · 보관한 사람 {peopleCount}명</li>
+            <li>
+              보관한 궁합 — {savedCompats.length}건
+              {savedCompats.length > 0
+                ? ` (${savedCompats
+                    .slice(0, 3)
+                    .map(entry => compatPairName(entry))
+                    .join(', ')}${savedCompats.length > 3 ? ' …' : ''})`
+                : ''}
+            </li>
           </ul>
+          {savedCompats.length > 0 ? (
+            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.7rem' }}>
+              <Link to="/favorites" className="v3-button v3-button--ghost">
+                보관함에서 궁합 다시 보기
+              </Link>
+            </div>
+          ) : null}
           {wiped ? (
             <p className="v3-hint" style={{ marginTop: '0.7rem' }}>
               이 기기의 기록을 모두 지웠어요.

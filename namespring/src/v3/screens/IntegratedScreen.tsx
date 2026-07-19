@@ -125,7 +125,7 @@ function ElementCompareBars({ index }: { index: DeliveryIndex }) {
 function NameSummaryCard({ index, profile }: { index: DeliveryIndex; profile: V3Profile }) {
   const characters = factsOfKind(index, 'name_character');
   return (
-    <div className="v3-card">
+    <div className="v3-card" style={{ display: 'flex', flexDirection: 'column' }}>
       <p className="v3-kicker">이름에서 확인한 것</p>
       {characters.length > 0 ? (
         <ul className="v3-plain-list">
@@ -140,9 +140,11 @@ function NameSummaryCard({ index, profile }: { index: DeliveryIndex; profile: V3
       ) : (
         <p style={{ margin: 0 }}>{fullHangulName(profile)}의 글자 구성을 확인했어요.</p>
       )}
-      <Link to="/reports/naming" className="v3-button v3-button--ghost v3-button--wide" style={{ marginTop: '0.9rem' }}>
-        이름 자세히 보기
-      </Link>
+      <div style={{ marginTop: 'auto', paddingTop: '0.9rem' }}>
+        <Link to="/reports/naming" className="v3-button v3-button--ghost v3-button--wide">
+          이름 자세히 보기
+        </Link>
+      </div>
     </div>
   );
 }
@@ -152,7 +154,7 @@ function SajuSummaryCard({ index }: { index: DeliveryIndex }) {
   const strength = factOfKind(index, 'strength');
   const yongshin = factOfKind(index, 'yongshin');
   return (
-    <div className="v3-card">
+    <div className="v3-card" style={{ display: 'flex', flexDirection: 'column' }}>
       <p className="v3-kicker">사주에서 확인한 것</p>
       <ul className="v3-plain-list">
         {dayMaster ? (
@@ -173,9 +175,11 @@ function SajuSummaryCard({ index }: { index: DeliveryIndex }) {
           </li>
         ) : null}
       </ul>
-      <Link to="/reports/saju" className="v3-button v3-button--ghost v3-button--wide" style={{ marginTop: '0.9rem' }}>
-        사주 자세히 보기
-      </Link>
+      <div style={{ marginTop: 'auto', paddingTop: '0.9rem' }}>
+        <Link to="/reports/saju" className="v3-button v3-button--ghost v3-button--wide">
+          사주 자세히 보기
+        </Link>
+      </div>
     </div>
   );
 }

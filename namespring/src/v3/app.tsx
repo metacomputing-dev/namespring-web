@@ -10,6 +10,9 @@ import IntegratedScreen from './screens/IntegratedScreen';
 import SajuScreen from './screens/SajuScreen';
 import NamingScreen from './screens/NamingScreen';
 import CandidatesScreen from './screens/CandidatesScreen';
+import CompatibilityScreen from './screens/CompatibilityScreen';
+import CompatibilityNameScreen from './screens/CompatibilityNameScreen';
+import CompatibilitySajuScreen from './screens/CompatibilitySajuScreen';
 import FavoritesScreen from './screens/FavoritesScreen';
 import AccountScreen from './screens/AccountScreen';
 import InfoScreen from './screens/InfoScreen';
@@ -98,7 +101,7 @@ const NAV_ITEMS: NavItem[] = [
     ),
   },
   {
-    path: null,
+    path: '/compatibility',
     label: '궁합',
     icon: (
       <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -213,6 +216,9 @@ export default function SpringApp() {
           <Route path="/reports/saju" element={<SajuScreen />} />
           <Route path="/reports/naming" element={<NamingScreen />} />
           <Route path="/naming/candidates" element={<CandidatesScreen />} />
+          <Route path="/compatibility" element={<CompatibilityScreen />} />
+          <Route path="/compatibility/name" element={<CompatibilityNameScreen />} />
+          <Route path="/compatibility/saju" element={<CompatibilitySajuScreen />} />
           <Route path="/favorites" element={<FavoritesScreen />} />
           <Route path="/account" element={<AccountScreen />} />
           <Route path="/info" element={<InfoScreen />} />

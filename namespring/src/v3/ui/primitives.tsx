@@ -33,7 +33,10 @@ export function useTerms() {
 export function TermToggle() {
   const { expert, toggle } = useTerms();
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
+    <div
+      className="v3-screen-only"
+      style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}
+    >
       <button
         type="button"
         className="v3-tab"
@@ -166,11 +169,19 @@ export function OverrideBanner() {
   const viewing = loadProfile();
   const original = loadOriginalProfile();
   if (!viewing) return null;
+  const viewingName = fullHangulName(viewing);
+  const viewingCode = viewingName.charCodeAt(viewingName.length - 1);
+  const jongseong =
+    viewingCode >= 0xac00 && viewingCode <= 0xd7a3 ? (viewingCode - 0xac00) % 28 : 0;
+  // 받침이 없거나 ㄹ 받침(인덱스 8)이면 '로' — '하늘로', '민지로'.
+  const euro = jongseong !== 0 && jongseong !== 8 ? '으로' : '로';
   return (
     <div className="v3-override-banner" role="status">
       <span>
-        지금은 새 이름 <strong>{fullHangulName(viewing)}</strong>
-        {original ? `(으)로 보고 있어요. 처음 입력한 ${fullHangulName(original)} 이름은 그대로 있어요.` : '(으)로 보고 있어요.'}
+        지금은 새 이름 <strong>{viewingName}</strong>
+        {original
+          ? `${euro} 보고 있어요. 처음 입력한 ${fullHangulName(original)} 이름은 그대로 있어요.`
+          : `${euro} 보고 있어요.`}
       </span>
       <button
         type="button"

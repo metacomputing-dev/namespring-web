@@ -203,6 +203,8 @@
   justify-content: center;
   gap: 0.45rem;
   padding: 0.7rem 1.4rem;
+  /* 한국어 라벨이 좁은 칸에서 음절 단위로 꺾이지 않게 어절 단위로만 줄바꿈한다. */
+  word-break: keep-all;
   border-radius: var(--radius-input);
   border: var(--rule-thin) solid var(--color-accent);
   background: var(--color-accent);
@@ -1045,6 +1047,7 @@
   flex: 1 1 9rem;
 }
 
+/* 궁합 꼬리처럼 동작 버튼이 여럿일 때: 라벨이 바뀌어도 폭이 흔들리지 않는 균일 격자. */
 .v3-star-button {
   display: inline-flex;
   align-items: center;
@@ -1068,13 +1071,31 @@
   .v3-masthead,
   .v3-bottom-nav,
   .v3-report-actions,
+  .v3-report-tail,
   .v3-override-banner,
-  .v3-icon-button {
+  .v3-icon-button,
+  .v3-screen-only {
     display: none !important;
   }
 
   .v3-page {
     padding-bottom: 0;
+  }
+
+  /* 다크 모드에서 인쇄해도 항상 밝은 지면 토큰으로 찍히게 한다 —
+     잉크 토큰이 밝은 값으로 남으면 흰 종이에 흰 글씨가 된다.
+     값은 tokens.css의 라이트 팔레트를 그대로 복제한다. */
+  :root,
+  :root[data-theme='dark'] {
+    color-scheme: light;
+    --color-paper: oklch(0.982 0.010 108);
+    --color-paper-2: oklch(0.970 0.012 108);
+    --color-paper-3: oklch(0.942 0.016 106);
+    --color-ink: oklch(0.235 0.024 145);
+    --color-ink-2: oklch(0.430 0.020 138);
+    --color-ink-3: oklch(0.575 0.016 132);
+    --color-rule: oklch(0.875 0.018 110);
+    --color-rule-strong: oklch(0.790 0.024 112);
   }
 
   .v3-root {
@@ -1294,4 +1315,45 @@
 
 @media (prefers-reduced-motion: reduce) {
   .v3-loading-leaf { animation: none; }
+}
+
+/* ---------- 관계 검색 콤보박스 ---------- */
+
+.v3-combo {
+  position: relative;
+  max-width: 26rem;
+}
+
+.v3-combo-list {
+  position: absolute;
+  top: calc(100% + 0.3rem);
+  left: 0;
+  right: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  max-height: 16rem;
+  overflow-y: auto;
+  padding: 0.5rem;
+  background: var(--color-paper-2);
+  border: var(--rule-thin) solid var(--color-rule-strong);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+/* 콤보 행: 라벨은 왼쪽, 카테고리 칩은 오른쪽 끝에 붙인다. */
+.v3-combo-list .v3-hanja-option {
+  justify-content: space-between;
+}
+
+/* ---------- 궁합 사람 카드 속 풍경 미니 프레임 ---------- */
+
+/* 반 폭 카드 안에서도 그림이 읽히도록 렌더러의 모바일 기본 비율(4/3)로 고정한다. */
+.v3-scenery-mini {
+  border-radius: var(--radius-input);
+  overflow: hidden;
+  border: var(--rule-thin) solid var(--color-rule);
+  aspect-ratio: 4 / 3;
+  margin: 0.15rem 0 0.7rem;
 }

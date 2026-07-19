@@ -30,6 +30,7 @@ import {
   Loading,
   OverrideBanner,
   QuoteCard,
+  ReportActions,
   ReportFootnote,
   Section,
   Stars,
@@ -560,9 +561,6 @@ function DaeunRoad({ index, profile }: { index: DeliveryIndex; profile: V3Profil
                 .join(' · ')}
             </p>
           ) : null}
-          <p className="v3-hint" style={{ margin: '0.5rem 0 0' }}>
-            이 구간의 이야기는 준비하고 있어요. 곧 이 자리에서 읽을 수 있어요.
-          </p>
           <button
             type="button"
             className="v3-button v3-button--ghost"
@@ -763,6 +761,12 @@ export default function SajuScreen() {
         </div>
         <LifeSummary index={index} />
       </Section>
+      <div className="v3-card v3-report-tail" style={{ marginTop: 'var(--space-lg)' }}>
+        <p style={{ margin: '0 0 0.7rem', fontFamily: 'var(--font-display)', fontWeight: 700 }}>
+          읽은 결과는 저장하고, 다시 열어 볼 수 있게 남겨두세요.
+        </p>
+        <ReportActions />
+      </div>
       <ReportFootnote />
     </main>
   );
