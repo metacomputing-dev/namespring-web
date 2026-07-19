@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { type PointerEvent as ReactPointerEvent, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { ReportSurfaceSelectionV1 } from '@spring/report/delivery/types';
 import {
@@ -314,8 +314,15 @@ interface RankSeries {
   points: { year: number; rank: number }[];
 }
 
-/** 연도별 공식 순위에서 그릴 계열을 고른다 — 전체 버킷 우선, 없으면 점이 많은 성별 버킷. */
-function pickRankSeries(yearlyRank: Record<string, Record<string, number>>): RankSeries | null {
+/**
+ * 연도별 공식 순위에서 그릴 계열을 하나 고른다. '지금의 인기' 카드도 같은
+ * 계열의 마지막 값을 쓰므로, 화면의 순위 숫자는 전부 같은 기준이 된다.
+ * 우선순위: 이 이름을 주로 쓰는 성별 버킷 → 전체 버킷 → 점이 많은 버킷.
+ */
+function pickRankSeries(
+  yearlyRank: Record<string, Record<string, number>>,
+  dominantGender: '남자' | '여자' | null,
+): RankSeries | null {
   const buckets = Object.entries(yearlyRank)
     .map(([label, byYear]) => ({
       label,
@@ -327,73 +334,186 @@ function pickRankSeries(yearlyRank: Record<string, Record<string, number>>): Ran
     .filter(bucket => bucket.points.length >= 2);
   if (buckets.length === 0) return null;
   return (
-    buckets.find(bucket => bucket.label === '전체')
+    (dominantGender ? buckets.find(bucket => bucket.label === dominantGender) : undefined)
+    ?? buckets.find(bucket => bucket.label === '전체')
     ?? buckets.reduce((best, bucket) => (bucket.points.length > best.points.length ? bucket : best))
   );
+}
+
+/** 순위 기준을 사람이 읽는 말로. */
+function rankBasisLabel(bucket: string): string {
+  return bucket === '전체' ? '남녀 전체' : bucket;
 }
 
 /** 인기 순위의 변천 — 순위는 낮을수록 인기라 1위가 위로 가도록 축을 뒤집는다. */
 function RankLineChart({ series }: { series: RankSeries }) {
   const { points } = series;
+  const [hoverIdx, setHoverIdx] = useState<number | null>(null);
   const w = 560;
-  const h = 150;
-  const pad = 24;
+  const h = 176;
+  const padL = 48;
+  const padR = 16;
+  const padT = 20;
+  const padB = 26;
   const years = points.map(p => p.year);
   const ranks = points.map(p => p.rank);
   const minYear = Math.min(...years);
   const maxYear = Math.max(...years);
   const bestRank = Math.min(...ranks);
   const worstRank = Math.max(...ranks);
-  const x = (year: number) => pad + ((year - minYear) / Math.max(maxYear - minYear, 1)) * (w - pad * 2);
+  const x = (year: number) =>
+    padL + ((year - minYear) / Math.max(maxYear - minYear, 1)) * (w - padL - padR);
   const y = (rank: number) =>
-    pad + ((rank - bestRank) / Math.max(worstRank - bestRank, 1)) * (h - pad * 2);
+    padT + ((rank - bestRank) / Math.max(worstRank - bestRank, 1)) * (h - padT - padB);
   const path = points
     .map((p, i) => `${i === 0 ? 'M' : 'L'}${x(p.year).toFixed(1)},${y(p.rank).toFixed(1)}`)
     .join(' ');
   const best = points.reduce((acc, p) => (p.rank < acc.rank ? p : acc), points[0]);
   const latest = points[points.length - 1];
-  const bestX = x(best.year);
-  const bestAnchor = bestX < w * 0.18 ? 'start' : bestX > w * 0.82 ? 'end' : 'middle';
-  // 위의 '지금의 인기' 카드와 버킷(전체/남자/여자)이 다를 수 있어 기준을 항상 밝힌다.
-  const bucketNote =
-    series.label === '전체' ? ' 남녀 전체 이름 순위 기준이에요.' : ` ${series.label} 이름 순위 기준이에요.`;
+  const bucketNote = ` ${rankBasisLabel(series.label)} 이름 순위 기준이에요.`;
+
+  // Y축 순위 눈금: 최고(위)·중간·최저(아래) 세 줄로 스케일 감을 준다.
+  const midRank = Math.round((bestRank + worstRank) / 2);
+  const rankTicks =
+    worstRank - bestRank > 40 ? [bestRank, midRank, worstRank] : [bestRank, worstRank];
+  // X축 연도 눈금: 처음·가운데·끝 (가운데는 실제 데이터 연도로 스냅).
+  const midYearTarget = Math.round((minYear + maxYear) / 2);
+  const midYear = years.reduce((a, b) =>
+    Math.abs(b - midYearTarget) < Math.abs(a - midYearTarget) ? b : a,
+  );
+  const yearTicks = [...new Set([minYear, midYear, maxYear])];
+
+  const active = hoverIdx !== null ? points[hoverIdx] : null;
+  // 포인터의 x를 viewBox 좌표로 되돌려 가장 가까운 연도 점을 고른다.
+  function handleMove(event: ReactPointerEvent<SVGSVGElement>) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    if (rect.width === 0) return;
+    const svgX = ((event.clientX - rect.left) / rect.width) * w;
+    let nearest = 0;
+    let nearestDist = Infinity;
+    points.forEach((p, i) => {
+      const dist = Math.abs(x(p.year) - svgX);
+      if (dist < nearestDist) {
+        nearestDist = dist;
+        nearest = i;
+      }
+    });
+    setHoverIdx(nearest);
+  }
+
+  const activeLeftPct = active ? (x(active.year) / w) * 100 : 0;
+  const tooltipTransform =
+    activeLeftPct < 16 ? 'translateX(0)' : activeLeftPct > 84 ? 'translateX(-100%)' : 'translateX(-50%)';
+
   return (
-    <div>
+    <div style={{ position: 'relative' }}>
       <svg
         viewBox={`0 0 ${w} ${h}`}
-        style={{ width: '100%', height: 'auto' }}
+        style={{ width: '100%', height: 'auto', touchAction: 'none', display: 'block' }}
         role="img"
-        aria-label={`연도별 이름 인기 순위, ${minYear}년부터 ${maxYear}년까지. 위로 갈수록 순위가 높아요.`}
+        aria-label={`연도별 이름 인기 순위, ${minYear}년 ${bestRank}위에서 ${maxYear}년 ${latest.rank}위까지. 위로 갈수록 순위가 높아요.`}
+        onPointerMove={handleMove}
+        onPointerDown={handleMove}
+        onPointerLeave={() => setHoverIdx(null)}
       >
-        <path d={path} fill="none" stroke="var(--color-chart-line-a)" strokeWidth="2" />
-        <circle cx={bestX} cy={y(best.rank)} r="3.5" fill="var(--color-chart-line-a)" />
-        <text
-          x={bestX}
-          y={y(best.rank) - 8}
-          textAnchor={bestAnchor}
-          style={{ fill: 'var(--color-ink-2)', fontSize: '11px' }}
-        >
-          {best.year}년 · {best.rank.toLocaleString()}위
-        </text>
-        {latest.year !== best.year ? (
-          <text
-            x={x(latest.year)}
-            y={y(latest.rank) - 8}
-            textAnchor="end"
-            style={{ fill: 'var(--color-ink-3)', fontSize: '11px' }}
-          >
-            {latest.rank.toLocaleString()}위
-          </text>
+        {/* Y축 순위 눈금선 + 라벨 */}
+        {rankTicks.map(rank => (
+          <g key={`tick-${rank}`}>
+            <line
+              x1={padL}
+              y1={y(rank)}
+              x2={w - padR}
+              y2={y(rank)}
+              stroke="var(--color-rule)"
+              strokeWidth="1"
+              strokeOpacity="0.5"
+            />
+            <text
+              x={padL - 8}
+              y={y(rank) + 3.5}
+              textAnchor="end"
+              style={{ fill: 'var(--color-ink-3)', fontSize: '10.5px' }}
+            >
+              {rank.toLocaleString()}위
+            </text>
+          </g>
+        ))}
+
+        {/* 순위 곡선 */}
+        <path d={path} fill="none" stroke="var(--color-chart-line-a)" strokeWidth="2"
+          strokeLinejoin="round" strokeLinecap="round" />
+
+        {/* 실제 측정 연도 점 */}
+        {points.map(p => (
+          <circle
+            key={`dot-${p.year}`}
+            cx={x(p.year)}
+            cy={y(p.rank)}
+            r={active?.year === p.year ? 0 : 1.8}
+            fill="var(--color-chart-line-a)"
+            fillOpacity="0.55"
+          />
+        ))}
+
+        {/* 최고 순위 강조 (호버 중이 아닐 때) */}
+        {!active ? (
+          <circle cx={x(best.year)} cy={y(best.rank)} r="3.4" fill="var(--color-chart-line-a)" />
         ) : null}
-        <text x={pad} y={h - 6} style={{ fill: 'var(--color-ink-3)', fontSize: '11px' }}>{minYear}</text>
-        <text x={w - pad} y={h - 6} textAnchor="end" style={{ fill: 'var(--color-ink-3)', fontSize: '11px' }}>
-          {maxYear}
-        </text>
+
+        {/* 호버 가이드 + 강조점 */}
+        {active ? (
+          <>
+            <line
+              x1={x(active.year)}
+              y1={padT - 4}
+              x2={x(active.year)}
+              y2={h - padB + 4}
+              stroke="var(--color-rule)"
+              strokeWidth="1"
+              strokeDasharray="3 3"
+            />
+            <circle cx={x(active.year)} cy={y(active.rank)} r="4.5" fill="var(--color-chart-line-a)" />
+          </>
+        ) : null}
+
+        {/* X축 연도 눈금 */}
+        {yearTicks.map(year => (
+          <text
+            key={`year-${year}`}
+            x={x(year)}
+            y={h - 8}
+            textAnchor={year === minYear ? 'start' : year === maxYear ? 'end' : 'middle'}
+            style={{ fill: 'var(--color-ink-3)', fontSize: '10.5px' }}
+          >
+            {year}
+          </text>
+        ))}
       </svg>
-      <p className="v3-hint" style={{ margin: '0.3rem 0 0' }}>
-        위로 갈수록 인기 순위가 높아요.{bucketNote} 가장 높이 오른 해는{' '}
-        {best.year}년({best.rank.toLocaleString()}위)이고, 마지막 집계인 {latest.year}년에는{' '}
-        {latest.rank.toLocaleString()}위예요.
+      {active ? (
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: `${activeLeftPct}%`,
+            transform: tooltipTransform,
+            pointerEvents: 'none',
+            background: 'var(--color-paper-2)',
+            border: 'var(--rule-thin) solid var(--color-rule)',
+            borderRadius: '0.5rem',
+            padding: '0.3rem 0.55rem',
+            fontSize: '0.8rem',
+            whiteSpace: 'nowrap',
+            boxShadow: 'var(--shadow-1)',
+          }}
+        >
+          <strong>{active.year}년</strong> {active.rank.toLocaleString()}위
+        </div>
+      ) : null}
+      <p className="v3-hint" style={{ margin: '0.45rem 0 0' }}>
+        위로 갈수록 인기 순위가 높아요.{bucketNote} 그래프 위를 짚으면 그해 순위를 볼 수 있어요.
+        가장 높이 오른 해는 {best.year}년({best.rank.toLocaleString()}위)이고, 마지막 집계인{' '}
+        {latest.year}년에는 {latest.rank.toLocaleString()}위예요.
       </p>
     </div>
   );
@@ -442,24 +562,20 @@ function NameStatsSection({ index, profile }: { index: DeliveryIndex; profile: V
     );
   }
   const { entry, gender } = stats;
-  const rankSeries = entry ? pickRankSeries(entry.yearly_rank) : null;
-  let rank = statistics?.popularityRank ?? trend?.latestPoint?.rank ?? null;
-  let rankYear = trend?.latestPoint?.year ?? null;
-  let rankBucket: string | null = null;
-  if (rank === null && entry) {
-    // 공식 통계 DB의 연도별 순위에서 가장 최근 연도를 찾는다.
-    for (const [bucket, byYear] of Object.entries(entry.yearly_rank)) {
-      for (const [yearText, value] of Object.entries(byYear)) {
-        const year = Number(yearText);
-        if (!Number.isFinite(year) || value <= 0) continue;
-        if (rankYear === null || year > rankYear || (year === rankYear && value < (rank ?? Infinity))) {
-          rankYear = year;
-          rank = value;
-          rankBucket = bucket;
-        }
-      }
-    }
-  }
+  // 이 이름을 주로 쓰는 성별 버킷을 골라, '지금의 인기'와 '인기의 흐름'이 같은
+  // 계열의 숫자가 되게 한다 (서로 다른 기준으로 다른 순위가 나오던 문제 해결).
+  const dominantGender: '남자' | '여자' | null = gender
+    ? gender.maleBirths >= gender.femaleBirths
+      ? '남자'
+      : '여자'
+    : null;
+  const rankSeries = entry ? pickRankSeries(entry.yearly_rank, dominantGender) : null;
+  const latestRankPoint = rankSeries ? rankSeries.points[rankSeries.points.length - 1] : null;
+
+  // 우선 순위 계열의 마지막 값을 쓰고, 계열이 없을 때만 delivery 통계로 물러선다.
+  const rank = latestRankPoint?.rank ?? statistics?.popularityRank ?? trend?.latestPoint?.rank ?? null;
+  const rankYear = latestRankPoint?.year ?? trend?.latestPoint?.year ?? null;
+  const rankBucketLabel = rankSeries ? rankBasisLabel(rankSeries.label) : null;
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-sm)' }}>
       <div className="v3-grid-2">
@@ -470,7 +586,7 @@ function NameStatsSection({ index, profile }: { index: DeliveryIndex; profile: V
             {rankYear !== null ? (
               <p className="v3-hint">
                 {rankYear}년 공식 통계
-                {rankBucket ? ` · ${rankBucket} 이름 기준` : ''} 순위예요.
+                {rankBucketLabel ? ` · ${rankBucketLabel} 이름 기준` : ''} 순위예요.
               </p>
             ) : null}
           </div>
