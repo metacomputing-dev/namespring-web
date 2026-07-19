@@ -34,6 +34,62 @@ const INTERACTION_KO: Record<string, string> = {
   caution_signal: '이름에 사주가 조심스러워하는 기운이 있어, 함께 읽어볼 지점이에요.',
 };
 
+/** 년지 → 띠 동물. 申은 런타임 'SIN'과 보고서 계층 별칭 'SIN_BRANCH'를 모두 받는다. */
+const ZODIAC_KO: Record<string, string> = {
+  JA: '쥐', CHUK: '소', IN: '호랑이', MYO: '토끼', JIN: '용', SA: '뱀',
+  O: '말', MI: '양', SIN: '원숭이', SIN_BRANCH: '원숭이', YU: '닭', SUL: '개', HAE: '돼지',
+};
+
+/** 월지 → 절기 계절 이름 (지지의 달은 절기 기준이라 양력 달과 다를 수 있다). */
+const SEASON_KO: Record<string, string> = {
+  IN: '초봄', MYO: '봄', JIN: '늦봄', SA: '초여름', O: '한여름', MI: '늦여름',
+  SIN: '초가을', SIN_BRANCH: '초가을', YU: '가을', SUL: '늦가을',
+  HAE: '초겨울', JA: '한겨울', CHUK: '늦겨울',
+};
+
+/**
+ * 궁합 화면의 '두 사람의 자리' 카드에 대응하는 한 사람 판.
+ * 띠·절기 계절·일간·시각 유무라는 결정론적 사실만 자리말로 엮는다.
+ */
+function MyPlaceCard({ index, profile }: { index: DeliveryIndex; profile: V3Profile }) {
+  const pillars = factOfKind(index, 'pillars');
+  if (!pillars) return null;
+  const at = (position: string) =>
+    pillars.values.find(value => value.position === position) ?? null;
+  const year = at('year');
+  const month = at('month');
+  const day = at('day');
+  if (!day) return null;
+  const zodiac = year ? ZODIAC_KO[year.branch.code] ?? null : null;
+  const season = month ? SEASON_KO[month.branch.code] ?? null : null;
+  const hourKnown = profile.birth.hour !== null;
+
+  let opening = '';
+  if (season && month) {
+    opening += `${season} ${month.branch.hangul}(${month.branch.hanja})월에 태어난 `;
+  }
+  opening += `${day.stem.hangul}(${day.stem.hanja}) 일간이에요.`;
+  if (year && zodiac) {
+    opening += ` ${year.stem.hangul}${year.branch.hangul}(${year.stem.hanja}${year.branch.hanja})년, ${zodiac}띠 해에 났어요.`;
+  }
+  const hourNote = hourKnown
+    ? '태어난 시각까지 알고 있어 여덟 글자를 모두 셈했어요.'
+    : '태어난 시각을 몰라 시주는 셈에 넣지 않고, 아는 글자만으로 정직하게 읽어요.';
+
+  return (
+    <div className="v3-card" style={{ marginTop: 'var(--space-sm)' }}>
+      <p className="v3-kicker">나의 자리</p>
+      <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+        {zodiac ? <span className="v3-badge v3-badge--accent">{zodiac}띠</span> : null}
+        {season ? <span className="v3-badge">{season} 태생</span> : null}
+        <span className="v3-badge">{hourKnown ? '여덟 글자로 읽음' : '태어난 시각 모름'}</span>
+      </div>
+      <p style={{ margin: '0.55rem 0 0' }}>{opening}</p>
+      <p style={{ margin: '0.55rem 0 0' }}>{hourNote}</p>
+    </div>
+  );
+}
+
 /**
  * 이 보고서가 실제로 셈한 값들을 궁합 화면의 요약 카드와 같은 시각 언어로 모은다.
  * 이름↔사주는 합산 점수를 두지 않는 계약(not_a_combined_balance_score)이라
@@ -56,38 +112,72 @@ function OverallComputationCard({ index }: { index: DeliveryIndex }) {
       : null;
   const strength = factOfKind(index, 'strength');
   const yongshin = factOfKind(index, 'yongshin');
+  const sajuDistribution =
+    factsOfKind(index, 'element_distribution').find(fact => fact.source === 'saju') ?? null;
+  const strongest =
+    sajuDistribution && sajuDistribution.values.length > 0
+      ? sajuDistribution.values.reduce((a, b) => (b.sharePercent > a.sharePercent ? b : a))
+      : null;
+  const faintest =
+    sajuDistribution && sajuDistribution.values.length > 0
+      ? sajuDistribution.values.reduce((a, b) => (b.sharePercent < a.sharePercent ? b : a))
+      : null;
   return (
     <div className="v3-card">
-      <div className="v3-fortune-cell-head">
-        <p className="v3-core-value" style={{ margin: 0 }}>
-          {Math.round(main.value)}
-          <span className="v3-hint" style={{ marginLeft: '0.25rem' }}>/ 100</span>
-        </p>
-        <span className="v3-badge v3-badge--accent">{main.label}</span>
-      </div>
-      <ScoreBar score={main.value} />
-      {rest.length > 0 ? (
-        <ul className="v3-plain-list" style={{ margin: '0.7rem 0 0' }}>
-          {rest.map(fact => (
-            <li key={fact.id}>
-              {fact.label} <strong>{Math.round(fact.value)}점</strong>
-            </li>
-          ))}
-        </ul>
-      ) : null}
-      {strength || yongshin?.element ? (
-        <p style={{ margin: '0.7rem 0 0' }}>
-          사주는 좋고 나쁨을 점수로 매길 대상이 아니라 결론으로 읽어요 —
-          {strength ? <> 타고난 기운은 <strong>{strength.level}</strong> 쪽이고,</> : null}
-          {yongshin?.element ? (
-            <>
-              {' '}
-              반기는 기운은 <ElementBadge element={yongshin.element} suffix="기운" /> 이에요.
-            </>
+      <div className="v3-grid-2">
+        <div>
+          <p className="v3-kicker">이름의 계산</p>
+          <div className="v3-fortune-cell-head">
+            <p className="v3-core-value" style={{ margin: 0 }}>
+              {Math.round(main.value)}
+              <span className="v3-hint" style={{ marginLeft: '0.25rem' }}>/ 100</span>
+            </p>
+            <span className="v3-badge v3-badge--accent">{main.label}</span>
+          </div>
+          <ScoreBar score={main.value} />
+          {rest.length > 0 ? (
+            <ul className="v3-plain-list" style={{ margin: '0.7rem 0 0' }}>
+              {rest.map(fact => (
+                <li key={fact.id}>
+                  {fact.label} <strong>{Math.round(fact.value)}점</strong>
+                </li>
+              ))}
+            </ul>
           ) : null}
-        </p>
-      ) : null}
-      {interactionLine ? <p style={{ margin: '0.45rem 0 0' }}>{interactionLine}</p> : null}
+        </div>
+        <div>
+          <p className="v3-kicker">사주의 결론</p>
+          <ul className="v3-plain-list">
+            {strength ? (
+              <li>타고난 기운 세기 <strong>{strength.level}</strong></li>
+            ) : null}
+            {strongest ? (
+              <li>
+                가장 짙은 기운 <ElementBadge element={strongest.element} suffix="기운" />{' '}
+                {Math.round(strongest.sharePercent)}%
+              </li>
+            ) : null}
+            {faintest ? (
+              <li>
+                가장 옅은 기운 <ElementBadge element={faintest.element} suffix="기운" />{' '}
+                {Math.round(faintest.sharePercent)}%
+              </li>
+            ) : null}
+            {yongshin?.element ? (
+              <li>
+                반기는 기운 <ElementBadge element={yongshin.element} suffix="기운" />
+                {Number.isFinite(yongshin.confidence) ? (
+                  <span className="v3-hint"> 신뢰도 {Math.round(yongshin.confidence)}%</span>
+                ) : null}
+              </li>
+            ) : null}
+          </ul>
+          <p className="v3-hint" style={{ margin: '0.55rem 0 0' }}>
+            사주는 좋고 나쁨을 점수로 매길 대상이 아니라 결론으로 읽어요.
+          </p>
+        </div>
+      </div>
+      {interactionLine ? <p style={{ margin: '0.7rem 0 0' }}>{interactionLine}</p> : null}
       <p className="v3-hint" style={{ margin: '0.7rem 0 0' }}>
         이름과 사주는 단위가 다른 계산이라 하나의 점수로 합치지 않아요. 두 사람
         사이를 셈하는 궁합의 통합 점수와 다른 점이에요.
@@ -300,6 +390,8 @@ export default function IntegratedScreen() {
       </div>
 
       <SceneryCard index={index} profile={profile} />
+
+      <MyPlaceCard index={index} profile={profile} />
 
       {meeting?.caution ? (
         <div className="v3-card v3-card--tinted" style={{ marginTop: 'var(--space-sm)' }}>
