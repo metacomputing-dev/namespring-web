@@ -99,7 +99,11 @@ async function runCase(
 
 async function main(): Promise<void> {
   // Region-resolution checks (TST on + longitude on)
-  const defaultSeoul = await runCase('default-seoul', {}, POLICY_TST_ON_LON_ON as any);
+  const explicitSeoul = await runCase(
+    'explicit-seoul',
+    { region: '서울' },
+    POLICY_TST_ON_LON_ON as any,
+  );
   const daeguRegion = await runCase('daegu-region', { region: '대구' }, POLICY_TST_ON_LON_ON as any);
   const daeguCity = await runCase('daegu-city-alias', { city: '대구' }, POLICY_TST_ON_LON_ON as any);
   const daeguBirthPlace = await runCase(
@@ -107,9 +111,9 @@ async function main(): Promise<void> {
     { birthPlace: '대구 수성구' },
     POLICY_TST_ON_LON_ON as any,
   );
-  const explicitCoordinatePriority = await runCase(
-    'explicit-coordinate-priority',
-    { region: '서울', latitude: 35.8714, longitude: 128.6014, timezone: 'Asia/Seoul' },
+  const explicitCoordinate = await runCase(
+    'explicit-coordinate',
+    { latitude: 35.8714, longitude: 128.6014, timezone: 'Asia/Seoul' },
     POLICY_TST_ON_LON_ON as any,
   );
   const boundarySeoul = await runCase(
@@ -123,12 +127,12 @@ async function main(): Promise<void> {
     POLICY_TST_ON_LON_ON as any,
   );
 
-  assertNear('default Seoul longitude correction', defaultSeoul.longitudeCorrectionMinutes, -32.088, 0.01);
+  assertNear('explicit Seoul longitude correction', explicitSeoul.longitudeCorrectionMinutes, -32.088, 0.01);
   assertNear('Daegu region longitude correction', daeguRegion.longitudeCorrectionMinutes, -25.5944, 0.01);
   assertNear('Daegu city alias longitude correction', daeguCity.longitudeCorrectionMinutes, -25.5944, 0.01);
   assertNear('Daegu birthPlace alias longitude correction', daeguBirthPlace.longitudeCorrectionMinutes, -25.5944, 0.01);
-  assertNear('Explicit coordinate priority over region', explicitCoordinatePriority.longitudeCorrectionMinutes, -25.5944, 0.01);
-  assertEqual('1989-01-10 01:30 default hour branch', defaultSeoul.hourBranch, 'JA');
+  assertNear('Explicit coordinate longitude correction', explicitCoordinate.longitudeCorrectionMinutes, -25.5944, 0.01);
+  assertEqual('1989-01-10 01:30 Seoul hour branch', explicitSeoul.hourBranch, 'JA');
   assertEqual('1989-01-10 01:30 daegu hour branch', daeguRegion.hourBranch, 'JA');
   assertEqual('Boundary 01:34 Seoul hour branch', boundarySeoul.hourBranch, 'JA');
   assertEqual('Boundary 01:34 Daegu hour branch', boundaryDaegu.hourBranch, 'CHUK');
@@ -177,11 +181,11 @@ async function main(): Promise<void> {
   assertEqual('TST off + lon off hour branch', matrixOffOff.hourBranch, 'CHUK');
 
   const results = [
-    defaultSeoul,
+    explicitSeoul,
     daeguRegion,
     daeguCity,
     daeguBirthPlace,
-    explicitCoordinatePriority,
+    explicitCoordinate,
     boundarySeoul,
     boundaryDaegu,
     matrixDefault,
