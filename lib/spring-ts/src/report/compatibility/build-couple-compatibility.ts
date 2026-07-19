@@ -23,6 +23,7 @@ import type {
   SajuPillarPositionV1,
   StrengthFactV1,
   TenGodCodeV1,
+  TimeCorrectionFactV1,
   YinYangBalanceFactV1,
   YongshinFactV1,
 } from '../delivery/types.js';
@@ -165,6 +166,11 @@ interface PersonContext {
   namePhoneticElements: FiveElementIdV1[] | null;
   namePolarity: { yang: number; yin: number } | null;
   frames: { frameType: string; luckyLevel: number }[] | null;
+  /**
+   * delivery의 time_correction fact가 준 양력(태양력) 기준 생년월일.
+   * 나이·띠 맥락 계산에서 호출자 birth보다 우선한다. fact가 없으면 null.
+   */
+  solarBirth: { year: number; month: number; day: number } | null;
 }
 
 function orderedNameCharacters(delivery: ReportDeliveryV1): NameCharacterFactV1[] {
@@ -192,9 +198,18 @@ function buildPersonContext(
   const fallbackName = key === 'a' ? '첫 번째 분' : '두 번째 분';
   const displayName = input.displayName?.trim() || fullHangul || fallbackName;
 
+  const timeCorrection: TimeCorrectionFactV1 | null = factOfKind(
+    delivery,
+    'time_correction',
+  );
+  // 출생 시각이 보정(정오 대입 등)으로 지어진 경우, 그 시주(時柱)는 근거가
+  // 아니다 — 궁합에서는 없는 기둥으로 취급해 합·충 신호를 만들지 않는다.
+  const hourImputed = timeCorrection?.inputUncertainty != null;
+
   const pillarsFact: PillarsFactV1 | null = factOfKind(delivery, 'pillars');
   const pillars: PersonContext['pillars'] = {};
   for (const value of pillarsFact?.values ?? []) {
+    if (hourImputed && value.position === 'hour') continue;
     pillars[value.position] = {
       stem: stemGlyphV1(value.stem.code),
       branch: branchGlyphV1(value.branch.code),
@@ -245,14 +260,16 @@ function buildPersonContext(
     .map(phoneticElementOfHangul)
     .filter((element): element is FiveElementIdV1 => element != null);
 
+  // 음양 표기는 계층마다 다르다: 한글('양'/'음'), 코드('YANG'/'YIN'),
+  // 그리고 실제 프로덕션 delivery의 영문('Positive'/'Negative') 전부를 센다.
   const polarityMarks = characters
     .map(fact => fact.polarity)
     .filter((polarity): polarity is string => polarity != null);
   const namePolarity =
     polarityMarks.length > 0
       ? {
-          yang: polarityMarks.filter(mark => /양|YANG/iu.test(mark)).length,
-          yin: polarityMarks.filter(mark => /음|YIN/iu.test(mark)).length,
+          yang: polarityMarks.filter(mark => /양|YANG|POSITIVE/iu.test(mark)).length,
+          yin: polarityMarks.filter(mark => /음|YIN|NEGATIVE/iu.test(mark)).length,
         }
       : null;
 
@@ -289,6 +306,13 @@ function buildPersonContext(
     namePhoneticElements: phoneticElements.length > 0 ? phoneticElements : null,
     namePolarity,
     frames,
+    solarBirth: timeCorrection
+      ? {
+          year: timeCorrection.standardLocalDateTime.year,
+          month: timeCorrection.standardLocalDateTime.month,
+          day: timeCorrection.standardLocalDateTime.day,
+        }
+      : null,
   };
 }
 
@@ -1366,13 +1390,28 @@ function crossAxis(
   b: PersonContext,
   facts: readonly NameToSajuCrossFactV1[],
 ): AxisDraft {
+  // 방향이 빠진 이유를 실제 원인에 귀속한다: 이름 쪽이 비었으면
+  // NAME_FACTS_MISSING(이름 주인), 사주 쪽 용신·기신이 둘 다 없으면
+  // YONGSHIN_MISSING(사주 주인). nameToSajuCrossFacts의 스킵 조건과 같은 순서다.
+  const missingReason = (
+    nameOwner: PersonContext,
+    sajuOwner: PersonContext,
+  ): CompatibilityReasonV1 =>
+    !nameOwner.nameElements || nameOwner.nameElements.length === 0
+      ? { code: 'NAME_FACTS_MISSING', person: nameOwner.key }
+      : { code: 'YONGSHIN_MISSING', person: sajuOwner.key };
+  const presentDirections = new Set(facts.map(fact => fact.direction));
+  const missingReasons: CompatibilityReasonV1[] = [];
+  if (!presentDirections.has('a_name_to_b_saju')) missingReasons.push(missingReason(a, b));
+  if (!presentDirections.has('b_name_to_a_saju')) missingReasons.push(missingReason(b, a));
+
   if (facts.length === 0) {
     return {
       id: 'cross_name_saju',
       domain: 'cross',
       label: '이름이 상대 사주에 주는 기운',
       score: 0,
-      availability: unavailable({ code: 'NAME_FACTS_MISSING' }),
+      availability: unavailable(...missingReasons),
       factRefs: [],
       headline: '이름과 사주를 교차해 볼 정보가 부족했어요.',
       paragraphs: [],
@@ -1421,7 +1460,7 @@ function crossAxis(
     domain: 'cross',
     label: '이름이 상대 사주에 주는 기운',
     score,
-    availability: facts.length === 2 ? READY : limited({ code: 'NAME_FACTS_MISSING' }),
+    availability: facts.length === 2 ? READY : limited(...missingReasons),
     factRefs: facts.map(fact => fact.id),
     headline:
       score >= 75
@@ -1566,10 +1605,23 @@ export function buildCoupleCompatibilityV1(
 
   // 짝의 맥락(관계·나이)을 먼저 정한다 — 모든 카피의 프레임이 여기서 갈린다.
   // context fact는 CompatibilityFactV1 합집합이 아니므로 facts[]에는 싣지 않는다.
-  const contextFact = derivePairContext(request);
+  // 띠동갑 판정에는 실제 년지 일치를, 나이 셈에는 delivery의 양력 기준일을 넘긴다.
+  const contextFact = derivePairContext(request, {
+    sameYearBranch:
+      a.yearBranch && b.yearBranch ? a.yearBranch.code === b.yearBranch.code : null,
+    birthA: a.solarBirth,
+    birthB: b.solarBirth,
+  });
   const framing = contextFact.framing;
 
   // 카피의 목소리: 프레임 + (guardian 서사용) 나이 위·아래의 표시명.
+  // 나이 위쪽이 미성년(청소년)이면 guardian 카피가 '어른'이라 부르지 않도록 표시한다.
+  const elderBand =
+    contextFact.olderPerson === 'a'
+      ? contextFact.bandA
+      : contextFact.olderPerson === 'b'
+        ? contextFact.bandB
+        : null;
   const voice: CopyVoiceV1 = {
     framing,
     elderName:
@@ -1584,6 +1636,7 @@ export function buildCoupleCompatibilityV1(
         : contextFact.olderPerson === 'b'
           ? a.displayName
           : null,
+    elderIsMinor: elderBand === 'teen' || elderBand === 'child',
   };
 
   const facts: CompatibilityFactV1[] = [];

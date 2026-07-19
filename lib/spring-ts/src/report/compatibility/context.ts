@@ -26,7 +26,7 @@ import type {
 /* 나이 계산                                                            */
 /* ================================================================== */
 
-interface BirthYmd {
+export interface BirthYmd {
   readonly year: number;
   readonly month: number;
   readonly day: number;
@@ -67,30 +67,47 @@ function bandOf(age: number): CompatAgeBandV1 {
 /* 짝 맥락 fact 파생                                                    */
 /* ================================================================== */
 
+/** derivePairContext에 빌더가 delivery facts에서 파생해 넘기는 보조 근거. */
+export interface PairContextEvidence {
+  /**
+   * 두 사람의 실제 년지(띠)가 같은가. 년지 정보가 한쪽이라도 없으면 null.
+   * 띠동갑 판정은 달력 나이차만으로 하지 않고 실제 년지 일치를 요구한다.
+   */
+  readonly sameYearBranch?: boolean | null;
+  /**
+   * delivery의 time_correction fact가 준 양력(태양력) 기준 생년월일.
+   * 있으면 호출자가 넘긴 birth보다 우선한다 — 음력 입력의 원본 연도가
+   * 나이 셈을 흔드는 것을 막는다.
+   */
+  readonly birthA?: BirthYmd | null;
+  readonly birthB?: BirthYmd | null;
+}
+
 /**
  * 요청과 anchorDate에서 짝의 맥락 fact를 결정론적으로 파생한다.
  *
  * 프레임 규칙(우선순위 순):
  *  1. 둘 다 아이            → 'kids'
- *  2. 한쪽만 아이           → 'guardian'
- *  3. 아이·청소년이 포함되면 요청과 무관하게 'couple' 금지
- *     (가족 요청에 18년 이상 차이면 'guardian', 그 외 'companion')
+ *  2. 한쪽만 아이           → 'guardian' (돌봄 프레임은 아이가 포함될 때만)
+ *  3. 아이·청소년이 포함되면 요청과 무관하게 'couple' 금지 → 'companion'
  *  4. 성인끼리 romance 요청  → 'couple'
- *  5. family 요청 + 18년 이상 차이 → 'guardian', 작은 차이 → 'companion'
- *  6. 그 밖의 모든 경우      → 'companion'
+ *  5. 그 밖의 모든 경우      → 'companion'
+ *     (family + 18년 이상 차이의 성인 짝은 guardian이 아니라 companion —
+ *      양육의 언어 대신 돌봄의 결 노트만 한 줄 얹는다.)
  *
  * 생년월일이 없으면 나이 값은 null로 두고, 프레임은 요청된 관계를
  * 존중한다(호출자의 선언을 신뢰) — 미성년 판정은 근거가 있을 때만 한다.
  */
 export function derivePairContext(
   request: CoupleCompatibilityRequestV1,
+  evidence: PairContextEvidence = {},
 ): PairContextFactV1 {
   const requestedRelationship: CompatRelationshipV1 =
     request.relationship ?? 'unspecified';
   const anchor = parseIsoDate(request.a.delivery.anchorDate);
 
-  const birthA = request.a.birth ?? null;
-  const birthB = request.b.birth ?? null;
+  const birthA = evidence.birthA ?? request.a.birth ?? null;
+  const birthB = evidence.birthB ?? request.b.birth ?? null;
 
   const ageA = birthA && anchor ? fullAgeAt(birthA, anchor) : null;
   const ageB = birthB && anchor ? fullAgeAt(birthB, anchor) : null;
@@ -113,9 +130,15 @@ export function derivePairContext(
           : 'same'
       : null;
   const sameAge = ageGapYears != null ? ageGapYears === 0 : null;
+  // 띠동갑은 "12년 차 + 실제 년지 일치"일 때만 참이다. 입춘 전 출생처럼
+  // 달력 연도와 사주 년지가 어긋나는 경우, 년지가 다르면 false,
+  // 년지를 모르면 null로 두고 지어내지 않는다.
+  const sameYearBranch = evidence.sameYearBranch ?? null;
   const twelveGapSameZodiac =
     ageGapYears != null
       ? ageGapYears > 0 && ageGapYears % 12 === 0
+        ? sameYearBranch
+        : false
       : null;
 
   const childInvolved = bandA === 'child' || bandB === 'child';
@@ -127,20 +150,13 @@ export function derivePairContext(
   } else if (childInvolved) {
     framing = 'guardian';
   } else if (teenInvolved) {
-    // 청소년 포함: 연애 프레임 금지. 가족 요청에 세대 차이가 크면 돌봄 프레임.
-    framing =
-      requestedRelationship === 'family' && ageGapYears != null && ageGapYears >= 18
-        ? 'guardian'
-        : 'companion';
+    // 청소년 포함: 연애 프레임 금지. 아이가 없으므로 양육 프레임도 쓰지 않는다.
+    framing = 'companion';
   } else if (requestedRelationship === 'romance') {
     framing = 'couple';
-  } else if (
-    requestedRelationship === 'family'
-    && ageGapYears != null
-    && ageGapYears >= 18
-  ) {
-    framing = 'guardian';
   } else {
+    // 성인끼리의 가족은 나이차가 커도 어른-아이 양육 프레임이 아니다 —
+    // companion으로 읽고, 돌봄의 결은 buildContextNotes가 한 줄로 얹는다.
     framing = 'companion';
   }
 
@@ -193,6 +209,10 @@ export function buildContextNotes(
   const bothAdult =
     (fact.bandA === 'adult' || fact.bandA === 'senior')
     && (fact.bandB === 'adult' || fact.bandB === 'senior');
+  // guardian 짝에서 나이 위쪽이 미성년(청소년)이면 '어른'이라 부르지 않는다.
+  const elderBand =
+    fact.olderPerson === 'a' ? fact.bandA : fact.olderPerson === 'b' ? fact.bandB : null;
+  const elderIsMinor = elderBand === 'teen' || elderBand === 'child';
 
   /* --- 관계 라벨: 짝이 스스로 붙인 이름을 첫 문장이 그대로 되울린다 --- */
   const label = fact.relationshipLabel ?? null;
@@ -212,7 +232,9 @@ export function buildContextNotes(
   } else if (fact.framing === 'guardian') {
     notes.push(
       (labelSentence ? `${labelSentence} ` : '')
-      + '어른과 아이의 짝은 좋고 나쁨의 잣대가 아니라 돌봄과 성장의 궁합으로 읽어요. '
+      + (elderIsMinor
+        ? '손위와 손아래의 짝은 좋고 나쁨의 잣대가 아니라 돌봄과 성장의 궁합으로 읽어요. '
+        : '어른과 아이의 짝은 좋고 나쁨의 잣대가 아니라 돌봄과 성장의 궁합으로 읽어요. ')
       + '아래의 축들도 "잘 맞는가"보다 "어떻게 이끌어 주고 어떻게 함께 자라는가"의 언어로 읽어 주세요.',
     );
   } else if (labelSentence) {
@@ -232,9 +254,17 @@ export function buildContextNotes(
     );
   }
   if (gap === 4 && yearBranchRelations?.includes('samhap')) {
-    notes.push(
-      '"네 살 차이는 궁합도 안 본다"는 옛말이 있지요. 네 살 차이의 띠는 실제로 삼합(三合)의 짝이라 이 속설에는 명리의 근거가 있는데, 두 분이 바로 그 배치예요.',
-    );
+    // 혼인 속설("궁합도 안 본다")은 성인 연애·부부 프레임에서만 인용한다.
+    // companion에는 중립적인 삼합 어울림 문장만, kids·guardian에는 아무것도 얹지 않는다.
+    if (fact.framing === 'couple') {
+      notes.push(
+        '"네 살 차이는 궁합도 안 본다"는 옛말이 있지요. 네 살 차이의 띠는 실제로 삼합(三合)의 짝이라 이 속설에는 명리의 근거가 있는데, 두 분이 바로 그 배치예요.',
+      );
+    } else if (fact.framing === 'companion') {
+      notes.push(
+        '네 살 차이의 두 띠는 실제로 삼합(三合)의 자리에 있어요. 뜻과 방향이 같은 쪽을 보는 어울림이라, 함께 무언가를 도모할 때 합이 잘 맞는 배치예요.',
+      );
+    }
   }
   if (gap === 6 && yearBranchRelations?.includes('chung')) {
     notes.push(
@@ -257,12 +287,19 @@ export function buildContextNotes(
   }
 
   /* --- 관계의 결(tone): 위계·돌봄의 자리에는 맞는 지혜를 한 줄 얹는다.
-   *     peer는 기본 결이라 따로 문장을 더하지 않는다. --- */
+   *     peer는 기본 결이라 따로 문장을 더하지 않는다.
+   *     성인 가족의 큰 나이차(18년 이상)는 guardian 프레임 대신
+   *     companion + 돌봄의 결 한 줄로 읽는다. --- */
+  const familyElderCare =
+    fact.framing === 'companion'
+    && fact.requestedRelationship === 'family'
+    && gap != null
+    && gap >= 18;
   if (fact.relationshipTone === 'hierarchy') {
     notes.push(
       '위계가 있는 자리일수록 합은 신뢰를 쌓는 데 쓰고, 충은 절차와 예의로 다듬는 것이 지혜예요.',
     );
-  } else if (fact.relationshipTone === 'care') {
+  } else if (fact.relationshipTone === 'care' || familyElderCare) {
     notes.push(
       '돌봄이 흐르는 자리는 주고받음이 한쪽으로 기울기 마련이에요 — 받는 쪽의 작은 표현이 그 기울기를 균형으로 바꿔 줘요.',
     );

@@ -22,8 +22,25 @@ const MONTHS = Array.from({ length: 12 }, (_, i) => i + 1);
 const HOURS = Array.from({ length: 24 }, (_, i) => i);
 const MINUTES = Array.from({ length: 60 }, (_, i) => i);
 
-function daysInMonth(year: number, month: number): number {
+function daysInMonth(
+  year: number,
+  month: number,
+  calendarType: 'solar' | 'lunar',
+): number {
+  // 음력 달은 29일 또는 30일 — 그레고리력 달 길이와 무관하게 30일까지 허용한다.
+  if (calendarType === 'lunar') return 30;
   return new Date(year, month, 0).getDate();
+}
+
+/** 연·월·달력 기준이 바뀌어도 일(day)이 그 달의 범위를 벗어나지 않게 자른다. */
+function clampDay(
+  day: number,
+  year: number,
+  month: number,
+  calendarType: 'solar' | 'lunar',
+): number {
+  const max = daysInMonth(year, month, calendarType);
+  return Number.isFinite(max) && max >= 1 ? Math.min(day, max) : day;
 }
 
 export default function PersonForm({
@@ -122,7 +139,7 @@ export default function PersonForm({
       birth: {
         year,
         month,
-        day,
+        day: clampDay(day, year, month, calendarType),
         hour: timeUnknown ? null : hour,
         minute: timeUnknown ? null : minute,
         calendarType,
@@ -190,7 +207,11 @@ export default function PersonForm({
             min={1900}
             max={2035}
             value={year}
-            onChange={event => setYear(Number(event.target.value))}
+            onChange={event => {
+              const nextYear = Number(event.target.value);
+              setYear(nextYear);
+              setDay(current => clampDay(current, nextYear, month, calendarType));
+            }}
           />
         </div>
         <div className="v3-field">
@@ -198,7 +219,11 @@ export default function PersonForm({
           <select
             className="v3-select"
             value={month}
-            onChange={event => setMonth(Number(event.target.value))}
+            onChange={event => {
+              const nextMonth = Number(event.target.value);
+              setMonth(nextMonth);
+              setDay(current => clampDay(current, year, nextMonth, calendarType));
+            }}
           >
             {MONTHS.map(m => (
               <option key={m} value={m}>{m}월</option>
@@ -209,10 +234,10 @@ export default function PersonForm({
           <label className="v3-label">일</label>
           <select
             className="v3-select"
-            value={Math.min(day, daysInMonth(year, month))}
+            value={clampDay(day, year, month, calendarType)}
             onChange={event => setDay(Number(event.target.value))}
           >
-            {Array.from({ length: daysInMonth(year, month) }, (_, i) => i + 1).map(d => (
+            {Array.from({ length: daysInMonth(year, month, calendarType) }, (_, i) => i + 1).map(d => (
               <option key={d} value={d}>{d}일</option>
             ))}
           </select>
@@ -224,7 +249,11 @@ export default function PersonForm({
           <button
             type="button"
             aria-pressed={calendarType === 'solar'}
-            onClick={() => setCalendarType('solar')}
+            onClick={() => {
+              setCalendarType('solar');
+              // 음력 30일 상태로 양력 전환 시에도 상태가 그 달 범위를 벗어나지 않게 한다.
+              setDay(current => clampDay(current, year, month, 'solar'));
+            }}
           >
             양력
           </button>

@@ -331,6 +331,14 @@ function tenGodAnalysisFact(saju: SajuSummary): TenGodAnalysisFactV1 | null {
   };
 }
 
+/**
+ * 자형(自刑)이 성립하는 네 지지. 계층에 따라 원시 코드(JIN/O/YU/HAE) 또는
+ * 한글 라벨(진/오/유/해)로 오므로 둘 다 받는다.
+ */
+const JAHYEONG_SELF_BRANCHES: ReadonlySet<string> = new Set([
+  'JIN', 'O', 'YU', 'HAE', '진', '오', '유', '해',
+]);
+
 function natalRelationsFact(saju: SajuSummary): NatalRelationsFactV1 {
   if (!Array.isArray(saju.cheonganRelations)
     || !Array.isArray(saju.jijiRelations)
@@ -383,9 +391,16 @@ function natalRelationsFact(saju: SajuSummary): NatalRelationsFactV1 {
     const branches = relation.branches.map((branch) =>
       boundedEngineText(branch, 'JIJI_RELATION_BRANCH_INVALID', 16));
     // 자형(辰辰·午午·酉酉·亥亥)은 같은 지지 두 글자가 본질이므로 중복을 허용한다.
-    // 어댑터 계층에 따라 타입이 원시 코드 또는 한글 라벨로 온다.
+    // 어댑터 계층에 따라 타입·지지가 원시 코드 또는 한글 라벨로 온다.
+    // 면제는 좁게 잠근다: 정확히 두 글자, 서로 같고, 자형 네 지지 중 하나일 때만.
     const isJahyeong = relation.type === 'JA_HYEONG' || relation.type === '자형';
-    if (!isJahyeong && new Set(branches).size !== branches.length) {
+    if (isJahyeong) {
+      if (branches.length !== 2
+        || branches[0] !== branches[1]
+        || !JAHYEONG_SELF_BRANCHES.has(branches[0])) {
+        throw new ReportDeliveryContractError('JIJI_RELATION_BRANCH_INVALID');
+      }
+    } else if (new Set(branches).size !== branches.length) {
       throw new ReportDeliveryContractError('JIJI_RELATION_BRANCH_INVALID');
     }
     return {

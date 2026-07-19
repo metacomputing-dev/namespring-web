@@ -372,6 +372,13 @@ function validateMetricUnitRange(
 }
 
 const ELEMENT_IDS = new Set<FiveElementIdV1>(['wood', 'fire', 'earth', 'metal', 'water']);
+/**
+ * 자형(自刑)이 성립하는 네 지지. 계층에 따라 원시 코드(JIN/O/YU/HAE) 또는
+ * 한글 라벨(진/오/유/해)로 오므로 둘 다 받는다.
+ */
+const JAHYEONG_SELF_BRANCHES = new Set([
+  'JIN', 'O', 'YU', 'HAE', '진', '오', '유', '해',
+]);
 const FACT_KINDS = new Set([
   'metric',
   'day_master',
@@ -1542,12 +1549,20 @@ function strictFact(value: unknown): ReportFactV1 {
       );
       strictBoundedText(relation.type, 'JIJI_RELATION_TYPE', 40);
       // 자형은 같은 지지의 반복이 정당하므로 중복 검사에서 제외한다.
-      // 어댑터 계층에 따라 타입이 원시 코드 또는 한글 라벨로 온다.
+      // 어댑터 계층에 따라 타입·지지가 원시 코드 또는 한글 라벨로 온다.
+      // 면제는 좁게 잠근다: 정확히 두 글자, 서로 같고, 자형 네 지지 중 하나일 때만.
+      const isJahyeongRelation = relation.type === 'JA_HYEONG' || relation.type === '자형';
       strictStringArray(relation.branches, 'JIJI_RELATION_BRANCHES', {
         min: 2,
-        max: 4,
-        unique: relation.type !== 'JA_HYEONG' && relation.type !== '자형',
+        max: isJahyeongRelation ? 2 : 4,
+        unique: !isJahyeongRelation,
       });
+      if (isJahyeongRelation) {
+        const [first, second] = relation.branches as string[];
+        if (first !== second || !JAHYEONG_SELF_BRANCHES.has(first)) {
+          contractFail('JIJI_RELATION_BRANCHES');
+        }
+      }
       for (const branch of relation.branches) {
         strictBoundedText(branch, 'JIJI_RELATION_BRANCHES', 16);
       }

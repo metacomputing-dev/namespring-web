@@ -155,3 +155,11 @@ export function saveCompatRelationship(selection: CompatRelationshipSelection) {
     /* storage unavailable */
   }
 }
+
+export function clearCompatRelationship() {
+  try {
+    sessionStorage.removeItem(RELATIONSHIP_KEY);
+  } catch {
+    /* storage unavailable */
+  }
+}

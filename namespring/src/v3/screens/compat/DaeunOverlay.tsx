@@ -45,9 +45,17 @@ export interface PersonCurve {
   anchorYear: number | null;
 }
 
-/** delivery에서 대운 별점 곡선을 달력 연도로 옮겨 꺼낸다. 부족하면 null. */
-function extractCurve(delivery: ReportDeliveryV1, birthYear: number): PersonCurve | null {
+/**
+ * delivery에서 대운 별점 곡선을 달력 연도로 옮겨 꺼낸다. 부족하면 null.
+ * 달력 연도의 기준 연도는 엔진의 time_correction fact가 알려 주는
+ * 표준시 양력 생년(음력 입력 변환이 반영된 값)을 우선 쓰고,
+ * 그 fact가 없을 때만 입력된 프로필 연도(fallbackBirthYear)로 되돌아간다 —
+ * 음력 11·12월생의 곡선이 한 해 어긋나지 않게 하기 위해서다.
+ */
+function extractCurve(delivery: ReportDeliveryV1, fallbackBirthYear: number): PersonCurve | null {
   const index = indexDelivery(delivery);
+  const timeCorrection = factOfKind(index, 'time_correction');
+  const birthYear = timeCorrection?.standardLocalDateTime?.year ?? fallbackBirthYear;
   const daeun = factOfKind(index, 'daeun_timeline');
   if (!daeun) return null;
   const lifeBlock = index.surfaceById

@@ -452,7 +452,19 @@ export function ElementPairCompareSection({ result }: { result: CoupleCompatibil
 /* 여덟 기둥 교차 신호 브라우저                                            */
 /* ================================================================== */
 
-export function CrossSignalBrowser({ result }: { result: CoupleCompatibilityV1 }) {
+export function CrossSignalBrowser({
+  result,
+  title,
+  lede,
+}: {
+  result: CoupleCompatibilityV1;
+  /**
+   * 있으면 칩이 하나라도 있을 때만 Section으로 감싸 그린다 —
+   * 내용 없는 제목·리드만 남는 빈 섹션을 만들지 않기 위해서다.
+   */
+  title?: string;
+  lede?: string;
+}) {
   const [selected, setSelected] = useState<string | null>(null);
   const aName = result.persons.a.displayName;
   const bName = result.persons.b.displayName;
@@ -509,7 +521,7 @@ export function CrossSignalBrowser({ result }: { result: CoupleCompatibilityV1 }
 
   const open = chips.find(chip => chip.id === selected) ?? null;
 
-  return (
+  const card = (
     <div className="v3-card">
       <p className="v3-kicker">여덟 기둥 교차 신호</p>
       <p className="v3-hint" style={{ margin: '0 0 0.6rem' }}>
@@ -536,6 +548,15 @@ export function CrossSignalBrowser({ result }: { result: CoupleCompatibilityV1 }
       ) : null}
     </div>
   );
+
+  if (title) {
+    return (
+      <Section title={title} lede={lede}>
+        {card}
+      </Section>
+    );
+  }
+  return card;
 }
 
 /* ================================================================== */

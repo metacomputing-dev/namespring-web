@@ -1096,6 +1096,29 @@
     --color-ink-3: oklch(0.575 0.016 132);
     --color-rule: oklch(0.875 0.018 110);
     --color-rule-strong: oklch(0.790 0.024 112);
+    --color-accent: oklch(0.430 0.082 148);
+    --color-accent-ink: oklch(0.982 0.010 108);
+    --color-accent-soft: oklch(0.620 0.070 142);
+    --color-accent-quiet: oklch(0.884 0.044 138);
+    --color-chart-line-a: oklch(0.480 0.105 148);
+    --color-chart-area-a: oklch(0.480 0.105 148 / 0.18);
+    --color-chart-line-b: oklch(0.560 0.105 78);
+    --color-chart-area-b: oklch(0.560 0.105 78 / 0.18);
+    --color-wood: oklch(0.420 0.080 148);
+    --color-wood-bg: oklch(0.955 0.045 150);
+    --color-wood-line: oklch(0.870 0.065 148);
+    --color-fire: oklch(0.495 0.120 28);
+    --color-fire-bg: oklch(0.955 0.038 30);
+    --color-fire-line: oklch(0.870 0.055 28);
+    --color-earth: oklch(0.500 0.090 70);
+    --color-earth-bg: oklch(0.960 0.038 78);
+    --color-earth-line: oklch(0.880 0.060 78);
+    --color-metal: oklch(0.440 0.018 220);
+    --color-metal-bg: oklch(0.955 0.010 220);
+    --color-metal-line: oklch(0.870 0.014 220);
+    --color-water: oklch(0.430 0.110 235);
+    --color-water-bg: oklch(0.945 0.038 235);
+    --color-water-line: oklch(0.865 0.055 235);
   }
 
   .v3-root {

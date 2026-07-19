@@ -146,6 +146,8 @@ function RelationshipPicker({
             if (event.key === 'Escape') setOpen(false);
             if (event.key === 'Enter') {
               event.preventDefault();
+              // 빈 입력에서의 Enter(키보드 닫기 등)가 첫 프리셋을 멋대로 고르지 않게 한다.
+              if (!trimmed) return;
               if (matches.length > 0) pickPreset(matches[0]);
               else pickCustom();
             }

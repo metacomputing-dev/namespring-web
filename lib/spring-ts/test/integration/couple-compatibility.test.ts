@@ -153,6 +153,21 @@ interface FixtureSpec {
     hanja?: string;
   }[];
   frames?: number[];
+  /**
+   * time_correction fact 합성 knob. standardLocalDateTime은 엔진의 양력
+   * 기준일이고, inputUncertainty가 non-null이면 시각 보정(정오 대입)이
+   * 있었다는 뜻이다. 생략하면 fact 자체를 싣지 않는다(기존 동작).
+   */
+  timeCorrection?: {
+    standardLocalDateTime: {
+      year: number;
+      month: number;
+      day: number;
+      hour: number;
+      minute: number;
+    };
+    inputUncertainty?: Record<string, unknown> | null;
+  };
 }
 
 const STEM_KO_TO_CODE: Record<string, string> = {
@@ -276,6 +291,19 @@ function makeDelivery(spec: FixtureSpec): ReportDeliveryV1 {
       luckyLevel,
     } as ReportFactV1);
   });
+  if (spec.timeCorrection) {
+    facts.push({
+      id: 'saju.time-correction',
+      domain: 'saju',
+      method: 'test',
+      kind: 'time_correction',
+      input: {},
+      inputUncertainty: spec.timeCorrection.inputUncertainty ?? null,
+      lunarConversion: null,
+      location: null,
+      standardLocalDateTime: spec.timeCorrection.standardLocalDateTime,
+    } as unknown as ReportFactV1);
+  }
   if (spec.gishin || spec.yongshin) {
     facts.push({
       id: 'interaction.name-saju',
@@ -511,16 +539,49 @@ assert.ok(
 // 동갑 노트도 함께 실린다
 assert.ok(kidsResult.context.notes.some(note => note.includes('동갑')));
 
-// (d) 띠동갑: 12년 차 성인 → twelveGapSameZodiac + 띠동갑 노트
+// (d) 띠동갑: 12년 차 + 실제 년지 일치 → twelveGapSameZodiac + 띠동갑 노트
+//     (personA의 년지는 진 — 상대도 년지가 진이어야 띠동갑이 성립한다)
+const personBSameZodiac = makeDelivery({
+  analysisId: 'analysis-b-zodiac',
+  pillars: { year: ['임', '진'], month: ['기', '해'], day: ['기', '축'], hour: ['을', '축'] },
+});
 const zodiacResult = buildCoupleCompatibilityV1({
   a: { delivery: personA, displayName: '김단우', gender: 'male', birth: { year: 1990, month: 2, day: 2 } },
-  b: { delivery: personB, displayName: '문가람', gender: 'female', birth: { year: 2002, month: 8, day: 8 } },
+  b: { delivery: personBSameZodiac, displayName: '문가람', gender: 'female', birth: { year: 2002, month: 8, day: 8 } },
   relationship: 'romance',
 });
 assert.equal(zodiacResult.context.fact.framing, 'couple');
 assert.equal(zodiacResult.context.fact.ageGapYears, 12);
 assert.equal(zodiacResult.context.fact.twelveGapSameZodiac, true);
 assert.ok(zodiacResult.context.notes.some(note => note.includes('띠동갑')));
+
+// (d-1) 12년 차라도 실제 년지가 다르면(입춘 전 출생 등) 띠동갑이 아니다 —
+//       personA(진) × personB(유): 달력상 12년 차이지만 띠가 다르다.
+const zodiacMismatch = buildCoupleCompatibilityV1({
+  a: { delivery: personA, displayName: '김단우', gender: 'male', birth: { year: 1990, month: 1, day: 20 } },
+  b: { delivery: personB, displayName: '문가람', gender: 'female', birth: { year: 2002, month: 6, day: 1 } },
+  relationship: 'romance',
+});
+assert.equal(zodiacMismatch.context.fact.ageGapYears, 12);
+assert.equal(zodiacMismatch.context.fact.twelveGapSameZodiac, false);
+assert.ok(zodiacMismatch.context.notes.every(note => !note.includes('띠동갑')));
+
+// (d-2) 년지 정보가 없으면 지어내지 않는다 → null + 노트 없음
+const zodiacUnknown = buildCoupleCompatibilityV1({
+  a: {
+    delivery: makeDelivery({ analysisId: 'zodiac-unknown-a', pillars: { day: ['병', '자'] } }),
+    fullHangulName: '홍길동',
+    birth: { year: 1990, month: 2, day: 2 },
+  },
+  b: {
+    delivery: makeDelivery({ analysisId: 'zodiac-unknown-b', pillars: { day: ['임', '미'] } }),
+    fullHangulName: '성춘향',
+    birth: { year: 2002, month: 8, day: 8 },
+  },
+});
+assert.equal(zodiacUnknown.context.fact.ageGapYears, 12);
+assert.equal(zodiacUnknown.context.fact.twelveGapSameZodiac, null);
+assert.ok(zodiacUnknown.context.notes.every(note => !note.includes('띠동갑')));
 
 // (e) 프레임 분기 포함 결정론: kids 시나리오 재실행도 동일해야 한다
 const kidsAgain = buildCoupleCompatibilityV1({
@@ -712,6 +773,256 @@ const labeledAgain = buildCoupleCompatibilityV1({
 assert.deepEqual(
   JSON.parse(JSON.stringify(labeledAgain)),
   JSON.parse(JSON.stringify(labeledResult)),
+);
+
+/* ------------------------------------------------------------------ */
+/* 10. 이름 음양: 프로덕션 영문 표기('Positive'/'Negative')도 정확히 센다     */
+/* ------------------------------------------------------------------ */
+
+const englishPolarityA = makeDelivery({
+  analysisId: 'polarity-en-a',
+  nameChars: [
+    { hangul: '김', position: 'surname', index: 0, element: 'wood', polarity: 'Positive', hanja: '金' },
+    { hangul: '단', position: 'givenName', index: 0, element: 'fire', polarity: 'Positive', hanja: '丹' },
+    { hangul: '우', position: 'givenName', index: 1, element: 'earth', polarity: 'Negative', hanja: '宇' },
+  ],
+});
+const englishPolarityB = makeDelivery({
+  analysisId: 'polarity-en-b',
+  nameChars: [
+    { hangul: '문', position: 'surname', index: 0, element: 'water', polarity: 'Negative', hanja: '文' },
+    { hangul: '가', position: 'givenName', index: 0, element: 'wood', polarity: 'Positive', hanja: '嘉' },
+    { hangul: '람', position: 'givenName', index: 1, element: 'fire', polarity: 'Negative', hanja: '藍' },
+  ],
+});
+const englishPolarityResult = buildCoupleCompatibilityV1({
+  a: { delivery: englishPolarityA, displayName: '김단우' },
+  b: { delivery: englishPolarityB, displayName: '문가람' },
+});
+const englishPolarityFact = englishPolarityResult.facts.find(
+  (fact): fact is Extract<typeof fact, { kind: 'name_polarity_pair' }> =>
+    fact.kind === 'name_polarity_pair',
+)!;
+assert.equal(englishPolarityFact.aYang, 2);
+assert.equal(englishPolarityFact.aYin, 1);
+assert.equal(englishPolarityFact.bYang, 1);
+assert.equal(englishPolarityFact.bYin, 2);
+const englishPolarityAxis = englishPolarityResult.axes.find(
+  axis => axis.id === 'name_polarity',
+)!;
+// 둘 다 음·양 혼합 → 76점의 혼합 분기여야 한다 (전부 0으로 세던 회귀 방지)
+assert.equal(englishPolarityAxis.score, 76);
+assert.ok(englishPolarityAxis.paragraphs[0].includes('음과 양이 섞여 있어'));
+
+/* ------------------------------------------------------------------ */
+/* 11. 지지 혼합 카피의 조사: 해(害)·파(破)는 '가'를 쓴다                     */
+/* ------------------------------------------------------------------ */
+
+// 인해 = 육합 + 파 (선합후파) → 혼합 헤드라인의 조사가 받침 규칙을 따라야 한다
+const inhaeResult = buildCoupleCompatibilityV1({
+  a: { delivery: makeDelivery({ analysisId: 'inhae-a', pillars: { day: ['갑', '인'] } }) },
+  b: { delivery: makeDelivery({ analysisId: 'inhae-b', pillars: { day: ['임', '해'] } }) },
+});
+const inhaeAxis = inhaeResult.axes.find(axis => axis.id === 'saju_day_branch')!;
+assert.ok(
+  inhaeAxis.headline.includes('파(破)가 함께 있어요'),
+  `혼합 헤드라인 조사: ${inhaeAxis.headline}`,
+);
+assert.ok(!JSON.stringify(inhaeResult.axes).includes('파(破)이 '));
+
+/* ------------------------------------------------------------------ */
+/* 12. 네 살 차 삼합 속설: 혼인 속설은 couple 프레임에서만 인용한다           */
+/* ------------------------------------------------------------------ */
+
+// 년지 자+진 = 삼합(수국) 반합. 네 살 차 짝을 프레임별로 돌려 본다.
+const samhapYearA = makeDelivery({
+  analysisId: 'samhap-year-a',
+  pillars: { year: ['갑', '자'], day: ['갑', '자'] },
+});
+const samhapYearB = makeDelivery({
+  analysisId: 'samhap-year-b',
+  pillars: { year: ['무', '진'], day: ['무', '진'] },
+});
+const proverbPair = (
+  aBirth: { year: number; month: number; day: number },
+  bBirth: { year: number; month: number; day: number },
+  relationship?: 'romance' | 'friendship' | 'family',
+) =>
+  buildCoupleCompatibilityV1({
+    a: { delivery: samhapYearA, fullHangulName: '김하늘', birth: aBirth },
+    b: { delivery: samhapYearB, fullHangulName: '이바다', birth: bBirth },
+    ...(relationship ? { relationship } : {}),
+  });
+
+// couple: 속설 인용
+const proverbCouple = proverbPair(
+  { year: 1990, month: 3, day: 3 },
+  { year: 1994, month: 3, day: 3 },
+  'romance',
+);
+assert.equal(proverbCouple.context.fact.framing, 'couple');
+assert.ok(proverbCouple.context.notes.some(note => note.includes('궁합도 안 본다')));
+
+// companion: 속설 없이 중립적인 삼합 어울림 문장만
+const proverbCompanion = proverbPair(
+  { year: 1990, month: 3, day: 3 },
+  { year: 1994, month: 3, day: 3 },
+  'friendship',
+);
+assert.equal(proverbCompanion.context.fact.framing, 'companion');
+assert.ok(proverbCompanion.context.notes.every(note => !note.includes('궁합도 안 본다')));
+assert.ok(proverbCompanion.context.notes.some(note => note.includes('삼합(三合)')));
+
+// kids: 혼인 속설도 삼합 문장도 얹지 않는다
+const proverbKids = proverbPair(
+  { year: 2015, month: 5, day: 5 },
+  { year: 2019, month: 5, day: 5 },
+);
+assert.equal(proverbKids.context.fact.framing, 'kids');
+assert.ok(proverbKids.context.notes.every(note => !note.includes('궁합도 안 본다')));
+assert.ok(proverbKids.context.notes.every(note => !note.includes('삼합(三合)')));
+
+/* ------------------------------------------------------------------ */
+/* 13. guardian 프레임의 호칭 안전성                                       */
+/* ------------------------------------------------------------------ */
+
+// (a) 성인끼리의 가족은 나이차가 커도 guardian(양육 프레임)이 아니다 —
+//     companion으로 읽고 돌봄의 결 노트만 얹는다.
+const adultFamilyResult = buildCoupleCompatibilityV1({
+  a: {
+    delivery: makeDelivery({ analysisId: 'adult-family-a', pillars: { day: ['병', '자'] } }),
+    fullHangulName: '홍길동',
+    birth: { year: 1974, month: 1, day: 1 },
+  },
+  b: {
+    delivery: makeDelivery({ analysisId: 'adult-family-b', pillars: { day: ['임', '미'] } }),
+    fullHangulName: '성춘향',
+    birth: { year: 1999, month: 6, day: 6 },
+  },
+  relationship: 'family',
+});
+assert.equal(adultFamilyResult.context.fact.bandA, 'adult');
+assert.equal(adultFamilyResult.context.fact.bandB, 'adult');
+assert.equal(adultFamilyResult.context.fact.framing, 'companion');
+assert.ok(!JSON.stringify(adultFamilyResult.axes).includes('어른과 아이'));
+assert.ok(adultFamilyResult.context.notes.every(note => !note.includes('어른과 아이')));
+assert.ok(adultFamilyResult.context.notes.some(note => note.includes('돌봄이 흐르는 자리')));
+
+// (b) 손위가 미성년(청소년+아이 짝)이면 guardian 카피가 '어른'이라 부르지 않는다
+const teenGuardianResult = buildCoupleCompatibilityV1({
+  a: {
+    delivery: makeDelivery({ analysisId: 'teen-guardian-a', pillars: { day: ['갑', '자'] } }),
+    fullHangulName: '김한결',
+    birth: { year: 2011, month: 1, day: 1 },
+  },
+  b: {
+    delivery: makeDelivery({ analysisId: 'teen-guardian-b', pillars: { day: ['기', '축'] } }),
+    fullHangulName: '김이든',
+    birth: { year: 2016, month: 6, day: 6 },
+  },
+  relationship: 'family',
+});
+assert.equal(teenGuardianResult.context.fact.bandA, 'teen');
+assert.equal(teenGuardianResult.context.fact.bandB, 'child');
+assert.equal(teenGuardianResult.context.fact.framing, 'guardian');
+const teenGuardianAxesJson = JSON.stringify(teenGuardianResult.axes);
+assert.ok(!teenGuardianAxesJson.includes('어른'), 'teen 손위 guardian 카피에 어른 호칭 금지');
+assert.ok(teenGuardianAxesJson.includes('손위'), 'teen 손위 guardian 카피는 손위/손아래로 부른다');
+assert.ok(teenGuardianResult.context.notes.some(note => note.includes('손위와 손아래')));
+// 기존(성인+아이) guardian 짝은 여전히 어른/아이의 언어를 쓴다
+assert.ok(
+  JSON.stringify(guardianResult.axes).includes('어른')
+  || guardianResult.context.notes.some(note => note.includes('어른과 아이')),
+);
+
+/* ------------------------------------------------------------------ */
+/* 14. 시각 미상(정오 대입) 사주의 시주는 궁합 근거로 쓰지 않는다              */
+/* ------------------------------------------------------------------ */
+
+// 기준: 시주가 실측인 짝은 hour 신호가 존재한다
+assert.ok(
+  result.facts.some(fact => 'aPosition' in fact && fact.aPosition === 'hour'),
+  '실측 시주는 hour 교차 신호를 만든다',
+);
+
+const unknownHourA = makeDelivery({
+  analysisId: 'unknown-hour-a',
+  pillars: { year: ['병', '진'], month: ['임', '인'], day: ['갑', '자'], hour: ['경', '오'] },
+  timeCorrection: {
+    standardLocalDateTime: { year: 1994, month: 3, day: 14, hour: 12, minute: 0 },
+    inputUncertainty: { policy: 'noon_substitution' },
+  },
+});
+const unknownHourResult = buildCoupleCompatibilityV1({
+  a: { delivery: unknownHourA, displayName: '김단우' },
+  b: { delivery: personB, displayName: '문가람' },
+});
+// a의 시주(정오 대입)는 없는 기둥으로 취급 — hour가 낀 a쪽 쌍 fact 금지
+assert.ok(
+  unknownHourResult.facts.every(
+    fact => !('aPosition' in fact) || fact.aPosition !== 'hour',
+  ),
+  '보정된 시주에서 합·충 신호를 지어내면 안 된다',
+);
+// b의 시주는 실측이므로 그대로 쓰인다
+assert.ok(
+  unknownHourResult.facts.some(
+    fact => 'bPosition' in fact && fact.bPosition === 'hour',
+  ),
+  '상대의 실측 시주는 그대로 근거가 된다',
+);
+// 시주 결측과 무관한 축들은 여전히 전부 존재한다
+assert.equal(unknownHourResult.axes.length, 13);
+
+/* ------------------------------------------------------------------ */
+/* 15. 나이 셈은 delivery의 양력 기준일(time_correction)을 우선한다          */
+/* ------------------------------------------------------------------ */
+
+// 음력 원본(1989-12-20)을 넘겨도, 엔진의 양력 기준일(1990-01-16)이 이긴다.
+const solarBasisA = makeDelivery({
+  analysisId: 'solar-basis-a',
+  pillars: { day: ['갑', '자'] },
+  timeCorrection: {
+    standardLocalDateTime: { year: 1990, month: 1, day: 16, hour: 4, minute: 30 },
+  },
+});
+const solarBasisResult = buildCoupleCompatibilityV1({
+  a: { delivery: solarBasisA, fullHangulName: '홍길동', birth: { year: 1989, month: 12, day: 20 } },
+  b: {
+    delivery: makeDelivery({ analysisId: 'solar-basis-b', pillars: { day: ['기', '축'] } }),
+    fullHangulName: '성춘향',
+    birth: { year: 1990, month: 3, day: 5 },
+  },
+});
+assert.equal(solarBasisResult.context.fact.ageA, 36);
+assert.equal(solarBasisResult.context.fact.ageGapYears, 0);
+assert.equal(solarBasisResult.context.fact.sameAge, true);
+assert.ok(solarBasisResult.context.notes.some(note => note.includes('동갑내기')));
+
+/* ------------------------------------------------------------------ */
+/* 16. 교차 축 가용성 사유는 실제 원인(용신 부재)에 귀속한다                  */
+/* ------------------------------------------------------------------ */
+
+// b는 이름 오행이 있지만 용신·기신 판단이 없다 → 빠진 방향의 사유는
+// NAME_FACTS_MISSING이 아니라 YONGSHIN_MISSING(person: b)이어야 한다.
+const crossReasonB = makeDelivery({
+  analysisId: 'cross-reason-b',
+  pillars: { day: ['기', '축'] },
+  nameChars: [
+    { hangul: '문', position: 'surname', index: 0, element: 'water', polarity: '음', hanja: '文' },
+    { hangul: '가', position: 'givenName', index: 0, element: 'wood', polarity: '양', hanja: '嘉' },
+    { hangul: '람', position: 'givenName', index: 1, element: 'fire', polarity: '음', hanja: '藍' },
+  ],
+});
+const crossReasonResult = buildCoupleCompatibilityV1({
+  a: { delivery: personA, displayName: '김단우' },
+  b: { delivery: crossReasonB, displayName: '문가람' },
+});
+const crossReasonAxis = crossReasonResult.axes.find(axis => axis.id === 'cross_name_saju')!;
+assert.equal(crossReasonAxis.availability.status, 'limited');
+assert.deepEqual(
+  [...crossReasonAxis.availability.reasons],
+  [{ code: 'YONGSHIN_MISSING', person: 'b' }],
 );
 
 console.log('couple-compatibility: all assertions passed');

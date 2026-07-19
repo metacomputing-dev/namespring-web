@@ -127,12 +127,12 @@ export default function CompatibilitySajuScreen() {
         ))}
       </Section>
 
-      <Section
+      {/* 교차 신호가 없으면 Section 자체가 그려지지 않는다 (빈 제목 방지). */}
+      <CrossSignalBrowser
+        result={result}
         title="여덟 기둥을 모두 겹쳐 보기"
         lede="일지·띠 밖의 기둥끼리 오가는 신호는 점수 없이 참고로만 살펴요."
-      >
-        <CrossSignalBrowser result={result} />
-      </Section>
+      />
 
       <CompatPremiumSection />
       <CompatReportTail />

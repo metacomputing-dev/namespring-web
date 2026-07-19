@@ -34,9 +34,11 @@ export interface CompatibilityPersonInputV1 {
    */
   readonly gender?: 'male' | 'female' | 'neutral';
   /**
-   * 나이차·동갑·띠동갑 등 짝의 맥락을 읽기 위한 양력 기준 생년월일.
-   * 음력 입력이면 호출자가 변환 전 원본 연도를 그대로 줘도 된다 —
-   * 나이 맥락은 연 단위 해석이라 하루 이틀의 오차를 문제 삼지 않는다.
+   * 나이차·동갑·띠동갑 등 짝의 맥락을 읽기 위한 생년월일.
+   * delivery에 time_correction fact가 있으면 빌더는 그 fact의
+   * 양력(태양력) 기준일(standardLocalDateTime)을 우선 사용한다 —
+   * 여기 넘긴 값은 그 fact가 없을 때의 폴백일 뿐이다. 따라서 음력 입력의
+   * 변환 전 원본을 그대로 넘겨도, 실제 나이 셈은 엔진의 양력 기준일을 따른다.
    */
   readonly birth?: { readonly year: number; readonly month: number; readonly day: number };
 }
@@ -105,7 +107,11 @@ export interface PairContextFactV1 {
   readonly ageGapYears: number | null;
   readonly olderPerson: 'a' | 'b' | 'same' | null;
   readonly sameAge: boolean | null;
-  /** 12년 차이(띠동갑)면서 같은 띠인 짝. */
+  /**
+   * 12년 차이(띠동갑)면서 실제 년지(띠)까지 같은 짝. 달력 나이차만으로
+   * 참이 되지 않는다 — 12의 배수 차이라도 년지가 다르면(입춘 전 출생 등)
+   * false, 년지를 모르면 null.
+   */
   readonly twelveGapSameZodiac: boolean | null;
   readonly bandA: CompatAgeBandV1 | null;
   readonly bandB: CompatAgeBandV1 | null;

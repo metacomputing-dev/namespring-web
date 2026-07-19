@@ -256,6 +256,18 @@ export interface CopyVoiceV1 {
   readonly framing: CompatFramingV1;
   readonly elderName: string | null;
   readonly youngerName: string | null;
+  /**
+   * 나이 위쪽이 미성년(청소년+아이 짝의 청소년 등)인가.
+   * 참이면 guardian 카피가 '어른/아이' 대신 '손위/손아래'로 부른다.
+   */
+  readonly elderIsMinor?: boolean;
+}
+
+/** guardian 프레임의 역할 호칭: 기본은 어른/아이, 손위가 미성년이면 손위/손아래. */
+function guardianRoles(voice: CopyVoiceV1): { elder: string; younger: string } {
+  return voice.elderIsMinor
+    ? { elder: '손위', younger: '손아래' }
+    : { elder: '어른', younger: '아이' };
 }
 
 export interface DayStemCopyParamsV1 {
@@ -373,6 +385,7 @@ const DAY_STEM_HAP: CopyBundleV1<DayStemCopyParamsV1> = {
   couple: params => dayStemHapAdult(params, true),
   guardian: params => {
     const { aName, bName, fact } = params;
+    const { elder, younger } = guardianRoles(params.voice);
     const aStem = stemKo(fact.a);
     const bStem = stemKo(fact.b);
     const hapEl = fact.hapElement!;
@@ -380,7 +393,7 @@ const DAY_STEM_HAP: CopyBundleV1<DayStemCopyParamsV1> = {
     const cautions: string[] = [];
     paragraphs.push(
       `${aName}님의 ${iGa(aStem)} ${bName}님의 ${gwaWa(bStem)} 천간합(天干合)을 이뤄요. `
-      + `돌봄의 자리에서 이 합은, 아이가 유난히 이 어른 곁에서 순해지고 어른도 이 아이 앞에서는 마음이 풀어지는 모양으로 나타나요. 애써 노력하지 않아도 품이 잘 맞는 인연이에요.`,
+      + `돌봄의 자리에서 이 합은, ${iGa(younger)} 유난히 이 ${elder} 곁에서 순해지고 ${elder}도 이 ${younger} 앞에서는 마음이 풀어지는 모양으로 나타나요. 애써 노력하지 않아도 품이 잘 맞는 인연이에요.`,
     );
     paragraphs.push(
       `이 합이 모이면 ${elementKo(hapEl)} 기운으로 화(化)하려 해요. 함께 보내는 시간 속에 ${describeElementMood(hapEl)}가 자라나기 쉬워요.`,
@@ -395,10 +408,10 @@ const DAY_STEM_HAP: CopyBundleV1<DayStemCopyParamsV1> = {
       );
     }
     cautions.push(
-      '합은 끌림이면서 묶임이기도 해요 — 아이가 어른의 기대에 맞추려고만 하지 않도록, 아이의 "싫어요"도 반갑게 받아 주세요.',
+      `합은 끌림이면서 묶임이기도 해요 — ${iGa(younger)} ${elder}의 기대에 맞추려고만 하지 않도록, ${younger}의 "싫어요"도 반갑게 받아 주세요.`,
     );
     return {
-      headline: '어른과 아이의 일간이 천간합으로 이어져 있어요.',
+      headline: `${gwaWa(elder)} ${younger}의 일간이 천간합으로 이어져 있어요.`,
       paragraphs,
       cautions,
     };
@@ -483,18 +496,19 @@ const DAY_STEM_SAENG: CopyBundleV1<DayStemCopyParamsV1> = {
   },
   guardian: params => {
     const { giver, receiver, giverStem, receiverStem } = saengRoles(params);
+    const { elder, younger } = guardianRoles(params.voice);
     const giverIsElder = params.voice.elderName != null && giver === params.voice.elderName;
     const giverIsYounger = params.voice.youngerName != null && giver === params.voice.youngerName;
     if (giverIsYounger) {
-      // 아이의 기운이 어른을 살리는, 드물고 예쁜 방향.
+      // 손아래의 기운이 손위를 살리는, 드물고 예쁜 방향.
       return {
         headline: `${giver}님이 ${receiver}님의 기운을 살려 주는, 조금 특별한 상생의 짝이에요.`,
         paragraphs: [
-          `${giver}님의 ${iGa(giverStem)} ${receiver}님의 ${eulReul(receiverStem)} 낳고 살리는 상생(相生) 관계인데, 방향이 아이에게서 어른 쪽으로 흘러요. `
-          + `이 아이와 함께 있으면 어른의 지친 기운이 차오르는 — 아이가 어른의 비타민이 되는 자리예요.`,
+          `${giver}님의 ${iGa(giverStem)} ${receiver}님의 ${eulReul(receiverStem)} 낳고 살리는 상생(相生) 관계인데, 방향이 ${younger}에게서 ${elder} 쪽으로 흘러요. `
+          + `이 ${gwaWa(younger)} 함께 있으면 ${elder}의 지친 기운이 차오르는 — ${iGa(younger)} ${elder}의 비타민이 되는 자리예요.`,
         ],
         tips: [
-          `받기만 하는 쪽이 되지 않게, 어른이 받은 만큼을 말로 돌려주세요. "네 덕분에 힘이 났어" 한마디가 아이의 뿌리를 깊게 해요.`,
+          `받기만 하는 쪽이 되지 않게, ${iGa(elder)} 받은 만큼을 말로 돌려주세요. "네 덕분에 힘이 났어" 한마디가 ${younger}의 뿌리를 깊게 해요.`,
         ],
       };
     }
@@ -503,10 +517,10 @@ const DAY_STEM_SAENG: CopyBundleV1<DayStemCopyParamsV1> = {
         headline: `${giver}님의 기운이 ${receiver}님을 기르는 상생의 자리예요.`,
         paragraphs: [
           `${giver}님의 ${iGa(giverStem)} ${receiver}님의 ${eulReul(receiverStem)} 낳고 살리는 상생(相生) 관계예요. `
-          + `어른의 기운이 아이를 살리는 방향이라, 애써 가르치려 하지 않아도 곁에 있는 시간만큼 아이에게 힘이 스며드는 자리예요.`,
+          + `${elder}의 기운이 ${eulReul(younger)} 살리는 방향이라, 애써 가르치려 하지 않아도 곁에 있는 시간만큼 ${younger}에게 힘이 스며드는 자리예요.`,
         ],
         tips: [
-          `다만 주는 사랑에도 완급이 필요해요 — 아이가 스스로 해낼 몫을 남겨 두는 것까지가 상생이에요.`,
+          `다만 주는 사랑에도 완급이 필요해요 — ${iGa(younger)} 스스로 해낼 몫을 남겨 두는 것까지가 상생이에요.`,
         ],
       };
     }
@@ -564,32 +578,33 @@ const DAY_STEM_GEUK: CopyBundleV1<DayStemCopyParamsV1> = {
   },
   guardian: params => {
     const { controller, controlled } = geukRoles(params);
+    const { elder, younger } = guardianRoles(params.voice);
     const controllerIsElder =
       params.voice.elderName != null && controller === params.voice.elderName;
     const controllerIsYounger =
       params.voice.youngerName != null && controller === params.voice.youngerName;
     if (controllerIsElder) {
-      // 어른이 극하는 방향: 다듬는 손이 잔소리가 되지 않게.
+      // 손위가 극하는 방향: 다듬는 손이 잔소리가 되지 않게.
       return {
-        headline: '어른의 기운이 아이를 다듬는 방향의 극이에요 — 기다림이 열쇠예요.',
+        headline: `${elder}의 기운이 ${eulReul(younger)} 다듬는 방향의 극이에요 — 기다림이 열쇠예요.`,
         paragraphs: [
           `${controller}님의 일간이 ${controlled}님의 일간을 극(剋)하는 방향이에요. `
-          + `어른이 아이를 극하는 배치는 "다듬는 손"의 모양이라, 아이를 반듯하게 세워 주는 힘이 분명히 있어요. 다만 다듬으려는 마음이 잦아지면, 아이에게는 그 손길이 잔소리로 쌓여요.`,
+          + `${iGa(elder)} ${eulReul(younger)} 극하는 배치는 "다듬는 손"의 모양이라, ${eulReul(younger)} 반듯하게 세워 주는 힘이 분명히 있어요. 다만 다듬으려는 마음이 잦아지면, ${younger}에게는 그 손길이 잔소리로 쌓여요.`,
         ],
         cautions: [
-          `가르침은 짧게, 기다림은 길게 두세요. 아이의 속도를 기다려 주는 만큼 극의 힘은 억누름이 아니라 조각가의 손이 돼요.`,
+          `가르침은 짧게, 기다림은 길게 두세요. ${younger}의 속도를 기다려 주는 만큼 극의 힘은 억누름이 아니라 조각가의 손이 돼요.`,
         ],
       };
     }
     if (controllerIsYounger) {
       return {
-        headline: '아이의 기세가 어른을 극하는, 조금 특별한 방향이에요.',
+        headline: `${younger}의 기세가 ${eulReul(elder)} 극하는, 조금 특별한 방향이에요.`,
         paragraphs: [
-          `${controller}님의 일간이 ${controlled}님의 일간을 극(剋)하는, 아이가 어른을 극하는 방향이에요. `
-          + `아이의 고집과 기세에 어른이 자주 물러서게 되는 배치라, 귀엽다가도 문득 버겁게 느껴지는 날이 있을 수 있어요.`,
+          `${controller}님의 일간이 ${controlled}님의 일간을 극(剋)하는, ${iGa(younger)} ${eulReul(elder)} 극하는 방향이에요. `
+          + `${younger}의 고집과 기세에 ${iGa(elder)} 자주 물러서게 되는 배치라, 귀엽다가도 문득 버겁게 느껴지는 날이 있을 수 있어요.`,
         ],
         cautions: [
-          `물러설 곳과 물러서지 않을 곳을 어른이 미리 정해 두세요 — 일관된 경계선 안에서라면, 그 기세는 꺾을 것이 아니라 키워 줄 재목이에요.`,
+          `물러설 곳과 물러서지 않을 곳을 ${iGa(elder)} 미리 정해 두세요 — 일관된 경계선 안에서라면, 그 기세는 꺾을 것이 아니라 키워 줄 재목이에요.`,
         ],
       };
     }
@@ -674,9 +689,10 @@ const BRANCH_YUKHAP: CopyBundleV1<BranchPairCopyParamsV1> = {
       paragraphs,
     };
   },
-  guardian: ({ pairLabel, seatLabel, fact }) => {
+  guardian: ({ pairLabel, seatLabel, fact, voice }) => {
+    const { elder, younger } = guardianRoles(voice);
     const paragraphs: string[] = [
-      `${pairLabel} 육합의 짝이에요. 돌봄의 자리에서 이 합은 "품이 잘 맞는" 모양으로 나타나요 — 아이가 칭얼거리기 전에 어른이 먼저 알아채고, 어른이 지친 날에는 아이가 곁에 와 조용히 앉아 있는, 그런 장면이 자주 생기는 인연이에요.`,
+      `${pairLabel} 육합의 짝이에요. 돌봄의 자리에서 이 합은 "품이 잘 맞는" 모양으로 나타나요 — ${iGa(younger)} 칭얼거리기 전에 ${iGa(elder)} 먼저 알아채고, ${iGa(elder)} 지친 날에는 ${iGa(younger)} 곁에 와 조용히 앉아 있는, 그런 장면이 자주 생기는 인연이에요.`,
     ];
     if (fact.yukhapElement) {
       paragraphs.push(
@@ -735,7 +751,7 @@ const BRANCH_MIXED: CopyBundleV1<BranchPairCopyParamsV1> = {
     const main = positives[0];
     const sub = negatives[0];
     return {
-      headline: `${seatLabel}에 ${BRANCH_RELATION_KO[main]}과 ${BRANCH_RELATION_KO[sub]}이 함께 있어요 — 끌림과 어긋남이 공존해요.`,
+      headline: `${seatLabel}에 ${BRANCH_RELATION_KO[main]}과 ${iGa(BRANCH_RELATION_KO[sub])} 함께 있어요 — 끌림과 어긋남이 공존해요.`,
       paragraphs: [
         `${pairLabel} ${BRANCH_RELATION_KO[main]}으로 가까워지면서도 ${BRANCH_RELATION_KO[sub]}의 긴장을 함께 안은 짝이에요. `
         + `금방 친해지고 깊어지지만, 가까워진 뒤에 사소한 어긋남이 도드라질 수 있는 구성이에요.`,
@@ -757,14 +773,17 @@ const BRANCH_CHUNG: CopyBundleV1<BranchPairCopyParamsV1> = {
       cautions: ['큰 결정은 두 사람의 리듬이 겹치는 때를 골라 천천히 정하면 충의 흔들림이 줄어요.'],
     };
   },
-  guardian: ({ pairLabel }) => ({
-    paragraphs: [
-      `${pairLabel} 정면으로 마주 보는 충(沖)의 짝이에요. 어른과 아이 사이의 충은 "고치려는 마음"과 "제 방식대로 하고 싶은 마음"이 정면으로 만나는 모양이에요. 아이의 방식이 어른 눈에 위태로워 보여도, 그 방식 안에서 아이는 자기 힘을 시험하는 중이에요.`,
-    ],
-    cautions: [
-      '바로잡기 전에 한 번 지켜봐 주세요 — 어른이 반 박자 늦게 개입할수록, 충의 흔들림은 아이가 스스로 크는 동력이 돼요.',
-    ],
-  }),
+  guardian: ({ pairLabel, voice }) => {
+    const { elder, younger } = guardianRoles(voice);
+    return {
+      paragraphs: [
+        `${pairLabel} 정면으로 마주 보는 충(沖)의 짝이에요. ${gwaWa(elder)} ${younger} 사이의 충은 "고치려는 마음"과 "제 방식대로 하고 싶은 마음"이 정면으로 만나는 모양이에요. ${younger}의 방식이 ${elder} 눈에 위태로워 보여도, 그 방식 안에서 ${eunNeun(younger)} 자기 힘을 시험하는 중이에요.`,
+      ],
+      cautions: [
+        `바로잡기 전에 한 번 지켜봐 주세요 — ${iGa(elder)} 반 박자 늦게 개입할수록, 충의 흔들림은 ${iGa(younger)} 스스로 크는 동력이 돼요.`,
+      ],
+    };
+  },
   kids: ({ pairLabel }) => ({
     paragraphs: [
       `${pairLabel} 정면으로 마주 보는 충(沖)의 짝이에요. 아이들 사이의 충은 미움이 아니라 "서로 너무 신경 쓰여서" 생기는 부딪힘이에요. 노는 방식도 고집도 반대라 자주 티격태격하지만, 그만큼 서로에게서 눈을 떼지 못하는 짝이기도 해요.`,
@@ -782,14 +801,17 @@ const BRANCH_WONJIN: CopyBundleV1<BranchPairCopyParamsV1> = {
     ],
     cautions: ['서운함은 쌓이기 전에 짧게라도 말로 풀어 주세요 — 원진은 침묵 속에서 자라요.'],
   }),
-  guardian: ({ pairLabel }) => ({
-    paragraphs: [
-      `${pairLabel} 원진(怨嗔)의 짝이에요. 돌봄의 자리에서 원진은 아이 쪽에 말 못 할 서운함이 고이기 쉬운 모양으로 나타나요. 어른은 아무렇지 않게 지나간 한마디가, 아이 마음에는 오래 남아 있을 수 있어요.`,
-    ],
-    cautions: [
-      '아이가 먼저 말하기를 기다리기보다, 어른이 먼저 "혹시 서운한 거 있었어?" 하고 물어봐 주세요. 그 물음 한 번에 원진의 그늘이 눈에 띄게 얕아져요.',
-    ],
-  }),
+  guardian: ({ pairLabel, voice }) => {
+    const { elder, younger } = guardianRoles(voice);
+    return {
+      paragraphs: [
+        `${pairLabel} 원진(怨嗔)의 짝이에요. 돌봄의 자리에서 원진은 ${younger} 쪽에 말 못 할 서운함이 고이기 쉬운 모양으로 나타나요. ${eunNeun(elder)} 아무렇지 않게 지나간 한마디가, ${younger} 마음에는 오래 남아 있을 수 있어요.`,
+      ],
+      cautions: [
+        `${iGa(younger)} 먼저 말하기를 기다리기보다, ${iGa(elder)} 먼저 "혹시 서운한 거 있었어?" 하고 물어봐 주세요. 그 물음 한 번에 원진의 그늘이 눈에 띄게 얕아져요.`,
+      ],
+    };
+  },
   kids: ({ pairLabel }) => ({
     paragraphs: [
       `${pairLabel} 원진(怨嗔)의 짝이에요. 같이 놀다가 뚜렷한 이유 없이 한쪽이 토라지기 쉬운 배치예요. 왜 삐졌는지 물어봐도 아이 스스로도 말로 옮기지 못할 때가 많아요 — 원진은 원래 "이유를 대기 어려운 서운함"의 글자거든요.`,
@@ -905,15 +927,16 @@ const TEN_GOD_PAIR: CopyBundleV1<TenGodCopyParamsV1> = {
   couple: params => tenGodAdult(params, true),
   guardian: params => {
     const { aName, bName, bForA, aForB } = params;
+    const { elder, younger } = guardianRoles(params.voice);
     const cautions: string[] = [];
     if (bForA === 'GYEOB_JAE' || aForB === 'GYEOB_JAE') {
       cautions.push(
-        '겹치는 자리에서 고집이 맞설 수 있어요 — 아이에게 양보를 가르치기 전에, 어른이 먼저 양보하는 모습을 보여 주는 것이 빠른 길이에요.',
+        `겹치는 자리에서 고집이 맞설 수 있어요 — ${younger}에게 양보를 가르치기 전에, ${iGa(elder)} 먼저 양보하는 모습을 보여 주는 것이 빠른 길이에요.`,
       );
     }
     if (bForA === 'SANG_GWAN' || aForB === 'SANG_GWAN') {
       cautions.push(
-        '아이의 말이 당돌하게 들리는 날이 있어요 — 버릇없음으로 누르기보다 표현력으로 받아 주면, 상관의 날카로움이 재능이 돼요.',
+        `${younger}의 말이 당돌하게 들리는 날이 있어요 — 버릇없음으로 누르기보다 표현력으로 받아 주면, 상관의 날카로움이 재능이 돼요.`,
       );
     }
     return {
@@ -1121,7 +1144,7 @@ export function renderBranchPairCopy(
   if (positives.length > 0 && negatives.length > 0) {
     return single(
       'day_branch.mixed',
-      `${seatLabel}에 ${BRANCH_RELATION_KO[positives[0]]}과 ${BRANCH_RELATION_KO[negatives[0]]}이 함께 있어요 — 끌림과 어긋남이 공존해요.`,
+      `${seatLabel}에 ${BRANCH_RELATION_KO[positives[0]]}과 ${iGa(BRANCH_RELATION_KO[negatives[0]])} 함께 있어요 — 끌림과 어긋남이 공존해요.`,
     );
   }
 

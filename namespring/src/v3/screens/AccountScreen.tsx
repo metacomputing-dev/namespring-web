@@ -5,7 +5,7 @@ import { clearProfile, loadOriginalProfile, fullHangulName } from '../model/prof
 import { listFavorites } from '../model/favorites';
 import { listPeople } from '../model/people';
 import { compatPairName, listSavedCompats } from '../model/saved-compat';
-import { clearCompatSlot } from '../model/compat';
+import { clearCompatRelationship, clearCompatSlot } from '../model/compat';
 import { clearDeliveryCache } from '../engine/client';
 import { Loading, Section } from '../ui/primitives';
 
@@ -63,6 +63,7 @@ export default function AccountScreen() {
     clearDeliveryCache();
     clearCompatSlot('a');
     clearCompatSlot('b');
+    clearCompatRelationship();
     try {
       localStorage.removeItem('namespring_v3_favorites');
       localStorage.removeItem('namespring_v3_people');

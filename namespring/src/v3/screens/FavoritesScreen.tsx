@@ -4,12 +4,19 @@ import { listFavorites, removeFavorite, type FavoriteName } from '../model/favor
 import {
   listPeople,
   personBirthLabel,
+  personContentKey,
   personLabel,
   personName,
   removePerson,
   type StoredPerson,
 } from '../model/people';
-import { RELATIONSHIP_KO, saveCompatRelationship, saveCompatSlot } from '../model/compat';
+import {
+  clearCompatSlot,
+  loadCompatSlot,
+  RELATIONSHIP_KO,
+  saveCompatRelationship,
+  saveCompatSlot,
+} from '../model/compat';
 import {
   compatPairName,
   compatSlotLabel,
@@ -50,6 +57,14 @@ export default function FavoritesScreen() {
   }
 
   function openCompatibility(person: StoredPerson) {
+    // 이전 짝에서 고른 관계 라벨(예: 부부)이 새로운 짝에 소리 없이 적용되지 않게
+    // 관계 선택을 초기화한다. 첫 번째 자리는 보통 '나'라 그대로 둔다.
+    saveCompatRelationship({ category: 'unspecified' });
+    // 고른 사람이 이미 첫 번째 자리에 있으면 같은 사람 궁합이 되므로 비워 준다.
+    const slotA = loadCompatSlot('a');
+    if (slotA && personContentKey(slotA.profile) === personContentKey(person.profile)) {
+      clearCompatSlot('a');
+    }
     saveCompatSlot('b', { profile: person.profile, label: person.label });
     navigate('/compatibility');
   }
