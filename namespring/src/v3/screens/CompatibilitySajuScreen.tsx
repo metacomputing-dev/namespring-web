@@ -7,7 +7,6 @@ import {
   CompatPremiumSection,
   CompatReportTail,
   CrossSignalBrowser,
-  ElementPairCompareSection,
   SaveCompatStar,
   SummaryCard,
   axesOf,
@@ -98,8 +97,6 @@ export default function CompatibilitySajuScreen() {
           <AxisCard key={axis.id} axis={axis} defaultOpen />
         ))}
       </Section>
-
-      <ElementPairCompareSection result={result} />
 
       {slotA && slotB ? (
         <DaeunOverlaySection slotA={slotA} slotB={slotB} result={result} />

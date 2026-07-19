@@ -19,8 +19,82 @@ import {
   ReportFootnote,
   Section,
 } from '../ui/primitives';
+import { ScoreBar } from './compat/shared';
 
-const SURFACES: ReportSurfaceSelectionV1[] = [{ id: 'integrated', depth: 'standard' }];
+/** naming 표면을 함께 요청해 이름 점수 metric들을 한눈에 보기 카드에 쓴다. */
+const SURFACES: ReportSurfaceSelectionV1[] = [
+  { id: 'integrated', depth: 'standard' },
+  { id: 'naming', depth: 'standard' },
+];
+
+const INTERACTION_KO: Record<string, string> = {
+  supportive_signal: '이름이 사주가 반기는 기운을 담고 있어요.',
+  mixed_signals: '이름에 사주를 살리는 기운과 함께 살필 기운이 같이 있어요.',
+  no_direct_match: '이름과 사주가 직접 겹치는 기운은 없어요 — 전체 구성으로 어울림을 봐요.',
+  caution_signal: '이름에 사주가 조심스러워하는 기운이 있어, 함께 읽어볼 지점이에요.',
+};
+
+/**
+ * 이 보고서가 실제로 셈한 값들을 궁합 화면의 요약 카드와 같은 시각 언어로 모은다.
+ * 이름↔사주는 합산 점수를 두지 않는 계약(not_a_combined_balance_score)이라
+ * 이름 점수만 크게 보여주고, 사주는 점수 없이 결론으로 읽는다.
+ */
+function OverallComputationCard({ index }: { index: DeliveryIndex }) {
+  const metrics = factsOfKind(index, 'metric').filter(
+    fact => fact.unit === 'score_0_100' && fact.direction === 'higher_is_better',
+  );
+  const main =
+    metrics.find(fact => fact.id === 'naming.total-score') ??
+    metrics.find(fact => fact.id === 'naming.hangul-score') ??
+    null;
+  if (!main) return null;
+  const rest = metrics.filter(fact => fact.id !== main.id);
+  const interaction = factOfKind(index, 'name_saju_interaction');
+  const interactionLine =
+    interaction && interaction.classification !== 'unavailable'
+      ? INTERACTION_KO[interaction.classification] ?? null
+      : null;
+  const strength = factOfKind(index, 'strength');
+  const yongshin = factOfKind(index, 'yongshin');
+  return (
+    <div className="v3-card">
+      <div className="v3-fortune-cell-head">
+        <p className="v3-core-value" style={{ margin: 0 }}>
+          {Math.round(main.value)}
+          <span className="v3-hint" style={{ marginLeft: '0.25rem' }}>/ 100</span>
+        </p>
+        <span className="v3-badge v3-badge--accent">{main.label}</span>
+      </div>
+      <ScoreBar score={main.value} />
+      {rest.length > 0 ? (
+        <ul className="v3-plain-list" style={{ margin: '0.7rem 0 0' }}>
+          {rest.map(fact => (
+            <li key={fact.id}>
+              {fact.label} <strong>{Math.round(fact.value)}점</strong>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+      {strength || yongshin?.element ? (
+        <p style={{ margin: '0.7rem 0 0' }}>
+          사주는 좋고 나쁨을 점수로 매길 대상이 아니라 결론으로 읽어요 —
+          {strength ? <> 타고난 기운은 <strong>{strength.level}</strong> 쪽이고,</> : null}
+          {yongshin?.element ? (
+            <>
+              {' '}
+              반기는 기운은 <ElementBadge element={yongshin.element} suffix="기운" /> 이에요.
+            </>
+          ) : null}
+        </p>
+      ) : null}
+      {interactionLine ? <p style={{ margin: '0.45rem 0 0' }}>{interactionLine}</p> : null}
+      <p className="v3-hint" style={{ margin: '0.7rem 0 0' }}>
+        이름과 사주는 단위가 다른 계산이라 하나의 점수로 합치지 않아요. 두 사람
+        사이를 셈하는 궁합의 통합 점수와 다른 점이에요.
+      </p>
+    </div>
+  );
+}
 
 /** v1의 오행·음양 풍경 그림카드를 delivery의 pillars fact로 되살린다. */
 function SceneryCard({ index, profile }: { index: DeliveryIndex; profile: V3Profile }) {
@@ -232,6 +306,13 @@ export default function IntegratedScreen() {
           <p style={{ margin: 0 }}>{meeting.caution}</p>
         </div>
       ) : null}
+
+      <Section
+        title="한눈에 보기"
+        lede="이 보고서가 실제로 셈한 값을 한자리에 모았어요. 이름은 점수로 셈하고, 사주는 점수 대신 결론으로 읽어요."
+      >
+        <OverallComputationCard index={index} />
+      </Section>
 
       <Section title="이름과 사주, 나란히 보기" lede="같은 크기로 두고 서로 다른 계산을 억지로 합치지 않았어요.">
         <div className="v3-grid-2">
