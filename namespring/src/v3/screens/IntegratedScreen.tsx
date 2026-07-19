@@ -286,24 +286,33 @@ function ElementCompareBars({ index }: { index: DeliveryIndex }) {
   );
 }
 
-function NameSummaryCard({ index, profile }: { index: DeliveryIndex; profile: V3Profile }) {
-  const characters = factsOfKind(index, 'name_character');
+/** 궁합 허브의 상세 링크 카드와 같은 모양새: 점수 머리 + 한 줄 요약 + 하단 와이드 버튼. */
+function NameDetailLinkCard({ index, profile }: { index: DeliveryIndex; profile: V3Profile }) {
+  const metrics = factsOfKind(index, 'metric').filter(
+    fact => fact.unit === 'score_0_100' && fact.direction === 'higher_is_better',
+  );
+  const main =
+    metrics.find(fact => fact.id === 'naming.total-score') ??
+    metrics.find(fact => fact.id === 'naming.hangul-score') ??
+    null;
+  const meanings = factsOfKind(index, 'name_character')
+    .filter(fact => fact.meaning)
+    .map(fact => fact.meaning);
+  const headline =
+    meanings.length > 0
+      ? `${meanings.join(' · ')} — 글자마다 담긴 뜻과 소리, 수리의 흐름을 풀어드려요.`
+      : `${fullHangulName(profile)} — 글자의 소리와 뜻, 수리의 흐름을 하나하나 풀어드려요.`;
   return (
     <div className="v3-card" style={{ display: 'flex', flexDirection: 'column' }}>
-      <p className="v3-kicker">이름에서 확인한 것</p>
-      {characters.length > 0 ? (
-        <ul className="v3-plain-list">
-          {characters.map(fact => (
-            <li key={fact.id}>
-              <strong>{fact.hangul}</strong>
-              {fact.hanja ? ` (${fact.hanja})` : ''}
-              {fact.meaning ? ` — ${fact.meaning}` : ''}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p style={{ margin: 0 }}>{fullHangulName(profile)}의 글자 구성을 확인했어요.</p>
-      )}
+      <p className="v3-kicker">이름 풀이</p>
+      {main ? (
+        <p className="v3-core-value" style={{ marginBottom: '0.25rem' }}>
+          {Math.round(main.value)}
+          <span className="v3-hint" style={{ marginLeft: '0.25rem' }}>/ 100</span>
+          <span className="v3-badge" style={{ marginLeft: '0.45rem' }}>{main.label}</span>
+        </p>
+      ) : null}
+      <p style={{ margin: 0 }}>{headline}</p>
       <div style={{ marginTop: 'auto', paddingTop: '0.9rem' }}>
         <Link to="/reports/naming" className="v3-button v3-button--ghost v3-button--wide">
           이름 자세히 보기
@@ -313,32 +322,37 @@ function NameSummaryCard({ index, profile }: { index: DeliveryIndex; profile: V3
   );
 }
 
-function SajuSummaryCard({ index }: { index: DeliveryIndex }) {
+/** 사주는 점수가 없으므로 일간 글자를 머리값으로 두고 결론 한 줄로 잇는다. */
+function SajuDetailLinkCard({ index }: { index: DeliveryIndex }) {
+  const pillars = factOfKind(index, 'pillars');
+  const dayPillar = pillars?.values.find(value => value.position === 'day') ?? null;
   const dayMaster = factOfKind(index, 'day_master');
   const strength = factOfKind(index, 'strength');
   const yongshin = factOfKind(index, 'yongshin');
   return (
     <div className="v3-card" style={{ display: 'flex', flexDirection: 'column' }}>
-      <p className="v3-kicker">사주에서 확인한 것</p>
-      <ul className="v3-plain-list">
-        {dayMaster ? (
-          <li>
-            나를 나타내는 글자는 <strong>{dayMaster.stem}</strong>
-            {dayMaster.element ? (
-              <>
-                {' '}
-                — <ElementBadge element={dayMaster.element} suffix="기운" />
-              </>
-            ) : null}
-          </li>
+      <p className="v3-kicker">사주 풀이</p>
+      {dayPillar || dayMaster ? (
+        <p className="v3-core-value" style={{ marginBottom: '0.25rem' }}>
+          {dayPillar ? `${dayPillar.stem.hangul}(${dayPillar.stem.hanja})` : dayMaster!.stem}
+          {dayMaster?.element ? (
+            <span className="v3-badge" style={{ marginLeft: '0.45rem' }}>
+              나를 나타내는 글자
+            </span>
+          ) : null}
+        </p>
+      ) : null}
+      <p style={{ margin: 0 }}>
+        {strength ? (
+          <>타고난 기운은 <strong>{strength.level}</strong> 쪽이에요.</>
         ) : null}
-        {strength ? <li>타고난 기운의 세기는 <strong>{strength.level}</strong> 쪽이에요.</li> : null}
         {yongshin?.element ? (
-          <li>
+          <>
+            {' '}
             사주가 반기는 기운은 <ElementBadge element={yongshin.element} suffix="기운" /> 이에요.
-          </li>
+          </>
         ) : null}
-      </ul>
+      </p>
       <div style={{ marginTop: 'auto', paddingTop: '0.9rem' }}>
         <Link to="/reports/saju" className="v3-button v3-button--ghost v3-button--wide">
           사주 자세히 보기
@@ -412,10 +426,13 @@ export default function IntegratedScreen() {
         </div>
       </Section>
 
-      <Section title="이름과 사주, 나란히 보기" lede="같은 크기로 두고 서로 다른 계산을 억지로 합치지 않았어요.">
+      <Section
+        title="더 자세히 읽기"
+        lede="글자 하나·기둥 하나의 근거와 해석은 각각의 상세 보고서에 있어요. 전 생애 대운 흐름은 사주 보고서에서 볼 수 있어요."
+      >
         <div className="v3-grid-2">
-          <NameSummaryCard index={index} profile={profile} />
-          <SajuSummaryCard index={index} />
+          <NameDetailLinkCard index={index} profile={profile} />
+          <SajuDetailLinkCard index={index} />
         </div>
       </Section>
 
