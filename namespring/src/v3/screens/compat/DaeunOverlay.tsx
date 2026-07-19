@@ -290,20 +290,29 @@ export default function DaeunOverlaySection({
   if (state.status !== 'ready') return null;
 
   const { a, b } = state;
-  // 두 곡선이 함께 존재하는 달력 연도 구간: 늦게 시작하는 쪽의 시작부터
+  // 겹침 구간(창·평균 곡선의 근거): 늦게 시작하는 쪽의 시작부터
   // 먼저 끝나는 쪽의 끝까지.
-  const spanStart = Math.max(a.segments[0].startYear, b.segments[0].startYear);
-  const spanEnd = Math.min(
+  const overlapStart = Math.max(a.segments[0].startYear, b.segments[0].startYear);
+  const overlapEnd = Math.min(
     a.segments[a.segments.length - 1].endYear,
     b.segments[b.segments.length - 1].endYear,
   );
-  if (spanEnd - spanStart < 10) return null;
+  if (overlapEnd - overlapStart < 10) return null;
 
-  const anchorsA = curveAnchors(a, spanStart, spanEnd);
-  const anchorsB = curveAnchors(b, spanStart, spanEnd);
+  // 그림의 x축은 두 사람 대운의 합집합 — '전 생애를 나란히'라는 제목 그대로
+  // 각자의 곡선은 자기 전체 채점 구간을 끝까지 그린다. 축의 양 끝이
+  // 비어 보이지 않도록 축 자체를 실제 데이터 범위에 맞춘다.
+  const domainStart = Math.min(a.segments[0].startYear, b.segments[0].startYear);
+  const domainEnd = Math.max(
+    a.segments[a.segments.length - 1].endYear,
+    b.segments[b.segments.length - 1].endYear,
+  );
+
+  const anchorsA = curveAnchors(a, domainStart, domainEnd);
+  const anchorsB = curveAnchors(b, domainStart, domainEnd);
   if (anchorsA.length < 2 || anchorsB.length < 2) return null;
 
-  const windows = buildDaeunWindows(a, b, spanStart, spanEnd);
+  const windows = buildDaeunWindows(a, b, overlapStart, overlapEnd);
   // 창이 2개 미만이면 평균 곡선·점 없이 두 곡선 그림만 남긴다.
   const showWindows = windows.length >= 2;
 
@@ -313,7 +322,7 @@ export default function DaeunOverlaySection({
   const baselineY = 114;
   const curveAmplitude = 56;
   const x = (year: number) =>
-    padX + ((Math.min(Math.max(year, spanStart), spanEnd) - spanStart) / (spanEnd - spanStart)) * (w - padX * 2);
+    padX + ((Math.min(Math.max(year, domainStart), domainEnd) - domainStart) / (domainEnd - domainStart)) * (w - padX * 2);
   const starY = (stars: number) => baselineY - 12 - ((stars - 1) / 4) * curveAmplitude;
 
   const pathA = catmullRomPath(anchorsA.map(p => ({ x: x(p.year), y: starY(p.stars) })));
@@ -327,14 +336,20 @@ export default function DaeunOverlaySection({
       )
     : '';
 
+  // 축이 길면(90년 초과) 눈금을 20년 간격으로 성기게 찍어 겹침을 막는다.
+  const tickStep = domainEnd - domainStart > 90 ? 20 : 10;
   const ticks: number[] = [];
-  for (let tick = Math.ceil(spanStart / 10) * 10; tick <= spanEnd; tick += 10) {
+  for (
+    let tick = Math.ceil(domainStart / tickStep) * tickStep;
+    tick <= domainEnd;
+    tick += tickStep
+  ) {
     ticks.push(tick);
   }
 
   // '지금'은 delivery의 anchorDate 연도로 표시한다 (기기 시계를 쓰지 않는다).
   const anchorYear = a.anchorYear ?? b.anchorYear;
-  const showNow = anchorYear !== null && anchorYear >= spanStart && anchorYear <= spanEnd;
+  const showNow = anchorYear !== null && anchorYear >= domainStart && anchorYear <= domainEnd;
 
   const framing: CompatFramingV1 = result.context.fact.framing;
   const aName = result.persons.a.displayName;
@@ -397,7 +412,7 @@ export default function DaeunOverlaySection({
         >
           {legendChip('var(--color-chart-line-a)', aName)}
           {legendChip('var(--color-chart-line-b)', bName)}
-          {showWindows ? legendChip('var(--color-accent)', '두 사람의 평균') : null}
+          {showWindows ? legendChip('var(--color-indigo)', '두 사람의 평균') : null}
         </div>
         {showWindows ? (
           <p style={{ margin: '0 0 0.5rem' }}>
@@ -408,7 +423,7 @@ export default function DaeunOverlaySection({
           <svg
             viewBox={`0 0 ${w} ${h}`}
             role={showWindows ? 'list' : 'img'}
-            aria-label={`${aName}과 ${bName}의 대운 별점 곡선을 ${Math.round(spanStart)}년부터 ${Math.round(spanEnd)}년까지 겹쳐 본 그림`}
+            aria-label={`${aName}과 ${bName}의 대운 별점 곡선을 ${Math.round(domainStart)}년부터 ${Math.round(domainEnd)}년까지 겹쳐 본 그림`}
           >
             <line
               x1={padX}
@@ -504,7 +519,7 @@ export default function DaeunOverlaySection({
               <path
                 d={pathAvg}
                 fill="none"
-                stroke="var(--color-accent)"
+                stroke="var(--color-indigo)"
                 strokeWidth="2.6"
                 strokeOpacity="0.9"
                 strokeLinecap="round"
@@ -535,8 +550,8 @@ export default function DaeunOverlaySection({
                         cx={cx}
                         cy={cy}
                         r={isOpen ? 8.5 : 6}
-                        fill={isOpen ? 'var(--color-accent)' : 'var(--color-paper-2)'}
-                        stroke="var(--color-accent)"
+                        fill={isOpen ? 'var(--color-indigo)' : 'var(--color-paper-2)'}
+                        stroke="var(--color-indigo)"
                         strokeWidth={isOpen ? 2.5 : 2}
                       />
                     </g>
@@ -553,7 +568,11 @@ export default function DaeunOverlaySection({
               </span>
               <span
                 className="v3-badge"
-                style={{ color: 'var(--color-accent)', borderColor: 'var(--color-accent-soft)' }}
+                style={{
+                  color: 'var(--color-indigo)',
+                  background: 'var(--color-indigo-bg)',
+                  borderColor: 'var(--color-indigo-line)',
+                }}
               >
                 {WINDOW_CLASS_KO[openWindow.cls]}
               </span>
