@@ -11,7 +11,13 @@ import {
   type DeliveryIndex,
 } from '../model/facts';
 import { fullHangulName, fullHanjaName, type V3Profile } from '../model/profile';
-import { ElementBadge, Loading, Section } from '../ui/primitives';
+import {
+  ElementBadge,
+  Loading,
+  OverrideBanner,
+  ReportActions,
+  Section,
+} from '../ui/primitives';
 
 const SURFACES: ReportSurfaceSelectionV1[] = [{ id: 'integrated', depth: 'standard' }];
 
@@ -204,6 +210,7 @@ export default function IntegratedScreen() {
 
   return (
     <main className="v3-page">
+      <OverrideBanner />
       <div className="v3-page-head">
         <p className="v3-kicker">통합 보고서</p>
         <h1 className="v3-page-title">
@@ -250,14 +257,22 @@ export default function IntegratedScreen() {
           <div className="v3-card v3-card--hero">
             <p style={{ margin: 0 }}>
               무료 결과가 방향을 보여 준다면, 완성 리포트는 왜 이 이름과 흐름이 나에게
-              닿는지 문장으로 이어 줍니다.
+              닿는지 차분히 이어 줍니다. 이름 조합의 이유, 앞으로의 관계와 재물 흐름,
+              다시 읽을 수 있는 PDF까지 한 번에 정리돼요.
             </p>
-            <button type="button" className="v3-button" style={{ marginTop: '0.9rem' }} disabled>
-              곧 열려요
-            </button>
+            <Link to="/support" className="v3-button" style={{ marginTop: '0.9rem' }}>
+              내 해석 완성하기
+            </Link>
           </div>
         </Section>
       ) : null}
+
+      <div className="v3-card" style={{ marginTop: 'var(--space-lg)' }}>
+        <p style={{ margin: '0 0 0.7rem', fontFamily: 'var(--font-display)', fontWeight: 700 }}>
+          읽은 결과는 저장하고, 다시 열어 볼 수 있게 남겨두세요.
+        </p>
+        <ReportActions />
+      </div>
     </main>
   );
 }

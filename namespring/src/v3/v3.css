@@ -129,6 +129,14 @@
   margin-top: var(--space-sm);
 }
 
+/* 그리드 안에서는 위 간격 규칙이 새어 들어와 첫 카드만 커 보이게 만든다. */
+.v3-grid-2 > .v3-card + .v3-card,
+.v3-grid-3 > .v3-card + .v3-card,
+.v3-char-cards > .v3-card + .v3-card,
+.v3-fortune-grid > .v3-card + .v3-card {
+  margin-top: 0;
+}
+
 .v3-card--hero {
   background: linear-gradient(150deg, var(--color-accent-quiet), var(--color-paper-2) 55%);
   border-radius: var(--radius-card-lg);
@@ -942,8 +950,10 @@
   transform: translateX(-50%);
   z-index: 50;
   display: flex;
-  gap: 0.25rem;
+  gap: 0.15rem;
   padding: 0.4rem;
+  max-width: calc(100vw - 1rem);
+  overflow-x: auto;
   border-radius: var(--radius-pill);
   background: color-mix(in oklab, var(--color-paper-2) 92%, transparent);
   border: var(--rule-thin) solid var(--color-rule);
@@ -956,8 +966,9 @@
   flex-direction: column;
   align-items: center;
   gap: 0.15rem;
-  min-width: 3.6rem;
-  padding: 0.45rem 0.6rem;
+  min-width: 3.1rem;
+  flex-shrink: 0;
+  padding: 0.45rem 0.5rem;
   border: 0;
   border-radius: var(--radius-pill);
   background: transparent;
@@ -980,9 +991,77 @@
 }
 
 .v3-brand-leaf {
-  width: 1.35rem;
-  height: 1.35rem;
+  width: 1.5rem;
+  height: 1.5rem;
   flex-shrink: 0;
+  border-radius: 0.35rem;
+  align-self: center;
+}
+
+.v3-bottom-nav-item--soon {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.v3-override-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-sm);
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius-input);
+  border: var(--rule-thin) solid var(--color-accent-soft);
+  background: var(--color-accent-quiet);
+  color: var(--color-ink);
+}
+
+.v3-report-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.v3-report-actions .v3-button {
+  flex: 1 1 9rem;
+}
+
+.v3-star-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: var(--radius-pill);
+  border: var(--rule-thin) solid var(--color-rule);
+  background: var(--color-paper);
+  color: var(--color-ink-3);
+  cursor: pointer;
+}
+
+.v3-star-button--on {
+  color: var(--color-earth);
+  border-color: var(--color-earth-line);
+  background: var(--color-earth-bg);
+}
+
+@media print {
+  .v3-masthead,
+  .v3-bottom-nav,
+  .v3-report-actions,
+  .v3-override-banner,
+  .v3-icon-button {
+    display: none !important;
+  }
+
+  .v3-page {
+    padding-bottom: 0;
+  }
+
+  .v3-root {
+    background: #fff;
+  }
 }
 
 /* ---------- 풍경 그림카드 ---------- */

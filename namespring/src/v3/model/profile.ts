@@ -36,10 +36,10 @@ export interface V3Profile {
 }
 
 const STORAGE_KEY = 'namespring_v3_profile';
+const OVERRIDE_KEY = 'namespring_v3_candidate_override';
 
-export function loadProfile(): V3Profile | null {
+function parseProfile(raw: string | null): V3Profile | null {
   try {
-    const raw = sessionStorage.getItem(STORAGE_KEY);
     if (!raw) return null;
     const parsed = JSON.parse(raw) as V3Profile;
     if (!parsed || !Array.isArray(parsed.surname) || !Array.isArray(parsed.givenName)) return null;
@@ -50,17 +50,65 @@ export function loadProfile(): V3Profile | null {
   }
 }
 
+/** 처음 화면에서 입력한 원본 프로필. 후보를 구경해도 바뀌지 않는다. */
+export function loadOriginalProfile(): V3Profile | null {
+  try {
+    return parseProfile(sessionStorage.getItem(STORAGE_KEY));
+  } catch {
+    return null;
+  }
+}
+
+/** 지금 보고서가 읽어야 할 프로필: 후보를 열어 둔 상태면 그 이름을 우선한다. */
+export function loadProfile(): V3Profile | null {
+  try {
+    return (
+      parseProfile(sessionStorage.getItem(OVERRIDE_KEY))
+      ?? parseProfile(sessionStorage.getItem(STORAGE_KEY))
+    );
+  } catch {
+    return null;
+  }
+}
+
 export function saveProfile(profile: V3Profile) {
   try {
     sessionStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
+    sessionStorage.removeItem(OVERRIDE_KEY);
   } catch {
     /* storage unavailable */
+  }
+}
+
+/** 작명 후보를 "잠깐 그 이름으로 읽어 보기" 상태로 얹는다. */
+export function setCandidateOverride(profile: V3Profile) {
+  try {
+    sessionStorage.setItem(OVERRIDE_KEY, JSON.stringify(profile));
+  } catch {
+    /* storage unavailable */
+  }
+}
+
+export function clearCandidateOverride() {
+  try {
+    sessionStorage.removeItem(OVERRIDE_KEY);
+  } catch {
+    /* storage unavailable */
+  }
+}
+
+export function hasCandidateOverride(): boolean {
+  try {
+    return parseProfile(sessionStorage.getItem(OVERRIDE_KEY)) !== null;
+  } catch {
+    return false;
   }
 }
 
 export function clearProfile() {
   try {
     sessionStorage.removeItem(STORAGE_KEY);
+    sessionStorage.removeItem(OVERRIDE_KEY);
   } catch {
     /* storage unavailable */
   }

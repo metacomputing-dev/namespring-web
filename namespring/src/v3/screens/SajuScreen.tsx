@@ -28,6 +28,7 @@ import { fullHangulName, type V3Profile } from '../model/profile';
 import {
   ElementBadge,
   Loading,
+  OverrideBanner,
   QuoteCard,
   Section,
   Stars,
@@ -625,6 +626,7 @@ export default function SajuScreen() {
   const { index, profile } = state;
   return (
     <main className="v3-page">
+      <OverrideBanner />
       <div className="v3-page-head">
         <p className="v3-kicker">사주 보고서</p>
         <h1 className="v3-page-title">{fullHangulName(profile)}님이 타고난 기운</h1>

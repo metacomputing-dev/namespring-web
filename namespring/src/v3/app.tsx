@@ -1,7 +1,7 @@
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import '../styles/tokens.css';
 import './v3.css';
-import { LeafMark } from '../components/report/ReportPrimitives';
+import logoSvg from '../assets/logo.svg';
 import { useThemeMode } from './theme';
 import { TermsProvider } from './ui/primitives';
 import HomeScreen from './screens/HomeScreen';
@@ -9,6 +9,8 @@ import IntegratedScreen from './screens/IntegratedScreen';
 import SajuScreen from './screens/SajuScreen';
 import NamingScreen from './screens/NamingScreen';
 import CandidatesScreen from './screens/CandidatesScreen';
+import FavoritesScreen from './screens/FavoritesScreen';
+import AccountScreen from './screens/AccountScreen';
 
 function MoonIcon() {
   return (
@@ -37,7 +39,13 @@ function SunIcon() {
   );
 }
 
-const NAV_ITEMS = [
+interface NavItem {
+  path: string | null;
+  label: string;
+  icon: JSX.Element;
+}
+
+const NAV_ITEMS: NavItem[] = [
   {
     path: '/',
     label: '처음',
@@ -87,6 +95,44 @@ const NAV_ITEMS = [
       </svg>
     ),
   },
+  {
+    path: null,
+    label: '궁합',
+    icon: (
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 19.6C7.2 16.4 4 13.4 4 9.9 4 7.4 6 5.6 8.3 5.6c1.5 0 2.9.8 3.7 2 .8-1.2 2.2-2 3.7-2C18 5.6 20 7.4 20 9.9c0 3.5-3.2 6.5-8 9.7Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    path: '/favorites',
+    label: '보관',
+    icon: (
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M7 4.6h10v14.8l-5-3.2-5 3.2Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    path: '/account',
+    label: '계정',
+    icon: (
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="8.6" r="3.6" stroke="currentColor" strokeWidth="1.7" />
+        <path d="M4.8 19.4c1.4-3 4-4.6 7.2-4.6s5.8 1.6 7.2 4.6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    path: null,
+    label: '정보',
+    icon: (
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="8.4" stroke="currentColor" strokeWidth="1.7" />
+        <path d="M12 10.8v5M12 7.6v.4" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" />
+      </svg>
+    ),
+  },
 ];
 
 function BottomNav() {
@@ -95,6 +141,19 @@ function BottomNav() {
   return (
     <nav className="v3-bottom-nav" aria-label="주요 화면">
       {NAV_ITEMS.map(item => {
+        if (item.path === null) {
+          return (
+            <button
+              key={item.label}
+              type="button"
+              className="v3-bottom-nav-item v3-bottom-nav-item--soon"
+              aria-disabled="true"
+            >
+              {item.icon}
+              <span>{item.label}</span>
+            </button>
+          );
+        }
         const active =
           item.path === '/' ? location.pathname === '/' : location.pathname.startsWith(item.path);
         return (
@@ -103,7 +162,7 @@ function BottomNav() {
             type="button"
             className="v3-bottom-nav-item"
             aria-current={active ? 'page' : undefined}
-            onClick={() => navigate(item.path)}
+            onClick={() => navigate(item.path!)}
           >
             {item.icon}
             <span>{item.label}</span>
@@ -122,7 +181,7 @@ export default function SpringApp() {
     <div className="v3-root">
       <header className="v3-masthead">
         <button type="button" className="v3-brand" onClick={() => navigate('/')}>
-          <LeafMark className="v3-brand-leaf" />
+          <img src={logoSvg} alt="" className="v3-brand-leaf" draggable={false} />
           이름봄
         </button>
         <div className="v3-masthead-actions">
@@ -143,6 +202,8 @@ export default function SpringApp() {
           <Route path="/reports/saju" element={<SajuScreen />} />
           <Route path="/reports/naming" element={<NamingScreen />} />
           <Route path="/naming/candidates" element={<CandidatesScreen />} />
+          <Route path="/favorites" element={<FavoritesScreen />} />
+          <Route path="/account" element={<AccountScreen />} />
           <Route path="*" element={<HomeScreen />} />
         </Routes>
       </TermsProvider>

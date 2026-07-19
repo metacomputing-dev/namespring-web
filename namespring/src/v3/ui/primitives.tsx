@@ -1,5 +1,14 @@
 import { createContext, useContext, useState, type ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ELEMENT_KO } from '../model/facts';
+import {
+  clearCandidateOverride,
+  hasCandidateOverride,
+  loadOriginalProfile,
+  loadProfile,
+  fullHangulName,
+} from '../model/profile';
+import { clearDeliveryCache } from '../engine/client';
 
 /* ---------- 전문 용어 토글 (보고서 전역) ---------- */
 
@@ -147,6 +156,76 @@ export function Section({
       {lede ? <p className="v3-section-lede">{lede}</p> : null}
       {children}
     </section>
+  );
+}
+
+/* ---------- 후보 이름으로 보는 중 배너 ---------- */
+
+export function OverrideBanner() {
+  if (!hasCandidateOverride()) return null;
+  const viewing = loadProfile();
+  const original = loadOriginalProfile();
+  if (!viewing) return null;
+  return (
+    <div className="v3-override-banner" role="status">
+      <span>
+        지금은 새 이름 <strong>{fullHangulName(viewing)}</strong>
+        {original ? `(으)로 보고 있어요. 처음 입력한 ${fullHangulName(original)} 이름은 그대로 있어요.` : '(으)로 보고 있어요.'}
+      </span>
+      <button
+        type="button"
+        className="v3-button v3-button--ghost"
+        onClick={() => {
+          clearCandidateOverride();
+          clearDeliveryCache();
+          window.location.reload();
+        }}
+      >
+        내 이름으로 돌아가기
+      </button>
+    </div>
+  );
+}
+
+/* ---------- 보고서 하단 동작 ---------- */
+
+export function ReportActions() {
+  const navigate = useNavigate();
+  const [copied, setCopied] = useState(false);
+
+  async function share() {
+    // 개인정보 없는 안내만 공유한다 — 이름·생년월일은 어떤 형태로도 싣지 않는다.
+    const url = window.location.origin;
+    const text = '이름과 사주를 함께 읽는 시간, 이름봄';
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: '이름봄', text, url });
+        return;
+      }
+    } catch {
+      /* 사용자가 공유를 취소한 경우 등 */
+    }
+    try {
+      await navigator.clipboard.writeText(`${text} ${url}`);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      /* clipboard unavailable */
+    }
+  }
+
+  return (
+    <div className="v3-report-actions">
+      <button type="button" className="v3-button v3-button--ghost" onClick={() => window.print()}>
+        PDF 저장
+      </button>
+      <button type="button" className="v3-button" onClick={share}>
+        {copied ? '주소를 복사했어요' : '공유하기'}
+      </button>
+      <button type="button" className="v3-button v3-button--ghost" onClick={() => navigate('/')}>
+        처음으로
+      </button>
+    </div>
   );
 }
 

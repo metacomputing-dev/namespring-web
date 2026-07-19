@@ -11,7 +11,14 @@ import { KOREA_ANNUAL_BIRTHS } from '../model/korea-births';
 import { useDelivery } from '../engine/useDelivery';
 import { factOfKind, factsOfKind, type DeliveryIndex } from '../model/facts';
 import { fullHangulName, type V3Profile } from '../model/profile';
-import { ElementBadge, Loading, Section, TermToggle, useTerms } from '../ui/primitives';
+import {
+  ElementBadge,
+  Loading,
+  OverrideBanner,
+  Section,
+  TermToggle,
+  useTerms,
+} from '../ui/primitives';
 
 const SURFACES: ReportSurfaceSelectionV1[] = [{ id: 'naming', depth: 'standard' }];
 
@@ -425,6 +432,7 @@ export default function NamingScreen() {
   const { index, profile } = state;
   return (
     <main className="v3-page">
+      <OverrideBanner />
       <div className="v3-page-head">
         <p className="v3-kicker">이름 보고서</p>
         <h1 className="v3-page-title">{fullHangulName(profile)}, 이름의 뜻과 울림</h1>

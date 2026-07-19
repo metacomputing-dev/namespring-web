@@ -2,7 +2,13 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import type { CandidateSearchItemV1, CandidateSearchResponseV1 } from '@spring/experience/types';
 import { getEngine, clearDeliveryCache } from '../engine/client';
-import { loadProfile, saveProfile, type V3Profile } from '../model/profile';
+import {
+  loadOriginalProfile,
+  setCandidateOverride,
+  type ProfileNameChar,
+  type V3Profile,
+} from '../model/profile';
+import { favoriteId, isFavorite, toggleFavorite } from '../model/favorites';
 import { ELEMENT_KO } from '../model/facts';
 import { Loading } from '../ui/primitives';
 
@@ -17,13 +23,25 @@ function firstMeaning(meaning: string | undefined): string | null {
   return meaning.split(',')[0].trim();
 }
 
+function candidateChars(item: CandidateSearchItemV1): ProfileNameChar[] {
+  return item.name.givenCharacters.map(character => ({
+    hangul: character.hangul,
+    hanja: character.hanja || undefined,
+    meaning: character.meaning,
+  }));
+}
+
 function CandidateCard({
   item,
+  surname,
   onOpen,
 }: {
   item: CandidateSearchItemV1;
+  surname: ProfileNameChar[];
   onOpen: (item: CandidateSearchItemV1) => void;
 }) {
+  const id = favoriteId(item.name.fullHangul, item.name.fullHanja);
+  const [saved, setSaved] = useState(() => isFavorite(id));
   const meanings = item.name.givenCharacters
     .map(character => firstMeaning(character.meaning))
     .filter((value): value is string => Boolean(value));
@@ -39,7 +57,35 @@ function CandidateCard({
             {item.name.fullHanja}
           </span>
         </div>
-        <span className="v3-badge">{item.score.final.toFixed(1)}점</span>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
+          <span className="v3-badge">{item.score.final.toFixed(1)}점</span>
+          <button
+            type="button"
+            className={`v3-star-button${saved ? ' v3-star-button--on' : ''}`}
+            aria-pressed={saved}
+            aria-label={saved ? '보관함에서 빼기' : '보관함에 담기'}
+            onClick={() => {
+              const nowSaved = toggleFavorite({
+                id,
+                fullHangul: item.name.fullHangul,
+                fullHanja: item.name.fullHanja,
+                surname,
+                givenName: candidateChars(item),
+              });
+              setSaved(nowSaved);
+            }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 3.4l2.6 5.4 5.9.8-4.3 4.1 1.1 5.9L12 16.8l-5.3 2.8 1.1-5.9-4.3-4.1 5.9-.8Z"
+                fill={saved ? 'currentColor' : 'none'}
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
       {meanings.length > 0 ? (
         <p style={{ margin: '0.4rem 0 0' }}>{meanings.join(' · ')}</p>
@@ -66,8 +112,9 @@ function CandidateCard({
 
 export default function CandidatesScreen() {
   const navigate = useNavigate();
-  const profile = useMemo(loadProfile, []);
+  const profile = useMemo(loadOriginalProfile, []);
   const [givenLength, setGivenLength] = useState<1 | 2>(2);
+  const [showAllGenders, setShowAllGenders] = useState(false);
   const [state, setState] = useState<SearchState>({ status: 'idle' });
 
   useEffect(() => {
@@ -109,25 +156,34 @@ export default function CandidatesScreen() {
   if (!profile) return null;
 
   function openCandidate(item: CandidateSearchItemV1) {
-    // 후보 이름으로 프로필을 통째로 바꿔 통합 보고서까지 같은 이름으로 읽히게 한다.
-    const next: V3Profile = {
+    // 원본 프로필은 그대로 두고, 후보 이름을 "잠깐 읽어 보기"로만 얹는다.
+    const override: V3Profile = {
       ...profile!,
-      surname: item.name.givenCharacters.length > 0
-        ? profile!.surname
-        : profile!.surname,
-      givenName: item.name.givenCharacters.map(character => ({
-        hangul: character.hangul,
-        hanja: character.hanja || undefined,
-        meaning: character.meaning,
-      })),
+      givenName: candidateChars(item),
       pureHangul: false,
     };
-    saveProfile(next);
+    setCandidateOverride(override);
     clearDeliveryCache();
     navigate('/reports/integrated');
   }
 
   const surnameText = profile.surname.map(c => c.hangul).join('');
+  const gender = profile.birth.gender;
+  const genderNote =
+    gender === 'male'
+      ? '남자아이에게 주로 쓰이는 이름과 두루 쓰이는 이름을 보여드려요.'
+      : gender === 'female'
+        ? '여자아이에게 주로 쓰이는 이름과 두루 쓰이는 이름을 보여드려요.'
+        : null;
+
+  const visibleItems =
+    state.status === 'ready'
+      ? state.response.items.filter(item => {
+          if (showAllGenders || gender === 'neutral') return true;
+          const tendency = item.popularity.tendency;
+          return tendency === gender || tendency === 'unknown';
+        })
+      : [];
 
   return (
     <main className="v3-page">
@@ -140,14 +196,29 @@ export default function CandidatesScreen() {
         </p>
       </div>
 
-      <div className="v3-segment" role="group" aria-label="이름 글자 수">
-        <button type="button" aria-pressed={givenLength === 2} onClick={() => setGivenLength(2)}>
-          두 글자 이름
-        </button>
-        <button type="button" aria-pressed={givenLength === 1} onClick={() => setGivenLength(1)}>
-          한 글자 이름
-        </button>
+      <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap', alignItems: 'center' }}>
+        <div className="v3-segment" role="group" aria-label="이름 글자 수">
+          <button type="button" aria-pressed={givenLength === 2} onClick={() => setGivenLength(2)}>
+            두 글자 이름
+          </button>
+          <button type="button" aria-pressed={givenLength === 1} onClick={() => setGivenLength(1)}>
+            한 글자 이름
+          </button>
+        </div>
+        {gender !== 'neutral' ? (
+          <label className="v3-check">
+            <input
+              type="checkbox"
+              checked={showAllGenders}
+              onChange={event => setShowAllGenders(event.target.checked)}
+            />
+            성별 상관없이 모두 보기
+          </label>
+        ) : null}
       </div>
+      {genderNote && !showAllGenders ? (
+        <p className="v3-hint" style={{ margin: '0.5rem 0 0' }}>{genderNote}</p>
+      ) : null}
 
       <div style={{ marginTop: 'var(--space-md)' }}>
         {state.status === 'loading' || state.status === 'idle' ? (
@@ -165,11 +236,19 @@ export default function CandidatesScreen() {
         ) : (
           <>
             <p className="v3-hint" style={{ margin: '0 0 0.8rem' }}>
-              {state.response.pagination.returnedCount}개의 이름을 골랐어요.
+              {visibleItems.length}개의 이름을 보여드려요.
+              {visibleItems.length < state.response.items.length
+                ? ` 성별 어울림 기준으로 ${state.response.items.length - visibleItems.length}개를 접어 두었어요.`
+                : ''}
             </p>
             <div className="v3-grid-2">
-              {state.response.items.map(item => (
-                <CandidateCard key={item.candidateId} item={item} onOpen={openCandidate} />
+              {visibleItems.map(item => (
+                <CandidateCard
+                  key={item.candidateId}
+                  item={item}
+                  surname={profile.surname}
+                  onOpen={openCandidate}
+                />
               ))}
             </div>
           </>

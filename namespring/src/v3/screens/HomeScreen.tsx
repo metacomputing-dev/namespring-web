@@ -2,7 +2,12 @@ import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { KOREA_REGION_PRIMARY_ALIASES } from '@spring/region-coordinates';
 import { HanjaPickerModal, type HanjaChoice } from '../ui/HanjaPicker';
-import { loadProfile, saveProfile, type ProfileNameChar, type V3Profile } from '../model/profile';
+import {
+  loadOriginalProfile,
+  saveProfile,
+  type ProfileNameChar,
+  type V3Profile,
+} from '../model/profile';
 import { clearDeliveryCache } from '../engine/client';
 
 interface PickerTarget {
@@ -25,7 +30,7 @@ function daysInMonth(year: number, month: number): number {
 
 export default function HomeScreen() {
   const navigate = useNavigate();
-  const saved = useMemo(loadProfile, []);
+  const saved = useMemo(loadOriginalProfile, []);
 
   const [surnameText, setSurnameText] = useState(saved?.surname.map(c => c.hangul).join('') ?? '');
   const [givenText, setGivenText] = useState(saved?.givenName.map(c => c.hangul).join('') ?? '');
