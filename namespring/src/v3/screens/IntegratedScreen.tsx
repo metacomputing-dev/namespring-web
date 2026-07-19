@@ -314,16 +314,16 @@ export default function IntegratedScreen() {
         <OverallComputationCard index={index} />
       </Section>
 
+      <Section title="오행으로 견주어 보기">
+        <div className="v3-card">
+          <ElementCompareBars index={index} />
+        </div>
+      </Section>
+
       <Section title="이름과 사주, 나란히 보기" lede="같은 크기로 두고 서로 다른 계산을 억지로 합치지 않았어요.">
         <div className="v3-grid-2">
           <NameSummaryCard index={index} profile={profile} />
           <SajuSummaryCard index={index} />
-        </div>
-      </Section>
-
-      <Section title="오행으로 견주어 보기">
-        <div className="v3-card">
-          <ElementCompareBars index={index} />
         </div>
       </Section>
 

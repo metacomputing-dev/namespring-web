@@ -537,6 +537,8 @@ export default function CompatibilityScreen() {
             />
           </Section>
 
+          <ElementPairCompareSection result={result} />
+
           <Section
             title="더 자세히 읽기"
             lede="축 하나하나의 근거와 해석은 각각의 상세 보고서에 있어요. 전 생애 대운 겹쳐 보기는 사주간 궁합에서 볼 수 있어요."
@@ -576,8 +578,6 @@ export default function CompatibilityScreen() {
               />
             </div>
           </Section>
-
-          <ElementPairCompareSection result={result} />
 
           <CompatPremiumSection />
           <CompatReportTail />
