@@ -19,9 +19,7 @@ import {
   ReportFootnote,
   Section,
 } from '../ui/primitives';
-import { ScoreBar } from './compat/shared';
-
-/** naming 표면을 함께 요청해 이름 점수 metric들을 한눈에 보기 카드에 쓴다. */
+/** naming 표면을 함께 요청해 이름 점수 metric들을 통합으로 읽기 카드에 쓴다. */
 const SURFACES: ReportSurfaceSelectionV1[] = [
   { id: 'integrated', depth: 'standard' },
   { id: 'naming', depth: 'standard' },
@@ -55,7 +53,7 @@ function GlanceCard({ index, profile }: { index: DeliveryIndex; profile: V3Profi
   const branchElement = dayPillar ? BRANCH_ELEMENT[dayPillar.branch.code] ?? null : null;
   return (
     <div className="v3-card" style={{ display: 'flex', flexDirection: 'column' }}>
-      <p className="v3-kicker">이름과 사주가 그린 나</p>
+      <p className="v3-kicker">이름과 사주를 볼 사람</p>
       <p className="v3-core-value" style={{ marginBottom: '0.35rem' }}>
         {hangulName}
         {hanjaName ? <span className="v3-title-hanja"> {hanjaName}</span> : null}
@@ -161,7 +159,7 @@ function OverallComputationCard({ index }: { index: DeliveryIndex }) {
     metrics.find(fact => fact.id === 'naming.hangul-score') ??
     null;
   if (!main) return null;
-  const rest = metrics.filter(fact => fact.id !== main.id);
+  const nameRows = [main, ...metrics.filter(fact => fact.id !== main.id)];
   const interaction = factOfKind(index, 'name_saju_interaction');
   const interactionLine =
     interaction && interaction.classification !== 'unavailable'
@@ -181,47 +179,33 @@ function OverallComputationCard({ index }: { index: DeliveryIndex }) {
       : null;
   return (
     <div className="v3-card">
-      <div className="v3-fortune-cell-head">
-        <p className="v3-core-value" style={{ margin: 0 }}>
-          {Math.round(main.value)}
-          <span className="v3-hint" style={{ marginLeft: '0.25rem' }}>/ 100</span>
-        </p>
-        <span className="v3-badge v3-badge--accent">{main.label}</span>
-      </div>
-      <ScoreBar score={main.value} />
-      <div className="v3-grid-2" style={{ marginTop: '0.8rem' }}>
+      <div className="v3-grid-2">
         <div>
           <p className="v3-kicker">이름의 계산</p>
-          {rest.length > 0 ? (
-            <ul className="v3-plain-list">
-              {rest.map(fact => (
-                <li key={fact.id}>
-                  {fact.label} <strong>{Math.round(fact.value)}점</strong>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="v3-hint" style={{ margin: 0 }}>
-              이름의 세부 점수는 이름 보고서에서 볼 수 있어요.
-            </p>
-          )}
+          <ul className="v3-plain-list">
+            {nameRows.map(fact => (
+              <li key={fact.id}>
+                {fact.label} <strong>{Math.round(fact.value)}점</strong>
+              </li>
+            ))}
+          </ul>
         </div>
         <div>
           <p className="v3-kicker">사주의 결론</p>
           <ul className="v3-plain-list">
             {strength ? (
-              <li>타고난 기운 세기 <strong>{strength.level}</strong></li>
+              <li>기운 세기 <strong>{strength.level}</strong></li>
             ) : null}
             {strongest ? (
               <li>
-                가장 짙은 기운 <ElementBadge element={strongest.element} suffix="기운" />{' '}
-                {Math.round(strongest.sharePercent)}%
+                짙은 기운 <ElementBadge element={strongest.element} suffix="기운" />{' '}
+                <strong>{Math.round(strongest.sharePercent)}%</strong>
               </li>
             ) : null}
             {faintest ? (
               <li>
-                가장 옅은 기운 <ElementBadge element={faintest.element} suffix="기운" />{' '}
-                {Math.round(faintest.sharePercent)}%
+                옅은 기운 <ElementBadge element={faintest.element} suffix="기운" />{' '}
+                <strong>{Math.round(faintest.sharePercent)}%</strong>
               </li>
             ) : null}
             {yongshin?.element ? (
@@ -233,15 +217,12 @@ function OverallComputationCard({ index }: { index: DeliveryIndex }) {
               </li>
             ) : null}
           </ul>
-          <p className="v3-hint" style={{ margin: '0.55rem 0 0' }}>
-            사주는 좋고 나쁨을 점수로 매길 대상이 아니라 결론으로 읽어요.
-          </p>
         </div>
       </div>
       {interactionLine ? <p style={{ margin: '0.7rem 0 0' }}>{interactionLine}</p> : null}
-      <p className="v3-hint" style={{ margin: '0.7rem 0 0' }}>
-        이름과 사주는 단위가 다른 계산이라 하나의 점수로 합치지 않아요. 두 사람
-        사이를 셈하는 궁합의 통합 점수와 다른 점이에요.
+      <p className="v3-hint" style={{ margin: '0.55rem 0 0' }}>
+        사주는 좋고 나쁨을 점수로 매기지 않고, 이름과 사주는 단위가 다른 계산이라
+        하나의 점수로 합치지 않아요.
       </p>
     </div>
   );
@@ -347,8 +328,8 @@ function ElementCompareBars({ index }: { index: DeliveryIndex }) {
   );
 }
 
-/** 궁합 허브의 상세 링크 카드와 같은 모양새: 점수 머리 + 한 줄 요약 + 하단 와이드 버튼. */
-function NameDetailLinkCard({ index, profile }: { index: DeliveryIndex; profile: V3Profile }) {
+/** 궁합 허브의 상세 링크 카드와 같은 골격: 머리값+배지 → 한 줄 → 하단 와이드 버튼. */
+function NameDetailLinkCard({ index }: { index: DeliveryIndex }) {
   const metrics = factsOfKind(index, 'metric').filter(
     fact => fact.unit === 'score_0_100' && fact.direction === 'higher_is_better',
   );
@@ -356,13 +337,6 @@ function NameDetailLinkCard({ index, profile }: { index: DeliveryIndex; profile:
     metrics.find(fact => fact.id === 'naming.total-score') ??
     metrics.find(fact => fact.id === 'naming.hangul-score') ??
     null;
-  const meanings = factsOfKind(index, 'name_character')
-    .filter(fact => fact.meaning)
-    .map(fact => fact.meaning);
-  const headline =
-    meanings.length > 0
-      ? `${meanings.join(' · ')} — 글자마다 담긴 뜻과 소리, 수리의 흐름을 풀어드려요.`
-      : `${fullHangulName(profile)} — 글자의 소리와 뜻, 수리의 흐름을 하나하나 풀어드려요.`;
   return (
     <div className="v3-card" style={{ display: 'flex', flexDirection: 'column' }}>
       <p className="v3-kicker">이름 풀이</p>
@@ -373,7 +347,7 @@ function NameDetailLinkCard({ index, profile }: { index: DeliveryIndex; profile:
           <span className="v3-badge" style={{ marginLeft: '0.45rem' }}>{main.label}</span>
         </p>
       ) : null}
-      <p style={{ margin: 0 }}>{headline}</p>
+      <p style={{ margin: 0 }}>글자의 뜻과 소리, 수리의 흐름을 한 글자씩 풀어드려요.</p>
       <div style={{ marginTop: 'auto', paddingTop: '0.9rem' }}>
         <Link to="/reports/naming" className="v3-button v3-button--ghost v3-button--wide">
           이름 자세히 보기
@@ -383,37 +357,21 @@ function NameDetailLinkCard({ index, profile }: { index: DeliveryIndex; profile:
   );
 }
 
-/** 사주는 점수가 없으므로 일간 글자를 머리값으로 두고 결론 한 줄로 잇는다. */
+/** 사주는 점수가 없으므로 일간 글자를 머리값으로 둔다 — 골격은 이름 카드와 동일. */
 function SajuDetailLinkCard({ index }: { index: DeliveryIndex }) {
   const pillars = factOfKind(index, 'pillars');
   const dayPillar = pillars?.values.find(value => value.position === 'day') ?? null;
   const dayMaster = factOfKind(index, 'day_master');
-  const strength = factOfKind(index, 'strength');
-  const yongshin = factOfKind(index, 'yongshin');
   return (
     <div className="v3-card" style={{ display: 'flex', flexDirection: 'column' }}>
       <p className="v3-kicker">사주 풀이</p>
       {dayPillar || dayMaster ? (
         <p className="v3-core-value" style={{ marginBottom: '0.25rem' }}>
           {dayPillar ? `${dayPillar.stem.hangul}(${dayPillar.stem.hanja})` : dayMaster!.stem}
-          {dayMaster?.element ? (
-            <span className="v3-badge" style={{ marginLeft: '0.45rem' }}>
-              나를 나타내는 글자
-            </span>
-          ) : null}
+          <span className="v3-badge" style={{ marginLeft: '0.45rem' }}>일간</span>
         </p>
       ) : null}
-      <p style={{ margin: 0 }}>
-        {strength ? (
-          <>타고난 기운은 <strong>{strength.level}</strong> 쪽이에요.</>
-        ) : null}
-        {yongshin?.element ? (
-          <>
-            {' '}
-            사주가 반기는 기운은 <ElementBadge element={yongshin.element} suffix="기운" /> 이에요.
-          </>
-        ) : null}
-      </p>
+      <p style={{ margin: 0 }}>여덟 글자의 짜임과 대운의 흐름을 기둥 하나씩 풀어드려요.</p>
       <div style={{ marginTop: 'auto', paddingTop: '0.9rem' }}>
         <Link to="/reports/saju" className="v3-button v3-button--ghost v3-button--wide">
           사주 자세히 보기
@@ -448,20 +406,13 @@ export default function IntegratedScreen() {
   }
 
   const { index, profile } = state;
-  const hangulName = fullHangulName(profile);
-  const hanjaName = fullHanjaName(profile);
   const meeting = meetingSentence(index);
 
   return (
     <main className="v3-page">
       <OverrideBanner />
       <div className="v3-page-head">
-        <p className="v3-kicker">통합 보고서</p>
-        <h1 className="v3-page-title">
-          {hangulName}
-          {hanjaName ? <span className="v3-title-hanja"> {hanjaName}</span> : null}
-        </h1>
-        {meeting ? <p className="v3-page-lede">{meeting.main}</p> : null}
+        <h1 className="v3-page-title">통합 보고서</h1>
       </div>
 
       <Section title="한눈에 보기">
@@ -494,7 +445,7 @@ export default function IntegratedScreen() {
         lede="글자 하나·기둥 하나의 근거와 해석은 각각의 상세 보고서에 있어요. 전 생애 대운 흐름은 사주 보고서에서 볼 수 있어요."
       >
         <div className="v3-grid-2">
-          <NameDetailLinkCard index={index} profile={profile} />
+          <NameDetailLinkCard index={index} />
           <SajuDetailLinkCard index={index} />
         </div>
       </Section>
