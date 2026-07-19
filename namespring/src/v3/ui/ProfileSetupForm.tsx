@@ -44,7 +44,25 @@ export default function ProfileSetupForm({
 
   const [surnameText, setSurnameText] = useState(saved?.surname.map(c => c.hangul).join('') ?? '');
   const [givenText, setGivenText] = useState(saved?.givenName.map(c => c.hangul).join('') ?? '');
-  const [hanjaByChar, setHanjaByChar] = useState<Record<string, HanjaChoice>>({});
+  const [hanjaByChar, setHanjaByChar] = useState<Record<string, HanjaChoice>>(() => {
+    // 저장된 프로필을 고칠 때 이미 고른 한자(특히 성씨)를 다시 고르게 하지 않는다.
+    if (!saved) return {};
+    const seed: Record<string, HanjaChoice> = {};
+    const feed = (part: 'surname' | 'givenName', chars: ProfileNameChar[]) => {
+      chars.forEach((c, index) => {
+        if (c.hanja) {
+          seed[`${part}:${index}:${c.hangul}`] = {
+            hanja: c.hanja,
+            meaning: c.meaning ?? '',
+            strokes: 0,
+          };
+        }
+      });
+    };
+    feed('surname', saved.surname);
+    feed('givenName', saved.givenName);
+    return seed;
+  });
   const [pureHangul, setPureHangul] = useState(saved?.pureHangul ?? false);
   const [picker, setPicker] = useState<PickerTarget | null>(null);
 
@@ -69,11 +87,11 @@ export default function ProfileSetupForm({
   const givenChars = toChars(givenText).slice(0, 4);
   const nameReady = surnameChars.length >= 1 && givenChars.length >= 1;
   const slotKey = (part: string, index: number, ch: string) => `${part}:${index}:${ch}`;
-  const hanjaComplete =
-    pureHangul
-    || [...surnameChars.map((ch, i) => slotKey('surname', i, ch)),
-        ...givenChars.map((ch, i) => slotKey('givenName', i, ch))]
-      .every(key => hanjaByChar[key]);
+  // 성씨 한자는 순우리말 이름이어도 항상 필요하다 — 작명(사격수리)의 재료라서다.
+  const hanjaComplete = [
+    ...surnameChars.map((ch, i) => slotKey('surname', i, ch)),
+    ...(pureHangul ? [] : givenChars.map((ch, i) => slotKey('givenName', i, ch))),
+  ].every(key => hanjaByChar[key]);
 
   const canSubmit = nameReady && hanjaComplete && year >= 1900 && year <= 2035;
 
@@ -97,7 +115,9 @@ export default function ProfileSetupForm({
     const buildChars = (part: 'surname' | 'givenName', chars: string[]): ProfileNameChar[] =>
       chars.map((hangul, index) => {
         const choice = hanjaByChar[slotKey(part, index, hangul)];
-        return pureHangul || !choice
+        // 순우리말 면제는 이름자에만 적용 — 성씨 한자는 항상 실어 보낸다.
+        const skipHanja = pureHangul && part === 'givenName';
+        return skipHanja || !choice
           ? { hangul }
           : { hangul, hanja: choice.hanja, meaning: choice.meaning };
       });
@@ -154,12 +174,14 @@ export default function ProfileSetupForm({
             />
           </div>
         </div>
-        {nameReady && !pureHangul ? (
+        {nameReady ? (
           <div style={{ marginTop: '0.9rem' }}>
-            <p className="v3-label" style={{ margin: '0 0 0.45rem' }}>글자마다 한자를 골라 주세요</p>
+            <p className="v3-label" style={{ margin: '0 0 0.45rem' }}>
+              {pureHangul ? '성씨 한자를 골라 주세요' : '글자마다 한자를 골라 주세요'}
+            </p>
             <div className="v3-char-slots">
               {surnameChars.map((ch, i) => charSlot('surname', i, ch))}
-              {givenChars.map((ch, i) => charSlot('givenName', i, ch))}
+              {pureHangul ? null : givenChars.map((ch, i) => charSlot('givenName', i, ch))}
             </div>
           </div>
         ) : null}
@@ -170,7 +192,7 @@ export default function ProfileSetupForm({
               checked={pureHangul}
               onChange={event => setPureHangul(event.target.checked)}
             />
-            한자가 없는 순우리말 이름이에요
+            이름은 한자가 없는 순우리말이에요 (성씨 한자는 골라 주세요)
           </label>
         ) : null}
       </section>
@@ -357,7 +379,7 @@ export default function ProfileSetupForm({
           </button>
           {!hanjaComplete ? (
             <p className="v3-hint" style={{ marginTop: '0.5rem', textAlign: 'center' }}>
-              글자마다 한자를 고르거나, 순우리말 이름으로 표시해 주세요.
+              성씨 한자를 골라 주세요. 이름은 한자를 고르거나 순우리말로 표시할 수 있어요.
             </p>
           ) : null}
         </div>

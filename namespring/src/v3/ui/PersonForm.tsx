@@ -98,11 +98,11 @@ export default function PersonForm({
   const givenChars = toChars(givenText).slice(0, 4);
   const nameReady = surnameChars.length >= 1 && givenChars.length >= 1;
   const slotKey = (part: string, index: number, ch: string) => `${part}:${index}:${ch}`;
-  const hanjaComplete =
-    pureHangul
-    || [...surnameChars.map((ch, i) => slotKey('surname', i, ch)),
-        ...givenChars.map((ch, i) => slotKey('givenName', i, ch))]
-      .every(key => hanjaByChar[key]);
+  // 성씨 한자는 순우리말 이름이어도 항상 필요하다 — 수리·자원오행 계산의 재료라서다.
+  const hanjaComplete = [
+    ...surnameChars.map((ch, i) => slotKey('surname', i, ch)),
+    ...(pureHangul ? [] : givenChars.map((ch, i) => slotKey('givenName', i, ch))),
+  ].every(key => hanjaByChar[key]);
 
   const canSubmit = nameReady && hanjaComplete && year >= 1900 && year <= 2035;
 
@@ -128,7 +128,9 @@ export default function PersonForm({
     const buildChars = (part: 'surname' | 'givenName', chars: string[]): ProfileNameChar[] =>
       chars.map((hangul, index) => {
         const choice = hanjaByChar[slotKey(part, index, hangul)];
-        return pureHangul || !choice
+        // 순우리말 면제는 이름자에만 적용 — 성씨 한자는 항상 실어 보낸다.
+        const skipHanja = pureHangul && part === 'givenName';
+        return skipHanja || !choice
           ? { hangul }
           : { hangul, hanja: choice.hanja, meaning: choice.meaning };
       });
@@ -177,12 +179,14 @@ export default function PersonForm({
         </div>
       </div>
 
-      {nameReady && !pureHangul ? (
+      {nameReady ? (
         <div style={{ marginTop: '0.8rem' }}>
-          <p className="v3-label" style={{ margin: '0 0 0.45rem' }}>글자마다 한자를 골라 주세요</p>
+          <p className="v3-label" style={{ margin: '0 0 0.45rem' }}>
+            {pureHangul ? '성씨 한자를 골라 주세요' : '글자마다 한자를 골라 주세요'}
+          </p>
           <div className="v3-char-slots">
             {surnameChars.map((ch, i) => charSlot('surname', i, ch))}
-            {givenChars.map((ch, i) => charSlot('givenName', i, ch))}
+            {pureHangul ? null : givenChars.map((ch, i) => charSlot('givenName', i, ch))}
           </div>
         </div>
       ) : null}
@@ -193,7 +197,7 @@ export default function PersonForm({
             checked={pureHangul}
             onChange={event => setPureHangul(event.target.checked)}
           />
-          한자가 없는 순우리말 이름이에요
+          이름은 한자가 없는 순우리말이에요 (성씨 한자는 골라 주세요)
         </label>
       ) : null}
 
@@ -375,7 +379,7 @@ export default function PersonForm({
         </button>
         {nameReady && !hanjaComplete ? (
           <p className="v3-hint" style={{ marginTop: '0.5rem', textAlign: 'center' }}>
-            글자마다 한자를 고르거나, 순우리말 이름으로 표시해 주세요.
+            성씨 한자를 골라 주세요. 이름은 한자를 고르거나 순우리말로 표시할 수 있어요.
           </p>
         ) : null}
       </div>
