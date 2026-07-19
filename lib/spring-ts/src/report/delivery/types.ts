@@ -769,6 +769,12 @@ export type ReportBlockV1 =
       readonly kind: 'life_flow';
       readonly interpretationRef: string;
       readonly ratingFactRef?: string;
+      /** Per-daeun overall ratings for the life curve; each ref is a
+       *  `stars_1_5` metric graded by the same engine cell grader. */
+      readonly daeunRatings?: readonly {
+        readonly order: number;
+        readonly ratingFactRef: string;
+      }[];
     })
   | (BlockBaseV1 & {
       readonly kind: 'four_frames';

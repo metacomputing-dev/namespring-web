@@ -777,12 +777,25 @@ export interface TieredSelectedPeriod {
 
 /** Internal narrow matrix used by ReportDeliveryV1. It never contains life
  * age-band/daeun fan-out or unrequested period/category cells. */
+/** Deterministic overall grade of one daeun decade, from the same cell
+ *  grader the life-band cells use. No article machinery is involved. */
+export interface DaeunStarPointV1 {
+  readonly order: number;
+  readonly startAge: number;
+  readonly endAge: number;
+  readonly stem: string;
+  readonly branch: string;
+  readonly stars: number | null;
+}
+
 export interface TieredMatrixSelection {
   readonly schemaVersion: 'spring-ts.tiered-selection.v1';
   readonly periods: Readonly<Partial<Record<TieredPeriodKind, TieredSelectedPeriod>>>;
   readonly glossary: TagGlossary;
   readonly namingEvidence?: TieredNamingEvidence;
   readonly nameSajuReading?: TieredNameSajuReading;
+  /** Present when the life period was requested and daeun pillars exist. */
+  readonly daeunStars?: readonly DaeunStarPointV1[];
   readonly meta: TieredMatrixMeta;
 }
 
@@ -902,12 +915,39 @@ export async function buildTieredMatrixSelection(
     yongshinResolved: feature.yongshinElement !== null,
   });
 
+  // Life-flow curve support: grade each daeun decade with the exact same
+  // cell grader the life cells use, so the curve never invents a value.
+  let daeunStars: readonly DaeunStarPointV1[] | undefined;
+  if (options.periods.includes('life')) {
+    const daeunPillars = extractDaeunPillars(saju);
+    if (daeunPillars.length > 0) {
+      daeunStars = daeunPillars.map((pillar, index) => {
+        const fortuneElement = elementFromStemOrBranch(pillar.stem, pillar.branch);
+        const grade = gradeCell(
+          fortuneElement,
+          feature.yongshinElement,
+          feature.heeshinElement,
+          feature.gishinElement,
+        );
+        return {
+          order: index,
+          startAge: pillar.startAge,
+          endAge: pillar.endAge,
+          stem: pillar.stem,
+          branch: pillar.branch,
+          stars: grade.stars,
+        };
+      });
+    }
+  }
+
   return {
     schemaVersion: 'spring-ts.tiered-selection.v1',
     periods,
     glossary,
     ...(namingEvidence ? { namingEvidence } : {}),
     ...(nameSajuReading ? { nameSajuReading } : {}),
+    ...(daeunStars ? { daeunStars } : {}),
     meta: pseudonymousTieredMeta(registry, options, seedKey),
   };
 }

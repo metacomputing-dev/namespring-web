@@ -2653,11 +2653,24 @@ function strictBlock(value: unknown): ReportBlockV1 {
     strictObject(
       value,
       [...base, 'interpretationRef'],
-      ['ratingFactRef'],
+      ['ratingFactRef', 'daeunRatings'],
       'LIFE_FLOW_BLOCK_SHAPE',
     );
     strictString(value.interpretationRef, 'LIFE_INTERPRETATION_REF');
     if (hasOwn(value, 'ratingFactRef')) strictString(value.ratingFactRef, 'LIFE_RATING_REF');
+    if (hasOwn(value, 'daeunRatings')) {
+      strictArray(value.daeunRatings, 'LIFE_DAEUN_RATINGS', 1, 16);
+      let previousOrder: number | null = null;
+      for (const entry of value.daeunRatings) {
+        strictObject(entry, ['order', 'ratingFactRef'], [], 'LIFE_DAEUN_RATING_SHAPE');
+        strictSafeInteger(entry.order, 'LIFE_DAEUN_RATING_ORDER');
+        if (previousOrder !== null && entry.order <= previousOrder) {
+          contractFail('LIFE_DAEUN_RATING_ORDER');
+        }
+        previousOrder = entry.order as number;
+        strictString(entry.ratingFactRef, 'LIFE_DAEUN_RATING_REF');
+      }
+    }
   } else if (value.kind === 'four_frames') {
     strictObject(value, [...base, 'items'], [], 'FOUR_FRAMES_BLOCK_SHAPE');
     strictArray(value.items, 'FOUR_FRAMES_ITEMS', 4, 4);
@@ -2884,6 +2897,7 @@ function assertNoOrphanPayload(
       }
     } else if (block.kind === 'life_flow') {
       if (block.ratingFactRef !== undefined) usedFacts.add(block.ratingFactRef);
+      for (const entry of block.daeunRatings ?? []) usedFacts.add(entry.ratingFactRef);
       usedInterpretations.add(block.interpretationRef);
     } else if (block.kind === 'four_frames') {
       for (const item of block.items) {
@@ -3331,6 +3345,15 @@ export function assertReportDeliveryV1(
           if (rating.kind !== 'metric' || rating.unit !== 'stars_1_5'
             || !interpretation.factRefs.includes(block.ratingFactRef)) {
             contractFail('LIFE_RATING_BINDING');
+          }
+        }
+        for (const entry of block.daeunRatings ?? []) {
+          if (entry.ratingFactRef !== `fortune.life.daeun.${entry.order}.stars`) {
+            contractFail('LIFE_DAEUN_RATING_REF');
+          }
+          const rating = factRef(factById, entry.ratingFactRef, 'DANGLING_RATING_FACT_REF');
+          if (rating.kind !== 'metric' || rating.unit !== 'stars_1_5') {
+            contractFail('LIFE_DAEUN_RATING_REF');
           }
         }
       } else if (block.kind === 'four_frames') {

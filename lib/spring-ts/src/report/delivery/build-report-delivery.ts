@@ -2387,6 +2387,25 @@ export async function buildReportDeliveryV1(
           ? `fortune.life.overall.${surface.depth}.interpretation`
           : undefined;
         if (ref) {
+          const daeunRatings: { order: number; ratingFactRef: string }[] = [];
+          for (const point of matrix?.daeunStars ?? []) {
+            if (point.stars === null) continue;
+            const factId = `fortune.life.daeun.${point.order}.stars`;
+            if (!facts.some((fact) => fact.id === factId)) {
+              addFact(metric(
+                factId,
+                'saju',
+                'spring-ts.tiered-daeun-grade.v1',
+                `대운 ${point.order + 1}구간 별점`,
+                point.stars,
+                'stars_1_5',
+                1,
+                5,
+                'higher_is_better',
+              ));
+            }
+            daeunRatings.push({ order: point.order, ratingFactRef: factId });
+          }
           blocks.push({
             id: `${sliceKey}.life-flow`, kind: 'life_flow', title: '생애 흐름',
             availability: fortuneCellAvailability(lifeCell!, natalAvailability),
@@ -2395,6 +2414,7 @@ export async function buildReportDeliveryV1(
               && lifeCell?.stars !== undefined
               ? { ratingFactRef: 'fortune.life.overall.stars' }
               : {}),
+            ...(daeunRatings.length > 0 ? { daeunRatings } : {}),
           });
         }
       }
