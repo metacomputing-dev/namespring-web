@@ -25,6 +25,8 @@
 - `screens/compat/shared.tsx` — 세 화면 공유 조각(데이터 훅, 카드류, 프레임별 일지 호칭, 보관 별표, 유료·꼬리 대칭 구조).
 - `screens/compat/PersonSceneryPair.tsx` — 사람별 풍경 그림.
 - `ui/PersonForm.tsx` — 상대 직접 입력 폼(신규).
+- `ui/ProfileSetupForm.tsx` — 구 '처음' 화면의 본인 입력 폼을 추출한 재사용 컴포넌트. 통합 보고서가 프로필이 없을 때(리다이렉트 대신) 인라인으로 품고, '다른 정보로 바꾸기'로 다시 열 수 있다. 처음 화면도 같은 폼을 쓴다.
+- 선택 구역 접힘: 통합·궁합 모두 선택이 끝나 결과가 보이면 입력/선택 구역을 한 줄 요약(이름·관계 + 바꾸기 버튼)으로 접는다. `useDelivery`에 `redirectWhenMissing`/`reloadKey` 옵션과 'missing' 상태 추가.
 - `app.tsx` 라우팅 추가, `v3.css` 스타일(콤보·비교 막대·신호 칩·별표 등), `IntegratedScreen`·`FavoritesScreen`·`AccountScreen` 진입 동선 연결.
 
 ## 3. delivery 계층 수정: 자형(自刑) fail-closed 버그 수정

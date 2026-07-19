@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { ReportSurfaceSelectionV1 } from '@spring/report/delivery/types';
 import NamingResultRenderer from '../../NamingResultRenderer';
@@ -10,7 +10,9 @@ import {
   factsOfKind,
   type DeliveryIndex,
 } from '../model/facts';
+import { personBirthLabel } from '../model/people';
 import { fullHangulName, fullHanjaName, type V3Profile } from '../model/profile';
+import ProfileSetupForm from '../ui/ProfileSetupForm';
 import {
   ElementBadge,
   Loading,
@@ -382,7 +384,10 @@ function SajuDetailLinkCard({ index }: { index: DeliveryIndex }) {
 }
 
 export default function IntegratedScreen() {
-  const state = useDelivery(SURFACES);
+  const [reloadKey, setReloadKey] = useState(0);
+  const [editingProfile, setEditingProfile] = useState(false);
+  const state = useDelivery(SURFACES, { redirectWhenMissing: false, reloadKey });
+
   if (state.status === 'loading') {
     return (
       <main className="v3-page">
@@ -390,6 +395,32 @@ export default function IntegratedScreen() {
       </main>
     );
   }
+
+  // 프로필이 없거나(구 '처음' 화면의 빈 상태) 고치는 중이면 입력 폼을 품는다.
+  if (state.status === 'missing' || editingProfile) {
+    return (
+      <main className="v3-page">
+        <div className="v3-page-head">
+          <p className="v3-kicker">통합 보고서</p>
+          <h1 className="v3-page-title">이름과 사주, 함께 읽기</h1>
+          <p className="v3-page-lede">
+            태어난 순간의 기운과 이름에 담긴 뜻·소리를 나란히 살펴봅니다. 모든
+            계산은 이 기기 안에서 끝나요.
+          </p>
+        </div>
+        <Section title="누구의 이름과 사주인가요?">
+          <ProfileSetupForm
+            onDone={() => {
+              setEditingProfile(false);
+              setReloadKey(key => key + 1);
+            }}
+            onCancel={state.status === 'ready' ? () => setEditingProfile(false) : undefined}
+          />
+        </Section>
+      </main>
+    );
+  }
+
   if (state.status === 'error') {
     return (
       <main className="v3-page">
@@ -397,9 +428,14 @@ export default function IntegratedScreen() {
           <p style={{ margin: 0 }}>
             보고서를 준비하지 못했어요. 입력을 다시 확인해 주시겠어요?
           </p>
-          <Link to="/" className="v3-button" style={{ marginTop: '0.8rem' }}>
-            입력 화면으로
-          </Link>
+          <button
+            type="button"
+            className="v3-button"
+            style={{ marginTop: '0.8rem' }}
+            onClick={() => setEditingProfile(true)}
+          >
+            입력 다시 하기
+          </button>
         </div>
       </main>
     );
@@ -414,6 +450,37 @@ export default function IntegratedScreen() {
       <div className="v3-page-head">
         <p className="v3-kicker">통합 보고서</p>
         <h1 className="v3-page-title">이름과 사주, 함께 읽기</h1>
+      </div>
+
+      {/* 선택이 끝난 뒤에는 입력을 접고, 누구의 보고서인지 한 줄과 바꾸기만 남긴다. */}
+      <div
+        className="v3-card"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '0.7rem',
+          flexWrap: 'wrap',
+        }}
+      >
+        <div>
+          <p className="v3-kicker" style={{ marginBottom: '0.15rem' }}>누구의 이름과 사주인가요?</p>
+          <p style={{ margin: 0 }}>
+            <strong>{fullHangulName(profile)}</strong>
+            {fullHanjaName(profile) ? (
+              <span className="v3-title-hanja"> {fullHanjaName(profile)}</span>
+            ) : null}
+            {' · '}
+            {personBirthLabel(profile)}
+          </p>
+        </div>
+        <button
+          type="button"
+          className="v3-button v3-button--ghost"
+          onClick={() => setEditingProfile(true)}
+        >
+          다른 정보로 바꾸기
+        </button>
       </div>
 
       <Section title="한눈에 보기">

@@ -412,7 +412,10 @@ export default function CompatibilityScreen() {
   const [slotA, setSlotA] = useState<CompatSlot | null>(() => loadCompatSlot('a'));
   const [slotB, setSlotB] = useState<CompatSlot | null>(() => loadCompatSlot('b'));
   const [selection, setSelection] = useState<CompatRelationshipSelection>(loadCompatRelationship);
+  const [editingSetup, setEditingSetup] = useState(false);
   const state = useCompatibilityResult(slotA, slotB, selection);
+  // 선택이 끝나 결과가 보이면 선택 구역을 접는다 — 바꾸기를 눌러야 다시 펼쳐진다.
+  const setupCollapsed = state.status === 'ready' && !editingSetup && !!slotA && !!slotB;
 
   function clearSlot(key: CompatSlotKey) {
     clearCompatSlot(key);
@@ -445,45 +448,92 @@ export default function CompatibilityScreen() {
         </p>
       </div>
 
-      <Section title="누구와 누구의 궁합인가요?">
-        <div className="v3-grid-2">
-          {slotA ? (
-            <SlotChosenCard slot={slotA} title="첫 번째 사람" onClear={() => clearSlot('a')} />
-          ) : (
-            <SlotPicker
-              slotKey="a"
-              title="첫 번째 사람"
-              hint="보통 나 자신이에요. 내 정보를 불러오거나 직접 입력해 주세요."
-              onChosen={setSlotA}
-            />
-          )}
-          {slotB ? (
-            <SlotChosenCard slot={slotB} title="두 번째 사람" onClear={() => clearSlot('b')} />
-          ) : (
-            <SlotPicker
-              slotKey="b"
-              title="두 번째 사람"
-              hint="궁합을 보고 싶은 상대예요. 보관함에서 고르거나 직접 입력해 주세요."
-              onChosen={setSlotB}
-            />
-          )}
-        </div>
-        <div style={{ marginTop: 'var(--space-sm)' }}>
-          <p className="v3-label" style={{ marginBottom: '0.45rem' }}>두 사람은 어떤 사이인가요?</p>
-          <RelationshipPicker selection={selection} onChange={chooseRelationship} />
-          <p className="v3-hint" style={{ margin: '0.45rem 0 0' }}>
-            관계에 따라 같은 계산도 다른 언어로 읽어드려요. 아이가 포함된 짝은
-            자동으로 우정과 성장의 언어로 읽어요.
-          </p>
-        </div>
-        {state.status === 'same' ? (
-          <div className="v3-card v3-card--tinted" style={{ marginTop: 'var(--space-sm)' }}>
+      {setupCollapsed ? (
+        <div
+          className="v3-card"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '0.7rem',
+            flexWrap: 'wrap',
+          }}
+        >
+          <div>
+            <p className="v3-kicker" style={{ marginBottom: '0.15rem' }}>누구와 누구의 궁합인가요?</p>
             <p style={{ margin: 0 }}>
-              두 자리에 같은 사람이 들어 있어요. 서로 다른 두 사람을 골라 주시겠어요?
+              <strong>{fullHangulName(slotA!.profile)}</strong>
+              {' · '}
+              <strong>{fullHangulName(slotB!.profile)}</strong>
+              {selection.label ? (
+                <span className="v3-badge" style={{ marginLeft: '0.45rem' }}>{selection.label}</span>
+              ) : selection.category !== 'unspecified' ? (
+                <span className="v3-badge" style={{ marginLeft: '0.45rem' }}>
+                  {RELATIONSHIP_KO[selection.category]}
+                </span>
+              ) : null}
             </p>
           </div>
-        ) : null}
-      </Section>
+          <button
+            type="button"
+            className="v3-button v3-button--ghost"
+            onClick={() => setEditingSetup(true)}
+          >
+            바꾸기
+          </button>
+        </div>
+      ) : (
+        <Section title="누구와 누구의 궁합인가요?">
+          <div className="v3-grid-2">
+            {slotA ? (
+              <SlotChosenCard slot={slotA} title="첫 번째 사람" onClear={() => clearSlot('a')} />
+            ) : (
+              <SlotPicker
+                slotKey="a"
+                title="첫 번째 사람"
+                hint="보통 나 자신이에요. 내 정보를 불러오거나 직접 입력해 주세요."
+                onChosen={setSlotA}
+              />
+            )}
+            {slotB ? (
+              <SlotChosenCard slot={slotB} title="두 번째 사람" onClear={() => clearSlot('b')} />
+            ) : (
+              <SlotPicker
+                slotKey="b"
+                title="두 번째 사람"
+                hint="궁합을 보고 싶은 상대예요. 보관함에서 고르거나 직접 입력해 주세요."
+                onChosen={setSlotB}
+              />
+            )}
+          </div>
+          <div style={{ marginTop: 'var(--space-sm)' }}>
+            <p className="v3-label" style={{ marginBottom: '0.45rem' }}>두 사람은 어떤 사이인가요?</p>
+            <RelationshipPicker selection={selection} onChange={chooseRelationship} />
+            <p className="v3-hint" style={{ margin: '0.45rem 0 0' }}>
+              관계에 따라 같은 계산도 다른 언어로 읽어드려요. 아이가 포함된 짝은
+              자동으로 우정과 성장의 언어로 읽어요.
+            </p>
+          </div>
+          {state.status === 'same' ? (
+            <div className="v3-card v3-card--tinted" style={{ marginTop: 'var(--space-sm)' }}>
+              <p style={{ margin: 0 }}>
+                두 자리에 같은 사람이 들어 있어요. 서로 다른 두 사람을 골라 주시겠어요?
+              </p>
+            </div>
+          ) : null}
+          {state.status === 'ready' ? (
+            <div style={{ marginTop: 'var(--space-sm)' }}>
+              <button
+                type="button"
+                className="v3-button v3-button--ghost v3-button--wide"
+                onClick={() => setEditingSetup(false)}
+              >
+                이대로 보기 (선택 접기)
+              </button>
+            </div>
+          ) : null}
+        </Section>
+      )}
 
       {state.status === 'loading' ? (
         <Loading message="두 사람의 기운을 각각 계산해 짝지어 읽고 있어요…" />
