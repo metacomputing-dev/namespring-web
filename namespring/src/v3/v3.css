@@ -833,6 +833,25 @@
   height: 3px;
 }
 
+/* ---------- 작명 후보 ---------- */
+
+.v3-candidate-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.v3-candidate-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.v3-candidate-name {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+}
+
 /* ---------- 로딩 ---------- */
 
 .v3-loading {
