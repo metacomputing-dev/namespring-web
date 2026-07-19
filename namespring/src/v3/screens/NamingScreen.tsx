@@ -142,7 +142,12 @@ function frameMeaning(strokeSum: number) {
   }
 }
 
-function FourFrames({ index }: { index: DeliveryIndex }) {
+/** 카탈로그 원문의 [성함] 자리표시자를 실제 이름으로 채운다. */
+function fillName(text: string, name: string): string {
+  return text.replace(/\[성함\]/g, name);
+}
+
+function FourFrames({ index, name }: { index: DeliveryIndex; name: string }) {
   const frames = factsOfKind(index, 'naming_frame');
   const { expert } = useTerms();
   if (frames.length === 0) return null;
@@ -165,8 +170,8 @@ function FourFrames({ index }: { index: DeliveryIndex }) {
               </span>
               <ElementBadge element={frame.element} />
             </div>
-            {meaning?.summary ? <p style={{ margin: '0.5rem 0 0' }}>{meaning.summary}</p> : null}
-            {expert && meaning && (meaning.positive_aspects || meaning.caution_points) ? (
+            {meaning?.summary ? <p style={{ margin: '0.5rem 0 0' }}>{fillName(meaning.summary, name)}</p> : null}
+            {meaning && (meaning.positive_aspects || meaning.caution_points) ? (
               <details style={{ marginTop: '0.5rem' }}>
                 <summary className="v3-hint" style={{ cursor: 'pointer' }}>전통 풀이 더 읽기</summary>
                 <div className="v3-reading">
@@ -175,7 +180,7 @@ function FourFrames({ index }: { index: DeliveryIndex }) {
                       <p className="v3-callout-title">
                         <span aria-hidden="true">☘</span> 밝게 보는 쪽
                       </p>
-                      <p style={{ margin: 0 }}>{meaning.positive_aspects}</p>
+                      <p style={{ margin: 0 }}>{fillName(meaning.positive_aspects, name)}</p>
                     </div>
                   ) : null}
                   {meaning.caution_points ? (
@@ -183,7 +188,7 @@ function FourFrames({ index }: { index: DeliveryIndex }) {
                       <p className="v3-callout-title">
                         <span aria-hidden="true">✦</span> 조심스럽게 보는 쪽
                       </p>
-                      <p style={{ margin: 0 }}>{meaning.caution_points}</p>
+                      <p style={{ margin: 0 }}>{fillName(meaning.caution_points, name)}</p>
                     </div>
                   ) : null}
                   <p className="v3-hint" style={{ margin: 0 }}>
@@ -451,7 +456,7 @@ export default function NamingScreen() {
       </Section>
 
       <Section title="획수로 읽는 네 시기">
-        <FourFrames index={index} />
+        <FourFrames index={index} name={fullHangulName(profile)} />
       </Section>
 
       <Section title="이 이름을 쓰는 사람들" lede="공식 이름 통계 자료에서 찾은 실제 기록이에요.">
