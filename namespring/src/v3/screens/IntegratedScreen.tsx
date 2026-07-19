@@ -496,7 +496,7 @@ export default function IntegratedScreen() {
       ) : null}
 
       <Section
-        title="통합으로 읽기"
+        title="요약"
         lede="이름의 점수와 사주의 결론, 이름↔사주 어울림까지 하나로 모은 결론이에요."
       >
         <OverallComputationCard index={index} />
