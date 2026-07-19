@@ -629,6 +629,9 @@ function insightFactsFact(saju: SajuSummary): InsightFactsFactV1 | null {
       ) {
         return false;
       }
+      // 신살은 집계 항목만 남기고 자리별 변형(`@year` 등)은 접는다 — 같은
+      // 신살이 홍란/홍란(월주)로 중복 노출되는 것을 막는다.
+      if (fact.kind === 'shinsal' && fact.factId.includes('@')) return false;
       if (seenFactIds.has(fact.factId)) return false;
       seenFactIds.add(fact.factId);
       return true;
