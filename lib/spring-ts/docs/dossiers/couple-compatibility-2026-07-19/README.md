@@ -228,9 +228,9 @@ resolveBundle(situationId, framing) = bundle[framing] ?? bundle.default
 
 | 경로 | 화면 | 내용 |
 |---|---|---|
-| `/compatibility` | `CompatibilityScreen` | 슬롯 2개 선택(내 정보/보관함/직접 입력) + 관계 콤보박스 + 통합 요약 + 하이라이트 축(`sections.integrated.axisIds`) + 오행 견주기 + 상세 링크 카드 2장 |
-| `/compatibility/name` | `CompatibilityNameScreen` | 이름간 상세 — name 도메인 4축 전부 |
-| `/compatibility/saju` | `CompatibilitySajuScreen` | 사주간 상세 — saju 8축 + 여덟 기둥 교차 신호 브라우저 |
+| `/compatibility` | `CompatibilityScreen` | 슬롯 2개 선택(내 정보/보관함/직접 입력) + 관계 콤보박스 + 두 사람 나란히 보기(사람 에코+풍경+맥락) + 통합 요약 + 상세 링크 카드 2장. 축 카드·오행 견주기·대운 겹쳐 보기는 상세와 중복이라 두지 않는다 |
+| `/compatibility/name` | `CompatibilityNameScreen` | 이름간 상세 — name 도메인 4축 + 교차 축 |
+| `/compatibility/saju` | `CompatibilitySajuScreen` | 사주간 상세 — saju 8축 + 오행 견주기 + 전 생애 대운 겹쳐 보기 + 여덟 기둥 교차 신호 브라우저 |
 
 상세 화면 2장은 슬롯을 sessionStorage에서 **그대로 이어받고**, 슬롯이 비었거나 같은 사람이면 `/compatibility`로 replace 리다이렉트한다. 같은 사람 검사는 `isSamePerson`(이름+출생 전체 필드 비교).
 

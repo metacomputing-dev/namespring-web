@@ -19,8 +19,8 @@
 - `model/people.ts` — 사람 보관함(localStorage `namespring_v3_people`, 최대 50, 내용 키 중복 방지, 호칭은 배지 전용).
 - `model/saved-compat.ts` — 저장된 궁합(localStorage `namespring_v3_saved_compat`, A↔B 순서 무관 짝 키, 점수·등급 스냅샷, 관계 복원).
 - `model/relationship-catalog.ts` — 관계 프리셋 29종(카테고리·톤·검색 키워드) + 직접 입력 카테고리 추정.
-- `screens/CompatibilityScreen.tsx` — 통합 궁합: 슬롯 선택, 관계 검색 콤보박스, 요약·하이라이트 축·오행 견주기·상세 링크.
-- `screens/CompatibilityNameScreen.tsx` / `CompatibilitySajuScreen.tsx` — 이름간·사주간 상세(슬롯 이어받기, 결측 시 통합 화면으로 리다이렉트, 사주 화면은 여덟 기둥 교차 신호 브라우저 포함).
+- `screens/CompatibilityScreen.tsx` — 통합 궁합: 슬롯 선택, 관계 검색 콤보박스, 두 사람 나란히 보기, 통합 요약, 상세 링크. (축 카드·오행 견주기·대운 겹쳐 보기는 상세와 중복이라 상세로 일원화.)
+- `screens/CompatibilityNameScreen.tsx` / `CompatibilitySajuScreen.tsx` — 이름간·사주간 상세(슬롯 이어받기, 결측 시 통합 화면으로 리다이렉트, 사주 화면은 오행 견주기·대운 겹쳐 보기·여덟 기둥 교차 신호 브라우저 포함).
 - `screens/compat/shared.tsx` — 세 화면 공유 조각(데이터 훅, 카드류, 프레임별 일지 호칭, 보관 별표, 유료·꼬리 대칭 구조).
 - `screens/compat/PersonSceneryPair.tsx` — 사람별 풍경 그림.
 - `ui/PersonForm.tsx` — 상대 직접 입력 폼(신규).

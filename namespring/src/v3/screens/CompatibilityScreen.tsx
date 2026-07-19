@@ -21,18 +21,14 @@ import {
 } from '../model/relationship-catalog';
 import PersonForm from '../ui/PersonForm';
 import { Loading, Section } from '../ui/primitives';
-import DaeunOverlaySection from './compat/DaeunOverlay';
 import {
-  AxisCard,
   CompatPremiumSection,
   CompatReportTail,
   ContextCard,
-  ElementPairCompareSection,
   GRADE_KO,
   PersonEchoCard,
   SaveCompatStar,
   SummaryCard,
-  axesOf,
   useCompatibilityResult,
 } from './compat/shared';
 
@@ -538,22 +534,11 @@ export default function CompatibilityScreen() {
                 />
               }
             />
-            <div style={{ marginTop: 'var(--space-sm)' }}>
-              {axesOf(result, result.sections.integrated.axisIds)
-                .filter(axis => axis.availability.status !== 'unavailable')
-                .map(axis => (
-                  <AxisCard key={`hl-${axis.id}`} axis={axis} />
-                ))}
-            </div>
           </Section>
-
-          <ElementPairCompareSection result={result} />
-
-          <DaeunOverlaySection slotA={slotA} slotB={slotB} result={result} />
 
           <Section
             title="더 자세히 읽기"
-            lede="이름간 궁합과 사주간 궁합을 각각의 상세 보고서에서 축 하나하나 풀어드려요."
+            lede="축 하나하나의 근거와 해석은 각각의 상세 보고서에 있어요. 오행 견주기와 전 생애 대운 겹쳐 보기는 사주간 궁합에서 볼 수 있어요."
           >
             <div className="v3-grid-2">
               <DetailLinkCard

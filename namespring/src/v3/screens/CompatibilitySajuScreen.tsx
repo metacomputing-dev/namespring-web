@@ -6,10 +6,8 @@ import {
   AxisCard,
   CompatPremiumSection,
   CompatReportTail,
-  ContextCard,
   CrossSignalBrowser,
   ElementPairCompareSection,
-  PersonEchoCard,
   SaveCompatStar,
   SummaryCard,
   axesOf,
@@ -77,32 +75,6 @@ export default function CompatibilitySajuScreen() {
         ← 통합 궁합으로
       </Link>
 
-      <Section title="두 사람, 나란히 보기">
-        <div className="v3-grid-2">
-          <PersonEchoCard
-            echo={result.persons.a}
-            title="첫 번째 사람"
-            framing={result.context.fact.framing}
-            slot={slotA ?? undefined}
-          />
-          <PersonEchoCard
-            echo={result.persons.b}
-            title="두 번째 사람"
-            framing={result.context.fact.framing}
-            slot={slotB ?? undefined}
-          />
-        </div>
-        <div style={{ marginTop: 'var(--space-sm)' }}>
-          <ContextCard context={result.context} />
-        </div>
-      </Section>
-
-      <ElementPairCompareSection result={result} />
-
-      {slotA && slotB ? (
-        <DaeunOverlaySection slotA={slotA} slotB={slotB} result={result} />
-      ) : null}
-
       <Section title="사주 궁합 한눈에 보기">
         <SummaryCard
           summary={result.sections.saju.summary}
@@ -126,6 +98,12 @@ export default function CompatibilitySajuScreen() {
           <AxisCard key={axis.id} axis={axis} defaultOpen />
         ))}
       </Section>
+
+      <ElementPairCompareSection result={result} />
+
+      {slotA && slotB ? (
+        <DaeunOverlaySection slotA={slotA} slotB={slotB} result={result} />
+      ) : null}
 
       {/* 교차 신호가 없으면 Section 자체가 그려지지 않는다 (빈 제목 방지). */}
       <CrossSignalBrowser
