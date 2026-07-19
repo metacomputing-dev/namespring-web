@@ -744,11 +744,73 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-sm);
+  /* 펼친 카드가 옆 카드까지 늘리지 않도록 각자 제 높이를 지킨다. */
+  align-items: start;
 }
 
 @media (max-width: 46rem) {
   .v3-fortune-grid { grid-template-columns: 1fr; }
 }
+
+/* ---------- 자세히 읽기 ---------- */
+
+.v3-reading {
+  margin-top: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 0.85rem 0.95rem;
+  border-radius: var(--radius-input);
+  background: var(--color-paper);
+  border: var(--rule-thin) solid var(--color-rule);
+}
+
+.v3-reading p {
+  margin: 0;
+  line-height: 1.75;
+}
+
+.v3-reading p:first-child {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.v3-callout {
+  border-radius: var(--radius-input);
+  padding: 0.65rem 0.8rem;
+  border: var(--rule-thin) solid;
+}
+
+.v3-callout-title {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0 0 0.35rem;
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.v3-callout ul {
+  margin: 0;
+  padding-left: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.v3-callout--tip {
+  background: var(--color-success-bg);
+  border-color: var(--color-success-line);
+}
+
+.v3-callout--tip .v3-callout-title { color: var(--color-success); }
+
+.v3-callout--caution {
+  background: var(--color-warn-bg);
+  border-color: var(--color-warn-line);
+}
+
+.v3-callout--caution .v3-callout-title { color: var(--color-warn); }
 
 .v3-fortune-cell-head {
   display: flex;
@@ -756,6 +818,21 @@
   justify-content: space-between;
   gap: 0.6rem;
   flex-wrap: wrap;
+}
+
+/* ---------- 사격수리 카드 ---------- */
+
+.v3-frame-head {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.v3-frame-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--color-ink);
 }
 
 /* ---------- 이름 글자 카드 ---------- */
@@ -850,6 +927,115 @@
 .v3-candidate-name {
   font-family: var(--font-display);
   font-size: 1.3rem;
+}
+
+/* ---------- 하단 내비게이션 ---------- */
+
+.v3-page {
+  padding-bottom: 7.5rem;
+}
+
+.v3-bottom-nav {
+  position: fixed;
+  left: 50%;
+  bottom: 0.9rem;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.4rem;
+  border-radius: var(--radius-pill);
+  background: color-mix(in oklab, var(--color-paper-2) 92%, transparent);
+  border: var(--rule-thin) solid var(--color-rule);
+  box-shadow: var(--shadow-fab);
+  backdrop-filter: blur(12px);
+}
+
+.v3-bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  min-width: 3.6rem;
+  padding: 0.45rem 0.6rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-ink-3);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.v3-bottom-nav-item[aria-current='page'] {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+.v3-bottom-nav-item:not([aria-current='page']):hover {
+  background: var(--color-paper-3);
+  color: var(--color-ink);
+}
+
+.v3-brand-leaf {
+  width: 1.35rem;
+  height: 1.35rem;
+  flex-shrink: 0;
+}
+
+/* ---------- 풍경 그림카드 ---------- */
+
+.v3-scenery {
+  border-radius: var(--radius-card-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  border: var(--rule-thin) solid var(--color-rule);
+  /* 렌더러 루트가 h-full이라, 래퍼가 높이를 정해 줘야 한다. */
+  aspect-ratio: 16 / 7;
+}
+
+@media (max-width: 40rem) {
+  .v3-scenery { aspect-ratio: 4 / 3; }
+}
+
+/* ---------- 인생 타임라인 ---------- */
+
+.v3-life-timeline {
+  width: 100%;
+}
+
+.v3-life-timeline svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.v3-life-dot {
+  cursor: pointer;
+}
+
+.v3-life-panel {
+  margin-top: 0.7rem;
+  border-radius: var(--radius-input);
+  border: var(--rule-thin) solid var(--color-accent-soft);
+  background: var(--color-paper);
+  padding: 0.9rem 1rem;
+}
+
+.v3-life-panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.v3-life-panel-ganji {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
 /* ---------- 로딩 ---------- */

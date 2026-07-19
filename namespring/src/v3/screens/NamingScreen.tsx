@@ -6,6 +6,8 @@ import {
   type NameGenderRatioEntry,
 } from '@seed/database/name-stat-repository';
 import type { NameStatEntry } from '@seed/database/name-stat-row';
+import { getFourframeMeaningByNumber } from '@seed/fourframe-catalog';
+import { KOREA_ANNUAL_BIRTHS } from '../model/korea-births';
 import { useDelivery } from '../engine/useDelivery';
 import { factOfKind, factsOfKind, type DeliveryIndex } from '../model/facts';
 import { fullHangulName, type V3Profile } from '../model/profile';
@@ -124,6 +126,14 @@ function frameLevelText(luckyLevel: number): string {
   return '살펴볼 흐름';
 }
 
+function frameMeaning(strokeSum: number) {
+  try {
+    return getFourframeMeaningByNumber(strokeSum);
+  } catch {
+    return null;
+  }
+}
+
 function FourFrames({ index }: { index: DeliveryIndex }) {
   const frames = factsOfKind(index, 'naming_frame');
   const { expert } = useTerms();
@@ -131,35 +141,53 @@ function FourFrames({ index }: { index: DeliveryIndex }) {
   const order = ['earlyLife', 'youthLife', 'middleLife', 'lateAndTotal'];
   const sorted = [...frames].sort((a, b) => order.indexOf(a.stage) - order.indexOf(b.stage));
   return (
-    <div className="v3-card" style={{ overflowX: 'auto' }}>
-      <table className="v3-table">
-        <thead>
-          <tr>
-            <th scope="col">시기</th>
-            <th scope="col">획수 합</th>
-            <th scope="col">기운</th>
-            <th scope="col">흐름</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sorted.map(frame => (
-            <tr key={frame.id}>
-              <th scope="row">
-                {FRAME_STAGE_KO[frame.stage]}
-                {expert ? (
-                  <span className="v3-hint" style={{ display: 'block' }}>
-                    {FRAME_TYPE_KO[frame.frameType]}
-                  </span>
-                ) : null}
-              </th>
-              <td>{frame.strokeSum}수</td>
-              <td><ElementBadge element={frame.element} /></td>
-              <td>{frameLevelText(frame.luckyLevel)}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <p className="v3-hint" style={{ marginTop: '0.45rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-sm)' }}>
+      {sorted.map(frame => {
+        const meaning = frameMeaning(frame.strokeSum);
+        return (
+          <div key={frame.id} className="v3-card">
+            <div className="v3-frame-head">
+              <span className="v3-badge v3-badge--accent">{FRAME_STAGE_KO[frame.stage]}</span>
+              <strong className="v3-frame-title">
+                {meaning ? meaning.title : frameLevelText(frame.luckyLevel)}
+              </strong>
+              <span className="v3-hint">
+                {frame.strokeSum}수
+                {expert ? ` · ${FRAME_TYPE_KO[frame.frameType]}` : ''}
+              </span>
+              <ElementBadge element={frame.element} />
+            </div>
+            {meaning?.summary ? <p style={{ margin: '0.5rem 0 0' }}>{meaning.summary}</p> : null}
+            {expert && meaning && (meaning.positive_aspects || meaning.caution_points) ? (
+              <details style={{ marginTop: '0.5rem' }}>
+                <summary className="v3-hint" style={{ cursor: 'pointer' }}>전통 풀이 더 읽기</summary>
+                <div className="v3-reading">
+                  {meaning.positive_aspects ? (
+                    <div className="v3-callout v3-callout--tip">
+                      <p className="v3-callout-title">
+                        <span aria-hidden="true">☘</span> 밝게 보는 쪽
+                      </p>
+                      <p style={{ margin: 0 }}>{meaning.positive_aspects}</p>
+                    </div>
+                  ) : null}
+                  {meaning.caution_points ? (
+                    <div className="v3-callout v3-callout--caution">
+                      <p className="v3-callout-title">
+                        <span aria-hidden="true">✦</span> 조심스럽게 보는 쪽
+                      </p>
+                      <p style={{ margin: 0 }}>{meaning.caution_points}</p>
+                    </div>
+                  ) : null}
+                  <p className="v3-hint" style={{ margin: 0 }}>
+                    전통 수리 문헌의 표현을 옮긴 것으로, 정해진 미래가 아니라 참고용 관점이에요.
+                  </p>
+                </div>
+              </details>
+            ) : null}
+          </div>
+        );
+      })}
+      <p className="v3-hint" style={{ margin: 0 }}>
         이름 획수를 네 시기로 나눠 읽는 전통 방식(사격수리)이에요. 질병이나 특정 사건을
         예언하는 값이 아니에요.
       </p>
@@ -207,33 +235,51 @@ function BirthLineChart({ yearlyBirth }: { yearlyBirth: Record<string, Record<st
       byYear.set(year, (byYear.get(year) ?? 0) + count);
     }
   }
-  const points = [...byYear.entries()]
-    .map(([year, count]) => ({ year, count }))
+  // 전체 출생아가 해마다 줄기 때문에, 절대 수 대신 "그해 태어난 1만 명당
+  // 몇 명"으로 보정해야 이름 자체의 흐름이 보인다.
+  const ratePoints = [...byYear.entries()]
+    .filter(([year]) => KOREA_ANNUAL_BIRTHS[year])
+    .map(([year, count]) => ({
+      year,
+      count,
+      rate: (count / KOREA_ANNUAL_BIRTHS[year]) * 10000,
+    }))
     .sort((a, b) => a.year - b.year);
+  const usingRate = ratePoints.length >= 2;
+  const points = usingRate
+    ? ratePoints
+    : [...byYear.entries()]
+        .map(([year, count]) => ({ year, count, rate: count }))
+        .sort((a, b) => a.year - b.year);
   if (points.length < 2) return null;
   const w = 560;
   const h = 150;
   const pad = 24;
   const years = points.map(p => p.year);
-  const counts = points.map(p => p.count);
+  const values = points.map(p => p.rate);
   const minYear = Math.min(...years);
   const maxYear = Math.max(...years);
-  const maxCount = Math.max(...counts, 1);
+  const maxValue = Math.max(...values, usingRate ? 0.001 : 1);
   const x = (year: number) => pad + ((year - minYear) / Math.max(maxYear - minYear, 1)) * (w - pad * 2);
-  const y = (count: number) => h - pad - (count / maxCount) * (h - pad * 2);
-  const path = points.map((p, i) => `${i === 0 ? 'M' : 'L'}${x(p.year).toFixed(1)},${y(p.count).toFixed(1)}`).join(' ');
-  const peak = points.reduce((best, p) => (p.count > best.count ? p : best), points[0]);
+  const y = (value: number) => h - pad - (value / maxValue) * (h - pad * 2);
+  const path = points.map((p, i) => `${i === 0 ? 'M' : 'L'}${x(p.year).toFixed(1)},${y(p.rate).toFixed(1)}`).join(' ');
+  const peak = points.reduce((best, p) => (p.rate > best.rate ? p : best), points[0]);
   const peakX = x(peak.year);
   const peakAnchor = peakX < w * 0.18 ? 'start' : peakX > w * 0.82 ? 'end' : 'middle';
+  const peakLabel = usingRate
+    ? `${peak.year}년 · 1만 명당 ${peak.rate.toFixed(1)}명`
+    : `${peak.year}년 ${peak.count.toLocaleString()}명`;
   return (
     <div>
       <svg viewBox={`0 0 ${w} ${h}`} style={{ width: '100%', height: 'auto' }} role="img"
-        aria-label={`연도별 출생아 수, ${minYear}년부터 ${maxYear}년까지`}>
+        aria-label={usingRate
+          ? `연도별로 전체 출생아 1만 명당 이 이름의 출생아 수, ${minYear}년부터 ${maxYear}년까지`
+          : `연도별 출생아 수, ${minYear}년부터 ${maxYear}년까지`}>
         <path d={path} fill="none" stroke="var(--color-chart-line-a)" strokeWidth="2" />
-        <circle cx={peakX} cy={y(peak.count)} r="3.5" fill="var(--color-chart-line-a)" />
-        <text x={peakX} y={y(peak.count) - 8} textAnchor={peakAnchor}
+        <circle cx={peakX} cy={y(peak.rate)} r="3.5" fill="var(--color-chart-line-a)" />
+        <text x={peakX} y={y(peak.rate) - 8} textAnchor={peakAnchor}
           style={{ fill: 'var(--color-ink-2)', fontSize: '11px' }}>
-          {peak.year}년 {peak.count.toLocaleString()}명
+          {peakLabel}
         </text>
         <text x={pad} y={h - 6} style={{ fill: 'var(--color-ink-3)', fontSize: '11px' }}>{minYear}</text>
         <text x={w - pad} y={h - 6} textAnchor="end" style={{ fill: 'var(--color-ink-3)', fontSize: '11px' }}>
@@ -241,7 +287,9 @@ function BirthLineChart({ yearlyBirth }: { yearlyBirth: Record<string, Record<st
         </text>
       </svg>
       <p className="v3-hint" style={{ margin: '0.3rem 0 0' }}>
-        이 이름으로 태어난 아이가 가장 많았던 해는 {peak.year}년이에요.
+        {usingRate
+          ? `해마다 태어나는 아이 수가 달라서, 전체 출생아 1만 명당 비율로 맞춰 그렸어요. 이 이름이 가장 흔했던 해는 ${peak.year}년이에요.`
+          : `이 이름으로 태어난 아이가 가장 많았던 해는 ${peak.year}년이에요.`}
       </p>
     </div>
   );

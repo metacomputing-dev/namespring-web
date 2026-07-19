@@ -1,5 +1,8 @@
+import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import type { ReportSurfaceSelectionV1 } from '@spring/report/delivery/types';
+import NamingResultRenderer from '../../NamingResultRenderer';
+import { buildRenderMetricsFromSajuReport } from '../../naming-result-render-metrics';
 import { useDelivery } from '../engine/useDelivery';
 import {
   ELEMENT_KO,
@@ -11,6 +14,46 @@ import { fullHangulName, fullHanjaName, type V3Profile } from '../model/profile'
 import { ElementBadge, Loading, Section } from '../ui/primitives';
 
 const SURFACES: ReportSurfaceSelectionV1[] = [{ id: 'integrated', depth: 'standard' }];
+
+/** v1의 오행·음양 풍경 그림카드를 delivery의 pillars fact로 되살린다. */
+function SceneryCard({ index, profile }: { index: DeliveryIndex; profile: V3Profile }) {
+  const pillars = factOfKind(index, 'pillars');
+  const metrics = useMemo(() => {
+    if (!pillars) return null;
+    const byPosition: Record<string, { stem: { code: string }; branch: { code: string } }> = {};
+    for (const value of pillars.values) {
+      byPosition[value.position] = {
+        stem: { code: value.stem.code },
+        branch: { code: value.branch.code },
+      };
+    }
+    return buildRenderMetricsFromSajuReport(
+      { pillars: byPosition },
+      {
+        displayHangul: fullHangulName(profile),
+        displayHanja: fullHanjaName(profile) ?? '',
+      },
+    );
+  }, [pillars, profile]);
+  if (!metrics) return null;
+  return (
+    <div className="v3-scenery">
+      <NamingResultRenderer
+        renderMetrics={metrics}
+        birthDateTime={{
+          year: profile.birth.year,
+          month: profile.birth.month,
+          day: profile.birth.day,
+          hour: profile.birth.hour ?? undefined,
+          minute: profile.birth.minute ?? undefined,
+        }}
+        gender={profile.birth.gender}
+        isSolarCalendar={profile.birth.calendarType === 'solar'}
+        isBirthTimeUnknown={profile.birth.hour === null}
+      />
+    </div>
+  );
+}
 
 function meetingSentence(index: DeliveryIndex): { main: string; caution: string | null } | null {
   const interaction = factOfKind(index, 'name_saju_interaction');
@@ -170,8 +213,10 @@ export default function IntegratedScreen() {
         {meeting ? <p className="v3-page-lede">{meeting.main}</p> : null}
       </div>
 
+      <SceneryCard index={index} profile={profile} />
+
       {meeting?.caution ? (
-        <div className="v3-card v3-card--tinted">
+        <div className="v3-card v3-card--tinted" style={{ marginTop: 'var(--space-sm)' }}>
           <p style={{ margin: 0 }}>{meeting.caution}</p>
         </div>
       ) : null}
@@ -186,6 +231,17 @@ export default function IntegratedScreen() {
       <Section title="오행으로 견주어 보기">
         <div className="v3-card">
           <ElementCompareBars index={index} />
+        </div>
+      </Section>
+
+      <Section title="새 이름이 궁금하다면">
+        <div className="v3-card">
+          <p style={{ margin: 0 }}>
+            같은 출생 정보로 뜻·소리·획수·사주 어울림을 함께 계산한 이름 후보를 보여드려요.
+          </p>
+          <Link to="/naming/candidates" className="v3-button" style={{ marginTop: '0.8rem' }}>
+            새 이름 지어 보기
+          </Link>
         </div>
       </Section>
 

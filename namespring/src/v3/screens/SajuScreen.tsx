@@ -326,48 +326,170 @@ function currentAgeYears(profile: V3Profile): number {
 function DaeunRoad({ index, profile }: { index: DeliveryIndex; profile: V3Profile }) {
   const daeun = factOfKind(index, 'daeun_timeline');
   const { expert } = useTerms();
+  const [openOrder, setOpenOrder] = useState<number | null>(null);
   if (!daeun) return null;
   const age = currentAgeYears(profile);
   const startLabel = daeun.firstStartAgeDisplay ?? Math.round(daeun.firstStartAge);
+  const maxAge = Math.max(100, ...daeun.periods.map(period => period.endAge));
+
+  const w = 640;
+  const h = 96;
+  const padX = 26;
+  const baselineY = 56;
+  const x = (value: number) => padX + (Math.min(value, maxAge) / maxAge) * (w - padX * 2);
+
+  const openPeriod = daeun.periods.find(period => period.order === openOrder) ?? null;
+  const openStem = openPeriod ? stemGlyph(openPeriod.stem) : null;
+  const openBranch = openPeriod ? branchGlyph(openPeriod.branch) : null;
+
   return (
     <div className="v3-card">
-      <p style={{ margin: '0 0 0.7rem' }}>
+      <p style={{ margin: '0 0 0.5rem' }}>
         대운은 {startLabel}세 무렵 시작해 10년마다 {daeun.isForward ? '순행' : '역행'}으로
-        바뀌어요.
+        바뀌어요. 점을 누르면 그 구간을 열어 볼 수 있어요.
       </p>
-      <div className="v3-daeun-road">
-        {daeun.periods.map(period => {
-          const stem = stemGlyph(period.stem);
-          const branch = branchGlyph(period.branch);
-          const active = age >= period.startAge && age < period.endAge;
-          return (
-            <div key={period.order} className={`v3-daeun-stop${active ? ' v3-daeun-stop--now' : ''}`}>
-              <span className="v3-hint">
-                {Math.round(period.startAge)}세~
-              </span>
-              <span className="v3-daeun-ganji">
-                <span className={`v3-el-${stem?.element ?? 'none'}`}>{stem?.hangul ?? period.stem}</span>
-                <span className={`v3-el-${branch?.element ?? 'none'}`}>{branch?.hangul ?? period.branch}</span>
-              </span>
-              {active ? <span className="v3-badge v3-badge--accent">지금</span> : null}
-              {expert ? (
-                <span className="v3-hint">
-                  {[period.tenGod ? TEN_GOD_KO[period.tenGod] ?? period.tenGod : null, period.lifeStage]
-                    .filter(Boolean)
-                    .join(' · ')}
-                </span>
-              ) : null}
-            </div>
-          );
-        })}
+      <div className="v3-life-timeline">
+        <svg viewBox={`0 0 ${w} ${h}`} role="list" aria-label="1세부터 100세까지의 대운 구간">
+          <line
+            x1={padX}
+            y1={baselineY}
+            x2={w - padX}
+            y2={baselineY}
+            stroke="var(--color-rule-strong)"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+          {[0, 20, 40, 60, 80, 100].map(tick => (
+            <g key={tick}>
+              <line
+                x1={x(tick)}
+                y1={baselineY - 3}
+                x2={x(tick)}
+                y2={baselineY + 3}
+                stroke="var(--color-rule-strong)"
+                strokeWidth="1.5"
+              />
+              <text
+                x={x(tick)}
+                y={baselineY + 20}
+                textAnchor="middle"
+                style={{ fill: 'var(--color-ink-3)', fontSize: '11px' }}
+              >
+                {tick}세
+              </text>
+            </g>
+          ))}
+          {/* 지금 위치 */}
+          {age >= 0 && age <= maxAge ? (
+            <g>
+              <line
+                x1={x(age)}
+                y1={baselineY - 22}
+                x2={x(age)}
+                y2={baselineY}
+                stroke="var(--color-accent)"
+                strokeWidth="1.5"
+                strokeDasharray="3 3"
+              />
+              <text
+                x={x(age)}
+                y={baselineY - 28}
+                textAnchor="middle"
+                style={{ fill: 'var(--color-accent)', fontSize: '11px', fontWeight: 700 }}
+              >
+                지금
+              </text>
+            </g>
+          ) : null}
+          {daeun.periods.map(period => {
+            const stem = stemGlyph(period.stem);
+            const branch = branchGlyph(period.branch);
+            const isNow = age >= period.startAge && age < period.endAge;
+            const isOpen = openOrder === period.order;
+            const cx = x(period.startAge);
+            return (
+              <g
+                key={period.order}
+                className="v3-life-dot"
+                role="listitem"
+                tabIndex={0}
+                aria-label={`${Math.round(period.startAge)}세부터 ${stem?.hangul ?? period.stem}${branch?.hangul ?? period.branch} 대운`}
+                aria-expanded={isOpen}
+                onClick={() => setOpenOrder(isOpen ? null : period.order)}
+                onKeyDown={event => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    setOpenOrder(isOpen ? null : period.order);
+                  }
+                }}
+              >
+                <circle
+                  cx={cx}
+                  cy={baselineY}
+                  r={isOpen ? 9 : 6.5}
+                  fill={isNow ? 'var(--color-accent)' : 'var(--color-paper-2)'}
+                  stroke={isOpen ? 'var(--color-accent)' : isNow ? 'var(--color-accent)' : 'var(--color-rule-strong)'}
+                  strokeWidth={isOpen ? 2.5 : 2}
+                />
+                <text
+                  x={cx}
+                  y={baselineY - 14}
+                  textAnchor="middle"
+                  style={{
+                    fill: isNow ? 'var(--color-accent)' : 'var(--color-ink-2)',
+                    fontSize: '12.5px',
+                    fontWeight: 700,
+                  }}
+                >
+                  {(stem?.hangul ?? period.stem) + (branch?.hangul ?? period.branch)}
+                </text>
+              </g>
+            );
+          })}
+        </svg>
       </div>
-      {expert ? (
-        <p className="v3-hint" style={{ marginTop: '0.6rem' }}>
-          현재 구간의 십성·십이운성을 함께 표시하고 있어요.
-          {daeun.periods.some(p => p.lifeStage && UNSEONG_GLOSS[p.lifeStage])
-            ? ' 십이운성은 기운이 나고 지는 열두 단계를 뜻해요.'
-            : ''}
-        </p>
+      {openPeriod ? (
+        <div className="v3-life-panel" role="region" aria-label="선택한 대운 구간">
+          <div className="v3-life-panel-head">
+            <span className="v3-life-panel-ganji">
+              <span className={`v3-el-${openStem?.element ?? 'none'}`}>
+                {openStem?.hangul ?? openPeriod.stem}
+              </span>
+              <span className={`v3-el-${openBranch?.element ?? 'none'}`}>
+                {openBranch?.hangul ?? openPeriod.branch}
+              </span>
+              <span className="v3-title-hanja" style={{ marginLeft: '0.35rem' }}>
+                {(openStem?.hanja ?? '') + (openBranch?.hanja ?? '')}
+              </span>
+            </span>
+            <span className="v3-badge">
+              {Math.round(openPeriod.startAge)}세 ~ {Math.round(openPeriod.endAge)}세
+            </span>
+          </div>
+          {expert ? (
+            <p style={{ margin: '0.5rem 0 0' }}>
+              {[
+                openPeriod.tenGod ? `십성 ${TEN_GOD_KO[openPeriod.tenGod] ?? openPeriod.tenGod}` : null,
+                openPeriod.lifeStage
+                  ? `십이운성 ${openPeriod.lifeStage}${UNSEONG_GLOSS[openPeriod.lifeStage] ? ` — ${UNSEONG_GLOSS[openPeriod.lifeStage]}` : ''}`
+                  : null,
+              ]
+                .filter(Boolean)
+                .join(' · ')}
+            </p>
+          ) : null}
+          <p className="v3-hint" style={{ margin: '0.5rem 0 0' }}>
+            이 구간의 이야기는 준비하고 있어요. 곧 이 자리에서 읽을 수 있어요.
+          </p>
+          <button
+            type="button"
+            className="v3-button v3-button--ghost"
+            style={{ marginTop: '0.7rem' }}
+            onClick={() => setOpenOrder(null)}
+          >
+            접기
+          </button>
+        </div>
       ) : null}
     </div>
   );
@@ -413,14 +535,16 @@ function FortuneCells({ profile, period }: { profile: V3Profile; period: Calenda
             {paragraphs.length > 0 || tips.length > 0 || cautions.length > 0 ? (
               <details style={{ marginTop: '0.45rem' }}>
                 <summary className="v3-hint" style={{ cursor: 'pointer' }}>자세히 읽기</summary>
-                <div style={{ marginTop: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <div className="v3-reading">
                   {paragraphs.map((paragraph, i) => (
-                    <p key={i} style={{ margin: 0 }}>{paragraph}</p>
+                    <p key={i}>{paragraph}</p>
                   ))}
                   {tips.length > 0 ? (
-                    <div>
-                      <p className="v3-label" style={{ margin: '0 0 0.25rem' }}>이 흐름을 살리는 방법</p>
-                      <ul style={{ margin: 0, paddingLeft: '1.1rem' }}>
+                    <div className="v3-callout v3-callout--tip">
+                      <p className="v3-callout-title">
+                        <span aria-hidden="true">☘</span> 이 흐름을 살리는 방법
+                      </p>
+                      <ul>
                         {tips.map((tip, i) => (
                           <li key={i}>{tip}</li>
                         ))}
@@ -428,9 +552,11 @@ function FortuneCells({ profile, period }: { profile: V3Profile; period: Calenda
                     </div>
                   ) : null}
                   {cautions.length > 0 ? (
-                    <div>
-                      <p className="v3-label" style={{ margin: '0 0 0.25rem' }}>한 번 더 살필 점</p>
-                      <ul style={{ margin: 0, paddingLeft: '1.1rem' }}>
+                    <div className="v3-callout v3-callout--caution">
+                      <p className="v3-callout-title">
+                        <span aria-hidden="true">✦</span> 한 번 더 살필 점
+                      </p>
+                      <ul>
                         {cautions.map((caution, i) => (
                           <li key={i}>{caution}</li>
                         ))}

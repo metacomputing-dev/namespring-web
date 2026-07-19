@@ -1,6 +1,7 @@
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import '../styles/tokens.css';
 import './v3.css';
+import { LeafMark } from '../components/report/ReportPrimitives';
 import { useThemeMode } from './theme';
 import { TermsProvider } from './ui/primitives';
 import HomeScreen from './screens/HomeScreen';
@@ -36,6 +37,83 @@ function SunIcon() {
   );
 }
 
+const NAV_ITEMS = [
+  {
+    path: '/',
+    label: '처음',
+    icon: (
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 11.2 12 4l8 7.2M6 9.8V20h12V9.8" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    path: '/reports/integrated',
+    label: '통합',
+    icon: (
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="9.4" cy="12" r="5.4" stroke="currentColor" strokeWidth="1.7" />
+        <circle cx="14.6" cy="12" r="5.4" stroke="currentColor" strokeWidth="1.7" />
+      </svg>
+    ),
+  },
+  {
+    path: '/reports/saju',
+    label: '사주',
+    icon: (
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 3.4v3.2M12 17.4v3.2M3.4 12h3.2M17.4 12h3.2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+        <circle cx="12" cy="12" r="3.6" stroke="currentColor" strokeWidth="1.7" />
+      </svg>
+    ),
+  },
+  {
+    path: '/reports/naming',
+    label: '이름',
+    icon: (
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6 4.6h9.2L18 8v11.4H6Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
+        <path d="M9 12h6M9 15.4h6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    path: '/naming/candidates',
+    label: '작명',
+    icon: (
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="m14.4 5 4.6 4.6L8.6 20H4v-4.6Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
+        <path d="m12.6 6.8 4.6 4.6" stroke="currentColor" strokeWidth="1.7" />
+      </svg>
+    ),
+  },
+];
+
+function BottomNav() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  return (
+    <nav className="v3-bottom-nav" aria-label="주요 화면">
+      {NAV_ITEMS.map(item => {
+        const active =
+          item.path === '/' ? location.pathname === '/' : location.pathname.startsWith(item.path);
+        return (
+          <button
+            key={item.path}
+            type="button"
+            className="v3-bottom-nav-item"
+            aria-current={active ? 'page' : undefined}
+            onClick={() => navigate(item.path)}
+          >
+            {item.icon}
+            <span>{item.label}</span>
+          </button>
+        );
+      })}
+    </nav>
+  );
+}
+
 export default function SpringApp() {
   const navigate = useNavigate();
   const { isDark, toggle } = useThemeMode();
@@ -44,9 +122,7 @@ export default function SpringApp() {
     <div className="v3-root">
       <header className="v3-masthead">
         <button type="button" className="v3-brand" onClick={() => navigate('/')}>
-          <span className="v3-brand-mark" aria-hidden="true">
-            ❀
-          </span>
+          <LeafMark className="v3-brand-leaf" />
           이름봄
         </button>
         <div className="v3-masthead-actions">
@@ -70,6 +146,7 @@ export default function SpringApp() {
           <Route path="*" element={<HomeScreen />} />
         </Routes>
       </TermsProvider>
+      <BottomNav />
     </div>
   );
 }
