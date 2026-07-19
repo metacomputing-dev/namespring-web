@@ -1541,10 +1541,12 @@ function strictFact(value: unknown): ReportFactV1 {
         'JIJI_RELATION_SHAPE',
       );
       strictBoundedText(relation.type, 'JIJI_RELATION_TYPE', 40);
+      // 자형은 같은 지지의 반복이 정당하므로 중복 검사에서 제외한다.
+      // 어댑터 계층에 따라 타입이 원시 코드 또는 한글 라벨로 온다.
       strictStringArray(relation.branches, 'JIJI_RELATION_BRANCHES', {
         min: 2,
         max: 4,
-        unique: true,
+        unique: relation.type !== 'JA_HYEONG' && relation.type !== '자형',
       });
       for (const branch of relation.branches) {
         strictBoundedText(branch, 'JIJI_RELATION_BRANCHES', 16);

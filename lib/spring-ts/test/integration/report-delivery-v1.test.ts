@@ -2099,5 +2099,30 @@ assert.equal('delivery' in legacy, false, 'legacy report shape has no delivery f
 assert.match(legacy.tieredMatrix?.meta.selectionSeed ?? '', /^selection_v1_[0-9a-f]{32}$/u);
 assert.equal(JSON.stringify(legacy).includes('1986|4|19|5|45|male'), false, 'legacy tiered metadata no longer leaks birth seed');
 
+/* 자형(같은 지지 반복) 원국이 fail-closed로 죽지 않는다 — 1995-06-15 12:00은
+ * 월지·시지가 모두 午라 오오 자형이 잡힌다. natal_relations는 중복 지지를
+ * 그대로 실어야 하고, 사주 표면 전체가 이 관계 때문에 무너지면 안 된다. */
+const jahyeongDelivery = await engine.getReportDelivery({
+  birth: { year: 1995, month: 6, day: 15, hour: 12, minute: 0, gender: 'male' as const },
+  surname: [{ hangul: '최' }],
+  givenName: [{ hangul: '성' }, { hangul: '수' }],
+  targetDate: baseRequest.targetDate,
+  delivery: {
+    schemaVersion: REPORT_DELIVERY_REQUEST_SCHEMA_V1,
+    surfaces: [{ id: 'saju', depth: 'standard' }],
+  },
+});
+const jahyeongNatal = jahyeongDelivery.facts.find((fact) => fact.kind === 'natal_relations');
+assert.ok(
+  jahyeongNatal && jahyeongNatal.kind === 'natal_relations',
+  '자형 원국의 natal_relations가 존재한다',
+);
+assert.ok(
+  jahyeongNatal.jiji.some(
+    (relation) => new Set(relation.branches).size !== relation.branches.length,
+  ),
+  '자형의 중복 지지 멤버가 그대로 실린다',
+);
+
 engine.close();
 console.log('Report delivery V1: PASS');

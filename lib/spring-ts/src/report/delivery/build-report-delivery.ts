@@ -382,7 +382,10 @@ function natalRelationsFact(saju: SajuSummary): NatalRelationsFactV1 {
     }
     const branches = relation.branches.map((branch) =>
       boundedEngineText(branch, 'JIJI_RELATION_BRANCH_INVALID', 16));
-    if (new Set(branches).size !== branches.length) {
+    // 자형(辰辰·午午·酉酉·亥亥)은 같은 지지 두 글자가 본질이므로 중복을 허용한다.
+    // 어댑터 계층에 따라 타입이 원시 코드 또는 한글 라벨로 온다.
+    const isJahyeong = relation.type === 'JA_HYEONG' || relation.type === '자형';
+    if (!isJahyeong && new Set(branches).size !== branches.length) {
       throw new ReportDeliveryContractError('JIJI_RELATION_BRANCH_INVALID');
     }
     return {
