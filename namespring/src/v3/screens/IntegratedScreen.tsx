@@ -464,10 +464,7 @@ export default function IntegratedScreen() {
         {meeting ? <p className="v3-page-lede">{meeting.main}</p> : null}
       </div>
 
-      <Section
-        title="한눈에 보기"
-        lede="일간과 속마음 자리, 반기는 기운 — 사주가 그린 나의 풍경까지 한 장에 모았어요."
-      >
+      <Section title="한눈에 보기">
         <GlanceCard index={index} profile={profile} />
       </Section>
 
