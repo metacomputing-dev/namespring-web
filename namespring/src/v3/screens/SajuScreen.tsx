@@ -334,14 +334,60 @@ function DaeunRoad({ index, profile }: { index: DeliveryIndex; profile: V3Profil
   const maxAge = Math.max(100, ...daeun.periods.map(period => period.endAge));
 
   const w = 640;
-  const h = 96;
+  const h = 132;
   const padX = 26;
-  const baselineY = 56;
+  const baselineY = 96;
+  const curveAmplitude = 56;
   const x = (value: number) => padX + (Math.min(value, maxAge) / maxAge) * (w - padX * 2);
+
+  // 대운별 별점(엔진 채점)이 delivery로 오면, 수평선 위에 그 값 그대로의
+  // 부드러운 곡선을 얹는다. 값이 없으면 곡선 없이 선과 점만 남긴다.
+  const lifeBlock = index.surfaceById
+    .get('saju')
+    ?.blocks.find(block => block.kind === 'life_flow');
+  const starsByOrder = new Map<number, number>();
+  if (lifeBlock && lifeBlock.kind === 'life_flow') {
+    for (const entry of lifeBlock.daeunRatings ?? []) {
+      const value = metricValue(index, entry.ratingFactRef);
+      if (value !== null) starsByOrder.set(entry.order, value);
+    }
+  }
+  const starY = (stars: number) => baselineY - 12 - ((stars - 1) / 4) * curveAmplitude;
+  const curvePoints = daeun.periods
+    .filter(period => starsByOrder.has(period.order))
+    .map(period => ({
+      x: x(period.startAge),
+      y: starY(starsByOrder.get(period.order)!),
+      endX: x(Math.min(period.endAge, maxAge)),
+    }));
+  let curvePath = '';
+  if (curvePoints.length >= 2) {
+    const points = [
+      ...curvePoints.map(p => ({ x: p.x, y: p.y })),
+      { x: curvePoints[curvePoints.length - 1].endX, y: curvePoints[curvePoints.length - 1].y },
+    ];
+    curvePath = `M${points[0].x.toFixed(1)},${points[0].y.toFixed(1)}`;
+    for (let i = 0; i < points.length - 1; i += 1) {
+      const p0 = points[Math.max(0, i - 1)];
+      const p1 = points[i];
+      const p2 = points[i + 1];
+      const p3 = points[Math.min(points.length - 1, i + 2)];
+      const c1x = p1.x + (p2.x - p0.x) / 6;
+      const c1y = p1.y + (p2.y - p0.y) / 6;
+      const c2x = p2.x - (p3.x - p1.x) / 6;
+      const c2y = p2.y - (p3.y - p1.y) / 6;
+      curvePath += `C${c1x.toFixed(1)},${c1y.toFixed(1)} ${c2x.toFixed(1)},${c2y.toFixed(1)} ${p2.x.toFixed(1)},${p2.y.toFixed(1)}`;
+    }
+  }
+  const dotY = (order: number) => {
+    const stars = starsByOrder.get(order);
+    return stars === undefined ? baselineY : starY(stars);
+  };
 
   const openPeriod = daeun.periods.find(period => period.order === openOrder) ?? null;
   const openStem = openPeriod ? stemGlyph(openPeriod.stem) : null;
   const openBranch = openPeriod ? branchGlyph(openPeriod.branch) : null;
+  const openStars = openPeriod ? starsByOrder.get(openPeriod.order) ?? null : null;
 
   return (
     <div className="v3-card">
@@ -380,12 +426,22 @@ function DaeunRoad({ index, profile }: { index: DeliveryIndex; profile: V3Profil
               </text>
             </g>
           ))}
+          {/* 별점 곡선 — 엔진이 채점한 대운별 별점을 그대로 잇는다 */}
+          {curvePath ? (
+            <path
+              d={curvePath}
+              fill="none"
+              stroke="var(--color-chart-line-a)"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+            />
+          ) : null}
           {/* 지금 위치 */}
           {age >= 0 && age <= maxAge ? (
             <g>
               <line
                 x1={x(age)}
-                y1={baselineY - 22}
+                y1={16}
                 x2={x(age)}
                 y2={baselineY}
                 stroke="var(--color-accent)"
@@ -394,7 +450,7 @@ function DaeunRoad({ index, profile }: { index: DeliveryIndex; profile: V3Profil
               />
               <text
                 x={x(age)}
-                y={baselineY - 28}
+                y={11}
                 textAnchor="middle"
                 style={{ fill: 'var(--color-accent)', fontSize: '11px', fontWeight: 700 }}
               >
@@ -426,7 +482,7 @@ function DaeunRoad({ index, profile }: { index: DeliveryIndex; profile: V3Profil
               >
                 <circle
                   cx={cx}
-                  cy={baselineY}
+                  cy={dotY(period.order)}
                   r={isOpen ? 9 : 6.5}
                   fill={isNow ? 'var(--color-accent)' : 'var(--color-paper-2)'}
                   stroke={isOpen ? 'var(--color-accent)' : isNow ? 'var(--color-accent)' : 'var(--color-rule-strong)'}
@@ -434,7 +490,7 @@ function DaeunRoad({ index, profile }: { index: DeliveryIndex; profile: V3Profil
                 />
                 <text
                   x={cx}
-                  y={baselineY - 14}
+                  y={dotY(period.order) - 13}
                   textAnchor="middle"
                   style={{
                     fill: isNow ? 'var(--color-accent)' : 'var(--color-ink-2)',
@@ -467,6 +523,11 @@ function DaeunRoad({ index, profile }: { index: DeliveryIndex; profile: V3Profil
               {Math.round(openPeriod.startAge)}세 ~ {Math.round(openPeriod.endAge)}세
             </span>
           </div>
+          {openStars !== null ? (
+            <div style={{ marginTop: '0.45rem' }}>
+              <Stars value={openStars} />
+            </div>
+          ) : null}
           {expert ? (
             <p style={{ margin: '0.5rem 0 0' }}>
               {[

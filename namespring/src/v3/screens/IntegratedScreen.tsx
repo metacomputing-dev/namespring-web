@@ -206,7 +206,6 @@ export default function IntegratedScreen() {
   const hangulName = fullHangulName(profile);
   const hanjaName = fullHanjaName(profile);
   const meeting = meetingSentence(index);
-  const offers = index.delivery.offers;
 
   return (
     <main className="v3-page">
@@ -252,20 +251,18 @@ export default function IntegratedScreen() {
         </div>
       </Section>
 
-      {offers.length > 0 ? (
-        <Section title="이야기 완성하기">
-          <div className="v3-card v3-card--hero">
-            <p style={{ margin: 0 }}>
-              무료 결과가 방향을 보여 준다면, 완성 리포트는 왜 이 이름과 흐름이 나에게
-              닿는지 차분히 이어 줍니다. 이름 조합의 이유, 앞으로의 관계와 재물 흐름,
-              다시 읽을 수 있는 PDF까지 한 번에 정리돼요.
-            </p>
-            <Link to="/support" className="v3-button" style={{ marginTop: '0.9rem' }}>
-              내 해석 완성하기
-            </Link>
-          </div>
-        </Section>
-      ) : null}
+      <Section title="이 해석이 나에게 닿는 이유">
+        <div className="v3-card v3-card--hero">
+          <p style={{ margin: 0 }}>
+            지금 보신 결과가 방향을 잡아 주었다면, 완성 리포트는 그 방향이 왜 당신의
+            이름과 사주에 닿는지 차분히 이어 줍니다. 이름 조합의 이유, 앞으로의 관계와
+            재물 흐름, 다시 읽을 수 있는 PDF까지 한 번에 정리됩니다.
+          </p>
+          <Link to="/support" className="v3-button" style={{ marginTop: '0.9rem' }}>
+            내 해석 완성하기
+          </Link>
+        </div>
+      </Section>
 
       <div className="v3-card" style={{ marginTop: 'var(--space-lg)' }}>
         <p style={{ margin: '0 0 0.7rem', fontFamily: 'var(--font-display)', fontWeight: 700 }}>
