@@ -339,20 +339,47 @@ export default function DaeunOverlaySection({
   const pathA = catmullRomPath(anchorsA.map(p => ({ x: x(p.year), y: starY(p.stars) })));
   const pathB = catmullRomPath(anchorsB.map(p => ({ x: x(p.year), y: starY(p.stars) })));
 
-  // 평균 곡선의 앵커 = 창 경계(두 사람 대운 시작 연도의 평균 지점)마다,
-  // 그 x에서 두 곡선이 갖는 별점의 평균값. 경계가 겹침 구간의 오른쪽 끝일
-  // 때는 반열린 구간 밖으로 나가지 않게 살짝 안쪽에서 읽는다.
-  const avgAnchors = showWindows
-    ? [...windows.map(window => window.startYear), overlapEnd]
-        .map(year => {
-          const lookupYear = Math.min(year, overlapEnd - 0.001);
-          const aStars = starsAtYear(a.segments, lookupYear);
-          const bStars = starsAtYear(b.segments, lookupYear);
-          if (aStars === null || bStars === null) return null;
-          return { year, stars: (aStars + bStars) / 2 };
-        })
-        .filter((anchor): anchor is { year: number; stars: number } => anchor !== null)
+  // 그려진 곡선의 y를 그대로 평균해야 눈으로 봐도 정확히 중간에 온다.
+  // 사람 곡선은 대운 시작 앵커를 지나는 보간 곡선이므로, 평균도 계단식
+  // 원값이 아니라 같은 앵커들 사이를 보간한 값으로 계산한다.
+  const interpStars = (
+    anchors: { year: number; stars: number }[],
+    year: number,
+  ): number | null => {
+    if (anchors.length === 0) return null;
+    if (year < anchors[0].year || year > anchors[anchors.length - 1].year) return null;
+    for (let i = 0; i < anchors.length - 1; i += 1) {
+      const left = anchors[i];
+      const right = anchors[i + 1];
+      if (year >= left.year && year <= right.year) {
+        const t = right.year === left.year ? 0 : (year - left.year) / (right.year - left.year);
+        return left.stars + (right.stars - left.stars) * t;
+      }
+    }
+    return anchors[anchors.length - 1].stars;
+  };
+
+  // 평균 곡선의 앵커 격자: 두 사람의 곡선 앵커 연도와 창 경계의 합집합.
+  // 두 곡선이 함께 존재하는 구간에서만 평균을 그린다.
+  const avgYears = showWindows
+    ? [
+        ...anchorsA.map(p => p.year),
+        ...anchorsB.map(p => p.year),
+        ...windows.map(window => window.startYear),
+        overlapEnd,
+      ]
+        .filter(year => year >= overlapStart && year <= domainEnd)
+        .sort((left, right) => left - right)
+        .filter((year, index, list) => index === 0 || year - list[index - 1] > 0.25)
     : [];
+  const avgAnchors = avgYears
+    .map(year => {
+      const aStars = interpStars(anchorsA, year);
+      const bStars = interpStars(anchorsB, year);
+      if (aStars === null || bStars === null) return null;
+      return { year, stars: (aStars + bStars) / 2 };
+    })
+    .filter((anchor): anchor is { year: number; stars: number } => anchor !== null);
   const pathAvg = avgAnchors.length >= 2
     ? catmullRomPath(avgAnchors.map(p => ({ x: x(p.year), y: starY(p.stars) })))
     : '';
@@ -550,13 +577,12 @@ export default function DaeunOverlaySection({
               ? windows.map((window, index) => {
                   const isOpen = openIndex === index;
                   // 점은 창의 시작 경계(두 대운 시작 연도의 평균 지점)에서
-                  // 평균 곡선 위에 정확히 앉는다.
-                  const anchor = avgAnchors.find(
-                    candidate => candidate.year === window.startYear,
-                  );
-                  if (!anchor) return null;
-                  const cx = x(anchor.year);
-                  const cy = starY(anchor.stars);
+                  // 보간 평균 곡선 위에 정확히 앉는다.
+                  const aStars = interpStars(anchorsA, window.startYear);
+                  const bStars = interpStars(anchorsB, window.startYear);
+                  if (aStars === null || bStars === null) return null;
+                  const cx = x(window.startYear);
+                  const cy = starY((aStars + bStars) / 2);
                   return (
                     <g
                       key={`w-${window.startYear}`}
