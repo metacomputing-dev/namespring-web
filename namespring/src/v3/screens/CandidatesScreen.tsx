@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import type { CandidateSearchItemV1, CandidateSearchResponseV1 } from '@spring/experience/types';
+import type { CandidateSearchItemV1 } from '@spring/experience/types';
 import { getEngine, clearDeliveryCache } from '../engine/client';
 import {
   loadOriginalProfile,
@@ -16,6 +16,13 @@ import { Loading } from '../ui/primitives';
 /** 한눈에 견줄 수 있는 만큼만. 열이 더 늘면 표가 아니라 목록이 된다. */
 const MAX_COMPARE = 3;
 
+/** 엔진이 한 번에 내주는 최대치(MAX_CANDIDATE_SEARCH_PAGE_SIZE_V1). */
+const FETCH_PAGE_SIZE = 100;
+/** 화면에 한 번에 늘려 그리는 개수. 받아 둔 양과는 별개다. */
+const RENDER_STEP = 20;
+/** 무한 루프 방지용. maxBrowsableCandidates(500)로도 멈추지만 한 겹 더 둔다. */
+const MAX_FETCH_PAGES = 20;
+
 const TENDENCY_KO: Record<string, string> = {
   male: '주로 남자아이',
   female: '주로 여자아이',
@@ -25,7 +32,7 @@ const TENDENCY_KO: Record<string, string> = {
 type SearchState =
   | { status: 'idle' }
   | { status: 'loading' }
-  | { status: 'ready'; response: CandidateSearchResponseV1 }
+  | { status: 'ready'; items: CandidateSearchItemV1[] }
   | { status: 'error' };
 
 function firstMeaning(meaning: string | undefined): string | null {
@@ -218,6 +225,7 @@ export default function CandidatesScreen() {
     () => new Set(listFavorites().map(entry => entry.id)),
   );
   const [compareIds, setCompareIds] = useState<string[]>([]);
+  const [visibleCount, setVisibleCount] = useState(RENDER_STEP);
   const [state, setState] = useState<SearchState>({ status: 'idle' });
 
   useEffect(() => {
@@ -230,33 +238,60 @@ export default function CandidatesScreen() {
     // 글자 수를 바꾸면 후보 목록이 통째로 갈리므로 비교 선택도 함께 비운다.
     setCompareIds([]);
     const engine = getEngine();
-    engine
-      .getCandidateSearch({
-        birth: {
-          year: profile.birth.year,
-          month: profile.birth.month,
-          day: profile.birth.day,
-          hour: profile.birth.hour,
-          minute: profile.birth.minute,
-          gender: profile.birth.gender,
-          calendarType: profile.birth.calendarType,
-          isLeapMonth: profile.birth.calendarType === 'lunar' ? profile.birth.isLeapMonth : undefined,
-          region: profile.birth.region ?? undefined,
-        },
-        surname: profile.surname.map(c => (c.hanja ? { hangul: c.hangul, hanja: c.hanja } : { hangul: c.hangul })),
-        givenNameLength: givenLength,
-        mode: 'recommend',
-      })
-      .then(response => {
-        if (!cancelled) setState({ status: 'ready', response });
-      })
-      .catch(() => {
+    const request = {
+      birth: {
+        year: profile.birth.year,
+        month: profile.birth.month,
+        day: profile.birth.day,
+        hour: profile.birth.hour,
+        minute: profile.birth.minute,
+        gender: profile.birth.gender,
+        calendarType: profile.birth.calendarType,
+        isLeapMonth: profile.birth.calendarType === 'lunar' ? profile.birth.isLeapMonth : undefined,
+        region: profile.birth.region ?? undefined,
+      },
+      surname: profile.surname.map(c => (c.hanja ? { hangul: c.hangul, hanja: c.hanja } : { hangul: c.hangul })),
+      givenNameLength: givenLength,
+      mode: 'recommend' as const,
+    };
+
+    // 엔진이 이 세션에 보관하는 후보를 전부 받아 둔다. 비싼 건 첫 장이 만드는
+    // 스냅샷뿐이고 이후 장은 같은 queryId로 잘라 오기만 한다(실측 4장 18ms).
+    // 검색·필터가 첫 장이 아니라 후보 전체를 대상으로 돌게 하려면 이게 필요하다.
+    (async () => {
+      try {
+        const first = await engine.getCandidateSearch({
+          ...request,
+          options: { limit: FETCH_PAGE_SIZE, offset: 0 },
+        });
+        if (cancelled) return;
+        const items = [...first.items];
+        let hasMore = first.pagination.hasMore === true;
+        for (let page = 1; hasMore && page < MAX_FETCH_PAGES; page += 1) {
+          if (items.length >= first.query.maxBrowsableCandidates) break;
+          const next = await engine.getCandidateSearch(
+            { ...request, options: { limit: FETCH_PAGE_SIZE, offset: items.length } },
+            { queryId: first.query.queryId },
+          );
+          if (cancelled) return;
+          if (next.items.length === 0) break;
+          items.push(...next.items);
+          hasMore = next.pagination.hasMore === true;
+        }
+        setState({ status: 'ready', items });
+      } catch {
         if (!cancelled) setState({ status: 'error' });
-      });
+      }
+    })();
     return () => {
       cancelled = true;
     };
   }, [profile, givenLength, navigate]);
+
+  // 조건이 바뀌면 위에서부터 다시 읽는 게 자연스럽다.
+  useEffect(() => {
+    setVisibleCount(RENDER_STEP);
+  }, [query, favoritesOnly, showAllGenders, givenLength]);
 
   if (!profile) return null;
 
@@ -306,7 +341,7 @@ export default function CandidatesScreen() {
         ? '여자아이에게 주로 쓰이는 이름과 두루 쓰이는 이름을 보여드려요.'
         : null;
 
-  const allItems = state.status === 'ready' ? state.response.items : [];
+  const allItems = state.status === 'ready' ? state.items : [];
   const normalizedQuery = normalizeQuery(query);
   const visibleItems = allItems.filter(item => {
     const tendency = item.popularity.tendency;
@@ -319,6 +354,8 @@ export default function CandidatesScreen() {
     return matchesQuery(item, normalizedQuery);
   });
   const filtering = normalizedQuery.length > 0 || favoritesOnly;
+  const shownItems = visibleItems.slice(0, visibleCount);
+  const restCount = visibleItems.length - shownItems.length;
 
   // 비교는 명시적으로 고른 것이라, 검색·필터로 목록에서 사라져도 표에는 남긴다.
   const compareItems = compareIds
@@ -409,9 +446,11 @@ export default function CandidatesScreen() {
         ) : (
           <>
             <p className="v3-hint" style={{ margin: '0 0 0.8rem' }} role="status" aria-live="polite">
-              {visibleItems.length > 0
-                ? `${visibleItems.length}개의 이름을 보여드려요.`
-                : '지금 조건에 맞는 이름이 없어요.'}
+              {visibleItems.length === 0
+                ? '지금 조건에 맞는 이름이 없어요.'
+                : restCount > 0
+                  ? `이름 ${visibleItems.length}개 가운데 ${shownItems.length}개를 보여드리고 있어요.`
+                  : `${visibleItems.length}개의 이름을 보여드려요.`}
               {visibleItems.length < allItems.length
                 ? ` 전체 ${allItems.length}개 중 ${allItems.length - visibleItems.length}개는 접어 두었어요.`
                 : ''}
@@ -430,7 +469,7 @@ export default function CandidatesScreen() {
               </button>
             ) : null}
             <div className="v3-grid-2">
-              {visibleItems.map(item => (
+              {shownItems.map(item => (
                 <CandidateCard
                   key={item.candidateId}
                   item={item}
@@ -443,6 +482,17 @@ export default function CandidatesScreen() {
                 />
               ))}
             </div>
+
+            {restCount > 0 ? (
+              <button
+                type="button"
+                className="v3-button v3-button--ghost v3-button--wide"
+                style={{ marginTop: 'var(--space-sm)' }}
+                onClick={() => setVisibleCount(count => count + RENDER_STEP)}
+              >
+                이름 {Math.min(restCount, RENDER_STEP)}개 더 보기 (남은 {restCount}개)
+              </button>
+            ) : null}
 
             {compareRows.length > 0 ? (
               <section
