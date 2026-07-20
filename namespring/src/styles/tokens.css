@@ -172,6 +172,70 @@
   --ns-tone-amber-area: var(--color-chart-area-b);
 }
 
+/* Manual theme override: <html data-theme="dark"> wins over the system
+   preference below. Legacy screens never set data-theme, so they keep
+   following the system as before. */
+:root[data-theme="dark"] {
+  --color-paper: oklch(0.165 0.020 148);
+  --color-paper-2: oklch(0.205 0.022 146);
+  --color-paper-3: oklch(0.245 0.024 144);
+  --color-paper-sunken: oklch(0.280 0.024 144);
+  --color-ink: oklch(0.940 0.012 108);
+  --color-ink-2: oklch(0.760 0.022 132);
+  --color-ink-3: oklch(0.620 0.020 130);
+  --color-rule: oklch(0.305 0.024 144);
+  --color-rule-strong: oklch(0.385 0.026 142);
+  --color-accent: oklch(0.760 0.085 142);
+  --color-accent-ink: oklch(0.180 0.020 148);
+  --color-accent-soft: oklch(0.620 0.070 140);
+  --color-accent-quiet: oklch(0.345 0.040 142);
+  --color-leaf-faint: oklch(0.760 0.030 132 / 0.18);
+  --color-focus: oklch(0.800 0.130 138);
+  --color-ripple: oklch(0.940 0.012 108 / 0.20);
+  --color-menu-icon-bg: oklch(0.700 0.120 148);
+  --color-menu-icon-border: oklch(0.780 0.095 148);
+  --color-menu-icon-mark: oklch(0.982 0.010 108);
+  --color-menu-icon-lock-bg: oklch(0.165 0.020 148);
+  --color-menu-icon-lock-mark: oklch(0.940 0.012 108);
+  --color-success: oklch(0.760 0.090 150);
+  --color-success-bg: oklch(0.245 0.045 152);
+  --color-success-line: oklch(0.360 0.060 150);
+  --color-warn: oklch(0.790 0.090 80);
+  --color-warn-bg: oklch(0.255 0.040 80);
+  --color-warn-line: oklch(0.370 0.060 80);
+  --color-danger: oklch(0.740 0.115 25);
+  --color-danger-bg: oklch(0.260 0.055 25);
+  --color-danger-line: oklch(0.380 0.080 25);
+  --color-info: oklch(0.760 0.075 220);
+  --color-info-bg: oklch(0.250 0.045 220);
+  --color-info-line: oklch(0.360 0.065 220);
+  --color-wood: oklch(0.760 0.090 150);
+  --color-wood-bg: oklch(0.245 0.045 152);
+  --color-wood-line: oklch(0.360 0.060 150);
+  --color-fire: oklch(0.740 0.115 25);
+  --color-fire-bg: oklch(0.260 0.055 25);
+  --color-fire-line: oklch(0.380 0.080 25);
+  --color-earth: oklch(0.790 0.090 80);
+  --color-earth-bg: oklch(0.255 0.040 80);
+  --color-earth-line: oklch(0.370 0.060 80);
+  --color-metal: oklch(0.760 0.022 220);
+  --color-metal-bg: oklch(0.250 0.018 220);
+  --color-metal-line: oklch(0.360 0.025 220);
+  --color-water: oklch(0.760 0.075 220);
+  --color-water-bg: oklch(0.250 0.045 220);
+  --color-water-line: oklch(0.360 0.065 220);
+  --color-chart-line-a: oklch(0.800 0.100 148);
+  --color-chart-area-a: oklch(0.800 0.100 148 / 0.24);
+  --color-chart-line-b: oklch(0.820 0.090 80);
+  --color-chart-area-b: oklch(0.820 0.090 80 / 0.22);
+  --color-disabled-bg: oklch(0.270 0.020 130);
+  --color-disabled-ink: oklch(0.540 0.020 130);
+  --shadow-1: 0 1px 2px oklch(0.040 0.010 148 / 0.45);
+  --shadow-2: 0 4px 14px oklch(0.040 0.010 148 / 0.42);
+  --shadow-card: 0 12px 30px oklch(0.040 0.010 148 / 0.44);
+  --shadow-fab: 0 12px 32px oklch(0.040 0.010 148 / 0.55);
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --color-paper: oklch(0.165 0.020 148);

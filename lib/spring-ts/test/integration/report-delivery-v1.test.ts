@@ -1706,9 +1706,67 @@ assert.ok(elementBalanceEvidence?.kind === 'element_balance');
 assert.deepEqual(elementBalanceEvidence.deficient, ['earth', 'metal']);
 assert.deepEqual(elementBalanceEvidence.excessive, ['wood']);
 
+const gongmangEvidence = structuralEvidenceDelivery.facts.find(
+  (fact) => fact.kind === 'gongmang',
+);
+assert.ok(gongmangEvidence?.kind === 'gongmang');
+assert.equal(gongmangEvidence.voidBranches.length, 2);
+
+const seongpaeEvidence = structuralEvidenceDelivery.facts.find(
+  (fact) => fact.kind === 'gyeokguk_seongpae',
+);
+assert.ok(seongpaeEvidence?.kind === 'gyeokguk_seongpae');
+assert.ok(['SUNYONG', 'YEOKYONG'].includes(seongpaeEvidence.usage));
+const seongpaeKeys = serializedKeys(seongpaeEvidence);
+for (const internalKey of ['reasons', 'verdictBeforeMonthBroken']) {
+  assert.equal(
+    seongpaeKeys.has(internalKey),
+    false,
+    `seongpae projection omits engine-internal ${internalKey}`,
+  );
+}
+
+const sibiUnseongEvidence = structuralEvidenceDelivery.facts.find(
+  (fact) => fact.kind === 'sibi_unseong',
+);
+assert.ok(sibiUnseongEvidence?.kind === 'sibi_unseong');
+assert.ok(sibiUnseongEvidence.stages.length >= 1);
+
+const daeunEvidence = structuralEvidenceDelivery.facts.find(
+  (fact) => fact.kind === 'daeun_timeline',
+);
+assert.ok(daeunEvidence?.kind === 'daeun_timeline');
+assert.ok(daeunEvidence.periods.length >= 1);
+assert.ok(
+  daeunEvidence.periods.every((period, index) =>
+    index === 0 || period.order > daeunEvidence.periods[index - 1].order),
+  'daeun periods stay in engine decade order',
+);
+
+const yinYangEvidence = structuralEvidenceDelivery.facts.find(
+  (fact) => fact.kind === 'yin_yang_balance',
+);
+assert.ok(yinYangEvidence?.kind === 'yin_yang_balance');
+assert.equal(
+  yinYangEvidence.yang + yinYangEvidence.yin,
+  8,
+  'a full chart counts all eight characters',
+);
+
 const structuralEvidenceBlock = findSurface(structuralEvidenceDelivery, 'saju')!.blocks.find(
   (block) => block.kind === 'fact_group' && block.presentation === 'evidence',
 );
+const insightEvidence = structuralEvidenceDelivery.facts.find(
+  (fact) => fact.kind === 'insight_facts',
+);
+assert.ok(insightEvidence?.kind === 'insight_facts');
+assert.ok(insightEvidence.items.length >= 1);
+for (const item of insightEvidence.items) {
+  assert.ok(item.salience >= 0 && item.salience <= 1);
+  assert.equal(typeof item.highlight, 'boolean');
+  assert.ok(item.reading.length > 0, 'every surfaced insight carries an authored reading');
+}
+
 assert.ok(structuralEvidenceBlock?.kind === 'fact_group');
 assert.deepEqual(
   structuralEvidenceBlock.factRefs,
@@ -1717,6 +1775,12 @@ assert.deepEqual(
     tenGodEvidence.id,
     relationEvidence.id,
     elementBalanceEvidence.id,
+    gongmangEvidence.id,
+    seongpaeEvidence.id,
+    sibiUnseongEvidence.id,
+    daeunEvidence.id,
+    yinYangEvidence.id,
+    insightEvidence.id,
   ],
   'specialist structural facts are reachable only through the saju evidence group',
 );
@@ -1726,6 +1790,12 @@ assert.deepEqual(
     'ten_god_analysis',
     'natal_relations',
     'element_balance',
+    'gongmang',
+    'gyeokguk_seongpae',
+    'sibi_unseong',
+    'daeun_timeline',
+    'yin_yang_balance',
+    'insight_facts',
   ]).has(fact.kind)),
   [],
   'specialist structural facts do not broaden the integrated-only payload',
@@ -2028,6 +2098,31 @@ const legacy = await engine.getFortuneReport({
 assert.equal('delivery' in legacy, false, 'legacy report shape has no delivery field');
 assert.match(legacy.tieredMatrix?.meta.selectionSeed ?? '', /^selection_v1_[0-9a-f]{32}$/u);
 assert.equal(JSON.stringify(legacy).includes('1986|4|19|5|45|male'), false, 'legacy tiered metadata no longer leaks birth seed');
+
+/* 자형(같은 지지 반복) 원국이 fail-closed로 죽지 않는다 — 1995-06-15 12:00은
+ * 월지·시지가 모두 午라 오오 자형이 잡힌다. natal_relations는 중복 지지를
+ * 그대로 실어야 하고, 사주 표면 전체가 이 관계 때문에 무너지면 안 된다. */
+const jahyeongDelivery = await engine.getReportDelivery({
+  birth: { year: 1995, month: 6, day: 15, hour: 12, minute: 0, gender: 'male' as const },
+  surname: [{ hangul: '최' }],
+  givenName: [{ hangul: '성' }, { hangul: '수' }],
+  targetDate: baseRequest.targetDate,
+  delivery: {
+    schemaVersion: REPORT_DELIVERY_REQUEST_SCHEMA_V1,
+    surfaces: [{ id: 'saju', depth: 'standard' }],
+  },
+});
+const jahyeongNatal = jahyeongDelivery.facts.find((fact) => fact.kind === 'natal_relations');
+assert.ok(
+  jahyeongNatal && jahyeongNatal.kind === 'natal_relations',
+  '자형 원국의 natal_relations가 존재한다',
+);
+assert.ok(
+  jahyeongNatal.jiji.some(
+    (relation) => new Set(relation.branches).size !== relation.branches.length,
+  ),
+  '자형의 중복 지지 멤버가 그대로 실린다',
+);
 
 engine.close();
 console.log('Report delivery V1: PASS');

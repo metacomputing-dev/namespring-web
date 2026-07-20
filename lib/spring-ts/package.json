@@ -94,6 +94,8 @@
     "test:no-ai-policy": "npx tsx test/integration/no-ai-policy.test.ts",
     "test:no-ai-release-scope": "node tools/check_no_ai_policy.mjs --fixture-root test/baseline/authority --fixture-root test/baseline/oracles --fixture-root test/fixtures --fixture-root data/articles/insights",
     "test:report-delivery": "npx tsx test/integration/report-delivery-validation.test.ts && npx tsx test/integration/report-delivery-v1.test.ts",
+    "test:couple-compatibility": "npx tsx test/integration/couple-compatibility.test.ts",
+    "test:couple-compat-sweep": "npx tsx test/integration/couple-compatibility-sweep.test.ts",
     "test:candidate-search-delivery": "npx tsx test/integration/candidate-guidance-policy.test.ts && npx tsx test/integration/candidate-meaning-policy.test.ts && npx tsx test/integration/candidate-variant-retention.test.ts && npx tsx test/integration/candidate-guidance-exact-fixture.test.ts && npx tsx test/integration/candidate-search-delivery-v1.test.ts",
     "test:premium-report-contract": "npx tsx test/integration/premium-report-contract-v1.test.ts",
     "test:local-menu-contract": "npx tsx test/integration/local-menu-contract-v1.test.ts",

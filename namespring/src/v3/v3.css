@@ -1,0 +1,1559 @@
+/* ============================================================
+   이름봄 v3 — 화면 레이어 스타일
+   토큰은 styles/tokens.css 를 그대로 사용한다.
+   ============================================================ */
+
+.v3-root {
+  min-height: 100vh;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+
+.v3-root *,
+.v3-root *::before,
+.v3-root *::after {
+  box-sizing: border-box;
+}
+
+/* ---------- 상단 헤더 ---------- */
+
+.v3-masthead {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: 0.65rem clamp(1rem, 4vw, 2rem);
+  background: color-mix(in oklab, var(--color-paper) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: var(--rule-thin) solid var(--color-rule);
+}
+
+.v3-brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  padding: 0.25rem 0.4rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: 0.01em;
+}
+
+.v3-brand .v3-brand-mark {
+  color: var(--color-accent);
+}
+
+.v3-masthead-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.v3-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: var(--radius-pill);
+  border: var(--rule-thin) solid var(--color-rule);
+  background: var(--color-paper-2);
+  color: var(--color-ink-2);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+
+.v3-icon-button:hover {
+  background: var(--color-paper-3);
+  border-color: var(--color-rule-strong);
+}
+
+/* ---------- 본문 컨테이너 ---------- */
+
+.v3-page {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: clamp(1.25rem, 4vw, 2.5rem) clamp(1rem, 4vw, 2rem) 6rem;
+}
+
+.v3-page-head {
+  margin-bottom: clamp(1.25rem, 3vw, 2rem);
+}
+
+.v3-kicker {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin: 0 0 0.4rem;
+}
+
+.v3-page-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.65rem, 5vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.28;
+  margin: 0;
+  color: var(--color-ink);
+}
+
+.v3-page-lede {
+  margin: 0.6rem 0 0;
+  color: var(--color-ink-2);
+  font-size: var(--text-md);
+  max-width: 44rem;
+}
+
+/* ---------- 카드 ---------- */
+
+.v3-card {
+  background: var(--color-paper-2);
+  border: var(--rule-thin) solid var(--color-rule);
+  border-radius: var(--radius-card);
+  padding: clamp(1rem, 3vw, 1.5rem);
+  box-shadow: var(--shadow-1);
+}
+
+.v3-card + .v3-card {
+  margin-top: var(--space-sm);
+}
+
+/* 그리드 안에서는 위 간격 규칙이 새어 들어와 첫 카드만 커 보이게 만든다. */
+.v3-grid-2 > .v3-card + .v3-card,
+.v3-grid-3 > .v3-card + .v3-card,
+.v3-char-cards > .v3-card + .v3-card,
+.v3-fortune-grid > .v3-card + .v3-card {
+  margin-top: 0;
+}
+
+.v3-card--hero {
+  background: linear-gradient(150deg, var(--color-accent-quiet), var(--color-paper-2) 55%);
+  border-radius: var(--radius-card-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.v3-card--tinted {
+  background: var(--color-paper-3);
+}
+
+/* ---------- 섹션 ---------- */
+
+.v3-section {
+  margin-top: clamp(2rem, 6vw, 3.25rem);
+}
+
+.v3-section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 4vw, 1.85rem);
+  font-weight: 700;
+  margin: 0 0 0.35rem;
+  color: var(--color-ink);
+}
+
+.v3-section-lede {
+  margin: 0 0 var(--space-sm);
+  color: var(--color-ink-3);
+  font-size: var(--text-sm);
+}
+
+/* ---------- 배지 · 필 ---------- */
+
+.v3-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.18rem 0.62rem;
+  border-radius: var(--radius-pill);
+  border: var(--rule-thin) solid var(--color-rule);
+  background: var(--color-paper-3);
+  color: var(--color-ink-2);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.v3-badge--accent {
+  background: var(--color-accent-quiet);
+  border-color: transparent;
+  color: var(--color-accent);
+}
+
+.v3-badge--wood { background: var(--color-wood-bg); border-color: var(--color-wood-line); color: var(--color-wood); }
+.v3-badge--fire { background: var(--color-fire-bg); border-color: var(--color-fire-line); color: var(--color-fire); }
+.v3-badge--earth { background: var(--color-earth-bg); border-color: var(--color-earth-line); color: var(--color-earth); }
+.v3-badge--metal { background: var(--color-metal-bg); border-color: var(--color-metal-line); color: var(--color-metal); }
+.v3-badge--water { background: var(--color-water-bg); border-color: var(--color-water-line); color: var(--color-water); }
+
+/* ---------- 버튼 ---------- */
+
+.v3-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.7rem 1.4rem;
+  /* 한국어 라벨이 좁은 칸에서 음절 단위로 꺾이지 않게 어절 단위로만 줄바꿈한다. */
+  word-break: keep-all;
+  border-radius: var(--radius-input);
+  border: var(--rule-thin) solid var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  font-size: var(--text-md);
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: filter var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+
+.v3-button:hover { filter: brightness(1.06); }
+.v3-button:active { transform: translateY(1px); }
+
+.v3-button--ghost {
+  background: var(--color-paper-2);
+  border-color: var(--color-rule-strong);
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.v3-button--wide { width: 100%; }
+
+.v3-button--danger {
+  background: var(--color-danger-bg);
+  border-color: var(--color-danger-line);
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+.v3-button:disabled {
+  background: var(--color-disabled-bg);
+  border-color: var(--color-disabled-bg);
+  color: var(--color-disabled-ink);
+  cursor: not-allowed;
+}
+
+/* ---------- 별점 ---------- */
+
+.v3-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.14rem;
+  color: var(--color-earth);
+}
+
+.v3-stars .v3-star--empty {
+  color: var(--color-rule-strong);
+}
+
+.v3-stars-value {
+  margin-left: 0.4rem;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-ink-3);
+}
+
+/* ---------- 인용 카드 (신살·관계 인사이트) ---------- */
+
+.v3-quote {
+  position: relative;
+  background: var(--color-paper-3);
+  border: var(--rule-thin) solid var(--color-rule);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius-input);
+  padding: 0.85rem 1rem 0.85rem 1.1rem;
+}
+
+.v3-quote + .v3-quote { margin-top: 0.6rem; }
+
+.v3-quote-main {
+  margin: 0;
+  font-size: var(--text-md);
+  color: var(--color-ink);
+}
+
+.v3-quote-expert {
+  margin: 0.45rem 0 0;
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+}
+
+.v3-quote-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+/* ---------- 탭 ---------- */
+
+.v3-tabs {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.v3-tab {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-pill);
+  border: var(--rule-thin) solid var(--color-rule);
+  background: var(--color-paper-2);
+  color: var(--color-ink-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.v3-tab[aria-selected='true'] {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+/* ---------- 폼 ---------- */
+
+.v3-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.v3-label {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-ink-2);
+}
+
+.v3-input,
+.v3-select {
+  width: 100%;
+  padding: 0.68rem 0.9rem;
+  border-radius: var(--radius-input);
+  border: var(--rule-thin) solid var(--color-rule-strong);
+  background: var(--color-paper-2);
+  color: var(--color-ink);
+  font-size: var(--text-md);
+  font-family: inherit;
+}
+
+.v3-input:focus-visible,
+.v3-select:focus-visible,
+.v3-button:focus-visible,
+.v3-tab:focus-visible,
+.v3-icon-button:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.v3-hint {
+  font-size: var(--text-xs);
+  color: var(--color-ink-3);
+}
+
+/* 눈으로는 감추고 화면 낭독기에는 남긴다. */
+.v3-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- 그리드 ---------- */
+
+.v3-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-sm);
+}
+
+.v3-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-sm);
+}
+
+@media (max-width: 40rem) {
+  .v3-grid-2,
+  .v3-grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- 모달 ---------- */
+
+.v3-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm);
+  background: oklch(0.2 0.02 145 / 0.35);
+  backdrop-filter: blur(6px);
+}
+
+.v3-modal {
+  width: min(26rem, 100%);
+  max-height: min(34rem, 86vh);
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  background: var(--color-paper-2);
+  border: var(--rule-thin) solid var(--color-rule);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 1rem;
+}
+
+.v3-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.v3-modal-list {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-height: 6rem;
+}
+
+.v3-hanja-option {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius-input);
+  border: var(--rule-thin) solid var(--color-rule);
+  background: var(--color-paper);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.v3-hanja-option:hover {
+  background: var(--color-accent-quiet);
+  border-color: var(--color-accent-soft);
+}
+
+.v3-hanja-glyph {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  line-height: 1;
+  flex-shrink: 0;
+  color: var(--color-ink);
+}
+
+.v3-hanja-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.v3-hanja-meaning {
+  font-weight: 600;
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+}
+
+/* ---------- 입력 폼 ---------- */
+
+.v3-char-slots {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.v3-char-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  min-width: 4.6rem;
+  padding: 0.6rem 0.5rem;
+  border-radius: var(--radius-input);
+  border: var(--rule-thin) dashed var(--color-rule-strong);
+  background: var(--color-paper);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.v3-char-slot--filled {
+  border-style: solid;
+  border-color: var(--color-accent-soft);
+  background: var(--color-paper-2);
+}
+
+.v3-char-slot .v3-char-glyph {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  line-height: 1.2;
+  color: var(--color-ink);
+}
+
+.v3-segment {
+  display: inline-flex;
+  border: var(--rule-thin) solid var(--color-rule-strong);
+  border-radius: var(--radius-input);
+  overflow: hidden;
+}
+
+.v3-segment button {
+  padding: 0.55rem 1.1rem;
+  border: 0;
+  background: var(--color-paper-2);
+  color: var(--color-ink-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.v3-segment button[aria-pressed='true'] {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+.v3-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+  cursor: pointer;
+}
+
+.v3-check input {
+  width: 1.05rem;
+  height: 1.05rem;
+  accent-color: var(--color-accent);
+}
+
+.v3-form-row {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.v3-form-row > .v3-field {
+  flex: 1 1 10rem;
+}
+
+/* ---------- 제목 한자 병기 ---------- */
+
+.v3-title-hanja {
+  font-size: 0.62em;
+  font-weight: 500;
+  color: var(--color-ink-3);
+}
+
+/* ---------- 평문 리스트 ---------- */
+
+.v3-plain-list {
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  color: var(--color-ink-2);
+  font-size: var(--text-md);
+}
+
+/* ---------- 오행 이중 막대 ---------- */
+
+.v3-compare {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.v3-compare-row {
+  display: grid;
+  grid-template-columns: 2rem 1fr 4.2rem;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.v3-compare-label {
+  font-weight: 700;
+  color: var(--color-ink-2);
+  text-align: center;
+}
+
+.v3-compare-tracks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.22rem;
+}
+
+.v3-compare-track {
+  height: 0.5rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-paper-sunken);
+  overflow: hidden;
+}
+
+.v3-compare-fill {
+  height: 100%;
+  border-radius: inherit;
+  transition: width var(--dur-slow) var(--ease-out);
+}
+
+.v3-compare-fill--saju { background: var(--color-accent); }
+.v3-compare-fill--name { background: var(--color-earth); }
+/* 궁합 오행 견주기: 사람별 이름 줄은 같은 색을 연하게 (첫 사람 연녹, 둘째 연갈). */
+.v3-compare-fill--saju-light { background: color-mix(in oklab, var(--color-accent) 42%, var(--color-paper-2)); }
+.v3-compare-fill--name-light { background: color-mix(in oklab, var(--color-earth) 42%, var(--color-paper-2)); }
+/* 두 사람 그룹 사이를 살짝 띄워 '사주+이름' 묶음이 사람별로 읽히게 한다. */
+.v3-compare-tracks--pair > .v3-compare-track:nth-child(3) { margin-top: 0.3rem; }
+
+.v3-compare-values {
+  font-size: var(--text-xs);
+  color: var(--color-ink-3);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 오행 글자색 ---------- */
+
+.v3-el-wood { color: var(--color-wood); }
+.v3-el-fire { color: var(--color-fire); }
+.v3-el-earth { color: var(--color-earth); }
+.v3-el-metal { color: var(--color-metal); }
+.v3-el-water { color: var(--color-water); }
+.v3-el-none { color: var(--color-ink); }
+
+/* ---------- 원국표 ---------- */
+
+.v3-pillars {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.6rem;
+  text-align: center;
+}
+
+.v3-pillar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.7rem 0.3rem;
+  border-radius: var(--radius-input);
+  background: var(--color-paper);
+  border: var(--rule-thin) solid var(--color-rule);
+}
+
+.v3-pillar-glyph {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.v3-pillar-glyph small {
+  font-size: 0.62em;
+  font-weight: 500;
+  opacity: 0.75;
+}
+
+/* ---------- 핵심 카드 ---------- */
+
+.v3-core-value {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 0.35rem 0;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+/* ---------- 음양 저울 ---------- */
+
+.v3-yinyang-track {
+  height: 0.7rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-paper-sunken);
+  overflow: hidden;
+  margin-top: 0.55rem;
+}
+
+.v3-yinyang-yang {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-earth), var(--color-fire));
+  border-radius: inherit;
+}
+
+/* ---------- 표 ---------- */
+
+.v3-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+  font-size: var(--text-sm);
+}
+
+.v3-table th,
+.v3-table td {
+  padding: 0.45rem 0.6rem;
+  border: var(--rule-thin) solid var(--color-rule);
+  text-align: center;
+}
+
+.v3-table thead th {
+  background: var(--color-paper-3);
+  font-weight: 700;
+}
+
+.v3-table tbody th {
+  background: var(--color-paper-3);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ---------- 대운 이정표 ---------- */
+
+.v3-daeun-road {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.4rem;
+}
+
+.v3-daeun-stop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  min-width: 4.4rem;
+  padding: 0.6rem 0.45rem;
+  border-radius: var(--radius-input);
+  border: var(--rule-thin) solid var(--color-rule);
+  background: var(--color-paper);
+  flex-shrink: 0;
+}
+
+.v3-daeun-stop--now {
+  border-color: var(--color-accent);
+  background: var(--color-accent-quiet);
+  box-shadow: var(--shadow-1);
+}
+
+.v3-daeun-ganji {
+  display: flex;
+  gap: 0.15rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* ---------- 기간 운세 ---------- */
+
+.v3-fortune-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-sm);
+  /* 펼친 카드가 옆 카드까지 늘리지 않도록 각자 제 높이를 지킨다. */
+  align-items: start;
+}
+
+@media (max-width: 46rem) {
+  .v3-fortune-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- 자세히 읽기 ---------- */
+
+.v3-reading {
+  margin-top: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 0.85rem 0.95rem;
+  border-radius: var(--radius-input);
+  background: var(--color-paper);
+  border: var(--rule-thin) solid var(--color-rule);
+}
+
+.v3-reading p {
+  margin: 0;
+  line-height: 1.75;
+}
+
+.v3-reading p:first-child {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.v3-callout {
+  border-radius: var(--radius-input);
+  padding: 0.65rem 0.8rem;
+  border: var(--rule-thin) solid;
+}
+
+.v3-callout-title {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0 0 0.35rem;
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.v3-callout ul {
+  margin: 0;
+  padding-left: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.v3-callout--tip {
+  background: var(--color-success-bg);
+  border-color: var(--color-success-line);
+}
+
+.v3-callout--tip .v3-callout-title { color: var(--color-success); }
+
+.v3-callout--caution {
+  background: var(--color-warn-bg);
+  border-color: var(--color-warn-line);
+}
+
+.v3-callout--caution .v3-callout-title { color: var(--color-warn); }
+
+.v3-fortune-cell-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+/* ---------- 사격수리 카드 ---------- */
+
+.v3-frame-head {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.v3-frame-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--color-ink);
+}
+
+/* ---------- 이름 글자 카드 ---------- */
+
+.v3-char-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: var(--space-sm);
+}
+
+.v3-char-card {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.v3-char-card-glyph {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.4rem;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  line-height: 1.1;
+}
+
+.v3-char-card-glyph small {
+  font-size: 0.4em;
+  font-weight: 500;
+  color: var(--color-ink-3);
+}
+
+.v3-char-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+/* ---------- 소리 흐름 ---------- */
+
+.v3-sound-flow {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.v3-sound-syllable {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.7rem;
+  height: 2.7rem;
+  border-radius: 50%;
+  border: var(--rule-thin) solid var(--color-rule-strong);
+  background: var(--color-paper);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.v3-sound-link {
+  display: inline-block;
+  width: 1.6rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-accent-soft);
+}
+
+.v3-sound-link--watch {
+  background: var(--color-warn);
+  height: 3px;
+}
+
+/* ---------- 작명 후보 ---------- */
+
+.v3-candidate-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.v3-candidate-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.v3-candidate-name {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+}
+
+.v3-candidate-card--compare {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-1);
+}
+
+.v3-candidate-actions {
+  margin-top: auto;
+  padding-top: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* 후보 비교표: 이름 열이 늘어도 페이지 대신 표만 가로로 밀어 읽는다. */
+.v3-candidate-compare {
+  overflow-x: auto;
+}
+
+.v3-candidate-compare:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.v3-candidate-compare .v3-table {
+  min-width: 26rem;
+}
+
+/* 항목 이름은 길어도 줄바꿈으로 읽히게 두고, 왼쪽으로 붙여 훑기 쉽게 한다.
+   설명글이 열을 통째로 벌리지 않도록 너비를 미리 잡아 준다. */
+.v3-candidate-compare .v3-table tbody th {
+  text-align: left;
+  white-space: normal;
+  width: 38%;
+  min-width: 7rem;
+}
+
+/* 표를 옆으로 밀어도 지금 어떤 항목을 보는지는 왼쪽에 남겨 둔다. */
+.v3-candidate-compare .v3-table tbody th,
+.v3-candidate-compare .v3-table thead th:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}
+
+.v3-candidate-compare .v3-table td {
+  min-width: 6.5rem;
+}
+
+.v3-candidate-compare-help {
+  display: block;
+  margin-top: 0.2rem;
+  font-weight: 400;
+}
+
+/* ---------- 하단 내비게이션 ---------- */
+
+.v3-page {
+  padding-bottom: 7.5rem;
+}
+
+.v3-bottom-nav {
+  position: fixed;
+  left: 50%;
+  bottom: 0.9rem;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  gap: 0.15rem;
+  padding: 0.4rem;
+  max-width: calc(100vw - 1rem);
+  overflow-x: auto;
+  border-radius: var(--radius-pill);
+  background: color-mix(in oklab, var(--color-paper-2) 92%, transparent);
+  border: var(--rule-thin) solid var(--color-rule);
+  box-shadow: var(--shadow-fab);
+  backdrop-filter: blur(12px);
+}
+
+.v3-bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  min-width: 2.5rem;
+  flex-shrink: 0;
+  padding: 0.35rem 0.4rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-ink-3);
+  font-size: 0.66rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.v3-bottom-nav-item svg {
+  width: 17px;
+  height: 17px;
+}
+
+.v3-bottom-nav-item[aria-current='page'] {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+.v3-bottom-nav-item:not([aria-current='page']):hover {
+  background: var(--color-paper-3);
+  color: var(--color-ink);
+}
+
+.v3-brand-leaf {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+  border-radius: 0.35rem;
+  align-self: center;
+}
+
+.v3-bottom-nav-item--soon {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.v3-override-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-sm);
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius-input);
+  border: var(--rule-thin) solid var(--color-accent-soft);
+  background: var(--color-accent-quiet);
+  color: var(--color-ink);
+}
+
+.v3-report-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.v3-report-actions .v3-button {
+  flex: 1 1 9rem;
+}
+
+/* 궁합 꼬리처럼 동작 버튼이 여럿일 때: 라벨이 바뀌어도 폭이 흔들리지 않는 균일 격자. */
+.v3-star-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: var(--radius-pill);
+  border: var(--rule-thin) solid var(--color-rule);
+  background: var(--color-paper);
+  color: var(--color-ink-3);
+  cursor: pointer;
+}
+
+.v3-star-button--on {
+  color: var(--color-accent);
+  border-color: var(--color-accent-soft);
+  background: var(--color-accent-quiet);
+}
+
+@media print {
+  .v3-masthead,
+  .v3-bottom-nav,
+  .v3-report-actions,
+  .v3-report-tail,
+  .v3-override-banner,
+  .v3-icon-button,
+  .v3-screen-only {
+    display: none !important;
+  }
+
+  .v3-page {
+    padding-bottom: 0;
+  }
+
+  /* 다크 모드에서 인쇄해도 항상 밝은 지면 토큰으로 찍히게 한다 —
+     잉크 토큰이 밝은 값으로 남으면 흰 종이에 흰 글씨가 된다.
+     값은 tokens.css의 라이트 팔레트를 그대로 복제한다. */
+  :root,
+  :root[data-theme='dark'] {
+    color-scheme: light;
+    --color-paper: oklch(0.982 0.010 108);
+    --color-paper-2: oklch(0.970 0.012 108);
+    --color-paper-3: oklch(0.942 0.016 106);
+    --color-ink: oklch(0.235 0.024 145);
+    --color-ink-2: oklch(0.430 0.020 138);
+    --color-ink-3: oklch(0.575 0.016 132);
+    --color-rule: oklch(0.875 0.018 110);
+    --color-rule-strong: oklch(0.790 0.024 112);
+    --color-accent: oklch(0.430 0.082 148);
+    --color-accent-ink: oklch(0.982 0.010 108);
+    --color-accent-soft: oklch(0.620 0.070 142);
+    --color-accent-quiet: oklch(0.884 0.044 138);
+    --color-chart-line-a: oklch(0.480 0.105 148);
+    --color-chart-area-a: oklch(0.480 0.105 148 / 0.18);
+    --color-chart-line-b: oklch(0.560 0.105 78);
+    --color-chart-area-b: oklch(0.560 0.105 78 / 0.18);
+    --color-wood: oklch(0.420 0.080 148);
+    --color-wood-bg: oklch(0.955 0.045 150);
+    --color-wood-line: oklch(0.870 0.065 148);
+    --color-fire: oklch(0.495 0.120 28);
+    --color-fire-bg: oklch(0.955 0.038 30);
+    --color-fire-line: oklch(0.870 0.055 28);
+    --color-earth: oklch(0.500 0.090 70);
+    --color-earth-bg: oklch(0.960 0.038 78);
+    --color-earth-line: oklch(0.880 0.060 78);
+    --color-metal: oklch(0.440 0.018 220);
+    --color-metal-bg: oklch(0.955 0.010 220);
+    --color-metal-line: oklch(0.870 0.014 220);
+    --color-water: oklch(0.430 0.110 235);
+    --color-water-bg: oklch(0.945 0.038 235);
+    --color-water-line: oklch(0.865 0.055 235);
+  }
+
+  .v3-root {
+    background: #fff;
+  }
+}
+
+/* ---------- 풍경 그림카드 ---------- */
+
+.v3-scenery {
+  border-radius: var(--radius-card-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  border: var(--rule-thin) solid var(--color-rule);
+  /* 렌더러 루트가 h-full이라, 래퍼가 높이를 정해 줘야 한다. */
+  aspect-ratio: 16 / 7;
+}
+
+@media (max-width: 40rem) {
+  .v3-scenery { aspect-ratio: 4 / 3; }
+}
+
+/* ---------- 인생 타임라인 ---------- */
+
+.v3-life-timeline {
+  width: 100%;
+}
+
+.v3-life-timeline svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.v3-life-dot {
+  cursor: pointer;
+}
+
+.v3-life-panel {
+  margin-top: 0.7rem;
+  border-radius: var(--radius-input);
+  border: var(--rule-thin) solid var(--color-accent-soft);
+  background: var(--color-paper);
+  padding: 0.9rem 1rem;
+}
+
+.v3-life-panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.v3-life-panel-ganji {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* ---------- 원국 신호: 큐레이션 + 전체 브라우저 ---------- */
+
+.v3-signal-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.v3-signal-browser {
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: var(--rule-thin) solid var(--color-rule);
+}
+
+.v3-signal-browser > summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--color-ink-2);
+  list-style-position: inside;
+}
+
+.v3-signal-browser > summary:hover {
+  color: var(--color-accent);
+}
+
+.v3-signal-browser-body {
+  margin-top: 0.9rem;
+}
+
+/* ---------- 원국 신호 3분류 ---------- */
+
+.v3-signal-group + .v3-signal-group {
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: var(--rule-thin) solid var(--color-rule);
+}
+
+/* ---------- 계산 기준·방법별 비교 접이 패널 ---------- */
+
+.v3-detail > summary {
+  cursor: pointer;
+  list-style-position: inside;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.v3-detail > summary:hover .v3-detail-title {
+  color: var(--color-accent);
+}
+
+.v3-detail-title {
+  font-weight: 700;
+  font-family: var(--font-display);
+  color: var(--color-ink-2);
+}
+
+.v3-def-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 0.9rem;
+  margin: 0.7rem 0 0;
+}
+
+.v3-def-grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.v3-def-grid dt {
+  font-size: 0.82rem;
+  color: var(--color-ink-3);
+}
+
+.v3-def-grid dd {
+  margin: 0;
+  font-size: 0.95rem;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 480px) {
+  .v3-def-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- 유료 티저: 스레드별 잠금 스켈레톤 ---------- */
+
+.v3-premium-ledger {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 640px) {
+  .v3-premium-ledger {
+    grid-template-columns: 1fr;
+  }
+}
+
+.v3-premium-thread {
+  padding: 0.9rem;
+  border: var(--rule-thin) solid var(--color-rule);
+  border-radius: var(--radius-card);
+  background: var(--color-paper-2);
+  display: flex;
+  flex-direction: column;
+}
+
+.v3-premium-thread-title {
+  margin: 0;
+  font-size: 0.98rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+.v3-premium-thread-preview {
+  margin: 0.4rem 0 0.7rem;
+  font-size: 0.9rem;
+  color: var(--color-ink-2);
+}
+
+.v3-premium-thread-lock {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.v3-premium-thread-lock span {
+  height: 0.55rem;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--color-rule-strong), var(--color-rule));
+  filter: blur(1px);
+  opacity: 0.5;
+}
+
+.v3-premium-thread-lock span:first-child {
+  width: 100%;
+}
+
+.v3-premium-thread-lock span:last-child {
+  width: 68%;
+}
+
+.v3-signal-title {
+  margin: 0 0 0.55rem;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.v3-signal-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.v3-signal-pill {
+  padding: 0.32rem 0.8rem;
+  border-radius: var(--radius-pill);
+  border: var(--rule-thin) solid;
+  font-size: var(--text-sm);
+  font-family: inherit;
+  cursor: pointer;
+  transition: filter var(--dur-fast) var(--ease-out);
+  /* 그룹 색(--sig)과 무게(--sig-mix, --sig-weight)를 조합해 농도를 만든다. */
+  background: color-mix(in oklab, var(--sig) var(--sig-mix), var(--color-paper-2));
+  border-color: color-mix(in oklab, var(--sig) var(--sig-line-mix), var(--color-paper-2));
+  color: var(--sig-text);
+  font-weight: var(--sig-weight);
+}
+
+.v3-signal-pill:hover { filter: brightness(0.96); }
+
+/* 그룹별 색 축 */
+.v3-signal-pill--help { --sig: var(--color-success); --sig-text: var(--color-success); }
+.v3-signal-pill--pace { --sig: var(--color-warn); --sig-text: var(--color-warn); }
+.v3-signal-pill--blank { --sig: var(--color-neutral); --sig-text: var(--color-neutral); }
+
+/* 무게별 농도 — 확실히 구분되도록 세 단계로 벌린다. */
+.v3-signal-pill--soft {
+  --sig-mix: 7%;
+  --sig-line-mix: 20%;
+  --sig-weight: 600;
+  color: var(--color-ink-3);
+}
+.v3-signal-pill--mid {
+  --sig-mix: 30%;
+  --sig-line-mix: 58%;
+  --sig-weight: 700;
+  /* 옅은 칩보다 글자도 진하게: 색을 잉크 쪽으로 조금 당긴다. */
+  color: color-mix(in oklab, var(--sig) 82%, var(--color-ink));
+}
+.v3-signal-pill--strong {
+  --sig-mix: 68%;
+  --sig-line-mix: 92%;
+  --sig-weight: 800;
+  color: color-mix(in oklab, var(--sig) 40%, var(--color-ink));
+}
+
+.v3-signal-pill[aria-expanded='true'] {
+  outline: 2px solid var(--sig);
+  outline-offset: 1px;
+}
+
+/* ---------- 매뉴얼 항목 ---------- */
+
+.v3-topic {
+  border-bottom: var(--rule-thin) solid var(--color-rule);
+}
+
+.v3-topic:last-child {
+  border-bottom: 0;
+}
+
+.v3-topic summary {
+  cursor: pointer;
+  padding: 0.75rem 0.2rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  list-style-position: inside;
+}
+
+.v3-topic summary:hover {
+  color: var(--color-accent);
+}
+
+.v3-topic-body {
+  padding: 0.1rem 0.2rem 0.9rem;
+  color: var(--color-ink-2);
+}
+
+.v3-topic-body p {
+  margin: 0 0 0.6rem;
+  line-height: 1.72;
+}
+
+.v3-topic-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- 로딩 ---------- */
+
+.v3-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  padding: var(--space-2xl) 0;
+  color: var(--color-ink-3);
+}
+
+.v3-loading-leaf {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50% 50% 50% 0;
+  background: var(--color-accent-soft);
+  animation: v3-leaf-sway 1.6s var(--ease-in-out) infinite;
+}
+
+@keyframes v3-leaf-sway {
+  0%, 100% { transform: rotate(-8deg) scale(1); }
+  50% { transform: rotate(10deg) scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v3-loading-leaf { animation: none; }
+}
+
+/* ---------- 관계 검색 콤보박스 ---------- */
+
+.v3-combo {
+  position: relative;
+  max-width: 26rem;
+}
+
+.v3-combo-list {
+  position: absolute;
+  top: calc(100% + 0.3rem);
+  left: 0;
+  right: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  max-height: 16rem;
+  overflow-y: auto;
+  padding: 0.5rem;
+  background: var(--color-paper-2);
+  border: var(--rule-thin) solid var(--color-rule-strong);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+/* 콤보 행: 라벨은 왼쪽, 카테고리 칩은 오른쪽 끝에 붙인다. */
+.v3-combo-list .v3-hanja-option {
+  justify-content: space-between;
+}
+
+/* ---------- 궁합 사람 카드 속 풍경 미니 프레임 ---------- */
+
+/* 반 폭 카드 안에서도 그림이 읽히도록 렌더러의 모바일 기본 비율(4/3)로 고정한다. */
+.v3-scenery-mini {
+  /* 그림이 카드에 자연스럽게 스며들도록 테두리는 두지 않는다. */
+  border-radius: var(--radius-input);
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  margin: 0.15rem 0 0.7rem;
+}

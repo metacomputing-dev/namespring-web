@@ -372,6 +372,13 @@ function validateMetricUnitRange(
 }
 
 const ELEMENT_IDS = new Set<FiveElementIdV1>(['wood', 'fire', 'earth', 'metal', 'water']);
+/**
+ * 자형(自刑)이 성립하는 네 지지. 계층에 따라 원시 코드(JIN/O/YU/HAE) 또는
+ * 한글 라벨(진/오/유/해)로 오므로 둘 다 받는다.
+ */
+const JAHYEONG_SELF_BRANCHES = new Set([
+  'JIN', 'O', 'YU', 'HAE', '진', '오', '유', '해',
+]);
 const FACT_KINDS = new Set([
   'metric',
   'day_master',
@@ -391,6 +398,12 @@ const FACT_KINDS = new Set([
   'name_statistics',
   'naming_frame',
   'name_saju_interaction',
+  'gongmang',
+  'gyeokguk_seongpae',
+  'sibi_unseong',
+  'daeun_timeline',
+  'yin_yang_balance',
+  'insight_facts',
 ]);
 const BLOCK_KINDS = new Set([
   'hero',
@@ -422,6 +435,16 @@ const INTERACTION_LIMITATIONS = new Set([
   'safety_profile_unavailable',
 ]);
 const FRAME_STAGES = new Set(['earlyLife', 'youthLife', 'middleLife', 'lateAndTotal']);
+const INSIGHT_SIGNAL_KINDS = new Set([
+  'shinsal',
+  'gongmang',
+  'stemRelation',
+  'branchRelation',
+  'gyeokgukSeongpae',
+  'stemHapState',
+  'hiddenStems',
+]);
+const INSIGHT_GROUPS = new Set(['boon', 'tension', 'space']);
 const NAMING_TREND_STATUSES = new Set([
   'current',
   'era_fit',
@@ -1525,11 +1548,21 @@ function strictFact(value: unknown): ReportFactV1 {
         'JIJI_RELATION_SHAPE',
       );
       strictBoundedText(relation.type, 'JIJI_RELATION_TYPE', 40);
+      // 자형은 같은 지지의 반복이 정당하므로 중복 검사에서 제외한다.
+      // 어댑터 계층에 따라 타입·지지가 원시 코드 또는 한글 라벨로 온다.
+      // 면제는 좁게 잠근다: 정확히 두 글자, 서로 같고, 자형 네 지지 중 하나일 때만.
+      const isJahyeongRelation = relation.type === 'JA_HYEONG' || relation.type === '자형';
       strictStringArray(relation.branches, 'JIJI_RELATION_BRANCHES', {
         min: 2,
-        max: 4,
-        unique: true,
+        max: isJahyeongRelation ? 2 : 4,
+        unique: !isJahyeongRelation,
       });
+      if (isJahyeongRelation) {
+        const [first, second] = relation.branches as string[];
+        if (first !== second || !JAHYEONG_SELF_BRANCHES.has(first)) {
+          contractFail('JIJI_RELATION_BRANCHES');
+        }
+      }
       for (const branch of relation.branches) {
         strictBoundedText(branch, 'JIJI_RELATION_BRANCHES', 16);
       }
@@ -2235,6 +2268,222 @@ function strictFact(value: unknown): ReportFactV1 {
       jung: 'lateAndTotal',
     };
     if (value.stage !== expectedStage[value.frameType as string]) contractFail('NAMING_FRAME_STAGE');
+  } else if (value.kind === 'gongmang') {
+    strictObject(
+      value,
+      [...base, 'source', 'projection', 'sourceFields', 'voidBranches'],
+      [],
+      'GONGMANG_FACT_SHAPE',
+    );
+    strictSajuProjectionProvenance(
+      value,
+      'saju-ts.gongmang-projection.v1',
+      ['gongmang'],
+    );
+    strictArray(value.voidBranches, 'GONGMANG_BRANCHES', 2, 2);
+    for (const branch of value.voidBranches) {
+      strictBoundedText(branch, 'GONGMANG_BRANCHES', 16);
+    }
+  } else if (value.kind === 'gyeokguk_seongpae') {
+    strictObject(
+      value,
+      [
+        ...base,
+        'source',
+        'projection',
+        'sourceFields',
+        'verdict',
+        'usage',
+        'sangshin',
+        'sangshinStemHanja',
+        'pagyeokFactor',
+        'gueung',
+      ],
+      [],
+      'GYEOKGUK_SEONGPAE_FACT_SHAPE',
+    );
+    strictSajuProjectionProvenance(
+      value,
+      'saju-ts.gyeokguk-seongpae-projection.v1',
+      ['gyeokguk'],
+    );
+    strictEnum(
+      value.verdict,
+      new Set(['SEONGGYEOK', 'PAGYEOK', 'PAJUNG_YUGU', 'SEONGJUNG_YUPA', 'UNDETERMINED']),
+      'GYEOKGUK_SEONGPAE_VERDICT',
+    );
+    strictEnum(value.usage, new Set(['SUNYONG', 'YEOKYONG']), 'GYEOKGUK_SEONGPAE_USAGE');
+    for (const key of ['sangshin', 'sangshinStemHanja', 'pagyeokFactor', 'gueung'] as const) {
+      if (value[key] !== null) {
+        strictBoundedText(value[key], 'GYEOKGUK_SEONGPAE_LABEL', 40);
+      }
+    }
+  } else if (value.kind === 'sibi_unseong') {
+    strictObject(
+      value,
+      [...base, 'source', 'projection', 'sourceFields', 'stages'],
+      [],
+      'SIBI_UNSEONG_FACT_SHAPE',
+    );
+    strictSajuProjectionProvenance(
+      value,
+      'saju-ts.sibi-unseong-projection.v1',
+      ['sibiUnseong'],
+    );
+    strictArray(value.stages, 'SIBI_UNSEONG_STAGES', 1, SAJU_PILLAR_POSITIONS.size);
+    const seenPositions = new Set<string>();
+    for (const entry of value.stages) {
+      strictObject(entry, ['position', 'stage'], [], 'SIBI_UNSEONG_STAGE_SHAPE');
+      strictEnum(entry.position, SAJU_PILLAR_POSITIONS, 'SIBI_UNSEONG_POSITION');
+      if (seenPositions.has(entry.position as string)) contractFail('SIBI_UNSEONG_POSITION');
+      seenPositions.add(entry.position as string);
+      strictBoundedText(entry.stage, 'SIBI_UNSEONG_STAGE', 16);
+    }
+  } else if (value.kind === 'daeun_timeline') {
+    strictObject(
+      value,
+      [
+        ...base,
+        'source',
+        'projection',
+        'sourceFields',
+        'isForward',
+        'firstStartAge',
+        'firstStartAgeDisplay',
+        'boundaryTermId',
+        'periods',
+      ],
+      [],
+      'DAEUN_TIMELINE_FACT_SHAPE',
+    );
+    strictSajuProjectionProvenance(
+      value,
+      'saju-ts.daeun-info-projection.v1',
+      ['daeunInfo'],
+    );
+    if (typeof value.isForward !== 'boolean') contractFail('DAEUN_TIMELINE_DIRECTION');
+    strictFiniteNumber(value.firstStartAge, 'DAEUN_TIMELINE_START_AGE');
+    if (value.firstStartAge < 0 || value.firstStartAge > 30) {
+      contractFail('DAEUN_TIMELINE_START_AGE');
+    }
+    if (value.firstStartAgeDisplay !== null) {
+      strictSafeInteger(value.firstStartAgeDisplay, 'DAEUN_TIMELINE_START_AGE', 1);
+    }
+    if (value.boundaryTermId !== null) {
+      strictBoundedText(value.boundaryTermId, 'DAEUN_TIMELINE_BOUNDARY', 32);
+    }
+    strictArray(value.periods, 'DAEUN_TIMELINE_PERIODS', 1, 16);
+    let previousEndAge: number | null = null;
+    for (const period of value.periods) {
+      strictObject(
+        period,
+        ['order', 'stem', 'branch', 'startAge', 'endAge', 'tenGod', 'lifeStage'],
+        [],
+        'DAEUN_TIMELINE_PERIOD_SHAPE',
+      );
+      strictSafeInteger(period.order, 'DAEUN_TIMELINE_PERIOD_ORDER');
+      strictBoundedText(period.stem, 'DAEUN_TIMELINE_PERIOD_PILLAR', 16);
+      strictBoundedText(period.branch, 'DAEUN_TIMELINE_PERIOD_PILLAR', 16);
+      strictFiniteNumber(period.startAge, 'DAEUN_TIMELINE_PERIOD_AGE');
+      strictFiniteNumber(period.endAge, 'DAEUN_TIMELINE_PERIOD_AGE');
+      // Engine interval boundaries may wobble by float epsilon between
+      // adjacent decades; tolerate that without accepting real overlaps.
+      if (period.endAge <= period.startAge
+        || period.startAge < 0
+        || period.endAge > 140
+        || (previousEndAge !== null && period.startAge < previousEndAge - 1e-6)) {
+        contractFail('DAEUN_TIMELINE_PERIOD_AGE');
+      }
+      previousEndAge = period.endAge as number;
+      if (period.tenGod !== null) {
+        strictBoundedText(period.tenGod, 'DAEUN_TIMELINE_PERIOD_TEN_GOD', 40);
+      }
+      if (period.lifeStage !== null) {
+        strictBoundedText(period.lifeStage, 'DAEUN_TIMELINE_PERIOD_LIFE_STAGE', 16);
+      }
+    }
+  } else if (value.kind === 'yin_yang_balance') {
+    strictObject(
+      value,
+      [...base, 'source', 'projection', 'sourceFields', 'yang', 'yin', 'stems', 'branches', 'dominant'],
+      [],
+      'YIN_YANG_BALANCE_FACT_SHAPE',
+    );
+    strictSajuProjectionProvenance(
+      value,
+      'saju-ts.yin-yang-balance-projection.v1',
+      ['yinYangBalance'],
+    );
+    strictSafeInteger(value.yang, 'YIN_YANG_BALANCE_COUNT');
+    strictSafeInteger(value.yin, 'YIN_YANG_BALANCE_COUNT');
+    for (const group of ['stems', 'branches'] as const) {
+      strictObject(value[group], ['yang', 'yin'], [], 'YIN_YANG_BALANCE_GROUP');
+      strictSafeInteger(
+        (value[group] as Record<string, unknown>).yang,
+        'YIN_YANG_BALANCE_COUNT',
+      );
+      strictSafeInteger(
+        (value[group] as Record<string, unknown>).yin,
+        'YIN_YANG_BALANCE_COUNT',
+      );
+    }
+    strictEnum(value.dominant, new Set(['YANG', 'YIN', 'EVEN']), 'YIN_YANG_BALANCE_DOMINANT');
+    const stems = value.stems as { yang: number; yin: number };
+    const branches = value.branches as { yang: number; yin: number };
+    if (value.yang !== stems.yang + branches.yang
+      || value.yin !== stems.yin + branches.yin) {
+      contractFail('YIN_YANG_BALANCE_COUNT');
+    }
+  } else if (value.kind === 'insight_facts') {
+    strictObject(
+      value,
+      [...base, 'source', 'projection', 'items'],
+      [],
+      'INSIGHT_FACTS_FACT_SHAPE',
+    );
+    strictFactBase(value);
+    if (value.domain !== 'saju'
+      || value.method !== 'spring-ts.insight-facts-card.v1'
+      || value.source !== 'spring-ts.SajuSummary'
+      || value.projection !== 'engine_grouping_with_authored_reading') {
+      contractFail('INSIGHT_FACTS_PROVENANCE');
+    }
+    strictArray(value.items, 'INSIGHT_ITEMS', 1, 128);
+    const seenSignalIds = new Set<string>();
+    for (const item of value.items) {
+      strictObject(
+        item,
+        [
+          'signalId',
+          'signalKind',
+          'group',
+          'label',
+          'detail',
+          'members',
+          'salience',
+          'highlight',
+          'reading',
+          'readingExpert',
+        ],
+        [],
+        'INSIGHT_ITEM_SHAPE',
+      );
+      strictBoundedText(item.signalId, 'INSIGHT_SIGNAL_ID', 96);
+      if (seenSignalIds.has(item.signalId as string)) contractFail('INSIGHT_SIGNAL_ID');
+      seenSignalIds.add(item.signalId as string);
+      strictEnum(item.signalKind, INSIGHT_SIGNAL_KINDS, 'INSIGHT_SIGNAL_KIND');
+      strictEnum(item.group, INSIGHT_GROUPS, 'INSIGHT_GROUP');
+      strictBoundedText(item.label, 'INSIGHT_LABEL', 60);
+      if (item.detail !== null) strictBoundedText(item.detail, 'INSIGHT_DETAIL', 96);
+      strictStringArray(item.members, 'INSIGHT_MEMBERS', { max: 6 });
+      strictFiniteNumber(item.salience, 'INSIGHT_SALIENCE');
+      if ((item.salience as number) < 0 || (item.salience as number) > 1) {
+        contractFail('INSIGHT_SALIENCE');
+      }
+      if (typeof item.highlight !== 'boolean') contractFail('INSIGHT_HIGHLIGHT');
+      strictBoundedText(item.reading, 'INSIGHT_READING', 400);
+      if (item.readingExpert !== null) strictBoundedText(item.readingExpert, 'INSIGHT_READING_EXPERT', 500);
+    }
   } else {
     strictObject(
       value,
@@ -2482,11 +2731,24 @@ function strictBlock(value: unknown): ReportBlockV1 {
     strictObject(
       value,
       [...base, 'interpretationRef'],
-      ['ratingFactRef'],
+      ['ratingFactRef', 'daeunRatings'],
       'LIFE_FLOW_BLOCK_SHAPE',
     );
     strictString(value.interpretationRef, 'LIFE_INTERPRETATION_REF');
     if (hasOwn(value, 'ratingFactRef')) strictString(value.ratingFactRef, 'LIFE_RATING_REF');
+    if (hasOwn(value, 'daeunRatings')) {
+      strictArray(value.daeunRatings, 'LIFE_DAEUN_RATINGS', 1, 16);
+      let previousOrder: number | null = null;
+      for (const entry of value.daeunRatings) {
+        strictObject(entry, ['order', 'ratingFactRef'], [], 'LIFE_DAEUN_RATING_SHAPE');
+        strictSafeInteger(entry.order, 'LIFE_DAEUN_RATING_ORDER');
+        if (previousOrder !== null && entry.order <= previousOrder) {
+          contractFail('LIFE_DAEUN_RATING_ORDER');
+        }
+        previousOrder = entry.order as number;
+        strictString(entry.ratingFactRef, 'LIFE_DAEUN_RATING_REF');
+      }
+    }
   } else if (value.kind === 'four_frames') {
     strictObject(value, [...base, 'items'], [], 'FOUR_FRAMES_BLOCK_SHAPE');
     strictArray(value.items, 'FOUR_FRAMES_ITEMS', 4, 4);
@@ -2621,6 +2883,12 @@ function validateTypedFactGroup(
       'naming_trend',
       'naming_phonetic',
       'name_statistics',
+      'gongmang',
+      'gyeokguk_seongpae',
+      'sibi_unseong',
+      'daeun_timeline',
+      'yin_yang_balance',
+      'insight_facts',
     ]),
   };
   const allowedPresentations: Readonly<Record<ReportSurfaceIdV1, ReadonlySet<string>>> = {
@@ -2708,6 +2976,7 @@ function assertNoOrphanPayload(
       }
     } else if (block.kind === 'life_flow') {
       if (block.ratingFactRef !== undefined) usedFacts.add(block.ratingFactRef);
+      for (const entry of block.daeunRatings ?? []) usedFacts.add(entry.ratingFactRef);
       usedInterpretations.add(block.interpretationRef);
     } else if (block.kind === 'four_frames') {
       for (const item of block.items) {
@@ -3155,6 +3424,15 @@ export function assertReportDeliveryV1(
           if (rating.kind !== 'metric' || rating.unit !== 'stars_1_5'
             || !interpretation.factRefs.includes(block.ratingFactRef)) {
             contractFail('LIFE_RATING_BINDING');
+          }
+        }
+        for (const entry of block.daeunRatings ?? []) {
+          if (entry.ratingFactRef !== `fortune.life.daeun.${entry.order}.stars`) {
+            contractFail('LIFE_DAEUN_RATING_REF');
+          }
+          const rating = factRef(factById, entry.ratingFactRef, 'DANGLING_RATING_FACT_REF');
+          if (rating.kind !== 'metric' || rating.unit !== 'stars_1_5') {
+            contractFail('LIFE_DAEUN_RATING_REF');
           }
         }
       } else if (block.kind === 'four_frames') {
