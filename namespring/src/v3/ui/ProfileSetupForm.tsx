@@ -7,6 +7,7 @@ import {
   type ProfileNameChar,
   type V3Profile,
 } from '../model/profile';
+import { savePerson } from '../model/people';
 import { clearDeliveryCache } from '../engine/client';
 
 interface PickerTarget {
@@ -82,6 +83,7 @@ export default function ProfileSetupForm({
   const [trueSolarTime, setTrueSolarTime] = useState(saved?.birth.trueSolarTime ?? false);
   const [yaza, setYaza] = useState(saved?.birth.yaza ?? false);
   const [region, setRegion] = useState<string>(saved?.birth.region ?? '');
+  const [alsoKeep, setAlsoKeep] = useState(false);
 
   const surnameChars = toChars(surnameText).slice(0, 2);
   const givenChars = toChars(givenText).slice(0, 4);
@@ -140,6 +142,8 @@ export default function ProfileSetupForm({
       },
     };
     saveProfile(profile);
+    // 담아 두기를 켜면 이 이름을 보관함(담아 둔 이름)에도 넣어 나중에 바로 불러온다.
+    if (alsoKeep) savePerson(profile);
     clearDeliveryCache();
     onDone();
   }
@@ -372,6 +376,14 @@ export default function ProfileSetupForm({
 
       {nameReady ? (
         <div style={{ marginTop: 'var(--space-md)' }}>
+          <label className="v3-check" style={{ marginBottom: '0.7rem' }}>
+            <input
+              type="checkbox"
+              checked={alsoKeep}
+              onChange={event => setAlsoKeep(event.target.checked)}
+            />
+            이 이름을 보관함(담아 둔 이름)에도 담아 두기
+          </label>
           <button type="button" className="v3-button v3-button--wide" disabled={!canSubmit} onClick={submit}>
             {givenChars.length > 0
               ? `${surnameChars.join('')}${givenChars.join('')} 이야기 시작하기`

@@ -177,8 +177,8 @@ export default function FavoritesScreen() {
         {people.length === 0 && entries.length === 0 ? (
           <div className="v3-card">
             <p style={{ margin: 0 }}>
-              아직 담아 둔 이름이 없어요. 통합·궁합에서 직접 입력할 때 담아 두거나,
-              작명 후보에서 별표로 담아 두면 여기에 모여요.
+              아직 담아 둔 이름이 없어요. 통합·궁합에서 이름을 입력할 때 '담아 두기'를
+              켜거나, 작명 후보에서 별표를 누르면 여기에 모여요.
             </p>
             <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.8rem', flexWrap: 'wrap' }}>
               <Link to="/compatibility" className="v3-button">궁합 보러 가기</Link>
