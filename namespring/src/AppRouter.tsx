@@ -4,7 +4,6 @@ import PaymentFailPage from "./pages/PaymentFailPage";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 import SupportPage from "./pages/SupportPage";
 
-const LegacyApp = lazy(() => import("./App.jsx"));
 const SpringApp = lazy(() => import("./v3/app"));
 
 export default function AppRouter() {
@@ -17,7 +16,6 @@ export default function AppRouter() {
           <Route path="/support" element={<SupportPage />} />
           <Route path="/payment/success" element={<PaymentSuccessPage />} />
           <Route path="/payment/fail" element={<PaymentFailPage />} />
-          <Route path="/legacy/*" element={<LegacyApp />} />
           <Route path="*" element={<SpringApp />} />
         </Routes>
       </Suspense>
