@@ -215,22 +215,23 @@ function buildSummaryItems(fortuneReport, nameCompatibility) {
   const firstCaution = asArray(cautions?.cautions)[0];
   const firstStrength = asArray(strengths?.strengths)[0];
 
+  // NS-D: lead the summary with the name-first item, saju flow follows as basis.
   return [
     {
-      key: 'saju-flow',
-      number: '01',
-      title: '사주 흐름',
-      body: compactText(overview?.overallSummary, '사주 흐름 요약을 준비 중입니다.'),
-    },
-    {
       key: 'name-harmony',
-      number: '02',
+      number: '01',
       title: '이름과의 조화',
       // F1: summary(별점 문구)는 히어로가 정본 1회 노출 — 여기는 N1 평문(이름이 채우는 기운)을 쓴다.
       body: compactText(
         fortuneReport?.tieredMatrix?.nameSajuReading?.sentence || nameCompatibility?.summary,
         '이름과 사주의 조화 분석을 준비 중입니다.',
       ),
+    },
+    {
+      key: 'saju-flow',
+      number: '02',
+      title: '사주 흐름',
+      body: compactText(overview?.overallSummary, '사주 흐름 요약을 준비 중입니다.'),
     },
     {
       key: 'watch-point',
@@ -362,6 +363,30 @@ function findLifeStage(lifeStageFortune, startAge, endAge) {
     const end = Number(stage?.endAge);
     return Number.isFinite(start) && Number.isFinite(end) && start <= endAge && end >= startAge;
   }) || null;
+}
+
+// NS-A: derive the viewer's current age from the birth year so the matching
+// age band can be pre-selected on first render.
+function computeCurrentAge(shareUserInfo) {
+  const birthYear = Number(shareUserInfo?.birthDateTime?.year);
+  if (!Number.isFinite(birthYear) || birthYear <= 0) return null;
+  const age = new Date().getFullYear() - birthYear;
+  return age >= 0 && age < 200 ? age : null;
+}
+
+// NS-A: pick the life-stage option the age falls into — the band with the
+// largest startAge that is still <= age. This stays correct across both band
+// conventions (daeun spans and 10-year fallback) and avoids picking the earlier
+// band when the age sits exactly on a boundary.
+function findAgeBandPeriodKey(lifePeriodOptions, age) {
+  if (!Number.isFinite(age)) return '';
+  let best = null;
+  asArray(lifePeriodOptions).forEach((item) => {
+    const start = Number(item?.startAge);
+    if (!Number.isFinite(start) || start > age) return;
+    if (!best || start > Number(best.startAge)) best = item;
+  });
+  return best?.key || '';
 }
 
 function legacyPeriodToCell(card) {
@@ -618,7 +643,7 @@ function insightSalienceStyle(groupKey, salience) {
   };
 }
 
-function InsightFactsSection({ insightFacts }) {
+function InsightFactsSection({ insightFacts, showExpertTerms = false }) {
   const [expanded, setExpanded] = useState(false);
   const [selectedFactId, setSelectedFactId] = useState(null);
   const raw = asArray(insightFacts?.facts).filter((fact) => fact?.interpretation?.text);
@@ -644,8 +669,9 @@ function InsightFactsSection({ insightFacts }) {
     <ReportSection
       id="combined-insights"
       title="전문 인사이트"
-      description="원국에서 특히 눈에 띄는 배치를 골라 풀어드립니다. 전문용어는 태그로만 달아 두었어요."
+      description="원국에서 특히 눈에 띄는 배치를 골라 풀어드립니다. ‘전문 용어 보기’를 켜면 원국 용어와 해설을 함께 볼 수 있어요."
       className="cr-section--insights"
+      collapsedOnMobile
     >
       <div className="cr-insight-highlights">
         {lead.map((fact) => (
@@ -655,14 +681,16 @@ function InsightFactsSection({ insightFacts }) {
             style={{ borderLeftColor: `rgba(47, 107, 79, ${(0.22 + (fact.salience ?? 0.5) * 0.78).toFixed(3)})` }}
           >
             <p className="cr-insight-item__headline">{fact.interpretation.text}</p>
-            {fact.interpretation.expertText ? (
+            {showExpertTerms && fact.interpretation.expertText ? (
               <p className="cr-insight-item__expert">{fact.interpretation.expertText}</p>
             ) : null}
-            <div className="cr-insight-item__chips" aria-label="전문태그">
-              {insightChips(fact).map((chip) => (
-                <span key={`${fact.factId}-${chip}`}>{chip}</span>
-              ))}
-            </div>
+            {showExpertTerms ? (
+              <div className="cr-insight-item__chips" aria-label="전문태그">
+                {insightChips(fact).map((chip) => (
+                  <span key={`${fact.factId}-${chip}`}>{chip}</span>
+                ))}
+              </div>
+            ) : null}
           </article>
         ))}
       </div>
@@ -710,7 +738,7 @@ function InsightFactsSection({ insightFacts }) {
                           {selected.detail ? <span className="cr-insight-item__where"> · {selected.detail}</span> : null}
                         </h5>
                         <p>{selected.interpretation.text}</p>
-                        {selected.interpretation.expertText ? (
+                        {showExpertTerms && selected.interpretation.expertText ? (
                           <p className="cr-insight-item__expert">{selected.interpretation.expertText}</p>
                         ) : null}
                       </article>
@@ -881,15 +909,69 @@ function ReportHero({ nameParts, birthLabel, genderLabel, nameCompatibility, ren
   );
 }
 
-function ReportSection({ id, eyebrow, title, description, children, className = '' }) {
+// NS-C/NS-I: sections fold on mobile to cut the report's scroll length.
+// The body stays in the DOM (hidden via CSS class, not unmounted) so PDF/print
+// capture and the print media override can still reveal every section.
+const SECTION_MOBILE_QUERY = '(max-width: 40rem)';
+
+function prefersMobileCollapse() {
+  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return false;
+  return window.matchMedia(SECTION_MOBILE_QUERY).matches;
+}
+
+function ReportSection({
+  id,
+  eyebrow,
+  title,
+  description,
+  children,
+  className = '',
+  collapsible = true,
+  collapsedOnMobile = false,
+}) {
+  // Detail-heavy sections start folded on narrow screens; core sections stay open.
+  const [open, setOpen] = useState(() => !(collapsible && collapsedOnMobile && prefersMobileCollapse()));
+
+  if (!collapsible) {
+    return (
+      <section id={id} className={`cr-section ${className}`}>
+        <div className="cr-section__head">
+          {eyebrow ? <p className="cr-eyebrow">{eyebrow}</p> : null}
+          <h2 className="cr-section__title">{title}</h2>
+          {description ? <p className="cr-section__description">{description}</p> : null}
+        </div>
+        <div className="cr-section__body">{children}</div>
+      </section>
+    );
+  }
+
+  const bodyId = `${id}-body`;
+  const titleId = `${id}-title`;
+
   return (
-    <section id={id} className={`cr-section ${className}`}>
+    <section
+      id={id}
+      className={`cr-section cr-section--collapsible ${className}${open ? '' : ' is-collapsed'}`}
+    >
       <div className="cr-section__head">
-        {eyebrow ? <p className="cr-eyebrow">{eyebrow}</p> : null}
-        <h2 className="cr-section__title">{title}</h2>
+        <h2 className="cr-section__title" id={titleId}>
+          <button
+            type="button"
+            className="cr-section__toggle ns-ripple"
+            aria-expanded={open}
+            aria-controls={bodyId}
+            onClick={() => setOpen((value) => !value)}
+          >
+            {eyebrow ? <span className="cr-eyebrow">{eyebrow}</span> : null}
+            <span className="cr-section__title-text">{title}</span>
+            <span className="cr-section__chevron" aria-hidden="true" />
+          </button>
+        </h2>
         {description ? <p className="cr-section__description">{description}</p> : null}
       </div>
-      <div className="cr-section__body">{children}</div>
+      <div id={bodyId} role="region" aria-labelledby={titleId} className="cr-section__body">
+        {children}
+      </div>
     </section>
   );
 }
@@ -1009,7 +1091,7 @@ function LifeFlowChart({ points, onSelect }) {
                 onSelect?.(point.key);
               }
             }}
-            className="cr-life-chart__point"
+            className={`cr-life-chart__point${point.isSelected ? ' cr-life-chart__point--selected' : ''}`}
           >
             <circle
               cx={point.x}
@@ -1026,7 +1108,7 @@ function LifeFlowChart({ points, onSelect }) {
   );
 }
 
-function CategoryInlineDetail({ id, detail, expertTagState }) {
+function CategoryInlineDetail({ id, detail, expertTagState, showExpertTerms = false }) {
   if (!detail) return null;
   const paragraphs = cellDetailParagraphs(detail.cell);
   const livingTips = cellLivingTips(detail.cell);
@@ -1058,7 +1140,7 @@ function CategoryInlineDetail({ id, detail, expertTagState }) {
           </div>
         ) : null}
       </div>
-      {expertTagState.status === 'loading' || expertTagState.tags.length ? (
+      {showExpertTerms && (expertTagState.status === 'loading' || expertTagState.tags.length) ? (
         <div className="cr-tag-panel">
           <p>전문태그</p>
           {expertTagState.status === 'loading' ? (
@@ -1083,6 +1165,7 @@ function CategoryInsightList({
   expertTagState,
   onToggleDetail,
   ariaLabel,
+  showExpertTerms = false,
 }) {
   if (!periodOption) return null;
 
@@ -1110,7 +1193,7 @@ function CategoryInsightList({
             <button
               type="button"
               onClick={() => onToggleDetail(periodOption, item)}
-              className="cr-category-card__action"
+              className="cr-category-card__action ns-ripple"
               aria-expanded={isOpen}
               aria-controls={panelId}
               disabled={!hasDetail}
@@ -1122,6 +1205,7 @@ function CategoryInsightList({
                 id={panelId}
                 detail={activeDetail}
                 expertTagState={expertTagState}
+                showExpertTerms={showExpertTerms}
               />
             ) : null}
           </article>
@@ -1148,8 +1232,12 @@ function CombiedNamingReport({
   });
   const [selectedPeriodKey, setSelectedPeriodKey] = useState('today');
   const [selectedLifePeriodKey, setSelectedLifePeriodKey] = useState('');
+  // NS-E: split the two fortune tracks into tabs; 'current' = 기간별, 'life' = 연령대별.
+  const [fortuneTrack, setFortuneTrack] = useState('current');
   const [activeDetail, setActiveDetail] = useState(null);
   const [isDetailOpen, setIsDetailOpen] = useState(true);
+  // NS-J: plain wording is the default; this toggle reveals the 원어/전문 용어.
+  const [showExpertTerms, setShowExpertTerms] = useState(false);
   const [expertTagState, setExpertTagState] = useState({ status: 'idle', tags: [] });
   const expertTagRequestRef = useRef(0);
 
@@ -1162,10 +1250,16 @@ function CombiedNamingReport({
     () => periodOptions.filter((item) => item.isLifeStage),
     [periodOptions],
   );
+  // NS-A: default the life-flow selection to the viewer's actual age band.
+  const defaultLifePeriodKey = useMemo(
+    () => findAgeBandPeriodKey(lifePeriodOptions, computeCurrentAge(shareUserInfo)),
+    [lifePeriodOptions, shareUserInfo],
+  );
   const selectedPeriod = primaryPeriodOptions.find((item) => item.key === selectedPeriodKey)
     || primaryPeriodOptions[0]
     || null;
   const selectedLifePeriod = lifePeriodOptions.find((item) => item.key === selectedLifePeriodKey)
+    || lifePeriodOptions.find((item) => item.key === defaultLifePeriodKey)
     || lifePeriodOptions[0]
     || null;
   const selectedCategoryItems = useMemo(
@@ -1237,6 +1331,12 @@ function CombiedNamingReport({
     setIsDetailOpen(true);
   };
 
+  const selectFortuneTrack = (track) => {
+    if (track === fortuneTrack) return;
+    setFortuneTrack(track);
+    closeCategoryDetail();
+  };
+
   const openCategoryDetail = (periodOption, categoryItem) => {
     if (!periodOption || !categoryItem?.cell) return;
     const key = categoryDetailKey(periodOption, categoryItem);
@@ -1276,13 +1376,16 @@ function CombiedNamingReport({
 
   const prepareBeforePrint = useCallback(() => {
     const previousIsDetailOpen = isDetailOpen;
+    const previousShowExpertTerms = showExpertTerms;
     setIsDetailOpen(true);
-    return { previousIsDetailOpen };
-  }, [isDetailOpen]);
+    setShowExpertTerms(true); // NS-J: PDF/print captures the full expert layer.
+    return { previousIsDetailOpen, previousShowExpertTerms };
+  }, [isDetailOpen, showExpertTerms]);
 
   const restoreAfterPrint = useCallback((payload) => {
     if (!payload) return;
     setIsDetailOpen(payload.previousIsDetailOpen ?? true);
+    setShowExpertTerms(payload.previousShowExpertTerms ?? false);
   }, []);
 
   const {
@@ -1315,6 +1418,21 @@ function CombiedNamingReport({
 
         <div className="cr-document-grid cr-document-grid--single">
           <main className="cr-main-content" aria-label="통합 평가 본문">
+            {/* NS-J: report-wide switch between plain wording and 전문 용어(원어). */}
+            <div className="cr-term-toggle" data-pdf-exclude="true">
+              <button
+                type="button"
+                className="cr-term-toggle__btn ns-ripple"
+                aria-pressed={showExpertTerms}
+                onClick={() => setShowExpertTerms((value) => !value)}
+              >
+                {showExpertTerms ? '쉬운 말로 보기' : '전문 용어 보기'}
+              </button>
+              <span className="cr-term-toggle__hint">
+                {showExpertTerms ? '원국 용어와 해설을 함께 보고 있어요.' : '어려운 용어는 접어 두고 쉬운 말로 보여드려요.'}
+              </span>
+            </div>
+
             <ReportSection
               id="combined-summary"
               title="총평 요약"
@@ -1352,9 +1470,117 @@ function CombiedNamingReport({
             </ReportSection>
 
             <ReportSection
+              id="combined-fortune"
+              title="운세"
+              description="현재의 흐름과 평생의 흐름을 나눠서 봅니다. 탭을 눌러 전환하세요."
+              className="cr-section--fortune"
+              collapsedOnMobile
+            >
+              <div className="cr-fortune-tabs" role="tablist" aria-label="운세 종류 선택">
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={fortuneTrack === 'current'}
+                  onClick={() => selectFortuneTrack('current')}
+                  className="cr-fortune-tab ns-ripple"
+                >
+                  <span>현재 운세</span>
+                  <small>오늘 · 이번주 · 이번달 · 올해</small>
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={fortuneTrack === 'life'}
+                  onClick={() => selectFortuneTrack('life')}
+                  className="cr-fortune-tab ns-ripple"
+                >
+                  <span>평생 운세</span>
+                  <small>나이대별 흐름</small>
+                </button>
+              </div>
+
+              {fortuneTrack === 'current' ? (
+                <div className="cr-fortune-panel" role="tabpanel" aria-label="현재 운세">
+                  <div className="cr-period-tabs" role="tablist" aria-label="기간 선택">
+                    {primaryPeriodOptions.map((periodOption) => {
+                      const isSelected = selectedPeriod?.key === periodOption.key;
+                      return (
+                        <button
+                          key={periodOption.key}
+                          type="button"
+                          role="tab"
+                          aria-selected={isSelected}
+                          onClick={() => selectPeriod(periodOption.key)}
+                          className="cr-period-tab ns-ripple"
+                        >
+                          <span>{periodOption.label}</span>
+                          <small>{periodOption.periodLabel}</small>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {selectedPeriod ? (
+                    <div className="cr-period-summary">
+                      <div>
+                        <p className="cr-eyebrow">선택 기간</p>
+                        <h3>{selectedPeriod.periodLabel || selectedPeriod.label}</h3>
+                        {selectedPeriodSummary ? <p>{selectedPeriodSummary}</p> : null}
+                      </div>
+                      {selectedPeriodStars ? <StarRating score={toStars(selectedPeriodStars)} /> : null}
+                    </div>
+                  ) : null}
+
+                  <CategoryInsightList
+                    periodOption={selectedPeriod}
+                    categoryItems={selectedCategoryItems}
+                    activeDetail={activeDetail}
+                    expertTagState={expertTagState}
+                    onToggleDetail={toggleCategoryDetail}
+                    ariaLabel="기간별 분야 해석"
+                    showExpertTerms={showExpertTerms}
+                  />
+                </div>
+              ) : (
+                <div className="cr-fortune-panel" role="tabpanel" aria-label="평생 운세">
+                  <div className="cr-life-flow">
+                    <div>
+                      <h3>나이대별 운의 흐름</h3>
+                      <p>그래프의 포인트를 선택하면 해당 나이대 흐름으로 전환됩니다.</p>
+                    </div>
+                    <LifeFlowChart points={lifeFlowPoints} onSelect={selectLifePeriod} />
+                  </div>
+
+                  {selectedLifePeriod ? (
+                    <div className="cr-period-summary cr-period-summary--life">
+                      <div>
+                        <p className="cr-eyebrow cr-eyebrow--node">선택 나이대</p>
+                        <h3>{selectedLifePeriod.periodLabel || selectedLifePeriod.label}</h3>
+                        {selectedLifePeriodLead ? <p className="cr-daeun-lead">{selectedLifePeriodLead}</p> : null}
+                        {selectedLifePeriodSummary ? <p>{selectedLifePeriodSummary}</p> : null}
+                      </div>
+                      {selectedLifePeriodStars ? <StarRating score={toStars(selectedLifePeriodStars)} /> : null}
+                    </div>
+                  ) : null}
+
+                  <CategoryInsightList
+                    periodOption={selectedLifePeriod}
+                    categoryItems={selectedLifeCategoryItems}
+                    activeDetail={activeDetail}
+                    expertTagState={expertTagState}
+                    onToggleDetail={toggleCategoryDetail}
+                    ariaLabel="나이대별 분야 해석"
+                    showExpertTerms={showExpertTerms}
+                  />
+                </div>
+              )}
+            </ReportSection>
+
+            <ReportSection
               id="combined-saju"
               title="사주 평가"
               description="사주팔자와 성향, 강점, 주의점을 한 문서 안에서 이어서 봅니다."
+              collapsedOnMobile
             >
               <SajuPillarsGrid pillars={overview?.pillars} />
               {tieredPersonalReading ? (
@@ -1390,89 +1616,7 @@ function CombiedNamingReport({
               </div>
             </ReportSection>
 
-            <ReportSection
-              id="combined-life-flow"
-              title="나이대별 흐름"
-              description="긴 흐름을 먼저 보고, 포인트를 선택해 해당 나이대의 기운을 읽습니다."
-              className="cr-section--life-flow"
-            >
-              <div className="cr-life-flow">
-                <div>
-                  <h3>나이대별 운의 흐름</h3>
-                  <p>그래프의 포인트를 선택하면 해당 나이대 흐름으로 전환됩니다.</p>
-                </div>
-                <LifeFlowChart points={lifeFlowPoints} onSelect={selectLifePeriod} />
-              </div>
-
-              {selectedLifePeriod ? (
-                <div className="cr-period-summary">
-                  <div>
-                    <p className="cr-eyebrow">선택 나이대</p>
-                    <h3>{selectedLifePeriod.periodLabel || selectedLifePeriod.label}</h3>
-                    {selectedLifePeriodLead ? <p className="cr-daeun-lead">{selectedLifePeriodLead}</p> : null}
-                    {selectedLifePeriodSummary ? <p>{selectedLifePeriodSummary}</p> : null}
-                  </div>
-                  {selectedLifePeriodStars ? <StarRating score={toStars(selectedLifePeriodStars)} /> : null}
-                </div>
-              ) : null}
-
-              <CategoryInsightList
-                periodOption={selectedLifePeriod}
-                categoryItems={selectedLifeCategoryItems}
-                activeDetail={activeDetail}
-                expertTagState={expertTagState}
-                onToggleDetail={toggleCategoryDetail}
-                ariaLabel="나이대별 분야 해석"
-              />
-            </ReportSection>
-
-            <ReportSection
-              id="combined-periods"
-              title="기간별 운세"
-              description="오늘부터 올해까지의 흐름을 선택해 분야별 해석으로 이어갑니다."
-              className="cr-section--periods"
-            >
-              <div className="cr-period-tabs" role="tablist" aria-label="기간 선택">
-                {primaryPeriodOptions.map((periodOption) => {
-                  const isSelected = selectedPeriod?.key === periodOption.key;
-                  return (
-                    <button
-                      key={periodOption.key}
-                      type="button"
-                      role="tab"
-                      aria-selected={isSelected}
-                      onClick={() => selectPeriod(periodOption.key)}
-                      className="cr-period-tab"
-                    >
-                      <span>{periodOption.label}</span>
-                      <small>{periodOption.periodLabel}</small>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {selectedPeriod ? (
-                <div className="cr-period-summary">
-                  <div>
-                    <p className="cr-eyebrow">선택 기간</p>
-                    <h3>{selectedPeriod.periodLabel || selectedPeriod.label}</h3>
-                    {selectedPeriodSummary ? <p>{selectedPeriodSummary}</p> : null}
-                  </div>
-                  {selectedPeriodStars ? <StarRating score={toStars(selectedPeriodStars)} /> : null}
-                </div>
-              ) : null}
-
-              <CategoryInsightList
-                periodOption={selectedPeriod}
-                categoryItems={selectedCategoryItems}
-                activeDetail={activeDetail}
-                expertTagState={expertTagState}
-                onToggleDetail={toggleCategoryDetail}
-                ariaLabel="기간별 분야 해석"
-              />
-            </ReportSection>
-
-            <InsightFactsSection insightFacts={fortuneReport?.insightFacts} />
+            <InsightFactsSection insightFacts={fortuneReport?.insightFacts} showExpertTerms={showExpertTerms} />
 
             <PremiumReportSection
               isUnlocked={isPremiumUnlocked}
@@ -1484,11 +1628,11 @@ function CombiedNamingReport({
             />
 
             <section className="cr-related-reports" aria-label="다른 보고서 보기">
-              <button type="button" onClick={onOpenNamingReport}>
+              <button type="button" className="ns-ripple" onClick={onOpenNamingReport}>
                 <strong>이름 평가 보고서</strong>
                 <span>성명학 중심 상세 결과를 확인합니다.</span>
               </button>
-              <button type="button" onClick={onOpenSajuReport}>
+              <button type="button" className="ns-ripple" onClick={onOpenSajuReport}>
                 <strong>사주 평가 보고서</strong>
                 <span>사주 중심 상세 결과를 확인합니다.</span>
               </button>

@@ -17,6 +17,7 @@ import SajuReportPage from './SajuReportPage';
 import ReportShell from './components/report/ReportShell';
 import { PageHeading, StatusPanel } from './components/report/ReportPrimitives';
 import { SHARE_QUERY_KEY, parseShareEntryUserInfoToken } from './share-entry-user-info';
+import { useGlobalRipple } from './effects/ripple';
 import { useNavigate } from 'react-router-dom';
 import { getFrontRuntimeConfig } from './lib/runtime';
 
@@ -334,6 +335,8 @@ function App() {
   const navigate = useNavigate();
   const runtimeConfig = useMemo(() => getFrontRuntimeConfig(), []);
   const initialAppState = useMemo(() => loadInitialAppState(), []);
+
+  useGlobalRipple();
 
   const [isDbReady, setIsDbReady] = useState(false);
   const [showSplash, setShowSplash] = useState(true);
