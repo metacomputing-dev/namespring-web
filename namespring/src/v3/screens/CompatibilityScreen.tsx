@@ -285,7 +285,7 @@ function SlotPicker({
             className="v3-button v3-button--ghost"
             onClick={() => choose(myProfile)}
           >
-            내 정보 불러오기 ({fullHangulName(myProfile)})
+            처음 입력한 이름 ({fullHangulName(myProfile)})
           </button>
         ) : null}
         <button
@@ -491,7 +491,7 @@ export default function CompatibilityScreen() {
               <SlotPicker
                 slotKey="a"
                 title="첫 번째 사람"
-                hint="보통 나 자신이에요. 내 정보를 불러오거나 직접 입력해 주세요."
+                hint="처음 입력한 이름을 불러오거나, 담아 둔 이름에서 고르거나, 직접 입력해 주세요."
                 onChosen={setSlotA}
               />
             )}

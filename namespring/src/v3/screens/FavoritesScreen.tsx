@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { type CSSProperties, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { listFavorites, removeFavorite, type FavoriteName } from '../model/favorites';
 import {
@@ -36,8 +36,7 @@ import { Section } from '../ui/primitives';
 
 /**
  * 담아 둔 이름 카드 (사람·작명 후보 공통). 모두 생년월일시분과 한자를 보이고,
- * 버튼은 통합 보기 · 궁합 보기 · 지우기 셋. 작명 후보처럼 그 이름만으로는 궁합
- * 상대가 될 수 없는 경우 궁합 버튼을 비활성화한다.
+ * 버튼은 통합 보기 · 궁합 보기 · 지우기 셋을 한 줄에 둔다.
  */
 function KeptNameCard({
   hangul,
@@ -48,7 +47,6 @@ function KeptNameCard({
   onIntegrated,
   onCompat,
   onRemove,
-  compatDisabled,
 }: {
   hangul: string;
   hanja: string | null;
@@ -58,8 +56,9 @@ function KeptNameCard({
   onIntegrated: () => void;
   onCompat: () => void;
   onRemove: () => void;
-  compatDisabled: boolean;
 }) {
+  // 좁은 카드에서도 3개가 한 줄에 들어가도록 여백을 줄이고 줄바꿈을 막는다.
+  const compact: CSSProperties = { padding: '0.55rem 0.4rem', whiteSpace: 'nowrap' };
   return (
     <div className="v3-card v3-candidate-card">
       <div className="v3-candidate-head">
@@ -73,26 +72,21 @@ function KeptNameCard({
       </div>
       <p className="v3-hint" style={{ margin: '0.4rem 0 0' }}>{birth}</p>
       {meaning ? <p style={{ margin: '0.3rem 0 0' }}>{meaning}</p> : null}
-      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: 'auto', paddingTop: '0.7rem' }}>
-        <button
-          type="button"
-          className="v3-button v3-button--ghost"
-          style={{ flex: '1 1 auto' }}
-          onClick={onIntegrated}
-        >
+      <div
+        style={{
+          display: 'flex',
+          gap: '0.4rem',
+          marginTop: 'auto',
+          paddingTop: '0.7rem',
+        }}
+      >
+        <button type="button" className="v3-button v3-button--ghost" style={{ ...compact, flex: 1 }} onClick={onIntegrated}>
           통합 보기
         </button>
-        <button
-          type="button"
-          className="v3-button v3-button--ghost"
-          style={{ flex: '1 1 auto' }}
-          onClick={onCompat}
-          disabled={compatDisabled}
-          title={compatDisabled ? '이 이름만으로는 궁합 상대로 쓸 수 없어요' : undefined}
-        >
+        <button type="button" className="v3-button v3-button--ghost" style={{ ...compact, flex: 1 }} onClick={onCompat}>
           궁합 보기
         </button>
-        <button type="button" className="v3-button v3-button--ghost" onClick={onRemove}>
+        <button type="button" className="v3-button v3-button--ghost" style={compact} onClick={onRemove}>
           지우기
         </button>
       </div>
@@ -131,17 +125,31 @@ export default function FavoritesScreen() {
     navigate('/reports/integrated');
   }
 
-  function openCompatibility(person: StoredPerson) {
+  function openCompatibilityProfile(profile: V3Profile, label?: string) {
     // 이전 짝에서 고른 관계 라벨(예: 부부)이 새로운 짝에 소리 없이 적용되지 않게
     // 관계 선택을 초기화한다. 첫 번째 자리는 보통 '나'라 그대로 둔다.
     saveCompatRelationship({ category: 'unspecified' });
-    // 고른 사람이 이미 첫 번째 자리에 있으면 같은 사람 궁합이 되므로 비워 준다.
+    // 고른 이름이 이미 첫 번째 자리에 있으면 같은 사람 궁합이 되므로 비워 준다.
     const slotA = loadCompatSlot('a');
-    if (slotA && personContentKey(slotA.profile) === personContentKey(person.profile)) {
+    if (slotA && personContentKey(slotA.profile) === personContentKey(profile)) {
       clearCompatSlot('a');
     }
-    saveCompatSlot('b', { profile: person.profile, label: person.label });
+    saveCompatSlot('b', { profile, label });
     navigate('/compatibility');
+  }
+
+  // 작명 후보 이름은 생일이 없으니 처음 입력한 출생 정보를 얹어 궁합 상대로 만든다.
+  function openFavoriteCompatibility(entry: FavoriteName) {
+    if (!original) {
+      navigate('/');
+      return;
+    }
+    openCompatibilityProfile({
+      ...original,
+      surname: entry.surname,
+      givenName: entry.givenName,
+      pureHangul: false,
+    });
   }
 
   function openSavedCompat(entry: SavedCompat) {
@@ -164,7 +172,7 @@ export default function FavoritesScreen() {
 
       <Section
         title="담아 둔 이름"
-        lede="생일까지 담아 둔 이름은 통합·궁합에서 바로 불러오고, 작명에서 담은 이름은 내 출생 정보로 다시 읽어볼 수 있어요."
+        lede="생일까지 담아 둔 이름은 통합·궁합에서 바로 불러오고, 작명에서 담은 이름은 처음 입력한 출생 정보로 다시 읽어볼 수 있어요."
       >
         {people.length === 0 && entries.length === 0 ? (
           <div className="v3-card">
@@ -188,23 +196,22 @@ export default function FavoritesScreen() {
                 labelBadge={personLabel(person)}
                 birth={personBirthLabel(person.profile)}
                 meaning={null}
-                compatDisabled={false}
                 onIntegrated={() => openPersonIntegrated(person)}
-                onCompat={() => openCompatibility(person)}
+                onCompat={() => openCompatibilityProfile(person.profile, person.label)}
                 onRemove={() => {
                   removePerson(person.id);
                   setPeople(listPeople());
                 }}
               />
             ))}
-            {/* 작명 후보에서 별표로 담은 이름 — 생일이 없어 내 출생 정보로 읽고, 궁합엔 못 쓴다. */}
+            {/* 작명 후보에서 별표로 담은 이름 — 생일이 없어 처음 입력한 출생 정보로 읽는다. */}
             {entries.map(entry => (
               <KeptNameCard
                 key={entry.id}
                 hangul={entry.fullHangul}
                 hanja={entry.fullHanja}
                 labelBadge="작명"
-                birth={original ? personBirthLabel(original) : '내 출생 정보로 읽어요'}
+                birth={original ? personBirthLabel(original) : '처음 입력한 출생 정보로 읽어요'}
                 meaning={
                   entry.givenName.some(c => c.meaning)
                     ? entry.givenName
@@ -213,9 +220,8 @@ export default function FavoritesScreen() {
                         .join(' · ')
                     : null
                 }
-                compatDisabled
                 onIntegrated={() => openFavorite(entry)}
-                onCompat={() => {}}
+                onCompat={() => openFavoriteCompatibility(entry)}
                 onRemove={() => {
                   removeFavorite(entry.id);
                   setEntries(listFavorites());
