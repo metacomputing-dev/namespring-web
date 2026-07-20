@@ -601,12 +601,6 @@
   overflow: hidden;
 }
 
-/* 이름 줄은 글자 두세 개가 재료의 전부라, 트랙 자체를 절반 길이로 두어
-   사주(여덟 글자)와 규모가 다른 자료임을 눈으로 알 수 있게 한다. */
-.v3-compare-track--name {
-  width: 50%;
-}
-
 .v3-compare-fill {
   height: 100%;
   border-radius: inherit;

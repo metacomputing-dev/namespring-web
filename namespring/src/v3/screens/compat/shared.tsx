@@ -448,23 +448,29 @@ export function ElementPairCompareSection({ result }: { result: CoupleCompatibil
                 <div className="v3-compare-track">
                   <div className="v3-compare-fill v3-compare-fill--saju-light" style={{ width: `${share(bSaju, element)}%` }} />
                 </div>
-                {/* 이름 (갈색): 진한=첫 사람, 연한=둘째 사람 */}
+                {/* 이름 (갈색): 진한=첫 사람, 연한=둘째 사람. 회색 트랙은 전체 폭,
+                    색 채움만 절반 눈금(재료가 적어 사주와 규모가 다름을 표시). */}
                 <div className="v3-compare-track">
-                  <div className="v3-compare-fill v3-compare-fill--name" style={{ width: `${share(aName, element)}%` }} />
+                  <div className="v3-compare-fill v3-compare-fill--name" style={{ width: `${share(aName, element) / 2}%` }} />
                 </div>
                 <div className="v3-compare-track">
-                  <div className="v3-compare-fill v3-compare-fill--name-light" style={{ width: `${share(bName, element)}%` }} />
+                  <div className="v3-compare-fill v3-compare-fill--name-light" style={{ width: `${share(bName, element) / 2}%` }} />
                 </div>
               </div>
               <span className="v3-compare-values">
-                {Math.round(share(aSaju, element))}·{Math.round(share(bSaju, element))}%
+                <span style={{ display: 'block' }}>
+                  {Math.round(share(aSaju, element))}·{Math.round(share(bSaju, element))}%
+                </span>
+                <span style={{ display: 'block', opacity: 0.65 }}>
+                  {Math.round(share(aName, element))}·{Math.round(share(bName, element))}%
+                </span>
               </span>
             </div>
           ))}
           <p className="v3-hint" style={{ marginTop: '0.5rem' }}>
             위 두 줄이 사주(녹색), 아래 두 줄이 이름(갈색)이에요. 각 묶음에서 진한 색이
-            {' '}{aLabel}, 연한 색이 {bLabel}{hasJongseong(bLabel) ? '이에요' : '예요'}. 오른쪽
-            숫자는 두 사람의 사주 비율이에요.
+            {' '}{aLabel}, 연한 색이 {bLabel}{hasJongseong(bLabel) ? '이에요' : '예요'}. 이름은
+            글자 수가 적어 절반 눈금으로 그렸어요. 오른쪽 숫자(위 사주·아래 이름)는 실제 비율이에요.
           </p>
         </div>
       </div>
