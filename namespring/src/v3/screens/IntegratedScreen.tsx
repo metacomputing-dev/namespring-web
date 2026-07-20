@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { ReportSurfaceSelectionV1 } from '@spring/report/delivery/types';
+import { deriveZodiacYearFromCodes } from '@spring/report/zodiac';
 import NamingResultRenderer from '../../NamingResultRenderer';
 import { buildRenderMetricsFromSajuReport } from '../../naming-result-render-metrics';
 import { clearDeliveryCache } from '../engine/client';
@@ -92,12 +93,6 @@ function GlanceCard({ index, profile }: { index: DeliveryIndex; profile: V3Profi
   );
 }
 
-/** 년지 → 띠 동물. 申은 런타임 'SIN'과 보고서 계층 별칭 'SIN_BRANCH'를 모두 받는다. */
-const ZODIAC_KO: Record<string, string> = {
-  JA: '쥐', CHUK: '소', IN: '호랑이', MYO: '토끼', JIN: '용', SA: '뱀',
-  O: '말', MI: '양', SIN: '원숭이', SIN_BRANCH: '원숭이', YU: '닭', SUL: '개', HAE: '돼지',
-};
-
 /** 월지 → 절기 계절 이름 (지지의 달은 절기 기준이라 양력 달과 다를 수 있다). */
 const SEASON_KO: Record<string, string> = {
   IN: '초봄', MYO: '봄', JIN: '늦봄', SA: '초여름', O: '한여름', MI: '늦여름',
@@ -118,7 +113,8 @@ function MyPlaceCard({ index, profile }: { index: DeliveryIndex; profile: V3Prof
   const month = at('month');
   const day = at('day');
   if (!day) return null;
-  const zodiac = year ? ZODIAC_KO[year.branch.code] ?? null : null;
+  // 띠+색은 신규 엔진의 단일 파생 함수로 — 궁합과 표기가 어긋나지 않게 한다.
+  const zodiac = year ? deriveZodiacYearFromCodes(year.stem.code, year.branch.code) : null;
   const season = month ? SEASON_KO[month.branch.code] ?? null : null;
   const hourKnown = profile.birth.hour !== null;
 
@@ -128,7 +124,10 @@ function MyPlaceCard({ index, profile }: { index: DeliveryIndex; profile: V3Prof
   }
   opening += `${day.stem.hangul}(${day.stem.hanja}) 일간이에요.`;
   if (year && zodiac) {
-    opening += ` ${year.stem.hangul}${year.branch.hangul}(${year.stem.hanja}${year.branch.hanja})년, ${zodiac}띠 해에 났어요.`;
+    opening += ` ${year.stem.hangul}${year.branch.hangul}(${year.stem.hanja}${year.branch.hanja})년,`;
+    opening += zodiac.color
+      ? ` ${zodiac.label}(${zodiac.labelHanja}), ${zodiac.zodiacLabel} 해에 났어요.`
+      : ` ${zodiac.zodiacLabel} 해에 났어요.`;
   }
   const hourNote = hourKnown
     ? '태어난 시각까지 알고 있어 여덟 글자를 모두 셈했어요.'
@@ -138,7 +137,11 @@ function MyPlaceCard({ index, profile }: { index: DeliveryIndex; profile: V3Prof
     <div className="v3-card" style={{ marginTop: 'var(--space-sm)' }}>
       <p className="v3-kicker">나의 자리</p>
       <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
-        {zodiac ? <span className="v3-badge v3-badge--accent">{zodiac}띠</span> : null}
+        {zodiac ? (
+          <span className="v3-badge v3-badge--accent">
+            {zodiac.color ? `${zodiac.label} (${zodiac.zodiacLabel})` : zodiac.zodiacLabel}
+          </span>
+        ) : null}
         {season ? <span className="v3-badge">{season} 태생</span> : null}
         <span className="v3-badge">{hourKnown ? '여덟 글자로 읽음' : '태어난 시각 모름'}</span>
       </div>

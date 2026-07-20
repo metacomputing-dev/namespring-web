@@ -10,6 +10,7 @@
 - `copy-bundles.ts` — 카피 번들 레지스트리: 상황 id 21종 × 프레이밍 4종 격자, `resolveBundle` 폴백(프레임 전용 → default), 지지 쌍 카피 합성기 `renderBranchPairCopy`, 한글 조사 도우미.
 - `build-couple-compatibility.ts` — 순수 빌더: 검출·점수 담당(문장은 번들에 위임), 도메인 55/30/15 가중 합산, 가용 축 재정규화, 흉 겹침 40% 부기, couple 한정 배우자성 보너스.
 - `index.ts` — 배럴 export.
+- `../zodiac.ts` (신규, report 레벨 공유) — 띠(십이지 동물)+색(60갑자 색)의 결정론적 파생 단일 소스. 동물=년지, 색=년간 오행(오방색: 갑을 청/병정 적/무기 황(황금)/경신 백/임계 흑). 예) 경오=흰 말(白馬). `deriveZodiacYear(년간오행, 년지코드)`와 코드 편의 변형 `deriveZodiacYearFromCodes(년간코드, 년지코드)`. 궁합 person echo(`zodiac` 필드 신설)와 통합 보고서 FE가 같은 함수를 써 표기 일치. UI 비의존.
 - 테스트 `test/integration/couple-compatibility.test.ts` (717줄) — 관계 테이블 고전 통설 대조, 합성 fixture 빌더 통합 검증, 동일 입력 결정론 검증.
 
 ## 2. FE: v3 궁합 화면·모델 신설 (`namespring/src/v3/`)

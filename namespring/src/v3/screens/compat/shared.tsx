@@ -316,6 +316,17 @@ export function PersonEchoCard({
         {echo.fullHanja ? <span className="v3-title-hanja"> {echo.fullHanja}</span> : null}
       </p>
       <ul className="v3-plain-list">
+        {echo.zodiac ? (
+          <li>
+            띠{' '}
+            <strong>
+              {echo.zodiac.color
+                ? `${echo.zodiac.label}(${echo.zodiac.labelHanja})`
+                : echo.zodiac.zodiacLabel}
+            </strong>
+            {echo.zodiac.color ? <span className="v3-hint"> {echo.zodiac.zodiacLabel}</span> : null}
+          </li>
+        ) : null}
         {echo.dayStem ? (
           <li>
             일간 <strong>{echo.dayStem.hangul}({echo.dayStem.hanja})</strong>{' '}

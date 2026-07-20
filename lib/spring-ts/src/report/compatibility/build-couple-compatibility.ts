@@ -39,6 +39,7 @@ import {
   resolveBundle,
   splitBranchRelations,
 } from './copy-bundles.js';
+import { deriveZodiacYear } from '../zodiac.js';
 import type { BranchCode, StemCode } from './relation-tables.js';
 import {
   branchGlyphV1,
@@ -1929,6 +1930,11 @@ export function buildCoupleCompatibilityV1(
     fullHanja: person.fullHanja,
     dayStem: person.dayStem,
     dayBranch: person.dayBranch,
+    // 색은 년간 오행에서, 동물은 년지에서 — 신규 엔진의 단일 파생 함수를 쓴다.
+    zodiac: deriveZodiacYear(
+      person.pillars.year?.stem?.element ?? null,
+      person.pillars.year?.branch?.code ?? null,
+    ),
     strengthLevelCode: person.strengthCode,
     yongshinElement: person.yongshin,
     gender: person.gender,
