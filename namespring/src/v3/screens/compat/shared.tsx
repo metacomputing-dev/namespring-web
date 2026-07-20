@@ -27,7 +27,7 @@ import {
   removeSavedCompat,
   saveCompat,
 } from '../../model/saved-compat';
-import { ElementBadge, ReportActions, Section } from '../../ui/primitives';
+import { ElementBadge, ReportActions, Section, useTerms } from '../../ui/primitives';
 import { PersonSceneryArt } from './PersonSceneryPair';
 
 /* ================================================================== */
@@ -195,6 +195,8 @@ export function AxisCard({
   axis: CompatibilityAxisV1;
   defaultOpen?: boolean;
 }) {
+  // 축별 비중(가중치)은 점수 산출의 전문 정보라 전문 모드에서만 드러낸다.
+  const { expert } = useTerms();
   if (axis.availability.status === 'unavailable') {
     return (
       <div className="v3-card v3-card--tinted">
@@ -218,7 +220,7 @@ export function AxisCard({
         <span>
           <strong>{axis.score}</strong>
           <span className="v3-hint">
-            점{axis.weight < 1 ? ` · 비중 ${Math.round(axis.weight * 100)}%` : ''}
+            점{expert && axis.weight < 1 ? ` · 비중 ${Math.round(axis.weight * 100)}%` : ''}
           </span>
         </span>
       </div>

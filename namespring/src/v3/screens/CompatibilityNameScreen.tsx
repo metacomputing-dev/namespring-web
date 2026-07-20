@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { loadCompatRelationship, loadCompatSlot } from '../model/compat';
-import { Loading, Section } from '../ui/primitives';
+import { Loading, Section, TermToggle } from '../ui/primitives';
 import {
   AxisCard,
   CompatPremiumSection,
@@ -67,9 +67,7 @@ export default function CompatibilityNameScreen() {
         </p>
       </div>
 
-      <Link to="/compatibility" className="v3-button v3-button--ghost">
-        ← 통합 궁합으로
-      </Link>
+      <TermToggle />
 
       <Section title="이름 궁합 한눈에 보기">
         <SummaryCard

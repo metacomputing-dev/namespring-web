@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { loadCompatRelationship, loadCompatSlot } from '../model/compat';
-import { Loading, Section } from '../ui/primitives';
+import { Loading, Section, TermToggle } from '../ui/primitives';
 import {
   AxisCard,
   CompatPremiumSection,
@@ -14,6 +14,7 @@ import {
   useCompatibilityResult,
 } from './compat/shared';
 import DaeunOverlaySection from './compat/DaeunOverlay';
+import { CompatNatalSignalsSection } from './compat/CompatNatalSignals';
 
 /**
  * 사주간 궁합 상세 보고서. 일간·배우자궁·용신·오행 등 명리 궁합의 정통 축을
@@ -70,9 +71,7 @@ export default function CompatibilitySajuScreen() {
         </p>
       </div>
 
-      <Link to="/compatibility" className="v3-button v3-button--ghost">
-        ← 통합 궁합으로
-      </Link>
+      <TermToggle />
 
       <Section title="사주 궁합 한눈에 보기">
         <SummaryCard
@@ -100,6 +99,10 @@ export default function CompatibilitySajuScreen() {
 
       {slotA && slotB ? (
         <DaeunOverlaySection slotA={slotA} slotB={slotB} result={result} />
+      ) : null}
+
+      {slotA && slotB ? (
+        <CompatNatalSignalsSection slotA={slotA} slotB={slotB} />
       ) : null}
 
       {/* 교차 신호가 없으면 Section 자체가 그려지지 않는다 (빈 제목 방지). */}

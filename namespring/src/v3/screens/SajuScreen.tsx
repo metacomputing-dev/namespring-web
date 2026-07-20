@@ -14,9 +14,7 @@ import {
 } from '../model/facts';
 import {
   branchGlyph,
-  branchWithElement,
   stemGlyph,
-  stemWithElement,
   CATEGORY_META,
   PERIOD_META,
   PILLAR_KO,
@@ -29,7 +27,6 @@ import {
   ElementBadge,
   Loading,
   OverrideBanner,
-  QuoteCard,
   ReportActions,
   ReportFootnote,
   Section,
@@ -37,6 +34,7 @@ import {
   TermToggle,
   useTerms,
 } from '../ui/primitives';
+import { NatalSignals } from './natal-signals';
 
 const CATEGORIES: ReportCategoryIdV1[] = [
   'overall',
@@ -193,100 +191,7 @@ function YinYangCard({ index }: { index: DeliveryIndex }) {
   );
 }
 
-/* ---------- 구조 인사이트 (엔진 insight_facts 소비) ---------- */
-
-type SignalWeight = 'strong' | 'mid' | 'soft';
-
-type InsightItem = Extract<
-  import('@spring/report/delivery/types').ReportFactV1,
-  { kind: 'insight_facts' }
->['items'][number];
-
-const GROUP_META: Record<InsightItem['group'], { id: string; title: string; sub: string }> = {
-  boon: { id: 'help', title: '도움의 신호', sub: '귀인과 합 — 힘이 되어 주는 배치' },
-  tension: { id: 'pace', title: '완급의 신호', sub: '살·충·형 — 속도를 챙기면 무기가 되는 배치' },
-  space: { id: 'blank', title: '여백의 신호', sub: '공망·지장간 — 비움과 잠재의 배치' },
-};
-const GROUP_ORDER: InsightItem['group'][] = ['boon', 'tension', 'space'];
-
-/** 엔진 salience(0~1)를 색 농도 3단계로 옮긴다. */
-function salienceWeight(salience: number): SignalWeight {
-  if (salience >= 0.6) return 'strong';
-  if (salience >= 0.32) return 'mid';
-  return 'soft';
-}
-
-/** 칩에 걸 짧은 라벨 — 관계는 글자를 오행까지 붙여 부른다 (묘목·유금 충). */
-function signalChipLabel(item: InsightItem): string {
-  if (item.signalKind === 'stemRelation' || item.signalKind === 'branchRelation') {
-    const typeWord = item.label.replace(/^(천간|지지)\s*/u, '');
-    const named = item.members.map(item.signalKind === 'stemRelation' ? stemWithElement : branchWithElement);
-    if (named.length > 0) return `${named.join('·')} ${typeWord}`;
-  }
-  return item.label;
-}
-
-function InsightQuotes({ index }: { index: DeliveryIndex }) {
-  const [selected, setSelected] = useState<string | null>(null);
-  const fact = factOfKind(index, 'insight_facts');
-  const items = fact?.items ?? [];
-  if (items.length === 0) return null;
-
-  // 엔진이 salience 내림차순으로 정렬해 보낸다 — 하이라이트는 그 순서를 따른다.
-  const highlights = items.filter(item => item.highlight);
-  const lead = highlights.length > 0 ? highlights : items.slice(0, Math.min(4, items.length));
-
-  return (
-    <div className="v3-card">
-      <div className="v3-signal-highlights">
-        {lead.map(item => (
-          <QuoteCard key={item.signalId} main={item.reading} expertNote={item.readingExpert ?? undefined} />
-        ))}
-      </div>
-
-      <details className="v3-signal-browser" open>
-        <summary>원국 신호 전체 ({items.length})</summary>
-        <div className="v3-signal-browser-body">
-          {GROUP_ORDER.map(groupKey => {
-            const groupItems = items.filter(item => item.group === groupKey);
-            if (groupItems.length === 0) return null;
-            const meta = GROUP_META[groupKey];
-            return (
-              <div key={groupKey} className="v3-signal-group">
-                <p className="v3-signal-title">
-                  {meta.title} <span className="v3-hint">— {meta.sub}</span>
-                </p>
-                <div className="v3-signal-pills">
-                  {groupItems.map(item => (
-                    <button
-                      key={item.signalId}
-                      type="button"
-                      className={`v3-signal-pill v3-signal-pill--${meta.id} v3-signal-pill--${salienceWeight(item.salience)}`}
-                      aria-expanded={selected === item.signalId}
-                      onClick={() => setSelected(selected === item.signalId ? null : item.signalId)}
-                    >
-                      {signalChipLabel(item)}
-                    </button>
-                  ))}
-                </div>
-                {groupItems
-                  .filter(item => item.signalId === selected)
-                  .map(item => (
-                    <div key={item.signalId} style={{ marginTop: '0.6rem' }}>
-                      <QuoteCard main={item.reading} expertNote={item.readingExpert ?? undefined} />
-                    </div>
-                  ))}
-              </div>
-            );
-          })}
-          <p className="v3-hint" style={{ margin: '0.7rem 0 0', textAlign: 'center' }}>
-            신호를 누르면 풀이가 열려요.
-          </p>
-        </div>
-      </details>
-    </div>
-  );
-}
+/* ---------- 구조 인사이트: 공유 컴포넌트 NatalSignals 사용 ---------- */
 
 /* ---------- 십성 표 (전문) ---------- */
 
@@ -731,7 +636,7 @@ export default function SajuScreen() {
         title="원국에서 눈에 띄는 신호"
         lede="특히 눈에 띄는 배치를 골라 먼저 풀어드려요. 계산으로 실제 감지된 것만 담았고, 좋고 나쁨을 정하는 목록이 아니에요."
       >
-        <InsightQuotes index={index} />
+        <NatalSignals index={index} />
         <div style={{ marginTop: 'var(--space-sm)' }}>
           <TenGodTable index={index} />
         </div>

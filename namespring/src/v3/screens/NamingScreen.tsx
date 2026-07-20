@@ -151,7 +151,21 @@ function fillName(text: string, name: string): string {
 function FourFrames({ index, name }: { index: DeliveryIndex; name: string }) {
   const frames = factsOfKind(index, 'naming_frame');
   const { expert } = useTerms();
-  if (frames.length === 0) return null;
+  if (frames.length === 0) {
+    // 사격수리는 한자 획수로 셈한다 — 순우리말이거나 한자를 안 고른 이름은 빈 섹션 대신 안내한다.
+    return (
+      <div className="v3-card v3-card--tinted">
+        <p style={{ margin: 0 }}>
+          이 네 시기(사격수리)는 이름의 <strong>한자 획수</strong>로 셈해요. 글자마다 한자가
+          정해져 있어야 초년·청년·중년·말년의 흐름을 읽을 수 있어서, 순우리말 이름이나 아직
+          한자를 고르지 않은 이름은 이 자리를 비워 둬요.
+        </p>
+        <p className="v3-hint" style={{ margin: '0.5rem 0 0' }}>
+          한자 이름으로 보면 각 시기의 획수·수리 길흉과 전통 풀이를 함께 보여드려요.
+        </p>
+      </div>
+    );
+  }
   const order = ['earlyLife', 'youthLife', 'middleLife', 'lateAndTotal'];
   const sorted = [...frames].sort((a, b) => order.indexOf(a.stage) - order.indexOf(b.stage));
   return (

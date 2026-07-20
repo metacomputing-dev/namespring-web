@@ -37,19 +37,30 @@ export function TermToggle() {
       className="v3-screen-only"
       style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}
     >
-      <button
-        type="button"
-        className="v3-tab"
-        aria-selected={expert}
-        aria-pressed={expert}
-        onClick={toggle}
-      >
-        {expert ? '쉬운 말로 보기' : '전문 용어 보기'}
-      </button>
+      <div className="v3-segment" role="group" aria-label="설명 모드">
+        <button
+          type="button"
+          aria-pressed={!expert}
+          onClick={() => {
+            if (expert) toggle();
+          }}
+        >
+          일반 모드
+        </button>
+        <button
+          type="button"
+          aria-pressed={expert}
+          onClick={() => {
+            if (!expert) toggle();
+          }}
+        >
+          전문 모드
+        </button>
+      </div>
       <span className="v3-hint">
         {expert
-          ? '원국 용어와 해설을 함께 보고 있어요.'
-          : '어려운 용어는 접어 두고 쉬운 말로 보여드려요.'}
+          ? '원국 용어와 해설까지 함께 봐요.'
+          : '어려운 용어는 접어 두고 쉬운 말로 봐요.'}
       </span>
     </div>
   );
