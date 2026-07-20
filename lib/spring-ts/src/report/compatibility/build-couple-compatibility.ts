@@ -39,7 +39,7 @@ import {
   resolveBundle,
   splitBranchRelations,
 } from './copy-bundles.js';
-import { deriveZodiacYear } from '../zodiac.js';
+import { deriveColoredAnimal } from '../zodiac.js';
 import type { BranchCode, StemCode } from './relation-tables.js';
 import {
   branchGlyphV1,
@@ -1931,7 +1931,7 @@ export function buildCoupleCompatibilityV1(
     dayStem: person.dayStem,
     dayBranch: person.dayBranch,
     // 색은 년간 오행에서, 동물은 년지에서 — 신규 엔진의 단일 파생 함수를 쓴다.
-    zodiac: deriveZodiacYear(
+    zodiac: deriveColoredAnimal(
       person.pillars.year?.stem?.element ?? null,
       person.pillars.year?.branch?.code ?? null,
     ),
@@ -1945,11 +1945,14 @@ export function buildCoupleCompatibilityV1(
   const overallReasons = collectReasons(null);
 
   // 맥락 읽기: 년지 쌍의 관계(삼합·충 등)를 나이 속설과 대조해 문장을 만든다.
+  // 두 사람의 띠(년주 색동물)를 함께 넘겨 속설 서사에 실제 띠 이름을 엮는다.
   const contextNotes = buildContextNotes(
     contextFact,
     a.displayName,
     b.displayName,
     yearBranchPair?.relations ?? null,
+    deriveColoredAnimal(a.pillars.year?.stem?.element ?? null, a.pillars.year?.branch?.code ?? null),
+    deriveColoredAnimal(b.pillars.year?.stem?.element ?? null, b.pillars.year?.branch?.code ?? null),
   );
 
   return {

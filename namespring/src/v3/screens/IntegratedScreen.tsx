@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { ReportSurfaceSelectionV1 } from '@spring/report/delivery/types';
-import { deriveZodiacYearFromCodes } from '@spring/report/zodiac';
+import { deriveColoredAnimalFromCodes } from '@spring/report/zodiac';
 import NamingResultRenderer from '../../NamingResultRenderer';
 import { buildRenderMetricsFromSajuReport } from '../../naming-result-render-metrics';
 import { clearDeliveryCache } from '../engine/client';
@@ -113,8 +113,9 @@ function MyPlaceCard({ index, profile }: { index: DeliveryIndex; profile: V3Prof
   const month = at('month');
   const day = at('day');
   if (!day) return null;
-  // 띠+색은 신규 엔진의 단일 파생 함수로 — 궁합과 표기가 어긋나지 않게 한다.
-  const zodiac = year ? deriveZodiacYearFromCodes(year.stem.code, year.branch.code) : null;
+  // 띠(생년)와 일주 동물(생일·나 자신)을 같은 파생 함수로 뽑는다 — 궁합과 표기 일치.
+  const zodiac = year ? deriveColoredAnimalFromCodes(year.stem.code, year.branch.code) : null;
+  const dayAnimal = deriveColoredAnimalFromCodes(day.stem.code, day.branch.code);
   const season = month ? SEASON_KO[month.branch.code] ?? null : null;
   const hourKnown = profile.birth.hour !== null;
 
@@ -126,7 +127,7 @@ function MyPlaceCard({ index, profile }: { index: DeliveryIndex; profile: V3Prof
   if (year && zodiac) {
     opening += ` ${year.stem.hangul}${year.branch.hangul}(${year.stem.hanja}${year.branch.hanja})년,`;
     opening += zodiac.color
-      ? ` ${zodiac.label}(${zodiac.labelHanja}), ${zodiac.zodiacLabel} 해에 났어요.`
+      ? ` ${zodiac.label}(${zodiac.labelHanja}) — 곧 ${zodiac.zodiacLabel} 해에 났어요.`
       : ` ${zodiac.zodiacLabel} 해에 났어요.`;
   }
   const hourNote = hourKnown
@@ -147,6 +148,29 @@ function MyPlaceCard({ index, profile }: { index: DeliveryIndex; profile: V3Prof
       </div>
       <p style={{ margin: '0.55rem 0 0' }}>{opening}</p>
       <p style={{ margin: '0.55rem 0 0' }}>{hourNote}</p>
+      {dayAnimal ? (
+        <div className="v3-callout" style={{ marginTop: '0.7rem' }}>
+          <p className="v3-callout-title">띠와 일주 동물은 달라요</p>
+          <ul style={{ margin: '0.35rem 0 0', paddingLeft: '1.1rem' }}>
+            <li>
+              <strong>띠(생년)</strong> ={' '}
+              {zodiac ? (zodiac.color ? `${zodiac.label}(${zodiac.labelHanja})` : zodiac.animal) : '—'}
+              {' '}— 태어난 해로 정해요. 음·양력이 아니라 절기(입춘) 기준이라, 입춘 전에
+              태어나면 앞 해의 띠가 돼요.
+            </li>
+            <li>
+              <strong>일주 동물</strong> ={' '}
+              {dayAnimal.color ? `${dayAnimal.label}(${dayAnimal.labelHanja})` : dayAnimal.animal}
+              {' '}— 태어난 <em>날</em>({day.stem.hangul}{day.branch.hangul})의 동물로, 사주에서
+              ‘나 자신’을 상징해요. 만세력 맨 위에 뜨는 동물이 보통 이거예요.
+            </li>
+          </ul>
+          <p className="v3-hint" style={{ margin: '0.45rem 0 0' }}>
+            같은 날이라도 절입 시각에 따라 갈리는 경계가 있어, 정확한 생년월일시·출생지를
+            넣을수록 정확해져요.
+          </p>
+        </div>
+      ) : null}
     </div>
   );
 }

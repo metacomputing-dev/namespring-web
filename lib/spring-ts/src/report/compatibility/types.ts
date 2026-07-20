@@ -17,7 +17,7 @@ import type {
   SajuPillarPositionV1,
   TenGodCodeV1,
 } from '../delivery/types.js';
-import type { ZodiacYearV1 } from '../zodiac.js';
+import type { ColoredAnimalV1 } from '../zodiac.js';
 
 export const COUPLE_COMPATIBILITY_SCHEMA_V1 = 'spring-ts.couple-compatibility.v1' as const;
 
@@ -453,7 +453,7 @@ export interface CompatibilityPersonEchoV1 {
   readonly dayStem: GanjiGlyphV1 | null;
   readonly dayBranch: GanjiGlyphV1 | null;
   /** 태어난 해의 띠(십이지 동물)와 색(60갑자 색). 년주가 없으면 null. */
-  readonly zodiac: ZodiacYearV1 | null;
+  readonly zodiac: ColoredAnimalV1 | null;
   readonly strengthLevelCode: 'STRONG' | 'BALANCED' | 'WEAK' | 'UNKNOWN' | null;
   readonly yongshinElement: FiveElementIdV1 | null;
   readonly gender: 'male' | 'female' | 'unknown';

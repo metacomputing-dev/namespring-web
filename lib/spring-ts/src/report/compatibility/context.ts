@@ -12,6 +12,7 @@
  *  - 생년월일이 없으면 나이 관련 값을 null로 두고 지어내지 않는다.
  *  - 미성년자가 포함되면 요청과 무관하게 연애 프레임을 쓰지 않는다.
  */
+import type { ColoredAnimalV1 } from '../zodiac.js';
 import { euRo } from './copy-bundles.js';
 import type {
   BranchPairRelationV1,
@@ -21,6 +22,12 @@ import type {
   CoupleCompatibilityRequestV1,
   PairContextFactV1,
 } from './types.js';
+
+/** 띠 이름을 문장에 넣을 때의 짧은 표기 (색+동물, 색 없으면 동물). */
+function zodiacKo(zodiac: ColoredAnimalV1 | null): string | null {
+  if (!zodiac) return null;
+  return zodiac.color ? zodiac.label : zodiac.animal;
+}
 
 /* ================================================================== */
 /* 나이 계산                                                            */
@@ -203,9 +210,15 @@ export function buildContextNotes(
   aName: string,
   bName: string,
   yearBranchRelations: readonly BranchPairRelationV1[] | null,
+  zodiacA: ColoredAnimalV1 | null = null,
+  zodiacB: ColoredAnimalV1 | null = null,
 ): string[] {
   const notes: string[] = [];
   const gap = fact.ageGapYears;
+  // 두 사람의 띠를 문장에 자연스럽게 끼울 때 쓰는 짧은 표기 (예: '흰 말과 검은 쥐').
+  const zA = zodiacKo(zodiacA);
+  const zB = zodiacKo(zodiacB);
+  const bothZodiac = zA && zB ? `${aName}님은 ${zA}띠, ${bName}님은 ${zB}띠 — ` : '';
   const bothAdult =
     (fact.bandA === 'adult' || fact.bandA === 'senior')
     && (fact.bandB === 'adult' || fact.bandB === 'senior');
@@ -258,26 +271,41 @@ export function buildContextNotes(
     // companion에는 중립적인 삼합 어울림 문장만, kids·guardian에는 아무것도 얹지 않는다.
     if (fact.framing === 'couple') {
       notes.push(
-        '"네 살 차이는 궁합도 안 본다"는 옛말이 있지요. 네 살 차이의 띠는 실제로 삼합(三合)의 짝이라 이 속설에는 명리의 근거가 있는데, 두 분이 바로 그 배치예요.',
+        `"네 살 차이는 궁합도 안 본다"는 옛말이 있지요. ${bothZodiac}네 살 차이의 두 띠는 실제로 `
+        + '삼합(三合)의 짝이에요. 삼합은 세 지지가 한 오행 방향으로 힘을 모으는 강한 어울림이라, '
+        + '이 속설에는 명리의 근거가 실제로 있어요. 두 분이 바로 그 배치라, 뜻과 방향이 잘 맞고 '
+        + '한번 마음이 통하면 오래 함께 밀고 가는 힘이 있는 짝이에요. 다만 방향이 같은 만큼 서로 '
+        + '너무 닮아 새로움이 옅어질 수 있으니, 각자의 다른 취향 하나쯤은 남겨 두면 좋아요.',
       );
     } else if (fact.framing === 'companion') {
       notes.push(
-        '네 살 차이의 두 띠는 실제로 삼합(三合)의 자리에 있어요. 뜻과 방향이 같은 쪽을 보는 어울림이라, 함께 무언가를 도모할 때 합이 잘 맞는 배치예요.',
+        `${bothZodiac}네 살 차이의 두 띠는 실제로 삼합(三合)의 자리에 있어요. 같은 오행 방향으로 `
+        + '힘을 모으는 배치라 뜻과 목표가 같은 쪽을 보고, 함께 무언가를 도모할 때 손발이 잘 맞아요. '
+        + '역할만 또렷이 나눠 두면 오래가는 동반이 돼요.',
       );
     }
   }
   if (gap === 6 && yearBranchRelations?.includes('chung')) {
     notes.push(
-      '여섯 살 차이를 꺼리는 속설이 있어요 — 두 분의 띠는 실제로 충(沖)의 자리에 있어요. 다만 충은 이별의 선고가 아니라 서로를 흔들어 깨우는 변화의 힘이라, 다름을 규칙으로 다듬으면 오히려 오래가는 짝이 돼요.',
+      `여섯 살 차이를 꺼리는 속설이 있어요. ${bothZodiac}두 분의 띠는 실제로 충(沖) — 정반대 자리에서 `
+      + '마주 보는 배치예요. 하지만 충은 이별의 선고가 아니라 서로를 흔들어 깨우는 변화의 힘이에요. '
+      + '한쪽이 놓친 것을 다른 쪽이 정확히 짚어 주는 사이라, 다름을 공격이 아니라 보완으로 받아들이고 '
+      + '부딪히는 지점에 작은 규칙 하나를 정해 두면 오히려 서로를 가장 크게 키우는 짝이 돼요.',
     );
   }
   if (fact.twelveGapSameZodiac === true && gap != null) {
     const turns = gap / 12;
     const turnKo = TURN_KO[turns] ?? `${turns} 바퀴`;
+    const sameZodiacName = zA ? `같은 ${zA}띠` : '같은 띠';
     notes.push(
       turns === 1
-        ? '두 분은 열두 해를 사이에 둔 띠동갑이에요. 띠가 한 바퀴 돌아 같은 자리에서 만난 인연이라, 닮은 기질을 서로 다른 시절의 눈으로 나누게 돼요.'
-        : `두 분은 띠가 ${turnKo}를 돌아 같은 자리에서 만난 띠동갑이에요. 같은 띠의 닮은 기질을 서로 다른 시절의 눈으로 나누게 되는, 시간을 건너는 인연이에요.`,
+        ? `두 분은 열두 해를 사이에 둔 띠동갑이에요. 띠가 한 바퀴 돌아 ${sameZodiacName}로 같은 자리에서 `
+          + '다시 만난 인연이라, 기질의 밑바탕이 닮았어요. 말하지 않아도 서로의 결이 익숙한 편안함이 '
+          + '있는 대신, 닮은 만큼 같은 약점도 겹치기 쉬우니 한 사람이 조심스러울 때 다른 사람이 밀어 '
+          + '주는 식으로 번갈아 중심을 잡아 주면 좋아요.'
+        : `두 분은 띠가 ${turnKo}를 돌아 ${sameZodiacName}로 같은 자리에서 만난 띠동갑이에요. 같은 띠의 `
+          + '닮은 기질을 서로 다른 시절의 눈으로 나누게 되는, 시간을 건너는 인연이라 한쪽의 경험이 '
+          + '다른 쪽에게 그대로 길잡이가 돼요.',
     );
   }
   if (gap != null && gap >= 15 && bothAdult) {

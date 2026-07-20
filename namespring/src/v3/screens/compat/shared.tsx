@@ -15,6 +15,7 @@ import type {
   CoupleCompatibilityV1,
   StemPairFactV1,
 } from '@spring/report/compatibility/index';
+import { deriveColoredAnimal } from '@spring/report/zodiac';
 import { computeCompatibility, isSamePerson } from '../../engine/compatibility';
 import type { CompatRelationshipSelection, CompatSlot } from '../../model/compat';
 import { ELEMENT_KO } from '../../model/facts';
@@ -308,6 +309,11 @@ export function PersonEchoCard({
   /** 있으면 사람별 풍경 그림을 카드 하단에 그린다 (준비되는 대로). */
   slot?: CompatSlot;
 }) {
+  // 일주 동물(생일·나 자신)은 띠(생년)와 다르다 — 같은 파생 함수로 뽑아 함께 보여준다.
+  const dayAnimal =
+    echo.dayStem && echo.dayBranch
+      ? deriveColoredAnimal(echo.dayStem.element, echo.dayBranch.code)
+      : null;
   return (
     <div className="v3-card" style={{ display: 'flex', flexDirection: 'column' }}>
       <p className="v3-kicker">{title}</p>
@@ -318,7 +324,7 @@ export function PersonEchoCard({
       <ul className="v3-plain-list">
         {echo.zodiac ? (
           <li>
-            띠{' '}
+            띠(생년){' '}
             <strong>
               {echo.zodiac.color
                 ? `${echo.zodiac.label}(${echo.zodiac.labelHanja})`
@@ -331,6 +337,11 @@ export function PersonEchoCard({
           <li>
             일간 <strong>{echo.dayStem.hangul}({echo.dayStem.hanja})</strong>{' '}
             <ElementBadge element={echo.dayStem.element} suffix="기운" />
+            {dayAnimal ? (
+              <span className="v3-hint">
+                {' '}일주 동물 {dayAnimal.color ? dayAnimal.label : dayAnimal.animal} (나 자신)
+              </span>
+            ) : null}
           </li>
         ) : null}
         {echo.dayBranch ? (
