@@ -1215,6 +1215,117 @@
   border-top: var(--rule-thin) solid var(--color-rule);
 }
 
+/* ---------- 계산 기준·방법별 비교 접이 패널 ---------- */
+
+.v3-detail > summary {
+  cursor: pointer;
+  list-style-position: inside;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.v3-detail > summary:hover .v3-detail-title {
+  color: var(--color-accent);
+}
+
+.v3-detail-title {
+  font-weight: 700;
+  font-family: var(--font-display);
+  color: var(--color-ink-2);
+}
+
+.v3-def-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 0.9rem;
+  margin: 0.7rem 0 0;
+}
+
+.v3-def-grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.v3-def-grid dt {
+  font-size: 0.82rem;
+  color: var(--color-ink-3);
+}
+
+.v3-def-grid dd {
+  margin: 0;
+  font-size: 0.95rem;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 480px) {
+  .v3-def-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- 유료 티저: 스레드별 잠금 스켈레톤 ---------- */
+
+.v3-premium-ledger {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 640px) {
+  .v3-premium-ledger {
+    grid-template-columns: 1fr;
+  }
+}
+
+.v3-premium-thread {
+  padding: 0.9rem;
+  border: var(--rule-thin) solid var(--color-rule);
+  border-radius: var(--radius-card);
+  background: var(--color-paper-2);
+  display: flex;
+  flex-direction: column;
+}
+
+.v3-premium-thread-title {
+  margin: 0;
+  font-size: 0.98rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+.v3-premium-thread-preview {
+  margin: 0.4rem 0 0.7rem;
+  font-size: 0.9rem;
+  color: var(--color-ink-2);
+}
+
+.v3-premium-thread-lock {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.v3-premium-thread-lock span {
+  height: 0.55rem;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--color-rule-strong), var(--color-rule));
+  filter: blur(1px);
+  opacity: 0.5;
+}
+
+.v3-premium-thread-lock span:first-child {
+  width: 100%;
+}
+
+.v3-premium-thread-lock span:last-child {
+  width: 68%;
+}
+
 .v3-signal-title {
   margin: 0 0 0.55rem;
   font-weight: 700;

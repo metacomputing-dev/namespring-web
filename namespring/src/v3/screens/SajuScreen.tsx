@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import type {
   ReportSurfaceSelectionV1,
@@ -7,6 +7,7 @@ import type {
 } from '@spring/report/delivery/types';
 import { useDelivery } from '../engine/useDelivery';
 import {
+  ELEMENT_KO,
   factOfKind,
   factsOfKind,
   metricValue,
@@ -35,6 +36,199 @@ import {
   useTerms,
 } from '../ui/primitives';
 import { NatalSignals } from './natal-signals';
+
+/* ---------- 차용: 계산 기준·용신 방법 비교 라벨·포맷 ---------- */
+
+const YONGSHIN_METHOD_KO: Record<string, { label: string; hanja: string }> = {
+  eokbu: { label: '억부', hanja: '抑扶' },
+  johu: { label: '조후', hanja: '調候' },
+  gyeokguk: { label: '격국', hanja: '格局' },
+  tonggwan: { label: '통관', hanja: '通關' },
+  byeongyak: { label: '병약', hanja: '病藥' },
+  siksangFlow: { label: '식상 흐름', hanja: '食傷' },
+};
+
+const CONFLICT_KO: Record<string, string> = {
+  none: '방법 사이에 이견이 없어요.',
+  low: '대체로 같은 결론이에요.',
+  medium: '방법에 따라 후보가 갈려요.',
+  high: '방법 사이의 견해차가 큰 편이에요.',
+};
+
+const YAZA_BOUNDARY_KO: Record<string, string> = {
+  disabled: '야자시 미적용',
+  outside_boundary: '경계 밖',
+  inside_boundary: '경계 안 — 날짜 넘김',
+};
+
+function fmtClock(dt: {
+  year: number;
+  month: number;
+  day: number;
+  hour: number;
+  minute: number;
+}): string {
+  const p = (n: number) => String(n).padStart(2, '0');
+  return `${dt.year}.${p(dt.month)}.${p(dt.day)} ${p(dt.hour)}:${p(dt.minute)}`;
+}
+
+function signedMinutes(v: number): string {
+  if (Math.abs(v) < 0.05) return '0분';
+  return `${v > 0 ? '+' : '−'}${Math.abs(v).toFixed(1)}분`;
+}
+
+/* ---------- 계산 기준: 출생 시각 보정 (차용①) ---------- */
+
+function TimeCorrectionDetails({ index }: { index: DeliveryIndex }) {
+  const tc = factOfKind(index, 'time_correction');
+  if (!tc) return null;
+  const loc = tc.location;
+  const c = tc.corrections;
+  const rows: { term: string; value: ReactNode }[] = [
+    { term: '계산에 쓴 표준시', value: fmtClock(tc.standardLocalDateTime) },
+    {
+      term: '보정 판정 시각',
+      value: <strong>{fmtClock(tc.adjustedSolarLocalDateTime)}</strong>,
+    },
+    {
+      term: '경도 보정',
+      value: `${signedMinutes(c.longitudeMinutes)} · ${tc.policy.longitudeCorrection === 'on' ? '적용' : '미적용'}`,
+    },
+    {
+      term: '균시차',
+      value: `${signedMinutes(c.equationOfTimeMinutes)} · 진태양시 ${tc.policy.trueSolarTime === 'on' ? '적용' : '미적용'}`,
+    },
+    {
+      term: '서머타임',
+      value:
+        Math.abs(c.daylightSavingMinutes) < 0.05
+          ? '적용 안 함'
+          : signedMinutes(c.daylightSavingMinutes),
+    },
+    {
+      term: '야자시',
+      value: `${tc.policy.yaza === 'on' ? `${tc.policy.yazaMode} 기준` : '미적용'} · ${YAZA_BOUNDARY_KO[tc.yazaBoundaryEffect] ?? tc.yazaBoundaryEffect}`,
+    },
+    {
+      term: '날짜 변화',
+      value: tc.solarDateChanged ? '보정으로 날짜가 바뀌었어요' : '날짜 변화 없음',
+    },
+  ];
+  if (loc.inputLabel) rows.push({ term: '출생지 입력', value: loc.inputLabel });
+  if (loc.coordinatesApplied && loc.latitude !== null && loc.longitude !== null) {
+    rows.push({
+      term: '적용 좌표',
+      value: `${loc.latitude.toFixed(2)}°, ${loc.longitude.toFixed(2)}°`,
+    });
+  }
+  if (tc.referenceMeridianDegrees !== null) {
+    rows.push({ term: '기준 자오선', value: `${tc.referenceMeridianDegrees.toFixed(0)}°` });
+  }
+  if (tc.lunarConversion) {
+    const lc = tc.lunarConversion;
+    rows.push({
+      term: '음력 변환',
+      value: `음력 ${lc.lunar.year}.${lc.lunar.month}.${lc.lunar.day}${lc.lunar.isLeapMonth ? ' 윤달' : ''} → 양력 ${lc.solar.year}.${lc.solar.month}.${lc.solar.day}`,
+    });
+  }
+  return (
+    <details className="v3-card v3-detail" style={{ marginTop: 'var(--space-sm)' }}>
+      <summary>
+        <span className="v3-detail-title">계산 기준 — 출생 시각 보정</span>
+        <span className="v3-hint">
+          {fmtClock(tc.standardLocalDateTime)} → {fmtClock(tc.adjustedSolarLocalDateTime)}
+        </span>
+      </summary>
+      <dl className="v3-def-grid">
+        {rows.map(row => (
+          <div key={row.term}>
+            <dt>{row.term}</dt>
+            <dd>{row.value}</dd>
+          </div>
+        ))}
+      </dl>
+      <p className="v3-hint" style={{ marginTop: '0.5rem' }}>
+        엔진이 돌려준 값을 그대로 보여드려요. 보정 시각을 화면에서 다시 계산하지 않아요.
+      </p>
+    </details>
+  );
+}
+
+/* ---------- 용신 방법별 비교 (차용②, 전문 모드) ---------- */
+
+function YongshinMethodDetails({ index }: { index: DeliveryIndex }) {
+  const yongshin = factOfKind(index, 'yongshin');
+  const { expert } = useTerms();
+  if (!expert || !yongshin) return null;
+  const candidates = yongshin.methodCandidates ?? [];
+  if (candidates.length === 0) return null;
+  const selected = yongshin.element;
+  const consensus = yongshin.consensus;
+  const policy = yongshin.interpretationPolicy;
+  const conflicted = !!consensus && consensus.conflictLevel !== 'none';
+  return (
+    <details className="v3-card v3-detail" style={{ marginTop: 'var(--space-sm)' }}>
+      <summary>
+        <span className="v3-detail-title">용신 판단 기준과 방법별 차이</span>
+        <span className="v3-hint">
+          {selected ? `${ELEMENT_KO[selected] ?? selected} 기운` : '판단 보류'}
+          {conflicted ? ' · 방법별로 갈려요' : ' · 방법 간 일치'}
+        </span>
+      </summary>
+      {policy ? (
+        <p className="v3-hint" style={{ marginTop: '0.5rem' }}>
+          적용 기준: {policy.schoolLabel}
+          {policy.schoolSelection === 'product_default' ? ' (기본)' : ''}
+        </p>
+      ) : null}
+      {conflicted && consensus ? (
+        <div className="v3-callout v3-callout--caution" style={{ marginTop: '0.5rem' }}>
+          <p className="v3-callout-title">
+            <span aria-hidden="true">✦</span> 방법에 따라 달라지는 부분
+          </p>
+          <p style={{ margin: 0 }}>
+            {CONFLICT_KO[consensus.conflictLevel]}
+            {consensus.competingElements.length > 0
+              ? ` 다른 후보: ${consensus.competingElements.map(el => ELEMENT_KO[el] ?? el).join(', ')}.`
+              : ''}
+          </p>
+        </div>
+      ) : null}
+      <dl className="v3-def-grid" style={{ marginTop: '0.6rem' }}>
+        {candidates.map(candidate => {
+          const method = YONGSHIN_METHOD_KO[candidate.method] ?? {
+            label: candidate.method,
+            hanja: '',
+          };
+          const agrees = candidate.element !== null && candidate.element === selected;
+          return (
+            <div key={candidate.method}>
+              <dt>
+                {method.label}
+                {method.hanja ? <small className="v3-title-hanja"> {method.hanja}</small> : null}
+              </dt>
+              <dd>
+                {candidate.element ? (
+                  <ElementBadge element={candidate.element} suffix="기운" />
+                ) : (
+                  <span className="v3-hint">판단 보류</span>
+                )}
+                {agrees ? (
+                  <span className="v3-badge" style={{ marginLeft: '0.35rem' }}>
+                    선택과 같음
+                  </span>
+                ) : null}
+              </dd>
+            </div>
+          );
+        })}
+      </dl>
+      <p className="v3-hint" style={{ marginTop: '0.5rem' }}>
+        기본 기준의 결론을 먼저 보여드리고, 방법별 후보는 참고로만 나열해요.
+      </p>
+    </details>
+  );
+}
 
 const CATEGORIES: ReportCategoryIdV1[] = [
   'overall',
@@ -154,7 +348,7 @@ function CoreCards({ index }: { index: DeliveryIndex }) {
               {SEONGPAE_KO[seongpae.verdict]?.label ?? seongpae.verdict} ·{' '}
               {SEONGPAE_KO[seongpae.verdict]?.gloss}
               {expert && seongpae.sangshin
-                ? ` 격을 지켜 주는 글자(상신)는 ${seongpae.sangshin}이에요.`
+                ? ` 격을 지켜 주는 글자(상신)는 ${TEN_GOD_KO[seongpae.sangshin] ?? seongpae.sangshin}이에요.`
                 : ''}
             </p>
           ) : null}
@@ -623,6 +817,7 @@ export default function SajuScreen() {
         <div className="v3-card">
           <PillarsTable index={index} />
         </div>
+        <TimeCorrectionDetails index={index} />
       </Section>
 
       <Section title="이 사주의 핵심">
@@ -630,6 +825,7 @@ export default function SajuScreen() {
         <div style={{ marginTop: 'var(--space-sm)' }}>
           <YinYangCard index={index} />
         </div>
+        <YongshinMethodDetails index={index} />
       </Section>
 
       <Section

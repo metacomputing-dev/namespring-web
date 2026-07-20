@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, type ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ELEMENT_KO } from '../model/facts';
 import {
   clearCandidateOverride,
@@ -247,6 +247,45 @@ export function ReportActions() {
       <button type="button" className="v3-button v3-button--ghost" onClick={() => navigate('/')}>
         처음으로
       </button>
+    </div>
+  );
+}
+
+/* ---------- 유료 티저: 스레드별 잠금 스켈레톤 (통합·궁합 공용) ---------- */
+
+export function PremiumTeaser({
+  threads,
+  ctaHref,
+  ctaLabel,
+  note,
+}: {
+  threads: { key: string; title: string; preview: string }[];
+  ctaHref: string;
+  ctaLabel: string;
+  note?: string;
+}) {
+  return (
+    <div className="v3-card v3-card--hero v3-premium">
+      <div className="v3-premium-ledger">
+        {threads.map(thread => (
+          <article key={thread.key} className="v3-premium-thread">
+            <h3 className="v3-premium-thread-title">{thread.title}</h3>
+            <p className="v3-premium-thread-preview">{thread.preview}</p>
+            <div className="v3-premium-thread-lock" aria-hidden="true">
+              <span />
+              <span />
+            </div>
+          </article>
+        ))}
+      </div>
+      <Link to={ctaHref} className="v3-button">
+        {ctaLabel}
+      </Link>
+      {note ? (
+        <p className="v3-hint" style={{ margin: '0.55rem 0 0' }}>
+          {note}
+        </p>
+      ) : null}
     </div>
   );
 }

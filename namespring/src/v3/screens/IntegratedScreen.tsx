@@ -19,6 +19,7 @@ import {
   ElementBadge,
   Loading,
   OverrideBanner,
+  PremiumTeaser,
   ReportActions,
   ReportFootnote,
   Section,
@@ -641,20 +642,31 @@ export default function IntegratedScreen() {
       </Section>
 
       <Section title="이 해석이 나에게 닿는 이유">
-        <div className="v3-card v3-card--hero">
-          <p style={{ margin: 0 }}>
-            지금 보신 결과가 방향을 잡아 주었다면, 완성 리포트는 그 방향이 왜 당신의
-            이름과 사주에 닿는지 차분히 짚어 줍니다. 이름 조합의 이유, 앞으로의 관계와
-            재물 흐름, 다시 읽을 수 있는 PDF까지 한 번에 정리됩니다.
-          </p>
-          <Link to="/account?intent=premium" className="v3-button" style={{ marginTop: '0.9rem' }}>
-            내 해석 완성하기
-          </Link>
-          <p className="v3-hint" style={{ margin: '0.55rem 0 0' }}>
-            결제 전에 계정을 확인해요. 계정이 준비되기 전에는 이메일로 받는 영수증만으로도
-            진행할 수 있어요.
-          </p>
-        </div>
+        <PremiumTeaser
+          threads={[
+            {
+              key: 'future-flow',
+              title: '숨겨진 미래 흐름',
+              preview:
+                '지금 짚은 강약과 용신이 앞으로의 대운에서 어떻게 풀리는지, 관계·일·선택의 리듬으로 이어 읽어요.',
+            },
+            {
+              key: 'name-fit',
+              title: '이름과 사주가 맞물리는 이유',
+              preview:
+                '이 이름의 음양·오행·수리가 왜 지금 원국을 살리는지, 글자마다의 근거를 한 문장씩 연결해요.',
+            },
+            {
+              key: 'relationship-wealth',
+              title: '관계와 재물의 심화 해석',
+              preview:
+                '관계는 마음이 먼저 움직이는 지점부터, 재물은 지켜야 할 리듬을 중심으로 더 깊이 읽어요.',
+            },
+          ]}
+          ctaHref="/account?intent=premium"
+          ctaLabel="내 해석 완성하기"
+          note="결제 전에 계정을 확인해요. 계정이 준비되기 전에는 이메일로 받는 영수증만으로도 진행할 수 있어요."
+        />
       </Section>
 
       <div className="v3-card" style={{ marginTop: 'var(--space-lg)' }}>

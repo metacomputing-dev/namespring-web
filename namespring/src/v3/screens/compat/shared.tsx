@@ -3,7 +3,6 @@
  * 데이터 훅, 점수·축 카드, 교차 신호 브라우저, 유료·저장·공유 꼬리 구조.
  */
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import type {
   BranchPairFactV1,
   CompatContextV1,
@@ -27,7 +26,7 @@ import {
   removeSavedCompat,
   saveCompat,
 } from '../../model/saved-compat';
-import { ElementBadge, ReportActions, Section, useTerms } from '../../ui/primitives';
+import { ElementBadge, PremiumTeaser, ReportActions, Section, useTerms } from '../../ui/primitives';
 import { PersonSceneryArt } from './PersonSceneryPair';
 
 /* ================================================================== */
@@ -599,21 +598,31 @@ export function CompatPremiumSection() {
   return (
     <section className="v3-section">
       <h2 className="v3-section-title">이 인연을 더 깊이 읽고 싶다면</h2>
-      <div className="v3-card v3-card--hero">
-        <p style={{ margin: 0 }}>
-          지금 보신 궁합이 두 분의 방향을 잡아 주었다면, 완성 리포트는 그 결론이
-          왜 두 분의 사주와 이름에 닿는지 차분히 짚어 줍니다. 관계의 시기별 흐름,
-          함께 조심할 시기와 살릴 시기, 다시 읽을 수 있는 PDF까지 한 번에
-          정리됩니다.
-        </p>
-        <Link to="/account?intent=premium" className="v3-button" style={{ marginTop: '0.9rem' }}>
-          두 사람의 해석 완성하기
-        </Link>
-        <p className="v3-hint" style={{ margin: '0.55rem 0 0' }}>
-          결제 전에 계정을 확인해요. 계정이 준비되기 전에는 이메일로 받는 영수증만으로도
-          진행할 수 있어요.
-        </p>
-      </div>
+      <PremiumTeaser
+        threads={[
+          {
+            key: 'timeline',
+            title: '두 사람의 시기별 흐름',
+            preview:
+              '두 분의 대운이 겹치는 10년마다 어떤 결이 흐르는지, 함께 쓰기 좋은 때와 살필 때로 나눠 읽어요.',
+          },
+          {
+            key: 'name-energy',
+            title: '이름이 서로에게 주는 기운',
+            preview:
+              '각자의 이름이 상대의 사주에 어떤 기운을 더하는지, 음양·오행으로 이어 풀어요.',
+          },
+          {
+            key: 'longevity',
+            title: '관계를 오래 가게 하는 법',
+            preview:
+              '강점은 더 살리고 완급이 필요한 지점은 미리 짚어, 두 분만의 리듬을 정리해요.',
+          },
+        ]}
+        ctaHref="/account?intent=premium"
+        ctaLabel="두 사람의 해석 완성하기"
+        note="결제 전에 계정을 확인해요. 계정이 준비되기 전에는 이메일로 받는 영수증만으로도 진행할 수 있어요."
+      />
     </section>
   );
 }
