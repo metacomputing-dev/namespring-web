@@ -293,10 +293,6 @@ function gwaWa(word: string): string {
   return `${word}${hasJongseong(word) ? '과' : '와'}`;
 }
 
-function iyeyo(word: string): string {
-  return `${word}${hasJongseong(word) ? '이에요' : '예요'}`;
-}
-
 export function PersonEchoCard({
   echo,
   title,
@@ -418,21 +414,24 @@ export function ContextCard({ context }: { context: CompatContextV1 }) {
 
 const COMPARE_ELEMENTS = ['wood', 'fire', 'earth', 'metal', 'water'] as const;
 
+type ElementShare = NonNullable<CompatibilityPersonEchoV1['sajuElements']>;
+
 /**
  * 통합 보고서의 ElementCompareBars와 대칭인 두 사람 비교 막대.
- * 두 사람 모두 원국 여덟 글자라 규모가 같으므로 두 줄 다 전체 폭을 쓴다.
- * 어느 한쪽의 분포 echo가 없으면 아무것도 그리지 않는다.
+ * 위 두 줄 = 사주(녹색), 아래 두 줄 = 이름(갈색). 각 묶음에서 진한 색이
+ * 첫 번째 사람, 연한 색이 두 번째 사람이다.
+ * 두 사람 다 사주 분포 echo가 없으면 아무것도 그리지 않는다.
  */
 export function ElementPairCompareSection({ result }: { result: CoupleCompatibilityV1 }) {
-  const a = result.persons.a.sajuElements ?? null;
-  const b = result.persons.b.sajuElements ?? null;
-  if (!a || !b) return null;
-  const share = (
-    values: NonNullable<CompatibilityPersonEchoV1['sajuElements']>,
-    element: string,
-  ) => values.find(value => value.element === element)?.sharePercent ?? 0;
-  const aName = result.persons.a.displayName;
-  const bName = result.persons.b.displayName;
+  const aSaju = result.persons.a.sajuElements ?? null;
+  const bSaju = result.persons.b.sajuElements ?? null;
+  if (!aSaju || !bSaju) return null;
+  const aName = result.persons.a.nameElements ?? null;
+  const bName = result.persons.b.nameElements ?? null;
+  const share = (values: ElementShare | null, element: string) =>
+    values?.find(value => value.element === element)?.sharePercent ?? 0;
+  const aLabel = result.persons.a.displayName;
+  const bLabel = result.persons.b.displayName;
 
   return (
     <Section title="오행으로 견주어 보기">
@@ -441,28 +440,31 @@ export function ElementPairCompareSection({ result }: { result: CoupleCompatibil
           {COMPARE_ELEMENTS.map(element => (
             <div key={element} className="v3-compare-row">
               <span className="v3-compare-label">{ELEMENT_KO[element]}</span>
-              <div className="v3-compare-tracks">
+              <div className="v3-compare-tracks v3-compare-tracks--pair">
+                {/* 사주 (녹색): 진한=첫 사람, 연한=둘째 사람 */}
                 <div className="v3-compare-track">
-                  <div
-                    className="v3-compare-fill v3-compare-fill--saju"
-                    style={{ width: `${share(a, element)}%` }}
-                  />
+                  <div className="v3-compare-fill v3-compare-fill--saju" style={{ width: `${share(aSaju, element)}%` }} />
                 </div>
                 <div className="v3-compare-track">
-                  <div
-                    className="v3-compare-fill v3-compare-fill--name"
-                    style={{ width: `${share(b, element)}%` }}
-                  />
+                  <div className="v3-compare-fill v3-compare-fill--saju-light" style={{ width: `${share(bSaju, element)}%` }} />
+                </div>
+                {/* 이름 (갈색): 진한=첫 사람, 연한=둘째 사람 */}
+                <div className="v3-compare-track">
+                  <div className="v3-compare-fill v3-compare-fill--name" style={{ width: `${share(aName, element)}%` }} />
+                </div>
+                <div className="v3-compare-track">
+                  <div className="v3-compare-fill v3-compare-fill--name-light" style={{ width: `${share(bName, element)}%` }} />
                 </div>
               </div>
               <span className="v3-compare-values">
-                {Math.round(share(a, element))}·{Math.round(share(b, element))}%
+                {Math.round(share(aSaju, element))}·{Math.round(share(bSaju, element))}%
               </span>
             </div>
           ))}
-          <p className="v3-hint" style={{ marginTop: '0.4rem' }}>
-            위 줄이 {aName}, 아래 줄이 {iyeyo(bName)}. 두 사람 모두 원국 여덟
-            글자의 오행 분포라 같은 폭으로 견주었어요.
+          <p className="v3-hint" style={{ marginTop: '0.5rem' }}>
+            위 두 줄이 사주(녹색), 아래 두 줄이 이름(갈색)이에요. 각 묶음에서 진한 색이
+            {' '}{aLabel}, 연한 색이 {bLabel}{hasJongseong(bLabel) ? '이에요' : '예요'}. 오른쪽
+            숫자는 두 사람의 사주 비율이에요.
           </p>
         </div>
       </div>

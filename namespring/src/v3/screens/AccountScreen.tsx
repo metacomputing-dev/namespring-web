@@ -152,13 +152,6 @@ export default function AccountScreen() {
                 : ''}
             </li>
           </ul>
-          {savedCompats.length > 0 ? (
-            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.7rem' }}>
-              <Link to="/favorites" className="v3-button v3-button--ghost">
-                담아 둔 궁합 다시 보기
-              </Link>
-            </div>
-          ) : null}
           {wiped ? (
             <p className="v3-hint" style={{ marginTop: '0.7rem' }}>
               이 기기의 기록을 모두 지웠어요.

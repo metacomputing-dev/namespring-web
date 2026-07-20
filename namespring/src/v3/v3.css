@@ -615,6 +615,11 @@
 
 .v3-compare-fill--saju { background: var(--color-accent); }
 .v3-compare-fill--name { background: var(--color-earth); }
+/* 궁합 오행 견주기: 사람별 이름 줄은 같은 색을 연하게 (첫 사람 연녹, 둘째 연갈). */
+.v3-compare-fill--saju-light { background: color-mix(in oklab, var(--color-accent) 42%, var(--color-paper-2)); }
+.v3-compare-fill--name-light { background: color-mix(in oklab, var(--color-earth) 42%, var(--color-paper-2)); }
+/* 두 사람 그룹 사이를 살짝 띄워 '사주+이름' 묶음이 사람별로 읽히게 한다. */
+.v3-compare-tracks--pair > .v3-compare-track:nth-child(3) { margin-top: 0.3rem; }
 
 .v3-compare-values {
   font-size: var(--text-xs);

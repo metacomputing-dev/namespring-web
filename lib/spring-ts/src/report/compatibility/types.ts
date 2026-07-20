@@ -466,6 +466,14 @@ export interface CompatibilityPersonEchoV1 {
     readonly element: FiveElementIdV1;
     readonly sharePercent: number;
   }[] | null;
+  /**
+   * 이름 오행 분포(%) echo — 궁합 오행 견주기의 사람별 이름 줄용.
+   * delivery에 이름 분포 fact가 없으면(순우리말 등) null.
+   */
+  readonly nameElements?: readonly {
+    readonly element: FiveElementIdV1;
+    readonly sharePercent: number;
+  }[] | null;
 }
 
 export interface CoupleCompatibilitySectionV1 {

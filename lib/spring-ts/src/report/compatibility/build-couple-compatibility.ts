@@ -159,6 +159,10 @@ interface PersonContext {
   sajuElementsEcho:
     | readonly { readonly element: FiveElementIdV1; readonly sharePercent: number }[]
     | null;
+  /** 이름 오행 분포 echo — 궁합 오행 견주기의 사람별 이름 줄용. */
+  nameElementsEcho:
+    | readonly { readonly element: FiveElementIdV1; readonly sharePercent: number }[]
+    | null;
   deficient: readonly FiveElementIdV1[] | null;
   excessive: readonly FiveElementIdV1[] | null;
   yinYangDominant: 'YANG' | 'YIN' | 'EVEN' | null;
@@ -232,15 +236,14 @@ function buildPersonContext(
     'element_distribution',
   );
   const sajuDistribution = distributions.find(fact => fact.source === 'saju') ?? null;
+  const nameDistribution = distributions.find(fact => fact.source === 'name') ?? null;
   const sajuShare = sajuDistribution
     ? new Map(sajuDistribution.values.map(value => [value.element, value.sharePercent]))
     : null;
-  const sajuElementsEcho = sajuDistribution
-    ? sajuDistribution.values.map(value => ({
-        element: value.element,
-        sharePercent: value.sharePercent,
-      }))
-    : null;
+  const distributionEcho = (fact: ElementDistributionFactV1 | null) =>
+    fact ? fact.values.map(value => ({ element: value.element, sharePercent: value.sharePercent })) : null;
+  const sajuElementsEcho = distributionEcho(sajuDistribution);
+  const nameElementsEcho = distributionEcho(nameDistribution);
 
   const characterElements = characters
     .map(fact => fact.element)
@@ -301,6 +304,7 @@ function buildPersonContext(
         : null,
     sajuShare,
     sajuElementsEcho,
+    nameElementsEcho,
     deficient: balance ? balance.deficient : null,
     excessive: balance ? balance.excessive : null,
     yinYangDominant: yinYang?.dominant ?? null,
@@ -1940,6 +1944,7 @@ export function buildCoupleCompatibilityV1(
     gender: person.gender,
     analysisId: person.analysisId,
     sajuElements: person.sajuElementsEcho,
+    nameElements: person.nameElementsEcho,
   });
 
   const overallReasons = collectReasons(null);
