@@ -12,6 +12,7 @@ import {
   type CompatSlot,
   type CompatSlotKey,
 } from '../model/compat';
+import { listFavorites, type FavoriteName } from '../model/favorites';
 import { listPeople, personBirthLabel, personName, savePerson } from '../model/people';
 import { loadOriginalProfile, fullHangulName, type V3Profile } from '../model/profile';
 import {
@@ -266,11 +267,24 @@ function SlotPicker({
   const [label, setLabel] = useState('');
   const people = useMemo(listPeople, [mode]);
   const myProfile = useMemo(loadOriginalProfile, []);
+  // 작명 후보 이름은 생일이 없어, 처음 입력한 출생 정보가 있을 때만 상대로 쓸 수 있다.
+  const favorites = useMemo(() => (myProfile ? listFavorites() : []), [mode, myProfile]);
 
   function choose(profile: V3Profile, chosenLabel?: string) {
     const slot: CompatSlot = { profile, label: chosenLabel };
     saveCompatSlot(slotKey, slot);
     onChosen(slot);
+  }
+
+  // 작명 후보를 처음 입력한 출생 정보에 얹어 궁합 상대 프로필로 만든다.
+  function chooseFavorite(entry: FavoriteName) {
+    if (!myProfile) return;
+    choose({
+      ...myProfile,
+      surname: entry.surname,
+      givenName: entry.givenName,
+      pureHangul: false,
+    });
   }
 
   return (
@@ -307,7 +321,7 @@ function SlotPicker({
       </div>
 
       {mode === 'people' ? (
-        people.length === 0 ? (
+        people.length === 0 && favorites.length === 0 ? (
           <p className="v3-hint" style={{ marginTop: '0.7rem' }}>
             담아 둔 이름이 아직 없어요. 직접 입력하면서 담아 두면 다음에 바로 불러올 수 있어요.
           </p>
@@ -323,6 +337,25 @@ function SlotPicker({
                 <span className="v3-hanja-info">
                   <span className="v3-hanja-meaning">{personName(person)}</span>
                   <span className="v3-hint">{personBirthLabel(person.profile)}</span>
+                </span>
+              </button>
+            ))}
+            {/* 작명 후보 이름 — 처음 입력한 출생 정보로 읽는다. */}
+            {favorites.map(entry => (
+              <button
+                key={entry.id}
+                type="button"
+                className="v3-hanja-option"
+                onClick={() => chooseFavorite(entry)}
+              >
+                <span className="v3-hanja-info">
+                  <span className="v3-hanja-meaning">
+                    {entry.fullHangul}
+                    <span className="v3-badge" style={{ marginLeft: '0.4rem' }}>작명</span>
+                  </span>
+                  <span className="v3-hint">
+                    {myProfile ? personBirthLabel(myProfile) : '처음 입력한 출생 정보로 읽어요'}
+                  </span>
                 </span>
               </button>
             ))}
