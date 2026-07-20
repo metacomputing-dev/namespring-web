@@ -8,9 +8,19 @@ import {
   type ProfileNameChar,
   type V3Profile,
 } from '../model/profile';
-import { favoriteId, isFavorite, toggleFavorite } from '../model/favorites';
+import { favoriteId, listFavorites, toggleFavorite } from '../model/favorites';
 import { ELEMENT_KO } from '../model/facts';
+import { getHangulInitials, isChoseongQuery, normalizeQuery } from '../model/hangul';
 import { Loading } from '../ui/primitives';
+
+/** 한눈에 견줄 수 있는 만큼만. 열이 더 늘면 표가 아니라 목록이 된다. */
+const MAX_COMPARE = 3;
+
+const TENDENCY_KO: Record<string, string> = {
+  male: '주로 남자아이',
+  female: '주로 여자아이',
+  neutral: '두루 쓰임',
+};
 
 type SearchState =
   | { status: 'idle' }
@@ -31,17 +41,103 @@ function candidateChars(item: CandidateSearchItemV1): ProfileNameChar[] {
   }));
 }
 
+/** 한글·한자 부분일치로 먼저 찾고, 초성만 입력했을 때에 한해 초성으로도 찾는다. */
+function matchesQuery(item: CandidateSearchItemV1, query: string): boolean {
+  if (!query) return true;
+  const { fullHangul, fullHanja } = item.name;
+  const targets = [fullHangul, fullHanja, `${fullHangul}${fullHanja}`].map(normalizeQuery);
+  if (targets.some(target => target.includes(query))) return true;
+  if (isChoseongQuery(query)) {
+    return normalizeQuery(getHangulInitials(fullHangul)).includes(query);
+  }
+  return false;
+}
+
+interface CompareRow {
+  id: string;
+  label: string;
+  help?: string;
+  values: (string | null)[];
+}
+
+function joinChars(
+  item: CandidateSearchItemV1,
+  pick: (character: CandidateSearchItemV1['name']['givenCharacters'][number]) => string | null | undefined,
+): string | null {
+  const parts = item.name.givenCharacters.map(pick).filter((value): value is string => Boolean(value));
+  return parts.length > 0 ? parts.join(' · ') : null;
+}
+
+/** 획수는 글자가 하나라도 비면 합계를 만들지 않는다 — 반쪽 합은 오해를 부른다. */
+function strokeSum(item: CandidateSearchItemV1): string | null {
+  const strokes = item.name.givenCharacters
+    .map(character => character.strokes)
+    .filter((value): value is number => typeof value === 'number');
+  if (strokes.length !== item.name.givenCharacters.length || strokes.length === 0) return null;
+  return `${strokes.reduce((sum, value) => sum + value, 0)}획`;
+}
+
+function buildCompareRows(items: CandidateSearchItemV1[]): CompareRow[] {
+  const rows: CompareRow[] = [
+    { id: 'hanja', label: '한자', values: items.map(item => item.name.fullHanja || null) },
+    {
+      id: 'meaning',
+      label: '글자 뜻',
+      values: items.map(item => joinChars(item, character => firstMeaning(character.meaning))),
+    },
+    {
+      id: 'element',
+      label: '오행 기운',
+      help: '글자마다 붙는 나무·불·흙·쇠·물 기운이에요.',
+      values: items.map(item =>
+        joinChars(item, character => (character.element ? ELEMENT_KO[character.element.toLowerCase()] : null)),
+      ),
+    },
+    {
+      id: 'strokes',
+      label: '획수',
+      help: '이름 한자의 획수를 더한 값이에요.',
+      values: items.map(strokeSum),
+    },
+    {
+      id: 'score',
+      label: '계산 점수',
+      help: '뜻·소리·획수·사주 어울림을 함께 계산한 값이에요. 항목마다 기준이 달라 서로 더하지는 않았어요.',
+      values: items.map(item => `${item.score.final.toFixed(1)}점`),
+    },
+    {
+      id: 'popularity',
+      label: '인기 순위',
+      help: '출생신고 이름 통계에서의 순위예요. 순위가 없으면 흔치 않은 이름이에요.',
+      values: items.map(item => (item.popularity.rank ? `${item.popularity.rank.toLocaleString()}위` : null)),
+    },
+    {
+      id: 'tendency',
+      label: '이름 쓰임새',
+      values: items.map(item => TENDENCY_KO[item.popularity.tendency] ?? null),
+    },
+  ];
+  // 고른 이름 어디에도 값이 없는 항목은 빈 줄로 남기지 않고 지운다.
+  return rows.filter(row => row.values.some(Boolean));
+}
+
 function CandidateCard({
   item,
-  surname,
+  saved,
+  compared,
+  compareFull,
+  onToggleFavorite,
+  onToggleCompare,
   onOpen,
 }: {
   item: CandidateSearchItemV1;
-  surname: ProfileNameChar[];
+  saved: boolean;
+  compared: boolean;
+  compareFull: boolean;
+  onToggleFavorite: (item: CandidateSearchItemV1) => void;
+  onToggleCompare: (item: CandidateSearchItemV1) => void;
   onOpen: (item: CandidateSearchItemV1) => void;
 }) {
-  const id = favoriteId(item.name.fullHangul, item.name.fullHanja);
-  const [saved, setSaved] = useState(() => isFavorite(id));
   const meanings = item.name.givenCharacters
     .map(character => firstMeaning(character.meaning))
     .filter((value): value is string => Boolean(value));
@@ -49,7 +145,7 @@ function CandidateCard({
     .map(character => (character.element ? ELEMENT_KO[character.element.toLowerCase()] : null))
     .filter(Boolean);
   return (
-    <div className="v3-card v3-candidate-card">
+    <div className={`v3-card v3-candidate-card${compared ? ' v3-candidate-card--compare' : ''}`}>
       <div className="v3-candidate-head">
         <div>
           <strong className="v3-candidate-name">{item.name.fullHangul}</strong>
@@ -64,16 +160,7 @@ function CandidateCard({
             className={`v3-star-button${saved ? ' v3-star-button--on' : ''}`}
             aria-pressed={saved}
             aria-label={saved ? '보관함에서 빼기' : '보관함에 담기'}
-            onClick={() => {
-              const nowSaved = toggleFavorite({
-                id,
-                fullHangul: item.name.fullHangul,
-                fullHanja: item.name.fullHanja,
-                surname,
-                givenName: candidateChars(item),
-              });
-              setSaved(nowSaved);
-            }}
+            onClick={() => onToggleFavorite(item)}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
               <path
@@ -98,7 +185,16 @@ function CandidateCard({
           .filter(Boolean)
           .join(' · ')}
       </p>
-      <div style={{ marginTop: 'auto', paddingTop: '0.7rem' }}>
+      <div className="v3-candidate-actions">
+        <label className="v3-check">
+          <input
+            type="checkbox"
+            checked={compared}
+            disabled={!compared && compareFull}
+            onChange={() => onToggleCompare(item)}
+          />
+          비교에 넣기
+        </label>
         <button
           type="button"
           className="v3-button v3-button--ghost v3-button--wide"
@@ -116,6 +212,12 @@ export default function CandidatesScreen() {
   const profile = useMemo(loadOriginalProfile, []);
   const [givenLength, setGivenLength] = useState<1 | 2>(2);
   const [showAllGenders, setShowAllGenders] = useState(false);
+  const [query, setQuery] = useState('');
+  const [favoritesOnly, setFavoritesOnly] = useState(false);
+  const [favoriteIds, setFavoriteIds] = useState<Set<string>>(
+    () => new Set(listFavorites().map(entry => entry.id)),
+  );
+  const [compareIds, setCompareIds] = useState<string[]>([]);
   const [state, setState] = useState<SearchState>({ status: 'idle' });
 
   useEffect(() => {
@@ -125,6 +227,8 @@ export default function CandidatesScreen() {
     }
     let cancelled = false;
     setState({ status: 'loading' });
+    // 글자 수를 바꾸면 후보 목록이 통째로 갈리므로 비교 선택도 함께 비운다.
+    setCompareIds([]);
     const engine = getEngine();
     engine
       .getCandidateSearch({
@@ -168,6 +272,31 @@ export default function CandidatesScreen() {
     navigate('/reports/integrated');
   }
 
+  function toggleCandidateFavorite(item: CandidateSearchItemV1) {
+    const id = favoriteId(item.name.fullHangul, item.name.fullHanja);
+    const nowSaved = toggleFavorite({
+      id,
+      fullHangul: item.name.fullHangul,
+      fullHanja: item.name.fullHanja,
+      surname: profile!.surname,
+      givenName: candidateChars(item),
+    });
+    setFavoriteIds(prev => {
+      const next = new Set(prev);
+      if (nowSaved) next.add(id);
+      else next.delete(id);
+      return next;
+    });
+  }
+
+  function toggleCompare(item: CandidateSearchItemV1) {
+    setCompareIds(prev => {
+      if (prev.includes(item.candidateId)) return prev.filter(id => id !== item.candidateId);
+      if (prev.length >= MAX_COMPARE) return prev;
+      return [...prev, item.candidateId];
+    });
+  }
+
   const surnameText = profile.surname.map(c => c.hangul).join('');
   const gender = profile.birth.gender;
   const genderNote =
@@ -177,14 +306,25 @@ export default function CandidatesScreen() {
         ? '여자아이에게 주로 쓰이는 이름과 두루 쓰이는 이름을 보여드려요.'
         : null;
 
-  const visibleItems =
-    state.status === 'ready'
-      ? state.response.items.filter(item => {
-          if (showAllGenders || gender === 'neutral') return true;
-          const tendency = item.popularity.tendency;
-          return tendency === gender || tendency === 'unknown';
-        })
-      : [];
+  const allItems = state.status === 'ready' ? state.response.items : [];
+  const normalizedQuery = normalizeQuery(query);
+  const visibleItems = allItems.filter(item => {
+    const tendency = item.popularity.tendency;
+    const genderOk =
+      showAllGenders || gender === 'neutral' || tendency === gender || tendency === 'unknown';
+    if (!genderOk) return false;
+    if (favoritesOnly && !favoriteIds.has(favoriteId(item.name.fullHangul, item.name.fullHanja))) {
+      return false;
+    }
+    return matchesQuery(item, normalizedQuery);
+  });
+  const filtering = normalizedQuery.length > 0 || favoritesOnly;
+
+  // 비교는 명시적으로 고른 것이라, 검색·필터로 목록에서 사라져도 표에는 남긴다.
+  const compareItems = compareIds
+    .map(id => allItems.find(item => item.candidateId === id))
+    .filter((item): item is CandidateSearchItemV1 => Boolean(item));
+  const compareRows = compareItems.length >= 2 ? buildCompareRows(compareItems) : [];
 
   return (
     <main className="v3-page">
@@ -221,6 +361,38 @@ export default function CandidatesScreen() {
         <p className="v3-hint" style={{ margin: '0.5rem 0 0' }}>{genderNote}</p>
       ) : null}
 
+      <div
+        style={{
+          display: 'flex',
+          gap: '0.8rem',
+          flexWrap: 'wrap',
+          alignItems: 'flex-end',
+          marginTop: 'var(--space-2xs)',
+        }}
+      >
+        <div className="v3-field" style={{ flex: '1 1 14rem' }}>
+          <label className="v3-label" htmlFor="v3-candidate-search">
+            이름 찾기
+          </label>
+          <input
+            id="v3-candidate-search"
+            className="v3-input"
+            placeholder="이름이나 초성으로 (예: 서준, ㅅㅈ)"
+            value={query}
+            maxLength={12}
+            onChange={event => setQuery(event.target.value)}
+          />
+        </div>
+        <label className="v3-check" style={{ paddingBottom: '0.7rem' }}>
+          <input
+            type="checkbox"
+            checked={favoritesOnly}
+            onChange={event => setFavoritesOnly(event.target.checked)}
+          />
+          보관함에 담은 이름만
+        </label>
+      </div>
+
       <div style={{ marginTop: 'var(--space-md)' }}>
         {state.status === 'loading' || state.status === 'idle' ? (
           <Loading message="어울리는 이름을 고르고 있어요… 잠시만요." />
@@ -236,22 +408,117 @@ export default function CandidatesScreen() {
           </div>
         ) : (
           <>
-            <p className="v3-hint" style={{ margin: '0 0 0.8rem' }}>
-              {visibleItems.length}개의 이름을 보여드려요.
-              {visibleItems.length < state.response.items.length
-                ? ` 성별 어울림 기준으로 ${state.response.items.length - visibleItems.length}개를 접어 두었어요.`
+            <p className="v3-hint" style={{ margin: '0 0 0.8rem' }} role="status" aria-live="polite">
+              {visibleItems.length > 0
+                ? `${visibleItems.length}개의 이름을 보여드려요.`
+                : '지금 조건에 맞는 이름이 없어요.'}
+              {visibleItems.length < allItems.length
+                ? ` 전체 ${allItems.length}개 중 ${allItems.length - visibleItems.length}개는 접어 두었어요.`
                 : ''}
             </p>
+            {visibleItems.length === 0 && filtering ? (
+              <button
+                type="button"
+                className="v3-button v3-button--ghost"
+                style={{ marginBottom: '0.8rem' }}
+                onClick={() => {
+                  setQuery('');
+                  setFavoritesOnly(false);
+                }}
+              >
+                찾는 조건 지우기
+              </button>
+            ) : null}
             <div className="v3-grid-2">
               {visibleItems.map(item => (
                 <CandidateCard
                   key={item.candidateId}
                   item={item}
-                  surname={profile.surname}
+                  saved={favoriteIds.has(favoriteId(item.name.fullHangul, item.name.fullHanja))}
+                  compared={compareIds.includes(item.candidateId)}
+                  compareFull={compareIds.length >= MAX_COMPARE}
+                  onToggleFavorite={toggleCandidateFavorite}
+                  onToggleCompare={toggleCompare}
                   onOpen={openCandidate}
                 />
               ))}
             </div>
+
+            {compareRows.length > 0 ? (
+              <section
+                className="v3-card"
+                style={{ marginTop: 'var(--space-md)' }}
+                aria-labelledby="v3-candidate-compare-title"
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'baseline',
+                    gap: '0.6rem',
+                    flexWrap: 'wrap',
+                  }}
+                >
+                  <div>
+                    <p className="v3-kicker">비교</p>
+                    <h2 className="v3-section-title" id="v3-candidate-compare-title">
+                      고른 이름 나란히 보기
+                    </h2>
+                  </div>
+                  <button
+                    type="button"
+                    className="v3-button v3-button--ghost"
+                    onClick={() => setCompareIds([])}
+                  >
+                    비교 비우기
+                  </button>
+                </div>
+                <p className="v3-hint" id="v3-candidate-compare-help" style={{ marginTop: '0.4rem' }}>
+                  좋고 나쁨을 합쳐 매기지 않고, 같은 항목을 그대로 나란히 놓았어요. 화면이 좁으면 표를
+                  좌우로 밀어 보실 수 있어요.
+                </p>
+                <div
+                  className="v3-candidate-compare"
+                  role="region"
+                  aria-labelledby="v3-candidate-compare-title"
+                  aria-describedby="v3-candidate-compare-help"
+                  tabIndex={0}
+                >
+                  <table className="v3-table">
+                    <caption className="v3-sr-only">고른 이름의 뜻·기운·점수 비교</caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">비교 항목</th>
+                        {compareItems.map(item => (
+                          <th scope="col" key={item.candidateId}>
+                            {item.name.fullHangul}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {compareRows.map(row => (
+                        <tr key={row.id}>
+                          <th scope="row">
+                            {row.label}
+                            {row.help ? (
+                              <span className="v3-hint v3-candidate-compare-help">{row.help}</span>
+                            ) : null}
+                          </th>
+                          {row.values.map((value, index) => (
+                            <td key={compareItems[index].candidateId}>{value ?? '자료 없음'}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            ) : compareItems.length === 1 ? (
+              <p className="v3-hint" style={{ marginTop: 'var(--space-sm)' }}>
+                이름을 하나 더 고르시면 나란히 비교해 드릴게요. 최대 {MAX_COMPARE}개까지 됩니다.
+              </p>
+            ) : null}
           </>
         )}
       </div>
