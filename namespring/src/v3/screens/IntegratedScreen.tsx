@@ -162,7 +162,7 @@ function MyPlaceCard({ index, profile }: { index: DeliveryIndex; profile: V3Prof
               <strong>일주 동물</strong> ={' '}
               {dayAnimal.color ? `${dayAnimal.label}(${dayAnimal.labelHanja})` : dayAnimal.animal}
               {' '}— 태어난 <em>날</em>({day.stem.hangul}{day.branch.hangul})의 동물로, 사주에서
-              ‘나 자신’을 상징해요. 만세력 맨 위에 뜨는 동물이 보통 이거예요.
+              ‘나 자신’을 상징해요.
             </li>
           </ul>
           <p className="v3-hint" style={{ margin: '0.45rem 0 0' }}>
