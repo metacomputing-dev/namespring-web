@@ -191,7 +191,7 @@ export function OverrideBanner() {
       <span>
         지금은 새 이름 <strong>{viewingName}</strong>
         {original
-          ? `${euro} 보고 있어요. 처음 입력한 ${fullHangulName(original)} 이름은 그대로 있어요.`
+          ? `${euro} 보고 있어요. 처음 입력한 이름(${fullHangulName(original)})은 그대로 있어요.`
           : `${euro} 보고 있어요.`}
       </span>
       <button
@@ -256,7 +256,7 @@ export function ReportActions() {
 export function ReportFootnote() {
   return (
     <p className="v3-hint" style={{ marginTop: 'var(--space-lg)', textAlign: 'center' }}>
-      이 보고서는 전통 명리학과 성명학의 관점을 옮긴 참고 자료예요. 계산은 이 기기
+      이 보고서는 전통 명리학과 성명학의 관점을 담은 참고 자료예요. 계산은 이 기기
       안에서 이루어지고, 성격이나 미래를 확정하지 않아요.
     </p>
   );

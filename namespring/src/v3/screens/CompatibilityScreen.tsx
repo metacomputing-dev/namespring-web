@@ -593,7 +593,7 @@ export default function CompatibilityScreen() {
 
           <Section
             title="요약"
-            lede="사주 궁합, 이름 궁합, 이름이 상대 사주에 주는 기운까지 하나로 모은 결론이에요."
+            lede="사주 궁합, 이름 궁합, 이름이 상대 사주에 주는 기운까지 한자리에 모았어요."
           >
             <SummaryCard
               summary={result.sections.integrated.summary}

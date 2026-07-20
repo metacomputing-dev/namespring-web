@@ -38,7 +38,7 @@ export const GRADE_KO: Record<CompatibilityGradeV1, string> = {
   excellent: '아주 잘 맞아요',
   good: '잘 맞는 편이에요',
   balanced: '무난해요',
-  watch: '완급이 필요해요',
+  watch: '완급 조절이 필요해요',
   challenging: '노력이 필요해요',
 };
 
@@ -602,7 +602,7 @@ export function CompatPremiumSection() {
       <div className="v3-card v3-card--hero">
         <p style={{ margin: 0 }}>
           지금 보신 궁합이 두 분의 방향을 잡아 주었다면, 완성 리포트는 그 결론이
-          왜 두 분의 사주와 이름에 닿는지 차분히 이어 줍니다. 관계의 시기별 흐름,
+          왜 두 분의 사주와 이름에 닿는지 차분히 짚어 줍니다. 관계의 시기별 흐름,
           함께 조심할 시기와 살릴 시기, 다시 읽을 수 있는 PDF까지 한 번에
           정리됩니다.
         </p>
@@ -610,7 +610,7 @@ export function CompatPremiumSection() {
           두 사람의 해석 완성하기
         </Link>
         <p className="v3-hint" style={{ margin: '0.55rem 0 0' }}>
-          결제 전에 계정을 확인해요. 계정이 준비되기 전에는 이메일 영수증만으로도
+          결제 전에 계정을 확인해요. 계정이 준비되기 전에는 이메일로 받는 영수증만으로도
           진행할 수 있어요.
         </p>
       </div>

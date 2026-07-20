@@ -83,7 +83,7 @@ export default function AccountScreen() {
         {premiumIntent ? (
           <p className="v3-page-lede">
             완성 리포트를 나중에 다시 열어 보려면 계정이 있으면 좋아요. 준비되기 전에는
-            이메일 영수증만으로도 진행할 수 있어요.
+            이메일로 받는 영수증만으로도 진행할 수 있어요.
           </p>
         ) : (
           <p className="v3-page-lede">
@@ -95,9 +95,9 @@ export default function AccountScreen() {
 
       {premiumIntent ? (
         <div className="v3-override-banner" role="status">
-          <span>완성 리포트 결제를 이어가려는 중이에요.</span>
+          <span>완성 리포트 결제를 이어가는 중이에요.</span>
           <Link to="/support" className="v3-button v3-button--ghost">
-            이메일 영수증으로 계속하기
+            이메일로 영수증 받고 계속하기
           </Link>
         </div>
       ) : null}
@@ -187,7 +187,7 @@ export default function AccountScreen() {
           <ul className="v3-plain-list">
             <li>사주와 이름 계산은 전부 이 기기 안에서 끝나요. 무료 분석은 서버로 보내지 않아요.</li>
             <li>완성 리포트를 결제하면 그 내용만 서버에서 안전하게 만들어 드려요.</li>
-            <li>공유하기에는 이름·생년월일이 어떤 형태로도 실리지 않아요.</li>
+            <li>공유할 때는 이름·생년월일이 어떤 형태로도 실리지 않아요.</li>
           </ul>
         </div>
       </Section>

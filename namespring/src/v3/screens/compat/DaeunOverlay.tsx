@@ -192,7 +192,7 @@ export function buildDaeunWindows(
 }
 
 const WINDOW_CLASS_KO: Record<DaeunWindowClassV1, string> = {
-  both_high: '둘 다 승승장구',
+  both_high: '둘 다 승승장구하는 시기',
   both_low: '함께 웅크리는 시기',
   complementary: '한쪽이 받쳐 주는 시기',
   steady: '무난히 함께 걷는 시기',

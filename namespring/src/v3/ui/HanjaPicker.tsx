@@ -102,7 +102,7 @@ export function HanjaPickerModal({
             <p className="v3-hint">한자 사전을 여는 중…</p>
           ) : visible.length === 0 ? (
             <p className="v3-hint">
-              {query ? '해당 뜻의 한자가 없어요.' : '고를 수 있는 한자가 없어요.'}
+              {query ? '그런 뜻의 한자가 없어요.' : '고를 수 있는 한자가 없어요.'}
             </p>
           ) : (
             visible.map(entry => (

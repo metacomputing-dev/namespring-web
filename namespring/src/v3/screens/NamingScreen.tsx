@@ -670,7 +670,7 @@ export default function NamingScreen() {
       <div className="v3-page-head">
         <p className="v3-kicker">이름 보고서</p>
         <h1 className="v3-page-title">{fullHangulName(profile)}, 이름의 뜻과 울림</h1>
-        <p className="v3-page-lede">글자의 뜻에서 시작해 소리, 획수, 사용 통계까지 서로 다른 눈으로 살펴봅니다.</p>
+        <p className="v3-page-lede">글자의 뜻에서 시작해 소리, 획수, 사용 통계까지 서로 다른 눈으로 살펴봐요.</p>
       </div>
 
       <TermToggle />

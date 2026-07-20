@@ -382,7 +382,7 @@ export default function ProfileSetupForm({
               checked={alsoKeep}
               onChange={event => setAlsoKeep(event.target.checked)}
             />
-            이 이름을 보관함(담아 둔 이름)에도 담아 두기
+            이 이름을 보관함에도 담아 두기
           </label>
           <button type="button" className="v3-button v3-button--wide" disabled={!canSubmit} onClick={submit}>
             {givenChars.length > 0

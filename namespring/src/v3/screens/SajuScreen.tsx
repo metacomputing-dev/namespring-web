@@ -600,7 +600,7 @@ export default function SajuScreen() {
     return (
       <main className="v3-page">
         <div className="v3-card">
-          <p style={{ margin: 0 }}>사주 보고서를 준비하지 못했어요. 태어난 정보를 다시 확인해 주시겠어요?</p>
+          <p style={{ margin: 0 }}>사주 보고서를 준비하지 못했어요. 입력하신 정보를 다시 확인해 주시겠어요?</p>
           <Link to="/" className="v3-button" style={{ marginTop: '0.8rem' }}>입력 화면으로</Link>
         </div>
       </main>
@@ -614,7 +614,7 @@ export default function SajuScreen() {
       <div className="v3-page-head">
         <p className="v3-kicker">사주 보고서</p>
         <h1 className="v3-page-title">{fullHangulName(profile)}님이 타고난 기운</h1>
-        <p className="v3-page-lede">태어난 순간의 네 기둥에서 시작해, 지금의 흐름까지 이어서 봅니다.</p>
+        <p className="v3-page-lede">태어난 순간의 네 기둥에서 시작해, 지금의 흐름까지 이어서 봐요.</p>
       </div>
 
       <TermToggle />
@@ -634,7 +634,7 @@ export default function SajuScreen() {
 
       <Section
         title="원국에서 눈에 띄는 신호"
-        lede="특히 눈에 띄는 배치를 골라 먼저 풀어드려요. 계산으로 실제 감지된 것만 담았고, 좋고 나쁨을 정하는 목록이 아니에요."
+        lede="특히 눈에 띄는 배치를 골라 먼저 풀어드려요. 계산으로 실제로 감지된 것만 담았고, 좋고 나쁨을 정하는 목록이 아니에요."
       >
         <NatalSignals index={index} />
         <div style={{ marginTop: 'var(--space-sm)' }}>

@@ -17,7 +17,7 @@ export default function HomeScreen() {
         <p className="v3-kicker">NameSpring</p>
         <h1 className="v3-page-title">이름과 사주를 함께 읽는 시간</h1>
         <p className="v3-page-lede">
-          태어난 순간의 기운과 이름에 담긴 뜻·소리를 나란히 살펴봅니다. 모든 계산은 이
+          태어난 순간의 기운과 이름에 담긴 뜻·소리를 나란히 살펴봐요. 모든 계산은 이
           기기 안에서 끝나요.
         </p>
       </div>

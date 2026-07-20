@@ -15,7 +15,7 @@ type InsightItem = Extract<ReportFactV1, { kind: 'insight_facts' }>['items'][num
 
 const GROUP_META: Record<InsightItem['group'], { id: string; title: string; sub: string }> = {
   boon: { id: 'help', title: '도움의 신호', sub: '귀인과 합 — 힘이 되어 주는 배치' },
-  tension: { id: 'pace', title: '완급의 신호', sub: '살·충·형 — 속도를 챙기면 무기가 되는 배치' },
+  tension: { id: 'pace', title: '완급의 신호', sub: '살·충·형 — 속도를 조절하면 무기가 되는 배치' },
   space: { id: 'blank', title: '여백의 신호', sub: '공망·지장간 — 비움과 잠재의 배치' },
 };
 const GROUP_ORDER: InsightItem['group'][] = ['boon', 'tension', 'space'];

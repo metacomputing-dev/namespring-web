@@ -44,7 +44,7 @@ export function CompatNatalSignalsSection({
   return (
     <Section
       title="각자의 원국에서 눈에 띄는 신호"
-      lede="두 분 각자의 사주에서 계산으로 잡힌 신호예요. 궁합 점수에는 넣지 않고, 각 사람을 이해하는 참고로 접어 두었어요 — 펼치면 신호별 풀이를 볼 수 있어요."
+      lede="두 분 각자의 사주에서 계산으로 잡힌 신호예요. 궁합 점수에는 넣지 않고, 각자를 이해하는 참고로 접어 두었어요 — 펼치면 신호별 풀이를 볼 수 있어요."
     >
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-sm)' }}>
         <PersonNatalSignals slot={slotA} title={`${fullHangulName(slotA.profile)}님의 원국 신호`} />

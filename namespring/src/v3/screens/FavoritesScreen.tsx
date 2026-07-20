@@ -234,7 +234,7 @@ export default function FavoritesScreen() {
 
       <Section
         title="담아 둔 궁합"
-        lede="다시 열어 보고 싶은 두 사람의 짝이에요. 열면 최신 계산으로 다시 읽어드려요."
+        lede="다시 열어 보고 싶은 두 사람의 궁합이에요. 열면 그때그때 새로 계산해 다시 읽어드려요."
       >
         {savedCompats.length === 0 ? (
           <div className="v3-card">

@@ -31,7 +31,7 @@ const SURFACES: ReportSurfaceSelectionV1[] = [
 
 const INTERACTION_KO: Record<string, string> = {
   supportive_signal: '이름이 사주가 반기는 기운을 담고 있어요.',
-  mixed_signals: '이름에 사주를 살리는 기운과 함께 살필 기운이 같이 있어요.',
+  mixed_signals: '이름에 사주를 살리는 기운과 살펴야 할 기운이 함께 있어요.',
   no_direct_match: '이름과 사주가 직접 겹치는 기운은 없어요 — 전체 구성으로 어울림을 봐요.',
   caution_signal: '이름에 사주가 조심스러워하는 기운이 있어, 함께 읽어볼 지점이에요.',
 };
@@ -477,7 +477,7 @@ export default function IntegratedScreen() {
           <p className="v3-kicker">통합 보고서</p>
           <h1 className="v3-page-title">이름과 사주, 함께 읽기</h1>
           <p className="v3-page-lede">
-            태어난 순간의 기운과 이름에 담긴 뜻·소리를 나란히 살펴봅니다. 모든
+            태어난 순간의 기운과 이름에 담긴 뜻·소리를 나란히 살펴봐요. 모든
             계산은 이 기기 안에서 끝나요.
           </p>
         </div>
@@ -608,7 +608,7 @@ export default function IntegratedScreen() {
 
       <Section
         title="요약"
-        lede="이름의 점수와 사주의 결론, 이름↔사주 어울림까지 하나로 모은 결론이에요."
+        lede="이름의 점수와 사주의 결론, 이름↔사주 어울림까지 한자리에 모았어요."
       >
         <OverallComputationCard index={index} />
       </Section>
@@ -644,14 +644,14 @@ export default function IntegratedScreen() {
         <div className="v3-card v3-card--hero">
           <p style={{ margin: 0 }}>
             지금 보신 결과가 방향을 잡아 주었다면, 완성 리포트는 그 방향이 왜 당신의
-            이름과 사주에 닿는지 차분히 이어 줍니다. 이름 조합의 이유, 앞으로의 관계와
+            이름과 사주에 닿는지 차분히 짚어 줍니다. 이름 조합의 이유, 앞으로의 관계와
             재물 흐름, 다시 읽을 수 있는 PDF까지 한 번에 정리됩니다.
           </p>
           <Link to="/account?intent=premium" className="v3-button" style={{ marginTop: '0.9rem' }}>
             내 해석 완성하기
           </Link>
           <p className="v3-hint" style={{ margin: '0.55rem 0 0' }}>
-            결제 전에 계정을 확인해요. 계정이 준비되기 전에는 이메일 영수증만으로도
+            결제 전에 계정을 확인해요. 계정이 준비되기 전에는 이메일로 받는 영수증만으로도
             진행할 수 있어요.
           </p>
         </div>
