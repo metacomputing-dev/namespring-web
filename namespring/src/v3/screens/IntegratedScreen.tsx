@@ -504,7 +504,7 @@ export default function IntegratedScreen() {
                 aria-expanded={pickingFromStorage}
                 onClick={() => setPickingFromStorage(open => !open)}
               >
-                보관함에서 불러오기
+                담아 둔 이름 불러오기
               </button>
             ) : null}
           </div>

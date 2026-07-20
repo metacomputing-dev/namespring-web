@@ -294,7 +294,7 @@ function SlotPicker({
           aria-expanded={mode === 'people'}
           onClick={() => setMode(mode === 'people' ? 'closed' : 'people')}
         >
-          보관함에서 고르기
+          담아 둔 이름에서 고르기
         </button>
         <button
           type="button"
@@ -309,7 +309,7 @@ function SlotPicker({
       {mode === 'people' ? (
         people.length === 0 ? (
           <p className="v3-hint" style={{ marginTop: '0.7rem' }}>
-            보관함에 저장된 사람이 아직 없어요. 직접 입력하면서 저장해 두면 다음에 바로 불러올 수 있어요.
+            담아 둔 이름이 아직 없어요. 직접 입력하면서 담아 두면 다음에 바로 불러올 수 있어요.
           </p>
         ) : (
           <div style={{ marginTop: '0.7rem', display: 'grid', gap: '0.45rem' }}>
@@ -355,7 +355,7 @@ function SlotPicker({
               checked={saveToPeople}
               onChange={event => setSaveToPeople(event.target.checked)}
             />
-            이 기기의 보관함에 저장해 두기
+            이 이름을 이 기기에 담아 두기
           </label>
         </div>
       ) : null}
@@ -501,7 +501,7 @@ export default function CompatibilityScreen() {
               <SlotPicker
                 slotKey="b"
                 title="두 번째 사람"
-                hint="궁합을 보고 싶은 상대예요. 보관함에서 고르거나 직접 입력해 주세요."
+                hint="궁합을 보고 싶은 상대예요. 담아 둔 이름에서 고르거나 직접 입력해 주세요."
                 onChosen={setSlotB}
               />
             )}

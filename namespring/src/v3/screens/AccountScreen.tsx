@@ -141,9 +141,9 @@ export default function AccountScreen() {
               분석 입력 —{' '}
               {profile ? `${fullHangulName(profile)}님의 이름과 출생 정보` : '저장된 입력이 없어요'}
             </li>
-            <li>보관함 — 담아 둔 이름 {favoritesCount}개 · 보관한 사람 {peopleCount}명</li>
+            <li>담아 둔 이름 — {favoritesCount + peopleCount}개</li>
             <li>
-              보관한 궁합 — {savedCompats.length}건
+              담아 둔 궁합 — {savedCompats.length}건
               {savedCompats.length > 0
                 ? ` (${savedCompats
                     .slice(0, 3)
@@ -155,7 +155,7 @@ export default function AccountScreen() {
           {savedCompats.length > 0 ? (
             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.7rem' }}>
               <Link to="/favorites" className="v3-button v3-button--ghost">
-                보관함에서 궁합 다시 보기
+                담아 둔 궁합 다시 보기
               </Link>
             </div>
           ) : null}

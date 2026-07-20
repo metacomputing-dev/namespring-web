@@ -628,8 +628,8 @@ export function SaveCompatStar({
       type="button"
       className={`v3-star-button${saved ? ' v3-star-button--on' : ''}`}
       aria-pressed={saved}
-      aria-label={saved ? '보관함에서 빼기' : '이 궁합 보관하기'}
-      title={saved ? '보관함에 저장되어 있어요' : '이 궁합 보관하기'}
+      aria-label={saved ? '담아 둔 궁합에서 빼기' : '이 궁합 담아두기'}
+      title={saved ? '담아 두었어요' : '이 궁합 담아두기'}
       onClick={toggle}
     >
       <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
