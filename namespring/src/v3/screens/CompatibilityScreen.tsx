@@ -264,7 +264,6 @@ function SlotPicker({
 }) {
   const [mode, setMode] = useState<SlotMode>('closed');
   const [saveToPeople, setSaveToPeople] = useState(true);
-  const [label, setLabel] = useState('');
   const people = useMemo(listPeople, [mode]);
   const myProfile = useMemo(loadOriginalProfile, []);
   // 작명 후보 이름은 생일이 없어, 처음 입력한 출생 정보가 있을 때만 상대로 쓸 수 있다.
@@ -365,21 +364,11 @@ function SlotPicker({
 
       {mode === 'form' ? (
         <div style={{ marginTop: '0.8rem' }}>
-          <div className="v3-field" style={{ marginBottom: '0.7rem' }}>
-            <label className="v3-label">호칭 (선택)</label>
-            <input
-              className="v3-input"
-              placeholder="예: 남편, 첫째, 어머니"
-              value={label}
-              onChange={event => setLabel(event.target.value)}
-              maxLength={12}
-            />
-          </div>
           <PersonForm
             submitLabel="이 사람으로 정하기"
             onSubmit={profile => {
-              if (saveToPeople) savePerson(profile, label || undefined);
-              choose(profile, label || undefined);
+              if (saveToPeople) savePerson(profile);
+              choose(profile);
             }}
           />
           <label className="v3-check" style={{ marginTop: '0.6rem' }}>
