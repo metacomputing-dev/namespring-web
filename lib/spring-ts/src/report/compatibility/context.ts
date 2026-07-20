@@ -212,6 +212,10 @@ export function buildContextNotes(
   yearBranchRelations: readonly BranchPairRelationV1[] | null,
   zodiacA: ColoredAnimalV1 | null = null,
   zodiacB: ColoredAnimalV1 | null = null,
+  // 사주(일간의 만남)·이름(소리·어울림)의 한 줄 서사 — 축 헤드라인을 그대로 끌어와,
+  // '자리' 카드가 띠 이야기에만 치우치지 않고 사주·이름까지 고르게 담게 한다.
+  sajuMeetLine: string | null = null,
+  nameMeetLine: string | null = null,
 ): string[] {
   const notes: string[] = [];
   const gap = fact.ageGapYears;
@@ -259,6 +263,10 @@ export function buildContextNotes(
       '요청해 주신 관계는 연인이었지만, 아직 어린 분이 함께 있어 이 리포트는 관계의 프레임을 우정과 성장의 언어로 바꿔 읽었어요.',
     );
   }
+
+  /* --- 사주·이름의 자리: 띠 이야기에 앞서 두 축의 만남을 한 줄씩 짚는다 --- */
+  if (sajuMeetLine) notes.push(`사주로 보면 — ${sajuMeetLine}`);
+  if (nameMeetLine) notes.push(`이름으로 보면 — ${nameMeetLine}`);
 
   /* --- 나이의 결: 동갑·속설·띠동갑·세대 차 --- */
   if (fact.sameAge === true) {

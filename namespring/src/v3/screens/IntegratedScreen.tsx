@@ -102,7 +102,7 @@ const SEASON_KO: Record<string, string> = {
 
 /**
  * 궁합 화면의 '두 사람의 자리' 카드에 대응하는 한 사람 판.
- * 띠·절기 계절·일간·시각 유무라는 결정론적 사실만 자리말로 엮는다.
+ * 계절·일간·띠 같은 자리말에 사주(강약·용신)와 이름(뜻·사주 어울림)을 고르게 엮는다.
  */
 function MyPlaceCard({ index, profile }: { index: DeliveryIndex; profile: V3Profile }) {
   const pillars = factOfKind(index, 'pillars');
@@ -113,6 +113,15 @@ function MyPlaceCard({ index, profile }: { index: DeliveryIndex; profile: V3Prof
   const month = at('month');
   const day = at('day');
   if (!day) return null;
+  const strength = factOfKind(index, 'strength');
+  const yongshin = factOfKind(index, 'yongshin');
+  const interaction = factOfKind(index, 'name_saju_interaction');
+  // 이름자(성 제외)의 뜻만 — '성씨 김' 같은 성씨 풀이는 군더더기라 뺀다.
+  const meanings = factsOfKind(index, 'name_character')
+    .filter(fact => fact.position === 'givenName')
+    .map(fact => fact.meaning?.split(',')[0].trim())
+    .filter((meaning): meaning is string => !!meaning);
+  const hanjaName = fullHanjaName(profile);
   // 띠(생년)와 일주 동물(생일·나 자신)을 같은 파생 함수로 뽑는다 — 궁합과 표기 일치.
   const zodiac = year ? deriveColoredAnimalFromCodes(year.stem.code, year.branch.code) : null;
   const dayAnimal = deriveColoredAnimalFromCodes(day.stem.code, day.branch.code);
@@ -147,6 +156,30 @@ function MyPlaceCard({ index, profile }: { index: DeliveryIndex; profile: V3Prof
         <span className="v3-badge">{hourKnown ? '여덟 글자로 읽음' : '태어난 시각 모름'}</span>
       </div>
       <p style={{ margin: '0.55rem 0 0' }}>{opening}</p>
+      {strength || yongshin?.element ? (
+        <p style={{ margin: '0.55rem 0 0' }}>
+          {strength ? <>타고난 기운은 <strong>{strength.level}</strong> 쪽이에요. </> : null}
+          {yongshin?.element ? (
+            <>사주가 반기는 기운은 <ElementBadge element={yongshin.element} suffix="기운" />이에요.</>
+          ) : null}
+        </p>
+      ) : null}
+      {meanings.length > 0 ? (
+        <p style={{ margin: '0.55rem 0 0' }}>
+          이름 <strong>{fullHangulName(profile)}{hanjaName ? `(${hanjaName})` : ''}</strong>에는
+          {' '}‘{meanings.join(' · ')}’의 뜻이 담겼어요.
+          {interaction
+          && interaction.classification !== 'unavailable'
+          && interaction.yongshinMatchCount > 0
+          && interaction.yongshinElement ? (
+            <>
+              {' '}이름 글자 가운데 {interaction.yongshinMatchCount}자가 사주가 반기는{' '}
+              <ElementBadge element={interaction.yongshinElement} suffix="기운" />과 같아, 이름이
+              사주를 북돋아요.
+            </>
+          ) : null}
+        </p>
+      ) : null}
       <p style={{ margin: '0.55rem 0 0' }}>{hourNote}</p>
       {dayAnimal ? (
         <div className="v3-callout" style={{ marginTop: '0.7rem' }}>

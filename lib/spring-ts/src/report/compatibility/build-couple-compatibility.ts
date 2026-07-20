@@ -1945,7 +1945,14 @@ export function buildCoupleCompatibilityV1(
   const overallReasons = collectReasons(null);
 
   // 맥락 읽기: 년지 쌍의 관계(삼합·충 등)를 나이 속설과 대조해 문장을 만든다.
-  // 두 사람의 띠(년주 색동물)를 함께 넘겨 속설 서사에 실제 띠 이름을 엮는다.
+  // 두 사람의 띠(년주 색동물)를 함께 넘겨 속설 서사에 실제 띠 이름을 엮고,
+  // 일간 만남·이름 소리의 축 헤드라인을 끌어와 자리 카드에 사주·이름 서사도 담는다.
+  const axisHeadline = (id: CompatibilityAxisIdV1): string | null => {
+    const axis = axes.find(each => each.id === id);
+    return axis && axis.availability.status !== 'unavailable' && axis.headline
+      ? axis.headline
+      : null;
+  };
   const contextNotes = buildContextNotes(
     contextFact,
     a.displayName,
@@ -1953,6 +1960,8 @@ export function buildCoupleCompatibilityV1(
     yearBranchPair?.relations ?? null,
     deriveColoredAnimal(a.pillars.year?.stem?.element ?? null, a.pillars.year?.branch?.code ?? null),
     deriveColoredAnimal(b.pillars.year?.stem?.element ?? null, b.pillars.year?.branch?.code ?? null),
+    axisHeadline('saju_day_stem'),
+    axisHeadline('name_flow'),
   );
 
   return {
