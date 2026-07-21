@@ -1,8 +1,13 @@
-import type { EngineConfig, SajuRequest } from '../api/types.js';
+import type {
+  EngineConfig,
+  LongitudeCorrectionPolicy,
+  SajuRequest,
+} from '../api/types.js';
 import type { LocalDateTime } from './iso.js';
 import { addDays } from './pillars.js';
 import { equationOfTimeMinutesPrecise } from './solar.js';
 import { utcMsToJulianDay } from './julian.js';
+import { utcMsFromParts } from './utc.js';
 
 const MS_PER_DAY = 86_400_000;
 
@@ -29,6 +34,7 @@ export interface TrueSolarTimeCorrection {
 
   longitudeDeg?: number;
   standardMeridianDeg?: number;
+  longitudeCorrectionPolicy?: LongitudeCorrectionPolicy['mode'];
 
   longitudeCorrectionMinutes?: number;
   equationOfTimeMinutes?: number;
@@ -45,8 +51,8 @@ export function equationOfTimeMinutesApprox(utcMs: number): number {
   const d = new Date(utcMs);
   const year = d.getUTCFullYear();
 
-  const dayStartUtc = Date.UTC(year, d.getUTCMonth(), d.getUTCDate());
-  const yearStartUtc = Date.UTC(year, 0, 1);
+  const dayStartUtc = utcMsFromParts(year, d.getUTCMonth(), d.getUTCDate());
+  const yearStartUtc = utcMsFromParts(year, 0, 1);
   const doy = Math.floor((dayStartUtc - yearStartUtc) / MS_PER_DAY) + 1;
 
   const hour =
@@ -68,17 +74,37 @@ export function equationOfTimeMinutesApprox(utcMs: number): number {
   return eot;
 }
 
+/** Shortest signed angular distance from a reference meridian, in [-180, 180). */
+export function shortestSignedLongitudeDeltaDeg(
+  longitudeDeg: number,
+  referenceMeridianDeg: number,
+): number {
+  if (!Number.isFinite(longitudeDeg) || !Number.isFinite(referenceMeridianDeg)) {
+    throw new TypeError('Longitude and reference meridian must be finite numbers.');
+  }
+
+  const wrapped = ((longitudeDeg - referenceMeridianDeg + 180) % 360 + 360) % 360 - 180;
+  return Object.is(wrapped, -0) ? 0 : wrapped;
+}
+
+/** Longitude correction against an explicit reference meridian. */
+export function longitudeCorrectionMinutesFromMeridian(
+  longitudeDeg: number,
+  referenceMeridianDeg: number,
+): number {
+  return 4 * shortestSignedLongitudeDeltaDeg(longitudeDeg, referenceMeridianDeg);
+}
+
 /**
- * Longitude correction (minutes) converting local standard time (given by utcOffset)
- * to local mean solar time.
+ * Backward-compatible helper using the civil UTC-offset meridian.
  *
  * LST = UTC + offsetHours
  * LMST = UTC + lon/15
- * LMST - LST = lon/15 - offsetHours = 4*(lon - 15*offsetHours) minutes
+ * LMST - LST = 4 * shortestDelta(lon, 15 * offsetHours) minutes
  */
 export function longitudeCorrectionMinutes(offsetMinutes: number, longitudeDeg: number): number {
   const standardMeridianDeg = (offsetMinutes / 60) * 15;
-  return 4 * (longitudeDeg - standardMeridianDeg);
+  return longitudeCorrectionMinutesFromMeridian(longitudeDeg, standardMeridianDeg);
 }
 
 export function computeTrueSolarTimeCorrection(args: {
@@ -109,20 +135,36 @@ export function computeTrueSolarTimeCorrection(args: {
     };
   }
 
+  const longitudePolicy = policy.longitudeCorrectionPolicy
+    ?? { mode: 'civilOffsetMeridian' as const };
   const lon = location?.lon;
-  if (typeof lon !== 'number' || !Number.isFinite(lon)) {
+  const requiresLongitude = longitudePolicy.mode !== 'off';
+  if (requiresLongitude && (typeof lon !== 'number' || !Number.isFinite(lon))) {
     return {
       enabled: true,
       applied: false,
       method: 'none',
+      longitudeCorrectionPolicy: longitudePolicy.mode,
       totalCorrectionMinutes: 0,
       reason: 'location.lon missing',
       formula: 'Δ = 0 (no longitude)',
     };
   }
 
-  const stdMer = (offsetMinutes / 60) * 15;
-  const lonCorr = longitudeCorrectionMinutes(offsetMinutes, lon);
+  let stdMer: number | undefined;
+  let lonCorr = 0;
+  if (longitudePolicy.mode === 'civilOffsetMeridian') {
+    stdMer = (offsetMinutes / 60) * 15;
+    lonCorr = longitudeCorrectionMinutesFromMeridian(lon as number, stdMer);
+  } else if (longitudePolicy.mode === 'fixedMeridian') {
+    if (!Number.isFinite(longitudePolicy.meridianDeg)) {
+      throw new TypeError('fixedMeridian.meridianDeg must be a finite number.');
+    }
+    stdMer = longitudePolicy.meridianDeg;
+    lonCorr = longitudeCorrectionMinutesFromMeridian(lon as number, stdMer);
+  } else if (longitudePolicy.mode !== 'off') {
+    throw new TypeError(`Unsupported longitude correction policy: ${String((longitudePolicy as any).mode)}`);
+  }
 
   let eot: number;
   let method: TrueSolarTimeCorrection['method'];
@@ -147,13 +189,15 @@ export function computeTrueSolarTimeCorrection(args: {
     enabled: true,
     applied: true,
     method,
-    longitudeDeg: lon,
+    longitudeCorrectionPolicy: longitudePolicy.mode,
+    ...(typeof lon === 'number' && Number.isFinite(lon) ? { longitudeDeg: lon } : {}),
     standardMeridianDeg: stdMer,
     longitudeCorrectionMinutes: lonCorr,
     equationOfTimeMinutes: eot,
     totalCorrectionMinutes: total,
-    formula:
-      'T_solar = T_civil + 4*(lon-stdMeridian) + EoT',
+    formula: longitudePolicy.mode === 'off'
+      ? 'T_solar = T_civil + EoT (longitude correction off)'
+      : 'T_solar = T_civil + 4*shortestDelta(lon,stdMeridian) + EoT',
   };
 }
 

@@ -53,7 +53,8 @@ console.log('PR-G1 quality_gate smoke test\n');
 
 // ── (1) baseline run, exit 0 ────────────────────────────────────────────
 const baseline = runGate([]);
-check('baseline run exit code is 0 (PASS or N/A)', baseline.status === 0, `status=${baseline.status}`);
+check('baseline run exits with a documented gate status', [0, 1].includes(baseline.status),
+  `status=${baseline.status}`);
 check('baseline run prints "Quality Gate Report"', baseline.stdout.includes('Quality Gate Report'));
 
 // ── (2) JSON output well-formed ──────────────────────────────────────────
@@ -69,8 +70,9 @@ try {
 check('--json output parses as valid JSON', jsonParseOk);
 check('JSON has overall field', jsonReport && typeof jsonReport.overall === 'string',
   jsonReport ? `overall=${jsonReport.overall}` : 'no jsonReport');
-check('JSON has passing sourceTierAudit', jsonReport &&
-  jsonReport.sourceTierAudit?.status === 'PASS',
+check('JSON has explicit sourceTierAudit status and violations', jsonReport &&
+  ['PASS', 'FAIL'].includes(jsonReport.sourceTierAudit?.status) &&
+  Array.isArray(jsonReport.sourceTierAudit?.violations),
   jsonReport ? `sourceTierAudit=${jsonReport.sourceTierAudit?.status}` : 'no jsonReport');
 check('JSON has dimensions D1-D5', jsonReport &&
   ['D1', 'D2', 'D3', 'D4', 'D5'].every((d) => d in jsonReport.dimensions));
@@ -84,14 +86,20 @@ check(`JSON fixtures count matches snapshot (${snapshotFixtureCount})`,
   `got ${jsonReport?.fixtures?.length}`);
 
 // ── (3) D5 detects existing edge fixtures ───────────────────────────────
-const d5Pass = jsonReport?.fixtures?.filter(
-  (f: any) => f.dimensions?.D5?.status === 'PASS'
+const d5Stable = jsonReport?.fixtures?.filter(
+  (f: any) => f.dimensions?.D5?.stabilityStatus === 'PASS'
 ) ?? [];
-const d5PassIds = d5Pass.map((f: any) => f.fixtureId).sort();
-check('D5 detects at least 3 edge fixtures from existing axis tags',
-  d5Pass.length >= 3, `detected: ${d5PassIds.join(', ')}`);
-check('D5 includes fix-03 (jaza-edge)', d5PassIds.includes('fix-03'));
-check('D5 includes fix-04 (jonggwang-candidate)', d5PassIds.includes('fix-04'));
+const d5StableIds = d5Stable.map((f: any) => f.fixtureId).sort();
+check('D5 detects at least 3 structurally stable edge fixtures',
+  d5Stable.length >= 3, `detected: ${d5StableIds.join(', ')}`);
+check('D5 includes fix-03 (jaza-edge)', d5StableIds.includes('fix-03'));
+check('D5 includes fix-04 (strength-direction)', d5StableIds.includes('fix-04'));
+check('D5 does not claim calculation accuracy without eligible truth',
+  jsonReport?.dimensions?.D5?.pass === 0 &&
+    jsonReport?.dimensions?.D5?.fail === 0 &&
+    jsonReport?.dimensions?.D5?.na === 14 &&
+    jsonReport?.dimensions?.D5?.notApplicable === 3,
+  JSON.stringify(jsonReport?.dimensions?.D5));
 
 const violationPath = path.join(AUTHORITY_DIR, '__source_tier_violation_test__.json');
 try {

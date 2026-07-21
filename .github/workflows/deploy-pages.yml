@@ -41,11 +41,7 @@ jobs:
 
       - name: Install lib/saju-ts dependencies
         working-directory: lib/saju-ts
-        run: npm install
-
-      - name: Build lib/saju-ts
-        working-directory: lib/saju-ts
-        run: npm run build
+        run: npm ci
 
       - name: Install lib/seed-ts dependencies
         working-directory: lib/seed-ts
@@ -59,9 +55,19 @@ jobs:
         working-directory: namespring
         run: npm ci
 
-      - name: Copy saju-ts dist into namespring/public
-        working-directory: namespring
-        run: npm run copy:saju
+      - name: Verify database and WASM source assets
+        working-directory: lib/seed-ts
+        run: |
+          npm run check:database-asset-manifest
+          npm run test:sql-js-wasm-asset
+
+      - name: Verify compact NameStat source asset
+        working-directory: lib/spring-ts
+        run: npm run check:name-stat-summary
+
+      - name: Pack generated report assets
+        working-directory: lib/spring-ts
+        run: npx --no-install tsx tools/generation/pack-generated.ts
 
       - name: Build namespring (project pages base path)
         working-directory: namespring
@@ -70,7 +76,12 @@ jobs:
           VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL }}
           VITE_PAYMENT_APP_ORIGIN: ${{ vars.VITE_PAYMENT_APP_ORIGIN }}
           VITE_CANONICAL_ORIGIN: ${{ vars.VITE_CANONICAL_ORIGIN }}
-        run: npm run build
+        run: npm run build:pages
+
+      - name: Prepare and verify Pages artifact
+        run: |
+          cp namespring/dist/index.html namespring/dist/404.html
+          node .github/scripts/verify-pages-artifact.mjs --base "/${{ github.event.repository.name }}/"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

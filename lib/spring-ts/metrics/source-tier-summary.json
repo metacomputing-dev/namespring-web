@@ -1,32 +1,17 @@
 {
-  "schemaVersion": "spring-ts.source-tier-summary.v1",
+  "schemaVersion": "spring-ts.source-tier-summary.v2",
   "status": "PASS",
-  "scanned": 99,
+  "scanned": 122,
   "violationCount": 0,
-  "authorityTruthEligibleCount": 56,
-  "nonEligibleCount": 33,
+  "eligibilityDefinition": "source record is eligible for at least one policy-declared authority scope; this is not complete D1 fixture truth",
+  "declaredScopeEligibleSourceRecordCount": 26,
+  "declaredScopeIneligibleSourceRecordCount": 96,
   "byTier": {
-    "T1_HYPOTHESIS": {
-      "recordCount": 8,
-      "authorityTruthEligible": 0,
-      "nonEligible": 8,
-      "files": [
-        "test/baseline/authority/_authority_intake_template/EXAMPLE_demonstration_only.json",
-        "test/baseline/authority/training_derived/td_01_jeonggwan_sinkang.json",
-        "test/baseline/authority/training_derived/td_02_jongjae_buwi.json",
-        "test/baseline/authority/training_derived/td_03_siksinsangaeng.json",
-        "test/baseline/authority/training_derived/td_04_insungtuchu_haksja.json",
-        "test/baseline/authority/training_derived/td_05_chunggeuk_hyungmyeong.json",
-        "test/baseline/authority/training_derived/td_06_johu_hanmyeong.json",
-        "test/fixtures/jonggyeok_cases.json"
-      ]
-    },
     "T3_AUTHORED_INTERPRETATION": {
-      "recordCount": 32,
-      "authorityTruthEligible": 26,
-      "nonEligible": 6,
+      "recordCount": 53,
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 53,
       "files": [
-        "test/baseline/authority/_authority_intake_template/template.flat-case.json",
         "test/baseline/authority/chumyeongga/chu_32.json",
         "test/baseline/authority/chumyeongga/chu_37.json",
         "test/baseline/authority/figures/jeong_juyeong.json",
@@ -54,19 +39,51 @@
         "test/baseline/authority/lecture/p127_1975_female_national_professor.json",
         "data/sources/kasi-lunar-solar.sources.json#sources[5].sourceTier:spring_ts_lunar_solar_oracle_policy",
         "data/sources/kasi-solar-terms.sources.json#sources[3].sourceTier:spring_ts_solar_term_oracle_policy",
+        "data/sources/korean-surname.sources.json",
         "data/sources/phonetic.sources.json",
         "data/sources/phonetic.sources.json#sources[2].sourceTier:phonetic_flow_display_policy",
         "data/sources/phonetic.sources.json#sources[3].sourceTier:phonetic_score_separation_policy",
-        "data/sources/unihan.sources.json#sources[2].sourceTier:radical_element_hint_policy"
+        "data/sources/unihan.sources.json#sources[2].sourceTier:radical_element_hint_policy",
+        "test/fixtures/jonggyeok_authority_cases.json#_meta.sourceTier",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[0].sourceTier:auth-jong-001",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[1].sourceTier:auth-jong-002",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[2].sourceTier:auth-jong-003",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[3].sourceTier:auth-jong-004",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[4].sourceTier:auth-jong-005",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[5].sourceTier:auth-jong-006",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[6].sourceTier:auth-jong-007",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[7].sourceTier:auth-jong-008",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[8].sourceTier:auth-jong-009",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[9].sourceTier:auth-jong-010",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[10].sourceTier:auth-jong-011",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[11].sourceTier:auth-jong-012",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[12].sourceTier:auth-jong-013",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[13].sourceTier:auth-jong-014",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[14].sourceTier:auth-jong-015",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[15].sourceTier:auth-jong-016",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[16].sourceTier:auth-jong-017",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[17].sourceTier:auth-jong-018",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[18].sourceTier:auth-jong-019",
+        "test/fixtures/jonggyeok_authority_cases.json#cases[19].sourceTier:auth-jong-020"
       ]
     },
     "T4_PRIMARY_TEXT": {
-      "recordCount": 12,
-      "authorityTruthEligible": 9,
-      "nonEligible": 3,
+      "recordCount": 22,
+      "declaredScopeEligibleSourceRecordCount": 3,
+      "declaredScopeIneligibleSourceRecordCount": 19,
       "files": [
         "test/baseline/authority/classical/myeongri_jonheom_pillars.json",
         "test/baseline/authority/classical/public_text_rule_snippets.json",
+        "test/baseline/authority/classical/public_text_rule_snippets.json#snippets[0].sourceTier:stem_transparency_renyuan_touwang",
+        "test/baseline/authority/classical/public_text_rule_snippets.json#snippets[1].sourceTier:stem_transparency_toucai_guilu",
+        "test/baseline/authority/classical/public_text_rule_snippets.json#snippets[2].sourceTier:seasonal_command_month_order",
+        "test/baseline/authority/classical/public_text_rule_snippets.json#snippets[3].sourceTier:seasonal_command_de_ling",
+        "test/baseline/authority/classical/public_text_rule_snippets.json#snippets[4].sourceTier:special_frame_cong_cai",
+        "test/baseline/authority/classical/public_text_rule_snippets.json#snippets[5].sourceTier:special_frame_cong_sha",
+        "test/baseline/authority/classical/public_text_rule_snippets.json#snippets[6].sourceTier:special_frame_zhuan_wang",
+        "test/baseline/authority/classical/public_text_rule_snippets.json#snippets[7].sourceTier:useful_god_conflict_fire_water_wood_metal",
+        "test/baseline/authority/classical/public_text_rule_snippets.json#snippets[8].sourceTier:disease_remedy_remove_disease",
+        "test/baseline/authority/classical/public_text_rule_snippets.json#snippets[9].sourceTier:tongguan_bridge",
         "test/baseline/authority/jonheom/05_瞿鸿玑.json",
         "test/baseline/authority/jonheom/07_钱能训.json",
         "test/baseline/authority/jonheom/10_伍廷芳.json",
@@ -79,10 +96,24 @@
         "data/sources/classical-myeongri.sources.json#sources[2].sourceTier:sanming_tonghui"
       ]
     },
+    "T1_HYPOTHESIS": {
+      "recordCount": 7,
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 7,
+      "files": [
+        "test/baseline/authority/training_derived/td_01_jeonggwan_sinkang.json",
+        "test/baseline/authority/training_derived/td_02_jongjae_buwi.json",
+        "test/baseline/authority/training_derived/td_03_siksinsangaeng.json",
+        "test/baseline/authority/training_derived/td_04_insungtuchu_haksja.json",
+        "test/baseline/authority/training_derived/td_05_chunggeuk_hyungmyeong.json",
+        "test/baseline/authority/training_derived/td_06_johu_hanmyeong.json",
+        "test/fixtures/jonggyeok_cases.json"
+      ]
+    },
     "T2_REFERENCE_IMPLEMENTATION": {
-      "recordCount": 13,
-      "authorityTruthEligible": 0,
-      "nonEligible": 13,
+      "recordCount": 14,
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 14,
       "files": [
         "test/baseline/oracles/fix-01.json",
         "test/baseline/oracles/fix-02.json",
@@ -96,13 +127,14 @@
         "test/baseline/oracles/fix-10.json",
         "test/baseline/oracles/fix-11.json",
         "test/baseline/oracles/fix-12.json",
-        "data/sources/legal-hanja.sources.json#sources[3].sourceTier:delvier_koreascourtcode_2024_07_16"
+        "data/sources/korean-surname.sources.json#sources[0].sourceTier:namespring_hanja_db_surname_rows_2026_07_16",
+        "data/sources/legal-hanja.sources.json#sources[4].sourceTier:delvier_koreascourtcode_2024_07_16"
       ]
     },
     "T5_OFFICIAL": {
-      "recordCount": 24,
-      "authorityTruthEligible": 21,
-      "nonEligible": 3,
+      "recordCount": 26,
+      "declaredScopeEligibleSourceRecordCount": 23,
+      "declaredScopeIneligibleSourceRecordCount": 3,
       "files": [
         "data/sources/kasi-lunar-solar.sources.json",
         "data/sources/kasi-lunar-solar.sources.json#sources[0].sourceTier:data_go_kr_kasi_lunar_solar_info_15012679",
@@ -114,10 +146,12 @@
         "data/sources/kasi-solar-terms.sources.json#sources[0].sourceTier:data_go_kr_kasi_special_day_info_15012690",
         "data/sources/kasi-solar-terms.sources.json#sources[1].sourceTier:kasi_spcde_get24divisionsinfo",
         "data/sources/kasi-solar-terms.sources.json#sources[2].sourceTier:kasi_calendar_data_24_terms_table",
+        "data/sources/korean-surname.sources.json#sources[1].sourceTier:kosis_2015_dt_1in15sc_compound_surnames",
         "data/sources/legal-hanja.sources.json",
-        "data/sources/legal-hanja.sources.json#sources[0].sourceTier:law_go_kr_rule_article_37_2025_07_19",
-        "data/sources/legal-hanja.sources.json#sources[1].sourceTier:law_go_kr_byeolpyo1_2024_05_30",
-        "data/sources/legal-hanja.sources.json#sources[2].sourceTier:scourt_press_2024_05_23",
+        "data/sources/legal-hanja.sources.json#sources[0].sourceTier:efamily_official_hanja_lookup_2026_07_18",
+        "data/sources/legal-hanja.sources.json#sources[1].sourceTier:law_go_kr_rule_article_37_2025_07_19",
+        "data/sources/legal-hanja.sources.json#sources[2].sourceTier:law_go_kr_byeolpyo1_2024_05_30",
+        "data/sources/legal-hanja.sources.json#sources[3].sourceTier:scourt_press_2024_05_23",
         "data/sources/name-trend.sources.json",
         "data/sources/name-trend.sources.json#sources[0].sourceTier:scourt_birth_name_rank_1811",
         "data/sources/name-trend.sources.json#sources[1].sourceTier:scourt_statistics_service_info",
@@ -132,170 +166,205 @@
     }
   },
   "bySourceType": {
-    "training_derived": {
-      "recordCount": 8,
-      "authorityTruthEligible": 0,
-      "nonEligible": 8
-    },
-    "book": {
-      "recordCount": 1,
-      "authorityTruthEligible": 1,
-      "nonEligible": 0
-    },
     "modern_korean_myeongri_extract": {
       "recordCount": 11,
-      "authorityTruthEligible": 11,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 11
     },
     "classical_primary_text_pillars_only": {
       "recordCount": 1,
-      "authorityTruthEligible": 0,
-      "nonEligible": 1
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
     },
     "classical_public_rule_snippet_fixture": {
       "recordCount": 1,
-      "authorityTruthEligible": 0,
-      "nonEligible": 1
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
+    },
+    "classical_public_rule_snippet": {
+      "recordCount": 10,
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 10
     },
     "classical_primary_text": {
       "recordCount": 6,
-      "authorityTruthEligible": 6,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 6
     },
     "lecture_casebook": {
       "recordCount": 14,
-      "authorityTruthEligible": 14,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 14
+    },
+    "training_derived": {
+      "recordCount": 7,
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 7
     },
     "reference_implementation": {
       "recordCount": 12,
-      "authorityTruthEligible": 0,
-      "nonEligible": 12
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 12
     },
     "classical_primary_text_registry": {
       "recordCount": 4,
-      "authorityTruthEligible": 3,
-      "nonEligible": 1
+      "declaredScopeEligibleSourceRecordCount": 3,
+      "declaredScopeIneligibleSourceRecordCount": 1
     },
     "official_kasi_lunar_solar_api_registry": {
       "recordCount": 1,
-      "authorityTruthEligible": 1,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 1,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "official_public_data_catalog": {
       "recordCount": 2,
-      "authorityTruthEligible": 2,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 2,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "official_kasi_lunar_solar_api": {
       "recordCount": 3,
-      "authorityTruthEligible": 3,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 3,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "official_kasi_lunisolar_calendar_table": {
       "recordCount": 1,
-      "authorityTruthEligible": 1,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 1,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "internal_oracle_policy": {
       "recordCount": 2,
-      "authorityTruthEligible": 0,
-      "nonEligible": 2
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 2
     },
     "official_kasi_special_day_api_registry": {
       "recordCount": 1,
-      "authorityTruthEligible": 1,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 1,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "official_kasi_solar_term_api": {
       "recordCount": 1,
-      "authorityTruthEligible": 1,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 1,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "official_kasi_calendar_data_preview": {
       "recordCount": 1,
-      "authorityTruthEligible": 0,
-      "nonEligible": 1
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
+    },
+    "internal_source_registry_policy": {
+      "recordCount": 1,
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
+    },
+    "repository_database_snapshot": {
+      "recordCount": 1,
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
+    },
+    "official_kosis_statistics": {
+      "recordCount": 1,
+      "declaredScopeEligibleSourceRecordCount": 1,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "official_law_registry": {
       "recordCount": 2,
-      "authorityTruthEligible": 2,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 2,
+      "declaredScopeIneligibleSourceRecordCount": 0
+    },
+    "official_court_lookup": {
+      "recordCount": 1,
+      "declaredScopeEligibleSourceRecordCount": 1,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "official_law_attachment": {
       "recordCount": 1,
-      "authorityTruthEligible": 1,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 1,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "official_press_release": {
       "recordCount": 1,
-      "authorityTruthEligible": 1,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 1,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "third_party_mirror": {
       "recordCount": 1,
-      "authorityTruthEligible": 0,
-      "nonEligible": 1
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
     },
     "official_court_statistics": {
       "recordCount": 2,
-      "authorityTruthEligible": 2,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 2,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "official_court_statistics_guide": {
       "recordCount": 1,
-      "authorityTruthEligible": 1,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 1,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "official_report_endpoint_observed": {
       "recordCount": 1,
-      "authorityTruthEligible": 0,
-      "nonEligible": 1
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
     },
     "official_copyright_policy": {
       "recordCount": 1,
-      "authorityTruthEligible": 0,
-      "nonEligible": 1
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
     },
     "internal_phonetic_rule_policy": {
       "recordCount": 1,
-      "authorityTruthEligible": 0,
-      "nonEligible": 1
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
     },
     "unicode_standard_hangul_algorithm": {
       "recordCount": 1,
-      "authorityTruthEligible": 1,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 1,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "official_korean_pronunciation_rule": {
       "recordCount": 1,
-      "authorityTruthEligible": 1,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 1,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "authored_phonetic_naming_heuristic": {
       "recordCount": 1,
-      "authorityTruthEligible": 0,
-      "nonEligible": 1
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
     },
     "internal_scoring_policy": {
       "recordCount": 1,
-      "authorityTruthEligible": 0,
-      "nonEligible": 1
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
     },
     "unicode_standard_annex": {
       "recordCount": 2,
-      "authorityTruthEligible": 2,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 2,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "unicode_ucd": {
       "recordCount": 1,
-      "authorityTruthEligible": 1,
-      "nonEligible": 0
+      "declaredScopeEligibleSourceRecordCount": 1,
+      "declaredScopeIneligibleSourceRecordCount": 0
     },
     "internal_rule_policy": {
       "recordCount": 1,
-      "authorityTruthEligible": 0,
-      "nonEligible": 1
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
+    },
+    "authority_corpus_scaffold_with_web_cases": {
+      "recordCount": 1,
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 1
+    },
+    "web_authored_classical_case": {
+      "recordCount": 13,
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 13
+    },
+    "web_authored_case_analysis": {
+      "recordCount": 7,
+      "declaredScopeEligibleSourceRecordCount": 0,
+      "declaredScopeIneligibleSourceRecordCount": 7
     }
   }
 }

@@ -19,6 +19,8 @@ import type { LunarDate, SolarDate } from './korean-lunar-calendar.js';
 
 const DEFAULT_BASE_URL = 'https://apis.data.go.kr/B090041/openapi/service/LrsrCldInfoService';
 const DEFAULT_TIMEOUT_MS = 4000;
+const MAX_TIMEOUT_MS = 60_000;
+const MAX_RESPONSE_BYTES = 256 * 1024;
 
 interface KasiCallOptions {
   readonly serviceKey?: string;
@@ -48,6 +50,13 @@ function resolveBaseUrl(override?: string): string {
   return envOf()?.KASI_LUNISOLAR_API_URL ?? DEFAULT_BASE_URL;
 }
 
+function resolveTimeoutMs(override?: number): number | null {
+  const timeoutMs = override ?? DEFAULT_TIMEOUT_MS;
+  return Number.isInteger(timeoutMs) && timeoutMs > 0 && timeoutMs <= MAX_TIMEOUT_MS
+    ? timeoutMs
+    : null;
+}
+
 function xmlField(xml: string, tag: string): string | null {
   const match = xml.match(new RegExp(`<${tag}>([^<]*)</${tag}>`));
   return match ? match[1]!.trim() : null;
@@ -55,6 +64,42 @@ function xmlField(xml: string, tag: string): string | null {
 
 function xmlItems(xml: string): string[] {
   return xml.match(/<item>[\s\S]*?<\/item>/g) ?? [];
+}
+
+async function readBoundedResponseText(response: Response): Promise<string | null> {
+  const declaredLength = response.headers.get('content-length');
+  if (declaredLength != null) {
+    const parsedLength = Number(declaredLength);
+    if (Number.isFinite(parsedLength) && parsedLength > MAX_RESPONSE_BYTES) {
+      return null;
+    }
+  }
+
+  if (!response.body) return '';
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  const chunks: string[] = [];
+  let receivedBytes = 0;
+
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      if (!value) continue;
+
+      receivedBytes += value.byteLength;
+      if (receivedBytes > MAX_RESPONSE_BYTES) {
+        await reader.cancel();
+        return null;
+      }
+      chunks.push(decoder.decode(value, { stream: true }));
+    }
+    chunks.push(decoder.decode());
+    return chunks.join('');
+  } finally {
+    reader.releaseLock();
+  }
 }
 
 function isValidSolarDate(year: number, month: number, day: number): boolean {
@@ -72,23 +117,36 @@ export async function kasiLunarToSolar(lunar: LunarDate, opts?: KasiCallOptions)
   const serviceKey = resolveServiceKey(opts?.serviceKey);
   if (!serviceKey) return null;
 
-  const pad2 = (n: number) => String(n).padStart(2, '0');
-  const url = new URL(`${resolveBaseUrl(opts?.baseUrl).replace(/\/$/, '')}/getSpcifyLunCalInfo`);
-  url.searchParams.set('ServiceKey', serviceKey);
-  // 음력 y년 후반(11~12월)은 양력 y+1년에 떨어지므로 검색 연 범위는 2년.
-  url.searchParams.set('fromSolYear', String(lunar.year));
-  url.searchParams.set('toSolYear', String(lunar.year + 1));
-  url.searchParams.set('lunMonth', pad2(lunar.month));
-  url.searchParams.set('lunDay', pad2(lunar.day));
-  url.searchParams.set('leapMonth', lunar.isLeapMonth ? '윤' : '평');
+  const timeoutMs = resolveTimeoutMs(opts?.timeoutMs);
+  if (timeoutMs === null) return null;
 
+  let timer: ReturnType<typeof setTimeout> | undefined;
   try {
+    const pad2 = (n: number) => String(n).padStart(2, '0');
+    const url = new URL(`${resolveBaseUrl(opts?.baseUrl).replace(/\/$/, '')}/getSpcifyLunCalInfo`);
+    url.searchParams.set('ServiceKey', serviceKey);
+    // 음력 y년 후반(11~12월)은 양력 y+1년에 떨어지므로 검색 연 범위는 2년.
+    url.searchParams.set('fromSolYear', String(lunar.year));
+    url.searchParams.set('toSolYear', String(lunar.year + 1));
+    url.searchParams.set('lunMonth', pad2(lunar.month));
+    url.searchParams.set('lunDay', pad2(lunar.day));
+    url.searchParams.set('leapMonth', lunar.isLeapMonth ? '윤' : '평');
+
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), opts?.timeoutMs ?? DEFAULT_TIMEOUT_MS);
+    timer = setTimeout(() => controller.abort(), timeoutMs);
     const response = await fetch(url, { signal: controller.signal });
-    clearTimeout(timer);
-    if (!response.ok) return null;
-    const xml = await response.text();
+    if (!response.ok) {
+      // A server can send error headers and then keep streaming the body.
+      // Abort here so returning null does not leave that connection alive
+      // after the timeout timer is cleared in finally.
+      controller.abort();
+      return null;
+    }
+    const xml = await readBoundedResponseText(response);
+    if (xml == null) {
+      controller.abort();
+      return null;
+    }
     if (xmlField(xml, 'resultCode') !== '00') return null;
 
     // 연 범위 검색은 오염 행을 포함할 수 있으므로 요청한 음력 tuple 전체를 대조한다.
@@ -107,5 +165,7 @@ export async function kasiLunarToSolar(lunar: LunarDate, opts?: KasiCallOptions)
     return null;
   } catch {
     return null;
+  } finally {
+    if (timer !== undefined) clearTimeout(timer);
   }
 }

@@ -12,7 +12,7 @@
 
 ## Requirements
 
-- Node.js **>= 20** (ESM 전용)
+- Node.js **>= 20.10.0** (ESM 전용, JSON import attributes 사용)
 
 ## Quickstart (개발)
 
@@ -21,8 +21,7 @@ npm ci
 npm run typecheck
 npm test
 npm run build
-npm run audit
-npm run golden:verify
+npm run verify
 ```
 
 ## Usage (예시)
@@ -52,7 +51,8 @@ console.log(bundle.report.trace.nodes.slice(0, 3));
 - `report`: 전체 결과 + **근거/계산값/공식(trace)**(구조화 JSON)
 - `artifacts`: 부가 데이터(옵션) — JSON 또는 zip(pack)
 
-자세한 계약은 `docs/01_api_contract.md`를 보세요.
+저장소 통합 계약과 현재 제한은
+[engine integrity audit](https://github.com/metacomputing-dev/namespring-web/blob/main/lib/spring-ts/docs/AUDIT_SAJU_ENGINE_INTEGRITY.md)를 보세요.
 
 ## Monorepo notes
 
@@ -60,15 +60,14 @@ console.log(bundle.report.trace.nodes.slice(0, 3));
 - `cal`의 `npm run verify`는 **오프라인/결정적 검증**만 포함합니다.
   (외부 사이트 live 검증은 `BAZISIFU_LIVE=1 npm run verify:bazisifu` 처럼 opt-in)
 
-## Docs
+## Verification
 
-- `docs/00_overview.md` — 설계 목표/철학
-- `docs/01_api_contract.md` — 요청/응답 계약
-- `docs/03_math_primitives.md` — 천간/지지/오행/관계 수학
-- `docs/04_calculation_graph.md` — DAG 평가/추적
-- `docs/10_shinsal_catalog.md` — 신살 카탈로그(데이터팩) 구조
-- `docs/BACKLOG.md` — 구현 백로그 (체크리스트)
-- `docs/PROGRESS.md` — 진행 기록
+- `npm run verify` — typecheck, full Vitest suite, KASI solar-term validation, and cross-reference fixtures
+- `npm run verify:release` — regression verification plus fail-closed school-source provenance validation
+- [validator documentation](https://github.com/metacomputing-dev/namespring-web/blob/main/lib/saju-ts/tools/README.md) — inputs, limits, and pass criteria
+- [repository-level integrity audit](https://github.com/metacomputing-dev/namespring-web/blob/main/lib/spring-ts/docs/AUDIT_SAJU_ENGINE_INTEGRITY.md)
+- [repository-level quality roadmap](https://github.com/metacomputing-dev/namespring-web/blob/main/lib/spring-ts/docs/ROADMAP_SAJU_ENGINE.md)
+- [runtime integrity boundaries](docs/28_runtime_integrity_boundaries.md)
 
 ---
 

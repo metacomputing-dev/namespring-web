@@ -1,10 +1,56 @@
 export { createEngine } from './api/engine.js';
-export { defaultConfig } from './api/config.js';
-export { analyzeSaju, configFromPreset, createBirthInput } from './compat/springLegacy.js';
-export type { LegacyBirthInput, LegacySajuConfig, LegacySajuOptions } from './compat/springLegacy.js';
+export {
+  defaultConfig,
+  InvalidEngineConfigError,
+  InvalidLongitudeCorrectionPolicyError,
+  InvalidSchoolPresetSelectorError,
+} from './api/config.js';
+export { UnsupportedConfigSchemaVersionError } from './api/migrations.js';
+export { InvalidIsoInstantError } from './calendar/iso.js';
+export { SajuRequestValidationError } from './calendar/normalizeRequest.js';
+export {
+  analyzeSaju,
+  configFromPreset,
+  createBirthInput,
+  LegacyAmbiguousTimeError,
+  LegacyBirthLocationError,
+  LegacyCivilTimeError,
+  LegacyContractConfigError,
+  LegacyContractOutputError,
+  LegacyNonexistentTimeError,
+  LegacyTimezoneDataUnsupportedError,
+  LegacyTimezoneError,
+  UnknownLegacySajuPresetError,
+  resolveOffsetMinutes,
+} from './compat/springLegacy.js';
+export type {
+  LegacyBirthLocationErrorCode,
+  LegacyBirthInput,
+  LegacyLongitudeCorrectionPolicy,
+  LegacySajuConfig,
+  LegacySajuOptions,
+  LegacySajuOutputV1,
+  LegacyPillarV1,
+  LegacyCoreResultV1,
+  LegacyJieProximityV1,
+  LegacyStrengthResultV1,
+  LegacyYongshinResultV1,
+  LegacyGyeokgukResultV1,
+  LegacyDaeunInfoV1,
+  LegacyDaeunPillarV1,
+  LegacySaeunPillarV1,
+  LegacyWolunPillarV1,
+  LegacyTraceEntryV1,
+} from './compat/springLegacy.js';
 
-export { listSchoolPresets, getSchoolPreset, applySchoolPreset } from './schools/index.js';
-export type { SchoolPreset } from './schools/index.js';
+export {
+  InvalidSchoolPresetPackError,
+  UnknownSchoolPresetError,
+  listSchoolPresets,
+  getSchoolPreset,
+  applySchoolPreset,
+} from './schools/index.js';
+export type { SchoolPreset, SchoolPresetPack } from './schools/index.js';
 
 export { packAnalysisBundleZip, unpackAnalysisBundleZip } from './artifacts/index.js';
 export type { AnalysisZipInclude, AnalysisZipManifest, AnalysisZipOptions } from './artifacts/index.js';
@@ -17,6 +63,7 @@ export type {
   Artifact,
   EngineConfig,
   EngineWeights,
+  LongitudeCorrectionPolicy,
   SchoolConfig,
   FullReport,
   SajuRequest,
@@ -57,6 +104,7 @@ export type {
   ShinsalConditionsRuleSpecMode,
 } from './rules/spec/shinsalConditionsSpec.js';
 export { compileShinsalConditionsRuleSpec } from './rules/spec/compileShinsalConditionsSpec.js';
+export { InvalidRuleSpecError } from './rules/spec/ruleSpecValidation.js';
 
 
 export { stemHanja, branchHanja, stemElement, branchElement, stemYinYang, branchYinYang } from './core/cycle.js';

@@ -1,12 +1,14 @@
+import { deepFreeze } from '../../seed-ts/src/utils/deep-freeze.js';
+
 export interface RegionCoordinate {
-  code: string;
-  latitude: number;
-  longitude: number;
-  timezone: string;
-  aliases: string[];
+  readonly code: string;
+  readonly latitude: number;
+  readonly longitude: number;
+  readonly timezone: string;
+  readonly aliases: readonly string[];
 }
 
-export const KOREA_REGION_COORDINATES: ReadonlyArray<RegionCoordinate> = [
+export const KOREA_REGION_COORDINATES: readonly RegionCoordinate[] = deepFreeze([
   {
     code: 'SEOUL',
     latitude: 37.5665,
@@ -126,8 +128,10 @@ export const KOREA_REGION_COORDINATES: ReadonlyArray<RegionCoordinate> = [
     timezone: 'Asia/Seoul',
     aliases: ['제주'],
   },
-];
+]);
 
-export const KOREA_REGION_PRIMARY_ALIASES: ReadonlyArray<string> = KOREA_REGION_COORDINATES
-  .map((region) => String(region.aliases?.[0] ?? '').trim())
-  .filter((alias) => alias.length > 0);
+export const KOREA_REGION_PRIMARY_ALIASES: readonly string[] = deepFreeze(
+  KOREA_REGION_COORDINATES
+    .map((region) => String(region.aliases?.[0] ?? '').trim())
+    .filter((alias) => alias.length > 0),
+);

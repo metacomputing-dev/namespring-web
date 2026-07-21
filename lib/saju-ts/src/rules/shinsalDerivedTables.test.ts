@@ -4,8 +4,9 @@ import { normalizeConfig } from '../api/config.js';
 import type { BranchIdx, StemIdx } from '../core/cycle.js';
 import { pillar } from '../core/cycle.js';
 import { elementDistributionFromPillars } from '../core/elementDistribution.js';
-import { DEFAULT_SCORE_POLICY, scorePillars } from '../core/scoring.js';
+import { DEFAULT_SCORE_POLICY } from '../core/scoring.js';
 import { buildRuleFacts } from './facts.js';
+import { scorePillarsForRuleFacts } from './ruleFactsScoring.js';
 
 /**
  * 수식 파생 신살 배속 단정 (감사 PR-4) — 12신살 144칸 · 양인/비인/학당 · 공망 6순.
@@ -25,7 +26,7 @@ function factsFor(pillarSpec: {
     [pillars.year, pillars.month, pillars.day, pillars.hour],
     { hiddenStemWeights: (config.weights as any)?.hiddenStems },
   );
-  const scoring = scorePillars(pillars, DEFAULT_SCORE_POLICY);
+  const scoring = scorePillarsForRuleFacts(pillars, DEFAULT_SCORE_POLICY);
   return buildRuleFacts({ config, pillars, elementDistribution, scoring });
 }
 
@@ -103,6 +104,34 @@ describe('양인·비인·학당 (일간 파생 — 기본 luNext 모드)', () =
         { shinsal: { yanginMode: 'diWang' } },
       );
       expect(facts.shinsal.catalog.dayStem.YANG_IN?.targets, `양인(diWang) ${STEM_LABEL[s]}`).toEqual(YANGIN_DIWANG[s]);
+    }
+  });
+  it('yinYanginSplit=true emits EUM_IN for yin stems and keeps BI_IN derived', () => {
+    for (let s = 0; s < 10; s++) {
+      const facts = factsFor(
+        { year: [2, 2], month: [4, 4], day: [s, s % 2], hour: [6, 6] },
+        { shinsal: { yinYanginSplit: true } },
+      );
+
+      if (s % 2 === 1) {
+        expect(facts.shinsal.catalog.dayStem.YANG_IN?.targets, `YANG_IN yin ${STEM_LABEL[s]}`).toBeUndefined();
+        expect(facts.shinsal.catalog.dayStem.EUM_IN?.targets, `EUM_IN yin ${STEM_LABEL[s]}`).toEqual(YANGIN_LUNEXT[s]);
+        expect(facts.shinsal.catalog.dayStem.BI_IN_SAL?.targets, `BI_IN yin ${STEM_LABEL[s]}`).toEqual(BIIN_LUNEXT[s]);
+      } else {
+        expect(facts.shinsal.catalog.dayStem.YANG_IN?.targets, `YANG_IN yang ${STEM_LABEL[s]}`).toEqual(YANGIN_LUNEXT[s]);
+        expect(facts.shinsal.catalog.dayStem.EUM_IN?.targets, `EUM_IN yang ${STEM_LABEL[s]}`).toBeUndefined();
+      }
+    }
+  });
+
+  it('yinYanginSplit=true still follows yanginMode diWang targets', () => {
+    for (let s = 0; s < 10; s++) {
+      const facts = factsFor(
+        { year: [2, 2], month: [4, 4], day: [s, s % 2], hour: [6, 6] },
+        { shinsal: { yanginMode: 'diWang', yinYanginSplit: true } },
+      );
+      const splitKey = s % 2 === 1 ? 'EUM_IN' : 'YANG_IN';
+      expect(facts.shinsal.catalog.dayStem[splitKey]?.targets, `${splitKey} diWang ${STEM_LABEL[s]}`).toEqual(YANGIN_DIWANG[s]);
     }
   });
 });

@@ -1,0 +1,2 @@
+Test-only primary-text evidence artifact.
+The source directly classifies this case as WEAK.

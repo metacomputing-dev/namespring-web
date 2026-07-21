@@ -1,0 +1,361 @@
+[
+  {
+    "id": "fix-01",
+    "birth": {
+      "year": 1986,
+      "month": 4,
+      "day": 19,
+      "hour": 5,
+      "minute": 45,
+      "gender": "male"
+    },
+    "pillars": [
+      "丙寅",
+      "壬辰",
+      "癸巳",
+      "乙卯"
+    ],
+    "gender": "male",
+    "calendarType": "solar",
+    "isLeapMonth": false,
+    "note": "한국 출생(경도 보정 기본). pillars는 KASI 대조 검증된 엔진 만세력 산출(년/월/일/시 순)."
+  },
+  {
+    "id": "fix-02",
+    "birth": {
+      "year": 1992,
+      "month": 9,
+      "day": 15,
+      "hour": 12,
+      "minute": 0,
+      "gender": "female"
+    },
+    "pillars": [
+      "壬申",
+      "己酉",
+      "甲午",
+      "庚午"
+    ],
+    "gender": "female",
+    "calendarType": "solar",
+    "isLeapMonth": false,
+    "note": "한국 출생(경도 보정 기본). pillars는 KASI 대조 검증된 엔진 만세력 산출(년/월/일/시 순)."
+  },
+  {
+    "id": "fix-03",
+    "birth": {
+      "year": 2000,
+      "month": 1,
+      "day": 1,
+      "hour": 0,
+      "minute": 30,
+      "gender": "male"
+    },
+    "pillars": [
+      "己卯",
+      "丙子",
+      "戊午",
+      "壬子"
+    ],
+    "gender": "male",
+    "calendarType": "solar",
+    "isLeapMonth": false,
+    "note": "한국 출생(경도 보정 기본). pillars는 KASI 대조 검증된 엔진 만세력 산출(년/월/일/시 순)."
+  },
+  {
+    "id": "fix-04",
+    "birth": {
+      "year": 1965,
+      "month": 8,
+      "day": 8,
+      "hour": 19,
+      "minute": 0,
+      "gender": "female"
+    },
+    "pillars": [
+      "乙巳",
+      "甲申",
+      "甲午",
+      "癸酉"
+    ],
+    "gender": "female",
+    "calendarType": "solar",
+    "isLeapMonth": false,
+    "note": "한국 출생(경도 보정 기본). pillars는 KASI 대조 검증된 엔진 만세력 산출(년/월/일/시 순)."
+  },
+  {
+    "id": "fix-05",
+    "birth": {
+      "year": 2005,
+      "month": 12,
+      "day": 25,
+      "hour": 6,
+      "minute": 0,
+      "gender": "male"
+    },
+    "pillars": [
+      "乙酉",
+      "戊子",
+      "癸未",
+      "乙卯"
+    ],
+    "gender": "male",
+    "calendarType": "solar",
+    "isLeapMonth": false,
+    "note": "한국 출생(경도 보정 기본). pillars는 KASI 대조 검증된 엔진 만세력 산출(년/월/일/시 순)."
+  },
+  {
+    "id": "fix-06",
+    "birth": {
+      "year": 1978,
+      "month": 6,
+      "day": 15,
+      "hour": 14,
+      "minute": 0,
+      "gender": "female"
+    },
+    "pillars": [
+      "戊午",
+      "戊午",
+      "戊申",
+      "己未"
+    ],
+    "gender": "female",
+    "calendarType": "solar",
+    "isLeapMonth": false,
+    "note": "한국 출생(경도 보정 기본). pillars는 KASI 대조 검증된 엔진 만세력 산출(년/월/일/시 순)."
+  },
+  {
+    "id": "fix-07",
+    "birth": {
+      "year": 1957,
+      "month": 2,
+      "day": 4,
+      "hour": 12,
+      "minute": 0,
+      "gender": "male"
+    },
+    "pillars": [
+      "丁酉",
+      "壬寅",
+      "丁未",
+      "丙午"
+    ],
+    "gender": "male",
+    "calendarType": "solar",
+    "isLeapMonth": false,
+    "note": "한국 출생(경도 보정 기본). pillars는 KASI 대조 검증된 엔진 만세력 산출(년/월/일/시 순)."
+  },
+  {
+    "id": "fix-08",
+    "birth": {
+      "year": 2020,
+      "month": 8,
+      "day": 23,
+      "hour": 9,
+      "minute": 0,
+      "gender": "female"
+    },
+    "pillars": [
+      "庚子",
+      "甲申",
+      "戊戌",
+      "丙辰"
+    ],
+    "gender": "female",
+    "calendarType": "solar",
+    "isLeapMonth": false,
+    "note": "한국 출생(경도 보정 기본). pillars는 KASI 대조 검증된 엔진 만세력 산출(년/월/일/시 순)."
+  },
+  {
+    "id": "fix-09",
+    "birth": {
+      "year": 1988,
+      "month": 5,
+      "day": 5,
+      "hour": 10,
+      "minute": 0,
+      "gender": "male"
+    },
+    "pillars": [
+      "戊辰",
+      "丙辰",
+      "庚申",
+      "辛巳"
+    ],
+    "gender": "male",
+    "calendarType": "solar",
+    "isLeapMonth": false,
+    "note": "한국 출생(경도 보정 기본). pillars는 KASI 대조 검증된 엔진 만세력 산출(년/월/일/시 순)."
+  },
+  {
+    "id": "fix-10",
+    "birth": {
+      "year": 2018,
+      "month": 11,
+      "day": 22,
+      "hour": 15,
+      "minute": 0,
+      "gender": "female"
+    },
+    "pillars": [
+      "戊戌",
+      "癸亥",
+      "戊午",
+      "己未"
+    ],
+    "gender": "female",
+    "calendarType": "solar",
+    "isLeapMonth": false,
+    "note": "한국 출생(경도 보정 기본). pillars는 KASI 대조 검증된 엔진 만세력 산출(년/월/일/시 순)."
+  },
+  {
+    "id": "fix-11",
+    "birth": {
+      "year": 1995,
+      "month": 8,
+      "day": 15,
+      "hour": null,
+      "minute": 0,
+      "gender": "female"
+    },
+    "pillars": [
+      "乙亥",
+      "甲申",
+      "戊寅",
+      "(시간미상)"
+    ],
+    "gender": "female",
+    "calendarType": "solar",
+    "isLeapMonth": false,
+    "note": "한국 출생(경도 보정 기본). pillars는 KASI 대조 검증된 엔진 만세력 산출(년/월/일/시 순)."
+  },
+  {
+    "id": "fix-12",
+    "birth": {
+      "year": 1991,
+      "month": 3,
+      "day": 20,
+      "hour": 11,
+      "minute": 30,
+      "gender": "male"
+    },
+    "pillars": [
+      "辛未",
+      "辛卯",
+      "己丑",
+      "己巳"
+    ],
+    "gender": "male",
+    "calendarType": "solar",
+    "isLeapMonth": false,
+    "note": "한국 출생(경도 보정 기본). pillars는 KASI 대조 검증된 엔진 만세력 산출(년/월/일/시 순)."
+  },
+  {
+    "id": "fix-13",
+    "birth": {
+      "year": 1989,
+      "month": 7,
+      "day": 23,
+      "hour": 10,
+      "minute": 0,
+      "gender": "male"
+    },
+    "pillars": [
+      "己巳",
+      "辛未",
+      "甲申",
+      "己巳"
+    ],
+    "gender": "male",
+    "calendarType": "solar",
+    "isLeapMonth": false,
+    "note": "한국 출생(경도 보정 기본). pillars는 KASI 대조 검증된 엔진 만세력 산출(년/월/일/시 순)."
+  },
+  {
+    "id": "fix-14",
+    "birth": {
+      "year": 1980,
+      "month": 8,
+      "day": 7,
+      "hour": 4,
+      "minute": 0,
+      "gender": "male"
+    },
+    "pillars": [
+      "庚申",
+      "癸未",
+      "壬子",
+      "壬寅"
+    ],
+    "gender": "male",
+    "calendarType": "solar",
+    "isLeapMonth": false,
+    "note": "한국 출생(경도 보정 기본). pillars는 KASI 대조 검증된 엔진 만세력 산출(년/월/일/시 순)."
+  },
+  {
+    "id": "fix-15",
+    "birth": {
+      "year": 1985,
+      "month": 3,
+      "day": 21,
+      "hour": 4,
+      "minute": 0,
+      "gender": "male"
+    },
+    "pillars": [
+      "乙丑",
+      "己卯",
+      "己未",
+      "丙寅"
+    ],
+    "gender": "male",
+    "calendarType": "solar",
+    "isLeapMonth": false,
+    "note": "한국 출생(경도 보정 기본). pillars는 KASI 대조 검증된 엔진 만세력 산출(년/월/일/시 순)."
+  },
+  {
+    "id": "fix-16",
+    "birth": {
+      "year": 2003,
+      "month": 5,
+      "day": 10,
+      "hour": 23,
+      "minute": 40,
+      "gender": "male"
+    },
+    "pillars": [
+      "癸未",
+      "丁巳",
+      "甲申",
+      "甲子"
+    ],
+    "gender": "male",
+    "calendarType": "solar",
+    "isLeapMonth": false,
+    "note": "한국 출생(경도 보정 기본). pillars는 KASI 대조 검증된 엔진 만세력 산출(년/월/일/시 순)."
+  },
+  {
+    "id": "fix-17",
+    "birth": {
+      "year": 2004,
+      "month": 2,
+      "day": 15,
+      "hour": 10,
+      "minute": 0,
+      "gender": "female",
+      "calendarType": "lunar",
+      "isLeapMonth": true
+    },
+    "pillars": [
+      "甲申",
+      "丁卯",
+      "癸丑",
+      "丁巳"
+    ],
+    "gender": "female",
+    "calendarType": "lunar",
+    "isLeapMonth": true,
+    "note": "한국 출생(경도 보정 기본). pillars는 KASI 대조 검증된 엔진 만세력 산출(년/월/일/시 순)."
+  }
+]

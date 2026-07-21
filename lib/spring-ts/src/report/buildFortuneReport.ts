@@ -2,15 +2,24 @@
  * buildFortuneReport.ts -- Fortune Report orchestrator
  *
  * Assembles a complete FortuneReport by calling each card builder with
- * the appropriate arguments. Each builder call is wrapped in try-catch
- * for safety; a failed card produces a sensible fallback rather than
- * crashing the entire report.
+ * the appropriate arguments. Required calculations fail closed: emitting a
+ * neutral-looking fallback score would disguise a backend defect as a reading.
  */
 
 import type { SajuSummary, SpringReport, BirthInfo } from '../types.js';
-import type { FortuneReport, FortuneReportOptions, FortuneTieredMatrix, ReportMeta, ReportUncertainty, FortuneCategory } from './types.js';
-import { targetCalendarYear } from '../target-date.js';
-import { LuckIntervalSelectionError } from './common/luck-interval.js';
+import type {
+  FortuneReport,
+  FortuneReportOptions,
+  FortuneTieredMatrix,
+  ReportMeta,
+  ReportUncertainty,
+  TieredGeneratedContentMeta,
+} from './types.js';
+import {
+  snapshotTargetCalendarDate,
+  targetCalendarYear,
+} from '../target-date.js';
+import { snapshotFortuneReportBuildInput } from '../public-request-snapshot.js';
 
 // Card builders
 import { buildOverviewSummaryCard } from './cards/overview-summary-card.js';
@@ -22,23 +31,10 @@ import { buildCautionsCard } from './cards/cautions-card.js';
 import { buildPeriodFortuneCard } from './cards/period-fortune-card.js';
 import { buildLifeStageFortuneCard } from './cards/life-stage-fortune-card.js';
 import { buildCategoryFortuneCards } from './cards/category-fortune-card.js';
-import { buildTieredMatrix, preloadGeneratedForReport } from './tiered/build-tiered-matrix.js';
 import { buildLifeCurveCard, type LifeCurveCard } from './cards/life-curve-card.js';
 import { buildInsightFactsCard, type InsightFactsCard } from './cards/insight-facts-card.js';
-
-// Card types (re-imported for fallback construction)
-import type {
-  OverviewSummaryCard,
-  LifeFortuneOverviewCard,
-  PersonalityCard,
-  StrengthsWeaknessesCard,
-  NameCompatibilityCard,
-  CautionsCard,
-  PeriodFortuneCard,
-  LifeStageFortuneCard,
-  CategoryFortuneCard,
-  FortunePeriodKind,
-} from './types.js';
+import { assertScorableSajuSummary } from '../saju-analysis-contract.js';
+import { FortuneReportBuildError } from './report-input-contract.js';
 
 // ---------------------------------------------------------------------------
 //  Age computation
@@ -48,123 +44,89 @@ import type {
  * Compute the person's current age (Korean counting age approximation)
  * from the birth year stored in the saju's timeCorrection or pillar data.
  */
-function computeCurrentAge(saju: SajuSummary, targetDate: Date): number {
+function computeCurrentAge(saju: SajuSummary, targetDate: Date): number | null {
   // Prefer the standardYear from timeCorrection (the original birth year)
   const birthYear = saju.timeCorrection?.standardYear;
   if (birthYear && birthYear > 0) {
     return targetCalendarYear(targetDate) - birthYear;
   }
-  // Fallback: no reliable birth year -- assume 30 as a safe default
-  return 30;
+  return null;
 }
 
 // ---------------------------------------------------------------------------
-//  Safe card builder wrappers
+//  Required card builder boundary
 // ---------------------------------------------------------------------------
 
-function safeCall<T>(builder: () => T, fallback: T, context = 'unknown-card'): T {
+function buildRequired<T>(context: string, builder: () => T): T {
   try {
     return builder();
   } catch (error) {
-    if (error instanceof LuckIntervalSelectionError) throw error;
-    console.error(`[spring-ts] Fortune report builder failed: ${context}`, error);
-    return fallback;
+    throw new FortuneReportBuildError(context, error);
   }
 }
 
-// ---------------------------------------------------------------------------
-//  Fallback cards
-// ---------------------------------------------------------------------------
-
-const FALLBACK_OVERVIEW_SUMMARY: OverviewSummaryCard = {
-  title: '총평 요약',
-  pillars: [],
-  dayMasterDescription: '사주 정보를 분석하는 중이에요.',
-  strengthDescription: '',
-  yongshinDescription: '',
-  elementBalance: '',
-  overallSummary: '사주 정보를 기반으로 총평을 준비하고 있어요.',
-};
-
-const FALLBACK_LIFE_FORTUNE: LifeFortuneOverviewCard = {
-  title: '인생 운세 총평',
-  stars: 3,
-  summary: '인생 운세를 분석하는 중이에요.',
-  highlights: [],
-};
-
-const FALLBACK_PERSONALITY: PersonalityCard = {
-  title: '나의 성향',
-  traits: [],
-  summary: '성향 분석을 준비하고 있어요.',
-};
-
-const FALLBACK_STRENGTHS_WEAKNESSES: StrengthsWeaknessesCard = {
-  title: '나의 장/단점',
-  strengths: [],
-  weaknesses: [],
-};
-
-const FALLBACK_CAUTIONS: CautionsCard = {
-  title: '유의점',
-  cautions: [],
-};
-
-function makeFallbackPeriodFortune(periodKind: FortunePeriodKind, periodLabel: string): PeriodFortuneCard {
-  return {
-    title: `${periodLabel} 운세`,
-    periodKind,
-    periodLabel,
-    stars: 3,
-    summary: `${periodLabel} 운세를 분석하고 있어요.`,
-    goodActions: [],
-    badActions: [],
-    warning: { signal: '', response: '', reason: '' },
-    categoryScores: { wealth: 3, health: 3, academic: 3, romance: 3, family: 3 },
-  };
+async function buildRequiredAsync<T>(context: string, builder: () => Promise<T>): Promise<T> {
+  try {
+    return await builder();
+  } catch (error) {
+    throw new FortuneReportBuildError(context, error);
+  }
 }
 
-const FALLBACK_LIFE_STAGE: LifeStageFortuneCard = {
-  title: '생애 시기별 운세',
-  stages: [],
-  currentStageIndex: null,
-};
-
-function makeFallbackCategoryFortune(category: FortuneCategory, title: string): CategoryFortuneCard {
-  return {
-    title,
-    category,
-    stars: 3,
-    summary: `${title}을 분석하고 있어요.`,
-    advice: [],
-    caution: null,
-  };
+function resolveUncertaintyTimezone(
+  uncertaintyTimezone: string | undefined,
+  birthTimezone: string | undefined,
+): string {
+  for (const value of [uncertaintyTimezone, birthTimezone]) {
+    if (typeof value === 'string' && value.trim().length > 0) return value.trim();
+  }
+  return 'Asia/Seoul';
 }
 
-const FALLBACK_CATEGORY_FORTUNES: Record<FortuneCategory, CategoryFortuneCard> = {
-  wealth: makeFallbackCategoryFortune('wealth', '재물운'),
-  health: makeFallbackCategoryFortune('health', '건강운'),
-  academic: makeFallbackCategoryFortune('academic', '학업/직장운'),
-  romance: makeFallbackCategoryFortune('romance', '연애/결혼운'),
-  family: makeFallbackCategoryFortune('family', '가정운'),
-};
+function buildReportUncertainties(
+  saju: SajuSummary,
+  birth?: BirthInfo,
+): readonly ReportUncertainty[] | undefined {
+  const rows: ReportUncertainty[] = [];
+  const unknownHour = saju.inputUncertainty?.unknownHour;
+  if (unknownHour) {
+    const timezone = resolveUncertaintyTimezone(unknownHour.fallbackTimezone, birth?.timezone);
+    rows.push({
+      id: 'unknown-hour',
+      severity: 'medium',
+      message: unknownHour.message,
+      affectedAxes: unknownHour.affectedAxes,
+      affectedAxisLabels: unknownHour.affectedAxisLabels,
+      fallback: {
+        hour: unknownHour.fallbackHour,
+        minute: unknownHour.fallbackMinute,
+        timezone,
+      },
+    });
+  }
 
-function buildReportUncertainties(saju: SajuSummary): readonly ReportUncertainty[] | undefined {
-  const uncertainty = saju.inputUncertainty?.unknownHour;
-  if (!uncertainty) return undefined;
+  const unknownMinute = saju.inputUncertainty?.unknownMinute;
+  if (unknownMinute) {
+    const timezone = resolveUncertaintyTimezone(unknownMinute.fallbackTimezone, birth?.timezone);
+    rows.push({
+      id: 'unknown-minute',
+      severity: unknownMinute.boundarySensitive ? 'medium' : 'info',
+      message: unknownMinute.message,
+      affectedAxes: unknownMinute.affectedAxes,
+      affectedAxisLabels: unknownMinute.affectedAxisLabels,
+      fallback: {
+        hour: unknownMinute.fallbackHour,
+        minute: unknownMinute.fallbackMinute,
+        timezone,
+      },
+      evaluatedMinuteRange: unknownMinute.evaluatedMinuteRange,
+      boundarySensitive: unknownMinute.boundarySensitive,
+      continuousTimingAffected: unknownMinute.continuousTimingAffected,
+      confidenceTierShift: unknownMinute.confidenceTierShift,
+    });
+  }
 
-  return [{
-    id: 'unknown-hour',
-    severity: 'medium',
-    message: uncertainty.message,
-    affectedAxes: uncertainty.affectedAxes,
-    affectedAxisLabels: uncertainty.affectedAxisLabels,
-    fallback: {
-      hour: uncertainty.fallbackHour,
-      minute: uncertainty.fallbackMinute,
-      timezone: 'Asia/Seoul',
-    },
-  }];
+  return rows.length > 0 ? rows : undefined;
 }
 
 // ---------------------------------------------------------------------------
@@ -178,101 +140,114 @@ export async function buildFortuneReport(
   options?: FortuneReportOptions,
   birth?: BirthInfo,
 ): Promise<FortuneReport> {
+  targetDate = snapshotTargetCalendarDate(targetDate);
+  const input = snapshotFortuneReportBuildInput(
+    saju,
+    springReport,
+    options,
+    birth,
+  );
+  saju = input.saju;
+  springReport = input.springReport;
+  options = input.options;
+  birth = input.birth;
+
+  assertScorableSajuSummary(saju);
   const currentAge = computeCurrentAge(saju, targetDate);
 
   // ── 1. Name compatibility (only when spring report is available) ──
-  const nameCompatibility: NameCompatibilityCard | null = springReport
-    ? safeCall(() => buildNameCompatibilityCard(springReport), null)
+  const nameCompatibility = springReport
+    ? buildRequired('nameCompatibility', () => buildNameCompatibilityCard(springReport))
     : null;
 
   // ── 2. Overview summary ──
-  const overviewSummary = safeCall(
+  const overviewSummary = buildRequired('overviewSummary',
     () => buildOverviewSummaryCard(saju, { narrativeStyle: options?.narrativeStyle }),
-    FALLBACK_OVERVIEW_SUMMARY,
   );
 
   // ── 3. Life fortune overview ──
-  const lifeFortuneOverview = safeCall(
+  const lifeFortuneOverview = buildRequired('lifeFortuneOverview',
     () => buildLifeFortuneOverviewCard(saju),
-    FALLBACK_LIFE_FORTUNE,
   );
 
   // ── 4. Personality ──
-  const personality = safeCall(
+  const personality = buildRequired('personality',
     () => buildPersonalityCard(saju),
-    FALLBACK_PERSONALITY,
   );
 
   // ── 5. Strengths & weaknesses ──
-  const strengthsWeaknesses = safeCall(
+  const strengthsWeaknesses = buildRequired('strengthsWeaknesses',
     () => buildStrengthsWeaknessesCard(saju),
-    FALLBACK_STRENGTHS_WEAKNESSES,
   );
 
   // ── 6. Cautions ──
-  const cautions = safeCall(
+  const cautions = buildRequired('cautions',
     () => buildCautionsCard(saju),
-    FALLBACK_CAUTIONS,
   );
 
   // ── 7. Period fortune cards ──
-  const dailyFortune = safeCall(
+  const dailyFortune = buildRequired('dailyFortune',
     () => buildPeriodFortuneCard(saju, 'daily', targetDate, options, { currentAge }),
-    makeFallbackPeriodFortune('daily', '오늘'),
-    'dailyFortune',
   );
 
-  const weeklyFortune = safeCall(
+  const weeklyFortune = buildRequired('weeklyFortune',
     () => buildPeriodFortuneCard(saju, 'weekly', targetDate, options, { currentAge }),
-    makeFallbackPeriodFortune('weekly', '이번 주'),
-    'weeklyFortune',
   );
 
-  const monthlyFortune = safeCall(
+  const monthlyFortune = buildRequired('monthlyFortune',
     () => buildPeriodFortuneCard(saju, 'monthly', targetDate, options, { currentAge }),
-    makeFallbackPeriodFortune('monthly', '이번 달'),
-    'monthlyFortune',
   );
 
-  const yearlyFortune = safeCall(
+  const yearlyFortune = buildRequired('yearlyFortune',
     () => buildPeriodFortuneCard(saju, 'yearly', targetDate, options, { currentAge }),
-    makeFallbackPeriodFortune('yearly', '올해'),
-    'yearlyFortune',
   );
 
   // ── 8. Life stage fortune ──
-  const lifeStageFortune = safeCall(
+  const lifeStageFortune = buildRequired('lifeStageFortune',
     () => buildLifeStageFortuneCard(saju, currentAge),
-    FALLBACK_LIFE_STAGE,
   );
 
   // ── 9. Category fortunes ──
-  const categoryFortunes = safeCall(
-    () => buildCategoryFortuneCards(saju, targetDate, options, { currentAge }),
-    FALLBACK_CATEGORY_FORTUNES,
+  const categoryFortunes = buildRequired('categoryFortunes',
+    () => buildCategoryFortuneCards(
+      saju,
+      targetDate,
+      options,
+      currentAge == null ? undefined : { currentAge },
+    ),
   );
 
   // ── 10. Tiered fortune matrix (opt-in) ──
   // `surfaceTieredMatrix !== true` → undefined, preserving backward-compat.
   // When enabled, build a 5×11 cell matrix from data/narrative/** seeds.
-  // safeCall returns undefined fallback so a builder failure never crashes
-  // the rest of the report.
+  // An explicitly requested surface is part of the response contract, so its
+  // builder failure is reported instead of being omitted silently.
   // Browser: fetch the person's packed generated bundles before the (sync)
   // matrix build so class-first selection finds them. Node: no-op.
+  let generatedContent: TieredGeneratedContentMeta | undefined;
+  let tieredModule: typeof import('./tiered/build-tiered-matrix.js') | undefined;
   if (options?.surfaceTieredMatrix === true && birth) {
-    await preloadGeneratedForReport(saju, birth, targetDate, springReport?.sajuCompatibility ?? null)
-      .catch(() => { /* leave on base fallback */ });
+    try {
+      tieredModule = await import('./tiered/build-tiered-matrix.js');
+      generatedContent = await tieredModule.preloadGeneratedForReport(
+        saju,
+        birth,
+        targetDate,
+        springReport?.sajuCompatibility ?? null,
+      );
+    } catch (error) {
+      throw new FortuneReportBuildError('tieredGeneratedPreload', error);
+    }
   }
   const tieredMatrix: FortuneTieredMatrix | undefined =
-    options?.surfaceTieredMatrix === true && birth
-      ? safeCall(
-          () => buildTieredMatrix(saju, birth, targetDate, {
+    options?.surfaceTieredMatrix === true && birth && tieredModule
+      ? await buildRequiredAsync('tieredMatrix',
+          () => tieredModule!.buildTieredMatrix(saju, birth, targetDate, {
             enabled: true,
+            generatedContent,
             namingReport: springReport?.namingReport ?? null,
             sajuCompatibility: springReport?.sajuCompatibility ?? null,
           }),
-          undefined,
-          'tieredMatrix',
         )
       : undefined;
 
@@ -282,15 +257,18 @@ export async function buildFortuneReport(
   const birthYearForCurve = birth?.year ?? saju.timeCorrection?.standardYear ?? null;
   const lifeCurve: LifeCurveCard | undefined =
     options?.surfaceTieredMatrix === true && birthYearForCurve
-      ? safeCall(() => buildLifeCurveCard(saju, birthYearForCurve, currentAge), null, 'lifeCurve') ?? undefined
+      ? buildRequired(
+          'lifeCurve',
+          () => buildLifeCurveCard(saju, birthYearForCurve, currentAge),
+        ) ?? undefined
       : undefined;
 
   // ── 12. Insight facts (opt-in + 성인 전용) ──
   // 미성년 페이로드에는 싣지 않는다 — 성인성 신살 필터 규칙이 정의되기
   // 전까지의 보수적 게이팅 (DESIGN_LIFEFLOW_INSIGHTS.md §Phase 2).
   const insightFacts: InsightFactsCard | undefined =
-    options?.surfaceInsightFacts === true && currentAge >= 20
-      ? safeCall(() => buildInsightFactsCard(saju), null, 'insightFacts') ?? undefined
+    options?.surfaceInsightFacts === true && currentAge !== null && currentAge >= 20
+      ? buildRequired('insightFacts', () => buildInsightFactsCard(saju)) ?? undefined
       : undefined;
 
   // ── Meta ──
@@ -298,7 +276,7 @@ export async function buildFortuneReport(
     version: '1.0.0',
     generatedAt: new Date().toISOString(),
     schoolPreset: options?.schoolPreset,
-    uncertainties: buildReportUncertainties(saju),
+    uncertainties: buildReportUncertainties(saju, birth),
   };
 
   return {

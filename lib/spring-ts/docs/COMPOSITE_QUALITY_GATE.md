@@ -1,64 +1,57 @@
-# Composite Quality Gate
+# Composite Behavior Gate
 
-This document defines the merge gate for `composite_classical` while
-`monthly_main` remains the production default.
+This document separates the current-diff behavior gate from expert-release
+certification. The two decisions must not be inferred from one another.
 
-## Scope
+## Current-Diff Guardrails
 
-- Default behavior must not change unless a PR explicitly updates the default
-  snapshot and explains the intended shift.
-- `composite_classical` is evidence-only. It may add candidate evidence, but it
-  must not promote or replace the selected gyeokguk.
-- Source-tier performance must stay visible in generated metrics so reviewers
-  can separate T3 authored interpretation behavior from T4 primary-text
-  behavior.
-- The regular baseline must not over-select jonggyeok. Focused jonggyeok
-  fixtures remain observation-only and are not part of this denominator.
+`composite_classical` is evidence-only. It can annotate a gyeokguk candidate,
+but it cannot select or promote one. The default selector remains unchanged
+unless a separately approved default-change diff says otherwise.
 
-## Gate Commands
-
-Run the full composite gate from `lib/spring-ts`:
-
-```bash
-npm run quality:gate
-```
-
-The composite-specific test can also be run directly:
+Run the behavior gate from `lib/spring-ts`:
 
 ```bash
 npm run test:composite-quality-gate
 ```
 
-For CI, set the baseline ref explicitly:
+For CI, compare explicit refs:
 
 ```bash
 COMPOSITE_GATE_BASELINE_REF=origin/main COMPOSITE_GATE_BRANCH_REF=HEAD npm run test:composite-quality-gate
 ```
 
-## Merge Criteria
+The test checks:
 
-The gate must pass all of these checks:
+- no unapproved default-snapshot diff;
+- runtime candidates retain `evidence_only_never_promote`;
+- composite evidence never marks a candidate as selected;
+- regular baseline fixtures do not select jonggyeok.
 
-| Check | Required Threshold | Source |
-| --- | --- | --- |
-| `monthly_main` default snapshot regression | `0` diffs against the baseline ref | `tools/measure_regression.mjs` |
-| `monthly_main` authority subset selected agreement | at least `17 / 27` | `tools/measure_alternative_gyeokguk_rules.ts` |
-| `composite_classical` selected agreement | not worse than `monthly_main` | `tools/measure_alternative_gyeokguk_rules.ts` |
-| total composite candidate coverage | at least `23 / 27` | `tools/measure_alternative_gyeokguk_rules.ts` |
-| T3 composite candidate coverage | at least `20 / 21` | `metrics/bySourceTier.json` |
-| T4 composite candidate coverage | at least `3 / 6` | `metrics/bySourceTier.json` |
-| regular-baseline selected jonggyeok ratio | `0 / 15` | `test/fixtures/spring_ts_baseline_cases.json` |
+These are maintainability and regression controls. They are not proof of
+doctrinal accuracy.
 
-## Dashboard Output
+## Historical Phase-P Observation
 
-`npm run metrics:baseline` publishes the dashboard data in
-`metrics/bySourceTier.json`:
+The counts formerly described as T3/T4 quality thresholds (17/27 selected
+agreement, 23/27 candidate visibility, 20/21 and 3/6 label-group coverage) are
+frozen Phase-P observations. Their source rows have not passed the current
+complete-D1 authority contract, so they cannot approve a merge, a default
+promotion, or a commercial expert release.
 
-- `ruleModeBreakdown.compositeQualityGate.status`
-- `ruleModeBreakdown.compositeQualityGate.checks`
-- `ruleModeBreakdown.compositeQualityGate.sourceTierDashboard`
-- `ruleModeBreakdown.modes.composite_classical.bySourceTier`
+`npm run metrics:baseline` exposes them only under:
 
-Reviewers should use `sourceTierDashboard` when a future PR changes composite
-candidate evidence. A T3 improvement must not hide a T4 regression, and selected
-agreement remains measured separately from candidate coverage.
+- `ruleModeBreakdown.authorityScope = historical_observation_only`;
+- `ruleModeBreakdown.releaseEligible = false`;
+- `ruleModeBreakdown.historicalCompositeObservation`;
+- `ruleModeBreakdown.modes.*.byHistoricalLabelTier`.
+
+The artifact intentionally has no `compositeQualityGate` and no current T3/T4
+source-tier dashboard.
+
+## Certified Release Decision
+
+Current source eligibility and doctrinal accuracy come from the source-policy
+and complete seven-field D1 quality gates. A certified release also requires
+the external-expert signoff gate. Historical Phase-P observations cannot
+substitute for either requirement.

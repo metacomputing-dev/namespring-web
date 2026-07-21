@@ -57,6 +57,12 @@ export interface JohooTemplateResult {
   /** bonus + climateScores (for convenience / explainability). */
   combinedScores: Record<Element, number>;
 
+  /** Ranking of the johoo template bonus alone, excluding climate scores. */
+  bonusRanking: Array<{ element: Element; score: number }>;
+  templatePrimary: Element;
+  templateSecondary: Element;
+
+  /** Combined climate + template ranking retained for backwards compatibility. */
   ranking: Array<{ element: Element; score: number }>;
   primary: Element;
   secondary: Element;
@@ -69,8 +75,12 @@ export interface JohooTemplateResult {
     source: 'qiongTongBaoJian' | 'custom';
     primaryStem: StemIdx;
     primaryStemHanja: string;
+    /** Element of the table's primary stem, before seasonal/climate scoring. */
+    primaryElement: Element;
     secondaryStems: StemIdx[];
     secondaryStemHanja: string[];
+    /** Unique elements represented by the table's secondary stems. */
+    secondaryElements: Element[];
     note?: string;
   };
 
@@ -188,6 +198,19 @@ function mandatoryBySeason(season: SeasonGroup): Element[] {
   return [];
 }
 
+function rankElements(
+  scores: Record<Element, number>,
+  tieBreak: readonly Element[],
+): Array<{ element: Element; score: number }> {
+  return [...ELEMENT_ORDER]
+    .map((element) => ({ element, score: scores[element] }))
+    .sort(
+      (a, b) =>
+        b.score - a.score ||
+        tieBreak.indexOf(a.element) - tieBreak.indexOf(b.element),
+    );
+}
+
 export function computeJohooTemplate(config: EngineConfig, args: {
   dayStem: StemIdx;
   monthBranch: BranchIdx;
@@ -200,15 +223,8 @@ export function computeJohooTemplate(config: EngineConfig, args: {
   const dayStemHanja = stemHanja(args.dayStem);
   const monthBranchHanja = branchHanja(args.monthBranch);
 
-  const mandatoryElements = mandatoryBySeason(seasonGroup);
-
   const bonus: Record<Element, number> = { WOOD: 0, FIRE: 0, EARTH: 0, METAL: 0, WATER: 0 };
   const reasons: string[] = [];
-
-  for (const e of mandatoryElements) {
-    bonus[e] += policy.seasonMandatoryBoost;
-  }
-  if (mandatoryElements.length > 0) reasons.push(`seasonMandatory:${seasonGroup}`);
 
   // 감사 B12: 궁통보감 120셀 조회. 셀 적중 시 互不离(고정 1천간)와 冬丙/夏癸
   // 힌트를 통째로 대체한다 — 겨울 셀은 이미 화 계열 천간을 수록하므로 힌트를
@@ -221,6 +237,7 @@ export function computeJohooTemplate(config: EngineConfig, args: {
   let prefHanja: string[];
   let preferredStems: StemIdx[];
   let preferredElements: Element[];
+  let mandatoryElements: Element[] = [];
   let monthTableOut: JohooTemplateResult['monthTable'];
 
   if (cell && typeof cellPrimary === 'number') {
@@ -232,21 +249,33 @@ export function computeJohooTemplate(config: EngineConfig, args: {
     prefHanja = preferredStems.map((s) => stemHanja(s));
     preferredElements = preferredStems.map((s) => stemElement(s));
     bonus[stemElement(cellPrimary)] += policy.monthTablePrimaryBoost;
-    // 보좌 동일 원소가 여러 개면 단순 누적(+0.25×n) — 현 수록 데이터에서 유의미한
-    // 과대는 없으며, per-element cap은 데이터 저작 확장 시 재결정 포인트.
-    for (const s of secStems) bonus[stemElement(s)] += policy.monthTableSecondaryBoost;
+    // 보좌는 천간 우선순위를 보존하되 오행 점수에는 원소별 한 번만 반영한다.
+    // 같은 오행의 보좌 천간 수가 많다는 이유로 주용신 오행을 역전시키면
+    // monthTable.primaryStem과 top-level primary가 서로 모순될 수 있다.
+    const secondaryElements = [...new Set(secStems.map((s) => stemElement(s)))];
+    for (const element of secondaryElements) {
+      bonus[element] += policy.monthTableSecondaryBoost;
+    }
     reasons.push(`monthTable:${dayStemHanja}${monthBranchHanja}:${cell.primary}(${(cell.secondary ?? []).join('')})`);
     monthTableOut = {
       source: policy.monthTableSource ?? 'custom',
       primaryStem: cellPrimary,
       primaryStemHanja: stemHanja(cellPrimary),
+      primaryElement: stemElement(cellPrimary),
       secondaryStems: secStems,
       secondaryStemHanja: secStems.map((s) => stemHanja(s)),
+      secondaryElements,
       ...(cell.note ? { note: cell.note } : {}),
     };
   } else {
     if (policy.monthTable) reasons.push(`monthTableMiss:${dayStemHanja}${monthBranchHanja}`);
     // ── 기존 간이 경로 (테이블 미지정 또는 셀 부재 폴백) ──
+    mandatoryElements = mandatoryBySeason(seasonGroup);
+    for (const element of mandatoryElements) {
+      bonus[element] += policy.seasonMandatoryBoost;
+    }
+    if (mandatoryElements.length > 0) reasons.push(`seasonMandatory:${seasonGroup}`);
+
     const prefs = mergeStemPref(policy);
     const prefHanjaBase = prefs[dayStemHanja] ?? [];
     prefHanja = [...prefHanjaBase];
@@ -281,9 +310,15 @@ export function computeJohooTemplate(config: EngineConfig, args: {
   const combinedScores: Record<Element, number> = { WOOD: 0, FIRE: 0, EARTH: 0, METAL: 0, WATER: 0 };
   for (const e of ELEMENT_ORDER) combinedScores[e] = (args.climateScores[e] ?? 0) + (bonus[e] ?? 0);
 
-  const ranking = [...ELEMENT_ORDER]
-    .map((e) => ({ element: e, score: combinedScores[e] }))
-    .sort((a, b) => b.score - a.score);
+  const rankingTieBreak = monthTableOut
+    ? [
+        stemElement(monthTableOut.primaryStem),
+        ...monthTableOut.secondaryStems.map((stem) => stemElement(stem)),
+        ...ELEMENT_ORDER,
+      ].filter((element, index, all) => all.indexOf(element) === index)
+    : [...ELEMENT_ORDER];
+  const bonusRanking = rankElements(bonus, rankingTieBreak);
+  const ranking = rankElements(combinedScores, rankingTieBreak);
 
   return {
     enabled: true,
@@ -298,6 +333,9 @@ export function computeJohooTemplate(config: EngineConfig, args: {
     mandatoryElements,
     bonus,
     combinedScores,
+    bonusRanking,
+    templatePrimary: bonusRanking[0]?.element ?? 'WOOD',
+    templateSecondary: bonusRanking[1]?.element ?? bonusRanking[0]?.element ?? 'WOOD',
     ranking,
     primary: ranking[0]?.element ?? 'WOOD',
     secondary: ranking[1]?.element ?? ranking[0]?.element ?? 'WOOD',

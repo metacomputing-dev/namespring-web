@@ -32,7 +32,7 @@ function fakeEntry(overrides: Record<string, unknown>): any {
     strokes: 4,
     stroke_element: 'Fire',
     resource_element: 'Fire',
-    meaning: '',
+    meaning: '\uC544\uB984\uB2E4\uC6B8 \uAC00',
     radical: '',
     is_surname: false,
     ...overrides,
@@ -68,6 +68,7 @@ const curatedJamoEntry = fakeEntry({
 });
 
 engine.hanjaRepo = {
+  findSurnamesByHangul: async () => [surnameEntry],
   findByHanja: async (hanja: string) => hanja === '崔' ? surnameEntry : null,
   findByStrokeRange: async (min: number, max: number) =>
     curatedStrokeEntry.strokes >= min && curatedStrokeEntry.strokes <= max
@@ -107,6 +108,30 @@ const fullWithSyntheticAvoid = await engine.generateCandidates({
   ...baseRequest,
   options: { precisionConfig: { hanjaPool: 'inmyeongyong_full' } },
 }, avoidSyntheticSummary);
+const readySyntheticAvoidSummary = {
+  ...avoidSyntheticSummary,
+  axisStrength: {
+    strength: 'definite',
+    gyeokguk: 'definite',
+    yongshin: 'practical',
+  },
+  gyeokguk: {
+    type: 'fixture',
+    category: 'general',
+    baseTenGod: 'fixture',
+    confidence: 0.7,
+    reasoning: 'fixture',
+  },
+  yongshin: {
+    ...avoidSyntheticSummary.yongshin,
+    confidence: 70,
+    warnings: [],
+  },
+};
+const curatedWithReadyHarmfulRole = await engine.generateCandidates({
+  ...baseRequest,
+  options: { precisionConfig: { hanjaPool: 'curated' } },
+}, readySyntheticAvoidSummary);
 
 const curatedHanja = new Set(curated.flat().map((char: NameCharInput) => char.hanja));
 const fullHanja = new Set(full.flat().map((char: NameCharInput) => char.hanja));
@@ -128,12 +153,14 @@ check('full generator candidate count is deterministic',
 check('full generator does not exclude by synthetic resource element',
   fullWithSyntheticAvoid.length === full.length,
   `full=${full.length}, avoidSynthetic=${fullWithSyntheticAvoid.length}`);
+check('ready harmful role is scored after generation rather than hard-filtered',
+  curatedWithReadyHarmfulRole.length === curated.length,
+  `curated=${curated.length}, harmfulRole=${curatedWithReadyHarmfulRole.length}`);
 check('full generator adds legal Hanja outside the fake curated repo',
   Array.from(fullHanja).some((hanja) => hanja !== '佳'),
   `full=${Array.from(fullHanja).slice(0, 8).join(',')}`);
 check('full generated chars carry legal status',
-  full.flat().every((char: NameCharInput) =>
-    char.legalStatus === 'allowed' || char.legalStatus === 'variantAllowed'));
+  full.flat().every((char: NameCharInput) => char.legalStatus === 'allowed'));
 
 const fullOnlyGenerated = full.flat().find((char: NameCharInput) => char.hanja !== '佳') as NameCharInput;
 const resolvedFullOnly = await engine.resolveEntries([fullOnlyGenerated], {
@@ -170,14 +197,25 @@ check('full jamo-filtered pool respects reading-derived onset/nucleus',
   }),
   `count=${fullJamo.length}, hangul=${fullJamoHangul.join(',')}`);
 
-engine.resetCandidateRejections();
+const candidateRejections = new Map();
 const filtered = engine.filterGeneratedCandidatesByLegalStatus([
   [{ hangul: '답', hanja: '龘', legalStatus: 'notAllowed' }],
-], 'inmyeongyong_full');
-const rejections = engine.candidateRejectionSummary();
-const response = engine.buildResponse(baseRequest, 'recommend', sajuSummary, []);
-check('illegal generated Hanja is removed before scoring',
+], candidateRejections);
+const pureHangulFiltered = engine.filterGeneratedCandidatesByLegalStatus([
+  [{ hangul: '민', hanja: '', legalStatus: 'hangulOnly' }],
+], new Map());
+const rejections = engine.candidateRejectionSummary(candidateRejections);
+const response = engine.buildResponse(
+  baseRequest,
+  'recommend',
+  sajuSummary,
+  [],
+  candidateRejections,
+);
+check('illegal generated Hanja is removed before scoring in every candidate pool',
   filtered.length === 0);
+check('pure-Hangul recommendations bypass the Hanja-only legal filter',
+  pureHangulFiltered.length === 1);
 check('rejection reason is exposed for filtered Hanja',
   rejections.some((row: any) => row.reason === 'outside_legal_hanja_pool' && row.count === 1),
   JSON.stringify(rejections));

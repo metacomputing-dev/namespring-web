@@ -1,4 +1,6 @@
-import type { HanjaEntry } from '../database/hanja-repository';
+import type { HanjaEntry } from '../database/hanja-repository.js';
+import { SeedValidationError } from '../errors.js';
+import { countCodePointsUpTo } from './bounded-code-point-count.js';
 
 export type NameElementKey = 'Wood' | 'Fire' | 'Earth' | 'Metal' | 'Water';
 
@@ -58,17 +60,42 @@ export interface HangulPseudoEntryOptions {
   readonly isSurname?: boolean;
 }
 
-function firstChar(value: string): string {
-  const chars = Array.from(String(value ?? ''));
-  return chars[0] ?? '';
+function exactChar(value: string): string {
+  if (typeof value !== 'string') return '';
+  return countCodePointsUpTo(value, 1) === 1 ? value : '';
 }
 
 function strokeCountOf(jamo: string): number {
-  return JAMO_STROKES[jamo] ?? 1;
+  if (jamo === '') return 0;
+  const strokes = JAMO_STROKES[jamo];
+  if (strokes === undefined) {
+    throw new SeedValidationError(
+      'INVALID_HANGUL_SYLLABLE',
+      'Hangul syllable contains an unsupported jamo.',
+      'hangul',
+      jamo,
+    );
+  }
+  return strokes;
+}
+
+function requirePrecomposedHangulSyllable(value: string): string {
+  const valueLength = typeof value === 'string' ? countCodePointsUpTo(value, 1) : 0;
+  const syllable = exactChar(value);
+  const codePoint = syllable.codePointAt(0) ?? -1;
+  if (codePoint < HANGUL_SYLLABLE_START || codePoint > HANGUL_SYLLABLE_END) {
+    throw new SeedValidationError(
+      'INVALID_HANGUL_SYLLABLE',
+      'Name must contain exactly one precomposed Hangul syllable.',
+      'hangul',
+      value,
+    );
+  }
+  return syllable;
 }
 
 export function decomposeHangulSyllable(char: string): HangulSyllableParts | null {
-  const syllable = firstChar(char);
+  const syllable = exactChar(char);
   if (!syllable) return null;
 
   const codePoint = syllable.codePointAt(0);
@@ -100,21 +127,43 @@ export function decomposeHangulSyllable(char: string): HangulSyllableParts | nul
 }
 
 export function hangulElementFromSyllable(char: string): NameElementKey {
-  const parts = decomposeHangulSyllable(char);
-  if (!parts) return 'Water';
-  return ONSET_TO_ELEMENT[parts.onset] ?? 'Water';
+  const syllable = requirePrecomposedHangulSyllable(char);
+  const parts = decomposeHangulSyllable(syllable);
+  const element = parts ? ONSET_TO_ELEMENT[parts.onset] : undefined;
+  if (!element) {
+    throw new SeedValidationError(
+      'INVALID_ONSET',
+      'Unable to derive a valid onset element from the Hangul syllable.',
+      'hangul',
+      char,
+    );
+  }
+  return element;
 }
 
 export function hangulStrokeCount(char: string): number {
-  const parts = decomposeHangulSyllable(char);
-  if (!parts) return 1;
-  return Math.max(
-    1,
-    strokeCountOf(parts.onset) + strokeCountOf(parts.nucleus) + strokeCountOf(parts.coda),
-  );
+  const syllable = requirePrecomposedHangulSyllable(char);
+  const parts = decomposeHangulSyllable(syllable);
+  if (!parts) {
+    throw new SeedValidationError(
+      'INVALID_HANGUL_SYLLABLE',
+      'Unable to decompose the Hangul syllable.',
+      'hangul',
+      char,
+    );
+  }
+  return strokeCountOf(parts.onset) + strokeCountOf(parts.nucleus) + strokeCountOf(parts.coda);
 }
 
 export function strokeElementFromStrokeCount(strokes: number): NameElementKey {
+  if (!Number.isFinite(strokes) || !Number.isInteger(strokes) || strokes <= 0) {
+    throw new SeedValidationError(
+      'INVALID_STROKE_COUNT',
+      'Stroke count must be a positive finite integer.',
+      'strokes',
+      strokes,
+    );
+  }
   const digit = ((strokes % 10) + 10) % 10;
   if (digit === 1 || digit === 2) return 'Wood';
   if (digit === 3 || digit === 4) return 'Fire';
@@ -127,16 +176,24 @@ export function buildHangulPseudoEntry(
   hangulInput: string,
   options: HangulPseudoEntryOptions = {},
 ): HanjaEntry {
-  const hangul = firstChar(hangulInput) || String(hangulInput ?? '');
+  const hangul = requirePrecomposedHangulSyllable(hangulInput);
   const parts = decomposeHangulSyllable(hangul);
+  if (!parts) {
+    throw new SeedValidationError(
+      'INVALID_HANGUL_SYLLABLE',
+      'Unable to decompose the Hangul syllable.',
+      'hangul',
+      hangulInput,
+    );
+  }
   const strokes = hangulStrokeCount(hangul);
 
   return {
     id: options.id ?? 0,
     hangul,
     hanja: options.hanja ?? hangul,
-    onset: parts?.onset ?? DEFAULT_ONSET,
-    nucleus: parts?.nucleus ?? DEFAULT_NUCLEUS,
+    onset: parts.onset,
+    nucleus: parts.nucleus,
     strokes,
     stroke_element: strokeElementFromStrokeCount(strokes),
     resource_element: hangulElementFromSyllable(hangul),

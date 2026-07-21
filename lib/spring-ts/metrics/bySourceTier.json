@@ -1,44 +1,395 @@
 {
-  "schemaVersion": "spring-ts.by-source-tier.v1",
+  "schemaVersion": "spring-ts.by-source-tier.v2",
   "baseline": {
     "fixtureCount": 17,
     "snapshotVersion": "1.0.0",
     "snapshotTargetDate": "2026-04-30T00:00:00.000Z",
     "snapshotFixtureCount": 17
   },
+  "d1TruthCoverage": {
+    "schemaVersion": "spring-ts.d1-truth-coverage.v1",
+    "contract": "D1 requires all three doctrine and four naming-calibration fields from scope-eligible references",
+    "requiredFields": [
+      "sajuReport.gyeokgukType",
+      "sajuReport.yongshinElement",
+      "sajuReport.strengthLevel",
+      "namingReport.totalScore",
+      "namingReport.scores.hangul",
+      "namingReport.scores.hanja",
+      "namingReport.scores.fourFrame"
+    ],
+    "requiredFieldCount": 7,
+    "fixtureCount": 17,
+    "completeFixtureCount": 0,
+    "partialFixtureCount": 0,
+    "noneFixtureCount": 17,
+    "doctrineCompleteFixtureCount": 0,
+    "namingCalibrationCompleteFixtureCount": 0,
+    "fixtures": [
+      {
+        "fixtureId": "fix-01",
+        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
+        "referenceKind": "oracle",
+        "sourceType": "reference_implementation",
+        "coverageStatus": "NONE",
+        "coveredFieldCount": 0,
+        "missingRequiredFields": [
+          "sajuReport.gyeokgukType",
+          "sajuReport.yongshinElement",
+          "sajuReport.strengthLevel",
+          "namingReport.totalScore",
+          "namingReport.scores.hangul",
+          "namingReport.scores.hanja",
+          "namingReport.scores.fourFrame"
+        ],
+        "doctrineComplete": false,
+        "namingCalibrationComplete": false
+      },
+      {
+        "fixtureId": "fix-02",
+        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
+        "referenceKind": "oracle",
+        "sourceType": "reference_implementation",
+        "coverageStatus": "NONE",
+        "coveredFieldCount": 0,
+        "missingRequiredFields": [
+          "sajuReport.gyeokgukType",
+          "sajuReport.yongshinElement",
+          "sajuReport.strengthLevel",
+          "namingReport.totalScore",
+          "namingReport.scores.hangul",
+          "namingReport.scores.hanja",
+          "namingReport.scores.fourFrame"
+        ],
+        "doctrineComplete": false,
+        "namingCalibrationComplete": false
+      },
+      {
+        "fixtureId": "fix-03",
+        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
+        "referenceKind": "oracle",
+        "sourceType": "reference_implementation",
+        "coverageStatus": "NONE",
+        "coveredFieldCount": 0,
+        "missingRequiredFields": [
+          "sajuReport.gyeokgukType",
+          "sajuReport.yongshinElement",
+          "sajuReport.strengthLevel",
+          "namingReport.totalScore",
+          "namingReport.scores.hangul",
+          "namingReport.scores.hanja",
+          "namingReport.scores.fourFrame"
+        ],
+        "doctrineComplete": false,
+        "namingCalibrationComplete": false
+      },
+      {
+        "fixtureId": "fix-04",
+        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
+        "referenceKind": "oracle",
+        "sourceType": "reference_implementation",
+        "coverageStatus": "NONE",
+        "coveredFieldCount": 0,
+        "missingRequiredFields": [
+          "sajuReport.gyeokgukType",
+          "sajuReport.yongshinElement",
+          "sajuReport.strengthLevel",
+          "namingReport.totalScore",
+          "namingReport.scores.hangul",
+          "namingReport.scores.hanja",
+          "namingReport.scores.fourFrame"
+        ],
+        "doctrineComplete": false,
+        "namingCalibrationComplete": false
+      },
+      {
+        "fixtureId": "fix-05",
+        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
+        "referenceKind": "oracle",
+        "sourceType": "reference_implementation",
+        "coverageStatus": "NONE",
+        "coveredFieldCount": 0,
+        "missingRequiredFields": [
+          "sajuReport.gyeokgukType",
+          "sajuReport.yongshinElement",
+          "sajuReport.strengthLevel",
+          "namingReport.totalScore",
+          "namingReport.scores.hangul",
+          "namingReport.scores.hanja",
+          "namingReport.scores.fourFrame"
+        ],
+        "doctrineComplete": false,
+        "namingCalibrationComplete": false
+      },
+      {
+        "fixtureId": "fix-06",
+        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
+        "referenceKind": "oracle",
+        "sourceType": "reference_implementation",
+        "coverageStatus": "NONE",
+        "coveredFieldCount": 0,
+        "missingRequiredFields": [
+          "sajuReport.gyeokgukType",
+          "sajuReport.yongshinElement",
+          "sajuReport.strengthLevel",
+          "namingReport.totalScore",
+          "namingReport.scores.hangul",
+          "namingReport.scores.hanja",
+          "namingReport.scores.fourFrame"
+        ],
+        "doctrineComplete": false,
+        "namingCalibrationComplete": false
+      },
+      {
+        "fixtureId": "fix-07",
+        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
+        "referenceKind": "oracle",
+        "sourceType": "reference_implementation",
+        "coverageStatus": "NONE",
+        "coveredFieldCount": 0,
+        "missingRequiredFields": [
+          "sajuReport.gyeokgukType",
+          "sajuReport.yongshinElement",
+          "sajuReport.strengthLevel",
+          "namingReport.totalScore",
+          "namingReport.scores.hangul",
+          "namingReport.scores.hanja",
+          "namingReport.scores.fourFrame"
+        ],
+        "doctrineComplete": false,
+        "namingCalibrationComplete": false
+      },
+      {
+        "fixtureId": "fix-08",
+        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
+        "referenceKind": "oracle",
+        "sourceType": "reference_implementation",
+        "coverageStatus": "NONE",
+        "coveredFieldCount": 0,
+        "missingRequiredFields": [
+          "sajuReport.gyeokgukType",
+          "sajuReport.yongshinElement",
+          "sajuReport.strengthLevel",
+          "namingReport.totalScore",
+          "namingReport.scores.hangul",
+          "namingReport.scores.hanja",
+          "namingReport.scores.fourFrame"
+        ],
+        "doctrineComplete": false,
+        "namingCalibrationComplete": false
+      },
+      {
+        "fixtureId": "fix-09",
+        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
+        "referenceKind": "oracle",
+        "sourceType": "reference_implementation",
+        "coverageStatus": "NONE",
+        "coveredFieldCount": 0,
+        "missingRequiredFields": [
+          "sajuReport.gyeokgukType",
+          "sajuReport.yongshinElement",
+          "sajuReport.strengthLevel",
+          "namingReport.totalScore",
+          "namingReport.scores.hangul",
+          "namingReport.scores.hanja",
+          "namingReport.scores.fourFrame"
+        ],
+        "doctrineComplete": false,
+        "namingCalibrationComplete": false
+      },
+      {
+        "fixtureId": "fix-10",
+        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
+        "referenceKind": "oracle",
+        "sourceType": "reference_implementation",
+        "coverageStatus": "NONE",
+        "coveredFieldCount": 0,
+        "missingRequiredFields": [
+          "sajuReport.gyeokgukType",
+          "sajuReport.yongshinElement",
+          "sajuReport.strengthLevel",
+          "namingReport.totalScore",
+          "namingReport.scores.hangul",
+          "namingReport.scores.hanja",
+          "namingReport.scores.fourFrame"
+        ],
+        "doctrineComplete": false,
+        "namingCalibrationComplete": false
+      },
+      {
+        "fixtureId": "fix-11",
+        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
+        "referenceKind": "oracle",
+        "sourceType": "reference_implementation",
+        "coverageStatus": "NONE",
+        "coveredFieldCount": 0,
+        "missingRequiredFields": [
+          "sajuReport.gyeokgukType",
+          "sajuReport.yongshinElement",
+          "sajuReport.strengthLevel",
+          "namingReport.totalScore",
+          "namingReport.scores.hangul",
+          "namingReport.scores.hanja",
+          "namingReport.scores.fourFrame"
+        ],
+        "doctrineComplete": false,
+        "namingCalibrationComplete": false
+      },
+      {
+        "fixtureId": "fix-12",
+        "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
+        "referenceKind": "oracle",
+        "sourceType": "reference_implementation",
+        "coverageStatus": "NONE",
+        "coveredFieldCount": 0,
+        "missingRequiredFields": [
+          "sajuReport.gyeokgukType",
+          "sajuReport.yongshinElement",
+          "sajuReport.strengthLevel",
+          "namingReport.totalScore",
+          "namingReport.scores.hangul",
+          "namingReport.scores.hanja",
+          "namingReport.scores.fourFrame"
+        ],
+        "doctrineComplete": false,
+        "namingCalibrationComplete": false
+      },
+      {
+        "fixtureId": "fix-13",
+        "referenceTier": "NO_REFERENCE",
+        "referenceKind": "none",
+        "sourceType": "none",
+        "coverageStatus": "NONE",
+        "coveredFieldCount": 0,
+        "missingRequiredFields": [
+          "sajuReport.gyeokgukType",
+          "sajuReport.yongshinElement",
+          "sajuReport.strengthLevel",
+          "namingReport.totalScore",
+          "namingReport.scores.hangul",
+          "namingReport.scores.hanja",
+          "namingReport.scores.fourFrame"
+        ],
+        "doctrineComplete": false,
+        "namingCalibrationComplete": false
+      },
+      {
+        "fixtureId": "fix-14",
+        "referenceTier": "NO_REFERENCE",
+        "referenceKind": "none",
+        "sourceType": "none",
+        "coverageStatus": "NONE",
+        "coveredFieldCount": 0,
+        "missingRequiredFields": [
+          "sajuReport.gyeokgukType",
+          "sajuReport.yongshinElement",
+          "sajuReport.strengthLevel",
+          "namingReport.totalScore",
+          "namingReport.scores.hangul",
+          "namingReport.scores.hanja",
+          "namingReport.scores.fourFrame"
+        ],
+        "doctrineComplete": false,
+        "namingCalibrationComplete": false
+      },
+      {
+        "fixtureId": "fix-15",
+        "referenceTier": "NO_REFERENCE",
+        "referenceKind": "none",
+        "sourceType": "none",
+        "coverageStatus": "NONE",
+        "coveredFieldCount": 0,
+        "missingRequiredFields": [
+          "sajuReport.gyeokgukType",
+          "sajuReport.yongshinElement",
+          "sajuReport.strengthLevel",
+          "namingReport.totalScore",
+          "namingReport.scores.hangul",
+          "namingReport.scores.hanja",
+          "namingReport.scores.fourFrame"
+        ],
+        "doctrineComplete": false,
+        "namingCalibrationComplete": false
+      },
+      {
+        "fixtureId": "fix-16",
+        "referenceTier": "NO_REFERENCE",
+        "referenceKind": "none",
+        "sourceType": "none",
+        "coverageStatus": "NONE",
+        "coveredFieldCount": 0,
+        "missingRequiredFields": [
+          "sajuReport.gyeokgukType",
+          "sajuReport.yongshinElement",
+          "sajuReport.strengthLevel",
+          "namingReport.totalScore",
+          "namingReport.scores.hangul",
+          "namingReport.scores.hanja",
+          "namingReport.scores.fourFrame"
+        ],
+        "doctrineComplete": false,
+        "namingCalibrationComplete": false
+      },
+      {
+        "fixtureId": "fix-17",
+        "referenceTier": "NO_REFERENCE",
+        "referenceKind": "none",
+        "sourceType": "none",
+        "coverageStatus": "NONE",
+        "coveredFieldCount": 0,
+        "missingRequiredFields": [
+          "sajuReport.gyeokgukType",
+          "sajuReport.yongshinElement",
+          "sajuReport.strengthLevel",
+          "namingReport.totalScore",
+          "namingReport.scores.hangul",
+          "namingReport.scores.hanja",
+          "namingReport.scores.fourFrame"
+        ],
+        "doctrineComplete": false,
+        "namingCalibrationComplete": false
+      }
+    ]
+  },
   "qualityGateByReferenceTier": {
     "T2_REFERENCE_IMPLEMENTATION": {
       "fixtureCount": 12,
       "fixtureStatus": {
-        "PASS": 12,
+        "PASS": 0,
         "FAIL": 0,
-        "N/A": 0
+        "N/A": 12,
+        "NOT_APPLICABLE": 0
       },
       "dimensionStatus": {
         "D1": {
           "PASS": 0,
           "FAIL": 0,
-          "N/A": 12
+          "N/A": 12,
+          "NOT_APPLICABLE": 0
         },
         "D2": {
           "PASS": 0,
           "FAIL": 0,
-          "N/A": 12
+          "N/A": 12,
+          "NOT_APPLICABLE": 0
         },
         "D3": {
-          "PASS": 12,
+          "PASS": 0,
           "FAIL": 0,
-          "N/A": 0
+          "N/A": 12,
+          "NOT_APPLICABLE": 0
         },
         "D4": {
           "PASS": 0,
           "FAIL": 0,
-          "N/A": 12
+          "N/A": 12,
+          "NOT_APPLICABLE": 0
         },
         "D5": {
-          "PASS": 5,
+          "PASS": 0,
           "FAIL": 0,
-          "N/A": 7
+          "N/A": 9,
+          "NOT_APPLICABLE": 3
         }
       },
       "truthBuckets": {
@@ -53,35 +404,41 @@
     "NO_REFERENCE": {
       "fixtureCount": 5,
       "fixtureStatus": {
-        "PASS": 3,
+        "PASS": 0,
         "FAIL": 0,
-        "N/A": 2
+        "N/A": 5,
+        "NOT_APPLICABLE": 0
       },
       "dimensionStatus": {
         "D1": {
           "PASS": 0,
           "FAIL": 0,
-          "N/A": 5
+          "N/A": 5,
+          "NOT_APPLICABLE": 0
         },
         "D2": {
           "PASS": 0,
           "FAIL": 0,
-          "N/A": 5
+          "N/A": 5,
+          "NOT_APPLICABLE": 0
         },
         "D3": {
           "PASS": 0,
           "FAIL": 0,
-          "N/A": 5
+          "N/A": 5,
+          "NOT_APPLICABLE": 0
         },
         "D4": {
           "PASS": 0,
           "FAIL": 0,
-          "N/A": 5
+          "N/A": 5,
+          "NOT_APPLICABLE": 0
         },
         "D5": {
-          "PASS": 3,
+          "PASS": 0,
           "FAIL": 0,
-          "N/A": 2
+          "N/A": 5,
+          "NOT_APPLICABLE": 0
         }
       },
       "truthBuckets": {
@@ -100,190 +457,221 @@
     "engineRuleFailureCount": 0
   },
   "ruleModeBreakdown": {
-    "metric": "authority gyeokguk agreement by deterministic rule-mode candidate",
-    "note": "monthly_main and jungki_transparent mirror Phase P measurement. composite_classical is an evidence-only candidate score: selected agreement remains monthly_main for non-regression, while candidateCoverage reports whether the authority label appears in surfaced candidates. passRate preserves the Phase P stated rate; computedPassRate is the literal numerator/denominator check.",
+    "metric": "historical Phase-P gyeokguk label agreement by rule-mode candidate",
+    "authorityScope": "historical_observation_only",
+    "releaseEligible": false,
+    "note": "This is a historical Phase-P observation only. Its label tiers, agreement counts, and candidate coverage do not describe current source eligibility, do not authenticate authority, and cannot produce a release decision.",
     "source": "test/baseline/PHASE_P_RESULTS.md",
-    "compositeQualityGate": {
-      "status": "PASS",
-      "thresholds": {
-        "monthlyMainSelectedAgreement": {
+    "historicalCompositeObservation": {
+      "classification": "HISTORICAL_PHASE_P_OBSERVATION",
+      "authorityScope": "historical_observation_only",
+      "releaseEligible": false,
+      "allHistoricalFloorsObserved": true,
+      "historicalFloors": {
+        "monthlyMain": {
           "minPass": 17,
           "comparable": 27
         },
-        "compositeSelectedAgreement": {
+        "compositeNet": {
           "minNetVsMonthlyMain": 0
         },
-        "compositeCandidateCoverage": {
-          "total": {
-            "minCovered": 23,
-            "comparable": 27
+        "totalCoverage": {
+          "minCovered": 23,
+          "comparable": 27
+        },
+        "byHistoricalLabelTier": {
+          "phase_p_authored_interpretation_label": {
+            "minCovered": 20,
+            "comparable": 21
           },
-          "bySourceTier": {
-            "T3_AUTHORED_INTERPRETATION": {
-              "minCovered": 20,
-              "comparable": 21
-            },
-            "T4_PRIMARY_TEXT": {
-              "minCovered": 3,
-              "comparable": 6
-            }
+          "phase_p_primary_text_label": {
+            "minCovered": 3,
+            "comparable": 6
+          }
+        },
+        "bySourceGroup": {
+          "lecture": {
+            "minCovered": 14,
+            "comparable": 14
           },
-          "bySourceGroup": {
-            "lecture": {
-              "minCovered": 14,
-              "comparable": 14
-            },
-            "jonheom": {
-              "minCovered": 3,
-              "comparable": 6
-            },
-            "korean_modern_figures_and_chumyeongga": {
-              "minCovered": 6,
-              "comparable": 7
-            }
+          "jonheom": {
+            "minCovered": 3,
+            "comparable": 6
+          },
+          "korean_modern_figures_and_chumyeongga": {
+            "minCovered": 6,
+            "comparable": 7
           }
         }
       },
       "checks": [
         {
-          "id": "monthly_main_default_selected_agreement",
-          "status": "PASS",
-          "description": "Default monthly_main selected agreement must not fall below the Phase P baseline.",
+          "id": "monthly_main_historical_selected_agreement",
+          "description": "The recorded Phase-P monthly_main row is compared with its historical floor.",
+          "meetsHistoricalFloor": true,
           "actual": {
             "pass": 17,
             "comparable": 27
           },
-          "threshold": {
+          "historicalFloor": {
             "minPass": 17,
             "comparable": 27
-          }
+          },
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         },
         {
-          "id": "composite_selected_non_regression",
-          "status": "PASS",
-          "description": "Composite mode is evidence-only; selected agreement must not regress against monthly_main.",
+          "id": "composite_historical_selected_non_regression",
+          "description": "The observation-only composite row is compared with the recorded monthly_main row.",
+          "meetsHistoricalFloor": true,
           "actual": {
             "netVsMonthlyMain": 0
           },
-          "threshold": {
+          "historicalFloor": {
             "minNetVsMonthlyMain": 0
-          }
+          },
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         },
         {
-          "id": "composite_total_candidate_coverage",
-          "status": "PASS",
-          "description": "Authority label must remain visible in composite candidates for the measured subset.",
+          "id": "composite_historical_total_candidate_coverage",
+          "description": "Historical Phase-P label visibility is compared with the recorded total floor.",
+          "meetsHistoricalFloor": true,
           "actual": {
             "covered": 23,
             "comparable": 27
           },
-          "threshold": {
+          "historicalFloor": {
             "minCovered": 23,
             "comparable": 27
-          }
+          },
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         },
         {
-          "id": "composite_source_tier_T3_AUTHORED_INTERPRETATION_candidate_coverage",
-          "status": "PASS",
-          "description": "T3_AUTHORED_INTERPRETATION composite candidate coverage must stay above the authority subset threshold.",
+          "id": "composite_historical_label_tier_phase_p_authored_interpretation_label_coverage",
+          "description": "phase_p_authored_interpretation_label is a Phase-P label grouping, not a current source-tier certification.",
+          "meetsHistoricalFloor": true,
           "actual": {
             "covered": 20,
             "comparable": 21
           },
-          "threshold": {
+          "historicalFloor": {
             "minCovered": 20,
             "comparable": 21
-          }
+          },
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         },
         {
-          "id": "composite_source_tier_T4_PRIMARY_TEXT_candidate_coverage",
-          "status": "PASS",
-          "description": "T4_PRIMARY_TEXT composite candidate coverage must stay above the authority subset threshold.",
+          "id": "composite_historical_label_tier_phase_p_primary_text_label_coverage",
+          "description": "phase_p_primary_text_label is a Phase-P label grouping, not a current source-tier certification.",
+          "meetsHistoricalFloor": true,
           "actual": {
             "covered": 3,
             "comparable": 6
           },
-          "threshold": {
+          "historicalFloor": {
             "minCovered": 3,
             "comparable": 6
-          }
+          },
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         },
         {
-          "id": "composite_source_group_lecture_candidate_coverage",
-          "status": "PASS",
-          "description": "lecture composite candidate coverage must stay above the authority subset threshold.",
+          "id": "composite_historical_source_group_lecture_coverage",
+          "description": "lecture historical label visibility is observation-only.",
+          "meetsHistoricalFloor": true,
           "actual": {
             "covered": 14,
             "comparable": 14
           },
-          "threshold": {
+          "historicalFloor": {
             "minCovered": 14,
             "comparable": 14
-          }
+          },
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         },
         {
-          "id": "composite_source_group_jonheom_candidate_coverage",
-          "status": "PASS",
-          "description": "jonheom composite candidate coverage must stay above the authority subset threshold.",
+          "id": "composite_historical_source_group_jonheom_coverage",
+          "description": "jonheom historical label visibility is observation-only.",
+          "meetsHistoricalFloor": true,
           "actual": {
             "covered": 3,
             "comparable": 6
           },
-          "threshold": {
+          "historicalFloor": {
             "minCovered": 3,
             "comparable": 6
-          }
+          },
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         },
         {
-          "id": "composite_source_group_korean_modern_figures_and_chumyeongga_candidate_coverage",
-          "status": "PASS",
-          "description": "korean_modern_figures_and_chumyeongga composite candidate coverage must stay above the authority subset threshold.",
+          "id": "composite_historical_source_group_korean_modern_figures_and_chumyeongga_coverage",
+          "description": "korean_modern_figures_and_chumyeongga historical label visibility is observation-only.",
+          "meetsHistoricalFloor": true,
           "actual": {
             "covered": 6,
             "comparable": 7
           },
-          "threshold": {
+          "historicalFloor": {
             "minCovered": 6,
             "comparable": 7
-          }
+          },
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         }
       ],
-      "sourceTierDashboard": {
-        "T3_AUTHORED_INTERPRETATION": {
-          "selectedAgreement": {
+      "historicalLabelTierDashboard": {
+        "phase_p_authored_interpretation_label": {
+          "historicalSelectedAgreement": {
             "pass": 16,
             "comparable": 21,
             "passRate": 76.2
           },
-          "candidateCoverage": {
+          "historicalCandidateCoverage": {
             "covered": 20,
             "comparable": 21,
             "coverageRate": 95.2,
-            "coverageMode": "authority_label_present_in_evidence_candidates"
+            "coverageMode": "historical_phase_p_label_present_in_evidence_candidates",
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
           },
-          "nonRegression": {
-            "status": "PASS",
+          "nonRegressionObservation": {
+            "observed": true,
             "baselineMode": "monthly_main",
-            "basis": "selected agreement only; composite_classical candidates are evidence-only"
-          }
+            "basis": "historical selected agreement only; composite candidates are observation-only",
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
+          },
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         },
-        "T4_PRIMARY_TEXT": {
-          "selectedAgreement": {
+        "phase_p_primary_text_label": {
+          "historicalSelectedAgreement": {
             "pass": 1,
             "comparable": 6,
             "passRate": 16.7
           },
-          "candidateCoverage": {
+          "historicalCandidateCoverage": {
             "covered": 3,
             "comparable": 6,
             "coverageRate": 50,
-            "coverageMode": "authority_label_present_in_evidence_candidates"
+            "coverageMode": "historical_phase_p_label_present_in_evidence_candidates",
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
           },
-          "nonRegression": {
-            "status": "PASS",
+          "nonRegressionObservation": {
+            "observed": true,
             "baselineMode": "monthly_main",
-            "basis": "selected agreement only; composite_classical candidates are evidence-only"
-          }
+            "basis": "historical selected agreement only; composite candidates are observation-only",
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
+          },
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         }
       }
     },
@@ -299,17 +687,19 @@
         "computedPassRate": 63,
         "passOrPartialRate": 70.4,
         "phasePSourceRow": "monthly_main",
-        "measurementStatus": "MEASURED",
-        "winLossVsMonthlyMain": {
+        "measurementClassification": "HISTORICAL_PHASE_P_OBSERVATION",
+        "historicalWinLossVsMonthlyMain": {
           "wins": 0,
           "losses": 0,
           "net": 0,
           "passDelta": 0,
           "passRateDelta": 0,
-          "baselineMode": "monthly_main"
+          "baselineMode": "monthly_main",
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         },
-        "bySourceTier": {
-          "T3_AUTHORED_INTERPRETATION": {
+        "byHistoricalLabelTier": {
+          "phase_p_authored_interpretation_label": {
             "total": 21,
             "pass": 16,
             "partial": 0,
@@ -319,16 +709,20 @@
             "passRate": 76.2,
             "computedPassRate": 76.2,
             "passOrPartialRate": 76.2,
-            "winLossVsMonthlyMain": {
+            "historicalWinLossVsMonthlyMain": {
               "wins": 0,
               "losses": 0,
               "net": 0,
               "passDelta": 0,
               "passRateDelta": 0,
-              "baselineMode": "monthly_main"
-            }
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
           },
-          "T4_PRIMARY_TEXT": {
+          "phase_p_primary_text_label": {
             "total": 6,
             "pass": 1,
             "partial": 0,
@@ -338,14 +732,18 @@
             "passRate": 16.7,
             "computedPassRate": 16.7,
             "passOrPartialRate": 16.7,
-            "winLossVsMonthlyMain": {
+            "historicalWinLossVsMonthlyMain": {
               "wins": 0,
               "losses": 0,
               "net": 0,
               "passDelta": 0,
               "passRateDelta": 0,
-              "baselineMode": "monthly_main"
-            }
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
           }
         },
         "bySourceGroup": {
@@ -359,14 +757,18 @@
             "passRate": 100,
             "computedPassRate": 100,
             "passOrPartialRate": 100,
-            "winLossVsMonthlyMain": {
+            "historicalWinLossVsMonthlyMain": {
               "wins": 0,
               "losses": 0,
               "net": 0,
               "passDelta": 0,
               "passRateDelta": 0,
-              "baselineMode": "monthly_main"
-            }
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
           },
           "jonheom": {
             "total": 6,
@@ -378,14 +780,18 @@
             "passRate": 17,
             "computedPassRate": 16.7,
             "passOrPartialRate": 17,
-            "winLossVsMonthlyMain": {
+            "historicalWinLossVsMonthlyMain": {
               "wins": 0,
               "losses": 0,
               "net": 0,
               "passDelta": 0,
               "passRateDelta": 0,
-              "baselineMode": "monthly_main"
-            }
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
           },
           "korean_modern_figures_and_chumyeongga": {
             "total": 7,
@@ -397,16 +803,22 @@
             "passRate": 57,
             "computedPassRate": 28.6,
             "passOrPartialRate": 57,
-            "winLossVsMonthlyMain": {
+            "historicalWinLossVsMonthlyMain": {
               "wins": 0,
               "losses": 0,
               "net": 0,
               "passDelta": 0,
               "passRateDelta": 0,
-              "baselineMode": "monthly_main"
-            }
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
           }
-        }
+        },
+        "authorityScope": "historical_observation_only",
+        "releaseEligible": false
       },
       "jungki_transparent": {
         "total": 27,
@@ -419,17 +831,19 @@
         "computedPassRate": 51.9,
         "passOrPartialRate": 59.3,
         "phasePSourceRow": "jungki_transparent",
-        "measurementStatus": "MEASURED",
-        "winLossVsMonthlyMain": {
+        "measurementClassification": "HISTORICAL_PHASE_P_OBSERVATION",
+        "historicalWinLossVsMonthlyMain": {
           "wins": 0,
           "losses": 3,
           "net": -3,
           "passDelta": -3,
           "passRateDelta": -11.1,
-          "baselineMode": "monthly_main"
+          "baselineMode": "monthly_main",
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         },
-        "bySourceTier": {
-          "T3_AUTHORED_INTERPRETATION": {
+        "byHistoricalLabelTier": {
+          "phase_p_authored_interpretation_label": {
             "total": 21,
             "pass": 13,
             "partial": 0,
@@ -439,16 +853,20 @@
             "passRate": 61.9,
             "computedPassRate": 61.9,
             "passOrPartialRate": 61.9,
-            "winLossVsMonthlyMain": {
+            "historicalWinLossVsMonthlyMain": {
               "wins": 0,
               "losses": 3,
               "net": -3,
               "passDelta": -3,
               "passRateDelta": -14.3,
-              "baselineMode": "monthly_main"
-            }
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
           },
-          "T4_PRIMARY_TEXT": {
+          "phase_p_primary_text_label": {
             "total": 6,
             "pass": 1,
             "partial": 0,
@@ -458,14 +876,18 @@
             "passRate": 16.7,
             "computedPassRate": 16.7,
             "passOrPartialRate": 16.7,
-            "winLossVsMonthlyMain": {
+            "historicalWinLossVsMonthlyMain": {
               "wins": 0,
               "losses": 0,
               "net": 0,
               "passDelta": 0,
               "passRateDelta": 0,
-              "baselineMode": "monthly_main"
-            }
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
           }
         },
         "bySourceGroup": {
@@ -479,14 +901,18 @@
             "passRate": 71,
             "computedPassRate": 71.4,
             "passOrPartialRate": 71,
-            "winLossVsMonthlyMain": {
+            "historicalWinLossVsMonthlyMain": {
               "wins": 0,
               "losses": 4,
               "net": -4,
               "passDelta": -4,
               "passRateDelta": -28.6,
-              "baselineMode": "monthly_main"
-            }
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
           },
           "jonheom": {
             "total": 6,
@@ -498,14 +924,18 @@
             "passRate": 17,
             "computedPassRate": 16.7,
             "passOrPartialRate": 17,
-            "winLossVsMonthlyMain": {
+            "historicalWinLossVsMonthlyMain": {
               "wins": 0,
               "losses": 0,
               "net": 0,
               "passDelta": 0,
               "passRateDelta": 0,
-              "baselineMode": "monthly_main"
-            }
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
           },
           "korean_modern_figures_and_chumyeongga": {
             "total": 7,
@@ -517,16 +947,22 @@
             "passRate": 71,
             "computedPassRate": 42.9,
             "passOrPartialRate": 71,
-            "winLossVsMonthlyMain": {
+            "historicalWinLossVsMonthlyMain": {
               "wins": 1,
               "losses": 0,
               "net": 1,
               "passDelta": 1,
               "passRateDelta": 14.3,
-              "baselineMode": "monthly_main"
-            }
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
           }
-        }
+        },
+        "authorityScope": "historical_observation_only",
+        "releaseEligible": false
       },
       "composite_classical": {
         "total": 27,
@@ -539,30 +975,36 @@
         "computedPassRate": 63,
         "passOrPartialRate": 70.4,
         "phasePSourceRow": "monthly_main",
-        "measurementStatus": "MEASURED_CANDIDATE_EVIDENCE",
+        "measurementClassification": "HISTORICAL_PHASE_P_OBSERVATION",
         "selectedAgreementMode": "monthly_main",
-        "selectionPolicy": "evidence_only_never_promote",
-        "candidateCoverage": {
+        "selectionPolicy": "historical_evidence_only_never_promote",
+        "historicalCandidateCoverage": {
           "covered": 23,
           "comparable": 27,
           "coverageRate": 85.2,
-          "coverageMode": "authority_label_present_in_evidence_candidates"
+          "coverageMode": "historical_phase_p_label_present_in_evidence_candidates",
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         },
-        "sourceTierNonRegressionVsMonthlyMain": {
-          "status": "PASS",
+        "historicalNonRegressionVsMonthlyMain": {
+          "observed": true,
           "baselineMode": "monthly_main",
-          "basis": "selected agreement only; composite_classical candidates are evidence-only"
+          "basis": "historical selected agreement only; composite candidates are observation-only",
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         },
-        "winLossVsMonthlyMain": {
+        "historicalWinLossVsMonthlyMain": {
           "wins": 0,
           "losses": 0,
           "net": 0,
           "passDelta": 0,
           "passRateDelta": 0,
-          "baselineMode": "monthly_main"
+          "baselineMode": "monthly_main",
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         },
-        "bySourceTier": {
-          "T3_AUTHORED_INTERPRETATION": {
+        "byHistoricalLabelTier": {
+          "phase_p_authored_interpretation_label": {
             "total": 21,
             "pass": 16,
             "partial": 0,
@@ -572,27 +1014,35 @@
             "passRate": 76.2,
             "computedPassRate": 76.2,
             "passOrPartialRate": 76.2,
-            "winLossVsMonthlyMain": {
+            "historicalWinLossVsMonthlyMain": {
               "wins": 0,
               "losses": 0,
               "net": 0,
               "passDelta": 0,
               "passRateDelta": 0,
-              "baselineMode": "monthly_main"
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
             },
-            "candidateCoverage": {
+            "historicalCandidateCoverage": {
               "covered": 20,
               "comparable": 21,
               "coverageRate": 95.2,
-              "coverageMode": "authority_label_present_in_evidence_candidates"
+              "coverageMode": "historical_phase_p_label_present_in_evidence_candidates",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
             },
-            "sourceTierNonRegressionVsMonthlyMain": {
-              "status": "PASS",
+            "historicalNonRegressionVsMonthlyMain": {
+              "observed": true,
               "baselineMode": "monthly_main",
-              "basis": "selected agreement only; composite_classical candidates are evidence-only"
-            }
+              "basis": "historical selected agreement only; composite candidates are observation-only",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
           },
-          "T4_PRIMARY_TEXT": {
+          "phase_p_primary_text_label": {
             "total": 6,
             "pass": 1,
             "partial": 0,
@@ -602,25 +1052,33 @@
             "passRate": 16.7,
             "computedPassRate": 16.7,
             "passOrPartialRate": 16.7,
-            "winLossVsMonthlyMain": {
+            "historicalWinLossVsMonthlyMain": {
               "wins": 0,
               "losses": 0,
               "net": 0,
               "passDelta": 0,
               "passRateDelta": 0,
-              "baselineMode": "monthly_main"
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
             },
-            "candidateCoverage": {
+            "historicalCandidateCoverage": {
               "covered": 3,
               "comparable": 6,
               "coverageRate": 50,
-              "coverageMode": "authority_label_present_in_evidence_candidates"
+              "coverageMode": "historical_phase_p_label_present_in_evidence_candidates",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
             },
-            "sourceTierNonRegressionVsMonthlyMain": {
-              "status": "PASS",
+            "historicalNonRegressionVsMonthlyMain": {
+              "observed": true,
               "baselineMode": "monthly_main",
-              "basis": "selected agreement only; composite_classical candidates are evidence-only"
-            }
+              "basis": "historical selected agreement only; composite candidates are observation-only",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
           }
         },
         "bySourceGroup": {
@@ -634,20 +1092,26 @@
             "passRate": 100,
             "computedPassRate": 100,
             "passOrPartialRate": 100,
-            "winLossVsMonthlyMain": {
+            "historicalWinLossVsMonthlyMain": {
               "wins": 0,
               "losses": 0,
               "net": 0,
               "passDelta": 0,
               "passRateDelta": 0,
-              "baselineMode": "monthly_main"
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
             },
-            "candidateCoverage": {
+            "historicalCandidateCoverage": {
               "covered": 14,
               "comparable": 14,
               "coverageRate": 100,
-              "coverageMode": "authority_label_present_in_evidence_candidates"
-            }
+              "coverageMode": "historical_phase_p_label_present_in_evidence_candidates",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
           },
           "jonheom": {
             "total": 6,
@@ -659,20 +1123,26 @@
             "passRate": 17,
             "computedPassRate": 16.7,
             "passOrPartialRate": 17,
-            "winLossVsMonthlyMain": {
+            "historicalWinLossVsMonthlyMain": {
               "wins": 0,
               "losses": 0,
               "net": 0,
               "passDelta": 0,
               "passRateDelta": 0,
-              "baselineMode": "monthly_main"
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
             },
-            "candidateCoverage": {
+            "historicalCandidateCoverage": {
               "covered": 3,
               "comparable": 6,
               "coverageRate": 50,
-              "coverageMode": "authority_label_present_in_evidence_candidates"
-            }
+              "coverageMode": "historical_phase_p_label_present_in_evidence_candidates",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
           },
           "korean_modern_figures_and_chumyeongga": {
             "total": 7,
@@ -684,22 +1154,30 @@
             "passRate": 57,
             "computedPassRate": 28.6,
             "passOrPartialRate": 57,
-            "winLossVsMonthlyMain": {
+            "historicalWinLossVsMonthlyMain": {
               "wins": 0,
               "losses": 0,
               "net": 0,
               "passDelta": 0,
               "passRateDelta": 0,
-              "baselineMode": "monthly_main"
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
             },
-            "candidateCoverage": {
+            "historicalCandidateCoverage": {
               "covered": 6,
               "comparable": 7,
               "coverageRate": 85.7,
-              "coverageMode": "authority_label_present_in_evidence_candidates"
-            }
+              "coverageMode": "historical_phase_p_label_present_in_evidence_candidates",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
           }
-        }
+        },
+        "authorityScope": "historical_observation_only",
+        "releaseEligible": false
       }
     }
   },
@@ -749,8 +1227,8 @@
             "unchangedFromDefault": 5
           }
         },
-        "byTruthBucket": {
-          "insufficient_source_truth": {
+        "byD1TruthCoverageStatus": {
+          "NONE": {
             "fixtureCount": 17,
             "changedFromDefault": 0,
             "unchangedFromDefault": 17
@@ -761,12 +1239,12 @@
         "fixtureCount": 17,
         "changedFromDefault": 17,
         "unchangedFromDefault": 0,
-        "averageTotalDelta": -1.0118,
-        "averageSajuDelta": -3.9706,
-        "minTotalDelta": -7.3,
-        "maxTotalDelta": 0.6,
-        "minSajuDelta": -27,
-        "maxSajuDelta": 2.6,
+        "averageTotalDelta": -0.2647,
+        "averageSajuDelta": -1.0118,
+        "minTotalDelta": -0.5,
+        "maxTotalDelta": 0.2,
+        "minSajuDelta": -2,
+        "maxSajuDelta": 0.8,
         "byReferenceTier": {
           "T2_REFERENCE_IMPLEMENTATION": {
             "fixtureCount": 12,
@@ -791,8 +1269,8 @@
             "unchangedFromDefault": 0
           }
         },
-        "byTruthBucket": {
-          "insufficient_source_truth": {
+        "byD1TruthCoverageStatus": {
+          "NONE": {
             "fixtureCount": 17,
             "changedFromDefault": 17,
             "unchangedFromDefault": 0
@@ -833,8 +1311,8 @@
             "unchangedFromDefault": 0
           }
         },
-        "byTruthBucket": {
-          "insufficient_source_truth": {
+        "byD1TruthCoverageStatus": {
+          "NONE": {
             "fixtureCount": 17,
             "changedFromDefault": 17,
             "unchangedFromDefault": 0
@@ -875,8 +1353,8 @@
             "unchangedFromDefault": 0
           }
         },
-        "byTruthBucket": {
-          "insufficient_source_truth": {
+        "byD1TruthCoverageStatus": {
+          "NONE": {
             "fixtureCount": 17,
             "changedFromDefault": 17,
             "unchangedFromDefault": 0
@@ -887,12 +1365,12 @@
         "fixtureCount": 17,
         "changedFromDefault": 17,
         "unchangedFromDefault": 0,
-        "averageTotalDelta": -1.1412,
-        "averageSajuDelta": -4.5176,
-        "minTotalDelta": -7.5,
-        "maxTotalDelta": 0.7,
-        "minSajuDelta": -27.9,
-        "maxSajuDelta": 3.4,
+        "averageTotalDelta": -0.4118,
+        "averageSajuDelta": -1.6353,
+        "minTotalDelta": -0.8,
+        "maxTotalDelta": 0.3,
+        "minSajuDelta": -3.2,
+        "maxSajuDelta": 1.3,
         "byReferenceTier": {
           "T2_REFERENCE_IMPLEMENTATION": {
             "fixtureCount": 12,
@@ -917,8 +1395,8 @@
             "unchangedFromDefault": 0
           }
         },
-        "byTruthBucket": {
-          "insufficient_source_truth": {
+        "byD1TruthCoverageStatus": {
+          "NONE": {
             "fixtureCount": 17,
             "changedFromDefault": 17,
             "unchangedFromDefault": 0
@@ -959,8 +1437,8 @@
             "unchangedFromDefault": 0
           }
         },
-        "byTruthBucket": {
-          "insufficient_source_truth": {
+        "byD1TruthCoverageStatus": {
+          "NONE": {
             "fixtureCount": 17,
             "changedFromDefault": 17,
             "unchangedFromDefault": 0
@@ -975,8 +1453,6 @@
         "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
         "referenceKind": "oracle",
         "sourceType": "reference_implementation",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
         "scores": {
           "default": {
             "total": 56.1,
@@ -1040,8 +1516,6 @@
         "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
         "referenceKind": "oracle",
         "sourceType": "reference_implementation",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
         "scores": {
           "default": {
             "total": 53.9,
@@ -1105,8 +1579,6 @@
         "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
         "referenceKind": "oracle",
         "sourceType": "reference_implementation",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
         "scores": {
           "default": {
             "total": 65,
@@ -1166,12 +1638,10 @@
       },
       {
         "fixtureId": "fix-04",
-        "label": "1965-08-08 19:00 female — 甲木 일간, 종왕 후보 (강한 木)",
+        "label": "1965-08-08 19:00 female — 甲木 일간, 申月 강약 방향 판정",
         "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
         "referenceKind": "oracle",
         "sourceType": "reference_implementation",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
         "scores": {
           "default": {
             "total": 58.7,
@@ -1182,8 +1652,8 @@
             "saju": 40
           },
           "chinese": {
-            "total": 55.4,
-            "saju": 25.5
+            "total": 58.4,
+            "saju": 39
           },
           "modern": {
             "total": 58.6,
@@ -1194,8 +1664,8 @@
             "saju": 39.5
           },
           "classical_text": {
-            "total": 55.4,
-            "saju": 25.6
+            "total": 58.3,
+            "saju": 38.5
           },
           "naming_safe": {
             "total": 58.8,
@@ -1208,8 +1678,8 @@
             "saju": 0
           },
           "chinese": {
-            "total": -3.3,
-            "saju": -14.5
+            "total": -0.3,
+            "saju": -1
           },
           "modern": {
             "total": -0.1,
@@ -1220,8 +1690,8 @@
             "saju": -0.5
           },
           "classical_text": {
-            "total": -3.3,
-            "saju": -14.4
+            "total": -0.4,
+            "saju": -1.5
           },
           "naming_safe": {
             "total": 0.1,
@@ -1235,8 +1705,6 @@
         "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
         "referenceKind": "oracle",
         "sourceType": "reference_implementation",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
         "scores": {
           "default": {
             "total": 61,
@@ -1300,8 +1768,6 @@
         "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
         "referenceKind": "oracle",
         "sourceType": "reference_implementation",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
         "scores": {
           "default": {
             "total": 57,
@@ -1365,8 +1831,6 @@
         "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
         "referenceKind": "oracle",
         "sourceType": "reference_implementation",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
         "scores": {
           "default": {
             "total": 64.8,
@@ -1430,8 +1894,6 @@
         "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
         "referenceKind": "oracle",
         "sourceType": "reference_implementation",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
         "scores": {
           "default": {
             "total": 57.6,
@@ -1442,8 +1904,8 @@
             "saju": 55.2
           },
           "chinese": {
-            "total": 54.7,
-            "saju": 43.2
+            "total": 57.8,
+            "saju": 55.8
           },
           "modern": {
             "total": 57.7,
@@ -1454,8 +1916,8 @@
             "saju": 55.4
           },
           "classical_text": {
-            "total": 54.9,
-            "saju": 44
+            "total": 57.8,
+            "saju": 56
           },
           "naming_safe": {
             "total": 57.5,
@@ -1468,8 +1930,8 @@
             "saju": 0
           },
           "chinese": {
-            "total": -2.9,
-            "saju": -12
+            "total": 0.2,
+            "saju": 0.6
           },
           "modern": {
             "total": 0.1,
@@ -1480,8 +1942,8 @@
             "saju": 0.2
           },
           "classical_text": {
-            "total": -2.7,
-            "saju": -11.2
+            "total": 0.2,
+            "saju": 0.8
           },
           "naming_safe": {
             "total": -0.1,
@@ -1495,8 +1957,6 @@
         "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
         "referenceKind": "oracle",
         "sourceType": "reference_implementation",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
         "scores": {
           "default": {
             "total": 62,
@@ -1560,8 +2020,6 @@
         "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
         "referenceKind": "oracle",
         "sourceType": "reference_implementation",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
         "scores": {
           "default": {
             "total": 76.3,
@@ -1572,8 +2030,8 @@
             "saju": 82.3
           },
           "chinese": {
-            "total": 69,
-            "saju": 55.3
+            "total": 76,
+            "saju": 81.3
           },
           "modern": {
             "total": 76.2,
@@ -1584,8 +2042,8 @@
             "saju": 81.6
           },
           "classical_text": {
-            "total": 68.8,
-            "saju": 54.4
+            "total": 75.8,
+            "saju": 80.6
           },
           "naming_safe": {
             "total": 76.5,
@@ -1598,8 +2056,8 @@
             "saju": 0
           },
           "chinese": {
-            "total": -7.3,
-            "saju": -27
+            "total": -0.3,
+            "saju": -1
           },
           "modern": {
             "total": -0.1,
@@ -1610,8 +2068,8 @@
             "saju": -0.7
           },
           "classical_text": {
-            "total": -7.5,
-            "saju": -27.9
+            "total": -0.5,
+            "saju": -1.7
           },
           "naming_safe": {
             "total": 0.2,
@@ -1625,8 +2083,6 @@
         "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
         "referenceKind": "oracle",
         "sourceType": "reference_implementation",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
         "scores": {
           "default": {
             "total": 54.3,
@@ -1690,8 +2146,6 @@
         "referenceTier": "T2_REFERENCE_IMPLEMENTATION",
         "referenceKind": "oracle",
         "sourceType": "reference_implementation",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
         "scores": {
           "default": {
             "total": 56.4,
@@ -1702,8 +2156,8 @@
             "saju": 33.5
           },
           "chinese": {
-            "total": 57,
-            "saju": 36.1
+            "total": 56.6,
+            "saju": 34.3
           },
           "modern": {
             "total": 56.5,
@@ -1714,8 +2168,8 @@
             "saju": 34
           },
           "classical_text": {
-            "total": 57.1,
-            "saju": 36.9
+            "total": 56.7,
+            "saju": 34.8
           },
           "naming_safe": {
             "total": 56.3,
@@ -1728,8 +2182,8 @@
             "saju": 0
           },
           "chinese": {
-            "total": 0.6,
-            "saju": 2.6
+            "total": 0.2,
+            "saju": 0.8
           },
           "modern": {
             "total": 0.1,
@@ -1740,8 +2194,8 @@
             "saju": 0.5
           },
           "classical_text": {
-            "total": 0.7,
-            "saju": 3.4
+            "total": 0.3,
+            "saju": 1.3
           },
           "naming_safe": {
             "total": -0.1,
@@ -1755,8 +2209,6 @@
         "referenceTier": "NO_REFERENCE",
         "referenceKind": "none",
         "sourceType": "none",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
         "scores": {
           "default": {
             "total": 57.1,
@@ -1820,8 +2272,6 @@
         "referenceTier": "NO_REFERENCE",
         "referenceKind": "none",
         "sourceType": "none",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
         "scores": {
           "default": {
             "total": 70,
@@ -1885,8 +2335,6 @@
         "referenceTier": "NO_REFERENCE",
         "referenceKind": "none",
         "sourceType": "none",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
         "scores": {
           "default": {
             "total": 62.3,
@@ -1950,8 +2398,6 @@
         "referenceTier": "NO_REFERENCE",
         "referenceKind": "none",
         "sourceType": "none",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
         "scores": {
           "default": {
             "total": 57.9,
@@ -2015,8 +2461,6 @@
         "referenceTier": "NO_REFERENCE",
         "referenceKind": "none",
         "sourceType": "none",
-        "truthBucket": "insufficient_source_truth",
-        "authorityTruthEligible": false,
         "scores": {
           "default": {
             "total": 61.1,
@@ -2075,12 +2519,13 @@
         }
       }
     ],
-    "authorityFixtureCoverage": {
-      "scorableAuthorityFixtures": 0,
-      "nonScorableAuthorityFixtures": 78,
-      "pillarOnlyAuthorityFixtures": 75,
-      "ruleSnippetCollections": 1,
-      "note": "Authority casebooks are source-tiered, but current records are not full naming-score inputs with birth + surname + givenName."
+    "nameInputShapeCoverage": {
+      "fullNameInputFixtureCount": 0,
+      "incompleteNameInputFixtureCount": 76,
+      "pillarOnlyRecordCount": 75,
+      "ruleSnippetCollectionCount": 1,
+      "authorityClaim": false,
+      "note": "This is input-shape inventory only; source eligibility and complete D1 truth are reported separately."
     }
   }
 }

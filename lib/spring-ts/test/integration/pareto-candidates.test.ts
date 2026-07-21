@@ -5,7 +5,14 @@
  *
  * Run: npm run test:pareto-candidates
  */
-import { SpringEngine, type NamingScoreVector, type SpringCandidateSummary } from '../../src/index.js';
+import type { NamingScoreVector, SpringCandidateSummary } from '../../src/types.js';
+import {
+  dedupeCandidateSummariesByHangul,
+  deriveCandidateStrengthProfile,
+  describeCandidateName,
+  orderCandidateSummaries,
+  sliceCandidatePage,
+} from '../../src/candidate-selection.js';
 
 let pass = 0;
 let fail = 0;
@@ -19,8 +26,6 @@ function check(label: string, cond: boolean, evidence?: string): void {
     console.log(`  FAIL ${label}${evidence ? ` (${evidence})` : ''}`);
   }
 }
-
-const engine: any = new SpringEngine();
 
 function vector(overrides: Partial<NamingScoreVector>): NamingScoreVector {
   return {
@@ -43,7 +48,7 @@ function summary(
   finalScore: number,
   scoreVector: NamingScoreVector,
 ): SpringCandidateSummary {
-  const strengthProfile = engine.deriveCandidateStrengthProfile(scoreVector);
+  const strengthProfile = deriveCandidateStrengthProfile(scoreVector);
   return {
     finalScore,
     scoreVector,
@@ -64,8 +69,9 @@ function summary(
 
 console.log('PR-6.2 Pareto candidate ranking\n');
 
-check('high saju axes classify as saju reinforcement',
-  engine.deriveCandidateStrengthProfile(vector({
+const TEST_SELECTION_LIMITS = { paretoPoolLimit: 100 } as const;
+
+const sajuProfile = deriveCandidateStrengthProfile(vector({
     sajuFit: 92,
     yongshinFit: 88,
     elementBalance: 90,
@@ -73,10 +79,17 @@ check('high saju axes classify as saju reinforcement',
     eraFit: 60,
     familyFit: 60,
     risk: 20,
-  })).id === 'saju_reinforcement');
+  }));
+check('high saju axes classify as saju reinforcement',
+  sajuProfile.id === 'saju_reinforcement');
+check('strength profile keeps exact display contract',
+  sajuProfile.label === '사주 보완형' &&
+    sajuProfile.displayReasons?.join(',') ===
+      ['사주 보완 92점', '용신 보강 88점', '오행 균형 90점'].join(','),
+  JSON.stringify(sajuProfile));
 
 check('high phonetic axes classify as phonetic stability',
-  engine.deriveCandidateStrengthProfile(vector({
+  deriveCandidateStrengthProfile(vector({
     sajuFit: 45,
     yongshinFit: 40,
     elementBalance: 55,
@@ -86,7 +99,7 @@ check('high phonetic axes classify as phonetic stability',
   })).id === 'phonetic_stability');
 
 check('high era axis classifies as era balance',
-  engine.deriveCandidateStrengthProfile(vector({
+  deriveCandidateStrengthProfile(vector({
     sajuFit: 50,
     yongshinFit: 45,
     elementBalance: 55,
@@ -96,14 +109,22 @@ check('high era axis classifies as era balance',
     risk: 8,
   })).id === 'era_balance');
 
-const repeatedFiltered = engine.filterInternallyRepeatedCandidates([
-  [{ hangul: '\uBBFC', hanja: '\u65FB' }, { hangul: '\uBBFC', hanja: '\u73C9' }],
-  [{ hangul: '\uC218', hanja: '\u79C0' }, { hangul: '\uC544', hanja: '\u79C0' }],
-  [{ hangul: '\uC11C', hanja: '\u745E' }, { hangul: '\uC724', hanja: '\u6F64' }],
+const repeatedDiversity = describeCandidateName([
+  { hangul: '\uC218', hanja: '\u79C0' },
+  { hangul: '\uC544', hanja: '\u79C0' },
 ]);
-check('generated candidates reject repeated syllable or repeated normalized hanja',
-  repeatedFiltered.length === 1 && repeatedFiltered[0]?.[0]?.hangul === '\uC11C',
-  `remaining=${JSON.stringify(repeatedFiltered)}`);
+check('name diversity normalizes repeated Hanja without engine state',
+  repeatedDiversity.hasRepeatedOrthodoxHanja && !repeatedDiversity.hasRepeatedSyllable,
+  JSON.stringify(repeatedDiversity));
+
+const repeatedSyllableDiversity = describeCandidateName([
+  { hangul: '\uBBFC', hanja: '\u65FB' },
+  { hangul: '\uBBFC', hanja: '\u73C9' },
+]);
+check('name diversity detects a repeated Hangul syllable without engine state',
+  repeatedSyllableDiversity.hasRepeatedSyllable &&
+    !repeatedSyllableDiversity.hasRepeatedOrthodoxHanja,
+  JSON.stringify(repeatedSyllableDiversity));
 
 const dominatedHighScore = summary('\uBBFC\uC900', '\u65FB\u4FCA', 95, vector({
   legal: 60,
@@ -162,14 +183,24 @@ const eraFrontier = summary('\uB3C4\uC724', '\u5EA6\u6F64', 92, vector({
 }));
 const fixture = [dominatedHighScore, sajuFrontier, phoneticFrontier, repeatedSyllableNeighbor, eraFrontier];
 
-const defaultOrder = engine.orderCandidateSummaries(fixture, {});
+const defaultOrder = orderCandidateSummaries(fixture, {});
 check('default ordering remains final-score descending',
   defaultOrder.map((row: SpringCandidateSummary) => row.givenHangul).join(',') ===
     ['\uBBFC\uC900', '\uC11C\uC724', '\uD558\uB9B0', '\uBBFC\uC7AC', '\uB3C4\uC724'].join(','));
 
-const paretoOrder = engine.orderCandidateSummaries(fixture, {
+let missingLimitsRejected = false;
+try {
+  orderCandidateSummaries(fixture, {
+    precisionConfig: { paretoFrontierCandidates: true },
+  });
+} catch (error) {
+  missingLimitsRejected = error instanceof RangeError;
+}
+check('Pareto mode rejects an unbounded selection contract', missingLimitsRejected);
+
+const paretoOrder = orderCandidateSummaries(fixture, {
   precisionConfig: { paretoFrontierCandidates: true },
-});
+}, TEST_SELECTION_LIMITS);
 const topProfiles = paretoOrder.slice(0, 3).map((row: SpringCandidateSummary) => row.strengthProfile?.id);
 check('Pareto selector can promote a frontier candidate over a dominated higher score',
   paretoOrder[0]?.givenHangul === '\uC11C\uC724' &&
@@ -185,6 +216,44 @@ check('diversity penalty avoids clustering repeated syllables in close scores',
 check('Pareto mode preserves raw final scores',
   paretoOrder.every((row: SpringCandidateSummary) =>
     fixture.some((source) => source.givenHangul === row.givenHangul && source.finalScore === row.finalScore)));
+
+const boundedFixture = [
+  dominatedHighScore,
+  sajuFrontier,
+  phoneticFrontier,
+  repeatedSyllableNeighbor,
+  { ...eraFrontier, finalScore: repeatedSyllableNeighbor.finalScore },
+];
+const boundedParetoOrder = orderCandidateSummaries(boundedFixture, {
+  precisionConfig: { paretoFrontierCandidates: true },
+}, { paretoPoolLimit: 3 });
+check('bounded Pareto selection appends equal-score overflow in stable input order',
+  boundedParetoOrder.slice(3).map((row) => row.givenHangul).join(',') ===
+    ['\uBBFC\uC7AC', '\uB3C4\uC724'].join(','),
+  boundedParetoOrder.map((row) => row.givenHangul).join(','));
+check('bounded Pareto selection never marks overflow rows as frontier candidates',
+  boundedParetoOrder.slice(3).every((row) => row.strengthProfile?.paretoFrontier === false),
+  boundedParetoOrder.slice(3)
+    .map((row) => `${row.givenHangul}:${row.strengthProfile?.paretoFrontier}`)
+    .join(','));
+
+const deduped = dedupeCandidateSummariesByHangul([
+  sajuFrontier,
+  { ...sajuFrontier, finalScore: 1, rank: 99 },
+  phoneticFrontier,
+]);
+check('summary de-duplication keeps first occurrence and recalculates global ranks',
+  deduped.length === 2 &&
+    deduped[0]?.finalScore === sajuFrontier.finalScore &&
+    deduped.map((row) => row.rank).join(',') === '1,2',
+  deduped.map((row) => `${row.givenHangul}:${row.finalScore}:${row.rank}`).join(','));
+
+const page = sliceCandidatePage(paretoOrder, 1, 2);
+check('page slicing preserves precomputed global ranks',
+  page.length === 2 &&
+    page[0]?.rank === paretoOrder[1]?.rank &&
+    page[1]?.rank === paretoOrder[2]?.rank,
+  page.map((row) => row.rank).join(','));
 
 console.log(`\nPareto candidates: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);

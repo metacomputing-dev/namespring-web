@@ -1,7 +1,72 @@
 // ─────────────────────────────────────────────────────────────────────────────
 //  1. SPRING ENGINE & EVALUATOR
 // ─────────────────────────────────────────────────────────────────────────────
-export { SpringEngine } from './spring-engine.js';
+export {
+  FortuneSajuUnavailableError,
+  SPRING_ENGINE_INIT_CANCELLED,
+  SPRING_ENGINE_OPERATION_CANCELLED,
+  NAME_ENTRY_RESOLUTION_FAILED,
+  SPRING_NAME_REQUEST_INVALID,
+  SpringEngine,
+  SpringEngineInitializationCancelledError,
+  SpringEngineOperationCancelledError,
+  NameEntryResolutionError,
+  SpringNameRequestValidationError,
+  type NameEntryResolutionFailureReason,
+  type NameEntryRole,
+  type SpringNameRequestValidationField,
+  type SpringNameRequestValidationReason,
+  type SpringEngineOptions,
+  type SpringEngineRepositories,
+} from './spring-engine.js';
+export {
+  FOURFRAME_CONTRACT_INVALID,
+  FOURFRAME_EXPECTED_RECORD_COUNT,
+  FOURFRAME_LUCKY_LEVELS,
+  FOURFRAME_MAX_NUMBER,
+  FOURFRAME_MIN_NUMBER,
+  FourFrameContractError,
+  compileFourFrameContract,
+  type CompiledFourFrameContract,
+  type FourFrameContractIssue,
+  type FourFrameContractRecord,
+  type FourFrameLuckyLevel,
+} from './fourframe-contract.js';
+export {
+  NAME_STAT_LOOKUP_UNAVAILABLE,
+  NameStatLookupUnavailableError,
+  type NameStatLookupResult,
+} from './name-stat-contract.js';
+export {
+  NAME_STAT_SUMMARY_INTEGRITY_MISMATCH,
+  NameStatSummaryIntegrityError,
+  type NameStatSummaryIntegrityReason,
+  type NameStatSummaryIntegrityValue,
+} from './name-stat-summary-repository.js';
+export {
+  REPOSITORY_DATA_INVALID,
+  RepositoryDataError,
+} from '../../seed-ts/src/database/repository-errors.js';
+export {
+  REPOSITORY_DATABASE_INTEGRITY_MISMATCH,
+  RepositoryDatabaseIntegrityError,
+  type RepositoryDatabaseIntegrityReason,
+  type RepositoryDatabaseIntegrityValue,
+} from '../../seed-ts/src/database/database-integrity.js';
+export {
+  SAJU_ANALYSIS_UNAVAILABLE,
+  SajuAnalysisUnavailableError,
+  assertScorableSajuSummary,
+  isScorableSajuSummary,
+} from './saju-analysis-contract.js';
+export {
+  FORTUNE_REPORT_BUILD_FAILED,
+  FORTUNE_TARGET_DATE_INVALID,
+  FortuneReportBuildError,
+  FortuneTargetDateInvalidError,
+  resolveFortuneTargetDate,
+} from './report/report-input-contract.js';
+export { SajuRequestValidationError } from './saju-request-policy.js';
 export { springEvaluateName, SAJU_FRAME } from './spring-evaluator.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -9,9 +74,13 @@ export { springEvaluateName, SAJU_FRAME } from './spring-evaluator.js';
 // ─────────────────────────────────────────────────────────────────────────────
 export { analyzeSaju, analyzeSajuSafe, buildSajuContext, emptySaju, collectElements, elementFromSajuCode } from './saju-adapter.js';
 export {
+  SAJU_CALCULATOR_NOT_READY,
   SajuCalculator,
+  SajuCalculatorStateError,
   computeSajuNameScore,
   computeTenGodScoreDiagnostics,
+  type SajuCalculatorReadOperation,
+  type SajuCalculatorStateReason,
   type SajuNameScoreResult,
   type TenGodPositionContribution,
   type TenGodScoreDiagnostics,
@@ -58,6 +127,10 @@ export type {
   NameGenderTendency,
   // Saju analysis
   SajuSummary,
+  SajuAnalysisStatus,
+  SajuAnalysisReasonCode,
+  SajuAnalysisDiagnostic,
+  SajuSafeAnalysisResult,
   PillarSummary,
   TimeCorrectionSummary,
   StrengthSummary,
@@ -155,6 +228,7 @@ export {
 export { buildNamingExplanation, selectNamingPhraseMode } from './naming-explanation.js';
 export {
   SCHOOL_PRESET_ORDER,
+  UnknownSpringSchoolPresetError,
   isSchoolPresetName,
   loadPreset,
   resolveSchoolPresetMetadata,
@@ -232,6 +306,11 @@ export {
 //  9. FORTUNE REPORT
 // ─────────────────────────────────────────────────────────────────────────────
 export { buildFortuneReport } from './report/buildFortuneReport.js';
+export * from './report/delivery/index.js';
+export * from './report/premium/index.js';
+export * from './experience/index.js';
+export * from './experience/local-menu.js';
+export * from './experience/local-menu-types.js';
 export type {
   FortuneReport,
   FortuneReportRequest,
@@ -254,6 +333,9 @@ export type {
   // Tiered fortune matrix (opt-in via precisionConfig.surfaceTieredMatrix)
   FortuneTieredMatrix,
   TieredMatrixMeta,
+  TieredGeneratedContentMeta,
+  TieredGeneratedContentStatus,
+  TieredGeneratedContentIssueCode,
   TieredNamingEvidence,
   TieredNameFrameEvidence,
   TieredNameFrameStage,

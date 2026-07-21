@@ -11,7 +11,11 @@ import {
   monthOrderByPolicy,
 } from '../calendar/pillars.js';
 import type { JieBoundariesAround, SolarTermsAround } from '../calendar/solarTerms.js';
-import { getSolarTermsAround, isJieTermId } from '../calendar/solarTerms.js';
+import {
+  getJieBoundariesAround,
+  getSolarTermsAround,
+  isJieTermId,
+} from '../calendar/solarTerms.js';
 import type { SolarTermInstant } from '../calendar/solarTerms.js';
 import type { LocalDateTime } from '../calendar/iso.js';
 import type { JieData } from '../core/wollyul.js';
@@ -33,8 +37,8 @@ import type { StemRelation } from '../core/stemRelations.js';
 import { detectStemRelations } from '../core/stemRelations.js';
 import { tenGodOf } from '../core/tenGod.js';
 
-import type { PillarsScoringResult } from '../core/scoring.js';
-import { scorePillars } from '../core/scoring.js';
+import type { ScorePolicy } from '../core/scoring.js';
+import { DEFAULT_SCORE_POLICY } from '../core/scoring.js';
 
 import type { FortuneTimeline } from '../fortune/types.js';
 import { readFortunePolicy } from '../fortune/policy.js';
@@ -44,6 +48,8 @@ import { buildFortuneRelations } from '../fortune/relations.js';
 
 import type { RuleFacts, StrengthFacts } from '../rules/facts.js';
 import { buildRuleFacts } from '../rules/facts.js';
+import type { RuleFactsScoringResult } from '../rules/ruleFactsScoring.js';
+import { scorePillarsForRuleFacts } from '../rules/ruleFactsScoring.js';
 import type { YongshinResult } from '../rules/yongshin.js';
 import { computeYongshin } from '../rules/yongshin.js';
 import type { GyeokgukResult } from '../rules/gyeokguk.js';
@@ -57,6 +63,13 @@ function n<T>(spec: NodeSpec<T>): NodeSpec<T> {
 
 function fp<T>(year: T, month: T, day: T, hour: T): FourPillars<T> {
   return { year, month, day, hour };
+}
+
+function pillarsScoringPolicy(weights: EngineWeights): ScorePolicy {
+  return {
+    ...DEFAULT_SCORE_POLICY,
+    hiddenStemWeights: weights.hiddenStems ?? { scheme: 'standard' },
+  };
 }
 
 function readLifeStagePolicy(strategies: Record<string, unknown> | undefined): LifeStagePolicy {
@@ -111,8 +124,8 @@ export function buildGraph(): Graph {
     n<TrueSolarTimeCorrection>({
       id: 'time.trueSolarCorrection',
       deps: ['time.utcMs', 'time.localDateTime', 'policy.calendar'],
-      formula: 'Δ(min) = 4*(lon-stdMeridian) + EoT',
-      explain: '진태양시 보정(경도 보정 + 균시차). location.lon이 없으면 적용하지 않는다.',
+      formula: 'Δ(min) = longitudePolicy[4*shortestDelta(lon,referenceMeridian) or 0] + EoT',
+      explain: '경도 보정과 균시차를 독립 적용한다. 경도 정책이 off이면 위치 없이 EoT만 적용할 수 있고, 경도 보정이 켜진 경우 위치 누락은 요청 검증에서 거부한다.',
       compute: (ctx, get) => {
         const utcMs = get<number>('time.utcMs');
         const ldt = get<LocalDateTime>('time.localDateTime');
@@ -188,7 +201,7 @@ export function buildGraph(): Graph {
     n<JieBoundariesAround | null>({
       id: 'calendar.jieBoundariesAround',
       deps: ['calendar.solarTermsAround'],
-      explain: '월/연 경계 계산용 12절(節) 시각(UTC). 24절기 결과에서 “절(節)”만 필터링한 목록(baseYear±1 포함).',
+      explain: '월/연 경계 계산용 12절(節) 시각(UTC). calendar.solarTermsAround의 선택/전체 결과에서 절만 보존한 목록(baseYear±1 포함).',
       compute: (_ctx, get) => {
         const st = get<SolarTermsAround | null>('calendar.solarTermsAround');
         if (!st) return null;
@@ -205,7 +218,7 @@ export function buildGraph(): Graph {
     n<SolarTermsAround | null>({
       id: 'calendar.solarTermsAround',
       deps: ['time.localDateTime', 'policy.calendar'],
-      explain: '24절기(정기) 시각(UTC) — baseYear±1을 포함한 정렬된 목록. (절입/진단/확장 기능에서 재사용)',
+      explain: '절기 시각(UTC) — 기본은 월주·대운에 필요한 12절(baseYear±1), solarTerms.alwaysCompute=true이면 전체 24절기를 계산한다.',
       compute: (ctx, get) => {
         const ldt = get<any>('time.localDateTime');
         const cal = get<any>('policy.calendar');
@@ -228,7 +241,12 @@ export function buildGraph(): Graph {
             : cal.solarPrecision === 'iau1980_top10'
               ? 'iau1980_top10'
               : 'classical';
-        return getSolarTermsAround(ldt.date.y, method, algorithm, aberrationModel, solarPrecision);
+        // Full 24-term materialization is an explicit diagnostics/extension
+        // contract. The default pillar and fortune paths consume only Jie
+        // boundaries, so avoid solving the twelve unused Zhongqi terms.
+        return cal?.solarTerms?.alwaysCompute
+          ? getSolarTermsAround(ldt.date.y, method, algorithm, aberrationModel, solarPrecision)
+          : getJieBoundariesAround(ldt.date.y, method, algorithm, aberrationModel, solarPrecision);
       },
     }),
   );
@@ -339,13 +357,16 @@ export function buildGraph(): Graph {
     n<PillarIdx>({
       id: 'pillars.hour',
       deps: ['time.localDateTimeForHour', 'policy.calendar', 'pillars.day'],
-      formula: 'hourStemIdx = ((dayStemIdx mod 5)*2 + hourBranchIdx) mod 10',
-      explain: '시지(2시간 단위)와 일간으로 시간(時干)을 결정한다.',
+      formula: 'hourStemIdx = ((hourStemDayStemIdx mod 5)*2 + hourBranchIdx) mod 10',
+      explain: '시주(2시간 단위)는 정책상 시주 천간 기준 일간으로 시간(天干)을 결정한다.',
       compute: (_ctx, get) => {
         const ldt = get<any>('time.localDateTimeForHour');
         const cal = get<any>('policy.calendar');
-        const day = get<PillarIdx>('pillars.day');
-        return calcHourPillar(day.stem, ldt.time, cal.hourBoundary);
+        const splitBoundary = cal.hourStemDayBoundary;
+        const hourStemDay = splitBoundary == null || splitBoundary === cal.dayBoundary
+          ? get<PillarIdx>('pillars.day')
+          : calcDayPillar(effectiveDayDate(ldt, splitBoundary));
+        return calcHourPillar(hourStemDay.stem, ldt.time, cal.hourBoundary);
       },
     }),
   );
@@ -487,6 +508,9 @@ export function buildGraph(): Graph {
           heavenStemWeight: ed.heavenStemWeight,
           branchTotalWeight: ed.branchTotalWeight,
           hiddenStemWeights: w.hiddenStems,
+          positionWeights: ed.positionWeights,
+          heavenPositionWeights: ed.heavenPositionWeights,
+          branchPositionWeights: ed.branchPositionWeights,
         });
       },
     }),
@@ -511,6 +535,10 @@ export function buildGraph(): Graph {
           stemRelations: get('relations.stems'),
           hiddenStemPolicy: w.hiddenStems,
           heavenStemWeight: ed.heavenStemWeight,
+          branchTotalWeight: ed.branchTotalWeight,
+          positionWeights: ed.positionWeights,
+          heavenPositionWeights: ed.heavenPositionWeights,
+          branchPositionWeights: ed.branchPositionWeights,
           policy: rawPolicy,
         });
       },
@@ -609,7 +637,7 @@ export function buildGraph(): Graph {
 
   // --- Pillars scoring (ten-gods + elements) for rule engine
   nodes.push(
-    n<PillarsScoringResult>({
+    n<RuleFactsScoringResult>({
       id: 'scores.pillars',
       deps: ['pillars.year', 'pillars.month', 'pillars.day', 'pillars.hour', 'policy.weights'],
       explain: '일간 기준 십성/오행/음양 스코어(수학적 베이스)를 계산한다.',
@@ -620,15 +648,7 @@ export function buildGraph(): Graph {
         const h = get<PillarIdx>('pillars.hour');
         const w = get<EngineWeights>('policy.weights');
 
-        return scorePillars(
-          { year: y, month: m, day: d, hour: h },
-          {
-            stemWeight: 1,
-            branchWeight: 1,
-            hiddenStemWeights: w.hiddenStems ?? { scheme: 'standard' },
-            includeBranchYinYang: false,
-          },
-        );
+        return scorePillarsForRuleFacts({ year: y, month: m, day: d, hour: h }, pillarsScoringPolicy(w));
       },
     }),
   );
@@ -645,7 +665,7 @@ export function buildGraph(): Graph {
         const d = get<PillarIdx>('pillars.day');
         const h = get<PillarIdx>('pillars.hour');
         const ed = get<ElementDistribution>('elements.distribution');
-        const scoring = get<PillarsScoringResult>('scores.pillars');
+        const scoring = get<RuleFactsScoringResult>('scores.pillars');
 
         const sar = get<SaryeongResult | null>('month.saryeong');
         const jieData = get<JieData | null>('month.jieData');

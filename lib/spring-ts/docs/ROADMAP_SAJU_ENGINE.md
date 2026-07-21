@@ -8,6 +8,23 @@
 > 개별 항목의 완료 이력·검증 수치는 여전히 두 핸드오프가 정본이다.
 >
 > 브랜치: `feature/saju-engine-integrity-audit` (P0-1 머지 전까지). 진행 상태는 §9 표에 커밋 해시와 함께 갱신한다.
+>
+> **2026-07-11 merge-readiness 정정:** PR #653은 현재 Draft로 유지한다. 현재
+> source-tier/no-AI/quality 정책 테스트와 구조 게이트는 통과하지만, 17개 release fixture의
+> `D1~D4=N/A`, `D5=0 PASS / 0 FAIL / 14 N/A / 3 NOT_APPLICABLE`, raw RPI
+> `20/100`이다. 이는 실패 17건이 아니라 진리값 부족 17건이다. D1 필수 7필드의
+> scope-eligible 진리값, 제품 표면·안전 카피 계약, 종격 birth-time 권위 사례,
+> exact diff 승인, 그리고 exact commit에 결속된 외부 명리 전문가 signoff가 완결되기
+> 전에는 **전문가급 상용 릴리스·명리 판정 모델의 추가 기본값 승격을 금지한다.**
+> 이번 backend-only 체크포인트는 격국·용신·강약 판정 모델을 승격하지 않지만, 시간
+> 보정 정합성 수정으로 제품 기본 경도 기준을 legacy preset 고정 자오선에서 출생
+> 민간시의 civil-offset 자오선으로 변경한다. Korean/modern의 현대 UTC+9 입력은
+> 보정량이 같지만 traditional-Chinese preset, 역사 표준시·DST, 해외 입력, 부분 위치
+> 입력에는 의도적인 default/API 변화가 있다. 따라서 전용 시간정책 행렬과 exact-diff
+> 검토 없이 무파급 리팩터링으로 분류하지 않는다. 현재 diff의 고위험 스파게티와 논리
+> 결함을 정리하고 변경 범위 회귀가 통과하며 위 한계를 PR에 명시한 뒤 점진적 병합
+> 대상으로 검토할 수 있다. WIP 해제 전에는 근거와 잔여 위험을 프로젝트 소유자에게
+> 먼저 보고한다.
 
 ---
 
@@ -43,10 +60,12 @@
 
 1. 변경 전 기준 확보: `npx tsx tools/baseline_snapshot.ts verify` (통과 상태에서 시작).
 2. 구현은 **설정 knob으로 감싸고** 기본값 결정은 별도 커밋으로 분리(무파급 틀 → 기본화 순).
-3. `npm run validate:default-change` (main↔HEAD): 결과가 **IMPROVEMENT(회귀 0)** 이어야 기본화 가능.
+3. `npm run validate:default-change` (main↔HEAD): 수치·구조 회귀를 탐지하되, 격국·용신·강약 같은
+   방향 불명 categorical 변화는 **REVIEW_REQUIRED**로 차단한다. 내부 점수 상승을 품질 향상으로 간주하지 않는다.
 4. `dump-report-trace` before/after: κ 코퍼스 커버리지 후퇴 0 확인(전 셀 ✅재생성·정합✓).
 5. 15픽스처 판정 필드(강약 레벨·용신·격국·별점) diff를 항목별로 실측해 기록.
-6. 파급이 의도와 다르면 기본 off로 두고 §9에 사유 기록.
+6. 기본화는 독립 전문가/권위 holdout의 방향 라벨과 `quality:gate:release` 전 차원 PASS가 있을 때만 허용한다.
+7. 파급이 의도와 다르거나 권위 정답이 없으면 기본 off로 두고 §9에 사유 기록.
 
 ## 3. 공통 함정 (하위모델 필독 — 전부 실제로 밟았던 것)
 
@@ -60,7 +79,7 @@
 | 빈 배열 관례 | 어댑터 계약상 빈 배열은 undefined로 강제(`adapter-daewoon.test.ts`) — 배선만 하고 opt-in이 없으면 조용히 빈 값 |
 | Windows EPERM | 샌드박스에서 `tsx`/`vitest`가 `spawn EPERM` 가능 — 권한 승인 후 같은 명령 재실행 |
 | compat 기대치 | `test:namespring-compat`는 **208**이 정본(문서 곳곳의 202는 구값) |
-| quality-gate 1건 | `test:composite-quality-gate`의 main..HEAD diff=0 검사 1건은 기본값 변경 브랜치에서 **설계상 FAIL** — 머지 후 자동 해소, 재조사 금지 |
+| quality-gate 1건 | `test:composite-quality-gate`의 main..HEAD diff는 **실제 review gate**다. 머지로 baseline을 덮어 자동 해소하지 말고, 17개 diff를 권위 근거로 승인하거나 회귀를 수정해야 한다 |
 | hanja-pool 1건 | `test:hanja-pool` 1건은 main에서도 실패 — 이 로드맵과 무관(별도 작업 칩 존재) |
 | 값-dedupe | 관계 탐지는 값 기준 dedupe — 운 지지가 원국과 동일 값이면 새 관계가 안 생기고 기존 항목 pairs에 [i,4]만 추가됨. 운 개입 판별은 **pairs의 i>=4 필터**로만 가능(`branchRelations.ts:174-187`) |
 
@@ -75,16 +94,24 @@
 | lib/spring-ts | `npm run test:namespring-compat` | 208/0 |
 | lib/spring-ts | `npm run test:tiered-shape` | 1378/0 |
 | lib/spring-ts | `npm run test:service-visible-output` | 13/0 |
-| lib/spring-ts | `npm run test:adapter-daewoon` | 21/0 |
-| lib/spring-ts | `npm run test:transit-luck-report` | 10/0 |
-| lib/spring-ts | `npm run test:boundary-goldens` | 723/0 |
+| lib/spring-ts | `npm run test:adapter-daewoon` | 31/0 |
+| lib/spring-ts | `npm run test:time-policy` | 위치 튜플·글로벌 경도·역사 KST/DST·gap/fold·분 미상 전환·시간 불확실성 전부 PASS |
+| lib/spring-ts | `npm run test:transit-luck-report` | 13/0 |
+| lib/spring-ts | `npm run test:boundary-goldens` | 867/0 |
 | lib/spring-ts | `npm run test:jonggyeok` | 111/0 |
 | lib/spring-ts | `npm run test:yongshin-consensus` | 241/0 |
-| lib/spring-ts | `npm run test:jonggyeok-authority` | 148/0 + `INFO … deferred: 0 birth rows`(게이트 유예가 정상) |
+| lib/spring-ts | `npm run test:jonggyeok-authority` | 168/0 + `INFO … 0 eligible birth rows, 20 pillar-only rows`(정확도 미측정) |
 | lib/spring-ts | `npx tsx test/integration/insight-registry-content.test.ts` | 54/0 (콘텐츠 추가 시 증가) |
-| 판정 변경 시 | `npm run validate:default-change` | IMPROVEMENT(회귀 0) |
+| 판정 변경 시 | `npm run validate:default-change` | 정답 없는 categorical 변화는 REVIEW_REQUIRED(비정상 종료) |
+| release 판정 | `npm run quality:gate:release` | D1~D5 전 차원 PASS; N/A/PARTIAL은 실패 |
+| 외부 전문가 signoff | `npm run quality:gate:expert-signoff` | exact 17 fixtures/D1~D5, reviewed commit ancestry, attestation-only diff, tracked evidence SHA; 신원 진위는 protected PR에서 별도 확인 |
+| release 회귀 | `npm run test:saju-engine-release` | 연결된 엔진·어댑터·오라클 회귀 전부 PASS |
+| release 종격 | `npm run test:jonggyeok-authority:release` | 20+ independently reviewed birth rows, 80%+ match; 미달 시 실패 |
+| default diff 승인 | `node tools/measure_default_change.mjs --baseline origin/main --branch HEAD` | exact fingerprint의 reviewer/date/evidence 승인 필요 |
 
-`test:jonggyeok-authority`는 `test:integration` 체인(package.json:80)에 **미포함** — 독립 실행 필요(P0-2 참조).
+`test:jonggyeok-authority`, 만세력 오라클, adapter-yinyang, transit report 등 핵심 신규 검증은
+`test:saju-engine-release` 단일 체인에 포함한다. 다만 종격 테스트의 168 PASS는 intake·스키마 검증이며
+`0 eligible birth rows`인 동안 정확도 게이트가 아님을 결과에 함께 기록한다.
 
 ## 5. 우선순위 총괄
 
@@ -105,6 +132,19 @@
 
 **의존 관계**: CT-4(종격 birth-time 코퍼스)는 PR-11의 선행 재료 — CT를 먼저/병렬로 돌려라. PR-13의 데이터 소스 결정(§8 D5)은 사용자와 합의 필요. PR-10은 PR-9와 독립이므로 순서 교체 가능하나, 계측 부담 때문에 상위 모델 세션에 배정하는 것을 권장.
 
+### SOTA 목표 개발 축 요약 (2026-07-09 기록)
+
+전문가를 넘어서는 수준의 사주명리학 엔진으로 가기 위한 다음 굵직한 축은 아래 순서로 본다.
+
+1. **외부 오라클·재캘리브레이션(PR-13)**: 강약·용신·격국·종격 판정을 내부 논리만이 아니라 권위 사례와 대량 대조한다. 상용/권위 만세력, 전문가 판정 코퍼스, 강약 임계값 재보정, 용신 후보 순위 검증이 핵심이다.
+2. **종격 완전 승격(PR-11 + CT-4)**: birth-time 권위 코퍼스 20건+를 확보하고, 假從 산입 정책과 potential 램프 재설계를 확정해 종재·종관·종살·종아·종인·종비·전왕·화기 판정을 실제 게이트로 승격한다.
+3. **운(運) 통변 완결(PR-9 잔여)**: 대운↔세운, 운↔원국, 월운·일운, 교운 시점, 삼재·상문·조객 같은 운 신살을 원국 불변 원칙 아래 별도 운 주석으로 완성한다.
+4. **판정 깊이 모델 고도화(PR-10 후속)**: 위치 가중, 12운성 통근 강도, 왕상휴수·사령·월률, 성패·상신·파격요인을 격국/용신 점수와 안전하게 결합하고, 모든 기본값 전환은 대조 계측 후 결정한다.
+5. **신규 고급 해석 축(PR-14)**: 육친론을 1순위로 추가하고, 묘고·입묘·개고, 현침·탕화·천라지망·암록 등 신살 확장, 귀문관살, 명궁·태원·년주 공망·납음 표면화를 additive로 연다.
+6. **후속 감사·검증 인프라(PR-15)**: graph/DAG 배선, school pack 오버라이드, 용신 방법 5종 수식, competition softmax, DSL 컴파일러, config migration/deepMerge/analysisZip을 전수 감사해 조용한 no-op과 배선 오류를 제거한다.
+
+판단 기준: 앞으로의 핵심은 기능 수가 아니라 **권위 사례로 검증되는 판정**, **운까지 연결되는 사건성 모델**, **전문가가 납득할 근거 노출**, **학파 차이를 옵션으로 관리하는 구조**다.
+
 ---
 
 ## 6. 패키지 상세
@@ -113,9 +153,11 @@
 
 | # | 항목 | 내용 | 완료 기준 |
 |---|---|---|---|
-| P0-1 | 브랜치 push + PR 오픈 | PR 설명은 커밋 축 단위(과제 1/2/3, PR-8 표면화, PR-8 소비)로 분리. **사용자 확인 후 진행**(외부 공개 행위). 머지되면 composite-quality-gate 설계상 FAIL 자동 해소 | PR URL §9 기록 |
-| P0-2 | 테스트 체인 무결성 | ① saju-ts `vitest.config.ts` include에 `src/fortune/**` 추가 ② `test:jonggyeok-authority`를 `test:integration` 체인(spring-ts package.json:80)에 포함할지 결정·반영 ③ 체인이 실패를 삼키지 않는지 확인 | 체인 1회 완주 + 수치 기록 |
+| P0-1 | Draft PR 유지 + review 준비 | PR #653은 열려 있으나 release gate가 전부 PASS할 때까지 Draft 유지. composite 실패를 baseline 갱신으로 숨기지 않는다 | PR URL·gate 상태 §9 기록 |
+| P0-2 | 테스트 체인 무결성 | saju-ts 전체 테스트와 spring-ts 핵심 엔진/오라클 테스트를 `test:saju-engine-release` 및 pull_request workflow에 연결하고, `typecheck:saju-bridge`로 패키지 사이 계약을 컴파일 타임에 확인하며, incomplete evidence와 미승인 exact diff를 fail-closed로 처리 | 체인 1회 완주 + CI required check 설정 |
 | P0-3 | baseline 픽스처 보강(구 과제 4) | `test/fixtures/spring_ts_baseline_cases.json`에 ① 시계 23:35~23:59 출생(정자시설 창 안) ② 음력 입력 각 1건 추가 → `npx tsx tools/baseline_snapshot.ts capture` 재캡처. **capture는 다른 엔진 세션이 없는 창에서만**(baseline 파일을 다시 씀). borderline 계열(fix-13~15)과 겹치지 않는 명식 선정 | verify 17/17, compat 208, 경계골든 723 무파급 |
+| P0-4 | 학파 프리셋 출처 무결성 | 존재하지 않는 `docs/schools/*.md`를 출처로 선언한 프리셋을 release에서 fail-closed로 차단 | `validate:school-sources` 0 missing + 독립 검토 메타데이터 |
+| P0-5 | 호환 계층 분해 | 중복 수식·운 관계 테이블·동적 브리지 계약을 공용 모듈로 분리했다. 다만 `saju-adapter.ts`(약 2,900행)와 `springLegacy.ts`(약 2,200행)는 여전히 큰 결합 지점이므로 mapper/domain 단위 분해를 후속한다 | 새 계약 복사본 0 + mapper별 회귀 테스트 + 공개 payload 무파급 |
 
 ### PR-9 — 운(運) 축 완결 [난이도 중, PR-8의 연장]
 
@@ -151,9 +193,11 @@ PR-8이 표면화한 운 메타데이터 위에 운 통변의 나머지 반쪽�
 PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **potential 램프 수식 구조**.
 
 - **수식 현황(실측)**: `facts.ts:1149` weak 램프 `clamp01((weakThreshold − s) / max(eps, weakThreshold + 1))` — weakThreshold −0.78에서 분모 0.22, s=−1.0에서만 factor 1.0. 실제 극단 종격 명식은 s≈−0.82 부근이라 factor ≈0.19로 CONG 게이트 0.6(defaultRuleSets.ts:113-206, `gte(patterns.follow.jonggyeokFactor, 0.6)`) 미달. strong 쪽 동형(:1154), ×domFactor(:1152), potential 합성(:1212), jonggyeokFactor(:1601/1645).
-- **⚠ 이중 구현**: 같은 수학이 `yongshin.ts:571-582`(followPotentialFromStrength)에 중복 — **수식 변경 시 두 곳 동기화 필수**(주석에 명시돼 있음).
+- **단일 구현으로 정리(2026-07-10)**: follow potential 수식은 `rules/followPotential.ts`의 순수 함수 하나를
+  `facts.ts`와 `yongshin.ts`가 함께 소비한다. 수식 변경 시 해당 함수와 한 묶음의 회귀 테스트만 검토한다.
 - **게이트 구분**: 룰 게이트 0.6(defaultRuleSets)과 jonggyeokCandidates 상태 임계(gyeokguk.ts:492-497, 0.68/0.28/0.18)는 다른 표면 — 혼동 금지.
-- **승격 게이트 조건(정정)**: `test:jonggyeok-authority`의 자동 활성은 코퍼스 총 20건이 아니라 **engineComparable(birth-time 행) ≥ 20**(jonggyeok-authority-scaffold.test.ts:175). 현 코퍼스 20건은 **전부 pillar-only(birth 0건)** → 게이트 유예 중(148/0 + INFO deferred가 정상).
+- **승격 게이트 조건(정정)**: 코퍼스 총 건수가 아니라 독립 검토를 통과한 **authority-eligible birth-time 행**이
+  필요하다. 현 20건은 전부 web 기반 pillar-only intake이고 `authorityTruthEligible=false`이므로 정확도 비교 0건이다.
 
 | 단계 | 내용 |
 |---|---|
@@ -215,15 +259,24 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 | D3 | 일운 이관 정책: saju-ts 일운 활성 시 spring-ts 줄리안 계산기와의 관계(대체/병존/검증만) | 9-6 |
 | D4 | 명식판 상문·조객 채택 여부(유파 병존 — 명식판·유년판) | 9-7 |
 | D5 | 판정 분포 대조용 외부 데이터 소스(어떤 오라클로 강약/용신을 대조할지) | PR-13 |
-| D6 | 종격 승격 검증 경로: birth-time 코퍼스 수집 vs pillar 직접 입력 게이트 재정의 | PR-11, CT-4 |
+| D6 | 종격 승격 검증 경로: birth-time 코퍼스 수집 vs pillar 직접 입력 게이트 재정의. **假從 산입 하위 결정은 정책 패널 3표 만장일치 `INCLUDE_WITH_FRAMEQUALITY` 권고 완료**(2026-07-10, 조건 6개 — `docs/dossiers/truth-panel-2026-07-10/README.md` §4) — 소유자 승인만 대기 | PR-11, CT-4 |
 | D7 | 프론트 개방: 윤달(isLeapMonth) 입력 UI, 운성/십신 전문 모드 표 | HOLD |
 
 ## 9. 진행 상태 표 (완료 시 갱신 — 커밋 해시 필수)
 
+> 2026-07-10 정정: 아래 PR-10 행의 과거 `IMPROVEMENT` 표기는 당시 내부 classifier 출력의
+> 역사 기록일 뿐 권위 정답 대비 품질 향상 증거가 아니다. 새 classifier에서는 같은 방향 불명
+> 변경을 `REVIEW_REQUIRED`로 차단한다.
+
 | 항목 | 상태 | 커밋 | 일자 | 파급 실측/비고 |
 |---|---|---|---|---|
-| P0-1 PR 오픈 | ⬜ | | | 사용자 확인 후 |
-| P0-2 테스트 체인 무결성 | ✅(부분) | 3bf08cf5c | 2026-07-09 | vitest include 6디렉토리 추가 완료. jonggyeok-authority 체인 포함 여부는 미결 |
+| P0-1 Draft PR | 🔶 WIP 유지 | PR #653 | 2026-07-11 | 권위 scope를 분리하고 D1 필수 7필드 미만 PASS, D5 안정성=정확도 과대계상, URL-only T4 승격, panel raw-array 세탁을 차단했다. T4는 Git 추적 page+quote transcript/SHA/realpath를 요구하고, 6개 Jonheom은 non-eligible이다. source-tier는 thin facade + 5개 모듈과 exact DAG/immutable guard로 분해했다. RPI 20/100이며 외부 전문가 signoff manifest도 없으므로 release-complete 실패와 Draft 유지가 정상이다. |
+| P0-2 테스트 체인 무결성 | 🔶 로컬 CI 계약·산출물 통과 / 원격 CI 대기 | 8a63450a2, fe68bfd04 | 2026-07-13 | 회귀 job과 상용 권위 `expert-readiness` job을 분리했다. 회귀는 Seed 전체 계약, saju-ts 검증, Spring release regression, generated pack, Vite Pages build, 404 fallback, 배포 자산 무결성을 실행한다. expert job은 school source·종격 authority·exact default diff·release/composite gate를 fail-closed로 유지한다. 로컬 통합에서 21,060 article→1,116 bundle, `/ci/`·`/namespring-web/` 빌드, 16 DB·pinned WASM·base-aware URL과 source↔bundle article ID·category·route exact-set 검증이 통과했다. 다만 원격 Actions는 아직 push 전이고 기존 billing 잠금도 재확인하지 못했으므로 CI 완료로 표기하지 않는다. 외부 signoff와 exact-diff 승인 전 expert job의 red는 정상이다. |
+| P0-4 학파 출처 무결성 | 🔶 저작 완료·독립 검토 대기 | 49a785cfa | 2026-07-10 | 누락 10개 출처 문서(docs/11·16·17·18·19·20·22·25·26·27) 전부 저작 — 교리 요약·고전 서지·엔진 매핑(file:line 검증)·검토자 체크리스트 포함, 헤더에 독립 검토 대기 명시. `validate:school-sources` FAIL(23)→PASS(18 프리셋), test:release-tools PASS. 게이트 완결 조건인 독립 검토 메타데이터는 검토 후 기록 |
+| P0-5 호환 계층 분해 | 🔶 부분 완료 | pending | 2026-07-10 | follow potential·strength component·bridge contract·운 관계 계산 중복을 분리/삭제. 대형 adapter와 legacy seam의 mapper 단위 분리는 후속 |
+| backend 런타임·데이터 경계 | ✅ 코드 체크포인트 / 🔶 release 검토 대기 | 352a1303c | 2026-07-12 | `3f08b2754..352a1303c`: legacy fortune mapper 분리, 이름 identity fail-closed, Seed 점수정책·입력 계약, Hanja 질의 결정성, Spring operation lease와 16개 DB asset verifier를 추가했다. Hanja/Fourframe뿐 아니라 NameStat도 선택된 shard의 byteLength·SHA를 검증한 동일 snapshot을 열고 userVersion·전체 schema·row count 통과 후에만 publish한다. NameStat 원본 19초성과 14-shard routing을 분리하고 실제 50,194행을 전수 고정했으며, 진행 중 shard fetch/body는 repository close 시 abort하고 signal을 무시하는 custom transport도 호출자 관점에서 즉시 취소한다(`0af887ad3`). sql.js JS/WASM은 1.14.1로 정확히 맞추고 package-relative WASM·MIT notice·byteLength·SHA 계약을 함께 배포하며 CDN fallback을 제거했다(`352a1303c`). 최종 Seed/Spring typecheck, test typecheck, 자산 3/3, lifecycle 35/35, 실제 npm tarball 설치 스모크 5/5, package boundary 2/2가 통과했다. Vite production build의 최종 자산 방출·모바일 peak memory 실측, 원본 통계 JSON provenance, same-element `-5` 전문가 검토는 후속이다. 이 행은 구조·무결성 guardrail이며 격국·강약·용신 권위 인증이 아니다. |
+| 글로벌·역사 시간정책 | ✅ backend 체크포인트 / 🔶 상용 claim 검토 대기 | 0e91b8ec9 | 2026-07-12 | Spring 기본을 civil-offset 자오선으로 정합화하고, legacy 135°/120°는 지역 호환 opt-in으로 분리했다. 물리 경도 비변조, 위치 tuple·충돌 fail-closed, IANA gap/fold·분 미상 전환 거부, 런타임 tzdb canary, 1~99년 literal-year UTC를 구현했다. modern Chinese preset·역사/DST·해외·부분입력은 의도적 default/API 변화다. 글로벌 geocoder·좌표/timezone 지리 검증·전 세계 역사 tzdb 인증·외부 권위 검토는 미완이다. |
+| PR #653 리뷰 범위 | 🔶 분할 전 Draft 유지 | 6fb2f68a4 | 2026-07-12 | freeze `origin/main...6fb2f68a4`는 134커밋·418파일이며 frontend diff는 0이다. 읽기 전용 이력·merge-tree 감사는 커밋 재작성 없이 연속 prefix 스택 17개(운영 축소안 14개)를 권고했다. 이번 NameStat 체크포인트는 freeze 이후 별도 브랜치에 있으며, 분할 방식 확정 전 누적 PR에 섞지 않는다. 누적 PR 자체는 리뷰 가능 크기가 아니다. |
 | P0-3 baseline 픽스처 보강 | ✅ | 75c3cdef5 | 2026-07-09 | 17/17(야자시 창 fix-16 + 음력 윤달 fix-17). 픽스처 수 하드코딩 2곳 동적화(baseline-metrics·quality-gate) |
 | 9-1 운-원국 관계 | ✅ | 8c310a014 | 2026-07-09 | canonical fortune.relations node; springLegacy relationsWithNatal; adapter/report evidence. Natal-only relations and scoring unchanged. Verified: saju-ts 202/0, baseline 17/0, compat 208/0, tiered-shape 1378/0, service-visible 13/0, adapter-daewoon 24/0, transit-luck-report 12/0 |
 | 9-2 대운↔세운 | ✅ | ade45f9c0 | 2026-07-09 | decade-year fortune relations in fortune.relations.decadeYears; saeun relationsWithDecade; yearly report evidence. Pre-start years omitted; natal scoring unchanged. Verified: saju-ts 204/0, baseline 17/0, compat 208/0, tiered-shape 1378/0, service-visible 13/0, adapter-daewoon 25/0, transit-luck-report 13/0 |
@@ -235,16 +288,50 @@ PR-7의 핵심 발견: 승격 불가의 실체는 임계값이 아니라 **poten
 | 9-8 thisYear·개두/절각 | ✅ | 0bfb061d2 | 2026-07-09 | thisYear tiered/category surfaces consume saeun PR-8 annotation evidence; stemBranchInteraction adds 개두/절각 when same-pillar stem/branch control. Verified: saju-ts 206/0, baseline 17/0, compat 208/0, tiered-shape 1379/0, service-visible 13/0, adapter-daewoon 31/0, transit-luck-report 13/0 |
 | 10-1 왕상휴수 | ✅ 구현·기본 off | f792c7765 → 8401cfbab | 2026-07-14 재검토 | authority truth denominator 0. top-5 스냅샷 밖 고정 이름 메트릭 이동을 확인해 기본화 보류; 명시 opt-in만 유지 |
 | 10-2 감쇠 세분 | ✅ 구현·기본 off | 07aeaaf33 → 8401cfbab | 2026-07-14 재검토 | 독립 권위 holdout 없이 거리 계수를 제품 기본값으로 승인할 수 없어 opt-in 복구 |
-| 10-3 pressure 합거 | ⬜ | | | 계측 |
-| 10-4 성패 점수 통합 | ⬜ | | | 계측 |
-| 10-5 성패 v1 | ⬜ | | | 계측 |
-| 10-6 위치 가중 | ⬜ | | | κ 계측 |
-| 10-7 통근 강도 계수 | ⬜ | | | |
+| 10-3 pressure 합거 | ✅ 구현·기본 off | 0915087d8 → a9f27f52b | 2026-07-15 재검토 | 관성 원장을 직접 차감하던 단위 불일치를 제거하고 위치가중→`shiNorm`→`shiScale` 배율층으로 통일. authority holdout 전 `applyToPressure:true` 명시 opt-in만 허용 |
+| 10-4 성패 점수 통합 | ✅ 구현·기본 off | 893a3c0d4 → 13320a31c | 2026-07-15 재검토 | 실제 발화한 rule contribution provenance로 quality 기여분만 월지 damage 중복 감점에서 제외하고, 혼합 기여·중복 rule id·비정상 배율은 fail-closed 처리. 독립 승인 전 `seongpaeScore.enabled:true` opt-in만 허용 |
+| 10-5 성패 v1 | ✅ 구현·기본 off | 18323386e → c132da72a | 2026-07-14 재검토 | 월지 지장간은 해당 상신 후보군의 투간이 없을 때만 보조 상신으로 사용. 480건 중 verdict 42건 이동이 있어 authority holdout 전 명시 opt-in만 허용 |
+| 10-6 위치 가중 | ✅ opt-in / 기본 보류 | cad382b0a | 2026-07-09 | `weights.elementDistribution.positionWeights/heavenPositionWeights/branchPositionWeights` 배선 완료. 기본값은 모두 1이라 baseline 17/0, compat 208/0 불변. 기본 on은 deficient/excessive·이름 판정 κ 파급 때문에 별도 계측 후 결정 |
+| 10-7 통근 강도 계수 | ✅ opt-in / 기본 보류 | bec68276b | 2026-07-09 | `strategies.strength.lifeStageRoot.enabled=true`일 때 deDi 통근에 12운성 단계 배율(록/왕 > 장생 > 묘고 등)을 적용하고 evidence를 기록. 기본 off라 baseline 17/0, compat 208/0 불변. 기본 on은 강약·종격 판정 계측 후 결정 |
 | 11 종격 승격 (a/b/c) | ⬜ | | | D6·CT-4 선행 |
+| 12-1 yongshin methodBreakdown | ✅ | 5cebf5b88 | 2026-07-09 | 5-layer wiring complete: saju-ts API methodBreakdown, springLegacy reasoning evidence, spring-ts adapter/context passthrough. Verified: springLegacy 12/12, yongshin-consensus 307/0, baseline 17/0, compat 208/0, service-visible 13/0 |
+| 12-2 gyeokguk basis | ✅ | 25da007e9 | 2026-07-09 | Exposes selected pattern basis, month-gyeok quality/details, and score map through saju-ts API, springLegacy, spring-ts adapter/context. Verified: springLegacy 13/13, gyeokguk candidates 257/0, baseline 17/0, compat 208/0, service-visible 13/0 |
+| 12-3 jie proximity evidence | ✅ | dfac644a2 | 2026-07-09 | Exposes birth proximity to previous/next jie boundaries via springLegacy, SajuSummary, and SajuOutputSummary. Boundary goldens now assert before/after term direction and near-boundary guard. Verified: springLegacy 15/15, boundary-goldens 867/0, baseline 17/0, compat 208/0, service-visible 13/0 |
 | 12-4 음양 균형 노출 | ✅ | e7e12fdd7 | 2026-07-09 | 5층 배선 완료(SajuSummary.yinYangBalance, test:adapter-yinyang 5/0) — 12계열 exemplar. 소비 카드 저작은 CT-3와 협업 |
+| 12-5a scoredCheonganRelations | ✅ 구현·기본 off | 58b29a47f | 2026-07-15 재검토 | 근거 미승인 휴리스틱(충70/합60 등)은 `strategies.stemRelations.heuristicScores.enabled=true`에서만 방출. 모델·단위·provisional·evidenceOnly·authorityTruthEligible=false·천간 쌍/거리 provenance가 모두 유효할 때만 어댑터가 수용하며, 기본 출력은 빈 배열이다. 독립 권위 승인 전 판정 근거로 사용 금지 |
+| 12-5b shinsal positionMultiplier | ✅ 구현·기본 off | 21c95cb0c | 2026-07-15 재검토 | 좌석 기반 배율(day 1, month 0.85, year 0.7, hour 0.6)은 `strategies.shinsal.positionWeighting.enabled=true` 명시 opt-in에서만 적용. 기본은 1.0이고 matched seat가 없으면 basedOn을 궁위로 오인하지 않고 1.0 유지. 권위 holdout 전 상품 기본값 승인 금지 |
+| 12-5c shinsalComposites pipe | ✅ | bd1e4e6c0 | 2026-07-09 | Removed the unsupported empty shinsalComposites pipe instead of fabricating composite patterns without an engine source. Verified: springLegacy 16/16, adapter-shinsal 15/0, baseline 17/0, compat 208/0, service-visible 13/0. PR-12-5 dead-pipe cleanup complete |
+| 12-6a shinsal attenuation trace | ✅ | b7552a6d3 | 2026-07-15 재검토 | qualityReasons/conditionPenalty를 표면화하되, 중복 hit은 서로 다른 인스턴스의 점수·좌석·감쇠 근거를 섞지 않는다. 최고 weightedScore 인스턴스의 payload를 원자적으로 보존하고 count만 합산한다. 모든 인스턴스 보존은 추후 별도 `instances[]` 계약 과제 |
+| 12-6b gongmang hegong | ✅ 구현·기본 off | e21987db2 | 2026-07-15 재검토 | `strategies.shinsal.gongmangResolution.enabled=true`에서만 충/형 또는 명목 합 관계에 따른 감쇠를 적용한다. 기본은 GONGMANG을 condition 감쇠에서 제외. 합 관계는 성립 강도·파합까지 판정하지 않는 `nominal_v1` 실험 정책이므로 provisional이며 독립 명리 검토 전 권위 진리값/상품 기본값으로 사용 금지 |
+| 12-8 JOJA_SPLIT | ✅ | aac1b8309 | 2026-07-09 | Implements JOJA_SPLIT by separating day-pillar boundary from hour-stem day boundary: dayBoundary=midnight, hourStemDayBoundary=ziSplit23. Verified: saju-ts typecheck/build, spring-ts typecheck/build, springLegacy 20/20, yaza-opt-in 4/0, baseline 17/0, compat 208/0, service-visible 13/0 |
+| 12-9 yin-stem Yangin split | done | e2ab5da58 | 2026-07-09 | Backend-only opt-in strategies.shinsal.yinYanginSplit: default keeps YANG_IN; true emits EUM_IN for yin stems and keeps BI_IN_SAL derived from YANG_IN/EUM_IN targets. Verified: saju-ts typecheck/build, shinsalDerivedTables+springLegacy 28/0, spring-ts typecheck/build, adapter-shinsal 16/0, baseline 17/0, compat 208/0, service-visible 13/0 |
 | 12-1~12-10 잔여 설명가능성 | ⬜ | | | 항목별 커밋 — 12-4 커밋(e7e12fdd7)을 본보기로 |
 | 13 오라클·재캘리브레이션 | ⬜ | | | D5 선행 |
 | 14 신규 해석 축 | ⬜ | | | 육친 우선 |
 | 15 후속 감사 | ⬜ | | | 방법 설계부터 |
-| CT-4 종격 birth 후보 수집 | 🔶 1차 완료 | — (tmp 초안) | 2026-07-09 | 후보 9건(즉시 8+보류 1) — `tmp/ct4-jonggyeok-birth-candidates.md`. 게이트 20건 대비 11+건 부족. ⚠구조 리스크: 단일 저자(魏多亮 7/9)·假從 편중(6/9). **선행 결정 필요: 假從을 CONG_* 게이트 분모에 산입할지(D6에 병합)**. 증분 광맥: 魏多亮 실전명례 12页 중 1页만 소화 |
+| CT-4 종격 birth 후보 수집 | 🔶 2차 완료 | pending (도시에) | 2026-07-10 | 2차 채굴+적대검증 완결: **ACCEPT 46 / HOLD 5 / REJECT 0**(기존 9건 별도) — `docs/dossiers/truth-panel-2026-07-10/mining-output-final.json`. 이재승 KCI 2편(한국어 T3) 9건 확보로 저자 편중 완화. 신규 N-01~15 달력 정합 14/15(N-15는 야자시 시두법 — JOJA_SPLIT 경로). 假從 산입은 정책 패널 만장일치 권고 완료(§8 D6) — 소유자 승인 후 intake 8단계 진행 |
+| 진리값 패널 (17픽스처) | ✅ repository evidence 완결 / 외부 인증 미완 | pending (도시에) | 2026-07-10 | 105/105 에이전트 + Codex 교차검증 dossier는 repository consistency와 정책 토론 기록이다. 실제 provider origin, reviewer identity, 외부 명리 전문가 자격을 인증하지 않으며 owner review 후에도 merge approval이 아니다. external expert signoff와 7-field truth intake가 별도 blocker다. |
+| 엔진 불일치 판결 (10픽스처) | ✅ 도시에 완결 | pending (도시에) | 2026-07-10 | ENGINE_BUG 3(fix-04 강약 일간 자기셈입·fix-07/11 격국 오배속)/CALIBRATION 6/DOCTRINE_AMBIGUITY 2/PANEL_ERROR 0 + 종합. **핵심: scoring.ts:106-113 일간 자기 셈입 단방향 강측 편향(제거만으로 2건 반전 실측)**. 수정 착수 순서는 도시에 §6 — 전 항목 GUIDE §1 계측 필수 |
+| 강약 일간 자기 셈입 제거 | 🔶 opt-in 구현·기본 보류 | 4eefcd154 | 2026-07-10 | `strength.excludeDayMasterSelf=true`에서 strength 전용 원장만 자기 비견을 제외. 범용 scorer 불변, provenance 단일 경계, 가중치 1/2 불변식 테스트. default-on 반사실: 17픽스처/158 leaf, strength 7·희신 6·종격위험 4·서사 17 이동, regression 0, fingerprint `377227…69143`. 순환 골든화 금지 — 독립 exact-diff 승인 전 기본 off |
 | CT-1~CT-3·CT-5 | ⬜ | | | 병렬 가능 |
+
+---
+
+## 2026-07-13: 저장소 취소·공개 요청 경계 체크포인트 (PR #653 freeze 이후 격리 브랜치)
+
+| 영역 | 상태 | 커밋 | 검증 근거와 한계 |
+|---|---|---|---|
+| Seed 저장소 초기화 취소 | ✅ 코드 체크포인트 | `165d31ab1` | Hanja/Fourframe의 fetch·body와 NameStat의 WASM·shard·digest·DB open까지 하나의 lifecycle coordinator로 묶었다. 마지막 WASM 구독자가 취소되면 기저 transport도 취소하고 identity-safe하게 flight를 제거하며, 검증 중 취소된 DB 후보는 정확히 한 번 닫힌다. `typecheck`, `typecheck:test`, repository lifecycle 40/40, database integrity 7/7, package contract 5/5 통과. |
+| Spring 공개 요청·이름 정체성 경계 | ✅ 코드 체크포인트 | `b09fb6311` | 7개 public async route가 첫 await 전에 caller graph를 descriptor 기반으로 snapshot/freeze한다. cycle·sparse/accessor·symbol·비유한 수·과대 depth/property/array를 fail-closed하고 Proxy 원문 오류를 고정 TypeError로 정규화해 PII 노출을 막는다. 객체 own `undefined`는 JSON semantics로 생략하되 배열의 `undefined`는 거부한다. Hangul 음절과 명시적 Hangul/Hanja pair를 사전 검증하고 pair 캐시는 role·pool·lifecycle generation으로 격리한다. |
+| 회귀·리뷰 | 🔶 핵심 회귀 통과 / 전체 baseline 재실행 필요 | `b09fb6311` | Spring `typecheck`, `test:name-stat-fail-closed`, `test:name-entry-resolver`, `test:spring-engine-lifecycle`, `test:scoring` 34/34, `typecheck:saju-bridge`, package boundary 2/2 통과. 독립 exact-diff 재리뷰 P0/P1 0. baseline 전체 17개는 두 번째 검증이 90초를 넘겨 중단했고, 일반(fix-01)·야자시(fix-16)·윤달(fix-17) 표본은 3/3 무변화였다. merge 전 전체 17/17을 CI 또는 시간 제한을 늘린 전용 실행에서 다시 확인해야 한다. |
+
+### 남은 한계와 release 판단
+
+- 이 체크포인트는 입력·저장소 무결성·동시성 경계를 강화한 것이며, 격국·강약·용신·조후 수치가 외부 명리 권위로 승인됐다는 뜻이 아니다.
+- trusted snapshot은 모듈 내부 WeakSet으로만 식별되고 public package API로 노출되지 않는다. 다만 deep import와 반복 재래핑까지 적대 경계로 간주하면 nested graph budget을 다시 합산하지 않는 P2가 남는다.
+- JavaScript Proxy trap 실행 자체는 막을 수 없고, trap 오류를 고정 메시지로 정규화해 원문 PII가 밖으로 나가지 않게 한다.
+- explicit Hangul/Hanja identity는 DB가 필요하므로 통합 초기화 실패가 pair mismatch보다 먼저 보일 수 있다. 둘 다 fail-closed지만 오류 우선순위는 후속 API 정책 항목이다.
+- 응답에 원 요청 객체를 그대로 반영하는 기존 표면의 PII 최소화는 API 호환성 검토가 필요한 별도 후속이다.
+- Vite production build의 Seed WASM 최종 방출 URL·브라우저 로딩·모바일 peak memory 스모크는 아직 완료되지 않았다.
+- 전체 baseline 장시간 원인은 17개 fixture 각각에서 후보 생성·DB 조회·사주·리포트를 직렬 반복하는 검증 구조다. correctness 변경과 분리해 profiler로 병목을 계측하고, 독립 fixture 병렬화 또는 빠른 smoke/full suite 이원화를 검토한다.
+- `codex/namestat-integrity`는 아직 원격에 push하지 않았다. frontend 변경은 0이며, PR #653에 섞기 전에 별도 리뷰 단위와 merge 순서를 확정한다.

@@ -1,14 +1,29 @@
 {
-  "schemaVersion": "spring-ts.performance-dashboard.v1",
+  "schemaVersion": "spring-ts.performance-dashboard.v2",
   "artifactKind": "phase_9_2_performance_dashboard",
   "generatedAt": "2026-05-02T00:00:00.000Z",
   "snapshotTargetDate": "2026-04-30T00:00:00.000Z",
   "inputs": {
-    "rpiSummary": "metrics/rpi-summary.json",
-    "sourceTierSummary": "metrics/source-tier-summary.json",
-    "bySourceTier": "metrics/bySourceTier.json",
-    "deterministicCalibration": "metrics/deterministic-calibration.json",
-    "ruleAbTests": "metrics/rule-ab-tests.json"
+    "rpiSummary": {
+      "path": "metrics/rpi-summary.json",
+      "sha256": "sha256:467fec4f997afad0d117c154f51a3bd81bc0f5a27b24958460ac522ced952ee7"
+    },
+    "sourceTierSummary": {
+      "path": "metrics/source-tier-summary.json",
+      "sha256": "sha256:5a3824fb19f232650c6def7168d1454103cd9da9b5e65118ea05a70658763c7c"
+    },
+    "bySourceTier": {
+      "path": "metrics/bySourceTier.json",
+      "sha256": "sha256:58da19d7be5a06c48351306c666d758304c674236c319df1ffa050df5cd09a07"
+    },
+    "deterministicCalibration": {
+      "path": "metrics/deterministic-calibration.json",
+      "sha256": "sha256:8c4941ae46613050c932b350e6af665c66f3747c270d68a710adbd85a99771aa"
+    },
+    "ruleAbTests": {
+      "path": "metrics/rule-ab-tests.json",
+      "sha256": "sha256:4fbdb6579811746251d71a02201c0420dacb4215cfcd1473d3ac5db410d452f3"
+    }
   },
   "privacy": {
     "sourceFree": true,
@@ -21,28 +36,28 @@
   "rpiTrendReport": {
     "trendKind": "single_snapshot_baseline",
     "current": {
-      "rawScore": 45,
+      "rawScore": 20,
       "rawMaxPoints": 100,
-      "measuredScore": 45,
-      "measuredMaxPoints": 60,
-      "measuredPercent": 75
+      "measuredScore": 20,
+      "measuredMaxPoints": 35,
+      "measuredPercent": 57.1
     },
     "axisCount": 7,
-    "measuredAxisCount": 5,
-    "truthInsufficientAxisCount": 1,
-    "notMeasuredAxisCount": 1,
+    "measuredAxisCount": 3,
+    "truthInsufficientAxisCount": 2,
+    "notMeasuredAxisCount": 2,
     "axes": {
       "A_calculationAccuracy": {
-        "score": 15,
+        "score": 0,
         "maxPoints": 15,
-        "percent": 100,
-        "status": "PASS"
+        "percent": 0,
+        "status": "INSUFFICIENT_TRUTH"
       },
       "B_legalHanjaData": {
         "score": 10,
         "maxPoints": 15,
         "percent": 66.6667,
-        "status": "PARTIAL_OFFICIAL_DENOMINATOR"
+        "status": "OFFICIAL_LOOKUP_PARITY_CONFIRMED"
       },
       "C_gyeokgukYongshinRuleQuality": {
         "score": 0,
@@ -63,10 +78,10 @@
         "status": "NOT_MEASURED"
       },
       "F_explainabilityUxSurface": {
-        "score": 10,
+        "score": 0,
         "maxPoints": 10,
-        "percent": 100,
-        "status": "PASS"
+        "percent": 0,
+        "status": "NOT_MEASURED"
       },
       "G_validationGovernance": {
         "score": 10,
@@ -78,58 +93,161 @@
   },
   "sourceTierCoverageReport": {
     "status": "PASS",
-    "scanned": 99,
+    "scanned": 122,
     "violationCount": 0,
-    "authorityTruthEligibleCount": 56,
-    "nonEligibleCount": 33,
-    "authorityTruthEligibleRate": 62.9213,
+    "recordEligibilityDefinition": "source record is eligible for at least one policy-declared authority scope; this is not complete D1 fixture truth",
+    "declaredScopeEligibleSourceRecordCount": 26,
+    "declaredScopeIneligibleSourceRecordCount": 96,
+    "declaredScopeEligibleSourceRecordRate": 21.3115,
     "byTier": {
-      "T1_HYPOTHESIS": {
-        "recordCount": 8,
-        "authorityTruthEligible": 0,
-        "nonEligible": 8,
-        "eligibleRate": 0
-      },
       "T3_AUTHORED_INTERPRETATION": {
-        "recordCount": 32,
-        "authorityTruthEligible": 26,
-        "nonEligible": 6,
-        "eligibleRate": 81.25
+        "recordCount": 53,
+        "declaredScopeEligibleSourceRecordCount": 0,
+        "declaredScopeIneligibleSourceRecordCount": 53,
+        "declaredScopeEligibleSourceRecordRate": 0
       },
       "T4_PRIMARY_TEXT": {
-        "recordCount": 12,
-        "authorityTruthEligible": 9,
-        "nonEligible": 3,
-        "eligibleRate": 75
+        "recordCount": 22,
+        "declaredScopeEligibleSourceRecordCount": 3,
+        "declaredScopeIneligibleSourceRecordCount": 19,
+        "declaredScopeEligibleSourceRecordRate": 13.6364
+      },
+      "T1_HYPOTHESIS": {
+        "recordCount": 7,
+        "declaredScopeEligibleSourceRecordCount": 0,
+        "declaredScopeIneligibleSourceRecordCount": 7,
+        "declaredScopeEligibleSourceRecordRate": 0
       },
       "T2_REFERENCE_IMPLEMENTATION": {
-        "recordCount": 13,
-        "authorityTruthEligible": 0,
-        "nonEligible": 13,
-        "eligibleRate": 0
+        "recordCount": 14,
+        "declaredScopeEligibleSourceRecordCount": 0,
+        "declaredScopeIneligibleSourceRecordCount": 14,
+        "declaredScopeEligibleSourceRecordRate": 0
       },
       "T5_OFFICIAL": {
-        "recordCount": 24,
-        "authorityTruthEligible": 21,
-        "nonEligible": 3,
-        "eligibleRate": 87.5
+        "recordCount": 26,
+        "declaredScopeEligibleSourceRecordCount": 23,
+        "declaredScopeIneligibleSourceRecordCount": 3,
+        "declaredScopeEligibleSourceRecordRate": 88.4615
       }
+    },
+    "d1FixtureTruthCoverage": {
+      "fixtureCount": 17,
+      "requiredFieldCount": 7,
+      "requiredFields": [
+        "sajuReport.gyeokgukType",
+        "sajuReport.yongshinElement",
+        "sajuReport.strengthLevel",
+        "namingReport.totalScore",
+        "namingReport.scores.hangul",
+        "namingReport.scores.hanja",
+        "namingReport.scores.fourFrame"
+      ],
+      "completeSevenFieldTruthFixtureCount": 0,
+      "partialTruthFixtureCount": 0,
+      "noTruthFixtureCount": 17,
+      "releaseInsufficientTruthFixtureCount": 17,
+      "completeSevenFieldTruthFixtureRate": 0,
+      "doctrineTruthFixtureCount": 0,
+      "namingScoreTruthFixtureCount": 0
     },
     "baselineByReferenceTier": {
       "T2_REFERENCE_IMPLEMENTATION": {
         "fixtureCount": 12,
+        "fixtureStatus": {
+          "PASS": 0,
+          "FAIL": 0,
+          "N/A": 12,
+          "NOT_APPLICABLE": 0
+        },
+        "dimensionStatus": {
+          "D1": {
+            "PASS": 0,
+            "FAIL": 0,
+            "N/A": 12,
+            "NOT_APPLICABLE": 0
+          },
+          "D2": {
+            "PASS": 0,
+            "FAIL": 0,
+            "N/A": 12,
+            "NOT_APPLICABLE": 0
+          },
+          "D3": {
+            "PASS": 0,
+            "FAIL": 0,
+            "N/A": 12,
+            "NOT_APPLICABLE": 0
+          },
+          "D4": {
+            "PASS": 0,
+            "FAIL": 0,
+            "N/A": 12,
+            "NOT_APPLICABLE": 0
+          },
+          "D5": {
+            "PASS": 0,
+            "FAIL": 0,
+            "N/A": 9,
+            "NOT_APPLICABLE": 3
+          }
+        },
         "truthBuckets": {
           "insufficient_source_truth": 12,
           "authority_match": 0,
           "engine_rule_failure": 0
+        },
+        "references": {
+          "oracle": 12
         }
       },
       "NO_REFERENCE": {
         "fixtureCount": 5,
+        "fixtureStatus": {
+          "PASS": 0,
+          "FAIL": 0,
+          "N/A": 5,
+          "NOT_APPLICABLE": 0
+        },
+        "dimensionStatus": {
+          "D1": {
+            "PASS": 0,
+            "FAIL": 0,
+            "N/A": 5,
+            "NOT_APPLICABLE": 0
+          },
+          "D2": {
+            "PASS": 0,
+            "FAIL": 0,
+            "N/A": 5,
+            "NOT_APPLICABLE": 0
+          },
+          "D3": {
+            "PASS": 0,
+            "FAIL": 0,
+            "N/A": 5,
+            "NOT_APPLICABLE": 0
+          },
+          "D4": {
+            "PASS": 0,
+            "FAIL": 0,
+            "N/A": 5,
+            "NOT_APPLICABLE": 0
+          },
+          "D5": {
+            "PASS": 0,
+            "FAIL": 0,
+            "N/A": 5,
+            "NOT_APPLICABLE": 0
+          }
+        },
         "truthBuckets": {
           "insufficient_source_truth": 5,
           "authority_match": 0,
           "engine_rule_failure": 0
+        },
+        "references": {
+          "none": 5
         }
       }
     },
@@ -139,9 +257,10 @@
       "engineRuleFailureCount": 0
     }
   },
-  "sourceTierPromotionGate": {
-    "calibrationStatus": "INSUFFICIENT_AUTHORITY_TRUTH",
-    "eligibleObjectiveFixtureCount": 0,
+  "completeD1PromotionGate": {
+    "completeD1ObjectiveStatus": "INSUFFICIENT_COMPLETE_D1_TRUTH",
+    "completeD1ObjectiveFixtureCount": 0,
+    "completeD1TruthPolicy": "include only COMPLETE seven-field D1 fixtures with effective source tier rank >= 3",
     "tierWeights": {
       "T5_OFFICIAL": 5,
       "T4_PRIMARY_TEXT": 4,
@@ -152,264 +271,729 @@
       "NO_REFERENCE": 0
     },
     "lowTierPolicy": "T2, T1, T0, and NO_REFERENCE have zero objective weight and cannot promote rule weights",
-    "ruleAbSourceTierGate": {
+    "ruleAbCompleteD1Gate": {
       "requiredBeforeDefaultChange": true,
       "status": "BLOCKED",
-      "authorityObjectiveStatus": "INSUFFICIENT_AUTHORITY_TRUTH",
-      "eligibleObjectiveFixtureCount": 0,
-      "minimumEligibleObjectiveFixtures": 3,
+      "calibrationSchemaVersion": "spring-ts.deterministic-calibration.v2",
+      "requiredCalibrationSchemaVersion": "spring-ts.deterministic-calibration.v2",
+      "calibrationContractValid": true,
+      "completeD1ObjectiveStatus": "INSUFFICIENT_COMPLETE_D1_TRUTH",
+      "completeD1ObjectiveFixtureCount": 0,
+      "minimumCompleteD1ObjectiveFixtures": 3,
+      "deterministicCalibrationPassed": false,
       "lowTierPolicy": "T2, T1, T0, and NO_REFERENCE feedback is diagnostic only and cannot promote defaults."
     }
   },
   "ruleModeComparisonReport": {
+    "authorityScope": "historical_observation_only",
+    "releaseEligible": false,
     "baselineMode": "monthly_main",
     "modeCount": 3,
     "modes": {
       "monthly_main": {
-        "measurementStatus": "MEASURED",
+        "measurementClassification": "HISTORICAL_PHASE_P_OBSERVATION",
+        "authorityScope": "historical_observation_only",
+        "releaseEligible": false,
+        "phasePSourceRow": "monthly_main",
         "total": 27,
         "pass": 17,
         "partial": 0,
         "diff": 10,
         "comparable": 27,
         "passRate": 70.4,
-        "winLossVsMonthlyMain": {
+        "historicalWinLossVsMonthlyMain": {
           "wins": 0,
           "losses": 0,
           "net": 0,
           "passDelta": 0,
           "passRateDelta": 0,
-          "baselineMode": "monthly_main"
+          "baselineMode": "monthly_main",
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
+        },
+        "byHistoricalLabelTier": {
+          "phase_p_authored_interpretation_label": {
+            "total": 21,
+            "pass": 16,
+            "partial": 0,
+            "diff": 5,
+            "na": 0,
+            "comparable": 21,
+            "passRate": 76.2,
+            "computedPassRate": 76.2,
+            "passOrPartialRate": 76.2,
+            "historicalWinLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 0,
+              "net": 0,
+              "passDelta": 0,
+              "passRateDelta": 0,
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
+          },
+          "phase_p_primary_text_label": {
+            "total": 6,
+            "pass": 1,
+            "partial": 0,
+            "diff": 5,
+            "na": 0,
+            "comparable": 6,
+            "passRate": 16.7,
+            "computedPassRate": 16.7,
+            "passOrPartialRate": 16.7,
+            "historicalWinLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 0,
+              "net": 0,
+              "passDelta": 0,
+              "passRateDelta": 0,
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
+          }
+        },
+        "bySourceGroup": {
+          "lecture": {
+            "total": 14,
+            "pass": 14,
+            "partial": 0,
+            "diff": 0,
+            "na": 0,
+            "comparable": 14,
+            "passRate": 100,
+            "computedPassRate": 100,
+            "passOrPartialRate": 100,
+            "historicalWinLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 0,
+              "net": 0,
+              "passDelta": 0,
+              "passRateDelta": 0,
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
+          },
+          "jonheom": {
+            "total": 6,
+            "pass": 1,
+            "partial": 0,
+            "diff": 5,
+            "na": 0,
+            "comparable": 6,
+            "passRate": 17,
+            "computedPassRate": 16.7,
+            "passOrPartialRate": 17,
+            "historicalWinLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 0,
+              "net": 0,
+              "passDelta": 0,
+              "passRateDelta": 0,
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
+          },
+          "korean_modern_figures_and_chumyeongga": {
+            "total": 7,
+            "pass": 2,
+            "partial": 0,
+            "diff": 5,
+            "na": 0,
+            "comparable": 7,
+            "passRate": 57,
+            "computedPassRate": 28.6,
+            "passOrPartialRate": 57,
+            "historicalWinLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 0,
+              "net": 0,
+              "passDelta": 0,
+              "passRateDelta": 0,
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
+          }
         }
       },
       "jungki_transparent": {
-        "measurementStatus": "MEASURED",
+        "measurementClassification": "HISTORICAL_PHASE_P_OBSERVATION",
+        "authorityScope": "historical_observation_only",
+        "releaseEligible": false,
+        "phasePSourceRow": "jungki_transparent",
         "total": 27,
         "pass": 14,
         "partial": 0,
         "diff": 13,
         "comparable": 27,
         "passRate": 59.3,
-        "winLossVsMonthlyMain": {
+        "historicalWinLossVsMonthlyMain": {
           "wins": 0,
           "losses": 3,
           "net": -3,
           "passDelta": -3,
           "passRateDelta": -11.1,
-          "baselineMode": "monthly_main"
+          "baselineMode": "monthly_main",
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
+        },
+        "byHistoricalLabelTier": {
+          "phase_p_authored_interpretation_label": {
+            "total": 21,
+            "pass": 13,
+            "partial": 0,
+            "diff": 8,
+            "na": 0,
+            "comparable": 21,
+            "passRate": 61.9,
+            "computedPassRate": 61.9,
+            "passOrPartialRate": 61.9,
+            "historicalWinLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 3,
+              "net": -3,
+              "passDelta": -3,
+              "passRateDelta": -14.3,
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
+          },
+          "phase_p_primary_text_label": {
+            "total": 6,
+            "pass": 1,
+            "partial": 0,
+            "diff": 5,
+            "na": 0,
+            "comparable": 6,
+            "passRate": 16.7,
+            "computedPassRate": 16.7,
+            "passOrPartialRate": 16.7,
+            "historicalWinLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 0,
+              "net": 0,
+              "passDelta": 0,
+              "passRateDelta": 0,
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
+          }
+        },
+        "bySourceGroup": {
+          "lecture": {
+            "total": 14,
+            "pass": 10,
+            "partial": 0,
+            "diff": 4,
+            "na": 0,
+            "comparable": 14,
+            "passRate": 71,
+            "computedPassRate": 71.4,
+            "passOrPartialRate": 71,
+            "historicalWinLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 4,
+              "net": -4,
+              "passDelta": -4,
+              "passRateDelta": -28.6,
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
+          },
+          "jonheom": {
+            "total": 6,
+            "pass": 1,
+            "partial": 0,
+            "diff": 5,
+            "na": 0,
+            "comparable": 6,
+            "passRate": 17,
+            "computedPassRate": 16.7,
+            "passOrPartialRate": 17,
+            "historicalWinLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 0,
+              "net": 0,
+              "passDelta": 0,
+              "passRateDelta": 0,
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
+          },
+          "korean_modern_figures_and_chumyeongga": {
+            "total": 7,
+            "pass": 3,
+            "partial": 0,
+            "diff": 4,
+            "na": 0,
+            "comparable": 7,
+            "passRate": 71,
+            "computedPassRate": 42.9,
+            "passOrPartialRate": 71,
+            "historicalWinLossVsMonthlyMain": {
+              "wins": 1,
+              "losses": 0,
+              "net": 1,
+              "passDelta": 1,
+              "passRateDelta": 14.3,
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
+          }
         }
       },
       "composite_classical": {
-        "measurementStatus": "MEASURED_CANDIDATE_EVIDENCE",
-        "selectionPolicy": "evidence_only_never_promote",
+        "measurementClassification": "HISTORICAL_PHASE_P_OBSERVATION",
+        "authorityScope": "historical_observation_only",
+        "releaseEligible": false,
+        "phasePSourceRow": "monthly_main",
+        "selectionPolicy": "historical_evidence_only_never_promote",
         "total": 27,
         "pass": 17,
         "partial": 0,
         "diff": 10,
         "comparable": 27,
         "passRate": 70.4,
-        "winLossVsMonthlyMain": {
+        "historicalWinLossVsMonthlyMain": {
           "wins": 0,
           "losses": 0,
           "net": 0,
           "passDelta": 0,
           "passRateDelta": 0,
-          "baselineMode": "monthly_main"
+          "baselineMode": "monthly_main",
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         },
-        "candidateCoverage": {
+        "historicalCandidateCoverage": {
           "covered": 23,
           "comparable": 27,
           "coverageRate": 85.2,
-          "coverageMode": "authority_label_present_in_evidence_candidates"
+          "coverageMode": "historical_phase_p_label_present_in_evidence_candidates",
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         },
-        "sourceTierNonRegressionVsMonthlyMain": {
-          "status": "PASS",
+        "historicalNonRegressionVsMonthlyMain": {
+          "observed": true,
           "baselineMode": "monthly_main",
-          "basis": "selected agreement only; composite_classical candidates are evidence-only"
+          "basis": "historical selected agreement only; composite candidates are observation-only",
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
+        },
+        "byHistoricalLabelTier": {
+          "phase_p_authored_interpretation_label": {
+            "total": 21,
+            "pass": 16,
+            "partial": 0,
+            "diff": 5,
+            "na": 0,
+            "comparable": 21,
+            "passRate": 76.2,
+            "computedPassRate": 76.2,
+            "passOrPartialRate": 76.2,
+            "historicalWinLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 0,
+              "net": 0,
+              "passDelta": 0,
+              "passRateDelta": 0,
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "historicalCandidateCoverage": {
+              "covered": 20,
+              "comparable": 21,
+              "coverageRate": 95.2,
+              "coverageMode": "historical_phase_p_label_present_in_evidence_candidates",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "historicalNonRegressionVsMonthlyMain": {
+              "observed": true,
+              "baselineMode": "monthly_main",
+              "basis": "historical selected agreement only; composite candidates are observation-only",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
+          },
+          "phase_p_primary_text_label": {
+            "total": 6,
+            "pass": 1,
+            "partial": 0,
+            "diff": 5,
+            "na": 0,
+            "comparable": 6,
+            "passRate": 16.7,
+            "computedPassRate": 16.7,
+            "passOrPartialRate": 16.7,
+            "historicalWinLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 0,
+              "net": 0,
+              "passDelta": 0,
+              "passRateDelta": 0,
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "historicalCandidateCoverage": {
+              "covered": 3,
+              "comparable": 6,
+              "coverageRate": 50,
+              "coverageMode": "historical_phase_p_label_present_in_evidence_candidates",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "historicalNonRegressionVsMonthlyMain": {
+              "observed": true,
+              "baselineMode": "monthly_main",
+              "basis": "historical selected agreement only; composite candidates are observation-only",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
+          }
+        },
+        "bySourceGroup": {
+          "lecture": {
+            "total": 14,
+            "pass": 14,
+            "partial": 0,
+            "diff": 0,
+            "na": 0,
+            "comparable": 14,
+            "passRate": 100,
+            "computedPassRate": 100,
+            "passOrPartialRate": 100,
+            "historicalWinLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 0,
+              "net": 0,
+              "passDelta": 0,
+              "passRateDelta": 0,
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "historicalCandidateCoverage": {
+              "covered": 14,
+              "comparable": 14,
+              "coverageRate": 100,
+              "coverageMode": "historical_phase_p_label_present_in_evidence_candidates",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
+          },
+          "jonheom": {
+            "total": 6,
+            "pass": 1,
+            "partial": 0,
+            "diff": 5,
+            "na": 0,
+            "comparable": 6,
+            "passRate": 17,
+            "computedPassRate": 16.7,
+            "passOrPartialRate": 17,
+            "historicalWinLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 0,
+              "net": 0,
+              "passDelta": 0,
+              "passRateDelta": 0,
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "historicalCandidateCoverage": {
+              "covered": 3,
+              "comparable": 6,
+              "coverageRate": 50,
+              "coverageMode": "historical_phase_p_label_present_in_evidence_candidates",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
+          },
+          "korean_modern_figures_and_chumyeongga": {
+            "total": 7,
+            "pass": 2,
+            "partial": 0,
+            "diff": 5,
+            "na": 0,
+            "comparable": 7,
+            "passRate": 57,
+            "computedPassRate": 28.6,
+            "passOrPartialRate": 57,
+            "historicalWinLossVsMonthlyMain": {
+              "wins": 0,
+              "losses": 0,
+              "net": 0,
+              "passDelta": 0,
+              "passRateDelta": 0,
+              "baselineMode": "monthly_main",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "historicalCandidateCoverage": {
+              "covered": 6,
+              "comparable": 7,
+              "coverageRate": 85.7,
+              "coverageMode": "historical_phase_p_label_present_in_evidence_candidates",
+              "authorityScope": "historical_observation_only",
+              "releaseEligible": false
+            },
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
+          }
         }
       }
     },
-    "compositeQualityGate": {
-      "status": "PASS",
-      "thresholds": {
-        "monthlyMainSelectedAgreement": {
+    "historicalCompositeObservation": {
+      "classification": "HISTORICAL_PHASE_P_OBSERVATION",
+      "authorityScope": "historical_observation_only",
+      "releaseEligible": false,
+      "allHistoricalFloorsObserved": true,
+      "historicalFloors": {
+        "monthlyMain": {
           "minPass": 17,
           "comparable": 27
         },
-        "compositeSelectedAgreement": {
+        "compositeNet": {
           "minNetVsMonthlyMain": 0
         },
-        "compositeCandidateCoverage": {
-          "total": {
-            "minCovered": 23,
-            "comparable": 27
+        "totalCoverage": {
+          "minCovered": 23,
+          "comparable": 27
+        },
+        "byHistoricalLabelTier": {
+          "phase_p_authored_interpretation_label": {
+            "minCovered": 20,
+            "comparable": 21
           },
-          "bySourceTier": {
-            "T3_AUTHORED_INTERPRETATION": {
-              "minCovered": 20,
-              "comparable": 21
-            },
-            "T4_PRIMARY_TEXT": {
-              "minCovered": 3,
-              "comparable": 6
-            }
+          "phase_p_primary_text_label": {
+            "minCovered": 3,
+            "comparable": 6
+          }
+        },
+        "bySourceGroup": {
+          "lecture": {
+            "minCovered": 14,
+            "comparable": 14
           },
-          "bySourceGroup": {
-            "lecture": {
-              "minCovered": 14,
-              "comparable": 14
-            },
-            "jonheom": {
-              "minCovered": 3,
-              "comparable": 6
-            },
-            "korean_modern_figures_and_chumyeongga": {
-              "minCovered": 6,
-              "comparable": 7
-            }
+          "jonheom": {
+            "minCovered": 3,
+            "comparable": 6
+          },
+          "korean_modern_figures_and_chumyeongga": {
+            "minCovered": 6,
+            "comparable": 7
           }
         }
       },
       "checks": [
         {
-          "id": "monthly_main_default_selected_agreement",
-          "status": "PASS",
-          "description": "Default monthly_main selected agreement must not fall below the Phase P baseline.",
+          "id": "monthly_main_historical_selected_agreement",
+          "description": "The recorded Phase-P monthly_main row is compared with its historical floor.",
+          "meetsHistoricalFloor": true,
           "actual": {
             "pass": 17,
             "comparable": 27
           },
-          "threshold": {
+          "historicalFloor": {
             "minPass": 17,
             "comparable": 27
-          }
+          },
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         },
         {
-          "id": "composite_selected_non_regression",
-          "status": "PASS",
-          "description": "Composite mode is evidence-only; selected agreement must not regress against monthly_main.",
+          "id": "composite_historical_selected_non_regression",
+          "description": "The observation-only composite row is compared with the recorded monthly_main row.",
+          "meetsHistoricalFloor": true,
           "actual": {
             "netVsMonthlyMain": 0
           },
-          "threshold": {
+          "historicalFloor": {
             "minNetVsMonthlyMain": 0
-          }
+          },
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         },
         {
-          "id": "composite_total_candidate_coverage",
-          "status": "PASS",
-          "description": "Authority label must remain visible in composite candidates for the measured subset.",
+          "id": "composite_historical_total_candidate_coverage",
+          "description": "Historical Phase-P label visibility is compared with the recorded total floor.",
+          "meetsHistoricalFloor": true,
           "actual": {
             "covered": 23,
             "comparable": 27
           },
-          "threshold": {
+          "historicalFloor": {
             "minCovered": 23,
             "comparable": 27
-          }
+          },
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         },
         {
-          "id": "composite_source_tier_T3_AUTHORED_INTERPRETATION_candidate_coverage",
-          "status": "PASS",
-          "description": "T3_AUTHORED_INTERPRETATION composite candidate coverage must stay above the authority subset threshold.",
+          "id": "composite_historical_label_tier_phase_p_authored_interpretation_label_coverage",
+          "description": "phase_p_authored_interpretation_label is a Phase-P label grouping, not a current source-tier certification.",
+          "meetsHistoricalFloor": true,
           "actual": {
             "covered": 20,
             "comparable": 21
           },
-          "threshold": {
+          "historicalFloor": {
             "minCovered": 20,
             "comparable": 21
-          }
+          },
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         },
         {
-          "id": "composite_source_tier_T4_PRIMARY_TEXT_candidate_coverage",
-          "status": "PASS",
-          "description": "T4_PRIMARY_TEXT composite candidate coverage must stay above the authority subset threshold.",
+          "id": "composite_historical_label_tier_phase_p_primary_text_label_coverage",
+          "description": "phase_p_primary_text_label is a Phase-P label grouping, not a current source-tier certification.",
+          "meetsHistoricalFloor": true,
           "actual": {
             "covered": 3,
             "comparable": 6
           },
-          "threshold": {
+          "historicalFloor": {
             "minCovered": 3,
             "comparable": 6
-          }
+          },
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         },
         {
-          "id": "composite_source_group_lecture_candidate_coverage",
-          "status": "PASS",
-          "description": "lecture composite candidate coverage must stay above the authority subset threshold.",
+          "id": "composite_historical_source_group_lecture_coverage",
+          "description": "lecture historical label visibility is observation-only.",
+          "meetsHistoricalFloor": true,
           "actual": {
             "covered": 14,
             "comparable": 14
           },
-          "threshold": {
+          "historicalFloor": {
             "minCovered": 14,
             "comparable": 14
-          }
+          },
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         },
         {
-          "id": "composite_source_group_jonheom_candidate_coverage",
-          "status": "PASS",
-          "description": "jonheom composite candidate coverage must stay above the authority subset threshold.",
+          "id": "composite_historical_source_group_jonheom_coverage",
+          "description": "jonheom historical label visibility is observation-only.",
+          "meetsHistoricalFloor": true,
           "actual": {
             "covered": 3,
             "comparable": 6
           },
-          "threshold": {
+          "historicalFloor": {
             "minCovered": 3,
             "comparable": 6
-          }
+          },
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         },
         {
-          "id": "composite_source_group_korean_modern_figures_and_chumyeongga_candidate_coverage",
-          "status": "PASS",
-          "description": "korean_modern_figures_and_chumyeongga composite candidate coverage must stay above the authority subset threshold.",
+          "id": "composite_historical_source_group_korean_modern_figures_and_chumyeongga_coverage",
+          "description": "korean_modern_figures_and_chumyeongga historical label visibility is observation-only.",
+          "meetsHistoricalFloor": true,
           "actual": {
             "covered": 6,
             "comparable": 7
           },
-          "threshold": {
+          "historicalFloor": {
             "minCovered": 6,
             "comparable": 7
-          }
+          },
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         }
       ],
-      "sourceTierDashboard": {
-        "T3_AUTHORED_INTERPRETATION": {
-          "selectedAgreement": {
+      "historicalLabelTierDashboard": {
+        "phase_p_authored_interpretation_label": {
+          "historicalSelectedAgreement": {
             "pass": 16,
             "comparable": 21,
             "passRate": 76.2
           },
-          "candidateCoverage": {
+          "historicalCandidateCoverage": {
             "covered": 20,
             "comparable": 21,
             "coverageRate": 95.2,
-            "coverageMode": "authority_label_present_in_evidence_candidates"
+            "coverageMode": "historical_phase_p_label_present_in_evidence_candidates",
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
           },
-          "nonRegression": {
-            "status": "PASS",
+          "nonRegressionObservation": {
+            "observed": true,
             "baselineMode": "monthly_main",
-            "basis": "selected agreement only; composite_classical candidates are evidence-only"
-          }
+            "basis": "historical selected agreement only; composite candidates are observation-only",
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
+          },
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         },
-        "T4_PRIMARY_TEXT": {
-          "selectedAgreement": {
+        "phase_p_primary_text_label": {
+          "historicalSelectedAgreement": {
             "pass": 1,
             "comparable": 6,
             "passRate": 16.7
           },
-          "candidateCoverage": {
+          "historicalCandidateCoverage": {
             "covered": 3,
             "comparable": 6,
             "coverageRate": 50,
-            "coverageMode": "authority_label_present_in_evidence_candidates"
+            "coverageMode": "historical_phase_p_label_present_in_evidence_candidates",
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
           },
-          "nonRegression": {
-            "status": "PASS",
+          "nonRegressionObservation": {
+            "observed": true,
             "baselineMode": "monthly_main",
-            "basis": "selected agreement only; composite_classical candidates are evidence-only"
-          }
+            "basis": "historical selected agreement only; composite candidates are observation-only",
+            "authorityScope": "historical_observation_only",
+            "releaseEligible": false
+          },
+          "authorityScope": "historical_observation_only",
+          "releaseEligible": false
         }
       }
     }
@@ -420,12 +1004,13 @@
       "presetCount": 6,
       "fixtureCount": 17,
       "changedPresetCount": 5,
-      "authorityFixtureCoverage": {
-        "scorableAuthorityFixtures": 0,
-        "nonScorableAuthorityFixtures": 78,
-        "pillarOnlyAuthorityFixtures": 75,
-        "ruleSnippetCollections": 1,
-        "note": "Authority casebooks are source-tiered, but current records are not full naming-score inputs with birth + surname + givenName."
+      "nameInputShapeCoverage": {
+        "fullNameInputFixtureCount": 0,
+        "incompleteNameInputFixtureCount": 76,
+        "pillarOnlyRecordCount": 75,
+        "ruleSnippetCollectionCount": 1,
+        "authorityClaim": false,
+        "note": "This is input-shape inventory only; source eligibility and complete D1 truth are reported separately."
       },
       "presets": [
         {
@@ -441,8 +1026,8 @@
           "fixtureCount": 17,
           "changedFromDefault": 17,
           "changedRate": 100,
-          "averageTotalDelta": -1.0118,
-          "averageSajuDelta": -3.9706
+          "averageTotalDelta": -0.2647,
+          "averageSajuDelta": -1.0118
         },
         {
           "presetId": "modern",
@@ -465,8 +1050,8 @@
           "fixtureCount": 17,
           "changedFromDefault": 17,
           "changedRate": 100,
-          "averageTotalDelta": -1.1412,
-          "averageSajuDelta": -4.5176
+          "averageTotalDelta": -0.4118,
+          "averageSajuDelta": -1.6353
         },
         {
           "presetId": "naming_safe",
@@ -541,10 +1126,10 @@
     }
   },
   "releaseGates": {
-    "qualityGateOverall": "PASS",
+    "qualityGateOverall": "N/A",
     "sourceTierStatus": "PASS",
     "sourceTierViolationCount": 0,
     "defaultPromotionDecision": "keep_current_default",
-    "sourceTierDefaultPromotionGate": "BLOCKED"
+    "completeD1DefaultPromotionGate": "BLOCKED"
   }
 }

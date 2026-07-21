@@ -240,54 +240,219 @@ function readWeakQualityWeightLegacy(config: EngineConfig): number {
   return Math.min(1, Math.max(0, v));
 }
 
+const QUALITY_OVERRIDE_KEYS = new Set([
+  'enabled',
+  'combine',
+  'weights',
+  'weakThreshold',
+  'invalidateThreshold',
+  'applyToNames',
+  'applyTo',
+  'onlyNames',
+  'excludeNames',
+  'exclude',
+  'excludeShinsal',
+]);
+
+function assertKnownPolicyKeys(
+  source: Record<string, unknown>,
+  field: string,
+  extraKeys: readonly string[] = [],
+): void {
+  const allowed = new Set([...QUALITY_OVERRIDE_KEYS, ...extraKeys]);
+  for (const key of Object.keys(source)) {
+    if (!allowed.has(key)) {
+      throw new TypeError(`${field}.${key} is not a supported policy key`);
+    }
+  }
+}
+
+function readUnitInterval(value: unknown, field: string): number {
+  if (typeof value !== 'number' || !Number.isFinite(value) || value < 0 || value > 1) {
+    throw new TypeError(`${field} must be a finite number within [0, 1]`);
+  }
+  return value;
+}
+
+function readShinsalNameList(raw: unknown, field: string): string[] | undefined {
+  if (raw === undefined) return undefined;
+  if (!Array.isArray(raw)) throw new TypeError(`${field} must be an array of non-empty strings`);
+  const names = raw.map((value, index) => {
+    if (typeof value !== 'string' || value.trim().length === 0) {
+      throw new TypeError(`${field}[${index}] must be a non-empty string`);
+    }
+    return value.trim();
+  });
+  if (new Set(names).size !== names.length) {
+    throw new TypeError(`${field} must not contain duplicate names`);
+  }
+  return names;
+}
+
+function readAliasedNameList(
+  source: Record<string, unknown>,
+  field: string,
+  keys: readonly string[],
+): string[] | undefined {
+  const present = keys.filter((key) => source[key] !== undefined);
+  if (present.length > 1) {
+    throw new TypeError(`${field} must use only one of ${keys.join(', ')}`);
+  }
+  return readShinsalNameList(
+    present.length === 1 ? source[present[0]!] : undefined,
+    field,
+  );
+}
+
+function readQualityModelOverride(
+  raw: unknown,
+  field: string,
+  extraKeys: readonly string[] = [],
+): ShinsalQualityModelOverride {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) {
+    throw new TypeError(`${field} must be an object`);
+  }
+  const source = raw as Record<string, unknown>;
+  assertKnownPolicyKeys(source, field, extraKeys);
+  const override: ShinsalQualityModelOverride = {};
+
+  if (source.enabled !== undefined) {
+    if (typeof source.enabled !== 'boolean') throw new TypeError(`${field}.enabled must be a boolean`);
+    override.enabled = source.enabled;
+  }
+  if (source.combine !== undefined) {
+    if (source.combine !== 'max' && source.combine !== 'sum' && source.combine !== 'prob') {
+      throw new TypeError(`${field}.combine must be max, sum, or prob`);
+    }
+    override.combine = source.combine;
+  }
+
+  if (source.weights !== undefined) {
+    if (!source.weights || typeof source.weights !== 'object' || Array.isArray(source.weights)) {
+      throw new TypeError(`${field}.weights must be an object`);
+    }
+    const weights: Partial<Record<ShinsalDamageKey, number>> = {};
+    const validKeys = new Set(Object.keys(DEFAULT_SHINSAL_QUALITY_MODEL.weights));
+    for (const [key, value] of Object.entries(source.weights as Record<string, unknown>)) {
+      if (!validKeys.has(key)) {
+        throw new TypeError(`${field}.weights.${key} is not a supported damage key`);
+      }
+      weights[key as ShinsalDamageKey] = readUnitInterval(value, `${field}.weights.${key}`);
+    }
+    override.weights = weights;
+  }
+
+  if (source.weakThreshold !== undefined) {
+    override.weakThreshold = readUnitInterval(source.weakThreshold, `${field}.weakThreshold`);
+  }
+  if (source.invalidateThreshold !== undefined) {
+    override.invalidateThreshold = readUnitInterval(
+      source.invalidateThreshold,
+      `${field}.invalidateThreshold`,
+    );
+  }
+
+  const applyToNames = readAliasedNameList(
+    source,
+    `${field}.applyToNames`,
+    ['applyToNames', 'applyTo', 'onlyNames'],
+  );
+  if (applyToNames) override.applyToNames = applyToNames;
+
+  const excludeNames = readAliasedNameList(
+    source,
+    `${field}.excludeNames`,
+    ['excludeNames', 'exclude', 'excludeShinsal'],
+  );
+  if (excludeNames) override.excludeNames = excludeNames;
+
+  return override;
+}
+
+function readOverrideMap(
+  raw: unknown,
+  field: string,
+): Record<string, ShinsalQualityModelOverride> {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) {
+    throw new TypeError(`${field} must be an object`);
+  }
+  const result: Record<string, ShinsalQualityModelOverride> = {};
+  for (const [key, value] of Object.entries(raw as Record<string, unknown>)) {
+    if (key.trim().length === 0 || key !== key.trim()) {
+      throw new TypeError(`${field} keys must be non-empty strings without surrounding whitespace`);
+    }
+    result[key] = readQualityModelOverride(value, `${field}.${key}`);
+  }
+  return result;
+}
+
+function mergeQualityModelOverride(
+  inherited: ShinsalQualityModelOverride | undefined,
+  override: ShinsalQualityModelOverride,
+): ShinsalQualityModelOverride {
+  const merged: ShinsalQualityModelOverride = { ...inherited, ...override };
+  if (inherited?.weights || override.weights) {
+    merged.weights = { ...(inherited?.weights ?? {}), ...(override.weights ?? {}) };
+  }
+  return merged;
+}
+
 function readQualityModelFromConfig(config: EngineConfig): ShinsalQualityModel {
   const base: ShinsalQualityModel = {
     ...DEFAULT_SHINSAL_QUALITY_MODEL,
+    categories: { ...(DEFAULT_SHINSAL_QUALITY_MODEL.categories ?? {}) },
+    names: { ...(DEFAULT_SHINSAL_QUALITY_MODEL.names ?? {}) },
     weights: { ...DEFAULT_SHINSAL_QUALITY_MODEL.weights },
     applyToNames: [...DEFAULT_SHINSAL_QUALITY_MODEL.applyToNames],
     excludeNames: [...DEFAULT_SHINSAL_QUALITY_MODEL.excludeNames],
   };
 
   const raw = (config.strategies as any)?.shinsal?.conditions;
+  const finalizeGongmangGate = (): ShinsalQualityModel => {
+    const enabled = (config.strategies as any)?.shinsal?.gongmangResolution?.enabled === true;
+    if (enabled) {
+      base.excludeNames = base.excludeNames.filter((name) => name !== 'GONGMANG');
+    } else if (!base.excludeNames.includes('GONGMANG')) {
+      base.excludeNames.push('GONGMANG');
+    }
+    return base;
+  };
 
-  if (raw && typeof raw === 'object') {
-    const enabled = (raw as any).enabled;
-    if (typeof enabled === 'boolean') base.enabled = enabled;
+  if (raw !== undefined) {
+    const source = raw as Record<string, unknown>;
+    const globalOverride = readQualityModelOverride(
+      raw,
+      'strategies.shinsal.conditions',
+      ['categories', 'names'],
+    );
+    if (globalOverride.enabled !== undefined) base.enabled = globalOverride.enabled;
+    if (globalOverride.combine !== undefined) base.combine = globalOverride.combine;
+    if (globalOverride.weights) base.weights = { ...base.weights, ...globalOverride.weights };
+    if (globalOverride.weakThreshold !== undefined) base.weakThreshold = globalOverride.weakThreshold;
+    if (globalOverride.invalidateThreshold !== undefined) {
+      base.invalidateThreshold = globalOverride.invalidateThreshold;
+    }
+    if (globalOverride.applyToNames) base.applyToNames = globalOverride.applyToNames;
+    if (globalOverride.excludeNames) base.excludeNames = globalOverride.excludeNames;
 
-    const combineRaw = (raw as any).combine;
-    if (combineRaw === 'max' || combineRaw === 'sum' || combineRaw === 'prob') base.combine = combineRaw;
-
-    const wt = (raw as any).weights;
-    if (wt && typeof wt === 'object') {
-      for (const k of Object.keys(base.weights) as ShinsalDamageKey[]) {
-        const v = (wt as any)[k];
-        if (typeof v === 'number' && Number.isFinite(v)) {
-          base.weights[k] = Math.min(1, Math.max(0, v));
-        }
+    if (source.categories !== undefined) {
+      const overrides = readOverrideMap(
+        source.categories,
+        'strategies.shinsal.conditions.categories',
+      );
+      for (const [category, override] of Object.entries(overrides)) {
+        base.categories ??= {};
+        base.categories[category] = mergeQualityModelOverride(base.categories[category], override);
       }
     }
-
-    const weakThreshold = (raw as any).weakThreshold;
-    if (typeof weakThreshold === 'number' && Number.isFinite(weakThreshold)) {
-      base.weakThreshold = Math.min(1, Math.max(0, weakThreshold));
+    if (source.names !== undefined) {
+      const overrides = readOverrideMap(source.names, 'strategies.shinsal.conditions.names');
+      for (const [name, override] of Object.entries(overrides)) {
+        base.names ??= {};
+        base.names[name] = mergeQualityModelOverride(base.names[name], override);
+      }
     }
-
-    const invalidateThreshold = (raw as any).invalidateThreshold;
-    if (typeof invalidateThreshold === 'number' && Number.isFinite(invalidateThreshold)) {
-      base.invalidateThreshold = Math.min(1, Math.max(0, invalidateThreshold));
-    }
-
-    const applyToNames = (raw as any).applyToNames ?? (raw as any).applyTo ?? (raw as any).onlyNames;
-    if (Array.isArray(applyToNames)) {
-      base.applyToNames = applyToNames.map(String);
-    }
-
-    const exclude = (raw as any).excludeNames ?? (raw as any).exclude ?? (raw as any).excludeShinsal;
-    if (Array.isArray(exclude)) {
-      base.excludeNames = exclude.map(String);
-    }
-
-    return base;
+    return finalizeGongmangGate();
   }
 
   // Backward-compatible fallback:
@@ -300,7 +465,7 @@ function readQualityModelFromConfig(config: EngineConfig): ShinsalQualityModel {
   base.weakThreshold = 1;
   base.invalidateThreshold = 0;
 
-  return base;
+  return finalizeGongmangGate();
 }
 
 function clamp01(x: number): number {
@@ -374,7 +539,9 @@ function resolveQualityModelForDetection(qm: ShinsalQualityModel, det: ShinsalDe
   const nameOv = qm.names?.[det.name];
   mergeQualityModelInto(model, nameOv);
 
-  // Decide whether to run condition evaluation.
+  // Global, category, and name gates are cumulative restrictions: a narrower
+  // scope may disable more detections but cannot reopen an enclosing gate.
+  // Only numeric model parameters override.
   // Note: explicit qualityWeight on the detection always bypasses condition evaluation.
   let apply = qm.enabled !== false;
 
@@ -580,6 +747,7 @@ function applyQualityModel(args: {
           kk === 'PA' ||
           kk === 'WONJIN' ||
           kk === 'HYEONG' ||
+          kk === 'HAP' ||
           kk === 'GONGMANG'
         ) {
           const n = typeof v === 'number' ? v : Number(v);

@@ -1,11 +1,17 @@
 import type { Rule, RuleSet } from '../dsl.js';
 import { DEFAULT_SHINSAL_CONDITIONS_RULESET } from '../defaultShinsalConditions.js';
+import { deepClone } from '../../utils/deepMerge.js';
 import type {
   ShinsalConditionsMacro,
   ShinsalConditionsRuleSpec,
   ShinsalConditionsRuleSpecMode,
 } from './shinsalConditionsSpec.js';
 import type { ShinsalDamageKey } from '../packs/shinsalConditionsBasePack.js';
+import {
+  assertValidKnownRuleSpec,
+  assertValidRuleSet,
+} from './ruleSpecValidation.js';
+import { finalizeGeneratedRuleSet } from './ruleSpecGeneratedData.js';
 
 function uniqStrings(xs: string[] | undefined): string[] | undefined {
   if (!xs) return undefined;
@@ -37,6 +43,8 @@ function defaultExplain(key: ShinsalDamageKey): string {
       return '타깃 지지가 원진(怨嗔)에 걸리면 약화(가중치).';
     case 'HYEONG':
       return '타깃 지지가 형(刑/自刑/三刑)에 걸리면 약화(가중치).';
+    case 'HAP':
+      return 'Void branch is resolved by a branch combination and attenuated.';
     case 'GONGMANG':
       return '타깃 지지가 일주旬空(공망)에 해당하면 약화(가중치).';
     default:
@@ -56,6 +64,8 @@ function relationVarForKey(key: ShinsalDamageKey): string {
       return 'chart.relations.wonjinBranches';
     case 'HYEONG':
       return 'chart.relations.hyeongBranches';
+    case 'HAP':
+      return 'chart.relations.hapBranches';
     case 'GONGMANG':
       return 'shinsal.gongmang.day';
     default:
@@ -145,8 +155,24 @@ function applyMode(baseRules: Rule[], compiled: Rule[], mode: ShinsalConditionsR
 export function compileShinsalConditionsRuleSpec(
   specInput: ShinsalConditionsRuleSpec | ShinsalConditionsRuleSpec[],
 ): RuleSet {
+  assertValidKnownRuleSpec(
+    'shinsalConditions',
+    specInput,
+    'ruleSpecs.shinsalConditions',
+  );
   const specs = Array.isArray(specInput) ? specInput : [specInput];
-  if (specs.length === 0) return DEFAULT_SHINSAL_CONDITIONS_RULESET;
+  if (specs.length === 0) {
+    const result = finalizeGeneratedRuleSet(
+      deepClone(DEFAULT_SHINSAL_CONDITIONS_RULESET),
+      'compiledRuleSets.shinsalConditions',
+    );
+    assertValidRuleSet(
+      result,
+      'compiledRuleSets.shinsalConditions',
+      'shinsalConditions',
+    );
+    return result;
+  }
 
   let rules: Rule[] = [];
   let meta: Pick<RuleSet, 'id' | 'version' | 'description'> = {
@@ -160,7 +186,7 @@ export function compileShinsalConditionsRuleSpec(
     const compiled = compileMacros(s.macros ?? []);
     if (first) {
       const base = s.base ?? 'default';
-      const baseRules = base === 'default' ? DEFAULT_SHINSAL_CONDITIONS_RULESET.rules : [];
+      const baseRules = base === 'default' ? deepClone(DEFAULT_SHINSAL_CONDITIONS_RULESET.rules) : [];
       const mode = s.mode ?? 'append';
       rules = applyMode(baseRules, compiled, mode);
       meta = {
@@ -176,10 +202,19 @@ export function compileShinsalConditionsRuleSpec(
     }
   }
 
-  return {
-    id: meta.id,
-    version: meta.version,
-    description: meta.description,
-    rules,
-  };
+  const result = finalizeGeneratedRuleSet(
+    deepClone({
+      id: meta.id,
+      version: meta.version,
+      description: meta.description,
+      rules,
+    }),
+    'compiledRuleSets.shinsalConditions',
+  );
+  assertValidRuleSet(
+    result,
+    'compiledRuleSets.shinsalConditions',
+    'shinsalConditions',
+  );
+  return result;
 }

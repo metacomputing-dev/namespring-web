@@ -4,6 +4,10 @@
 > 방법: 8개 도메인 × (코드 정밀 리딩 + 명리 전문 표준 웹 리서치) → 갭 분석 → bug/high 전건 적대적 검증(70 에이전트), 병행 런타임 프로브(saju-ts 재빌드 후 10개 명식 실측).
 > 결과: 발견 103건 — 검증 통과(CONFIRMED/PARTIAL) 33건, 미검증(low/enrichment 위주) 70건. 반박(REFUTED)된 발견 0건.
 > 상세는 부록 A(프로브)·B(전체 발견)·C(미감사 영역) 참조.
+>
+> **상태 주의(2026-07-12):** 본문의 “현재”와 103건 집계는 2026-07-08 감사
+> 스냅샷을 뜻한다. 이후 해결·부분해결 상태와 새 시간정책 결함은 부록 D를 함께
+> 읽어야 하며, 본문만으로 현재 HEAD 상태를 판정해서는 안 된다.
 
 ## 1. 총평
 
@@ -938,3 +942,103 @@ matchedPillars 없음. shinsalHits 항목 키셋은 단일: {type, position, gra
 - [중복 판정 불일치 — 동일 결함, 다른 kind/severity/verdict] (a) 천간 극 부재: 관계 도메인 missing/high vs 파이프라인 bug/medium. (b) 신살 matchedPillars 폐기·position=basedOn: 신살 도메인 enrichment/high vs 파이프라인 bug/high. (c) dstCorrectionMinutes 0 하드코딩: 역법 enrichment/medium/unverified vs 파이프라인 bug/medium/CONFIRMED — 같은 사실인데 검증 상태가 엇갈림. (d) 귀문관살 부재: 관계 medium / 신살 high / 파이프라인 medium 3중 계상. (e) 삼재: 신살 도메인에서 운 신살 일괄 medium vs 파이프라인 단독 low. (f) 명궁·태원, 년주 기준 공망도 도메인 간 2중 계상 — 총계 집계 시 중복 제거 및 등급 단일화 필요.
 - [해소 안 된 층위 긴장] 신살 '12신살 년지·일지 이중 방출로 scoresAdjusted 2배 집계' vs 파이프라인 'type|position 디듀프로 중복 발동 소거'. springLegacy의 디듀프 키는 type|position이고 position=basedOn 매핑이므로 YEAR_BRANCH/DAY_BRANCH 이중 방출은 디듀프를 통과해 레거시 hit에도 살아남음 — 즉 '디듀프가 소거한다'는 서술은 같은 basedOn 내 다중 발동에만 참이고 이중 앵커 중복에는 거짓. 두 finding을 층위 명시로 재서술해야 함.
 - [사소] 역법 'JOJA_SPLIT 옵션이 midnight으로 조용히 매핑' finding은 saju-ts 코어가 이미 dayBoundary 'ziSplit23'을 지원한다는 사실(api/types.ts:65, calendar/pillars.ts:27-29)을 언급하지 않음 — 코어 기능 부재가 아니라 어댑터 매핑 한 줄 문제라는 점에서 심각도·수정비용 평가가 달라짐.
+
+## 부록 D. 2026-07-12 후속 상태
+
+이 부록은 2026-07-08 감사 스냅샷을 삭제하거나 소급 수정하지 않고, 커밋
+`2e2252402`까지의 후속 해결 상태를 기록한다. 여기서 “해결”은 저장소 계약과
+회귀 테스트 기준이며, 외부 명리·역법 권위 인증 또는 전 세계 역사 시간대의
+완전성을 뜻하지 않는다.
+
+| 기존/후속 발견 | 2026-07-12 상태 | 근거와 잔여 한계 |
+|---|---|---|
+| A9 `dstCorrectionMinutes=0` 고정 | 해결 | IANA 민간시 후보에서 실제 offset/DST metadata를 산출하고 legacy 결과에 전달한다. fixed offset은 DST 0으로 명시한다. |
+| 1908년 이전 서울 LMT·역사 KST | 해결 | `Asia/Seoul`의 1907 LMT, 1954 UTC+8:30, 1988 DST를 대표 회귀와 런타임 canary로 검증한다. |
+| B10 표준시·서머타임 무검증 의존 | 부분 해결 | 서울·뉴욕·키리티마티 대표 canary와 gap/fold 회귀를 추가했다. 자체 tzdb를 번들하지 않으며 모든 지역·시대 전수 인증은 아니다. |
+| 야자시/일 경계와 시간 보정 결합 | 해결 | 시간 보정된 instant를 기준으로 일주·시주 경계를 계산하고 관련 회귀를 고정했다. |
+| JOJA_SPLIT 무의미 매핑 | 해결 | 일주 경계와 시두 일간 경계를 분리해 `midnight + ziSplit23` 의미를 구현했다(`aac1b8309`). |
+| “springLegacy/narration 전용 테스트 0개” | 과거 진술 | legacy 계약·실패·경도·timezone 특성화 테스트가 존재하며, 현재 전체 saju-ts 회귀에 포함된다. |
+| preset 고정 자오선과 civil meridian 혼동 | 해결 | Spring 제품 기본은 출생 민간시 offset의 자오선, 135°/120° preset은 명시적 legacy 호환 정책으로 분리했다. |
+| 물리 경도 덮어쓰기 | 해결 | 입력 경도를 보존하고 shortest signed longitude delta만 계산에 사용한다. |
+| 부분·상충 위치 입력의 조용한 서울 fallback | 해결 | 위치 tuple을 원자적으로 검증하고, 공개 필드 간 지역 충돌·timezone 부재·해석 불가를 구조화 오류로 거부한다. |
+| DST gap/fold의 임의 instant 선택 | 해결 | round-trip 후보가 0개면 gap, 복수면 fold로 구조화 거부한다. 시각 분 미상 범위에 offset 전환이 있으면 별도 거부한다. |
+| raw `sajuConfig`가 제품 시간정책 우회 | 해결 | high-level 제품 정책을 최종 재적용하고 invalid runtime policy를 fail-closed 처리한다. |
+| 연도 1~99가 `Date.UTC`에서 1900년대로 이동 | 해결 | literal-year UTC helper를 도입하고 요청·절기·대운·진태양시 경로와 회귀를 보강했다. |
+| 진태양시 trace 수식이 실제 계산과 불일치 | 해결 | shortest longitude delta, 정책별 meridian, `off` 의미를 trace와 구현에서 일치시켰다. |
+| Seed DB 자산의 런타임 무결성 미검증 | 해결 | 16개 canonical DB의 byte/schema/count manifest를 고정했다. Hanja/Fourframe와 NameStat의 선택 shard는 SHA 전검증과 opened-DB 후검증을 모두 통과한 동일 snapshot만 publish한다(`88144fb65..2e2252402`). NameStat은 완전한 14-shard pinned set만 허용하고 누락·중복·미지 shard·교차 family를 생성자에서 거부한다. loader/fetch/body/hash/open/close 경합과 cached-shard close도 cancellation 우선으로 고정했다. |
+| sql.js JS/WASM 버전·배포 경계 불일치 | 해결 | Seed·Spring·브라우저 lock과 WASM을 1.14.1로 정확히 맞췄다. 검토된 WASM과 MIT notice를 Seed 패키지에 포함하고 byteLength·SHA를 fail-closed 검증하며, package-relative URL만 사용해 외부 CDN fallback을 제거했다. 실제 npm tarball을 해제한 위치에서 transport mock 없이 WASM 초기화와 SQLite 질의까지 확인했다(`352a1303c`). |
+| 이름 입력의 동음 한자 대체·stale operation publish | 해결 | 명시 Hangul/Hanja가 DB identity와 다르면 구조화 거부하고, 7개 public async route는 generation lease로 close 이후 결과·cache publish를 차단한다(`1fde4adde`, `61b4206cd`). 이미 시작한 대규모 동기 scoring loop 자체를 중간 abort하지는 않는다. |
+| Seed 점수·입력·조회 계약의 암묵성 | 구조 고정·교리 검토 일부 미완 | v1 점수표와 positional surname/Han 입력 검증, 결정적 SQL 순서를 고정했다. 기존 호환을 위해 보존한 same-element `-5`는 설명과의 긴장이 명시돼 있으며 전문가 검토 전 교리 정답으로 승격하지 않는다(`195bcbdde..00d3ee53d`). |
+
+### 남은 한계와 릴리스 판정
+
+- 글로벌 좌표→지역 geocoder나 timezone polygon 검증이 없다. 따라서 임의 해외
+  좌표와 IANA timezone의 지리적 일치까지 인증하지 않는다.
+- 런타임 tzdb canary는 대표 표본이다. OS/Node tzdb 전체와 모든 역사적 지역의
+  정확성을 대신하지 않는다.
+- fixed-meridian legacy preset은 현대 한국/중국 지역 호환용이며 글로벌 기본값이
+  아니다.
+- 일부 저수준 직접 API는 Spring 입력 계약과 같은 민간시 범위 검증을 자체 수행하지
+  않는다. 상용 진입점은 Spring의 fail-closed 경계를 사용해야 한다.
+- NameStat의 커밋된 14개 DB·manifest·50,194행 초성 귀속은 전수 검증하지만,
+  원본 통계 JSON은 저장소에 없어 현재 DB를 원천 데이터에서 byte-for-byte
+  재생성하는 provenance 사슬은 아직 닫히지 않았다.
+- 기본 sql.js WASM의 package-relative Node 경로와 실제 npm tarball 실행에 더해,
+  Vite production build가 검토된 1.14.1 WASM을 `dist/assets`에 방출하고 최종 JS가
+  해당 파일을 참조하는 것까지 검증했다.
+  실제 배포 뒤 브라우저 fetch와 모바일 peak memory·지연 상한은 아직 미검증이다.
+- NameStat은 선택 shard만 lazy 검증하지만 최대 shard는 약 24.5MB다. 진행 중
+  fetch/body 취소는 구현했으나 응답은 `arrayBuffer()`로 완전히 materialize한 뒤 크기를
+  검사하므로 모바일 브라우저의 peak memory·지연 실측은 후속이다.
+- 기본 sql.js 성공 cache는 URL·SHA별로 프로세스 수명 동안 유지된다. 제품 기본값은 한
+  항목이지만 임의 custom URL·SHA를 반복 사용하는 장기 프로세스의 bounded cache 정책은 후속이다.
+- 이 후속 체크포인트들은 시간·위치·저장소 무결성 개선이다. 격국·강약·용신의 외부 권위 진리값,
+  exact default-diff 승인, exact commit 전문가 signoff를 충족하지 않으므로
+  “전문가급 상용 사주엔진 인증”이나 PR WIP 해제의 단독 근거가 아니다.
+- PR #653의 freeze 누적 범위는 `6fb2f68a4` 기준 134커밋·418파일이다. 회귀 통과 여부와
+  별개로 단일 리뷰 단위가 아니며, 연속 prefix 스택으로 분할하기 전에는 Draft를
+  유지한다. 분할 이후의 작은 default-neutral guardrail PR과 외부 명리 인증 gate는
+  서로 다른 리뷰 축으로 다뤄야 한다.
+
+---
+
+## 부록 E. 2026-07-13 입력·저장소 경계 재감사
+
+이 부록은 커밋 `165d31ab1`과 `b09fb6311`의 구조적 개선만 기록한다. 테스트 통과와 P0/P1 부재는 회귀·보안 경계의 근거이지, 사주 판정 수치와 학파 선택의 외부 권위 인증이 아니다.
+
+| 재감사 항목 | 판정 | 근거 |
+|---|---|---|
+| repository close 중 초기화가 계속 진행되어 stale 자원을 publish할 위험 | 해결 | 공통 lifecycle coordinator가 Hanja/Fourframe fetch·body와 NameStat WASM·shard·digest·open을 같은 generation/AbortSignal 계약으로 취소한다. 마지막 WASM 구독자 취소와 candidate DB close-on-abort도 고정했다(`165d31ab1`). |
+| public async route가 caller mutable object를 await 뒤 다시 읽는 TOCTOU | 해결 | 모든 public request를 첫 await 전에 descriptor-safe clone/freeze한다. completed alias identity는 유지하고 cycle·accessor·symbol·sparse·비유한 scalar·과대 graph는 고정 TypeError로 거부한다(`b09fb6311`). |
+| 잘못된 Hangul 음절 또는 Hangul/Hanja pair가 DB·사주·점수 계산 뒤에야 실패 | 해결 | syntax preflight와 repository-backed explicit identity 검증을 public 경계에 배치했다. pair 캐시는 입력 객체 identity, surname/given role, Hanja pool, lifecycle generation을 모두 키에 포함하고 close 시 무효화한다. |
+| 엔진이 만든 SajuReport를 getSpringReport override로 재사용하면 own undefined 때문에 실패 | 해결 | report 및 request의 객체 own `undefined`는 JSON semantics로 생략한다. 실제 `getSajuReport → getSpringReport` 재사용 회귀와 기존 `options: undefined` scoring 경로를 고정했다. 배열 undefined는 계속 거부한다. |
+| Proxy/reflect 오류가 원문 메시지와 PII를 노출 | 해결 | 공개 snapshot wrapper가 내부 reflection 오류와 cause를 버리고 고정된 PII-free TypeError만 노출한다. Proxy trap 실행 자체를 방지하는 보장은 아니다. |
+| 기본 출력 판정 회귀 | 부분 검증 | 핵심 계약·타입·scoring·bridge·package boundary가 통과했고 fix-01/fix-16/fix-17 표본은 3/3 무변화다. exact HEAD 전체 baseline 17/17은 90초 초과로 중단되어 merge 전 필수 재실행 항목으로 남는다. |
+
+### 잔존 P2와 상용화 차단선
+
+1. 내부 trusted snapshot을 deep import로 반복 중첩하는 비정상 경로의 누적 depth/property budget 재산정은 하지 않는다. 현재 public export와 정상 endpoint에서는 접근할 수 없으므로 P2로 기록한다.
+2. 전체 baseline suite의 직렬 후보 생성 비용을 프로파일링하지 않았다. smoke 3축과 full 17축을 분리하고 full은 CI 전용으로 병렬화할 여지가 있다.
+3. Seed WASM의 package-relative Node 실행과 Vite production emitted asset·JS 참조는 확인했다. 실제 배포 뒤 브라우저 fetch와 모바일 메모리 상한은 미검증이다.
+4. 이 두 커밋은 backend-only이고 frontend diff는 없다. 외부 명리 전문가 signoff, default-change fingerprint 승인, authority D1-D5 gate가 완료되기 전에는 WIP 해제의 단독 근거로 사용할 수 없다.
+5. 원격 push와 PR #653 편입은 사용자 명시 승인 전까지 보류한다.
+
+---
+
+## 부록 F. 2026-07-13 Pages·CI 통합 체크포인트
+
+이 부록은 로컬 통합 브랜치의 `4a7387d67`과 `8a63450a2`를 기록한다. 프론트엔드
+소스는 수정하지 않았고, backend workspace source와 공개 자산이 실제 Pages 산출물로
+재현되는지를 검증했다. 이 결과는 배포 무결성과 회귀 자동화의 근거이며 명리 판정의
+외부 권위 인증은 아니다.
+
+| 검증 항목 | 결과 | 잔여 한계 |
+|---|---|---|
+| 공개 자산 URL | Vite `BASE_URL`을 애플리케이션 base로 우선해 BrowserRouter 직접 진입에서도 DB·generated pack URL이 저장소 하위 경로를 유지한다(`4a7387d67`). | 실제 Pages 배포 후 네트워크 fetch 스모크는 원격 push 뒤 확인한다. |
+| 재현 가능한 Pages 산출물 | 21,060 source article을 1,116 bundle로 pack하고 `/ci/`와 `/namespring-web/` base에서 Vite build 통과. 산출물은 1,142 files, 154.22 MiB다. | main JS 약 5.3 MiB 및 Node builtin externalization 경고는 P2 성능·브라우저 스모크 과제다. |
+| 배포 자산 계약 | `index.html=404.html`, 16 DB의 source↔dist byte/SHA, pinned sql.js 1.14.1 WASM 1개(659,730 bytes, canonical SHA), JS의 WASM·base-aware generated pack 참조, legacy CDN·`dist/saju-ts` 부재를 verifier가 확인한다. | source filename/articleId/category와 21,060개 bundle key/articleId·8-token·category·route를 destructive exact-set으로 대조하고, public↔dist byte/SHA 동일성까지 fail-closed로 고정했다(`fe68bfd04`). 정상 산출물과 key/articleId fault injection이 모두 기대대로 통과했다. |
+| CI 의미 분리 | `regression`은 구조·회귀·빌드, `expert-readiness`는 authority·provenance·exact-diff·signoff를 별도 fail-closed job으로 실행한다(`8a63450a2`). | GitHub Actions 원격 성공 이력은 아직 없고, 외부 전문가 signoff·default-change 승인이 없으므로 expert job red와 PR Draft 유지가 정상이다. |
+
+전체 17-fixture snapshot과 40개 이상 명령의 full release chain은 로컬 장시간 실행을
+반복하지 않았다. fix-01·16·17 표본과 개별 계약·타입·빌드·산출물 검증을 사용했고,
+full chain은 원격 CI에서 시간 제한과 로그를 가진 상태로 완주해야 한다.

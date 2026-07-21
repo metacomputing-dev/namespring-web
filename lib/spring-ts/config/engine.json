@@ -1,5 +1,13 @@
 {
   "maxCandidates": 50000,
+  "candidateSelection": {
+    "paretoPoolLimit": 500,
+    "hanjaVariantsPerHangul": 3,
+    "presentationScoreWindow": 12,
+    "hangulSeedNameLimit": 80,
+    "hanjaVariantsPerSeedSyllable": 3,
+    "seedVariantsPerName": 6
+  },
   "candidatePoolLimits": {
     "singleCharPerStroke": 8,
     "doubleCharPerPosition": 6,
@@ -31,5 +39,14 @@
     "longitude": 126.978
   },
   "sajuModulePath": "../../saju-ts/src/index.ts",
-  "nameStatInfoCacheLimit": 1000
+  "nameStatInfoCacheLimit": 1000,
+  "reportDeliveryContentGates": {
+    "fourFrameAuthoredInterpretation": {
+      "schemaVersion": "namespring.fourframe-authored-copy-approval.v1",
+      "status": "blocked_pending_external_expert_review",
+      "reviewedBy": null,
+      "reviewedAt": null,
+      "evidenceRef": null
+    }
+  }
 }

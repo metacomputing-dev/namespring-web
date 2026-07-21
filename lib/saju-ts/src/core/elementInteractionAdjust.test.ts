@@ -6,6 +6,7 @@ import { pillar } from './cycle.js';
 import { detectBranchRelations, samhapGroup } from './branchRelations.js';
 import { detectStemRelations } from './stemRelations.js';
 import { applyInteractionAdjustments } from './elementInteractionAdjust.js';
+import { elementDistributionFromPillars } from './elementDistribution.js';
 
 /**
  * PR-5 (감사 B448) — 합충 보정 오행 분포 옵션 틀 테스트.
@@ -56,5 +57,30 @@ describe('합충 보정 분포 (옵션 틀 — 기본 off)', () => {
     expect(Array.isArray(adjusted.adjustments)).toBe(true);
     // 기본 분포는 옵트인과 무관하게 동일 (바이트 불변 계약)
     expect(opted.summary?.elementDistribution).toEqual(base.summary?.elementDistribution);
+  });
+
+  it('uses the same base weights when position weighting and interaction adjustment are combined', () => {
+    const pillars: [any, any, any, any] = [
+      pillar(0, 0), pillar(2, 1), pillar(4, 2), pillar(6, 3),
+    ];
+    const weights = {
+      heavenStemWeight: 2,
+      branchTotalWeight: 3,
+      positionWeights: { month: 4 },
+      heavenPositionWeights: { day: 5 },
+      branchPositionWeights: { hour: 6 },
+    };
+    const base = elementDistributionFromPillars(pillars, weights);
+    const adjusted = applyInteractionAdjustments({
+      pillars,
+      branchRelations: [],
+      stemRelations: [],
+      ...weights,
+    });
+
+    expect(adjusted.heaven).toEqual(base.heaven);
+    expect(adjusted.hidden).toEqual(base.hidden);
+    expect(adjusted.total).toEqual(base.total);
+    expect(adjusted.adjustments).toEqual([]);
   });
 });

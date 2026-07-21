@@ -21,10 +21,15 @@ import {
   hashRuleExperimentKey,
   type RuleExperimentVariantFeedbackSnapshot,
 } from '../../src/index.js';
+import { sha256FileDigest } from '../../tools/metrics/artifact-digest.mjs';
+import {
+  completeD1GateFromCalibration,
+} from '../../tools/metrics/complete-d1-rule-ab-gate.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRING_TS_ROOT = path.resolve(__dirname, '../..');
-const ARTIFACT_PATH = path.resolve(SPRING_TS_ROOT, 'metrics/rule-ab-tests.json');
+const METRICS_DIR = path.resolve(SPRING_TS_ROOT, 'metrics');
+const ARTIFACT_PATH = path.resolve(METRICS_DIR, 'rule-ab-tests.json');
 
 let pass = 0;
 let fail = 0;
@@ -44,7 +49,8 @@ function readJson<T = any>(filePath: string): T {
 }
 
 function runRuleAbTests(outDir: string): any {
-  execFileSync('npx', ['tsx', 'scripts/compute-rule-ab-tests.ts', '--out-dir', outDir], {
+  const args = ['tsx', 'scripts/compute-rule-ab-tests.ts', '--out-dir', outDir];
+  execFileSync('npx', args, {
     cwd: SPRING_TS_ROOT,
     stdio: ['ignore', 'pipe', 'pipe'],
     shell: process.platform === 'win32',
@@ -99,18 +105,115 @@ console.log('Phase 8.3 deterministic rule A/B tests\n');
 
 const artifact = readJson(ARTIFACT_PATH);
 const tmpA = fs.mkdtempSync(path.join(os.tmpdir(), 'spring-ts-rule-ab-a-'));
-const tmpB = fs.mkdtempSync(path.join(os.tmpdir(), 'spring-ts-rule-ab-b-'));
 const generatedA = runRuleAbTests(tmpA);
-const generatedB = runRuleAbTests(tmpB);
+const insufficientCompleteD1 = completeD1GateFromCalibration({
+  schemaVersion: 'spring-ts.deterministic-calibration.v2',
+  sourceTierObjective: {
+    completeD1ObjectiveStatus: 'INSUFFICIENT_COMPLETE_D1_TRUTH',
+    completeD1ObjectiveFixtureCount: 0,
+  },
+  selected: {
+    candidateId: 'current_default',
+    decision: 'keep_current_default',
+  },
+});
+const readyCompleteD1 = completeD1GateFromCalibration({
+  schemaVersion: 'spring-ts.deterministic-calibration.v2',
+  sourceTierObjective: {
+    completeD1ObjectiveStatus: 'READY',
+    completeD1ObjectiveFixtureCount: 3,
+  },
+  selected: {
+    candidateId: 'candidate_complete_d1',
+    decision: 'candidate_selected_for_human_review',
+  },
+});
+const legacyV1 = completeD1GateFromCalibration({
+  schemaVersion: 'spring-ts.deterministic-calibration.v1',
+  sourceTierObjective: {
+    completeD1ObjectiveStatus: 'READY',
+    completeD1ObjectiveFixtureCount: 999,
+  },
+  selected: {
+    candidateId: 'candidate_legacy',
+    decision: 'candidate_selected_for_human_review',
+  },
+});
+const legacyStatus = completeD1GateFromCalibration({
+  schemaVersion: 'spring-ts.deterministic-calibration.v2',
+  sourceTierObjective: {
+    completeD1ObjectiveStatus: 'INSUFFICIENT_AUTHORITY_TRUTH',
+    completeD1ObjectiveFixtureCount: 999,
+  },
+  selected: {
+    candidateId: 'candidate_legacy_status',
+    decision: 'candidate_selected_for_human_review',
+  },
+});
+const legacyCountField = completeD1GateFromCalibration({
+  schemaVersion: 'spring-ts.deterministic-calibration.v2',
+  sourceTierObjective: {
+    completeD1ObjectiveStatus: 'READY',
+    eligibleObjectiveFixtureCount: 999,
+  },
+  selected: {
+    candidateId: 'candidate_legacy_count',
+    decision: 'candidate_selected_for_human_review',
+  },
+});
+const inconsistentStatusCount = completeD1GateFromCalibration({
+  schemaVersion: 'spring-ts.deterministic-calibration.v2',
+  sourceTierObjective: {
+    completeD1ObjectiveStatus: 'READY',
+    completeD1ObjectiveFixtureCount: 2,
+  },
+  selected: {
+    candidateId: 'candidate_inconsistent',
+    decision: 'candidate_selected_for_human_review',
+  },
+});
 
 check('artifact schema version is current',
-  artifact.schemaVersion === RULE_AB_TEST_SCHEMA_VERSION);
+  RULE_AB_TEST_SCHEMA_VERSION === 'spring-ts.rule-ab-tests.v2' &&
+    artifact.schemaVersion === RULE_AB_TEST_SCHEMA_VERSION);
 check('artifact kind is deterministic rule A/B plan',
   artifact.artifactKind === 'deterministic_rule_ab_test_plan');
-check('rule A/B script is deterministic across runs',
-  JSON.stringify(generatedA) === JSON.stringify(generatedB));
-check('committed artifact matches generated output',
+check('committed artifact deterministically matches generated output',
   JSON.stringify(artifact) === JSON.stringify(generatedA));
+check('rule A/B artifact is byte-bound to deterministic calibration input',
+  artifact.inputs?.calibrationMetricDigest === sha256FileDigest(
+    path.join(METRICS_DIR, 'deterministic-calibration.json'),
+  ));
+check('v2 insufficient complete-D1 status is preserved and blocks promotion',
+  insufficientCompleteD1.calibrationContractValid === true &&
+    insufficientCompleteD1.completeD1ObjectiveStatus ===
+      'INSUFFICIENT_COMPLETE_D1_TRUTH' &&
+    insufficientCompleteD1.completeD1ObjectiveFixtureCount === 0 &&
+    insufficientCompleteD1.deterministicCalibrationPassed === false &&
+    insufficientCompleteD1.status === 'BLOCKED');
+check('complete-D1-ready deterministic calibration v2 can open the source-tier gate',
+  readyCompleteD1.calibrationContractValid === true &&
+    readyCompleteD1.completeD1ObjectiveStatus === 'READY' &&
+    readyCompleteD1.completeD1ObjectiveFixtureCount === 3 &&
+    readyCompleteD1.deterministicCalibrationPassed === true &&
+    readyCompleteD1.status === 'PASS');
+check('deterministic calibration v1 is rejected even with v2-shaped passing fields',
+  legacyV1.calibrationContractValid === false &&
+    legacyV1.status === 'BLOCKED');
+check('legacy authority objective status is rejected by the v2 contract',
+  legacyStatus.completeD1ObjectiveStatus ===
+      'INSUFFICIENT_AUTHORITY_TRUTH' &&
+    legacyStatus.calibrationContractValid === false &&
+    legacyStatus.status === 'BLOCKED');
+check('legacy eligible-objective count cannot satisfy the complete-D1 gate',
+  legacyCountField.completeD1ObjectiveFixtureCount === 0 &&
+    legacyCountField.calibrationContractValid === false &&
+    legacyCountField.status === 'BLOCKED');
+check('complete-D1 status and count must agree with the promotion threshold',
+  inconsistentStatusCount.completeD1ObjectiveStatus === 'READY' &&
+    inconsistentStatusCount.completeD1ObjectiveFixtureCount === 2 &&
+    inconsistentStatusCount.calibrationContractValid === false &&
+    inconsistentStatusCount.status === 'BLOCKED');
 
 check('assignment definitions allocate every bucket exactly once',
   RULE_EXPERIMENT_DEFINITIONS.every((definition) =>
@@ -215,10 +318,15 @@ check('artifact stores no personal, raw source, or assignment keys',
   collectForbiddenKeyPaths(artifact).slice(0, 5).join(', '));
 check('source-tier gate is explicit and blocks default promotion',
   artifact.sourceTierGate?.requiredBeforeDefaultChange === true &&
+    artifact.sourceTierGate?.completeD1ObjectiveStatus ===
+      'INSUFFICIENT_COMPLETE_D1_TRUTH' &&
+    artifact.sourceTierGate?.completeD1ObjectiveFixtureCount === 0 &&
+    !Object.hasOwn(artifact.sourceTierGate, 'authorityObjectiveStatus') &&
+    !Object.hasOwn(artifact.sourceTierGate, 'eligibleObjectiveFixtureCount') &&
     artifact.sourceTierGate?.status === 'BLOCKED' &&
     artifact.defaultPromotionDecision?.decision === 'keep_current_default',
   JSON.stringify(artifact.defaultPromotionDecision));
-check('artifact records winning experiments as blocked by authority gate',
+check('artifact records winning experiments as blocked by complete-D1 truth gate',
   artifact.comparisons.every((comparison: any) =>
     comparison.winningVariantId &&
     comparison.decision === 'blocked_source_tier_gate' &&

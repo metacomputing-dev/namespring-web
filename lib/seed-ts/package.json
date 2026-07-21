@@ -2,18 +2,58 @@
   "name": "@namespring/seed-ts",
   "version": "1.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "assets",
+    "README.md"
+  ],
+  "sideEffects": false,
   "scripts": {
-    "build": "tsc"
+    "clean": "node --eval \"import('node:fs').then(({ rmSync }) => rmSync('dist', { recursive: true, force: true }))\"",
+    "prebuild": "npm run clean",
+    "build": "tsc -p tsconfig.build.json",
+    "prepack": "npm run test:database-asset-manifest && npm run check:fourframe-catalog && npm run test:sql-js-wasm-asset && npm run build",
+    "typecheck": "tsc --noEmit",
+    "typecheck:test": "tsc -p test/tsconfig.json --pretty false",
+    "test:sync-contract": "tsx test/seed-sync-contract.test.ts",
+    "test:scoring-policy": "tsx test/scoring-policy.characterization.test.ts",
+    "generate:database-asset-manifest": "tsx tools/generate-database-asset-manifest.ts --write",
+    "check:database-asset-manifest": "tsx tools/generate-database-asset-manifest.ts --check",
+    "test:database-asset-manifest": "npm run check:database-asset-manifest && tsx test/database-asset-manifest-parity.test.ts",
+    "test:database-integrity": "tsx test/database-integrity.test.ts",
+    "test:repository-database-integrity": "tsx test/repository-database-integrity.test.ts",
+    "test:sql-js-wasm-asset": "tsx test/sql-js-wasm-asset.test.ts",
+    "test:runtime-url": "tsx test/runtime-url.test.ts",
+    "generate:fourframe-catalog": "tsx tools/generate-fourframe-catalog.ts --write",
+    "check:fourframe-catalog": "tsx tools/generate-fourframe-catalog.ts --check",
+    "test:fourframe-catalog": "npm run check:fourframe-catalog && tsx test/fourframe-catalog-parity.test.ts",
+    "test:service-text-policy": "tsx test/service-text-policy.test.ts",
+    "test:name-stat-row": "tsx --test test/name-stat-row.test.ts",
+    "test:repository-lifecycle": "tsx test/repository-lifecycle.test.ts",
+    "test:contracts": "npm run typecheck && npm run typecheck:test && npm run test:sync-contract && npm run test:scoring-policy && npm run test:database-asset-manifest && npm run test:database-integrity && npm run test:repository-database-integrity && npm run test:sql-js-wasm-asset && npm run test:runtime-url && npm run test:fourframe-catalog && npm run test:service-text-policy && npm run test:name-stat-row && npm run test:repository-lifecycle",
+    "test": "npm run test:contracts && npm run test:package-contract",
+    "test:package-contract": "node --test --experimental-test-isolation=none test/package-contract.test.mjs"
   },
   "dependencies": {
-    "sql.js": "^1.14.0",
-    "sqlite3": "^5.1.7"
+    "sql.js": "1.14.1"
   },
   "devDependencies": {
     "@types/node": "^25.2.3",
     "@types/sql.js": "^1.4.9",
+    "sqlite3": "^6.0.1",
+    "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   }
 }

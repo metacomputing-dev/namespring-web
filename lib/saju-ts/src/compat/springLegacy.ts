@@ -9,6 +9,52 @@ import { mod } from '../core/mod.js';
 import { tenGodOf } from '../core/tenGod.js';
 import { TWELVE_SAL_KEYS, twelveSalStartOf } from '../rules/facts.js';
 import { baseTenGodOfStructuralMonthFrame, type BigyeopSubtype } from '../rules/gyeokgukMonthFrame.js';
+import type {
+  LegacyJieProximityV1,
+  LegacyLongitudeCorrectionPolicy,
+  LegacySajuOutputV1,
+} from './springLegacyContract.js';
+import {
+  mapLegacyFortune,
+  type LegacyFortuneMapperDependencies,
+} from './springLegacyFortuneMapper.js';
+import {
+  addCivilMinutes,
+  civilDateTimeToUtcMs,
+  civilToIsoInstant,
+  dstMinutesAtUtcMs,
+  resolveOffsetMinutes,
+  type CivilDateTime,
+} from './springLegacyTimezone.js';
+
+export {
+  LegacyAmbiguousTimeError,
+  LegacyCivilTimeError,
+  LegacyNonexistentTimeError,
+  LegacyTimezoneDataUnsupportedError,
+  LegacyTimezoneError,
+  dstMinutesAtUtcMs,
+  parseOffsetToken,
+  resolveOffsetMinutes,
+} from './springLegacyTimezone.js';
+
+export type {
+  LegacyCoreResultV1,
+  LegacyDaeunInfoV1,
+  LegacyDaeunPillarV1,
+  LegacyGyeokgukResultV1,
+  LegacyJieProximityV1,
+  LegacyLongitudeCorrectionPolicy,
+  LegacyLuckAnnotationsV1,
+  LegacyPillarV1,
+  LegacySaeunPillarV1,
+  LegacySajuOutputV1,
+  LegacyStrengthResultV1,
+  LegacyTraceEntryV1,
+  LegacyWolunPillarV1,
+  LegacyYongshinRecommendationV1,
+  LegacyYongshinResultV1,
+} from './springLegacyContract.js';
 
 const STEM_CODES = ['GAP', 'EUL', 'BYEONG', 'JEONG', 'MU', 'GI', 'GYEONG', 'SIN', 'IM', 'GYE'] as const;
 const BRANCH_CODES = ['JA', 'CHUK', 'IN', 'MYO', 'JIN', 'SA', 'O', 'MI', 'SIN', 'YU', 'SUL', 'HAE'] as const;
@@ -53,7 +99,7 @@ const DISTRIBUTION_ROUND_DIGITS = 1;
 const DEFICIENT_AVERAGE_RATIO = 0.5;
 const EXCESSIVE_AVERAGE_RATIO = 1.7;
 const MIN_GYEOKGUK_CANDIDATE_SCORE = 1e-9;
-const GYEOKGUK_CANDIDATE_SOURCE_TIER = {
+const GYEOKGUK_CANDIDATE_SOURCE_TIER = Object.freeze({
   tier: 'T2_REFERENCE_IMPLEMENTATION',
   sourceType: 'reference_implementation',
   sourceUrl: null,
@@ -62,7 +108,7 @@ const GYEOKGUK_CANDIDATE_SOURCE_TIER = {
   humanInterpretation: 'Derived from saju-ts month-gyeok and gyeokguk ranking internals; display-only evidence, not authority truth.',
   copyrightNote: 'No quoted source text; implementation-derived metadata only.',
   authorityTruthEligible: false,
-} as const;
+} as const);
 
 const TEN_GOD_ALIASES: Record<string, string> = {
   GEOB_JAE: 'GYEOB_JAE',
@@ -201,8 +247,15 @@ export interface LegacySajuConfig {
   includeEquationOfTime?: boolean;
 
   /**
-   * Apply manseoryeok baseline-meridian correction to longitude.
-   * Default: true
+   * Explicit longitude-correction policy. When present, this takes precedence
+   * over longitudeCorrectionEnabled and lmtBaselineLongitude.
+   */
+  longitudeCorrectionPolicy?: LegacyLongitudeCorrectionPolicy;
+
+  /**
+   * Legacy compatibility switch. `false` historically meant that no synthetic
+   * baseline adjustment was made, so it maps to civilOffsetMeridian (not off).
+   * Use longitudeCorrectionPolicy.mode='off' for actual no-correction behavior.
    */
   longitudeCorrectionEnabled?: boolean;
 
@@ -216,6 +269,7 @@ export interface LegacySajuConfig {
   yazaEnabled?: boolean;
   yazaMode?: LegacyYazaMode;
 
+  /** Legacy fixed reference meridian retained for preset compatibility. */
   lmtBaselineLongitude?: number;
   calendar?: Partial<EngineConfig['calendar']>;
   toggles?: Partial<EngineConfig['toggles']>;
@@ -226,16 +280,66 @@ export interface LegacySajuConfig {
   schemaVersion?: string;
 }
 
-interface CivilDateTime {
-  y: number;
-  m: number;
-  d: number;
-  h: number;
-  min: number;
+const LEGACY_REQUIRED_TOGGLES = [
+  'pillars',
+  'relations',
+  'tenGods',
+  'hiddenStems',
+  'elementDistribution',
+  'fortune',
+  'rules',
+  'lifeStages',
+  'stemRelations',
+] as const satisfies readonly (keyof EngineConfig['toggles'])[];
+
+export class LegacyContractConfigError extends Error {
+  readonly code = 'SAJU_LEGACY_CONTRACT_CONFIG_INVALID';
+  readonly disabledToggles: readonly string[];
+
+  constructor(disabledToggles: readonly string[]) {
+    super(
+      `LegacySajuOutputV1 requires these engine toggles: ${disabledToggles.join(', ')}`,
+    );
+    this.name = 'LegacyContractConfigError';
+    this.disabledToggles = [...disabledToggles];
+  }
+}
+
+export class LegacyContractOutputError extends Error {
+  readonly code = 'SAJU_LEGACY_CONTRACT_OUTPUT_MISSING';
+  readonly missingFields: readonly string[];
+
+  constructor(missingFields: readonly string[]) {
+    super(
+      `Engine output cannot satisfy LegacySajuOutputV1; missing: ${missingFields.join(', ')}`,
+    );
+    this.name = 'LegacyContractOutputError';
+    this.missingFields = [...missingFields];
+  }
+}
+
+export type LegacyBirthLocationErrorCode =
+  | 'SAJU_LEGACY_BIRTH_LOCATION_PARTIAL'
+  | 'SAJU_LEGACY_BIRTH_LOCATION_INVALID';
+
+/** Raised when legacy callers provide a non-atomic or invalid location tuple. */
+export class LegacyBirthLocationError extends Error {
+  readonly code: LegacyBirthLocationErrorCode;
+
+  constructor(code: LegacyBirthLocationErrorCode) {
+    super(
+      code === 'SAJU_LEGACY_BIRTH_LOCATION_PARTIAL'
+        ? 'Legacy birth location requires timezone, latitude, and longitude together.'
+        : 'Legacy birth location contains an invalid timezone or coordinate.',
+    );
+    this.name = 'LegacyBirthLocationError';
+    this.code = code;
+  }
 }
 
 interface DayCutMapping {
   dayBoundary: EngineConfig['calendar']['dayBoundary'];
+  hourStemDayBoundary?: EngineConfig['calendar']['dayBoundary'];
   dayCutShiftMinutes: number;
 }
 
@@ -265,8 +369,24 @@ const PRESET_CONFIGS: Record<string, LegacySajuConfig> = {
   },
 };
 
+const LEGACY_PRESET_CODES: readonly string[] = Object.freeze(
+  Object.keys(PRESET_CONFIGS),
+);
+
+/** Raised when the legacy Spring bridge receives an explicit unknown preset. */
+export class UnknownLegacySajuPresetError extends RangeError {
+  readonly code = 'SAJU_UNKNOWN_SCHOOL_PRESET' as const;
+  readonly availablePresetCodes: readonly string[];
+
+  constructor(_presetCode: unknown) {
+    super('Unknown legacy saju preset.');
+    this.name = 'UnknownLegacySajuPresetError';
+    this.availablePresetCodes = LEGACY_PRESET_CODES;
+    Object.freeze(this);
+  }
+}
+
 const DEFAULT_TRUE_SOLAR_TIME_ENABLED = false;
-const DEFAULT_LONGITUDE_CORRECTION_ENABLED = true;
 // 감사 결정① (2026-07-08): 기본 = 정자시설(ziSplit23, 23:00 모드).
 // 실무 약 80% 주류 정렬 — 자정설은 yazaEnabled=false 명시로 복귀.
 const DEFAULT_YAZA_ENABLED = true;
@@ -312,7 +432,7 @@ function mapDayCutMode(mode: LegacyDayCutMode | undefined): DayCutMapping {
     case 'MIDNIGHT_00':
       return { dayBoundary: 'midnight', dayCutShiftMinutes: 0 };
     case 'JOJA_SPLIT':
-      return { dayBoundary: 'midnight', dayCutShiftMinutes: 0 };
+      return { dayBoundary: 'midnight', hourStemDayBoundary: 'ziSplit23', dayCutShiftMinutes: 0 };
     case 'YAZA_23_TO_01_NEXTDAY':
       return { dayBoundary: 'ziSplit23', dayCutShiftMinutes: 0 };
     case 'YAZA_23_30_TO_01_30_NEXTDAY':
@@ -339,124 +459,6 @@ function resolveDayCutMode(legacy: LegacySajuConfig): LegacyDayCutMode {
   return 'MIDNIGHT_00';
 }
 
-// export: 표준시 변천 픽스처 테스트(springLegacyTimezone.test.ts)가 소비 (감사 B10/A15a).
-export function parseOffsetToken(token: string): number | null {
-  const s = token.trim().toUpperCase().replace('UTC', 'GMT');
-  if (s === 'GMT' || s === 'GMT+0' || s === 'GMT+00' || s === 'GMT+00:00') return 0;
-
-  // 초 성분까지 허용 — 1908-04 이전 서울 LMT는 'GMT+8:27:52'로 온다 (감사 A15a).
-  const m = s.match(/GMT([+-])(\d{1,2})(?::?(\d{2}))?(?::(\d{2}))?$/);
-  if (!m) return null;
-
-  const sign = m[1] === '-' ? -1 : 1;
-  const hh = Number(m[2]);
-  const mm = Number(m[3] ?? 0);
-  const ss = Number(m[4] ?? 0);
-  if (!Number.isFinite(hh) || !Number.isFinite(mm) || !Number.isFinite(ss)) return null;
-
-  return sign * Math.round(hh * 60 + mm + ss / 60);
-}
-
-let warnedOffsetFallback = false;
-
-function offsetAtUtcMs(utcMs: number, timeZone: string): number {
-  try {
-    const parts = new Intl.DateTimeFormat('en-US', {
-      timeZone,
-      timeZoneName: 'shortOffset',
-      hour: '2-digit',
-      minute: '2-digit',
-      hourCycle: 'h23',
-    }).formatToParts(new Date(utcMs));
-
-    const zoneName = parts.find((p) => p.type === 'timeZoneName')?.value ?? 'GMT+00:00';
-    const parsed = parseOffsetToken(zoneName);
-    if (parsed == null && !warnedOffsetFallback) {
-      warnedOffsetFallback = true;
-      // 무경고 +09:00 폴백은 약 32분 오차를 침묵시킨다 — 최소한 한 번은 드러낸다 (감사 A15a).
-      console.warn(`[saju-ts/springLegacy] failed to parse tz offset token "${zoneName}" (${timeZone}); falling back to +09:00`);
-    }
-    return parsed ?? 540;
-  } catch {
-    if (!warnedOffsetFallback) {
-      warnedOffsetFallback = true;
-      console.warn(`[saju-ts/springLegacy] Intl offset lookup failed for tz "${timeZone}"; falling back to +09:00`);
-    }
-    return 540;
-  }
-}
-
-function longZoneNameAtUtcMs(utcMs: number, timeZone: string): string {
-  try {
-    const parts = new Intl.DateTimeFormat('en-US', { timeZone, timeZoneName: 'long' })
-      .formatToParts(new Date(utcMs));
-    return parts.find((p) => p.type === 'timeZoneName')?.value ?? '';
-  } catch {
-    return '';
-  }
-}
-
-const DST_SCAN_STEP_MS = 30 * 24 * 60 * 60 * 1000;
-
-/**
- * 서머타임(DST) 보정분 실측 (감사 A9).
- *
- * 1) ICU long name이 'Standard'면 0, 'Daylight/Summer'면 DST 확정.
- * 2) 이름이 오프셋 문자열이면(한국 1961년 이전 구간은 ICU 표시명 부재) 전후
- *    각 ±270일 표본으로 판정: DST는 일시적 초과라 양쪽 모두 낮은 표준
- *    오프셋이 보이고, 표준 자오선 변경(1954/1961)은 한쪽에만 보인다.
- *    → 초과분 = offset - max(전측 최소, 후측 최소).
- */
-// export: 표준시 변천 픽스처 테스트(springLegacyTimezone.test.ts)가 소비 (감사 B10).
-export function dstMinutesAtUtcMs(utcMs: number, timeZone: string): number {
-  const name = longZoneNameAtUtcMs(utcMs, timeZone);
-  if (/standard/i.test(name)) return 0;
-  const isNamedDst = /daylight|summer/i.test(name);
-  const offset = offsetAtUtcMs(utcMs, timeZone);
-  let minBefore = offset;
-  let minAfter = offset;
-  for (let k = 1; k <= 9; k++) {
-    minBefore = Math.min(minBefore, offsetAtUtcMs(utcMs - k * DST_SCAN_STEP_MS, timeZone));
-    minAfter = Math.min(minAfter, offsetAtUtcMs(utcMs + k * DST_SCAN_STEP_MS, timeZone));
-  }
-  const excess = Math.max(0, offset - Math.max(minBefore, minAfter));
-  return isNamedDst ? (excess || 60) : excess;
-}
-
-// export: 표준시 변천 픽스처 테스트(springLegacyTimezone.test.ts)가 소비 (감사 B10).
-export function resolveOffsetMinutes(timeZone: string, civil: CivilDateTime): number {
-  const parsedFromToken = parseOffsetToken(timeZone);
-  if (parsedFromToken != null) return parsedFromToken;
-
-  const utcGuess = Date.UTC(civil.y, civil.m - 1, civil.d, civil.h, civil.min, 0);
-  const first = offsetAtUtcMs(utcGuess, timeZone);
-  const correctedUtc = utcGuess - first * 60_000;
-  const second = offsetAtUtcMs(correctedUtc, timeZone);
-  return second;
-}
-
-function formatOffset(minutes: number): string {
-  const sign = minutes >= 0 ? '+' : '-';
-  const abs = Math.abs(minutes);
-  const hh = String(Math.floor(abs / 60)).padStart(2, '0');
-  const mm = String(abs % 60).padStart(2, '0');
-  return `${sign}${hh}:${mm}`;
-}
-
-function addMinutes(civil: CivilDateTime, deltaMinutes: number): CivilDateTime {
-  if (!deltaMinutes) return { ...civil };
-
-  const utcMs = Date.UTC(civil.y, civil.m - 1, civil.d, civil.h, civil.min, 0);
-  const shifted = new Date(utcMs + deltaMinutes * 60_000);
-  return {
-    y: shifted.getUTCFullYear(),
-    m: shifted.getUTCMonth() + 1,
-    d: shifted.getUTCDate(),
-    h: shifted.getUTCHours(),
-    min: shifted.getUTCMinutes(),
-  };
-}
-
 function toCivilFromBirthInput(input: LegacyBirthInput): CivilDateTime {
   return {
     y: toInt(input.birthYear, 0),
@@ -465,15 +467,6 @@ function toCivilFromBirthInput(input: LegacyBirthInput): CivilDateTime {
     h: clampHour(input.birthHour),
     min: clampMinute(input.birthMinute),
   };
-}
-
-function civilToIsoInstant(civil: CivilDateTime, offsetMinutes: number): string {
-  const y = String(civil.y).padStart(4, '0');
-  const m = String(civil.m).padStart(2, '0');
-  const d = String(civil.d).padStart(2, '0');
-  const h = String(civil.h).padStart(2, '0');
-  const min = String(civil.min).padStart(2, '0');
-  return `${y}-${m}-${d}T${h}:${min}:00${formatOffset(offsetMinutes)}`;
 }
 
 function normalizeTenGod(v: unknown): string {
@@ -651,7 +644,9 @@ function formatLuckRelationsWithNatal(entry: any) {
   const branchRelations = Array.isArray(entry.branchRelations)
     ? entry.branchRelations.map((rel: any) => formatFortuneRelationHit('BRANCH', rel)).filter(Boolean)
     : [];
-  if (stemRelations.length === 0 && branchRelations.length === 0) return undefined;
+  // Preserve an evaluated-empty result. Downstream consumers must be able to
+  // distinguish “the engine found no relation” from “this period was never
+  // evaluated by the canonical relation engine”.
   return { stemRelations, branchRelations };
 }
 
@@ -678,9 +673,6 @@ function formatLuckRelationsWithDecade(entries: any[] | undefined) {
   return { decadeRelations };
 }
 
-function relationEntries(source: any, key: 'decades' | 'years' | 'months' | 'decadeYears') {
-  return Array.isArray(source?.[key]) ? source[key] : [];
-}
 function roundTo(value: unknown, digits: number): number {
   const n = Number(value);
   if (!Number.isFinite(n)) return 0;
@@ -709,6 +701,16 @@ function approxDaeunUtcMs(entry: any, firstStartUtcMsApprox: number | null, deca
   return addYearsUtcApprox(firstStartUtcMsApprox, (edge === 'start' ? index : index + 1) * length);
 }
 
+const LEGACY_FORTUNE_MAPPER_DEPENDENCIES: LegacyFortuneMapperDependencies = {
+  stemCodeFromIdx,
+  branchCodeFromIdx,
+  annotateLuckPillar: luckPillarAnnotations,
+  formatRelationsWithNatal: formatLuckRelationsWithNatal,
+  formatRelationsWithDecade: formatLuckRelationsWithDecade,
+  approxDaeunUtcMs,
+  roundTo,
+};
+
 function scoreDiffConfidence(top: number, second: number): number {
   if (!Number.isFinite(top) || !Number.isFinite(second)) return 0.5;
   const diff = top - second;
@@ -717,10 +719,10 @@ function scoreDiffConfidence(top: number, second: number): number {
   return Math.max(0.35, Math.min(1, diff));
 }
 
-function confidenceToPoints(confidence: number): number {
-  if (!Number.isFinite(confidence)) return 0;
-  const normalized = Math.max(0, Math.min(1, confidence <= 1 ? confidence : confidence / 100));
-  return Math.round(normalized * 100);
+/** Convert a contractually ratio-based confidence to rounded 0..100 points. */
+export function ratioToPoints(confidence: unknown): number {
+  if (typeof confidence !== 'number' || !Number.isFinite(confidence)) return 0;
+  return Math.round(Math.max(0, Math.min(1, confidence)) * 100);
 }
 
 function ohaengKoLabel(code: unknown): string {
@@ -735,19 +737,79 @@ function gyeokgukKoLabel(code: unknown): string {
   return GYEOKGUK_KO_LABEL[canonical] ?? GYEOKGUK_KO_LABEL[normalized] ?? (normalized || '-');
 }
 
+function methodScore(record: any, element: string): number | null {
+  if (!record || typeof record !== 'object') return null;
+  return finiteNumberOrNull(record[element]);
+}
+
+function formatMethodScore(value: number | null): string | null {
+  return value === null ? null : value.toFixed(2);
+}
+
+function firstReason(value: any): string | null {
+  if (!Array.isArray(value)) return null;
+  const found = value.find((entry) => typeof entry === 'string' && entry.trim().length > 0);
+  return found ? String(found) : null;
+}
+
+function buildYongshinMethodEvidence(entry: { element: string; score: number }, primaryMethod: unknown, methodBreakdown: any): string | null {
+  if (!methodBreakdown || typeof methodBreakdown !== 'object') return null;
+  const element = String(entry.element ?? '').toUpperCase();
+  const method = String(primaryMethod ?? '').toUpperCase();
+
+  if (method === 'JOHU') {
+    const template = methodBreakdown.johooTemplate;
+    const reason = firstReason(template?.reasons);
+    if (String(template?.primary ?? '').toUpperCase() === element && reason) return `조후: ${reason}`;
+    const climateScore = formatMethodScore(methodScore(methodBreakdown.climate?.scores, element));
+    return climateScore ? `조후: 계절·한난조습 점수 ${climateScore} 반영` : null;
+  }
+
+  if (method === 'BYEONGYAK') {
+    const medicineScore = formatMethodScore(methodScore(methodBreakdown.medicine?.scores, element));
+    return medicineScore ? `병약: 과다한 오행을 덜어내는 점수 ${medicineScore} 반영` : null;
+  }
+
+  if (method === 'TONGGWAN') {
+    const intensity = formatMethodScore(finiteNumberOrNull(methodBreakdown.tongguan?.effectiveMaxIntensity ?? methodBreakdown.tongguan?.maxIntensity));
+    return intensity ? `통관: 충돌을 이어 주는 강도 ${intensity} 반영` : null;
+  }
+
+  if (method === 'JONGHWA') {
+    const follow = methodBreakdown.follow;
+    const potential = formatMethodScore(finiteNumberOrNull(follow?.potential ?? follow?.potentialRaw));
+    if (potential) return `종화: 한쪽 세력으로 따르는 잠재도 ${potential} 반영`;
+    const transformation = methodBreakdown.transformations?.best;
+    if (transformation?.pair && transformation?.resultElement) return `종화: ${transformation.pair} 합화 후보 반영`;
+    const oneElement = methodBreakdown.oneElement?.element;
+    return oneElement ? `종화: ${ohaengKoLabel(oneElement)} 단일 세력 신호 반영` : null;
+  }
+
+  const deficiency = formatMethodScore(methodScore(methodBreakdown.balance?.deficiency, element));
+  const preference = formatMethodScore(finiteNumberOrNull(methodBreakdown.balance?.role?.[element]?.preference));
+  if (deficiency && preference) return `억부: 부족도 ${deficiency}, 십신 선호 ${preference} 반영`;
+  if (deficiency) return `억부: 부족도 ${deficiency} 반영`;
+  if (preference) return `억부: 십신 선호 ${preference} 반영`;
+  return null;
+}
+
 function buildYongshinReasoning(
   rank: number,
   entry: { element: string; score: number },
   topElement: string,
+  confidencePoint: number,
+  methodBreakdown?: any,
+  primaryMethod?: unknown,
 ): string {
   const primaryLabel = ohaengKoLabel(entry.element);
   const topLabel = ohaengKoLabel(topElement || '상위');
-  const confidencePoint = confidenceToPoints(Number(entry.score));
+  const evidence = rank === 0 ? buildYongshinMethodEvidence(entry, primaryMethod, methodBreakdown) : null;
+  const evidenceText = evidence ? ` ${evidence}.` : '';
   if (rank === 0) {
-    return `${primaryLabel} 기운이 가장 강해 용신 1순위입니다 (신뢰도 ${confidencePoint}점).`;
+    return `${primaryLabel}이(가) 현재 판정에서 가장 높은 용신 후보입니다.${evidenceText} (신뢰도 ${confidencePoint}점).`;
   }
   if (rank === 1) {
-    return `${primaryLabel} 기운은 ${topLabel} 기운을 보조하는 희신 후보입니다 (신뢰도 ${confidencePoint}점).`;
+    return `${primaryLabel}이(가) 현재 판정에서 두 번째인 균형 보완 후보입니다 (신뢰도 ${confidencePoint}점).`;
   }
   return `${primaryLabel} 기운은 후순위 균형 보완 후보입니다 (신뢰도 ${confidencePoint}점).`;
 }
@@ -761,11 +823,100 @@ function relationPositionFromBasedOn(v: unknown): string {
 }
 
 function gradeFromQualityWeight(v: unknown): string {
-  const weight = Number(v);
-  if (!Number.isFinite(weight)) return 'C';
+  const weight = typeof v === 'number' && Number.isFinite(v) && v >= 0 && v <= 1 ? v : 0;
   if (weight >= 0.85) return 'A';
   if (weight >= 0.5) return 'B';
   return 'C';
+}
+
+const SHINSAL_SEAT_ORDER = ['year', 'month', 'day', 'hour'] as const;
+type ShinsalSeatPillar = (typeof SHINSAL_SEAT_ORDER)[number];
+
+interface LegacyEvidencePolicy {
+  readonly shinsalPositionWeightingEnabled: boolean;
+  readonly stemRelationHeuristicsEnabled: boolean;
+}
+
+function readLegacyEvidencePolicy(config: EngineConfig): LegacyEvidencePolicy {
+  const strategies = (config.strategies ?? {}) as Record<string, any>;
+  return {
+    shinsalPositionWeightingEnabled: strategies.shinsal?.positionWeighting?.enabled === true,
+    stemRelationHeuristicsEnabled: strategies.stemRelations?.heuristicScores?.enabled === true,
+  };
+}
+const SHINSAL_SEAT_MULTIPLIER: Record<ShinsalSeatPillar, number> = {
+  day: 1,
+  month: 0.85,
+  year: 0.7,
+  hour: 0.6,
+};
+
+function shinsalPositionMultiplier(
+  seatPillars: readonly ShinsalSeatPillar[],
+  enabled: boolean,
+): number {
+  if (!enabled) return 1;
+  const seatMultipliers = seatPillars
+    .map((seat) => SHINSAL_SEAT_MULTIPLIER[seat])
+    .filter((value) => Number.isFinite(value));
+  if (seatMultipliers.length > 0) return Math.max(...seatMultipliers);
+  return 1;
+}
+
+const JIE_TERM_IDS = new Set([
+  'XIAOHAN', 'LICHUN', 'JINGZHE', 'QINGMING', 'LIXIA', 'MANGZHONG',
+  'XIAOSHU', 'LIQIU', 'BAILU', 'HANLU', 'LIDONG', 'DAXUE',
+]);
+const JIE_PROXIMITY_NEAR_HOURS = 24;
+
+function buildJieProximity(
+  facts: Record<string, unknown> | undefined,
+): LegacyJieProximityV1 | null {
+  const birthUtcMs = Number(facts?.['time.utcMs']);
+  const around = facts?.['calendar.solarTermsAround'] as any;
+  const terms = Array.isArray(around?.terms) ? around.terms : [];
+  if (!Number.isFinite(birthUtcMs) || terms.length === 0) return null;
+
+  const jieTerms = terms
+    .filter((term: any) => JIE_TERM_IDS.has(String(term?.id)) && Number.isFinite(Number(term?.utcMs)))
+    .map((term: any) => ({ id: String(term.id), utcMs: Number(term.utcMs) }))
+    .sort((a: { utcMs: number }, b: { utcMs: number }) => a.utcMs - b.utcMs);
+
+  let previous: { id: string; utcMs: number } | null = null;
+  let next: { id: string; utcMs: number } | null = null;
+  for (const term of jieTerms) {
+    if (term.utcMs <= birthUtcMs) {
+      previous = term;
+    } else {
+      next = term;
+      break;
+    }
+  }
+  if (!previous || !next) return null;
+
+  const hoursSincePrevious = roundTo((birthUtcMs - previous.utcMs) / 3_600_000, 3);
+  const hoursUntilNext = roundTo((next.utcMs - birthUtcMs) / 3_600_000, 3);
+  const nearestDirection = hoursSincePrevious <= hoursUntilNext ? 'previous' : 'next';
+  const nearestHours = nearestDirection === 'previous' ? hoursSincePrevious : hoursUntilNext;
+  const nearestTerm = nearestDirection === 'previous' ? previous : next;
+
+  return {
+    birthUtcMs,
+    solarTermMethod: String(around?.method ?? ''),
+    previousTermId: previous.id,
+    previousUtcMs: previous.utcMs,
+    nextTermId: next.id,
+    nextUtcMs: next.utcMs,
+    hoursSincePrevious,
+    hoursUntilNext,
+    daysSincePrevious: roundTo(hoursSincePrevious / 24, 3),
+    daysUntilNext: roundTo(hoursUntilNext / 24, 3),
+    monthLengthDays: roundTo((next.utcMs - previous.utcMs) / 86_400_000, 3),
+    nearestTermId: nearestTerm.id,
+    nearestDirection,
+    nearestHours,
+    isNearBoundary: nearestHours <= JIE_PROXIMITY_NEAR_HOURS,
+  };
 }
 
 function topTwo(values: Array<{ element: string; score: number }>): [string, string | null] {
@@ -1070,7 +1221,7 @@ function buildGyeokgukCandidates(bundle: AnalysisBundle, bestKeyCore: string, be
       supportingRules: notes.supportingRules,
       blockingRules: notes.blockingRules,
       compositeClassical,
-      sourceTier: GYEOKGUK_CANDIDATE_SOURCE_TIER,
+      sourceTier: { ...GYEOKGUK_CANDIDATE_SOURCE_TIER },
     });
   };
 
@@ -1145,9 +1296,31 @@ function pickEngineConfigPatch(legacy: LegacySajuConfig): Partial<EngineConfig> 
   return patch;
 }
 
+function resolveLegacyLongitudeCorrectionPolicy(
+  legacy: LegacySajuConfig,
+): LegacyLongitudeCorrectionPolicy {
+  if (legacy.longitudeCorrectionPolicy !== undefined) {
+    return legacy.longitudeCorrectionPolicy;
+  }
+
+  // Preserve the old switch's real behavior: false skipped the synthetic
+  // preset-baseline transform and therefore let the core use the civil offset.
+  if (legacy.longitudeCorrectionEnabled === false) {
+    return { mode: 'civilOffsetMeridian' };
+  }
+
+  if (Number.isFinite(legacy.lmtBaselineLongitude)) {
+    return {
+      mode: 'fixedMeridian',
+      meridianDeg: Number(legacy.lmtBaselineLongitude),
+    };
+  }
+
+  return { mode: 'civilOffsetMeridian' };
+}
+
 function buildEngineConfig(
   legacy: LegacySajuConfig,
-  timeZone: string,
 ): { config: EngineConfig } {
   const dayCut = mapDayCutMode(resolveDayCutMode(legacy));
   const trueSolarTimeEnabled = legacy.trueSolarTimeEnabled ?? DEFAULT_TRUE_SOLAR_TIME_ENABLED;
@@ -1155,11 +1328,15 @@ function buildEngineConfig(
 
   let cfg = cloneConfig();
   cfg.calendar.dayBoundary = dayCut.dayBoundary;
+  if (dayCut.hourStemDayBoundary != null) {
+    cfg.calendar.hourStemDayBoundary = dayCut.hourStemDayBoundary;
+  }
   // 감사 A11: YAZA_23_30의 -30분은 인스턴트가 아니라 일/시 경계 분류용 시프트로
   // 엔진에 전달한다(graphFactory ForDay/ForHour). deepMerge 이전에 세팅해야
   // legacy.calendar.dayCutShiftMinutes 수동 오버라이드가 살아있다.
   cfg.calendar.dayCutShiftMinutes = dayCut.dayCutShiftMinutes;
   cfg.calendar.trueSolarTime.enabled = trueSolarTimeEnabled;
+  cfg.calendar.trueSolarTime.longitudeCorrectionPolicy = resolveLegacyLongitudeCorrectionPolicy(legacy);
   cfg.calendar.trueSolarTime.equationOfTime = trueSolarTimeEnabled && includeEquationOfTime ? 'approx' : 'off';
   cfg.calendar.trueSolarTime.applyTo = 'dayAndHour';
   cfg.calendar.solarTerms = {
@@ -1168,25 +1345,21 @@ function buildEngineConfig(
   };
 
   cfg = deepMerge(cfg, pickEngineConfigPatch(legacy));
+  // The dedicated legacy policy is the unambiguous public override even when
+  // a caller also supplies a nested calendar patch.
+  if (legacy.longitudeCorrectionPolicy !== undefined) {
+    cfg.calendar.trueSolarTime.longitudeCorrectionPolicy = legacy.longitudeCorrectionPolicy;
+  }
+  const disabledToggles = LEGACY_REQUIRED_TOGGLES
+    .filter((toggle) => cfg.toggles[toggle] !== true);
+  if (disabledToggles.length > 0) {
+    throw new LegacyContractConfigError(disabledToggles);
+  }
   return { config: cfg };
-}
-
-function inferStandardMeridian(offsetMinutes: number): number {
-  return (offsetMinutes / 60) * 15;
-}
-
-function effectiveLongitudeForLegacyLmt(
-  longitude: number,
-  baselineLongitude: number | undefined,
-  stdMeridianDeg: number,
-): number {
-  if (!Number.isFinite(baselineLongitude)) return longitude;
-  return longitude - ((baselineLongitude as number) - stdMeridianDeg);
 }
 
 function makeRequest(
   input: LegacyBirthInput,
-  legacy: LegacySajuConfig,
 ): { request: SajuRequest; standard: CivilDateTime } {
   const standard = toCivilFromBirthInput(input);
   // 감사 A11: 과거에는 YAZA_23_30의 -30분을 여기(민간시→인스턴트)에 적용해
@@ -1194,17 +1367,8 @@ function makeRequest(
   // config.calendar.dayCutShiftMinutes로 엔진의 경계 분류 노드만 이동한다.
   const timeZone = input.timezone ?? DEFAULT_TIMEZONE;
   const offsetMinutes = resolveOffsetMinutes(timeZone, standard);
-  const stdMeridian = inferStandardMeridian(offsetMinutes);
   const rawLongitude = Number.isFinite(input.longitude) ? Number(input.longitude) : DEFAULT_LONGITUDE;
   const latitude = Number.isFinite(input.latitude) ? Number(input.latitude) : DEFAULT_LATITUDE;
-  const longitudeCorrectionEnabled = legacy.longitudeCorrectionEnabled ?? DEFAULT_LONGITUDE_CORRECTION_ENABLED;
-  const baselineLongitude = Number.isFinite(legacy.lmtBaselineLongitude)
-    ? Number(legacy.lmtBaselineLongitude)
-    : stdMeridian;
-
-  const effectiveLongitude = longitudeCorrectionEnabled
-    ? effectiveLongitudeForLegacyLmt(rawLongitude, baselineLongitude, stdMeridian)
-    : rawLongitude;
 
   const instant = civilToIsoInstant(standard, offsetMinutes);
   const sex: SajuRequest['sex'] = input.gender === 'FEMALE' ? 'F' : 'M';
@@ -1215,7 +1379,7 @@ function makeRequest(
       sex,
       location: {
         lat: latitude,
-        lon: effectiveLongitude,
+        lon: rawLongitude,
         name: input.name,
       },
     },
@@ -1224,12 +1388,55 @@ function makeRequest(
 }
 
 function getSummaryPillars(bundle: AnalysisBundle) {
-  return bundle.summary?.pillars ?? {
-    year: { stem: { idx: 0 }, branch: { idx: 0 } },
-    month: { stem: { idx: 0 }, branch: { idx: 0 } },
-    day: { stem: { idx: 0 }, branch: { idx: 0 } },
-    hour: { stem: { idx: 0 }, branch: { idx: 0 } },
+  const pillars = bundle.summary?.pillars;
+  if (!pillars) throw new LegacyContractOutputError(['summary.pillars']);
+  return pillars;
+}
+
+function assertLegacyBundleContract(bundle: AnalysisBundle): void {
+  const summary = bundle.summary as Record<string, unknown> | undefined;
+  const missing: string[] = [];
+  const requireObject = (path: string, value: unknown): void => {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) {
+      missing.push(path);
+    }
   };
+  const requireArray = (path: string, value: unknown): void => {
+    if (!Array.isArray(value)) missing.push(path);
+  };
+  const requireFinite = (path: string, value: unknown): void => {
+    if (!Number.isFinite(Number(value))) missing.push(path);
+  };
+
+  requireObject('summary', summary);
+  requireObject('summary.pillars', summary?.pillars);
+  requireObject('summary.strength', summary?.strength);
+  requireFinite('summary.strength.index', (summary?.strength as any)?.index);
+  requireFinite('summary.strength.support', (summary?.strength as any)?.support);
+  requireFinite('summary.strength.pressure', (summary?.strength as any)?.pressure);
+  requireObject('summary.yongshin', summary?.yongshin);
+  requireArray('summary.yongshin.ranking', (summary?.yongshin as any)?.ranking);
+  requireObject('summary.gyeokguk', summary?.gyeokguk);
+  requireArray('summary.gyeokguk.ranking', (summary?.gyeokguk as any)?.ranking);
+  requireObject('summary.elementDistribution', summary?.elementDistribution);
+  requireObject(
+    'summary.elementDistribution.total',
+    (summary?.elementDistribution as any)?.total,
+  );
+  requireObject('summary.tenGods', summary?.tenGods);
+  requireObject('summary.hiddenStems', summary?.hiddenStems);
+  requireObject('summary.tenGodsHiddenStems', summary?.tenGodsHiddenStems);
+  requireArray('summary.relations', summary?.relations);
+  requireArray('summary.stemRelations', summary?.stemRelations);
+  requireObject('summary.lifeStages', summary?.lifeStages);
+  requireArray('summary.shinsalHits', summary?.shinsalHits);
+  requireObject('summary.fortune', summary?.fortune);
+  requireObject('summary.fortune.start', (summary?.fortune as any)?.start);
+  requireArray('summary.fortune.decades', (summary?.fortune as any)?.decades);
+  requireArray('summary.fortune.years', (summary?.fortune as any)?.years);
+  requireObject('report.facts', bundle.report?.facts);
+
+  if (missing.length > 0) throw new LegacyContractOutputError(missing);
 }
 
 function extractDeficientAndExcessive(distribution: Record<string, number>): {
@@ -1306,15 +1513,18 @@ function computeDeukScores(
 function normalizeLegacyOutput(
   bundle: AnalysisBundle,
   standard: CivilDateTime,
+  evidencePolicy: LegacyEvidencePolicy,
   daeunCount?: number,
   saeunStartYear?: number | null,
   saeunYearCount?: number,
   wolunStartYear?: number | null,
   wolunMonthCount?: number,
   timeZone?: string,
-) {
+): LegacySajuOutputV1 {
+  assertLegacyBundleContract(bundle);
   const facts = bundle.report?.facts as Record<string, unknown>;
   const correction = (facts?.['time.trueSolarCorrection'] ?? {}) as TrueSolarCorrectionView;
+  const jieProximity = buildJieProximity(facts);
   const adjustedFact = (facts?.['time.solarLocalDateTime'] ?? facts?.['time.localDateTimeForHour'] ?? null) as any;
 
   const adjusted = adjustedFact?.date && adjustedFact?.time
@@ -1325,12 +1535,12 @@ function normalizeLegacyOutput(
         h: toInt(adjustedFact.time.h, standard.h),
         min: toInt(adjustedFact.time.min, standard.min),
       }
-    : addMinutes(standard, Math.round(Number(correction.totalCorrectionMinutes ?? 0)));
+    : addCivilMinutes(standard, Math.round(Number(correction.totalCorrectionMinutes ?? 0)));
 
   // 서머타임 보정 실측치 — 기존에는 0 하드코딩으로 미보정 서비스처럼 표기됐다 (감사 A9).
   const tz = timeZone ?? DEFAULT_TIMEZONE;
   const offsetAtBirth = resolveOffsetMinutes(tz, standard);
-  const birthUtcMs = Date.UTC(standard.y, standard.m - 1, standard.d, standard.h, standard.min, 0) - offsetAtBirth * 60_000;
+  const birthUtcMs = civilDateTimeToUtcMs(standard) - offsetAtBirth * 60_000;
   const dstCorrectionMinutes = dstMinutesAtUtcMs(birthUtcMs, tz);
 
   const pillars = getSummaryPillars(bundle);
@@ -1355,16 +1565,16 @@ function normalizeLegacyOutput(
   const yongshinRanking: Array<{ element: string; score: number }> = Array.isArray(yongshin?.ranking)
     ? yongshin.ranking.map((item: any) => ({
         element: String(item?.element ?? ''),
-        score: Number(item?.score ?? 0),
+        score: typeof item?.score === 'number' && Number.isFinite(item.score) ? item.score : 0,
       }))
     : [];
   const [topElement, secondElement] = topTwo(yongshinRanking);
   const worst = yongshinRanking.length ? yongshinRanking[yongshinRanking.length - 1]?.element ?? null : null;
   const secondWorst = yongshinRanking.length > 1 ? yongshinRanking[yongshinRanking.length - 2]?.element ?? null : null;
-  const topScore = Number(yongshinRanking[0]?.score ?? 0);
-  const secondScore = Number(yongshinRanking[1]?.score ?? 0);
+  const topScore = yongshinRanking[0]?.score ?? 0;
+  const secondScore = yongshinRanking[1]?.score ?? 0;
   const yongshinConfidence = scoreDiffConfidence(topScore, secondScore);
-  const yongshinConfidencePoints = confidenceToPoints(yongshinConfidence);
+  const yongshinConfidencePoints = ratioToPoints(yongshinConfidence);
   const yongshinConsensus =
     yongshin?.consensus && typeof yongshin.consensus === 'object'
       ? yongshin.consensus
@@ -1520,12 +1730,10 @@ function normalizeLegacyOutput(
     const pairKey = [...memberIdxs].sort((a, b) => a - b).join('-');
     const hapState = type === 'HAP' ? hapStateByPair.get(pairKey) : undefined;
     return {
-      // 기존 4필드 불변 (감사 A3 라벨 계약)
       type,
       members: memberIdxs.map((m) => stemCodeFromIdx(m)),
       resultOhaeng: relation?.resultElement ? String(relation.resultElement) : null,
       note: relationNoteForType(type, CHEONGAN_RELATION_NOTES),
-      // PR-5 additive (감사 B531): 합 상태 — 합화 성립 여부 표기 정직성.
       ...(hapState
         ? {
             hapState,
@@ -1535,6 +1743,54 @@ function normalizeLegacyOutput(
         : {}),
     };
   });
+
+  const chartStemCodes = chartStems.map((stem) => stemCodeFromIdx(stem));
+  const stemPositionStats = (members: string[]): { gaps: number[]; pairCount: number } => {
+    const positions = members.map((member) => chartStemCodes
+      .map((stem, index) => stem === member ? index : -1)
+      .filter((index) => index >= 0));
+    if (positions.length < 2 || positions.some((items) => items.length === 0)) return { gaps: [], pairCount: 0 };
+    const gaps: number[] = [];
+    for (const a of positions[0]!) {
+      for (const b of positions[1]!) {
+        gaps.push(Math.abs(a - b));
+      }
+    }
+    gaps.sort((a, b) => a - b);
+    return { gaps, pairCount: gaps.length };
+  };
+  const scoredCheonganRelations = evidencePolicy.stemRelationHeuristicsEnabled ? cheonganRelations.map((relation: any) => {
+    const type = String(relation?.type ?? '').toUpperCase();
+    const members = Array.isArray(relation?.members) ? relation.members.map(String) : [];
+    const { gaps, pairCount } = stemPositionStats(members);
+    const gap = gaps[0] ?? null;
+    const state = String(relation?.hapState ?? '');
+    const baseScore = type === 'CHUNG' ? 70 : type === 'HAP' ? 60 : 40;
+    const outcomeMultiplier = type === 'HAP'
+      ? state === 'HUA' ? 1 : state === 'HAPGEO' ? 0.62 : state === 'JAENGHAP' ? 0.42 : state === 'YOHAP' ? 0.3 : 0.5
+      : type === 'CHUNG' ? 0.75 : 0.5;
+    const adjacencyBonus = gap === 1 ? 15 : gap === 2 ? 5 : 0;
+    const finalScore = roundTo(Math.min(100, baseScore * outcomeMultiplier + adjacencyBonus), 3);
+    return {
+      hit: { type, members },
+      score: {
+        model: 'legacy_heuristic_v1',
+        unit: '0_100',
+        status: 'provisional',
+        evidenceOnly: true,
+        authorityTruthEligible: false,
+        provisional: true,
+        pairCount,
+        positionGap: gap,
+        positionGaps: gaps,
+        baseScore,
+        adjacencyBonus,
+        outcomeMultiplier,
+        finalScore,
+        rationale: `type=${type};state=${state || 'NA'};positionGap=${gap ?? 'NA'}`,
+      },
+    };
+  }) : [];
 
   const branchRelations = Array.isArray(bundle.summary?.relations) ? bundle.summary.relations : [];
   const jijiRelations = branchRelations.map((relation: any) => {
@@ -1606,6 +1862,10 @@ function normalizeLegacyOutput(
     const key = normalizePositionKey(pos);
     const principalList = Array.isArray(hiddenStemTenGods?.[pos]) ? hiddenStemTenGods[pos] : [];
     const hiddenList = Array.isArray(hiddenStems?.[pos]) ? hiddenStems[pos] : [];
+    // Static tables place MAIN first, while WOLLYUL saryeong rows are
+    // CHO -> JUNG -> JEONG. Select by role so "principal" always means proper qi.
+    const principalHiddenStem =
+      principalList.find((entry: any) => entry?.role === 'MAIN') ?? principalList[0];
 
     byPosition[key] = {
       cheonganSipseong:
@@ -1616,7 +1876,7 @@ function normalizeLegacyOutput(
             : pos === 'hour'
               ? normalizeTenGod(tenGods?.hourStem)
               : 'BI_GYEON',
-      jijiPrincipalSipseong: normalizeTenGod(principalList[0]?.tenGod),
+      jijiPrincipalSipseong: normalizeTenGod(principalHiddenStem?.tenGod),
       hiddenStems: hiddenList.map((entry: any) => ({
         stem: stemCodeFromIdx(entry?.stem?.idx),
         ratio: Number(entry?.weight ?? 0),
@@ -1629,10 +1889,10 @@ function normalizeLegacyOutput(
   }
 
   const shinsalHitsRaw = Array.isArray(bundle.summary?.shinsalHits) ? bundle.summary.shinsalHits : [];
-  const SEAT_ORDER = ['year', 'month', 'day', 'hour'] as const;
-  type SeatPillar = (typeof SEAT_ORDER)[number];
+  const SEAT_ORDER = SHINSAL_SEAT_ORDER;
+  type SeatPillar = ShinsalSeatPillar;
   const weightedByKey = new Map<string, {
-    hit: { type: string; position: string; grade: string; basedOn: string; seatPillars: SeatPillar[] };
+    hit: { type: string; position: string; grade: string; basedOn: string; seatPillars: SeatPillar[]; qualityReasons?: string[]; conditionPenalty?: number };
     baseWeight: number;
     positionMultiplier: number;
     weightedScore: number;
@@ -1646,13 +1906,41 @@ function normalizeLegacyOutput(
     const basedOn = String(hit?.basedOn ?? 'OTHER');
     const seatPillars = (Array.isArray(hit?.matchedPillars) ? hit.matchedPillars : [])
       .filter((p: unknown): p is SeatPillar => SEAT_ORDER.includes(p as SeatPillar));
-    const grade = gradeFromQualityWeight(hit?.qualityWeight);
-    const qualityWeight = Number(hit?.qualityWeight ?? 0.6);
-    const positionMultiplier = 1;
+    const rawQualityWeight = hit?.qualityWeight == null ? 0.6 : hit.qualityWeight;
+    const qualityWeight = typeof rawQualityWeight === 'number'
+      && Number.isFinite(rawQualityWeight)
+      && rawQualityWeight >= 0
+      && rawQualityWeight <= 1
+      ? rawQualityWeight
+      : 0;
+    const grade = gradeFromQualityWeight(qualityWeight);
+    const qualityReasons = (Array.isArray(hit?.qualityReasons) ? hit.qualityReasons : [])
+      .filter((reason: unknown): reason is string => typeof reason === 'string')
+      .map((reason) => reason.trim())
+      .filter(Boolean);
+    const rawConditionPenalty = hit?.conditionPenalty;
+    const conditionPenalty = typeof rawConditionPenalty === 'number'
+      && Number.isFinite(rawConditionPenalty)
+      && rawConditionPenalty >= 0
+      && rawConditionPenalty <= 1
+      ? roundTo(rawConditionPenalty, 3)
+      : null;
+    const positionMultiplier = shinsalPositionMultiplier(
+      seatPillars,
+      evidencePolicy.shinsalPositionWeightingEnabled,
+    );
     const baseWeight = Math.max(0, Math.min(100, Math.round(qualityWeight * 100)));
-    const weightedScore = baseWeight * positionMultiplier;
+    const weightedScore = Math.round(baseWeight * positionMultiplier);
     const payload = {
-      hit: { type, position, grade, basedOn, seatPillars },
+      hit: {
+        type,
+        position,
+        grade,
+        basedOn,
+        seatPillars,
+        ...(qualityReasons.length ? { qualityReasons } : {}),
+        ...(conditionPenalty !== null ? { conditionPenalty } : {}),
+      },
       baseWeight,
       positionMultiplier,
       weightedScore,
@@ -1663,12 +1951,9 @@ function normalizeLegacyOutput(
     if (!existing) {
       weightedByKey.set(dedupeKey, payload);
     } else {
-      // 같은 키 중복 발동: 높은 점수 페이로드를 유지하되 앉은 기둥은 합집합,
-      // 발동 횟수는 count로 보존 (기존에는 소거되어 소실 — 감사 C2/A15).
+      // 같은 키 중복 발동: 점수와 근거가 서로 다른 인스턴스에서 섞이지 않도록
+      // 높은 점수 페이로드를 통째로 유지하고 발동 횟수만 합산한다.
       const winner = weightedScore > existing.weightedScore ? payload : existing;
-      winner.hit.seatPillars = SEAT_ORDER.filter(
-        (p) => existing.hit.seatPillars.includes(p) || seatPillars.includes(p),
-      );
       winner.count = existing.count + 1;
       weightedByKey.set(dedupeKey, winner);
     }
@@ -1677,117 +1962,23 @@ function normalizeLegacyOutput(
   const shinsalHits = weightedShinsalHits.map((item) => item.hit);
   const gongmangVoidBranches = extractGongmangVoidBranches(bundle);
 
-  const fortune = bundle.summary?.fortune as any;
-  const timeline = (facts?.['fortune.timeline'] ?? null) as any;
-  const relationTimeline = ((facts?.['fortune.relations'] ?? fortune?.relations ?? null) as any);
-  const decadeRelationsByIndex = new Map(
-    relationEntries(relationTimeline, 'decades').map((entry: any) => [Number(entry?.index ?? 0), entry]),
-  );
-  const yearRelationsByYear = new Map(
-    relationEntries(relationTimeline, 'years').map((entry: any) => [Number(entry?.solarYear ?? 0), entry]),
-  );
-  const monthRelationsByKey = new Map(
-    relationEntries(relationTimeline, 'months').map((entry: any) => [`${Number(entry?.solarYear ?? 0)}:${Number(entry?.monthOrder ?? 0)}`, entry]),
-  );
-  const decadeYearRelationsByYear = new Map<number, any[]>();
-  for (const entry of relationEntries(relationTimeline, 'decadeYears')) {
-    const year = Number(entry?.solarYear ?? 0);
-    if (!Number.isFinite(year) || year === 0) continue;
-    const existing = decadeYearRelationsByYear.get(year) ?? [];
-    existing.push(entry);
-    decadeYearRelationsByYear.set(year, existing);
-  }
-  const decades = Array.isArray(fortune?.decades) ? fortune.decades : [];
-  const firstDaeunStartUtcMsApprox = finiteNumberOrNull(fortune?.start?.startUtcMsApprox ?? timeline?.start?.startUtcMsApprox);
-  const decadeLengthYears = Number(timeline?.policy?.decadeLengthYears ?? 10);
-  const ageDisplayMode = String(fortune?.start?.ageDisplay ?? timeline?.policy?.ageDisplay ?? 'continuousFromBirth');
-  const ageDisplayLabel = String(fortune?.start?.ageDisplayLabel ?? (ageDisplayMode === 'koreanCountingAge' ? 'Korean counting age by configured year boundary' : 'Continuous age from birth'));
-  const needsExpandedYears = typeof saeunStartYear === 'number' || typeof saeunYearCount === 'number';
-  const needsExpandedMonths = typeof wolunStartYear === 'number' || typeof wolunMonthCount === 'number';
-  const maxFortuneSolarYear = standard.y + 120;
-  const yearsSource = needsExpandedYears && Array.isArray(timeline?.years)
-    ? timeline.years
-    : Array.isArray(fortune?.years) ? fortune.years : [];
-  const monthsSource = needsExpandedMonths && Array.isArray(timeline?.months)
-    ? timeline.months
-    : Array.isArray(fortune?.months) ? fortune.months : [];
-  const yearsAll = yearsSource.filter((y: any) => Number(y?.solarYear) <= maxFortuneSolarYear);
-  const monthsAll = monthsSource.filter((m: any) => Number(m?.solarYear) <= maxFortuneSolarYear);
-  const yearsFiltered = typeof saeunStartYear === 'number'
-    ? yearsAll.filter((y: any) => Number(y?.solarYear) >= saeunStartYear)
-    : yearsAll;
-  const years = typeof saeunYearCount === 'number' && saeunYearCount > 0
-    ? yearsFiltered.slice(0, saeunYearCount)
-    : yearsFiltered;
-  const monthsFiltered = typeof wolunStartYear === 'number'
-    ? monthsAll.filter((m: any) => Number(m?.solarYear) >= wolunStartYear)
-    : monthsAll;
-  const months = typeof wolunMonthCount === 'number' && wolunMonthCount > 0
-    ? monthsFiltered.slice(0, wolunMonthCount)
-    : monthsFiltered;
-  const dayStemIdxForTransit = stemIdxFromUnknown(pillars.day.stem.idx);
-  const yearBranchIdxForTransit = branchIdxFromUnknown(pillars.year.branch.idx);
-  const lifeStagePolicy = (facts?.['policy.lifeStages'] ?? DEFAULT_TRANSIT_LIFE_STAGE_POLICY) as any;
-  const daeunPillars = (typeof daeunCount === 'number' && daeunCount > 0 ? decades.slice(0, daeunCount) : decades)
-    .map((entry: any) => ({
-      pillar: {
-        cheongan: stemCodeFromIdx(entryStemIdx(entry)),
-        jiji: branchCodeFromIdx(entryBranchIdx(entry)),
-      },
-      startAge: Number(entry?.startAgeYears ?? 0),
-      endAge: Number(entry?.endAgeYears ?? 0),
-      order: Number(entry?.index ?? 0),
-      displayStartAge: Number(entry?.displayStartAge ?? Math.floor(Number(entry?.startAgeYears ?? 0))),
-      displayEndAge: Number(entry?.displayEndAge ?? Math.floor(Number(entry?.endAgeYears ?? 0))),
-      ...(approxDaeunUtcMs(entry, firstDaeunStartUtcMsApprox, decadeLengthYears, 'start') !== null
-        ? { approxStartUtcMs: approxDaeunUtcMs(entry, firstDaeunStartUtcMsApprox, decadeLengthYears, 'start') }
-        : {}),
-      ...(approxDaeunUtcMs(entry, firstDaeunStartUtcMsApprox, decadeLengthYears, 'end') !== null
-        ? { approxEndUtcMs: approxDaeunUtcMs(entry, firstDaeunStartUtcMsApprox, decadeLengthYears, 'end') }
-        : {}),
-      ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy, false),
-      ...(formatLuckRelationsWithNatal(decadeRelationsByIndex.get(Number(entry?.index ?? 0)))
-        ? { relationsWithNatal: formatLuckRelationsWithNatal(decadeRelationsByIndex.get(Number(entry?.index ?? 0))) }
-        : {}),
-    }));
-
-  const saeunPillars = years.map((entry: any) => ({
-    year: Number(entry?.solarYear ?? 0),
-    pillar: {
-      cheongan: stemCodeFromIdx(entryStemIdx(entry)),
-      jiji: branchCodeFromIdx(entryBranchIdx(entry)),
+  const fortunePayload = mapLegacyFortune({
+    fortune: bundle.summary?.fortune as any,
+    timeline: (facts?.['fortune.timeline'] ?? null) as any,
+    relationTimeline: (facts?.['fortune.relations'] ?? (bundle.summary?.fortune as any)?.relations ?? null) as any,
+    dayStemIdx: stemIdxFromUnknown(pillars.day.stem.idx),
+    yearBranchIdx: branchIdxFromUnknown(pillars.year.branch.idx),
+    lifeStagePolicy: (facts?.['policy.lifeStages'] ?? DEFAULT_TRANSIT_LIFE_STAGE_POLICY) as any,
+    maxSolarYear: standard.y + 120,
+    selection: {
+      daeunCount,
+      saeunStartYear,
+      saeunYearCount,
+      wolunStartYear,
+      wolunMonthCount,
     },
-    startUtcMs: Number.isFinite(entry?.startUtcMs) ? Number(entry.startUtcMs) : null,
-    endUtcMs: Number.isFinite(entry?.endUtcMs) ? Number(entry.endUtcMs) : null,
-    approxStartAgeYears: Number.isFinite(entry?.approxStartAgeYears) ? Number(entry.approxStartAgeYears) : null,
-    approxEndAgeYears: Number.isFinite(entry?.approxEndAgeYears) ? Number(entry.approxEndAgeYears) : null,
-    ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy, true),
-    ...(formatLuckRelationsWithNatal(yearRelationsByYear.get(Number(entry?.solarYear ?? 0)))
-      ? { relationsWithNatal: formatLuckRelationsWithNatal(yearRelationsByYear.get(Number(entry?.solarYear ?? 0))) }
-      : {}),
-    ...(formatLuckRelationsWithDecade(decadeYearRelationsByYear.get(Number(entry?.solarYear ?? 0)))
-      ? { relationsWithDecade: formatLuckRelationsWithDecade(decadeYearRelationsByYear.get(Number(entry?.solarYear ?? 0))) }
-      : {}),
-  }));
-
-  const wolunPillars = months.map((entry: any) => ({
-    year: Number(entry?.solarYear ?? 0),
-    monthOrder: Number(entry?.monthOrder ?? 0),
-    startJie: String(entry?.startJie ?? ''),
-    pillar: {
-      cheongan: stemCodeFromIdx(entryStemIdx(entry)),
-      jiji: branchCodeFromIdx(entryBranchIdx(entry)),
-    },
-    startUtcMs: Number.isFinite(entry?.startUtcMs) ? Number(entry.startUtcMs) : null,
-    endUtcMs: Number.isFinite(entry?.endUtcMs) ? Number(entry.endUtcMs) : null,
-    approxStartAgeYears: Number.isFinite(entry?.approxStartAgeYears) ? Number(entry.approxStartAgeYears) : null,
-    approxEndAgeYears: Number.isFinite(entry?.approxEndAgeYears) ? Number(entry.approxEndAgeYears) : null,
-    ...luckPillarAnnotations(entry, dayStemIdxForTransit, yearBranchIdxForTransit, lifeStagePolicy, false),
-    ...(formatLuckRelationsWithNatal(monthRelationsByKey.get(`${Number(entry?.solarYear ?? 0)}:${Number(entry?.monthOrder ?? 0)}`))
-      ? { relationsWithNatal: formatLuckRelationsWithNatal(monthRelationsByKey.get(`${Number(entry?.solarYear ?? 0)}:${Number(entry?.monthOrder ?? 0)}`)) }
-      : {}),
-  }));
-
+    dependencies: LEGACY_FORTUNE_MAPPER_DEPENDENCIES,
+  });
   const traceNodes = Array.isArray(bundle.report?.trace?.nodes) ? bundle.report.trace.nodes : [];
   const trace = traceNodes.map((node: any) => ({
     key: String(node?.id ?? ''),
@@ -1799,6 +1990,7 @@ function normalizeLegacyOutput(
   }));
 
   return {
+    bridgeSchemaVersion: 'saju-legacy.v1',
     pillars: {
       year: { cheongan: yearStemCode, jiji: yearBranchCode },
       month: { cheongan: monthStemCode, jiji: monthBranchCode },
@@ -1820,6 +2012,7 @@ function normalizeLegacyOutput(
       longitudeCorrectionMinutes: Number(correction.longitudeCorrectionMinutes ?? 0),
       equationOfTimeMinutes: Number(correction.equationOfTimeMinutes ?? 0),
     },
+    jieProximity,
     strengthResult: {
       dayMasterElement: String((pillars as any)?.day?.stem?.element ?? ''),
       level: strengthLevelCode,
@@ -1852,25 +2045,38 @@ function normalizeLegacyOutput(
           : yongshinConfidencePoints,
       agreement: 'RANKING',
       consensus: yongshinConsensus,
+      methodBreakdown: yongshin?.methodBreakdown ?? null,
       // 감사 B5 (additive): 종격 가능성 신호. daeunInfo.warnings 선례를 따른다.
       warnings: yongshinWarnings,
       jonggyeokRisk,
-      recommendations: yongshinRanking.slice(0, 3).map((entry: { element: string; score: number }, i: number) => ({
-        // 1위 type은 엔진이 산출한 실제 지배 방법(primaryMethod)에서 유도한다 (감사 A2·B6).
-        // 기본 정책(억부 1.0 + 조후 0.25)에서는 EOKBU 또는 JOHU만 나온다.
-        // primaryMethod 부재(구 dist 등) 시 EOKBU 폴백 — 기본 정책 최빈값.
-        type: i === 0 ? (LEGACY_YONGSHIN_TYPE[String(yongshin?.primaryMethod ?? '')] ?? 'EOKBU') : 'RANKING',
-        primaryElement: entry.element,
-        secondaryElement: yongshinRanking[i + 1]?.element ?? null,
-        confidence: confidenceToPoints(Math.max(0, Math.min(1, Number(entry.score)))),
-        reasoning: buildYongshinReasoning(i, entry, topElement),
-      })),
+      recommendations: yongshinRanking.slice(0, 3).map((entry: { element: string; score: number }, i: number) => {
+        const confidence = ratioToPoints(entry.score);
+        return {
+          // 1위 type은 엔진이 산출한 실제 지배 방법(primaryMethod)에서 유도한다 (감사 A2·B6).
+          // 기본 정책(억부 1.0 + 조후 0.25)에서는 EOKBU 또는 JOHU만 나온다.
+          // primaryMethod 부재(구 dist 등) 시 EOKBU 폴백 — 기본 정책 최빈값.
+          type: i === 0 ? (LEGACY_YONGSHIN_TYPE[String(yongshin?.primaryMethod ?? '')] ?? 'EOKBU') : 'RANKING',
+          primaryElement: entry.element,
+          secondaryElement: yongshinRanking[i + 1]?.element ?? null,
+          confidence,
+          reasoning: buildYongshinReasoning(
+            i,
+            entry,
+            topElement,
+            confidence,
+            yongshin?.methodBreakdown,
+            i === 0 ? yongshin?.primaryMethod : undefined,
+          ),
+        };
+      }),
     },
     gyeokgukResult: {
       type: bestKeyCore,
       category: isJonggyeok ? 'JONGGYEOK' : 'NORMAL',
       baseSipseong,
       confidence: Math.max(0, Math.min(1, bestScore)),
+      basis: (bundle.summary?.gyeokguk as any)?.basis ?? null,
+      scores: (bundle.summary?.gyeokguk as any)?.scores ?? {},
       reasoning: bestKeyCore
         ? `격국 후보 중 ${gyeokgukKoLabel(bestKeyCore)}이(가) 가장 유력합니다.`
         : '격국 후보를 확정하기 어려워 추가 검토가 필요합니다.',
@@ -1883,7 +2089,7 @@ function normalizeLegacyOutput(
     deficientElements,
     excessiveElements,
     cheonganRelations,
-    scoredCheonganRelations: [],
+    scoredCheonganRelations,
     // PR-5 (감사 B531): 합화 평가 죽은 배관 소생 — 어댑터 extractHapHwaEvaluations가
     // 대기 중이던 스키마(stem1/2, position1/2, resultOhaeng, state, confidence,
     // reasoning, dayMasterInvolved)에 맞춰 인스턴스(궁위) 단위로 방출.
@@ -1913,36 +2119,52 @@ function normalizeLegacyOutput(
     },
     shinsalHits,
     weightedShinsalHits,
-    shinsalComposites: [],
     sibiUnseong,
     // PR-12-4 (감사 C6): 음양 균형 — summary 집계를 additive로 재방출 (만세력 기본 표기 축).
     yinYangBalance: (bundle.summary as any)?.yinYangBalance ?? null,
     gongmangVoidBranches,
-    daeunInfo: {
-      isForward: String(fortune?.start?.direction ?? 'FORWARD') !== 'BACKWARD',
-      firstDaeunStartAge: Number(fortune?.start?.startAgeYears ?? 0),
-      // 표기용 정수 대운수 (반올림 유파 + 하한 1 — 감사 B11). 연속값과 병존.
-      firstDaeunStartAgeDisplay: Number(fortune?.start?.startAgeDisplay ?? Math.floor(Number(fortune?.start?.startAgeYears ?? 0))),
-      ageDisplayMode,
-      ageDisplayLabel,
-      firstDaeunStartMonths: Number(fortune?.start?.startAgeParts?.months ?? 0),
-      // 대운 기산 절기 id (기존에는 무관한 일경계 정책 dayBoundary가 들어갔다 — 감사 A15d).
-      boundaryMode: String(fortune?.start?.boundary?.id ?? ''),
-      boundaryUtcMs: fortune?.start?.boundary?.utcMs ?? null,
-      deltaDays: Number.isFinite(fortune?.start?.deltaMs)
-        ? roundTo(Number(fortune.start.deltaMs) / 86_400_000, 3)
-        : null,
-      formula: String(fortune?.start?.formula ?? ''),
-      warnings: [],
-      daeunPillars,
-    },
-    saeunPillars,
-    wolunPillars,
+    ...fortunePayload,
     trace,
   };
 }
 
 export function createBirthInput(params: LegacyBirthInput): LegacyBirthInput {
+  const timezoneProvided = params.timezone !== undefined;
+  const latitudeProvided = params.latitude !== undefined;
+  const longitudeProvided = params.longitude !== undefined;
+  const anyLocationProvided = timezoneProvided || latitudeProvided || longitudeProvided;
+  const completeLocationProvided = timezoneProvided && latitudeProvided && longitudeProvided;
+
+  if (anyLocationProvided && !completeLocationProvided) {
+    throw new LegacyBirthLocationError('SAJU_LEGACY_BIRTH_LOCATION_PARTIAL');
+  }
+
+  let timezone = DEFAULT_TIMEZONE;
+  let latitude = DEFAULT_LATITUDE;
+  let longitude = DEFAULT_LONGITUDE;
+  if (completeLocationProvided) {
+    const rawTimezone = params.timezone;
+    const rawLatitude = params.latitude;
+    const rawLongitude = params.longitude;
+    if (
+      typeof rawTimezone !== 'string'
+      || rawTimezone.trim().length === 0
+      || typeof rawLatitude !== 'number'
+      || !Number.isFinite(rawLatitude)
+      || rawLatitude < -90
+      || rawLatitude > 90
+      || typeof rawLongitude !== 'number'
+      || !Number.isFinite(rawLongitude)
+      || rawLongitude < -180
+      || rawLongitude > 180
+    ) {
+      throw new LegacyBirthLocationError('SAJU_LEGACY_BIRTH_LOCATION_INVALID');
+    }
+    timezone = rawTimezone.trim();
+    latitude = rawLatitude;
+    longitude = rawLongitude;
+  }
+
   return {
     birthYear: toInt(params.birthYear, 0),
     birthMonth: toInt(params.birthMonth, 1),
@@ -1952,23 +2174,29 @@ export function createBirthInput(params: LegacyBirthInput): LegacyBirthInput {
     gender: params.gender === 'FEMALE' ? 'FEMALE' : 'MALE',
     calendarType: params.calendarType === 'LUNAR' ? 'LUNAR' : 'SOLAR',
     isLeapMonth: params.isLeapMonth,
-    timezone: params.timezone ?? DEFAULT_TIMEZONE,
-    latitude: Number.isFinite(params.latitude) ? Number(params.latitude) : DEFAULT_LATITUDE,
-    longitude: Number.isFinite(params.longitude) ? Number(params.longitude) : DEFAULT_LONGITUDE,
+    timezone,
+    latitude,
+    longitude,
     name: params.name,
   };
 }
 
 export function configFromPreset(preset: string): LegacySajuConfig {
-  const key = String(preset ?? '').trim().toUpperCase();
-  return { ...(PRESET_CONFIGS[key] ?? PRESET_CONFIGS.KOREAN_MAINSTREAM) };
+  if (typeof preset !== 'string') {
+    throw new UnknownLegacySajuPresetError(preset);
+  }
+  const key = preset.trim().toUpperCase();
+  if (!Object.hasOwn(PRESET_CONFIGS, key)) {
+    throw new UnknownLegacySajuPresetError(preset);
+  }
+  return { ...PRESET_CONFIGS[key] };
 }
 
 export function analyzeSaju(
   birthInput: LegacyBirthInput,
   rawConfig?: unknown,
   options?: LegacySajuOptions,
-) {
+): LegacySajuOutputV1 {
   const normalizedInput = createBirthInput(birthInput);
   if (normalizedInput.calendarType === 'LUNAR') {
     throw new Error('Legacy lunar input is not supported in the current engine bridge.');
@@ -1976,14 +2204,15 @@ export function analyzeSaju(
 
   const legacy = normalizeLegacyConfig(rawConfig);
   const tz = normalizedInput.timezone ?? DEFAULT_TIMEZONE;
-  const { config } = buildEngineConfig(legacy, tz);
-  const { request, standard } = makeRequest(normalizedInput, legacy);
+  const { config } = buildEngineConfig(legacy);
+  const { request, standard } = makeRequest(normalizedInput);
 
   const engine = createEngine(config);
   const bundle = engine.analyze(request);
   return normalizeLegacyOutput(
     bundle,
     standard,
+    readLegacyEvidencePolicy(config),
     options?.daeunCount,
     options?.saeunStartYear,
     options?.saeunYearCount,

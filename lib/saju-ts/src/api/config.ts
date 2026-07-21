@@ -1,9 +1,28 @@
 import type { EngineConfig } from './types.js';
 import { migrateConfig } from './migrations.js';
 import { applySchoolPreset, resolveSchoolPresetPacks } from '../schools/index.js';
-import { deepMerge } from '../utils/deepMerge.js';
+import {
+  assertUniqueCompiledRuleIds,
+  InvalidSchoolPresetPackError,
+} from '../schools/schoolPackValidation.js';
+import {
+  assertValidRuleSet,
+  InvalidRuleSpecError,
+} from '../rules/spec/ruleSpecValidation.js';
+import { deepFreeze, deepMerge } from '../utils/deepMerge.js';
+import {
+  assertEngineConfigObject,
+  assertKnownEngineConfig,
+  InvalidEngineConfigError,
+  InvalidLongitudeCorrectionPolicyError,
+} from './configValidation.js';
 
-export const defaultConfig: EngineConfig = {
+export {
+  InvalidEngineConfigError,
+  InvalidLongitudeCorrectionPolicyError,
+};
+
+export const defaultConfig: EngineConfig = deepFreeze({
   schemaVersion: '1',
   calendar: {
     yearBoundary: 'liChun',
@@ -16,6 +35,7 @@ export const defaultConfig: EngineConfig = {
     },
     trueSolarTime: {
       enabled: false,
+      longitudeCorrectionPolicy: { mode: 'civilOffsetMeridian' },
       equationOfTime: 'off',
       applyTo: 'hourOnly',
     },
@@ -44,21 +64,35 @@ export const defaultConfig: EngineConfig = {
     // validate:default-change + κ 코퍼스 재생성 계획과 세트인 별도 결정.
     elements: { interactionAdjusted: false },
   },
-};
+} satisfies EngineConfig);
+
+/** Raised when an explicit school selector cannot be parsed into preset ids. */
+export class InvalidSchoolPresetSelectorError extends Error {
+  readonly code = 'SAJU_INVALID_SCHOOL_PRESET_SELECTOR';
+
+  constructor() {
+    super('School preset selector must contain one or more non-empty string ids.');
+    this.name = 'InvalidSchoolPresetSelectorError';
+  }
+}
 
 function parsePresetIds(x: unknown): string[] {
   const out: string[] = [];
 
   const add = (v: unknown) => {
-    if (typeof v !== 'string') return;
+    if (typeof v !== 'string') throw new InvalidSchoolPresetSelectorError();
     const t = v.trim();
-    if (!t) return;
+    if (!t) throw new InvalidSchoolPresetSelectorError();
     // Allow simple composition: "a+b" or "a,b".
-    const parts = t.split(/[+,]/).map((s) => s.trim()).filter(Boolean);
+    const parts = t.split(/[+,]/).map((s) => s.trim());
+    if (parts.length === 0 || parts.some((part) => part.length === 0)) {
+      throw new InvalidSchoolPresetSelectorError();
+    }
     out.push(...parts);
   };
 
   if (Array.isArray(x)) {
+    if (x.length === 0) throw new InvalidSchoolPresetSelectorError();
     for (const v of x) add(v);
   } else {
     add(x);
@@ -75,37 +109,133 @@ function parsePresetIds(x: unknown): string[] {
   return uniq;
 }
 
+function assertEffectiveSchoolRuleSpecs(config: EngineConfig): void {
+  try {
+    assertUniqueCompiledRuleIds(
+      (config.extensions as any)?.ruleSpecs,
+      'config.extensions.ruleSpecs',
+    );
+  } catch (error) {
+    if (error instanceof InvalidSchoolPresetPackError) {
+      const path = error.path.startsWith('config.')
+        ? error.path.slice('config.'.length)
+        : error.path;
+      throw new InvalidEngineConfigError(
+        path,
+        'valid school rule specifications with unique compiled rule ids',
+      );
+    }
+    throw error;
+  }
+}
+
+const DIRECT_RULE_TARGETS = [
+  'yongshin',
+  'gyeokguk',
+  'shinsal',
+  'shinsalConditions',
+] as const;
+
+function assertEffectiveDirectRuleSets(config: EngineConfig): void {
+  const extensions = (config.extensions as Record<string, unknown> | undefined)
+    ?? {};
+
+  for (const containerKey of ['rulesets', 'rules'] as const) {
+    const container = extensions[containerKey];
+    if (container === undefined) continue;
+    if (
+      !container
+      || typeof container !== 'object'
+      || Array.isArray(container)
+      || (
+        Object.getPrototypeOf(container) !== Object.prototype
+        && Object.getPrototypeOf(container) !== null
+      )
+    ) {
+      throw new InvalidEngineConfigError(
+        `extensions.${containerKey}`,
+        'an object containing direct rule sets',
+      );
+    }
+
+    const record = container as Record<string, unknown>;
+    for (const target of DIRECT_RULE_TARGETS) {
+      if (
+        !Object.prototype.hasOwnProperty.call(record, target)
+        || record[target] === undefined
+      ) continue;
+
+      try {
+        assertValidRuleSet(
+          record[target],
+          `config.extensions.${containerKey}.${target}`,
+          target,
+        );
+      } catch (error) {
+        if (error instanceof InvalidRuleSpecError) {
+          const path = error.path.startsWith('config.')
+            ? error.path.slice('config.'.length)
+            : error.path;
+          throw new InvalidEngineConfigError(path, error.expected);
+        }
+        throw error;
+      }
+    }
+  }
+}
+
 /**
  * Minimal normalization:
  * - apply defaults
  * - apply school preset overlays (optional)
- * - preserve unknown fields
+ * - preserve open-ended data under weights/strategies/extensions
  *
  * In later versions, this is where schema migrations would live.
  */
 export function normalizeConfig(input: Partial<EngineConfig> | unknown): EngineConfig {
+  if (input !== undefined) assertEngineConfigObject(input);
   const migrated = migrateConfig(input);
+  assertKnownEngineConfig(migrated);
 
   // Allow data-first extension: user can embed additional preset packs under config.extensions.
   // This keeps API stable while enabling new schools without code changes.
   const packs = resolveSchoolPresetPacks(migrated);
 
-  const presetRef: unknown = (() => {
-    const bySchool = (migrated as any)?.school?.id;
-    if (bySchool != null) return bySchool;
+  const NO_PRESET_SELECTOR = Symbol('NO_PRESET_SELECTOR');
+  const presetRef: unknown | typeof NO_PRESET_SELECTOR = (() => {
+    if (Object.prototype.hasOwnProperty.call(migrated as object, 'school')) {
+      const school = (migrated as any).school;
+      if (
+        !school ||
+        typeof school !== 'object' ||
+        Array.isArray(school) ||
+        !Object.prototype.hasOwnProperty.call(school, 'id')
+      ) {
+        throw new InvalidSchoolPresetSelectorError();
+      }
+      return school.id;
+    }
 
     const ext: any = (migrated.extensions as any) ?? {};
-    const byExt = ext?.presets?.school ?? ext?.preset?.school ?? ext?.school;
-    if (byExt != null) return byExt;
+    for (const parentKey of ['presets', 'preset'] as const) {
+      const parent = ext?.[parentKey];
+      if (
+        parent
+        && typeof parent === 'object'
+        && !Array.isArray(parent)
+        && Object.prototype.hasOwnProperty.call(parent, 'school')
+      ) return parent.school;
+    }
+    if (Object.prototype.hasOwnProperty.call(ext, 'school')) return ext.school;
 
     const st: any = (migrated.strategies as any) ?? {};
-    const byStrat = st?.school ?? st?.schoolId;
-    if (byStrat != null) return byStrat;
+    if (Object.prototype.hasOwnProperty.call(st, 'school')) return st.school;
+    if (Object.prototype.hasOwnProperty.call(st, 'schoolId')) return st.schoolId;
 
-    return null;
+    return NO_PRESET_SELECTOR;
   })();
 
-  const presetIds = parsePresetIds(presetRef);
+  const presetIds = presetRef === NO_PRESET_SELECTOR ? [] : parsePresetIds(presetRef);
 
   let base: EngineConfig = defaultConfig;
   for (const id of presetIds) {
@@ -113,5 +243,9 @@ export function normalizeConfig(input: Partial<EngineConfig> | unknown): EngineC
   }
 
   // Deep merge so that user overrides do not erase preset nested fields.
-  return deepMerge(base, migrated) as EngineConfig;
+  const effective = deepMerge(base, migrated) as EngineConfig;
+  assertKnownEngineConfig(effective);
+  assertEffectiveSchoolRuleSpecs(effective);
+  assertEffectiveDirectRuleSets(effective);
+  return effective;
 }

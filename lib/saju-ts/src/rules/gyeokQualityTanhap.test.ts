@@ -4,8 +4,9 @@ import { normalizeConfig } from '../api/config.js';
 import type { BranchIdx, StemIdx } from '../core/cycle.js';
 import { pillar } from '../core/cycle.js';
 import { elementDistributionFromPillars } from '../core/elementDistribution.js';
-import { DEFAULT_SCORE_POLICY, scorePillars } from '../core/scoring.js';
+import { DEFAULT_SCORE_POLICY } from '../core/scoring.js';
 import { buildRuleFacts } from './facts.js';
+import { scorePillarsForRuleFacts } from './ruleFactsScoring.js';
 
 /**
  * PR-5 (감사 B510) — 격국 damage의 탐합망충(貪合忘沖) 해소 단위 테스트.
@@ -28,7 +29,7 @@ function qualityOf(
     [pillars.year, pillars.month, pillars.day, pillars.hour],
     { hiddenStemWeights: (config.weights as any)?.hiddenStems },
   );
-  const scoring = scorePillars(pillars, DEFAULT_SCORE_POLICY);
+  const scoring = scorePillarsForRuleFacts(pillars, DEFAULT_SCORE_POLICY);
   return buildRuleFacts({ config, pillars, elementDistribution, scoring }).month.gyeok.quality;
 }
 
@@ -79,4 +80,30 @@ describe('탐합망충 — 격국 damage 해소 (감사 B510)', () => {
     // 원 카운트(damageByType)는 양쪽 동일 — 해소는 damageResolved로만 표현.
     expect(dOff?.damageByType).toEqual(dOn?.damageByType);
   });
+
+  it.each(['HYEONG', 'SAMHYEONG'] as const)(
+    '%s target은 canonical 삼형을 구성쌍별로 부분 해소하고 한 번만 점수화한다',
+    (targetType) => {
+      // 丑未戌 삼형 + 子丑 육합: 丑未·丑戌 residual 0.5, 未戌 residual 1.
+      const q = qualityOf(
+        { year: [0, 1], month: [1, 7], day: [2, 10], hour: [3, 0] },
+        { enabled: true, targetTypes: [targetType] },
+      );
+      const details: any = q.details;
+      const samhyeong = details.damageResolved.find((row: any) => row.relation.type === 'SAMHYEONG');
+      expect(samhyeong).toBeDefined();
+      expect(samhyeong.residualFactor).toBeCloseTo(2 / 3, 12);
+      expect(samhyeong.resolutionUnits.map((unit: any) => ({
+        members: unit.members,
+        residual: unit.residualFactor,
+      }))).toEqual([
+        { members: [1, 7], residual: 0.5 },
+        { members: [1, 10], residual: 0.5 },
+        { members: [7, 10], residual: 1 },
+      ]);
+      expect(details.damageRelations.filter((row: any) => row.type === 'SAMHYEONG')).toHaveLength(1);
+      expect(details.damageByType.HYEONG).toBe(1);
+      expect(details.damageRaw - q.damage).toBeCloseTo(0.8 / 3, 12);
+    },
+  );
 });

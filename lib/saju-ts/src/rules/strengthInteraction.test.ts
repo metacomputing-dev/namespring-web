@@ -4,8 +4,9 @@ import { normalizeConfig } from '../api/config.js';
 import type { BranchIdx, StemIdx } from '../core/cycle.js';
 import { pillar } from '../core/cycle.js';
 import { elementDistributionFromPillars } from '../core/elementDistribution.js';
-import { DEFAULT_SCORE_POLICY, scorePillars } from '../core/scoring.js';
+import { DEFAULT_SCORE_POLICY } from '../core/scoring.js';
 import { buildRuleFacts } from './facts.js';
+import { scorePillarsForRuleFacts } from './ruleFactsScoring.js';
 
 /**
  * PR-5 (감사 B448/B510/B531) — 합충 상호작용 → 신강약 주입 단위 테스트.
@@ -31,7 +32,7 @@ function strengthOf(
     [pillars.year, pillars.month, pillars.day, pillars.hour],
     { hiddenStemWeights: (config.weights as any)?.hiddenStems },
   );
-  const scoring = scorePillars(pillars, DEFAULT_SCORE_POLICY);
+  const scoring = scorePillarsForRuleFacts(pillars, DEFAULT_SCORE_POLICY);
   return buildRuleFacts({ config, pillars, elementDistribution, scoring }).strength;
 }
 
@@ -83,6 +84,58 @@ describe('탐합망충 해소 (감사 B510)', () => {
   });
 });
 
+describe('삼형 구성쌍별 해소와 단일 감쇠', () => {
+  // 丑未戌 삼형 + 子丑 육합. 丑이 참여한 丑未·丑戌은 해소되지만 未戌 형은 남는다.
+  const PARTIAL = { year: [0, 1], month: [1, 7], day: [2, 10], hour: [3, 0] } as const;
+
+  it('부분 해소가 삼형 전체를 지우지 않고 남은 未戌만 한 번 감쇠한다', () => {
+    const strength = strengthOf(PARTIAL, {
+      root: {
+        damageFactors: { CHUNG: 1, HYEONG: 1, JA_HYEONG: 1, SAMHYEONG: 0.7 },
+        positional: { distanceScales: { d1: 1, d2: 1, d3: 1 } },
+      },
+      seasonal: { enabled: false },
+    });
+    const interaction = (strength.details as any)?.delingdiShi?.interaction;
+    expect(interaction?.branchDamageFactors).toEqual([1, 0.7, 0.7, 1]);
+    expect(
+      interaction?.resolved?.some(
+        (relation: any) => relation.type === 'SAMHYEONG',
+      ),
+    ).toBe(false);
+  });
+
+  it('해소를 끄면 삼형 세 기둥을 중첩 없이 한 번씩 감쇠한다', () => {
+    const strength = strengthOf(PARTIAL, {
+      root: {
+        resolveByHap: false,
+        damageFactors: { CHUNG: 1, HYEONG: 1, JA_HYEONG: 1, SAMHYEONG: 0.7 },
+        positional: { distanceScales: { d1: 1, d2: 1, d3: 1 } },
+      },
+      seasonal: { enabled: false },
+    });
+    const interaction = (strength.details as any)?.delingdiShi?.interaction;
+    expect(interaction?.branchDamageFactors).toEqual([0.7, 0.7, 0.7, 1]);
+  });
+
+  it('궁위 차등 경로에서도 부분 해소된 삼형 구성쌍만 한 번씩 감쇠한다', () => {
+    const strength = strengthOf(PARTIAL, {
+      root: {
+        damageFactors: { CHUNG: 1, HYEONG: 1, JA_HYEONG: 1, SAMHYEONG: 0.7 },
+        positional: { enabled: true, distanceScales: { d1: 1, d2: 1, d3: 1 } },
+      },
+      seasonal: { enabled: false },
+    });
+    const interaction = (strength.details as any)?.delingdiShi?.interaction;
+    expect(interaction?.branchDamageFactors).toEqual([1, 0.7, 0.7, 1]);
+    expect(interaction?.resolved).toEqual(expect.arrayContaining([
+      { type: 'HYEONG', members: [1, 7] },
+      { type: 'HYEONG', members: [1, 10] },
+    ]));
+    expect(interaction?.resolved?.some((relation: any) => relation.type === 'SAMHYEONG')).toBe(false);
+  });
+});
+
 describe('회국 보정 (감사 B448 — 삼합/반합)', () => {
   // 癸亥년 丁卯월 甲午일 辛未시 — 亥卯未 완전 삼합 목국(甲 일간과 동일 오행).
   const SAMHAP_CHART = { year: [9, 11], month: [3, 3], day: [0, 6], hour: [7, 7] } as const;
@@ -122,6 +175,57 @@ describe('천간합 기반(羈絆) 감쇠 (감사 B531)', () => {
     expect(bind?.factor).toBeLessThan(1);
     // 쟁합(甲2+己1) → 완화 계수(0.75) 적용
     expect(bind?.factor).toBeCloseTo(0.75, 12);
+  });
+});
+
+describe('pressure 축 천간합 기반(羈絆) 감쇠 (PR-10-3)', () => {
+  // 丙子년 辛丑월 甲寅일 戊辰시 — 甲 일간에게 辛은 정관, 丙辛合으로 관성 투간이 묶인다.
+  const CHART = { year: [2, 0], month: [7, 1], day: [0, 2], hour: [4, 4] } as const;
+
+  it('does not add pressure evidence keys on the default path', () => {
+    const strength = strengthOf(CHART);
+    const interaction = (strength.details as any)?.delingdiShi?.interaction;
+    expect(Object.hasOwn(interaction ?? {}, 'pressureStemBinds')).toBe(false);
+  });
+
+  it('명시 opt-in이면 묶인 정관 辛의 pressure 기여가 감쇠되어 index가 신강 방향으로 이동한다', () => {
+    const off = strengthOf(CHART);
+    const on = strengthOf(CHART, { stemBind: { applyToPressure: true } });
+
+    expect(on.pressure).toBeLessThan(off.pressure);
+    expect(on.index).toBeGreaterThan(off.index);
+    expect(on.components.officers).toBeCloseTo(off.components.officers, 12);
+
+    const inter = (on.details as any)?.delingdiShi?.interaction;
+    const bind = inter?.pressureStemBinds?.find((b: any) => b.pos === 'month');
+    expect(bind?.stem).toBe(7);
+    expect(bind?.tenGod).toBe('JEONG_GWAN');
+    expect(bind?.factor).toBeCloseTo(0.5, 12);
+    expect(bind?.reduction).toBeCloseTo(0.5, 12);
+
+    expect(on.effectiveComponents).toBeDefined();
+    const effective = on.effectiveComponents!;
+    expect(effective.companions + effective.resources).toBeCloseTo(on.support, 12);
+    expect(effective.outputs + effective.wealth + effective.officers).toBeCloseTo(on.pressure, 12);
+    expect(effective.officers).toBeLessThan(on.components.officers);
+    expect(inter?.pressureStemBindPenalty?.score).toBeGreaterThan(0);
+    expect(inter?.pressureStemBindPenalty?.normalized).toBeGreaterThan(0);
+    expect(inter?.pressureStemBindPenalty?.factor).toBeGreaterThan(0);
+
+    const basePressure = on.components.outputs + on.components.wealth + on.components.officers;
+    expect(off.pressure - on.pressure).toBeCloseTo(
+      basePressure * inter.pressureStemBindPenalty.factor,
+      12,
+    );
+  });
+
+  it('falls back to governed unit factors for values outside [0,1]', () => {
+    const baseline = strengthOf(CHART, { stemBind: { applyToPressure: true } });
+    const invalid = strengthOf(CHART, {
+      stemBind: { applyToPressure: true, factor: -5, jaenghapFactor: 2 },
+    });
+    expect(invalid.index).toBeCloseTo(baseline.index, 12);
+    expect(invalid.pressure).toBeCloseTo(baseline.pressure, 12);
   });
 });
 

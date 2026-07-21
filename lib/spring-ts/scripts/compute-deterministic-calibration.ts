@@ -4,8 +4,8 @@
  * Phase 8.2 deterministic calibration harness.
  *
  * This is intentionally not ML. It evaluates a fixed request-option grid
- * through SpringEngine, scores only high-tier authority truth in the objective,
- * and blocks promotion when the objective denominator is insufficient.
+ * through SpringEngine, scores only high-tier complete-D1 truth in the
+ * objective, and blocks promotion when that denominator is insufficient.
  *
  * Usage:
  *   npx tsx scripts/compute-deterministic-calibration.ts
@@ -22,6 +22,18 @@ import {
   type SchoolPresetName,
 } from '../src/index.js';
 import type { BirthInfo, NameCharInput, SpringOptions } from '../src/types.js';
+import {
+  BY_SOURCE_TIER_INPUT_SCHEMA_VERSION,
+  validateCompleteD1CalibrationInput,
+} from '../tools/metrics/complete-d1-calibration-input.mjs';
+import {
+  COMPLETE_D1_OBJECTIVE_TIER_WEIGHTS,
+  MIN_COMPLETE_D1_OBJECTIVE_FIXTURES,
+  completeD1ObjectiveStatusForCount,
+  completeD1ObjectiveWeightForTier,
+  isIncludedInCompleteD1Objective,
+} from '../tools/metrics/complete-d1-objective.mjs';
+import { sha256FileDigest } from '../tools/metrics/artifact-digest.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRING_TS_ROOT = path.resolve(__dirname, '..');
@@ -29,19 +41,11 @@ const NAMESPRING_DATA = path.resolve(SPRING_TS_ROOT, '../../namespring/public/da
 const WASM_PATH = path.resolve(SPRING_TS_ROOT, 'node_modules/sql.js/dist/sql-wasm.wasm');
 const FIXTURES_PATH = path.resolve(SPRING_TS_ROOT, 'test/fixtures/spring_ts_baseline_cases.json');
 
-const SCHEMA_VERSION = 'spring-ts.deterministic-calibration.v1';
+const SCHEMA_VERSION = 'spring-ts.deterministic-calibration.v2';
 const GENERATED_AT = '2026-05-02T00:00:00.000Z';
-const MIN_ELIGIBLE_OBJECTIVE_FIXTURES = 3;
 
-const OBJECTIVE_TIER_WEIGHTS = {
-  T5_OFFICIAL: 5,
-  T4_PRIMARY_TEXT: 4,
-  T3_AUTHORED_INTERPRETATION: 2,
-  T2_REFERENCE_IMPLEMENTATION: 0,
-  T1_HYPOTHESIS: 0,
-  T0_UNSOURCED: 0,
-  NO_REFERENCE: 0,
-} as const;
+type D1CoverageStatus = 'COMPLETE' | 'PARTIAL' | 'NONE';
+type ReferenceKind = 'authority' | 'oracle' | 'mixed' | 'none';
 
 interface Args {
   readonly outDir: string;
@@ -59,35 +63,31 @@ interface BaselineFixture {
 
 interface SourceProfile {
   readonly referenceTier: string;
-  readonly referenceKind: string;
+  readonly referenceKind: ReferenceKind;
   readonly sourceType: string;
-  readonly truthBucket: string;
-  readonly authorityTruthEligible: boolean;
+  readonly coverageStatus: D1CoverageStatus;
+  readonly coveredFieldCount: number;
+  readonly missingRequiredFields: readonly string[];
+  readonly doctrineComplete: boolean;
+  readonly namingCalibrationComplete: boolean;
 }
 
-interface BySourceTierMetric {
-  readonly schemaVersion?: string;
-  readonly baseline?: {
-    readonly fixtureCount?: number;
-  };
-  readonly qualityGateByReferenceTier?: Record<string, {
-    readonly fixtureCount?: number;
-    readonly truthBuckets?: {
-      readonly authority_match?: number;
-      readonly engine_rule_failure?: number;
-      readonly insufficient_source_truth?: number;
-    };
-  }>;
-  readonly schoolPresetBreakdown?: {
-    readonly rows?: Array<{
-      readonly fixtureId: string;
-      readonly referenceTier: string;
-      readonly referenceKind: string;
-      readonly sourceType: string;
-      readonly truthBucket: string;
-      readonly authorityTruthEligible: boolean;
-    }>;
-  };
+interface D1TruthCoverageFixture extends SourceProfile {
+  readonly fixtureId: string;
+}
+
+interface D1TruthCoverageInput {
+  readonly schemaVersion: string;
+  readonly contract: string;
+  readonly requiredFields: readonly string[];
+  readonly requiredFieldCount: number;
+  readonly fixtureCount: number;
+  readonly completeFixtureCount: number;
+  readonly partialFixtureCount: number;
+  readonly noneFixtureCount: number;
+  readonly doctrineCompleteFixtureCount: number;
+  readonly namingCalibrationCompleteFixtureCount: number;
+  readonly fixtures: readonly D1TruthCoverageFixture[];
 }
 
 interface ScorePair {
@@ -280,19 +280,8 @@ function buildGrid(): CalibrationCandidate[] {
   return rows;
 }
 
-function tierRank(tier: string): number | null {
-  const match = tier.match(/^T([0-5])_/);
-  return match ? Number(match[1]) : null;
-}
-
 function objectiveWeightForTier(tier: string): number {
-  if (tier in OBJECTIVE_TIER_WEIGHTS) {
-    return OBJECTIVE_TIER_WEIGHTS[tier as keyof typeof OBJECTIVE_TIER_WEIGHTS];
-  }
-  if (/^T5_/.test(tier)) return OBJECTIVE_TIER_WEIGHTS.T5_OFFICIAL;
-  if (/^T4_/.test(tier)) return OBJECTIVE_TIER_WEIGHTS.T4_PRIMARY_TEXT;
-  if (/^T3_/.test(tier)) return OBJECTIVE_TIER_WEIGHTS.T3_AUTHORED_INTERPRETATION;
-  return 0;
+  return completeD1ObjectiveWeightForTier(tier);
 }
 
 function roundScorePair(score: ScorePair): ScorePair {
@@ -314,29 +303,20 @@ function average(rows: readonly number[]): number | null {
   return Number((rows.reduce((sum, value) => sum + value, 0) / rows.length).toFixed(4));
 }
 
-function sourceProfiles(metric: BySourceTierMetric): Record<string, SourceProfile> {
-  return Object.fromEntries((metric.schoolPresetBreakdown?.rows ?? []).map((row) => [
-    row.fixtureId,
-    {
-      referenceTier: row.referenceTier,
-      referenceKind: row.referenceKind,
-      sourceType: row.sourceType,
-      truthBucket: row.truthBucket,
-      authorityTruthEligible: row.authorityTruthEligible,
-    },
+function sourceProfiles(coverage: D1TruthCoverageInput): Record<string, SourceProfile> {
+  return Object.fromEntries(coverage.fixtures.map(({ fixtureId, ...profile }) => [
+    fixtureId,
+    profile,
   ]));
 }
 
-function fallbackSourceProfile(metric: BySourceTierMetric): SourceProfile {
-  const tiers = Object.entries(metric.qualityGateByReferenceTier ?? {});
-  const [tier] = tiers.find(([, bucket]) => (bucket.fixtureCount ?? 0) > 0) ?? ['NO_REFERENCE'];
-  return {
-    referenceTier: tier,
-    referenceKind: tier === 'NO_REFERENCE' ? 'none' : 'unknown',
-    sourceType: 'unknown',
-    truthBucket: 'insufficient_source_truth',
-    authorityTruthEligible: false,
-  };
+function profileForFixture(
+  profiles: Readonly<Record<string, SourceProfile>>,
+  fixtureId: string,
+): SourceProfile {
+  const profile = profiles[fixtureId];
+  if (!profile) inputContractError(`missing validated complete-D1 profile for ${fixtureId}`);
+  return profile;
 }
 
 async function scoreFixture(
@@ -361,7 +341,7 @@ async function scoreFixture(
 function summarizeCandidate(
   gridPoint: CalibrationCandidate,
   fixtureRows: any[],
-  hasEnoughAuthorityTruth: boolean,
+  hasEnoughCompleteD1Truth: boolean,
 ): any {
   const deltas = fixtureRows.map((row) => row.deltaVsDefault);
   const byReferenceTier: Record<string, any> = {};
@@ -369,16 +349,16 @@ function summarizeCandidate(
   for (const row of fixtureRows) {
     const tierBucket = byReferenceTier[row.referenceTier] ?? {
       fixtureCount: 0,
-      objectiveFixtureCount: 0,
+      completeD1ObjectiveFixtureCount: 0,
       changedFromDefault: 0,
       unchangedFromDefault: 0,
       objectiveWeight: objectiveWeightForTier(row.referenceTier),
-      includedInObjective: false,
+      includedInCompleteD1Objective: false,
     };
     tierBucket.fixtureCount += 1;
-    if (row.includedInObjective) {
-      tierBucket.objectiveFixtureCount += 1;
-      tierBucket.includedInObjective = true;
+    if (row.includedInCompleteD1Objective) {
+      tierBucket.completeD1ObjectiveFixtureCount += 1;
+      tierBucket.includedInCompleteD1Objective = true;
     }
     if (row.changedFromDefault) tierBucket.changedFromDefault += 1;
     else tierBucket.unchangedFromDefault += 1;
@@ -386,29 +366,34 @@ function summarizeCandidate(
 
     const sourceBucket = bySourceGroup[row.sourceType] ?? {
       fixtureCount: 0,
-      objectiveFixtureCount: 0,
+      completeD1ObjectiveFixtureCount: 0,
       changedFromDefault: 0,
       unchangedFromDefault: 0,
     };
     sourceBucket.fixtureCount += 1;
-    if (row.includedInObjective) sourceBucket.objectiveFixtureCount += 1;
+    if (row.includedInCompleteD1Objective) {
+      sourceBucket.completeD1ObjectiveFixtureCount += 1;
+    }
     if (row.changedFromDefault) sourceBucket.changedFromDefault += 1;
     else sourceBucket.unchangedFromDefault += 1;
     bySourceGroup[row.sourceType] = sourceBucket;
   }
 
-  const eligibleObjectiveFixtureCount = fixtureRows.filter((row) => row.includedInObjective).length;
+  const completeD1ObjectiveFixtureCount = fixtureRows
+    .filter((row) => row.includedInCompleteD1Objective).length;
   const lowTierExcludedFixtureCount = fixtureRows
     .filter((row) => objectiveWeightForTier(row.referenceTier) === 0)
     .length;
-  const excludedNonAuthorityFixtureCount = fixtureRows
-    .filter((row) => !row.includedInObjective)
+  const excludedFromCompleteD1ObjectiveFixtureCount = fixtureRows
+    .filter((row) => !row.includedInCompleteD1Objective)
     .length;
   const weightedChangePenalty = fixtureRows.reduce((sum, row) => {
-    if (!row.includedInObjective) return sum;
+    if (!row.includedInCompleteD1Objective) return sum;
     return sum + objectiveWeightForTier(row.referenceTier) * Math.abs(row.deltaVsDefault.saju);
   }, 0);
-  const objectiveScore = hasEnoughAuthorityTruth ? Number((-weightedChangePenalty).toFixed(4)) : null;
+  const objectiveScore = hasEnoughCompleteD1Truth
+    ? Number((-weightedChangePenalty).toFixed(4))
+    : null;
 
   return {
     ...gridPoint,
@@ -424,15 +409,15 @@ function summarizeCandidate(
       maxSajuDelta: Math.max(...deltas.map((delta) => delta.saju)),
     },
     objective: {
-      eligibleObjectiveFixtureCount,
+      completeD1ObjectiveFixtureCount,
       lowTierExcludedFixtureCount,
-      excludedNonAuthorityFixtureCount,
+      excludedFromCompleteD1ObjectiveFixtureCount,
       weightedChangePenalty: Number(weightedChangePenalty.toFixed(4)),
       objectiveScore,
-      promotionEligible: hasEnoughAuthorityTruth && objectiveScore !== null,
-      rejectionReason: hasEnoughAuthorityTruth
+      promotionEligible: hasEnoughCompleteD1Truth && objectiveScore !== null,
+      rejectionReason: hasEnoughCompleteD1Truth
         ? null
-        : 'insufficient T5/T4/reviewed-T3 scorable objective; low-tier fixtures cannot promote weights',
+        : 'insufficient T3+ complete-D1 objective; partial, none, and low-tier fixtures cannot promote weights',
     },
     byReferenceTier,
     bySourceGroup,
@@ -446,7 +431,7 @@ function selectCandidate(rows: any[]): any {
     return {
       candidateId: 'current_default',
       decision: 'keep_current_default',
-      reason: 'No non-default candidate is promotion-eligible without high-tier scorable objective coverage.',
+      reason: 'No non-default candidate is promotion-eligible without enough T3+ complete-D1 objective fixtures.',
     };
   }
   const [best] = eligibleRows.sort((a, b) =>
@@ -461,10 +446,12 @@ function selectCandidate(rows: any[]): any {
   };
 }
 
-async function buildReport(metric: BySourceTierMetric): Promise<any> {
+async function buildReport(metric: unknown, inputMetricDigest: string): Promise<any> {
   const fixtures = readJson<{ fixtures: BaselineFixture[] }>(FIXTURES_PATH).fixtures;
-  const profiles = sourceProfiles(metric);
-  const fallbackProfile = fallbackSourceProfile(metric);
+  const coverage = validateCompleteD1CalibrationInput(metric, {
+    expectedFixtureIds: fixtures.map((fixture) => fixture.id),
+  }) as D1TruthCoverageInput;
+  const profiles = sourceProfiles(coverage);
   const grid = buildGrid();
 
   patchFetchForEngine();
@@ -483,41 +470,37 @@ async function buildReport(metric: BySourceTierMetric): Promise<any> {
       baselineScores.set(fixture.id, roundScorePair(await scoreFixture(engine, fixture, undefined)));
     }
 
-    const eligibleObjectiveFixtureCount = fixtures.filter((fixture) => {
-      const profile = profiles[fixture.id] ?? fallbackProfile;
-      const rank = tierRank(profile.referenceTier);
-      return profile.authorityTruthEligible === true &&
-        rank !== null &&
-        rank >= 3 &&
-        objectiveWeightForTier(profile.referenceTier) > 0;
+    const completeD1ObjectiveFixtureCount = fixtures.filter((fixture) => {
+      const profile = profileForFixture(profiles, fixture.id);
+      return isIncludedInCompleteD1Objective(profile);
     }).length;
-    const hasEnoughAuthorityTruth =
-      eligibleObjectiveFixtureCount >= MIN_ELIGIBLE_OBJECTIVE_FIXTURES;
+    const hasEnoughCompleteD1Truth =
+      completeD1ObjectiveFixtureCount >= MIN_COMPLETE_D1_OBJECTIVE_FIXTURES;
 
     for (const gridPoint of grid) {
       const fixtureRows = [];
       for (const fixture of fixtures) {
-        const profile = profiles[fixture.id] ?? fallbackProfile;
+        const profile = profileForFixture(profiles, fixture.id);
         const baseline = baselineScores.get(fixture.id);
         if (!baseline) throw new Error(`Missing baseline score for ${fixture.id}`);
         const score = gridPoint.candidateKind === 'current_default'
           ? baseline
           : roundScorePair(await scoreFixture(engine, fixture, gridPoint.options));
         const deltaVsDefault = scoreDelta(score, baseline);
-        const rank = tierRank(profile.referenceTier);
-        const includedInObjective = profile.authorityTruthEligible === true &&
-          rank !== null &&
-          rank >= 3 &&
-          objectiveWeightForTier(profile.referenceTier) > 0;
+        const includedInCompleteD1Objective =
+          isIncludedInCompleteD1Objective(profile);
         fixtureRows.push({
           fixtureId: fixture.id,
           label: fixture.label,
           referenceTier: profile.referenceTier,
           referenceKind: profile.referenceKind,
           sourceType: profile.sourceType,
-          truthBucket: profile.truthBucket,
-          authorityTruthEligible: profile.authorityTruthEligible,
-          includedInObjective,
+          coverageStatus: profile.coverageStatus,
+          coveredFieldCount: profile.coveredFieldCount,
+          missingRequiredFields: profile.missingRequiredFields,
+          doctrineComplete: profile.doctrineComplete,
+          namingCalibrationComplete: profile.namingCalibrationComplete,
+          includedInCompleteD1Objective,
           baseline,
           score,
           deltaVsDefault,
@@ -525,25 +508,30 @@ async function buildReport(metric: BySourceTierMetric): Promise<any> {
             Math.abs(deltaVsDefault.saju) > 1e-9,
         });
       }
-      candidateRows.push(summarizeCandidate(gridPoint, fixtureRows, hasEnoughAuthorityTruth));
+      candidateRows.push(summarizeCandidate(
+        gridPoint,
+        fixtureRows,
+        hasEnoughCompleteD1Truth,
+      ));
     }
   } finally {
     engine.close();
   }
 
-  const eligibleObjectiveFixtureCount = Math.max(
-    ...candidateRows.map((row) => row.objective.eligibleObjectiveFixtureCount),
+  const completeD1ObjectiveFixtureCount = Math.max(
+    ...candidateRows.map((row) => row.objective.completeD1ObjectiveFixtureCount),
     0,
   );
-  const objectiveStatus = eligibleObjectiveFixtureCount >= MIN_ELIGIBLE_OBJECTIVE_FIXTURES
-    ? 'READY'
-    : 'INSUFFICIENT_AUTHORITY_TRUTH';
+  const completeD1ObjectiveStatus =
+    completeD1ObjectiveStatusForCount(completeD1ObjectiveFixtureCount);
 
   return {
     schemaVersion: SCHEMA_VERSION,
     artifactKind: 'deterministic_rule_weight_calibration',
     generatedAt: GENERATED_AT,
-    inputMetric: 'metrics/bySourceTier.json',
+    inputMetric: 'metrics/bySourceTier.json#d1TruthCoverage.fixtures',
+    inputSchemaVersion: BY_SOURCE_TIER_INPUT_SCHEMA_VERSION,
+    inputMetricDigest,
     gridSearchPolicy: {
       gridKind: 'fixed_parameter_grid',
       executionSurface: 'SpringEngine.analyze(mode=evaluate)',
@@ -551,15 +539,15 @@ async function buildReport(metric: BySourceTierMetric): Promise<any> {
       randomSearchAllowed: false,
       fullCartesianSearchAllowed: false,
       runtimeDefaultMutationAllowed: false,
-      minimumEligibleObjectiveFixtures: MIN_ELIGIBLE_OBJECTIVE_FIXTURES,
+      minimumCompleteD1ObjectiveFixtures: MIN_COMPLETE_D1_OBJECTIVE_FIXTURES,
     },
     sourceTierObjective: {
-      status: objectiveStatus,
-      metric: 'tier-weighted high-authority non-regression over deterministic request-option grid',
-      tierWeights: OBJECTIVE_TIER_WEIGHTS,
-      authorityTruthPolicy: 'include only sourceTier.authorityTruthEligible=true records with tier rank >= 3',
+      completeD1ObjectiveStatus,
+      metric: 'tier-weighted complete-D1 non-regression over deterministic request-option grid',
+      tierWeights: COMPLETE_D1_OBJECTIVE_TIER_WEIGHTS,
+      completeD1TruthPolicy: 'include only COMPLETE seven-field D1 fixtures with effective source tier rank >= 3',
       lowTierPolicy: 'T2, T1, T0, and NO_REFERENCE have zero objective weight and cannot promote rule weights',
-      eligibleObjectiveFixtureCount,
+      completeD1ObjectiveFixtureCount,
     },
     selected: selectCandidate(candidateRows),
     grid: candidateRows,
@@ -568,21 +556,21 @@ async function buildReport(metric: BySourceTierMetric): Promise<any> {
 
 async function main(): Promise<void> {
   const args = parseArgs(process.argv);
-  const metric = readJson<BySourceTierMetric>(args.metricsPath);
-  const report = await buildReport(metric);
+  const metric = readJson<unknown>(args.metricsPath);
+  const report = await buildReport(metric, sha256FileDigest(args.metricsPath));
   const outPath = path.join(args.outDir, 'deterministic-calibration.json');
   writeJson(outPath, report);
   const summary = {
     outPath,
     schemaVersion: report.schemaVersion,
     selected: report.selected,
-    objectiveStatus: report.sourceTierObjective.status,
+    completeD1ObjectiveStatus: report.sourceTierObjective.completeD1ObjectiveStatus,
     gridSize: report.grid.length,
   };
   if (args.json) console.log(JSON.stringify(summary, null, 2));
   else {
     console.log(`Deterministic calibration written to ${outPath}`);
-    console.log(`  objective=${summary.objectiveStatus}`);
+    console.log(`  objective=${summary.completeD1ObjectiveStatus}`);
     console.log(`  selected=${summary.selected.candidateId}`);
     console.log(`  gridSize=${summary.gridSize}`);
   }

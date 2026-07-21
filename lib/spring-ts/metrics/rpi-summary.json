@@ -1,39 +1,47 @@
 {
-  "schemaVersion": "spring-ts.rpi-summary.v1",
+  "schemaVersion": "spring-ts.rpi-summary.v2",
   "note": "Unmeasured or truth-insufficient axes score 0 in rawRpi and are also reported separately to avoid mixing missing truth with engine failure.",
   "rawRpi": {
-    "score": 45,
+    "score": 20,
     "maxPoints": 100
   },
   "measuredOnlyRpi": {
-    "score": 45,
-    "maxPoints": 60,
-    "percent": 75
+    "score": 20,
+    "maxPoints": 35,
+    "percent": 57.1
   },
   "axisScores": {
     "A_calculationAccuracy": {
       "maxPoints": 15,
-      "score": 15,
-      "status": "PASS",
-      "pass": 8,
+      "score": 0,
+      "status": "INSUFFICIENT_TRUTH",
+      "reason": "Edge stability is measured, but no eligible truth exists for calculation accuracy.",
+      "pass": 0,
       "fail": 0,
-      "na": 9
+      "na": 14,
+      "notApplicable": 3,
+      "coverageRate": 0
     },
     "B_legalHanjaData": {
       "maxPoints": 15,
       "score": 10,
-      "status": "PARTIAL_OFFICIAL_DENOMINATOR",
-      "officialAllowedCount": 9389,
+      "status": "OFFICIAL_LOOKUP_PARITY_CONFIRMED",
+      "announcedCharacterCount": 9389,
+      "officialLookupGlyphCount": 9495,
+      "officialLookupPairCount": 10381,
       "candidateMirrorCount": 9495,
-      "unresolvedDeltaCount": 106,
-      "lawEffectiveDateDiffVisible": true,
+      "localGlyphDifferenceCount": 0,
+      "localPairDifferenceCount": 0,
+      "authorityReceipt": "data/official-hanja-lookup-authority.generated.json",
+      "receiptVerified": true,
+      "canonicalAppendix2MappingStatus": "NOT_EXTRACTED",
       "requiredStatusesPresent": true
     },
     "C_gyeokgukYongshinRuleQuality": {
       "maxPoints": 25,
       "score": 0,
       "status": "INSUFFICIENT_TRUTH",
-      "reason": "Current baseline fixtures have no T3+ authority-truth D1 denominator.",
+      "reason": "Current baseline fixtures lack the complete scoped doctrine and naming-calibration truth required by D1.",
       "insufficientTruthCount": 17,
       "engineRuleFailureCount": 0
     },
@@ -319,7 +327,7 @@
             },
             {
               "id": "fix-04",
-              "label": "1965-08-08 19:00 female — 甲木 일간, 종왕 후보 (강한 木)",
+              "label": "1965-08-08 19:00 female — 甲木 일간, 申月 강약 방향 판정",
               "simple": {
                 "total": 58.7,
                 "saju": 40
@@ -903,26 +911,29 @@
     },
     "F_explainabilityUxSurface": {
       "maxPoints": 10,
-      "score": 10,
-      "status": "PASS",
-      "pass": 12,
+      "score": 0,
+      "status": "NOT_MEASURED",
+      "reason": "No card-surface fixture denominator available.",
+      "pass": 0,
       "fail": 0,
-      "na": 5
+      "na": 17,
+      "notApplicable": 0,
+      "coverageRate": 0
     },
     "G_validationGovernance": {
       "maxPoints": 10,
       "score": 10,
       "status": "PASS",
-      "sourceTierScanned": 99,
+      "sourceTierScanned": 122,
       "sourceTierViolations": 0
     }
   },
   "qualityGate": {
-    "overall": "PASS",
+    "overall": "N/A",
     "totals": {
-      "pass": 15,
+      "pass": 0,
       "fail": 0,
-      "na": 2,
+      "na": 17,
       "total": 17
     },
     "dimensions": {
@@ -930,31 +941,36 @@
         "pass": 0,
         "fail": 0,
         "na": 17,
+        "notApplicable": 0,
         "status": "N/A"
       },
       "D2": {
         "pass": 0,
         "fail": 0,
         "na": 17,
+        "notApplicable": 0,
         "status": "N/A"
       },
       "D3": {
-        "pass": 12,
+        "pass": 0,
         "fail": 0,
-        "na": 5,
-        "status": "PASS"
+        "na": 17,
+        "notApplicable": 0,
+        "status": "N/A"
       },
       "D4": {
         "pass": 0,
         "fail": 0,
         "na": 17,
+        "notApplicable": 0,
         "status": "N/A"
       },
       "D5": {
-        "pass": 8,
+        "pass": 0,
         "fail": 0,
-        "na": 9,
-        "status": "PASS"
+        "na": 14,
+        "notApplicable": 3,
+        "status": "N/A"
       }
     },
     "exitCode": 0
@@ -1262,7 +1278,7 @@
           },
           {
             "id": "fix-04",
-            "label": "1965-08-08 19:00 female — 甲木 일간, 종왕 후보 (강한 木)",
+            "label": "1965-08-08 19:00 female — 甲木 일간, 申月 강약 방향 판정",
             "simple": {
               "total": 58.7,
               "saju": 40

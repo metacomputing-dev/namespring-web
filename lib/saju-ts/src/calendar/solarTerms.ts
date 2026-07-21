@@ -6,6 +6,7 @@ import {
   type AberrationModel,
   type SolarPrecision,
 } from './solar.js';
+import { utcMsFromParts } from './utc.js';
 
 /**
  * Solar-term utilities.
@@ -13,7 +14,7 @@ import {
  * Goals:
  * - Math-first (longitude roots) rather than lookup tables
  * - Minimal, explicit data only for (id ↔ longitude ↔ rough bracket date)
- * - Cache by (method, year)
+ * - Bounded cache by the calculation inputs that can affect an instant
  */
 
 export type SolarTermMethod = 'approx' | 'meeus';
@@ -155,6 +156,14 @@ const JIE_IDS: readonly JieTermId[] = [
   'DAXUE',
 ];
 
+function requireTermSpec(id: SolarTermId): TermSpec {
+  const spec = SPEC_BY_ID.get(id);
+  if (!spec) throw new Error(`Invariant: solar term spec missing for ${id}`);
+  return spec;
+}
+
+const JIE_SPECS: readonly TermSpec[] = JIE_IDS.map(requireTermSpec);
+const LICHUN_SPEC = requireTermSpec('LICHUN');
 const JIE_SET = new Set<SolarTermId>(JIE_IDS);
 
 const MS_PER_DAY = 86_400_000;
@@ -209,7 +218,7 @@ function roughApproxDateForLongitude(year: number, longitude: number): { m: numb
   // Very rough mapping: assume longitude increases ~360° per tropical year.
   // For bracketing we just need a guess within ±30 days.
   // Map 0° (~春分) to Mar 20.
-  const base = Date.UTC(year, 2, 20, 0, 0, 0); // Mar 20
+  const base = utcMsFromParts(year, 2, 20); // Mar 20
   const days = Math.round((modDeg(longitude) / 360) * 365.2422);
   const ms = base + days * MS_PER_DAY;
   const dt = new Date(ms);
@@ -224,7 +233,7 @@ function findBracketForLongitude(
   solarPrecision: SolarPrecision = DEFAULT_PRECISION,
 ): { aJd: number; bJd: number } {
   // Start from a rough UTC guess and scan for a sign change.
-  const guessUtcMs = Date.UTC(year, approx.m - 1, approx.d, 0, 0, 0);
+  const guessUtcMs = utcMsFromParts(year, approx.m - 1, approx.d);
   const guessJd = utcMsToJulianDay(guessUtcMs);
 
   const windowDays = 30; // conservative
@@ -353,7 +362,7 @@ export function solarTermUtcMsForLongitude(
   const approx = APPROX_BY_LONGITUDE.get(normalized) ?? roughApproxDateForLongitude(year, normalized);
 
   if (method === 'approx') {
-    return Date.UTC(year, approx.m - 1, approx.d, 0, 0, 0);
+    return utcMsFromParts(year, approx.m - 1, approx.d);
   }
 
   const { aJd, bJd } = findBracketForLongitude(year, normalized, approx, aberrationModel, solarPrecision);
@@ -364,8 +373,98 @@ export function solarTermUtcMsForLongitude(
   return Math.round(julianDayToUtcMs(rootJd));
 }
 
-const cacheSolar = new Map<string, SolarTermInstant[]>();
-const cacheJie = new Map<string, SolarTermInstant[]>();
+type FrozenSolarTerm = Readonly<SolarTermInstant>;
+
+// Large enough for the supported 1900..2050 product window under several
+// precision policies, while keeping adversarial year/policy churn bounded.
+const MAX_CACHED_YEAR_POLICIES = 512;
+const cacheByYearAndPolicy = new Map<string, Map<SolarTermId, FrozenSolarTerm>>();
+
+function solarTermCacheKey(
+  year: number,
+  method: SolarTermMethod,
+  algorithm: SolarTermAlgorithm,
+  aberrationModel: AberrationModel,
+  solarPrecision: SolarPrecision,
+): string {
+  // The approximate path returns the rough calendar date before consulting
+  // algorithm, aberration, or precision. Canonicalizing those no-op inputs
+  // prevents twelve byte-identical policy families from occupying the cache.
+  if (method === 'approx') return `approx:${year}`;
+  return `${method}:${algorithm}:${aberrationModel}:${solarPrecision}:${year}`;
+}
+
+function cacheTermsForYearPolicy(
+  key: string,
+): Map<SolarTermId, FrozenSolarTerm> {
+  const cached = cacheByYearAndPolicy.get(key);
+  if (cached) return cached;
+
+  const termsById = new Map<SolarTermId, FrozenSolarTerm>();
+  cacheByYearAndPolicy.set(key, termsById);
+
+  if (cacheByYearAndPolicy.size > MAX_CACHED_YEAR_POLICIES) {
+    // Map iteration follows insertion order. FIFO is deterministic and avoids
+    // rewriting the same key up to 24 times on a full cached-year read.
+    const oldestKey = cacheByYearAndPolicy.keys().next().value;
+    if (oldestKey !== undefined) cacheByYearAndPolicy.delete(oldestKey);
+  }
+  return termsById;
+}
+
+function getOrComputeSolarTerm(
+  year: number,
+  spec: TermSpec,
+  method: SolarTermMethod,
+  algorithm: SolarTermAlgorithm,
+  aberrationModel: AberrationModel,
+  solarPrecision: SolarPrecision,
+): FrozenSolarTerm {
+  const key = solarTermCacheKey(year, method, algorithm, aberrationModel, solarPrecision);
+  const termsById = cacheTermsForYearPolicy(key);
+
+  const cached = termsById.get(spec.id);
+  if (cached) return cached;
+
+  const term = Object.freeze({
+    id: spec.id,
+    year,
+    longitude: modDeg(spec.longitude),
+    utcMs: solarTermUtcMsForLongitude(
+      year,
+      spec.longitude,
+      method,
+      algorithm,
+      aberrationModel,
+      solarPrecision,
+    ),
+  });
+  termsById.set(spec.id, term);
+  return term;
+}
+
+function getSolarTermsForSpecs(
+  year: number,
+  specs: readonly TermSpec[],
+  method: SolarTermMethod,
+  algorithm: SolarTermAlgorithm,
+  aberrationModel: AberrationModel,
+  solarPrecision: SolarPrecision,
+): SolarTermInstant[] {
+  return specs
+    .map((spec) =>
+      getOrComputeSolarTerm(
+        year,
+        spec,
+        method,
+        algorithm,
+        aberrationModel,
+        solarPrecision,
+      ),
+    )
+    .sort((a, b) => a.utcMs - b.utcMs)
+    .map((term) => ({ ...term }));
+}
 
 export function getSolarTerms(
   year: number,
@@ -374,19 +473,14 @@ export function getSolarTerms(
   aberrationModel: AberrationModel = DEFAULT_ABERRATION,
   solarPrecision: SolarPrecision = DEFAULT_PRECISION,
 ): SolarTermInstant[] {
-  const key = `${method}:${algorithm}:${aberrationModel}:${solarPrecision}:${year}`;
-  const cached = cacheSolar.get(key);
-  if (cached) return cached;
-
-  const out: SolarTermInstant[] = SOLAR_TERMS_24.map((spec) => ({
-    id: spec.id,
+  return getSolarTermsForSpecs(
     year,
-    longitude: modDeg(spec.longitude),
-    utcMs: solarTermUtcMsForLongitude(year, spec.longitude, method, algorithm, aberrationModel, solarPrecision),
-  })).sort((a, b) => a.utcMs - b.utcMs);
-
-  cacheSolar.set(key, out);
-  return out;
+    SOLAR_TERMS_24,
+    method,
+    algorithm,
+    aberrationModel,
+    solarPrecision,
+  );
 }
 
 export function getJieBoundaries(
@@ -396,16 +490,14 @@ export function getJieBoundaries(
   aberrationModel: AberrationModel = DEFAULT_ABERRATION,
   solarPrecision: SolarPrecision = DEFAULT_PRECISION,
 ): SolarTermInstant[] {
-  const key = `${method}:${algorithm}:${aberrationModel}:${solarPrecision}:${year}`;
-  const cached = cacheJie.get(key);
-  if (cached) return cached;
-
-  const out = getSolarTerms(year, method, algorithm, aberrationModel, solarPrecision)
-    .filter((t) => isJieTermId(t.id))
-    .sort((a, b) => a.utcMs - b.utcMs);
-
-  cacheJie.set(key, out);
-  return out;
+  return getSolarTermsForSpecs(
+    year,
+    JIE_SPECS,
+    method,
+    algorithm,
+    aberrationModel,
+    solarPrecision,
+  );
 }
 
 export function getSolarTermsAround(
@@ -447,10 +539,14 @@ export function getLiChunUtcMs(
   aberrationModel: AberrationModel = DEFAULT_ABERRATION,
   solarPrecision: SolarPrecision = DEFAULT_PRECISION,
 ): number {
-  const terms = getJieBoundaries(year, method, algorithm, aberrationModel, solarPrecision);
-  const liChun = terms.find((t) => t.id === 'LICHUN');
-  if (!liChun) throw new Error('Invariant: LICHUN missing from Jie terms');
-  return liChun.utcMs;
+  return getOrComputeSolarTerm(
+    year,
+    LICHUN_SPEC,
+    method,
+    algorithm,
+    aberrationModel,
+    solarPrecision,
+  ).utcMs;
 }
 
 // --- Optional conveniences

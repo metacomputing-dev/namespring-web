@@ -81,7 +81,7 @@ const balancedKoreanStrengthCard = buildLifeFortuneOverviewCard({
   },
   yongshin: {
     ...lowConfidenceSaju.yongshin,
-    confidence: 0.9,
+    confidence: 90,
   },
   yongshinConsensus: {
     ...highConflictConsensus,
@@ -108,7 +108,7 @@ const balancedTendencyStrengthCard = buildLifeFortuneOverviewCard({
   },
   yongshin: {
     ...lowConfidenceSaju.yongshin,
-    confidence: 0.9,
+    confidence: 90,
   },
   yongshinConsensus: {
     ...highConflictConsensus,
@@ -135,7 +135,7 @@ const letterGradeShinsalCard = buildLifeFortuneOverviewCard({
   },
   yongshin: {
     ...lowConfidenceSaju.yongshin,
-    confidence: 0.9,
+    confidence: 90,
   },
   yongshinConsensus: {
     ...highConflictConsensus,
@@ -152,6 +152,42 @@ const letterGradeShinsalCard = buildLifeFortuneOverviewCard({
   shinsalHits: [{ type: '천월덕', position: '월주', grade: 'A', weightedScore: 100 }],
 } as any);
 
+function cardAtConfidencePoints(confidence: number) {
+  return buildLifeFortuneOverviewCard({
+    ...lowConfidenceSaju,
+    strength: {
+      ...lowConfidenceSaju.strength,
+      level: '중화',
+      totalSupport: 4,
+      totalOppose: 4,
+    },
+    yongshin: {
+      ...lowConfidenceSaju.yongshin,
+      confidence,
+    },
+    yongshinConsensus: {
+      ...highConflictConsensus,
+      final: {
+        ...highConflictConsensus.final,
+        confidence: 0.9,
+        conflictLevel: 'none',
+        competingElements: [],
+      },
+    },
+    axisStrength: { yongshin: 'definite', strength: 'definite', gyeokguk: 'candidate' },
+    deficientElements: [],
+    excessiveElements: [],
+    shinsalHits: [],
+  } as any);
+}
+
+const confidenceBoundaryStars = new Map([
+  [0, cardAtConfidencePoints(0).stars],
+  [1, cardAtConfidencePoints(1).stars],
+  [1.0001, cardAtConfidencePoints(1.0001).stars],
+  [100, cardAtConfidencePoints(100).stars],
+]);
+
 check('percentage yongshin confidence is normalized before scoring',
   card.stars === 2,
   `stars=${card.stars}`);
@@ -165,7 +201,7 @@ check('highlights avoid definite yongshin wording',
 check('evidence still carries the selected yongshin candidate',
   card.evidence?.some((row) =>
     row.axis === 'yongshin' &&
-    row.supportingFeatures.some((feature) => feature.includes('METAL')) &&
+    row.supportingFeatures.some((feature) => feature.includes('\uC1E0')) &&
     row.strength === 'deferred') === true,
   JSON.stringify(card.evidence?.find((row) => row.axis === 'yongshin')));
 check('Korean balanced strength level receives balanced scoring',
@@ -183,6 +219,18 @@ check('parenthetical Korean balanced tendency keeps display label',
 check('letter-grade shinsal remains neutral rather than zero-scored',
   letterGradeShinsalCard.stars === 5,
   `stars=${letterGradeShinsalCard.stars}`);
+check('0 confidence points stay at the zero-confidence star boundary',
+  confidenceBoundaryStars.get(0) === 4,
+  `stars=${confidenceBoundaryStars.get(0)}`);
+check('1 confidence point means 0.01 ratio rather than full confidence',
+  confidenceBoundaryStars.get(1) === 4,
+  `stars=${confidenceBoundaryStars.get(1)}`);
+check('1.0001 confidence points remain continuous with 1 point',
+  confidenceBoundaryStars.get(1.0001) === 4,
+  `stars=${confidenceBoundaryStars.get(1.0001)}`);
+check('100 confidence points map to the full-confidence star boundary',
+  confidenceBoundaryStars.get(100) === 5,
+  `stars=${confidenceBoundaryStars.get(100)}`);
 
 console.log(`\nLife fortune yongshin confidence: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);

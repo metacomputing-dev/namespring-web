@@ -34,8 +34,9 @@ const originalFetch = globalThis.fetch;
   return originalFetch(url as any, options);
 };
 
-import { buildSajuContext, analyzeSaju } from '../../src/saju-adapter.js';
+import { buildSajuContext, analyzeSaju, extractSaju } from '../../src/saju-adapter.js';
 import type { SajuSummary } from '../../src/types.js';
+import { createLegacySajuOutputFixture } from '../helpers/legacy-saju-output.js';
 
 let pass = 0;
 let fail = 0;
@@ -80,10 +81,27 @@ if (ctx.output) {
       typeof first.grade === 'string');
     check('shinsalHits[0] has weighted score number',
       typeof first.weightedScore === 'number' && Number.isFinite(first.weightedScore));
+    const tracedSummary: SajuSummary = {
+      ...summary,
+      shinsalHits: [{
+        ...summary.shinsalHits[0],
+        qualityReasons: ['HAE', 'HYEONG'],
+        conditionPenalty: 0.5,
+      }],
+    } as SajuSummary;
+    const tracedCtx = buildSajuContext(tracedSummary);
+    const traced = tracedCtx.output?.shinsalHits?.[0];
+    check('shinsal attenuation trace passes through output',
+      Array.isArray(traced?.qualityReasons) &&
+      traced.qualityReasons.join(',') === 'HAE,HYEONG' &&
+      traced.conditionPenalty === 0.5);
   } else {
     check('SajuOutputSummary.shinsalHits is undefined when source is empty',
       ctx.output.shinsalHits === undefined);
   }
+  check('unsupported shinsalComposites is not surfaced',
+    !Object.prototype.hasOwnProperty.call(summary as any, 'shinsalComposites') &&
+      !Object.prototype.hasOwnProperty.call(ctx.output as any, 'shinsalComposites'));
 
   // — gongmang surface —
   if (summary.gongmang) {
@@ -116,6 +134,62 @@ const emptySummary: SajuSummary = {
 const emptyCtx = buildSajuContext(emptySummary);
 check('empty shinsalHits → output undefined', emptyCtx.output?.shinsalHits === undefined);
 check('null gongmang → output undefined', emptyCtx.output?.gongmang === undefined);
+
+const validWeighted = {
+  hit: {
+    type: 'TEST_SAL',
+    position: 'DAY',
+    grade: 'C',
+    basedOn: 'DAY_BRANCH',
+    seatPillars: ['day'],
+  },
+  baseWeight: 0,
+  positionMultiplier: 1,
+  weightedScore: 0,
+  count: 1,
+};
+const rawFixture = await createLegacySajuOutputFixture();
+const shinsalFrom = (row: unknown) => extractSaju({
+  ...rawFixture,
+  weightedShinsalHits: [row],
+}).shinsalHits;
+check('valid zero-weight shinsal remains an explicit finite zero',
+  shinsalFrom(validWeighted)[0]?.weightedScore === 0);
+check('rounding boundary accepts producer-valid B at rounded weight 85',
+  shinsalFrom({
+    ...validWeighted,
+    hit: { ...validWeighted.hit, grade: 'B' },
+    baseWeight: 85,
+    weightedScore: 85,
+  }).length === 1);
+check('rounding boundary accepts producer-valid C at rounded weight 50',
+  shinsalFrom({
+    ...validWeighted,
+    hit: { ...validWeighted.hit, grade: 'C' },
+    baseWeight: 50,
+    weightedScore: 50,
+  }).length === 1);
+for (const [label, row] of [
+  ['numeric string', { ...validWeighted, baseWeight: '0' }],
+  ['boolean multiplier', { ...validWeighted, positionMultiplier: true }],
+  ['infinity', { ...validWeighted, weightedScore: Number.POSITIVE_INFINITY }],
+  ['score mismatch', { ...validWeighted, baseWeight: 50, weightedScore: 49 }],
+  ['invalid count', { ...validWeighted, count: 0 }],
+  ['out-of-range penalty', { ...validWeighted, hit: { ...validWeighted.hit, conditionPenalty: 1.1 } }],
+  ['penalty-score contradiction', {
+    ...validWeighted,
+    hit: { ...validWeighted.hit, grade: 'A', qualityReasons: ['HYEONG'], conditionPenalty: 0.5 },
+    baseWeight: 100,
+    weightedScore: 100,
+  }],
+] as const) {
+  check(`malformed weighted shinsal fails closed: ${label}`, shinsalFrom(row).length === 0);
+}
+const objectReason = shinsalFrom({
+  ...validWeighted,
+  hit: { ...validWeighted.hit, qualityReasons: [{ fabricated: true }, 'HYEONG'], conditionPenalty: 0.5 },
+});
+check('non-string shinsal reasons reject the entire evidence row', objectReason.length === 0);
 
 console.log(`\nadapter-shinsal-gongmang: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);

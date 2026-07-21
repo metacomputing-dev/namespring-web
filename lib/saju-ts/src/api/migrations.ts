@@ -17,21 +17,38 @@ export interface ConfigMigration {
   migrate: (config: any) => any;
 }
 
+export class UnsupportedConfigSchemaVersionError extends Error {
+  readonly code = 'SAJU_CONFIG_SCHEMA_VERSION_UNSUPPORTED';
+  readonly schemaVersion: string;
+
+  constructor(schemaVersion: string) {
+    super(`Unsupported config schemaVersion: ${schemaVersion}`);
+    this.name = 'UnsupportedConfigSchemaVersionError';
+    this.schemaVersion = schemaVersion;
+  }
+}
+
 function isPlainObject(x: any): x is Record<string, unknown> {
   return !!x && typeof x === 'object' && !Array.isArray(x);
 }
 
-function normalizeSchemaVersion(v: any): string {
+function formatInvalidSchemaVersion(v: unknown): string {
+  if (v === null) return 'null';
+  if (Array.isArray(v)) return '[array]';
+  if (typeof v === 'object') return '[object]';
+  if (typeof v === 'undefined') return 'undefined';
+  return String(v);
+}
+
+function normalizeExplicitSchemaVersion(v: unknown): string {
   if (typeof v === 'string') {
     const t = v.trim();
-    return t ? t : '0';
+    if (t) return t;
   }
-  if (typeof v === 'number' && Number.isFinite(v)) {
-    const n = Math.floor(v);
-    return String(n);
+  if (typeof v === 'number' && Number.isFinite(v) && Number.isInteger(v)) {
+    return String(v);
   }
-  // Legacy configs may not have schemaVersion at all.
-  return '0';
+  throw new UnsupportedConfigSchemaVersionError(formatInvalidSchemaVersion(v));
 }
 
 /**
@@ -43,43 +60,33 @@ function normalizeSchemaVersion(v: any): string {
  * - `strategies.lifeStage` (singular) used instead of `strategies.lifeStages`
  *
  * NOTE: defaults are still applied later by normalizeConfig() via deepMerge(defaultConfig, migrated).
- * This migration focuses on structural renames and invalid-shape cleanup.
+ * This migration performs structural renames only. Explicit invalid shapes are
+ * preserved so the post-migration runtime validator can reject them instead of
+ * silently replacing them with defaults.
  */
 function migrate0to1(input: any): any {
   const cur: any = isPlainObject(input) ? { ...input } : {};
 
-  // calendar shape sanity.
-  if (!isPlainObject(cur.calendar)) cur.calendar = {};
-  else cur.calendar = { ...cur.calendar };
-
-  if (cur.calendar.solarTerms != null && !isPlainObject(cur.calendar.solarTerms)) {
-    delete cur.calendar.solarTerms;
-  }
-  if (cur.calendar.trueSolarTime != null && !isPlainObject(cur.calendar.trueSolarTime)) {
-    delete cur.calendar.trueSolarTime;
-  }
+  if (cur.calendar === undefined) cur.calendar = {};
+  else if (isPlainObject(cur.calendar)) cur.calendar = { ...cur.calendar };
 
   // toggles: rename lifeStage -> lifeStages.
-  if (!isPlainObject(cur.toggles)) cur.toggles = {};
-  else cur.toggles = { ...cur.toggles };
-
-  if (cur.toggles.lifeStages == null && cur.toggles.lifeStage != null) {
-    cur.toggles.lifeStages = cur.toggles.lifeStage;
+  if (cur.toggles === undefined) cur.toggles = {};
+  else if (isPlainObject(cur.toggles)) {
+    cur.toggles = { ...cur.toggles };
+    if (cur.toggles.lifeStages == null && cur.toggles.lifeStage != null) {
+      cur.toggles.lifeStages = cur.toggles.lifeStage;
+    }
+    if ('lifeStage' in cur.toggles) delete cur.toggles.lifeStage;
   }
-  if ('lifeStage' in cur.toggles) delete cur.toggles.lifeStage;
 
   // strategies: rename lifeStage -> lifeStages.
-  if (cur.strategies != null) {
-    if (!isPlainObject(cur.strategies)) {
-      // Bad shape: drop and let defaults handle.
-      delete cur.strategies;
-    } else {
-      cur.strategies = { ...cur.strategies };
-      if (cur.strategies.lifeStages == null && cur.strategies.lifeStage != null) {
-        cur.strategies.lifeStages = cur.strategies.lifeStage;
-      }
-      if ('lifeStage' in cur.strategies) delete cur.strategies.lifeStage;
+  if (isPlainObject(cur.strategies)) {
+    cur.strategies = { ...cur.strategies };
+    if (cur.strategies.lifeStages == null && cur.strategies.lifeStage != null) {
+      cur.strategies.lifeStages = cur.strategies.lifeStage;
     }
+    if ('lifeStage' in cur.strategies) delete cur.strategies.lifeStage;
   }
 
   return cur;
@@ -97,25 +104,28 @@ const MIGRATIONS: ConfigMigration[] = [
 /**
  * Apply sequential migrations until CURRENT_CONFIG_SCHEMA_VERSION.
  *
- * The engine is intentionally tolerant:
- * - Missing/invalid schemaVersion is treated as legacy '0'.
- * - Unknown older versions are "best-effort" stamped to current (without throwing).
+ * Missing schemaVersion is treated as legacy v0. Explicit unknown versions
+ * fail closed because stamping an unrecognized contract as current would make
+ * an unperformed migration indistinguishable from a valid one.
  */
 export function migrateConfig(input: unknown): EngineConfig {
-  const startV = normalizeSchemaVersion((input as any)?.schemaVersion);
-  let cur: any = isPlainObject(input)
-    ? { ...(input as any), schemaVersion: startV }
-    : { schemaVersion: startV };
+  const source = isPlainObject(input) ? input : {};
+  const hasExplicitSchemaVersion = Object.prototype.hasOwnProperty.call(
+    source,
+    'schemaVersion',
+  );
+  const startV = hasExplicitSchemaVersion
+    ? normalizeExplicitSchemaVersion(source.schemaVersion)
+    : '0';
+  let cur: any = { ...source, schemaVersion: startV };
 
   // Apply linear migrations until CURRENT_CONFIG_SCHEMA_VERSION.
   while (true) {
-    const v = normalizeSchemaVersion(cur.schemaVersion);
+    const v = normalizeExplicitSchemaVersion(cur.schemaVersion);
     if (v === CURRENT_CONFIG_SCHEMA_VERSION) break;
     const m = MIGRATIONS.find((x) => x.from === v);
     if (!m) {
-      // Unknown/unsupported older version: keep as-is but stamp current.
-      cur.schemaVersion = CURRENT_CONFIG_SCHEMA_VERSION;
-      break;
+      throw new UnsupportedConfigSchemaVersionError(v);
     }
     cur = m.migrate(cur);
     cur.schemaVersion = m.to;

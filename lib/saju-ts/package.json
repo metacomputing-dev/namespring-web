@@ -13,26 +13,26 @@
   },
   "files": [
     "dist",
-    "docs",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "clean": "node tools/clean-dist.mjs",
+    "prebuild": "npm run clean",
+    "build": "tsc -p tsconfig.build.json && node tools/copy-build-assets.mjs && node tools/verify-dist-package.mjs",
+    "prepack": "npm run build",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run --passWithNoTests",
-    "audit": "npm run build --silent && node tools/audit.mjs",
-    "audit:log": "npm run build --silent && node tools/audit.mjs > docs/_audit/_testlog_audit.txt",
-    "checklist:generate": "node tools/checklist.mjs generate",
-    "checklist:verify": "node tools/checklist.mjs verify",
     "test:ci": "vitest run --passWithNoTests --reporter=dot",
-    "golden:generate": "npm run build --silent && node tools/golden.mjs generate",
-    "golden:verify": "npm run build --silent && node tools/golden.mjs verify",
-    "golden:record": "npm run golden:generate",
-    "golden:log": "npm run golden:verify > docs/_audit/_testlog_golden.txt",
+    "test:package-contract": "node --test tools/package-contract.test.mjs",
+    "test:release-tools": "node --test tools/validate_school_sources.test.mjs && npm run test:package-contract",
     "validate:kasi": "npm run build --silent && node tools/validate_kasi_2027.mjs",
     "validate:xref": "npm run build --silent && node tools/validate_saju_master_xref.mjs",
-    "validate:all": "npm run validate:kasi && npm run validate:xref"
+    "validate:school-sources": "node tools/validate_school_sources.mjs",
+    "validate:all": "npm run validate:kasi && npm run validate:xref",
+    "verify": "npm run typecheck && npm run test:ci && npm run validate:all",
+    "verify:release": "npm run verify && npm run test:release-tools && npm run validate:school-sources",
+    "audit": "npm run verify"
   },
   "dependencies": {
     "fflate": "^0.8.2"
@@ -42,6 +42,6 @@
     "vitest": "^4.0.18"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=20.10.0"
   }
 }

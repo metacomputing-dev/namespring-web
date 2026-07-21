@@ -51,8 +51,12 @@ const MAX_STROKE_SUM: number = scoringRules.maxStrokeSum;
 // ---------------------------------------------------------------------------
 
 export class FourFrameOptimizer {
-  private readonly cache = new Map<string, Set<string>>();
-  constructor(private readonly validNumbers: Set<number>) {}
+  private readonly cache = new Map<string, ReadonlySet<string>>();
+  private readonly validNumbers: ReadonlySet<number>;
+
+  constructor(validNumbers: ReadonlySet<number>) {
+    this.validNumbers = new Set(validNumbers);
+  }
 
   /**
    * Return every given-name stroke combination that produces four valid
@@ -63,14 +67,18 @@ export class FourFrameOptimizer {
    * @returns a Set of comma-separated stroke strings, e.g. {"8,12", "9,7", ...}
    */
   getValidCombinations(surnameStrokeCounts: number[], nameLength: number): Set<string> {
+    if (
+      !Number.isSafeInteger(nameLength) ||
+      nameLength < 1 ||
+      nameLength > 4
+    ) {
+      throw new Error(`unsupported name length: ${nameLength}`);
+    }
+
     // -- Check cache first --------------------------------------------------
     const cacheKey = `${surnameStrokeCounts.join(',')}|${nameLength}`;
     const cached = this.cache.get(cacheKey);
-    if (cached) return cached;
-
-    if (nameLength < 1 || nameLength > 4) {
-      throw new Error(`unsupported name length: ${nameLength}`);
-    }
+    if (cached) return new Set(cached);
 
     // -- Prepare constants used throughout the search -----------------------
     const surnameStrokeTotal = sum(surnameStrokeCounts);
@@ -128,7 +136,7 @@ export class FourFrameOptimizer {
     searchAllCombinations(0);
 
     this.cache.set(cacheKey, validCombinations);
-    return validCombinations;
+    return new Set(validCombinations);
   }
 }
 

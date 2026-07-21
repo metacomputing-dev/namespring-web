@@ -1,4 +1,5 @@
 import type { BranchIdx, Element, PillarIdx, StemIdx } from '../core/cycle.js';
+import type { ElementDistributionPositionWeights } from '../core/elementDistribution.js';
 import type { ElementVector } from '../core/elementVector.js';
 import type { HiddenStemRole, HiddenStemWeightPolicy } from '../core/hiddenStems.js';
 import type { LifeStage } from '../core/lifeStage.js';
@@ -37,6 +38,9 @@ export interface EngineWeights {
   elementDistribution?: {
     heavenStemWeight?: number;
     branchTotalWeight?: number;
+    positionWeights?: ElementDistributionPositionWeights;
+    heavenPositionWeights?: ElementDistributionPositionWeights;
+    branchPositionWeights?: ElementDistributionPositionWeights;
   };
   [k: string]: unknown;
 }
@@ -47,6 +51,15 @@ export interface SchoolConfig {
   /** Optional variant string for the profile (implementation-defined). */
   variant?: string;
 }
+
+/**
+ * Selects the reference meridian used for longitude (local-mean-time)
+ * correction. The request longitude always remains the physical longitude.
+ */
+export type LongitudeCorrectionPolicy =
+  | { mode: 'off' }
+  | { mode: 'civilOffsetMeridian' }
+  | { mode: 'fixedMeridian'; meridianDeg: number };
 
 export interface EngineConfig {
   schemaVersion: string;
@@ -63,6 +76,12 @@ export interface EngineConfig {
     yearBoundary: 'liChun' | 'lunarNewYear' | 'jan1';
     monthBoundary: 'jieqi' | 'gregorianMonth';
     dayBoundary: 'midnight' | 'ziSplit23';
+    /**
+     * Optional day-boundary used only for deriving the hour-pillar stem.
+     * Omitted, or equal to dayBoundary, reuses pillars.day. A different value
+     * is an explicit split policy such as JOJA_SPLIT.
+     */
+    hourStemDayBoundary?: 'midnight' | 'ziSplit23';
     hourBoundary: 'doubleHour';
     /**
      * 일/시 경계 분류용 로컬 시각 이동(분). UTC 인스턴트는 불변 —
@@ -118,6 +137,20 @@ export interface EngineConfig {
 
     trueSolarTime: {
       enabled: boolean;
+
+      /**
+       * Longitude-correction reference policy.
+       *
+       * - 'off': no longitude correction (EoT may still be applied)
+       * - 'civilOffsetMeridian': derive the meridian from the instant's UTC offset
+       * - 'fixedMeridian': use an explicitly configured school/reference meridian
+       */
+      /**
+       * Additive since schema v1. Omission preserves source compatibility for
+       * callers that materialize the full EngineConfig shape; normalization
+       * fills the authoritative civil-offset default before calculation.
+       */
+      longitudeCorrectionPolicy?: LongitudeCorrectionPolicy;
       /**
        * Equation-of-Time model.
        *
@@ -441,18 +474,26 @@ export interface FortuneSummaryView {
   relations?: FortuneRelationsSummaryView;
 }
 
+export interface StrengthComponentsView {
+  companions: number;
+  resources: number;
+  outputs: number;
+  wealth: number;
+  officers: number;
+}
+
 export interface StrengthView {
   index: number;
   support: number;
   pressure: number;
   total: number;
-  components: {
-    companions: number;
-    resources: number;
-    outputs: number;
-    wealth: number;
-    officers: number;
-  };
+  /** Unadjusted strength ledger under the selected strength policy. */
+  components: StrengthComponentsView;
+  /**
+   * Contributions reconciled to the final support/pressure totals.
+   * Downstream judgement reproduction must prefer this view when present.
+   */
+  effectiveComponents?: StrengthComponentsView;
 }
 
 export interface YongshinView {
@@ -461,10 +502,29 @@ export interface YongshinView {
   strengthIndex: number;
   consensus?: YongshinConsensusView;
   /**
-   * [감사 A2·B6] best 오행에 가장 크게 기여한 방법군 (base 항 기준).
+   * [감사 A2/B6] best 오행에 가장 크게 기여한 방법군(base 점수 기준).
    * 'EOKBU' | 'JOHU' | 'BYEONGYAK' | 'TONGGWAN' | 'JONGHWA'.
    */
   primaryMethod?: string;
+  /** Additive explanation payload for why each yongshin method contributed. */
+  methodBreakdown?: YongshinMethodBreakdownView;
+}
+
+export interface YongshinMethodBreakdownView {
+  balance: {
+    deficiency: Record<string, number>;
+    role: Record<string, { role: string; preference: number }>;
+  };
+  climate?: Record<string, unknown>;
+  medicine?: Record<string, unknown>;
+  tongguan?: Record<string, unknown>;
+  follow?: Record<string, unknown>;
+  johooTemplate?: Record<string, unknown>;
+  transformations?: Record<string, unknown>;
+  oneElement?: Record<string, unknown>;
+  methodSelector?: Record<string, unknown>;
+  effectiveWeights: Record<string, number>;
+  climateUrgency?: Record<string, unknown>;
 }
 
 export type YongshinConsensusConflictLevelView = 'none' | 'low' | 'medium' | 'high';
@@ -486,7 +546,12 @@ export interface YongshinConsensusView {
   final: {
     element: string;
     confidence: number;
+    /** Raw producer-score gap retained for response compatibility. */
     topMargin: number;
+    /** Scale- and translation-invariant top-two gap in the closed interval 0..1. */
+    normalizedTopMargin: number;
+    /** Share of active method axes that disagree with the selected element. */
+    methodDisagreementRatio: number;
     conflictLevel: YongshinConsensusConflictLevelView;
     competingElements: string[];
     evidence: string[];
@@ -496,7 +561,19 @@ export interface YongshinConsensusView {
 export interface GyeokgukView {
   best: string | null;
   ranking: Array<{ key: string; score: number }>;
+  scores?: Record<string, number>;
+  basis?: GyeokgukBasisView;
   jonggyeokCandidates?: JonggyeokCandidateView[];
+}
+
+export interface GyeokgukBasisView {
+  monthMainTenGod: string;
+  monthGyeokTenGod: string;
+  monthGyeokMethod: string;
+  monthGyeokSelectionRule: string;
+  monthGyeokQuality?: Record<string, unknown>;
+  competition?: Record<string, unknown>;
+  seongpaeScoreAdjustment?: Record<string, unknown>;
 }
 
 export interface JonggyeokCandidateView {

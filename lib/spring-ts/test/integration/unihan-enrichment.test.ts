@@ -105,6 +105,19 @@ check('水 exposes radicalElementHint as a hint',
     water?.authorityTruthEligible === false,
   JSON.stringify(water));
 
+const originalWaterElement = water?.element;
+let hintMutationRejected = false;
+try {
+  (water as any).element = 'Fire';
+} catch {
+  hintMutationRejected = true;
+}
+check('radicalElementHint rejects mutation without polluting later lookups',
+  hintMutationRejected &&
+    !!water &&
+    Object.isFrozen(water) &&
+    getRadicalElementHint('\u6C34')?.element === originalWaterElement);
+
 const metal = getRadicalElementHint('金');
 check('金 exposes Metal radical hint',
   metal?.element === 'Metal' && metal?.radicalNumber === 167,
@@ -124,6 +137,39 @@ const gaCompact = getUnihanMetadata('\u4F73');
 check('Unihan entries without variants stay compact',
   !!gaCompact && !('variants' in gaCompact),
   JSON.stringify(gaCompact));
+
+check('Unihan metadata is deeply frozen before publication',
+  !!gaCompact &&
+    Object.isFrozen(gaCompact) &&
+    Object.isFrozen(gaCompact.kRSUnicode) &&
+    !!countryOrthodox?.variants &&
+    Object.isFrozen(countryOrthodox.variants) &&
+    !!countryOrthodox.variants.simplified &&
+    Object.isFrozen(countryOrthodox.variants.simplified));
+
+const originalGaStrokes = gaCompact?.totalStrokes;
+let rootMutationRejected = false;
+try {
+  (gaCompact as any).totalStrokes = 999;
+} catch {
+  rootMutationRejected = true;
+}
+check('Unihan root mutation is rejected without polluting later lookups',
+  rootMutationRejected &&
+    getUnihanMetadata('\u4F73')?.totalStrokes === originalGaStrokes &&
+    getEnrichedStrokeCount('\u4F73', 0) === originalGaStrokes);
+
+const originalSimplifiedLinks = [...(countryOrthodox?.variants?.simplified ?? [])];
+let nestedMutationRejected = false;
+try {
+  (countryOrthodox?.variants?.simplified as string[]).push('U+0000');
+} catch {
+  nestedMutationRejected = true;
+}
+check('Unihan nested mutation is rejected without polluting later lookups',
+  nestedMutationRejected &&
+    JSON.stringify(getUnihanMetadata('\u570B')?.variants?.simplified) ===
+      JSON.stringify(originalSimplifiedLinks));
 
 check('enriched stroke count fills local zero strokes',
   getEnrichedStrokeCount('一', 0) === 1);
@@ -161,6 +207,17 @@ check('CharDetail surfaces radicalElementHint',
   waterDetail?.radicalElementHint?.element === 'Water' &&
     waterDetail?.unihan?.totalStrokes === 4,
   JSON.stringify(waterDetail?.radicalElementHint));
+const reportStrokeCount = waterDetail?.unihan?.totalStrokes;
+let reportMutationRejected = false;
+try {
+  waterDetail.unihan.totalStrokes = 999;
+} catch {
+  reportMutationRejected = true;
+}
+check('published CharDetail cannot mutate the shared Unihan registry',
+  reportMutationRejected &&
+    waterDetail?.unihan?.totalStrokes === reportStrokeCount &&
+    getUnihanMetadata(waterDetail?.unihan?.hanja)?.totalStrokes === reportStrokeCount);
 reportEngine.close();
 
 console.log(`\nUnihan enrichment: ${pass} PASS / ${fail} FAIL`);

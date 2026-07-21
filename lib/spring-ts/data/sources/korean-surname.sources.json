@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "spring-ts.korean-surname-sources.v1",
+  "accessedAt": "2026-07-16",
+  "sourceTier": {
+    "tier": "T3_AUTHORED_INTERPRETATION",
+    "sourceType": "internal_source_registry_policy",
+    "sourceUrl": null,
+    "accessedAt": "2026-07-16",
+    "quoteShort": null,
+    "humanInterpretation": "This registry separates the repository-derived single-surname snapshot from the official KOSIS compound-surname minimum allowlist.",
+    "copyrightNote": "Internal provenance registry; no external prose copied.",
+    "authorityTruthEligible": false
+  },
+  "sourceTierScope": "Top-level metadata describes the registry policy only. Each sources[] row carries its own independent authority tier and scope.",
+  "sources": [
+    {
+      "id": "namespring_hanja_db_surname_rows_2026_07_16",
+      "label": "NameSpring canonical surname-eligible Hanja rows",
+      "sourceTier": {
+        "tier": "T2_REFERENCE_IMPLEMENTATION",
+        "sourceType": "repository_database_snapshot",
+        "sourceUrl": null,
+        "accessedAt": "2026-07-16",
+        "quoteShort": null,
+        "humanInterpretation": "The committed canonical Hanja database contains 314 surname-eligible rows across 181 Hangul readings.",
+        "copyrightNote": "Repository-owned derived database facts only.",
+        "authorityTruthEligible": false
+      },
+      "artifact": {
+        "path": "namespring/public/data/hanja.db",
+        "sha256": "sha256:0f78eefc23e727937714b30215464783bf93882e5636d131c7113cfc1049e449",
+        "rowCount": 314,
+        "readingCount": 181
+      }
+    },
+    {
+      "id": "kosis_2015_dt_1in15sc_compound_surnames",
+      "label": "2015 Census population by sex, surname and family origin",
+      "sourceTier": {
+        "tier": "T5_OFFICIAL",
+        "sourceType": "official_kosis_statistics",
+        "sourceUrl": "https://kosis.kr/statisticsList/mass/mass_list.jsp?list_id=&org_id=101&process=statHtml&tbl_id=DT_1IN15SC&vw_cd=",
+        "accessedAt": "2026-07-16",
+        "quoteShort": null,
+        "humanInterpretation": "The 2015 KOSIS table is used only as an observed minimum allowlist for the six two-syllable, two-Hanja surnames present in the extracted national rows.",
+        "copyrightNote": "Official statistical identifiers, aggregate counts and checksum metadata only.",
+        "authorityTruthEligible": true
+      },
+      "artifact": {
+        "tableId": "DT_1IN15SC",
+        "year": 2015,
+        "fileId": "101_DT_1IN15SC_F_2015",
+        "fileNo": "5838",
+        "zipSha256": "sha256:f2feb50a8febc09b4d193eeacfec5e7773392b0adc357e318a64095fc5a3dd7b",
+        "csvEntry": "101_DT_1IN15SC_F_2015.csv",
+        "csvEntrySha256": "sha256:c61eb0d030e632184431027ba84d5f8800f9f8ad225c8d45202505073023dcaa",
+        "evidence": {
+          "path": "data/evidence/kosis-2015-compound-surnames.json",
+          "sha256": "sha256:22cb2c2ab65762a2074355830a5b05756d2f9c966aa4521bfc05c8a1f6ea1f97"
+        }
+      }
+    }
+  ]
+}

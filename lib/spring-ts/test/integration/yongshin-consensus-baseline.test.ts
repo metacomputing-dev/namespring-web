@@ -80,10 +80,52 @@ function finalIsNormalized(consensus: YongshinConsensusScoreboard): boolean {
     typeof consensus.final.element === 'string' &&
     isUnit(consensus.final.confidence) &&
     Number.isFinite(consensus.final.topMargin) &&
+    isUnit(consensus.final.normalizedTopMargin) &&
+    isUnit(consensus.final.methodDisagreementRatio) &&
+    consensus.final.confidence === consensus.final.normalizedTopMargin &&
     CONFLICT_LEVELS.includes(consensus.final.conflictLevel) &&
     Array.isArray(consensus.final.competingElements) &&
     Array.isArray(consensus.final.evidence)
   );
+}
+
+function expectedMethodConflict(consensus: YongshinConsensusScoreboard): {
+  readonly ratio: number;
+  readonly level: YongshinConsensusConflictLevel;
+  readonly competingElements: readonly string[];
+} {
+  const activeAxes = AXES
+    .map((axisName) => consensus[axisName])
+    .filter((axis) => axis.element !== null);
+  const disagreeAxes = activeAxes
+    .filter((axis) => axis.element !== consensus.final.element);
+  const ratio = activeAxes.length > 0
+    ? Math.round((disagreeAxes.length / activeAxes.length) * 1_000_000) / 1_000_000
+    : 0;
+  const level: YongshinConsensusConflictLevel =
+    disagreeAxes.length === 0 ? 'none' :
+      ratio >= 0.6 ? 'high' :
+        ratio >= 0.38 ? 'medium' :
+          'low';
+
+  return {
+    ratio,
+    level,
+    competingElements: Array.from(new Set(
+      disagreeAxes
+        .map((axis) => axis.element)
+        .filter((element): element is string => element !== null),
+    )),
+  };
+}
+
+function methodBreakdownIsNormalized(value: any): boolean {
+  return !!value &&
+    typeof value === 'object' &&
+    !!value.balance &&
+    typeof value.balance.deficiency === 'object' &&
+    typeof value.balance.role === 'object' &&
+    typeof value.effectiveWeights === 'object';
 }
 
 const fixtures = readJson<{ fixtures: readonly BaselineFixture[] }>(FIXTURE_PATH).fixtures;
@@ -114,6 +156,11 @@ for (const fixture of fixtures) {
     summary.yongshin.consensus?.final.element === consensus?.final.element &&
       summary.yongshin.consensus?.final.conflictLevel === consensus?.final.conflictLevel);
 
+  const methodBreakdown = (summary.yongshin as any).methodBreakdown;
+  check(`${fixture.id}: method breakdown exists on yongshin summary`,
+    methodBreakdownIsNormalized(methodBreakdown),
+    methodBreakdown ? `keys=${Object.keys(methodBreakdown).join(',')}` : 'missing');
+
   if (!consensus) continue;
 
   for (const axisName of AXES) {
@@ -123,6 +170,15 @@ for (const fixture of fixtures) {
   check(`${fixture.id}: final consensus normalized`,
     finalIsNormalized(consensus),
     `level=${consensus.final.conflictLevel}, selected=${consensus.final.element}`);
+
+  const expectedConflict = expectedMethodConflict(consensus);
+  check(`${fixture.id}: method conflict is derived only from active axis votes`,
+    consensus.final.methodDisagreementRatio === expectedConflict.ratio &&
+      consensus.final.conflictLevel === expectedConflict.level &&
+      JSON.stringify(consensus.final.competingElements) ===
+        JSON.stringify(expectedConflict.competingElements),
+    `actual=${consensus.final.methodDisagreementRatio}/${consensus.final.conflictLevel}, ` +
+      `expected=${expectedConflict.ratio}/${expectedConflict.level}`);
 
   if (consensus.final.conflictLevel !== 'none' || consensus.final.competingElements.length > 0) {
     disagreementFixtureCount += 1;
@@ -136,6 +192,8 @@ for (const fixture of fixtures) {
       context.output.yongshinConsensus === consensus);
     check(`${fixture.id}: SajuOutputSummary.yongshin surfaces consensus`,
       context.output.yongshin?.consensus === consensus);
+    check(`${fixture.id}: SajuOutputSummary.yongshin surfaces method breakdown`,
+      methodBreakdownIsNormalized((context.output.yongshin as any)?.methodBreakdown));
 
     const score = computeSajuNameScore(context.dist, ROOT_DIST, context.output);
     check(`${fixture.id}: scoring breakdown carries consensus conflict metadata`,

@@ -1,11 +1,14 @@
+import { SeedValidationError } from '../errors.js';
+import { deepFreeze } from '../utils/deep-freeze.js';
+
 /**
  * Class defining Yin (陰) and Yang (陽) polarity and their harmony.
  */
 export class Polarity {
-  public static readonly Negative = new Polarity('Negative', '음', '陰', '달', '어둠', '유연함');
-  public static readonly Positive = new Polarity('Positive', '양', '陽', '해', '밝음', '강인함');
+  public static readonly Negative = deepFreeze(new Polarity('Negative', '음', '陰', '달', '어둠', '유연함'));
+  public static readonly Positive = deepFreeze(new Polarity('Positive', '양', '陽', '해', '밝음', '강인함'));
 
-  public static readonly Relation = {
+  public static readonly Relation = deepFreeze({
     Harmony: { 
       id: 'Harmony', 
       name: '조화(調和)', 
@@ -16,7 +19,7 @@ export class Polarity {
       name: '편중(偏重)', 
       description: 'A state where energy is biased toward the same polarity, which may lead to a lack of flexibility or drive.' 
     }
-  } as const;
+  } as const);
 
   private constructor(
     public readonly english: string,
@@ -33,6 +36,14 @@ export class Polarity {
    * @param strokes The number of strokes to evaluate.
    */
   public static get(strokes: number): Polarity {
+    if (!Number.isFinite(strokes) || !Number.isInteger(strokes) || strokes <= 0) {
+      throw new SeedValidationError(
+        'INVALID_STROKE_COUNT',
+        'Stroke count must be a positive finite integer.',
+        'strokes',
+        strokes,
+      );
+    }
     return strokes % 2 === 1 ? Polarity.Positive : Polarity.Negative;
   }
 

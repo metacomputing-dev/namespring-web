@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { analyzeSaju, buildSajuContext } from '../src/saju-adapter.js';
+import { pointsToRatio } from '../src/saju/confidence-units.js';
 import type { BirthInfo } from '../src/types.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -141,6 +142,12 @@ function compactConsensus(consensus: any): Record<string, unknown> | null {
       element: consensus.final.element ?? null,
       confidence: round(consensus.final.confidence),
       topMargin: round(consensus.final.topMargin),
+      ...(consensus.final.normalizedTopMargin !== undefined
+        ? { normalizedTopMargin: round(consensus.final.normalizedTopMargin) }
+        : {}),
+      ...(consensus.final.methodDisagreementRatio !== undefined
+        ? { methodDisagreementRatio: round(consensus.final.methodDisagreementRatio) }
+        : {}),
       conflictLevel: consensus.final.conflictLevel ?? null,
       competingElements: consensus.final.competingElements ?? [],
     },
@@ -210,7 +217,11 @@ export async function buildDeepSajuFeatureReport(options: BuildOptions = {}) {
         selectedElement: output?.yongshin?.finalYongshin ?? summary.yongshin.element ?? null,
         heeshin: output?.yongshin?.finalHeesin ?? summary.yongshin.heeshin ?? null,
         gisin: output?.yongshin?.gisin ?? summary.yongshin.gishin ?? null,
-        confidence: round(output?.yongshin?.finalConfidence ?? summary.yongshin.confidence),
+        // Keep this report field ratio-based regardless of which boundary supplied it.
+        confidence: round(
+          output?.yongshin?.finalConfidence
+          ?? pointsToRatio(summary.yongshin.confidence),
+        ),
         judgment: summary.axisStrength?.yongshin ?? null,
         consensus: compactConsensus(summary.yongshinConsensus ?? summary.yongshin.consensus),
       },

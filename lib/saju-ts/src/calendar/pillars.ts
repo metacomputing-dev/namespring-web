@@ -7,10 +7,11 @@ import { gregorianToJdn } from './julian.js';
 import { computeLunarNewYearBoundary } from './lunarNewYear.js';
 import type { JieBoundariesAround, JieTermId, SolarTermInstant, SolarTermMethod } from './solarTerms.js';
 import { jieTermMonthOrder } from './solarTerms.js';
+import { utcMsFromParts } from './utc.js';
 
 export function addDays(date: LocalDate, days: number): LocalDate {
   // Simple (not timezone) Gregorian day increment using JS Date in UTC.
-  const dt = Date.UTC(date.y, date.m - 1, date.d + days);
+  const dt = utcMsFromParts(date.y, date.m - 1, date.d + days);
   const d2 = new Date(dt);
   return { y: d2.getUTCFullYear(), m: d2.getUTCMonth() + 1, d: d2.getUTCDate() };
 }
@@ -107,7 +108,7 @@ export function calcYearPillar(ldt: LocalDateTime, yearBoundary: EngineConfig['c
   }
 
   if (yearBoundary === 'lunarNewYear') {
-    const utcMs = Date.UTC(y, ldt.date.m - 1, ldt.date.d, ldt.time.h, ldt.time.min, 0) - ldt.offsetMinutes * 60_000;
+    const utcMs = utcMsFromParts(y, ldt.date.m - 1, ldt.date.d, ldt.time.h, ldt.time.min) - ldt.offsetMinutes * 60_000;
     const boundaryUtcMs = computeLunarNewYearBoundary(y, ldt.offsetMinutes, 'meeus').boundaryUtcMs;
     if (utcMs < boundaryUtcMs) y -= 1;
   }

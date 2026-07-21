@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "capturedAt": "2026-07-14T09:34:45.372Z",
+  "capturedAt": "2026-07-15T14:37:19.988Z",
   "targetDate": "2026-04-30T00:00:00.000Z",
   "fixtureCount": 17,
   "results": [
@@ -12,6 +12,15 @@
         "yin-water",
         "spring"
       ],
+      "qualityEvidence": {
+        "surfacedCardTypes": [
+          "daewoon",
+          "gyeokguk",
+          "johu",
+          "sipsin",
+          "yongshin"
+        ]
+      },
       "output": {
         "namingReport": {
           "totalScore": 62.6,
@@ -94,6 +103,15 @@
         "yang-wood",
         "autumn"
       ],
+      "qualityEvidence": {
+        "surfacedCardTypes": [
+          "daewoon",
+          "gyeokguk",
+          "johu",
+          "sipsin",
+          "yongshin"
+        ]
+      },
       "output": {
         "namingReport": {
           "totalScore": 57.6,
@@ -171,6 +189,15 @@
         "yang-earth",
         "winter"
       ],
+      "qualityEvidence": {
+        "surfacedCardTypes": [
+          "daewoon",
+          "gyeokguk",
+          "johu",
+          "sipsin",
+          "yongshin"
+        ]
+      },
       "output": {
         "namingReport": {
           "totalScore": 65,
@@ -246,12 +273,21 @@
     },
     {
       "id": "fix-04",
-      "label": "1965-08-08 19:00 female — 甲木 일간, 종왕 후보 (강한 木)",
+      "label": "1965-08-08 19:00 female — 甲木 일간, 申月 강약 방향 판정",
       "axis": [
-        "jonggwang-candidate",
+        "strength-direction",
         "yang-wood",
-        "summer"
+        "autumn"
       ],
+      "qualityEvidence": {
+        "surfacedCardTypes": [
+          "daewoon",
+          "gyeokguk",
+          "johu",
+          "sipsin",
+          "yongshin"
+        ]
+      },
       "output": {
         "namingReport": {
           "totalScore": 64.6,
@@ -333,6 +369,15 @@
         "yin-water",
         "winter"
       ],
+      "qualityEvidence": {
+        "surfacedCardTypes": [
+          "daewoon",
+          "gyeokguk",
+          "johu",
+          "sipsin",
+          "yongshin"
+        ]
+      },
       "output": {
         "namingReport": {
           "totalScore": 58.2,
@@ -414,6 +459,15 @@
         "yang-earth",
         "summer"
       ],
+      "qualityEvidence": {
+        "surfacedCardTypes": [
+          "daewoon",
+          "gyeokguk",
+          "johu",
+          "sipsin",
+          "yongshin"
+        ]
+      },
       "output": {
         "namingReport": {
           "totalScore": 63.2,
@@ -438,7 +492,7 @@
           "yongshinHeeshin": "WATER",
           "gyeokgukType": "정인격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.5111111111111111,
+          "gyeokgukConfidence": 0.49444444444444446,
           "deficientElements": [
             "WOOD",
             "METAL",
@@ -497,6 +551,15 @@
         "edge",
         "spring-onset"
       ],
+      "qualityEvidence": {
+        "surfacedCardTypes": [
+          "daewoon",
+          "gyeokguk",
+          "johu",
+          "sipsin",
+          "yongshin"
+        ]
+      },
       "output": {
         "namingReport": {
           "totalScore": 70.9,
@@ -521,7 +584,7 @@
           "yongshinHeeshin": "METAL",
           "gyeokgukType": "정인격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.565,
+          "gyeokgukConfidence": 0.5449999999999999,
           "deficientElements": [
             "WOOD"
           ],
@@ -578,6 +641,15 @@
         "yang-earth",
         "late-summer"
       ],
+      "qualityEvidence": {
+        "surfacedCardTypes": [
+          "daewoon",
+          "gyeokguk",
+          "johu",
+          "sipsin",
+          "yongshin"
+        ]
+      },
       "output": {
         "namingReport": {
           "totalScore": 58.5,
@@ -655,6 +727,15 @@
         "edge",
         "summer-onset"
       ],
+      "qualityEvidence": {
+        "surfacedCardTypes": [
+          "daewoon",
+          "gyeokguk",
+          "johu",
+          "sipsin",
+          "yongshin"
+        ]
+      },
       "output": {
         "namingReport": {
           "totalScore": 66.5,
@@ -737,6 +818,15 @@
         "winter-onset",
         "yang-earth"
       ],
+      "qualityEvidence": {
+        "surfacedCardTypes": [
+          "daewoon",
+          "gyeokguk",
+          "johu",
+          "sipsin",
+          "yongshin"
+        ]
+      },
       "output": {
         "namingReport": {
           "totalScore": 73.8,
@@ -819,6 +909,15 @@
         "edge",
         "yang-earth"
       ],
+      "qualityEvidence": {
+        "surfacedCardTypes": [
+          "daewoon",
+          "gyeokguk",
+          "johu",
+          "sipsin",
+          "yongshin"
+        ]
+      },
       "output": {
         "namingReport": {
           "totalScore": 56.6,
@@ -843,7 +942,7 @@
           "yongshinHeeshin": "METAL",
           "gyeokgukType": "식신격",
           "gyeokgukCategory": "일반",
-          "gyeokgukConfidence": 0.26717948717948714,
+          "gyeokgukConfidence": 0.25717948717948713,
           "deficientElements": [
             "METAL"
           ],
@@ -900,6 +999,15 @@
         "edge",
         "yin-earth"
       ],
+      "qualityEvidence": {
+        "surfacedCardTypes": [
+          "daewoon",
+          "gyeokguk",
+          "johu",
+          "sipsin",
+          "yongshin"
+        ]
+      },
       "output": {
         "namingReport": {
           "totalScore": 63.7,
@@ -981,6 +1089,15 @@
         "practical-tier",
         "summer"
       ],
+      "qualityEvidence": {
+        "surfacedCardTypes": [
+          "daewoon",
+          "gyeokguk",
+          "johu",
+          "sipsin",
+          "yongshin"
+        ]
+      },
       "output": {
         "namingReport": {
           "totalScore": 63.8,
@@ -1062,6 +1179,15 @@
         "candidate-tier",
         "autumn"
       ],
+      "qualityEvidence": {
+        "surfacedCardTypes": [
+          "daewoon",
+          "gyeokguk",
+          "johu",
+          "sipsin",
+          "yongshin"
+        ]
+      },
       "output": {
         "namingReport": {
           "totalScore": 70.7,
@@ -1145,6 +1271,15 @@
         "deferred-tier",
         "spring"
       ],
+      "qualityEvidence": {
+        "surfacedCardTypes": [
+          "daewoon",
+          "gyeokguk",
+          "johu",
+          "sipsin",
+          "yongshin"
+        ]
+      },
       "output": {
         "namingReport": {
           "totalScore": 66.2,
@@ -1227,6 +1362,15 @@
         "boundary-hour",
         "spring"
       ],
+      "qualityEvidence": {
+        "surfacedCardTypes": [
+          "daewoon",
+          "gyeokguk",
+          "johu",
+          "sipsin",
+          "yongshin"
+        ]
+      },
       "output": {
         "namingReport": {
           "totalScore": 62.6,
@@ -1306,6 +1450,15 @@
         "leap-month",
         "spring"
       ],
+      "qualityEvidence": {
+        "surfacedCardTypes": [
+          "daewoon",
+          "gyeokguk",
+          "johu",
+          "sipsin",
+          "yongshin"
+        ]
+      },
       "output": {
         "namingReport": {
           "totalScore": 66.2,

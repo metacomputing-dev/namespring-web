@@ -1,5 +1,5 @@
-import type { EnergyCalculator } from './calculator/energy-calculator';
-import type { HanjaEntry } from './database/hanja-repository';
+import type { EnergyCalculator } from './calculator/energy-calculator.js';
+import type { HanjaEntry } from './database/hanja-repository.js';
 
 /**
  * Represents the gender of the user.
@@ -14,6 +14,24 @@ export type PureHangulNameMode = 'auto' | 'on' | 'off';
  * Categorizes the types of analysis performed by the engine.
  */
 export type AnalysisType = 'FourFrame' | 'Hangul' | 'Hanja';
+
+/**
+ * External four-frame meanings are deliberately outside the synchronous,
+ * deterministic score contract. Async consumers may enrich a separate DTO,
+ * but SeedTs.analyze() never starts I/O or mutates its returned value later.
+ */
+export interface FourFrameEnrichmentState {
+  readonly status: 'embedded_versioned_snapshot';
+  readonly source: 'embedded_fourframe_catalog';
+  readonly includedInScore: false;
+  readonly mutableAfterReturn: false;
+  readonly schemaVersion: 'namespring.fourframe-meaning-catalog/v1';
+  readonly snapshotVersion: string;
+  readonly contentSha256: string;
+  readonly sourceDatabaseSha256: string;
+  readonly rowCount: 81;
+  readonly reason: string;
+}
 
 /**
  * A structured representation of birth date and time.
@@ -39,8 +57,8 @@ export interface SeedAnalysisOptions {
  * Now contains HanjaEntry arrays to hold rich metadata for each character.
  */
 export interface UserInfo {
-  readonly lastName: HanjaEntry[];
-  readonly firstName: HanjaEntry[];
+  readonly lastName: readonly HanjaEntry[];
+  readonly firstName: readonly HanjaEntry[];
   readonly birthDateTime: BirthDateTime;
   readonly gender: Gender;
   readonly options?: SeedAnalysisOptions;
@@ -56,8 +74,8 @@ export interface NamingResult {
    * The last name (surname) and first name represented as HanjaEntry arrays
    * to preserve stroke counts and elemental properties for each character.
    */
-  readonly lastName: HanjaEntry[];
-  readonly firstName: HanjaEntry[];
+  readonly lastName: readonly HanjaEntry[];
+  readonly firstName: readonly HanjaEntry[];
   /**
    * The aggregated score based on various naming theories.
    */
@@ -68,6 +86,7 @@ export interface NamingResult {
   readonly hanja: EnergyCalculator;
   readonly hangul: EnergyCalculator;
   readonly fourFrames: EnergyCalculator;
+  readonly fourFrameEnrichment: FourFrameEnrichmentState;
   readonly interpretation: string;
   readonly pureHangulMode?: boolean;
 }
@@ -79,7 +98,7 @@ export interface SeedResult {
   /**
    * A list of name candidates calculated by the engine.
    */
-  readonly candidates: NamingResult[];
+  readonly candidates: readonly NamingResult[];
   /**
    * Total number of results found.
    */

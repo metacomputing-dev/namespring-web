@@ -1,34 +1,26 @@
-import type { CreatePaymentRequest, CreatePaymentResponse } from "../../shared/types/payment.js";
-import { SUPPORT_AMOUNT, SUPPORT_ORDER_NAME } from "../../shared/types/payment.js";
-import { normalizeOptionalEmail } from "../_lib/email.js";
-import { assertPostMethod, handleApiError, readJsonBody, sendJson, type NodeStyleResponseLike } from "../_lib/http.js";
-import { generateOrderId } from "../_lib/order-id.js";
-import { createReadyPayment } from "../_lib/payments-repository.js";
+import {
+  ApiHttpError,
+  assertPostMethod,
+  handleApiError,
+  type NodeStyleResponseLike,
+} from "../_lib/http.js";
 
+/**
+ * The original support-payment flow predates authenticated account binding and
+ * cannot safely mint new orders. Existing paid orders remain refundable through
+ * the authenticated administrative reconciliation endpoint.
+ */
 export default async function handler(
-  req: Request | { method?: string; body?: unknown; [key: string]: unknown },
+  req: Request | { method?: string; [key: string]: unknown },
   res?: NodeStyleResponseLike,
 ) {
   try {
     assertPostMethod(req, res);
-
-    const body = await readJsonBody<CreatePaymentRequest>(req);
-    const email = normalizeOptionalEmail(body?.email);
-
-    const orderId = generateOrderId();
-    await createReadyPayment({
-      orderId,
-      email,
-    });
-
-    const response: CreatePaymentResponse = {
-      orderId,
-      orderName: SUPPORT_ORDER_NAME,
-      amount: SUPPORT_AMOUNT,
-      customerEmail: email,
-    };
-
-    return sendJson(res, 200, response);
+    throw new ApiHttpError(
+      410,
+      "LEGACY_PAYMENT_FLOW_RETIRED",
+      "This payment flow is retired. Start a new purchase through the authenticated premium API.",
+    );
   } catch (error) {
     return handleApiError(res, error);
   }

@@ -1,9 +1,16 @@
 import type { Rule, RuleSet, Expr } from '../dsl.js';
+import { finiteSignalFallbackExpr } from '../finiteSignal.js';
 import { ELEMENT_ORDER } from '../../core/elementVector.js';
 import { DEFAULT_GYEOKGUK_RULESET } from '../defaultRuleSets.js';
+import { deepClone } from '../../utils/deepMerge.js';
 import type { GyeokgukMacro, GyeokgukRuleSpec, GyeokgukRuleSpecMode } from './gyeokgukSpec.js';
 import type { TenGod } from '../../api/types.js';
 import { baseTenGodOfStructuralMonthFrame, type BigyeopSubtype } from '../gyeokgukMonthFrame.js';
+import {
+  assertValidKnownRuleSpec,
+  assertValidRuleSet,
+} from './ruleSpecValidation.js';
+import { finalizeGeneratedRuleSet } from './ruleSpecGeneratedData.js';
 
 function renderTemplate(template: string, vars: Record<string, string>): string {
   return template.replace(/\{([a-zA-Z0-9_]+)\}/g, (_m, k) => (k in vars ? String(vars[k]) : `{${k}}`));
@@ -155,14 +162,7 @@ function compileMacros(macros: GyeokgukMacro[]): Rule[] {
         const zwVar = 'patterns.elements.oneElement.zhuanwangFactor';
         const factorExpr: Expr =
           factorSel === 'zhuanwang'
-            ? {
-                op: 'if',
-                args: [
-                  { op: 'gt', args: [{ var: zwVar }, 0] },
-                  { var: zwVar },
-                  { var: rawVar },
-                ],
-              }
+            ? finiteSignalFallbackExpr(zwVar, { var: rawVar })
             : { var: rawVar };
         const elVar = 'patterns.elements.oneElement.element';
 
@@ -355,14 +355,7 @@ function compileMacros(macros: GyeokgukMacro[]): Rule[] {
           const zwVar = 'patterns.elements.oneElement.zhuanwangFactor';
           factorExpr =
             s === 'zhuanwang'
-              ? {
-                  op: 'if',
-                  args: [
-                    { op: 'gt', args: [{ var: zwVar }, 0] },
-                    { var: zwVar },
-                    { var: rawVar },
-                  ],
-                }
+              ? finiteSignalFallbackExpr(zwVar, { var: rawVar })
               : { var: rawVar };
         }
 
@@ -443,8 +436,16 @@ function applyMode(baseRules: Rule[], compiled: Rule[], mode: GyeokgukRuleSpecMo
 }
 
 export function compileGyeokgukRuleSpec(specInput: GyeokgukRuleSpec | GyeokgukRuleSpec[]): RuleSet {
+  assertValidKnownRuleSpec('gyeokguk', specInput, 'ruleSpecs.gyeokguk');
   const specs = Array.isArray(specInput) ? specInput : [specInput];
-  if (specs.length === 0) return DEFAULT_GYEOKGUK_RULESET;
+  if (specs.length === 0) {
+    const result = finalizeGeneratedRuleSet(
+      deepClone(DEFAULT_GYEOKGUK_RULESET),
+      'compiledRuleSets.gyeokguk',
+    );
+    assertValidRuleSet(result, 'compiledRuleSets.gyeokguk', 'gyeokguk');
+    return result;
+  }
 
   let rules: Rule[] = [];
   let meta: Pick<RuleSet, 'id' | 'version' | 'description'> = {
@@ -458,7 +459,7 @@ export function compileGyeokgukRuleSpec(specInput: GyeokgukRuleSpec | GyeokgukRu
     const compiled = compileMacros(s.macros ?? []);
     if (first) {
       const base = s.base ?? 'default';
-      const baseRules = base === 'default' ? DEFAULT_GYEOKGUK_RULESET.rules : [];
+      const baseRules = base === 'default' ? deepClone(DEFAULT_GYEOKGUK_RULESET.rules) : [];
       const mode = s.mode ?? 'append';
       rules = applyMode(baseRules, compiled, mode);
       meta = {
@@ -474,10 +475,15 @@ export function compileGyeokgukRuleSpec(specInput: GyeokgukRuleSpec | GyeokgukRu
     }
   }
 
-  return {
-    id: meta.id,
-    version: meta.version,
-    description: meta.description,
-    rules,
-  };
+  const result = finalizeGeneratedRuleSet(
+    deepClone({
+      id: meta.id,
+      version: meta.version,
+      description: meta.description,
+      rules,
+    }),
+    'compiledRuleSets.gyeokguk',
+  );
+  assertValidRuleSet(result, 'compiledRuleSets.gyeokguk', 'gyeokguk');
+  return result;
 }

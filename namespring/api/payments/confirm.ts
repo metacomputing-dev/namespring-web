@@ -1,108 +1,27 @@
-import type { ConfirmPaymentRequest, ConfirmPaymentResponse, PaymentStatus } from "../../shared/types/payment.js";
-import { SUPPORT_AMOUNT } from "../../shared/types/payment.js";
 import {
   ApiHttpError,
   assertPostMethod,
   handleApiError,
   type NodeStyleResponseLike,
-  readJsonBody,
-  requireNonEmptyString,
-  requirePositiveInteger,
-  sendJson,
 } from "../_lib/http.js";
-import { getPaymentRecord, updatePaymentRecord } from "../_lib/payments-repository.js";
-import { confirmTossPayment, TossApiError } from "../_lib/toss.js";
 
-function nowIso() {
-  return new Date().toISOString();
-}
-
+/**
+ * Fail closed: accepting an unauthenticated legacy confirmation would bypass
+ * the owner-bound premium payment saga. Historic orders are reconciled only by
+ * the authenticated administrative refund endpoint.
+ */
 export default async function handler(
-  req: Request | { method?: string; body?: unknown; [key: string]: unknown },
+  req: Request | { method?: string; [key: string]: unknown },
   res?: NodeStyleResponseLike,
 ) {
-  let orderIdForFailureTracking = "";
-
   try {
     assertPostMethod(req, res);
-
-    const body = await readJsonBody<ConfirmPaymentRequest>(req);
-    const paymentKey = requireNonEmptyString(body?.paymentKey, "paymentKey");
-    const orderId = requireNonEmptyString(body?.orderId, "orderId");
-    const amount = requirePositiveInteger(body?.amount, "amount");
-
-    orderIdForFailureTracking = orderId;
-
-    if (amount !== SUPPORT_AMOUNT) {
-      throw new ApiHttpError(400, "INVALID_AMOUNT", `Amount must be ${SUPPORT_AMOUNT}.`);
-    }
-
-    const paymentRecord = await getPaymentRecord(orderId);
-    if (!paymentRecord) {
-      throw new ApiHttpError(404, "PAYMENT_NOT_FOUND", "Payment record not found.");
-    }
-
-    if (paymentRecord.amount !== amount) {
-      throw new ApiHttpError(400, "AMOUNT_MISMATCH", "Amount does not match the order.");
-    }
-
-    if (paymentRecord.status === "PAID" && paymentRecord.paymentKey === paymentKey) {
-      const paidAt = paymentRecord.paidAt ?? nowIso();
-      const response: ConfirmPaymentResponse = {
-        orderId,
-        status: "PAID",
-        paymentKey,
-        method: paymentRecord.method ?? null,
-        paidAt,
-      };
-      return sendJson(res, 200, response);
-    }
-
-    const tossConfirmed = await confirmTossPayment({
-      paymentKey,
-      orderId,
-      amount,
-    });
-
-    const method = typeof tossConfirmed.method === "string" ? tossConfirmed.method : null;
-    const paidAt = typeof tossConfirmed.approvedAt === "string" && tossConfirmed.approvedAt
-      ? tossConfirmed.approvedAt
-      : nowIso();
-
-    await updatePaymentRecord(orderId, {
-      status: "PAID",
-      paymentKey,
-      method,
-      paidAt,
-      failedAt: null,
-      failCode: null,
-      failMessage: null,
-    });
-
-    const response: ConfirmPaymentResponse = {
-      orderId,
-      status: "PAID",
-      paymentKey,
-      method,
-      paidAt,
-    };
-
-    return sendJson(res, 200, response);
+    throw new ApiHttpError(
+      410,
+      "LEGACY_PAYMENT_FLOW_RETIRED",
+      "This payment flow is retired. Start a new purchase through the authenticated premium API.",
+    );
   } catch (error) {
-    if (orderIdForFailureTracking && error instanceof TossApiError) {
-      try {
-        const fallbackStatus: PaymentStatus = "FAILED";
-        await updatePaymentRecord(orderIdForFailureTracking, {
-          status: fallbackStatus,
-          failedAt: nowIso(),
-          failCode: error.code,
-          failMessage: error.message,
-        });
-      } catch {
-        // Ignore secondary write errors to avoid masking the original error.
-      }
-    }
-
     return handleApiError(res, error);
   }
 }

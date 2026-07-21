@@ -141,18 +141,60 @@ const highRiskExplanation = buildNamingExplanation({
   strengthProfile: { ...profile, id: 'risk_managed', label: '위험 관리형', primaryAxis: 'risk' },
 });
 const fallbackExplanation = buildNamingExplanation({ evaluationResult: evaluationResult() });
+const provenanceIsolationInput = {
+  evaluationResult: evaluationResult(),
+  scoreVector: vector({ sajuFit: 84, yongshinFit: 83 }),
+  strengthProfile: profile,
+};
+const firstProvenanceExplanation = buildNamingExplanation(provenanceIsolationInput);
+const firstSajuFitSignal = firstProvenanceExplanation.signals
+  .find((signal) => signal.axis === 'sajuFit');
+const firstYongshinFitSignal = firstProvenanceExplanation.signals
+  .find((signal) => signal.axis === 'yongshinFit');
+const meaningAvailabilitySignal = lowRiskExplanation.signals
+  .find((signal) => signal.axis === 'hanjaMeaning');
 
-check('low-risk explanation uses template summary',
-  lowRiskExplanation.summary.includes('주요 후보 성향은 발음 안정형이에요.'));
+check('summary excludes internal candidate profile and score-provenance boilerplate',
+  !/주요 후보 성향|공식 자료 기준|표시용 점수 기준|근거가 부족/u.test(lowRiskExplanation.summary));
 check('null axis is unavailable, not failed',
   highRiskExplanation.signals.some((signal) =>
     signal.axis === 'yongshinFit' &&
     signal.kind === 'unavailable' &&
     signal.phrase.includes('근거가 부족')));
+check('unavailable axes and basic legal eligibility do not become narrative prose',
+  ![...lowRiskExplanation.strengths, ...lowRiskExplanation.cautions].some((phrase) =>
+    /인명용 한자 적합도|뜻풀이 데이터|근거가 부족/u.test(phrase)));
 check('high risk produces explicit caution',
   highRiskExplanation.cautions.some((phrase) => phrase.includes('더 안전한 후보와 비교')));
 check('fallback explanation avoids detailed diagnosis',
-  fallbackExplanation.cautions.some((phrase) => phrase.includes('점수 벡터 근거가 없어')));
+  fallbackExplanation.cautions.length === 0 &&
+    !fallbackExplanation.summary.includes('점수 벡터'));
+check('derived-axis provenance is owned by each signal',
+  Boolean(firstSajuFitSignal) &&
+    Boolean(firstYongshinFitSignal) &&
+    firstSajuFitSignal?.sourceTier !== firstYongshinFitSignal?.sourceTier);
+check('Hanja meaning axis discloses data availability rather than semantic quality',
+  meaningAvailabilitySignal?.label === '한자 뜻풀이 확인도(뜻의 우열 아님)' &&
+    meaningAvailabilitySignal.sourceTier.sourceType === 'derived_score' &&
+    meaningAvailabilitySignal.phrase.includes('뜻의 우열이나 길흉을 평가한 점수가 아니에요.'));
+
+if (firstSajuFitSignal) {
+  const mutableSourceTier = firstSajuFitSignal.sourceTier as {
+    tier: string;
+    authorityTruthEligible: boolean;
+  };
+  mutableSourceTier.tier = 'T5_OFFICIAL';
+  mutableSourceTier.authorityTruthEligible = true;
+}
+const secondProvenanceExplanation = buildNamingExplanation(provenanceIsolationInput);
+const secondSajuFitSignal = secondProvenanceExplanation.signals
+  .find((signal) => signal.axis === 'sajuFit');
+check('caller mutation cannot promote a later explanation to official authority',
+  secondSajuFitSignal?.sourceTier.tier === 'T2_REFERENCE_IMPLEMENTATION' &&
+    secondSajuFitSignal.sourceTier.authorityTruthEligible === false &&
+    secondSajuFitSignal.phraseMode === 'displayOnly' &&
+    secondSajuFitSignal.phrase.startsWith('표시용 점수 기준으로는') &&
+    !secondSajuFitSignal.phrase.includes('공식 자료 기준으로는'));
 
 const snapshot = {
   lowRisk: stableExplanation(lowRiskExplanation),

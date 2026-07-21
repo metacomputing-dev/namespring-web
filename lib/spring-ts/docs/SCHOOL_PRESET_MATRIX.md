@@ -36,9 +36,11 @@ Engine responses surface the selected lens as report-wide metadata:
 }
 ```
 
-`source` is `default` when the caller omits `schoolPreset`, `request` when the
-caller selects a known preset, and `fallback` when runtime input is unknown and
-the engine falls back to `korean`.
+`source` is `default` only when the caller omits `schoolPreset`, and `request`
+when the caller selects a known preset. An explicit unknown value fails closed
+with `SAJU_UNKNOWN_SCHOOL_PRESET`; it never selects `korean` on the caller's
+behalf. The historical `fallback` source remains in the public type only for
+reading stored legacy responses and is not emitted by new runtime responses.
 
 ## Metrics
 

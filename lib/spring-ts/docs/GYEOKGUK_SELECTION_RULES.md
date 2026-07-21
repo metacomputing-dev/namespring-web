@@ -1,22 +1,17 @@
 # Gyeokguk Selection Rules
 
-Date: 2026-05-01
+Date: 2026-07-11
 
 ## Default Policy
 
 The production default is unchanged. It keeps the existing saju-ts
-month-gyeok selector, including the legacy visible-hidden and group-supported
-fallbacks that are already captured by the snapshot baseline.
+month-gyeok selector, including the visible-hidden and group-supported
+fallbacks captured by the snapshot baseline.
 
-`monthly_main` is available as an explicit comparison selector. It selects the
-month branch main hidden stem and scores the corresponding ten-god as the
-ordinary gyeokguk anchor. In the Phase P authority matrix it remains the
-strongest deterministic rule-mode candidate:
-
-| selector | total agreement |
-| --- | --- |
-| `monthly_main` | 17 / 27 |
-| `jungki_transparent` | 14 / 27 |
+`monthly_main` is an explicit comparison selector. It uses the month branch
+main hidden stem and the corresponding ten-god as the ordinary gyeokguk
+anchor. The recorded 17/27 result is a historical Phase-P label observation,
+not current authority accuracy and not a release threshold.
 
 ## Opt-In Policy
 
@@ -35,41 +30,45 @@ await engine.getSajuReport({
 });
 ```
 
-The opt-in selector uses the month branch middle hidden stem only when that
-middle stem is transparent in a non-day heavenly stem. If that condition is not
-met, it falls back to `monthly_main`.
+`jungki_transparent` uses the month branch middle hidden stem only when that
+stem is transparent in a non-day heavenly stem. Otherwise it falls back to
+`monthly_main`.
 
-## When To Use It
+Do not enable this selector for default public recommendations. The present
+repository has comparison behavior and historical labels, but it does not yet
+have complete-D1 expert truth proving that either selector is doctrinally
+superior.
 
-Use `jungki_transparent` for expert, internal, or comparative research runs
-where the consumer intentionally wants a mixed classical reading that gives
-middle-qi transparency a stronger voice.
+## Historical Metrics
 
-Do not enable it for default public recommendations. The current evidence says
-it improves some Korean modern figure/commentary cases, but weakens the lecture
-matrix that drove the rule-mode baseline.
+`npm run metrics:baseline` writes Phase-P observations to
+`metrics/bySourceTier.json` under `ruleModeBreakdown`. Every mode is marked:
 
-## Metrics
+- `measurementClassification: HISTORICAL_PHASE_P_OBSERVATION`;
+- `authorityScope: historical_observation_only`;
+- `releaseEligible: false`.
 
-`npm run metrics:baseline` writes selector-mode summaries to
-`metrics/bySourceTier.json` under `ruleModeBreakdown`. Each selector mode now
-includes `winLossVsMonthlyMain` at total, source-group, and source-tier levels.
+Comparison fields are explicitly historical:
+
+- `historicalWinLossVsMonthlyMain`;
+- `byHistoricalLabelTier`;
+- `historicalCandidateCoverage`;
+- `historicalNonRegressionVsMonthlyMain`.
+
+The historical label-tier names are not current source-tier certifications.
 
 ## Composite Classical Evidence
 
-`composite_classical` is not a selector. It is an evidence score attached to
+`composite_classical` is not a selector. It attaches an evidence score to
 each surfaced gyeokguk candidate. The score combines month-main agreement,
 stem transparency, root support, seasonal command, transformation support,
-month-gyeok purity, yongshin-element alignment, source-tier boost, and
-stability across existing rule modes, then subtracts a breaker penalty.
+month-gyeok purity, yongshin-element alignment, a source-record feature, and
+stability across rule modes, then subtracts a breaker penalty.
 
-Every composite candidate is marked with
+Runtime candidates are marked
 `selectionPolicy: evidence_only_never_promote` and
-`selectedByComposite: false`. Low-confidence candidates can appear as evidence,
-but they cannot replace the selected gyeokguk.
+`selectedByComposite: false`. They cannot replace the selected gyeokguk.
 
-In metrics, `composite_classical` selected agreement is measured as
-`monthly_main` for non-regression. Candidate coverage is reported separately:
-the current authority matrix has 23 of 27 comparable cases where the authority
-label is present in evidence candidates, including 3 of 6 in the classical
-`jonheom` subset. That coverage is evidence, not authority accuracy.
+The historical 23/27 total and 3/6 Jonheom candidate-visibility figures remain
+useful for reproducing Phase-P behavior, but they are not authority evidence,
+accuracy measurements, or release approval.

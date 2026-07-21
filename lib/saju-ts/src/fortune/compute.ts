@@ -12,6 +12,7 @@ import type { LocalDate } from '../calendar/iso.js';
 import type { LocalDateTime } from '../calendar/iso.js';
 import { computeLunarNewYearBoundary } from '../calendar/lunarNewYear.js';
 import { addDays, calcDayPillar, calcMonthPillarFromOrder, effectiveDayDate } from '../calendar/pillars.js';
+import { utcMsFromParts } from '../calendar/utc.js';
 import type { PillarIdx, StemIdx } from '../core/cycle.js';
 import { pillar as makePillar, stemYinYang } from '../core/cycle.js';
 import { mod } from '../core/mod.js';
@@ -27,7 +28,10 @@ import type {
   DecadeLuck,
   YearLuck,
 } from './types.js';
-import { assertFortuneHorizonPolicy } from './policy.js';
+import {
+  FORTUNE_HORIZON_LIMITS,
+  assertFortuneHorizonPolicy,
+} from './policy.js';
 
 const MS_PER_DAY = 86_400_000;
 const AVG_DAYS_PER_YEAR = 365.2425;
@@ -94,6 +98,19 @@ function findPrevNextJie(utcMs: number, boundaries: JieBoundariesAround): { prev
 function startAgeYears(deltaMs: number, method: FortunePolicy['startAgeMethod']): { years: number; formula: string; parts?: AgePartsApprox } {
   const deltaDays = deltaMs / MS_PER_DAY;
 
+  const assertCalculatedYears = (years: number): number => {
+    if (
+      !Number.isFinite(years)
+      || years < 0
+      || years > FORTUNE_HORIZON_LIMITS.maxYears
+    ) {
+      throw new RangeError(
+        `calculated fortune start age must be between 0 and ${FORTUNE_HORIZON_LIMITS.maxYears}`,
+      );
+    }
+    return years;
+  };
+
   const approxPartsFromYears = (y: number): AgePartsApprox => {
     const years = Math.max(0, Math.floor(y));
     const remY = Math.max(0, y - years);
@@ -104,7 +121,7 @@ function startAgeYears(deltaMs: number, method: FortunePolicy['startAgeMethod'])
   };
 
   const ratioDays = (daysPerYear: number, label: string) => {
-    const years = deltaDays / daysPerYear;
+    const years = assertCalculatedYears(deltaDays / daysPerYear);
     return { years, formula: `startAgeYears = (Δdays / ${daysPerYear})  // ${label}`, parts: approxPartsFromYears(years) };
   };
 
@@ -127,14 +144,13 @@ function startAgeYears(deltaMs: number, method: FortunePolicy['startAgeMethod'])
     if (m.kind === 'ratioMsPerYear') {
       const mpy = m.msPerYear;
       if (typeof mpy === 'number' && Number.isFinite(mpy) && mpy > 0) {
-        const years = deltaMs / mpy;
+        const years = assertCalculatedYears(deltaMs / mpy);
         return { years, formula: `startAgeYears = (Δms / ${mpy})  // ${m.label ?? `ratioMsPerYear(${mpy})`}`, parts: approxPartsFromYears(years) };
       }
     }
   }
 
-  // Fallback to 三日一歲.
-  return ratioDays(3, '三日一歲(fallback)');
+  throw new RangeError('fortune.startAgeMethod is not supported');
 }
 
 /**
@@ -148,8 +164,12 @@ function daysPerYearOfMethod(method: FortunePolicy['startAgeMethod']): number {
     if (m.kind === 'ratioDaysPerYear' && Number.isFinite(m.daysPerYear) && m.daysPerYear > 0) return m.daysPerYear;
     if (m.kind === 'ratioMsPerYear' && Number.isFinite(m.msPerYear) && m.msPerYear > 0) return m.msPerYear / MS_PER_DAY;
   }
-  return 3;
+  throw new RangeError('fortune.startAgeMethod is not supported');
 }
+
+// Floating-point conversion from milliseconds to fractional years can land a
+// mathematically exact two-day remainder just below the policy boundary.
+const START_AGE_ROUNDING_EPSILON_DAYS = 1e-9;
 
 function startAgeDisplayOf(
   startAgeYears: number,
@@ -164,11 +184,11 @@ function startAgeDisplayOf(
   switch (rounding) {
     case 'round1down2up':
       // 나머지 1일 버림·2일 올림 (다수 관행) — 2일 이상이면 올림.
-      display = remDays >= 2 ? floorYears + 1 : floorYears;
+      display = remDays >= 2 - START_AGE_ROUNDING_EPSILON_DAYS ? floorYears + 1 : floorYears;
       break;
     case 'threshold8months':
       // 나머지를 1일=4개월로 환산해 8개월 초과 시 올림 (삼명통회 계열).
-      display = remDays * 4 > 8 ? floorYears + 1 : floorYears;
+      display = remDays - 2 > START_AGE_ROUNDING_EPSILON_DAYS ? floorYears + 1 : floorYears;
       break;
     case 'ceil':
       display = Math.ceil(startAgeYears);
@@ -184,7 +204,7 @@ function startAgeDisplayOf(
 }
 
 function localToUtcMs(date: LocalDate, time: { h: number; min: number }, offsetMinutes: number): number {
-  return Date.UTC(date.y, date.m - 1, date.d, time.h, time.min, 0) - offsetMinutes * 60_000;
+  return utcMsFromParts(date.y, date.m - 1, date.d, time.h, time.min) - offsetMinutes * 60_000;
 }
 
 function daySegmentBounds(labelDate: LocalDate, dayBoundary: EngineConfig['calendar']['dayBoundary'], offsetMinutes: number): { startUtcMs: number; endUtcMs: number } {

@@ -1,17 +1,34 @@
 {
   "schemaVersion": "spring-ts.legal-hanja-sources.v1",
-  "accessedAt": "2026-05-01",
+  "accessedAt": "2026-07-18",
   "sourceTier": {
     "tier": "T5_OFFICIAL",
     "sourceType": "official_law_registry",
     "sourceUrl": "https://www.law.go.kr/LSW/lumLsLinkPop.do?chrClsCd=010202&lspttninfSeq=104326",
-    "accessedAt": "2026-05-01",
+    "accessedAt": "2026-07-18",
     "quoteShort": null,
     "humanInterpretation": "Current law.go.kr linked rule text anchors the legal definition of Korean personal-name Hanja under Article 37.",
     "copyrightNote": "Official law metadata and short paraphrase only; source URL retained for verification.",
     "authorityTruthEligible": true
   },
   "sources": [
+    {
+      "id": "efamily_official_hanja_lookup_2026_07_18",
+      "label": "Supreme Court official personal-name Hanja lookup snapshot",
+      "authorityReceipt": "data/official-hanja-lookup-authority.generated.json",
+      "lookupGlyphRepresentationCount": 9495,
+      "lookupNonEmptyDesignatedReadingPairCount": 10381,
+      "sourceTier": {
+        "tier": "T5_OFFICIAL",
+        "sourceType": "official_court_lookup",
+        "sourceUrl": "https://efamily.scourt.go.kr/cs/CsBltnWrtList.do?bltnbordId=0000010",
+        "accessedAt": "2026-07-18",
+        "quoteShort": null,
+        "humanInterpretation": "The official lookup requires designated readings and limits same-character, popular, and abbreviated forms to glyphs returned by the service. A complete ext=0 snapshot matched all 9,495 local glyph representations and 10,381 non-empty designated-reading pairs.",
+        "copyrightNote": "Official lookup metadata, counts, and cryptographic digests only; no long source text is reproduced.",
+        "authorityTruthEligible": true
+      }
+    },
     {
       "id": "law_go_kr_rule_article_37_2025_07_19",
       "label": "Family Relations Registration Rule Article 37",
@@ -67,14 +84,16 @@
       "label": "KoreaSCourtCode webhanja.db mirror",
       "candidateTotalCount": 9495,
       "officialCountRecordedByMirror": 9389,
-      "unresolvedDelta": 106,
+      "announcedToLookupRepresentationDelta": 106,
+      "officialLookupGlyphDifferenceCount": 0,
+      "officialLookupPairDifferenceCount": 0,
       "sourceTier": {
         "tier": "T2_REFERENCE_IMPLEMENTATION",
         "sourceType": "third_party_mirror",
         "sourceUrl": "https://github.com/delvier/KoreaSCourtCode",
         "accessedAt": "2026-05-01",
         "quoteShort": null,
-        "humanInterpretation": "Third-party mirror currently powers the 9,495-entry local candidate pool but is not authority truth for the +106 delta.",
+        "humanInterpretation": "The third-party mirror powers the local metadata pool and exactly matches the independently captured official lookup glyph and reading-pair sets. Its own provenance remains T2; legal authority comes from the pinned T5 lookup receipt.",
         "copyrightNote": "MIT-licensed repository metadata referenced; local factual fields are treated as data pending official reconciliation.",
         "authorityTruthEligible": false
       }

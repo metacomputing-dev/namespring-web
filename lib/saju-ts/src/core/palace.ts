@@ -1,6 +1,7 @@
 import type { StemIdx, BranchIdx } from './cycle.js';
 import { hiddenStemsOfBranch } from './hiddenStems.js';
 import { tenGodOf, type TenGod } from './tenGod.js';
+import { deepFreeze } from '../utils/deepMerge.js';
 
 /**
  * 12궁 (palace) analysis.
@@ -25,12 +26,12 @@ export interface PalaceMeta {
   readonly topic: string;       // 조상덕·먼 인연 / 부모덕·형제 / 배우자·거처 / 자식·후배
 }
 
-export const PALACE_INFO: Readonly<Record<PalacePosition, PalaceMeta>> = {
+export const PALACE_INFO = deepFreeze({
   year:  { name: '조상궁', period: '초년', ageRange: '1~20세',  metaphor: '뿌리 根', topic: '조상덕·먼 인연·초년 환경' },
   month: { name: '부모궁', period: '청년', ageRange: '21~40세', metaphor: '묘목 苗', topic: '부모덕·형제·직업 기반·청년기' },
   day:   { name: '배우자궁', period: '장년', ageRange: '41~60세', metaphor: '꽃 花',   topic: '배우자·거처·최종 결정 심리' },
   hour:  { name: '자식궁', period: '말년', ageRange: '61~80세', metaphor: '열매 實', topic: '자식·후배·말년·성과' },
-};
+} satisfies Readonly<Record<PalacePosition, PalaceMeta>>);
 
 /** 길신 (吉神) 십성 - 자평 doctrine 의 길신 그룹 (saju_master constants.GILSHIN). */
 const GILSHIN_TEN_GODS: ReadonlySet<TenGod> = new Set<TenGod>([

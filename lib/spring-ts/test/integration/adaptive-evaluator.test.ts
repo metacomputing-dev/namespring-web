@@ -8,6 +8,7 @@
  * Each mode is checked end-to-end on the standard 1986-04-19 fixture.
  * Tanh/linear curves must produce valid scores. unknownHourGuard defaults on
  * and must change unknown-hour adaptive weighting versus explicit opt-out.
+ * Explicitly invalid time strings must fail closed before guard selection.
  *
  * Run: npm run test:adaptive
  *      (or: npx tsx test/integration/adaptive-evaluator.test.ts)
@@ -50,14 +51,32 @@ for (const repo of repos) {
 }
 await engine.init();
 
-async function evalWith(birth: any, precisionConfig?: any): Promise<{ saju: number; total: number; isPassed: boolean }> {
+async function evalWith(
+  birth: any,
+  precisionConfig?: any,
+  sajuTimePolicy?: any,
+): Promise<{
+  saju: number;
+  total: number;
+  sajuEnabled: boolean;
+  analysisStatus?: string;
+  reasonCode?: string;
+}> {
   const result = await engine.analyze({
     birth, surname, givenName,
     mode: 'evaluate',
-    options: precisionConfig ? { precisionConfig } : undefined,
+    options: precisionConfig || sajuTimePolicy
+      ? { ...(precisionConfig ? { precisionConfig } : {}), ...(sajuTimePolicy ? { sajuTimePolicy } : {}) }
+      : undefined,
   });
   const c = result.candidates[0];
-  return { saju: c.scores.saju, total: c.scores.total, isPassed: c.scores.total >= 60 };
+  return {
+    saju: c.scores.saju,
+    total: c.scores.total,
+    sajuEnabled: result.meta.sajuAnalysis?.enabled === true,
+    analysisStatus: result.meta.sajuAnalysis?.status,
+    reasonCode: result.meta.sajuAnalysis?.diagnostics?.[0]?.reasonCode,
+  };
 }
 
 const baseline             = await evalWith(fullBirth);
@@ -67,6 +86,43 @@ const guardKnownHour       = await evalWith(fullBirth, { unknownHourGuard: true 
 const guardUnknownHour     = await evalWith(noHourBirth, { unknownHourGuard: true, unknownTimeSajuDamp: 0.5 });
 const defaultUnknownHour   = await evalWith(noHourBirth);
 const noGuardUnknownHour   = await evalWith(noHourBirth, { unknownHourGuard: false });
+const stableUnknownMinuteBirth = { ...fullBirth, hour: 5, minute: null };
+const stableMinutePolicy = { trueSolarTime: 'off', longitudeCorrection: 'off', yaza: 'off' };
+const stableUnknownMinuteGuard = await evalWith(
+  stableUnknownMinuteBirth,
+  { unknownHourGuard: true },
+  stableMinutePolicy,
+);
+const stableUnknownMinuteNoGuard = await evalWith(
+  stableUnknownMinuteBirth,
+  { unknownHourGuard: false },
+  stableMinutePolicy,
+);
+const sensitiveUnknownMinuteBirth = { ...fullBirth, hour: 23, minute: null };
+const sensitiveMinutePolicy = {
+  trueSolarTime: 'off', longitudeCorrection: 'off', yaza: 'on', yazaMode: '23:30',
+};
+const sensitiveUnknownMinuteGuard = await evalWith(
+  sensitiveUnknownMinuteBirth,
+  { unknownHourGuard: true, unknownTimeSajuDamp: 0.5 },
+  sensitiveMinutePolicy,
+);
+const sensitiveUnknownMinuteNoGuard = await evalWith(
+  sensitiveUnknownMinuteBirth,
+  { unknownHourGuard: false },
+  sensitiveMinutePolicy,
+);
+const emptyHourBirth = { ...fullBirth, hour: '', minute: '' };
+const emptyHourGuard = await evalWith(
+  emptyHourBirth,
+  { unknownHourGuard: true, unknownTimeSajuDamp: 0.5 },
+  stableMinutePolicy,
+);
+const emptyHourNoGuard = await evalWith(
+  emptyHourBirth,
+  { unknownHourGuard: false },
+  stableMinutePolicy,
+);
 
 let pass = 0;
 let fail = 0;
@@ -88,6 +144,12 @@ console.log('guard + known hour         :', guardKnownHour);
 console.log('guard + unknown hour       :', guardUnknownHour);
 console.log('default + unknown hour     :', defaultUnknownHour);
 console.log('no guard + unknown hour    :', noGuardUnknownHour);
+console.log('guard + stable minute      :', stableUnknownMinuteGuard);
+console.log('no guard + stable minute   :', stableUnknownMinuteNoGuard);
+console.log('guard + sensitive minute   :', sensitiveUnknownMinuteGuard);
+console.log('no guard + sensitive minute:', sensitiveUnknownMinuteNoGuard);
+console.log('guard + empty hour          :', emptyHourGuard);
+console.log('no guard + empty hour       :', emptyHourNoGuard);
 console.log('');
 
 // — Default now uses the tanh curve; explicit linear is still valid but may differ. —
@@ -114,22 +176,48 @@ check('guard + unknown hour produces finite total',
   Number.isFinite(guardUnknownHour.total) && guardUnknownHour.total >= 0 && guardUnknownHour.total <= 100,
   `total ${guardUnknownHour.total}`);
 
-// — Guard inactive when precisionConfig.unknownHourGuard is unset —
+// — Guard defaults on when precisionConfig.unknownHourGuard is unset. —
 check('unknownHourGuard defaults on for unknown-hour input',
   defaultUnknownHour.total === guardUnknownHour.total,
   `default=${defaultUnknownHour.total}, explicit=${guardUnknownHour.total}`);
 check('unknownHourGuard changes unknown-hour adaptive weighting',
   guardUnknownHour.total !== noGuardUnknownHour.total,
   `guard=${guardUnknownHour.total}, noGuard=${noGuardUnknownHour.total}`);
+check('stable unknown-minute envelope does not trigger time guard',
+  stableUnknownMinuteGuard.total === stableUnknownMinuteNoGuard.total,
+  `guard=${stableUnknownMinuteGuard.total}, noGuard=${stableUnknownMinuteNoGuard.total}`);
+check('boundary-sensitive unknown-minute envelope triggers time guard',
+  sensitiveUnknownMinuteGuard.total !== sensitiveUnknownMinuteNoGuard.total,
+  `guard=${sensitiveUnknownMinuteGuard.total}, noGuard=${sensitiveUnknownMinuteNoGuard.total}`);
+check('empty-string time fails closed before unknown-hour guard selection',
+  emptyHourGuard.sajuEnabled === false
+    && emptyHourGuard.analysisStatus === 'failed'
+    && emptyHourGuard.reasonCode === 'BIRTH_TIME_INVALID'
+    && JSON.stringify(emptyHourGuard) === JSON.stringify(emptyHourNoGuard),
+  `guard=${JSON.stringify(emptyHourGuard)}, noGuard=${JSON.stringify(emptyHourNoGuard)}`);
 
-// — All four valid scores —
-const allResults = [baseline, linearExplicit, tanh, guardKnownHour, guardUnknownHour, defaultUnknownHour, noGuardUnknownHour];
+// — Every evaluator path still returns bounded public scores. —
+const allResults = [
+  baseline,
+  linearExplicit,
+  tanh,
+  guardKnownHour,
+  guardUnknownHour,
+  defaultUnknownHour,
+  noGuardUnknownHour,
+  stableUnknownMinuteGuard,
+  stableUnknownMinuteNoGuard,
+  sensitiveUnknownMinuteGuard,
+  sensitiveUnknownMinuteNoGuard,
+  emptyHourGuard,
+  emptyHourNoGuard,
+];
 let allValid = true;
 for (const r of allResults) {
   if (!Number.isFinite(r.saju) || r.saju < 0 || r.saju > 100) allValid = false;
   if (!Number.isFinite(r.total) || r.total < 0 || r.total > 100) allValid = false;
 }
-check('all 7 paths produce valid [0,100] saju + total', allValid);
+check('all 13 result paths produce finite [0,100] saju + total', allValid);
 
 engine.close();
 

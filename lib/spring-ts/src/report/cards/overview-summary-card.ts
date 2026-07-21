@@ -49,12 +49,24 @@ const PILLAR_POSITIONS: readonly { key: 'year' | 'month' | 'day' | 'hour'; label
   { key: 'hour', label: '시주' },
 ];
 
+const PILLAR_UNCERTAINTY_AXIS = {
+  year: 'yearPillar',
+  month: 'monthPillar',
+  day: 'dayPillar',
+  hour: 'hourPillar',
+} as const;
+
 const INPUT_AXIS_LABELS: Readonly<Record<string, string>> = {
+  yearPillar: '연주',
+  monthPillar: '월주',
+  dayPillar: '일주',
   hourPillar: '시주',
   yongshin: '용신 후보',
   gyeokguk: '격국',
   strength: '신강약',
   tenGod: '십성 위치',
+  relations: '천간·지지 관계',
+  shinsal: '신살·공망',
   fortuneTiming: '운세 시점',
 };
 
@@ -178,6 +190,14 @@ export function buildOverviewSummaryCard(
   options?: OverviewSummaryCardOptions,
 ): OverviewSummaryCard {
   const unknownHour = saju.inputUncertainty?.unknownHour;
+  const unknownMinute = saju.inputUncertainty?.unknownMinute;
+  const isPillarProvisional = (key: keyof typeof PILLAR_UNCERTAINTY_AXIS): boolean => {
+    const axis = PILLAR_UNCERTAINTY_AXIS[key];
+    return unknownHour?.affectedAxes.includes(axis) === true
+      || (unknownMinute?.boundarySensitive === true
+        && unknownMinute.affectedAxes.includes(axis));
+  };
+  const dayPillarUncertain = isPillarProvisional('day');
 
   // ── 1. Four pillars ──
   const pillars: PillarDisplay[] = PILLAR_POSITIONS.map(({ key, label }) => {
@@ -192,7 +212,9 @@ export function buildOverviewSummaryCard(
       : '';
     const elementDesc = formatPillarElementPair(stemElement, branchElement);
     return {
-      position: key === 'hour' && unknownHour ? `${label}(임시)` : label,
+      position: isPillarProvisional(key)
+        ? `${label}(임시)`
+        : label,
       stem: p.stem.hangul,
       branch: p.branch.hangul,
       element: elementDesc,
@@ -213,9 +235,14 @@ export function buildOverviewSummaryCard(
     ? stemEntry.personality[0]
     : '';
 
-  const dayMasterDescription = stemInfo
+  const baseDayMasterDescription = stemInfo
     ? `일간은 ${stemInfo.hangul}${ieyo(stemInfo.hangul)}. ${dayMasterFriendly} 기운을 가지고 있고, ${natureDesc ? natureDesc + '이' : ''} 느껴져요. ${personalitySnippet}`
     : `일간의 오행은 ${dayMasterFriendly}${ieyo(dayMasterFriendly)}.`;
+  const dayMasterDescription = dayPillarUncertain
+    ? `임시 계산 기준입니다. ${unknownHour
+        ? '출생 시각 정보에 따라 일주와 일간이 달라질 수 있습니다.'
+        : '출생 분 정보에 따라 일주와 일간이 달라질 수 있습니다.'} ${baseDayMasterDescription}`
+    : baseDayMasterDescription;
 
   // ── 3. Strength description ──
   const levelKey = strength.level as StrengthLevel;
@@ -237,7 +264,9 @@ export function buildOverviewSummaryCard(
     yongshinTier === 'candidate' ||
     yongshinTier === 'deferred' ||
     yongshinConflict === 'high' ||
-    Boolean(unknownHour);
+    Boolean(unknownHour) ||
+    (unknownMinute?.boundarySensitive === true
+      && unknownMinute.affectedAxes.includes('yongshin'));
 
   let yongshinDescription = hedgeYongshin
     ? `사주의 균형을 맞춰주는 용신 후보는 ${yongshinFriendly}(${yongshinKorean}) 기운이에요. 출생 시각이나 판단 축에 따라 보조 기운이 달라질 수 있어 참고 기준으로 보는 것이 좋아요.`
@@ -319,7 +348,12 @@ export function buildOverviewSummaryCard(
     );
   }
 
-  const overallSummary = summaryParts.join(' ');
+  const baseOverallSummary = summaryParts.join(' ');
+  const overallSummary = dayPillarUncertain
+    ? `임시 계산 기준 요약입니다. ${unknownHour
+        ? '출생 시각 정보에 따라 일주·일간 중심 해석이 달라질 수 있습니다.'
+        : '출생 분 정보에 따라 일주·일간 중심 해석이 달라질 수 있습니다.'} ${baseOverallSummary}`
+    : baseOverallSummary;
 
   // ── 7. Narrative foundations (PR9) ─────────────────────────────────────
   // Surface the upstream judgment-strength + per-claim evidence so a UI
@@ -337,6 +371,25 @@ export function buildOverviewSummaryCard(
       ],
       weakness: '출생 시각이 확인되면 시주, 용신, 격국, 신강약, 십성 위치, 운세 시점 해석이 달라질 수 있어요.',
       strength: 'candidate',
+    });
+  }
+
+  if (unknownMinute) {
+    evidence.push({
+      axis: 'inputTime',
+      claim: unknownMinute.message,
+      supportingFeatures: [
+        `적용 계산 시각: ${String(unknownMinute.fallbackHour).padStart(2, '0')}:${String(unknownMinute.fallbackMinute).padStart(2, '0')}`,
+        `검토한 분 범위: ${String(unknownMinute.evaluatedMinuteRange.from).padStart(2, '0')}~${String(unknownMinute.evaluatedMinuteRange.to).padStart(2, '0')}`,
+        unknownMinute.boundarySensitive
+          ? `경계 영향 가능 항목: ${formatInputAxisLabels(unknownMinute.affectedAxisLabels ?? unknownMinute.affectedAxes)}`
+          : '선택한 시간 보정 정책에서 분 범위 내 이산 사주 결과가 동일함',
+        '대운 시작 연령·UTC 같은 연속 운세 시점 정밀도는 출생 분에 따라 달라질 수 있음',
+      ],
+      weakness: unknownMinute.boundarySensitive
+        ? '정확한 출생 분을 확인하면 경계에 걸린 항목의 해석이 달라질 수 있습니다.'
+        : '정확한 출생 분은 입력 보정 기록을 완성하기 위해 여전히 필요합니다.',
+      strength: unknownMinute.boundarySensitive ? 'candidate' : 'practical',
     });
   }
 

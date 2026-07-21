@@ -28,7 +28,14 @@
  *  Ohaeng (오행)    — the Five Elements (Wood, Fire, Earth, Metal, Water)
  * ─────────────────────────────────────────────────────────────────────────
  */
-import { type EvalContext, type AnalysisDetail, type CalculatorPacket, type EvaluableCalculator, putInsight, createSignal } from './core/evaluator.js';
+import {
+  type EvalContext,
+  type AnalysisDetail,
+  type CalculatorPacket,
+  type CalculatorSignal,
+  type EvaluableCalculator,
+  putInsight,
+} from './core/evaluator.js';
 import type { HanjaEntry } from '../../seed-ts/src/database/hanja-repository.js';
 import { hangulElementFromSyllable } from '../../seed-ts/src/utils/hangul-name-entry.js';
 import type {
@@ -48,7 +55,7 @@ import type {
   YongshinConsensusConflictLevel,
   YongshinConsensusScoreboard,
 } from './types.js';
-import { elementFromSajuCode } from './saju-adapter.js';
+import { elementFromSajuCode } from './saju/element-code.js';
 import { SAJU_FRAME } from './spring-evaluator.js';
 import {
   type ElementKey,
@@ -67,7 +74,12 @@ import {
 // ---------------------------------------------------------------------------
 import scoringConfig from '../config/saju-scoring.json';
 import scoringRules from '../config/scoring-rules.json';
-import { loadPreset, type SchoolPresetData, type SchoolPresetName } from './preset-loader.js';
+import {
+  loadPreset,
+  resolveSchoolPresetName,
+  type SchoolPresetData,
+  type SchoolPresetName,
+} from './preset-loader.js';
 
 /** Backward-signal weight for the SAJU_FRAME — default 1.0, externalized so
  *  schoolPreset (PR4) can re-balance saju vs name signal without code change. */
@@ -128,6 +140,8 @@ export interface SajuNameScoreResult {
       competingElements: readonly string[];
       confidence: number;
       topMargin: number;
+      normalizedTopMargin?: number;
+      methodDisagreementRatio?: number;
       scoreGuardApplied: boolean;
     };
     safetyProfile?: SajuNameSafetyProfile;
@@ -237,7 +251,14 @@ function buildSajuNameSafetyProfile(params: {
     : 0;
   const conflictSeverity = clamp(conflictWeight / CONSENSUS_CONFLICT_WEIGHT.high, 0, 1);
   const unclearFactor = params.consensus
-    ? clamp(1 - Math.max(0, params.consensus.topMargin) / CONSENSUS_CLEAR_TOP_MARGIN, 0, 1)
+    ? clamp(
+        1 - Math.max(
+          0,
+          params.consensus.normalizedTopMargin ?? params.consensus.topMargin,
+        ) / CONSENSUS_CLEAR_TOP_MARGIN,
+        0,
+        1,
+      )
     : 0;
   const aggressiveReinforcement = clamp((yongshinRatio - Math.max(0.5, heesinRatio)) / 0.5, 0, 1);
   const harmfulRatio = clamp(gishinRatio * 0.6 + gusinRatio, 0, 1);
@@ -608,6 +629,12 @@ function computeYongshinScore(
         competingElements: yongshinData.consensus.final.competingElements,
         confidence: yongshinData.consensus.final.confidence,
         topMargin: yongshinData.consensus.final.topMargin,
+        ...(yongshinData.consensus.final.normalizedTopMargin !== undefined
+          ? { normalizedTopMargin: yongshinData.consensus.final.normalizedTopMargin }
+          : {}),
+        ...(yongshinData.consensus.final.methodDisagreementRatio !== undefined
+          ? { methodDisagreementRatio: yongshinData.consensus.final.methodDisagreementRatio }
+          : {}),
         scoreGuardApplied: false,
       }
     : undefined;
@@ -667,7 +694,12 @@ function computeYongshinScore(
       const yongshinRatio = yongshinCount / totalElements;
       const heesinRatio = heesinCount / totalElements;
       const conflictSeverity = clamp(conflictWeight / CONSENSUS_CONFLICT_WEIGHT.high, 0, 1);
-      const unclearFactor = clamp(1 - Math.max(0, consensus.topMargin) / CONSENSUS_CLEAR_TOP_MARGIN, 0, 1);
+      const unclearFactor = clamp(
+        1 - Math.max(0, consensus.normalizedTopMargin ?? consensus.topMargin)
+          / CONSENSUS_CLEAR_TOP_MARGIN,
+        0,
+        1,
+      );
       const aggressiveReinforcement = clamp((yongshinRatio - Math.max(0.5, heesinRatio)) / 0.5, 0, 1);
       score = clamp(
         score - CONSENSUS_AGGRESSIVE_REINFORCEMENT_MAX_PENALTY
@@ -1055,14 +1087,6 @@ export function computeTenGodScoreDiagnostics(
   };
 }
 
-function computeTenGodScore(
-  rootDist: Record<ElementKey, number>,
-  sajuOutput: SajuOutputSummary | null,
-  mode: TenGodScoreMode = 'simple_count',
-): number {
-  return computeTenGodScoreDiagnostics(rootDist, sajuOutput, mode).score;
-}
-
 function roundEvidenceNumber(value: number | undefined): number | undefined {
   return value == null || !Number.isFinite(value)
     ? undefined
@@ -1248,13 +1272,18 @@ function computeDeficiencyBonus(
 //  MAIN SCORING FUNCTION — composes all sub-scores into a final result
 // =========================================================================
 
-export function computeSajuNameScore(
+interface SajuNameScoreComputation {
+  readonly scoreResult: SajuNameScoreResult;
+  readonly tenGodDiagnostics: TenGodScoreDiagnostics;
+}
+
+function computeSajuNameScoreWithDiagnostics(
   sajuDist: Record<ElementKey, number>,
   rootDist: Record<ElementKey, number>,
   sajuOutput: SajuOutputSummary | null,
   presetOverride?: SchoolPresetData | null,
   scoringOverrides?: ScoringPrecisionOverrides,
-): SajuNameScoreResult {
+): SajuNameScoreComputation {
 
   // School preset routing — null preset (the default for legacy callers)
   // means "use the saju-scoring.json defaults", which equals the 'korean'
@@ -1276,10 +1305,11 @@ export function computeSajuNameScore(
     rootDist, sajuOutput,
     scoringOverrides?.strengthMode ?? 'binary',
   );
-  const tenGodScore     = computeTenGodScore(
+  const tenGodDiagnostics = computeTenGodScoreDiagnostics(
     rootDist, sajuOutput,
     scoringOverrides?.tenGodMode ?? 'simple_count',
   );
+  const tenGodScore = tenGodDiagnostics.score;
 
   // --- Resolve adaptive weights (balance vs. yongshin trade-off) ---
   const weight = resolveAdaptiveWeights(balanceResult.score, yongshinResult, adaptiveOverride);
@@ -1314,26 +1344,45 @@ export function computeSajuNameScore(
     && (sajuOutput?.yongshin == null || (yongshinResult.score >= PASSING.minYongshinScore && yongshinResult.gusinRatio < PASSING.maxGusinRatio));
 
   return {
-    score,
-    isPassed,
-    combined: balanceResult.combined,
-    breakdown: {
-      balance:  balanceResult.score,
-      yongshin: yongshinResult.score,
-      strength: strengthScore,
-      tenGod:   tenGodScore,
-      penalties: {
-        gisin:    yongshinResult.gisinPenalty,
-        gusin:    yongshinResult.gusinPenalty,
-        gyeokguk: gyeokgukPenalty,
-        total:    totalPenalty,
+    scoreResult: {
+      score,
+      isPassed,
+      combined: balanceResult.combined,
+      breakdown: {
+        balance:  balanceResult.score,
+        yongshin: yongshinResult.score,
+        strength: strengthScore,
+        tenGod:   tenGodScore,
+        penalties: {
+          gisin:    yongshinResult.gisinPenalty,
+          gusin:    yongshinResult.gusinPenalty,
+          gyeokguk: gyeokgukPenalty,
+          total:    totalPenalty,
+        },
+        deficiencyBonus,
+        elementMatches: yongshinResult.elementMatches,
+        yongshinConsensus: yongshinResult.consensus,
+        safetyProfile: yongshinResult.safetyProfile,
       },
-      deficiencyBonus,
-      elementMatches: yongshinResult.elementMatches,
-      yongshinConsensus: yongshinResult.consensus,
-      safetyProfile: yongshinResult.safetyProfile,
     },
+    tenGodDiagnostics,
   };
+}
+
+export function computeSajuNameScore(
+  sajuDist: Record<ElementKey, number>,
+  rootDist: Record<ElementKey, number>,
+  sajuOutput: SajuOutputSummary | null,
+  presetOverride?: SchoolPresetData | null,
+  scoringOverrides?: ScoringPrecisionOverrides,
+): SajuNameScoreResult {
+  return computeSajuNameScoreWithDiagnostics(
+    sajuDist,
+    rootDist,
+    sajuOutput,
+    presetOverride,
+    scoringOverrides,
+  ).scoreResult;
 }
 
 // =========================================================================
@@ -1347,9 +1396,9 @@ export function computeSajuNameScore(
 export interface SajuEvaluatorHints {
   readonly sajuPriorityCurve?: 'linear' | 'tanh';
   readonly unknownHourGuard?: boolean;
-  /** Multiplier applied when guard fires AND birth.hour is missing. */
+  /** Multiplier applied when the normalized input-time uncertainty guard fires. */
   readonly unknownTimeSajuDamp?: number;
-  /** Set by spring-engine when the request's birth.hour is null/undefined. */
+  /** Compatibility name: true for unknown hour or boundary-sensitive minute. */
   readonly isHourUnknown?: boolean;
   /** Evaluator priority extraction mode (PR-Q-7).
    *  - 'single' (default): existing balance + yongshin × confidence path.
@@ -1360,10 +1409,44 @@ export interface SajuEvaluatorHints {
   readonly evaluatorMode?: 'single' | 'multi_axis';
 }
 
+export const SAJU_CALCULATOR_NOT_READY = 'SAJU_CALCULATOR_NOT_READY' as const;
+
+export type SajuCalculatorReadOperation =
+  | 'backward'
+  | 'getAnalysis'
+  | 'getCombinedDistribution';
+
+export type SajuCalculatorStateReason =
+  | 'visit_required'
+  | 'context_mismatch'
+  | 'published_insight_mismatch';
+
+export class SajuCalculatorStateError extends Error {
+  readonly code = SAJU_CALCULATOR_NOT_READY;
+  readonly retryable = false;
+
+  constructor(
+    readonly operation: SajuCalculatorReadOperation,
+    readonly reason: SajuCalculatorStateReason,
+  ) {
+    super(
+      reason === 'context_mismatch'
+        ? `SajuCalculator.${operation}() requires the EvalContext used by the latest successful visit().`
+        : reason === 'published_insight_mismatch'
+          ? `SajuCalculator.${operation}() requires the SAJU_FRAME signal fields published by the latest successful visit().`
+          : `SajuCalculator.${operation}() requires a successful visit() call when enabled.`,
+    );
+    this.name = 'SajuCalculatorStateError';
+  }
+}
+
 export class SajuCalculator implements EvaluableCalculator {
   readonly id = 'saju';
   private scoreResult: SajuNameScoreResult | null = null;
   private tenGodDiagnostics: TenGodScoreDiagnostics | null = null;
+  private completedContext: EvalContext | null = null;
+  private publishedInsight: EvalContext['insights'][string] | null = null;
+  private committedSignal: Readonly<CalculatorSignal> | null = null;
   private readonly elementSource: SajuNameElementSource;
   private readonly enabled: boolean;
   private readonly presetData: SchoolPresetData | null;
@@ -1395,10 +1478,11 @@ export class SajuCalculator implements EvaluableCalculator {
       readonly evaluatorHints?: SajuEvaluatorHints;
     } = {},
   ) {
+    const schoolPreset = resolveSchoolPresetName(options.schoolPreset);
     this.elementSource = options.elementSource ?? 'resource';
     this.enabled = options.enabled ?? true;
     this.presetData = options.useSchoolPreset === true
-      ? loadPreset(options.schoolPreset)
+      ? loadPreset(schoolPreset)
       : null;
     this.scoringOverrides = options.scoringOverrides;
     this.evaluatorHints = options.evaluatorHints;
@@ -1502,12 +1586,47 @@ export class SajuCalculator implements EvaluableCalculator {
     };
   }
 
+  private resetComputedState(): void {
+    this.scoreResult = null;
+    this.tenGodDiagnostics = null;
+    this.completedContext = null;
+    this.publishedInsight = null;
+    this.committedSignal = null;
+    this.nameElements = [];
+    this.elementStrategyEvidence = undefined;
+  }
+
+  private assertReady(
+    operation: SajuCalculatorReadOperation,
+    context?: EvalContext,
+  ): void {
+    if (!this.enabled) return;
+    if (this.completedContext === null || this.scoreResult === null) {
+      throw new SajuCalculatorStateError(operation, 'visit_required');
+    }
+    if (context !== undefined && context !== this.completedContext) {
+      throw new SajuCalculatorStateError(operation, 'context_mismatch');
+    }
+  }
+
+  private assertPublishedInsight(context: EvalContext): void {
+    const currentInsight = context.insights[SAJU_FRAME];
+    if (
+      this.publishedInsight === null
+      || this.committedSignal === null
+      || currentInsight !== this.publishedInsight
+      || currentInsight.frame !== this.committedSignal.frame
+      || currentInsight.score !== this.committedSignal.score
+      || currentInsight.isPassed !== this.committedSignal.isPassed
+    ) {
+      throw new SajuCalculatorStateError('backward', 'published_insight_mismatch');
+    }
+  }
+
   visit(ctx: EvalContext): void {
+    this.resetComputedState();
+
     if (!this.enabled) {
-      this.scoreResult = null;
-      this.tenGodDiagnostics = null;
-      this.nameElements = [];
-      this.elementStrategyEvidence = undefined;
       putInsight(ctx, SAJU_FRAME, 100, true, 'DISABLED_NO_SAJU_CONTEXT', {
         disabled: true,
         reason: 'missing-or-partial-birth-context',
@@ -1515,49 +1634,76 @@ export class SajuCalculator implements EvaluableCalculator {
       return;
     }
 
+    delete (ctx.insights as Record<string, unknown>)[SAJU_FRAME];
+
     const surnameDecisions = this.surnameEntries.map((entry, index) => this.resolveElement(entry, 'surname', index));
     const givenNameDecisions = this.givenNameEntries.map((entry, index) => this.resolveElement(entry, 'givenName', index));
     const allDecisions = [...surnameDecisions, ...givenNameDecisions];
     const arrangement = allDecisions.map(decision => decision.selectedElement);
-    this.nameElements = givenNameDecisions.map(decision => decision.selectedElement);
-    this.elementStrategyEvidence = this.buildElementStrategyEvidence(allDecisions);
+    // Element match counts are computed from the full Korean name, including
+    // the fixed surname. Publish the same scope so counts and evidence cannot
+    // disagree when the surname carries a yongshin/gishin element.
+    const nameElements = allDecisions.map(decision => decision.selectedElement);
+    const elementStrategyEvidence = this.buildElementStrategyEvidence(allDecisions);
     const rootDist = distributionFromArrangement(
       arrangement,
     );
-    this.scoreResult = computeSajuNameScore(
+    const { scoreResult, tenGodDiagnostics } = computeSajuNameScoreWithDiagnostics(
       this.sajuDistribution, rootDist, this.sajuOutput,
       this.presetData,
       this.scoringOverrides,
     );
-    this.tenGodDiagnostics = computeTenGodScoreDiagnostics(
-      rootDist,
-      this.sajuOutput,
-      this.scoringOverrides?.tenGodMode ?? 'simple_count',
-    );
-    putInsight(ctx, SAJU_FRAME, this.scoreResult.score, this.scoreResult.isPassed, 'SAJU+ELEMENT', {
+    putInsight(ctx, SAJU_FRAME, scoreResult.score, scoreResult.isPassed, 'SAJU+ELEMENT', {
       sajuDistribution: this.sajuDistribution,
       distributionSource: this.sajuOutput ? 'saju-ts' : 'fallback',
       elementDistribution: rootDist,
-      combinedDistribution: this.scoreResult.combined,
-      scoring: this.scoreResult.breakdown,
-      tenGodPositionEvidence: toTenGodPositionEvidence(this.tenGodDiagnostics),
-      elementStrategyEvidence: this.elementStrategyEvidence,
+      combinedDistribution: scoreResult.combined,
+      scoring: scoreResult.breakdown,
+      tenGodPositionEvidence: toTenGodPositionEvidence(tenGodDiagnostics),
+      elementStrategyEvidence,
       analysisOutput: this.sajuOutput,
       // PR8: surface evaluator hints so spring-evaluator's extractSajuPriority
       // can apply the curve / guard without changing springEvaluateName's signature.
       evaluatorHints: this.evaluatorHints,
     });
+    const publishedInsight = ctx.insights[SAJU_FRAME];
+    if (
+      publishedInsight === undefined
+      || publishedInsight.frame !== SAJU_FRAME
+      || publishedInsight.score !== scoreResult.score
+      || publishedInsight.isPassed !== scoreResult.isPassed
+    ) {
+      throw new Error('SajuCalculator.visit() could not verify its published SAJU_FRAME insight.');
+    }
+    const committedSignal: Readonly<CalculatorSignal> = Object.freeze({
+      frame: SAJU_FRAME,
+      score: scoreResult.score,
+      isPassed: scoreResult.isPassed,
+      weight: SAJU_SIGNAL_WEIGHT,
+    });
+    this.scoreResult = scoreResult;
+    this.tenGodDiagnostics = tenGodDiagnostics;
+    this.nameElements = nameElements;
+    this.elementStrategyEvidence = elementStrategyEvidence;
+    this.publishedInsight = publishedInsight;
+    this.committedSignal = committedSignal;
+    this.completedContext = ctx;
   }
 
   backward(ctx: EvalContext): CalculatorPacket {
     if (!this.enabled) {
       return { signals: [] };
     }
-    return { signals: [createSignal(SAJU_FRAME, ctx, SAJU_SIGNAL_WEIGHT)] };
+    this.assertReady('backward', ctx);
+    this.assertPublishedInsight(ctx);
+    return { signals: [{ ...this.committedSignal! }] };
   }
 
   getCombinedDistribution(): Record<ElementKey, number> {
-    if (this.scoreResult) return this.scoreResult.combined;
+    if (this.enabled) {
+      this.assertReady('getCombinedDistribution');
+      return this.scoreResult!.combined;
+    }
     return Object.fromEntries(
       ELEMENT_KEYS.map((key) => [key, 0]),
     ) as Record<ElementKey, number>;
@@ -1574,7 +1720,8 @@ export class SajuCalculator implements EvaluableCalculator {
           yongshinElement: '',
           heeshinElement: null,
           gishinElement: null,
-          nameElements: this.givenNameEntries.map(entry => this.legacyElementOf(entry)),
+          nameElements: [...this.surnameEntries, ...this.givenNameEntries]
+            .map(entry => this.legacyElementOf(entry)),
           yongshinMatchCount: 0,
           gishinMatchCount: 0,
           dayMasterSupportScore: 0,
@@ -1583,26 +1730,28 @@ export class SajuCalculator implements EvaluableCalculator {
       };
     }
 
-    const breakdown     = this.scoreResult?.breakdown;
+    this.assertReady('getAnalysis');
+    const breakdown     = this.scoreResult!.breakdown;
     const elementMatches = breakdown?.elementMatches;
     const yongshinData  = this.sajuOutput?.yongshin;
     const tenGodPositionEvidence = toTenGodPositionEvidence(this.tenGodDiagnostics);
     return {
       type: 'Saju',
-      score: this.scoreResult?.score ?? 0,
+      score: this.scoreResult!.score,
       polarityScore: 0,
-      elementScore: this.scoreResult?.score ?? 0,
+      elementScore: this.scoreResult!.score,
       data: {
         yongshinElement:       elementFromSajuCode(yongshinData?.finalYongshin) ?? '',
         heeshinElement:        elementFromSajuCode(yongshinData?.finalHeesin) ?? null,
         gishinElement:         elementFromSajuCode(yongshinData?.gisin) ?? null,
         nameElements:          this.nameElements.length > 0
           ? this.nameElements
-          : this.givenNameEntries.map(entry => this.legacyElementOf(entry)),
+          : [...this.surnameEntries, ...this.givenNameEntries]
+            .map(entry => this.legacyElementOf(entry)),
         yongshinMatchCount:    elementMatches?.yongshin ?? 0,
         gishinMatchCount:      elementMatches?.gisin ?? 0,
         dayMasterSupportScore: breakdown?.strength ?? 0,
-        affinityScore:         this.scoreResult?.score ?? 0,
+        affinityScore:         this.scoreResult!.score,
         yongshinConsensusConflictLevel: breakdown?.yongshinConsensus?.conflictLevel,
         yongshinConsensusCompetingElements: breakdown?.yongshinConsensus?.competingElements,
         safetyProfile: breakdown?.safetyProfile,

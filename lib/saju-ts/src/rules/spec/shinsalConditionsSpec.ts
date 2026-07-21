@@ -6,7 +6,7 @@ export type ShinsalConditionsRuleSpecMode = 'append' | 'prepend' | 'replace';
 
 export type ShinsalConditionsMacro =
   | {
-      /** Emit the engine's default set of damage-penalty rules (CHUNG/HAE/PA/WONJIN/HYEONG/GONGMANG). */
+      /** Emit the engine's default set of damage-penalty rules (CHUNG/HAE/PA/WONJIN/HYEONG/GONGMANG). HAP is available for explicit hegong rules. */
       kind: 'standardDamagePenalties';
       keys?: ShinsalDamageKey[];
       idPrefix?: string;

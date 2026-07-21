@@ -1,12 +1,18 @@
-import type { UserInfo, SeedResult, NamingResult, PureHangulNameMode } from './types';
-import { FourFrameCalculator } from './calculator/frame-calculator';
-import { HangulCalculator } from './calculator/hangul-calculator';
-import { HanjaCalculator } from './calculator/hanja-calculator';
-import type { HanjaEntry } from './database/hanja-repository';
-import { toHangulOnlyEntry } from './utils/hangul-name-entry';
-import type { Energy } from './model/energy';
-import { Polarity } from './model/polarity';
-import { Element } from './model/element';
+import type { UserInfo, SeedResult, NamingResult, PureHangulNameMode } from './types.js';
+import { FourFrameCalculator } from './calculator/frame-calculator.js';
+import { HangulCalculator } from './calculator/hangul-calculator.js';
+import { HanjaCalculator } from './calculator/hanja-calculator.js';
+import type { HanjaEntry } from './database/hanja-repository.js';
+import { toHangulOnlyEntry } from './utils/hangul-name-entry.js';
+import { SeedCalculationError } from './errors.js';
+import {
+  areEntriesHangulOnly,
+  assertNameEntriesForAnalysis,
+  assertValidUserInfoEnvelope,
+  cloneNameEntries,
+} from './validation.js';
+import { deepFreeze } from './utils/deep-freeze.js';
+import { averageEnabledComponentScores } from './scoring-policy.js';
 
 const ENABLE_HANJA_EVALUATION = true;
 const ENABLE_FOURFRAME_EVALUATION = true;
@@ -43,17 +49,15 @@ export class SeedTs {
      * 2. Perform Calculations
      * Each calculator internalizes the naming theory logic.
      */
-    if (includeFourFrame) {
-      fourFrames.calculate();
-    }
+    if (includeFourFrame) fourFrames.calculate();
+    else fourFrames.excludeFromAnalysis();
     hangul.calculate();
-    if (includeHanja) {
-      hanja.calculate();
-    }
+    if (includeHanja) hanja.calculate();
+    else hanja.excludeFromAnalysis();
 
     /**
      * 3. Aggregate Results into a Candidate
-     * Total score is now the simple sum of individual calculator results.
+     * Total score is the arithmetic mean of the enabled calculator results.
      */
     const mainCandidate: NamingResult = {
       lastName,
@@ -66,6 +70,7 @@ export class SeedTs {
         includeHanja,
       ),
       fourFrames,
+      fourFrameEnrichment: fourFrames.enrichment,
       hangul,
       hanja,
       pureHangulMode,
@@ -77,14 +82,14 @@ export class SeedTs {
     /**
      * 4. Return final SeedResult containing candidates
      */
-    return {
+    return deepFreeze({
       candidates: [mainCandidate],
       totalCount: 1
-    };
+    });
   }
 
   /**
-   * Calculates the final score by summing up the scores from each naming theory.
+   * Calculates the arithmetic mean of the enabled naming-theory scores.
    * @param fourFrames Result of the Four Frames (Saju) calculation
    * @param hangul Result of the Hangul (Phonetic) calculation
    * @param hanja Result of the Hanja (Resource Element) calculation
@@ -104,7 +109,25 @@ export class SeedTs {
     if (includeHanja) {
       scores.push(hanja.getScore());
     }
-    return scores.reduce((sum, value) => sum + value, 0) / scores.length;
+    if (scores.some((score) => !Number.isFinite(score))) {
+      throw new SeedCalculationError(
+        'NON_FINITE_SCORE',
+        'Every component score must be finite.',
+        'scores',
+        scores,
+      );
+    }
+
+    const totalScore = averageEnabledComponentScores(scores);
+    if (!Number.isFinite(totalScore)) {
+      throw new SeedCalculationError(
+        'NON_FINITE_SCORE',
+        'Aggregated score must be finite.',
+        'totalScore',
+        totalScore,
+      );
+    }
+    return totalScore;
   }
 
   protected createFourFrameCalculator(lastName: UserInfo['lastName'], firstName: UserInfo['firstName']): FourFrameCalculator {
@@ -124,24 +147,30 @@ export class SeedTs {
     firstName: HanjaEntry[];
     pureHangulMode: boolean;
   } {
-    const { lastName, firstName } = userInfo;
+    // Validate mode-driving fields before deciding which entry fields are derived.
+    assertValidUserInfoEnvelope(userInfo);
 
     const mode: PureHangulNameMode = userInfo.options?.pureHangulNameMode ?? 'auto';
     const useSurnameHanja = userInfo.options?.useSurnameHanjaInPureHangul ?? false;
+    const givenNameHasOnlyHangul = areEntriesHangulOnly(userInfo.firstName);
+    const pureHangulMode = mode === 'on' || (mode !== 'off' && givenNameHasOnlyHangul);
+    const convertLastNameToHangul = pureHangulMode && !useSurnameHanja;
+    const convertFirstNameToHangul = pureHangulMode;
 
-    const givenNameHasOnlyHangul = firstName.length > 0 && firstName.every((entry) => {
-      const hanja = String(entry.hanja ?? '').trim();
-      return hanja.length === 0 || hanja === entry.hangul;
+    assertNameEntriesForAnalysis(userInfo, {
+      convertLastNameToHangul,
+      convertFirstNameToHangul,
     });
 
-    const pureHangulMode = mode === 'on' || (mode !== 'off' && givenNameHasOnlyHangul);
+    const lastName = cloneNameEntries(userInfo.lastName);
+    const firstName = cloneNameEntries(userInfo.firstName);
     if (!pureHangulMode) {
       return { lastName, firstName, pureHangulMode: false };
     }
 
-    const resolvedLastName = useSurnameHanja
-      ? lastName
-      : lastName.map((entry) => toHangulOnlyEntry(entry, { hanja: '' }));
+    const resolvedLastName = convertLastNameToHangul
+      ? lastName.map((entry) => toHangulOnlyEntry(entry, { hanja: '' }))
+      : lastName;
     const resolvedFirstName = firstName.map((entry) => toHangulOnlyEntry(entry, { hanja: '' }));
 
     return {

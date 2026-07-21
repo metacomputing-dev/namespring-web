@@ -1,14 +1,9 @@
 /**
- * test/integration/composite-quality-gate.test.ts
+ * Composite-classical behavior and regression gate.
  *
- * PR-4.6 gate for composite_classical merge readiness.
- *
- * Run:
- *   npm run test:composite-quality-gate
- *
- * CI may override refs:
- *   COMPOSITE_GATE_BASELINE_REF=origin/main
- *   COMPOSITE_GATE_BRANCH_REF=HEAD
+ * This test protects current runtime behavior. Phase-P label agreement is
+ * historical observation data and must never become an authority or release
+ * decision.
  */
 import { execFileSync, execSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -26,29 +21,23 @@ interface BaselineFixture {
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRING_TS_ROOT = path.resolve(__dirname, '../..');
-const FIXTURE_PATH = path.resolve(SPRING_TS_ROOT, 'test/fixtures/spring_ts_baseline_cases.json');
-const METRICS_PATH = path.resolve(SPRING_TS_ROOT, 'metrics/bySourceTier.json');
+const FIXTURE_PATH = path.resolve(
+  SPRING_TS_ROOT,
+  'test/fixtures/spring_ts_baseline_cases.json',
+);
+const METRICS_PATH = path.resolve(
+  SPRING_TS_ROOT,
+  'metrics/bySourceTier.json',
+);
 
 const BASELINE_REF = process.env.COMPOSITE_GATE_BASELINE_REF ?? 'main';
 const BRANCH_REF = process.env.COMPOSITE_GATE_BRANCH_REF ?? 'HEAD';
-const MAX_SELECTED_JONGGYEOK_RATIO = 0;
-const MONTHLY_MAIN_THRESHOLD = { minPass: 17, comparable: 27 };
-const COMPOSITE_TOTAL_COVERAGE_THRESHOLD = { minCovered: 23, comparable: 27 };
-const COMPOSITE_SOURCE_TIER_THRESHOLDS = {
-  T3_AUTHORED_INTERPRETATION: { minCovered: 20, comparable: 21 },
-  T4_PRIMARY_TEXT: { minCovered: 3, comparable: 6 },
-} as const;
-const COMPOSITE_SOURCE_GROUP_THRESHOLDS = [
-  { id: 'lecture', sourceIndex: 0, minCovered: 14, comparable: 14 },
-  { id: 'jonheom', sourceIndex: 1, minCovered: 3, comparable: 6 },
-  { id: 'korean_modern_figures_and_chumyeongga', sourceIndex: 2, minCovered: 6, comparable: 7 },
-] as const;
 
 let pass = 0;
 let fail = 0;
 
-function check(label: string, cond: boolean, evidence?: string): void {
-  if (cond) {
+function check(label: string, condition: boolean, evidence?: string): void {
+  if (condition) {
     pass += 1;
     console.log(`  PASS ${label}${evidence ? ` (${evidence})` : ''}`);
   } else {
@@ -62,7 +51,9 @@ function readJson<T>(filePath: string): T {
 }
 
 function comparableCount(tally: any): number {
-  return Number(tally?.pass ?? 0) + Number(tally?.partial ?? 0) + Number(tally?.diff ?? 0);
+  return Number(tally?.pass ?? 0) +
+    Number(tally?.partial ?? 0) +
+    Number(tally?.diff ?? 0);
 }
 
 function runDefaultRegressionGate(): any | null {
@@ -87,7 +78,7 @@ function runDefaultRegressionGate(): any | null {
     const stdout = error?.stdout?.toString?.() ?? '';
     const stderr = error?.stderr?.toString?.() ?? '';
     check(
-      `monthly_main default snapshot has no regression (${BASELINE_REF}..${BRANCH_REF})`,
+      `default snapshot has no regression (${BASELINE_REF}..${BRANCH_REF})`,
       false,
       (stdout || stderr || error.message).trim().slice(0, 500),
     );
@@ -95,133 +86,93 @@ function runDefaultRegressionGate(): any | null {
   }
 }
 
-console.log('PR-4.6 composite quality gate: monthly_main default\n');
+console.log('Composite-classical behavior and regression gate\n');
 
 const regressionReport = runDefaultRegressionGate();
 if (regressionReport) {
   check(
-    `monthly_main default snapshot has no regression (${BASELINE_REF}..${BRANCH_REF})`,
-    regressionReport.totalDiffs === 0,
-    `diffs=${regressionReport.totalDiffs}`,
+    `default snapshot has no unapproved diff (${BASELINE_REF}..${BRANCH_REF})`,
+    regressionReport.unapprovedDiffs === 0,
+    `diffs=${regressionReport.totalDiffs}, unapproved=${regressionReport.unapprovedDiffs}, approval=${regressionReport.approval?.status}`,
   );
 }
 
-const matrix = JSON.parse(execSync('npm run measure:alternative-rules --silent -- --json', {
-  cwd: SPRING_TS_ROOT,
-  encoding: 'utf-8',
-  stdio: ['ignore', 'pipe', 'pipe'],
-  shell: true,
-}));
-
+const matrix = JSON.parse(execSync(
+  'npm run measure:alternative-rules --silent -- --json',
+  {
+    cwd: SPRING_TS_ROOT,
+    encoding: 'utf-8',
+    stdio: ['ignore', 'pipe', 'pipe'],
+    shell: true,
+  },
+));
 const monthlyMain = matrix.totals?.monthly_main;
 const composite = matrix.totals?.composite_classical;
-const monthlyComparable = comparableCount(monthlyMain);
-const compositeComparable = comparableCount(composite);
-
 check(
-  'monthly_main authority subset selected agreement meets gate threshold',
-  monthlyMain?.pass >= MONTHLY_MAIN_THRESHOLD.minPass &&
-    monthlyComparable === MONTHLY_MAIN_THRESHOLD.comparable,
-  `pass=${monthlyMain?.pass}, comparable=${monthlyComparable}`,
+  'historical matrix keeps composite selected agreement identical to monthly_main',
+  Number.isFinite(monthlyMain?.pass) &&
+    Number.isFinite(composite?.pass) &&
+    composite.pass === monthlyMain.pass &&
+    comparableCount(composite) === comparableCount(monthlyMain),
+  `composite=${composite?.pass}/${comparableCount(composite)}, monthly=${monthlyMain?.pass}/${comparableCount(monthlyMain)}`,
 );
 check(
-  'composite_classical selected agreement does not regress against monthly_main',
-  composite?.pass >= monthlyMain?.pass && compositeComparable === monthlyComparable,
-  `composite=${composite?.pass}/${compositeComparable}, monthly=${monthlyMain?.pass}/${monthlyComparable}`,
-);
-check(
-  'composite_classical total authority candidate coverage meets threshold',
-  matrix.compositeCandidateCoverage?.covered >= COMPOSITE_TOTAL_COVERAGE_THRESHOLD.minCovered &&
-    matrix.compositeCandidateCoverage?.comparable === COMPOSITE_TOTAL_COVERAGE_THRESHOLD.comparable,
+  'historical candidate coverage is present but not interpreted as authority',
+  Number.isFinite(matrix.compositeCandidateCoverage?.covered) &&
+    Number.isFinite(matrix.compositeCandidateCoverage?.comparable),
   JSON.stringify(matrix.compositeCandidateCoverage),
 );
 
-const sourceTierCoverage: Record<string, { covered: number; comparable: number }> = {};
-for (const [index, source] of (matrix.sources ?? []).entries()) {
-  const tier = index === 1 ? 'T4_PRIMARY_TEXT' : 'T3_AUTHORED_INTERPRETATION';
-  const bucket = sourceTierCoverage[tier] ?? { covered: 0, comparable: 0 };
-  bucket.covered += Number(source.compositeCandidateCoverage?.covered ?? 0);
-  bucket.comparable += Number(source.compositeCandidateCoverage?.comparable ?? 0);
-  sourceTierCoverage[tier] = bucket;
-}
-
-for (const [tier, threshold] of Object.entries(COMPOSITE_SOURCE_TIER_THRESHOLDS)) {
-  const coverage = sourceTierCoverage[tier];
-  check(
-    `${tier} composite authority candidate coverage meets gate threshold`,
-    coverage?.covered >= threshold.minCovered && coverage?.comparable === threshold.comparable,
-    JSON.stringify(coverage),
-  );
-}
-
-for (const threshold of COMPOSITE_SOURCE_GROUP_THRESHOLDS) {
-  const coverage = matrix.sources?.[threshold.sourceIndex]?.compositeCandidateCoverage;
-  check(
-    `${threshold.id} composite authority candidate coverage meets gate threshold`,
-    coverage?.covered >= threshold.minCovered && coverage?.comparable === threshold.comparable,
-    JSON.stringify(coverage),
-  );
-}
-
-execSync('npm run metrics:baseline', {
-  cwd: SPRING_TS_ROOT,
-  stdio: ['ignore', 'pipe', 'pipe'],
-  shell: true,
-});
 const bySourceTier = readJson<any>(METRICS_PATH);
-const compositeQualityGate = bySourceTier.ruleModeBreakdown?.compositeQualityGate;
+const breakdown = bySourceTier.ruleModeBreakdown ?? {};
+const compositeMode = breakdown.modes?.composite_classical;
 check(
-  'baseline metrics dashboard exposes composite quality gate status',
-  compositeQualityGate?.status === 'PASS' &&
-    Array.isArray(compositeQualityGate?.checks) &&
-    compositeQualityGate.checks.length >= 7,
-  `status=${compositeQualityGate?.status}, checks=${compositeQualityGate?.checks?.length}`,
+  'Phase-P metric is explicitly historical and release-ineligible',
+  breakdown.authorityScope === 'historical_observation_only' &&
+    breakdown.releaseEligible === false &&
+    breakdown.historicalCompositeObservation?.releaseEligible === false &&
+    !('compositeQualityGate' in breakdown),
 );
 check(
-  'baseline metrics dashboard exposes source-tier composite performance',
-  ['T3_AUTHORED_INTERPRETATION', 'T4_PRIMARY_TEXT'].every((tier) =>
-    compositeQualityGate?.sourceTierDashboard?.[tier]?.candidateCoverage &&
-    compositeQualityGate?.sourceTierDashboard?.[tier]?.nonRegression?.status === 'PASS'),
-  JSON.stringify(compositeQualityGate?.sourceTierDashboard),
-);
-check(
-  'composite authority dashboard excludes low-tier references',
-  JSON.stringify(Object.keys(compositeQualityGate?.sourceTierDashboard ?? {}).sort()) ===
-    JSON.stringify(['T3_AUTHORED_INTERPRETATION', 'T4_PRIMARY_TEXT']) &&
-    !('T2_REFERENCE_IMPLEMENTATION' in (compositeQualityGate?.sourceTierDashboard ?? {})) &&
-    !('T1_HYPOTHESIS' in (compositeQualityGate?.sourceTierDashboard ?? {})) &&
-    !('NO_REFERENCE' in (compositeQualityGate?.sourceTierDashboard ?? {})),
-  JSON.stringify(Object.keys(compositeQualityGate?.sourceTierDashboard ?? {}).sort()),
-);
-const compositeMode = bySourceTier.ruleModeBreakdown?.modes?.composite_classical;
-check(
-  'composite_classical remains evidence-only and never-promote',
-  compositeMode?.selectionPolicy === 'evidence_only_never_promote' &&
-    compositeMode?.selectedAgreementMode === 'monthly_main' &&
-    Object.values(compositeMode?.bySourceTier ?? {}).every((bucket: any) =>
-      bucket?.sourceTierNonRegressionVsMonthlyMain?.status === 'PASS'),
-  JSON.stringify({
-    selectionPolicy: compositeMode?.selectionPolicy,
-    selectedAgreementMode: compositeMode?.selectedAgreementMode,
-  }),
+  'historical metric uses no current source-tier authority keys',
+  Object.keys(compositeMode?.byHistoricalLabelTier ?? {}).sort().join(',') ===
+      'phase_p_authored_interpretation_label,phase_p_primary_text_label' &&
+    !('bySourceTier' in (compositeMode ?? {})) &&
+    compositeMode?.selectionPolicy ===
+      'historical_evidence_only_never_promote',
 );
 
-const fixtures = readJson<{ fixtures: readonly BaselineFixture[] }>(FIXTURE_PATH).fixtures;
+const fixtures = readJson<{ fixtures: readonly BaselineFixture[] }>(
+  FIXTURE_PATH,
+).fixtures;
 const selectedJonggyeokFixtures: string[] = [];
+const compositePromotionViolations: string[] = [];
+
 for (const fixture of fixtures) {
   const summary = await analyzeSaju(fixture.birth);
-  const selected = (summary.gyeokguk.jonggyeokCandidates ?? [])
-    .some((candidate) => candidate.status === 'selected');
-  if (selected) selectedJonggyeokFixtures.push(fixture.id);
+  const candidates = summary.gyeokguk.candidates ?? [];
+  const selectedJonggyeok = (
+    summary.gyeokguk.jonggyeokCandidates ?? []
+  ).some((candidate) => candidate.status === 'selected');
+  const promotesComposite = candidates.some((candidate) =>
+    candidate.compositeClassical?.selectionPolicy !==
+      'evidence_only_never_promote' ||
+    candidate.compositeClassical?.selectedByComposite !== false);
+
+  if (selectedJonggyeok) selectedJonggyeokFixtures.push(fixture.id);
+  if (promotesComposite) compositePromotionViolations.push(fixture.id);
 }
-const selectedJonggyeokRatio = fixtures.length > 0
-  ? selectedJonggyeokFixtures.length / fixtures.length
-  : 1;
+
 check(
-  'regular baseline selected jonggyeok ratio stays at zero',
-  selectedJonggyeokRatio <= MAX_SELECTED_JONGGYEOK_RATIO,
-  `selected=${selectedJonggyeokFixtures.length}/${fixtures.length}: ${selectedJonggyeokFixtures.join(',')}`,
+  'composite evidence never promotes a runtime candidate',
+  compositePromotionViolations.length === 0,
+  compositePromotionViolations.join(','),
+);
+check(
+  'regular baseline selects no jonggyeok candidate',
+  selectedJonggyeokFixtures.length === 0,
+  selectedJonggyeokFixtures.join(','),
 );
 
-console.log(`\nComposite quality gate: ${pass} PASS / ${fail} FAIL`);
+console.log(`\nComposite behavior gate: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);

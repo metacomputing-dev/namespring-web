@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest';
 
-import { migrateConfig, CURRENT_CONFIG_SCHEMA_VERSION } from './migrations.js';
+import {
+  migrateConfig,
+  CURRENT_CONFIG_SCHEMA_VERSION,
+  UnsupportedConfigSchemaVersionError,
+} from './migrations.js';
 
 describe('config migrations', () => {
   it('treats missing schemaVersion as legacy v0 and migrates to current', () => {
@@ -11,7 +15,7 @@ describe('config migrations', () => {
         monthBoundary: 'jieqi',
         dayBoundary: 'midnight',
         hourBoundary: 'doubleHour',
-        // legacy callers sometimes put invalid shapes here
+        // invalid legacy values remain visible for post-migration validation
         solarTerms: 'meeus',
         trueSolarTime: { enabled: true, equationOfTime: 'approx' },
       },
@@ -37,18 +41,55 @@ describe('config migrations', () => {
     expect(s.lifeStages).toEqual({ earthRule: 'FOLLOW_FIRE', yinReversalEnabled: true });
     expect(s.lifeStage).toBeUndefined();
 
-    // invalid shapes are removed so that defaults can be applied later
+    // Invalid shapes are not erased into defaults. normalizeConfig owns
+    // fail-closed semantic validation after aliases have migrated.
     const c: any = migrated.calendar;
-    expect(c.solarTerms).toBeUndefined();
+    expect(c.solarTerms).toBe('meeus');
     expect(c.trueSolarTime).toEqual({ enabled: true, equationOfTime: 'approx' });
 
     expect((migrated as any).extensions.foo).toBe(1);
   });
 
-  it('stamps unknown versions to current without throwing (best-effort)', () => {
+  it.each([
+    { calendar: null },
+    { calendar: { trueSolarTime: 'on' } },
+    { toggles: [] },
+    { strategies: 'base' },
+  ])('preserves explicit invalid legacy shapes for the runtime validator %#', (input) => {
+    const migrated = migrateConfig(input) as any;
+
+    for (const key of ['calendar', 'toggles', 'strategies'] as const) {
+      if (Object.prototype.hasOwnProperty.call(input, key)) {
+        expect(migrated[key]).toEqual((input as any)[key]);
+      }
+    }
+  });
+
+  it('rejects unknown versions instead of falsely stamping them current', () => {
     const weird: any = { schemaVersion: '999', calendar: { yearBoundary: 'liChun' } };
-    const migrated = migrateConfig(weird);
-    expect(migrated.schemaVersion).toBe(CURRENT_CONFIG_SCHEMA_VERSION);
-    expect((migrated as any).calendar.yearBoundary).toBe('liChun');
+    expect(() => migrateConfig(weird))
+      .toThrow(UnsupportedConfigSchemaVersionError);
+  });
+
+  it.each([
+    undefined,
+    null,
+    '',
+    '   ',
+    true,
+    false,
+    {},
+    [],
+    1.9,
+    Number.NaN,
+    Number.POSITIVE_INFINITY,
+  ])('rejects an explicitly invalid schemaVersion %#', (schemaVersion) => {
+    expect(() => migrateConfig({ schemaVersion }))
+      .toThrow(UnsupportedConfigSchemaVersionError);
+  });
+
+  it.each([0, 1])('accepts finite integer schemaVersion compatibility value %s', (schemaVersion) => {
+    expect(migrateConfig({ schemaVersion }).schemaVersion)
+      .toBe(CURRENT_CONFIG_SCHEMA_VERSION);
   });
 });

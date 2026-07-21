@@ -6,18 +6,19 @@
  * - 사흉신(四凶神, 역용): 칠살(편관)·상관·겁재(월겁/양인)·편인(효신) → 제압·화(化)해야 선다.
  * - 격을 성격시키는 글자가 상신(相神), 파격 요인을 구하는 글자가 구응(救應).
  *
- * 스코프(PR-6): additive 판정 표면만 — 격국 ranking/score/quality.multiplier에는
- * 개입하지 않는다(점수 통합은 판정 변경이므로 별도 계측 항목, E-2 로드맵 참조).
+ * 기본 정책은 additive 판정 표면만 제공하며 격국 ranking/score/quality.multiplier에는
+ * 개입하지 않는다. 숨은 상신·세력 비교와 점수 통합은 명시적으로 opt-in한 경우에만 동작한다.
  * 성패별 사용자 해석 텍스트 저작은 콘텐츠 축(틀만: verdict/sangshin/reasons).
  *
  * 판정 재료: 월지격 십성(또는 건록/양인/월겁 세분) × 년·월·시 투출 십성 집합 +
- * 월지 손상(quality.broken — 탐합망충 해소 후 값). 지장간 회지 상신·세력 비교 등
- * 정밀 판정은 후속(v0는 투간 기준 — 자평진전의 1차 판정과 동일 축).
+ * 월지 손상(quality.broken — 탐합망충 해소 후 값). 기본 경로(v0)는 투간 기준이며,
+ * 지장간 상신·세력 비교 확장은 authority holdout 전까지 opt-in이다.
  */
 import type { StemIdx } from '../core/cycle.js';
 import { stemHanja } from '../core/cycle.js';
 import type { TenGod } from '../core/tenGod.js';
 import { tenGodOf } from '../core/tenGod.js';
+import type { HiddenStemRole } from '../core/hiddenStems.js';
 
 export type SeongpaeVerdict =
   | 'SEONGGYEOK'      // 성격(成格)
@@ -28,11 +29,22 @@ export type SeongpaeVerdict =
 
 export interface SeongpaeResult {
   verdict: SeongpaeVerdict;
+  /**
+   * 월지 손상만으로 verdict가 강등된 경우의 강등 전 판정.
+   *
+   * 월지 손상은 이미 month.gyeok.quality.multiplier에 반영되므로, 점수 층은
+   * 이 값을 사용해 같은 손상을 seongpae 배율로 다시 곱하지 않는다.
+   */
+  verdictBeforeMonthBroken?: SeongpaeVerdict;
   /** 격 운용 방향 — 순용(길신 생조) / 역용(흉신 제화). */
   usage: 'SUNYONG' | 'YEOKYONG';
   /** 상신(격을 성격시키는 십성) — 투간에서 확인된 것. */
   sangshin: TenGod | null;
   sangshinStemHanja: string | null;
+  sangshinSource?: SeongpaeEvidenceSource;
+  sangshinHiddenRole?: HiddenStemRole;
+  sangshinHiddenWeight?: number;
+  strengthComparison?: SeongpaeStrengthComparison;
   /** 파격 요인 십성 (기신 — 투간에서 확인된 것). */
   pagyeokFactor: TenGod | null;
   /** 구응(救應) — 파격 요인을 구하는 십성. */
@@ -58,6 +70,38 @@ interface SeongpaeRule {
   requiresSangshin?: boolean;
 }
 
+export type SeongpaeEvidenceSource = 'TRANSPARENT' | 'MONTH_HIDDEN';
+
+export interface SeongpaeStrengthComparison {
+  sangshin: TenGod;
+  breaker: TenGod;
+  sangshinScore: number;
+  breakerScore: number;
+  margin: number;
+  decisive: boolean;
+}
+
+export interface SeongpaePolicy {
+  /** Retain an internal pre-damage verdict only when score integration consumes it. */
+  retainPreMonthVerdict?: boolean;
+  hiddenSangshin?: {
+    enabled?: boolean;
+    minWeight?: number;
+    allowResidual?: boolean;
+  };
+  strengthCompare?: {
+    enabled?: boolean;
+    decisiveMargin?: number;
+  };
+}
+
+interface SeongpaeHit {
+  stem: StemIdx;
+  tenGod: TenGod;
+  source: SeongpaeEvidenceSource;
+  role?: HiddenStemRole;
+  weight?: number;
+}
 const JAE: TenGod[] = ['JEONG_JAE', 'PYEON_JAE'];
 const SIKSANG: TenGod[] = ['SIK_SHIN', 'SANG_GWAN'];
 const GWANSAL: TenGod[] = ['JEONG_GWAN', 'PYEON_GWAN'];
@@ -170,6 +214,11 @@ export function computeGyeokgukSeongpae(args: {
   dayStem: StemIdx;
   /** 년·월·시 천간 (일간 제외 투출 후보). */
   otherStems: StemIdx[];
+  monthHiddenStems?: Array<{ stem: StemIdx; tenGod: TenGod; role: HiddenStemRole; weight: number; visibleInChart?: boolean }>;
+  tenGodScores?: Partial<Record<TenGod, number>>;
+  /** Self stem contribution already included in tenGodScores.BI_GYEON. */
+  dayMasterSelfScore?: number;
+  policy?: SeongpaePolicy;
   /** 월지 손상 (quality.broken — 탐합망충 해소 후 값). */
   monthBroken: boolean;
 }): SeongpaeResult | null {
@@ -182,17 +231,80 @@ export function computeGyeokgukSeongpae(args: {
   if (!rule) return null;
 
   // 투출 십성 (년·월·시 천간 → 일간 기준)
-  const transparent = args.otherStems.map((s) => ({ stem: s, tenGod: tenGodOf(args.dayStem, s) }));
-  const findFirst = (cands: TenGod[]): { stem: StemIdx; tenGod: TenGod } | null => {
+  const hiddenPolicy = args.policy?.hiddenSangshin ?? {};
+  const hiddenEnabled = hiddenPolicy.enabled === true;
+  const hiddenMinWeight = typeof hiddenPolicy.minWeight === 'number'
+    && Number.isFinite(hiddenPolicy.minWeight)
+    && hiddenPolicy.minWeight >= 0
+    ? hiddenPolicy.minWeight
+    : 0.3;
+  const hiddenAllowResidual = hiddenPolicy.allowResidual === true;
+  const strengthPolicy = args.policy?.strengthCompare ?? {};
+  const strengthEnabled = strengthPolicy.enabled === true;
+  const includeEvidenceMeta = hiddenEnabled || strengthEnabled;
+  const decisiveMargin = typeof strengthPolicy.decisiveMargin === 'number'
+    && Number.isFinite(strengthPolicy.decisiveMargin)
+    && strengthPolicy.decisiveMargin >= 0
+    ? strengthPolicy.decisiveMargin
+    : 0.4;
+
+  const transparent: SeongpaeHit[] = args.otherStems.map((s) => ({
+    stem: s,
+    tenGod: tenGodOf(args.dayStem, s),
+    source: 'TRANSPARENT',
+  }));
+  const hiddenMonth = (args.monthHiddenStems ?? []).filter(
+    (h) => h.weight >= hiddenMinWeight && (hiddenAllowResidual || h.role !== 'RESIDUAL'),
+  );
+  const findFirst = (cands: TenGod[], opts: { includeMonthHidden?: boolean } = {}): SeongpaeHit | null => {
+    // Transparent stems are primary evidence. Month-hidden stems are only a
+    // secondary source and must never outrank a later transparent candidate.
     for (const c of cands) {
       const hit = transparent.find((t) => t.tenGod === c);
       if (hit) return hit;
     }
+    if (hiddenEnabled && opts.includeMonthHidden) {
+      for (const c of cands) {
+        const hiddenHit = hiddenMonth.find((t) => t.tenGod === c);
+        if (hiddenHit) return { ...hiddenHit, source: 'MONTH_HIDDEN' };
+      }
+    }
     return null;
+  };
+  const scoreOf = (tg: TenGod): number => {
+    const v = args.tenGodScores?.[tg];
+    if (typeof v !== 'number' || !Number.isFinite(v)) return 0;
+    if (tg !== 'BI_GYEON') return v;
+    const self = args.dayMasterSelfScore;
+    if (typeof self !== 'number' || !Number.isFinite(self) || self < 0) {
+      throw new RangeError('BI_GYEON strength comparison requires day-master self provenance');
+    }
+    const selfScore = self;
+    return Math.max(0, v - selfScore);
+  };
+  const compareStrength = (sangshin: SeongpaeHit | null, breaker: SeongpaeHit | null): SeongpaeStrengthComparison | undefined => {
+    if (!strengthEnabled || !sangshin || !breaker) return undefined;
+    const sangshinScore = scoreOf(sangshin.tenGod);
+    const breakerScore = scoreOf(breaker.tenGod);
+    const margin = sangshinScore - breakerScore;
+    return {
+      sangshin: sangshin.tenGod,
+      breaker: breaker.tenGod,
+      sangshinScore,
+      breakerScore,
+      margin,
+      decisive: margin !== 0 && Math.abs(margin) >= decisiveMargin,
+    };
+  };
+  const sangshinReason = (hit: SeongpaeHit): string => {
+    if (hit.source === 'MONTH_HIDDEN') {
+      return `sangshin:${TENGOD_KO[hit.tenGod]}(${stemHanja(hit.stem)}) month-hidden ${hit.role ?? 'UNKNOWN'} w=${(hit.weight ?? 0).toFixed(2)}`;
+    }
+    return `상신:${TENGOD_KO[hit.tenGod]}(${stemHanja(hit.stem)}) 투출`;
   };
 
   const reasons: string[] = [];
-  const sangshinHit = findFirst(rule.sangshin);
+  const sangshinHit = findFirst(rule.sangshin, { includeMonthHidden: true });
   const breakerHit = findFirst(rule.breakers);
 
   let gueung: TenGod | null = null;
@@ -201,6 +313,8 @@ export function computeGyeokgukSeongpae(args: {
     const rescueHit = findFirst(rescueCands);
     if (rescueHit) gueung = rescueHit.tenGod;
   }
+
+  const strengthComparison = compareStrength(sangshinHit, breakerHit);
 
   let verdict: SeongpaeVerdict;
   if (breakerHit && gueung) {
@@ -214,7 +328,7 @@ export function computeGyeokgukSeongpae(args: {
     reasons.push(`파격요인:${TENGOD_KO[breakerHit.tenGod]} 투출·구응 무`);
   } else if (sangshinHit) {
     verdict = 'SEONGGYEOK';
-    reasons.push(`상신:${TENGOD_KO[sangshinHit.tenGod]}(${stemHanja(sangshinHit.stem)}) 투출`);
+    reasons.push(sangshinReason(sangshinHit));
   } else if (rule.requiresSangshin) {
     verdict = 'PAGYEOK';
     reasons.push(`${key === 'YANGIN' ? '양인가살(관살)' : '재·관·식 외구'} 부재`);
@@ -224,6 +338,13 @@ export function computeGyeokgukSeongpae(args: {
   }
 
   // 월지 손상(형충 파격)은 성격을 성중유패로, 미확정을 파격 방향으로 끌어내린다.
+  if (strengthComparison?.decisive && strengthComparison.margin < 0 && verdict === 'SEONGJUNG_YUPA') {
+    verdict = 'PAGYEOK';
+    reasons.push(`strength:breaker-dominant margin=${strengthComparison.margin.toFixed(2)}`);
+  } else if (strengthComparison?.decisive && strengthComparison.margin > 0 && verdict === 'SEONGJUNG_YUPA') {
+    reasons.push(`strength:sangshin-dominant margin=${strengthComparison.margin.toFixed(2)}`);
+  }
+  const verdictBeforeMonthBroken = verdict;
   if (args.monthBroken) {
     reasons.push('월지 손상(형충 — 탐합망충 해소 후에도 잔존)');
     if (verdict === 'SEONGGYEOK') verdict = 'SEONGJUNG_YUPA';
@@ -234,9 +355,15 @@ export function computeGyeokgukSeongpae(args: {
 
   return {
     verdict,
+    ...(args.policy?.retainPreMonthVerdict === true && verdict !== verdictBeforeMonthBroken
+      ? { verdictBeforeMonthBroken }
+      : {}),
     usage: rule.usage,
     sangshin: sangshinHit?.tenGod ?? null,
     sangshinStemHanja: sangshinHit ? stemHanja(sangshinHit.stem) : null,
+    ...(includeEvidenceMeta && sangshinHit ? { sangshinSource: sangshinHit.source } : {}),
+    ...(sangshinHit?.source === 'MONTH_HIDDEN' ? { sangshinHiddenRole: sangshinHit.role, sangshinHiddenWeight: sangshinHit.weight } : {}),
+    ...(strengthComparison ? { strengthComparison } : {}),
     pagyeokFactor: breakerHit?.tenGod ?? null,
     gueung,
     reasons,

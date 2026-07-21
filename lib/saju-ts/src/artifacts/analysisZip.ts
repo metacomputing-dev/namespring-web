@@ -91,7 +91,7 @@ export function packAnalysisBundleZip(bundle: AnalysisBundle, opts: AnalysisZipO
       .map(([path, bytes]) => ({
         path,
         bytes: bytes.length,
-        sha256: sha256Hex(strFromU8(bytes)),
+        sha256: sha256Hex(bytes),
       })),
   };
 

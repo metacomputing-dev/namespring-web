@@ -10,11 +10,18 @@
  * 해석 충전은 별도 검증기를 거쳐 진행한다 (docs/DESIGN_LIFEFLOW_INSIGHTS.md §Phase 3).
  */
 
+import { snapshotJsonValue } from './immutable-json-snapshot.js';
+
 export interface InsightInterpretation {
   readonly factId: string;
   /** 평문 한 줄 해석 (해요체). */
   readonly text: string;
-  /** 전문가 tier 보강 해석 (선택, #{태그} 직조 가능). */
+  /**
+   * 상세 표시용 보강 해석 (선택, #{태그} 직조 가능).
+   *
+   * `expertText`는 표시 상세도를 뜻할 뿐 전문가 검증이나 권위 승인을 뜻하지
+   * 않는다. 권위 적격성은 반드시 `sourceTier.authorityTruthEligible`로 판단한다.
+   */
   readonly expertText?: string;
   /** AI-authored content provenance. Present on newly-authored entries. */
   readonly aiGenerated?: boolean;
@@ -81,7 +88,9 @@ function loadFromFs(map: Map<string, InsightInterpretation>): void {
         const mod: unknown = JSON.parse(nodeBuiltins.fs.readFileSync(nodeBuiltins.path.join(dir, f), 'utf-8'));
         if (!isValidFile(mod)) continue;
         for (const entry of mod.entries) {
-          if (isValidEntry(entry)) map.set(entry.factId, entry);
+          if (isValidEntry(entry)) {
+            map.set(entry.factId, snapshotJsonValue(entry));
+          }
         }
       } catch { /* skip malformed file */ }
     }
@@ -103,8 +112,8 @@ function loadAll(): Map<string, InsightInterpretation> {
     // Vite(브라우저): eager 인라인. 파일 소량이라 번들 영향 미미 —
     // 충전이 커지면 pack 방식으로 전환한다(설계 문서 참조).
     modules = import.meta.glob('../../../data/articles/insights/*.insights.json', {
-      eager: true,
-    }) as Record<string, unknown>;
+        eager: true,
+      }) as Record<string, unknown>;
   } catch {
     modules = {};
   }
@@ -116,7 +125,9 @@ function loadAll(): Map<string, InsightInterpretation> {
       : raw;
     if (!isValidFile(mod)) continue;
     for (const entry of mod.entries) {
-      if (isValidEntry(entry)) map.set(entry.factId, entry);
+      if (isValidEntry(entry)) {
+        map.set(entry.factId, snapshotJsonValue(entry));
+      }
     }
   }
   cached = map;

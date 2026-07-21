@@ -4,6 +4,8 @@ import { evalRuleSet } from './dsl.js';
 import { DEFAULT_GYEOKGUK_RULESET } from './defaultRuleSets.js';
 import { compileGyeokgukRuleSpec } from './spec/compileGyeokgukSpec.js';
 import type { DayMasterRole, RuleFacts } from './facts.js';
+import { firstFiniteSignal } from './finiteSignal.js';
+import { strengthDecisionComponents } from './strengthComponents.js';
 import { compete, renormalizeScale } from '../core/competition.js';
 
 export type GyeokgukCompetitionMethod = 'follow' | 'transformations' | 'oneElement' | 'tenGod';
@@ -29,6 +31,8 @@ type ResolvedCompetitionPolicy = {
   groups: Record<GyeokgukCompetitionMethod, CompetitionKeyGroupSpec>;
   signals: ResolvedCompetitionSignals;
 };
+
+type SeongpaeVerdictKey = NonNullable<RuleFacts['month']['gyeok']['seongpae']>['verdict'];
 
 export interface CompetitionKeyGroupSpec {
   /** Include keys that start with any of these prefixes. */
@@ -61,6 +65,11 @@ export interface GyeokgukPolicy {
    *
    * This operates on the *score keys* emitted by the ruleset.
    */
+  seongpaeScore?: {
+    enabled: boolean;
+    multipliers: Record<SeongpaeVerdictKey, number>;
+  };
+
   competition?: {
     enabled: boolean;
     /** Names: 'follow' | 'transformations' | 'oneElement' | 'tenGod'. Unknown strings are ignored. */
@@ -91,6 +100,26 @@ export interface GyeokgukPolicy {
      * - oneElement: zhuanwangFactor → factor
      */
     signals?: CompetitionSignalSelectors;
+  };
+}
+
+export interface GyeokgukSeongpaeScoreAdjustment {
+  verdict: SeongpaeVerdictKey;
+  /** User-facing verdict may include month damage already accounted for by quality.multiplier. */
+  reportedVerdict?: SeongpaeVerdictKey;
+  key: string;
+  multiplier: number;
+  before: number;
+  after: number;
+  /** 같은 월지 손상이 quality.multiplier에 이미 반영되어 성패 재곱을 억제한 경우. */
+  suppressedBy?: 'MONTH_DAMAGE_ALREADY_APPLIED_TO_QUALITY';
+  multiplierBreakdown?: {
+    qualityContribution: number;
+    qualityVerdict: SeongpaeVerdictKey;
+    qualityMultiplier: number;
+    otherContribution: number;
+    otherVerdict: SeongpaeVerdictKey;
+    otherMultiplier: number;
   };
 }
 
@@ -163,6 +192,8 @@ export interface GyeokgukResult {
   scores: Record<string, number>;
   /** Optional debug payload for special-frame competition (alias of basis.competition). */
   competition?: GyeokgukCompetition;
+  /** Optional debug payload for PR-10-4 seongpae verdict score integration. */
+  seongpaeScoreAdjustment?: GyeokgukSeongpaeScoreAdjustment;
   /** Evidence-only jonggyeok candidates. This never promotes the selected gyeokguk. */
   jonggyeokCandidates: JonggyeokCandidate[];
   basis: {
@@ -179,6 +210,8 @@ export interface GyeokgukResult {
 
     /** Optional debug payload for special-frame competition. */
     competition?: GyeokgukCompetition;
+    /** Optional debug payload for PR-10-4 seongpae verdict score integration. */
+    seongpaeScoreAdjustment?: GyeokgukSeongpaeScoreAdjustment;
   };
   rules: {
     matches: RuleMatch[];
@@ -217,6 +250,15 @@ const DEFAULT_COMP_SIGNALS: ResolvedCompetitionSignals = {
   tenGod: 'monthQuality',
 };
 
+const DEFAULT_SEONGPAE_SCORE_MULTIPLIERS: Record<SeongpaeVerdictKey, number> = {
+  SEONGGYEOK: 1.08,
+  PAJUNG_YUGU: 1.0,
+  SEONGJUNG_YUPA: 0.9,
+  PAGYEOK: 0.75,
+  UNDETERMINED: 0.95,
+};
+const MAX_SEONGPAE_SCORE_MULTIPLIER = 10;
+
 const DEFAULT_POLICY: GyeokgukPolicy = {
   ruleSet: DEFAULT_GYEOKGUK_RULESET,
   tieBreakOrder: [
@@ -246,6 +288,10 @@ const DEFAULT_POLICY: GyeokgukPolicy = {
     'gyeokguk.CONG_BI',
     'gyeokguk.CONG_GE',
   ],
+  seongpaeScore: {
+    enabled: false,
+    multipliers: { ...DEFAULT_SEONGPAE_SCORE_MULTIPLIERS },
+  },
   competition: {
     enabled: false,
     methods: ['follow', 'transformations', 'oneElement'],
@@ -302,6 +348,124 @@ function safeTieIndex(tieBreakOrder: string[], key: string): number {
   return idx >= 0 ? idx : 1_000_000;
 }
 
+function monthGyeokScoreKey(facts: RuleFacts): string | null {
+  const key = facts.month.gyeok.bigyeopSubtype ?? facts.month.gyeok.tenGod;
+  return typeof key === 'string' && key.length > 0 ? `gyeokguk.${key}` : null;
+}
+
+function expressionReferencesVariable(value: unknown, variable: string): boolean {
+  if (value == null || typeof value !== 'object') return false;
+  if (Array.isArray(value)) return value.some((item) => expressionReferencesVariable(item, variable));
+
+  const record = value as Record<string, unknown>;
+  if (record.var === variable) return true;
+  return Object.values(record).some((item) => expressionReferencesVariable(item, variable));
+}
+
+function expressionIsProportionalToVariable(value: unknown, variable: string): boolean {
+  if (value == null || typeof value !== 'object' || Array.isArray(value)) return false;
+
+  const record = value as Record<string, unknown>;
+  if (record.var === variable) return true;
+  if (record.op !== 'mul' || !Array.isArray(record.args)) return false;
+
+  let proportionalFactors = 0;
+  for (const factor of record.args) {
+    if (expressionIsProportionalToVariable(factor, variable)) {
+      proportionalFactors += 1;
+    } else if (expressionReferencesVariable(factor, variable)) {
+      return false;
+    }
+  }
+  return proportionalFactors === 1;
+}
+
+function matchedMonthScoreQualityContribution(ruleSet: RuleSet, matches: RuleMatch[], key: string): number {
+  const rulesById = new Map<string, RuleSet['rules'][number] | null>();
+  for (const rule of ruleSet.rules) {
+    const existing = rulesById.get(rule.id);
+    rulesById.set(rule.id, existing === undefined ? rule : null);
+  }
+
+  let qualityContribution = 0;
+  for (const match of matches) {
+    const contribution = match.scores?.[key];
+    if (typeof contribution !== 'number' || !Number.isFinite(contribution) || contribution === 0) continue;
+
+    const rule = rulesById.get(match.ruleId);
+    if (rule && expressionIsProportionalToVariable(rule.score?.[key], 'month.gyeok.quality.multiplier')) {
+      qualityContribution += contribution;
+    }
+  }
+  return qualityContribution;
+}
+
+function applySeongpaeScoreAdjustment(
+  scores: Record<string, number>,
+  facts: RuleFacts,
+  policy: GyeokgukPolicy,
+  matches: RuleMatch[],
+): GyeokgukSeongpaeScoreAdjustment | null {
+  const pol = policy.seongpaeScore;
+  const seongpae = facts.month.gyeok.seongpae;
+  if (!pol?.enabled || !seongpae?.verdict) return null;
+
+  const key = monthGyeokScoreKey(facts);
+  if (!key) return null;
+
+  const before = scores[key];
+  if (typeof before !== 'number') return null;
+  if (!Number.isFinite(before)) {
+    throw new RangeError('seongpae score adjustment received a non-finite score');
+  }
+  if (before <= 0) return null;
+
+  // Month damage is already represented by month.gyeok.quality.multiplier.
+  // When that same evidence lowered the verdict, score each contribution only once.
+  const verdictBeforeMonthBroken = seongpae.verdictBeforeMonthBroken;
+  const verdictChangedByMonthDamage =
+    verdictBeforeMonthBroken != null && verdictBeforeMonthBroken !== seongpae.verdict;
+  const qualityContribution = verdictChangedByMonthDamage
+    ? matchedMonthScoreQualityContribution(policy.ruleSet, matches, key)
+    : 0;
+  const monthDamageAlreadyApplied = verdictChangedByMonthDamage && qualityContribution !== 0;
+  const finalMultiplier = asNumber(pol.multipliers[seongpae.verdict], 1);
+  const qualityMultiplier =
+    monthDamageAlreadyApplied && verdictBeforeMonthBroken != null
+      ? asNumber(pol.multipliers[verdictBeforeMonthBroken], 1)
+      : finalMultiplier;
+  const otherContribution = before - qualityContribution;
+  const after =
+    qualityContribution * qualityMultiplier +
+    otherContribution * finalMultiplier;
+  if (!Number.isFinite(after)) {
+    throw new RangeError('seongpae score adjustment produced a non-finite score');
+  }
+  const multiplier = after / before;
+  scores[key] = after;
+
+  return {
+    verdict: seongpae.verdict,
+    key,
+    multiplier,
+    before,
+    after,
+    ...(monthDamageAlreadyApplied && verdictBeforeMonthBroken != null
+      ? {
+          suppressedBy: 'MONTH_DAMAGE_ALREADY_APPLIED_TO_QUALITY' as const,
+          multiplierBreakdown: {
+            qualityContribution,
+            qualityVerdict: verdictBeforeMonthBroken,
+            qualityMultiplier,
+            otherContribution,
+            otherVerdict: seongpae.verdict,
+            otherMultiplier: finalMultiplier,
+          },
+        }
+      : {}),
+  };
+}
+
 function readTransformSignal(facts: RuleFacts, selector: TransformSignalSelector = 'auto'): number {
   const t: any = (facts as any).patterns?.transformations;
   const b: any = t?.best;
@@ -311,28 +475,19 @@ function readTransformSignal(facts: RuleFacts, selector: TransformSignalSelector
   const raw = b?.factor;
 
   if (selector === 'raw') {
-    if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) return clamp01(raw);
-    return 0;
+    return clamp01(firstFiniteSignal(raw) ?? 0);
   }
 
   if (selector === 'effective') {
-    if (typeof eff === 'number' && Number.isFinite(eff) && eff > 0) return clamp01(eff);
-    if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) return clamp01(raw);
-    return 0;
+    return clamp01(firstFiniteSignal(eff, raw) ?? 0);
   }
 
   if (selector === 'huaqi') {
-    if (typeof huaqi === 'number' && Number.isFinite(huaqi) && huaqi > 0) return clamp01(huaqi);
-    if (typeof eff === 'number' && Number.isFinite(eff) && eff > 0) return clamp01(eff);
-    if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) return clamp01(raw);
-    return 0;
+    return clamp01(firstFiniteSignal(huaqi, eff, raw) ?? 0);
   }
 
   // auto: huaqiFactor → effectiveFactor → factor
-  if (typeof huaqi === 'number' && Number.isFinite(huaqi) && huaqi > 0) return clamp01(huaqi);
-  if (typeof eff === 'number' && Number.isFinite(eff) && eff > 0) return clamp01(eff);
-  if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) return clamp01(raw);
-  return 0;
+  return clamp01(firstFiniteSignal(huaqi, eff, raw) ?? 0);
 }
 
 function readOneElementSignal(facts: RuleFacts, selector: OneElementSignalSelector = 'auto'): number {
@@ -342,20 +497,15 @@ function readOneElementSignal(facts: RuleFacts, selector: OneElementSignalSelect
   const raw = oe?.factor;
 
   if (selector === 'raw') {
-    if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) return clamp01(raw);
-    return 0;
+    return clamp01(firstFiniteSignal(raw) ?? 0);
   }
 
   if (selector === 'zhuanwang') {
-    if (typeof zw === 'number' && Number.isFinite(zw) && zw > 0) return clamp01(zw);
-    if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) return clamp01(raw);
-    return 0;
+    return clamp01(firstFiniteSignal(zw, raw) ?? 0);
   }
 
   // auto: zhuanwangFactor → factor
-  if (typeof zw === 'number' && Number.isFinite(zw) && zw > 0) return clamp01(zw);
-  if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) return clamp01(raw);
-  return 0;
+  return clamp01(firstFiniteSignal(zw, raw) ?? 0);
 }
 
 function readFollowSignal(facts: RuleFacts, selector: FollowSignalSelector = 'auto'): number {
@@ -366,28 +516,19 @@ function readFollowSignal(facts: RuleFacts, selector: FollowSignalSelector = 'au
   const raw = f?.potentialRaw;
 
   if (selector === 'raw') {
-    if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) return clamp01(raw);
-    return 0;
+    return clamp01(firstFiniteSignal(raw) ?? 0);
   }
 
   if (selector === 'potential') {
-    if (typeof pot === 'number' && Number.isFinite(pot) && pot > 0) return clamp01(pot);
-    if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) return clamp01(raw);
-    return 0;
+    return clamp01(firstFiniteSignal(pot, raw) ?? 0);
   }
 
   if (selector === 'jonggyeok') {
-    if (typeof jong === 'number' && Number.isFinite(jong) && jong > 0) return clamp01(jong);
-    if (typeof pot === 'number' && Number.isFinite(pot) && pot > 0) return clamp01(pot);
-    if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) return clamp01(raw);
-    return 0;
+    return clamp01(firstFiniteSignal(jong, pot, raw) ?? 0);
   }
 
   // auto: jonggyeokFactor → potential → potentialRaw
-  if (typeof jong === 'number' && Number.isFinite(jong) && jong > 0) return clamp01(jong);
-  if (typeof pot === 'number' && Number.isFinite(pot) && pot > 0) return clamp01(pot);
-  if (typeof raw === 'number' && Number.isFinite(raw) && raw > 0) return clamp01(raw);
-  return 0;
+  return clamp01(firstFiniteSignal(jong, pot, raw) ?? 0);
 }
 
 function readTenGodSignal(facts: RuleFacts, selector: TenGodSignalSelector | number = 'monthQuality'): number {
@@ -456,7 +597,7 @@ function selectedJonggyeokSubtype(best: string | null): JonggyeokSubtype | null 
 }
 
 function componentShare(facts: RuleFacts, name: keyof RuleFacts['strength']['components'], total: number): number {
-  return total > 0 ? finite01(facts.strength.components[name] / total) : 0;
+  return total > 0 ? finite01(strengthDecisionComponents(facts.strength)[name] / total) : 0;
 }
 
 function elementShare(facts: RuleFacts, element: string | null | undefined): number {
@@ -498,7 +639,7 @@ function statusFromScore(score: number, blockedReason: string | undefined, selec
 }
 
 function buildJonggyeokCandidates(facts: RuleFacts, best: string | null): JonggyeokCandidate[] {
-  const c = facts.strength.components;
+  const c = strengthDecisionComponents(facts.strength);
   const total = Math.max(
     1e-9,
     asNumber(c.companions, 0) + asNumber(c.resources, 0) + asNumber(c.outputs, 0) + asNumber(c.wealth, 0) + asNumber(c.officers, 0),
@@ -663,7 +804,12 @@ function buildJonggyeokCandidates(facts: RuleFacts, best: string | null): Jonggy
 function normalizeMethods(methods: unknown, fallback: string[]): string[] {
   const xs = Array.isArray(methods) ? (methods as any[]).map(String) : fallback;
   const allowed = new Set(['follow', 'transformations', 'oneElement', 'tenGod']);
-  return xs.filter((m) => allowed.has(m));
+  const seen = new Set<string>();
+  return xs.filter((method) => {
+    if (!allowed.has(method) || seen.has(method)) return false;
+    seen.add(method);
+    return true;
+  });
 }
 
 function normalizeKeyGroupSpec(raw: any, fallback: CompetitionKeyGroupSpec): CompetitionKeyGroupSpec {
@@ -991,7 +1137,33 @@ function buildPolicy(config: EngineConfig): GyeokgukPolicy {
 
   comp = mergeCompetition(comp, raw.competition ?? {});
 
-  return { ...DEFAULT_POLICY, ruleSet: rs, tieBreakOrder, competition: comp };
+  const seongpaeRaw: any = raw.seongpaeScore ?? {};
+  const rawMultipliers = seongpaeRaw.multipliers && typeof seongpaeRaw.multipliers === 'object'
+    ? seongpaeRaw.multipliers
+    : {};
+  const seongpaeMultipliers = { ...DEFAULT_SEONGPAE_SCORE_MULTIPLIERS };
+  for (const verdict of Object.keys(seongpaeMultipliers) as SeongpaeVerdictKey[]) {
+    const candidate = rawMultipliers[verdict];
+    if (
+      typeof candidate === 'number'
+      && Number.isFinite(candidate)
+      && candidate >= 0
+      && candidate <= MAX_SEONGPAE_SCORE_MULTIPLIER
+    ) {
+      seongpaeMultipliers[verdict] = candidate;
+    }
+  }
+
+  return {
+    ...DEFAULT_POLICY,
+    ruleSet: rs,
+    tieBreakOrder,
+    competition: comp,
+    seongpaeScore: {
+      enabled: seongpaeRaw.enabled === true,
+      multipliers: seongpaeMultipliers,
+    },
+  };
 }
 
 export function computeGyeokguk(config: EngineConfig, facts: RuleFacts): GyeokgukResult {
@@ -1004,6 +1176,7 @@ export function computeGyeokguk(config: EngineConfig, facts: RuleFacts): Gyeokgu
 
   // NOTE: we *mutate* the score map in-place for competition to keep allocations small.
   const scores = evalRes.scores;
+  const seongpaeScoreAdjustment = applySeongpaeScoreAdjustment(scores, facts, policy, evalRes.matches);
   const comp = applySpecialCompetition(scores, facts, policy);
 
   const ranking = [...Object.entries(scores)]
@@ -1022,6 +1195,7 @@ export function computeGyeokguk(config: EngineConfig, facts: RuleFacts): Gyeokgu
     ranking,
     scores,
     competition: comp ?? undefined,
+    ...(seongpaeScoreAdjustment ? { seongpaeScoreAdjustment } : {}),
     jonggyeokCandidates,
     basis: {
       monthMainTenGod: facts.month.mainTenGod,
@@ -1030,6 +1204,7 @@ export function computeGyeokguk(config: EngineConfig, facts: RuleFacts): Gyeokgu
       monthGyeokSelectionRule: facts.month.gyeok.selectionRule,
       monthGyeokQuality: facts.month.gyeok.quality,
       competition: comp ?? undefined,
+      ...(seongpaeScoreAdjustment ? { seongpaeScoreAdjustment } : {}),
     },
     rules: { matches: evalRes.matches, assertionsFailed: evalRes.assertionsFailed },
   };

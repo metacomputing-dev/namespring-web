@@ -19,6 +19,7 @@ export class FrameCalculator extends SeedFourFrameCalculator implements Evaluabl
   readonly id = 'frame';
   private frameElementScore = 0;
   private frameLuckScore = 0;
+  private frameLuckLevels: readonly (number | null)[] = [];
   private readonly enabled: boolean;
 
   constructor(surnameEntries: HanjaEntry[], givenNameEntries: HanjaEntry[], enabled: boolean = true) {
@@ -26,14 +27,11 @@ export class FrameCalculator extends SeedFourFrameCalculator implements Evaluabl
     this.enabled = enabled;
   }
 
-  async ensureEntriesLoaded(): Promise<void> {
-    await Promise.all((this.getFrames() as Frame[]).map((frame) => frame.getLuckLevel(frame.strokeSum)));
-  }
-
   visit(ctx: EvalContext): void {
     if (!this.enabled) {
       this.frameElementScore = 0;
       this.frameLuckScore = 0;
+      this.frameLuckLevels = [];
 
       putInsight(
         ctx,
@@ -83,12 +81,12 @@ export class FrameCalculator extends SeedFourFrameCalculator implements Evaluabl
       polarityScore: energies.length > 0 ? Energy.getPolarityScore(energies) : 0,
       elementScore: this.frameElementScore,
       data: {
-        frames: (this.getFrames() as Frame[]).map((frame) => ({
+        frames: (this.getFrames() as Frame[]).map((frame, index) => ({
           type: frame.type,
           strokeSum: frame.strokeSum,
           element: frame.energy?.element.english ?? '',
           polarity: frame.energy?.polarity.english ?? '',
-          luckyLevel: frame.luckLevel,
+          luckyLevel: this.frameLuckLevels[index] ?? null,
         })),
         elementScore: this.frameElementScore,
         luckScore: this.frameLuckScore,
@@ -100,6 +98,8 @@ export class FrameCalculator extends SeedFourFrameCalculator implements Evaluabl
     const frames = this.getFrames() as Frame[];
     const [wonFrame, hyungFrame, leeFrame, jungFrame] = frames;
     const fortuneLabels = frames.map((frame) => ctx.luckyMap.get(frame.strokeSum) ?? '');
+    this.frameLuckLevels = fortuneLabels.map((label) =>
+      label === '' ? null : bucketFromFortune(label));
 
     const luckBuckets = [
       bucketFromFortune(fortuneLabels[0]),

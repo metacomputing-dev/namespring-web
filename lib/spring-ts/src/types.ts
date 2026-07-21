@@ -60,6 +60,11 @@ export interface SpringOptions {
   readonly offset?: number;
   readonly schoolPreset?: SchoolPresetName;
   readonly sajuTimePolicy?: SajuTimePolicyOptions;
+  /**
+   * Advanced raw saju-ts escape hatch. Product time controls in
+   * `sajuTimePolicy` are authoritative over conflicting top-level or nested
+   * calendar fields supplied here.
+   */
   readonly sajuConfig?: Record<string, unknown>;
   readonly sajuOptions?: SajuRequestOptions;
   readonly pureHangulNameMode?: 'auto' | 'on' | 'off';
@@ -153,15 +158,16 @@ export interface PrecisionConfig {
    *    weight system. Replaces the linear cliff with `0.5 + 0.5·tanh(…)`. */
   readonly sajuPriorityCurve?: 'linear' | 'tanh';
 
-  /** Unknown-hour safety guard.
-   *  When true AND the birth.hour is missing, the evaluator dampens the
-   *  saju priority by `unknownTimeSajuDamp` (default 0.5) so a 시간미상
-   *  saju cannot dominate the adaptive policy. Declared here; wiring lands
-   *  alongside the curve change so both paths share a single test fixture. */
+  /** Input-time uncertainty safety guard.
+   *  When true, the evaluator dampens saju priority for a normalized unknown
+   *  hour or a missing minute whose HH:00..HH:59 envelope crosses a discrete
+   *  result boundary. A stable missing-minute envelope is recorded but is not
+   *  dampened. The legacy option name remains for API compatibility. */
   readonly unknownHourGuard?: boolean;
 
   /** Multiplier applied to saju priority when `unknownHourGuard` is true
-   *  and birth.hour is missing. Default 0.5 (halve). Range [0, 1]. */
+   *  and normalized input-time uncertainty requires the guard. Default 0.5
+   *  (halve). Range [0, 1]. */
   readonly unknownTimeSajuDamp?: number;
 
   // ── PR11: data / naming-specific opt-in flags ─────────────────────────
@@ -427,6 +433,11 @@ export interface CounterexampleRow {
 export interface SajuTimePolicyOptions {
   readonly trueSolarTime?: 'on' | 'off';
   readonly longitudeCorrection?: 'on' | 'off';
+  /**
+   * Meridian used for longitude correction. Product default is the physical
+   * civil-offset meridian; legacyPreset is an explicit compatibility opt-in.
+   */
+  readonly longitudeReference?: 'civilOffsetMeridian' | 'legacyPreset';
   readonly yaza?: 'on' | 'off';
   readonly yazaMode?: '23:00' | '23:30';
 }
@@ -462,6 +473,12 @@ export interface ResponseMeta {
   readonly hanjaPool?: PrecisionConfig['hanjaPool'];
   readonly schoolPreset?: SchoolPresetMetadata;
   readonly candidateRejections?: CandidateRejectionSummary[];
+  readonly sajuAnalysis?: {
+    readonly enabled: boolean;
+    readonly generationMode: 'saju_guided' | 'name_only';
+    readonly status?: SajuAnalysisStatus;
+    readonly diagnostics?: readonly SajuAnalysisDiagnostic[];
+  };
 }
 
 export interface CandidateRejectionSummary {
@@ -536,6 +553,7 @@ export interface CharDetail {
 export interface SajuSummary {
   readonly pillars: Record<'year' | 'month' | 'day' | 'hour', PillarSummary>;
   readonly timeCorrection: TimeCorrectionSummary;
+  readonly jieProximity?: JieProximitySummary;
   readonly dayMaster: DayMasterSummary;
   readonly strength: StrengthSummary;
   readonly yongshin: YongshinSummary;
@@ -549,6 +567,10 @@ export interface SajuSummary {
   readonly tenGodAnalysis: TenGodSummary | null;
   readonly shinsalHits: ShinsalHitSummary[];
   readonly gongmang: [string, string] | null;
+  /** Present only when the adapter could not produce a complete analysis. */
+  readonly analysisStatus?: SajuAnalysisStatus;
+  /** Safe, machine-readable failure context. Raw exception text is never exposed. */
+  readonly diagnostics?: readonly SajuAnalysisDiagnostic[];
   /** Per-axis judgment strength (PR9). Mirrors SajuOutputSummary.axisStrength
    *  so card builders that receive only the SajuSummary can access the same
    *  4-tier rhetoric model the adapter derives. */
@@ -565,6 +587,14 @@ export interface SajuSummary {
   readonly lunarConversion?: LunarConversionSummary;
   /** PR-12-4 (감사 C6): 음양 균형 — 8글자 체(體) 기준 개수 집계 (additive). */
   readonly yinYangBalance?: YinYangBalanceSummary;
+  /** Fortune timeline fields normalized from the saju-ts V1 bridge. */
+  readonly daeunInfo?: DaeunInfoSummary | null;
+  readonly saeunPillars?: readonly SaeunPillarSummary[];
+  readonly wolunPillars?: readonly WolunPillarSummary[];
+  /** Neutral requests never select a male/female fortune direction implicitly. */
+  readonly neutralGenderBasis?: 'MALE' | 'FEMALE' | 'UNKNOWN';
+  /** Present when daeun and daeun-coupled relations were omitted for a neutral request. */
+  readonly genderDependentFortuneStatus?: 'unavailable_neutral_gender';
   readonly [key: string]: unknown;
 }
 
@@ -610,6 +640,70 @@ export interface PillarCode {
   readonly hanja: string;
 }
 
+/** Calculation-owned inputs and policy that make a time correction auditable. */
+export interface TimeCorrectionProvenance {
+  /**
+   * Location/timezone basis resolved before the engine calculation.
+   * Coordinates are null for a timezone-only request and are authoritative
+   * for the correction only when `coordinatesApplied` is true.
+   */
+  readonly location: {
+    readonly inputLabel: string | null;
+    readonly resolvedRegionCode: string | null;
+    readonly latitude: number | null;
+    readonly longitude: number | null;
+    readonly timezone: string;
+    readonly source: 'explicit' | 'region' | 'timezone' | 'default';
+    readonly coordinatesApplied: boolean;
+  };
+  /** Null only when longitude correction was disabled. */
+  readonly referenceMeridianDegrees: number | null;
+  /** Independently checkable source of the selected reference meridian. */
+  readonly referenceMeridianBasis:
+    | { readonly kind: 'disabled' }
+    | {
+        readonly kind: 'civil_offset_at_birth';
+        readonly utcOffsetMinutes: number;
+      }
+    | {
+        readonly kind: 'legacy_preset_registry';
+        readonly presetCode:
+          | 'KOREAN_MAINSTREAM'
+          | 'TRADITIONAL_CHINESE'
+          | 'MODERN_INTEGRATED';
+      };
+  /** Effective product policy after all defaults were applied. */
+  readonly policy: {
+    readonly trueSolarTime: 'on' | 'off';
+    readonly longitudeCorrection: 'on' | 'off';
+    readonly longitudeReference: 'off' | 'civilOffsetMeridian' | 'legacyPreset';
+    readonly explicitLocationRequired: boolean;
+    readonly yaza: 'on' | 'off';
+    readonly yazaMode: '23:00' | '23:30';
+  };
+  /** Original calendar input and the exact solar date/time basis sent to saju-ts. */
+  readonly input: {
+    readonly calendarType: 'solar' | 'lunar';
+    readonly providedLocalDateTime: {
+      readonly year: number;
+      readonly month: number;
+      readonly day: number;
+      readonly hour: number | null;
+      readonly minute: number | null;
+    };
+    readonly effectiveSolarDate: {
+      readonly year: number;
+      readonly month: number;
+      readonly day: number;
+    };
+    readonly timePrecision: 'exact' | 'unknown_hour' | 'unknown_minute';
+  };
+  /** Captured with the correction so delivery never reconstructs imputation state. */
+  readonly inputUncertainty: SajuInputUncertainty | null;
+  /** Captured with the correction so lunar input remains visible after conversion. */
+  readonly lunarConversion: LunarConversionSummary | null;
+}
+
 /** How the raw birth time was adjusted (DST, longitude, equation of time). */
 export interface TimeCorrectionSummary {
   readonly standardYear: number;
@@ -625,6 +719,76 @@ export interface TimeCorrectionSummary {
   readonly dstCorrectionMinutes: number;
   readonly longitudeCorrectionMinutes: number;
   readonly equationOfTimeMinutes: number;
+  /**
+   * Successful adapter analyses always populate this atomic provenance.
+   * It remains optional only for direct legacy bridge fixtures; report delivery
+   * rejects a requested saju surface when it is absent.
+   */
+  readonly provenance?: TimeCorrectionProvenance;
+}
+
+/** Fail-closed state emitted only for unavailable, partial, or failed analyses. */
+export type SajuAnalysisStatus = 'unavailable' | 'partial' | 'failed';
+
+/** Stable reason codes for adapter-level analysis failures. */
+export type SajuAnalysisReasonCode =
+  | 'SAJU_MODULE_UNAVAILABLE'
+  | 'BIRTH_INPUT_INSUFFICIENT'
+  | 'BIRTH_INPUT_INVALID'
+  | 'BIRTH_DATE_INVALID'
+  | 'BIRTH_TIME_INVALID'
+  | 'BIRTH_TIME_POLICY_INVALID'
+  | 'BIRTH_TIMEZONE_INVALID'
+  | 'BIRTH_TIMEZONE_DATA_UNSUPPORTED'
+  | 'BIRTH_TIME_NONEXISTENT'
+  | 'BIRTH_TIME_AMBIGUOUS'
+  | 'BIRTH_TIME_RANGE_TRANSITION'
+  | 'BIRTH_LOCATION_INVALID'
+  | 'BIRTH_LOCATION_PARTIAL'
+  | 'BIRTH_LOCATION_REQUIRED'
+  | 'BIRTH_LOCATION_UNRESOLVED'
+  | 'BIRTH_LOCATION_CONFLICT'
+  | 'BIRTH_LOCATION_TIMEZONE_MISMATCH'
+  | 'LUNAR_INPUT_INSUFFICIENT'
+  | 'LUNAR_CONVERSION_UNAVAILABLE'
+  | 'NEUTRAL_GENDER_ANALYSIS_PARTIAL'
+  | 'NEUTRAL_GENDER_NATAL_MISMATCH'
+  | 'NEUTRAL_GENDER_ANALYSIS_FAILED'
+  | 'SAJU_INVALID_SCHOOL_PRESET_SELECTOR'
+  | 'SAJU_UNKNOWN_SCHOOL_PRESET'
+  | 'SAJU_BRIDGE_CONTRACT_MISMATCH'
+  | 'SAJU_CALCULATION_FAILED';
+
+export interface SajuAnalysisDiagnostic {
+  readonly reasonCode: SajuAnalysisReasonCode;
+  readonly message: string;
+}
+
+/** Backward-compatible safe adapter result with optional failure metadata. */
+export interface SajuSafeAnalysisResult {
+  readonly summary: SajuSummary;
+  readonly sajuEnabled: boolean;
+  readonly analysisStatus?: SajuAnalysisStatus;
+  readonly diagnostics?: readonly SajuAnalysisDiagnostic[];
+}
+
+/** Birth-time proximity to the surrounding jie solar-term boundaries. */
+export interface JieProximitySummary {
+  readonly birthUtcMs: number;
+  readonly solarTermMethod: string;
+  readonly previousTermId: string;
+  readonly previousUtcMs: number;
+  readonly nextTermId: string;
+  readonly nextUtcMs: number;
+  readonly hoursSincePrevious: number;
+  readonly hoursUntilNext: number;
+  readonly daysSincePrevious: number;
+  readonly daysUntilNext: number;
+  readonly monthLengthDays: number;
+  readonly nearestTermId: string;
+  readonly nearestDirection: 'previous' | 'next';
+  readonly nearestHours: number;
+  readonly isNearBoundary: boolean;
 }
 
 /** The day master (il-gan): the stem of the day pillar. */
@@ -637,6 +801,8 @@ export interface DayMasterSummary {
 /** Whether the day master is strong or weak, and how that was determined. */
 export interface StrengthSummary {
   readonly level: string;
+  /** Stable machine classification. UI copy in `level` must never be parsed. */
+  readonly levelCode?: 'STRONG' | 'BALANCED' | 'WEAK' | 'UNKNOWN';
   readonly isStrong: boolean;
   readonly totalSupport: number;
   readonly totalOppose: number;
@@ -655,10 +821,13 @@ export interface YongshinSummary {
   readonly heeshin: string | null;
   readonly gishin: string | null;
   readonly gushin: string | null;
+  /** Legacy/public summary confidence expressed as 0..100 points. */
   readonly confidence: number;
   readonly agreement: string;
+  /** Recommendation confidence values are 0..100 points on this boundary. */
   readonly recommendations: YongshinRecommendation[];
   readonly consensus?: YongshinConsensusScoreboard;
+  readonly methodBreakdown?: Record<string, unknown>;
   /** 감사 B5: 종격 가능성 경고 문구 (springLegacy yongshinResult.warnings passthrough). */
   readonly warnings?: readonly string[];
   /** 감사 B5: 종격(從格) 리스크 신호 — 억부 용신 신뢰도 게이트의 구조화 근거. */
@@ -677,8 +846,17 @@ export interface YongshinJonggyeokRisk {
   readonly confidenceAttenuated: boolean;
 }
 
-/** A single yongshin recommendation with its rationale. */
+/** A public yongshin recommendation; confidence is expressed as 0..100 points. */
 export interface YongshinRecommendation {
+  readonly type: string;
+  readonly primaryElement: string;
+  readonly secondaryElement: string | null;
+  readonly confidence: number;
+  readonly reasoning: string;
+}
+
+/** Score-facing yongshin recommendation; confidence is a 0..1 ratio. */
+export interface SajuYongshinRecommendation {
   readonly type: string;
   readonly primaryElement: string;
   readonly secondaryElement: string | null;
@@ -698,7 +876,9 @@ export type YongshinConsensusConflictLevel = 'none' | 'low' | 'medium' | 'high';
 
 export interface YongshinConsensusAxisScore {
   readonly element: string | null;
+  /** Upstream consensus ratio in the closed interval 0..1. */
   readonly score: number;
+  /** Per-element upstream consensus ratios in the closed interval 0..1. */
   readonly scores: Readonly<Record<string, number>>;
   readonly evidence: readonly string[];
 }
@@ -712,8 +892,14 @@ export interface YongshinConsensusScoreboard {
   readonly siksangFlow: YongshinConsensusAxisScore;
   readonly final: {
     readonly element: string;
+    /** Upstream selection-clarity ratio in the closed interval 0..1. */
     readonly confidence: number;
+    /** Raw upstream producer-score gap retained for response compatibility. */
     readonly topMargin: number;
+    /** Scale- and translation-invariant top-two gap. Optional for stored legacy payloads. */
+    readonly normalizedTopMargin?: number;
+    /** Active method-axis disagreement ratio. Optional for stored legacy payloads. */
+    readonly methodDisagreementRatio?: number;
     readonly conflictLevel: YongshinConsensusConflictLevel;
     readonly competingElements: readonly string[];
     readonly evidence: readonly string[];
@@ -723,19 +909,38 @@ export interface YongshinConsensusScoreboard {
 /** The structural pattern (gyeokguk) of the birth chart. */
 export interface GyeokgukSummary {
   readonly type: string;
+  /** Canonical upstream code retained separately from the localized label. */
+  readonly typeCode?: string | null;
   readonly category: string;
+  readonly categoryCode?: 'NORMAL' | 'JONGGYEOK' | 'UNKNOWN';
   readonly baseTenGod: string | null;
+  readonly baseTenGodCode?: string | null;
+  /** Upstream gyeokguk confidence ratio in the closed interval 0..1. */
   readonly confidence: number;
   readonly reasoning: string;
   readonly candidates?: readonly GyeokgukCandidateSummary[];
   readonly jonggyeokCandidates?: readonly JonggyeokCandidateSummary[];
+  readonly basis?: GyeokgukBasisSummary;
+  readonly scores?: Readonly<Record<string, number>>;
   /** PR-6: 격국 성패(成敗) 판정 — 상신·순용/역용·성격/파격 (additive). */
   readonly seongpae?: GyeokgukSeongpaeSummary | null;
+}
+
+export interface GyeokgukBasisSummary {
+  readonly monthMainTenGod?: string;
+  readonly monthGyeokTenGod?: string;
+  readonly monthGyeokMethod?: string;
+  readonly monthGyeokSelectionRule?: string;
+  readonly monthGyeokQuality?: Record<string, unknown>;
+  readonly competition?: Record<string, unknown>;
+  readonly seongpaeScoreAdjustment?: Record<string, unknown>;
 }
 
 /** PR-6: 격국 성패 판정 상세 (자평진전 순용/역용 계열). */
 export interface GyeokgukSeongpaeSummary {
   readonly verdict: 'SEONGGYEOK' | 'PAGYEOK' | 'PAJUNG_YUGU' | 'SEONGJUNG_YUPA' | 'UNDETERMINED';
+  /** Score-only evidence retained when month damage lowered the reported verdict. */
+  readonly verdictBeforeMonthBroken?: GyeokgukSeongpaeSummary['verdict'];
   readonly usage: 'SUNYONG' | 'YEOKYONG';
   readonly sangshin: string | null;
   readonly sangshinStemHanja: string | null;
@@ -744,7 +949,16 @@ export interface GyeokgukSeongpaeSummary {
   readonly reasons: readonly string[];
 }
 
-/** Source-tier metadata matching test/baseline/schema/sourceTier.schema.json. */
+/** Structured model metadata validated for repository consistency, not provider authentication. */
+export type PanelAdjudicationModelIdentity =
+  | { readonly provider: 'anthropic'; readonly family: 'claude'; readonly version: '5' }
+  | { readonly provider: 'openai'; readonly family: 'gpt'; readonly version: '5' };
+
+/**
+ * Source-tier metadata matching test/baseline/schema/sourceTier.schema.json.
+ * URL and review fields are provenance/accountability metadata; they do not
+ * independently authenticate a source, reviewer, model origin, or expertise.
+ */
 export interface SourceTierMetadata {
   readonly tier: string;
   readonly sourceType: string;
@@ -754,6 +968,21 @@ export interface SourceTierMetadata {
   readonly humanInterpretation: string;
   readonly copyrightNote: string;
   readonly authorityTruthEligible: boolean;
+  readonly aiGenerated?: boolean;
+  readonly panelAdjudication?: {
+    readonly models: readonly PanelAdjudicationModelIdentity[];
+    readonly scopes: readonly 'saju_doctrine'[];
+    readonly adversarialVerification: true;
+    readonly dossier: string;
+    readonly recordId: string;
+    readonly contentDigest: string;
+  };
+  /** Accountability metadata only; external expert certification is a separate release gate. */
+  readonly authorityReview?: {
+    readonly status: 'approved';
+    readonly reviewedBy: string;
+    readonly reviewedAt: string;
+  };
 }
 
 export type JonggyeokCandidateStatus = 'none' | 'possible' | 'candidate' | 'selected' | 'blocked';
@@ -768,7 +997,7 @@ export type JonggyeokSubtype =
   | 'zhuan_wang'
   | 'hua_qi';
 
-/** Evidence-only jonggyeok classifier output. */
+/** Evidence-only jonggyeok classifier output; numeric signals are 0..1 ratios. */
 export interface JonggyeokCandidateSummary {
   readonly subtype: JonggyeokSubtype;
   readonly status: JonggyeokCandidateStatus;
@@ -785,7 +1014,7 @@ export interface JonggyeokCandidateSummary {
   readonly sourceTier: SourceTierMetadata;
 }
 
-/** Display-only candidate evidence for the selected gyeokguk. */
+/** Display-only candidate evidence; score and confidence are 0..1 ratios. */
 export interface GyeokgukCandidateSummary {
   readonly type: string;
   readonly category: string;
@@ -846,6 +1075,15 @@ export interface CheonganRelationSummary {
 
 /** Numeric breakdown of a heavenly-stem relation's score. */
 export interface CheonganRelationScore {
+  readonly model: 'legacy_heuristic_v1';
+  readonly unit: '0_100';
+  readonly status: 'provisional';
+  readonly evidenceOnly: true;
+  readonly authorityTruthEligible: false;
+  readonly provisional: true;
+  readonly pairCount: number;
+  readonly positionGap: number | null;
+  readonly positionGaps: readonly number[];
   readonly baseScore: number;
   readonly adjacencyBonus: number;
   readonly outcomeMultiplier: number;
@@ -904,6 +1142,8 @@ export interface ShinsalHitSummary {
   readonly seatPillars?: readonly ('year' | 'month' | 'day' | 'hour')[];
   /** 같은 (type, position) 키로 합쳐진 발동 횟수 (예: 도화 2개). */
   readonly count?: number;
+  readonly qualityReasons?: readonly string[];
+  readonly conditionPenalty?: number;
 }
 
 /** A single 대운 (10-year luck cycle) pillar entry. */
@@ -991,9 +1231,8 @@ export interface DaeunPillarSummary extends LuckPillarAnnotationSummary {
 /** Daeun (대운, 10-year luck cycles) overview for a chart. Mirrors the
  *  shape that `saju-adapter.ts:extractDaeunInfo` already produces and that
  *  the LifeStageFortuneCard / FortuneCascade builders consume. PR-H-D
- *  formalises this as an interface so SajuOutputSummary can declare it
- *  type-safely; SajuSummary picks it up via the existing
- *  `[key: string]: unknown` index signature without a breaking change. */
+ *  formalises this as an interface so SajuSummary and SajuOutputSummary can
+ *  declare it type-safely without changing the runtime payload. */
 export interface DaeunInfoSummary {
   readonly isForward: boolean;
   readonly firstDaeunStartAge: number;
@@ -1002,7 +1241,9 @@ export interface DaeunInfoSummary {
   readonly ageDisplayMode?: string | null;
   readonly ageDisplayLabel?: string | null;
   readonly firstDaeunStartMonths: number;
-  /** 대운 기산 절기 id (예: 'LICHUN'). 과거에는 무관한 일경계 정책 문자열이 들어갔다. */
+  /** 대운 기산 절기 id (예: 'LICHUN'). */
+  readonly boundaryTermId?: string | null;
+  /** @deprecated Use boundaryTermId. Empty when no boundary term is available. */
   readonly boundaryMode: string;
   /** 기산 절기의 UTC ms — 절기 경계 부재 시 null. */
   readonly boundaryUtcMs?: number | null;
@@ -1178,6 +1419,11 @@ export interface SpringCandidateSummary {
   readonly finalScore: number;
   readonly scoreVector?: NamingScoreVector;
   readonly strengthProfile?: CandidateStrengthProfile;
+  /**
+   * Candidate-search presentation evidence. This never changes finalScore and
+   * remains separate from the externally visible naming-score semantics.
+   */
+  readonly presentationEvidence?: CandidatePresentationEvidence;
   readonly fullHangul: string;
   readonly fullHanja: string;
   readonly givenHangul: string;
@@ -1188,6 +1434,21 @@ export interface SpringCandidateSummary {
   readonly nameTrend?: NameTrendAnalysis;
   readonly phonetic?: PhoneticAnalysis;
   rank: number;
+}
+
+export interface CandidatePresentationEvidence {
+  /**
+   * Automatic-review coverage used by candidate presentation ranking; never
+   * interpreted as objective meaning superiority.
+   */
+  readonly meaningConfidence: number | null;
+  readonly popularityRank: number | null;
+  readonly phonetic: number | null;
+  readonly familyFit: number | null;
+  readonly eraFit: number | null;
+  readonly risk: number;
+  readonly meaningBasis: 'authored_gloss_safety_v1';
+  readonly popularityBasis: 'local_official_name_stat';
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1279,6 +1540,7 @@ export interface SajuCompatibility {
   readonly yongshinElement: string;
   readonly heeshinElement: string | null;
   readonly gishinElement: string | null;
+  /** Full-name element sequence: surname first, then given-name characters. */
   readonly nameElements: string[];
   readonly yongshinMatchCount: number;
   readonly gishinMatchCount: number;
@@ -1305,7 +1567,7 @@ export interface SajuOutputSummary {
      *  position-specific weights (천간 4.0, 지지 정기 1.8, 지장간 1.2/0.7/0.45). */
     byPosition?: Record<SajuPillarPosition, SajuTenGodPositionGroup>;
   };
-  gyeokguk?: { category: string; type: string; confidence: number };
+  gyeokguk?: SajuGyeokgukOutputSummary;
   deficientElements?: string[];
   excessiveElements?: string[];
   /** Per-axis judgment strength (PR9). Bins each axis's saju-engine
@@ -1340,7 +1602,7 @@ export interface SajuOutputSummary {
   /** Daeun (대운, 10-year luck cycles) overview (PR-H-D). Lifts
    *  SajuSummary.daeunInfo into the scoring/output path so the
    *  LifeStageFortuneCard builder can surface narrative + transitions
-   *  detail (decade pillars + isForward direction + boundaryMode +
+   *  detail (decade pillars + isForward direction + boundaryTermId +
    *  warnings) without re-fetching the full SajuSummary. */
   daeunInfo?: DaeunInfoSummary | null;
   /** Saeun (세운, yearly luck) pillar list (PR-H-D). Mirrors the existing
@@ -1362,6 +1624,7 @@ export interface SajuOutputSummary {
    *  documented fallback time, so hour-sensitive conclusions should be
    *  labeled and hedged even when the calculated chart is internally valid. */
   inputUncertainty?: SajuInputUncertainty;
+  jieProximity?: JieProximitySummary;
 }
 
 /** 12궁 palace analysis surfaced on SajuOutputSummary (PR-Q-5).
@@ -1440,20 +1703,47 @@ export interface SajuAxisStrengthMap {
 }
 
 export type SajuInputUncertaintyAxis =
+  | 'yearPillar'
+  | 'monthPillar'
+  | 'dayPillar'
   | 'hourPillar'
   | 'yongshin'
   | 'gyeokguk'
   | 'strength'
   | 'tenGod'
+  | 'relations'
+  | 'shinsal'
   | 'fortuneTiming';
 
 export interface SajuInputUncertainty {
   readonly unknownHour?: {
     readonly fallbackHour: number;
     readonly fallbackMinute: number;
+    readonly fallbackTimezone?: string;
     readonly affectedAxes: readonly SajuInputUncertaintyAxis[];
     readonly affectedAxisLabels?: readonly string[];
     readonly confidenceTierShift: 'downgrade-one-step';
+    readonly message: string;
+  };
+  /** A known hour whose minute was omitted. The adapter evaluates the whole
+   *  HH:00..HH:59 envelope under the selected time-correction policy instead
+   *  of silently treating the imputed :00 value as exact. */
+  readonly unknownMinute?: {
+    readonly fallbackHour: number;
+    readonly fallbackMinute: number;
+    readonly fallbackTimezone?: string;
+    readonly evaluatedMinuteRange: {
+      readonly from: 0;
+      readonly to: 59;
+    };
+    readonly comparedMinutes: readonly [0, 59];
+    /** True because minute imputation always limits continuous fortune timing
+     *  precision even when no discrete pillar/output boundary is crossed. */
+    readonly continuousTimingAffected: true;
+    readonly boundarySensitive: boolean;
+    readonly affectedAxes: readonly SajuInputUncertaintyAxis[];
+    readonly affectedAxisLabels?: readonly string[];
+    readonly confidenceTierShift: 'none' | 'downgrade-affected-axes-one-step';
     readonly message: string;
   };
 }
@@ -1502,12 +1792,24 @@ export interface SajuTenGodPositionGroup {
 }
 
 /** Yongshin details as returned by the saju calculator. */
+export interface SajuGyeokgukOutputSummary {
+  category: string;
+  type: string;
+  /** Internal score-facing confidence ratio in the closed interval 0..1. */
+  confidence: number;
+  basis?: GyeokgukBasisSummary;
+  scores?: Readonly<Record<string, number>>;
+}
+
 export interface SajuYongshinSummary {
   finalYongshin: string;
   finalHeesin: string | null;
   gisin: string | null;
   gusin: string | null;
+  /** Internal score-facing confidence ratio in the closed interval 0..1. */
   finalConfidence: number;
-  recommendations: YongshinRecommendation[];
+  /** Recommendation confidence values are 0..1 ratios on this boundary. */
+  recommendations: SajuYongshinRecommendation[];
   consensus?: YongshinConsensusScoreboard;
+  methodBreakdown?: Record<string, unknown>;
 }

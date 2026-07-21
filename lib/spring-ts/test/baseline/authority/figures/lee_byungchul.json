@@ -42,6 +42,9 @@
     "quoteShort": null,
     "humanInterpretation": "Collected modern Korean myeongri extraction with named/provenance context; usable only as reviewed interpretation evidence.",
     "copyrightNote": "Pillars are factual; prose is paraphrased or kept as short snippets only.",
-    "authorityTruthEligible": true
+    "authorityTruthEligible": false,
+    "reviewStatus": "pending_independent_review",
+    "demotedAt": "2026-07-10",
+    "demotionNote": "PR #653 authority-quality gate: unreviewed T3_AUTHORED_INTERPRETATION must not claim authority-truth eligibility (SOURCE_TIER_POLICY). Data preserved verbatim. Re-promote by adding sourceTier.authorityReview {status: approved, reviewedBy, reviewedAt} after independent expert review and restoring authorityTruthEligible: true."
   }
 }

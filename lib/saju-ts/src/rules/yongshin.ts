@@ -8,7 +8,16 @@ import { DEFAULT_YONGSHIN_RULESET } from './defaultRuleSets.js';
 import { DEFAULT_CLIMATE_MODEL, mergeClimateModel, type ClimateModel } from './climate.js';
 import { compileYongshinRuleSpec } from './spec/compileYongshinSpec.js';
 import type { RuleFacts } from './facts.js';
+import { firstFiniteSignal } from './finiteSignal.js';
+import { computeFollowPotential } from './followPotential.js';
+import { strengthDecisionComponents } from './strengthComponents.js';
 import { compete, renormalizeScale } from '../core/competition.js';
+import {
+  deriveYongshinConsensusDiagnostics,
+  type YongshinConsensusConflictLevel,
+} from './yongshinConsensus.js';
+
+export type { YongshinConsensusConflictLevel } from './yongshinConsensus.js';
 
 export type YongshinRole = 'COMPANION' | 'RESOURCE' | 'OUTPUT' | 'WEALTH' | 'OFFICER';
 
@@ -20,8 +29,6 @@ export type YongshinConsensusAxisName =
   | 'byeongyak'
   | 'siksangFlow';
 
-export type YongshinConsensusConflictLevel = 'none' | 'low' | 'medium' | 'high';
-
 export interface YongshinConsensusAxisScore {
   element: Element | null;
   score: number;
@@ -32,7 +39,12 @@ export interface YongshinConsensusAxisScore {
 export interface YongshinConsensusFinalScore {
   element: Element;
   confidence: number;
+  /** Raw producer-score gap retained for response compatibility. */
   topMargin: number;
+  /** Scale- and translation-invariant top-two gap in the closed interval 0..1. */
+  normalizedTopMargin: number;
+  /** Share of active method axes that disagree with the selected element. */
+  methodDisagreementRatio: number;
   conflictLevel: YongshinConsensusConflictLevel;
   competingElements: Element[];
   evidence: string[];
@@ -497,22 +509,7 @@ function buildYongshinConsensus(args: {
   ]);
 
   const axes = [eokbu, johu, gyeokguk, tonggwan, byeongyak, siksangFlow];
-  const top = ranking[0] ?? { element: 'WOOD' as Element, score: 0 };
-  const second = ranking[1] ?? { element: top.element, score: top.score };
-  const margin = asNumber(top.score, 0) - asNumber(second.score, 0);
-  const confidence = margin <= 0 ? 0.35 : clamp01(Math.max(0.35, margin));
-
-  const disagree = axes.filter((axis) => axis.element && axis.element !== top.element && axis.score >= 0.2);
-  const activeScore = axes.reduce((sum, axis) => sum + (axis.element ? axis.score : 0), 0);
-  const disagreeScore = disagree.reduce((sum, axis) => sum + axis.score, 0);
-  const conflictRatio = activeScore > 0 ? disagreeScore / activeScore : 0;
-  const conflictSignal = Math.max(conflictRatio, 1 - confidence);
-  const conflictLevel: YongshinConsensusConflictLevel =
-    conflictSignal >= 0.6 ? 'high' :
-      conflictSignal >= 0.38 ? 'medium' :
-        conflictSignal >= 0.18 ? 'low' :
-          'none';
-  const competingElements = Array.from(new Set(disagree.map((axis) => axis.element).filter((element): element is Element => Boolean(element))));
+  const diagnostics = deriveYongshinConsensusDiagnostics(ranking, axes);
 
   return {
     eokbu,
@@ -522,15 +519,20 @@ function buildYongshinConsensus(args: {
     byeongyak,
     siksangFlow,
     final: {
-      element: top.element,
-      confidence: round6(confidence),
-      topMargin: round6(margin),
-      conflictLevel,
-      competingElements,
+      element: diagnostics.element,
+      confidence: diagnostics.confidence,
+      topMargin: diagnostics.topMargin,
+      normalizedTopMargin: diagnostics.normalizedTopMargin,
+      methodDisagreementRatio: diagnostics.methodDisagreementRatio,
+      conflictLevel: diagnostics.conflictLevel,
+      competingElements: diagnostics.competingElements,
       evidence: [
-        `selected=${top.element}`,
-        `topMargin=${round6(margin)}`,
-        `conflictRatio=${round6(conflictRatio)}`,
+        `selected=${diagnostics.element}`,
+        `topMargin=${diagnostics.topMargin}`,
+        `normalizedTopMargin=${diagnostics.normalizedTopMargin}`,
+        `methodDisagreementRatio=${diagnostics.methodDisagreementRatio}`,
+        `activeAxes=${diagnostics.activeAxisCount}`,
+        `disagreeAxes=${diagnostics.disagreeAxisCount}`,
       ],
     },
   };
@@ -547,60 +549,6 @@ function dominantPressureRole(components: { outputs: number; wealth: number; off
 
 function dominantSupportRole(components: { companions: number; resources: number }): YongshinRole {
   return components.companions >= components.resources ? 'COMPANION' : 'RESOURCE';
-}
-
-function followPotentialFromStrength(args: {
-  strengthIndex: number;
-  support: number;
-  pressure: number;
-  weakThreshold: number;
-  strongThreshold: number;
-  minDominanceRatio: number;
-}): {
-  potential: number;
-  dominanceRatio: number;
-  mode: 'PRESSURE' | 'SUPPORT' | 'NONE';
-  weakPotential: number;
-  strongPotential: number;
-  weakDominanceRatio: number;
-  strongDominanceRatio: number;
-} {
-  const { strengthIndex, support, pressure, weakThreshold, strongThreshold, minDominanceRatio } = args;
-
-  // --- Weak-follow (从弱/从势): follow external pressure (官杀/财/食伤) when DM is very weak.
-  const denomWeak = Math.max(1e-9, weakThreshold + 1); // since -1 is the minimum
-  const weakFactor = strengthIndex < weakThreshold ? clamp01((weakThreshold - strengthIndex) / denomWeak) : 0;
-  const weakDominanceRatio = pressure / Math.max(1e-9, support);
-  const weakDomFactor = clamp01((weakDominanceRatio - minDominanceRatio) / Math.max(1e-9, minDominanceRatio));
-  const weakPotential = clamp01(weakFactor * weakDomFactor);
-
-  // --- Strong-follow (从旺/专旺): follow internal support (比劫/印) when DM is extremely strong.
-  const denomStrong = Math.max(1e-9, 1 - strongThreshold);
-  const strongFactor = strengthIndex > strongThreshold ? clamp01((strengthIndex - strongThreshold) / denomStrong) : 0;
-  const strongDominanceRatio = support / Math.max(1e-9, pressure);
-  const strongDomFactor = clamp01((strongDominanceRatio - minDominanceRatio) / Math.max(1e-9, minDominanceRatio));
-  const strongPotential = clamp01(strongFactor * strongDomFactor);
-
-  if (strongPotential > weakPotential) {
-    return {
-      potential: strongPotential,
-      dominanceRatio: strongDominanceRatio,
-      mode: strongPotential > 0 ? 'SUPPORT' : 'NONE',
-      weakPotential,
-      strongPotential,
-      weakDominanceRatio,
-      strongDominanceRatio,
-    };
-  }
-  return {
-    potential: weakPotential,
-    dominanceRatio: weakDominanceRatio,
-    mode: weakPotential > 0 ? 'PRESSURE' : 'NONE',
-    weakPotential,
-    strongPotential,
-    weakDominanceRatio,
-    strongDominanceRatio,
-  };
 }
 
 function buildPolicy(config: EngineConfig): YongshinPolicy {
@@ -827,7 +775,7 @@ export function computeYongshin(config: EngineConfig, facts: RuleFacts): Yongshi
         potential:
           typeof followPat.potentialRaw === 'number' && Number.isFinite(followPat.potentialRaw) ? followPat.potentialRaw : 0,
       }
-    : followPotentialFromStrength({
+    : computeFollowPotential({
         strengthIndex: s,
         support: facts.strength.support,
         pressure: facts.strength.pressure,
@@ -838,15 +786,12 @@ export function computeYongshin(config: EngineConfig, facts: RuleFacts): Yongshi
 
   // Optional: “일행득기/专旺” style concentration can boost follow confidence.
   const oneEl = (facts as any).patterns?.elements?.oneElement;
-  const oneElRaw = typeof oneEl?.factor === 'number' && Number.isFinite(oneEl.factor) ? oneEl.factor : 0;
-  const oneElZhuanwang =
-    typeof oneEl?.zhuanwangFactor === 'number' && Number.isFinite(oneEl.zhuanwangFactor) ? oneEl.zhuanwangFactor : 0;
+  const oneElRaw = firstFiniteSignal(oneEl?.factor) ?? 0;
+  const canonicalOneElementSignal = firstFiniteSignal(oneEl?.zhuanwangFactor, oneEl?.factor) ?? 0;
 
   const oneElFactor = followPatEnabled
     ? (typeof followPat.oneElementFactor === 'number' && Number.isFinite(followPat.oneElementFactor) ? followPat.oneElementFactor : 0)
-    : oneElZhuanwang > 0
-      ? oneElZhuanwang
-      : oneElRaw;
+    : canonicalOneElementSignal;
 
   const oneElBoost = followPatEnabled
     ? (typeof followPat.oneElementBoost === 'number' && Number.isFinite(followPat.oneElementBoost) ? followPat.oneElementBoost : 0)
@@ -871,13 +816,14 @@ export function computeYongshin(config: EngineConfig, facts: RuleFacts): Yongshi
   const followMode: 'PRESSURE' | 'SUPPORT' | 'NONE' = followPatEnabled
     ? ((followPat.mode ?? 'NONE') as any)
     : (followInfo.mode as any);
+  const decisionComponents = strengthDecisionComponents(facts.strength);
 
   const domRole: YongshinRole = followPatEnabled && typeof followPat.dominantRole === 'string'
     ? (followPat.dominantRole as YongshinRole)
     : followMode === 'SUPPORT'
-      ? dominantSupportRole(facts.strength.components)
+      ? dominantSupportRole(decisionComponents)
       : followMode === 'PRESSURE'
-        ? dominantPressureRole(facts.strength.components)
+        ? dominantPressureRole(decisionComponents)
         : 'COMPANION';
 
   const followScores: Record<Element, number> = { WOOD: 0, FIRE: 0, EARTH: 0, METAL: 0, WATER: 0 };
@@ -902,14 +848,11 @@ export function computeYongshin(config: EngineConfig, facts: RuleFacts): Yongshi
   // --- 合化/化气(화격) transformation best signal
   const tf: any = (facts as any).patterns?.transformations;
   const tfBest: any = tf && typeof tf === 'object' ? (tf as any).best : null;
-  const tfBestFactor: number =
-    tfBest && typeof (tfBest as any).huaqiFactor === 'number' && Number.isFinite((tfBest as any).huaqiFactor)
-      ? (tfBest as any).huaqiFactor
-      : tfBest && typeof (tfBest as any).effectiveFactor === 'number' && Number.isFinite((tfBest as any).effectiveFactor)
-        ? (tfBest as any).effectiveFactor
-        : tfBest && typeof tfBest.factor === 'number' && Number.isFinite(tfBest.factor)
-          ? tfBest.factor
-          : 0;
+  const tfBestFactor = firstFiniteSignal(
+    tfBest?.huaqiFactor,
+    tfBest?.effectiveFactor,
+    tfBest?.factor,
+  ) ?? 0;
   const tfBestElement: Element | null =
     tfBest && typeof tfBest.resultElement === 'string' && (ELEMENT_ORDER as any).includes(tfBest.resultElement)
       ? (tfBest.resultElement as Element)
@@ -921,7 +864,7 @@ export function computeYongshin(config: EngineConfig, facts: RuleFacts): Yongshi
   const oneElElement: Element | null =
     oneEl && typeof oneEl.element === 'string' && (ELEMENT_ORDER as any).includes(oneEl.element) ? (oneEl.element as Element) : null;
   const oneElSignalForTerm =
-    (selPol as any)?.oneElement?.factor === 'raw' ? oneElRaw : oneElZhuanwang > 0 ? oneElZhuanwang : oneElRaw;
+    (selPol as any)?.oneElement?.factor === 'raw' ? oneElRaw : canonicalOneElementSignal;
   const oneElementScores: Record<Element, number> = { WOOD: 0, FIRE: 0, EARTH: 0, METAL: 0, WATER: 0 };
   if (oneElElement) oneElementScores[oneElElement] = clamp01(oneElSignalForTerm);
 
@@ -1058,8 +1001,8 @@ export function computeYongshin(config: EngineConfig, facts: RuleFacts): Yongshi
       templateOut = {
         factor,
         bonus: templateBonus,
-        primary: tpl.primary,
-        secondary: tpl.secondary,
+        primary: tpl.templatePrimary,
+        secondary: tpl.templateSecondary,
         reasons: tpl.reasons ?? [],
       };
       out.johooTemplate = { factor, scaleBy };
@@ -1380,7 +1323,13 @@ methodSelectorOut = out;
       johooTemplate:
         templateOut ??
         (effectiveWeights.johooTemplate !== 0 && tpl?.enabled
-          ? { factor: 1, bonus: templateBonus, primary: tpl.primary, secondary: tpl.secondary, reasons: tpl.reasons ?? [] }
+          ? {
+              factor: 1,
+              bonus: templateBonus,
+              primary: tpl.templatePrimary,
+              secondary: tpl.templateSecondary,
+              reasons: tpl.reasons ?? [],
+            }
           : undefined),
       transformations:
         transformationsOut ??

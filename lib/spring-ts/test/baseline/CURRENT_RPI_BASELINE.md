@@ -15,30 +15,34 @@ Artifacts:
 ## Summary
 
 This is a governed measurement baseline, not a claim that the product is
-45/100 in user-facing quality. Axes without a current source-backed denominator
+20/100 in user-facing quality. Axes without a current source-backed denominator
 score `0` in `rawRpi` and are called out separately so missing truth is not
-mixed with engine failure.
+mixed with engine failure. In particular, structural edge stability is not
+counted as calculation accuracy without eligible doctrine and naming-score truth.
 
 | Metric | Current |
 |---|---:|
-| Raw governed RPI | 45 / 100 |
-| Measured-only RPI | 45 / 60 |
-| Source-tier audit | PASS |
-| Source-tier records scanned | 82 |
-| Authority-truth eligible records | 52 |
-| Non-eligible records | 30 |
+| Raw governed RPI | 20 / 100 |
+| Measured-only RPI | 20 / 35 (57.1%) |
+| Source-tier audit | PASS (0 policy violations) |
+| Source-tier records scanned | 122 |
+| Declared-scope-eligible source records (not complete D1 truth) | 26 |
+| Declared-scope-ineligible source records | 96 |
+| Complete seven-field D1 fixtures | 0 / 17 |
+| Partial D1 fixtures | 0 / 17 |
+| No eligible D1 truth fields | 17 / 17 |
 
 ## A-G Axis Baseline
 
 | Axis | Max | Current | Status | Basis |
 |---|---:|---:|---|---|
-| A. Calculation accuracy | 15 | 15 | PASS | D5 edge/stability checks: 8 PASS / 0 FAIL |
-| B. Legal hanja/data | 15 | 10 | PARTIAL_OFFICIAL_DENOMINATOR | 9,389 official allowed entries mirrored; 106 candidate deltas remain unresolved |
-| C. Gyeokguk/yongshin rules | 25 | 0 | INSUFFICIENT_TRUTH | D1 has no T3+ authority-truth denominator for baseline fixtures |
+| A. Calculation accuracy | 15 | 0 | INSUFFICIENT_TRUTH | D5: 0 PASS / 0 FAIL / 14 N/A / 3 NOT_APPLICABLE; structural stability is tracked separately |
+| B. Legal hanja/data | 15 | 10 | OFFICIAL_LOOKUP_PARITY_CONFIRMED | Raw glyph/reading parity is receipt-verified; current Appendix 2 canonical variant mapping remains independently unextracted |
+| C. Gyeokguk/yongshin rules | 25 | 0 | INSUFFICIENT_TRUTH | Baseline fixtures lack the complete scoped doctrine and naming-calibration truth required by D1 |
 | D. Ten-god position weighting | 10 | 0 | MEASURED_OPT_IN_V2 | `positional_weighted_v2` is opt-in; simple vs v1 divergence remains 0 / 24 and v1/v2 baseline comparison is recorded |
 | E. Integrated naming score | 15 | 0 | NOT_MEASURED | Phase 6 score-vector metric not implemented yet |
-| F. Explainability/UX surface | 10 | 10 | PASS | D3 card surface checks: 12 PASS / 0 FAIL |
-| G. Validation/governance | 10 | 10 | PASS | Source-tier audit PASS, 0 violations |
+| F. Explainability/UX surface | 10 | 0 | NOT_MEASURED | T2 oracle card lists are comparison-only, not authority truth |
+| G. Validation/governance | 10 | 10 | PASS | Source-tier audit PASS; policy, scope, evidence binding, and no-AI gates are machine checked |
 
 ## Ten-God Position Weighting
 
@@ -52,9 +56,9 @@ changing the public default path.
 
 | Fixture set | Diverged | Total |
 |---|---:|---:|
-| Default baseline fixtures | 0 | 15 |
+| Default baseline fixtures | 0 | 17 |
 | Jonggyeok stress fixtures | 0 | 9 |
-| Combined observation | 0 | 24 |
+| Combined observation | 0 | 26 |
 
 The synthetic scorer-only fixture now distinguishes source layer in v1 and both
 source layer plus pillar position in v2:
@@ -69,42 +73,47 @@ source layer plus pillar position in v2:
 This shows the current source-layer weights are visible before normalization,
 but month/hour pillar position still collapses in v1. The v2 opt-in path keeps
 `presenceCounts` separate from `visibilityCounts` and anchors deviations through
-`expectedPresenceByChartShape`; current metrics record `10 / 15` default
+`expectedPresenceByChartShape`; current metrics record `10 / 17` default
 fixtures and `5 / 9` jonggyeok fixtures diverging between v1 and v2 while
-simple vs v1 remains `0 / 24`.
+simple vs v1 remains `0 / 26`.
 
 ## Truth Separation
 
 Current baseline fixtures are intentionally not counted as D1 authority
-accuracy because they do not have linked T3+ authority-truth records.
+accuracy because none resolves the exact seven-field contract: three doctrine
+fields plus four naming-calibration fields. A doctrine-only or otherwise
+partial match remains incomplete and cannot make D1 or D5 accuracy pass.
 
 | Bucket | Count |
 |---|---:|
-| Insufficient source/truth | 15 |
+| Insufficient source/truth | 17 |
 | Authority matches | 0 |
 | Engine rule failures | 0 |
 
 This means the dashboard is currently saying: "we do not yet have sufficient
-truth for D1 on these fixtures", not "the engine failed 15 D1 checks".
+truth for D1 on these fixtures", not "the engine failed 17 D1 checks".
 
 ## Source-Tier Split
 
 | Reference tier for baseline fixtures | Fixtures | D1 | D3 | D5 |
 |---|---:|---|---|---|
-| T2_REFERENCE_IMPLEMENTATION | 12 | 12 N/A | 12 PASS | 5 PASS / 7 N/A |
-| NO_REFERENCE | 3 | 3 N/A | 3 N/A | 3 PASS |
+| T2_REFERENCE_IMPLEMENTATION | 12 | 12 N/A | 12 N/A | 9 N/A / 3 NOT_APPLICABLE |
+| NO_REFERENCE | 5 | 5 N/A | 5 N/A | 5 N/A |
 
-The broader source inventory contains T3/T4 authority records, but the current
-15 baseline fixtures are not directly linked to those authority records as D1
-truth. PRs after Phase 0 should either add explicit fixture links or keep these
-cases in the insufficient-truth bucket.
+The broader source inventory contains scope-specific T4/T5 source records, but
+none supplies the complete doctrine-plus-naming calibration contract required
+for the current 17 baseline fixtures. The six Jonheom case interpretations are
+also explicitly non-authority until versioned page evidence and quote-bound
+expert review exist. Future PRs must add those exact links or keep the cases in
+the insufficient-truth bucket.
 
 ## Rule-Mode Split
 
 `monthly_main` and `jungki_transparent` mirror Phase P. `composite_classical`
 is an evidence-only candidate score. Its selected agreement is intentionally
-measured as `monthly_main` for non-regression; authority-label candidate
-coverage is reported separately.
+recorded as `monthly_main`. Every number in this section is a frozen
+historical label observation, not current source eligibility, authority
+accuracy, or release evidence.
 
 | Rule mode | Phase P stated pass rate | Literal pass/comparable |
 |---|---:|---:|
@@ -112,18 +121,21 @@ coverage is reported separately.
 | jungki_transparent | 59.3% | 14 / 27 |
 | composite_classical selected agreement | 70.4% | 17 / 27 |
 
-Composite candidate coverage is 23 / 27 overall. In the classical `jonheom`
-subset, selected agreement remains 1 / 6 while candidate coverage is 3 / 6.
+Historical composite label visibility is 23 / 27 overall. In the `jonheom`
+source group, selected label agreement is 1 / 6 and historical candidate
+visibility is 3 / 6. These values are explicitly `releaseEligible: false`.
 
 `metrics/bySourceTier.json` also includes `computedPassRate` because the
 historic Phase P table includes stated percentages that do not always equal the
 literal numerator/denominator. The dashboard preserves both instead of hiding
 the discrepancy.
 
-Each rule mode also carries `winLossVsMonthlyMain` at total, source-group, and
-source-tier levels. This is an aggregate delta view against the production
-default, so `jungki_transparent` can be inspected without implying that it is
-safe for public default use.
+Each rule mode carries `historicalWinLossVsMonthlyMain` at total,
+source-group, and historical-label-tier levels. The label tiers are named
+`phase_p_authored_interpretation_label` and
+`phase_p_primary_text_label` so they cannot be confused with current T3/T4
+certification. `historicalCompositeObservation` records reproducibility
+floors only and cannot produce a PASS or release decision.
 
 ## School-Preset Split
 
@@ -132,16 +144,16 @@ default mode, not as authority accuracy.
 
 | schoolPreset | Fixtures | Changed from default | Avg total delta | Avg saju delta |
 |---|---:|---:|---:|---:|
-| korean | 15 | 0 | 0.0000 | 0.0000 |
-| chinese | 15 | 15 | -0.7067 | -2.5933 |
-| modern | 15 | 14 | -0.1133 | -0.4467 |
-| korean_modern | 15 | 15 | -0.1667 | -0.6733 |
-| classical_text | 15 | 15 | -0.8133 | -3.0867 |
-| naming_safe | 15 | 15 | 0.1800 | 0.7067 |
+| korean | 17 | 0 | 0.0000 | 0.0000 |
+| chinese | 17 | 17 | -1.0000 | -3.9118 |
+| modern | 17 | 17 | -0.1000 | -0.3765 |
+| korean_modern | 17 | 17 | -0.1529 | -0.5706 |
+| classical_text | 17 | 17 | -1.1294 | -4.4294 |
+| naming_safe | 17 | 17 | 0.1235 | 0.5235 |
 
 The Korean preset is a zero-op by design. The other presets alter scores, but
 those deltas are not promoted to authority accuracy without a source-tiered
-denominator. `schoolPresetBreakdown.rows` now carries row-level default and
-preset scores for the 15 scorable baseline fixtures, while
-`authorityFixtureCoverage` records that the current authority casebooks are not
-full `birth + surname + givenName` naming-score inputs.
+denominator. `schoolPresetBreakdown.rows` carries row-level default and preset
+scores for all 17 scorable baseline fixtures. `nameInputShapeCoverage` is only
+an input shape inventory; it explicitly makes no authority claim. Complete-D1
+truth is reported separately under `d1TruthCoverage`.

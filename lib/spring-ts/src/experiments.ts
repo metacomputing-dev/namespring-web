@@ -6,7 +6,7 @@ import {
 } from './feedback.js';
 import type { SpringOptions } from './types.js';
 
-export const RULE_AB_TEST_SCHEMA_VERSION = 'spring-ts.rule-ab-tests.v1';
+export const RULE_AB_TEST_SCHEMA_VERSION = 'spring-ts.rule-ab-tests.v2';
 export const RULE_EXPERIMENT_ASSIGNMENT_SCHEMA_VERSION = 'spring-ts.rule-experiment-assignment.v1';
 export const RULE_EXPERIMENT_BUCKET_COUNT = 10_000;
 export const RULE_EXPERIMENT_MIN_VARIANT_EXPOSURES = 50;

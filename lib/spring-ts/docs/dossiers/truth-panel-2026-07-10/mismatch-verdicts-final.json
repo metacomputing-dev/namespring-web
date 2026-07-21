@@ -1,0 +1,151 @@
+{
+ "verdicts": [
+  {
+   "fixtureId": "fix-02",
+   "fieldVerdicts": [
+    {
+     "field": "gyeokguk",
+     "verdict": "DOCTRINE_AMBIGUITY",
+     "engineEvidence": "후보 1개=정관격(score 0.9396). supportingRules=[monthHiddenStem:SIN, role:MAIN, weight:1.00]; compositeClassical: monthMainMatch=1(0.30), stemTransparency=0('hidden stem is not transparent'), rootSupport=1(share 0.325), seasonalCommand=1(MAIN). 소스: lib/saju-ts/src/core/hiddenStems.ts:74 — 酉=[辛 MAIN] 단독(인원용사 전기표, 子=癸/卯=乙 동일). 즉 辛 불투를 인지한 채 월지 본기 fallback으로 정관격 취격, 庚 여기는 취격 후보에 부재.",
+     "analysis": "엔진은 인원용사 왕지 전기(專氣) 교리를 따름: 酉의 취격용 지장간이 辛뿐이라 '본기 불투 시 투출 지장간 우선' 규칙이 적용될 다른 지장간이 없고, 자평진전 '俱不透則以月令本氣取格' fallback으로 정관격 — 酉月 甲木=정관격은 한국 교과서 전형 예시이며 프로젝트 감사 문서(AUDIT_SAJU_ENGINE_INTEGRITY.md:380)도 이를 표준으로 명기. 패널 다수(2/3)의 편관격은 월률분야 여기 庚(백로 후 ~8일=庚 사령기)+투간 취격 우선+藏官露殺只論殺에 근거한 실재 유파(사령 취격/월률분야파)로 오산 아님. 패널 내부도 분열: 조후 렌즈는 정관격(0.55), 적대검증자 2는 WEAKEN('정관격이 관행, 편관격은 소수 관행'). ambiguityNotes 스스로 '어느 쪽도 오산 아님' 기록. 양쪽 다 방어 가능한 정당한 이설이므로 ENGINE_BUG/CALIBRATION 아님. 실질 감명 차이도 작음(두 격 모두 관살격 계열, 상신=인성 살인상생 동일).",
+     "recommendation": "진리 필드 드랍 권고: fix-02의 expected.gyeokguk을 진리 세트에서 제거하거나 {정관격, 편관격} 양쪽 통과로 완화(tmp/truth-panel-output-r1.json rec.expected 수정). narrativeClaims의 mustIncludeAny['편관','관살','칠살']은 유지 — 庚 관살 압박이 서사 중심이라는 점은 양 유파 공통이라 어느 격이든 충족 가능. 엔진 수정 불요: 취격은 프로젝트 문서화된 표준(인원용사 왕지 전기) 그대로 유지. 선택적 개선(비차단): 정관격 quality.details에 '庚 편관 투출·관살혼잡' 경향을 근거로 노출하면 서사 재료가 풍부해짐.",
+     "fixComplexity": "N/A"
+    }
+   ]
+  },
+  {
+   "fixtureId": "fix-04",
+   "fieldVerdicts": [
+    {
+     "field": "strength",
+     "verdict": "ENGINE_BUG",
+     "engineEvidence": "index=+0.03478(support 4.16498 vs pressure 3.885), 득령×·득지×·득세3/7. 성분 완전 재현: base.support 4.3 = 乙1.0+甲월간1.0+甲(일간 자신)1.0+癸1.0+申중壬0.3 — scoring.ts scorePillars(106-113)가 일간을 비견 +1.0으로 셈입, facts.ts:2384 strengthFromTenGodScoresBase가 그대로 support에 합산. pressure 3.7(火1.3+土0.5+金1.9)×1.05(巳酉반합)=3.885. 승수 0.9686 = 1−0.144(실령)+0.0126(득지: 申중壬뿐)+0.10(득세: 무근 乙·甲이 shiNorm=1.6 포화). 4.3×0.9686=4.16498 정확 일치.",
+     "analysis": "패널의 핵심 사실(지지 巳午申酉 지장간에 木 전무, 일간 완전 무근)은 엔진 자체 지장간 표로도 검증됨 — PANEL_ERROR 아님. 엔진의 신강 방향 출력의 결정 원인은 일간 자기 셈입: base support의 23%(1.0/4.3)가 '측정 대상인 일간 자신'이며, 이는 어느 학파도 방어 불가하고 엔진 자신의 득세 층(facts.ts:2961 'excluding day stem')·감사 B7의 득령>득지>득세 표준과도 모순되는 회계 오류. 실측 반사실: 일간 셈입 제거만으로 index +0.035→−0.097로 방향(isStrong) 반전. 잔여 격차는 캘리브레이션 성격 — 무근 천간 만점(허부 감쇠 부재, 득세 층 +10% 이중 가산)과 월령 가중 상한 ±0.18(실령이 support의 −14.4%뿐, 감사 자체 표준 '월지 최대 단일 비중 30~50%' 미달). 허부 감쇠·월지 가중 반영 시 index −0.26~−0.31로 WEAK 도달. 참고: 엔진 등급 어휘는 신강/중화/신약 3단(±0.15)뿐이라 '극신약' 라벨은 구조적으로 도달 불가.",
+     "recommendation": "1) lib/saju-ts/src/rules/facts.ts strengthFromTenGodScoresBase에서 일간 기여 제외 — scorePillars는 분포용 범용 함수이므로 그대로 두고, strength 경로에서 stemWeight 1회분(일간 비견)을 차감하거나 strength 전용 십신 집계를 신설(오행 분포·κ 파급 차단). 2) 후속 캘리브레이션: 무근 천간 통근 게이팅(허부 감쇠) 또는 lingScale 상향으로 본 케이스가 WEAK(index≤−0.15)에 도달함을 fixture 회귀로 고정. 3) 진리 필드는 '극신약' 대신 band 기준 '신약(weak)/isStrong=false'로 완화 권고 — 패널도 band는 3/3 weak이나 라벨은 극신약 2:1이고, 엔진 3단 어휘에 극신약이 없음.",
+     "fixComplexity": "MEDIUM"
+    }
+   ]
+  },
+  {
+   "fixtureId": "fix-05",
+   "fieldVerdicts": [
+    {
+     "field": "strength",
+     "verdict": "DOCTRINE_AMBIGUITY",
+     "engineEvidence": "strengthIndex=-0.085 (support 3.798 vs oppose 4.500, 45.8:54.2), 득령○(子 본기 癸=건록)·득지×·득세 2/7, band=중화. hedge는 isStrong 불리언의 부호 판독(saju-adapter.ts:625-633 formatStrengthLevelDisplay)으로 '신약 경향' 산출.",
+     "analysis": "band(중화)는 엔진·패널 완전 일치, 분쟁은 ±0.085 수준 지수의 hedge 방향뿐. 패널 내부도 갈렸다: 강약 관할인 억부 렌즈는 엔진과 동일한 '중화(신약 경향)' 0.5였고 비관할 2렌즈(조후 0.6·격국 0.65)의 표결로 신강측 채택. 검증자 1이 적천수 임철초('得時俱爲旺論…亦死法也')와 실지(未=癸墓)·실세(酉 단독)·극설 우세를 들어 WEAKEN — 이설 스펙트럼이 '중화(신약 경향)~신강'임을 패널 스스로 기록. 득령 단독 대 설기 태왕(乙乙 쌍투+卯 록근+卯未 반합)의 저울질은 유파별로 정당하게 갈리는 진성 경계로, 어느 쪽도 오류로 단정 불가. 지장간·록 배속에 패널 오산 없음(癸祿在子, 未=丁乙己 모두 정확)이라 PANEL_ERROR 아님.",
+     "recommendation": "진리 필드에서 hedge 방향 드랍: expected.strengthLevel을 band '중화'만 단언(신강/신약 경향 양쪽 모두 통과 처리)하거나 hedge를 비게이팅 주석으로 강등. 엔진·패널 모두 수정 불요.",
+     "fixComplexity": "N/A"
+    },
+    {
+     "field": "yongshin",
+     "verdict": "CALIBRATION",
+     "engineEvidence": "johu 방법 자체는 FIRE=1.0(climateNeedTemp=0.7, env temp=-0.7/moist 0.3) 선택. 조후위급 게이트 발화(magnitude=0.7616>threshold 0.6, factor=0.404)에도 effectiveWeights=balance 0.899+role 0.899 vs climate 0.351(5.1:1)로 억부의 METAL이 topMargin 0.078, conflictLevel=high, confidence 0.35로 신승. heeshin=FIRE.",
+     "analysis": "구현은 공식대로 동작하나 가중이 교리 주류와 어긋남. DEFAULT_POLICY(saju-ts/src/rules/yongshin.ts:317,327-332: climate 0.25, maxBoost 1.0, reduceOthers 0.25)로는 factor=1 극한에서도 climate 0.5 vs 억부 1.5(점유율 25% 상한)라, 같은 파일 313-316 주석의 설계 의도 '조후위급 시 우선'이 수학적으로 도달 불가 — 로직 버그가 아닌 파라미터 캘리브레이션 결함. 본 건은 픽스처 axis부터 johu-winter인 교과서 사례(궁통보감 十一月 癸水 丙火解凍 전용, 원국 명화 전무)로 패널 3렌즈 만장일치 FIRE+검증자 2인 SUSTAIN. 엔진 METAL은 무근거는 아니나(궁통보감 辛金滋扶 보좌, 억부 순수파 이설) 주/희 우선순위 역전(丙先辛後 위반)이며, 최종 마진 0.078에 불과해 조후위급 가중만 주류 수준으로 올리면 뒤집힌다.",
+     "recommendation": "saju-ts/src/rules/yongshin.ts DEFAULT_POLICY.climateUrgency 재조정: maxBoost 1.0→4~6 및/또는 reduceOthers 0.25→0.5 수준으로 올려 극단월(factor 상승 시) climate가 억부합을 실제로 역전 가능하게 하거나, factor 고위+수요 원소 원국 무존재(본 건 火 전무) 조건의 조후 하드 우선 규칙 추가. 목표: fix-05 → FIRE 주용신/METAL 희신(궁통보감 丙先辛後와도 정합). 마진 0.078이라 소폭 부스트로 충분하나 비위급월 과교정 방지 위해 17픽스처 진리패널+yongshin-consensus-baseline.test.ts 회귀 필수.",
+     "fixComplexity": "MEDIUM"
+    }
+   ]
+  },
+  {
+   "fixtureId": "fix-07",
+   "fieldVerdicts": [
+    {
+     "field": "gyeokguk",
+     "verdict": "ENGINE_BUG",
+     "engineEvidence": "basis.monthMainTenGod=JEONG_IN(寅 본기 甲)인데 monthGyeokTenGod=GEOB_JAE — legacy_visible_hidden이 본기 甲 불투 시 투간 중기 丙(시간 丙午, 후보점수 0.75 vs 甲 0.65)을 취격. 이어 facts.ts:3879-3887 bigyeopSubtype이 겁재+음간이면 월지 검사 없이 WOLGEOB 배속 → 월겁격 0.6168(quality 0.5711×seongpae 1.08). transformationSupport=0으로 寅午 반합 화化 경로도 아님.",
+     "analysis": "월겁격은 전 유파에서 월지가 일간의 록/왕지(비겁궁)일 때의 격명 — 丁의 록=午·겁재 丙의 록=巳이며 寅은 丁의 정인궁이라 어떤 유파도 월겁격으로 부르지 않음. 커밋 ea2f8366a 제목 '월지 비겁의 주류 격명'과 코드 주석('WOLGEOB: 음간 겁재월')이 명시한 구현 의도 자체를 위반하는 배속 오류. 선택 층위도 코드베이스가 스스로 채택한 자평진전 주류(facts.ts:258 '월지 비겁은 십신격으로 삼지 않는')와 모순 — 중기 丙 투간이 겁재라 불취격 대상인데 예외 없이 취격됨. 패널 3렌즈 만장일치 정인격 + 적대검증 2인 SUSTAIN, 지장간(戊丙甲)·십성 계산 반증 없음. 패널이 언급한 록겁 변격 이설은 寅午 반합 월지 화化 경로인데 엔진 트레이스는 그 경로가 아니므로 방어 불가.",
+     "recommendation": "lib/saju-ts/src/rules/facts.ts 2단 수정: (1) bigyeopSubtype 가드 — GEONROK/YANGIN/WOLGEOB은 월지 본기 십성이 비견/겁재일 때(즉 GYEOKGUK_LOK_BRANCH[dayStem] 또는 그 +1 왕지 = month.branch)만 배속. (2) 근본 수정 — classic 경로에 비겁 불취격 적용: bestVisible이 비견/겁재이고 월지 본기가 비겁이 아니면 다음 비(非)비겁 투간 후보, 없으면 본기로 환원(fix-07은 甲 정인격 산출, 패널 진리와 일치). 격국 후보 랭킹·quality_gate 오라클 동등매핑·candidate snapshot 재캡처 동반 필요.",
+     "fixComplexity": "MEDIUM"
+    }
+   ]
+  },
+  {
+   "fixtureId": "fix-09",
+   "fieldVerdicts": [
+    {
+     "field": "yongshin",
+     "verdict": "CALIBRATION",
+     "engineEvidence": "final=WATER(conf 35, conflict=high, competing FIRE/EARTH), ranking[0]가 곧 최종. eokbu축 WATER=1: deficiency WATER 0.1375 최대(normalized METAL .3625/EARTH .30/FIRE .20/WOOD .075/WATER .0625) + rolePref OUTPUT 0.55 > WEALTH·OFFICER 0.35 — lib/saju-ts/src/rules/yongshin.ts:701-707의 고정 strongPref{OUTPUT:0.8, WEALTH:0.6, OFFICER:0.6, RESOURCE:-0.2}를 index +0.500에서 보간한 값. 반면 엔진 자체 johu축=FIRE(1), byeongyak축=FIRE(1, METAL 과잉 0.1625 제어; WOOD 0.615 차순위)로 내부 축 2개가 패널 FIRE 용신/WOOD 희신과 일치. 강약은 신강(support 6.602 vs 2.2, 득령○득지○득세5/7)으로 패널과 합치.",
+     "analysis": "구현은 의도대로 작동(OUTPUT 매핑·부족도 산술 정확)하나, 가중 설계 자체가 주류 교리와 어긋난다. 본 명식은 土 인성(戊 투간+兩辰)이 지배하는 인다+건록 신강인데, strongPref가 강약 원인(인다 vs 비겁다)을 조건화하지 않고 무조건 설기 OUTPUT을 1순위로 두며, 부족도 항이 '가장 없는 오행 채우기'로 억부를 대체한다. 인다신강의 주류 처방은 재성 극인 우선이고 식상은 왕한 인성에 직접 극파(토극수)되어 기피 대상이다. 水는 지장간(申중壬·辰중癸)뿐, 천간 불투·무근이라 유력자 취용 원칙에도 탈락한다. 궁통보감 三月庚金 旺土用甲·頑金宜丁도 木·火 지시. 정당한 이설 범위는 FIRE vs WOOD(패널 2:1, 검증자 WEAKEN)이며 WATER는 어느 유파로도 방어 불가하므로 DOCTRINE_AMBIGUITY 아님. 패널 지장간·통근·세력비(~6.5:1.5)는 엔진 실측(6.602:2.2)과 합치해 PANEL_ERROR 아님.",
+     "recommendation": "lib/saju-ts/src/rules/yongshin.ts computeYongshin 보정 3건: (1) strongPref를 강약 원인 조건부로 분기 — support 구성에서 인성 기여가 비겁 기여를 지배하면(임계 예: resource share > companion share) OUTPUT을 WEALTH/OFFICER 아래로 강등(재극인 우선), 비겁 지배 시에만 OUTPUT 우위 유지. (2) 유력자 취용 페널티 도입 — 지배 과잉 오행에 직접 극을 받으면서 천간 불투·무근인 후보(본건 水) 감점. (3) 부족도(balance) 항 가중을 role/viability 대비 하향해 희소 오행 채우기가 교리적 역할 선호를 뒤집지 못하게 조정. 엔진 내부 johu·byeongyak축이 이미 FIRE를 지목하므로 이 보정만으로 최종값이 FIRE로 수렴 가능. test/integration/yongshin-consensus-baseline.test.ts 재기준 필요. 진리 필드는 패널 FIRE 유지(FIRE/WOOD 1순위 이설은 ambiguityNotes에 이미 기록됨).",
+     "fixComplexity": "MEDIUM"
+    }
+   ]
+  },
+  {
+   "fixtureId": "fix-10",
+   "fieldVerdicts": [
+    {
+     "field": "yongshin",
+     "verdict": "CALIBRATION",
+     "engineEvidence": "strength: index 0.460, 득령 0·득지 0.3·득세 5/7(비겁 주도 신강). 최종 블렌드 가중 balance=1, role=1, climate=0.25, medicine/tongguan/follow=0 → METAL 0.6826(결핍 0.1625+역할 0.5301−기후 0.01) vs WOOD 0.5001(결핍 0.15+역할 0.3301+기후 0.02), topMargin=0.1825(트레이스 일치). 결정 요인은 lib/saju-ts/src/rules/yongshin.ts:701-707의 flat strongPref(OUTPUT 0.8 > OFFICER 0.6) — 강약 원인(비겁 vs 인성) 무시. 방법별: eokbu=METAL(1.0, WOOD 0.725), johu=FIRE(METAL 기후점수 −0.04), gyeokguk=WATER, byeongyak=WOOD, tonggwan=METAL이나 가중 0으로 게이트됨. 調候 urgency magnitude 0.538 < threshold 0.6 → factor 0. 최종 confidence 35, conflictLevel high.",
+     "analysis": "엔진은 의도(math-first baseline)대로 동작하므로 버그는 아니나, 신강 사주의 역할 선호가 강약 원인과 무관하게 항상 식상(OUTPUT 0.8) 최우선인 점이 교리 주류와 어긋난다. 억부 정법은 비겁 주도 신강(본건: 득세 5/7, 戊己 투간+戌未 통근) → 관살 제겁 우선이고, 궁통보감 亥月戊土는 先甲木 次丙火로 木을 명시한다. 군겁쟁재 국면에서 金 식상 통관을 세우는 유파가 실존하나(패널도 차선으로 인정), 이 명식은 겨울 亥월(엔진 자체 기후모델도 METAL 음수)·왕화 午丁의 金 손상·金 무투 잔근(戌中辛뿐)으로 金 취용이 이중으로 불리해 주류가 명확히 WOOD다. 결정적으로 엔진의 METAL은 통관 논리의 산물도 아니다 — tonggwan 가중은 0으로 게이트됐고, 결핍(부재 오행 보상 0.1625)+평면 역할 프로파일의 우연한 합산이다. 패널 지장간 산정(亥=戊甲壬, 午=丙己丁, 戌=辛丁戊, 未=丁乙己)은 정확해 PANEL_ERROR 아님. 3렌즈 만장일치+적대검증 2건 SUSTAIN으로 진리 WOOD 유지가 타당하다.",
+     "recommendation": "lib/saju-ts/src/rules/yongshin.ts의 strongPref(701-707행)를 강약 원인 조건부로 분기: 같은 스코프에 이미 계산돼 있는 strengthDecisionComponents/dominantSupportRole(822-830행)을 활용해, 지지·천간 생조가 COMPANION(비겁) 주도면 OFFICER를 최우선(예: OFFICER 0.8, OUTPUT 0.55, WEALTH 0.5 — 쟁재 국면 재성 하향), RESOURCE(인성) 주도면 WEALTH 우선으로 프로파일 전환. 보조로 (a) 계절 극단기 후보의 음수 기후점수를 eokbu에 소폭 반영하거나 調候 urgency threshold(0.6)를 0.5 내외로 하향, (b) 원국 무근 후보(통근 0~잔근)에 대한 발용 페널티 검토. yongshinSpec으로 유파 프리셋화한 뒤 전체 픽스처 회귀 필수 — 신강 명조 전반의 용신이 바뀌는 가중 변경이므로.",
+     "fixComplexity": "MEDIUM"
+    }
+   ]
+  },
+  {
+   "fixtureId": "fix-11",
+   "fieldVerdicts": [
+    {
+     "field": "gyeokguk",
+     "verdict": "ENGINE_BUG",
+     "engineEvidence": "basis: monthGyeokTenGod=BI_GYEON·method=VISIBLE_HIDDEN·rule=legacy_visible_hidden; scores gyeokguk.GEONROK=0.2540(품질 0.28224×성중유패 0.9), gyeokguk.SIK_SHIN=0. 후보 트레이스: 申 여기 戊(0.10+VISIBLE 0.55−손상 0.10=0.55)가 본기 庚(0.65, MAIN·미투간)을 bestVisible 우선으로 제침. 戊 '투간'의 출처는 stems=[乙,甲,戊(일간),戊(정오폴백 시주)] — facts.ts:3668이 일간 stem 포함. 반사실(시간 확정 甲寅時)에서도 GEONROK 유지 → 폴백은 2차, 일간 자신 포함이 1차 원인. facts.ts:3876의 록 조견표 GYEOKGUK_LOK_BRANCH[戊]=巳(5)인데 월지 申(8)≠록지임에도 3881-3882의 BI_GYEON→GEONROK 무조건 매핑이 발화(록지 가드 부재).",
+     "analysis": "건록격 정의는 월지=일간 록지. 戊 록=巳(화토동록)·申은 병지 — 戊土申月 건록격은 전 유파 공통 불가이며 코드 자신의 록 조견표와도 모순. 결함 두 겹: (1) 취격용 투간 판정이 일간 자신(+시간미상 폴백 시주 stem)을 증거로 채택 — 자평 취격에서 일간은 주체이지 투간 대상이 아니며, 같은 파일의 jungki_transparent 경로는 nonDayTransparentStems=[년·월·시]로 올바르게 배제해 비일관. (2) BI_GYEON→GEONROK 매핑이 주석이 계약한 스코프(록지 본기·잡기 본기 관례)를 벗어난 생지 여기 비견 경로에서 오발화. 정통 자평(비겁 불취격, 무투간 시 본기 취격)대로면 본기 庚 식신격 — 패널 3렌즈 만장일치·적대검증 SUSTAIN과 일치. PANEL_ERROR 아님(지장간 戊壬庚·무투간 판단 모두 정확), DOCTRINE_AMBIGUITY 아님(양쪽 방어 불가 — 한쪽은 정의 위반).",
+     "recommendation": "lib/saju-ts/src/rules/facts.ts 수정: (a) 월지 격 취격의 visibleInChart/bestVisible 판정에서 일간 stem 제외 — jungki_transparent의 nonDayTransparentStems([year,month,hour])와 통일; (b) bigyeopSubtype=GEONROK 분기에 월지=GYEOKGUK_LOK_BRANCH[일간] 가드 추가(잡기월 본기 비견 관례 유지 여부는 주석 정책대로 별도 결정), 가드 불충족 비겁 후보는 취격에서 배제하고 MAIN_FALLBACK으로 본기 취격 → fix-11은 庚 식신격 산출; (c) 시간미상 폴백 시주 stem을 투간 증거로 쓸지는 별도 캘리브레이션 항목으로 분리(2차 원인). 다수 명식의 격국 출력이 바뀌므로 스냅샷 재기준선 및 seongpae 파급 확인 필요.",
+     "fixComplexity": "MEDIUM"
+    }
+   ]
+  },
+  {
+   "fixtureId": "fix-16",
+   "fieldVerdicts": [
+    {
+     "field": "strength",
+     "verdict": "CALIBRATION",
+     "engineEvidence": "癸未 丁巳 甲申 甲子 재현 일치. base tenGods: support 4.4(BI_GYEON 2.0=시간 甲 1.0+일간 甲 자기포함 1.0[core/scoring.ts:106-113], JEONG_IN 2.0=癸 1.0+子중 癸 1.0) vs pressure 3.6. deLing 巳(FIRE)↔甲(WOOD) 점수 -0.6×lingScale 0.18=-10.8%(support측 승수만), deDi +4.15%(未중 乙 0.07+인성근 0.97), deShi +7.63%, 申子반합 hui +3% → supportAdj 4.575 vs pressure 3.600(압력측 월지 가중 전무: 巳중 丙 0.6=시지와 동일), index +0.119(밴드 ±0.15) → 중화(신강 경향)·isStrong=true. 엔진 스스로 득령 0·득지 0 보고.",
+     "analysis": "실령(病)·실지(絶)·통근 未중 乙 잔근뿐인 甲木은 전 유파 신약 측이며 패널 35:65는 정확히 점수법(월지 30/100) 배분 — 패널 지장간·12운성 재검산 전부 정확, PANEL_ERROR 아님. 엔진이 +index를 낸 원인은 둘 다 가중 문제: (1) 일간 자기 비견 +1.0의 support 상수 편향(제외 시 index -0.009로 반전), (2) 월령이 support측 ±18% 승수로만 반영되고 압력측(월지 巳 식신 본기)은 무가중 — 교리 주류와 괴리. 구현 자체는 deLingDiShi 설계(PR-3 보수 개시 파라미터, '계측 후 조정 전제' 주석)대로 작동하므로 ENGINE_BUG가 아닌 가중 캘리브레이션 갭. 어느 유파도 이 명식의 신강 경향을 방어하지 않으므로 DOCTRINE_AMBIGUITY 아님. 17픽스처 중 9건 동일 방향(중화·강측 압축) 드리프트로 체계적임.",
+     "recommendation": "진리 필드 '신약' 유지(드랍 불필요). 수정: (1) lib/saju-ts/src/rules/facts.ts strengthFromTenGodScoresBase(2384-2397)에서 일간 자기 기여(stemWeight 1.0)를 companions에서 차감 — 교리상 강약은 일간 제외 7글자 세력이며 엔진 득세 표기도 이미 /7; (2) 월지 히든스템 질량에 위치 가중을 support·pressure 양측 대칭 적용(×2.5~3.0, 점수법 월지 30/100 정렬)하거나 lingScale 0.18→0.35+ 상향 — fix-16 시뮬: 일간 제외+월지×2.5 시 index ≈ -0.18로 신약 도달; (3) 재캘리브레이션은 기존 measure_default_change·baseline snapshot·quality gate D1 인프라 위에서 17픽스처 패널 밴드 일치율을 목표 함수로 계측.",
+     "fixComplexity": "MEDIUM"
+    }
+   ]
+  },
+  {
+   "fixtureId": "fix-03",
+   "fieldVerdicts": [
+    {
+     "field": "strength",
+     "verdict": "CALIBRATION",
+     "engineEvidence": "실측(tmp/probe-fix03-deep.ts, 픽스처 값과 일치): index +0.0204(support 4.1667 vs pressure 4.0), band ±0.15→BALANCED, isStrong=index>=0→'중화(신강 경향)', 득령0·득지0.3·득세3/7. 성분: support 4.0 = 戊일간 self-count 1.0 + 己1.0 + 丙1.0 + 午장간(己0.3+丁0.7); pressure 4.0 = 壬1.0 + 子癸1.0×2 + 卯乙1.0. 충 주입은 정상 작동(branchDamageFactors 午=0.35, 子=0.514/0.616, 卯=0.745 → deDi +1.4%). 실령 페널티 = seasonSupportScore(WATER,EARTH)=-0.3(囚) × lingScale 0.18 = -5.4%뿐이고, deShi +8.1%가 이를 상쇄해 순보정 +4.2%. 극설 측(왕수 쌍子+壬)은 계절 가중 없이 플랫 1.0 계상.",
+     "analysis": "쌍 子 왕지+壬 투출의 교과서적 재다신약 명식 — 패널 3렌즈 만장일치 신약, 적대검증 2인 SUSTAIN, 잔여 이설조차 극신약/종재 등 '더 약함' 방향이라 엔진의 신강 경향(+0.02)은 어느 유파로도 방어 불가. 엔진은 실령(득령0)·쌍충 午근 파괴(0.35 감쇠)를 각각 올바르게 포착했으나 구조적 가중이 이를 무력화: (1) 일간 자기 자신이 비견 +1.0으로 support의 25%를 차지, (2) 월령 실령이 support의 -5.4% 감점에 그침(교리상 월령은 지배적 인자), (3) seasonSupportScore가 囚(-0.3)를 休(-0.6)보다 가볍게 매겨 왕상휴수 서열(旺相休囚死) 역전, (4) 극설 측은 자월 왕수임에도 왕상휴수 무가중 플랫 계상. 코드 주석 스스로 계수를 'provisional·authority holdout 재캘리브레이션 대상'으로 명기 — 구현은 의도대로이나 가중·임계가 교리 주류와 어긋난 전형적 캘리브레이션 결함.",
+     "recommendation": "saju-ts 강약 가중 재캘리브레이션: (1) saju-ts/src/rules/facts.ts seasonSupportScore의 囚 등급을 休와 死 사이(-0.7 부근)로 교정해 旺相休囚死 서열 복원, (2) strategies.strength 기본계수(api/config.ts): lingScale 0.18 상향 또는 왕상휴수 상태 배율을 support·pressure 양측 원장에 대칭 적용(현재 support 배율층에만 주입), (3) 일간 self-count(+1.0 비견)의 support 포함 여부 재검토 또는 band 임계(±0.15) 보정, (4) 변경 후 authority holdout·golden 픽스처 전체 재검증. 진리 필드는 패널값 '신약' 채택 유지.",
+     "fixComplexity": "MEDIUM"
+    }
+   ]
+  },
+  {
+   "fixtureId": "fix-15",
+   "fieldVerdicts": [
+    {
+     "field": "strength",
+     "verdict": "CALIBRATION",
+     "engineEvidence": "base 십신 합산 평탄 가중: companions 3.3(일간 己 자기포함 +1.0 BI_GYEON; 월간己1+丑0.6+未0.6+寅戊0.1)+resources 1.6=support 4.9 vs officers 2.7(월지 卯가 타지지와 동일 1.0)+0.4=pressure 3.1. deLing은 실령 정탐(score -0.8)했으나 lingScale 0.18 → -14.4%가 deDi +5.1%·deShi +9.8%에 상쇄되어 supportAdj 4.923, index 0.227 ≥ 0.15 → 신강(springLegacy.ts:1469). 卯未반합은 丑未충으로 BROKEN_BY_DAMAGE(applied=0). 반사실 실측: 일간 자기기여 제외만으로 index 0.117(중화), lingScale 0.90 → -0.192(신약).",
+     "analysis": "구현은 설계(deLingDiShi 배율층 주입) 그대로 동작하고 코드 주석 스스로 계수를 'provisional·authority holdout 재캘리브레이션 대상'으로 명시 — 코딩 오류 아님. 그러나 교리상 월령은 강약 판정의 최중요 인자인데 base 합산에서 월지 卯(당령 관살)가 시지 寅과 동일 가중이고, 실령 페널티가 support측 ±18% 배율에 불과해 실령+살왕 명조가 신강으로 나온다. 여기에 일간 자기포함(+1.0)이 전 명식 support를 상시 부풀린다(엔진의 deShi층은 일간을 제외하므로 base 포함은 비대칭). 패널 3렌즈 만장일치 신약(SUSTAIN×2)이고 최대 양보선이 점수형 도구의 중화(신약경향)인데 엔진은 그 밖의 신강 — 유파 이설 범위 밖이므로 DOCTRINE_AMBIGUITY 아님. 지장간·장생 인용은 엔진 테이블과 전수 일치(卯=乙, 未=己丁乙, 丑=己癸辛, 寅=甲丙戊, 丙 장생 寅)라 PANEL_ERROR 반증 불가.",
+     "recommendation": "deLingDiShi 재캘리브레이션: (1) saju-ts/src/rules/facts.ts:2384 strengthFromTenGodScoresBase에서 일간 자기기여(+1.0 BI_GYEON) 제외(또는 scorePillars에 dayStem 제외 옵션), (2) base 합산에 월지 가중 도입(core/scoring.ts branchWeight 평탄 1.0 → 월지 상향) 또는 lingScale 0.18→0.35~0.5 상향(api/config.ts 기본값), (3) authority holdout 전체 재검증 후 계수 확정. 실측상 단일 노브로는 중화까지만 도달하고 신약(-0.15)은 복수 노브 조합이 필요.",
+     "fixComplexity": "MEDIUM"
+    },
+    {
+     "field": "yongshin",
+     "verdict": "CALIBRATION",
+     "engineEvidence": "final=METAL(confidence 0.35, conflictLevel=high, competing FIRE/WOOD). 근거: eokbu축 METAL 1.0 — evidence strengthIndex=0.227(신강 전제, OUTPUT role pref 0.414) + balance.deficiency METAL 0.1875/WATER 0.1625(uniform 0.2 target, 원국 금수 부재 보상). effectiveWeights: balance 1/role 1/climate 0.25(나머지 0). 엔진 자체의 johu축·tonggwan축은 FIRE 1위. 반사실 실측: lingScale 0.90으로 신약(index -0.192) 강제 시 final METAL→FIRE로 플립 — 패널 진리와 일치.",
+     "analysis": "METAL 선정은 (a) 신강 오판 전제의 role preference(설기 OUTPUT 선호)와 (b) 원국 부재 오행을 보상하는 uniform-deficiency 항의 합작이며, 강약을 신약으로 교정하면 엔진이 스스로 FIRE(패널 만장일치 진리, 살인상생 丙 정인)를 반환함을 실측으로 확인 — 이 픽스처의 용신 오류는 strength 캘리브레이션의 하류 캐스케이드이지 독립 결함이 아니다. 다만 경계 신약(index -0.19)에서도 eokbu 단일축은 여전히 METAL 1위였던 점(deficiency 0.55 가중이 고전 억부를 압도)은 후속 캘리브레이션 관찰 항목으로 남는다.",
+     "recommendation": "별도 수정 불요 — strength 재캘리브레이션에 종속. strength 수정 랜딩 후 본 픽스처로 캐스케이드 검증(tmp/probe-fix15-counterfactual.ts 재활용, final=FIRE/heesin 확인). 후속 항목: yongshin.ts:447의 eokbuRaw 0.55×deficiency(uniform target) 가중이 원국-부재 오행을 고전 억부보다 우선시키는 문제를 holdout에서 별도 계측.",
+     "fixComplexity": "N/A"
+    }
+   ]
+  }
+ ],
+ "synthesis": "# 사주 엔진 캘리브레이션 종합 분석 (10픽스처 판결 종합)\n\n**판결 분포**: ENGINE_BUG 3(fix-04 강약, fix-07·fix-11 격국) / CALIBRATION 6(fix-03·15·16 강약, fix-05·09·10 용신; fix-15 용신은 종속) / DOCTRINE_AMBIGUITY 2(fix-02 격국, fix-05 강약). PANEL_ERROR 0 — 패널의 지장간·록표·12운성 원시 계산은 전건 정확.\n\n**총괄 메타 패턴 (코드 실사로 확인)**: 오류는 원시 테이블이 아니라 **집계·중재 층**에 있다. 지장간표·록 조견표·기후모델은 전부 정확하고, 엔진은 다수 케이스에서 내부적으로 정답을 이미 계산해 놓고(fix-09/15의 johu·byeongyak축=FIRE, fix-07의 monthMainTenGod=JEONG_IN, fix-11의 GYEOKGUK_LOK_BRANCH) 상위 가중/배속 층이 그것을 기각한다. 또한 **\"일간 자신을 자신에 대한 증거로 셈입\"** 결함이 강약(base 비견 +1.0)과 격국(투간 판정) 두 독립 서브시스템에서 반복된다 — 전 파이프라인에서 stem 리스트 소비처의 일간 포함 여부 일괄 감사가 필요하다.\n\n---\n\n## ① 강약 5건: 엔진>패널 4건은 체계적 편향 맞음 — 단, 주범은 deLingDiShi가 아니라 2층 구조\n\n방향: fix-03(+0.020), fix-04(+0.035), fix-15(+0.227), fix-16(+0.119) 모두 패널 신약 대비 엔진 강측. 유일한 역방향 fix-05는 DOCTRINE_AMBIGUITY(band 중화 일치, hedge 부호만 분쟁)라 편향 표본에서 제외 타당. fix-16 판결이 인용한 17픽스처 중 9건 동방향 드리프트와 정합.\n\n**1층 — 회계 오류(방향 고정, ENGINE_BUG급)**: `core/scoring.ts:106-113`(scorePillars)이 일간을 비견 +1.0으로 셈입하고 `rules/facts.ts:2384` strengthFromTenGodScoresBase가 그대로 support에 합산 — 코드 실사로 확인. support에만 +1.0 상수가 붙으므로 **항상 강측으로만 미는 단방향 편향**이며 4건 전부에 관여(support의 20~25%). 반사실 실측: 제거만으로 fix-04 +0.035→−0.097(반전), fix-16 +0.119→−0.009(사실상 반전), fix-15 0.227→0.117. 엔진 자신의 득세 층(일간 제외, /7 표기)과도 모순되는 비대칭.\n\n**2층 — deLingDiShi 캘리브레이션 갭(월령 과소·비대칭)**: 실령 페널티가 support측 승수 −14.4%(lingScale 0.18)에 그치고 **압력측에는 계절 가중이 전무**(fix-03 자월 왕수 플랫, fix-16 월지 巳 본기가 시지와 동일 가중). 부수: 囚(−0.3)가 休(−0.6)보다 가벼운 왕상휴수 서열 역전(fix-03), 무근 천간 만점+득세 이중 가산(fix-04). 감사 자체 표준(월지 30~50%) 미달.\n\n결론: \"천간 부조 평가\"는 부차 요인이고, **일간 자기 셈입(1층)이 상수 편향, 월령 과소가중(2층)이 실령 명조를 강측으로 끌어올리는 증폭기**다. 1층만으로 2건 반전, 신약(−0.15) 도달에는 2층 복수 노브 필요(fix-15/16 실측).\n\n## ② 용신 4건 공통 축: 조후·관성 경시 둘 다 확인 — 기제는 3가지\n\n패널 정답은 4건 전부 FIRE/WOOD(온난·생조), 엔진은 3건 METAL·1건 WATER(한냉·설기) — 방향 자체가 체계적.\n\n1. **조후 구조적 열세(조후 경시 확정)**: `rules/yongshin.ts:317` climate 0.25 + `:327-332` maxBoost 1.0·reduceOthers 0.25로는 **위급 게이트가 발화해도(factor=1 극한에서도 0.5 vs 1.5) 수학적으로 억부를 못 이김** — 설계 주석(\"조후위급 시 우선\")이 도달 불가. fix-05는 게이트 발화하고도 METAL 신승(마진 0.078), fix-10은 threshold 0.6에 0.538로 미발화. 4건 모두 엔진 내부 johu축은 FIRE로 정답을 냈다.\n2. **flat strongPref(관성 경시 확정)**: `yongshin.ts:701-707` OUTPUT 0.8 > WEALTH/OFFICER 0.6 고정 — 강약 **원인**(비겁다 vs 인다)을 조건화하지 않아, 비겁 주도 신강의 관살 제겁(fix-10)과 인다 신강의 재극인(fix-09)이 구조적으로 이길 수 없음.\n3. **deficiency 항의 억부 대체 + 유력자 취용 부재**: uniform-target 희소 오행 보상이 role과 동가중(balance 1.0)이라 \"가장 없는 오행 채우기\"가 교리를 뒤집고, 무근·불투·왕신 직극 후보(fix-09 WATER, fix-10 METAL)에 페널티가 없음.\n\n종속 관계: fix-15는 순수 캐스케이드(강약 교정 시 자동 FIRE, 실측 확인), fix-10은 부분 캐스케이드(신강 index 0.460이 strongPref 활성), **fix-09는 강약이 맞는데도 틀림 — 용신 가중 자체의 독립 결함 증거**. fix-05는 순수 조후 가중 문제.\n\n## ③ 격국 2건(fix-07 월겁, fix-11 건록) 공통 루트: 비겁 취격 파이프라인의 3중 결함\n\n두 건은 동일 파이프라인의 결함이 다른 지점에서 발화한 것:\n\n1. **상류 — 비겁 불취격 미적용**: legacy_visible_hidden이 비겁 투간 후보(fix-07 중기 丙 겁재, fix-11 여기 戊 비견)를 취격 대상에서 배제하지 않음 — 코드베이스 자체 채택 교리(facts.ts:258 자평진전 '월지 비겁 불취격')와 자기모순.\n2. **하류 — 록지 가드 부재**: `rules/facts.ts:3879-3887`(실사 확인) — GEOB_JAE의 YANGIN 분기만 왕지(jewangBranch) 검사하고, BI_GYEON→GEONROK과 else→WOLGEOB는 월지=록지 검증 없이 무조건 배속. 같은 스코프의 록 조견표(3876)를 스스로 무시. 丁일간 寅월 월겁격(록=午), 戊일간 申월 건록격(록=巳)은 전 유파 공통 정의 위반.\n3. **투간 증거에 일간 포함(fix-11 1차 원인)**: `facts.ts:3797` visibleInChart가 일간 포함 stems를 참조 — 같은 파일 `:3848` nonDayTransparentStems(일간 제외)와 비일관. ①의 일간 자기 셈입과 동일 메타 패턴.\n\n수정 3종 세트(록지 가드 + 비겁 투간 불취격·非비겁 차순위/본기 환원 + 투간 판정 일간 제외 통일)로 두 픽스처가 각각 패널 진리(정인격/식신격)로 수렴.\n\n## ④ 수정 우선순위와 파급\n\n| 순위 | 항목 | 근거 | 파급 |\n|---|---|---|---|\n| **P0** | 격국 3종 세트(③) | ENGINE_BUG·정의 위반·교리 무쟁점·결정적, 강약과 독립이라 병행 가능 | 다수 명식 격국 라벨 변경 → 격국 candidate snapshot 재캡처, seongpae·quality_gate 오라클 동등매핑. 용신 gyeokguk축은 최종 블렌드 weight 0이라 **이름점수 파급 제한적** |\n| **P1** | 강약 일간 자기 셈입 제거 (`facts.ts:2384` 경로, strength 전용 집계) | 단일 수정으로 fix-04 반전·fix-16 사실상 반전·fix-03/15 대폭 이동, 최대 레버리지 | **최대 파급**: 전 명식 support −1.0 상수 이동 → strength 스냅샷 전면 재기준, strengthIndex 소비처(용신 eokbu축·strongPref 보간) 연쇄, fix-15 용신 자동 교정. **주의: scorePillars 직접 수정 금지**(오행 분포·κ 공유) — strength 경로 한정 차감 |\n| **P2** | deLingDiShi 월령 재캘리브레이션(lingScale 0.18→0.35+, 월지 질량 양측 대칭 ×2.5~3.0, 囚 서열 −0.7 부근, 무근 허부 감쇠) | P1만으로 fix-15 중화까지만 — 신약 도달에 복수 노브 필요 | measure_default_change·authority holdout·17픽스처 밴드 일치율을 목표 함수로 계측. P1 랜딩 후 진행 |\n| **P3** | 용신 가중(strongPref 원인 조건부 분기 — 비겁 주도→OFFICER 우선/인다 주도→WEALTH 우선, climateUrgency maxBoost 4~6·reduceOthers 0.5, deficiency 하향+유력자 페널티) | fix-09가 독립 결함 증거이므로 P1·P2로 해소 안 됨 | **반드시 P1·P2 후** — strongPref 보간·eokbu축이 strengthIndex를 소비하므로 순서 역전 시 잘못된 index에 캘리브레이션. yongshin-consensus-baseline.test.ts 재기준 |\n\n**이름점수 총파급**: 용신 오행이 이름 추천 점수의 핵심 입력. P1(신강 판정 개체수 감소)+P3(신강 처방 변경)이 중첩되어 추천 오행이 광범위하게 변동 — **default-change 승인 절차(measure_default_change, 사용자 승인 게이트) 경유 필수**. 골든 픽스처·baseline snapshot·quality gate D1 전면 재기준 예산 확보 필요.\n\n## ⑤ 수정하지 말아야 할 것 (교리 이설 — 엔진 유지, 진리 세트 측 처리)\n\n- **fix-02 정관 vs 편관**: 인원용사 왕지 전기(專氣) 표(酉=辛 단독)는 프로젝트 문서화 표준(AUDIT:380) — 월률분야 사령 취격으로 갈아타지 말 것. 진리 필드를 {정관격, 편관격} 양쪽 통과로 완화. narrativeClaims의 관살 서사는 유지 가능(양 유파 공통).\n- **fix-05 강약 hedge**: band 중화는 엔진·패널 일치, ±0.085의 부호 판독은 진성 경계 — band 임계(±0.15)나 hedge 로직을 이 케이스에 맞춰 조정 금지. 진리에서 hedge 방향 드랍.\n- **3단 강약 어휘**: 패널 '극신약' 라벨을 좇아 밴드 추가 금지 — 진리를 band 수준(weak/isStrong=false)으로 완화(fix-04).\n- **fix-05 METAL 전면 부정 금지**: 궁통보감 辛金滋扶 보좌로 무근거 아님 — FIRE 하드코딩이 아니라 주/희 우선순위(丙先辛後) 교정만. 희신 체계 유지.\n- **조후 과교정 금지**: 비위급월까지 climate가 이기면 반대 방향 회귀 발생 — urgency threshold 하향(0.6→0.5)은 보조 옵션으로만, 17픽스처 회귀 필수.\n- **잡기월 본기 비견의 GEONROK 관례**(facts.ts:3875 주석)와 **시간미상 폴백 시주 stem의 투간 증거 사용**(fix-11 2차 원인)은 별도 정책/캘리브레이션 항목으로 분리 — 이번 P0 가드 수정에 끼워 넣지 말 것.\n- **scorePillars 범용 함수 본체** — 오행 분포·κ 소비처 공유, 직접 수정 금지.\n\n핵심 파일: `F:\\Projects\\metaintelligence\\namespring-web\\lib\\saju-ts\\src\\rules\\facts.ts`(P0·P1·P2), `F:\\Projects\\metaintelligence\\namespring-web\\lib\\saju-ts\\src\\rules\\yongshin.ts`(P3), `F:\\Projects\\metaintelligence\\namespring-web\\lib\\saju-ts\\src\\core\\scoring.ts`(수정 금지, 참조만), `F:\\Projects\\metaintelligence\\namespring-web\\lib\\saju-ts\\src\\api\\config.ts`(lingScale 기본값)."
+}

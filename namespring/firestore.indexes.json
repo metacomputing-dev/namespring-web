@@ -1,0 +1,291 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "content_artifacts_v1",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "lifecycle", "order": "ASCENDING" },
+        { "fieldPath": "channel.audience", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "content_artifacts_v1",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "lifecycle", "order": "ASCENDING" },
+        { "fieldPath": "artifactId", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "authDeletionJobsV1",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "status", "order": "ASCENDING" },
+        { "fieldPath": "nextAttemptAt", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "authProviderUnlinkJobsV1",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "status", "order": "ASCENDING" },
+        { "fieldPath": "nextAttemptAt", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "authDeletionJobsV1",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "status", "order": "ASCENDING" },
+        { "fieldPath": "requestedAt", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "authProviderUnlinkJobsV1",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "status", "order": "ASCENDING" },
+        { "fieldPath": "requestedAt", "order": "DESCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": [
+    {
+      "collectionGroup": "content_artifacts_v1",
+      "fieldPath": "payload",
+      "indexes": []
+    },
+    { "collectionGroup": "content_artifacts_v1", "fieldPath": "registeredBy", "indexes": [] },
+    { "collectionGroup": "content_artifacts_v1", "fieldPath": "review.reviewerId", "indexes": [] },
+    { "collectionGroup": "content_artifacts_v1", "fieldPath": "approval.approverId", "indexes": [] },
+    { "collectionGroup": "content_artifacts_v1", "fieldPath": "activations", "indexes": [] },
+    { "collectionGroup": "content_artifacts_v1", "fieldPath": "retirement.retiredBy", "indexes": [] },
+    {
+      "collectionGroup": "content_audit_events_v1",
+      "fieldPath": "actorSubject",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "content_audit_events_v1",
+      "fieldPath": "sessionSubject",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "account_sync_v1",
+      "fieldPath": "favorites",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "account_sync_v1",
+      "fieldPath": "ownerUserId",
+      "indexes": []
+    },
+    { "collectionGroup": "premium_v1_registrations", "fieldPath": "ciphertext", "indexes": [] },
+    { "collectionGroup": "premium_v1_registrations", "fieldPath": "iv", "indexes": [] },
+    { "collectionGroup": "premium_v1_registrations", "fieldPath": "authenticationTag", "indexes": [] },
+    { "collectionGroup": "premium_v1_reports", "fieldPath": "ciphertext", "indexes": [] },
+    { "collectionGroup": "premium_v1_reports", "fieldPath": "iv", "indexes": [] },
+    { "collectionGroup": "premium_v1_reports", "fieldPath": "authenticationTag", "indexes": [] },
+    { "collectionGroup": "premium_v1_analyses", "fieldPath": "ciphertext", "indexes": [] },
+    { "collectionGroup": "premium_v1_analyses", "fieldPath": "iv", "indexes": [] },
+    { "collectionGroup": "premium_v1_analyses", "fieldPath": "authenticationTag", "indexes": [] },
+    { "collectionGroup": "premium_v1_checkout_requests", "fieldPath": "ciphertext", "indexes": [] },
+    { "collectionGroup": "premium_v1_checkout_requests", "fieldPath": "iv", "indexes": [] },
+    { "collectionGroup": "premium_v1_checkout_requests", "fieldPath": "authenticationTag", "indexes": [] },
+    { "collectionGroup": "premium_v1_orders", "fieldPath": "ciphertext", "indexes": [] },
+    { "collectionGroup": "premium_v1_orders", "fieldPath": "iv", "indexes": [] },
+    { "collectionGroup": "premium_v1_orders", "fieldPath": "authenticationTag", "indexes": [] },
+    { "collectionGroup": "premium_v1_provider_payment_keys", "fieldPath": "ciphertext", "indexes": [] },
+    { "collectionGroup": "premium_v1_provider_payment_keys", "fieldPath": "iv", "indexes": [] },
+    { "collectionGroup": "premium_v1_provider_payment_keys", "fieldPath": "authenticationTag", "indexes": [] },
+    { "collectionGroup": "premium_v1_entitlements", "fieldPath": "ciphertext", "indexes": [] },
+    { "collectionGroup": "premium_v1_entitlements", "fieldPath": "iv", "indexes": [] },
+    { "collectionGroup": "premium_v1_entitlements", "fieldPath": "authenticationTag", "indexes": [] },
+    { "collectionGroup": "premium_v1_entitlement_grants", "fieldPath": "ciphertext", "indexes": [] },
+    { "collectionGroup": "premium_v1_entitlement_grants", "fieldPath": "iv", "indexes": [] },
+    { "collectionGroup": "premium_v1_entitlement_grants", "fieldPath": "authenticationTag", "indexes": [] },
+    { "collectionGroup": "premium_v1_delivery_requests", "fieldPath": "ciphertext", "indexes": [] },
+    { "collectionGroup": "premium_v1_delivery_requests", "fieldPath": "iv", "indexes": [] },
+    { "collectionGroup": "premium_v1_delivery_requests", "fieldPath": "authenticationTag", "indexes": [] },
+    { "collectionGroup": "premium_v1_content_artifacts", "fieldPath": "ciphertext", "indexes": [] },
+    { "collectionGroup": "premium_v1_content_artifacts", "fieldPath": "iv", "indexes": [] },
+    { "collectionGroup": "premium_v1_content_artifacts", "fieldPath": "authenticationTag", "indexes": [] },
+    { "collectionGroup": "premium_v1_active_content", "fieldPath": "ciphertext", "indexes": [] },
+    { "collectionGroup": "premium_v1_active_content", "fieldPath": "iv", "indexes": [] },
+    { "collectionGroup": "premium_v1_active_content", "fieldPath": "authenticationTag", "indexes": [] },
+    { "collectionGroup": "premium_v1_content_templates", "fieldPath": "ciphertext", "indexes": [] },
+    { "collectionGroup": "premium_v1_content_templates", "fieldPath": "iv", "indexes": [] },
+    { "collectionGroup": "premium_v1_content_templates", "fieldPath": "authenticationTag", "indexes": [] },
+    { "collectionGroup": "premium_v1_active_templates", "fieldPath": "ciphertext", "indexes": [] },
+    { "collectionGroup": "premium_v1_active_templates", "fieldPath": "iv", "indexes": [] },
+    { "collectionGroup": "premium_v1_active_templates", "fieldPath": "authenticationTag", "indexes": [] },
+    { "collectionGroup": "premium_v1_content_reviews", "fieldPath": "ciphertext", "indexes": [] },
+    { "collectionGroup": "premium_v1_content_reviews", "fieldPath": "iv", "indexes": [] },
+    { "collectionGroup": "premium_v1_content_reviews", "fieldPath": "authenticationTag", "indexes": [] },
+    {
+      "collectionGroup": "premium_v1_content_reviews",
+      "fieldPath": "deleteAfter",
+      "ttl": true,
+      "indexes": []
+    },
+    { "collectionGroup": "premium_v1_audit", "fieldPath": "ciphertext", "indexes": [] },
+    { "collectionGroup": "premium_v1_audit", "fieldPath": "iv", "indexes": [] },
+    { "collectionGroup": "premium_v1_audit", "fieldPath": "authenticationTag", "indexes": [] },
+    { "collectionGroup": "premium_v1_retained_payments", "fieldPath": "ciphertext", "indexes": [] },
+    { "collectionGroup": "premium_v1_retained_payments", "fieldPath": "iv", "indexes": [] },
+    { "collectionGroup": "premium_v1_retained_payments", "fieldPath": "authenticationTag", "indexes": [] },
+    { "collectionGroup": "premium_v1_deletion_receipts", "fieldPath": "ciphertext", "indexes": [] },
+    { "collectionGroup": "premium_v1_deletion_receipts", "fieldPath": "iv", "indexes": [] },
+    { "collectionGroup": "premium_v1_deletion_receipts", "fieldPath": "authenticationTag", "indexes": [] },
+    { "collectionGroup": "premium_v1_unpaid_expiry_candidates", "fieldPath": "ciphertext", "indexes": [] },
+    { "collectionGroup": "premium_v1_unpaid_expiry_candidates", "fieldPath": "iv", "indexes": [] },
+    { "collectionGroup": "premium_v1_unpaid_expiry_candidates", "fieldPath": "authenticationTag", "indexes": [] },
+    {
+      "collectionGroup": "premium_v1_unpaid_expiry_candidates",
+      "fieldPath": "expiresAt",
+      "indexes": [
+        { "order": "ASCENDING", "queryScope": "COLLECTION" }
+      ]
+    },
+    {
+      "collectionGroup": "premium_v1_unpaid_expiry_receipts",
+      "fieldPath": "deleteAfter",
+      "ttl": true,
+      "indexes": []
+    },
+    { "collectionGroup": "items", "fieldPath": "ciphertext", "indexes": [] },
+    { "collectionGroup": "items", "fieldPath": "iv", "indexes": [] },
+    { "collectionGroup": "items", "fieldPath": "authenticationTag", "indexes": [] },
+    { "collectionGroup": "accountPaymentLeasesV1", "fieldPath": "ciphertext", "indexes": [] },
+    { "collectionGroup": "accountPaymentLeasesV1", "fieldPath": "iv", "indexes": [] },
+    { "collectionGroup": "accountPaymentLeasesV1", "fieldPath": "authenticationTag", "indexes": [] },
+    {
+      "collectionGroup": "premium_v1_content_templates",
+      "fieldPath": "template",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "premium_v1_active_templates",
+      "fieldPath": "template",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "premium_v1_audit",
+      "fieldPath": "deleteAfter",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "premium_v1_retained_payments",
+      "fieldPath": "deleteAfter",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "premium_v1_deletion_receipts",
+      "fieldPath": "deleteAfter",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "server_rate_limits_v1",
+      "fieldPath": "expiresAt",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "account_sync_v1",
+      "fieldPath": "expiresAt",
+      "indexes": [
+        { "order": "ASCENDING", "queryScope": "COLLECTION" }
+      ]
+    },
+    {
+      "collectionGroup": "account_sync_request_receipts_v1",
+      "fieldPath": "deleteAfter",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "account_sync_deletion_receipts_v1",
+      "fieldPath": "deleteAfter",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "account_sync_audit_events_v1",
+      "fieldPath": "deleteAfter",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "content_export_snapshots_v1",
+      "fieldPath": "expiresAt",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "content_export_snapshots_v1",
+      "fieldPath": "ownerSubjects",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "content_export_chunks_v1",
+      "fieldPath": "expiresAt",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "content_export_chunks_v1",
+      "fieldPath": "entries",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "content_export_progress_v1",
+      "fieldPath": "expiresAt",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "content_audit_events_v1",
+      "fieldPath": "deleteAfter",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "authAccountsV1",
+      "fieldPath": "deleteAfter",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "authAuditEventsV1",
+      "fieldPath": "deleteAfter",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "authDeletionJobsV1",
+      "fieldPath": "deleteAfter",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "authProviderUnlinkJobsV1",
+      "fieldPath": "deleteAfter",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "authRoleProvisioningReceiptsV1",
+      "fieldPath": "deleteAfter",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "authRoleProvisioningLeasesV1",
+      "fieldPath": "claimToken",
+      "indexes": []
+    }
+  ]
+}

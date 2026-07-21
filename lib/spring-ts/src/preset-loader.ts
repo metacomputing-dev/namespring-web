@@ -15,6 +15,7 @@ import modernPreset from '../config/presets/modern.json';
 import koreanModernPreset from '../config/presets/korean_modern.json';
 import classicalTextPreset from '../config/presets/classical_text.json';
 import namingSafePreset from '../config/presets/naming_safe.json';
+import { deepFreeze } from '../../seed-ts/src/utils/deep-freeze.js';
 
 export type SchoolPresetName =
   | 'korean'
@@ -24,6 +25,10 @@ export type SchoolPresetName =
   | 'classical_text'
   | 'naming_safe';
 
+/**
+ * `fallback` is retained only so stored historical responses remain
+ * type-readable. New runtime responses never emit it.
+ */
 export type SchoolPresetSelectionSource = 'request' | 'default' | 'fallback';
 
 export interface SchoolPresetData {
@@ -43,34 +48,54 @@ export interface SchoolPresetMetadata {
   readonly scoringEffect: 'active' | 'inactive';
 }
 
-export const SCHOOL_PRESET_ORDER: readonly SchoolPresetName[] = [
+export const SCHOOL_PRESET_ORDER: readonly SchoolPresetName[] = deepFreeze([
   'korean',
   'chinese',
   'modern',
   'korean_modern',
   'classical_text',
   'naming_safe',
-];
+]);
 
-const PRESETS: Readonly<Record<SchoolPresetName, SchoolPresetData>> = {
+/**
+ * Raised when a caller explicitly supplies a Spring-facing preset name that
+ * is not part of the closed public vocabulary.
+ *
+ * `SAJU_UNKNOWN_SCHOOL_PRESET` is shared with the lower-level engine boundary
+ * so safe adapters can preserve one stable reason code without coupling the
+ * two packages' concrete error classes.
+ */
+export class UnknownSpringSchoolPresetError extends RangeError {
+  readonly code = 'SAJU_UNKNOWN_SCHOOL_PRESET' as const;
+  readonly availablePresetNames: readonly SchoolPresetName[];
+
+  constructor(_presetName: unknown) {
+    super('Unknown Spring school preset.');
+    this.name = 'UnknownSpringSchoolPresetError';
+    this.availablePresetNames = SCHOOL_PRESET_ORDER;
+    Object.freeze(this);
+  }
+}
+
+const PRESETS: Readonly<Record<SchoolPresetName, SchoolPresetData>> = deepFreeze({
   korean: koreanPreset,
   chinese: chinesePreset,
   modern: modernPreset,
   korean_modern: koreanModernPreset,
   classical_text: classicalTextPreset,
   naming_safe: namingSafePreset,
-};
+});
 
-const PRESET_DOCTRINE: Readonly<Record<SchoolPresetName, string>> = {
+const PRESET_DOCTRINE: Readonly<Record<SchoolPresetName, string>> = deepFreeze({
   korean: 'mainstream_korean_default',
   chinese: 'traditional_chinese_structure',
   modern: 'modern_integrated_climate',
   korean_modern: 'contemporary_korean_naming',
   classical_text: 'public_classical_text_rule_lens',
   naming_safe: 'conservative_name_safety',
-};
+});
 
-const PRESET_TRADEOFFS: Readonly<Record<SchoolPresetName, readonly string[]>> = {
+const PRESET_TRADEOFFS: Readonly<Record<SchoolPresetName, readonly string[]>> = deepFreeze({
   korean: [
     '현재 기본 점수 체계와 동일해서 회귀 비교 기준으로 쓰기 좋아요.',
     '특정 학파 기준을 더 강하게 밀지 않고 현재 서비스 기본값을 유지해요.',
@@ -95,21 +120,22 @@ const PRESET_TRADEOFFS: Readonly<Record<SchoolPresetName, readonly string[]>> = 
     '강한 보강보다 균형과 충돌 회피를 우선해요.',
     '특정 학파에서 과감하게 좋게 보는 후보는 낮게 평가될 수 있어요.',
   ],
-};
+});
 
 export function isSchoolPresetName(name: unknown): name is SchoolPresetName {
-  return typeof name === 'string' && (SCHOOL_PRESET_ORDER as readonly string[]).includes(name);
+  return typeof name === 'string' && Object.hasOwn(PRESETS, name);
 }
 
 export function resolveSchoolPresetName(name: unknown): SchoolPresetName {
-  return isSchoolPresetName(name) ? name : 'korean';
+  if (name === undefined) return 'korean';
+  if (isSchoolPresetName(name)) return name;
+  throw new UnknownSpringSchoolPresetError(name);
 }
 
 /**
- * Resolves a SchoolPresetName to its preset data. An unknown or undefined
- * name defaults to 'korean' (= current saju-scoring.json defaults), so a
- * caller that only opts in via `useSchoolPreset:true` without choosing a
- * school still sees zero behavior change.
+ * Resolves a SchoolPresetName to its preset data. Only an omitted name
+ * defaults to 'korean' (= current saju-scoring.json defaults). An explicit
+ * unknown value fails closed instead of silently selecting another doctrine.
  */
 export function loadPreset(name: SchoolPresetName | undefined): SchoolPresetData {
   return PRESETS[resolveSchoolPresetName(name)];
@@ -120,9 +146,9 @@ export function resolveSchoolPresetMetadata(
   useSchoolPreset: boolean,
 ): SchoolPresetMetadata {
   const selected = resolveSchoolPresetName(name);
-  const source: SchoolPresetSelectionSource = name == null
+  const source: SchoolPresetSelectionSource = name === undefined
     ? 'default'
-    : isSchoolPresetName(name) ? 'request' : 'fallback';
+    : 'request';
   return {
     selected,
     source,

@@ -1,90 +1,74 @@
-# Hanja Data Ingestion Status (PR-P-5 ~ PR-P-9)
+# Hanja data ingestion and authority status
 
-## Overview
+## Current production contract
 
-5-stage delvier KoreaSCourtCode ingestion completed in Phase P
-(2026-05-01) per option A approval. spring-ts now ships with full
-9,495-entry 인명용 한자 list (opt-in) plus 112 verified 변이체 mapping.
+The opt-in `inmyeongyong_full` pool contains 9,495 Unicode/PUA glyph
+representations. On 2026-07-18, all 35 stroke buckets from the current official
+eFamily lookup were extracted and reconciled against the committed pool:
 
-## Stage-by-stage
+- 11,498 official response rows
+- 9,495 distinct raw glyph representations
+- 10,381 distinct non-empty designated-reading pairs
+- zero local-only or official-only glyphs
+- zero local-only or official-only non-empty reading pairs
 
-| Stage | PR | Subject | Status |
-|-------|----|---------|--------|
-| 1 | P-5 [#120] | delvier db inspection (9,495 isin=1, 9.1% multi-reading, 27% empty dic, 100% rad_stroke) | done |
-| 2 | P-6 [#121] | generate `inmyeongyong_9389_full.json` (9,495 entries, 1 MB) | done |
-| 3 | P-7 [#122] | wire `precisionConfig.hanjaPool: 'inmyeongyong_full'` opt-in | done |
-| 4 | P-8 [#123] | extend `byeolpyo2_variants.json` 50 → 112 (agent verified pairs) | done |
-| 5 | P-9 [this] | closure summary | done |
+The offline authority receipt is
+`official-hanja-lookup-authority.generated.json`. Release verification checks
+its fixed counts and SHA-256 digests without depending on network availability.
+Use `npm run refresh:official-hanja-authority -- --write` only for an intentional
+reviewed refresh from the official endpoint.
 
-## Current state of data/
+The Supreme Court's announced 9,389-character count and the lookup's 9,495
+Unicode/PUA representations are different counting layers. The +106 difference
+does not mean 106 illegal local rows. It also does not establish a canonical
+Appendix 2 mapping.
 
-```
-data/
-├── inmyeongyong_9389.json         50 entries  (curated seed, default)
-├── inmyeongyong_9389_full.json   9,495 entries (opt-in via hanjaPool='inmyeongyong_full')
-├── byeolpyo2_variants.json         112 entries (variant→정자, opt-out via normalize)
-└── HANJA_INGESTION_STATUS.md      this file
-```
+## Runtime policy
 
-## How to use
+- `curated` remains the conservative default candidate pool; it does not weaken
+  legal authority. Every emitted Hanja still requires the exact raw glyph and
+  supplied Hangul reading pair in the official lookup snapshot.
+- `inmyeongyong_full` expands candidate breadth under that same strict legal
+  authority contract.
+- `byeolpyo2_variants.json` contains 112 compatibility aliases for search and
+  deduplication only. It is not authority evidence and cannot make an off-list
+  glyph legally registrable.
+- The lookup glyph U+25874 has no non-empty designated reading. Pair-level
+  eligibility therefore fails closed instead of inventing a reading.
+- The compact synchronous authority artifact carries glyph membership and exact
+  readings; the 1 MB descriptive full-pool payload remains behind the opt-in
+  dynamic import boundary.
 
-Production code path (default — backward compatible):
+## Remaining work
 
-```ts
-import { getLegalAnnotation } from './hanja-annotations';
-const r = getLegalAnnotation(entry);
-// r.legalRegistrable: boolean | undefined  (undefined = unknown / curated seed)
-```
+1. Extract and independently verify the current Appendix 2 canonical variant
+   mapping. Until then, `variantAllowed` is reserved and never inferred from
+   compatibility aliases.
+2. Review the 2,541 rows without local meaning text using an authority-governed
+   enrichment workflow. Unihan metadata must not be promoted into Korean legal
+   or naming-doctrine truth.
+3. Replace interim stroke-derived scoring-element fallbacks with independently
+   sourced naming-doctrine data before claiming expert-grade full-pool scoring.
 
-Opt-in to full 9,495 list:
+## Verification
 
-```ts
-const r = getLegalAnnotation(entry, { pool: 'inmyeongyong_full' });
-// r.legalRegistrable: boolean  (local mirror yes/no; +106 delta remains non-authority)
-```
-
-Strict registrability filter:
-
-```ts
-isHanjaUsableForLegalName(entry, {
-  pool: 'inmyeongyong_full',
-  requireLegalRegistrable: true,   // reject status-unknown
-})
-```
-
-## Outstanding
-
-1. **2024 별표 2 hwpx re-discovery** — pattern `..._000200E.hwpx` likely exists alongside the 별표 1 hwpx found in PR-P-5. Currently using 1997 PDF derived pairs.
-2. **9,495 vs 9,389 reconciliation** — PR-2.1 records official sources,
-   exposes the +106 mirror delta in `legal-hanja-reconciliation.json`, and
-   keeps those entries non-authority until T5-confirmed. Exact character-level
-   official diff extraction remains pending.
-3. **2,541 empty dic entries** (27%) — supplementary 의미 source needed (Unihan kKorean cross-reference).
-4. **Candidate generator wiring** — PR-2.2 wires
-   `precisionConfig.hanjaPool='inmyeongyong_full'` into recommendation
-   generation. PR-2.3 adds a Unihan 17.0.0 overlay for `kRSUnicode`,
-   `kTotalStrokes`, and variants. Remaining enrichment risk: generated
-   full-pool entries still use stroke-derived scoring elements; Unihan radical
-   data is exposed only as `radicalElementHint`, not a hard scoring truth.
-
-## Verification commands
-
-```
-node tools/inspect_delvier_db.mjs           # re-inspect db (PR-P-5)
-node tools/generate_inmyeongyong_full.mjs   # regenerate full json (PR-P-6)
-npm run ingest:unihan                       # regenerate Unihan overlay (PR-2.3)
-npm run test:hanja                          # 17 PASS / 0 FAIL
-npm run test:legal-hanja                    # legal reconciliation regressions
-npm run test:hanja-pool                     # full-pool generator wiring
-npm run test:unihan                         # Unihan metadata overlay
-npm run test:snapshot                       # 12/12 PASS (no behavioral regression)
+```powershell
+npm run check:official-hanja-authority
+npm run check:hanja-glyph-registry
+npm run test:legal-hanja
+npm run test:hanja
+npm run test:hanja-pool
+npm run test:hanja-pool-lazy
+npm run test:unihan
+npm run typecheck
 ```
 
-## Source citations
+## Primary sources
 
-- delvier/KoreaSCourtCode webhanja.db (`https://github.com/delvier/KoreaSCourtCode`, MIT, 2024-07-16 refresh)
-- 대법원 가족관계의 등록 등에 관한 규칙 별표 1 (2024-06-11 개정, hwpx at law.go.kr)
-- 별표 2 1997-12-02 PDF (transcribed verified pairs by agent)
-- All snapshot tests on baseline-snapshot.json continue to PASS.
+- Official eFamily personal-name Hanja lookup and endpoint
+- Current Article 37 and Appendices 1/2 at law.go.kr
+- Supreme Court 2024 expansion announcement
 
-Generated: 2026-05-01.
+The exact URLs, access date, extraction method, hashes, and source tiers are
+recorded in `sources/legal-hanja.sources.json` and the generated authority
+receipt.

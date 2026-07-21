@@ -37,9 +37,10 @@ const originalFetch = globalThis.fetch;
   return originalFetch(url as any, options);
 };
 
-import { buildSajuContext } from '../../src/saju-adapter.js';
+import { buildSajuContext, extractSaju } from '../../src/saju-adapter.js';
 import { analyzeSaju } from '../../src/saju-adapter.js';
 import type { SajuSummary } from '../../src/types.js';
+import { createLegacySajuOutputFixture } from '../helpers/legacy-saju-output.js';
 
 let pass = 0;
 let fail = 0;
@@ -119,6 +120,49 @@ check('empty source cheonganRelations → output undefined',
   emptyCtx.output?.cheonganRelations === undefined);
 check('empty source jijiRelations → output undefined',
   emptyCtx.output?.jijiRelations === undefined);
+
+const relation = { type: 'CHUNG', members: ['GAP', 'GYEONG'] };
+const rawFixture = await createLegacySajuOutputFixture();
+const validScore = {
+  model: 'legacy_heuristic_v1',
+  unit: '0_100',
+  status: 'provisional',
+  evidenceOnly: true,
+  authorityTruthEligible: false,
+  provisional: true,
+  pairCount: 1,
+  positionGap: 1,
+  positionGaps: [1],
+  baseScore: 70,
+  adjacencyBonus: 15,
+  outcomeMultiplier: 0.75,
+  finalScore: 67.5,
+  rationale: 'type=CHUNG;positionGap=1',
+};
+const scoreFrom = (score: unknown, duplicates: unknown[] = []) => extractSaju({
+  ...rawFixture,
+  cheonganRelations: [relation],
+  scoredCheonganRelations: [{ hit: relation, score }, ...duplicates],
+}).cheonganRelations[0]?.score;
+
+check('valid provisional cheongan score preserves zero-safe numeric contract',
+  scoreFrom({ ...validScore, adjacencyBonus: 0, finalScore: 52.5 })?.adjacencyBonus === 0);
+for (const [label, mutation] of [
+  ['numeric string', { baseScore: '70' }],
+  ['boolean', { outcomeMultiplier: true }],
+  ['infinity', { finalScore: Number.POSITIVE_INFINITY }],
+  ['out of range', { outcomeMultiplier: 1.1 }],
+  ['missing provenance', { status: undefined }],
+  ['formula mismatch', { finalScore: 70 }],
+] as const) {
+  check(`malformed cheongan score fails closed: ${label}`,
+    scoreFrom({ ...validScore, ...mutation }) === null);
+}
+check('duplicate cheongan score key is ambiguous rather than last-wins',
+  scoreFrom(validScore, [{
+    hit: relation,
+    score: { ...validScore, adjacencyBonus: 0, finalScore: 52.5 },
+  }]) === null);
 
 console.log(`\nadapter-relations: ${pass} PASS / ${fail} FAIL`);
 process.exit(fail > 0 ? 1 : 0);
