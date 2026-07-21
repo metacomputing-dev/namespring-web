@@ -57,6 +57,8 @@ export interface NameEvidenceSpec {
   readonly tenGodMeaning?: string;
   /** 사격의 시기 의미. 예: '인생의 기둥 → 중년의 주된 흐름' */
   readonly framePhase?: string;
+  /** S9 생활 조언 사전 — 격국 계열의 삶의 영역 + 실물 행동 예시 (조언 실용 모드). */
+  readonly adviceGuide?: string;
   /** 정직성 플래그 — true면 "채워 준다" 계열 금지. */
   readonly isAdverse: boolean;
   /** 런타임 치환 변수 화이트리스트. */
@@ -118,8 +120,12 @@ export const ALLOWED_VARS: Record<SlotFamily, readonly string[]> = {
   S8: ['dayMasterName', 'yongshinName', 'nameFull'],
   S9: ['dayMasterName', 'yongshinName', 'nameFull'],
   S10: [],
-  S11: [],
-  S12: [],
+  // 종합 절 재진술은 지시 대상을 변수로 받아 "무거운 자리가 어느 격인지"를
+  // 지목한다 (2026-07-21 검수: "한 자리가 무겁다"가 두루뭉술하다는 피드백).
+  // harmonious/all_bright 변형은 지목할 대상이 없으므로 변수를 쓰지 않는다
+  // (게이트가 방향 양쪽 모두 강제).
+  S11: ['clashPairRef'],
+  S12: ['heavyFrameRef', 'heavyFramePhase'],
   S13: [],
 };
 
@@ -212,6 +218,50 @@ export const FRAME_PHASE: Record<FrameType, string> = {
   hyung: '인생의 기둥 → 중년의 주된 흐름, 사회 활동의 중심',
   lee: '바깥의 문 → 대외 관계, 평판과 도움',
   jung: '전체를 담는 그릇 → 총운, 말년의 마무리',
+};
+
+/** 재진술(S12)의 {{heavyFramePhase}} 바인딩용 — 평문 시기 한 단어. */
+export const FRAME_PHASE_PLAIN: Record<FrameType, string> = {
+  won: '성장기', hyung: '중년', lee: '대외 활동', jung: '말년과 총운',
+};
+
+/**
+ * S9 생활 조언 실용 모드 사전 (2026-07-21 검수: "좋은 스승과 좋은 책 곁에"류가
+ * 직관적이지 않다는 피드백). 격국 계열별 삶의 영역과 실물 행동 예시.
+ * `lexicon`은 게이트가 S9 평문에 실물 명사가 최소 1개 있는지 검사하는 패턴 —
+ * 조언이 은유로만 끝나는 것을 막는다.
+ */
+export const GYEOKGUK_LIFE: Record<GyeokgukFamily, { readonly domains: string; readonly actions: string; readonly lexicon: string }> = {
+  inseong: {
+    domains: '배움·문서·자격',
+    actions: '강의 수강 · 자격 준비 · 책이나 글로 정리 · 믿을 만한 선배나 어른에게 조언 구하기',
+    lexicon: '강의|수업|책|자격|시험|공부|글|기록|문서|선배|어른|조언',
+  },
+  siksang: {
+    domains: '표현·재능·창작',
+    actions: '만든 것을 밖으로 내보이기 · 발표나 공유 모임 · 글쓰기·만들기 같은 창작 활동',
+    lexicon: '발표|모임|창작|글쓰기|만들|보여 주|공유|취미',
+  },
+  jaeseong: {
+    domains: '재물·성과·실행',
+    actions: '수입과 지출을 장부에 적기 · 계약과 거래를 직접 확인 · 계획을 작은 실행으로 옮기기',
+    lexicon: '장부|가계|지출|수입|계약|거래|저축|예산|실행',
+  },
+  gwanseong: {
+    domains: '직장·규율·명예',
+    actions: '맡은 역할과 일정 지키기 · 약속과 마감을 관리 · 평판을 쌓는 꾸준한 태도',
+    lexicon: '직장|역할|일정|약속|마감|규칙|책임|평판',
+  },
+  bigeop: {
+    domains: '동료·자립·경쟁',
+    actions: '함께 하는 일에서 제 몫 정하기 · 몸을 움직이는 운동 · 결정을 스스로 내리는 연습',
+    lexicon: '동료|운동|함께|몫|스스로|결정|연습',
+  },
+  special: {
+    domains: '자기만의 길',
+    actions: '기록으로 자기 흐름 남기기 · 잘 맞는 한 분야를 정해 깊이 파기 · 조언자 한 사람 두기',
+    lexicon: '기록|분야|조언|공부|일정|모임',
+  },
 };
 
 /** phonetic-rules.ts transitionSignals()의 11개 signal code (S7 키 축). */

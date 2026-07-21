@@ -125,7 +125,7 @@ const STYLE_GUIDE = `<style_guide>
 
 6. **문장은 짧게.** 한 문장에 한 뜻. 분량은 조각의 몫에 따라 다릅니다:
    기본 1~2문장(plain 40~110자 / expert 50~160자) · S5(글자 작용)·S8(이름 작용)
-   2~3문장(plain 60~180자) · S9(종합) 3~5문장(plain 100~280자) · principle ≤50자.
+   2~3문장(plain 60~180자) · S9(종합) 3~6문장(plain 100~320자) · principle ≤50자.
 
 7. **쓰지 않는 표현** (자동 검사가 ERROR로 막습니다):
    · 직유 — "~하듯", "~듯이"
@@ -150,6 +150,19 @@ const STYLE_GUIDE = `<style_guide>
    · 읽는 사람이 뜻을 되물어야 하는 문장은 실패입니다. 압축된 비유 대신 직설로.
      ✕ "짜임이 한쪽으로 기울지 않아요"
      ○ "한 자리의 무게가 전체 인상을 끌어내리지는 않아요"
+
+9. **조언은 실용 모드 (S9 전용, 2026-07-21 검수 확정).** 종합 조각의 생활 조언
+   문장은 은유가 아니라 실행문입니다.
+   · 구조: [기질이나 이유 반 문장] + [실물 행동 반~한 문장]. 이유 없는 당부 금지.
+   · 조언 문장에는 물상 비유를 쓰지 않습니다. 실물 명사(강의·자격·장부·일정·
+     운동·모임 등 — 조각별 '행동 사전' 참조)를 최소 1개 넣습니다(자동 검사).
+     ✕ "좋은 스승과 좋은 책 곁에 머무는 시간이 가장 남는 걸음이에요."
+     ○ "배우는 데 쓴 시간이 가장 크게 돌아오는 바탕이라, 강의나 자격 준비에
+        시간을 먼저 배정해 볼 만해요."
+     ✕ "벌여 놓은 일이 많아지지 않게 갈래를 고르는 눈은 필요해요."
+     ○ "기운이 넉넉한 만큼 일을 여러 개 벌이기 쉬워서, 새로 시작하기 전에
+        하나를 정리하는 습관이 힘의 분산을 막아 줘요."
+   · 물상 맺음 한 문장은 조언 뒤에 따로 둡니다 — 조언과 섞지 않습니다.
 </style_guide>`;
 
 const ASSEMBLY_RULES = `<assembly_rules>
@@ -198,6 +211,7 @@ function slotListBlock(cases: readonly NameEvidenceCase[]): string {
     if (c.spec.imageryState) lines.push(`   상태 비유: ${c.spec.imageryState}`);
     if (c.spec.tenGodMeaning) lines.push(`   삶의 영역: ${c.spec.tenGodMeaning}`);
     if (c.spec.framePhase) lines.push(`   시기 의미: ${c.spec.framePhase}`);
+    if (c.spec.adviceGuide) lines.push(`   행동 사전: ${c.spec.adviceGuide}`);
     if (c.spec.isAdverse) lines.push('   ⚠ 정직성: 이 조각은 유리한 판정이 아닙니다 — "채워 준다/힘을 더한다/잘 맞는다" 금지.');
     lines.push(`   허용 변수: ${c.spec.allowedVars.length ? c.spec.allowedVars.map((v) => `{{${v}}}`).join(' ') : '없음'}`);
     if (PRINCIPLE_FAMILIES.has(c.family)) lines.push('   (선택) principle: 원리 한 문장 ≤50자를 별도 필드로 줄 수 있습니다.');

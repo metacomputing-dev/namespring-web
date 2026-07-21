@@ -9,8 +9,8 @@
     "gyeokgukFamily": "siksang",
     "nameEffect": "neutral"
   },
-  "plain": "시냇물은 얕아도 제 물길을 알면 멀리 흘러요. 타고난 재주를 내보이는 결은 이 사주의 큰 자산이지만, 지금은 물줄기를 채우는 배움이 먼저예요. 이름이 물길을 크게 돕지도 막지도 않으니, 공을 들일 곳은 생활 속의 배움과 사람이에요. 재주를 꺼내 쓰는 만큼 수원을 다시 채우는 습관이 이 사주의 오랜 균형을 지켜 줘요. 수원이 차오르면 재주는 저절로 빛나요.",
-  "expert": "식신격의 재능 발현이 이 사주의 축이지만, 신약한 계수라 표현보다 인성의 보급이 먼저인 구성이에요. 이름은 용신을 정면으로 살리지도 거스르지도 않는 중립이라, 수원을 대는 일은 배움·문서·조력의 몫이에요. 재능을 쓸수록 기운이 새는 격국이라 내보내는 만큼 채워 넣는 리듬이 관건이에요. 물길이 차오르면 시냇물은 스스로 먼 길을 찾아 흐르는 배치예요.",
+  "plain": "시냇물은 얕아도 제 물길을 알면 멀리 흘러요. 타고난 재주를 내보이는 결은 이 사주의 큰 자산이지만, 지금은 물줄기를 채우는 배움이 먼저예요. 이름이 물길을 크게 돕지도 막지도 않으니, 공을 들일 곳은 생활이에요. 창작이나 발표로 재주를 꺼내 쓴 만큼, 배우고 쉬며 수원을 다시 채우는 시간을 미리 정해 두세요. 수원이 차오르면 재주는 저절로 빛나요.",
+  "expert": "식신격의 재능 발현이 이 사주의 축이지만, 신약한 계수라 표현보다 인성의 보급이 먼저인 구성이에요. 이름은 용신을 정면으로 살리지도 거스르지도 않는 중립이라, 수원을 대는 일은 배움·문서·조력의 몫이에요. 발표와 공유의 양을 정해 두고 내보내는 만큼 채워 넣는 리듬이 관건이에요. 물길이 차오르면 시냇물은 스스로 먼 길을 찾아 흐르는 배치예요.",
   "isAdverse": false,
   "allowedVars": [
     "dayMasterName",
@@ -22,11 +22,11 @@
     "tier": "T2_AI_AUTHORED_INSIGHT",
     "sourceType": "ai_authored_insight_text",
     "sourceUrl": null,
-    "accessedAt": "2026-07-21",
     "quoteShort": null,
     "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
     "copyrightNote": "No third-party prose copied.",
-    "authorityTruthEligible": false
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
   },
-  "sourceNote": "regen-ne-pilot1"
+  "sourceNote": "regen-ne-0721-concrete"
 }

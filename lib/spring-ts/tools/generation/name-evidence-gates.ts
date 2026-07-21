@@ -5,7 +5,7 @@
  * 스키마·slotId 집합 일치·분량·문장 수·해요체·tier 용어 분리·변수 화이트리스트·
  * 태그 수·정직성. 번들 단위 zero-reject (chunk-runner 규칙)는 CLI가 담당.
  */
-import { PRINCIPLE_FAMILIES } from './name-evidence-schema.js';
+import { GYEOKGUK_LIFE, PRINCIPLE_FAMILIES } from './name-evidence-schema.js';
 import type { GeneratedSlot, NameEvidenceCase, Stem } from './name-evidence-schema.js';
 import { lintSlotBundle } from './prose-lint.js';
 import type { Finding } from './prose-lint.js';
@@ -35,6 +35,9 @@ function approxRender(t: string): string {
   return t
     .replace(/\{\{nameFull(?::[가-힣]+)?\}\}/gu, '최도윤')
     .replace(/\{\{frameLabel(?::[가-힣]+)?\}\}/gu, '형격')
+    .replace(/\{\{heavyFrameRef(?::[가-힣]+)?\}\}/gu, '원격')
+    .replace(/\{\{heavyFramePhase(?::[가-힣]+)?\}\}/gu, '성장기')
+    .replace(/\{\{clashPairRef(?::[가-힣]+)?\}\}/gu, '민(旼)과 아(雅)')
     .replace(/\{\{[A-Za-z]+:[가-힣]+\}\}/gu, '나무가')
     .replace(/\{\{[A-Za-z]+\}\}/gu, '나무')
     .replace(/#\{[A-Za-z_][A-Za-z0-9_]*\}/gu, '#용신');
@@ -91,7 +94,8 @@ export function validateNameEvidenceSlots(
     const FAMILY_BANDS: Partial<Record<string, { plain: [number, number]; expert: [number, number]; sentences: [number, number] }>> = {
       S5: { plain: [60, 160], expert: [80, 200], sentences: [2, 3] },
       S8: { plain: [80, 180], expert: [100, 220], sentences: [2, 3] },
-      S9: { plain: [100, 280], expert: [120, 340], sentences: [3, 5] },
+      // S9 상한은 2026-07-21 검수(구체 영역 명시 + 실용 조언 의무화)로 280→320/340→400 확대.
+      S9: { plain: [100, 320], expert: [120, 400], sentences: [3, 6] },
       S11: { plain: [60, 180], expert: [80, 220], sentences: [2, 3] },
       S12: { plain: [60, 180], expert: [80, 220], sentences: [2, 3] },
       S13: { plain: [60, 180], expert: [80, 220], sentences: [2, 3] },
@@ -157,6 +161,34 @@ export function validateNameEvidenceSlots(
         if (typeof text === 'string' && /신강|신약|극신|중화/u.test(text)) {
           v.push(`${field} 강약 전제 금지 — 이 슬롯은 강약 무관 키라 반대 강약 사주에도 재사용됨`);
         }
+      }
+    }
+
+    // 재진술 지시 변수 (2026-07-21 검수: "한 자리가 무겁다"의 지시 대상 의무화).
+    // 지목할 대상이 있는 변형은 변수를 반드시 쓰고, 없는 변형은 쓰면 안 된다 —
+    // 없는 변형에서 쓰면 바인딩이 비어 {{var}}가 화면에 그대로 노출된다.
+    if (c.family === 'S12' && typeof slot.plain === 'string') {
+      const usesVar = slot.plain.includes('{{heavyFrameRef');
+      if (c.key.frameOutlook === 'all_bright') {
+        if (usesVar || slot.plain.includes('{{heavyFramePhase')) v.push('plain all_bright에 heavyFrame 변수 — 지목할 무거운 격이 없음');
+      } else if (!usesVar) {
+        v.push('plain에 {{heavyFrameRef}} 없음 — 어느 격이 무거운지 지목 의무');
+      }
+    }
+    if (c.family === 'S11' && typeof slot.plain === 'string') {
+      const usesVar = slot.plain.includes('{{clashPairRef');
+      if (c.key.phoneticFlow === 'harmonious') {
+        if (usesVar) v.push('plain harmonious에 clashPairRef 변수 — 지목할 부딪힘이 없음');
+      } else if (!usesVar) {
+        v.push('plain에 {{clashPairRef}} 없음 — 부딪히는 자리 지목 의무');
+      }
+    }
+
+    // S9 조언 실용 모드 — 평문에 격국 계열의 실물 명사가 최소 1개 (2026-07-21 검수).
+    if (c.family === 'S9' && c.key.gyeokgukFamily && typeof slot.plain === 'string') {
+      const lex = GYEOKGUK_LIFE[c.key.gyeokgukFamily]?.lexicon;
+      if (lex && !new RegExp(lex, 'u').test(slot.plain)) {
+        v.push(`plain에 실물 조언 명사 없음 — ${c.key.gyeokgukFamily} 계열(${GYEOKGUK_LIFE[c.key.gyeokgukFamily].domains})의 행동 사전 어휘 필요`);
       }
     }
 

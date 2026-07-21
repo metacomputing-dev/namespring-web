@@ -146,6 +146,10 @@ checkEqual('S4 바인딩(글자+첫소리)', bindings.get('S4.geum.hwa.surname_g
   const bb = varBindingsFor(jj, reqs);
   checkEqual('S5 묶음 바인딩(두 글자)', bb.get('S5.hwa.controls'), { charRef: '도(都)와 윤(尹)' });
 }
+checkEqual('S12 바인딩(무거운 격 지목)', bindings.get('S12.mostly_bright'), {
+  heavyFrameRef: '정격', heavyFramePhase: '말년과 총운',
+});
+checkEqual('S11 바인딩(부딪힘 지목)', bindings.get('S11.mixed'), { clashPairRef: '최(崔)와 도(都)' });
 checkEqual('fillVars 받침O 이가', fillVars('{{yongshinName:이가}} 힘이 돼요.', { yongshinName: '물' }), '물이 힘이 돼요.');
 checkEqual('fillVars 받침X 이가', fillVars('{{charHangul:이가}} 중심이에요.', { charHangul: '도' }), '도가 중심이에요.');
 checkEqual('fillVars 으로로 ㄹ', fillVars('{{yongshinName:으로로}} 흘러요.', { yongshinName: '물' }), '물로 흘러요.');
@@ -197,18 +201,37 @@ const okSlot = {
   check('게이트: 한자 하드코딩 리젝', !r.ok && [...r.perSlot.values()].flat().some((v) => v.includes('하드코딩')));
 }
 {
-  // S9(종합)만 2~4문장·긴 분량 허용 — 짧으면 리젝
+  // S9(종합)만 3~6문장·긴 분량 허용 — 짧으면 리젝. 조언 실용 모드: 평문에
+  // 격국 계열(jaeseong)의 실물 명사(장부·지출 등)가 최소 1개 있어야 한다.
   const s9Case = byId.get('S9.im.weak.jaeseong.adverse') as NameEvidenceCase;
   const longS9 = {
     slotId: s9Case.slotId,
-    plain: '큰 강물이 되어야 할 물의 수원이 아직 얕은 사주예요. 이름이 그 물길을 크게 채우지는 못하니, 부족한 쪽은 배움과 사람에게서 챙기는 편이 좋아요. 물길을 따라 꾸준히 흐르다 보면 강은 제 폭을 찾아요.',
+    plain: '큰 강물이 되어야 할 물의 수원이 아직 얕은 사주예요. 이름이 그 물길을 크게 채우지는 못하니, 부족한 기운은 생활에서 챙기는 편이 좋아요. 성과를 좇을수록 힘이 먼저 빠지기 쉬운 바탕이라, 수입과 지출을 장부에 적어 손에 잡히는 만큼만 벌이는 습관이 도움이 돼요. 물길을 따라 꾸준히 흐르다 보면 강은 제 폭을 찾아요.',
     expert: '신약한 임수 원국에서 재성 과다가 설기로 작동하는 구성이에요. 이름의 자원오행이 용신을 싣지 못한 만큼, 인성의 보급은 문서·학문·조력이라는 생활의 몫으로 남아요. 수원이 차오르면 강은 스스로 길을 넓히는 배치예요.',
   };
   const r = validateNameEvidenceSlots({ slots: [longS9] }, [s9Case], { stem: '임' });
-  check('게이트: S9 장문(3~5문장) 통과', r.ok, { perSlot: [...r.perSlot], prose: r.proseFindings.filter((f) => f.sev === 'ERROR') });
+  check('게이트: S9 장문(3~6문장) 통과', r.ok, { perSlot: [...r.perSlot], prose: r.proseFindings.filter((f) => f.sev === 'ERROR') });
   const shortS9 = { ...longS9, plain: '물길을 찾으면 강은 멀리 흘러요.' };
   const r2 = validateNameEvidenceSlots({ slots: [shortS9] }, [s9Case], { stem: '임' });
   check('게이트: S9 단문 리젝', !r2.ok);
+  const vagueAdvice = { ...longS9, plain: '큰 강물이 되어야 할 물의 수원이 아직 얕은 사주예요. 이름이 그 물길을 크게 채우지는 못하니, 부족한 기운은 생활에서 챙기는 편이 좋아요. 좋은 사람 곁에 머무는 시간이 가장 남는 걸음이에요. 물길을 따라 꾸준히 흐르다 보면 강은 제 폭을 찾아요.' };
+  const r3 = validateNameEvidenceSlots({ slots: [vagueAdvice] }, [s9Case], { stem: '임' });
+  check('게이트: S9 실물 조언 명사 없음 리젝', !r3.ok && [...r3.perSlot.values()].flat().some((v) => v.includes('실물 조언 명사')));
+}
+{
+  // S12 재진술: 무거운 격이 있는 변형은 {{heavyFrameRef}}로 지목 의무,
+  // all_bright는 사용 금지 (바인딩이 비어 변수가 화면에 노출되므로).
+  const s12Case = byId.get('S12.mostly_bright') as NameEvidenceCase;
+  const okS12 = {
+    slotId: 'S12.mostly_bright',
+    plain: '획수 풀이는 대체로 밝은 가운데 {{heavyFrameRef}} 자리가 무겁게 놓여 있어요. 무거운 자리는 {{heavyFramePhase}} 한 시기의 이야기라, 전체 인상을 끌어내리지는 않아요.',
+    expert: '수리사격에서 {{heavyFrameRef}} 한 격만 흉 등급이고 나머지 격은 길한 등급으로 받치는 배치예요. 전체 수리의 균형은 길한 쪽으로 기울어 있어, 무거운 격이 가리키는 시기만 생활 보완으로 짚으면 되는 구성이에요.',
+  };
+  const r = validateNameEvidenceSlots({ slots: [okS12] }, [s12Case], {});
+  check('게이트: S12 지시 변수 통과', r.ok, { perSlot: [...r.perSlot], prose: r.proseFindings.filter((f) => f.sev === 'ERROR') });
+  const noVar = { ...okS12, plain: '획수 풀이는 대체로 밝은 가운데 한 자리가 무겁게 놓여 있어요. 무거운 자리는 삶 전체가 아니라 한 시기의 이야기예요.' };
+  const r2 = validateNameEvidenceSlots({ slots: [noVar] }, [s12Case], {});
+  check('게이트: S12 지시 변수 누락 리젝', !r2.ok && [...r2.perSlot.values()].flat().some((v) => v.includes('heavyFrameRef')));
 }
 
 // ── 8. prose-lint 슬롯 룰 — 물상 혼입 ───────────────────────────────────────

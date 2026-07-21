@@ -13,8 +13,8 @@ import { appendJosa } from '../../src/report/tiered/article-renderer.js';
 import { buildFeatureVector } from '../../src/report/tiered/feature-selector.js';
 import { packKeyFor } from '../../src/report/tiered/class-axes.js';
 import {
-  ALLOWED_VARS, FAMILY_ROLE, FRAME_LABEL_KO, FRAME_PHASE, GRADE_TOKEN, IMAGERY,
-  IMAGERY_STATE, TEN_GOD_BY_RELATION, slotIdOf,
+  ALLOWED_VARS, FAMILY_ROLE, FRAME_LABEL_KO, FRAME_PHASE, FRAME_PHASE_PLAIN,
+  GRADE_TOKEN, GYEOKGUK_LIFE, IMAGERY, IMAGERY_STATE, TEN_GOD_BY_RELATION, slotIdOf,
 } from './name-evidence-schema.js';
 import type {
   Boundary, ElementKo, ElementRelation, FrameOutlook, FrameType, GyeokgukFamily,
@@ -418,10 +418,15 @@ export function slotRequestsFor(j: NameEvidenceJudgments): NameEvidenceCase[] {
   }));
 
   // S11/S12 종합 절 재진술: 발음 배열의 결 × 1 / 사격 등급 구성 × 1
+  // 재진술은 지시 대상을 변수로 지목한다 — "한 자리가 무겁다"만으로는 독자가
+  // 어느 자리인지 알 수 없다는 검수 피드백(2026-07-21) 반영.
   const flow = phoneticFlowOf(j);
   if (flow) {
+    const clashVarNote = flow === 'harmonious'
+      ? '부딪힘이 없으므로 {{clashPairRef}}를 쓰지 않습니다.'
+      : '부딪히는 자리를 {{clashPairRef}}로 반드시 지목하세요 — "{{clashPairRef}} 사이"처럼. (바인더가 \'민(旼)과 아(雅)\' 형태로 채웁니다)';
     add(makeCase('S11', { phoneticFlow: flow }, {
-      fact: `발음 배열 종합 = ${flow} (harmonious=상생·동기만 / mixed=상생·상극 혼재 / clashing=상극 위주). 이름의 소리 흐름 전체를 2~3문장으로 재진술하는 조각 — 종합 절의 첫머리에 놓이므로 자립 서술로, 맺음 표현 없이, 소리 갈래가 전체 인상에 주는 무게까지.`,
+      fact: `발음 배열 종합 = ${flow} (harmonious=상생·동기만 / mixed=상생·상극 혼재 / clashing=상극 위주). 이름의 소리 흐름 전체를 2~3문장으로 재진술하는 조각 — 종합 절의 첫머리에 놓이므로 자립 서술로, 맺음 표현 없이, 소리 갈래가 전체 인상에 주는 무게까지. ${clashVarNote}`,
       isAdverse: flow === 'clashing',
     }));
   }
@@ -429,8 +434,11 @@ export function slotRequestsFor(j: NameEvidenceJudgments): NameEvidenceCase[] {
   if (outlook) {
     const narrated = j.frames.filter((f) => !(j.frameLeeContested && f.frame === 'lee'));
     const heavy = narrated.filter((f) => ADVERSE_GRADES.has(f.grade)).length;
+    const heavyVarNote = outlook === 'all_bright'
+      ? '무거운 격이 없으므로 {{heavyFrameRef}}·{{heavyFramePhase}}를 쓰지 않습니다.'
+      : '어느 자리가 무거운지 {{heavyFrameRef}}(격 이름)로 반드시 지목하고, 그 시기는 {{heavyFramePhase}}(성장기·중년 등)로 짚으세요 — "무거운 자리는 {{heavyFramePhase}} 한 시기의 이야기"처럼.';
     add(makeCase('S12', { frameOutlook: outlook }, {
-      fact: `사격 등급 구성 = ${outlook} (서술 대상 ${narrated.length}격 중 흉 등급 ${heavy}개). 획수 풀이 전체를 2~3문장으로 재진술하는 조각 — 격 이름·숫자 없이 구성만, 그래서 어떻게 참고하면 되는지까지.`,
+      fact: `사격 등급 구성 = ${outlook} (서술 대상 ${narrated.length}격 중 흉 등급 ${heavy}개). 획수 풀이 전체를 2~3문장으로 재진술하는 조각 — 숫자 없이 구성만, 그래서 어떻게 참고하면 되는지까지. ${heavyVarNote}`,
       isAdverse: outlook === 'mixed' || outlook === 'heavy',
     }));
   }
@@ -442,10 +450,12 @@ export function slotRequestsFor(j: NameEvidenceJudgments): NameEvidenceCase[] {
   }));
 
   // S9 4절 종합: 일간 × 강약 × 격국family × nameEffect
+  const life = GYEOKGUK_LIFE[j.gyeokgukFamily];
   add(makeCase('S9', { stem: j.stem, gangyak: j.gangyak, gyeokgukFamily: j.gyeokgukFamily, nameEffect: j.nameEffect }, {
-    fact: `종합 맺음: ${stemPhrase} · ${gangyakKo} · 격국 계열 ${j.gyeokgukFamily} · 이름 작용 ${j.nameEffect}. 케이스 전체(바탕의 성격 → 필요한 기운 → 이름의 몫 → 유의점 → 생활 조언)를 3~5문장으로 합성하고 물상으로 여운 있게 닫는, 유일하게 긴 조각 (plain 100~280자 / expert 120~340자).`,
+    fact: `종합 맺음: ${stemPhrase} · ${gangyakKo} · 격국 계열 ${j.gyeokgukFamily} · 이름 작용 ${j.nameEffect}. 케이스 전체(바탕의 성격 → 필요한 기운 → 이름의 몫 → 유의점과 그 이유 → 생활 조언)를 3~6문장으로 합성하고 물상 한 문장으로 여운 있게 닫는, 유일하게 긴 조각 (plain 100~320자 / expert 120~400자). 평문에도 삶의 영역(${life.domains})을 한 가지 이상 구체적으로 짚으세요 — "배움" 같은 추상어로 끝내지 말 것.`,
     imagery: IMAGERY[j.stem],
     imageryState: IMAGERY_STATE[j.gangyak],
+    adviceGuide: `생활 조언은 실용 모드로 — [기질이나 이유 반 문장] + [실물 행동 반~한 문장]. 이 계열(${j.gyeokgukFamily})의 영역: ${life.domains} / 행동 예시: ${life.actions}. 조언 문장에는 물상 비유를 쓰지 않고 실물 명사를 씁니다. 맺음의 물상 한 문장은 조언 뒤에 따로 둡니다.`,
     isAdverse: j.nameEffect === 'adverse',
   }));
 
@@ -461,13 +471,26 @@ const ELEMENT_PLAIN: Record<ElementKo, string> = { 목: '나무', 화: '불', �
 /** '민(旼)' — 한자 미상이면 '민'. */
 const charRefOf = (hangul: string, hanja: string | null): string => (hanja ? `${hangul}(${hanja})` : hangul);
 
-/** 동일 판정 글자 묶음: 1개 '민(旼)' / 2개 '민(旼)과 아(雅)' / 3개+ '가(甲)·나(乙)·다(丙)'. */
-function joinCharRefs(chars: readonly CharJudgment[]): string | null {
-  const refs = chars.map((c) => charRefOf(c.hangul, c.hanja));
+/** 참조 묶음: 1개 '민(旼)' / 2개 '민(旼)과 아(雅)' / 3개+ '가(甲)·나(乙)·다(丙)'. */
+function joinRefs(refs: readonly string[]): string | null {
   if (refs.length === 0) return null;
   if (refs.length === 1) return refs[0];
   if (refs.length === 2) return `${appendJosa(refs[0], '과와')} ${refs[1]}`;
   return refs.join('·');
+}
+
+/** 동일 판정 글자 묶음. */
+function joinCharRefs(chars: readonly CharJudgment[]): string | null {
+  return joinRefs(chars.map((c) => charRefOf(c.hangul, c.hanja)));
+}
+
+/** 서술 대상 사격 중 흉 등급 격 (frameOutlookOf와 같은 제외 규칙). */
+function heavyFramesOf(j: NameEvidenceJudgments): FrameType[] {
+  if (!j.framesSupported) return [];
+  return j.frames
+    .filter((f) => !(j.frameLeeContested && f.frame === 'lee'))
+    .filter((f) => ADVERSE_GRADES.has(f.grade))
+    .map((f) => f.frame);
 }
 
 export function varBindingsFor(j: NameEvidenceJudgments, requests: readonly NameEvidenceCase[]): Map<string, Record<string, string>> {
@@ -499,6 +522,18 @@ export function varBindingsFor(j: NameEvidenceJudgments, requests: readonly Name
       }
     }
     if (c.family === 'S6' && c.key.frame) vars.frameLabel = FRAME_LABEL_KO[c.key.frame];
+    if (c.family === 'S11' && c.key.phoneticFlow !== 'harmonious') {
+      const clashes = j.pairs.filter((p) => p.relation === 'controls' || p.relation === 'controlled_by');
+      const ref = joinRefs(clashes.map((p) => `${appendJosa(charRefOf(p.fromChar, p.fromHanja), '과와')} ${charRefOf(p.toChar, p.toHanja)}`));
+      if (ref) vars.clashPairRef = ref;
+    }
+    if (c.family === 'S12' && c.key.frameOutlook !== 'all_bright') {
+      const heavy = heavyFramesOf(j);
+      const frameRef = joinRefs(heavy.map((f) => FRAME_LABEL_KO[f]));
+      const phaseRef = joinRefs(heavy.map((f) => FRAME_PHASE_PLAIN[f]));
+      if (frameRef) vars.heavyFrameRef = frameRef;
+      if (phaseRef) vars.heavyFramePhase = phaseRef;
+    }
     // 화이트리스트 밖 값은 잘라서 게이트/조립 불변식과 일치시킨다.
     const allowed = new Set(c.spec.allowedVars.length ? [...c.spec.allowedVars] : []);
     bindings.set(c.slotId, Object.fromEntries(Object.entries(vars).filter(([k]) => allowed.has(k))));

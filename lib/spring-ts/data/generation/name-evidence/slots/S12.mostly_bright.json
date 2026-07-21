@@ -6,20 +6,23 @@
   "key": {
     "frameOutlook": "mostly_bright"
   },
-  "plain": "이름의 획수 풀이는 대체로 밝은 가운데 한 자리가 무겁게 놓여 있어요. 무겁게 놓인 자리는 삶 전체가 아니라 한 시기의 이야기예요. 나머지 시기는 획수 풀이가 밝게 받쳐 주고 있어서, 한 자리의 무게가 전체 인상을 끌어내리지는 않아요.",
-  "expert": "수리사격에서 한 격만 흉 등급이고 나머지는 길한 배치예요. 무거운 격이 가리키는 시기만 생활 보완으로 짚으면 되는 구성이에요. 전체 수리의 균형은 길한 쪽으로 기울어 있어요.",
+  "plain": "획수 풀이는 대체로 밝은 가운데 {{heavyFrameRef}} 한 자리가 무겁게 놓여 있어요. 무거운 자리는 삶 전체가 아니라 {{heavyFramePhase}} 한 시기의 이야기예요. 나머지 시기는 획수 풀이가 밝게 받쳐 주고 있어서, 한 자리의 무게가 전체 인상을 끌어내리지는 않아요.",
+  "expert": "수리사격에서 {{heavyFrameRef}} 한 격만 흉 등급이고 나머지 격은 길한 등급이에요. 무거운 격이 가리키는 {{heavyFramePhase}} 시기만 생활 보완으로 짚으면 되는 구성이에요. 전체 수리의 균형은 길한 쪽으로 기울어 있어요.",
   "isAdverse": false,
-  "allowedVars": [],
+  "allowedVars": [
+    "heavyFrameRef",
+    "heavyFramePhase"
+  ],
   "aiGenerated": true,
   "sourceTier": {
     "tier": "T2_AI_AUTHORED_INSIGHT",
     "sourceType": "ai_authored_insight_text",
     "sourceUrl": null,
-    "accessedAt": "2026-07-21",
     "quoteShort": null,
     "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
     "copyrightNote": "No third-party prose copied.",
-    "authorityTruthEligible": false
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
   },
-  "sourceNote": "regen-ne-pilot3"
+  "sourceNote": "regen-ne-0721-concrete"
 }
