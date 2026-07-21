@@ -38,6 +38,7 @@ function approxRender(t: string): string {
     .replace(/\{\{heavyFrameRef(?::[가-힣]+)?\}\}/gu, '원격')
     .replace(/\{\{heavyFramePhase(?::[가-힣]+)?\}\}/gu, '성장기')
     .replace(/\{\{clashPairRef(?::[가-힣]+)?\}\}/gu, '민(旼)과 아(雅)')
+    .replace(/\{\{trackRef(?::[가-힣]+)?\}\}/gu, '첫소리에 실린')
     .replace(/\{\{[A-Za-z]+:[가-힣]+\}\}/gu, '나무가')
     .replace(/\{\{[A-Za-z]+\}\}/gu, '나무')
     .replace(/#\{[A-Za-z_][A-Za-z0-9_]*\}/gu, '#용신');
@@ -92,6 +93,8 @@ export function validateNameEvidenceSlots(
     // 분량 밴드 — 패밀리별. 기본은 짧은 조각(1~2문장), 글자 작용(S5)·이름 작용
     // 종합(S8)은 중간, 4절 종합(S9)은 케이스 전체를 합성하는 유일한 장문 조각.
     const FAMILY_BANDS: Partial<Record<string, { plain: [number, number]; expert: [number, number]; sentences: [number, number] }>> = {
+      // S2 상한은 trackRef 의무화(+8자 내외)로 110→125 확대 (2026-07-21).
+      S2: { plain: [40, 125], expert: [50, 160], sentences: [1, 2] },
       S5: { plain: [60, 160], expert: [80, 200], sentences: [2, 3] },
       S8: { plain: [80, 180], expert: [100, 220], sentences: [2, 3] },
       // S9 상한은 2026-07-21 검수(구체 영역 명시 + 실용 조언 의무화)로 280→320/340→400 확대.
@@ -181,6 +184,14 @@ export function validateNameEvidenceSlots(
         if (usesVar) v.push('plain harmonious에 clashPairRef 변수 — 지목할 부딪힘이 없음');
       } else if (!usesVar) {
         v.push('plain에 {{clashPairRef}} 없음 — 부딪히는 자리 지목 의무');
+      }
+    }
+
+    // S2 트랙 표지 — 발음∪자원 합집합 서술이라 출처({{trackRef}}) 명시 의무.
+    // 없으면 "서(書)의 쇠 기운 … 서(書)의 나무 기운"처럼 모순으로 읽힌다 (2026-07-21 검수).
+    if (c.family === 'S2' && typeof slot.plain === 'string') {
+      if (slot.plain.includes('{{charRef') && !slot.plain.includes('{{trackRef')) {
+        v.push('plain에 {{trackRef}} 없음 — 기운의 출처(첫소리/글자) 표지 의무');
       }
     }
 

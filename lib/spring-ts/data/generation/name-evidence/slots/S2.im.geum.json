@@ -7,12 +7,13 @@
     "stem": "임",
     "targetElement": "금"
   },
-  "plain": "{{charRef}}의 쇠 기운은 물을 낳아 주는 자리예요. 배움과 문서, 도와주는 사람의 기운으로 이어져요.",
+  "plain": "{{charRef}}의 {{trackRef}} 쇠 기운은 물을 낳아 주는 자리예요. 배움과 문서, 도와주는 사람의 기운으로 이어져요.",
   "expert": "금은 임수를 생하는 인성이에요. 금생수의 순방향이라 배움·문서·조력의 얼굴로 수원을 대 주는 자리예요.",
   "principle": "쇠는 물을 낳아 주는 원천이에요.",
   "isAdverse": false,
   "allowedVars": [
-    "charRef"
+    "charRef",
+    "trackRef"
   ],
   "aiGenerated": true,
   "sourceTier": {
@@ -25,5 +26,5 @@
     "authorityTruthEligible": false,
     "accessedAt": "2026-07-21"
   },
-  "sourceNote": "regen-ne-pilot4"
+  "sourceNote": "regen-ne-0721-track"
 }

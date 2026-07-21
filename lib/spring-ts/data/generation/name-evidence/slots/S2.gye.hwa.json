@@ -7,23 +7,24 @@
     "stem": "계",
     "targetElement": "화"
   },
-  "plain": "{{charRef}}에 담긴 불 기운은 물이 누르며 힘을 쏟는 자리예요. 재물과 성과를 좇는 현실 감각으로 이어지되, 쓰는 만큼 힘이 드는 기운이에요.",
+  "plain": "{{charRef}}의 {{trackRef}} 불 기운은 물이 누르며 힘을 쏟는 자리예요. 재물과 성과를 좇는 현실 감각으로 이어지되, 쓰는 만큼 힘이 드는 기운이에요.",
   "expert": "화는 계수가 극하는 재성이에요. 물이 불을 다루며 힘을 쓰는 그림이라, 성과를 좇을수록 수기가 쓰이는 자리예요.",
   "principle": "불은 시냇물이 누르며 힘을 쏟는 자리예요.",
   "isAdverse": false,
   "allowedVars": [
-    "charRef"
+    "charRef",
+    "trackRef"
   ],
   "aiGenerated": true,
   "sourceTier": {
     "tier": "T2_AI_AUTHORED_INSIGHT",
     "sourceType": "ai_authored_insight_text",
     "sourceUrl": null,
-    "accessedAt": "2026-07-21",
     "quoteShort": null,
     "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
     "copyrightNote": "No third-party prose copied.",
-    "authorityTruthEligible": false
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
   },
-  "sourceNote": "regen-ne-pilot1"
+  "sourceNote": "regen-ne-0721-track"
 }

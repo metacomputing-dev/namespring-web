@@ -7,12 +7,13 @@
     "stem": "기",
     "targetElement": "토"
   },
-  "plain": "{{charRef}}의 흙 기운은 같은 흙끼리 어깨를 나란히 하는 자리예요. 동료와 자립심, 건강한 경쟁심으로 이어지는 기운이에요.",
+  "plain": "{{charRef}}의 {{trackRef}} 흙 기운은 같은 흙끼리 어깨를 나란히 하는 자리예요. 동료와 자립심, 건강한 경쟁심으로 이어지는 기운이에요.",
   "expert": "토는 기토와 같은 오행인 비겁이에요. 같은 흙이 한 겹 더해지는 자리라, 어깨를 맞대는 힘과 세력의 쏠림을 함께 보는 자리예요.",
   "principle": "흙은 같은 흙과 어깨를 나란히 하는 자리예요.",
   "isAdverse": false,
   "allowedVars": [
-    "charRef"
+    "charRef",
+    "trackRef"
   ],
   "aiGenerated": true,
   "sourceTier": {
@@ -25,5 +26,5 @@
     "authorityTruthEligible": false,
     "accessedAt": "2026-07-21"
   },
-  "sourceNote": "regen-ne-pilot2"
+  "sourceNote": "regen-ne-0721-track"
 }

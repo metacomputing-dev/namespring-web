@@ -7,12 +7,13 @@
     "stem": "을",
     "targetElement": "토"
   },
-  "plain": "{{charRef}}의 흙 기운은 나무가 뿌리내려 거두어 들이는 자리예요. 재물과 성과를 손에 쥐는 현실 감각으로 이어져요.",
+  "plain": "{{charRef}}의 {{trackRef}} 흙 기운은 나무가 뿌리내려 거두어 들이는 자리예요. 재물과 성과를 손에 쥐는 현실 감각으로 이어져요.",
   "expert": "토는 을목이 극하는 재성이에요. 덩굴이 땅을 붙잡아 양분을 얻는 그림이라, 성과와 현실 감각이 실리는 자리예요.",
   "principle": "흙은 덩굴이 뿌리내려 거두는 자리예요.",
   "isAdverse": false,
   "allowedVars": [
-    "charRef"
+    "charRef",
+    "trackRef"
   ],
   "aiGenerated": true,
   "sourceTier": {
@@ -25,5 +26,5 @@
     "authorityTruthEligible": false,
     "accessedAt": "2026-07-21"
   },
-  "sourceNote": "regen-ne-pilot4"
+  "sourceNote": "regen-ne-0721-track"
 }

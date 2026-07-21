@@ -352,7 +352,7 @@ export function slotRequestsFor(j: NameEvidenceJudgments): NameEvidenceCase[] {
     const rel = relationKo(j.stemElement, elem);
     const tg = TEN_GOD_BY_RELATION[rel];
     add(makeCase('S2', { stem: j.stem, targetElement: elem }, {
-      fact: `${elem}는 ${stemPhrase}에게 ${tg.name} (${relationWord(j.stemElement, elem)}). ⚠ 이 조각은 강약을 모릅니다 — 신강/신약/중화와 그 상태 함의(마른·넘치는)를 전제하지 말고 원리만 쓰세요.`,
+      fact: `${elem}는 ${stemPhrase}에게 ${tg.name} (${relationWord(j.stemElement, elem)}). 평문은 "{{charRef}}의 {{trackRef}} ${elem} 기운" 문형으로 — 이 기운이 첫소리에서 온 것인지 한자에서 온 것인지는 바인더가 {{trackRef}}로 채우므로 "에 담긴" 같은 출처 단정 표현을 직접 쓰지 마세요. ⚠ 이 조각은 강약을 모릅니다 — 신강/신약/중화와 그 상태 함의(마른·넘치는)를 전제하지 말고 원리만 쓰세요.`,
       imagery: IMAGERY[j.stem],
       tenGodMeaning: `${tg.name} = ${tg.life}`,
       isAdverse: false,
@@ -504,8 +504,16 @@ export function varBindingsFor(j: NameEvidenceJudgments, requests: readonly Name
     const vars: Record<string, string> = { ...common };
     if (c.family === 'S2') {
       const target = c.key.targetElement;
-      const ref = joinCharRefs(j.given.filter((g) => g.soundElement === target || g.resourceElement === target));
-      if (ref) vars.charRef = ref;
+      const hits = j.given.filter((g) => g.soundElement === target || g.resourceElement === target);
+      const ref = joinCharRefs(hits);
+      if (ref) {
+        vars.charRef = ref;
+        const fromSound = hits.some((g) => g.soundElement === target);
+        const fromResource = hits.some((g) => g.resourceElement === target);
+        vars.trackRef = fromSound && fromResource
+          ? '소리와 글자에 두루 실린'
+          : fromSound ? '첫소리에 실린' : '글자에 담긴';
+      }
     }
     if (c.family === 'S5') {
       const ref = joinCharRefs(j.given.filter((g) => g.resourceElement === c.key.resourceElement));

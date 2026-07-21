@@ -7,12 +7,13 @@
     "stem": "기",
     "targetElement": "화"
   },
-  "plain": "{{charRef}}에 담긴 불 기운은 밭의 흙을 데워 기름지게 하는 자리예요. 배움과 든든한 어른의 도움으로 이어지는 기운이에요.",
+  "plain": "{{charRef}}의 {{trackRef}} 불 기운은 밭의 흙을 데워 기름지게 하는 자리예요. 배움과 든든한 어른의 도움으로 이어지는 기운이에요.",
   "expert": "화는 기토를 생하는 인성이에요. 화생토의 순방향이라 배움·문서·조력의 얼굴로 일간의 바탕을 데워 주는 자리예요.",
   "principle": "불은 흙을 데워 기름지게 하는 자리예요.",
   "isAdverse": false,
   "allowedVars": [
-    "charRef"
+    "charRef",
+    "trackRef"
   ],
   "aiGenerated": true,
   "sourceTier": {
@@ -25,5 +26,5 @@
     "authorityTruthEligible": false,
     "accessedAt": "2026-07-21"
   },
-  "sourceNote": "regen-ne-pilot2"
+  "sourceNote": "regen-ne-0721-track"
 }

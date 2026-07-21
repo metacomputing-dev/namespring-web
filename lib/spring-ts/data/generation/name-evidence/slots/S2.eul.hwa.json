@@ -7,12 +7,13 @@
     "stem": "을",
     "targetElement": "화"
   },
-  "plain": "{{charRef}}에 담긴 불 기운은 나무가 피워 내보내는 자리예요. 표현과 재능, 만들어 내는 힘으로 이어지는 기운이에요.",
+  "plain": "{{charRef}}의 {{trackRef}} 불 기운은 나무가 피워 내보내는 자리예요. 표현과 재능, 만들어 내는 힘으로 이어지는 기운이에요.",
   "expert": "화는 을목이 생하는 식상이에요. 꽃이 빛깔을 피워 내는 그림이라, 표현과 재능이 나가는 길목이 되는 자리예요.",
   "principle": "불은 꽃나무가 피워 내보내는 기운이에요.",
   "isAdverse": false,
   "allowedVars": [
-    "charRef"
+    "charRef",
+    "trackRef"
   ],
   "aiGenerated": true,
   "sourceTier": {
@@ -25,5 +26,5 @@
     "authorityTruthEligible": false,
     "accessedAt": "2026-07-21"
   },
-  "sourceNote": "regen-ne-pilot4"
+  "sourceNote": "regen-ne-0721-track"
 }

@@ -7,12 +7,13 @@
     "stem": "무",
     "targetElement": "목"
   },
-  "plain": "{{charRef}}에 담긴 나무 기운은 산의 흙을 누르고 다스리는 자리예요. 직장과 규율, 명예의 무게로 이어지는 기운이에요.",
+  "plain": "{{charRef}}의 {{trackRef}} 나무 기운은 산의 흙을 누르고 다스리는 자리예요. 직장과 규율, 명예의 무게로 이어지는 기운이에요.",
   "expert": "목은 무토를 극하는 관성이에요. 산에 나무가 서서 자리를 잡는 그림이라, 직장·규율·명예의 무게가 실리는 자리예요.",
   "principle": "나무는 산의 흙을 뚫고 서서 산을 다스려요.",
   "isAdverse": false,
   "allowedVars": [
-    "charRef"
+    "charRef",
+    "trackRef"
   ],
   "aiGenerated": true,
   "sourceTier": {
@@ -25,5 +26,5 @@
     "authorityTruthEligible": false,
     "accessedAt": "2026-07-21"
   },
-  "sourceNote": "regen-ne-pilot4"
+  "sourceNote": "regen-ne-0721-track"
 }

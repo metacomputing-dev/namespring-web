@@ -7,12 +7,13 @@
     "stem": "을",
     "targetElement": "금"
   },
-  "plain": "{{charRef}}의 쇠 기운은 덩굴을 다듬고 추스르는 자리예요. 직장과 규율, 명예의 무게로 이어지는 기운이에요.",
+  "plain": "{{charRef}}의 {{trackRef}} 쇠 기운은 덩굴을 다듬고 추스르는 자리예요. 직장과 규율, 명예의 무게로 이어지는 기운이에요.",
   "expert": "금은 을목을 극하는 관성이에요. 가지를 다듬는 손길의 그림이라, 규율과 책임의 무게가 실리는 자리예요.",
   "principle": "쇠는 덩굴을 다듬고 매만지는 자리예요.",
   "isAdverse": false,
   "allowedVars": [
-    "charRef"
+    "charRef",
+    "trackRef"
   ],
   "aiGenerated": true,
   "sourceTier": {
@@ -25,5 +26,5 @@
     "authorityTruthEligible": false,
     "accessedAt": "2026-07-21"
   },
-  "sourceNote": "regen-ne-pilot4"
+  "sourceNote": "regen-ne-0721-track"
 }

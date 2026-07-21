@@ -7,23 +7,24 @@
     "stem": "계",
     "targetElement": "수"
   },
-  "plain": "{{charRef}}의 물 기운은 같은 물끼리 서로 힘을 보태는 자리예요. 동료와 자립심, 어깨를 나란히 하는 힘으로 이어져요.",
+  "plain": "{{charRef}}의 {{trackRef}} 물 기운은 같은 물끼리 서로 힘을 보태는 자리예요. 동료와 자립심, 어깨를 나란히 하는 힘으로 이어져요.",
   "expert": "수는 계수와 같은 오행인 비겁이에요. 물줄기가 물줄기를 만나는 그림이라, 자립과 동료의 힘이 실리는 자리예요.",
   "principle": "물은 시냇물과 한편이 되어 주는 기운이에요.",
   "isAdverse": false,
   "allowedVars": [
-    "charRef"
+    "charRef",
+    "trackRef"
   ],
   "aiGenerated": true,
   "sourceTier": {
     "tier": "T2_AI_AUTHORED_INSIGHT",
     "sourceType": "ai_authored_insight_text",
     "sourceUrl": null,
-    "accessedAt": "2026-07-21",
     "quoteShort": null,
     "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
     "copyrightNote": "No third-party prose copied.",
-    "authorityTruthEligible": false
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
   },
-  "sourceNote": "regen-ne-pilot1"
+  "sourceNote": "regen-ne-0721-track"
 }

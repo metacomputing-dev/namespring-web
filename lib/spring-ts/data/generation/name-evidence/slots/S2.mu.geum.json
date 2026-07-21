@@ -7,12 +7,13 @@
     "stem": "무",
     "targetElement": "금"
   },
-  "plain": "{{charRef}}의 쇠 기운은 산이 낳아 밖으로 내보내는 자리예요. 표현과 재능, 만들어 내는 힘으로 이어지는 기운이에요.",
+  "plain": "{{charRef}}의 {{trackRef}} 쇠 기운은 산이 낳아 밖으로 내보내는 자리예요. 표현과 재능, 만들어 내는 힘으로 이어지는 기운이에요.",
   "expert": "금은 무토가 생하는 식상이에요. 산이 광맥을 내어 주는 그림이라, 표현과 재능이 나가는 길목이 되는 자리예요.",
   "principle": "산은 제 속의 쇠를 낳아 세상에 내보내요.",
   "isAdverse": false,
   "allowedVars": [
-    "charRef"
+    "charRef",
+    "trackRef"
   ],
   "aiGenerated": true,
   "sourceTier": {
@@ -25,5 +26,5 @@
     "authorityTruthEligible": false,
     "accessedAt": "2026-07-21"
   },
-  "sourceNote": "regen-ne-pilot4"
+  "sourceNote": "regen-ne-0721-track"
 }

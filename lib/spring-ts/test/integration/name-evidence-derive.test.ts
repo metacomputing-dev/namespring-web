@@ -131,7 +131,9 @@ check('S3 tenGodMeaning 인성', byId.get('S3.im.geum')?.spec.tenGodMeaning?.inc
 
 // ── 5. 변수 바인딩 + 조사 치환 ───────────────────────────────────────────────
 const bindings = varBindingsFor(j, requests);
-checkEqual('S2.im.hwa 바인딩(charRef 병기)', bindings.get('S2.im.hwa'), { charRef: '도(都)' });
+checkEqual('S2.im.hwa 바인딩(charRef 병기 + 트랙 표지)', bindings.get('S2.im.hwa'), {
+  charRef: '도(都)', trackRef: '소리와 글자에 두루 실린',
+});
 checkEqual('S3 바인딩(용신만)', bindings.get('S3.im.geum'), { yongshinName: '쇠' });
 checkEqual('S6 바인딩(frameLabel)', bindings.get('S6.hyung.choesang'), { frameLabel: '형격' });
 checkEqual('S4 바인딩(글자+첫소리)', bindings.get('S4.geum.hwa.surname_given'), {
@@ -166,7 +168,7 @@ check('analysis에 획수 산식 없음', !/\d+\s*획\s*[+＋]/u.test(analysis))
 const s2Case = byId.get('S2.im.hwa') as NameEvidenceCase;
 const okSlot = {
   slotId: 'S2.im.hwa',
-  plain: '{{charRef}}의 불 기운은 큰 강물이 눌러 힘을 쏟는 자리예요. 마른 강에는 무거운 짐이 돼요.',
+  plain: '{{charRef}}의 {{trackRef}} 불 기운은 큰 강물이 눌러 힘을 쏟는 자리예요. 마른 강에는 무거운 짐이 돼요.',
   expert: '화는 임수가 극하는 재성이에요. #{jaeseong} 물이 불을 다루며 힘을 쓰는 그림이라, 성과를 좇을수록 수기가 쓰이는 자리예요.',
   principle: '불은 큰 강물이 누르며 힘을 쏟는 자리예요.',
 };
@@ -180,6 +182,12 @@ const okSlot = {
   check('게이트: 접속사 시작+용어 노출 리젝', !r.ok);
   check('게이트: plain 용어 검출', [...r.perSlot.values()].flat().some((v) => v.includes('용어 노출')));
   check('게이트: slot-leading-conjunction 검출', r.proseFindings.some((f) => f.rule === 'slot-leading-conjunction'));
+}
+{
+  // S2 트랙 표지 누락 — 발음/자원 출처가 없으면 모순으로 읽히므로 리젝
+  const noTrack = { ...okSlot, plain: '{{charRef}}의 불 기운은 큰 강물이 눌러 힘을 쏟는 자리예요. 마른 강에는 무거운 짐이 돼요.' };
+  const r = validateNameEvidenceSlots({ slots: [noTrack] }, [s2Case], { stem: '임', bundleKey: 'ne.imagery.im' });
+  check('게이트: S2 trackRef 누락 리젝', !r.ok && [...r.perSlot.values()].flat().some((v) => v.includes('trackRef')));
 }
 {
   const wrongVar = { ...okSlot, plain: '{{frameLabel}}의 기운이 무거워요. 필요한 쪽을 살리지 못하는 흐름이에요.' };

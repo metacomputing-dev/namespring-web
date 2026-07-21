@@ -7,12 +7,13 @@
     "stem": "기",
     "targetElement": "수"
   },
-  "plain": "{{charRef}}의 물 기운은 흙이 눌러 거두어 들이는 자리예요. 재물과 성과를 손에 쥐는 현실 감각으로 이어져요.",
+  "plain": "{{charRef}}의 {{trackRef}} 물 기운은 흙이 눌러 거두어 들이는 자리예요. 재물과 성과를 손에 쥐는 현실 감각으로 이어져요.",
   "expert": "수는 기토가 극하는 재성이에요. 밭이 물을 거두어 쓰는 그림이라, 성과와 현실 감각을 실속 있게 부리는 자리예요.",
   "principle": "물은 밭의 흙이 눌러 거두는 자리예요.",
   "isAdverse": false,
   "allowedVars": [
-    "charRef"
+    "charRef",
+    "trackRef"
   ],
   "aiGenerated": true,
   "sourceTier": {
@@ -25,5 +26,5 @@
     "authorityTruthEligible": false,
     "accessedAt": "2026-07-21"
   },
-  "sourceNote": "regen-ne-pilot2"
+  "sourceNote": "regen-ne-0721-track"
 }

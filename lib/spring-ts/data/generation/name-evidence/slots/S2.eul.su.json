@@ -7,12 +7,13 @@
     "stem": "을",
     "targetElement": "수"
   },
-  "plain": "{{charRef}}의 물 기운은 뿌리를 적셔 나무를 살리는 자리예요. 배움과 문서, 도와주는 사람의 기운으로 이어져요.",
+  "plain": "{{charRef}}의 {{trackRef}} 물 기운은 뿌리를 적셔 나무를 살리는 자리예요. 배움과 문서, 도와주는 사람의 기운으로 이어져요.",
   "expert": "수는 을목을 생하는 인성이에요. 수생목의 순방향이라 배움·문서·조력의 얼굴로 뿌리를 적셔 주는 자리예요.",
   "principle": "물은 뿌리를 적셔 나무를 살리는 자리예요.",
   "isAdverse": false,
   "allowedVars": [
-    "charRef"
+    "charRef",
+    "trackRef"
   ],
   "aiGenerated": true,
   "sourceTier": {
@@ -25,5 +26,5 @@
     "authorityTruthEligible": false,
     "accessedAt": "2026-07-21"
   },
-  "sourceNote": "regen-ne-pilot4"
+  "sourceNote": "regen-ne-0721-track"
 }

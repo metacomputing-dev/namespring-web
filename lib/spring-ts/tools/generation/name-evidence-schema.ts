@@ -111,7 +111,11 @@ export const PRINCIPLE_FAMILIES: ReadonlySet<SlotFamily> = new Set(['S2', 'S3', 
  *  (변수라서 슬롯 재사용은 깨지지 않는다). S7은 규칙 사실만 서술. */
 export const ALLOWED_VARS: Record<SlotFamily, readonly string[]> = {
   S1: ['dayMasterName', 'yongshinName', 'nameFull'],
-  S2: ['charRef'],
+  // S2는 발음∪자원 합집합을 다루므로 {{trackRef}}로 기운의 출처(첫소리에 실린/
+  // 글자에 담긴/소리와 글자에 두루 실린)를 밝힌다 — 같은 글자가 발음과 자원에서
+  // 다른 오행을 가질 때(예: 서(書) 발음 금·자원 목) 모순처럼 읽히는 것을 막는다
+  // (2026-07-21 검수).
+  S2: ['charRef', 'trackRef'],
   S3: ['yongshinName'],
   S4: ['fromChar', 'toChar', 'fromOnset', 'toOnset'],
   S5: ['charRef'],
