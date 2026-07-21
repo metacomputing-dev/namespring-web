@@ -127,6 +127,7 @@ config/naming-evidence-weights.json
 tools/generation/naming-evidence/prompt/
   common-writing-contract.md
   domain-guide.md
+  source-evidence-domain-guide.md
   saju-axis-task.md
   source-evidence-task.md
   conclusion-task.md
@@ -149,7 +150,7 @@ npm run generate:naming-evidence-pilot
 전체 생성은 명시적으로 실행한다.
 
 ```bash
-npm run generate:naming-evidence-full
+npm run generate:naming-evidence
 ```
 
 전체 473행 생성과 검수가 끝난 뒤에만 DB를 만든다.
@@ -190,6 +191,8 @@ metadata
 ```bash
 npm run test:naming-evidence-generation
 npm run test:naming-evidence-report
+npm run check:naming-evidence-generation
+npm run check:naming-evidence-db
 npx tsc --noEmit
 ```
 

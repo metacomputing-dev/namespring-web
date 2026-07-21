@@ -168,14 +168,14 @@ function DevNamingEvidenceViewer() {
         <header className="flex flex-col gap-4 border-b border-[var(--ns-border)] px-4 py-4 md:flex-row md:items-center md:justify-between md:px-5">
           <div>
             <p className="text-[10px] font-black uppercase text-[var(--ns-muted)]">Internal text review</p>
-            <h1 className="mt-1 text-xl font-black text-[var(--ns-accent-text)]">작명 근거 텍스트 파일럿</h1>
+            <h1 className="mt-1 text-xl font-black text-[var(--ns-accent-text)]">작명 근거 생성 텍스트 검토</h1>
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <select
               value={selectedRun}
               onChange={(event) => void loadRun(event.target.value)}
               className="h-9 max-w-[260px] rounded-md border border-[var(--ns-border)] bg-white px-2 text-xs font-bold"
-              aria-label="파일럿 실행 선택"
+              aria-label="생성 실행 선택"
             >
               {(payload?.runs || []).map((run) => <option key={run.name} value={run.name}>{run.name}</option>)}
             </select>

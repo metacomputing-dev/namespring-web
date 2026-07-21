@@ -1,4 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import {
+  NamingEvidenceRepository,
+  renderNamingEvidenceReport,
+} from '@spring/report/naming-evidence/index';
+import { SpringEngine } from '@spring/spring-engine';
 import CombinedNamingReport from './CombinedNamingReport';
 import ReportShell from './components/report/ReportShell';
 
@@ -8,19 +13,36 @@ function DevCombinedReportPreview() {
 
   useEffect(() => {
     let cancelled = false;
-    fetch('/__dev/combined-report-preview')
-      .then((response) => {
+    const repository = new NamingEvidenceRepository();
+    const engine = new SpringEngine();
+    Promise.all([
+      fetch('/__dev/combined-report-preview').then((response) => {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         return response.json();
-      })
-      .then((nextPayload) => {
-        if (!cancelled) setPayload(nextPayload);
+      }),
+      repository.init(),
+    ])
+      .then(async ([nextPayload]) => {
+        const { fortuneReport, namingEvidencePlan } = await engine.getNamingRecommendationReport(
+          nextPayload.reportRequest,
+        );
+        if (cancelled) return;
+        const namingRecommendationEvidence = renderNamingEvidenceReport(
+          namingEvidencePlan,
+          repository.loadCatalog(),
+        );
+        setPayload({
+          ...nextPayload,
+          fortuneReport: { ...fortuneReport, namingRecommendationEvidence },
+        });
       })
       .catch((nextError) => {
         if (!cancelled) setError(nextError instanceof Error ? nextError.message : String(nextError));
       });
     return () => {
       cancelled = true;
+      engine.close();
+      repository.close();
     };
   }, []);
 

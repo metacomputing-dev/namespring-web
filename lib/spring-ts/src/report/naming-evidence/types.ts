@@ -1,4 +1,5 @@
 import type { SpringReport } from '../../types.js';
+import type { FortuneReport } from '../types.js';
 import type { NamingScoreBand } from '../../naming-score-axis-policy.js';
 
 export const NAMING_EVIDENCE_SCHEMA_VERSION = 'namespring.naming-evidence/v1' as const;
@@ -132,6 +133,8 @@ export interface NamingEvidenceTextBlock {
   readonly title: string;
   readonly plain: string;
   readonly detail: string;
+  readonly plainParts: readonly string[];
+  readonly detailParts: readonly string[];
   readonly availability: NamingEvidenceAvailability;
   readonly verdict: NamingScoreBand | null;
   readonly conclusionTone: NamingEvidenceConclusionTone | null;
@@ -146,6 +149,11 @@ export interface NamingEvidenceReport {
   readonly contentVersion: string;
   readonly name: string;
   readonly sections: readonly NamingEvidenceTextBlock[];
+}
+
+export interface NamingRecommendationReportResult {
+  readonly fortuneReport: FortuneReport;
+  readonly namingEvidencePlan: NamingEvidencePlan;
 }
 
 export const NAMING_EVIDENCE_CONTRACT_INVALID = 'NAMING_EVIDENCE_CONTRACT_INVALID' as const;

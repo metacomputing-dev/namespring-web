@@ -2,6 +2,10 @@ import React, { useState, useEffect, useMemo, useRef, useCallback, useLayoutEffe
 import { SeedTs } from "@seed/seed";
 import { HanjaRepository } from '@seed/database/hanja-repository';
 import { SpringEngine } from '@spring/spring-engine';
+import {
+  NamingEvidenceRepository,
+  renderNamingEvidenceReport,
+} from '@spring/report/naming-evidence/index';
 import DevDbViewer from './DevDbViewer';
 import DevHanjaDbViewer from './DevHanjaDbViewer';
 import DevNameStatDbViewer from './DevNameStatDbViewer';
@@ -347,6 +351,7 @@ function App() {
   const [page, setPage] = useState(initialAppState.page);
   const hanjaRepo = useMemo(() => new HanjaRepository(), []);
   const springEngine = useMemo(() => new SpringEngine(), []);
+  const namingEvidenceRepository = useMemo(() => new NamingEvidenceRepository(), []);
   const recommendResultCacheRef = useRef(new Map());
   const currentNameReportCacheRef = useRef(new Map());
 
@@ -364,8 +369,9 @@ function App() {
   useEffect(() => {
     return () => {
       springEngine.close();
+      namingEvidenceRepository.close();
     };
-  }, [springEngine]);
+  }, [namingEvidenceRepository, springEngine]);
 
   useEffect(() => {
     if (isDevSagyeoksuViewerMode || isDevHanjaViewerMode || isDevNameStatViewerMode) return;
@@ -426,7 +432,13 @@ function App() {
     if (!fortuneRequest.givenName?.length) {
       throw new Error('선택한 후보 이름 정보가 없습니다.');
     }
-    return springEngine.getFortuneReport(fortuneRequest);
+    const { fortuneReport, namingEvidencePlan } = await springEngine.getNamingRecommendationReport(fortuneRequest);
+    await namingEvidenceRepository.init();
+    const namingRecommendationEvidence = renderNamingEvidenceReport(
+      namingEvidencePlan,
+      namingEvidenceRepository.loadCatalog(),
+    );
+    return { ...fortuneReport, namingRecommendationEvidence };
   };
 
   const handleLoadCurrentNameReportAsync = useCallback(async (userInfo) => {

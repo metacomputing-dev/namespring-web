@@ -190,6 +190,9 @@ test('renders reviewed catalog fragments and substitutes name, element, and user
   assert.match(report.sections[0].plain, /상황을 살피고 변화에 유연하게 대응하는 힘/u);
   assert.doesNotMatch(report.sections[0].plain, /\{\{filledElements\}\}/u);
   assert.doesNotMatch(report.sections[0].plain, /\{\{filledElementFunctions\}\}/u);
+  assert.equal(report.sections[0].plainParts.length, sajuRefs.length);
+  assert.equal(report.sections[0].detailParts.length, sajuRefs.length);
+  assert.match(report.sections[0].plainParts[1], /^support /u);
   assert.equal(report.sections[1].availability, 'content_missing');
 });
 

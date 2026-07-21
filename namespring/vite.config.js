@@ -7,19 +7,58 @@ const namingEvidenceRunsRoot = path.resolve(
   __dirname,
   '../lib/spring-ts/data/naming-report/evidence/generation/runs',
 )
-const combinedReportPreviewPath = path.resolve(
-  __dirname,
-  '../lib/spring-ts/artifacts/phase10-agent-a3/after-samples/02-choi-seongsoo-tiered-fortune.json',
-)
+const evidenceElementLabels = {
+  WOOD: '목', FIRE: '화', EARTH: '토', METAL: '금', WATER: '수',
+}
+const evidenceStrengthLabels = { weak: '신약', balanced: '중화', strong: '신강' }
 
-function namingEvidencePilotViewerPlugin() {
+function samplesFromFullDraft(draft) {
+  const grouped = new Map()
+  for (const row of draft?.sajuAxisExplanations || []) {
+    const taskId = `axis-${row.dayMasterElement}-${row.strength}-${row.yongshinElement}`
+    const items = grouped.get(taskId) || []
+    items.push({
+      key: `saju-axis/${row.dayMasterElement}/${row.strength}/${row.yongshinElement}/${row.gyeokgukFamily}`,
+      plain: row.plain,
+      detail: row.detail,
+    })
+    grouped.set(taskId, items)
+  }
+  const sharedEvidenceAndConclusions = [
+    ...(draft?.sourceEvidenceExplanations || []).map((row) => ({
+      key: `source/${row.sourceId}/${row.state}`,
+      plain: row.plain,
+      detail: row.detail,
+    })),
+    ...(draft?.conclusionExplanations || []).map((row) => ({
+      key: `conclusion/sajuFit/${row.tone}`,
+      plain: row.plain,
+      detail: row.detail,
+    })),
+  ]
+  return [...grouped.entries()].sort(([left], [right]) => left.localeCompare(right)).map(([taskId, axisVariants], index) => {
+    const [, dayMasterElement, strength, yongshinElement] = taskId.split('-')
+    return {
+      schemaVersion: 'namespring.naming-evidence-review-sample/v1',
+      sampleNumber: index + 1,
+      taskId,
+      context: {
+        dayMasterElement: { code: dayMasterElement, label: evidenceElementLabels[dayMasterElement] },
+        strength: { code: strength, label: evidenceStrengthLabels[strength] },
+        yongshinElement: { code: yongshinElement, label: evidenceElementLabels[yongshinElement] },
+      },
+      axisVariants,
+      sharedEvidenceAndConclusions,
+    }
+  })
+}
+
+function namingEvidenceViewerPlugin() {
   return {
     name: 'namespring-naming-evidence-pilot-viewer',
     configureServer(server) {
       server.middlewares.use('/__dev/combined-report-preview', (_request, response) => {
         try {
-          const fixture = JSON.parse(fs.readFileSync(combinedReportPreviewPath, 'utf8'))
-          const fortuneReport = fixture.payload
           const selectedCandidate = {
             fullHangul: '최성수',
             fullHanja: '崔成秀',
@@ -34,10 +73,18 @@ function namingEvidencePilotViewerPlugin() {
             lastName: [{ hangul: '최', hanja: '崔' }],
             firstName: [{ hangul: '성', hanja: '成' }, { hangul: '수', hanja: '秀' }],
           }
+          const reportRequest = {
+            birth: { year: 1986, month: 4, day: 19, hour: 5, minute: 45, gender: 'male' },
+            surname: shareUserInfo.lastName,
+            givenName: shareUserInfo.firstName,
+            options: {
+              precisionConfig: { surfaceTieredMatrix: true, surfaceInsightFacts: true },
+            },
+          }
           response.statusCode = 200
           response.setHeader('Content-Type', 'application/json; charset=utf-8')
           response.setHeader('Cache-Control', 'no-store')
-          response.end(JSON.stringify({ fortuneReport, selectedCandidate, shareUserInfo }))
+          response.end(JSON.stringify({ reportRequest, selectedCandidate, shareUserInfo }))
         } catch (error) {
           response.statusCode = 500
           response.setHeader('Content-Type', 'application/json; charset=utf-8')
@@ -55,13 +102,17 @@ function namingEvidencePilotViewerPlugin() {
                 const runDir = path.join(namingEvidenceRunsRoot, entry.name)
                 const draftPath = path.join(runDir, 'naming-evidence.generated-draft.json')
                 const samplesDir = path.join(runDir, 'samples')
-                if (!fs.existsSync(draftPath) || !fs.existsSync(samplesDir)) return null
-                const sampleFiles = fs.readdirSync(samplesDir).filter((file) => /^sample-\d+-.+\.json$/u.test(file))
-                if (sampleFiles.length === 0) return null
+                if (!fs.existsSync(draftPath)) return null
+                const sampleFiles = fs.existsSync(samplesDir)
+                  ? fs.readdirSync(samplesDir).filter((file) => /^sample-\d+-.+\.json$/u.test(file))
+                  : []
+                const draft = JSON.parse(fs.readFileSync(draftPath, 'utf8'))
+                const sampleCount = sampleFiles.length || Math.ceil((draft.sajuAxisExplanations?.length || 0) / 6)
+                if (sampleCount === 0) return null
                 return {
                   name: entry.name,
                   updatedAt: fs.statSync(draftPath).mtime.toISOString(),
-                  sampleCount: sampleFiles.length,
+                  sampleCount,
                   draftPath,
                   samplesDir,
                   sampleFiles,
@@ -72,14 +123,20 @@ function namingEvidencePilotViewerPlugin() {
             : []
           const selected = runs.find(({ name }) => name === requestedRun) || runs[0] || null
           const payload = selected
-            ? {
+            ? (() => {
+              const draft = JSON.parse(fs.readFileSync(selected.draftPath, 'utf8'))
+              const samples = selected.sampleFiles.length
+                ? selected.sampleFiles
+                  .sort((left, right) => left.localeCompare(right))
+                  .map((file) => JSON.parse(fs.readFileSync(path.join(selected.samplesDir, file), 'utf8')))
+                : samplesFromFullDraft(draft)
+              return {
               runs: runs.map(({ name, updatedAt, sampleCount }) => ({ name, updatedAt, sampleCount })),
               selectedRun: selected.name,
-              samples: selected.sampleFiles
-                .sort((left, right) => left.localeCompare(right))
-                .map((file) => JSON.parse(fs.readFileSync(path.join(selected.samplesDir, file), 'utf8'))),
-              draft: JSON.parse(fs.readFileSync(selected.draftPath, 'utf8')),
-            }
+              samples,
+              draft,
+              }
+            })()
             : { runs: [], selectedRun: null, samples: [], draft: null }
           response.statusCode = 200
           response.setHeader('Content-Type', 'application/json; charset=utf-8')
@@ -117,7 +174,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     base,
-    plugins: [react(), namingEvidencePilotViewerPlugin()],
+    plugins: [react(), namingEvidenceViewerPlugin()],
     resolve: {
       alias: {
         '@seed': path.resolve(__dirname, '../lib/seed-ts/src'),

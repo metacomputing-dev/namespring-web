@@ -4,6 +4,7 @@ export {
   renderNamingEvidenceReport,
 } from './build-naming-evidence-report.js';
 export { EMPTY_NAMING_EVIDENCE_CATALOG } from './catalog.js';
+export { resolveNamingEvidenceSajuAxes } from './resolve-saju-axes.js';
 export {
   NAMING_EVIDENCE_DATABASE_INTEGRITY_MISMATCH,
   NamingEvidenceDatabaseIntegrityError,
@@ -25,6 +26,7 @@ export {
   type NamingEvidenceGyeokgukFamily,
   type NamingEvidenceMetric,
   type NamingEvidencePlan,
+  type NamingRecommendationReportResult,
   type NamingEvidenceRelation,
   type NamingEvidenceReport,
   type NamingEvidenceReportInput,

@@ -8,7 +8,7 @@ import {
 } from './report-common-ui';
 import {
   buildNameParts,
-  buildPilotSajuFitNarrative,
+  bandPresentation,
   buildSoundNarrative,
   buildStructureNarrative,
   metricValue,
@@ -62,28 +62,38 @@ function ScoreMetric({ label, value, valueText, caption }) {
   );
 }
 
-function EvidenceArticle({ narrative }) {
+function EvidenceArticle({ section }) {
+  const plainParts = section?.plainParts?.length
+    ? section.plainParts
+    : section?.plain
+      ? [section.plain]
+      : [];
+  const detailParts = section?.detailParts?.length
+    ? section.detailParts
+    : section?.detail
+      ? [section.detail]
+      : [];
+
+  if (section?.availability === 'not_applicable' || plainParts.length === 0) {
+    return <div className="ncr-empty">이 이름에 적용할 수 있는 사주 조화 근거를 준비하고 있어요.</div>;
+  }
+
   return (
     <div className="ncr-evidence-article">
-      <div className="ncr-pilot-note">
-        <span>문안 검토용</span>
-        <p>전체 DB 생성 전이므로 파일럿 문안을 임시로 보여주고 있어요.</p>
-      </div>
-      <div className="ncr-tag-list" aria-label="파일럿 사주 기준">
-        {narrative.tags.map((tag) => <span key={tag}>{tag}</span>)}
-      </div>
       <div className="ncr-prose">
-        {narrative.plain.map((paragraph, index) => (
+        {plainParts.map((paragraph, index) => (
           <p key={`${index}-${paragraph.slice(0, 12)}`}>{paragraph}</p>
         ))}
       </div>
-      <DetailDisclosure>
-        <div className="ncr-detail-prose">
-          {narrative.detail.map((paragraph, index) => (
-            <p key={`${index}-${paragraph.slice(0, 12)}`}>{paragraph}</p>
-          ))}
-        </div>
-      </DetailDisclosure>
+      {detailParts.length ? (
+        <DetailDisclosure>
+          <div className="ncr-detail-prose">
+            {detailParts.map((paragraph, index) => (
+              <p key={`${index}-${paragraph.slice(0, 12)}`}>{paragraph}</p>
+            ))}
+          </div>
+        </DetailDisclosure>
+      ) : null}
     </div>
   );
 }
@@ -201,13 +211,13 @@ function CombinedNamingReport({
     ?? 0;
   const sajuFit = numberOrNull(selectedCandidate?.scoreVector?.sajuFit)
     ?? numberOrNull(compatibility?.sajuCompatibilityScore);
+  const evidenceSections = fortuneReport?.namingRecommendationEvidence?.sections || [];
+  const sajuFitEvidence = evidenceSections.find((section) => section.id === 'sajuFit');
   const scoreState = scorePresentation(score);
-  const sajuFitState = scorePresentation(sajuFit);
+  const sajuFitState = sajuFitEvidence?.verdict
+    ? bandPresentation(sajuFitEvidence.verdict)
+    : scorePresentation(sajuFit);
   const structureState = scorePresentation(namingEvidence?.fourFrameScore);
-  const pilotNarrative = useMemo(
-    () => buildPilotSajuFitNarrative({ name: name.hangul, sajuFit }),
-    [name.hangul, sajuFit],
-  );
   const frames = Array.isArray(namingEvidence?.frames) ? namingEvidence.frames : [];
   const {
     isPdfSaving,
@@ -281,7 +291,7 @@ function CombinedNamingReport({
                   </div>
                   <div className={`ncr-status ncr-status--${sajuFitState.band}`}>{sajuFitState.label}</div>
                 </header>
-                <EvidenceArticle narrative={pilotNarrative} />
+                <EvidenceArticle section={sajuFitEvidence} />
               </article>
 
               <StructureReason namingEvidence={namingEvidence} />

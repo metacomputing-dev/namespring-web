@@ -3562,46 +3562,6 @@ textarea:focus-visible {
   padding: 1.5rem;
 }
 
-.ncr-pilot-note {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  padding: 0.75rem 0.9rem;
-  border-left: 3px solid var(--ncr-blue);
-  background: var(--ncr-blue-soft);
-  color: var(--ncr-blue);
-}
-
-.ncr-pilot-note span {
-  flex: 0 0 auto;
-  font-size: 0.72rem;
-  font-weight: 900;
-}
-
-.ncr-pilot-note p {
-  margin: 0;
-  font-size: 0.75rem;
-  font-weight: 650;
-  line-height: 1.5;
-}
-
-.ncr-tag-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
-  margin-top: 1.25rem;
-}
-
-.ncr-tag-list span {
-  padding: 0.38rem 0.6rem;
-  border: 1px solid var(--color-rule);
-  border-radius: 999px;
-  background: var(--color-paper-2);
-  color: var(--color-ink-2);
-  font-size: 0.7rem;
-  font-weight: 800;
-}
-
 .ncr-prose {
   display: grid;
   gap: 0.9rem;
@@ -4006,12 +3966,6 @@ textarea:focus-visible {
 
   .ncr-evidence-article {
     padding: 1.15rem;
-  }
-
-  .ncr-pilot-note {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.25rem;
   }
 
   .ncr-prose p,

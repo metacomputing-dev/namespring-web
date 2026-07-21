@@ -515,7 +515,7 @@ function renderParts(
   section: NamingEvidenceSectionPlan,
   catalog: NamingEvidenceCatalog,
   field: 'plain' | 'detail',
-): { text: string; rendered: string[]; missing: string[] } {
+): { text: string; parts: string[]; rendered: string[]; missing: string[] } {
   const parts: string[] = [];
   const rendered: string[] = [];
   const missing: string[] = [];
@@ -534,11 +534,14 @@ function renderParts(
       ? connectorOptions[connectorIndex % connectorOptions.length]
       : undefined;
     if (reference.relation) connectorIndex += 1;
-    if (parts.length > 0 && connector) parts.push(interpolate(connector, plan.name));
-    parts.push(interpolate(fragment[field], plan.name, reference.variables));
+    const renderedFragment = interpolate(fragment[field], plan.name, reference.variables);
+    const renderedPart = parts.length > 0 && connector
+      ? `${interpolate(connector, plan.name)} ${renderedFragment}`
+      : renderedFragment;
+    parts.push(renderedPart);
     rendered.push(reference.key);
   }
-  return { text: parts.join(' ').trim(), rendered, missing };
+  return { text: parts.join(' ').trim(), parts, rendered, missing };
 }
 
 export function renderNamingEvidenceReport(
@@ -559,6 +562,8 @@ export function renderNamingEvidenceReport(
           title: section.title,
           plain: '',
           detail: '',
+          plainParts: [],
+          detailParts: [],
           availability: 'not_applicable' as const,
           verdict: section.verdict,
           conclusionTone: section.conclusionTone,
@@ -582,6 +587,8 @@ export function renderNamingEvidenceReport(
         title: section.title,
         plain: plain.text,
         detail: detail.text,
+        plainParts: plain.parts,
+        detailParts: detail.parts,
         availability,
         verdict: section.verdict,
         conclusionTone: section.conclusionTone,

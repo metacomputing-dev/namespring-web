@@ -112,51 +112,69 @@ async function generateTask(
   runDir: string,
   task: EvidenceGenerationTask,
   model: string | undefined,
+  maxAttempts: number,
 ): Promise<GeneratedEvidenceTaskResult> {
-  const prompt = buildEvidenceGenerationPrompt(task);
+  const basePrompt = buildEvidenceGenerationPrompt(task);
   const promptsDir = path.join(runDir, 'prompts');
   const rawDir = path.join(runDir, 'raw');
   const resultsDir = path.join(runDir, 'results');
   fs.mkdirSync(promptsDir, { recursive: true });
   fs.mkdirSync(rawDir, { recursive: true });
   fs.mkdirSync(resultsDir, { recursive: true });
-  fs.writeFileSync(path.join(promptsDir, `${task.taskId}.md`), prompt, 'utf8');
+  fs.writeFileSync(path.join(promptsDir, `${task.taskId}.md`), basePrompt, 'utf8');
   const rawPath = path.join(rawDir, `${task.taskId}.json`);
-  const args = [
-    'exec', '--ephemeral', '--skip-git-repo-check', '--sandbox', 'read-only',
-    '--output-schema', OUTPUT_SCHEMA,
-    '--output-last-message', rawPath,
-    '--color', 'never',
-    '-C', SPRING_TS_ROOT,
-  ];
-  if (model) args.push('--model', model);
-  args.push('-');
+  let previousError = '';
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    const prompt = attempt === 1
+      ? basePrompt
+      : `${basePrompt}\n\n## 자동 검증 재생성 지시\n이전 응답은 다음 이유로 거절되었습니다: ${previousError}\n해당 문제를 모든 항목에서 제거한 뒤 전체 JSON을 처음부터 다시 작성하세요.\n`;
+    const args = [
+      'exec', '--ephemeral', '--skip-git-repo-check', '--sandbox', 'read-only',
+      '--output-schema', OUTPUT_SCHEMA,
+      '--output-last-message', rawPath,
+      '--color', 'never',
+      '-C', SPRING_TS_ROOT,
+    ];
+    if (model) args.push('--model', model);
+    args.push('-');
 
-  await new Promise<void>((resolve, reject) => {
-    const invocation = codexInvocation();
-    const child = spawn(invocation.command, [...invocation.prefixArgs, ...args], {
-      cwd: SPRING_TS_ROOT,
-      stdio: ['pipe', 'pipe', 'pipe'],
-      windowsHide: true,
-      shell: invocation.shell,
-    });
-    let stderr = '';
-    child.stderr.setEncoding('utf8');
-    child.stderr.on('data', (chunk: string) => { stderr += chunk; });
-    child.stdout.resume();
-    child.on('error', reject);
-    child.on('close', (code) => {
-      if (code === 0) resolve();
-      else reject(new Error(`${task.taskId}: codex exited ${code}\n${stderr.slice(-2000)}`));
-    });
-    child.stdin.end(prompt);
-  });
+    try {
+      fs.rmSync(rawPath, { force: true });
+      await new Promise<void>((resolve, reject) => {
+        const invocation = codexInvocation();
+        const child = spawn(invocation.command, [...invocation.prefixArgs, ...args], {
+          cwd: SPRING_TS_ROOT,
+          stdio: ['pipe', 'pipe', 'pipe'],
+          windowsHide: true,
+          shell: invocation.shell,
+        });
+        let stderr = '';
+        child.stderr.setEncoding('utf8');
+        child.stderr.on('data', (chunk: string) => { stderr += chunk; });
+        child.stdout.resume();
+        child.on('error', reject);
+        child.on('close', (code) => {
+          if (code === 0) resolve();
+          else reject(new Error(`${task.taskId}: codex exited ${code}\n${stderr.slice(-2000)}`));
+        });
+        child.stdin.end(prompt);
+      });
 
-  if (!fs.existsSync(rawPath)) throw new Error(`${task.taskId}: Codex did not write a final response`);
-  const parsed = JSON.parse(fs.readFileSync(rawPath, 'utf8')) as unknown;
-  const result = validateGeneratedTaskResult(task, parsed);
-  fs.writeFileSync(resultPath(runDir, task), `${JSON.stringify(result, null, 2)}\n`, 'utf8');
-  return result;
+      if (!fs.existsSync(rawPath)) throw new Error(`${task.taskId}: Codex did not write a final response`);
+      const parsed = JSON.parse(fs.readFileSync(rawPath, 'utf8')) as unknown;
+      const result = validateGeneratedTaskResult(task, parsed);
+      fs.writeFileSync(resultPath(runDir, task), `${JSON.stringify(result, null, 2)}\n`, 'utf8');
+      return result;
+    } catch (error) {
+      previousError = (error instanceof Error ? error.message : String(error))
+        .replace(/\s+/gu, ' ')
+        .slice(0, 700);
+      if (attempt >= maxAttempts) throw error;
+      process.stdout.write(`[retry ${attempt + 1}/${maxAttempts}] ${task.taskId}: ${previousError}\n`);
+      await new Promise((resolve) => setTimeout(resolve, attempt * 1000));
+    }
+  }
+  throw new Error(`${task.taskId}: exhausted generation attempts`);
 }
 
 async function runWithConcurrency<T>(
@@ -165,14 +183,22 @@ async function runWithConcurrency<T>(
   worker: (value: T, index: number) => Promise<void>,
 ): Promise<void> {
   let cursor = 0;
+  const failures: unknown[] = [];
   const workers = Array.from({ length: Math.min(concurrency, values.length) }, async () => {
     while (cursor < values.length) {
       const index = cursor;
       cursor += 1;
-      await worker(values[index], index);
+      try {
+        await worker(values[index], index);
+      } catch (error) {
+        failures.push(error);
+      }
     }
   });
   await Promise.all(workers);
+  if (failures.length > 0) {
+    throw new AggregateError(failures, `${failures.length} generation task(s) failed`);
+  }
 }
 
 function assemble(runDir: string, tasks: readonly EvidenceGenerationTask[]): string {
@@ -216,7 +242,7 @@ function assemble(runDir: string, tasks: readonly EvidenceGenerationTask[]): str
 function printUsage(): void {
   console.log(`Usage:
   npx tsx tools/generation/generate-naming-evidence.ts plan [--sample-axis-bundles N] [--run NAME]
-  npx tsx tools/generation/generate-naming-evidence.ts run [--sample-axis-bundles N] [--concurrency N] [--model MODEL] [--run NAME] [--force]
+  npx tsx tools/generation/generate-naming-evidence.ts run [--sample-axis-bundles N] [--concurrency N] [--max-attempts N] [--model MODEL] [--run NAME] [--force]
   npx tsx tools/generation/generate-naming-evidence.ts check [--sample-axis-bundles N] [--run NAME]
   npx tsx tools/generation/generate-naming-evidence.ts assemble [--sample-axis-bundles N] [--run NAME]
 
@@ -245,6 +271,7 @@ async function main(): Promise<void> {
     const force = argv.includes('--force');
     const pending = tasks.filter((task) => force || readValidatedResult(runDir, task, true) === null);
     const concurrency = integerOption(argv, '--concurrency', 2);
+    const maxAttempts = integerOption(argv, '--max-attempts', 3);
     const model = option(argv, '--model');
     if (model && !/^[a-zA-Z0-9._-]+$/u.test(model)) {
       throw new Error('--model accepts only letters, numbers, dot, underscore and hyphen');
@@ -255,13 +282,14 @@ async function main(): Promise<void> {
       startedAt: new Date().toISOString(),
       model: model ?? 'configured-default',
       concurrency,
+      maxAttempts,
       force,
       taskCount: tasks.length,
     }, null, 2)}\n`, 'utf8');
-    console.log(`run ${name}: ${pending.length}/${tasks.length} pending, concurrency=${concurrency}, model=${model ?? 'configured default'}`);
+    console.log(`run ${name}: ${pending.length}/${tasks.length} pending, concurrency=${concurrency}, attempts=${maxAttempts}, model=${model ?? 'configured default'}`);
     await runWithConcurrency(pending, concurrency, async (task) => {
       process.stdout.write(`[start] ${task.taskId}\n`);
-      await generateTask(runDir, task, model);
+      await generateTask(runDir, task, model, maxAttempts);
       process.stdout.write(`[done]  ${task.taskId}\n`);
     });
     const output = assemble(runDir, tasks);

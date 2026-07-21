@@ -50,6 +50,9 @@ import type {
 import engineConfig from '../config/engine.json';
 import { buildFortuneReport } from './report/buildFortuneReport.js';
 import type { FortuneReportRequest, FortuneReport } from './report/types.js';
+import { buildNamingEvidencePlan } from './report/naming-evidence/build-naming-evidence-report.js';
+import { resolveNamingEvidenceSajuAxes } from './report/naming-evidence/resolve-saju-axes.js';
+import type { NamingRecommendationReportResult } from './report/naming-evidence/types.js';
 import {
   ReportDeliveryRequestValidationError,
   validateReportDeliveryRequestV1,
@@ -595,6 +598,7 @@ type SpringEngineOperationName =
   | 'getNameCandidateSummaries'
   | 'analyze'
   | 'getFortuneReport'
+  | 'getNamingRecommendationReport'
   | 'getReportDelivery'
   | 'name-stat-lookup';
 
@@ -3522,8 +3526,17 @@ export class SpringEngine {
     request = snapshotFortuneReportRequest(request);
     this.assertSchoolPresetSelection(request.options);
     const operation = this.beginOperation('getFortuneReport');
-    const { targetDate, reportOptions, sajuReport, springReport } =
-      await this.prepareFortuneReportContext(request, operation);
+    const context = await this.prepareFortuneReportContext(request, operation);
+    const report = await this.buildFortuneReportFromPrepared(request, context, operation);
+    return this.completeOperation(operation, report);
+  }
+
+  private async buildFortuneReportFromPrepared(
+    request: FortuneReportRequest,
+    context: PreparedFortuneReportContext,
+    operation: SpringEngineOperationLease,
+  ): Promise<FortuneReport> {
+    const { targetDate, reportOptions, sajuReport, springReport } = context;
     const saju: SajuSummary = sajuReport;
 
     // 4. Build the fortune report
@@ -3532,7 +3545,7 @@ export class SpringEngine {
     // (16%) 정확도 회복. Callers can opt out via explicit 'simple'.
     const pc = reportOptions.precisionConfig;
     const fortuneCascadeMode = pc?.fortuneCascadeMode ?? 'jie_based';
-    const report = await this.awaitOperationStep(operation, () => buildFortuneReport(saju, targetDate, springReport, {
+    return this.awaitOperationStep(operation, () => buildFortuneReport(saju, targetDate, springReport, {
       fortuneCascadeMode: fortuneCascadeMode === 'jie_based' || fortuneCascadeMode === 'full_5layer'
         ? fortuneCascadeMode
         : 'simple',
@@ -3551,7 +3564,24 @@ export class SpringEngine {
       // 전문 인사이트 원자료 (precisionConfig.surfaceInsightFacts). Default off.
       surfaceInsightFacts: pc?.surfaceInsightFacts === true,
     }, request.birth));
-    return this.completeOperation(operation, report);
+  }
+
+  async getNamingRecommendationReport(
+    request: FortuneReportRequest,
+  ): Promise<NamingRecommendationReportResult> {
+    request = snapshotFortuneReportRequest(request);
+    this.assertSchoolPresetSelection(request.options);
+    const operation = this.beginOperation('getNamingRecommendationReport');
+    const context = await this.prepareFortuneReportContext(request, operation);
+    if (!context.springReport) {
+      throw new Error('Naming recommendation report requires an explicit given name.');
+    }
+    const fortuneReport = await this.buildFortuneReportFromPrepared(request, context, operation);
+    const namingEvidencePlan = buildNamingEvidencePlan({
+      springReport: context.springReport,
+      sajuAxes: resolveNamingEvidenceSajuAxes(context.sajuReport, request.birth, context.targetDate),
+    });
+    return this.completeOperation(operation, { fortuneReport, namingEvidencePlan });
   }
 
   /**

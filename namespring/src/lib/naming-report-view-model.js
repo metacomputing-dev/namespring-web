@@ -1,55 +1,11 @@
-import pilotDraft from '../../../lib/spring-ts/data/naming-report/evidence/generation/runs/pilot-source-v3-3/naming-evidence.generated-draft.json';
-
 const SCORE_BANDS = {
   excellent: 80,
   good: 65,
   mixed: 46,
 };
 
-const PILOT_AXIS = {
-  dayMasterElement: 'METAL',
-  strength: 'balanced',
-  yongshinElement: 'WOOD',
-  gyeokgukFamily: 'gwanseong',
-};
-
-const PILOT_VALUES = {
-  filledElements: '목 기운',
-  filledElementFunctions: '새로운 가능성을 발견하고 꾸준히 키워 가는 힘',
-  matchedElements: '목 기운',
-  matchedElementFunctions: '생각을 유연하게 열고 성장 방향을 잡는 힘',
-  alignedElements: '목 기운',
-  alignedElementFunctions: '기준을 지키면서도 선택지를 넓히는 힘',
-  opposedElements: '화 기운',
-  opposedElementFunctions: '생각을 밖으로 드러내고 빠르게 실행하는 힘',
-  excessiveElements: '화 기운',
-  excessiveElementFunctions: '속도를 높이고 표현을 확장하는 힘',
-};
-
 function compact(value) {
   return String(value ?? '').replace(/\s+/gu, ' ').trim();
-}
-
-function hasFinalConsonant(value) {
-  const last = [...compact(value)].at(-1);
-  if (!last) return false;
-  const code = last.charCodeAt(0);
-  return code >= 0xac00 && code <= 0xd7a3 && (code - 0xac00) % 28 !== 0;
-}
-
-function topicName(name) {
-  return `${name}${hasFinalConsonant(name) ? '은' : '는'}`;
-}
-
-function replacePilotPlaceholders(text, name) {
-  let result = compact(text)
-    .replaceAll('{{name:topic}}', topicName(name))
-    .replaceAll('{{name}}', name);
-
-  for (const [key, value] of Object.entries(PILOT_VALUES)) {
-    result = result.replaceAll(`{{${key}}}`, value);
-  }
-  return result;
 }
 
 function scoreBand(score) {
@@ -59,52 +15,6 @@ function scoreBand(score) {
   if (value >= SCORE_BANDS.good) return 'good';
   if (value >= SCORE_BANDS.mixed) return 'mixed';
   return 'caution';
-}
-
-function sourceRow(sourceId, state) {
-  return pilotDraft.sourceEvidenceExplanations.find((row) => row.sourceId === sourceId && row.state === state);
-}
-
-function conclusionRow(tone) {
-  return pilotDraft.conclusionExplanations.find((row) => row.tone === tone);
-}
-
-export function buildPilotSajuFitNarrative({ name, sajuFit }) {
-  const safeName = compact(name) || '이 이름';
-  const band = scoreBand(sajuFit);
-  const axis = pilotDraft.sajuAxisExplanations.find((row) => (
-    Object.entries(PILOT_AXIS).every(([key, value]) => row[key] === value)
-  )) || pilotDraft.sajuAxisExplanations[0];
-
-  const states = band === 'excellent' || band === 'good'
-    ? { balance: 'improves', yongshin: 'yongshin', strength: 'supportsNeededDirection' }
-    : band === 'mixed'
-      ? { balance: 'holds', yongshin: 'neutral', strength: 'mixed' }
-      : { balance: 'worsens', yongshin: 'neutral', strength: 'opposesNeededDirection' };
-  const conclusionTone = band === 'excellent'
-    ? 'allPositive'
-    : band === 'good'
-      ? 'mostlyPositive'
-      : band === 'mixed'
-        ? 'mixedButUsable'
-        : 'needsCaution';
-  const evidence = [
-    sourceRow('balance', states.balance),
-    sourceRow('yongshin', states.yongshin),
-    sourceRow('strength', states.strength),
-  ].filter(Boolean);
-  const conclusion = conclusionRow(conclusionTone);
-
-  return {
-    isPilot: true,
-    plain: [axis?.plain, ...evidence.map((row) => row.plain), conclusion?.plain]
-      .filter(Boolean)
-      .map((text) => replacePilotPlaceholders(text, safeName)),
-    detail: [axis?.detail, ...evidence.map((row) => row.detail), conclusion?.detail]
-      .filter(Boolean)
-      .map((text) => replacePilotPlaceholders(text, safeName)),
-    tags: [axis?.dayMasterLabel, axis?.strengthLabel, `${axis?.yongshinLabel} 용신`, `${axis?.gyeokgukLabel} 계열`].filter(Boolean),
-  };
 }
 
 export function buildNameParts(candidate, shareUserInfo) {
@@ -122,13 +32,18 @@ export function buildNameParts(candidate, shareUserInfo) {
 
 export function scorePresentation(score) {
   const band = scoreBand(score);
+  return bandPresentation(band);
+}
+
+export function bandPresentation(band) {
   const labels = {
     excellent: '매우 좋음',
     good: '좋음',
     mixed: '비교 필요',
     caution: '신중히 검토',
   };
-  return { band, label: labels[band] };
+  const safeBand = Object.hasOwn(labels, band) ? band : 'mixed';
+  return { band: safeBand, label: labels[safeBand] };
 }
 
 export function buildStructureNarrative(namingEvidence) {
