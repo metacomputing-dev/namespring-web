@@ -17,9 +17,9 @@ import {
   IMAGERY_STATE, TEN_GOD_BY_RELATION, slotIdOf,
 } from './name-evidence-schema.js';
 import type {
-  Boundary, ElementKo, ElementRelation, FrameType, GyeokgukFamily, LuckyGrade,
-  NameEffect, NameEvidenceCase, NameEvidenceKey, PhoneticRisk, SlotFamily, Stem,
-  StrengthCoarse, YongshinRelation,
+  Boundary, ElementKo, ElementRelation, FrameOutlook, FrameType, GyeokgukFamily,
+  LuckyGrade, NameEffect, NameEvidenceCase, NameEvidenceKey, PhoneticFlow,
+  PhoneticRisk, SlotFamily, Stem, StrengthCoarse, YongshinRelation,
 } from './name-evidence-schema.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -297,6 +297,27 @@ const PHONETIC_RULE_FACT: Record<string, string> = {
 
 const ADVERSE_GRADES: ReadonlySet<LuckyGrade> = new Set(['흉운수', '최흉운수']);
 
+/** 종합 절 재진술용 집계 — 발음 배열 전체의 결. */
+export function phoneticFlowOf(j: NameEvidenceJudgments): PhoneticFlow | null {
+  if (!j.pairs.length) return null;
+  const isClash = (r: ElementRelation): boolean => r === 'controls' || r === 'controlled_by';
+  if (j.pairs.every((p) => !isClash(p.relation))) return 'harmonious';
+  if (j.pairs.every((p) => isClash(p.relation))) return 'clashing';
+  return 'mixed';
+}
+
+/** 종합 절 재진술용 집계 — 서술 대상 사격의 등급 구성. */
+export function frameOutlookOf(j: NameEvidenceJudgments): FrameOutlook | null {
+  if (!j.framesSupported) return null;
+  const narrated = j.frames.filter((f) => !(j.frameLeeContested && f.frame === 'lee'));
+  if (!narrated.length) return null;
+  const heavy = narrated.filter((f) => ADVERSE_GRADES.has(f.grade)).length;
+  if (heavy === 0) return 'all_bright';
+  if (heavy === 1) return 'mostly_bright';
+  if (heavy === 2) return 'mixed';
+  return 'heavy';
+}
+
 function makeCase(family: SlotFamily, key: NameEvidenceKey, spec: Omit<NameEvidenceCase['spec'], 'allowedVars'>): NameEvidenceCase {
   return {
     slotId: slotIdOf(family, key),
@@ -395,6 +416,24 @@ export function slotRequestsFor(j: NameEvidenceJudgments): NameEvidenceCase[] {
     imageryState: IMAGERY_STATE[j.gangyak],
     isAdverse: j.nameEffect === 'adverse',
   }));
+
+  // S11/S12 종합 절 재진술: 발음 배열의 결 × 1 / 사격 등급 구성 × 1
+  const flow = phoneticFlowOf(j);
+  if (flow) {
+    add(makeCase('S11', { phoneticFlow: flow }, {
+      fact: `발음 배열 종합 = ${flow} (harmonious=상생·동기만 / mixed=상생·상극 혼재 / clashing=상극 위주). 이름의 소리 흐름 전체를 1~2문장으로 재진술하는 조각 — 종합 절의 첫머리에 놓이므로 자립 서술로, 맺음 표현 없이.`,
+      isAdverse: flow === 'clashing',
+    }));
+  }
+  const outlook = frameOutlookOf(j);
+  if (outlook) {
+    const narrated = j.frames.filter((f) => !(j.frameLeeContested && f.frame === 'lee'));
+    const heavy = narrated.filter((f) => ADVERSE_GRADES.has(f.grade)).length;
+    add(makeCase('S12', { frameOutlook: outlook }, {
+      fact: `사격 등급 구성 = ${outlook} (서술 대상 ${narrated.length}격 중 흉 등급 ${heavy}개). 획수 풀이 전체를 1~2문장으로 재진술하는 조각 — 격 이름·숫자 없이 구성만.`,
+      isAdverse: outlook === 'mixed' || outlook === 'heavy',
+    }));
+  }
 
   // S9 4절 종합: 일간 × 강약 × 격국family × nameEffect
   add(makeCase('S9', { stem: j.stem, gangyak: j.gangyak, gyeokgukFamily: j.gyeokgukFamily, nameEffect: j.nameEffect }, {

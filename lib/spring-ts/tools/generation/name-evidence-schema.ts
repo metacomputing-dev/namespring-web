@@ -12,7 +12,10 @@ import type { StrengthCoarse, GyeokgukFamily, NameEffect } from '../../src/repor
 
 export type { StrengthCoarse, GyeokgukFamily, NameEffect };
 
-export type SlotFamily = 'S1' | 'S2' | 'S3' | 'S4' | 'S5' | 'S6' | 'S7' | 'S8' | 'S9' | 'S10';
+export type SlotFamily = 'S1' | 'S2' | 'S3' | 'S4' | 'S5' | 'S6' | 'S7' | 'S8' | 'S9' | 'S10' | 'S11' | 'S12';
+/** 종합 절의 재진술 축 — 발음 배열 전체의 결(S11)과 사격 등급 구성(S12). */
+export type PhoneticFlow = 'harmonious' | 'mixed' | 'clashing';
+export type FrameOutlook = 'all_bright' | 'mostly_bright' | 'mixed' | 'heavy';
 export type ElementKo = '목' | '화' | '토' | '금' | '수';
 export type Stem = '갑' | '을' | '병' | '정' | '무' | '기' | '경' | '신' | '임' | '계';
 export type YongshinRelation = 'match' | 'generates' | 'drains' | 'controls' | 'controlled';
@@ -38,6 +41,8 @@ export interface NameEvidenceKey {
   readonly risk?: PhoneticRisk;             // S7
   readonly gyeokgukFamily?: GyeokgukFamily; // S9
   readonly nameEffect?: NameEffect;         // S8/S9
+  readonly phoneticFlow?: PhoneticFlow;     // S11 (종합 절 발음 재진술)
+  readonly frameOutlook?: FrameOutlook;     // S12 (종합 절 사격 재진술)
 }
 
 export interface NameEvidenceSpec {
@@ -90,6 +95,7 @@ export const GRADE_BY_TOKEN: Record<string, LuckyGrade> = invert(GRADE_TOKEN);
 export const FAMILY_ROLE: Record<SlotFamily, SlotRole> = {
   S1: 'finding', S2: 'principle', S3: 'bridge', S4: 'finding', S5: 'finding',
   S6: 'finding', S7: 'finding', S8: 'finding', S9: 'closing', S10: 'finding',
+  S11: 'finding', S12: 'finding',
 };
 
 /** principle 문장(≤50자)을 별도로 가질 수 있는 패밀리 (§3). */
@@ -111,6 +117,8 @@ export const ALLOWED_VARS: Record<SlotFamily, readonly string[]> = {
   S8: ['dayMasterName', 'yongshinName', 'nameFull'],
   S9: ['dayMasterName', 'yongshinName', 'nameFull'],
   S10: [],
+  S11: [],
+  S12: [],
 };
 
 export function slotIdOf(family: SlotFamily, key: NameEvidenceKey): string {
@@ -128,13 +136,15 @@ export function slotIdOf(family: SlotFamily, key: NameEvidenceKey): string {
     case 'S7': return `S7.${need(key.phoneticRule, 'phoneticRule')}.${need(key.risk, 'risk')}`;
     case 'S8': return `S8.${STEM_TOKEN[need(key.stem, 'stem')]}.${need(key.gangyak, 'gangyak')}.${need(key.nameEffect, 'nameEffect')}`;
     case 'S9': return `S9.${STEM_TOKEN[need(key.stem, 'stem')]}.${need(key.gangyak, 'gangyak')}.${need(key.gyeokgukFamily, 'gyeokgukFamily')}.${need(key.nameEffect, 'nameEffect')}`;
+    case 'S11': return `S11.${need(key.phoneticFlow, 'phoneticFlow')}`;
+    case 'S12': return `S12.${need(key.frameOutlook, 'frameOutlook')}`;
     case 'S10': throw new Error('S10 is out of pilot scope');
   }
 }
 
 export function familyOfSlotId(slotId: string): SlotFamily {
   const family = slotId.split('.')[0] as SlotFamily;
-  if (!/^S(?:[1-9]|10)$/u.test(family)) throw new Error(`invalid slotId: ${slotId}`);
+  if (!/^S(?:[1-9]|1[012])$/u.test(family)) throw new Error(`invalid slotId: ${slotId}`);
   return family;
 }
 

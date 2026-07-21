@@ -11,7 +11,7 @@ import { appendJosa, isJosaPair } from '../../src/report/tiered/article-renderer
 import { ELEMENT_TOKEN, FRAME_LABEL_KO, GRADE_TOKEN, STEM_TOKEN } from './name-evidence-schema.js';
 import type { ElementKo, FrameType, LuckyGrade, StoredNameEvidenceSlot } from './name-evidence-schema.js';
 import type { NameEvidenceJudgments } from './name-evidence-derive.js';
-import { slotRequestsFor } from './name-evidence-derive.js';
+import { frameOutlookOf, phoneticFlowOf, slotRequestsFor } from './name-evidence-derive.js';
 
 const VAR_RE = /\{\{([A-Za-z]+)(?::([가-힣]+))?\}\}/gu;
 
@@ -108,6 +108,9 @@ export function assembleReport(
       return req ? [req.slotId] : [];
     }))],
     s8: [`S8.${stemTok(j)}.${j.gangyak}.${j.nameEffect}`],
+    // 종합 절 = [소리·획수 재진술(S11+S12)] + [물상 맺음(S9)] — 앞 절 전체를 아우른다.
+    s11: ((): string[] => { const f = phoneticFlowOf(j); return f ? [`S11.${f}`] : []; })(),
+    s12: ((): string[] => { const o = frameOutlookOf(j); return o ? [`S12.${o}`] : []; })(),
     s9: [`S9.${stemTok(j)}.${j.gangyak}.${j.gyeokgukFamily}.${j.nameEffect}`],
   };
   // 요청 도출과 조립이 어긋나지 않게 검증: 조립이 참조하는 id는 모두 요청 집합의 부분집합.
@@ -132,7 +135,7 @@ export function assembleReport(
     sectionOf(`지금 이름 진단 — ${j.nameFull}`, [[...ids.s4, ...ids.s7], ids.s6]),
     sectionOf('이 사주에 필요한 기운', [[...ids.s1, ...ids.s2, ...ids.s3]]),
     withMeaning(sectionOf('이름이 주는 기운', [ids.s5, ids.s8])),
-    sectionOf('종합', [ids.s9]),
+    sectionOf('종합', [[...ids.s11, ...ids.s12], ids.s9]),
   ].filter((s) => s.plain.length > 0);
 
   return {

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S12.all_bright",
+  "family": "S12",
+  "role": "finding",
+  "key": {
+    "frameOutlook": "all_bright"
+  },
+  "plain": "이름의 획수 풀이는 보는 자리마다 좋은 흐름에 놓여 있어요. 초년부터 말년까지 획수로 보는 시기들이 고르게 받쳐 주는 구성이에요.",
+  "expert": "수리사격의 서술 대상 격이 모두 길한 등급이에요. 시기별 수리가 고르게 밝아 감점 없이 받쳐 주는 배치예요.",
+  "isAdverse": false,
+  "allowedVars": [],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "accessedAt": "2026-07-21",
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false
+  },
+  "sourceNote": "regen-ne-pilot3"
+}

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S11.mixed",
+  "family": "S11",
+  "role": "finding",
+  "key": {
+    "phoneticFlow": "mixed"
+  },
+  "plain": "이름을 이루는 소리들은 살려 주는 연결과 부딪히는 연결이 섞여 있어요. 전체 흐름은 이어지되, 걸리는 자리가 한 군데쯤 있는 셈이에요.",
+  "expert": "발음오행 배열에 상생과 상극이 섞여 있어요. 흐름 전체가 막히는 정도는 아니라, 부딪히는 경계 하나를 짚어 두는 수준이에요.",
+  "isAdverse": false,
+  "allowedVars": [],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "accessedAt": "2026-07-21",
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false
+  },
+  "sourceNote": "regen-ne-pilot3"
+}

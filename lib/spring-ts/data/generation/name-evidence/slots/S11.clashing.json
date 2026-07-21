@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S11.clashing",
+  "family": "S11",
+  "role": "finding",
+  "key": {
+    "phoneticFlow": "clashing"
+  },
+  "plain": "이름을 이루는 소리들은 서로 부딪히는 연결이 많은 편이에요. 소리의 기운끼리 방향이 어긋나는 흐름이라 다른 쪽의 힘이 중요해요.",
+  "expert": "발음오행 전이가 상극 위주로 이어진 배열이에요. 소리 갈래의 감점이 뚜렷해, 자원오행과 수리 갈래의 보강이 중요한 구성이에요.",
+  "isAdverse": true,
+  "allowedVars": [],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "accessedAt": "2026-07-21",
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false
+  },
+  "sourceNote": "regen-ne-pilot3"
+}

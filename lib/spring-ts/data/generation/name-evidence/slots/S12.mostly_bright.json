@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S12.mostly_bright",
+  "family": "S12",
+  "role": "finding",
+  "key": {
+    "frameOutlook": "mostly_bright"
+  },
+  "plain": "이름의 획수 풀이는 대체로 밝은 가운데 한 자리가 무겁게 놓여 있어요. 그 시기의 기반만 생활에서 다져 주면 나머지는 순하게 받쳐 줘요.",
+  "expert": "수리사격에서 한 격만 흉 등급이고 나머지는 길한 배치예요. 무거운 격의 시기만 생활 보완으로 짚으면 되는 구성이에요.",
+  "isAdverse": false,
+  "allowedVars": [],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "accessedAt": "2026-07-21",
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false
+  },
+  "sourceNote": "regen-ne-pilot3"
+}

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S12.heavy",
+  "family": "S12",
+  "role": "finding",
+  "key": {
+    "frameOutlook": "heavy"
+  },
+  "plain": "이름의 획수 풀이는 무거운 자리가 많은 편이에요. 획수보다 소리와 글자의 기운, 그리고 생활의 힘으로 흐름을 받치는 편이 좋아요.",
+  "expert": "수리사격 대부분이 흉 등급에 놓인 배치예요. 수리 갈래의 감점이 커, 자원오행과 발음 갈래의 보강이 중심이 되는 구성이에요.",
+  "isAdverse": true,
+  "allowedVars": [],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "accessedAt": "2026-07-21",
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false
+  },
+  "sourceNote": "regen-ne-pilot3"
+}
