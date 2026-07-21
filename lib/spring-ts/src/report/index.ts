@@ -3,6 +3,7 @@
  */
 
 export { buildFortuneReport } from './buildFortuneReport.js';
+export * from './naming-evidence/index.js';
 export * from './delivery/index.js';
 export * from './premium/index.js';
 export type {

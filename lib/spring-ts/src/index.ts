@@ -306,6 +306,7 @@ export {
 //  9. FORTUNE REPORT
 // ─────────────────────────────────────────────────────────────────────────────
 export { buildFortuneReport } from './report/buildFortuneReport.js';
+export * from './report/naming-evidence/index.js';
 export * from './report/delivery/index.js';
 export * from './report/premium/index.js';
 export * from './experience/index.js';

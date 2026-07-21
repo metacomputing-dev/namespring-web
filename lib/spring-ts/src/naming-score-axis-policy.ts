@@ -139,6 +139,14 @@ export function classifyNamingScoreBand(
     return 'excellent';
   }
 
+  return classifyHigherIsBetterScoreBand(value);
+}
+
+/** Classifies any 0..100 score that follows the shared higher-is-better policy. */
+export function classifyHigherIsBetterScoreBand(
+  value: number | null | undefined,
+): NamingScoreBand | null {
+  if (typeof value !== 'number' || !Number.isFinite(value)) return null;
   if (value >= NAMING_SCORE_BANDS.excellentMin) return 'excellent';
   if (value >= NAMING_SCORE_BANDS.goodMin) return 'good';
   if (value >= NAMING_SCORE_BANDS.mixedMin) return 'mixed';
