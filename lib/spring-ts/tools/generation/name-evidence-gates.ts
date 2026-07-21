@@ -86,14 +86,20 @@ export function validateNameEvidenceSlots(
     const v: string[] = [];
     const slot = raw as unknown as GeneratedSlot;
 
-    for (const [field, min, max] of [['plain', 40, 110], ['expert', 50, 160]] as const) {
+    // S9(종합)만 케이스 전체를 합성하므로 길게 쓴다 (설계 §1: 유일한 합성 슬롯).
+    const isClosing = c.family === 'S9';
+    const bands = isClosing
+      ? ([['plain', 80, 200], ['expert', 100, 260]] as const)
+      : ([['plain', 40, 110], ['expert', 50, 160]] as const);
+    const [minSent, maxSent] = isClosing ? [2, 4] : [1, 2];
+    for (const [field, min, max] of bands) {
       const text = slot[field];
       if (typeof text !== 'string' || !text.trim()) { v.push(`${field} 없음`); continue; }
       const rendered = approxRender(text).trim();
       const n = cp(rendered);
       if (n < min || n > max) v.push(`${field} ${n}자 (${min}~${max})`);
       const ss = sentences(rendered);
-      if (ss.length < 1 || ss.length > 2) v.push(`${field} ${ss.length}문장 (1~2)`);
+      if (ss.length < minSent || ss.length > maxSent) v.push(`${field} ${ss.length}문장 (${minSent}~${maxSent})`);
       for (const sentence of ss) {
         if (FORMAL.test(sentence)) { v.push(`${field} 해요체 아님: "${sentence.slice(0, 20)}…"`); break; }
       }
@@ -124,6 +130,13 @@ export function validateNameEvidenceSlots(
         const [name, josa, ...rest] = m[1].split(':');
         if (rest.length || !allowed.has(name)) v.push(`${field} 허용 밖 변수 {{${m[1]}}}`);
         else if (josa !== undefined && !isJosaPair(josa)) v.push(`${field} 잘못된 조사쌍 {{${m[1]}}}`);
+      }
+      // 글자 표기는 한글(한자) 병기 — 독자가 어느 글자인지 알 수 있어야 한다.
+      if (allowed.has('charHanja')) {
+        const hasHangul = /\{\{charHangul(?::[가-힣]+)?\}\}/u.test(text);
+        const hasHanja = /\{\{charHanja(?::[가-힣]+)?\}\}/u.test(text);
+        if (hasHanja && !hasHangul) v.push(`${field} 한자 단독 표기 — {{charHangul}}({{charHanja}})로 병기`);
+        if (hasHangul && !hasHanja) v.push(`${field} 한글 단독 표기 — {{charHangul}}({{charHanja}})로 병기`);
       }
     }
 

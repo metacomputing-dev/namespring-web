@@ -1,14 +1,14 @@
 {
   "schemaVersion": "spring-ts.name-evidence-slot.v1",
-  "slotId": "S6.lee.sang",
+  "slotId": "S6.hyung.choesang",
   "family": "S6",
   "role": "finding",
   "key": {
-    "frame": "lee",
-    "grade": "상운수"
+    "frame": "hyung",
+    "grade": "최상운수"
   },
-  "plain": "{{frameLabel}}은 이름의 획수로 바깥세상과 만나는 문을 보는 자리예요. 좋은 수에 놓여 있어 평판과 도움이 밖에서 들어오는 방향이에요.",
-  "expert": "{{frameLabel}}이 상운수 등급이에요. 대외 관계와 평판의 수리가 밝게 놓여, 바깥에서 오는 조력이 흐름을 받쳐 주는 배치예요.",
+  "plain": "{{frameLabel}}은 이름의 획수로 인생 한가운데의 기둥을 보는 자리예요. 가장 좋은 수에 놓여 한창때의 중심 활동이 크게 받쳐지는 방향이에요.",
+  "expert": "{{frameLabel}}이 최상운수 등급이에요. 중년 사회 활동의 축에 해당하는 수리가 최상급이라 주된 흐름이 힘 있게 받쳐지는 배치예요.",
   "isAdverse": false,
   "allowedVars": [
     "frameLabel"
@@ -18,12 +18,12 @@
     "tier": "T2_AI_AUTHORED_INSIGHT",
     "sourceType": "ai_authored_insight_text",
     "sourceUrl": null,
-    "accessedAt": "2026-07-21",
     "quoteShort": null,
     "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
     "copyrightNote": "No third-party prose copied.",
-    "authorityTruthEligible": false
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
   },
-  "sourceNote": "regen-ne-pilot1",
+  "sourceNote": "regen-ne-pilot2",
   "keyProvenance": "engine-current-formula-b"
 }

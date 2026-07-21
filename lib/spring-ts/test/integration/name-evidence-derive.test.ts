@@ -136,6 +136,7 @@ checkEqual('fillVars 받침O 이가', fillVars('{{yongshinName:이가}} 힘이 �
 checkEqual('fillVars 받침X 이가', fillVars('{{charHangul:이가}} 중심이에요.', { charHangul: '도' }), '도가 중심이에요.');
 checkEqual('fillVars 으로로 ㄹ', fillVars('{{yongshinName:으로로}} 흘러요.', { yongshinName: '물' }), '물로 흘러요.');
 checkEqual('fillVars 미지 변수 보존', fillVars('{{unknownVar}} 유지', {}), '{{unknownVar}} 유지');
+checkEqual('fillVars 한자 미상 병기 괄호 제거', fillVars('{{charHangul}}({{charHanja}})의 기운', { charHangul: '도' }), '도의 기운');
 
 // ── 6. analysis 블록 — 유파 고지 + 획수 산식 부재 ───────────────────────────
 const analysis = buildAnalysisBlock(j);
@@ -147,7 +148,7 @@ check('analysis에 획수 산식 없음', !/\d+\s*획\s*[+＋]/u.test(analysis))
 const s2Case = byId.get('S2.im.hwa') as NameEvidenceCase;
 const okSlot = {
   slotId: 'S2.im.hwa',
-  plain: '{{charHangul}}의 불 기운은 큰 강물이 눌러 힘을 쏟는 자리예요. 마른 강에는 무거운 짐이 돼요.',
+  plain: '{{charHangul}}({{charHanja}})의 불 기운은 큰 강물이 눌러 힘을 쏟는 자리예요. 마른 강에는 무거운 짐이 돼요.',
   expert: '화는 임수 일간이 극하는 재성이에요. #{jaeseong} 신약 원국에서는 재성 과다가 설기로 작동해요.',
   principle: '불은 큰 강물이 누르며 힘을 쏟는 자리예요.',
 };
@@ -170,6 +171,25 @@ const okSlot = {
 {
   const missing = validateNameEvidenceSlots({ slots: [okSlot] }, [s2Case, byId.get('S3.im.geum') as NameEvidenceCase], { stem: '임' });
   check('게이트: 누락 slotId 리젝', !missing.ok && missing.violations.some((v) => v.includes('누락')));
+}
+{
+  const hangulOnly = { ...okSlot, plain: '{{charHangul}}의 불 기운은 큰 강물이 눌러 힘을 쏟는 자리예요. 마른 강에는 무거운 짐이 돼요.' };
+  const r = validateNameEvidenceSlots({ slots: [hangulOnly] }, [s2Case], { stem: '임' });
+  check('게이트: 한글 단독 표기 리젝(병기 필수)', !r.ok && [...r.perSlot.values()].flat().some((v) => v.includes('병기')));
+}
+{
+  // S9(종합)만 2~4문장·긴 분량 허용 — 짧으면 리젝
+  const s9Case = byId.get('S9.im.weak.jaeseong.adverse') as NameEvidenceCase;
+  const longS9 = {
+    slotId: s9Case.slotId,
+    plain: '큰 강물이 되어야 할 물의 수원이 아직 얕은 사주예요. 이름이 그 물길을 크게 채우지는 못하니, 부족한 쪽은 배움과 사람에게서 챙기는 편이 좋아요. 물길을 따라 꾸준히 흐르다 보면 강은 제 폭을 찾아요.',
+    expert: '신약한 임수 원국에서 재성 과다가 설기로 작동하는 구성이에요. 이름의 자원오행이 용신을 싣지 못한 만큼, 인성의 보급은 문서와 조력의 몫으로 남아요. 수원이 차오르면 강은 스스로 길을 넓히는 배치예요.',
+  };
+  const r = validateNameEvidenceSlots({ slots: [longS9] }, [s9Case], { stem: '임' });
+  check('게이트: S9 장문(2~4문장) 통과', r.ok, { perSlot: [...r.perSlot], prose: r.proseFindings.filter((f) => f.sev === 'ERROR') });
+  const shortS9 = { ...longS9, plain: '물길을 찾으면 강은 멀리 흘러요.' };
+  const r2 = validateNameEvidenceSlots({ slots: [shortS9] }, [s9Case], { stem: '임' });
+  check('게이트: S9 단문 리젝', !r2.ok);
 }
 
 // ── 8. prose-lint 슬롯 룰 — 물상 혼입 ───────────────────────────────────────

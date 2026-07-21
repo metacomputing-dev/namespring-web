@@ -362,7 +362,7 @@ export function slotRequestsFor(j: NameEvidenceJudgments): NameEvidenceCase[] {
     for (const f of j.frames) {
       if (j.frameLeeContested && f.frame === 'lee') continue;
       add(makeCase('S6', { frame: f.frame, grade: f.grade }, {
-        fact: `${FRAME_LABEL_KO[f.frame]}이 ${f.grade} 등급의 수에 놓임. (획수 숫자·산식은 서술 금지 — 등급과 시기 의미만)`,
+        fact: `${FRAME_LABEL_KO[f.frame]}이 ${f.grade} 등급의 수에 놓임. 평문에서는 등급명 대신 쉬운 말로(가장 좋은 수/좋은 수/무난히 좋은 수/무겁게 놓인 수/가장 무겁게 놓인 수), "이름의 획수로 ~를 보는 자리" 같은 안내는 허용. (획수 숫자·산식은 서술 금지)`,
         framePhase: `${FRAME_LABEL_KO[f.frame]} = ${FRAME_PHASE[f.frame]}`,
         isAdverse: ADVERSE_GRADES.has(f.grade),
       }));
@@ -389,7 +389,7 @@ export function slotRequestsFor(j: NameEvidenceJudgments): NameEvidenceCase[] {
 
   // S9 4절 종합: 일간 × 강약 × 격국family × nameEffect
   add(makeCase('S9', { stem: j.stem, gangyak: j.gangyak, gyeokgukFamily: j.gyeokgukFamily, nameEffect: j.nameEffect }, {
-    fact: `종합 맺음: ${stemPhrase} · ${gangyakKo} · 격국 계열 ${j.gyeokgukFamily} · 이름 작용 ${j.nameEffect}. 케이스 전체를 3~4문장이 아니라 1~2문장으로, 물상으로 여운 있게 닫는 조각.`,
+    fact: `종합 맺음: ${stemPhrase} · ${gangyakKo} · 격국 계열 ${j.gyeokgukFamily} · 이름 작용 ${j.nameEffect}. 케이스 전체(성격·필요한 기운·이름의 몫·생활 조언)를 2~4문장으로 합성하고 물상으로 여운 있게 닫는, 유일하게 긴 조각 (plain 80~200자 / expert 100~260자).`,
     imagery: IMAGERY[j.stem],
     imageryState: IMAGERY_STATE[j.gangyak],
     isAdverse: j.nameEffect === 'adverse',

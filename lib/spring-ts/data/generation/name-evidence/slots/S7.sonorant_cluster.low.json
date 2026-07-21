@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S7.sonorant_cluster.low",
+  "family": "S7",
+  "role": "finding",
+  "key": {
+    "phoneticRule": "sonorant_cluster",
+    "risk": "low"
+  },
+  "plain": "울림소리끼리 맞닿는 연결이 있어 소리가 살짝 뭉쳐 들릴 수 있어요. 또렷하게 불러 주면 자연스럽게 풀리는 정도예요.",
+  "expert": "받침의 울림소리와 다음 글자의 울림소리가 맞닿는 전이예요. 위험도가 낮은 신호라 실제 호명에서 크게 드러나지 않는 수준이에요.",
+  "isAdverse": false,
+  "allowedVars": [],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot2"
+}

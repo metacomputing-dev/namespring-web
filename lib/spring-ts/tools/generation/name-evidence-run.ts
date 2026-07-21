@@ -287,13 +287,44 @@ async function assemble(): Promise<void> {
   }
 }
 
+// ── validate ────────────────────────────────────────────────────────────────
+/** 슬롯 저장소 전체를 게이트로 재검증한다. 저장 슬롯을 직접 손본 뒤의 안전망. */
+async function validateStore(): Promise<void> {
+  const { validateNameEvidenceSlots } = await import('./name-evidence-gates.js');
+  const { loadAllSlots } = await import('./name-evidence-store.js');
+  type Case = import('./name-evidence-schema.js').NameEvidenceCase;
+
+  const store = loadAllSlots();
+  let bad = 0;
+  for (const slot of store.values()) {
+    // 저장 레코드에는 검증에 필요한 것(키·역할·정직성·허용 변수)이 전부 있다.
+    const pseudoCase: Case = {
+      slotId: slot.slotId, family: slot.family, role: slot.role, key: slot.key,
+      spec: { fact: '', isAdverse: slot.isAdverse, allowedVars: slot.allowedVars },
+    };
+    const out = { slots: [{ slotId: slot.slotId, plain: slot.plain, expert: slot.expert, ...(slot.principle ? { principle: slot.principle } : {}) }] };
+    const r = validateNameEvidenceSlots(out, [pseudoCase], { stem: slot.key.stem, bundleKey: slot.key.stem ? `ne.imagery.${slot.slotId.split('.')[1]}` : 'ne.facts' });
+    const hard = [...r.perSlot.values()].flat().filter((x) => !x.startsWith('WARN:'));
+    const prose = r.proseFindings.filter((f) => f.sev === 'ERROR');
+    if (r.violations.length || hard.length || prose.length) {
+      bad += 1;
+      console.log(`✗ ${slot.slotId}`);
+      for (const x of [...r.violations, ...hard]) console.log(`    ${x}`);
+      for (const f of prose) console.log(`    ${f.rule}: ${f.detail}${f.excerpt ? ` ↳ ${f.excerpt}` : ''}`);
+    }
+  }
+  console.log(`\n==== store validate ==== slots: ${store.size} · 위반: ${bad}`);
+  if (bad) process.exitCode = 1;
+}
+
 // ── main ────────────────────────────────────────────────────────────────────
 async function main(): Promise<void> {
   const cmd = process.argv[2];
   if (cmd === 'prepare') return prepare();
   if (cmd === 'ingest') return ingest();
   if (cmd === 'assemble') return assemble();
-  console.error('usage: name-evidence-run.ts prepare|ingest|assemble (각 명령의 인자는 파일 머리 주석 참고)');
+  if (cmd === 'validate') return validateStore();
+  console.error('usage: name-evidence-run.ts prepare|ingest|assemble|validate (각 명령의 인자는 파일 머리 주석 참고)');
   process.exit(2);
 }
 void main();

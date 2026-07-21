@@ -1,14 +1,14 @@
 {
   "schemaVersion": "spring-ts.name-evidence-slot.v1",
-  "slotId": "S5.to.generates",
+  "slotId": "S5.mok.generates",
   "family": "S5",
   "role": "finding",
   "key": {
-    "resourceElement": "토",
+    "resourceElement": "목",
     "yongshinRelation": "generates"
   },
-  "plain": "{{charHangul}}({{charHanja}})에 담긴 흙 기운은 필요한 쇠 기운을 길러 주는 바탕이에요. 이름 속에서 든든한 밑받침 노릇을 해요.",
-  "expert": "{{charHangul}}({{charHanja}})의 자원오행 토는 용신 금을 토생금으로 생조해요. 용신을 직접 담지는 않아도 그 원천이 되어 주는 글자예요.",
+  "plain": "{{charHangul}}({{charHanja}})에 담긴 나무 기운은 필요한 불 기운을 길러 주는 바탕이에요. 이름 속에서 불씨를 받치는 노릇을 해요.",
+  "expert": "{{charHangul}}({{charHanja}})의 자원오행 목은 목생화로 용신을 생조해요. 용신을 직접 담지는 않아도 그 원천이 되어 주는 글자예요.",
   "isAdverse": false,
   "allowedVars": [
     "charHangul",
@@ -19,11 +19,11 @@
     "tier": "T2_AI_AUTHORED_INSIGHT",
     "sourceType": "ai_authored_insight_text",
     "sourceUrl": null,
-    "accessedAt": "2026-07-21",
     "quoteShort": null,
     "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
     "copyrightNote": "No third-party prose copied.",
-    "authorityTruthEligible": false
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
   },
-  "sourceNote": "regen-ne-pilot1"
+  "sourceNote": "regen-ne-pilot2"
 }

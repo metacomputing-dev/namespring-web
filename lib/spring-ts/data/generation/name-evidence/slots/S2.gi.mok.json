@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S2.gi.mok",
+  "family": "S2",
+  "role": "principle",
+  "key": {
+    "stem": "기",
+    "targetElement": "목"
+  },
+  "plain": "{{charHangul}}({{charHanja}})에 담긴 나무 기운은 흙을 누르고 다스리는 자리예요. 직장과 규율, 명예의 무게로 이어지는 기운이에요.",
+  "expert": "목은 기토를 극하는 관성이에요. 신강한 원국이라 압박을 견딜 힘은 있지만, 나무가 늘어날수록 흙의 부담도 함께 커지는 자리예요.",
+  "principle": "나무는 흙을 뚫고 서서 흙을 다스리는 자리예요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "charHangul",
+    "charHanja"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot2"
+}

@@ -221,8 +221,8 @@ export const NAME_EVIDENCE_OUTPUT_SCHEMA = {
         required: ['slotId', 'plain', 'expert'],
         properties: {
           slotId: { type: 'string', description: '요청된 slotId 그대로' },
-          plain: { type: 'string', description: '평문 tier. 40~110자, 1~2문장, 해요체, 사주 용어 금지' },
-          expert: { type: 'string', description: '전문가 tier. 50~160자, 1~2문장, 해요체, 용어 허용, #{태그} 0~2개' },
+          plain: { type: 'string', description: '평문 tier. 40~110자, 1~2문장, 해요체, 사주 용어 금지. 단 S9(종합)만 80~200자, 2~4문장' },
+          expert: { type: 'string', description: '전문가 tier. 50~160자, 1~2문장, 해요체, 용어 허용, #{태그} 0~2개. 단 S9(종합)만 100~260자, 2~4문장' },
           principle: { type: 'string', description: '선택. 원리 문장(≤50자) — S2/S3/S4만' },
         },
       },

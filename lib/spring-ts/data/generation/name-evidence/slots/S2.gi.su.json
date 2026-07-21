@@ -1,15 +1,15 @@
 {
   "schemaVersion": "spring-ts.name-evidence-slot.v1",
-  "slotId": "S2.gye.su",
+  "slotId": "S2.gi.su",
   "family": "S2",
   "role": "principle",
   "key": {
-    "stem": "계",
+    "stem": "기",
     "targetElement": "수"
   },
-  "plain": "{{charHangul}}({{charHanja}})의 물 기운은 같은 물끼리 서로 힘을 보태는 자리예요. 얕아진 물줄기에 물 한 갈래가 더해지는 흐름이에요.",
-  "expert": "수는 계수와 같은 오행인 비겁이에요. 신약한 원국에서 비겁은 자립과 동료의 힘으로 일간을 받쳐 주는 우군이 돼요.",
-  "principle": "물은 시냇물과 한편이 되어 주는 기운이에요.",
+  "plain": "{{charHangul}}({{charHanja}})의 물 기운은 흙이 눌러 거두어 들이는 자리예요. 재물과 성과를 손에 쥐는 현실 감각으로 이어져요.",
+  "expert": "수는 기토가 극하는 재성이에요. 신강한 원국은 재성을 감당할 힘이 있어, 성과와 현실 감각을 실속 있게 부리는 배치가 돼요.",
+  "principle": "물은 밭의 흙이 눌러 거두는 자리예요.",
   "isAdverse": false,
   "allowedVars": [
     "charHangul",
@@ -20,11 +20,11 @@
     "tier": "T2_AI_AUTHORED_INSIGHT",
     "sourceType": "ai_authored_insight_text",
     "sourceUrl": null,
-    "accessedAt": "2026-07-21",
     "quoteShort": null,
     "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
     "copyrightNote": "No third-party prose copied.",
-    "authorityTruthEligible": false
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
   },
-  "sourceNote": "regen-ne-pilot1"
+  "sourceNote": "regen-ne-pilot2"
 }

@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S3.gi.hwa",
+  "family": "S3",
+  "role": "bridge",
+  "key": {
+    "stem": "기",
+    "targetElement": "화"
+  },
+  "plain": "이 밭에 힘이 되는 것은 흙을 데워 기름지게 하는 불 기운이에요. 배움과 사람의 도움이 그 불 기운을 살리는 통로가 돼요.",
+  "expert": "용신은 화예요. 화생토로 일간 기토를 직접 생하는 인성이라, {{yongshinName:이가}} 배움·문서·귀인의 모습으로 바탕을 데워 줘요.",
+  "principle": "불은 흙을 데워 밭을 기름지게 하는 원천이에요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "yongshinName"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot2"
+}

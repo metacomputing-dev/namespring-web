@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S4.to.geum.given_internal",
+  "family": "S4",
+  "role": "finding",
+  "key": {
+    "fromElement": "토",
+    "toElement": "금",
+    "boundary": "given_internal"
+  },
+  "plain": "이름 안에서 흙 소리가 쇠 소리를 길러 주며 이어져요. 앞 기운이 뒤 기운을 여물게 하는 순한 연결이에요.",
+  "expert": "이름 안쪽 전이는 토생금의 상생이에요. 앞 글자가 뒤 글자를 생조하는 순방향 배열이라 소리의 결이 순하게 이어져요.",
+  "principle": "흙 속에서 쇠가 여물어 나오는 방향이에요.",
+  "isAdverse": false,
+  "allowedVars": [],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot2"
+}

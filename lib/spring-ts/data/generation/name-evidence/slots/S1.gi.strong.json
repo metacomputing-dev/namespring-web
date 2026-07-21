@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S1.gi.strong",
+  "family": "S1",
+  "role": "finding",
+  "key": {
+    "stem": "기",
+    "gangyak": "strong"
+  },
+  "plain": "타고난 기운은 곡식을 기르는 밭의 흙이에요. 지금은 흙이 두텁게 쌓여 기운이 넉넉하게 넘치는 상태예요.",
+  "expert": "일간 기토는 밭의 흙 물상이에요. 신강한 원국이라 토의 세력이 두텁게 쌓여, 넘치는 기운의 방향을 잡아 주는 일이 관건이에요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "dayMasterName",
+    "yongshinName",
+    "nameFull"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot2"
+}

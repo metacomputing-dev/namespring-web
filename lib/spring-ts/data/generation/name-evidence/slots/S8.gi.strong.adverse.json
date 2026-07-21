@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S8.gi.strong.adverse",
+  "family": "S8",
+  "role": "finding",
+  "key": {
+    "stem": "기",
+    "gangyak": "strong",
+    "nameEffect": "adverse"
+  },
+  "plain": "{{nameFull}}이라는 이름은 밭을 데우는 불 기운을 담지 못했어요. 필요한 기운은 배움과 사람, 생활의 온도에서 챙기는 편이 좋아요.",
+  "expert": "이름의 자원오행이 용신 화를 담지 못하고 기신 쪽에 무게가 실린 배치예요. 부족한 인성 기운의 보완은 이름 밖 생활 영역의 몫이에요.",
+  "isAdverse": true,
+  "allowedVars": [
+    "dayMasterName",
+    "yongshinName",
+    "nameFull"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot2"
+}

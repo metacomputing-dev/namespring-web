@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S4.su.to.given_internal",
+  "family": "S4",
+  "role": "finding",
+  "key": {
+    "fromElement": "수",
+    "toElement": "토",
+    "boundary": "given_internal"
+  },
+  "plain": "이름 안에서 물 소리 뒤에 흙 소리가 이어져요. 뒤에 오는 흙이 앞의 물을 막는 쪽이라 두 기운이 부딪히며 만나요.",
+  "expert": "이름 내부 전이는 토극수의 역방향 상극이에요. 뒤 글자가 앞 글자를 극하는 자리라 발음오행 흐름에서 짚어 둘 부딪힘이에요.",
+  "principle": "흙은 물을 막아 가두는 방향이에요.",
+  "isAdverse": true,
+  "allowedVars": [],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot2"
+}

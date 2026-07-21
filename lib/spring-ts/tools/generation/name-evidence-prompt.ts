@@ -157,6 +157,8 @@ const ASSEMBLY_RULES = `<assembly_rules>
    {{charHangul}} 글자(한글) · {{charHanja}} 글자(한자) · {{dayMasterName}} 일간 오행의 우리말
    {{yongshinName}} 용신 오행의 우리말 · {{frameLabel}} 격 이름 · {{nameFull}} 이름 전체
    조사 결합형: {{yongshinName:이가}} (이가/은는/을를/과와/으로로/이라라)
+   ⚠ 글자를 가리킬 때는 반드시 **{{charHangul}}({{charHanja}})** 병기 형태로 씁니다.
+     한자 단독·한글 단독 표기는 리젝됩니다 (독자가 어느 글자인지 알 수 없음).
    ⚠ 조사만 따로 변수로 쓰지 마세요.
    ⚠ 획수 숫자와 그 산식("몇 획 + 몇 획")은 서술하지 않습니다. 격 이름·길흉·
      시기 의미만 씁니다.

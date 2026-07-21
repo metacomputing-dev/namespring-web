@@ -16,15 +16,18 @@ import { slotRequestsFor } from './name-evidence-derive.js';
 const VAR_RE = /\{\{([A-Za-z]+)(?::([가-힣]+))?\}\}/gu;
 
 /** 범용 {{name}} / {{name:조사쌍}} 치환. 미지 변수는 그대로 두고 warning은
- *  게이트가 이미 막았으므로 여기서는 조용히 통과시킨다. */
+ *  게이트가 이미 막았으므로 여기서는 조용히 통과시킨다.
+ *  예외: 한자 미상 이름(순한글 입력)에서 병기 괄호 "({{charHanja}})"가 남으면
+ *  괄호째 지운다 — 한자 부재는 정상 상태이지 결측 버그가 아니다. */
 export function fillVars(text: string, vars: Readonly<Record<string, string>>): string {
-  return text.replace(VAR_RE, (whole, name: string, josa?: string) => {
+  const filled = text.replace(VAR_RE, (whole, name: string, josa?: string) => {
     const value = vars[name];
     if (value === undefined) return whole;
     if (josa === undefined) return value;
     if (!isJosaPair(josa)) return value;
     return appendJosa(value, josa);
   });
+  return filled.replace(/\(\{\{charHanja\}\}\)/gu, '').replace(/\{\{charHanja\}\}/gu, '');
 }
 
 export interface AssembledSection {

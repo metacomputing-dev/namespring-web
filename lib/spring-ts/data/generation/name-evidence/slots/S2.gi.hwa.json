@@ -1,15 +1,15 @@
 {
   "schemaVersion": "spring-ts.name-evidence-slot.v1",
-  "slotId": "S2.gye.hwa",
+  "slotId": "S2.gi.hwa",
   "family": "S2",
   "role": "principle",
   "key": {
-    "stem": "계",
+    "stem": "기",
     "targetElement": "화"
   },
-  "plain": "{{charHangul}}({{charHanja}})에 담긴 불 기운은 물이 누르며 힘을 쏟는 자리예요. 얕은 시냇물에는 기운을 덜어 가는 쪽으로 기울어요.",
-  "expert": "화는 계수가 극하는 재성이에요. 신약한 원국에서 재성이 과하면 설기로 작동해, 현실 성과를 좇을수록 수기가 마르기 쉬워요.",
-  "principle": "불은 시냇물이 누르며 힘을 쏟는 자리예요.",
+  "plain": "{{charHangul}}({{charHanja}})에 담긴 불 기운은 밭의 흙을 데워 기름지게 하는 자리예요. 배움과 든든한 어른의 도움으로 이어지는 기운이에요.",
+  "expert": "화는 기토를 생하는 인성이에요. 화생토의 순방향이라 배움·문서·조력의 얼굴로 일간의 바탕을 데워 주는 자리예요.",
+  "principle": "불은 흙을 데워 기름지게 하는 자리예요.",
   "isAdverse": false,
   "allowedVars": [
     "charHangul",
@@ -20,11 +20,11 @@
     "tier": "T2_AI_AUTHORED_INSIGHT",
     "sourceType": "ai_authored_insight_text",
     "sourceUrl": null,
-    "accessedAt": "2026-07-21",
     "quoteShort": null,
     "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
     "copyrightNote": "No third-party prose copied.",
-    "authorityTruthEligible": false
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
   },
-  "sourceNote": "regen-ne-pilot1"
+  "sourceNote": "regen-ne-pilot2"
 }

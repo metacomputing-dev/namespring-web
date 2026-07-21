@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S2.gi.geum",
+  "family": "S2",
+  "role": "principle",
+  "key": {
+    "stem": "기",
+    "targetElement": "금"
+  },
+  "plain": "{{charHangul}}({{charHanja}})의 쇠 기운은 흙이 낳아 밖으로 내보내는 자리예요. 표현과 재능, 만들어 내는 힘으로 이어지는 기운이에요.",
+  "expert": "금은 기토가 생하는 식상이에요. 두터운 토의 기운을 밖으로 흘려보내는 통로라, 신강 원국에서는 숨통이 되어 주는 자리예요.",
+  "principle": "쇠는 흙이 낳아 내보내는 자리예요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "charHangul",
+    "charHanja"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot2"
+}

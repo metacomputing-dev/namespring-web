@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S9.gi.strong.inseong.boost_strong",
+  "family": "S9",
+  "role": "closing",
+  "key": {
+    "stem": "기",
+    "gangyak": "strong",
+    "gyeokgukFamily": "inseong",
+    "nameEffect": "boost_strong"
+  },
+  "plain": "두텁게 쌓인 밭의 흙은 그 자체로 든든한 바탕이에요. 거기에 이름이 밭을 데우는 불 기운을 넉넉히 실어 주어, 배움을 바탕 삼는 타고난 결이 한층 순하게 살아나요. 배우고 익힌 것이 곧 결실로 이어지는 흐름이라, 좋은 스승과 좋은 책 곁에 머무는 시간이 가장 남는 걸음이에요. 잘 데워진 밭은 심는 대로 넉넉히 길러 내요.",
+  "expert": "정인격의 배움 중심 구조에 이름의 자원오행이 용신 화를 정면으로 실어, 인성의 축이 한층 단단해진 구성이에요. 신강한 기토가 인성의 생조까지 받는 만큼 지나침만 살피면, 문서·학문·자격의 영역에서 결실이 쌓이는 방향이에요. 두터운 흙이 잘 데워진 밭이 되어 심는 대로 기르는 흐름이에요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "dayMasterName",
+    "yongshinName",
+    "nameFull"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot2"
+}
