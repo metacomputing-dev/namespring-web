@@ -12,6 +12,7 @@ import {
   isRecognizedHanjaGlyph,
   normalizeToOrthodoxHanja,
 } from './hanja-annotations.js';
+import { NAMING_SCORE_AXIS_POLICIES } from './naming-score-axis-policy.js';
 import type {
   CandidateStrengthProfile,
   NameCharInput,
@@ -43,21 +44,6 @@ export function averageScores(values: Array<number | null | undefined>): number 
   if (!finite.length) return null;
   return clampScore(finite.reduce((sum, value) => sum + value, 0) / finite.length);
 }
-
-const NAMING_AXIS_DISPLAY_LABELS: Readonly<
-  Record<keyof NamingScoreVector | 'riskQuality', string>
-> = {
-  legal: '법적 사용 가능성',
-  sajuFit: '사주 보완',
-  yongshinFit: '용신 보강',
-  elementBalance: '오행 균형',
-  hanjaMeaning: '한자 뜻풀이 확인도(뜻의 우열 아님)',
-  phonetic: '발음 흐름',
-  eraFit: '시대감',
-  familyFit: '성과 이름 연결',
-  risk: '주의 신호',
-  riskQuality: '주의 신호 안정도',
-};
 
 function formatCandidateScore(value: number | null | undefined): string {
   return typeof value === 'number' && Number.isFinite(value)
@@ -158,7 +144,10 @@ export function deriveCandidateStrengthProfile(
 
   const displayReasons = selected.axes.map((axis) => {
     const value = axis === 'riskQuality' ? riskQuality : vector[axis];
-    return `${NAMING_AXIS_DISPLAY_LABELS[axis]} ${formatCandidateScore(value)}`;
+    const label = axis === 'riskQuality'
+      ? '주의 신호 안정도'
+      : NAMING_SCORE_AXIS_POLICIES[axis].profileLabel;
+    return `${label} ${formatCandidateScore(value)}`;
   });
 
   return {
