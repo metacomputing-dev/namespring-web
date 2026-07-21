@@ -29,15 +29,11 @@ const REPO = path.resolve(ROOT, '../..');            // repo root
 const DATA_DIR = path.join(REPO, 'namespring/public/data');
 const CASES_DIR = path.join(ROOT, 'data/generation/batches/name-evidence');
 
-// ── Node에서 브라우저 지향 sql.js 리포지토리 구동 (test/compare-output.ts 패턴) ──
-const WASM_CANDIDATES = [
-  path.join(ROOT, 'node_modules/sql.js/dist/sql-wasm.wasm'),
-  path.resolve(ROOT, '../seed-ts/node_modules/sql.js/dist/sql-wasm.wasm'),
-];
-const WASM_PATH = WASM_CANDIDATES.find((p) => fs.existsSync(p));
-
+// ── Node에서 브라우저 지향 sql.js 리포지토리 구동 ──
+// seed-ts 리포지토리 런타임은 wasm을 번들 자산(file: URL)에서 SHA-256 검증과
+// 함께 직접 읽으므로(repository-runtime.ts) wasm은 손대지 않는다. Node에
+// 없는 것은 '/data/*.db' 상대 URL의 fetch뿐이라 그것만 fs로 서빙한다.
 function installFetchPatch(): void {
-  if (!WASM_PATH) throw new Error(`sql-wasm.wasm 없음: ${WASM_CANDIDATES.join(', ')}`);
   const originalFetch = globalThis.fetch;
   (globalThis as { fetch: unknown }).fetch = async (url: string | URL | Request, options?: unknown) => {
     const urlStr = typeof url === 'string' ? url : url instanceof URL ? url.toString() : '';
@@ -46,7 +42,6 @@ function installFetchPatch(): void {
       if (!fs.existsSync(filePath)) return new Response(null, { status: 404, statusText: `Not found: ${filePath}` });
       return new Response(fs.readFileSync(filePath), { status: 200 });
     }
-    if (urlStr.includes('sql-wasm.wasm')) return new Response(fs.readFileSync(WASM_PATH), { status: 200 });
     return (originalFetch as typeof fetch)(url as Parameters<typeof fetch>[0], options as Parameters<typeof fetch>[1]);
   };
 }
@@ -132,9 +127,6 @@ async function prepare(): Promise<void> {
   // fetch 패치 이후에 로드해야 하므로 dynamic import (정적 import는 호이스팅됨).
   const { SpringEngine } = await import('../../src/spring-engine.js');
   const engine = new SpringEngine();
-  for (const repo of [(engine as unknown as Record<string, unknown>).hanjaRepo, (engine as unknown as Record<string, unknown>).fourFrameRepo]) {
-    if (repo) (repo as Record<string, unknown>).wasmUrl = WASM_PATH;
-  }
 
   const { deriveJudgments, slotRequestsFor, varBindingsFor, buildAnalysisBlock } = await import('./name-evidence-derive.js');
   const { bundleSlotRequests, renderNameEvidencePrompt } = await import('./name-evidence-prompt.js');
