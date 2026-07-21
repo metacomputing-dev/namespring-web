@@ -362,7 +362,7 @@ export function slotRequestsFor(j: NameEvidenceJudgments): NameEvidenceCase[] {
     for (const f of j.frames) {
       if (j.frameLeeContested && f.frame === 'lee') continue;
       add(makeCase('S6', { frame: f.frame, grade: f.grade }, {
-        fact: `${FRAME_LABEL_KO[f.frame]}이 ${f.grade} 등급의 수에 놓임. 평문에서는 '수(數)'라는 명사와 등급명을 쓰지 말고 "이름의 획수로 ~를 봐요. 획수 풀이가 (가장) 좋은/무난히 좋은/무거운/가장 무거운 자리에 놓여 …" 문형으로. (획수 숫자·산식은 서술 금지)`,
+        fact: `${FRAME_LABEL_KO[f.frame]}이 ${f.grade} 등급의 수에 놓임. 평문에서는 '수(數)'라는 명사와 등급명을 쓰지 말고 "이름의 획수로 ~를 봐요. 획수로 풀어 보면 (가장) 좋은/무난한/무거운/가장 무거운 흐름에 놓여 있어 …" 문형으로 — 무게는 '풀이'가 아니라 '흐름'에 붙인다. (획수 숫자·산식은 서술 금지)`,
         framePhase: `${FRAME_LABEL_KO[f.frame]} = ${FRAME_PHASE[f.frame]}`,
         isAdverse: ADVERSE_GRADES.has(f.grade),
       }));
