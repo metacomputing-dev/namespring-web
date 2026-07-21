@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>이름봄 — 이름 통합 보고서 시작하기</title>
+  <meta name="description" content="생년월일시와 이름을 입력하면 근거 있는 이름 통합 보고서를 만들어 드려요.">
+  <script src="https://cdn.tailwindcss.com/3.4.16" integrity="sha384-mS5Uq7sE90lgbBDN8xgf34ibEgbZo4gB3tfLY40ZRle+M188BQw8onzNHg6GUZaA" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" integrity="sha384-uGEvnSEpW2nM9xJFsrxrwakwrk9QdDTQIBJh0hVMu90OaVyMAMpAK1rIn0/Kh1/k" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-kr@5.1.0/600.css" integrity="sha384-bEMUncslJOLmfEYfgbot160Qvx1YsFkuz+mdV7aej82SFq5i9CvR8j4sY+m8oCwl" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-kr@5.1.0/700.css" integrity="sha384-vASsPwraD6Ee4lSHCCAAZtvSlogVD52kP8x5G7+DmJcuHzV/c7dxfsvjZFPJ2xSw" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@2.3.0/dist/iconify-icon.min.js" integrity="sha384-63H0EhkXL6M4HAjkA3bbnT+mkm0SbHKtxxj4Iv1hXtM6FDH+c6XqvuXgDKBJdJNG" crossorigin="anonymous"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', 'system-ui', 'sans-serif'],
+            serif: ['"Noto Serif KR"', 'serif'],
+          },
+          colors: {
+            cream: '#FAF7F0',
+            parchment: '#F3EEE3',
+            ink: '#20261D',
+            inksoft: '#5C6357',
+            inkfaint: '#8D9287',
+            hairline: '#E4DFD2',
+            sage: '#3E6B4F',
+            sagesoft: '#E8F0EA',
+            amber2: '#B07A3C',
+            ambersoft: '#F6EDDD',
+          },
+          transitionTimingFunction: {
+            spring: 'cubic-bezier(0.16, 1, 0.3, 1)',
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    html { background: #FAF7F0; }
+    body { font-family: 'Pretendard', system-ui, sans-serif; word-break: keep-all; }
+    .grain { position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: .035;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E"); }
+    .step-panel { transition: opacity .5s cubic-bezier(0.16,1,0.3,1), transform .5s cubic-bezier(0.16,1,0.3,1); }
+    .step-hidden { opacity: 0; transform: translateY(1.25rem); position: absolute; inset: 0; pointer-events: none; visibility: hidden; }
+    .seg input { position: absolute; opacity: 0; pointer-events: none; }
+    .seg label { transition: all .35s cubic-bezier(0.16,1,0.3,1); }
+    .seg input:checked + label { background: #20261D; color: #FAF7F0; box-shadow: inset 0 1px 1px rgba(255,255,255,.12); }
+    .seg input:focus-visible + label { outline: 2px solid #3E6B4F; outline-offset: 2px; }
+    .chip { transition: all .35s cubic-bezier(0.16,1,0.3,1); }
+    .chip[aria-pressed="true"] { background: #3E6B4F; color: #FAF7F0; border-color: #3E6B4F; }
+    input[type="text"], input[type="date"], input[type="time"], select {
+      transition: border-color .35s cubic-bezier(0.16,1,0.3,1), box-shadow .35s cubic-bezier(0.16,1,0.3,1);
+    }
+    input[type="text"]:focus, input[type="date"]:focus, input[type="time"]:focus, select:focus {
+      outline: none; border-color: #3E6B4F; box-shadow: 0 0 0 3px rgba(62,107,79,.14);
+    }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(2rem); } to { opacity: 1; transform: translateY(0); } }
+    .rise { animation: fadeInUp .8s cubic-bezier(0.16,1,0.3,1) both; }
+    .rise-1 { animation-delay: 80ms; } .rise-2 { animation-delay: 160ms; } .rise-3 { animation-delay: 240ms; }
+    @media (prefers-reduced-motion: reduce) { .rise, .step-panel, .seg label, .chip { animation: none !important; transition: none !important; } }
+  </style>
+</head>
+<body class="min-h-[100dvh] bg-cream text-ink antialiased">
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Floating pill nav -->
+  <nav class="fixed top-4 left-1/2 -translate-x-1/2 z-40 flex items-center gap-3 rounded-full border border-white/60 bg-white/70 px-5 py-2.5 shadow-[0_10px_40px_-12px_rgba(32,38,29,0.18)] backdrop-blur-xl">
+    <a href="./index.html" class="flex items-center gap-2 text-sm font-bold tracking-tight">
+      <iconify-icon icon="solar:leaf-bold" class="text-sage text-lg" aria-hidden="true"></iconify-icon>이름봄
+    </a>
+    <span class="h-4 w-px bg-hairline" aria-hidden="true"></span>
+    <span class="rounded-full bg-sagesoft px-2.5 py-0.5 text-[11px] font-semibold tracking-[0.12em] text-sage">UI 시제품</span>
+  </nav>
+
+  <main class="mx-auto flex min-h-[100dvh] w-full max-w-xl flex-col px-4 pb-16 pt-28 sm:px-6">
+
+    <!-- Heading -->
+    <header class="rise mb-8">
+      <p class="mb-3 inline-flex items-center gap-1.5 rounded-full bg-sage/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.15em] text-sage">
+        <iconify-icon icon="solar:document-text-linear" aria-hidden="true"></iconify-icon>이름 통합 보고서
+      </p>
+      <h1 class="font-serif text-3xl font-bold leading-snug tracking-tight sm:text-4xl">
+        이 이름이 이 사람에게<br>맞는지, 근거로 알려 드려요
+      </h1>
+      <p class="mt-3 max-w-[46ch] text-[15px] leading-relaxed text-inksoft">
+        생년월일시와 이름만 있으면 돼요. 판정은 전부 계산 결과이고, 문장은 사람이 검수한 문안으로 조립돼요.
+      </p>
+    </header>
+
+    <!-- Progress -->
+    <ol class="rise rise-1 mb-6 flex items-center gap-2" id="progress" aria-label="입력 단계">
+      <li data-dot="1" class="h-1.5 flex-1 rounded-full bg-sage transition-all duration-500"></li>
+      <li data-dot="2" class="h-1.5 flex-1 rounded-full bg-hairline transition-all duration-500"></li>
+      <li data-dot="3" class="h-1.5 flex-1 rounded-full bg-hairline transition-all duration-500"></li>
+    </ol>
+
+    <!-- Double-bezel form card -->
+    <div class="rise rise-2 rounded-[2rem] bg-black/5 p-1.5 ring-1 ring-black/5">
+      <form id="form" class="relative overflow-hidden rounded-[calc(2rem-0.375rem)] bg-white p-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.8),0_20px_60px_-30px_rgba(32,38,29,0.25)] sm:p-8" novalidate>
+
+        <!-- STEP 1 : 이름 -->
+        <fieldset class="step-panel" id="step-1">
+          <legend class="mb-1 flex items-center gap-2 text-lg font-bold tracking-tight">
+            <iconify-icon icon="solar:pen-new-square-linear" class="text-sage" aria-hidden="true"></iconify-icon>누구의 이름인가요?
+          </legend>
+          <p class="mb-6 text-[13.5px] text-inkfaint">한글을 적으면 어울리는 한자 후보를 보여 드려요. 한자를 몰라도 괜찮아요.</p>
+
+          <div class="mb-5">
+            <label for="surname" class="mb-1.5 block text-[13px] font-semibold text-inksoft">성</label>
+            <input id="surname" name="surname" type="text" inputmode="text" maxlength="2" placeholder="예: 천" autocomplete="family-name"
+              class="w-full rounded-2xl border border-hairline bg-cream/60 px-4 py-3.5 text-base" value="천">
+            <div id="surname-chips" class="mt-2 flex flex-wrap gap-1.5" aria-label="성 한자 후보"></div>
+          </div>
+
+          <div class="mb-2">
+            <label for="given" class="mb-1.5 block text-[13px] font-semibold text-inksoft">이름 <span class="font-normal text-inkfaint">(한 글자~두 글자)</span></label>
+            <input id="given" name="given" type="text" inputmode="text" maxlength="2" placeholder="예: 민아" autocomplete="given-name"
+              class="w-full rounded-2xl border border-hairline bg-cream/60 px-4 py-3.5 text-base" value="민아">
+            <div id="given-chips" class="mt-2 space-y-2" aria-label="이름 한자 후보"></div>
+          </div>
+
+          <p class="mt-4 flex items-start gap-1.5 rounded-2xl bg-sagesoft px-4 py-3 text-[13px] leading-relaxed text-sage">
+            <iconify-icon icon="solar:info-circle-linear" class="mt-0.5 shrink-0" aria-hidden="true"></iconify-icon>
+            순한글 이름도 분석할 수 있어요. 한자를 고르지 않으면 소리와 획수 중심으로 풀어 드려요.
+          </p>
+
+          <div class="mt-7 flex justify-end">
+            <button type="button" data-next="2" class="group inline-flex min-h-12 items-center gap-3 rounded-full bg-ink px-7 py-3.5 text-[15px] font-semibold text-cream transition-all duration-500 ease-spring hover:scale-[1.02] active:scale-[0.98]">
+              다음, 태어난 순간
+              <span class="flex h-8 w-8 items-center justify-center rounded-full bg-white/15 transition-transform duration-500 ease-spring group-hover:translate-x-1">
+                <iconify-icon icon="solar:arrow-right-linear" aria-hidden="true"></iconify-icon>
+              </span>
+            </button>
+          </div>
+        </fieldset>
+
+        <!-- STEP 2 : 생년월일시 -->
+        <fieldset class="step-panel step-hidden" id="step-2">
+          <legend class="mb-1 flex items-center gap-2 text-lg font-bold tracking-tight">
+            <iconify-icon icon="solar:calendar-linear" class="text-sage" aria-hidden="true"></iconify-icon>태어난 순간을 알려 주세요
+          </legend>
+          <p class="mb-6 text-[13.5px] text-inkfaint">사주라는 과녁을 세우는 데 쓰여요. 시간을 몰라도 진행할 수 있어요.</p>
+
+          <div class="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-[1fr_auto]">
+            <div>
+              <label for="birth" class="mb-1.5 block text-[13px] font-semibold text-inksoft">생년월일</label>
+              <input id="birth" name="birth" type="date" value="1991-02-18"
+                class="w-full rounded-2xl border border-hairline bg-cream/60 px-4 py-3.5 text-base">
+            </div>
+            <div>
+              <span class="mb-1.5 block text-[13px] font-semibold text-inksoft">달력</span>
+              <div class="seg relative flex rounded-full border border-hairline bg-cream/60 p-1" role="radiogroup" aria-label="양력 음력 선택">
+                <input type="radio" id="cal-solar" name="calendar" value="solar" checked>
+                <label for="cal-solar" class="min-h-10 cursor-pointer rounded-full px-4 py-2 text-sm font-semibold text-inksoft">양력</label>
+                <input type="radio" id="cal-lunar" name="calendar" value="lunar">
+                <label for="cal-lunar" class="min-h-10 cursor-pointer rounded-full px-4 py-2 text-sm font-semibold text-inksoft">음력</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-5">
+            <div class="mb-1.5 flex items-center justify-between">
+              <label for="btime" class="text-[13px] font-semibold text-inksoft">태어난 시간</label>
+              <label class="flex cursor-pointer items-center gap-2 text-[13px] text-inkfaint">
+                <input type="checkbox" id="no-time" class="h-4 w-4 rounded accent-[#3E6B4F]">시간을 몰라요
+              </label>
+            </div>
+            <input id="btime" name="btime" type="time" value="10:30"
+              class="w-full rounded-2xl border border-hairline bg-cream/60 px-4 py-3.5 text-base">
+            <p id="no-time-note" class="mt-2 hidden items-start gap-1.5 rounded-2xl bg-ambersoft px-4 py-3 text-[13px] leading-relaxed text-amber2">
+              <iconify-icon icon="solar:clock-circle-linear" class="mt-0.5 shrink-0" aria-hidden="true"></iconify-icon>
+              시간 없이도 보고서를 만들 수 있어요. 다만 사주 쪽 판정 몇 가지는 참고 수준으로 표시돼요.
+            </p>
+          </div>
+
+          <div class="mb-5">
+            <span class="mb-1.5 block text-[13px] font-semibold text-inksoft">성별</span>
+            <div class="seg relative flex rounded-full border border-hairline bg-cream/60 p-1" role="radiogroup" aria-label="성별 선택">
+              <input type="radio" id="g-f" name="gender" value="female" checked>
+              <label for="g-f" class="min-h-10 flex-1 cursor-pointer rounded-full px-4 py-2 text-center text-sm font-semibold text-inksoft">여성</label>
+              <input type="radio" id="g-m" name="gender" value="male">
+              <label for="g-m" class="min-h-10 flex-1 cursor-pointer rounded-full px-4 py-2 text-center text-sm font-semibold text-inksoft">남성</label>
+            </div>
+          </div>
+
+          <details class="group rounded-2xl border border-hairline bg-cream/40 px-4 py-3">
+            <summary class="flex cursor-pointer list-none items-center justify-between text-[13.5px] font-semibold text-inksoft">
+              세밀하게 맞추기 <span class="font-normal text-inkfaint">(출생지·시간 보정)</span>
+              <iconify-icon icon="solar:alt-arrow-down-linear" class="transition-transform duration-500 ease-spring group-open:rotate-180" aria-hidden="true"></iconify-icon>
+            </summary>
+            <div class="mt-4 space-y-4 border-t border-hairline pt-4">
+              <div>
+                <label for="region" class="mb-1.5 block text-[13px] font-semibold text-inksoft">태어난 지역</label>
+                <select id="region" name="region" class="w-full rounded-2xl border border-hairline bg-white px-4 py-3 text-[15px]">
+                  <option>서울 · 경기</option><option>강원</option><option>충청</option><option>전라</option><option>경상</option><option>제주</option><option>해외</option>
+                </select>
+              </div>
+              <label class="flex cursor-pointer items-start justify-between gap-3 text-[13.5px]">
+                <span><b class="font-semibold">진태양시 보정</b><br><span class="text-inkfaint">태어난 지역의 실제 태양 시각으로 맞춰요</span></span>
+                <input type="checkbox" id="tst" checked class="mt-1 h-5 w-9 cursor-pointer appearance-none rounded-full bg-hairline transition-all duration-300 checked:bg-sage before:block before:h-4 before:w-4 before:translate-x-0.5 before:translate-y-0.5 before:rounded-full before:bg-white before:transition-transform before:duration-300 checked:before:translate-x-[1.15rem]">
+              </label>
+              <label class="flex cursor-pointer items-start justify-between gap-3 text-[13.5px]">
+                <span><b class="font-semibold">야자시로 다루기</b><br><span class="text-inkfaint">밤 11시대 출생을 다음 날 자시로 보는 방식이에요</span></span>
+                <input type="checkbox" id="yajasi" class="mt-1 h-5 w-9 cursor-pointer appearance-none rounded-full bg-hairline transition-all duration-300 checked:bg-sage before:block before:h-4 before:w-4 before:translate-x-0.5 before:translate-y-0.5 before:rounded-full before:bg-white before:transition-transform before:duration-300 checked:before:translate-x-[1.15rem]">
+              </label>
+            </div>
+          </details>
+
+          <div class="mt-7 flex items-center justify-between">
+            <button type="button" data-prev="1" class="inline-flex min-h-12 items-center gap-1.5 rounded-full px-4 py-3 text-sm font-semibold text-inkfaint transition-colors hover:text-ink">
+              <iconify-icon icon="solar:arrow-left-linear" aria-hidden="true"></iconify-icon>이전
+            </button>
+            <button type="button" data-next="3" class="group inline-flex min-h-12 items-center gap-3 rounded-full bg-ink px-7 py-3.5 text-[15px] font-semibold text-cream transition-all duration-500 ease-spring hover:scale-[1.02] active:scale-[0.98]">
+              마지막 확인
+              <span class="flex h-8 w-8 items-center justify-center rounded-full bg-white/15 transition-transform duration-500 ease-spring group-hover:translate-x-1">
+                <iconify-icon icon="solar:arrow-right-linear" aria-hidden="true"></iconify-icon>
+              </span>
+            </button>
+          </div>
+        </fieldset>
+
+        <!-- STEP 3 : 확인 -->
+        <fieldset class="step-panel step-hidden" id="step-3">
+          <legend class="mb-1 flex items-center gap-2 text-lg font-bold tracking-tight">
+            <iconify-icon icon="solar:check-circle-linear" class="text-sage" aria-hidden="true"></iconify-icon>이대로 만들까요?
+          </legend>
+          <p class="mb-6 text-[13.5px] text-inkfaint">입력한 내용을 한 번만 확인해 주세요. 언제든 돌아와 고칠 수 있어요.</p>
+
+          <dl id="summary" class="mb-6 divide-y divide-hairline rounded-2xl border border-hairline bg-cream/50 px-5"></dl>
+
+          <p class="flex items-start gap-1.5 rounded-2xl bg-sagesoft px-4 py-3 text-[13px] leading-relaxed text-sage">
+            <iconify-icon icon="solar:shield-check-linear" class="mt-0.5 shrink-0" aria-hidden="true"></iconify-icon>
+            입력한 정보는 보고서를 만드는 데만 쓰여요. 판정 근거는 보고서 맨 아래에서 전부 확인할 수 있어요.
+          </p>
+
+          <div class="mt-7 flex items-center justify-between">
+            <button type="button" data-prev="2" class="inline-flex min-h-12 items-center gap-1.5 rounded-full px-4 py-3 text-sm font-semibold text-inkfaint transition-colors hover:text-ink">
+              <iconify-icon icon="solar:arrow-left-linear" aria-hidden="true"></iconify-icon>이전
+            </button>
+            <button type="submit" class="group inline-flex min-h-12 items-center gap-3 rounded-full bg-sage px-8 py-4 text-[15px] font-bold text-cream shadow-[0_16px_40px_-16px_rgba(62,107,79,0.6)] transition-all duration-500 ease-spring hover:scale-[1.02] active:scale-[0.98]">
+              이름 보고서 만들기
+              <span class="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 transition-transform duration-500 ease-spring group-hover:translate-x-1">
+                <iconify-icon icon="solar:document-add-linear" aria-hidden="true"></iconify-icon>
+              </span>
+            </button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+
+    <p class="rise rise-3 mt-6 text-center text-[12px] leading-relaxed text-inkfaint">
+      UI/UX 확인용 시제품이에요. 제출하면 목업 데이터(천민아 · 천야장 케이스)로 보고서 화면이 열려요.
+    </p>
+  </main>
+
+  <script src="./assets/mock-data.js"></script>
+  <script>
+    (function () {
+      var HANJA = {
+        '천': ['千 일천 천', '天 하늘 천', '泉 샘 천'],
+        '민': ['旼 온화할 민', '敏 민첩할 민', '珉 옥돌 민'],
+        '아': ['雅 맑을 아', '娥 예쁠 아', '兒 아이 아'],
+        '야': ['也 어조사 야', '野 들 야'],
+        '장': ['奘 클 장', '章 글 장', '長 길 장'],
+        '도': ['都 도읍 도', '道 길 도'],
+        '윤': ['尹 성 윤', '潤 윤택할 윤']
+      };
+
+      var current = 1;
+      var panels = { 1: document.getElementById('step-1'), 2: document.getElementById('step-2'), 3: document.getElementById('step-3') };
+      var dots = document.querySelectorAll('#progress li');
+
+      function show(n) {
+        current = n;
+        Object.keys(panels).forEach(function (k) {
+          panels[k].classList.toggle('step-hidden', Number(k) !== n);
+        });
+        dots.forEach(function (d, i) {
+          d.className = 'h-1.5 flex-1 rounded-full transition-all duration-500 ' + (i < n ? 'bg-sage' : 'bg-hairline');
+        });
+        if (n === 3) renderSummary();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      document.querySelectorAll('[data-next]').forEach(function (b) {
+        b.addEventListener('click', function () { show(Number(b.dataset.next)); });
+      });
+      document.querySelectorAll('[data-prev]').forEach(function (b) {
+        b.addEventListener('click', function () { show(Number(b.dataset.prev)); });
+      });
+
+      /* hanja candidate chips */
+      var picked = {};
+      function renderChips(text, host, keyPrefix) {
+        host.innerHTML = '';
+        Array.prototype.forEach.call(text, function (syl, idx) {
+          var cands = HANJA[syl];
+          if (!cands) return;
+          var row = document.createElement('div');
+          row.className = 'flex flex-wrap items-center gap-1.5';
+          if (host.id === 'given-chips') {
+            var tag = document.createElement('span');
+            tag.className = 'text-[12px] font-semibold text-inkfaint';
+            tag.textContent = syl;
+            row.appendChild(tag);
+          }
+          cands.forEach(function (c) {
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'chip min-h-9 rounded-full border border-hairline bg-white px-3.5 py-1.5 text-[13px] font-medium text-inksoft';
+            btn.textContent = c;
+            var key = keyPrefix + idx;
+            btn.setAttribute('aria-pressed', picked[key] === c ? 'true' : 'false');
+            btn.addEventListener('click', function () {
+              picked[key] = (picked[key] === c) ? null : c;
+              renderChips(text, host, keyPrefix);
+            });
+            row.appendChild(btn);
+          });
+          host.appendChild(row);
+        });
+      }
+      var surnameEl = document.getElementById('surname');
+      var givenEl = document.getElementById('given');
+      function refreshChips() {
+        renderChips(surnameEl.value.trim(), document.getElementById('surname-chips'), 's');
+        renderChips(givenEl.value.trim(), document.getElementById('given-chips'), 'g');
+      }
+      surnameEl.addEventListener('input', function () { picked = {}; refreshChips(); });
+      givenEl.addEventListener('input', function () { picked = {}; refreshChips(); });
+      refreshChips();
+
+      /* time unknown */
+      var noTime = document.getElementById('no-time');
+      var btime = document.getElementById('btime');
+      noTime.addEventListener('change', function () {
+        btime.disabled = noTime.checked;
+        btime.classList.toggle('opacity-40', noTime.checked);
+        var note = document.getElementById('no-time-note');
+        note.classList.toggle('hidden', !noTime.checked);
+        note.classList.toggle('flex', noTime.checked);
+      });
+
+      /* summary */
+      function val(name) { var el = document.querySelector('input[name="' + name + '"]:checked'); return el ? el.nextElementSibling.textContent : ''; }
+      function renderSummary() {
+        var rows = [
+          ['이름', surnameEl.value + givenEl.value],
+          ['생년월일', document.getElementById('birth').value + ' (' + val('calendar') + ')'],
+          ['태어난 시간', noTime.checked ? '몰라요 (참고 수준으로 표시)' : btime.value],
+          ['성별', val('gender')],
+          ['지역 · 보정', document.getElementById('region').value + (document.getElementById('tst').checked ? ' · 진태양시' : '')]
+        ];
+        var host = document.getElementById('summary');
+        host.innerHTML = '';
+        rows.forEach(function (r) {
+          var div = document.createElement('div');
+          div.className = 'flex items-baseline justify-between gap-4 py-3';
+          div.innerHTML = '<dt class="shrink-0 text-[13px] font-semibold text-inkfaint">' + r[0] + '</dt><dd class="text-right text-[14.5px] font-medium">' + r[1] + '</dd>';
+          host.appendChild(div);
+        });
+      }
+
+      /* submit */
+      document.getElementById('form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var given = givenEl.value.trim();
+        var caseId = given === '야장' ? 'yajang' : 'mina';
+        var payload = {
+          caseId: caseId,
+          matched: (given === '민아' || given === '야장'),
+          surname: surnameEl.value.trim(),
+          given: given,
+          birth: document.getElementById('birth').value,
+          time: noTime.checked ? null : btime.value,
+          noTime: noTime.checked
+        };
+        try { localStorage.setItem('ns_proto_input', JSON.stringify(payload)); } catch (err) { /* private mode */ }
+        location.href = './report.html?case=' + caseId + (payload.matched ? '' : '&demo=1') + (noTime.checked ? '&notime=1' : '');
+      });
+    })();
+  </script>
+</body>
+</html>
