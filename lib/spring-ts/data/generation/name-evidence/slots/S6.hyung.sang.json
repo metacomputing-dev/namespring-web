@@ -17,6 +17,11 @@
   "sourceTier": {
     "tier": "T2_AI_AUTHORED_INSIGHT",
     "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "accessedAt": "2026-07-21",
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
     "authorityTruthEligible": false
   },
   "sourceNote": "regen-ne-pilot1",

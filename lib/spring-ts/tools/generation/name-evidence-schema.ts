@@ -243,12 +243,33 @@ export interface GeneratedSlot {
 
 export const SLOT_SCHEMA_VERSION = 'spring-ts.name-evidence-slot.v1';
 
-/** check_no_ai_policy.mjs 준수 블록: AI 저작 텍스트는 비권위 tier로 명시. */
+/**
+ * check_no_ai_policy.mjs 준수 블록: AI 저작 텍스트는 비권위 tier로 명시.
+ * 필드 집합은 main의 source-tier 정책(SOURCE_TIER_REQUIRED_FIELDS: tier·
+ * sourceType·sourceUrl·accessedAt·quoteShort·humanInterpretation + copyrightNote)
+ * 을 따른다 — 선례: data/articles/insights/*.insights.json의 AI 레코드.
+ * accessedAt은 저장 시점에 채운다(name-evidence-store.buildStoredSlot).
+ */
 export const SLOT_SOURCE_TIER = {
   tier: 'T2_AI_AUTHORED_INSIGHT',
   sourceType: 'ai_authored_insight_text',
+  sourceUrl: null,
+  quoteShort: null,
+  humanInterpretation: 'AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.',
+  copyrightNote: 'No third-party prose copied.',
   authorityTruthEligible: false,
 } as const;
+
+export interface SlotSourceTier {
+  readonly tier: typeof SLOT_SOURCE_TIER.tier;
+  readonly sourceType: typeof SLOT_SOURCE_TIER.sourceType;
+  readonly sourceUrl: null;
+  readonly accessedAt: string; // ISO date (YYYY-MM-DD)
+  readonly quoteShort: null;
+  readonly humanInterpretation: string;
+  readonly copyrightNote: string;
+  readonly authorityTruthEligible: false;
+}
 
 export interface StoredNameEvidenceSlot {
   readonly schemaVersion: typeof SLOT_SCHEMA_VERSION;
@@ -262,7 +283,7 @@ export interface StoredNameEvidenceSlot {
   readonly isAdverse: boolean;
   readonly allowedVars: readonly string[];
   readonly aiGenerated: true;
-  readonly sourceTier: typeof SLOT_SOURCE_TIER;
+  readonly sourceTier: SlotSourceTier;
   /** 'regen-ne-…' 태그 (ingest --source). */
   readonly sourceNote: string;
   /** D-1(사격 공식) 미결 격리 표시 — S6은 현행 엔진(visitor B) 기준 생성. */

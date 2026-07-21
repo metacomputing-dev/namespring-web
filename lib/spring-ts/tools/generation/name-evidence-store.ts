@@ -56,6 +56,7 @@ export function buildStoredSlot(
   c: NameEvidenceCase,
   generated: { plain: string; expert: string; principle?: string },
   sourceNote: string,
+  accessedAt: string = new Date().toISOString().slice(0, 10),
 ): StoredNameEvidenceSlot {
   return {
     schemaVersion: SLOT_SCHEMA_VERSION,
@@ -69,7 +70,7 @@ export function buildStoredSlot(
     isAdverse: c.spec.isAdverse,
     allowedVars: c.spec.allowedVars,
     aiGenerated: true,
-    sourceTier: SLOT_SOURCE_TIER,
+    sourceTier: { ...SLOT_SOURCE_TIER, accessedAt },
     sourceNote,
     ...(c.family === 'S6' ? { keyProvenance: 'engine-current-formula-b' as const } : {}),
   };
