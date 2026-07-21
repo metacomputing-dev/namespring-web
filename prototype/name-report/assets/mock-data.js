@@ -137,8 +137,15 @@ window.NS_CASES = {
   }
 };
 
-/* Shared saju block — both demo cases share the same birth chart. */
+/* Shared saju block — both demo cases share the same birth chart (1991-02-18 10:30). */
 window.NS_SAJU = {
+  /* 시 → 일 → 월 → 년 order for display. Day pillar is marked with isDay. */
+  pillars: [
+    { pos: '시주', stem: ['己', '기', 'earth'], branch: ['巳', '사', 'fire'], isHour: true },
+    { pos: '일주', stem: ['己', '기', 'earth'], branch: ['未', '미', 'earth'], isDay: true },
+    { pos: '월주', stem: ['庚', '경', 'metal'], branch: ['寅', '인', 'wood'] },
+    { pos: '년주', stem: ['辛', '신', 'metal'], branch: ['未', '미', 'earth'] }
+  ],
   dayMaster: { hanja: '己', label: '기토', figure: '곡식을 기르는 밭의 흙', state: '지금은 흙이 두텁게 쌓여 기운이 넉넉하게 넘치는 상태예요.' },
   strength: { level: '신강', pos: 68, deuk: [{ k: '득령', v: 100 }, { k: '득지', v: 70 }, { k: '득세', v: 60 }] },
   yongshin: {
