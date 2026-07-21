@@ -421,7 +421,7 @@ export function slotRequestsFor(j: NameEvidenceJudgments): NameEvidenceCase[] {
   const flow = phoneticFlowOf(j);
   if (flow) {
     add(makeCase('S11', { phoneticFlow: flow }, {
-      fact: `발음 배열 종합 = ${flow} (harmonious=상생·동기만 / mixed=상생·상극 혼재 / clashing=상극 위주). 이름의 소리 흐름 전체를 1~2문장으로 재진술하는 조각 — 종합 절의 첫머리에 놓이므로 자립 서술로, 맺음 표현 없이.`,
+      fact: `발음 배열 종합 = ${flow} (harmonious=상생·동기만 / mixed=상생·상극 혼재 / clashing=상극 위주). 이름의 소리 흐름 전체를 2~3문장으로 재진술하는 조각 — 종합 절의 첫머리에 놓이므로 자립 서술로, 맺음 표현 없이, 소리 갈래가 전체 인상에 주는 무게까지.`,
       isAdverse: flow === 'clashing',
     }));
   }
@@ -430,7 +430,7 @@ export function slotRequestsFor(j: NameEvidenceJudgments): NameEvidenceCase[] {
     const narrated = j.frames.filter((f) => !(j.frameLeeContested && f.frame === 'lee'));
     const heavy = narrated.filter((f) => ADVERSE_GRADES.has(f.grade)).length;
     add(makeCase('S12', { frameOutlook: outlook }, {
-      fact: `사격 등급 구성 = ${outlook} (서술 대상 ${narrated.length}격 중 흉 등급 ${heavy}개). 획수 풀이 전체를 1~2문장으로 재진술하는 조각 — 격 이름·숫자 없이 구성만.`,
+      fact: `사격 등급 구성 = ${outlook} (서술 대상 ${narrated.length}격 중 흉 등급 ${heavy}개). 획수 풀이 전체를 2~3문장으로 재진술하는 조각 — 격 이름·숫자 없이 구성만, 그래서 어떻게 참고하면 되는지까지.`,
       isAdverse: outlook === 'mixed' || outlook === 'heavy',
     }));
   }
