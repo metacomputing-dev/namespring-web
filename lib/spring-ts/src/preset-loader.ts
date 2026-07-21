@@ -4,7 +4,7 @@
  * Loads school-specific weight presets from config/presets/<school>.json.
  * Used only when SpringOptions.precisionConfig.useSchoolPreset is true.
  *
- * The 'korean' preset mirrors the values in saju-scoring.json exactly, so
+ * The 'korean' preset mirrors the values in naming-evidence-weights.json exactly, so
  * useSchoolPreset:true with schoolPreset='korean' (or unset) is a no-op.
  * Other presets are deterministic doctrine lenses that operators can compare
  * without promoting any one school to default truth.
@@ -16,6 +16,7 @@ import koreanModernPreset from '../config/presets/korean_modern.json';
 import classicalTextPreset from '../config/presets/classical_text.json';
 import namingSafePreset from '../config/presets/naming_safe.json';
 import { deepFreeze } from '../../seed-ts/src/utils/deep-freeze.js';
+import { resolveNamingEvidenceScoringWeights } from './naming-evidence-weight-policy.js';
 
 export type SchoolPresetName =
   | 'korean'
@@ -77,13 +78,20 @@ export class UnknownSpringSchoolPresetError extends RangeError {
   }
 }
 
+function presetData(
+  name: SchoolPresetName,
+  metadata: { readonly schoolName: string; readonly description: string },
+): SchoolPresetData {
+  return { ...metadata, ...resolveNamingEvidenceScoringWeights(name) };
+}
+
 const PRESETS: Readonly<Record<SchoolPresetName, SchoolPresetData>> = deepFreeze({
-  korean: koreanPreset,
-  chinese: chinesePreset,
-  modern: modernPreset,
-  korean_modern: koreanModernPreset,
-  classical_text: classicalTextPreset,
-  naming_safe: namingSafePreset,
+  korean: presetData('korean', koreanPreset),
+  chinese: presetData('chinese', chinesePreset),
+  modern: presetData('modern', modernPreset),
+  korean_modern: presetData('korean_modern', koreanModernPreset),
+  classical_text: presetData('classical_text', classicalTextPreset),
+  naming_safe: presetData('naming_safe', namingSafePreset),
 });
 
 const PRESET_DOCTRINE: Readonly<Record<SchoolPresetName, string>> = deepFreeze({
@@ -134,7 +142,7 @@ export function resolveSchoolPresetName(name: unknown): SchoolPresetName {
 
 /**
  * Resolves a SchoolPresetName to its preset data. Only an omitted name
- * defaults to 'korean' (= current saju-scoring.json defaults). An explicit
+ * defaults to 'korean' (= current naming-evidence-weights.json defaults). An explicit
  * unknown value fails closed instead of silently selecting another doctrine.
  */
 export function loadPreset(name: SchoolPresetName | undefined): SchoolPresetData {

@@ -16,20 +16,11 @@ import {
   type NamingEvidenceConclusionTone,
   type NamingEvidenceFragment,
   type NamingEvidenceRelation,
-  type NamingEvidenceSampleCase,
   type NamingEvidenceSajuAxes,
-  type NamingEvidenceSajuScoreAxis,
 } from './types.js';
-import type { NamingScoreBand } from '../../naming-score-axis-policy.js';
 
-const DATABASE_SCHEMA_VERSION = 'namespring.naming-evidence-db/v1';
-const DATABASE_USER_VERSION = 1;
-const SCORE_AXES: ReadonlySet<NamingEvidenceSajuScoreAxis> = new Set([
-  'sajuFit', 'yongshinFit', 'elementBalance',
-]);
-const BANDS: ReadonlySet<NamingScoreBand> = new Set([
-  'excellent', 'good', 'mixed', 'caution',
-]);
+const DATABASE_SCHEMA_VERSION = 'namespring.naming-evidence-db/v2';
+const DATABASE_USER_VERSION = 2;
 const TONES: ReadonlySet<NamingEvidenceConclusionTone> = new Set([
   'allPositive', 'mostlyPositive', 'mixedButUsable', 'needsCaution', 'insufficientEvidence',
 ]);
@@ -171,10 +162,9 @@ export class NamingEvidenceRepository {
     }
     const counts = GENERATED_NAMING_EVIDENCE_DATABASE_MANIFEST.rowCounts;
     this.assertRowCount(db, 'saju_axis_explanations', counts.sajuAxisExplanations);
-    this.assertRowCount(db, 'score_band_explanations', counts.scoreBandExplanations);
+    this.assertRowCount(db, 'source_evidence_explanations', counts.sourceEvidenceExplanations);
     this.assertRowCount(db, 'conclusion_explanations', counts.conclusionExplanations);
     this.assertRowCount(db, 'evidence_connectors', counts.connectors);
-    this.assertRowCount(db, 'sample_evidence_cases', counts.sampleCases);
   }
 
   private scalarText(db: Database, sql: string, params: Array<string | number>): string {
@@ -207,14 +197,15 @@ export class NamingEvidenceRepository {
     return rows.length === 0 ? null : this.axisFragment(rows[0]);
   }
 
-  public findScoreBand(axis: NamingEvidenceSajuScoreAxis, band: NamingScoreBand): NamingEvidenceFragment | null {
-    if (!SCORE_AXES.has(axis)) throw new NamingEvidenceContractError('axis', 'unsupported score axis');
-    if (!BANDS.has(band)) throw new NamingEvidenceContractError('band', 'unsupported score band');
+  public findSourceEvidence(sourceId: string, state: string): NamingEvidenceFragment | null {
+    if (!sourceId.trim() || !state.trim()) {
+      throw new NamingEvidenceContractError('sourceEvidence', 'sourceId and state are required');
+    }
     const rows = this.query(`
-      SELECT fragment_key, axis, role, plain, detail
-      FROM score_band_explanations WHERE axis = ? AND band = ? LIMIT 1
-    `, [axis, band]);
-    return rows.length === 0 ? null : this.scoreFragment(rows[0]);
+      SELECT fragment_key, source_id, state, plain, detail
+      FROM source_evidence_explanations WHERE source_id = ? AND state = ? LIMIT 1
+    `, [sourceId, state]);
+    return rows.length === 0 ? null : this.sourceFragment(rows[0]);
   }
 
   public findConclusion(tone: NamingEvidenceConclusionTone): NamingEvidenceFragment | null {
@@ -226,32 +217,14 @@ export class NamingEvidenceRepository {
     return rows.length === 0 ? null : this.conclusionFragment(rows[0]);
   }
 
-  public findSampleCases(): readonly NamingEvidenceSampleCase[] {
-    return deepFreeze(this.query(`
-      SELECT case_id, name, day_master_element, strength, yongshin_element,
-             gyeokguk_family, saju_fit, yongshin_fit, element_balance
-      FROM sample_evidence_cases ORDER BY case_id
-    `).map((row) => ({
-      caseId: requiredString(row, 'case_id'),
-      name: requiredString(row, 'name'),
-      dayMasterElement: enumValue(row, 'day_master_element', new Set(['WOOD', 'FIRE', 'EARTH', 'METAL', 'WATER'])),
-      strength: enumValue(row, 'strength', new Set(['weak', 'balanced', 'strong'])),
-      yongshinElement: enumValue(row, 'yongshin_element', new Set(['WOOD', 'FIRE', 'EARTH', 'METAL', 'WATER'])),
-      gyeokgukFamily: enumValue(row, 'gyeokguk_family', new Set(['inseong', 'siksang', 'jaeseong', 'gwanseong', 'bigeop', 'special'])),
-      sajuFit: requiredInteger(row, 'saju_fit', 0, 100),
-      yongshinFit: requiredInteger(row, 'yongshin_fit', 0, 100),
-      elementBalance: requiredInteger(row, 'element_balance', 0, 100),
-    })) as NamingEvidenceSampleCase[]);
-  }
-
   public loadCatalog(): NamingEvidenceCatalog {
     const fragments: Record<string, NamingEvidenceFragment> = {};
     for (const row of this.query('SELECT fragment_key, plain, detail FROM saju_axis_explanations ORDER BY fragment_key')) {
       const fragment = this.axisFragment(row);
       fragments[fragment.key] = fragment;
     }
-    for (const row of this.query('SELECT fragment_key, axis, role, plain, detail FROM score_band_explanations ORDER BY fragment_key')) {
-      const fragment = this.scoreFragment(row);
+    for (const row of this.query('SELECT fragment_key, source_id, state, plain, detail FROM source_evidence_explanations ORDER BY fragment_key')) {
+      const fragment = this.sourceFragment(row);
       fragments[fragment.key] = fragment;
     }
     for (const row of this.query('SELECT fragment_key, plain, detail FROM conclusion_explanations ORDER BY fragment_key')) {
@@ -284,16 +257,13 @@ export class NamingEvidenceRepository {
     });
   }
 
-  private scoreFragment(row: Record<string, unknown>): NamingEvidenceFragment {
-    const axis = enumValue(row, 'axis', SCORE_AXES);
-    const role = enumValue(row, 'role', new Set(['summary', 'detail']));
-    if ((axis === 'sajuFit' ? 'summary' : 'detail') !== role) {
-      throw new NamingEvidenceContractError('database.role', `role does not match ${axis}`);
-    }
+  private sourceFragment(row: Record<string, unknown>): NamingEvidenceFragment {
+    requiredString(row, 'source_id');
+    requiredString(row, 'state');
     return deepFreeze({
       key: requiredString(row, 'fragment_key'),
       sectionId: 'sajuFit',
-      slot: role,
+      slot: 'detail',
       plain: requiredString(row, 'plain'),
       detail: requiredString(row, 'detail'),
     });

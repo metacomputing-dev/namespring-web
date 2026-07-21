@@ -6,6 +6,7 @@ import DevDbViewer from './DevDbViewer';
 import DevHanjaDbViewer from './DevHanjaDbViewer';
 import DevNameStatDbViewer from './DevNameStatDbViewer';
 import DevNamingEvidenceViewer from './DevNamingEvidenceViewer';
+import DevCombinedReportPreview from './DevCombinedReportPreview';
 import SplashScreen from './SplashScreen';
 import FadeTransition from './FadeTransition';
 import AppBackground from './ui/AppBackground';
@@ -333,6 +334,7 @@ function App() {
   const isDevHanjaViewerMode = import.meta.env.DEV && tool === "hanja-db-viewer";
   const isDevNameStatViewerMode = import.meta.env.DEV && tool === "name-stat-db-viewer";
   const isDevNamingEvidenceViewerMode = import.meta.env.DEV && tool === "naming-evidence-viewer";
+  const isDevCombinedReportPreviewMode = import.meta.env.DEV && tool === "combined-report-preview";
   const navigate = useNavigate();
   const runtimeConfig = useMemo(() => getFrontRuntimeConfig(), []);
   const initialAppState = useMemo(() => loadInitialAppState(), []);
@@ -619,9 +621,6 @@ function App() {
               onLoadCombinedReport={handleLoadCombinedReportAsync}
               onBackHome={() => navigateToPage('home')}
               onBackCandidates={() => navigateToPage('naming-candidates')}
-              onOpenNamingReport={() => navigateToPage('report')}
-              onOpenSajuReport={() => navigateToPage('saju-report')}
-              onOpenPremium={openSupportPage}
             />
           </AppBackground>
         ),
@@ -670,6 +669,9 @@ function App() {
   }
   if (isDevNamingEvidenceViewerMode) {
     return <FadeTransition transitionKey="dev-naming-evidence"><AppBackground><DevNamingEvidenceViewer /></AppBackground></FadeTransition>;
+  }
+  if (isDevCombinedReportPreviewMode) {
+    return <FadeTransition transitionKey="dev-combined-report"><AppBackground><DevCombinedReportPreview /></AppBackground></FadeTransition>;
   }
 
   const view = getView();

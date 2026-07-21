@@ -3,7 +3,8 @@ import {
   classifyNamingScoreBand,
   type NamingScoreBand,
 } from '../../naming-score-axis-policy.js';
-import type { NamingReport, NamingScoreVector } from '../../types.js';
+import type { ElementKey } from '../../core/scoring.js';
+import type { NamingReport, NamingScoreVector, SajuNameSourceEvidence } from '../../types.js';
 import { deepFreeze } from '../../../../seed-ts/src/utils/deep-freeze.js';
 import { EMPTY_NAMING_EVIDENCE_CATALOG } from './catalog.js';
 import {
@@ -22,6 +23,7 @@ import {
   type NamingEvidenceScoreAxis,
   type NamingEvidenceScoreFact,
   type NamingEvidenceSectionPlan,
+  type NamingEvidenceSourceFact,
 } from './types.js';
 
 const ELEMENTS = new Set(['WOOD', 'FIRE', 'EARTH', 'METAL', 'WATER']);
@@ -127,26 +129,176 @@ function relationToSummary(summary: NamingScoreBand, detail: NamingScoreBand): N
   return 'neutral';
 }
 
-function conclusionToneOf(facts: readonly NamingEvidenceScoreFact[]): NamingEvidenceConclusionTone {
-  const summary = facts.find((fact) => fact.axis === 'sajuFit');
-  if (!summary) return 'insufficientEvidence';
-  const positive = (band: NamingScoreBand): boolean => band === 'excellent' || band === 'good';
-  const cautionCount = facts.filter((fact) => fact.band === 'caution').length;
-  if (facts.length === 3 && facts.every((fact) => positive(fact.band))) return 'allPositive';
-  if (positive(summary.band) && facts.every((fact) => positive(fact.band))) return 'mostlyPositive';
-  if (summary.band === 'caution' || cautionCount >= 2) return 'needsCaution';
+const ELEMENT_LABELS: Readonly<Record<ElementKey, string>> = {
+  Wood: '목 기운', Fire: '화 기운', Earth: '토 기운', Metal: '금 기운', Water: '수 기운',
+};
+const ELEMENT_FUNCTIONS: Readonly<Record<ElementKey, string>> = {
+  Wood: '새로운 일을 시작하고 꾸준히 성장하는 힘',
+  Fire: '생각을 표현하고 행동으로 옮기는 힘',
+  Earth: '중심을 잡고 일을 안정적으로 이어 가는 힘',
+  Metal: '기준을 세우고 필요한 것을 선택해 정리하는 힘',
+  Water: '상황을 살피고 변화에 유연하게 대응하는 힘',
+};
+
+interface SourceCandidate {
+  readonly fact: NamingEvidenceSourceFact;
+  readonly key: string;
+}
+
+function elementText(elements: readonly ElementKey[]): string {
+  return [...new Set(elements)].map((element) => ELEMENT_LABELS[element]).join('과 ');
+}
+
+function elementFunctionText(elements: readonly ElementKey[]): string {
+  return [...new Set(elements)].map((element) => ELEMENT_FUNCTIONS[element]).join('과 ');
+}
+
+function sourceCandidate(
+  sourceId: string,
+  state: string,
+  sourcePath: string,
+  direction: NamingEvidenceSourceFact['direction'],
+  weight: number,
+  variables: Readonly<Record<string, string>> = {},
+): SourceCandidate {
+  return {
+    key: `source/${sourceId}/${state}`,
+    fact: { kind: 'sourceEvidence', sourceId, state, sourcePath, direction, weight, variables },
+  };
+}
+
+function sourceCandidates(evidence: SajuNameSourceEvidence): SourceCandidate[] {
+  const candidates: SourceCandidate[] = [];
+  const balanceState = evidence.balance.direction === 'supports'
+    ? 'improves' : evidence.balance.direction === 'limits' ? 'worsens' : 'holds';
+  candidates.push(sourceCandidate(
+    'balance', balanceState, 'springReport.sajuCompatibility.sourceEvidence.balance',
+    evidence.balance.direction, evidence.decisionImpacts.balance,
+    {
+      filledElements: elementText(evidence.balance.filledDeficientElements),
+      excessiveElements: elementText(evidence.balance.reinforcedExcessiveElements),
+      filledElementFunctions: elementFunctionText(evidence.balance.filledDeficientElements),
+      excessiveElementFunctions: elementFunctionText(evidence.balance.reinforcedExcessiveElements),
+    },
+  ));
+
+  const helpful = evidence.yongshin.matches.yongshin + evidence.yongshin.matches.heesin;
+  const harmful = evidence.yongshin.matches.gisin + evidence.yongshin.matches.gusin;
+  if (evidence.yongshin.matches.yongshin > 0 && evidence.yongshin.elements.yongshin) {
+    candidates.push(sourceCandidate(
+      'yongshin', 'yongshin', 'springReport.sajuCompatibility.sourceEvidence.yongshin.matches.yongshin',
+      'supports', evidence.decisionImpacts.yongshin,
+      {
+        matchedElements: elementText([evidence.yongshin.elements.yongshin]),
+        matchedElementFunctions: elementFunctionText([evidence.yongshin.elements.yongshin]),
+      },
+    ));
+  }
+  if (evidence.yongshin.matches.heesin > 0 && evidence.yongshin.elements.heesin) {
+    candidates.push(sourceCandidate(
+      'yongshin', 'heesin', 'springReport.sajuCompatibility.sourceEvidence.yongshin.matches.heesin',
+      'supports', evidence.decisionImpacts.yongshin * 0.65,
+      {
+        matchedElements: elementText([evidence.yongshin.elements.heesin]),
+        matchedElementFunctions: elementFunctionText([evidence.yongshin.elements.heesin]),
+      },
+    ));
+  }
+  if (helpful === 0 && harmful === 0) {
+    candidates.push(sourceCandidate(
+      'yongshin', 'neutral', 'springReport.sajuCompatibility.sourceEvidence.yongshin.matches',
+      'mixed', evidence.decisionImpacts.yongshin,
+    ));
+  }
+
+  const strengthState = evidence.strength.direction === 'supports'
+    ? 'supportsNeededDirection'
+    : evidence.strength.direction === 'limits' ? 'opposesNeededDirection' : 'mixed';
+  candidates.push(sourceCandidate(
+    'strength', strengthState, 'springReport.sajuCompatibility.sourceEvidence.strength',
+    evidence.strength.direction, evidence.decisionImpacts.strength,
+    {
+      alignedElements: elementText(evidence.strength.alignedElements),
+      opposedElements: elementText(evidence.strength.opposedElements),
+      alignedElementFunctions: elementFunctionText(evidence.strength.alignedElements),
+      opposedElementFunctions: elementFunctionText(evidence.strength.opposedElements),
+    },
+  ));
+
+  const tenGodState = evidence.tenGod.direction === 'supports'
+    ? 'fillsDeficit' : evidence.tenGod.direction === 'limits' ? 'reinforcesExcess' : 'neutral';
+  candidates.push(sourceCandidate(
+    'tenGod', tenGodState, 'springReport.sajuCompatibility.sourceEvidence.tenGod',
+    evidence.tenGod.direction, evidence.decisionImpacts.tenGod,
+    {
+      supportiveElements: elementText(evidence.tenGod.supportiveElements),
+      limitingElements: elementText(evidence.tenGod.limitingElements),
+      supportiveElementFunctions: elementFunctionText(evidence.tenGod.supportiveElements),
+      limitingElementFunctions: elementFunctionText(evidence.tenGod.limitingElements),
+    },
+  ));
+
+  if (evidence.deficiency.bonus > 0) {
+    const primary = evidence.yongshin.elements.yongshin;
+    const state = primary && evidence.deficiency.matchedElements.includes(primary)
+      ? 'yongshinDeficiencyFilled' : 'heesinDeficiencyFilled';
+    candidates.push(sourceCandidate(
+      'deficiency', state, 'springReport.sajuCompatibility.sourceEvidence.deficiency',
+      'supports', evidence.deficiency.bonus,
+      {
+        matchedElements: elementText(evidence.deficiency.matchedElements),
+        matchedElementFunctions: elementFunctionText(evidence.deficiency.matchedElements),
+      },
+    ));
+  }
+  if (evidence.penalties.gisin > 0 && evidence.yongshin.elements.gisin) {
+    candidates.push(sourceCandidate(
+      'harmfulElement', 'gisinPresent', 'springReport.sajuCompatibility.sourceEvidence.penalties.gisin',
+      'limits', evidence.penalties.gisin,
+      {
+        harmfulElements: elementText([evidence.yongshin.elements.gisin]),
+        harmfulElementFunctions: elementFunctionText([evidence.yongshin.elements.gisin]),
+      },
+    ));
+  }
+  if (evidence.penalties.gusin > 0 && evidence.yongshin.elements.gusin) {
+    candidates.push(sourceCandidate(
+      'harmfulElement', 'gusinPresent', 'springReport.sajuCompatibility.sourceEvidence.penalties.gusin',
+      'limits', evidence.penalties.gusin,
+      {
+        harmfulElements: elementText([evidence.yongshin.elements.gusin]),
+        harmfulElementFunctions: elementFunctionText([evidence.yongshin.elements.gusin]),
+      },
+    ));
+  }
+  if (evidence.gyeokgukProtection.applicable) {
+    candidates.push(sourceCandidate(
+      'gyeokgukProtection', evidence.gyeokgukProtection.broken ? 'broken' : 'protected',
+      'springReport.sajuCompatibility.sourceEvidence.gyeokgukProtection',
+      evidence.gyeokgukProtection.broken ? 'limits' : 'supports',
+      evidence.gyeokgukProtection.broken ? evidence.penalties.gyeokguk : 0,
+    ));
+  }
+  return candidates;
+}
+
+function conclusionToneOf(candidates: readonly SourceCandidate[]): NamingEvidenceConclusionTone {
+  if (candidates.length === 0) return 'insufficientEvidence';
+  const supporting = candidates.filter(({ fact }) => fact.direction === 'supports')
+    .reduce((sum, { fact }) => sum + fact.weight, 0);
+  const limiting = candidates.filter(({ fact }) => fact.direction === 'limits')
+    .reduce((sum, { fact }) => sum + fact.weight, 0);
+  if (limiting === 0 && supporting >= 50) return 'allPositive';
+  if (supporting > limiting * 1.5) return 'mostlyPositive';
+  if (limiting >= supporting) return 'needsCaution';
   return 'mixedButUsable';
 }
 
 function buildSajuFitSection(input: NamingEvidenceReportInput): NamingEvidenceSectionPlan {
-  const vector = scoreVectorOf(input.springReport);
-  const facts = [
-    scoreFact('sajuFit', 'summary', `${vector?.sourcePath ?? 'springReport.scoreVector'}.sajuFit`, vector?.value.sajuFit, (value) => classifyNamingScoreBand('sajuFit', value)),
-    scoreFact('yongshinFit', 'detail', `${vector?.sourcePath ?? 'springReport.scoreVector'}.yongshinFit`, vector?.value.yongshinFit, (value) => classifyNamingScoreBand('yongshinFit', value)),
-    scoreFact('elementBalance', 'detail', `${vector?.sourcePath ?? 'springReport.scoreVector'}.elementBalance`, vector?.value.elementBalance, (value) => classifyNamingScoreBand('elementBalance', value)),
-  ].filter((fact): fact is NamingEvidenceScoreFact => fact !== null);
-  const summary = facts.find((fact) => fact.axis === 'sajuFit') ?? null;
-  const tone = conclusionToneOf(facts);
+  const candidates = input.springReport.sajuCompatibility?.sourceEvidence
+    ? sourceCandidates(input.springReport.sajuCompatibility.sourceEvidence)
+    : [];
+  const tone = conclusionToneOf(candidates);
   const axisFact: NamingEvidenceFact = {
     kind: 'sajuAxes',
     sourcePath: 'sajuAxes',
@@ -159,29 +311,42 @@ function buildSajuFitSection(input: NamingEvidenceReportInput): NamingEvidenceSe
     facts: [axisFact],
   }];
 
-  for (const fact of facts) {
+  const ordered = candidates
+    .filter(({ fact }) => fact.weight > 0)
+    .sort((left, right) => right.fact.weight - left.fact.weight);
+  const selected: SourceCandidate[] = [];
+  const strongestSupport = ordered.find(({ fact }) => fact.direction === 'supports');
+  const strongestLimit = ordered.find(({ fact }) => fact.direction === 'limits');
+  if (strongestSupport) selected.push(strongestSupport);
+  if (strongestLimit) selected.push(strongestLimit);
+  for (const candidate of ordered) {
+    if (selected.length >= 3) break;
+    if (!selected.includes(candidate)) selected.push(candidate);
+  }
+  for (const { fact, key } of selected) {
     fragments.push({
-      key: `score/${fact.axis}/${fact.band}`,
-      slot: fact.role === 'summary' ? 'summary' : 'detail',
-      relation: summary && fact.axis !== 'sajuFit' ? relationToSummary(summary.band, fact.band) : null,
+      key,
+      slot: 'detail',
+      relation: fact.direction === 'supports' ? 'supports' : fact.direction === 'limits' ? 'limits' : 'neutral',
       facts: [fact],
+      variables: fact.variables,
     });
   }
   fragments.push({
     key: `conclusion/sajuFit/${tone}`,
     slot: 'conclusion',
     relation: null,
-    facts,
+    facts: candidates.map(({ fact }) => fact),
   });
 
   return {
     id: 'sajuFit',
     title: SECTION_TITLES.sajuFit,
     availability: 'planned',
-    verdict: summary?.band ?? null,
+    verdict: null,
     conclusionTone: tone,
     fragments,
-    facts: [axisFact, ...facts],
+    facts: [axisFact, ...candidates.map(({ fact }) => fact)],
   };
 }
 
@@ -322,15 +487,27 @@ export function buildNamingEvidencePlan(input: NamingEvidenceReportInput): Namin
   });
 }
 
-function interpolate(text: string, name: string): string {
+function interpolate(
+  text: string,
+  name: string,
+  variables: Readonly<Record<string, string>> = {},
+): string {
   const finalCodePoint = name.codePointAt(name.length - 1);
   const hasBatchim = finalCodePoint !== undefined
     && finalCodePoint >= 0xac00
     && finalCodePoint <= 0xd7a3
     && (finalCodePoint - 0xac00) % 28 !== 0;
-  return text
+  let rendered = text
     .replaceAll('{{name:topic}}', `${name}${hasBatchim ? '은' : '는'}`)
     .replaceAll('{{name}}', name);
+  for (const [key, value] of Object.entries(variables)) {
+    rendered = rendered.replaceAll(`{{${key}}}`, value);
+  }
+  const unresolved = rendered.match(/\{\{[^}]+\}\}/u)?.[0];
+  if (unresolved) {
+    throw new NamingEvidenceContractError('catalog.fragment.placeholder', `unresolved placeholder ${unresolved}`);
+  }
+  return rendered;
 }
 
 function renderParts(
@@ -358,7 +535,7 @@ function renderParts(
       : undefined;
     if (reference.relation) connectorIndex += 1;
     if (parts.length > 0 && connector) parts.push(interpolate(connector, plan.name));
-    parts.push(interpolate(fragment[field], plan.name));
+    parts.push(interpolate(fragment[field], plan.name, reference.variables));
     rendered.push(reference.key);
   }
   return { text: parts.join(' ').trim(), rendered, missing };

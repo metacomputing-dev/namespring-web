@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import CombiedNamingReport from './CombiedNamingReport';
+import CombinedNamingReport from './CombinedNamingReport';
 import ReportShell from './components/report/ReportShell';
-import { PageHeading } from './components/report/ReportPrimitives';
 import { REPORT_PAGE_CLASS } from './theme/report-ui-theme';
 
 function CombinedReportPage({
@@ -10,9 +9,6 @@ function CombinedReportPage({
   onLoadCombinedReport,
   onBackHome,
   onBackCandidates,
-  onOpenNamingReport,
-  onOpenSajuReport,
-  onOpenPremium,
 }) {
   const [report, setReport] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -57,12 +53,6 @@ function CombinedReportPage({
 
   return (
     <ReportShell activeNav="report" onHome={onBackHome} size="wide">
-      <PageHeading
-        kicker="보고서 · 통합"
-        title="통합 평가 보고서"
-        description="사주 평가와 성명학 평가를 함께 묶은 종합 보고서입니다."
-        className="ns-page-heading--compact"
-      />
       <div className={REPORT_PAGE_CLASS.container}>
 
         {isLoading ? (
@@ -88,11 +78,10 @@ function CombinedReportPage({
         ) : null}
 
         {!isLoading && !error && report ? (
-          <CombiedNamingReport
+          <CombinedNamingReport
             fortuneReport={report}
-            onOpenNamingReport={onOpenNamingReport}
-            onOpenSajuReport={onOpenSajuReport}
-            onOpenPremium={onOpenPremium}
+            selectedCandidate={selectedCandidate}
+            onBackCandidates={onBackCandidates}
             shareUserInfo={entryUserInfo}
           />
         ) : null}

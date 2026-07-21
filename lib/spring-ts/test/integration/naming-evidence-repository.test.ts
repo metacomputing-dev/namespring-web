@@ -1,104 +1,65 @@
 import assert from 'node:assert/strict';
-import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 import initSqlJs from 'sql.js';
-import type { NamingReport, NamingScoreVector } from '../../src/types.js';
 import {
   NamingEvidenceDatabaseIntegrityError,
   NamingEvidenceRepository,
-  buildNamingEvidenceReport,
-  type NamingEvidenceReportInput,
-  type NamingEvidenceSampleCase,
 } from '../../src/report/naming-evidence/index.js';
 
 const PACKAGE_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
-const REPOSITORY_ROOT = path.resolve(PACKAGE_ROOT, '..', '..');
-const DATABASE_PATH = path.resolve(REPOSITORY_ROOT, 'namespring/public/data/naming-evidence.db');
 const SQL_WASM_PATH = path.resolve(PACKAGE_ROOT, 'node_modules/sql.js/dist/sql-wasm.wasm');
 
-function inputOf(sample: NamingEvidenceSampleCase): NamingEvidenceReportInput {
-  const vector: NamingScoreVector = {
-    legal: null,
-    sajuFit: sample.sajuFit,
-    yongshinFit: sample.yongshinFit,
-    elementBalance: sample.elementBalance,
-    hanjaMeaning: null,
-    phonetic: null,
-    eraFit: null,
-    familyFit: null,
-    risk: 0,
-  };
-  const namingReport: NamingReport = {
-    name: { surname: [], givenName: [], fullHangul: sample.name, fullHanja: '' },
-    totalScore: 70,
-    scores: { hangul: 70, hanja: 0, fourFrame: 70 },
-    scoreVector: vector,
-    analysis: {
-      hangul: { blocks: [], elementScore: 70, polarityScore: 70 },
-      hanja: { blocks: [], elementScore: 0, polarityScore: 0 },
-      fourFrame: { frames: [], elementScore: 70, luckScore: 70 },
-    },
-    interpretation: '',
-  };
-  return {
-    springReport: { scoreVector: vector, namingReport },
-    sajuAxes: {
-      dayMasterElement: sample.dayMasterElement,
-      strength: sample.strength,
-      yongshinElement: sample.yongshinElement,
-      gyeokgukFamily: sample.gyeokgukFamily,
-    },
-  };
-}
-
-test('loads the SQLite sample catalog and renders all ten selected cases', async () => {
-  const bytes = fs.readFileSync(DATABASE_PATH);
-  const repository = new NamingEvidenceRepository({
-    dbUrl: 'memory://naming-evidence.db',
-    wasmUrl: 'memory://sql-wasm.wasm',
-    initializeSqlJs: async () => initSqlJs({ locateFile: () => SQL_WASM_PATH }),
-    fetch: async () => ({
-      ok: true,
-      status: 200,
-      statusText: 'OK',
-      arrayBuffer: async () => bytes.slice().buffer,
-    }),
-  });
+test('loads source-evidence fragments from the v2 schema', async () => {
+  const SQL = await initSqlJs({ locateFile: () => SQL_WASM_PATH });
+  const db = new SQL.Database();
+  db.exec(`
+    CREATE TABLE metadata (key TEXT PRIMARY KEY, value TEXT NOT NULL) WITHOUT ROWID;
+    CREATE TABLE saju_axis_explanations (
+      fragment_key TEXT PRIMARY KEY, day_master_element TEXT, strength TEXT,
+      yongshin_element TEXT, gyeokguk_family TEXT, plain TEXT, detail TEXT
+    ) WITHOUT ROWID;
+    CREATE TABLE source_evidence_explanations (
+      fragment_key TEXT PRIMARY KEY, source_id TEXT, state TEXT, weight REAL, plain TEXT, detail TEXT
+    ) WITHOUT ROWID;
+    CREATE TABLE conclusion_explanations (
+      fragment_key TEXT PRIMARY KEY, tone TEXT, plain TEXT, detail TEXT
+    ) WITHOUT ROWID;
+    CREATE TABLE evidence_connectors (
+      relation TEXT, variant INTEGER, text TEXT, PRIMARY KEY (relation, variant)
+    ) WITHOUT ROWID;
+    INSERT INTO metadata VALUES ('contentVersion', 'test-v2');
+    INSERT INTO saju_axis_explanations VALUES (
+      'saju-axis/WOOD/weak/WATER/inseong', 'WOOD', 'weak', 'WATER', 'inseong', '상태 설명', '상세 상태 설명'
+    );
+    INSERT INTO source_evidence_explanations VALUES (
+      'source/balance/improves', 'balance', 'improves', 0.6, '균형 근거', '상세 균형 근거'
+    );
+    INSERT INTO conclusion_explanations VALUES (
+      'conclusion/sajuFit/mostlyPositive', 'mostlyPositive', '결론', '상세 결론'
+    );
+  `);
+  const repository = new NamingEvidenceRepository();
+  (repository as unknown as { db: InstanceType<typeof SQL.Database> }).db = db;
   try {
-    await repository.init();
+    assert.equal(repository.findSourceEvidence('balance', 'improves')?.plain, '균형 근거');
+    assert.equal(repository.findSajuAxis({
+      dayMasterElement: 'WOOD', strength: 'weak', yongshinElement: 'WATER', gyeokgukFamily: 'inseong',
+    })?.plain, '상태 설명');
     const catalog = repository.loadCatalog();
-    const samples = repository.findSampleCases();
-    assert.equal(catalog.contentVersion, 'sample-2026-07-21');
-    assert.equal(Object.keys(catalog.fragments).length, 27);
-    assert.equal(samples.length, 10);
-
-    for (const sample of samples) {
-      const axisFragment = repository.findSajuAxis(sample);
-      assert.ok(axisFragment, sample.caseId);
-      const section = buildNamingEvidenceReport(inputOf(sample), catalog).sections[0];
-      assert.equal(section.availability, 'ready', sample.caseId);
-      assert.equal(section.missingFragmentKeys.length, 0, sample.caseId);
-      assert.match(section.plain, new RegExp(sample.name), sample.caseId);
-      assert.equal(section.plain.includes('{{name}}'), false, sample.caseId);
-      assert.ok(section.plain.length > 200, sample.caseId);
-      assert.ok(section.detail.length > 200, sample.caseId);
-    }
-    const vowelEndingName = samples.find(({ caseId }) => caseId === 'sample-003');
-    assert.ok(vowelEndingName);
-    const vowelEndingText = buildNamingEvidenceReport(inputOf(vowelEndingName), catalog).sections[0].plain;
-    assert.match(vowelEndingText, /박지호는/);
-    assert.equal(vowelEndingText.includes('박지호은'), false);
+    assert.equal(catalog.contentVersion, 'test-v2');
+    assert.deepEqual(Object.keys(catalog.fragments).sort(), [
+      'conclusion/sajuFit/mostlyPositive',
+      'saju-axis/WOOD/weak/WATER/inseong',
+      'source/balance/improves',
+    ]);
   } finally {
     repository.close();
   }
 });
 
 test('rejects database bytes that do not match the generated manifest', async () => {
-  const bytes = fs.readFileSync(DATABASE_PATH);
-  const tampered = Uint8Array.from(bytes);
-  tampered[100] ^= 0xff;
   const repository = new NamingEvidenceRepository({
     dbUrl: 'memory://tampered-naming-evidence.db',
     wasmUrl: 'memory://sql-wasm.wasm',
@@ -107,7 +68,7 @@ test('rejects database bytes that do not match the generated manifest', async ()
       ok: true,
       status: 200,
       statusText: 'OK',
-      arrayBuffer: async () => tampered.slice().buffer,
+      arrayBuffer: async () => Uint8Array.from([1]).buffer,
     }),
   });
   await assert.rejects(repository.init(), NamingEvidenceDatabaseIntegrityError);

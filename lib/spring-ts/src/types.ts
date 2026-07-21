@@ -1535,6 +1535,82 @@ export interface NameElementStrategyEvidence {
   readonly decisions: readonly NameElementResolutionEvidence[];
 }
 
+export type SajuNameEvidenceDirection = 'supports' | 'mixed' | 'limits';
+
+export interface SajuNameSourceEvidence {
+  readonly policyVersion: string;
+  readonly appliedWeights: {
+    readonly balance: number;
+    readonly yongshin: number;
+    readonly strength: number;
+    readonly tenGod: number;
+  };
+  readonly componentScores: {
+    readonly balance: number;
+    readonly yongshin: number;
+    readonly strength: number;
+    readonly tenGod: number;
+  };
+  /** Each component's direct contribution to the weighted base score. */
+  readonly weightedContributions: {
+    readonly balance: number;
+    readonly yongshin: number;
+    readonly strength: number;
+    readonly tenGod: number;
+  };
+  /** Comparable distance from neutral (50), measured in final-score points. */
+  readonly decisionImpacts: {
+    readonly balance: number;
+    readonly yongshin: number;
+    readonly strength: number;
+    readonly tenGod: number;
+  };
+  readonly balance: {
+    readonly direction: SajuNameEvidenceDirection;
+    readonly nameDistribution: Record<ElementKey, number>;
+    readonly combinedDistribution: Record<ElementKey, number>;
+    readonly filledDeficientElements: readonly ElementKey[];
+    readonly reinforcedExcessiveElements: readonly ElementKey[];
+  };
+  readonly yongshin: {
+    readonly direction: SajuNameEvidenceDirection;
+    readonly elements: {
+      readonly yongshin: ElementKey | null;
+      readonly heesin: ElementKey | null;
+      readonly gisin: ElementKey | null;
+      readonly gusin: ElementKey | null;
+    };
+    readonly matches: { readonly yongshin: number; readonly heesin: number; readonly gisin: number; readonly gusin: number };
+    readonly confidence: number;
+  };
+  readonly strength: {
+    readonly direction: SajuNameEvidenceDirection;
+    readonly alignedCount: number;
+    readonly opposedCount: number;
+    readonly alignedElements: readonly ElementKey[];
+    readonly opposedElements: readonly ElementKey[];
+  };
+  readonly tenGod: {
+    readonly direction: SajuNameEvidenceDirection;
+    readonly supportiveElements: readonly ElementKey[];
+    readonly limitingElements: readonly ElementKey[];
+  };
+  readonly deficiency: {
+    readonly matchedElements: readonly ElementKey[];
+    readonly bonus: number;
+  };
+  readonly penalties: {
+    readonly gisin: number;
+    readonly gusin: number;
+    readonly gyeokguk: number;
+    readonly total: number;
+  };
+  readonly gyeokgukProtection: {
+    readonly applicable: boolean;
+    readonly broken: boolean;
+  };
+}
+
 /** How well a name's elemental makeup aligns with the saju yongshin. */
 export interface SajuCompatibility {
   readonly yongshinElement: string;
@@ -1551,6 +1627,7 @@ export interface SajuCompatibility {
   readonly safetyProfile?: SajuNameSafetyProfile;
   readonly elementStrategyEvidence?: NameElementStrategyEvidence;
   readonly tenGodPositionEvidence?: TenGodPositionEvidence;
+  readonly sourceEvidence?: SajuNameSourceEvidence;
 }
 
 /** Lightweight saju summary used by the SajuCalculator adapter. */

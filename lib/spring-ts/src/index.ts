@@ -113,6 +113,8 @@ export type {
   SajuNameSafetyPosture,
   SajuNameSafetyStrategy,
   SajuNameSafetyProfile,
+  SajuNameEvidenceDirection,
+  SajuNameSourceEvidence,
   NameElementStrategy,
   NameElementResolutionSource,
   NameElementResolutionSafety,
@@ -226,6 +228,14 @@ export {
   FRAME_LABELS, buildInterpretation, parseJamoFilter, type JamoFilter,
 } from './core/name-utils.js';
 export { buildNamingExplanation, selectNamingPhraseMode } from './naming-explanation.js';
+export {
+  NAMING_EVIDENCE_WEIGHT_POLICY,
+  namingEvidenceWeightPolicyForPrompt,
+  resolveNamingEvidenceScoringWeights,
+  type NamingEvidenceSourceId,
+  type NamingEvidenceWeightPresetName,
+  type ResolvedNamingEvidenceScoringWeights,
+} from './naming-evidence-weight-policy.js';
 export {
   SCHOOL_PRESET_ORDER,
   UnknownSpringSchoolPresetError,

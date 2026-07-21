@@ -1,29 +1,4 @@
 {
   "schoolName": "Korean Modern",
-  "description": "Contemporary Korean naming-service preset. It emphasizes seasonal/climate fit and practical name-safety balance while still retaining mainstream Korean scoring defaults as the baseline reference.",
-  "yongshinTypeWeights": {
-    "EOKBU": 0.94,
-    "JOHU": 1.0,
-    "TONGGWAN": 0.92,
-    "GYEOKGUK": 0.82,
-    "BYEONGYAK": 0.82,
-    "JEONWANG": 0.7,
-    "HAPWHA_YONGSHIN": 0.72,
-    "ILHAENG_YONGSHIN": 0.72
-  },
-  "adaptiveWeights": {
-    "balanceBase": 0.57,
-    "balanceMin": 0.32,
-    "balanceMax": 0.57,
-    "yongshinBase": 0.26,
-    "yongshinMin": 0.26,
-    "yongshinMax": 0.51,
-    "strengthFixed": 0.12,
-    "tenGodFixed": 0.05,
-    "shiftDivisor": 70,
-    "confidenceWeight": 0.4,
-    "baseShiftRatio": 0.22,
-    "confidenceBoost": 0.08,
-    "baseConfidenceRatio": 0.6
-  }
+  "description": "Contemporary Korean naming doctrine metadata. Scoring weights are loaded from naming-evidence-weights.json."
 }

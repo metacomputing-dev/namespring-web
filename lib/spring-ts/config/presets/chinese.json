@@ -1,29 +1,4 @@
 {
-  "schoolName": "Traditional Chinese (자평진전 / 적천수 — 격국 우선)",
-  "description": "Classical Chinese myeongri tradition weights 격국·월령 above general 억부 balancing. Compared to korean.json: GYEOKGUK weight bumped to match EOKBU; JOHU slightly demoted because the classical tradition treats it as one input among many rather than the dominant axis.",
-  "yongshinTypeWeights": {
-    "EOKBU": 1.0,
-    "JOHU": 0.85,
-    "TONGGWAN": 0.9,
-    "GYEOKGUK": 1.0,
-    "BYEONGYAK": 0.85,
-    "JEONWANG": 0.75,
-    "HAPWHA_YONGSHIN": 0.75,
-    "ILHAENG_YONGSHIN": 0.75
-  },
-  "adaptiveWeights": {
-    "balanceBase": 0.55,
-    "balanceMin": 0.3,
-    "balanceMax": 0.55,
-    "yongshinBase": 0.28,
-    "yongshinMin": 0.28,
-    "yongshinMax": 0.53,
-    "strengthFixed": 0.12,
-    "tenGodFixed": 0.05,
-    "shiftDivisor": 70,
-    "confidenceWeight": 0.4,
-    "baseShiftRatio": 0.22,
-    "confidenceBoost": 0.08,
-    "baseConfidenceRatio": 0.6
-  }
+  "schoolName": "Traditional Chinese",
+  "description": "Traditional structure-oriented doctrine metadata. Scoring weights are loaded from naming-evidence-weights.json."
 }

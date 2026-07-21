@@ -38,7 +38,7 @@ export interface NamingEvidenceSajuAxes {
  * Text planning never guesses or substitutes an UNKNOWN axis.
  */
 export interface NamingEvidenceReportInput {
-  readonly springReport: Pick<SpringReport, 'scoreVector' | 'namingReport'>;
+  readonly springReport: Pick<SpringReport, 'scoreVector' | 'namingReport' | 'sajuCompatibility'>;
   readonly sajuAxes: NamingEvidenceSajuAxes;
 }
 
@@ -53,16 +53,6 @@ export type NamingEvidenceScoreAxis =
   | 'fourFrameElement'
   | 'phonetic'
   | 'familyFit';
-
-export type NamingEvidenceSajuScoreAxis = 'sajuFit' | 'yongshinFit' | 'elementBalance';
-
-export interface NamingEvidenceSampleCase extends NamingEvidenceSajuAxes {
-  readonly caseId: string;
-  readonly name: string;
-  readonly sajuFit: number;
-  readonly yongshinFit: number;
-  readonly elementBalance: number;
-}
 
 export interface NamingEvidenceMetric {
   readonly sourcePath: string;
@@ -85,13 +75,25 @@ export interface NamingEvidenceSajuFact {
   readonly value: NamingEvidenceSajuAxes;
 }
 
-export type NamingEvidenceFact = NamingEvidenceScoreFact | NamingEvidenceSajuFact;
+export interface NamingEvidenceSourceFact {
+  readonly kind: 'sourceEvidence';
+  readonly sourceId: string;
+  readonly state: string;
+  readonly sourcePath: string;
+  readonly direction: 'supports' | 'mixed' | 'limits';
+  /** Comparable contribution priority in final-score points, not a 0-1 blend ratio. */
+  readonly weight: number;
+  readonly variables: Readonly<Record<string, string>>;
+}
+
+export type NamingEvidenceFact = NamingEvidenceScoreFact | NamingEvidenceSajuFact | NamingEvidenceSourceFact;
 
 export interface NamingEvidenceFragmentRef {
   readonly key: string;
   readonly slot: NamingEvidenceSlot;
   readonly relation: NamingEvidenceRelation | null;
   readonly facts: readonly NamingEvidenceFact[];
+  readonly variables?: Readonly<Record<string, string>>;
 }
 
 export interface NamingEvidenceSectionPlan {

@@ -49,5 +49,6 @@ Thumbs.db
 /out/
 .vercel
 lib/spring-ts/data/generation/batches/
+lib/spring-ts/data/naming-report/evidence/generation/runs/
 lib/spring-ts/tmp/manual-bundles/
 namespring/public/generated-packed/
