@@ -111,14 +111,14 @@
             <label for="surname" class="mb-1.5 block text-[13px] font-semibold text-inksoft">성</label>
             <input id="surname" name="surname" type="text" inputmode="text" maxlength="2" placeholder="예: 천" autocomplete="family-name"
               class="w-full rounded-2xl border border-hairline bg-cream/60 px-4 py-3.5 text-base" value="천">
-            <div id="surname-chips" class="mt-2 flex flex-wrap gap-1.5" aria-label="성 한자 후보"></div>
+            <div id="surname-picks" class="mt-2.5 flex flex-wrap gap-2" aria-label="성 한자 선택"></div>
           </div>
 
           <div class="mb-2">
             <label for="given" class="mb-1.5 block text-[13px] font-semibold text-inksoft">이름 <span class="font-normal text-inkfaint">(한 글자~두 글자)</span></label>
             <input id="given" name="given" type="text" inputmode="text" maxlength="2" placeholder="예: 민아" autocomplete="given-name"
               class="w-full rounded-2xl border border-hairline bg-cream/60 px-4 py-3.5 text-base" value="민아">
-            <div id="given-chips" class="mt-2 space-y-2" aria-label="이름 한자 후보"></div>
+            <div id="given-picks" class="mt-2.5 flex flex-wrap gap-2" aria-label="이름 한자 선택"></div>
           </div>
 
           <p class="mt-4 flex items-start gap-1.5 rounded-2xl bg-sagesoft px-4 py-3 text-[13px] leading-relaxed text-sage">
@@ -255,19 +255,33 @@
     </p>
   </main>
 
+  <!-- 한자 선택 창 (모바일: 바텀시트 / 데스크톱: 모달) -->
+  <div id="picker" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="picker-title">
+    <div id="picker-backdrop" class="absolute inset-0 bg-ink/40 opacity-0 backdrop-blur-sm transition-opacity duration-300"></div>
+    <div class="absolute inset-x-0 bottom-0 flex justify-center sm:inset-0 sm:items-center sm:p-6">
+      <div id="picker-panel" class="w-full translate-y-6 rounded-t-[2rem] bg-white p-6 opacity-0 shadow-[0_-20px_60px_-20px_rgba(32,38,29,0.35)] transition-all duration-500 ease-spring sm:max-w-md sm:rounded-[2rem] sm:p-7">
+        <div class="mb-4 flex items-start justify-between gap-3">
+          <div>
+            <p class="text-[11px] font-medium uppercase tracking-[0.15em] text-sage">한자 고르기</p>
+            <h2 id="picker-title" class="mt-1 font-serif text-xl font-bold tracking-tight"></h2>
+            <p id="picker-count" class="mt-0.5 text-[12.5px] text-inkfaint"></p>
+          </div>
+          <button type="button" id="picker-close" class="grid h-10 w-10 flex-none place-items-center rounded-full border border-hairline text-inksoft transition-all duration-300 hover:bg-cream" aria-label="닫기">
+            <iconify-icon icon="solar:close-circle-linear" class="text-xl" aria-hidden="true"></iconify-icon>
+          </button>
+        </div>
+        <button type="button" id="picker-none" class="mb-3 flex w-full items-center gap-2 rounded-2xl border border-dashed border-hairline px-4 py-3 text-left text-[13.5px] font-semibold text-inksoft transition-all duration-300 hover:border-sage hover:text-sage">
+          <iconify-icon icon="solar:text-linear" aria-hidden="true"></iconify-icon>이 글자는 한글로만 쓸게요
+        </button>
+        <div id="picker-list" class="grid max-h-[46dvh] grid-cols-2 content-start gap-2 overflow-y-auto overscroll-contain pb-2 sm:grid-cols-3 sm:max-h-[50dvh]"></div>
+      </div>
+    </div>
+  </div>
+
   <script src="./assets/mock-data.js"></script>
+  <script src="./assets/hanja-data.js"></script>
   <script>
     (function () {
-      var HANJA = {
-        '천': ['千 일천 천', '天 하늘 천', '泉 샘 천'],
-        '민': ['旼 온화할 민', '敏 민첩할 민', '珉 옥돌 민'],
-        '아': ['雅 맑을 아', '娥 예쁠 아', '兒 아이 아'],
-        '야': ['也 어조사 야', '野 들 야'],
-        '장': ['奘 클 장', '章 글 장', '長 길 장'],
-        '도': ['都 도읍 도', '道 길 도'],
-        '윤': ['尹 성 윤', '潤 윤택할 윤']
-      };
-
       var current = 1;
       var panels = { 1: document.getElementById('step-1'), 2: document.getElementById('step-2'), 3: document.getElementById('step-3') };
       var dots = document.querySelectorAll('#progress li');
@@ -291,46 +305,112 @@
         b.addEventListener('click', function () { show(Number(b.dataset.prev)); });
       });
 
-      /* hanja candidate chips */
+      /* ---- hanja picker ----
+       * picked[key] = undefined(미선택) | null(한글로만) | [hanja, meaning, strokes, element, isSurname]
+       * key = 's0' (성) / 'g0','g1' (이름 글자)
+       */
       var picked = {};
-      function renderChips(text, host, keyPrefix) {
-        host.innerHTML = '';
-        Array.prototype.forEach.call(text, function (syl, idx) {
-          var cands = HANJA[syl];
-          if (!cands) return;
-          var row = document.createElement('div');
-          row.className = 'flex flex-wrap items-center gap-1.5';
-          if (host.id === 'given-chips') {
-            var tag = document.createElement('span');
-            tag.className = 'text-[12px] font-semibold text-inkfaint';
-            tag.textContent = syl;
-            row.appendChild(tag);
-          }
-          cands.forEach(function (c) {
-            var btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = 'chip min-h-9 rounded-full border border-hairline bg-white px-3.5 py-1.5 text-[13px] font-medium text-inksoft';
-            btn.textContent = c;
-            var key = keyPrefix + idx;
-            btn.setAttribute('aria-pressed', picked[key] === c ? 'true' : 'false');
-            btn.addEventListener('click', function () {
-              picked[key] = (picked[key] === c) ? null : c;
-              renderChips(text, host, keyPrefix);
-            });
-            row.appendChild(btn);
-          });
-          host.appendChild(row);
-        });
-      }
       var surnameEl = document.getElementById('surname');
       var givenEl = document.getElementById('given');
-      function refreshChips() {
-        renderChips(surnameEl.value.trim(), document.getElementById('surname-chips'), 's');
-        renderChips(givenEl.value.trim(), document.getElementById('given-chips'), 'g');
+      var picker = document.getElementById('picker');
+      var pickerBackdrop = document.getElementById('picker-backdrop');
+      var pickerPanel = document.getElementById('picker-panel');
+      var activeKey = null, activeSyl = null, lastFocus = null;
+
+      function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+      function candidatesFor(syl, isSurname) {
+        var list = (window.NS_HANJA[syl] || []).slice();
+        if (isSurname) {
+          list.sort(function (a, b) { return (b[4] - a[4]) || (a[2] - b[2]); });
+        }
+        return list;
       }
-      surnameEl.addEventListener('input', function () { picked = {}; refreshChips(); });
-      givenEl.addEventListener('input', function () { picked = {}; refreshChips(); });
-      refreshChips();
+
+      function openPicker(key, syl) {
+        activeKey = key; activeSyl = syl; lastFocus = document.activeElement;
+        var isSurname = key.charAt(0) === 's';
+        var cands = candidatesFor(syl, isSurname);
+        document.getElementById('picker-title').textContent = '‘' + syl + '’에 어울리는 한자';
+        document.getElementById('picker-count').textContent = cands.length
+          ? '인명용 한자 ' + cands.length + '자 · 획수는 원획 기준이에요'
+          : '등록된 인명용 한자가 없는 음이에요';
+        var host = document.getElementById('picker-list');
+        host.innerHTML = cands.map(function (c, i) {
+          var sel = Array.isArray(picked[key]) && picked[key][0] === c[0];
+          return '<button type="button" data-idx="' + i + '" class="flex items-center gap-3 rounded-2xl border px-3.5 py-3 text-left transition-all duration-300 '
+            + (sel ? 'border-sage bg-sagesoft' : 'border-hairline bg-white hover:border-sage/50 hover:bg-cream/60') + '">'
+            + '<span class="font-serif text-[26px] font-bold leading-none">' + esc(c[0]) + '</span>'
+            + '<span class="min-w-0 text-[11.5px] leading-snug text-inksoft"><b class="block truncate text-[12px] text-ink">' + esc(c[1]) + '</b>'
+            + c[2] + '획 · ' + esc(c[3]) + (c[4] ? ' · 성씨' : '') + '</span></button>';
+        }).join('');
+        host.querySelectorAll('button').forEach(function (b) {
+          b.addEventListener('click', function () {
+            picked[activeKey] = cands[Number(b.dataset.idx)];
+            closePicker(); renderPicks();
+          });
+        });
+        picker.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        requestAnimationFrame(function () {
+          pickerBackdrop.classList.remove('opacity-0');
+          pickerPanel.classList.remove('opacity-0', 'translate-y-6');
+        });
+        document.getElementById('picker-close').focus();
+      }
+
+      function closePicker() {
+        pickerBackdrop.classList.add('opacity-0');
+        pickerPanel.classList.add('opacity-0', 'translate-y-6');
+        document.body.style.overflow = '';
+        setTimeout(function () { picker.classList.add('hidden'); }, 300);
+        if (lastFocus) lastFocus.focus();
+      }
+      document.getElementById('picker-close').addEventListener('click', closePicker);
+      pickerBackdrop.addEventListener('click', closePicker);
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !picker.classList.contains('hidden')) closePicker();
+      });
+      document.getElementById('picker-none').addEventListener('click', function () {
+        picked[activeKey] = null;
+        closePicker(); renderPicks();
+      });
+
+      function pickButton(key, syl) {
+        var p = picked[key];
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        if (Array.isArray(p)) {
+          btn.className = 'flex min-h-11 items-center gap-2 rounded-2xl border border-sage bg-sagesoft px-3.5 py-2 text-left transition-all duration-300 hover:bg-sagesoft/70';
+          btn.innerHTML = '<span class="font-serif text-lg font-bold leading-none">' + esc(p[0]) + '</span>'
+            + '<span class="text-[11.5px] leading-tight text-inksoft">' + esc(syl) + ' · ' + esc(p[1].split(',')[0]) + '</span>'
+            + '<iconify-icon icon="solar:pen-2-linear" class="text-[13px] text-sage" aria-hidden="true"></iconify-icon>';
+          btn.setAttribute('aria-label', syl + ' 한자 바꾸기: 현재 ' + p[0]);
+        } else if (p === null) {
+          btn.className = 'flex min-h-11 items-center gap-2 rounded-2xl border border-hairline bg-white px-3.5 py-2 text-[12.5px] font-semibold text-inksoft transition-all duration-300 hover:border-sage/50';
+          btn.innerHTML = '<b class="text-ink">' + esc(syl) + '</b> 한글로만 <iconify-icon icon="solar:pen-2-linear" class="text-[13px] text-inkfaint" aria-hidden="true"></iconify-icon>';
+        } else {
+          btn.className = 'flex min-h-11 items-center gap-1.5 rounded-2xl border border-dashed border-hairline bg-cream/50 px-3.5 py-2 text-[12.5px] font-semibold text-inksoft transition-all duration-300 hover:border-sage hover:text-sage';
+          btn.innerHTML = '<b class="text-ink">' + esc(syl) + '</b> 한자 고르기 <iconify-icon icon="solar:add-circle-linear" class="text-[14px]" aria-hidden="true"></iconify-icon>';
+        }
+        btn.addEventListener('click', function () { openPicker(key, syl); });
+        return btn;
+      }
+
+      function renderPicks() {
+        var sHost = document.getElementById('surname-picks');
+        var gHost = document.getElementById('given-picks');
+        sHost.innerHTML = ''; gHost.innerHTML = '';
+        var s = surnameEl.value.trim();
+        if (s) sHost.appendChild(pickButton('s0', s.charAt(0)));
+        var g = givenEl.value.trim();
+        Array.prototype.forEach.call(g, function (syl, i) {
+          gHost.appendChild(pickButton('g' + i, syl));
+        });
+      }
+      surnameEl.addEventListener('input', function () { delete picked.s0; renderPicks(); });
+      givenEl.addEventListener('input', function () { picked = { s0: picked.s0 }; renderPicks(); });
+      renderPicks();
 
       /* time unknown */
       var noTime = document.getElementById('no-time');
@@ -345,9 +425,18 @@
 
       /* summary */
       function val(name) { var el = document.querySelector('input[name="' + name + '"]:checked'); return el ? el.nextElementSibling.textContent : ''; }
+      function nameWithHanja() {
+        var keys = ['s0'];
+        var g = givenEl.value.trim();
+        for (var i = 0; i < g.length; i++) keys.push('g' + i);
+        var hangul = surnameEl.value.trim() + g;
+        var parts = keys.map(function (k) { return Array.isArray(picked[k]) ? picked[k][0] : null; });
+        if (parts.every(function (p) { return p === null; })) return hangul;
+        return hangul + ' (' + parts.map(function (p) { return p || '　'; }).join('').trim() + ')';
+      }
       function renderSummary() {
         var rows = [
-          ['이름', surnameEl.value + givenEl.value],
+          ['이름', nameWithHanja()],
           ['생년월일', document.getElementById('birth').value + ' (' + val('calendar') + ')'],
           ['태어난 시간', noTime.checked ? '몰라요 (참고 수준으로 표시)' : btime.value],
           ['성별', val('gender')],
@@ -375,7 +464,11 @@
           given: given,
           birth: document.getElementById('birth').value,
           time: noTime.checked ? null : btime.value,
-          noTime: noTime.checked
+          noTime: noTime.checked,
+          hanja: Object.keys(picked).reduce(function (acc, k) {
+            acc[k] = Array.isArray(picked[k]) ? picked[k][0] : picked[k];
+            return acc;
+          }, {})
         };
         try { localStorage.setItem('ns_proto_input', JSON.stringify(payload)); } catch (err) { /* private mode */ }
         location.href = './report.html?case=' + caseId + (payload.matched ? '' : '&demo=1') + (noTime.checked ? '&notime=1' : '');
