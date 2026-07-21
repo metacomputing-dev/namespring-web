@@ -21,9 +21,11 @@ npx serve prototype/name-report
 
 | 파일 | 내용 |
 |---|---|
-| `index.html` | 사용자 정보 입력 — 3단계 스테퍼(이름 → 태어난 순간 → 확인). 한자 후보 칩, "시간을 몰라요", 고급 옵션 접힘 |
+| `index.html` | 사용자 정보 입력 — 3단계 스테퍼(이름 → 태어난 순간 → 확인). 글자별 한자 선택 창, "시간을 몰라요", 고급 옵션 접힘 |
 | `report.html` | 이름 통합 보고서 — 기획안 07의 8섹션 + 평문/전문가 토글 |
 | `assets/mock-data.js` | 목업 케이스 2종. 문장은 name-evidence 파이프라인의 실제 조립 리포트에서 가져옴 |
+| `assets/hanja-data.js` | 실제 `hanja.db`에서 추출한 인명용 한자 4,849자(음 432개) — 뜻·원획·자원오행·성씨 여부 |
+| `assets/vendor/` | Tailwind·Iconify 로컬 사본 (CDN CORS 문제 회피) |
 
 ## 목업 케이스
 
