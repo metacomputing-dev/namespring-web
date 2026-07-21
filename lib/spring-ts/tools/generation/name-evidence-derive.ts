@@ -361,7 +361,7 @@ export function slotRequestsFor(j: NameEvidenceJudgments): NameEvidenceCase[] {
     if (!c.resourceElement) continue;
     const rel = YONGSHIN_REL_BY_RELATION[relationKo(c.resourceElement, j.yongshin)];
     add(makeCase('S5', { resourceElement: c.resourceElement, yongshinRelation: rel }, {
-      fact: YONGSHIN_REL_DESC[rel](c.resourceElement, j.yongshin),
+      fact: `${YONGSHIN_REL_DESC[rel](c.resourceElement, j.yongshin)} (2~3문장 — 이 글자가 이름 안에서 맡는 몫과 생활에서의 의미까지)`,
       isAdverse: rel === 'controls' || rel === 'controlled',
     }));
   }
@@ -390,7 +390,7 @@ export function slotRequestsFor(j: NameEvidenceJudgments): NameEvidenceCase[] {
 
   // S8 이름 작용 종합: 일간 × 강약 × nameEffect
   add(makeCase('S8', { stem: j.stem, gangyak: j.gangyak, nameEffect: j.nameEffect }, {
-    fact: `${stemPhrase} · ${gangyakKo} 사주에서 이름의 작용 = ${j.nameEffect} (boost_strong=강한 보강 / boost_mild=약한 보강 / neutral=중립 / adverse=필요 기운을 채우지 못함).`,
+    fact: `${stemPhrase} · ${gangyakKo} 사주에서 이름의 작용 = ${j.nameEffect} (boost_strong=강한 보강 / boost_mild=약한 보강 / neutral=중립 / adverse=필요 기운을 채우지 못함). 2~3문장 — 작용의 정도와 함께, 그래서 생활에서 무엇을 하면 되는지까지.`,
     imagery: IMAGERY[j.stem],
     imageryState: IMAGERY_STATE[j.gangyak],
     isAdverse: j.nameEffect === 'adverse',
@@ -398,7 +398,7 @@ export function slotRequestsFor(j: NameEvidenceJudgments): NameEvidenceCase[] {
 
   // S9 4절 종합: 일간 × 강약 × 격국family × nameEffect
   add(makeCase('S9', { stem: j.stem, gangyak: j.gangyak, gyeokgukFamily: j.gyeokgukFamily, nameEffect: j.nameEffect }, {
-    fact: `종합 맺음: ${stemPhrase} · ${gangyakKo} · 격국 계열 ${j.gyeokgukFamily} · 이름 작용 ${j.nameEffect}. 케이스 전체(성격·필요한 기운·이름의 몫·생활 조언)를 2~4문장으로 합성하고 물상으로 여운 있게 닫는, 유일하게 긴 조각 (plain 80~200자 / expert 100~260자).`,
+    fact: `종합 맺음: ${stemPhrase} · ${gangyakKo} · 격국 계열 ${j.gyeokgukFamily} · 이름 작용 ${j.nameEffect}. 케이스 전체(바탕의 성격 → 필요한 기운 → 이름의 몫 → 유의점 → 생활 조언)를 3~5문장으로 합성하고 물상으로 여운 있게 닫는, 유일하게 긴 조각 (plain 100~280자 / expert 120~340자).`,
     imagery: IMAGERY[j.stem],
     imageryState: IMAGERY_STATE[j.gangyak],
     isAdverse: j.nameEffect === 'adverse',

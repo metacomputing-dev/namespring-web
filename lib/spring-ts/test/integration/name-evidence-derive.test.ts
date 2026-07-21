@@ -199,10 +199,10 @@ const okSlot = {
   const longS9 = {
     slotId: s9Case.slotId,
     plain: '큰 강물이 되어야 할 물의 수원이 아직 얕은 사주예요. 이름이 그 물길을 크게 채우지는 못하니, 부족한 쪽은 배움과 사람에게서 챙기는 편이 좋아요. 물길을 따라 꾸준히 흐르다 보면 강은 제 폭을 찾아요.',
-    expert: '신약한 임수 원국에서 재성 과다가 설기로 작동하는 구성이에요. 이름의 자원오행이 용신을 싣지 못한 만큼, 인성의 보급은 문서와 조력의 몫으로 남아요. 수원이 차오르면 강은 스스로 길을 넓히는 배치예요.',
+    expert: '신약한 임수 원국에서 재성 과다가 설기로 작동하는 구성이에요. 이름의 자원오행이 용신을 싣지 못한 만큼, 인성의 보급은 문서·학문·조력이라는 생활의 몫으로 남아요. 수원이 차오르면 강은 스스로 길을 넓히는 배치예요.',
   };
   const r = validateNameEvidenceSlots({ slots: [longS9] }, [s9Case], { stem: '임' });
-  check('게이트: S9 장문(2~4문장) 통과', r.ok, { perSlot: [...r.perSlot], prose: r.proseFindings.filter((f) => f.sev === 'ERROR') });
+  check('게이트: S9 장문(3~5문장) 통과', r.ok, { perSlot: [...r.perSlot], prose: r.proseFindings.filter((f) => f.sev === 'ERROR') });
   const shortS9 = { ...longS9, plain: '물길을 찾으면 강은 멀리 흘러요.' };
   const r2 = validateNameEvidenceSlots({ slots: [shortS9] }, [s9Case], { stem: '임' });
   check('게이트: S9 단문 리젝', !r2.ok);

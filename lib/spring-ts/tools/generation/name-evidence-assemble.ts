@@ -115,10 +115,23 @@ export function assembleReport(
     if (!bySlotId.has(id)) warnings.push(`조립 참조 id가 요청 집합에 없음(버그 의심): ${id}`);
   }
 
+  // 한자 뜻 문단 — 판정 데이터(옥편 뜻)의 결정론 직렬화 (레퍼런스 §3 ⑤).
+  // 서술 창작이 아니라 사실 나열이므로 슬롯 없이 코드가 만든다.
+  const meaningChars = j.given.filter((c) => c.hanja && c.meaning);
+  const meaningParagraph = meaningChars.length
+    ? `한자의 뜻도 이름의 결을 이뤄요. ${meaningChars
+      .map((c) => `${appendJosa(`${c.hangul}(${c.hanja})`, '은는')} '${c.meaning}'`)
+      .join(', ')}의 뜻을 담고 있어요.`
+    : null;
+
+  const withMeaning = (s: AssembledSection): AssembledSection => (meaningParagraph
+    ? { ...s, plain: [meaningParagraph, ...s.plain], expert: [meaningParagraph, ...s.expert] }
+    : s);
+
   const sections = [
     sectionOf(`지금 이름 진단 — ${j.nameFull}`, [[...ids.s4, ...ids.s7], ids.s6]),
     sectionOf('이 사주에 필요한 기운', [[...ids.s1, ...ids.s2, ...ids.s3]]),
-    sectionOf('이름이 주는 기운', [ids.s5, ids.s8]),
+    withMeaning(sectionOf('이름이 주는 기운', [ids.s5, ids.s8])),
     sectionOf('종합', [ids.s9]),
   ].filter((s) => s.plain.length > 0);
 

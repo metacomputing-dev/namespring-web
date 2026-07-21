@@ -86,12 +86,16 @@ export function validateNameEvidenceSlots(
     const v: string[] = [];
     const slot = raw as unknown as GeneratedSlot;
 
-    // S9(종합)만 케이스 전체를 합성하므로 길게 쓴다 (설계 §1: 유일한 합성 슬롯).
-    const isClosing = c.family === 'S9';
-    const bands = isClosing
-      ? ([['plain', 80, 200], ['expert', 100, 260]] as const)
-      : ([['plain', 40, 110], ['expert', 50, 160]] as const);
-    const [minSent, maxSent] = isClosing ? [2, 4] : [1, 2];
+    // 분량 밴드 — 패밀리별. 기본은 짧은 조각(1~2문장), 글자 작용(S5)·이름 작용
+    // 종합(S8)은 중간, 4절 종합(S9)은 케이스 전체를 합성하는 유일한 장문 조각.
+    const FAMILY_BANDS: Partial<Record<string, { plain: [number, number]; expert: [number, number]; sentences: [number, number] }>> = {
+      S5: { plain: [60, 160], expert: [80, 200], sentences: [2, 3] },
+      S8: { plain: [80, 180], expert: [100, 220], sentences: [2, 3] },
+      S9: { plain: [100, 280], expert: [120, 340], sentences: [3, 5] },
+    };
+    const band = FAMILY_BANDS[c.family] ?? { plain: [40, 110] as [number, number], expert: [50, 160] as [number, number], sentences: [1, 2] as [number, number] };
+    const bands = [['plain', ...band.plain], ['expert', ...band.expert]] as ReadonlyArray<readonly [('plain' | 'expert'), number, number]>;
+    const [minSent, maxSent] = band.sentences;
     for (const [field, min, max] of bands) {
       const text = slot[field];
       if (typeof text !== 'string' || !text.trim()) { v.push(`${field} 없음`); continue; }
