@@ -280,7 +280,13 @@ function assertTextShape(task: EvidenceGenerationTask, item: GeneratedEvidenceIt
     if (/(고른 결|낮은 흐름|기운의 그릇|삶의 리듬|운명을|반드시|무조건)/u.test(text)) {
       throw new Error(`${task.taskId}/${item.key}.${field}: banned or over-deterministic wording`);
     }
-    if (task.kind === 'source-evidence' && /앞서 본/u.test(text)) {
+    if (field === 'plain' && /(현재 작명 판단|추천 판단|추천 근거|제한 요인|중심 보완|핵심 보완|종합 적합성|사용 가능한 후보|주요 판단|전체 설명|중간 성격의 요소|조절 효과|세부 성향|추천에는 제한적으로 보)/u.test(text)) {
+      throw new Error(`${task.taskId}/${item.key}.plain: internal evaluation wording is not allowed`);
+    }
+    if (field === 'plain' && /(기능(?:이|을)?\s*(?:반영|작용)|(?:성분|기운)(?:이|은|는)?\s*확인|성분(?:이|은|는)?\s*작용|근거(?:가|는)?\s*확인)/u.test(text)) {
+      throw new Error(`${task.taskId}/${item.key}.plain: mechanical scoring wording is not allowed`);
+    }
+    if (task.kind === 'source-evidence' && /(앞서 본|앞선 내용|앞의 주요 판단)/u.test(text)) {
       throw new Error(`${task.taskId}/${item.key}.${field}: repeated cross-fragment reference is not allowed`);
     }
     if (/\b(?:WOOD|FIRE|EARTH|METAL|WATER|sajuFit|yongshinFit|elementBalance|excellent|good|mixed|caution)\b/u.test(text)) {
@@ -340,7 +346,7 @@ function assertTextShape(task: EvidenceGenerationTask, item: GeneratedEvidenceIt
   }
 
   const lengths = task.kind === 'saju-axis'
-    ? { plain: [60, 230], detail: [80, 280] }
+    ? { plain: [60, 230], detail: [65, 280] }
     : task.kind === 'source-evidence'
       ? { plain: [40, 180], detail: [35, 190] }
       : { plain: [25, 130], detail: [35, 160] };
@@ -376,6 +382,19 @@ function assertTaskSemantics(task: EvidenceGenerationTask, item: GeneratedEviden
   }
   if (task.kind === 'source-evidence' && /(이름의 인상|이름의 느낌|발음|한자 뜻|점수|등급)/u.test(`${item.plain} ${item.detail}`)) {
     throw new Error(`${task.taskId}/${item.key}: unsupported name evidence was invented`);
+  }
+  if (task.kind === 'conclusion') {
+    const tone = spec.values.tone;
+    if ((tone === 'mixedButUsable' || tone === 'needsCaution')
+      && /(좋은 이름|추천할 만한 이름|충분한 후보|추천 후보로 충분|추천하기 충분|잘 맞는 이름)/u.test(`${item.plain} ${item.detail}`)) {
+      throw new Error(`${task.taskId}/${item.key}: conclusion is more positive than its tone`);
+    }
+    if (tone === 'mixedButUsable' && !/(비교|장점|아쉬운|함께 살펴)/u.test(item.plain)) {
+      throw new Error(`${task.taskId}/${item.key}.plain: mixed conclusion must communicate comparison or trade-offs`);
+    }
+    if (tone === 'needsCaution' && !/(다른 후보|우선 추천|비교)/u.test(item.plain)) {
+      throw new Error(`${task.taskId}/${item.key}.plain: caution conclusion must clearly recommend another comparison`);
+    }
   }
 }
 

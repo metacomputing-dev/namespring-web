@@ -137,6 +137,32 @@ test('rejects a repeated cross-fragment reference from independently generated s
   assert.throws(() => validateGeneratedTaskResult(task, invalid), /cross-fragment reference/u);
 });
 
+test('rejects internal evaluation language from user-facing prose', () => {
+  const task = buildEvidenceGenerationTasks().find(({ taskId }) => taskId === 'source-balance')!;
+  const result = satisfySourcePlaceholderContract(task, sharedResult(task));
+  const invalid = {
+    ...result,
+    items: result.items.map((item, index) => index === 0
+      ? { ...item, plain: `현재 작명 판단의 중심 보완으로 ${item.plain}` }
+      : item),
+  };
+  assert.throws(() => validateGeneratedTaskResult(task, invalid), /internal evaluation wording/u);
+});
+
+test('rejects an overly positive conclusion for mixed or caution tones', () => {
+  const task = buildEvidenceGenerationTasks().find(({ taskId }) => taskId === 'conclusions')!;
+  const result = sharedResult(task);
+  const invalid = {
+    ...result,
+    items: result.items.map((item) => item.key.endsWith('/mixedButUsable')
+      ? { ...item, plain: '장단점을 함께 살펴도 추천할 만한 좋은 이름이므로 이 후보를 선택해도 충분해요.' }
+      : item.key.endsWith('/needsCaution')
+        ? { ...item, plain: '다른 후보와 비교해 보더라도 충분한 후보이므로 그대로 결정해도 좋아요.' }
+        : item),
+  };
+  assert.throws(() => validateGeneratedTaskResult(task, invalid), /more positive than its tone/u);
+});
+
 test('validates and assembles a pilot generated through the production task shapes', () => {
   const tasks = selectPilotTasks(buildEvidenceGenerationTasks(), 1);
   const results = tasks.map((task) => satisfySourcePlaceholderContract(

@@ -53,7 +53,7 @@ function runName(argv: readonly string[], tasks: readonly EvidenceGenerationTask
   if (explicit && /^[a-zA-Z0-9._-]+$/u.test(explicit)) return explicit;
   if (explicit) throw new Error('--run accepts only letters, numbers, dot, underscore and hyphen');
   const axisCount = tasks.filter(({ kind }) => kind === 'saju-axis').length;
-  return axisCount === 75 ? 'full-v2' : `pilot-axis-${axisCount}`;
+  return axisCount === 75 ? 'full-v3' : `pilot-axis-${axisCount}`;
 }
 
 function writePlan(runDir: string, tasks: readonly EvidenceGenerationTask[]): void {

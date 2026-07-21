@@ -78,7 +78,12 @@ function namingEvidenceViewerPlugin() {
             surname: shareUserInfo.lastName,
             givenName: shareUserInfo.firstName,
             options: {
-              precisionConfig: { surfaceTieredMatrix: true, surfaceInsightFacts: true },
+              precisionConfig: {
+                surfaceTieredMatrix: true,
+                surfaceInsightFacts: true,
+                surfaceNamingScoreVector: true,
+                surfacePhoneticEvidence: true,
+              },
             },
           }
           response.statusCode = 200

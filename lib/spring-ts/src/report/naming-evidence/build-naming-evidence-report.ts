@@ -282,12 +282,22 @@ function sourceCandidates(evidence: SajuNameSourceEvidence): SourceCandidate[] {
   return candidates;
 }
 
-function conclusionToneOf(candidates: readonly SourceCandidate[]): NamingEvidenceConclusionTone {
+function conclusionToneOf(
+  candidates: readonly SourceCandidate[],
+  sajuFit: number | null | undefined,
+): NamingEvidenceConclusionTone {
   if (candidates.length === 0) return 'insufficientEvidence';
+  const scoreBand = classifyNamingScoreBand('sajuFit', sajuFit);
+  if (scoreBand === 'caution') return 'needsCaution';
+  if (scoreBand === 'mixed') return 'mixedButUsable';
   const supporting = candidates.filter(({ fact }) => fact.direction === 'supports')
     .reduce((sum, { fact }) => sum + fact.weight, 0);
   const limiting = candidates.filter(({ fact }) => fact.direction === 'limits')
     .reduce((sum, { fact }) => sum + fact.weight, 0);
+  if (scoreBand === 'excellent' && limiting === 0 && supporting >= 50) return 'allPositive';
+  if (scoreBand === 'good' || scoreBand === 'excellent') {
+    return limiting >= supporting ? 'mixedButUsable' : 'mostlyPositive';
+  }
   if (limiting === 0 && supporting >= 50) return 'allPositive';
   if (supporting > limiting * 1.5) return 'mostlyPositive';
   if (limiting >= supporting) return 'needsCaution';
@@ -298,7 +308,10 @@ function buildSajuFitSection(input: NamingEvidenceReportInput): NamingEvidenceSe
   const candidates = input.springReport.sajuCompatibility?.sourceEvidence
     ? sourceCandidates(input.springReport.sajuCompatibility.sourceEvidence)
     : [];
-  const tone = conclusionToneOf(candidates);
+  const vector = scoreVectorOf(input.springReport);
+  const sajuFit = vector?.value.sajuFit;
+  const verdict = classifyNamingScoreBand('sajuFit', sajuFit);
+  const tone = conclusionToneOf(candidates, sajuFit);
   const axisFact: NamingEvidenceFact = {
     kind: 'sajuAxes',
     sourcePath: 'sajuAxes',
@@ -343,7 +356,7 @@ function buildSajuFitSection(input: NamingEvidenceReportInput): NamingEvidenceSe
     id: 'sajuFit',
     title: SECTION_TITLES.sajuFit,
     availability: 'planned',
-    verdict: null,
+    verdict,
     conclusionTone: tone,
     fragments,
     facts: [axisFact, ...candidates.map(({ fact }) => fact)],

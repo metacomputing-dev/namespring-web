@@ -126,7 +126,7 @@ test('plans section 2 from engine facts without generated text', () => {
   assert.equal(plan.sections.length, 3);
 
   const saju = plan.sections[0];
-  assert.equal(saju.verdict, null);
+  assert.equal(saju.verdict, 'good');
   assert.equal(saju.conclusionTone, 'mostlyPositive');
   assert.deepEqual(saju.fragments.map(({ key }) => key), [
     'saju-axis/WOOD/weak/WATER/inseong',
@@ -145,6 +145,16 @@ test('plans section 2 from engine facts without generated text', () => {
   ]);
 
   assert.equal(plan.sections[2].fragments[0].key, 'pronunciation/excellent/good');
+});
+
+test('keeps the saju-fit conclusion tone within the aggregate score band', () => {
+  const mixed = buildNamingEvidencePlan(input(scoreVector({ sajuFit: 55 }))).sections[0];
+  assert.equal(mixed.verdict, 'mixed');
+  assert.equal(mixed.conclusionTone, 'mixedButUsable');
+
+  const caution = buildNamingEvidencePlan(input(scoreVector({ sajuFit: 42 }))).sections[0];
+  assert.equal(caution.verdict, 'caution');
+  assert.equal(caution.conclusionTone, 'needsCaution');
 });
 
 test('omits unavailable source evidence and marks an unavailable pronunciation section', () => {

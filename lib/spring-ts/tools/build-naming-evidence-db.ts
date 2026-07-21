@@ -8,7 +8,7 @@ const PACKAGE_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), 
 const REPOSITORY_ROOT = path.resolve(PACKAGE_ROOT, '..', '..');
 const DEFAULT_SOURCE_PATH = path.join(
   PACKAGE_ROOT,
-  'data/naming-report/evidence/generation/runs/full-v2/naming-evidence.generated-draft.json',
+  'data/naming-report/evidence/generation/runs/full-v3/naming-evidence.generated-draft.json',
 );
 const DATABASE_PATH = path.join(REPOSITORY_ROOT, 'namespring/public/data/naming-evidence.db');
 const MANIFEST_PATH = path.join(PACKAGE_ROOT, 'src/report/naming-evidence/database-manifest.generated.ts');
