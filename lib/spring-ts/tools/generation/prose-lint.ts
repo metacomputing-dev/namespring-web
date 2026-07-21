@@ -71,6 +71,12 @@ export const TEXT_RULES: TextRule[] = [
   { rule: 'slot-school-claim', sev: 'ERROR', only: 'slot',
     re: /운해본|해례본/u,
     detail: '발음오행 유파 단정 금지(D-2) — 고지는 analysis/푸터에서만' },
+  { rule: 'slot-double-hedge', sev: 'WARN', only: 'slot',
+    re: /쯤 있는 셈|정도인 셈|쯤 되는 셈/u,
+    detail: "'쯤'+'셈' 이중 얼버무림 — 하나만 남기거나 직설로" },
+  { rule: 'slot-plural-deul', sev: 'WARN', only: 'slot',
+    re: /소리들|자리들|시기들|글자들|기운들/u,
+    detail: "복수 '-들' 남용 — 집합 단수로 (소리는/자리는/시기는)" },
 ];
 
 /** 물상 혼입 검사 (§6.1): 이 번들의 일간이 아닌 그룹의 물상 어휘 → ERROR. */
