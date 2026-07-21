@@ -435,6 +435,12 @@ export function slotRequestsFor(j: NameEvidenceJudgments): NameEvidenceCase[] {
     }));
   }
 
+  // S13 종합 절 재진술: 글자 기운(자원오행)의 이름 작용 × 1
+  add(makeCase('S13', { nameEffect: j.nameEffect }, {
+    fact: `이름 작용 재진술 = ${j.nameEffect} (boost_strong=강한 보강 / boost_mild=약한 보강 / neutral=중립 / adverse=필요 기운을 채우지 못함). 글자에 담긴 기운(자원오행)의 작용 전체를 2~3문장으로 재진술하는 조각 — 일간·물상 언급 없이, 이 갈래가 이름 전체 인상에서 갖는 무게까지.`,
+    isAdverse: j.nameEffect === 'adverse',
+  }));
+
   // S9 4절 종합: 일간 × 강약 × 격국family × nameEffect
   add(makeCase('S9', { stem: j.stem, gangyak: j.gangyak, gyeokgukFamily: j.gyeokgukFamily, nameEffect: j.nameEffect }, {
     fact: `종합 맺음: ${stemPhrase} · ${gangyakKo} · 격국 계열 ${j.gyeokgukFamily} · 이름 작용 ${j.nameEffect}. 케이스 전체(바탕의 성격 → 필요한 기운 → 이름의 몫 → 유의점 → 생활 조언)를 3~5문장으로 합성하고 물상으로 여운 있게 닫는, 유일하게 긴 조각 (plain 100~280자 / expert 120~340자).`,

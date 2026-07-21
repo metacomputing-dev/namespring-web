@@ -94,6 +94,7 @@ export function validateNameEvidenceSlots(
       S9: { plain: [100, 280], expert: [120, 340], sentences: [3, 5] },
       S11: { plain: [60, 180], expert: [80, 220], sentences: [2, 3] },
       S12: { plain: [60, 180], expert: [80, 220], sentences: [2, 3] },
+      S13: { plain: [60, 180], expert: [80, 220], sentences: [2, 3] },
     };
     const band = FAMILY_BANDS[c.family] ?? { plain: [40, 110] as [number, number], expert: [50, 160] as [number, number], sentences: [1, 2] as [number, number] };
     const bands = [['plain', ...band.plain], ['expert', ...band.expert]] as ReadonlyArray<readonly [('plain' | 'expert'), number, number]>;

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S13.boost_mild",
+  "family": "S13",
+  "role": "finding",
+  "key": {
+    "nameEffect": "boost_mild"
+  },
+  "plain": "글자에 담긴 기운은 이 사주에 필요한 쪽을 한 자리에서 채워 주고 있어요. 정면 보강까지는 아니어도, 필요한 방향으로 힘을 보태는 대목이에요.",
+  "expert": "자원오행이 용신을 한 자리에서 담은 배치예요. 보강의 정도는 완만하지만 방향이 용신 쪽을 향해 있어, 글자 갈래는 이름 전체에서 가점 요인으로 짚이는 자리예요.",
+  "isAdverse": false,
+  "allowedVars": [],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "accessedAt": "2026-07-21",
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false
+  },
+  "sourceNote": "regen-ne-pilot3"
+}

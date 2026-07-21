@@ -80,6 +80,7 @@ checkEqual('slot ids (최도윤)', ids, [
   'S9.im.weak.jaeseong.adverse',
   'S11.mixed',
   'S12.mostly_bright',
+  'S13.adverse',
 ].sort());
 
 const byId = new Map(requests.map((c) => [c.slotId, c]));
