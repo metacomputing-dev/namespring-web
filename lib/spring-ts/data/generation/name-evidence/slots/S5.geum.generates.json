@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S5.geum.generates",
+  "family": "S5",
+  "role": "finding",
+  "key": {
+    "resourceElement": "금",
+    "yongshinRelation": "generates"
+  },
+  "plain": "{{charRef}}에 담긴 쇠 기운은 필요한 물 기운을 낳아 주는 바탕이에요. 필요한 기운을 직접 담지는 않았지만, 그 기운의 원천이 되어 줘요. 이름 속에서 조용히 받쳐 주는 몫이에요.",
+  "expert": "{{charRef}}의 자원오행 금은 금생수로 용신을 생조해요. 용신을 직접 담지 않아도 그 원천이 되어 주는 자리라, 자원오행 보강의 결이 한 단계 건너 이어지는 배치예요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "charRef"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot4"
+}

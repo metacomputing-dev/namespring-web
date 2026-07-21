@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S7.same_vowel_repeat.low",
+  "family": "S7",
+  "role": "finding",
+  "key": {
+    "phoneticRule": "same_vowel_repeat",
+    "risk": "low"
+  },
+  "plain": "이웃한 글자의 모음이 같은 모양으로 반복되는 연결이 있어요. 짧은 이름에서는 단조롭게 들릴 수 있는, 가벼운 정도의 신호예요.",
+  "expert": "인접 음절의 모음이 반복되는 전이예요. 위험도가 낮은 신호라 실제 호명에서 크게 드러나지 않는 수준이에요.",
+  "isAdverse": false,
+  "allowedVars": [],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot4"
+}

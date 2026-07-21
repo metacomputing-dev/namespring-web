@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S5.to.controlled",
+  "family": "S5",
+  "role": "finding",
+  "key": {
+    "resourceElement": "토",
+    "yongshinRelation": "controlled"
+  },
+  "plain": "{{charRef}}의 흙 기운은 이 사주의 나무 기운이 누르는 자리에 있어요. 거스르는 방향까지는 아니지만, 글자의 기운이 크게 살아나기는 어려운 배치예요. 이름의 무게는 다른 글자와 소리의 흐름이 나눠 지게 돼요.",
+  "expert": "{{charRef}}의 자원오행 토는 목극토로 용신의 극을 받는 자리예요. 글자 기운이 눌리는 배치라 이름 안에서 존재감이 옅어요. 용신을 거스르는 방향은 아니라 감점보다는 공백에 가까워요.",
+  "isAdverse": true,
+  "allowedVars": [
+    "charRef"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot4"
+}

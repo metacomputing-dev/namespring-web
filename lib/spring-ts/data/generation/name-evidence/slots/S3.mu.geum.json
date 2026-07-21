@@ -1,18 +1,18 @@
 {
   "schemaVersion": "spring-ts.name-evidence-slot.v1",
-  "slotId": "S2.gi.geum",
-  "family": "S2",
-  "role": "principle",
+  "slotId": "S3.mu.geum",
+  "family": "S3",
+  "role": "bridge",
   "key": {
-    "stem": "기",
+    "stem": "무",
     "targetElement": "금"
   },
-  "plain": "{{charRef}}의 쇠 기운은 흙이 낳아 밖으로 내보내는 자리예요. 표현과 재능, 만들어 내는 힘으로 이어지는 기운이에요.",
-  "expert": "금은 기토가 생하는 식상이에요. 흙의 기운을 밖으로 흘려보내는 통로라, 표현과 재능이 나가는 길목이 되는 자리예요.",
-  "principle": "쇠는 흙이 낳아 내보내는 자리예요.",
+  "plain": "이 산에 힘이 되는 것은 산이 낳아 내보내는 쇠 기운이에요. 표현하고 만들어 내는 활동이 산의 기운을 살리는 통로가 돼요.",
+  "expert": "용신은 금이에요. 토생금으로 일간 무토의 기운을 밖으로 흘려보내는 식상이라, {{yongshinName:이가}} 표현·재능·산출의 통로로 방향을 잡아 줘요.",
+  "principle": "산은 쇠를 낳아 기운의 길을 열어요.",
   "isAdverse": false,
   "allowedVars": [
-    "charRef"
+    "yongshinName"
   ],
   "aiGenerated": true,
   "sourceTier": {
@@ -25,5 +25,5 @@
     "authorityTruthEligible": false,
     "accessedAt": "2026-07-21"
   },
-  "sourceNote": "regen-ne-pilot2"
+  "sourceNote": "regen-ne-pilot4"
 }

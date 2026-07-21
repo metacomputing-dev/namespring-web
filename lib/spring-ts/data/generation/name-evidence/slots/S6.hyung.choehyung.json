@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S6.hyung.choehyung",
+  "family": "S6",
+  "role": "finding",
+  "key": {
+    "frame": "hyung",
+    "grade": "최흉운수"
+  },
+  "plain": "{{frameLabel}}은 이름의 획수로 인생 한가운데의 기둥을 보는데, 획수로 풀어 보면 가장 무거운 흐름에 놓여 있어요. 한창때의 큰 결정일수록 서두르지 않고 확인을 거듭하는 편이 좋아요.",
+  "expert": "{{frameLabel}}이 최흉운수 등급이에요. 중년 활동의 축에 해당하는 수리가 무겁게 놓인 만큼, 중심 시기의 운용은 확장보다 정비에 무게를 두는 편이 안전해요.",
+  "isAdverse": true,
+  "allowedVars": [
+    "frameLabel"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot4",
+  "keyProvenance": "engine-current-formula-b"
+}

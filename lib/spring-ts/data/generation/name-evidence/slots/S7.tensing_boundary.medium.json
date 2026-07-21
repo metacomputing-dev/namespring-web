@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S7.tensing_boundary.medium",
+  "family": "S7",
+  "role": "finding",
+  "key": {
+    "phoneticRule": "tensing_boundary",
+    "risk": "medium"
+  },
+  "plain": "받침 뒤에 예사소리가 이어져 소리가 다소 세게 들릴 수 있는 연결이 있어요. 또렷하고 부드럽게 불러 주면 무리 없는 정도예요.",
+  "expert": "받침 뒤 예사소리가 된소리로 바뀌는 경음화 전이예요. 중간 위험도 신호라 호명에서 소리가 다소 단단하게 들릴 수 있는 수준이에요.",
+  "isAdverse": false,
+  "allowedVars": [],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot4"
+}

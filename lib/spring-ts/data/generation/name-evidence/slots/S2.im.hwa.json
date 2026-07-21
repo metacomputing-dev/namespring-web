@@ -1,15 +1,15 @@
 {
   "schemaVersion": "spring-ts.name-evidence-slot.v1",
-  "slotId": "S2.gi.to",
+  "slotId": "S2.im.hwa",
   "family": "S2",
   "role": "principle",
   "key": {
-    "stem": "기",
-    "targetElement": "토"
+    "stem": "임",
+    "targetElement": "화"
   },
-  "plain": "{{charRef}}의 흙 기운은 같은 흙끼리 어깨를 나란히 하는 자리예요. 동료와 자립심, 건강한 경쟁심으로 이어지는 기운이에요.",
-  "expert": "토는 기토와 같은 오행인 비겁이에요. 같은 흙이 한 겹 더해지는 자리라, 어깨를 맞대는 힘과 세력의 쏠림을 함께 보는 자리예요.",
-  "principle": "흙은 같은 흙과 어깨를 나란히 하는 자리예요.",
+  "plain": "{{charRef}}에 담긴 불 기운은 큰 물이 누르며 힘을 쏟는 자리예요. 재물과 성과를 좇는 현실 감각으로 이어지되, 쓰는 만큼 힘이 드는 기운이에요.",
+  "expert": "화는 임수가 극하는 재성이에요. 물이 불을 다루며 힘을 쓰는 그림이라, 성과를 좇을수록 수기가 쓰이는 자리예요.",
+  "principle": "불은 큰 강물이 누르며 힘을 쏟는 자리예요.",
   "isAdverse": false,
   "allowedVars": [
     "charRef"
@@ -25,5 +25,5 @@
     "authorityTruthEligible": false,
     "accessedAt": "2026-07-21"
   },
-  "sourceNote": "regen-ne-pilot2"
+  "sourceNote": "regen-ne-pilot4"
 }

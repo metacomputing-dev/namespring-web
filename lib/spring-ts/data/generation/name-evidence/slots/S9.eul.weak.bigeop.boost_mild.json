@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S9.eul.weak.bigeop.boost_mild",
+  "family": "S9",
+  "role": "closing",
+  "key": {
+    "stem": "을",
+    "gangyak": "weak",
+    "gyeokgukFamily": "bigeop",
+    "nameEffect": "boost_mild"
+  },
+  "plain": "여린 덩굴은 서로 기대어 함께 오를 때 힘이 나요. 동료와 어우러져 자라는 결이 이 사주의 중심이고, 이름도 뿌리를 적시는 기운을 한 자리에서 보태 줘요. 홀로 뻗기보다 함께 얽혀 오르며, 뿌리를 적시는 배움을 곁에 두는 편이 좋아요. 물이 닿는 만큼 덩굴은 꽃을 피워요.",
+  "expert": "비겁의 연대 축이 중심이지만 신약한 을목이라 뿌리의 보급이 먼저인 구성이에요. 이름의 자원오행이 용신 수를 한 자리에서 담아 보강의 결이 맞아요. 동료의 힘을 빌리되 인성의 보급을 함께 챙기는 운용이 관건이에요. 뿌리가 차오르면 연대가 결실로 이어지는 흐름이에요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "dayMasterName",
+    "yongshinName",
+    "nameFull"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot4"
+}

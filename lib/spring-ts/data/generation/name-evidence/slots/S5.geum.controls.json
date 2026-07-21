@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S5.geum.controls",
+  "family": "S5",
+  "role": "finding",
+  "key": {
+    "resourceElement": "금",
+    "yongshinRelation": "controls"
+  },
+  "plain": "{{charRef}}에 담긴 쇠 기운은 이 사주에 필요한 나무 기운과 부딪히는 방향이에요. 필요한 쪽을 살리지 못하고 오히려 누르는 자리라, 이 글자의 기운에 기대기는 어려워요. 부족한 쪽은 생활에서 챙기는 편이 좋아요.",
+  "expert": "{{charRef}}의 자원오행 금은 금극목으로 용신을 극하는 방향이에요. 필요한 오행과 정면으로 부딪히는 배치라 자원오행 갈래의 감점 지점이에요. 보완의 몫은 이름 밖에 남아요.",
+  "isAdverse": true,
+  "allowedVars": [
+    "charRef"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot4"
+}

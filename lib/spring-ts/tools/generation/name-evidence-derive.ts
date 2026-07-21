@@ -352,7 +352,7 @@ export function slotRequestsFor(j: NameEvidenceJudgments): NameEvidenceCase[] {
     const rel = relationKo(j.stemElement, elem);
     const tg = TEN_GOD_BY_RELATION[rel];
     add(makeCase('S2', { stem: j.stem, targetElement: elem }, {
-      fact: `${elem}는 ${stemPhrase}에게 ${tg.name} (${relationWord(j.stemElement, elem)}).`,
+      fact: `${elem}는 ${stemPhrase}에게 ${tg.name} (${relationWord(j.stemElement, elem)}). ⚠ 이 조각은 강약을 모릅니다 — 신강/신약/중화와 그 상태 함의(마른·넘치는)를 전제하지 말고 원리만 쓰세요.`,
       imagery: IMAGERY[j.stem],
       tenGodMeaning: `${tg.name} = ${tg.life}`,
       isAdverse: false,
@@ -363,7 +363,7 @@ export function slotRequestsFor(j: NameEvidenceJudgments): NameEvidenceCase[] {
   const yongRel = relationKo(j.stemElement, j.yongshin);
   const yongTg = TEN_GOD_BY_RELATION[yongRel];
   add(makeCase('S3', { stem: j.stem, targetElement: j.yongshin }, {
-    fact: `용신 = ${j.yongshin}. ${stemPhrase}에게 ${j.yongshin}는 ${yongTg.name} (${relationWord(j.stemElement, j.yongshin)}). 채우면 좋은 기운.`,
+    fact: `용신 = ${j.yongshin}. ${stemPhrase}에게 ${j.yongshin}는 ${yongTg.name} (${relationWord(j.stemElement, j.yongshin)}). 채우면 좋은 기운. ⚠ 이 조각은 강약을 모릅니다 — 신강/신약/중화와 그 상태 함의를 전제하지 마세요.`,
     imagery: IMAGERY[j.stem],
     tenGodMeaning: `${yongTg.name} = ${yongTg.life}`,
     isAdverse: false,

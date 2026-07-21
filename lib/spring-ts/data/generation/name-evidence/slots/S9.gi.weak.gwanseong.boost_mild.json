@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S9.gi.weak.gwanseong.boost_mild",
+  "family": "S9",
+  "role": "closing",
+  "key": {
+    "stem": "기",
+    "gangyak": "weak",
+    "gyeokgukFamily": "gwanseong",
+    "nameEffect": "boost_mild"
+  },
+  "plain": "밭의 흙이 아직 얇은데 맡은 자리의 무게는 뚜렷한 사주예요. 이름이 필요한 기운을 한 자리에서 보태 주니, 바탕을 채우는 걸음에 힘이 실려요. 책임을 홀로 짊어지기보다 배움과 사람의 도움으로 흙을 한 겹씩 쌓는 편이 좋아요. 얇은 밭도 거름이 쌓이면 제 몫을 넉넉히 해내요.",
+  "expert": "정관격의 규율 축이 중심이지만 신약한 기토라 관성의 무게가 부담이 되기 쉬운 구성이에요. 이름의 자원오행이 용신을 한 자리에서 담아 보강의 결이 맞아요. 인성과 비겁의 조력을 생활에서 더하면 관인상생의 순환이 살아나요. 바탕이 차오르는 만큼 맡은 자리가 결실로 이어지는 흐름이에요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "dayMasterName",
+    "yongshinName",
+    "nameFull"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot4"
+}

@@ -1,18 +1,19 @@
 {
   "schemaVersion": "spring-ts.name-evidence-slot.v1",
-  "slotId": "S2.gi.to",
-  "family": "S2",
-  "role": "principle",
+  "slotId": "S1.gi.weak",
+  "family": "S1",
+  "role": "finding",
   "key": {
     "stem": "기",
-    "targetElement": "토"
+    "gangyak": "weak"
   },
-  "plain": "{{charRef}}의 흙 기운은 같은 흙끼리 어깨를 나란히 하는 자리예요. 동료와 자립심, 건강한 경쟁심으로 이어지는 기운이에요.",
-  "expert": "토는 기토와 같은 오행인 비겁이에요. 같은 흙이 한 겹 더해지는 자리라, 어깨를 맞대는 힘과 세력의 쏠림을 함께 보는 자리예요.",
-  "principle": "흙은 같은 흙과 어깨를 나란히 하는 자리예요.",
+  "plain": "타고난 기운은 곡식을 기르는 밭의 흙이에요. 지금은 흙이 얇아, 기운의 바탕을 채워 줄 손길이 필요한 상태예요.",
+  "expert": "일간 기토는 밭의 흙 물상이에요. 신약한 원국이라 흙이 얇은 상태로, 바탕을 채워 줄 기운이 필요해요.",
   "isAdverse": false,
   "allowedVars": [
-    "charRef"
+    "dayMasterName",
+    "yongshinName",
+    "nameFull"
   ],
   "aiGenerated": true,
   "sourceTier": {
@@ -25,5 +26,5 @@
     "authorityTruthEligible": false,
     "accessedAt": "2026-07-21"
   },
-  "sourceNote": "regen-ne-pilot2"
+  "sourceNote": "regen-ne-pilot4"
 }

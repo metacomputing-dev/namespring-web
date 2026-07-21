@@ -163,7 +163,7 @@ const s2Case = byId.get('S2.im.hwa') as NameEvidenceCase;
 const okSlot = {
   slotId: 'S2.im.hwa',
   plain: '{{charRef}}의 불 기운은 큰 강물이 눌러 힘을 쏟는 자리예요. 마른 강에는 무거운 짐이 돼요.',
-  expert: '화는 임수 일간이 극하는 재성이에요. #{jaeseong} 신약 원국에서는 재성 과다가 설기로 작동해요.',
+  expert: '화는 임수가 극하는 재성이에요. #{jaeseong} 물이 불을 다루며 힘을 쓰는 그림이라, 성과를 좇을수록 수기가 쓰이는 자리예요.',
   principle: '불은 큰 강물이 누르며 힘을 쏟는 자리예요.',
 };
 {

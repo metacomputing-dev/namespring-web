@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S6.hyung.yang",
+  "family": "S6",
+  "role": "finding",
+  "key": {
+    "frame": "hyung",
+    "grade": "양운수"
+  },
+  "plain": "{{frameLabel}}은 이름의 획수로 인생 한가운데의 기둥을 봐요. 획수로 풀어 보면 무난한 흐름에 놓여 있어, 중심 활동이 무리 없이 이어지는 방향이에요.",
+  "expert": "{{frameLabel}}이 양운수 등급이에요. 중년 활동의 수리가 평탄하게 놓여, 주된 흐름이 무리 없이 이어지는 배치예요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "frameLabel"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot4",
+  "keyProvenance": "engine-current-formula-b"
+}

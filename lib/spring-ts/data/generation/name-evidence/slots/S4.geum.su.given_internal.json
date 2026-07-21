@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S4.geum.su.given_internal",
+  "family": "S4",
+  "role": "finding",
+  "key": {
+    "fromElement": "금",
+    "toElement": "수",
+    "boundary": "given_internal"
+  },
+  "plain": "{{fromChar}}의 첫소리 {{fromOnset}}은 쇠 기운, {{toChar}}의 첫소리 {{toOnset}}은 물 기운이에요. 쇠가 물을 낳아 주는 순서라 이름 안쪽 소리가 부딪힘 없이 흘러요.",
+  "expert": "이름 안쪽 {{fromChar}}→{{toChar}} 전이는 금생수의 상생이에요. 앞 글자의 {{fromOnset}} 소리가 뒤 글자의 {{toOnset}} 소리를 생하는 순방향이라 흐름이 매끄러워요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "fromChar",
+    "toChar",
+    "fromOnset",
+    "toOnset"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot4"
+}

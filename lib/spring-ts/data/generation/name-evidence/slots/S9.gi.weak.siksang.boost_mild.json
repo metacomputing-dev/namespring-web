@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S9.gi.weak.siksang.boost_mild",
+  "family": "S9",
+  "role": "closing",
+  "key": {
+    "stem": "기",
+    "gangyak": "weak",
+    "gyeokgukFamily": "siksang",
+    "nameEffect": "boost_mild"
+  },
+  "plain": "밭의 흙이 아직 얇은데, 심고 길러 내보내는 재주는 뚜렷한 사주예요. 이름이 필요한 기운을 한 자리에서 보태 주어 바탕을 채우는 데 힘이 돼요. 재주를 꺼내 쓰는 만큼 흙을 다시 채우는 쉼과 배움이 함께 가야 해요. 얇은 밭도 거름이 쌓이면 심는 대로 길러 내요.",
+  "expert": "식신격의 산출 축이 중심이지만 신약한 기토라 내보내는 만큼 바탕이 얇아지기 쉬운 구성이에요. 이름의 자원오행이 용신을 한 자리에서 담아 완만한 보강으로 작동해요. 설기와 보급의 리듬을 맞추는 것이 관건이에요. 바탕이 차오르면 산출이 결실로 이어지는 흐름이에요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "dayMasterName",
+    "yongshinName",
+    "nameFull"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot4"
+}

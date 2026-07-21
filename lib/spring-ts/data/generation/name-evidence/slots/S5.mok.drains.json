@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S5.mok.drains",
+  "family": "S5",
+  "role": "finding",
+  "key": {
+    "resourceElement": "목",
+    "yongshinRelation": "drains"
+  },
+  "plain": "물 기운이 {{charRef}}의 나무 기운을 길러 주며 힘을 나눠 줘요. 도움을 받는 자리인 만큼, 채워야 할 기운의 힘이 조금 덜리는 면도 함께 있어요. 크게 거스르는 배치는 아니라 무겁게 볼 일은 아니에요.",
+  "expert": "{{charRef}}의 자원오행 목은 수생목으로 용신의 생을 받는 자리예요. 용신 수의 기운이 설기되는 방향이라 보탬과 소모가 함께 있는 배치예요. 정면으로 부딪히는 관계는 아니라 부담은 크지 않아요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "charRef"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot4"
+}

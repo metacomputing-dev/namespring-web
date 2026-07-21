@@ -149,6 +149,17 @@ export function validateNameEvidenceSlots(
       if (tags.length > 2) v.push(`expert 태그 ${tags.length}개 (0~2)`);
     }
 
+    // 강약 무관 슬롯(키에 gangyak 없음)은 신강/신약/중화를 전제할 수 없다 —
+    // 같은 슬롯이 반대 강약의 사주에도 재사용되기 때문.
+    if (!c.key.gangyak) {
+      for (const field of ['plain', 'expert', 'principle'] as const) {
+        const text = slot[field];
+        if (typeof text === 'string' && /신강|신약|극신|중화/u.test(text)) {
+          v.push(`${field} 강약 전제 금지 — 이 슬롯은 강약 무관 키라 반대 강약 사주에도 재사용됨`);
+        }
+      }
+    }
+
     // 정직성 + 강약 방향
     if (c.spec.isAdverse) {
       for (const field of ['plain', 'expert'] as const) {

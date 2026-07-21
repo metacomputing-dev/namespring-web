@@ -182,7 +182,7 @@ export const IMAGERY_GROUP: Record<Stem, ImageryGroup> = {
  */
 export const IMAGERY_FORBIDDEN_RE: Record<ImageryGroup, string> = {
   wood: '뿌리|덩굴|숲|새싹|(?<!물)줄기|가지를 뻗|가지가 뻗|잎(?=[이을은의처럼])',
-  fire: '촛불|화로|불꽃|불길|불빛|햇살|햇빛|태양|온기',
+  fire: '촛불|(?<![가-힣])화로|불꽃|불길|불빛|햇살|햇빛|태양|온기',
   earth: '밭(?=[이을은의처럼에])|산비탈|바위턱|(?<![가-힣])산(?=[이을은처럼])',
   metal: '무쇠|보석|쇳|칼날|(?<![가-힣])칼(?=[이을은의처럼])|바위(?!턱)',
   water: '강물|바다|시냇물|이슬|수원|물길|물줄기|파도|샘물|샘이',

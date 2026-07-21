@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S8.eul.weak.boost_mild",
+  "family": "S8",
+  "role": "finding",
+  "key": {
+    "stem": "을",
+    "gangyak": "weak",
+    "nameEffect": "boost_mild"
+  },
+  "plain": "{{nameFull:이라라}}는 이름은 여린 나무에 필요한 기운을 한 자리에서 담고 있어요. 정면 보강까지는 아니어도, 뿌리를 적시는 방향으로 힘을 보태는 이름이에요. 나머지 몫은 배움과 사람의 도움에서 더하면 돼요.",
+  "expert": "이름의 자원오행이 용신을 한 자리에서 담은 배치예요. 신약한 원국의 보강 방향과 결이 맞아, 완만하지만 유효한 가점이에요. 부족한 보급은 인성의 생활 조력으로 더하면 되는 배치예요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "dayMasterName",
+    "yongshinName",
+    "nameFull"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot4"
+}

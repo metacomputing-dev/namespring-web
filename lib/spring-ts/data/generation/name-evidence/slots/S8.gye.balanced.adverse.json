@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S8.gye.balanced.adverse",
+  "family": "S8",
+  "role": "finding",
+  "key": {
+    "stem": "계",
+    "gangyak": "balanced",
+    "nameEffect": "adverse"
+  },
+  "plain": "{{nameFull:이라라}}는 이름은 물길에 필요한 기운을 담지 못했어요. 고르게 흐르는 바탕이라 이름의 공백이 크게 흔들지는 않지만, 필요한 기운을 이름에서 기대기는 어려워요. 그 몫은 배움과 사람에게서 챙기는 편이 좋아요.",
+  "expert": "이름의 자원오행이 용신을 담지 못하고 기신 쪽에 무게가 실린 배치예요. 중화에 가까운 원국이라 공백의 파장은 제한적이나, 보완의 몫은 생활에 남아요. 발음과 수리의 구성이 이름의 남은 인상을 정해요.",
+  "isAdverse": true,
+  "allowedVars": [
+    "dayMasterName",
+    "yongshinName",
+    "nameFull"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot4"
+}

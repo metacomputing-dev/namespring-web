@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S4.geum.geum.given_internal",
+  "family": "S4",
+  "role": "finding",
+  "key": {
+    "fromElement": "금",
+    "toElement": "금",
+    "boundary": "given_internal"
+  },
+  "plain": "{{fromChar}}의 첫소리 {{fromOnset}}과 {{toChar}}의 첫소리 {{toOnset}}은 둘 다 쇠 기운이에요. 같은 기운이 나란히 이어져 소리의 결이 한 방향으로 모여요.",
+  "expert": "이름 안쪽 {{fromChar}}→{{toChar}} 전이는 금과 금의 동기예요. 극도 설기도 없는 나란한 배열이라 흐름이 단단하게 이어져요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "fromChar",
+    "toChar",
+    "fromOnset",
+    "toOnset"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot4"
+}

@@ -1,15 +1,15 @@
 {
   "schemaVersion": "spring-ts.name-evidence-slot.v1",
-  "slotId": "S2.gi.to",
+  "slotId": "S2.im.geum",
   "family": "S2",
   "role": "principle",
   "key": {
-    "stem": "기",
-    "targetElement": "토"
+    "stem": "임",
+    "targetElement": "금"
   },
-  "plain": "{{charRef}}의 흙 기운은 같은 흙끼리 어깨를 나란히 하는 자리예요. 동료와 자립심, 건강한 경쟁심으로 이어지는 기운이에요.",
-  "expert": "토는 기토와 같은 오행인 비겁이에요. 같은 흙이 한 겹 더해지는 자리라, 어깨를 맞대는 힘과 세력의 쏠림을 함께 보는 자리예요.",
-  "principle": "흙은 같은 흙과 어깨를 나란히 하는 자리예요.",
+  "plain": "{{charRef}}의 쇠 기운은 물을 낳아 주는 자리예요. 배움과 문서, 도와주는 사람의 기운으로 이어져요.",
+  "expert": "금은 임수를 생하는 인성이에요. 금생수의 순방향이라 배움·문서·조력의 얼굴로 수원을 대 주는 자리예요.",
+  "principle": "쇠는 물을 낳아 주는 원천이에요.",
   "isAdverse": false,
   "allowedVars": [
     "charRef"
@@ -25,5 +25,5 @@
     "authorityTruthEligible": false,
     "accessedAt": "2026-07-21"
   },
-  "sourceNote": "regen-ne-pilot2"
+  "sourceNote": "regen-ne-pilot4"
 }

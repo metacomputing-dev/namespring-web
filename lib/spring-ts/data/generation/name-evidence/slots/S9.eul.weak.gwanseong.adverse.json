@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S9.eul.weak.gwanseong.adverse",
+  "family": "S9",
+  "role": "closing",
+  "key": {
+    "stem": "을",
+    "gangyak": "weak",
+    "gyeokgukFamily": "gwanseong",
+    "nameEffect": "adverse"
+  },
+  "plain": "여린 덩굴이 무거운 책임의 자리를 받치고 있는 사주예요. 이 이름은 뿌리를 적셔 줄 기운을 담지 못해, 그 몫이 생활에 남아 있어요. 배움과 좋은 어른의 도움, 충분한 쉼이 뿌리를 지키는 길이에요. 짐을 홀로 지지 않고 나눌수록 덩굴은 다시 힘을 내요. 물이 닿으면 여린 나무도 꽃을 피워요.",
+  "expert": "편관격의 압박 축이 중심인데 신약한 을목이라 관살의 무게가 부담이 되기 쉬운 구성이에요. 이름의 자원오행마저 용신 수를 싣지 못해 인성의 보급은 생활의 몫으로 남아요. 살인상생의 길, 곧 배움과 귀인으로 압박을 힘으로 바꾸는 운용이 관건이에요. 뿌리에 물이 닿는 만큼 무게가 성장으로 바뀌는 흐름이에요.",
+  "isAdverse": true,
+  "allowedVars": [
+    "dayMasterName",
+    "yongshinName",
+    "nameFull"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot4"
+}

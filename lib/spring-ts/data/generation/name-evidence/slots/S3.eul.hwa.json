@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S3.eul.hwa",
+  "family": "S3",
+  "role": "bridge",
+  "key": {
+    "stem": "을",
+    "targetElement": "화"
+  },
+  "plain": "이 나무에 힘이 되는 것은 꽃을 피워 내보내는 불 기운이에요. 표현하고 만들어 내는 활동이 기운의 길을 열어 줘요.",
+  "expert": "용신은 화예요. 목생화로 일간 을목의 기운을 흘려보내는 식상이라, {{yongshinName:이가}} 표현·재능·산출의 통로로 방향을 잡아 줘요.",
+  "principle": "꽃은 피어야 나무의 기운이 돌아요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "yongshinName"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot4"
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S4.mok.to.surname_given",
+  "family": "S4",
+  "role": "finding",
+  "key": {
+    "fromElement": "목",
+    "toElement": "토",
+    "boundary": "surname_given"
+  },
+  "plain": "성 {{fromChar}}의 첫소리 {{fromOnset}}은 나무 기운, {{toChar}}의 첫소리 {{toOnset}}은 흙 기운이에요. 나무가 흙을 누르는 관계라 첫 만남 자리에서 두 소리가 부딪히며 만나요.",
+  "expert": "성과 이름 경계 {{fromChar}}→{{toChar}} 전이는 목극토의 상극이에요. 앞 글자가 뒤 글자를 극하는 자리라 발음오행에서 먼저 짚이는 부딪힘이에요.",
+  "principle": "나무는 흙을 누르고 다스리는 방향이에요.",
+  "isAdverse": true,
+  "allowedVars": [
+    "fromChar",
+    "toChar",
+    "fromOnset",
+    "toOnset"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot4"
+}

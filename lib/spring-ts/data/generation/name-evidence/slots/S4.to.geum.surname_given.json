@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S4.to.geum.surname_given",
+  "family": "S4",
+  "role": "finding",
+  "key": {
+    "fromElement": "토",
+    "toElement": "금",
+    "boundary": "surname_given"
+  },
+  "plain": "성 {{fromChar}}의 첫소리 {{fromOnset}}은 흙 기운, {{toChar}}의 첫소리 {{toOnset}}은 쇠 기운이에요. 흙이 쇠를 길러 주는 순서라 첫 만남 자리의 소리가 순하게 이어져요.",
+  "expert": "성과 이름 경계 {{fromChar}}→{{toChar}} 전이는 토생금의 상생이에요. 앞 글자의 {{fromOnset}} 소리가 뒤 글자의 {{toOnset}} 소리를 생하는 순방향이라 도입부 흐름이 매끄러워요.",
+  "principle": "흙은 쇠를 품어 길러 주는 방향이에요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "fromChar",
+    "toChar",
+    "fromOnset",
+    "toOnset"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot4"
+}

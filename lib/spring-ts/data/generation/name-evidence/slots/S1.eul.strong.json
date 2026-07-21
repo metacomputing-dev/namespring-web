@@ -1,18 +1,19 @@
 {
   "schemaVersion": "spring-ts.name-evidence-slot.v1",
-  "slotId": "S2.gi.geum",
-  "family": "S2",
-  "role": "principle",
+  "slotId": "S1.eul.strong",
+  "family": "S1",
+  "role": "finding",
   "key": {
-    "stem": "기",
-    "targetElement": "금"
+    "stem": "을",
+    "gangyak": "strong"
   },
-  "plain": "{{charRef}}의 쇠 기운은 흙이 낳아 밖으로 내보내는 자리예요. 표현과 재능, 만들어 내는 힘으로 이어지는 기운이에요.",
-  "expert": "금은 기토가 생하는 식상이에요. 흙의 기운을 밖으로 흘려보내는 통로라, 표현과 재능이 나가는 길목이 되는 자리예요.",
-  "principle": "쇠는 흙이 낳아 내보내는 자리예요.",
+  "plain": "타고난 기운은 꽃과 덩굴의 나무예요. 지금은 덩굴이 무성하게 뻗어 기운이 넉넉하게 넘치는 상태예요.",
+  "expert": "일간 을목은 꽃과 덩굴의 물상이에요. 신강한 원국이라 목의 세력이 무성해, 뻗는 기운의 방향을 잡는 일이 관건이에요.",
   "isAdverse": false,
   "allowedVars": [
-    "charRef"
+    "dayMasterName",
+    "yongshinName",
+    "nameFull"
   ],
   "aiGenerated": true,
   "sourceTier": {
@@ -25,5 +26,5 @@
     "authorityTruthEligible": false,
     "accessedAt": "2026-07-21"
   },
-  "sourceNote": "regen-ne-pilot2"
+  "sourceNote": "regen-ne-pilot4"
 }

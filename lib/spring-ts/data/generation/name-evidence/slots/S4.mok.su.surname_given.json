@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S4.mok.su.surname_given",
+  "family": "S4",
+  "role": "finding",
+  "key": {
+    "fromElement": "목",
+    "toElement": "수",
+    "boundary": "surname_given"
+  },
+  "plain": "성 {{fromChar}}의 첫소리 {{fromOnset}}은 나무 기운, {{toChar}}의 첫소리 {{toOnset}}은 물 기운이에요. 뒤에 오는 물이 앞의 나무를 길러 주는 쪽이라 첫 만남 소리가 안정되게 이어져요.",
+  "expert": "성과 이름 경계 {{fromChar}}→{{toChar}} 전이는 수생목이에요. 뒤 글자의 {{toOnset}} 소리가 앞 글자의 {{fromOnset}} 소리를 생하는 역방향 상생이라 받쳐 주는 연결이에요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "fromChar",
+    "toChar",
+    "fromOnset",
+    "toOnset"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot4"
+}

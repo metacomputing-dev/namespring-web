@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S9.mu.strong.bigeop.boost_mild",
+  "family": "S9",
+  "role": "closing",
+  "key": {
+    "stem": "무",
+    "gangyak": "strong",
+    "gyeokgukFamily": "bigeop",
+    "nameEffect": "boost_mild"
+  },
+  "plain": "우뚝 선 큰 산은 그 자체로 든든한 바탕이에요. 제 힘으로 서는 자립의 결이 이 사주의 중심이고, 이름도 필요한 기운을 한 자리에서 보태며 기운의 길을 열어 줘요. 힘이 안으로만 쌓이지 않게 표현하고 내보내는 활동을 곁에 두는 편이 좋아요. 큰 산은 길이 열리는 만큼 넉넉히 품을 내줘요.",
+  "expert": "건록격의 자립 축이 중심이고 신강한 무토라 세력이 두터운 구성이에요. 이름의 자원오행이 용신 금을 한 자리에서 담아 설기의 길목을 여는 가점이에요. 비겁의 과열은 식상으로 흘려보내는 운용이 관건이에요. 산이 길을 내는 만큼 기운이 순환하는 흐름이에요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "dayMasterName",
+    "yongshinName",
+    "nameFull"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot4"
+}

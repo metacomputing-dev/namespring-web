@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S5.geum.match",
+  "family": "S5",
+  "role": "finding",
+  "key": {
+    "resourceElement": "금",
+    "yongshinRelation": "match"
+  },
+  "plain": "{{charRef}}에 담긴 쇠 기운은 이 사주에 필요한 기운 그 자체예요. 이름을 부르고 쓸 때마다 필요한 기운이 함께 따라오는 셈이라, 이름 안에서 가장 든든한 몫을 하는 자리예요.",
+  "expert": "{{charRef}}의 자원오행 금은 용신과 일치해요. 필요한 오행을 글자 자체에 담아 상시로 보강하는 구성이라, 자원오행 배치에서 중심이 되는 자리예요. 용신 일치 글자가 이름에 있으면 보강의 결이 안정돼요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "charRef"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot4"
+}

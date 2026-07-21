@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S9.eul.strong.gwanseong.boost_mild",
+  "family": "S9",
+  "role": "closing",
+  "key": {
+    "stem": "을",
+    "gangyak": "strong",
+    "gyeokgukFamily": "gwanseong",
+    "nameEffect": "boost_mild"
+  },
+  "plain": "무성하게 뻗은 덩굴은 그 자체로 생기가 넘쳐요. 맡은 자리와 규율을 지키며 결실을 쌓는 결이 이 사주의 중심이고, 이름도 필요한 기운을 한 자리에서 보태며 같은 방향을 봐요. 뻗는 힘이 넉넉한 만큼, 가지를 다듬어 방향을 고르는 손길이 결실을 키워요. 잘 매만진 덩굴은 제 자리에서 오래 꽃을 피워요.",
+  "expert": "정관격의 규율 축이 중심이고 신강한 을목이라 관성의 무게를 감당할 힘이 있어요. 이름의 자원오행이 용신 화를 한 자리에서 담아 목화통명의 길목을 여는 가점이에요. 무성한 목기가 흩어지지 않게 산출의 방향을 고르는 것이 관건이에요. 다듬어진 나무가 제 몫의 결실을 맺는 흐름이에요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "dayMasterName",
+    "yongshinName",
+    "nameFull"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "sourceUrl": null,
+    "quoteShort": null,
+    "humanInterpretation": "AI-authored Korean slot fragment for display-only name-evidence narrative; judgments come from the engine, never from this text.",
+    "copyrightNote": "No third-party prose copied.",
+    "authorityTruthEligible": false,
+    "accessedAt": "2026-07-21"
+  },
+  "sourceNote": "regen-ne-pilot4"
+}
