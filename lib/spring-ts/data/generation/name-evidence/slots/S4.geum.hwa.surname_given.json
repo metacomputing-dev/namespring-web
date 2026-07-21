@@ -8,11 +8,16 @@
     "toElement": "화",
     "boundary": "surname_given"
   },
-  "plain": "성의 쇠 소리 뒤에 불 소리가 이어지는 연결이에요. 불이 쇠를 누르는 방향이라 두 기운이 부딪히며 만나요.",
-  "expert": "성과 이름 경계에서 화극금의 역방향 상극이 일어나요. 첫 만남 자리의 부딪힘이라 발음오행 흐름에서 가장 먼저 짚이는 지점이에요.",
+  "plain": "성 {{fromChar}}의 첫소리 {{fromOnset}}은 쇠 기운, {{toChar}}의 첫소리 {{toOnset}}은 불 기운이에요. 불이 쇠를 누르는 관계라 첫 만남 자리에서 두 소리가 부딪히며 만나요.",
+  "expert": "성과 이름 경계에서 {{fromChar}}의 {{fromOnset}} 소리(금) 뒤에 {{toChar}}의 {{toOnset}} 소리(화)가 이어져요. 화극금의 역방향 상극이라 발음오행에서 가장 먼저 짚이는 부딪힘이에요.",
   "principle": "불과 쇠가 만나면 불이 쇠를 누르는 방향이에요.",
   "isAdverse": true,
-  "allowedVars": [],
+  "allowedVars": [
+    "fromChar",
+    "toChar",
+    "fromOnset",
+    "toOnset"
+  ],
   "aiGenerated": true,
   "sourceTier": {
     "tier": "T2_AI_AUTHORED_INSIGHT",

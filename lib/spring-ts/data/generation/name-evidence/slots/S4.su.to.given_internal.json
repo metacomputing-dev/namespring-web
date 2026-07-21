@@ -8,11 +8,16 @@
     "toElement": "토",
     "boundary": "given_internal"
   },
-  "plain": "이름 안에서 물 소리 뒤에 흙 소리가 이어져요. 뒤에 오는 흙이 앞의 물을 막는 쪽이라 두 기운이 부딪히며 만나요.",
-  "expert": "이름 내부 전이는 토극수의 역방향 상극이에요. 뒤 글자가 앞 글자를 극하는 자리라 발음오행 흐름에서 짚어 둘 부딪힘이에요.",
+  "plain": "{{fromChar}}의 첫소리 {{fromOnset}}은 물 기운, {{toChar}}의 첫소리 {{toOnset}}은 흙 기운이에요. 흙이 물을 막는 관계라 이름 안쪽에서 두 소리가 부딪히며 만나요.",
+  "expert": "이름 안쪽 {{fromChar}}→{{toChar}} 전이는 토극수의 역방향 상극이에요. 뒤 글자의 {{toOnset}} 소리가 앞 글자의 {{fromOnset}} 소리를 극하는 자리라 짚어 둘 부딪힘이에요.",
   "principle": "흙은 물을 막아 가두는 방향이에요.",
   "isAdverse": true,
-  "allowedVars": [],
+  "allowedVars": [
+    "fromChar",
+    "toChar",
+    "fromOnset",
+    "toOnset"
+  ],
   "aiGenerated": true,
   "sourceTier": {
     "tier": "T2_AI_AUTHORED_INSIGHT",

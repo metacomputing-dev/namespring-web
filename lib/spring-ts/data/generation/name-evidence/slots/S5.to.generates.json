@@ -7,12 +7,11 @@
     "resourceElement": "토",
     "yongshinRelation": "generates"
   },
-  "plain": "{{charHangul}}({{charHanja}})에 담긴 흙 기운은 필요한 쇠 기운을 길러 주는 바탕이에요. 이름 속에서 든든한 밑받침 노릇을 해요.",
-  "expert": "{{charHangul}}({{charHanja}})의 자원오행 토는 용신 금을 토생금으로 생조해요. 용신을 직접 담지는 않아도 그 원천이 되어 주는 글자예요.",
+  "plain": "{{charRef}}에 담긴 흙 기운은 필요한 쇠 기운을 길러 주는 바탕이에요. 이름 속에서 든든한 밑받침 노릇을 해요.",
+  "expert": "{{charRef}}의 자원오행 토는 용신 금을 토생금으로 생조해요. 용신을 직접 담지는 않아도 그 원천이 되어 주는 글자예요.",
   "isAdverse": false,
   "allowedVars": [
-    "charHangul",
-    "charHanja"
+    "charRef"
   ],
   "aiGenerated": true,
   "sourceTier": {

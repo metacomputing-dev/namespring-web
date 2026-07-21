@@ -7,12 +7,11 @@
     "resourceElement": "수",
     "yongshinRelation": "controls"
   },
-  "plain": "{{charHangul}}({{charHanja}})의 물 기운은 이 사주에 필요한 불 기운과 부딪히는 방향이에요. 필요한 쪽을 살리지 못하는 글자예요.",
-  "expert": "{{charHangul}}({{charHanja}})의 자원오행 수는 수극화로 용신을 누르는 방향이에요. 필요한 기운과 정면으로 부딪히는 배치라 짚어 둘 지점이에요.",
+  "plain": "{{charRef}}의 물 기운은 이 사주에 필요한 불 기운과 부딪히는 방향이에요. 필요한 쪽을 살리지 못하는 글자예요.",
+  "expert": "{{charRef}}의 자원오행 수는 수극화로 용신을 누르는 방향이에요. 필요한 기운과 정면으로 부딪히는 배치라 짚어 둘 지점이에요.",
   "isAdverse": true,
   "allowedVars": [
-    "charHangul",
-    "charHanja"
+    "charRef"
   ],
   "aiGenerated": true,
   "sourceTier": {

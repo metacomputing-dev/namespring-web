@@ -8,7 +8,7 @@
     "gangyak": "strong",
     "nameEffect": "boost_strong"
   },
-  "plain": "{{nameFull}}이라는 이름에는 밭을 데우는 불 기운이 넉넉히 담겨 있어요. 필요한 쪽을 정면으로 살리는 이름이에요.",
+  "plain": "{{nameFull:이라라}}는 이름에는 밭을 데우는 불 기운이 넉넉히 담겨 있어요. 필요한 쪽을 정면으로 살리는 이름이에요.",
   "expert": "이름의 자원오행이 용신을 두 자리 이상에서 담아, 원국에 필요한 기운을 정면으로 보강하는 배치예요. 보강의 정도는 실제로 강한 편이에요.",
   "isAdverse": false,
   "allowedVars": [

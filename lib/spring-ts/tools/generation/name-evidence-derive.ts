@@ -9,6 +9,7 @@
 import type { SpringReport, BirthInfo } from '../../src/types.js';
 import type { ElementCode } from '../../src/report/types.js';
 import { getElementRelation, lookupStemInfo } from '../../src/report/common/elementMaps.js';
+import { appendJosa } from '../../src/report/tiered/article-renderer.js';
 import { buildFeatureVector } from '../../src/report/tiered/feature-selector.js';
 import { packKeyFor } from '../../src/report/tiered/class-axes.js';
 import {
@@ -72,6 +73,7 @@ export function relationWord(a: ElementKo, b: ElementKo): string {
 export interface CharJudgment {
   readonly hangul: string;
   readonly hanja: string | null;
+  readonly onset: string | null;              // 초성 자모 (발음오행의 근거)
   readonly soundElement: ElementKo | null;    // 발음오행
   readonly resourceElement: ElementKo | null; // 자원오행 (한자 있을 때)
   readonly strokes: number | null;
@@ -81,6 +83,10 @@ export interface CharJudgment {
 export interface PairJudgment {
   readonly fromChar: string;
   readonly toChar: string;
+  readonly fromHanja: string | null;
+  readonly toHanja: string | null;
+  readonly fromOnset: string | null;
+  readonly toOnset: string | null;
   readonly from: ElementKo;
   readonly to: ElementKo;
   readonly boundary: Boundary;
@@ -174,6 +180,7 @@ export function deriveJudgments(report: SpringReport, input: DeriveInput): NameE
     return {
       hangul: hb.hangul,
       hanja: jb?.hanja ?? null,
+      onset: hb.onset ?? null,
       soundElement,
       resourceElement: jb ? toElementKo(jb.resourceElement) : null,
       strokes: jb?.strokes ?? null,
@@ -191,6 +198,8 @@ export function deriveJudgments(report: SpringReport, input: DeriveInput): NameE
     if (!a.soundElement || !b.soundElement) { warnings.push(`인접쌍 생략: ${a.hangul}→${b.hangul} (오행 미해석)`); continue; }
     pairs.push({
       fromChar: a.hangul, toChar: b.hangul,
+      fromHanja: a.hanja, toHanja: b.hanja,
+      fromOnset: a.onset, toOnset: b.onset,
       from: a.soundElement, to: b.soundElement,
       boundary: i === 0 ? 'surname_given' : 'given_internal',
       relation: relationKo(a.soundElement, b.soundElement),
@@ -404,6 +413,18 @@ export function slotRequestsFor(j: NameEvidenceJudgments): NameEvidenceCase[] {
 
 const ELEMENT_PLAIN: Record<ElementKo, string> = { 목: '나무', 화: '불', 토: '흙', 금: '쇠', 수: '물' };
 
+/** '민(旼)' — 한자 미상이면 '민'. */
+const charRefOf = (hangul: string, hanja: string | null): string => (hanja ? `${hangul}(${hanja})` : hangul);
+
+/** 동일 판정 글자 묶음: 1개 '민(旼)' / 2개 '민(旼)과 아(雅)' / 3개+ '가(甲)·나(乙)·다(丙)'. */
+function joinCharRefs(chars: readonly CharJudgment[]): string | null {
+  const refs = chars.map((c) => charRefOf(c.hangul, c.hanja));
+  if (refs.length === 0) return null;
+  if (refs.length === 1) return refs[0];
+  if (refs.length === 2) return `${appendJosa(refs[0], '과와')} ${refs[1]}`;
+  return refs.join('·');
+}
+
 export function varBindingsFor(j: NameEvidenceJudgments, requests: readonly NameEvidenceCase[]): Map<string, Record<string, string>> {
   const bindings = new Map<string, Record<string, string>>();
   const common = {
@@ -415,12 +436,22 @@ export function varBindingsFor(j: NameEvidenceJudgments, requests: readonly Name
     const vars: Record<string, string> = { ...common };
     if (c.family === 'S2') {
       const target = c.key.targetElement;
-      const hit = j.given.find((g) => g.soundElement === target || g.resourceElement === target);
-      if (hit) { vars.charHangul = hit.hangul; if (hit.hanja) vars.charHanja = hit.hanja; }
+      const ref = joinCharRefs(j.given.filter((g) => g.soundElement === target || g.resourceElement === target));
+      if (ref) vars.charRef = ref;
     }
     if (c.family === 'S5') {
-      const hit = j.given.find((g) => g.resourceElement === c.key.resourceElement);
-      if (hit) { vars.charHangul = hit.hangul; if (hit.hanja) vars.charHanja = hit.hanja; }
+      const ref = joinCharRefs(j.given.filter((g) => g.resourceElement === c.key.resourceElement));
+      if (ref) vars.charRef = ref;
+    }
+    if (c.family === 'S4') {
+      const hit = j.pairs.find((p) =>
+        p.from === c.key.fromElement && p.to === c.key.toElement && p.boundary === c.key.boundary);
+      if (hit) {
+        vars.fromChar = charRefOf(hit.fromChar, hit.fromHanja);
+        vars.toChar = charRefOf(hit.toChar, hit.toHanja);
+        if (hit.fromOnset) vars.fromOnset = hit.fromOnset;
+        if (hit.toOnset) vars.toOnset = hit.toOnset;
+      }
     }
     if (c.family === 'S6' && c.key.frame) vars.frameLabel = FRAME_LABEL_KO[c.key.frame];
     // 화이트리스트 밖 값은 잘라서 게이트/조립 불변식과 일치시킨다.
@@ -453,9 +484,11 @@ export function buildAnalysisBlock(j: NameEvidenceJudgments): string {
   lines.push(`- 이름: ${j.nameFull}`);
   for (const c of [...j.surname, ...j.given]) lines.push(`  · ${charLine(c)}`);
   if (j.pairs.length) {
-    lines.push('- 발음 배열(방향 있음):');
+    lines.push('- 발음 배열(방향 있음, 첫소리 기준):');
     for (const p of j.pairs) {
-      lines.push(`  · ${p.fromChar}→${p.toChar} (${BOUNDARY_KO[p.boundary]}): ${relationWord(p.from, p.to)} — ${RELATION_DESC[p.relation]}`);
+      const from = `${p.fromChar}(${p.fromOnset ?? '?'}·${p.from})`;
+      const to = `${p.toChar}(${p.toOnset ?? '?'}·${p.to})`;
+      lines.push(`  · ${from}→${to} (${BOUNDARY_KO[p.boundary]}): ${relationWord(p.from, p.to)} — ${RELATION_DESC[p.relation]}`);
     }
   }
   if (j.framesSupported) {

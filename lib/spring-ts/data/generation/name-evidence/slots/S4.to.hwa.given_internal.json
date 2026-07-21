@@ -8,11 +8,16 @@
     "toElement": "화",
     "boundary": "given_internal"
   },
-  "plain": "이름 안에서 흙 소리 뒤에 불 소리가 이어져요. 뒤에 오는 불이 앞의 흙을 데워 주는 쪽이라 순하게 이어지는 연결이에요.",
-  "expert": "이름 내부 전이는 화생토의 역방향 상생이에요. 뒤 글자가 앞 글자를 생하는 배치라 흐름이 거꾸로 받쳐지는 순한 연결이에요.",
+  "plain": "{{fromChar}}의 첫소리 {{fromOnset}}은 흙 기운, {{toChar}}의 첫소리 {{toOnset}}은 불 기운이에요. 불이 흙을 데워 주는 관계라 이름 안쪽 소리가 순하게 이어져요.",
+  "expert": "이름 안쪽 {{fromChar}}→{{toChar}} 전이는 화생토의 역방향 상생이에요. 뒤 글자의 {{toOnset}} 소리가 앞 글자의 {{fromOnset}} 소리를 생하는 배치라 흐름이 거꾸로 받쳐지는 순한 연결이에요.",
   "principle": "불은 흙을 데워 길러 주는 방향이에요.",
   "isAdverse": false,
-  "allowedVars": [],
+  "allowedVars": [
+    "fromChar",
+    "toChar",
+    "fromOnset",
+    "toOnset"
+  ],
   "aiGenerated": true,
   "sourceTier": {
     "tier": "T2_AI_AUTHORED_INSIGHT",

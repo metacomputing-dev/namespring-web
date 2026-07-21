@@ -131,13 +131,9 @@ export function validateNameEvidenceSlots(
         if (rest.length || !allowed.has(name)) v.push(`${field} 허용 밖 변수 {{${m[1]}}}`);
         else if (josa !== undefined && !isJosaPair(josa)) v.push(`${field} 잘못된 조사쌍 {{${m[1]}}}`);
       }
-      // 글자 표기는 한글(한자) 병기 — 독자가 어느 글자인지 알 수 있어야 한다.
-      if (allowed.has('charHanja')) {
-        const hasHangul = /\{\{charHangul(?::[가-힣]+)?\}\}/u.test(text);
-        const hasHanja = /\{\{charHanja(?::[가-힣]+)?\}\}/u.test(text);
-        if (hasHanja && !hasHangul) v.push(`${field} 한자 단독 표기 — {{charHangul}}({{charHanja}})로 병기`);
-        if (hasHangul && !hasHanja) v.push(`${field} 한글 단독 표기 — {{charHangul}}({{charHanja}})로 병기`);
-      }
+      // 한자 하드코딩 금지 — 글자는 {{charRef}}/{{fromChar}}/{{toChar}} 변수로만.
+      // (직접 쓴 한자는 그 이름 전용이 되어 슬롯 재사용을 깨고, 병기 규칙도 우회한다.)
+      if (/[一-鿿]/u.test(text)) v.push(`${field} 한자 하드코딩 — 글자 변수 사용 (병기는 바인더가 처리)`);
     }
 
     // 태그: expert 0~2개

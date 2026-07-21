@@ -96,14 +96,16 @@ export const FAMILY_ROLE: Record<SlotFamily, SlotRole> = {
 export const PRINCIPLE_FAMILIES: ReadonlySet<SlotFamily> = new Set(['S2', 'S3', 'S4']);
 
 /** 런타임 치환 변수 화이트리스트 — 패밀리별 (§4.4 규칙 6).
- *  S4/S7은 빈 목록: 쌍/규칙 사실이 키에 내장되어 있고, 글자명을 넣으면
- *  다른 이름에서 재사용이 깨진다. */
+ *  글자 언급은 {{charRef}} 하나로 통일한다 — 바인더가 '민(旼)' 병기,
+ *  '민(旼)과 아(雅)' 같은 동일 판정 글자 묶음, 순한글 이름의 한자 생략을
+ *  전부 처리한다. S4는 쌍의 두 글자와 첫소리 자모를 변수로 받는다
+ *  (변수라서 슬롯 재사용은 깨지지 않는다). S7은 규칙 사실만 서술. */
 export const ALLOWED_VARS: Record<SlotFamily, readonly string[]> = {
   S1: ['dayMasterName', 'yongshinName', 'nameFull'],
-  S2: ['charHangul', 'charHanja'],
+  S2: ['charRef'],
   S3: ['yongshinName'],
-  S4: [],
-  S5: ['charHangul', 'charHanja'],
+  S4: ['fromChar', 'toChar', 'fromOnset', 'toOnset'],
+  S5: ['charRef'],
   S6: ['frameLabel'],
   S7: [],
   S8: ['dayMasterName', 'yongshinName', 'nameFull'],

@@ -7,13 +7,12 @@
     "stem": "기",
     "targetElement": "수"
   },
-  "plain": "{{charHangul}}({{charHanja}})의 물 기운은 흙이 눌러 거두어 들이는 자리예요. 재물과 성과를 손에 쥐는 현실 감각으로 이어져요.",
+  "plain": "{{charRef}}의 물 기운은 흙이 눌러 거두어 들이는 자리예요. 재물과 성과를 손에 쥐는 현실 감각으로 이어져요.",
   "expert": "수는 기토가 극하는 재성이에요. 신강한 원국은 재성을 감당할 힘이 있어, 성과와 현실 감각을 실속 있게 부리는 배치가 돼요.",
   "principle": "물은 밭의 흙이 눌러 거두는 자리예요.",
   "isAdverse": false,
   "allowedVars": [
-    "charHangul",
-    "charHanja"
+    "charRef"
   ],
   "aiGenerated": true,
   "sourceTier": {

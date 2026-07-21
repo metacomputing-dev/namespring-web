@@ -8,11 +8,16 @@
     "toElement": "금",
     "boundary": "given_internal"
   },
-  "plain": "이름 안에서 흙 소리가 쇠 소리를 길러 주며 이어져요. 앞 기운이 뒤 기운을 여물게 하는 순한 연결이에요.",
-  "expert": "이름 안쪽 전이는 토생금의 상생이에요. 앞 글자가 뒤 글자를 생조하는 순방향 배열이라 소리의 결이 순하게 이어져요.",
+  "plain": "{{fromChar}}의 첫소리 {{fromOnset}}은 흙 기운, {{toChar}}의 첫소리 {{toOnset}}은 쇠 기운이에요. 흙 속에서 쇠가 여물어 나오는 순서라 이름 안쪽 소리가 순하게 이어져요.",
+  "expert": "이름 안쪽 {{fromChar}}→{{toChar}} 전이는 토생금의 상생이에요. 앞 글자의 {{fromOnset}} 소리가 뒤 글자의 {{toOnset}} 소리를 생조하는 순방향이라 소리의 결이 순해요.",
   "principle": "흙 속에서 쇠가 여물어 나오는 방향이에요.",
   "isAdverse": false,
-  "allowedVars": [],
+  "allowedVars": [
+    "fromChar",
+    "toChar",
+    "fromOnset",
+    "toOnset"
+  ],
   "aiGenerated": true,
   "sourceTier": {
     "tier": "T2_AI_AUTHORED_INSIGHT",

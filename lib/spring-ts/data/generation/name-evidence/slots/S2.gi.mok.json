@@ -7,13 +7,12 @@
     "stem": "기",
     "targetElement": "목"
   },
-  "plain": "{{charHangul}}({{charHanja}})에 담긴 나무 기운은 흙을 누르고 다스리는 자리예요. 직장과 규율, 명예의 무게로 이어지는 기운이에요.",
+  "plain": "{{charRef}}에 담긴 나무 기운은 흙을 누르고 다스리는 자리예요. 직장과 규율, 명예의 무게로 이어지는 기운이에요.",
   "expert": "목은 기토를 극하는 관성이에요. 신강한 원국이라 압박을 견딜 힘은 있지만, 나무가 늘어날수록 흙의 부담도 함께 커지는 자리예요.",
   "principle": "나무는 흙을 뚫고 서서 흙을 다스리는 자리예요.",
   "isAdverse": false,
   "allowedVars": [
-    "charHangul",
-    "charHanja"
+    "charRef"
   ],
   "aiGenerated": true,
   "sourceTier": {

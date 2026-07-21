@@ -7,12 +7,11 @@
     "resourceElement": "화",
     "yongshinRelation": "match"
   },
-  "plain": "{{charHangul}}({{charHanja}})에 담긴 불 기운은 이 사주에 필요한 기운 그 자체예요. 이름 속에서 가장 든든한 글자예요.",
-  "expert": "{{charHangul}}({{charHanja}})의 자원오행 화는 용신과 일치해요. 필요한 기운을 글자에 바로 담은 구성이라 자원오행 배치의 중심이 되는 글자예요.",
+  "plain": "{{charRef}}에 담긴 불 기운은 이 사주에 필요한 기운 그 자체예요. 이름 속에서 가장 든든한 글자예요.",
+  "expert": "{{charRef}}의 자원오행 화는 용신과 일치해요. 필요한 기운을 글자에 바로 담은 구성이라 자원오행 배치의 중심이 되는 글자예요.",
   "isAdverse": false,
   "allowedVars": [
-    "charHangul",
-    "charHanja"
+    "charRef"
   ],
   "aiGenerated": true,
   "sourceTier": {

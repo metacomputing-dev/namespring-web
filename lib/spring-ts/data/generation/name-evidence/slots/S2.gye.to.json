@@ -7,13 +7,12 @@
     "stem": "계",
     "targetElement": "토"
   },
-  "plain": "{{charHangul}}({{charHanja}})의 흙 기운은 물을 누르고 물길을 가두는 자리예요. 흐름이 눌리면 몸과 마음의 부담으로 느껴질 수 있어요.",
+  "plain": "{{charRef}}의 흙 기운은 물을 누르고 물길을 가두는 자리예요. 흐름이 눌리면 몸과 마음의 부담으로 느껴질 수 있어요.",
   "expert": "토는 계수를 극하는 관성이에요. 신약 원국에서는 규율과 책임의 무게가 압박으로 작동하기 쉬운 배치예요.",
   "principle": "흙은 물길을 누르고 가두는 자리예요.",
   "isAdverse": false,
   "allowedVars": [
-    "charHangul",
-    "charHanja"
+    "charRef"
   ],
   "aiGenerated": true,
   "sourceTier": {

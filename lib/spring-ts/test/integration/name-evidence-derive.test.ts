@@ -128,10 +128,21 @@ check('S3 tenGodMeaning 인성', byId.get('S3.im.geum')?.spec.tenGodMeaning?.inc
 
 // ── 5. 변수 바인딩 + 조사 치환 ───────────────────────────────────────────────
 const bindings = varBindingsFor(j, requests);
-checkEqual('S2.im.hwa 바인딩', bindings.get('S2.im.hwa'), { charHangul: '도', charHanja: '都' });
+checkEqual('S2.im.hwa 바인딩(charRef 병기)', bindings.get('S2.im.hwa'), { charRef: '도(都)' });
 checkEqual('S3 바인딩(용신만)', bindings.get('S3.im.geum'), { yongshinName: '쇠' });
 checkEqual('S6 바인딩(frameLabel)', bindings.get('S6.hyung.choesang'), { frameLabel: '형격' });
-checkEqual('S4 바인딩(변수 없음)', bindings.get('S4.geum.hwa.surname_given'), {});
+checkEqual('S4 바인딩(글자+첫소리)', bindings.get('S4.geum.hwa.surname_given'), {
+  fromChar: '최(崔)', toChar: '도(都)', fromOnset: 'ㅊ', toOnset: 'ㄷ',
+});
+{
+  // 동일 판정 글자 묶음: 윤의 자원오행도 화로 바꾸면 S5.hwa.controls가 두 글자를 묶는다
+  const twin = loadFixture() as unknown as { namingReport: { analysis: { hanja: { blocks: Array<{ hanja: string; resourceElement: string }> } } } };
+  twin.namingReport.analysis.hanja.blocks.find((b) => b.hanja === '尹')!.resourceElement = 'Fire';
+  const jj = deriveJudgments(twin as unknown as SpringReport, { birth: BIRTH, targetDate: TARGET_DATE });
+  const reqs = slotRequestsFor(jj);
+  const bb = varBindingsFor(jj, reqs);
+  checkEqual('S5 묶음 바인딩(두 글자)', bb.get('S5.hwa.controls'), { charRef: '도(都)와 윤(尹)' });
+}
 checkEqual('fillVars 받침O 이가', fillVars('{{yongshinName:이가}} 힘이 돼요.', { yongshinName: '물' }), '물이 힘이 돼요.');
 checkEqual('fillVars 받침X 이가', fillVars('{{charHangul:이가}} 중심이에요.', { charHangul: '도' }), '도가 중심이에요.');
 checkEqual('fillVars 으로로 ㄹ', fillVars('{{yongshinName:으로로}} 흘러요.', { yongshinName: '물' }), '물로 흘러요.');
@@ -148,7 +159,7 @@ check('analysis에 획수 산식 없음', !/\d+\s*획\s*[+＋]/u.test(analysis))
 const s2Case = byId.get('S2.im.hwa') as NameEvidenceCase;
 const okSlot = {
   slotId: 'S2.im.hwa',
-  plain: '{{charHangul}}({{charHanja}})의 불 기운은 큰 강물이 눌러 힘을 쏟는 자리예요. 마른 강에는 무거운 짐이 돼요.',
+  plain: '{{charRef}}의 불 기운은 큰 강물이 눌러 힘을 쏟는 자리예요. 마른 강에는 무거운 짐이 돼요.',
   expert: '화는 임수 일간이 극하는 재성이에요. #{jaeseong} 신약 원국에서는 재성 과다가 설기로 작동해요.',
   principle: '불은 큰 강물이 누르며 힘을 쏟는 자리예요.',
 };
@@ -173,9 +184,14 @@ const okSlot = {
   check('게이트: 누락 slotId 리젝', !missing.ok && missing.violations.some((v) => v.includes('누락')));
 }
 {
-  const hangulOnly = { ...okSlot, plain: '{{charHangul}}의 불 기운은 큰 강물이 눌러 힘을 쏟는 자리예요. 마른 강에는 무거운 짐이 돼요.' };
-  const r = validateNameEvidenceSlots({ slots: [hangulOnly] }, [s2Case], { stem: '임' });
-  check('게이트: 한글 단독 표기 리젝(병기 필수)', !r.ok && [...r.perSlot.values()].flat().some((v) => v.includes('병기')));
+  const legacyVar = { ...okSlot, plain: '{{charHangul}}의 불 기운은 큰 강물이 눌러 힘을 쏟는 자리예요. 마른 강에는 무거운 짐이 돼요.' };
+  const r = validateNameEvidenceSlots({ slots: [legacyVar] }, [s2Case], { stem: '임' });
+  check('게이트: 구 변수(charHangul) 리젝', !r.ok && [...r.perSlot.values()].flat().some((v) => v.includes('허용 밖 변수')));
+}
+{
+  const hardcoded = { ...okSlot, plain: '도(都)의 불 기운은 큰 강물이 눌러 힘을 쏟는 자리예요. 마른 강에는 무거운 짐이 돼요.' };
+  const r = validateNameEvidenceSlots({ slots: [hardcoded] }, [s2Case], { stem: '임' });
+  check('게이트: 한자 하드코딩 리젝', !r.ok && [...r.perSlot.values()].flat().some((v) => v.includes('하드코딩')));
 }
 {
   // S9(종합)만 2~4문장·긴 분량 허용 — 짧으면 리젝
