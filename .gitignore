@@ -36,6 +36,7 @@ pnpm-debug.log*
 *.db
 *.sqlite
 *.sqlite3
+!namespring/public/data/naming-evidence.db
 # If you want to keep the seed database, use: !public/data/naming.db
 
 # --- OS Files ---

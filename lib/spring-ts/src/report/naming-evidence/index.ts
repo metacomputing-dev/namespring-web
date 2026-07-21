@@ -5,6 +5,12 @@ export {
 } from './build-naming-evidence-report.js';
 export { EMPTY_NAMING_EVIDENCE_CATALOG } from './catalog.js';
 export {
+  NAMING_EVIDENCE_DATABASE_INTEGRITY_MISMATCH,
+  NamingEvidenceDatabaseIntegrityError,
+  NamingEvidenceRepository,
+  type NamingEvidenceRepositoryOptions,
+} from './repository.js';
+export {
   NAMING_EVIDENCE_CATALOG_SCHEMA_VERSION,
   NAMING_EVIDENCE_CONTRACT_INVALID,
   NAMING_EVIDENCE_SCHEMA_VERSION,
@@ -23,7 +29,9 @@ export {
   type NamingEvidenceReport,
   type NamingEvidenceReportInput,
   type NamingEvidenceRole,
+  type NamingEvidenceSampleCase,
   type NamingEvidenceSajuAxes,
+  type NamingEvidenceSajuScoreAxis,
   type NamingEvidenceScoreAxis,
   type NamingEvidenceScoreFact,
   type NamingEvidenceSectionId,

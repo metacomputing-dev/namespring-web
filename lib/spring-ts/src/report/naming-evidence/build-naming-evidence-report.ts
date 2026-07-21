@@ -163,14 +163,14 @@ function buildSajuFitSection(input: NamingEvidenceReportInput): NamingEvidenceSe
     fragments.push({
       key: `score/${fact.axis}/${fact.band}`,
       slot: fact.role === 'summary' ? 'summary' : 'detail',
-      relation: summary && fact.axis !== 'sajuFit' ? relationToSummary(summary.band, fact.band) : 'neutral',
+      relation: summary && fact.axis !== 'sajuFit' ? relationToSummary(summary.band, fact.band) : null,
       facts: [fact],
     });
   }
   fragments.push({
     key: `conclusion/sajuFit/${tone}`,
     slot: 'conclusion',
-    relation: 'neutral',
+    relation: null,
     facts,
   });
 
@@ -323,7 +323,14 @@ export function buildNamingEvidencePlan(input: NamingEvidenceReportInput): Namin
 }
 
 function interpolate(text: string, name: string): string {
-  return text.replaceAll('{{name}}', name);
+  const finalCodePoint = name.codePointAt(name.length - 1);
+  const hasBatchim = finalCodePoint !== undefined
+    && finalCodePoint >= 0xac00
+    && finalCodePoint <= 0xd7a3
+    && (finalCodePoint - 0xac00) % 28 !== 0;
+  return text
+    .replaceAll('{{name:topic}}', `${name}${hasBatchim ? '은' : '는'}`)
+    .replaceAll('{{name}}', name);
 }
 
 function renderParts(
@@ -335,6 +342,7 @@ function renderParts(
   const parts: string[] = [];
   const rendered: string[] = [];
   const missing: string[] = [];
+  let connectorIndex = 0;
   for (const reference of section.fragments) {
     const fragment = catalog.fragments[reference.key];
     if (!fragment) {
@@ -344,7 +352,11 @@ function renderParts(
     if (fragment.key !== reference.key || fragment.sectionId !== section.id || fragment.slot !== reference.slot) {
       throw new NamingEvidenceContractError(`catalog.fragments.${reference.key}`, 'fragment identity does not match its plan slot');
     }
-    const connector = reference.relation ? catalog.connectors[reference.relation]?.[0] : undefined;
+    const connectorOptions = reference.relation ? catalog.connectors[reference.relation] : undefined;
+    const connector = connectorOptions && connectorOptions.length > 0
+      ? connectorOptions[connectorIndex % connectorOptions.length]
+      : undefined;
+    if (reference.relation) connectorIndex += 1;
     if (parts.length > 0 && connector) parts.push(interpolate(connector, plan.name));
     parts.push(interpolate(fragment[field], plan.name));
     rendered.push(reference.key);

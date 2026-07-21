@@ -54,6 +54,16 @@ export type NamingEvidenceScoreAxis =
   | 'phonetic'
   | 'familyFit';
 
+export type NamingEvidenceSajuScoreAxis = 'sajuFit' | 'yongshinFit' | 'elementBalance';
+
+export interface NamingEvidenceSampleCase extends NamingEvidenceSajuAxes {
+  readonly caseId: string;
+  readonly name: string;
+  readonly sajuFit: number;
+  readonly yongshinFit: number;
+  readonly elementBalance: number;
+}
+
 export interface NamingEvidenceMetric {
   readonly sourcePath: string;
   readonly value: number;
