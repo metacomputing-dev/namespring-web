@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S1.gye.weak",
+  "family": "S1",
+  "role": "finding",
+  "key": {
+    "stem": "계",
+    "gangyak": "weak"
+  },
+  "plain": "타고난 기운은 이슬비와 시냇물의 맑은 물이에요. 지금은 물줄기를 채워 줄 수원이 얕아진 상태예요.",
+  "expert": "일간 계수는 이슬비와 시냇물의 물상이에요. 신약한 원국이라 수원이 마른 상태로, 물길을 대 줄 기운이 필요해요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "dayMasterName",
+    "yongshinName",
+    "nameFull"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "authorityTruthEligible": false
+  },
+  "sourceNote": "regen-ne-pilot1"
+}

@@ -1,0 +1,86 @@
+{
+  "__comment": "Stubbed SpringReport for name-evidence derive tests (최도윤 · 임수 신약 · 용신 금 · 기신 화). Values are hand-authored plain judgment data for the reference case — NOT engine output and NOT authority truth.",
+  "finalScore": 61,
+  "sajuReport": {
+    "sajuEnabled": true,
+    "dayMaster": { "stem": "임", "element": "WATER", "polarity": "양" },
+    "strength": {
+      "level": "신약", "isStrong": false,
+      "totalSupport": 32, "totalOppose": 68,
+      "deukryeong": 0, "deukji": 0.3, "deukse": 2,
+      "details": []
+    },
+    "yongshin": {
+      "element": "금", "heeshin": "토", "gishin": "화", "gushin": null,
+      "confidence": 0.72, "agreement": "majority", "recommendations": []
+    },
+    "gyeokguk": { "type": "jeongjaegyeok", "category": "NORMAL", "baseTenGod": "정재", "confidence": 0.66, "reasoning": "" },
+    "elementDistribution": { "WOOD": 1, "FIRE": 3, "EARTH": 2, "METAL": 1, "WATER": 1 }
+  },
+  "sajuCompatibility": {
+    "yongshinElement": "금",
+    "heeshinElement": "토",
+    "gishinElement": "화",
+    "nameElements": ["금", "화", "토"],
+    "yongshinMatchCount": 0,
+    "gishinMatchCount": 1,
+    "dayMasterSupportScore": 40,
+    "affinityScore": 45
+  },
+  "namingReport": {
+    "name": {
+      "fullHangul": "최도윤",
+      "fullHanja": "崔都尹",
+      "surname": [
+        { "hangul": "최", "hanja": "崔", "strokes": 11, "element": "금", "meaning": "높을 최" }
+      ],
+      "givenName": [
+        { "hangul": "도", "hanja": "都", "strokes": 12, "element": "화", "meaning": "도읍 도" },
+        { "hangul": "윤", "hanja": "尹", "strokes": 4, "element": "토", "meaning": "다스릴 윤" }
+      ]
+    },
+    "totalScore": 58,
+    "analysis": {
+      "hangul": {
+        "blocks": [
+          { "hangul": "최", "onset": "ㅊ", "nucleus": "ㅚ", "element": "Metal", "polarity": "Positive" },
+          { "hangul": "도", "onset": "ㄷ", "nucleus": "ㅗ", "element": "Fire", "polarity": "Positive" },
+          { "hangul": "윤", "onset": "ㅇ", "nucleus": "ㅠ", "element": "Earth", "polarity": "Negative" }
+        ],
+        "polarityScore": 70,
+        "elementScore": 55
+      },
+      "hanja": {
+        "blocks": [
+          { "hanja": "崔", "hangul": "최", "strokes": 11, "resourceElement": "Earth", "strokeElement": "Wood", "polarity": "Positive" },
+          { "hanja": "都", "hangul": "도", "strokes": 12, "resourceElement": "Fire", "strokeElement": "Wood", "polarity": "Negative" },
+          { "hanja": "尹", "hangul": "윤", "strokes": 4, "resourceElement": "Earth", "strokeElement": "Fire", "polarity": "Negative" }
+        ],
+        "polarityScore": 65,
+        "elementScore": 50
+      },
+      "fourFrame": {
+        "frames": [
+          { "type": "won", "strokeSum": 16, "element": "Earth", "polarity": "Negative", "luckyLevel": 20,
+            "meaning": { "number": 16, "title": "덕망격", "summary": "", "lucky_level": "상운수" } },
+          { "type": "hyung", "strokeSum": 23, "element": "Fire", "polarity": "Positive", "luckyLevel": 25,
+            "meaning": { "number": 23, "title": "융창격", "summary": "", "lucky_level": "최상운수" } },
+          { "type": "lee", "strokeSum": 15, "element": "Earth", "polarity": "Positive", "luckyLevel": 15,
+            "meaning": { "number": 15, "title": "통솔격", "summary": "", "lucky_level": "양운수" } },
+          { "type": "jung", "strokeSum": 27, "element": "Metal", "polarity": "Positive", "luckyLevel": 5,
+            "meaning": { "number": 27, "title": "중절격", "summary": "", "lucky_level": "흉운수" } }
+        ],
+        "elementScore": 48,
+        "luckScore": 62
+      }
+    },
+    "phonetic": {
+      "transitions": [
+        { "boundary": "surname_given", "from": "최", "to": "도", "score": 100, "signals": [] },
+        { "boundary": "given_internal", "from": "도", "to": "윤", "score": 90,
+          "signals": [ { "code": "tensing_boundary", "severity": "medium", "penalty": 10, "message": "" } ] }
+      ]
+    },
+    "interpretation": ""
+  }
+}

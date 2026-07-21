@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S8.gye.weak.neutral",
+  "family": "S8",
+  "role": "finding",
+  "key": {
+    "stem": "계",
+    "gangyak": "weak",
+    "nameEffect": "neutral"
+  },
+  "plain": "{{nameFull}}이라는 이름이 물길을 크게 채우지도, 거스르지도 않아요. 필요한 기운은 배움과 사람에게서 챙기는 편이 좋아요.",
+  "expert": "이름의 오행 구성이 용신을 정면으로 살리지도, 기신을 키우지도 않는 중립 배치예요. 보완은 이름 밖 생활 영역에서 챙기면 돼요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "dayMasterName",
+    "yongshinName",
+    "nameFull"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "authorityTruthEligible": false
+  },
+  "sourceNote": "regen-ne-pilot1"
+}

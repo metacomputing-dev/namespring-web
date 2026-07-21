@@ -1,0 +1,222 @@
+/**
+ * name-evidence-prompt.ts -- 세션 생성 프롬프트 렌더러
+ * (docs/refs/name-evidence-prompt-design.md §4 템플릿의 구현).
+ *
+ * 번들 = 한 세션 에이전트가 한 번에 쓰는 슬롯 묶음:
+ *  - ne.imagery.<stemToken> : 물상 의존 슬롯(S1/S2/S3/S8/S9) — 일간 1개의 물상
+ *    세계를 한 모델이 일관되게 쓴다 (§1 "B-물상이 핵심 장치").
+ *  - ne.facts               : 사실 슬롯(S4/S5/S6/S7) — 물상 비유 금지.
+ */
+import {
+  IMAGERY, NAME_EVIDENCE_OUTPUT_SCHEMA, PRINCIPLE_FAMILIES, STEM_TOKEN,
+} from './name-evidence-schema.js';
+import type { NameEvidenceCase, SlotFamily, Stem } from './name-evidence-schema.js';
+
+export interface NameEvidenceBundle {
+  readonly bundleKey: string;
+  /** 물상 번들의 일간 (facts 번들은 undefined). */
+  readonly stem?: Stem;
+  readonly cases: readonly NameEvidenceCase[];
+}
+
+const IMAGERY_FAMILIES: ReadonlySet<SlotFamily> = new Set(['S1', 'S2', 'S3', 'S8', 'S9']);
+
+export function bundleSlotRequests(cases: readonly NameEvidenceCase[]): NameEvidenceBundle[] {
+  const bundles = new Map<string, { stem?: Stem; cases: NameEvidenceCase[] }>();
+  for (const c of cases) {
+    const isImagery = IMAGERY_FAMILIES.has(c.family);
+    const key = isImagery ? `ne.imagery.${STEM_TOKEN[c.key.stem as Stem]}` : 'ne.facts';
+    const cur = bundles.get(key) ?? { stem: isImagery ? c.key.stem : undefined, cases: [] };
+    cur.cases.push(c);
+    bundles.set(key, cur);
+  }
+  return [...bundles.entries()].map(([bundleKey, b]) => ({ bundleKey, stem: b.stem, cases: b.cases }));
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  §4.1 공통 헤더
+// ─────────────────────────────────────────────────────────────────────────────
+
+const COMMON_HEADER = `당신은 사주명리와 성명학 근거를 일반 독자에게 옮기는 전문 작가입니다.
+판정은 이미 끝나 아래에 주어집니다. 당신의 일은 계산이 아니라 번역입니다.
+
+⚠ 이 작업의 특수성 — 반드시 먼저 읽으세요.
+당신이 쓰는 것은 완성된 글이 아니라 **조각(슬롯)**입니다. 각 조각은 나중에
+다른 조각들과 이어 붙여져 한 편의 리포트가 됩니다. 어떤 조각이 앞에 오고
+어떤 조각이 뒤에 올지는 사람마다 달라집니다.
+따라서 각 조각은:
+  · 앞뒤에 무엇이 오든 자연스럽게 읽혀야 하고,
+  · 다른 조각을 가리키거나 전제해서는 안 되며,
+  · 그 자체로 뜻이 완결되어야 합니다.
+자세한 규칙은 아래 [조립 규칙]에 있습니다. 이것을 어기면 조각이 붙는
+순간 글이 깨집니다.`;
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  §4.2 서술 지식 블록
+// ─────────────────────────────────────────────────────────────────────────────
+
+function narrationKnowledge(stem?: Stem): string {
+  const imageryBlock = stem
+    ? `[일간 물상 사전] 이 번들의 물상은 **${IMAGERY[stem]}** 하나뿐입니다.
+  갑=큰 나무 / 을=꽃과 덩굴 / 병=태양 / 정=촛불·화로 / 무=큰 산
+  기=밭의 흙 / 경=바위·무쇠 / 신=보석·칼 / 임=큰 강물·바다 / 계=이슬비·시냇물
+  → 이 번들의 모든 조각은 **${IMAGERY[stem]}의 세계 안에서만** 비유합니다.
+    다른 물상(다른 줄의 어휘)을 섞으면 조립 시 비유가 충돌합니다.
+
+[상태 비유] 신약 = 물상의 원천이 마른 상태 / 신강 = 물상이 넘치는 상태
+           중화 = 물상이 제 자리를 지키는 상태
+
+`
+    : `[비유 금지] 이 번들은 사실 조각(발음 관계·자원오행·수리·소리 흐름)입니다.
+  일간 물상 비유(나무·불꽃·강물 등)를 쓰지 않습니다 — 물상은 다른 번들이
+  담당하고, 섞이면 조립 시 비유가 충돌합니다. 담백한 직서로만 씁니다.
+
+`;
+
+  return `<narration_knowledge>
+서술에만 쓰는 참조 지식입니다. 판정을 바꾸는 데 쓰지 마세요.
+
+${imageryBlock}[십성 → 삶의 영역] 평문 tier에서는 반드시 이 번역만 사용(용어 노출 금지):
+  인성 = 나를 채워 주는 것 → 배움, 문서, 도와주는 사람, 마음의 안정
+  비겁 = 나와 같은 편 → 동료, 자립, 경쟁
+  식상 = 내가 내보내는 것 → 표현, 재능, 만들어 내는 힘
+  재성 = 내가 취하려는 것 → 재물, 성과, 현실 감각 (과하면 소모)
+  관성 = 나를 누르는 것 → 직장, 규율, 명예 (과하면 압박)
+
+[사격 → 시기·영역] 수(數)를 나열하지 말고 시기 의미로만 옮깁니다:
+  원격 = 초년의 터 → 성장기의 기반, 출발
+  형격 = 인생의 기둥 → 중년의 주된 흐름, 사회 활동의 중심
+  이격 = 바깥의 문 → 대외 관계, 평판과 도움
+  정격 = 전체를 담는 그릇 → 총운, 말년의 마무리
+
+[작용 동사] 생(生) → 길러 준다·받쳐 준다·원천이 된다
+           극(剋) → 누른다·막는다·부딪힌다
+           설기 → 힘을 쏟는다·덜어 낸다
+</narration_knowledge>`;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  §4.3 문체 규칙 + §4.4 조립 규칙
+// ─────────────────────────────────────────────────────────────────────────────
+
+const STYLE_GUIDE = `<style_guide>
+1. **원리 먼저, 적용 나중.** 판정을 말하기 전에 "왜 그런지" 원리를 먼저 깝니다.
+   ○ "화는 임수가 눌러 힘을 쏟는 자리예요. 그래서 이 글자의 불기운은 마른
+      강을 더 마르게 해요."
+   ✕ "이 글자는 화라서 아쉬워요." (원리 생략)
+
+2. **비유는 이 번들의 물상 하나로.** (사실 번들이면 비유 자체를 쓰지 않습니다.)
+
+3. **평문(plain) tier에 사주 용어 금지** — 오행·용신·희신·기신·격국·십성·재성·
+   정관·식신·상관·비겁·신살·상생·상극·조후·대운·원형이정·자원오행 등.
+   오행의 우리말 이름(나무·불·흙·쇠·물)과 쉬운 표현만 씁니다.
+   전문가(expert) tier에서만 용어와 #{태그}를 씁니다.
+
+4. **단정 대신 방향.** "좋아진다/나빠진다" 금지.
+   "~하는 방향이에요", "~한 흐름을 기대할 수 있어요"로 씁니다.
+   사격의 길흉도 "운이 정해진다"가 아니라 "~한 흐름을 돕는 수"로.
+
+5. **기존 이름을 낮추지 않습니다.** 나쁜·최악·흉한 같은 말을 쓰지 않고,
+   "아쉬움", "기운의 방향이 어긋남", "필요한 쪽을 살리지 못함"의 틀을 씁니다.
+   흉수가 있어도 "그 시기의 흐름이 무겁게 놓인 수" 정도로 절제합니다.
+
+6. **문장은 짧게.** 한 문장에 한 뜻. 조각당 1~2문장.
+   분량: plain 40~110자 / expert 50~160자 / principle ≤50자.
+
+7. **쓰지 않는 표현** (자동 검사가 ERROR로 막습니다):
+   · 직유 — "~하듯", "~듯이"
+   · 외래어 — 세션·마일스톤·스텝·커리큘럼·포트폴리오·루틴·컨디션·페이스
+   · 2인칭 "당신" (3인칭 또는 무주어)
+   · 연어 오류 — "그릇이 넓다"(→커지다), "두껍게 이해"(→깊이 이해)
+   · 발음오행 유파 언급(운해본/해례본) — 판정문에만 존재, 서술 금지
+   · 모든 문장 해요체. 습니다체·명사 종결 금지.
+</style_guide>`;
+
+const ASSEMBLY_RULES = `<assembly_rules>
+각 조각은 독립적으로 쓰이고 나중에 이어 붙습니다. 다음을 어기면 리젝됩니다.
+
+1. **접속사로 시작하지 않습니다.** 그래서·그러나·또한·이처럼·한편으로 시작 금지.
+   앞에 무엇이 올지 모르기 때문입니다.
+
+2. **다른 조각을 가리키지 않습니다.** "앞서 본", "위에서 말한", "방금 짚은",
+   "이러한 점에서" 금지. 각 조각은 처음 읽는 문장처럼 자립해야 합니다.
+
+3. **총평·맺음을 하지 않습니다.** "결국", "정리하면", "종합하면" 금지.
+   맺음은 종합 조각(S9, role=closing)만 담당하고, 그마저 이 표현 없이 닫습니다.
+
+4. **지정된 역할(role)의 문형만 씁니다.**
+   · principle(원리) — 평서 단언. "화는 임수가 눌러 힘을 쏟는 자리예요."
+   · finding(판정)  — 그 글자/격에 대한 관찰. 주어는 대상 자체.
+   · bridge(연결)   — 필요한 기운으로 넘어가는 한 문장.
+   · closing(맺음)  — S9 전용. 물상으로 여운 있게 닫습니다.
+
+5. **주어를 반복하지 않습니다.** 같은 번들의 조각들이 전부 "이 이름은"으로
+   시작하면 조립 결과가 스탬프처럼 읽힙니다. 조각마다 주어와 어순을 달리하세요.
+
+6. **런타임 치환 변수는 각 조각에 허용된 것만 씁니다** (허용 목록 밖 변수는 리젝):
+   {{charHangul}} 글자(한글) · {{charHanja}} 글자(한자) · {{dayMasterName}} 일간 오행의 우리말
+   {{yongshinName}} 용신 오행의 우리말 · {{frameLabel}} 격 이름 · {{nameFull}} 이름 전체
+   조사 결합형: {{yongshinName:이가}} (이가/은는/을를/과와/으로로/이라라)
+   ⚠ 조사만 따로 변수로 쓰지 마세요.
+   ⚠ 획수 숫자와 그 산식("몇 획 + 몇 획")은 서술하지 않습니다. 격 이름·길흉·
+     시기 의미만 씁니다.
+</assembly_rules>`;
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  §4.5 슬롯 목록 + §4.6 정직성 블록
+// ─────────────────────────────────────────────────────────────────────────────
+
+function slotListBlock(cases: readonly NameEvidenceCase[]): string {
+  const lines: string[] = [`## 써야 할 조각 ${cases.length}개 (slotId를 정확히 그대로 반환)`, ''];
+  cases.forEach((c, i) => {
+    lines.push(`${i + 1}. \`${c.slotId}\` — [역할: ${c.role}]`);
+    lines.push(`   판정 사실: ${c.spec.fact}`);
+    if (c.spec.imageryState) lines.push(`   상태 비유: ${c.spec.imageryState}`);
+    if (c.spec.tenGodMeaning) lines.push(`   삶의 영역: ${c.spec.tenGodMeaning}`);
+    if (c.spec.framePhase) lines.push(`   시기 의미: ${c.spec.framePhase}`);
+    if (c.spec.isAdverse) lines.push('   ⚠ 정직성: 이 조각은 유리한 판정이 아닙니다 — "채워 준다/힘을 더한다/잘 맞는다" 금지.');
+    lines.push(`   허용 변수: ${c.spec.allowedVars.length ? c.spec.allowedVars.map((v) => `{{${v}}}`).join(' ') : '없음'}`);
+    if (PRINCIPLE_FAMILIES.has(c.family)) lines.push('   (선택) principle: 원리 한 문장 ≤50자를 별도 필드로 줄 수 있습니다.');
+    lines.push('');
+  });
+  return lines.join('\n');
+}
+
+function honestyBlock(cases: readonly NameEvidenceCase[]): string {
+  const adverse = cases.some((c) => c.spec.isAdverse);
+  if (adverse) {
+    return `⚠ **유리하지 않은 판정이 포함된 번들입니다.**
+해당 조각(⚠ 표시)에서는 "채워 준다 / 힘을 더한다 / 잘 맞는다"라고 쓰지 마세요.
+낙인 없이, 부족한 쪽은 생활에서 챙기라는 정직한 방향으로 담담하게 씁니다.`;
+  }
+  return '이름 보강은 실제 정도(강/약)만큼만 씁니다. 과장하지 마세요.';
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  렌더러
+// ─────────────────────────────────────────────────────────────────────────────
+
+export function renderNameEvidencePrompt(bundle: NameEvidenceBundle, analysisBlock: string): string {
+  return [
+    COMMON_HEADER,
+    '',
+    narrationKnowledge(bundle.stem),
+    '',
+    STYLE_GUIDE,
+    '',
+    ASSEMBLY_RULES,
+    '',
+    '## 판정 (읽기 전용 — 재계산·수정 금지. 판정과 다른 오행·십성·수리를 쓰면 실패)',
+    analysisBlock,
+    '',
+    slotListBlock(bundle.cases),
+    honestyBlock(bundle.cases),
+    '',
+    '## 출력',
+    '아래 JSON 스키마의 **JSON만** 출력합니다 (설명·마크다운 없이).',
+    `이 파일과 같은 폴더에 \`${bundle.bundleKey}.out.json\`으로 저장하세요.`,
+    '```json',
+    JSON.stringify(NAME_EVIDENCE_OUTPUT_SCHEMA, null, 2),
+    '```',
+  ].join('\n');
+}

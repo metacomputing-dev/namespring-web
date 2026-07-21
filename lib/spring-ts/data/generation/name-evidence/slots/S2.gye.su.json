@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S2.gye.su",
+  "family": "S2",
+  "role": "principle",
+  "key": {
+    "stem": "계",
+    "targetElement": "수"
+  },
+  "plain": "{{charHangul}}의 물 기운은 같은 물끼리 서로 힘을 보태는 자리예요. 얕아진 물줄기에 물 한 갈래가 더해지는 흐름이에요.",
+  "expert": "수는 계수와 같은 오행인 비겁이에요. 신약한 원국에서 비겁은 자립과 동료의 힘으로 일간을 받쳐 주는 우군이 돼요.",
+  "principle": "물은 시냇물과 한편이 되어 주는 기운이에요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "charHangul",
+    "charHanja"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "authorityTruthEligible": false
+  },
+  "sourceNote": "regen-ne-pilot1"
+}

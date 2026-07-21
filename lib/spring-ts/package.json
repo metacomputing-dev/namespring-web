@@ -21,6 +21,7 @@
     "test:boundary-goldens": "npx tsx test/integration/boundary-chart-goldens.test.ts",
     "test:gyeokguk-candidates": "npm --prefix ../saju-ts run build && npx tsx test/integration/gyeokguk-candidates-baseline.test.ts",
     "test:gyeokguk-rule-mode": "npx tsx test/integration/gyeokguk-rule-mode-matrix.test.ts",
+    "test:name-evidence": "npx tsx test/integration/name-evidence-derive.test.ts",
     "test:adaptive": "npx tsx test/integration/adaptive-evaluator.test.ts",
     "test:hanja": "npx tsx test/integration/hanja-annotations.test.ts",
     "test:category": "npx tsx test/integration/category-extension.test.ts",

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S2.gye.hwa",
+  "family": "S2",
+  "role": "principle",
+  "key": {
+    "stem": "계",
+    "targetElement": "화"
+  },
+  "plain": "{{charHangul}}에 담긴 불 기운은 물이 누르며 힘을 쏟는 자리예요. 얕은 시냇물에는 기운을 덜어 가는 쪽으로 기울어요.",
+  "expert": "화는 계수가 극하는 재성이에요. 신약한 원국에서 재성이 과하면 설기로 작동해, 현실 성과를 좇을수록 수기가 마르기 쉬워요.",
+  "principle": "불은 시냇물이 누르며 힘을 쏟는 자리예요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "charHangul",
+    "charHanja"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "authorityTruthEligible": false
+  },
+  "sourceNote": "regen-ne-pilot1"
+}

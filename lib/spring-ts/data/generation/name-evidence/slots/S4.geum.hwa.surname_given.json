@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S4.geum.hwa.surname_given",
+  "family": "S4",
+  "role": "finding",
+  "key": {
+    "fromElement": "금",
+    "toElement": "화",
+    "boundary": "surname_given"
+  },
+  "plain": "성의 쇠 소리 뒤에 불 소리가 이어지는 연결이에요. 불이 쇠를 누르는 방향이라 두 기운이 부딪히며 만나요.",
+  "expert": "성과 이름 경계에서 화극금의 역방향 상극이 일어나요. 첫 만남 자리의 부딪힘이라 발음오행 흐름에서 가장 먼저 짚이는 지점이에요.",
+  "principle": "불과 쇠가 만나면 불이 쇠를 누르는 방향이에요.",
+  "isAdverse": true,
+  "allowedVars": [],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "authorityTruthEligible": false
+  },
+  "sourceNote": "regen-ne-pilot1"
+}

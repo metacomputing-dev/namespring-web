@@ -1,0 +1,164 @@
+/**
+ * name-evidence-gates.ts -- 슬롯 하드 게이트 (설계 §6.2 정합성 게이트).
+ *
+ * prose-lint(자연스러움·조립 규칙·물상 혼입)와 짝을 이루는 정량 게이트:
+ * 스키마·slotId 집합 일치·분량·문장 수·해요체·tier 용어 분리·변수 화이트리스트·
+ * 태그 수·정직성. 번들 단위 zero-reject (chunk-runner 규칙)는 CLI가 담당.
+ */
+import { PRINCIPLE_FAMILIES } from './name-evidence-schema.js';
+import type { GeneratedSlot, NameEvidenceCase, Stem } from './name-evidence-schema.js';
+import { lintSlotBundle } from './prose-lint.js';
+import type { Finding } from './prose-lint.js';
+import { isJosaPair } from '../../src/report/tiered/article-renderer.js';
+
+/** 평문 tier 금지 용어 — validate-generated.ts JARGON 계승 + 성명학 확장.
+ *  (기존 관례대로 모듈 간 복제: bundle-prompt/validate-generated도 각자 보유) */
+const SAJU_JARGON: readonly string[] = [
+  '오행', '용신', '희신', '기신', '구신', '격국', '십성', '십신', '정재', '편재', '재성',
+  '편관', '정관', '식신', '상관', '식상', '겁재', '비견', '비겁', '인성', '정인', '편인',
+  '관성', '신살', '상생', '상극', '조후', '대운', '득령', '득지', '득세', '원형이정',
+  '자원오행', '발음오행', '수리사격', '신강', '신약', '중화', '일간',
+];
+
+const SLOT_RE = /\{\{([^{}]*)\}\}/gu;
+const TAG_RE = /#\{([^{}]*)\}/gu;
+
+function cp(s: string): number { return [...s].length; }
+function sentences(s: string): string[] {
+  return s.split(/(?<=[.!?…])\s+|(?<=요)\s+|(?<=죠)\s+/u).map((x) => x.trim()).filter(Boolean);
+}
+function haeyoche(s: string): boolean { return /(요|죠)[.!?…]?$/u.test(s.trim()); }
+const FORMAL = /(습니다|합니다|입니다|십시오|이다|한다|된다)[.!?…]?$/u;
+
+/** 변수·태그를 그럴듯한 실값으로 치환해 분량을 근사한다. */
+function approxRender(t: string): string {
+  return t
+    .replace(/\{\{nameFull(?::[가-힣]+)?\}\}/gu, '최도윤')
+    .replace(/\{\{frameLabel(?::[가-힣]+)?\}\}/gu, '형격')
+    .replace(/\{\{[A-Za-z]+:[가-힣]+\}\}/gu, '나무가')
+    .replace(/\{\{[A-Za-z]+\}\}/gu, '나무')
+    .replace(/#\{[A-Za-z_][A-Za-z0-9_]*\}/gu, '#용신');
+}
+
+/** "채워 준다" 계열 — isAdverse 슬롯에서 금지 (§6.2 정직성). */
+const ADVERSE_FORBIDDEN = /채워 ?주|채워 ?줍|힘을 더해|힘을 보태|잘 맞아|잘 맞는|딱 맞|보강해 ?주|살려 ?주|받쳐 ?준다는 좋은/u;
+/** 신약 물상 슬롯의 발산 방향 주장 — WARN (§6.2 강약 방향). */
+const WEAK_OUTWARD = /내보내|발산|힘을 쏟아도 좋|마음껏 쓰|밖으로 펼치/u;
+
+export interface SlotGateResult {
+  readonly ok: boolean;
+  /** 번들 수준 위반 (slotId 집합 불일치 등). */
+  readonly violations: readonly string[];
+  /** 슬롯별 위반. */
+  readonly perSlot: ReadonlyMap<string, readonly string[]>;
+  /** prose-lint 계열 findings (ERROR는 리젝). */
+  readonly proseFindings: readonly Finding[];
+}
+
+export function validateNameEvidenceSlots(
+  out: unknown,
+  requested: readonly NameEvidenceCase[],
+  opts: { readonly stem?: Stem; readonly bundleKey?: string } = {},
+): SlotGateResult {
+  const violations: string[] = [];
+  const perSlot = new Map<string, string[]>();
+  const requestedById = new Map(requested.map((c) => [c.slotId, c]));
+
+  const slots = (out as { slots?: unknown })?.slots;
+  if (!Array.isArray(slots) || slots.length === 0) {
+    return { ok: false, violations: ['출력에 slots 배열이 없음'], perSlot, proseFindings: [] };
+  }
+
+  // slotId 집합 일치
+  const gotIds = new Set<string>();
+  for (const s of slots as Array<Record<string, unknown>>) {
+    const id = String(s.slotId ?? '');
+    if (gotIds.has(id)) violations.push(`slotId 중복: ${id}`);
+    gotIds.add(id);
+    if (!requestedById.has(id)) violations.push(`요청하지 않은 slotId: ${id}`);
+  }
+  for (const c of requested) if (!gotIds.has(c.slotId)) violations.push(`누락된 slotId: ${c.slotId}`);
+
+  for (const raw of slots as Array<Record<string, unknown>>) {
+    const id = String(raw.slotId ?? '');
+    const c = requestedById.get(id);
+    if (!c) continue;
+    const v: string[] = [];
+    const slot = raw as unknown as GeneratedSlot;
+
+    for (const [field, min, max] of [['plain', 40, 110], ['expert', 50, 160]] as const) {
+      const text = slot[field];
+      if (typeof text !== 'string' || !text.trim()) { v.push(`${field} 없음`); continue; }
+      const rendered = approxRender(text).trim();
+      const n = cp(rendered);
+      if (n < min || n > max) v.push(`${field} ${n}자 (${min}~${max})`);
+      const ss = sentences(rendered);
+      if (ss.length < 1 || ss.length > 2) v.push(`${field} ${ss.length}문장 (1~2)`);
+      for (const sentence of ss) {
+        if (FORMAL.test(sentence)) { v.push(`${field} 해요체 아님: "${sentence.slice(0, 20)}…"`); break; }
+      }
+      if (!haeyoche(rendered)) v.push(`${field} 해요체 종결 아님`);
+    }
+
+    // principle: S2/S3/S4만, ≤50자
+    if (slot.principle !== undefined) {
+      if (!PRINCIPLE_FAMILIES.has(c.family)) v.push(`principle은 S2/S3/S4 전용 (${c.family})`);
+      else if (typeof slot.principle !== 'string' || cp(approxRender(slot.principle)) > 50) v.push('principle >50자');
+    }
+
+    // tier 분리: plain에 사주 용어 금지
+    if (typeof slot.plain === 'string') {
+      for (const j of SAJU_JARGON) {
+        if (slot.plain.includes(j)) { v.push(`plain에 용어 노출: ${j}`); break; }
+      }
+      if (TAG_RE.test(slot.plain)) v.push('plain에 #{태그} — expert 전용');
+      TAG_RE.lastIndex = 0;
+    }
+
+    // 변수 화이트리스트 + 조사쌍
+    const allowed = new Set(c.spec.allowedVars);
+    for (const field of ['plain', 'expert', 'principle'] as const) {
+      const text = slot[field];
+      if (typeof text !== 'string') continue;
+      for (const m of text.matchAll(SLOT_RE)) {
+        const [name, josa, ...rest] = m[1].split(':');
+        if (rest.length || !allowed.has(name)) v.push(`${field} 허용 밖 변수 {{${m[1]}}}`);
+        else if (josa !== undefined && !isJosaPair(josa)) v.push(`${field} 잘못된 조사쌍 {{${m[1]}}}`);
+      }
+    }
+
+    // 태그: expert 0~2개
+    if (typeof slot.expert === 'string') {
+      const tags = [...slot.expert.matchAll(TAG_RE)];
+      if (tags.length > 2) v.push(`expert 태그 ${tags.length}개 (0~2)`);
+    }
+
+    // 정직성 + 강약 방향
+    if (c.spec.isAdverse) {
+      for (const field of ['plain', 'expert'] as const) {
+        const text = slot[field];
+        if (typeof text === 'string' && ADVERSE_FORBIDDEN.test(text)) v.push(`${field} 정직성 위반(불리 판정에 보강 표현)`);
+      }
+    }
+    if (c.key.gangyak === 'weak' && c.key.stem) {
+      for (const field of ['plain', 'expert'] as const) {
+        const text = slot[field];
+        if (typeof text === 'string' && WEAK_OUTWARD.test(text)) v.push(`WARN: ${field} 신약인데 발산 방향 표현`);
+      }
+    }
+
+    if (v.length) perSlot.set(id, v);
+  }
+
+  // prose-lint 계열 (조립 규칙·물상 혼입·직유·외래어…)
+  const proseFindings = lintSlotBundle(
+    `${opts.bundleKey ?? 'bundle'}.out.json`,
+    slots as Array<Record<string, unknown>>,
+    opts.stem,
+  );
+
+  const hardPerSlot = [...perSlot.values()].some((list) => list.some((x) => !x.startsWith('WARN:')));
+  const hardProse = proseFindings.some((f) => f.sev === 'ERROR');
+  const ok = violations.length === 0 && !hardPerSlot && !hardProse;
+  return { ok, violations, perSlot, proseFindings };
+}

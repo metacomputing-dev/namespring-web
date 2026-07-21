@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S6.hyung.sang",
+  "family": "S6",
+  "role": "finding",
+  "key": {
+    "frame": "hyung",
+    "grade": "상운수"
+  },
+  "plain": "{{frameLabel}}은 인생 한가운데의 기둥을 보는 자리예요. 좋은 흐름을 돕는 수에 놓여 있어 중심 활동이 받쳐지는 방향이에요.",
+  "expert": "{{frameLabel}}이 상운수 등급이에요. 중년 사회 활동의 축에 해당하는 수리가 밝게 놓여, 주된 흐름이 안정되게 받쳐지는 배치예요.",
+  "isAdverse": false,
+  "allowedVars": [
+    "frameLabel"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "authorityTruthEligible": false
+  },
+  "sourceNote": "regen-ne-pilot1",
+  "keyProvenance": "engine-current-formula-b"
+}

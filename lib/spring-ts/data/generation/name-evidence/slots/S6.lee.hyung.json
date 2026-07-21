@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S6.lee.hyung",
+  "family": "S6",
+  "role": "finding",
+  "key": {
+    "frame": "lee",
+    "grade": "흉운수"
+  },
+  "plain": "{{frameLabel}}은 바깥세상과 만나는 문인데, 그 흐름이 무겁게 놓인 수예요. 바깥일은 신중하게 살피고 관계는 천천히 넓히는 편이 좋아요.",
+  "expert": "{{frameLabel}}이 흉운수 등급이에요. 대외 관계와 평판의 수리가 무겁게 놓여, 바깥 활동은 확인을 거듭할수록 안전한 배치예요.",
+  "isAdverse": true,
+  "allowedVars": [
+    "frameLabel"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "authorityTruthEligible": false
+  },
+  "sourceNote": "regen-ne-pilot1",
+  "keyProvenance": "engine-current-formula-b"
+}

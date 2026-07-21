@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S6.won.choehyung",
+  "family": "S6",
+  "role": "finding",
+  "key": {
+    "frame": "won",
+    "grade": "최흉운수"
+  },
+  "plain": "{{frameLabel}}은 어린 시절의 터를 보는 자리인데, 그 흐름이 무겁게 놓인 수예요. 출발점의 기반은 생활에서 다져 주는 편이 좋아요.",
+  "expert": "{{frameLabel}}이 최흉운수 등급에 해당해요. 초년 기반의 수리가 무겁게 놓인 만큼, 성장기의 안정은 수리 밖에서 받쳐 줄 필요가 있어요.",
+  "isAdverse": true,
+  "allowedVars": [
+    "frameLabel"
+  ],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "authorityTruthEligible": false
+  },
+  "sourceNote": "regen-ne-pilot1",
+  "keyProvenance": "engine-current-formula-b"
+}

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "spring-ts.name-evidence-slot.v1",
+  "slotId": "S4.hwa.to.given_internal",
+  "family": "S4",
+  "role": "finding",
+  "key": {
+    "fromElement": "화",
+    "toElement": "토",
+    "boundary": "given_internal"
+  },
+  "plain": "이름 안에서 불 소리가 흙 소리를 길러 주며 이어져요. 앞 기운이 뒤 기운의 바탕이 되는 순한 연결이에요.",
+  "expert": "이름 내부의 소리 전이는 화생토의 상생이에요. 앞 글자가 뒤 글자를 생하는 순방향이라 소리 흐름이 자연스럽게 이어지는 배치예요.",
+  "principle": "불은 흙을 데워 길러 주는 방향이에요.",
+  "isAdverse": false,
+  "allowedVars": [],
+  "aiGenerated": true,
+  "sourceTier": {
+    "tier": "T2_AI_AUTHORED_INSIGHT",
+    "sourceType": "ai_authored_insight_text",
+    "authorityTruthEligible": false
+  },
+  "sourceNote": "regen-ne-pilot1"
+}
