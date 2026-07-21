@@ -137,17 +137,21 @@ window.NS_CASES = {
   }
 };
 
-/* Shared saju block — both demo cases share the same birth chart (1991-02-18 10:30). */
+/* Shared saju block — both demo cases share the same birth chart (1991-02-18 05:25, from
+ * the engine-generated cheon-mina case.json). Pillars are hand-derived for the prototype
+ * (year/month by solar terms, day by JDN, hour 05:25 = in-si with byeong-in stem); the day
+ * master gi matches the engine judgment. Real wiring replaces these with engine pillars. */
 window.NS_SAJU = {
-  /* 시 → 일 → 월 → 년 order for display. Day pillar is marked with isDay. */
+  /* 년 → 월 → 일 → 시 display order. Day pillar is marked with isDay. */
   pillars: [
-    { pos: '시주', stem: ['己', '기', 'earth'], branch: ['巳', '사', 'fire'], isHour: true },
-    { pos: '일주', stem: ['己', '기', 'earth'], branch: ['未', '미', 'earth'], isDay: true },
+    { pos: '년주', stem: ['辛', '신', 'metal'], branch: ['未', '미', 'earth'] },
     { pos: '월주', stem: ['庚', '경', 'metal'], branch: ['寅', '인', 'wood'] },
-    { pos: '년주', stem: ['辛', '신', 'metal'], branch: ['未', '미', 'earth'] }
+    { pos: '일주', stem: ['己', '기', 'earth'], branch: ['未', '미', 'earth'], isDay: true },
+    { pos: '시주', stem: ['丙', '병', 'fire'], branch: ['寅', '인', 'wood'], isHour: true }
   ],
   dayMaster: { hanja: '己', label: '기토', figure: '곡식을 기르는 밭의 흙', state: '지금은 흙이 두텁게 쌓여 기운이 넉넉하게 넘치는 상태예요.' },
-  strength: { level: '신강', pos: 68, deuk: [{ k: '득령', v: 100 }, { k: '득지', v: 70 }, { k: '득세', v: 60 }] },
+  /* strength detail bars are illustrative (engine exposes deukryeong/deukji/deukse). */
+  strength: { level: '신강', pos: 68, deuk: [{ k: '득령', v: 10 }, { k: '득지', v: 90 }, { k: '득세', v: 65 }] },
   yongshin: {
     el: 'fire', hanja: '火', label: '밭을 데우는 불 기운',
     plain: '배움과 사람의 도움이 그 불을 살리는 통로가 돼요.',
