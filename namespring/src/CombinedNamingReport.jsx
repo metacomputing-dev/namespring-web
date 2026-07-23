@@ -1,4 +1,5 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
+import fourFrameCharacterMap from '../../lib/seed-ts/data/fourframe-character-map.json';
 import {
   ReportActionButtons,
   ReportPrintOverlay,
@@ -23,10 +24,92 @@ const FRAME_LABELS = {
   jung: { label: '총운', period: '이름 전체에 담긴 흐름' },
 };
 
+const CHARACTER_BY_NUMBER = new Map(
+  fourFrameCharacterMap.characters.map((character) => [character.number, character]),
+);
+
+// Replace this temporary asset override after all 81 character images are published.
+const TEMP_CHARACTER_IMAGE_PATH =
+  '/assets/fourframe-characters/samples/025-geonchanggyeok-transparent.png';
+
+const CHARACTER_TIER_PRESENTATION = {
+  GOOD: { label: '좋은 흐름', tone: 'good' },
+  NORMAL: { label: '균형을 살필 흐름', tone: 'normal' },
+  BAD: { label: '주의가 필요한 흐름', tone: 'bad' },
+};
+
 function numberOrNull(value) {
   if (value === null || value === undefined || value === '') return null;
   const number = Number(value);
   return Number.isFinite(number) ? number : null;
+}
+
+function publicAssetPath(assetPath) {
+  const base = String(import.meta.env.BASE_URL || '/').replace(/\/+$/u, '');
+  const relative = String(assetPath || '').replace(/^\/+/u, '');
+  return `${base}/${relative}`;
+}
+
+function characterForFrame(frame) {
+  const number = numberOrNull(frame?.strokeSum);
+  if (number === null) return null;
+  const character = CHARACTER_BY_NUMBER.get(number);
+  if (!character) return null;
+  const tier = CHARACTER_TIER_PRESENTATION[character.tier]
+    || CHARACTER_TIER_PRESENTATION.NORMAL;
+  return {
+    ...character,
+    imageSrc: publicAssetPath(TEMP_CHARACTER_IMAGE_PATH),
+    strokeSum: number,
+    tierLabel: tier.label,
+    tierTone: tier.tone,
+  };
+}
+
+function representativeCharacter(frames) {
+  return characterForFrame(frames.find((frame) => frame?.frameType === 'jung'));
+}
+
+function CharacterPortrait({ character }) {
+  const [imageFailed, setImageFailed] = useState(false);
+
+  return (
+    <div className={`nnr-character__portrait nnr-character__portrait--${character.tierTone}`}>
+      {imageFailed ? (
+        <div aria-hidden="true">
+          <strong>{character.strokeSum}</strong>
+          <span>{character.gyeok}</span>
+        </div>
+      ) : (
+        <img
+          src={character.imageSrc}
+          alt={`${character.characterName} 캐릭터`}
+          onError={() => setImageFailed(true)}
+        />
+      )}
+    </div>
+  );
+}
+
+function RepresentativeCharacter({ character, name }) {
+  if (!character) return null;
+  return (
+    <section className="nnr-character" aria-label={`${name}의 대표 이름 캐릭터`}>
+      <CharacterPortrait character={character} />
+      <div className="nnr-character__content">
+        <div className="nnr-character__meta">
+          <p>총운이 보여 주는 이름 캐릭터</p>
+          <span className={`nnr-character__tier nnr-character__tier--${character.tierTone}`}>
+            {character.tierLabel}
+          </span>
+          <span>{character.strokeSum}획 · {character.gyeok}</span>
+        </div>
+        <h3>{name}은 <strong>{character.characterName}</strong>의 기질을 품은 이름이에요.</h3>
+        <p>{character.characterDescription}</p>
+        <blockquote>{character.characterAdvice}</blockquote>
+      </div>
+    </section>
+  );
 }
 
 function DetailDisclosure({ label = '근거 자세히 보기', children }) {
@@ -162,6 +245,7 @@ function QualitySection({ namingEvidence, phonetic, familyFit }) {
 
 function LifeFlowCard({ frame }) {
   const meta = FRAME_LABELS[frame?.frameType] || { label: frame?.label || '이름운', period: '이름에 담긴 흐름' };
+  const character = characterForFrame(frame);
   return (
     <article className="nnr-life-card">
       <header>
@@ -173,9 +257,29 @@ function LifeFlowCard({ frame }) {
       </header>
       <strong>{frame?.title || '이름의 수리 흐름'}</strong>
       <p>{frame?.summary || '이 시기의 흐름을 확인할 수 있는 정보가 충분하지 않아요.'}</p>
+      {character ? (
+        <div className="nnr-life-character">
+          <CharacterPortrait character={character} />
+          <div>
+            <div className="nnr-life-character__meta">
+              <span>{meta.label}의 이름 캐릭터</span>
+              <span className={`nnr-character__tier nnr-character__tier--${character.tierTone}`}>
+                {character.tierLabel}
+              </span>
+            </div>
+            <h4>{character.characterName}</h4>
+            <p>{character.characterDescription}</p>
+          </div>
+        </div>
+      ) : null}
       {frame?.lifePeriodInfluence ? (
         <DetailDisclosure label="풀이 더 보기">
           <p>{frame.lifePeriodInfluence}</p>
+        </DetailDisclosure>
+      ) : null}
+      {character?.characterAdvice ? (
+        <DetailDisclosure label="조언 더 보기">
+          <p>{character.characterAdvice}</p>
         </DetailDisclosure>
       ) : null}
     </article>
@@ -217,6 +321,7 @@ function CombinedNamingReport({
   const structureState = scorePresentation(namingEvidence?.fourFrameScore);
   const soundState = phonetic === null ? null : scorePresentation(phonetic);
   const frames = Array.isArray(namingEvidence?.frames) ? namingEvidence.frames : [];
+  const character = representativeCharacter(frames);
   const {
     isPdfSaving,
     isShareDialogOpen,
@@ -255,6 +360,7 @@ function CombinedNamingReport({
             <strong>{Math.round(score)}</strong>
             <small>100점 만점</small>
           </div>
+          <RepresentativeCharacter character={character} name={name.hangul} />
         </header>
 
         <div className="nnr-summary" aria-label="이름 평가 요약">
@@ -298,7 +404,7 @@ function CombinedNamingReport({
 
           <section className="nnr-chapter">
             <ChapterHeading
-              kicker="이름에 담긴 흐름"
+              kicker="이름에 담긴 인생의 흐름"
               title="초년부터 총운까지, 네 시기의 이름운이에요."
               description="이름의 획수로 풀이한 흐름이며, 삶을 단정하는 예측이 아니라 이름에 담긴 상징으로 봐주세요."
             />
