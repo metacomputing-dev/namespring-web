@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>이름 통합 보고서 — 이름봄</title>
+  <meta name="description" content="이 이름이 이 사람에게 맞는지, 소리·획수·글자 기운 세 갈래의 근거로 답하는 보고서예요.">
+  <script src="./assets/vendor/tailwind-play-3.4.16.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" integrity="sha384-uGEvnSEpW2nM9xJFsrxrwakwrk9QdDTQIBJh0hVMu90OaVyMAMpAK1rIn0/Kh1/k" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-kr@5.1.0/600.css" integrity="sha384-bEMUncslJOLmfEYfgbot160Qvx1YsFkuz+mdV7aej82SFq5i9CvR8j4sY+m8oCwl" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-kr@5.1.0/700.css" integrity="sha384-vASsPwraD6Ee4lSHCCAAZtvSlogVD52kP8x5G7+DmJcuHzV/c7dxfsvjZFPJ2xSw" crossorigin="anonymous">
+  <script src="./assets/vendor/iconify-icon-2.3.0.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', 'system-ui', 'sans-serif'],
+            serif: ['"Noto Serif KR"', 'serif'],
+          },
+          colors: {
+            cream: '#FAF7F0',
+            parchment: '#F3EEE3',
+            ink: '#20261D',
+            inksoft: '#5C6357',
+            inkfaint: '#8D9287',
+            hairline: '#E4DFD2',
+            sage: '#3E6B4F',
+            sagesoft: '#E8F0EA',
+            amber2: '#B07A3C',
+            ambersoft: '#F6EDDD',
+            rose2: '#A84A40',
+            rosesoft: '#F5E6E3',
+            elwood: '#4A7C59', elwoodbg: '#E9F1EA',
+            elfire: '#BE4F44', elfirebg: '#F7E9E6',
+            elearth: '#B0813A', elearthbg: '#F5EEDF',
+            elmetal: '#7C838E', elmetalbg: '#ECEEF1',
+            elwater: '#3D6791', elwaterbg: '#E6EDF4',
+          },
+          transitionTimingFunction: { spring: 'cubic-bezier(0.16, 1, 0.3, 1)' },
+        },
+      },
+    }
+  </script>
+  <style>
+    html { background: #FAF7F0; scroll-behavior: smooth; }
+    body { font-family: 'Pretendard', system-ui, sans-serif; word-break: keep-all; }
+    .grain { position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: .035;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E"); }
+    .tier-expert { display: none; }
+    body.expert .tier-plain { display: none; }
+    body.expert .tier-expert { display: block; }
+    .reveal { opacity: 0; transform: translateY(2rem); transition: opacity .8s cubic-bezier(0.16,1,0.3,1), transform .8s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .ring-score { background: conic-gradient(#3E6B4F calc(var(--score) * 1%), #E4DFD2 0); }
+    @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    .floaty { animation: floaty 6s ease-in-out infinite; }
+    .toc::-webkit-scrollbar { display: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .floaty { animation: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body class="min-h-[100dvh] bg-cream text-ink antialiased">
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ambient orbs -->
+  <div class="pointer-events-none fixed inset-0 overflow-hidden" aria-hidden="true">
+    <div class="floaty absolute -top-24 right-[8%] h-72 w-72 rounded-full bg-sage/10 blur-3xl"></div>
+    <div class="floaty absolute bottom-[12%] -left-24 h-80 w-80 rounded-full bg-elearth/10 blur-3xl" style="animation-delay:-3s"></div>
+  </div>
+
+  <!-- Floating pill nav -->
+  <nav class="fixed top-4 left-1/2 z-40 flex w-[calc(100%-2rem)] max-w-fit -translate-x-1/2 items-center gap-2 rounded-full border border-white/60 bg-white/70 px-4 py-2 shadow-[0_10px_40px_-12px_rgba(32,38,29,0.18)] backdrop-blur-xl sm:gap-3 sm:px-5 sm:py-2.5">
+    <a href="./index.html" class="flex items-center gap-1.5 text-sm font-bold tracking-tight">
+      <iconify-icon icon="solar:leaf-bold" class="text-lg text-sage" aria-hidden="true"></iconify-icon><span class="hidden sm:inline">이름봄</span>
+    </a>
+    <span class="h-4 w-px bg-hairline" aria-hidden="true"></span>
+    <span class="whitespace-nowrap rounded-full bg-sagesoft px-2.5 py-0.5 text-[11px] font-semibold tracking-[0.12em] text-sage">UI 시제품</span>
+    <span class="h-4 w-px bg-hairline" aria-hidden="true"></span>
+    <div class="flex rounded-full border border-hairline bg-cream p-0.5" role="group" aria-label="서술 레이어 전환">
+      <button id="tier-plain" type="button" class="min-h-8 rounded-full bg-ink px-3.5 py-1 text-[12.5px] font-semibold text-cream transition-all duration-500 ease-spring">평문</button>
+      <button id="tier-expert" type="button" class="min-h-8 rounded-full px-3.5 py-1 text-[12.5px] font-semibold text-inksoft transition-all duration-500 ease-spring">전문가</button>
+    </div>
+  </nav>
+
+  <!-- Section anchor chips -->
+  <div class="toc fixed top-[4.6rem] left-1/2 z-30 w-[calc(100%-1.5rem)] max-w-2xl -translate-x-1/2 overflow-x-auto sm:top-[4.9rem]" style="scrollbar-width:none">
+    <div class="mx-auto flex w-max gap-1.5 rounded-full border border-white/50 bg-white/55 px-2 py-1.5 backdrop-blur-xl">
+      <a href="#sec-sound" class="whitespace-nowrap rounded-full px-3 py-1 text-[12px] font-medium text-inksoft transition-colors hover:bg-sagesoft hover:text-sage">발음</a>
+      <a href="#sec-frames" class="whitespace-nowrap rounded-full px-3 py-1 text-[12px] font-medium text-inksoft transition-colors hover:bg-sagesoft hover:text-sage">획수</a>
+      <a href="#sec-saju" class="whitespace-nowrap rounded-full px-3 py-1 text-[12px] font-medium text-inksoft transition-colors hover:bg-sagesoft hover:text-sage">사주</a>
+      <a href="#sec-chars" class="whitespace-nowrap rounded-full px-3 py-1 text-[12px] font-medium text-inksoft transition-colors hover:bg-sagesoft hover:text-sage">궁합</a>
+      <a href="#sec-final" class="whitespace-nowrap rounded-full px-3 py-1 text-[12px] font-medium text-inksoft transition-colors hover:bg-sagesoft hover:text-sage">종합</a>
+      <a href="#sec-basis" class="whitespace-nowrap rounded-full px-3 py-1 text-[12px] font-medium text-inksoft transition-colors hover:bg-sagesoft hover:text-sage">근거</a>
+    </div>
+  </div>
+
+  <main class="relative mx-auto w-full max-w-3xl px-4 pb-24 pt-36 sm:px-6">
+
+    <!-- ⓪ HERO -->
+    <header class="reveal mb-6 text-center" id="sec-hero">
+      <div id="demo-badges" class="mb-4 flex flex-wrap justify-center gap-2"></div>
+      <p class="mb-5 inline-flex items-center gap-1.5 rounded-full bg-sage/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.15em] text-sage">
+        <iconify-icon icon="solar:document-text-linear" aria-hidden="true"></iconify-icon>이름 통합 보고서
+      </p>
+      <h1 id="hero-name" class="font-serif text-5xl font-bold leading-tight tracking-[0.06em] sm:text-6xl"></h1>
+      <p id="hero-hanja" class="mt-2 font-serif text-base tracking-[0.35em] text-inkfaint"></p>
+      <p id="hero-verdict" class="mx-auto mt-7 max-w-[26ch] font-serif text-xl font-semibold leading-snug sm:text-2xl"></p>
+      <p id="hero-sub" class="mt-2 text-[13.5px] text-inkfaint"></p>
+      <div id="hero-tracks" class="mt-8 flex flex-wrap justify-center gap-2.5"></div>
+      <div class="mt-6 inline-flex items-center gap-2.5 text-[12.5px] text-inkfaint">
+        <span id="hero-ring" class="ring-score grid h-10 w-10 place-items-center rounded-full" style="--score:0">
+          <span class="grid h-7 w-7 place-items-center rounded-full bg-cream text-[11px] font-bold text-inksoft" id="hero-score"></span>
+        </span>
+        종합 점수는 참고용이에요. 판단의 근거는 아래 세 갈래에 있어요.
+      </div>
+    </header>
+
+    <!-- ① 소리의 흐름 -->
+    <section id="sec-sound" class="reveal scroll-mt-32 pt-14">
+      <div class="rounded-[2rem] bg-black/5 p-1.5 ring-1 ring-black/5">
+        <div class="rounded-[calc(2rem-0.375rem)] bg-white p-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] sm:p-8">
+          <p class="mb-1 text-[11px] font-medium uppercase tracking-[0.15em] text-sage">이름 분석 01</p>
+          <h2 class="font-serif text-xl font-bold tracking-tight sm:text-2xl">발음오행 분석</h2>
+          <p class="mt-1 text-[13px] text-inkfaint">이름을 부를 때 소리 기운이 어떻게 이어지는지 봐요</p>
+          <div id="flow" class="my-8 flex flex-wrap items-center justify-center gap-y-4"></div>
+          <div class="max-w-[62ch] text-[15px] leading-relaxed text-inksoft">
+            <p class="tier-plain" id="flow-plain"></p>
+            <p class="tier-expert" id="flow-expert"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ② 획수의 네 기둥 -->
+    <section id="sec-frames" class="reveal scroll-mt-32 pt-14">
+      <div class="rounded-[2rem] border border-hairline bg-parchment/60 p-6 sm:p-8">
+        <p class="mb-1 text-[11px] font-medium uppercase tracking-[0.15em] text-sage">이름 분석 02</p>
+        <h2 class="font-serif text-xl font-bold tracking-tight sm:text-2xl">획수(수리) 분석</h2>
+        <p class="mt-1 text-[13px] text-inkfaint">획수 조합으로 인생 네 시기의 흐름을 보는 수리사격이에요</p>
+        <p id="frames-asm" class="mt-5 rounded-2xl bg-white/70 px-4 py-2.5 text-center text-[13px] text-inksoft"></p>
+        <div id="frames" class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2"></div>
+        <div class="mt-6 max-w-[62ch] text-[15px] leading-relaxed text-inksoft">
+          <p class="tier-plain" id="frames-plain"></p>
+          <p class="tier-expert" id="frames-expert"></p>
+        </div>
+        <p class="mt-4 text-[12px] text-inkfaint">획수 풀이는 현행 엔진 기준(잠정)이에요. 자세한 기준은 맨 아래 '근거와 기준'에서 확인할 수 있어요.</p>
+      </div>
+    </section>
+
+    <!-- ③ 내 사주라는 과녁 -->
+    <section id="sec-saju" class="reveal scroll-mt-32 pt-14">
+      <div class="mb-6 px-1">
+        <p class="mb-1 text-[11px] font-medium uppercase tracking-[0.15em] text-sage">사주 분석</p>
+        <h2 class="font-serif text-xl font-bold tracking-tight sm:text-2xl">내 사주 요약</h2>
+        <p class="mt-1 max-w-[52ch] text-[13px] leading-relaxed text-inkfaint">이름이 채워야 할 목표예요. 여기서는 딱 네 가지만 봐요 — 깊은 풀이는 사주 보고서에서 이어져요.</p>
+      </div>
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div class="rounded-3xl border border-hairline bg-white p-6">
+          <h3 class="mb-4 text-[12.5px] font-bold tracking-[0.04em] text-inkfaint">타고난 바탕 · 일간</h3>
+          <div class="flex items-center gap-4">
+            <span id="dm-glyph" class="grid h-16 w-16 flex-none place-items-center rounded-2xl border-2 border-elearth bg-elearthbg font-serif text-3xl font-bold text-elearth"></span>
+            <p class="text-[14px] leading-relaxed text-inksoft"><b class="text-ink" id="dm-label"></b><br><span id="dm-state"></span></p>
+          </div>
+          <button type="button" id="pillars-toggle" aria-expanded="false" aria-controls="pillars" class="mt-4 inline-flex items-center gap-1 text-[13px] font-semibold text-sage transition-colors hover:text-ink">
+            사주 여덟 글자 펼쳐 보기<iconify-icon id="pillars-chevron" icon="solar:alt-arrow-down-linear" class="transition-transform duration-500 ease-spring" aria-hidden="true"></iconify-icon>
+          </button>
+          <div id="pillars" class="grid grid-rows-[0fr] transition-all duration-500 ease-spring" aria-hidden="true">
+            <div class="overflow-hidden">
+              <div id="pillars-grid" class="mt-4 grid grid-cols-4 gap-1.5"></div>
+              <p class="mt-2 text-[11.5px] text-inkfaint">일주 자리가 나의 기둥이에요. 깊은 풀이는 사주 보고서에서 이어져요. (시제품 표기 — 실제 서비스는 엔진 계산 간지를 그대로 써요)</p>
+            </div>
+          </div>
+        </div>
+        <div class="rounded-3xl border border-hairline bg-white p-6">
+          <h3 class="mb-4 text-[12.5px] font-bold tracking-[0.04em] text-inkfaint">기운의 저울 · 신강과 신약</h3>
+          <div class="relative h-2.5 rounded-full bg-hairline">
+            <div class="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-sage to-elearth opacity-80" id="strength-fill"></div>
+            <div class="absolute -top-1.5 h-5 w-1 rounded-full bg-ink" id="strength-marker"></div>
+          </div>
+          <div class="mt-2 flex justify-between text-[11.5px] text-inkfaint"><span>신약</span><span>균형</span><b class="text-ink" id="strength-level"></b></div>
+          <div class="tier-expert mt-4 space-y-2" id="deuk"></div>
+          <p class="tier-plain mt-4 text-[12.5px] text-inkfaint">전문가 레이어에서 득령 · 득지 · 득세 근거를 볼 수 있어요.</p>
+        </div>
+        <div class="rounded-3xl border border-hairline bg-white p-6">
+          <h3 class="mb-4 text-[12.5px] font-bold tracking-[0.04em] text-inkfaint">오행 분포</h3>
+          <svg viewBox="0 0 200 150" class="mx-auto block w-full max-w-[220px]" role="img" aria-label="사주와 이름 합산 오행 분포 차트 자리">
+            <polygon points="100,14 176,66 148,138 52,138 24,66" fill="none" stroke="#E4DFD2" stroke-width="1"></polygon>
+            <polygon points="100,44 143,73 128,113 72,113 57,73" fill="none" stroke="#E4DFD2" stroke-width="1"></polygon>
+            <polygon points="100,30 152,66 132,124 60,118 44,72" fill="rgba(176,129,58,0.18)" stroke="#B0813A" stroke-width="1.5"></polygon>
+            <polygon points="100,22 160,64 140,130 58,124 38,68" fill="rgba(62,107,79,0.14)" stroke="#3E6B4F" stroke-width="1.5" stroke-dasharray="4 3"></polygon>
+            <text x="100" y="9" text-anchor="middle" font-size="10" fill="#8D9287">목</text>
+            <text x="186" y="68" text-anchor="middle" font-size="10" fill="#8D9287">화</text>
+            <text x="152" y="149" text-anchor="middle" font-size="10" fill="#8D9287">토</text>
+            <text x="48" y="149" text-anchor="middle" font-size="10" fill="#8D9287">금</text>
+            <text x="14" y="68" text-anchor="middle" font-size="10" fill="#8D9287">수</text>
+          </svg>
+          <p class="mt-2 text-center text-[12px] text-inkfaint"><span class="mr-3 inline-flex items-center gap-1"><i class="inline-block h-2 w-2 rounded-full bg-elearth"></i>사주만</span><span class="inline-flex items-center gap-1"><i class="inline-block h-2 w-2 rounded-full bg-sage"></i>이름 합산</span></p>
+        </div>
+        <div class="rounded-3xl border-2 border-elfire/50 bg-elfirebg/60 p-6">
+          <h3 class="mb-4 text-[12.5px] font-bold tracking-[0.04em] text-elfire">필요한 기운 · 용신</h3>
+          <div class="flex items-center gap-4">
+            <span class="relative grid h-20 w-20 flex-none place-items-center rounded-full border-2 border-elfire bg-white">
+              <span class="absolute inset-2 rounded-full border border-elfire/40" aria-hidden="true"></span>
+              <span class="absolute inset-4 rounded-full border border-elfire/30" aria-hidden="true"></span>
+              <b id="ys-glyph" class="relative font-serif text-2xl text-elfire"></b>
+            </span>
+            <p class="text-[14px] leading-relaxed text-inksoft">
+              <b class="text-ink" id="ys-label"></b><br>
+              <span class="tier-plain" id="ys-plain"></span>
+              <span class="tier-expert" id="ys-expert"></span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ④ 이름이 주는 기운 -->
+    <section id="sec-chars" class="reveal scroll-mt-32 pt-14">
+      <div class="rounded-[2rem] bg-ink p-6 text-cream sm:p-10">
+        <p class="mb-1 text-[11px] font-medium uppercase tracking-[0.15em] text-sagesoft/80">이름 × 사주</p>
+        <h2 class="font-serif text-xl font-bold tracking-tight sm:text-2xl">이름과 사주의 궁합</h2>
+        <p class="mt-1 text-[13px] text-cream/50">글자에 담긴 기운이 필요한 기운을 채우는지 봐요</p>
+        <div id="chars" class="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-2"></div>
+        <div class="mt-7 max-w-[62ch] text-[15px] leading-relaxed text-cream/80">
+          <p class="tier-plain" id="chars-plain"></p>
+          <p class="tier-expert" id="chars-expert"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑤ 종합 -->
+    <section id="sec-final" class="reveal scroll-mt-32 pt-14">
+      <div class="px-1">
+        <p class="mb-1 text-[11px] font-medium uppercase tracking-[0.15em] text-sage">최종 결과</p>
+        <h2 class="font-serif text-xl font-bold tracking-tight sm:text-2xl">종합 평가</h2>
+      </div>
+      <div id="recap" class="mt-6 space-y-4"></div>
+      <blockquote class="mt-8 border-l-[3px] border-sage pl-5 font-serif text-[16.5px] leading-relaxed text-ink">
+        <p class="tier-plain" id="closing-plain"></p>
+        <p class="tier-expert" id="closing-expert"></p>
+      </blockquote>
+      <div class="mt-8 rounded-3xl bg-sagesoft p-6">
+        <h3 class="mb-3 flex items-center gap-1.5 text-[13px] font-bold text-sage">
+          <iconify-icon icon="solar:sun-2-linear" aria-hidden="true"></iconify-icon>생활에서 이렇게 살려요
+        </h3>
+        <ul id="guide" class="space-y-2 text-[14px] leading-relaxed text-inksoft"></ul>
+      </div>
+      <div class="mt-9 flex justify-center">
+        <a href="#" id="cta" class="group inline-flex min-h-12 items-center gap-3 rounded-full bg-sage px-8 py-4 text-[15px] font-bold text-cream shadow-[0_16px_40px_-16px_rgba(62,107,79,0.6)] transition-all duration-500 ease-spring hover:scale-[1.02] active:scale-[0.98]">
+          <span id="cta-label"></span>
+          <span class="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 transition-transform duration-500 ease-spring group-hover:translate-x-1">
+            <iconify-icon id="cta-icon" icon="solar:arrow-right-linear" aria-hidden="true"></iconify-icon>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ⑥ 이름 정보 -->
+    <section id="sec-stats" class="reveal scroll-mt-32 pt-14">
+      <div class="mb-4 px-1">
+        <p class="mb-1 text-[11px] font-medium uppercase tracking-[0.15em] text-sage">참고 정보</p>
+        <h2 class="font-serif text-xl font-bold tracking-tight sm:text-2xl">이름 통계</h2>
+      </div>
+      <div class="flex flex-wrap items-stretch gap-3">
+        <div class="flex-1 rounded-3xl border border-hairline bg-white p-5 text-center min-w-[8rem]">
+          <p class="text-[12px] text-inkfaint">출생신고 인기</p><b class="mt-1 block text-xl" style="font-variant-numeric:tabular-nums">1,847위</b>
+        </div>
+        <div class="flex-1 rounded-3xl border border-hairline bg-white p-5 text-center min-w-[8rem]">
+          <p class="text-[12px] text-inkfaint">성별 경향</p><b class="mt-1 block text-xl" id="stat-gender">여성 쪽</b>
+        </div>
+        <div class="flex-1 rounded-3xl border border-hairline bg-white p-5 text-center min-w-[8rem]">
+          <p class="text-[12px] text-inkfaint">시대 적합</p><b class="mt-1 block text-xl">잔잔한 이름</b>
+        </div>
+      </div>
+      <p class="mt-2 text-center text-[11.5px] text-inkfaint">이름 통계는 참고 재미 요소예요 — 값이 없으면 이 묶음은 통째로 숨겨져요. (시제품에서는 예시 수치)</p>
+    </section>
+
+    <!-- ⑦ 근거와 기준 -->
+    <section id="sec-basis" class="reveal scroll-mt-32 pt-14">
+      <details class="group rounded-[2rem] border border-hairline bg-parchment/60 p-6 open:bg-parchment/80 sm:p-8">
+        <summary class="flex cursor-pointer list-none items-center justify-between">
+          <span>
+            <span class="mb-1 block text-[11px] font-medium uppercase tracking-[0.15em] text-sage">신뢰 안내</span>
+            <span class="font-serif text-xl font-bold tracking-tight">분석 근거와 기준</span>
+          </span>
+          <iconify-icon icon="solar:alt-arrow-down-linear" class="text-xl text-inkfaint transition-transform duration-500 ease-spring group-open:rotate-180" aria-hidden="true"></iconify-icon>
+        </summary>
+        <div class="mt-6 border-t border-hairline pt-6">
+          <div class="overflow-x-auto">
+            <table class="w-full text-[13.5px]" id="evidence">
+              <tbody class="divide-y divide-hairline"></tbody>
+            </table>
+          </div>
+          <div class="mt-6 space-y-3 text-[13px] leading-relaxed text-inksoft">
+            <p class="flex items-start gap-2"><iconify-icon icon="solar:volume-loud-linear" class="mt-0.5 shrink-0 text-inkfaint" aria-hidden="true"></iconify-icon><span><b>발음오행 기준</b> — ㅇ·ㅎ을 흙(土)으로 보는 훈민정음 운해본 기준이에요. 물(水)로 보는 유파도 있어요.</span></p>
+            <p class="flex items-start gap-2"><iconify-icon icon="solar:calculator-linear" class="mt-0.5 shrink-0 text-inkfaint" aria-hidden="true"></iconify-icon><span><b>수리 기준</b> — 현행 엔진 공식 기준이에요.</span></p>
+            <p class="flex items-start gap-2"><iconify-icon icon="solar:shield-check-linear" class="mt-0.5 shrink-0 text-inkfaint" aria-hidden="true"></iconify-icon><span><b>서술 방식</b> — 판정은 전부 계산 결과이고, 문장은 사람이 검수한 문안 조합으로 만들어져요. 실시간 AI 생성이 아니에요.</span></p>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <footer class="mt-16 flex flex-col items-center gap-2 border-t border-hairline pt-8 text-[12px] text-inkfaint">
+      <p class="flex items-center gap-1.5 font-semibold text-inksoft"><iconify-icon icon="solar:leaf-bold" class="text-sage" aria-hidden="true"></iconify-icon>이름봄</p>
+      <p>UI/UX 확인용 시제품 — 실제 서비스 화면이 아니에요.</p>
+      <a href="./index.html" class="mt-1 font-semibold text-sage transition-colors hover:text-ink">다른 이름으로 다시 만들기</a>
+    </footer>
+  </main>
+
+  <!-- 검수용 케이스 전환 -->
+  <div class="fixed bottom-4 right-4 z-40 flex items-center gap-1 rounded-full border border-white/60 bg-white/75 p-1 shadow-[0_10px_40px_-12px_rgba(32,38,29,0.25)] backdrop-blur-xl" role="group" aria-label="검수용 케이스 전환">
+    <span class="hidden pl-2.5 pr-1 text-[11px] font-semibold tracking-[0.08em] text-inkfaint sm:inline">검수용</span>
+    <button type="button" data-case="mina" class="case-btn min-h-9 rounded-full px-3.5 py-1.5 text-[12.5px] font-semibold text-inksoft transition-all duration-500 ease-spring">천민아</button>
+    <button type="button" data-case="yajang" class="case-btn min-h-9 rounded-full px-3.5 py-1.5 text-[12.5px] font-semibold text-inksoft transition-all duration-500 ease-spring">천야장</button>
+  </div>
+
+  <script src="./assets/mock-data.js"></script>
+  <script>
+    (function () {
+      var EL = { wood: 'elwood', fire: 'elfire', earth: 'elearth', metal: 'elmetal', water: 'elwater' };
+      var ELBG = { wood: 'bg-elwoodbg text-elwood', fire: 'bg-elfirebg text-elfire', earth: 'bg-elearthbg text-elearth', metal: 'bg-elmetalbg text-elmetal', water: 'bg-elwaterbg text-elwater' };
+      var ELBORDER = { wood: 'border-elwood', fire: 'border-elfire', earth: 'border-elearth', metal: 'border-elmetal', water: 'border-elwater' };
+      var ELTEXT = { wood: 'text-elwood', fire: 'text-elfire', earth: 'text-elearth', metal: 'text-elmetal', water: 'text-elwater' };
+      var STATE = { good: 'bg-sage', mixed: 'bg-amber2', bad: 'bg-rose2' };
+
+      var params = new URLSearchParams(location.search);
+      var caseId = params.get('case') === 'yajang' ? 'yajang' : 'mina';
+
+      /* ---- tier toggle ---- */
+      var tp = document.getElementById('tier-plain'), te = document.getElementById('tier-expert');
+      function setTier(expert) {
+        document.body.classList.toggle('expert', expert);
+        tp.className = 'min-h-8 rounded-full px-3.5 py-1 text-[12.5px] font-semibold transition-all duration-500 ease-spring ' + (expert ? 'text-inksoft' : 'bg-ink text-cream');
+        te.className = 'min-h-8 rounded-full px-3.5 py-1 text-[12.5px] font-semibold transition-all duration-500 ease-spring ' + (expert ? 'bg-ink text-cream' : 'text-inksoft');
+      }
+      tp.addEventListener('click', function () { setTier(false); });
+      te.addEventListener('click', function () { setTier(true); });
+
+      /* ---- render ---- */
+      function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+      function render(id) {
+        caseId = id;
+        var c = window.NS_CASES[id];
+        var saju = window.NS_SAJU;
+
+        /* badges */
+        var badges = [];
+        if (params.get('demo') === '1') badges.push('<span class="rounded-full bg-ambersoft px-3 py-1 text-[11.5px] font-semibold text-amber2">입력한 이름은 목업 케이스로 대체해 보여 드려요</span>');
+        if (params.get('notime') === '1') badges.push('<span class="rounded-full bg-ambersoft px-3 py-1 text-[11.5px] font-semibold text-amber2">출생 시간 없이 본 결과예요 — 일부 판정은 참고 수준</span>');
+        document.getElementById('demo-badges').innerHTML = badges.join('');
+
+        /* hero */
+        var chars = [c.surname].concat(c.given);
+        document.getElementById('hero-name').innerHTML = chars.map(function (ch) {
+          return '<span class="border-b-4 pb-1 ' + ELBORDER[ch.el] + '">' + esc(ch.hangul) + '</span>';
+        }).join('');
+        document.getElementById('hero-hanja').textContent = chars.map(function (ch) { return ch.hanja; }).join(' ');
+        document.getElementById('hero-verdict').textContent = c.verdict;
+        document.getElementById('hero-sub').textContent = c.verdictSub;
+        var trackDefs = [
+          { key: 'sound', name: '발음', href: '#sec-sound' },
+          { key: 'frames', name: '획수', href: '#sec-frames' },
+          { key: 'chars', name: '사주 궁합', href: '#sec-chars' }
+        ];
+        document.getElementById('hero-tracks').innerHTML = trackDefs.map(function (t) {
+          var tr = c.tracks[t.key];
+          return '<a href="' + t.href + '" class="flex min-w-[6.5rem] flex-col items-center gap-1 rounded-2xl border border-hairline bg-white px-5 py-3 text-[12.5px] text-inksoft transition-all duration-500 ease-spring hover:-translate-y-0.5 hover:shadow-[0_14px_30px_-18px_rgba(32,38,29,0.4)]">'
+            + '<span class="h-2.5 w-2.5 rounded-full ' + STATE[tr.state] + '"></span><b class="text-[13.5px] text-ink">' + t.name + '</b>' + esc(tr.label) + '</a>';
+        }).join('');
+        document.getElementById('hero-ring').style.setProperty('--score', c.score);
+        document.getElementById('hero-score').textContent = c.score;
+
+        /* flow */
+        var flowHtml = '';
+        var nodes = [c.surname].concat(c.given);
+        nodes.forEach(function (ch, i) {
+          flowHtml += '<div class="flex min-w-[5.5rem] flex-col items-center gap-2">'
+            + '<span class="grid h-16 w-16 place-items-center rounded-2xl border-2 font-serif text-2xl font-bold ' + ELBORDER[ch.el] + ' ' + ELBG[ch.el] + '">' + esc(ch.hangul) + '</span>'
+            + '<span class="rounded-full px-2.5 py-0.5 text-[11.5px] font-bold ' + ELBG[ch.el] + '">' + esc(ch.onset) + ' · ' + esc(window.NS_EL_LABEL[ch.el]) + '</span></div>';
+          if (i < nodes.length - 1) {
+            var edge = c.flow[i];
+            var good = edge.kind === 'good';
+            flowHtml += '<div class="flex min-w-[4.5rem] flex-col items-center gap-1 px-1">'
+              + '<span class="text-lg ' + (good ? 'text-sage' : 'text-amber2') + '" aria-hidden="true">' + (good ? '─ ─ ▶' : '─ ✕ ─') + '</span>'
+              + '<span class="rounded-full px-2.5 py-0.5 text-[11px] font-bold ' + (good ? 'bg-sagesoft text-sage' : 'bg-ambersoft text-amber2') + '">' + esc(edge.rel) + '</span>'
+              + '<span class="text-[10.5px] text-inkfaint">' + esc(edge.zone) + '</span></div>';
+          }
+        });
+        document.getElementById('flow').innerHTML = flowHtml;
+        document.getElementById('flow-plain').textContent = c.flowText.plain;
+        document.getElementById('flow-expert').textContent = c.flowText.expert;
+
+        /* frames */
+        var strokes = c.given.map(function (g) { return g.hanja + ' ' + g.strokes + '획'; }).join(' · ');
+        document.getElementById('frames-asm').innerHTML = '원획 기준 <b>' + esc(c.surname.hanja) + ' 3획 · ' + esc(strokes) + '</b> — 네 가지 조합으로 네 기둥을 세워요';
+        var gradeCls = { best: 'bg-sagesoft text-sage', good: 'bg-sagesoft/70 text-sage', heavy: 'bg-rosesoft text-rose2' };
+        document.getElementById('frames').innerHTML = c.frames.map(function (f) {
+          return '<div class="rounded-3xl border border-hairline bg-white p-5">'
+            + '<div class="flex items-baseline justify-between"><b class="text-[15px]">' + esc(f.name) + '</b>'
+            + '<span class="text-[12.5px] text-inkfaint" style="font-variant-numeric:tabular-nums">' + esc(f.calc) + ' = <b class="text-inksoft">' + f.num + '수</b></span></div>'
+            + '<p class="mt-0.5 text-[12px] text-inkfaint">' + esc(f.time) + '</p>'
+            + '<span class="mt-3 inline-block rounded-full px-3 py-1 text-[12px] font-bold ' + gradeCls[f.grade] + '">' + esc(f.gradeLabel) + '</span></div>';
+        }).join('');
+        document.getElementById('frames-plain').textContent = c.framesText.plain;
+        document.getElementById('frames-expert').textContent = c.framesText.expert;
+
+        /* saju (shared) */
+        document.getElementById('dm-glyph').textContent = saju.dayMaster.hanja;
+        document.getElementById('dm-label').textContent = saju.dayMaster.label + ' — ' + saju.dayMaster.figure;
+        document.getElementById('dm-state').textContent = saju.dayMaster.state;
+        document.getElementById('strength-fill').style.width = saju.strength.pos + '%';
+        document.getElementById('strength-marker').style.left = 'calc(' + saju.strength.pos + '% - 2px)';
+        document.getElementById('strength-level').textContent = saju.strength.level + ' ◂';
+        document.getElementById('deuk').innerHTML = saju.strength.deuk.map(function (d) {
+          return '<div class="grid grid-cols-[3rem_1fr] items-center gap-2 text-[12px] text-inksoft"><span>' + esc(d.k) + '</span>'
+            + '<span class="h-1.5 overflow-hidden rounded-full bg-hairline"><i class="block h-full rounded-full bg-elearth" style="width:' + d.v + '%"></i></span></div>';
+        }).join('');
+        document.getElementById('ys-glyph').textContent = saju.yongshin.hanja;
+        document.getElementById('ys-label').textContent = saju.yongshin.label;
+        document.getElementById('ys-plain').textContent = saju.yongshin.plain;
+        document.getElementById('ys-expert').textContent = saju.yongshin.expert;
+
+        /* chars */
+        var relCls = { match: 'bg-elfire text-white', generates: 'bg-sagesoft text-sage', drains: 'bg-cream text-inkfaint', controls: 'bg-rosesoft text-rose2', controlled: 'bg-rosesoft text-rose2' };
+        document.getElementById('chars').innerHTML = c.given.map(function (g) {
+          return '<div class="rounded-3xl bg-white/10 p-1 ring-1 ring-white/15">'
+            + '<div class="rounded-[calc(1.5rem-0.25rem)] bg-white/95 p-5 text-ink">'
+            + '<div class="flex items-baseline gap-3"><b class="font-serif text-3xl">' + esc(g.hanja) + '</b><span class="text-[13px] text-inksoft">' + esc(g.meaning) + '</span></div>'
+            + '<div class="mt-3.5 flex flex-wrap gap-1.5">'
+            + '<span class="rounded-full px-2.5 py-1 text-[11.5px] font-bold ' + ELBG[g.el] + '">발음 ' + esc(window.NS_EL_LABEL[g.el]) + '</span>'
+            + '<span class="rounded-full px-2.5 py-1 text-[11.5px] font-bold ' + ELBG[g.resource] + '">자원 ' + esc(window.NS_EL_LABEL[g.resource]) + '</span>'
+            + '<span class="rounded-full px-2.5 py-1 text-[11.5px] font-extrabold ' + relCls[g.rel] + '">' + esc(g.relLabel) + '</span>'
+            + '</div></div></div>';
+        }).join('');
+        document.getElementById('chars-plain').textContent = c.charsText.plain;
+        document.getElementById('chars-expert').textContent = c.charsText.expert;
+
+        /* recap */
+        function recapRows(list) {
+          return list.map(function (r) {
+            return '<div class="flex items-start gap-3 rounded-2xl border border-hairline bg-white px-5 py-4">'
+              + '<span class="mt-1.5 h-2.5 w-2.5 flex-none rounded-full ' + STATE[r.state] + '"></span>'
+              + '<p class="text-[14.5px] leading-relaxed text-inksoft">' + esc(r.text) + '</p></div>';
+          }).join('');
+        }
+        document.getElementById('recap').innerHTML =
+          '<div class="tier-plain space-y-3">' + recapRows(c.recap.plain) + '</div>'
+          + '<div class="tier-expert space-y-3">' + recapRows(c.recap.expert) + '</div>';
+        document.getElementById('closing-plain').textContent = c.closing.plain;
+        document.getElementById('closing-expert').textContent = c.closing.expert;
+        document.getElementById('guide').innerHTML = c.guide.map(function (g) {
+          return '<li class="flex items-start gap-2"><iconify-icon icon="solar:check-circle-linear" class="mt-1 shrink-0 text-sage" aria-hidden="true"></iconify-icon>' + esc(g) + '</li>';
+        }).join('');
+        document.getElementById('cta-label').textContent = c.cta.label;
+        document.getElementById('cta-icon').setAttribute('icon', c.cta.kind === 'share' ? 'solar:share-linear' : 'solar:magic-stick-3-linear');
+
+        /* stats */
+        document.getElementById('stat-gender').textContent = id === 'mina' ? '여성 쪽' : '남성 쪽';
+
+        /* evidence */
+        var fullName = chars.map(function (ch) { return ch.hangul; }).join('');
+        var rows = [
+          ['일간 / 강약', saju.evidence.dm],
+          ['용신 · 희신 · 기신', saju.evidence.ys],
+          ['격국', saju.evidence.gg],
+          ['글자', chars.map(function (ch) {
+            return ch.hanja + ' 발음 ' + window.NS_EL_SHORT[ch.el] + (ch.resource ? ' · 자원 ' + window.NS_EL_SHORT[ch.resource] : '');
+          }).join(' / ')],
+          ['발음 배열', c.evidence.pron],
+          ['수리 사격', c.evidence.frames]
+        ];
+        document.querySelector('#evidence tbody').innerHTML = rows.map(function (r) {
+          return '<tr><th class="w-32 py-2.5 pr-4 text-left align-top text-[12.5px] font-semibold text-inkfaint">' + esc(r[0]) + '</th><td class="py-2.5 text-inksoft">' + esc(r[1]) + '</td></tr>';
+        }).join('');
+
+        /* case switcher state */
+        document.querySelectorAll('.case-btn').forEach(function (b) {
+          var on = b.dataset.case === id;
+          b.className = 'case-btn min-h-9 rounded-full px-3.5 py-1.5 text-[12.5px] font-semibold transition-all duration-500 ease-spring ' + (on ? 'bg-ink text-cream' : 'text-inksoft hover:bg-cream');
+        });
+        document.title = '이름 통합 보고서 — ' + fullName + ' · 이름봄';
+      }
+
+      document.querySelectorAll('.case-btn').forEach(function (b) {
+        b.addEventListener('click', function () {
+          render(b.dataset.case);
+          history.replaceState(null, '', '?case=' + b.dataset.case);
+        });
+      });
+
+      render(caseId);
+
+      /* ---- pillars (사주 여덟 글자) ---- */
+      var noTime = params.get('notime') === '1';
+      function pillarCell(pair, isDay) {
+        return '<div class="grid place-items-center gap-0.5 rounded-xl border py-2.5 ' + ELBG[pair[2]] + ' ' + (isDay ? 'border-current' : 'border-transparent') + '">'
+          + '<b class="font-serif text-xl leading-none">' + pair[0] + '</b>'
+          + '<span class="text-[10.5px] opacity-80">' + pair[1] + '</span></div>';
+      }
+      document.getElementById('pillars-grid').innerHTML = window.NS_SAJU.pillars.map(function (p) {
+        var unknown = noTime && p.isHour;
+        var head = '<p class="mb-1 text-center text-[10.5px] font-bold tracking-[0.08em] ' + (p.isDay ? 'text-sage' : 'text-inkfaint') + '">' + p.pos + (p.isDay ? ' · 나' : '') + '</p>';
+        if (unknown) {
+          var dash = '<div class="grid place-items-center rounded-xl border border-dashed border-hairline py-4 text-[11px] text-inkfaint">모름</div>';
+          return '<div>' + head + '<div class="space-y-1.5">' + dash + dash + '</div></div>';
+        }
+        return '<div>' + head + '<div class="space-y-1.5 ' + (p.isDay ? 'rounded-2xl ring-2 ring-sage/60 ring-offset-2 ring-offset-white' : '') + '">'
+          + pillarCell(p.stem, p.isDay) + pillarCell(p.branch, p.isDay) + '</div></div>';
+      }).join('');
+
+      var pillarsBox = document.getElementById('pillars');
+      var pillarsBtn = document.getElementById('pillars-toggle');
+      pillarsBtn.addEventListener('click', function () {
+        var open = pillarsBtn.getAttribute('aria-expanded') === 'true';
+        pillarsBtn.setAttribute('aria-expanded', String(!open));
+        pillarsBox.setAttribute('aria-hidden', String(open));
+        pillarsBox.classList.toggle('grid-rows-[0fr]', open);
+        pillarsBox.classList.toggle('grid-rows-[1fr]', !open);
+        document.getElementById('pillars-chevron').style.transform = open ? '' : 'rotate(180deg)';
+        pillarsBtn.firstChild.textContent = open ? '사주 여덟 글자 펼쳐 보기' : '사주 여덟 글자 접기';
+      });
+
+      /* scroll reveal */
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.08 });
+      document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+    })();
+  </script>
+</body>
+</html>
