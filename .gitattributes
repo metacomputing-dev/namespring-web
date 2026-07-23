@@ -4,3 +4,4 @@ lib/spring-ts/data/name-stat/name-stat-summary.v1.bin binary
 lib/spring-ts/data/korean-surname-authority.json text eol=lf
 lib/spring-ts/data/sources/korean-surname.sources.json text eol=lf
 lib/spring-ts/data/evidence/kosis-2015-compound-surnames.json text eol=lf
+lib/spring-ts/data/generation/** text eol=lf
