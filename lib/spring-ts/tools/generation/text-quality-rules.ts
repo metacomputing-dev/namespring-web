@@ -346,6 +346,44 @@ function ngramText(a: BundleArticleLike): string {
     .replace(/[\s.,!?…·—''""()\-]/gu, '');
 }
 
+// ── academic-only hard prose gate (pilot 2026-07-16) ─────────────────────────
+// prose-lint (G3) is a standalone lint, NOT wired into ingest, so simile /
+// second-person / 중화-overuse slipped past finalize in the refined-prompt pilot.
+// These promote the highest-signal academic checks to HARD rejects at ingest.
+// Academic bundles ONLY (ingest-bundles guards on category === 'academic') so
+// other categories' gate behaviour is unchanged.
+const ACADEMIC_SIMILE_RE = /[가-힣]하듯|[가-힣]듯이/u;
+const ACADEMIC_SECOND_PERSON_RE = /당신/u;
+const ACADEMIC_METAPHOR_RE = /완주|딴 데로 새/u;                       // 걷기 은유 잔재(prose-lint ERROR 동기화)
+const ACADEMIC_LOANWORD_RE = /세션|마일스톤|스텝|커리큘럼|포트폴리오|루틴/u; // 외래어(prose-lint ERROR 동기화)
+const ACADEMIC_BALANCE_RE = /(치우치지|쏠리지|몰리지|기울지)\s?(않|안 )/u;
+const ACADEMIC_BALANCE_CAP = 8;
+
+function academicText(a: BundleArticleLike): string {
+  return [a.summary, ...(a.body ?? []), ...(a.expert ?? []), ...(a.livingTips ?? [])].join(' ');
+}
+
+/** Academic-only hard prose checks. Call for category === 'academic' bundles.
+ *  Rejects the specific cells so the regen loop rewrites only those. */
+export function academicProseViolations(
+  articles: readonly BundleArticleLike[],
+): readonly TextQualityViolation[] {
+  const violations: TextQualityViolation[] = [];
+  const balanceHits: string[] = [];
+  for (const a of articles) {
+    const text = academicText(a);
+    if (ACADEMIC_SIMILE_RE.test(text)) violations.push({ rule: 'academic-simile', detail: '직유(~하듯/~듯이) — 직서로 쓸 것', caseIds: [a.caseId] });
+    if (ACADEMIC_SECOND_PERSON_RE.test(text)) violations.push({ rule: 'academic-second-person', detail: '2인칭 "당신" — 3인칭(분/사람)으로', caseIds: [a.caseId] });
+    if (ACADEMIC_METAPHOR_RE.test(text)) violations.push({ rule: 'academic-metaphor', detail: '걷기 은유(완주/딴 데로 새) — 끝까지 마치기/다른 데로 빠지지 등으로', caseIds: [a.caseId] });
+    if (ACADEMIC_LOANWORD_RE.test(text)) violations.push({ rule: 'academic-loanword', detail: '외래어(세션·마일스톤·스텝·커리큘럼·포트폴리오·루틴) — 쉬운 우리말로', caseIds: [a.caseId] });
+    if (ACADEMIC_BALANCE_RE.test(text)) balanceHits.push(a.caseId);
+  }
+  if (balanceHits.length > ACADEMIC_BALANCE_CAP) {
+    violations.push({ rule: 'academic-balance-overuse', detail: `중화 치우치/쏠리 ${balanceHits.length}편 > ${ACADEMIC_BALANCE_CAP} — 강약 표현 분산 필요`, caseIds: balanceHits.slice(ACADEMIC_BALANCE_CAP) });
+  }
+  return violations;
+}
+
 export function bundleDiversityViolations(
   articles: readonly BundleArticleLike[],
 ): readonly TextQualityViolation[] {

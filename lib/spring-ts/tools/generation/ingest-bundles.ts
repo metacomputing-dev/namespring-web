@@ -23,6 +23,7 @@ import { fileURLToPath } from 'node:url';
 import type { GenerationCase } from './case-schema.js';
 import { validateGenerated, type GeneratedArticle } from './validate-generated.js';
 import {
+  academicProseViolations,
   bandKeyOf,
   bundleDiversityViolations,
   bundleKeyFromCaseId,
@@ -203,6 +204,24 @@ function main(): void {
         const entry = rejected.find((r) => r.caseId === g.caseId);
         if (entry) entry.reasons.push(reason);
         else rejected.push({ caseId: g.caseId, reasons: [reason] });
+      }
+    }
+
+    // layer 4: academic-only hard prose gate (simile / 2인칭 / 중화 overuse) —
+    // promoted from prose-lint because it is not wired into the ingest flow.
+    if (category === 'academic') {
+      const academicPool: BundleArticleLike[] = passing
+        .filter((p) => !rejectIds.has(p.g.caseId))
+        .map((p) => ({ caseId: p.g.caseId, summary: p.g.summary, body: p.g.body, expert: p.g.expert, livingTips: p.g.livingTips }));
+      for (const v of academicProseViolations(academicPool)) {
+        for (const id of v.caseIds ?? []) {
+          if (!newIds.has(id)) continue;
+          rejectIds.add(id);
+          const reason = `${v.rule}: ${v.detail}`;
+          const entry = rejected.find((r) => r.caseId === id);
+          if (entry) entry.reasons.push(reason);
+          else rejected.push({ caseId: id, reasons: [reason] });
+        }
       }
     }
 
