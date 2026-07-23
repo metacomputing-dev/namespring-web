@@ -14,7 +14,7 @@ import { fileURLToPath } from 'node:url';
 import type {
   Gender, GenerationCase, GenerationSpec, GyeokgukFamily, NameEffect, StrengthCoarse,
 } from './case-schema.js';
-import { ACADEMIC_STUDY_PROFILE, academicNameEffect, academicPeriodTask } from './academic-matrix.js';
+import { ACADEMIC_STUDY_PROFILE, academicDiversityHints, academicNameEffect, academicPeriodTask } from './academic-matrix.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ARTICLES_DIR = path.resolve(HERE, '../../data/articles');
@@ -163,6 +163,7 @@ function buildSpec(cell: BaseCell, g: StrengthCoarse, fam: GyeokgukFamily, ne: N
           periodTask: academicPeriodTask(fam, cell.period),
           nameBenefit: benefit,
           nameRisk: risk,
+          diversityHints: academicDiversityHints(fam, cell.period, cell.band, g),
         };
       })()
     : undefined;

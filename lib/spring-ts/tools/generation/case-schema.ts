@@ -12,6 +12,8 @@
  * (pairing-contract.md).
  */
 
+import type { DiversityHints } from './diversity-rotation.js';
+
 export type StrengthCoarse = 'weak' | 'balanced' | 'strong';
 export type GyeokgukFamily = 'inseong' | 'siksang' | 'jaeseong' | 'gwanseong' | 'bigeop' | 'special';
 /** 자원오행이 사주 오행에 합산된 결과의 부호까지 담는 통합 축(감사 반영). */
@@ -67,4 +69,8 @@ export interface GenerationSpec {
   readonly nameBenefit?: string;
   /** 이름이 이 격국에서 키우는 위험/살펴야 할 과잉. */
   readonly nameRisk?: string;
+  // ── common anti-repetition hints (category-agnostic; opt-in per category) ──
+  // Populated by a category's manifest generator via diversity-rotation.ts.
+  // Undefined for categories that don't opt in → manifest bytes unchanged.
+  readonly diversityHints?: DiversityHints;
 }

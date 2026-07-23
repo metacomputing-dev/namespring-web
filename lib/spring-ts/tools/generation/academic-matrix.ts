@@ -10,7 +10,8 @@
  * paste — the prompt tells OPUS to realize the task with this bundle's palette so
  * the anti-stamping diversity contract still holds.
  */
-import type { GyeokgukFamily } from './case-schema.js';
+import type { GyeokgukFamily, StrengthCoarse } from './case-schema.js';
+import { axisIndex, compactHints, rotateEven, type DiversityHints } from './diversity-rotation.js';
 
 /** Per-격국 study temperament + risk, in plain language (no jargon). Relocated from
  *  bundle-prompt.ts and refined per domain review: 비겁=자기결정 우선, 인성=이해 먼저,
@@ -137,4 +138,62 @@ export function academicPeriodTask(fam: GyeokgukFamily, period: string): string 
 /** Name benefit/risk for one (격국, nameEffect) cell. */
 export function academicNameEffect(fam: GyeokgukFamily, nameEffect: string): NameEffectCell {
   return ACADEMIC_NAME_EFFECT[fam]?.[nameEffect] ?? { benefit: '', risk: '' };
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  Diversity palettes (academic). The rotation MECHANISM is common
+//  (diversity-rotation.ts); these are academic's VALUES. Assigned deterministically
+//  per cell so the 15 cells of one bundle spread across distinct forms — the root
+//  fix for the B-category repetition (name-effect formula / 중화 descriptor / expert
+//  endings) instead of piling "don't repeat" prompt lines.
+// ─────────────────────────────────────────────────────────────────────────────
+
+const PERIOD_ORDER: readonly string[] = ['today', 'thisWeek', 'thisMonth', 'thisYear', 'life'];
+const BAND_ORDER: readonly string[] = ['high', 'mid', 'low', 'any'];
+
+/** Name-effect sentence FRAMES (guidance labels, realized in the writer's own
+ *  words). Rotated by period so a boost bundle's periods don't all use the same
+ *  "이름이 ~ 주는 [명사]" formula (prose-lint name-effect cluster). */
+const NAME_FRAMES: readonly string[] = [
+  '비교형 — "여러 갈래로 벌일 때보다 하나를 오래 붙들 때 ~" 처럼 A와 B를 견주어',
+  '조건형 — "~일수록 / ~할 때라야 또렷해져요" 처럼 조건을 걸어',
+  '부정·전환형 — "~로는 잘 안 살고, ~라야 ~" 처럼 안 맞는 쪽을 먼저 짚고 전환',
+  '명사구형 — "이름이 더해 주는 [든든함/뒷심]은 ~에서 ~" 처럼 이름 효과를 명사로',
+];
+
+/** Gate-valid strength/balance plain forms, one per accepted gate pattern
+ *  (validate-generated STRENGTH_PLAIN_PATTERNS). Rotating across them spreads the
+ *  중화 descriptor so the "치우치지/쏠리지" cluster stops dominating. */
+const STRENGTH_PLAIN_FORMS: Record<StrengthCoarse, readonly string[]> = {
+  balanced: ['기복이 크지 않은', '한쪽으로 치우치지 않는', '균형이 잡힌', '고른 흐름의', '안정된', '무난한'],
+  strong: ['힘이 실리는', '추진력이 붙는', '주도권을 쥐는', '단단한', '기세가 오르는'],
+  weak: ['쉽게 흔들릴 수 있는', '무리하면 지치는', '받쳐 주면 나아지는', '기반을 다져야 하는', '여린'],
+};
+
+/** Expert-paragraph ending nouns to anchor a cell's close, spread across the
+ *  bundle so 자리/구조/배치 stop repeating (prose-lint expert-ending cluster). */
+const EXPERT_ENDINGS: readonly string[] = ['자리', '구조', '배치', '짜임', '결'];
+
+/**
+ * Deterministic anti-repetition hints for one academic cell.
+ * - nameFrame  : by period (5 periods → 4 frames), boost bundles vary the formula.
+ * - balancePhrase: by (period×band), gate-valid form for this person's 강약.
+ * - expertEndingHint: by (period×band), spreads expert 종결어.
+ * Returns undefined when nothing is set (keeps manifest lean).
+ */
+export function academicDiversityHints(
+  fam: GyeokgukFamily,
+  period: string,
+  band: string,
+  gangyak: StrengthCoarse,
+): DiversityHints | undefined {
+  const p = axisIndex(period, PERIOD_ORDER);
+  const b = axisIndex(band, BAND_ORDER);
+  const cellIdx = p * BAND_ORDER.length + b;
+  const forms = STRENGTH_PLAIN_FORMS[gangyak] ?? STRENGTH_PLAIN_FORMS.balanced;
+  return compactHints({
+    nameFrame: rotateEven(NAME_FRAMES, p),
+    balancePhrase: rotateEven(forms, cellIdx),
+    expertEndingHint: rotateEven(EXPERT_ENDINGS, cellIdx),
+  });
 }
