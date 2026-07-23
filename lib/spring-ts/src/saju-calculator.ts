@@ -46,6 +46,8 @@ import type {
   NameElementStrategyEvidence,
   SajuCompatibility,
   SajuNameSafetyProfile,
+  SajuNameSourceEvidence,
+  SajuNameEvidenceDirection,
   SajuNameSafetyStrategy,
   SajuOutputSummary,
   SajuYongshinSummary,
@@ -74,6 +76,7 @@ import {
 // ---------------------------------------------------------------------------
 import scoringConfig from '../config/saju-scoring.json';
 import scoringRules from '../config/scoring-rules.json';
+import { NAMING_EVIDENCE_WEIGHT_POLICY } from './naming-evidence-weight-policy.js';
 import {
   loadPreset,
   resolveSchoolPresetName,
@@ -86,9 +89,9 @@ import {
 const SAJU_SIGNAL_WEIGHT: number = (scoringRules as { saju?: { signalWeight?: number } }).saju?.signalWeight ?? 1.0;
 
 /** How much weight each yongshin recommendation type carries (1.0 = strongest).
- *  Default mirrors saju-scoring.json. When precisionConfig.useSchoolPreset is
+ *  The default and school overrides share naming-evidence-weights.json. When precisionConfig.useSchoolPreset is
  *  true, SajuCalculator routes through the preset's table instead. */
-const DEFAULT_YONGSHIN_TYPE_WEIGHTS: Record<string, number> = scoringConfig.yongshinTypeWeights;
+const DEFAULT_YONGSHIN_TYPE_WEIGHTS: Record<string, number> = NAMING_EVIDENCE_WEIGHT_POLICY.yongshinTypeWeights;
 
 /** Fallback weight when the recommendation type is not in the table. */
 const DEFAULT_TYPE_WEIGHT: number = scoringConfig.defaultTypeWeight;
@@ -112,15 +115,22 @@ const CONSENSUS_AGGRESSIVE_REINFORCEMENT_MAX_PENALTY = 12;
 
 // Destructure the nested config sections for easier access
 const {
-  balanceScoring:   BALANCE,
-  yongshinScoring:  YONGSHIN,
-  strengthScoring:  STRENGTH,
-  tenGodScoring:    TEN_GOD,
-  adaptiveWeights:  ADAPTIVE,
-  penalties:        PENALTY,
-  deficiencyBonus:  DEFICIENCY,
   passing:          PASSING,
 } = scoringConfig;
+const {
+  balanceScoring: BALANCE,
+  yongshinScoring: YONGSHIN,
+  strengthScoring: STRENGTH,
+  tenGodScoring: TEN_GOD,
+  adaptiveWeights: ADAPTIVE,
+  penalties: PENALTY,
+  bonuses: EVIDENCE_BONUSES,
+} = NAMING_EVIDENCE_WEIGHT_POLICY;
+const DEFICIENCY = {
+  yongshinMatch: EVIDENCE_BONUSES.deficiencyYongshinMatch,
+  heesinMatch: EVIDENCE_BONUSES.deficiencyHeesinMatch,
+  maxBonus: EVIDENCE_BONUSES.deficiencyMaximum,
+} as const;
 
 // ---------------------------------------------------------------------------
 //  Public interface — the shape of a saju name score result
@@ -145,6 +155,7 @@ export interface SajuNameScoreResult {
       scoreGuardApplied: boolean;
     };
     safetyProfile?: SajuNameSafetyProfile;
+    sourceEvidence: SajuNameSourceEvidence;
   };
 }
 
@@ -527,7 +538,8 @@ function computeBalanceScore(
     }
   } else if (mode === 'classical_jonggyeok_aware') {
     const gyeokguk = sajuOutput?.gyeokguk;
-    if (gyeokguk?.category === PENALTY.jonggyeokCategory && (gyeokguk.confidence ?? 0) >= 0.5) {
+    if (gyeokguk?.category === PENALTY.jonggyeokCategory
+      && (gyeokguk.confidence ?? 0) >= PENALTY.gyeokgukMinConfidence) {
       score = Math.max(score, 70);
     }
   }
@@ -781,10 +793,12 @@ function computeStrengthScore(
   rootDist: Record<ElementKey, number>,
   sajuOutput: SajuOutputSummary | null,
   mode: 'binary' | 'continuous' = 'binary',
-): number {
+): { score: number; alignedCount: number; opposedCount: number; alignedElements: ElementKey[]; opposedElements: ElementKey[] } {
   const strengthData  = sajuOutput?.strength;
   const dayMasterElement = sajuOutput?.dayMaster?.element;
-  if (!strengthData || !dayMasterElement) return 50;
+  if (!strengthData || !dayMasterElement) {
+    return { score: 50, alignedCount: 0, opposedCount: 0, alignedElements: [], opposedElements: [] };
+  }
 
   // 'continuous' mode replaces the binary isStrong toggle with a graded
   // strength signal derived from totalSupport / totalOppose. Charts that
@@ -796,9 +810,21 @@ function computeStrengthScore(
   const totalMagnitude = support + oppose;
   const strongness = totalMagnitude > 0 ? (support - oppose) / totalMagnitude : 0; // [-1, 1]
 
+  let alignedCount = 0;
+  let opposedCount = 0;
+  const alignedElements: ElementKey[] = [];
+  const opposedElements: ElementKey[] = [];
   const balanceDirection = normalizeSignedScore(
     weightedElementAverage(rootDist, element => {
       const supportsStrength = (element === dayMasterElement || element === generatedBy(dayMasterElement));
+      const count = elementCount(rootDist, element);
+      if (supportsStrength !== strengthData.isStrong) {
+        alignedCount += count;
+        if (count > 0) alignedElements.push(element);
+      } else {
+        opposedCount += count;
+        if (count > 0) opposedElements.push(element);
+      }
       if (mode === 'continuous') {
         // Continuous: ideal alignment for a name element scales with how
         // strong/weak the chart actually is. supportsStrength → -strongness
@@ -815,10 +841,16 @@ function computeStrengthScore(
     : STRENGTH.defaultIntensity;
 
   // Final score: centered at 50, scaled by intensity
-  return clamp(
-    50 + (balanceDirection - 50) * (STRENGTH.confidenceImpact.baseRatio + intensity * STRENGTH.confidenceImpact.variableRatio),
-    0, 100,
-  );
+  return {
+    score: clamp(
+      50 + (balanceDirection - 50) * (STRENGTH.confidenceImpact.baseRatio + intensity * STRENGTH.confidenceImpact.variableRatio),
+      0, 100,
+    ),
+    alignedCount,
+    opposedCount,
+    alignedElements,
+    opposedElements,
+  };
 }
 
 // =========================================================================
@@ -1239,7 +1271,7 @@ function computeGyeokgukPenalty(
     ? (MULTI_SPECIAL_PENALTY_MULTIPLIERS[gyeokgukData.type] ?? 1.0)
     : 1.0;
 
-  return Math.round(harmfulRatio * PENALTY.gyeokgukMaxPenalty * confidenceFactor * typeMultiplier);
+  return Math.round(harmfulRatio * PENALTY.gyeokgukMaximum * confidenceFactor * typeMultiplier);
 }
 
 /**
@@ -1277,6 +1309,21 @@ interface SajuNameScoreComputation {
   readonly tenGodDiagnostics: TenGodScoreDiagnostics;
 }
 
+function evidenceDirection(supporting: number, limiting: number): SajuNameEvidenceDirection {
+  if (supporting > limiting) return 'supports';
+  if (limiting > supporting) return 'limits';
+  return 'mixed';
+}
+
+function presentElements(
+  values: readonly string[] | undefined,
+  rootDist: Record<ElementKey, number>,
+): ElementKey[] {
+  return [...new Set((values ?? [])
+    .map((value) => elementFromSajuCode(value))
+    .filter((value): value is ElementKey => value !== null && elementCount(rootDist, value) > 0))];
+}
+
 function computeSajuNameScoreWithDiagnostics(
   sajuDist: Record<ElementKey, number>,
   rootDist: Record<ElementKey, number>,
@@ -1301,7 +1348,7 @@ function computeSajuNameScoreWithDiagnostics(
     rootDist, sajuOutput?.yongshin ?? null, yongshinTypeWeights,
     scoringOverrides?.yongshinMode ?? 'classical_blend',
   );
-  const strengthScore   = computeStrengthScore(
+  const strengthResult  = computeStrengthScore(
     rootDist, sajuOutput,
     scoringOverrides?.strengthMode ?? 'binary',
   );
@@ -1318,7 +1365,7 @@ function computeSajuNameScoreWithDiagnostics(
   const weightedBaseScore = clamp(
     weight.balance  * balanceResult.score
     + weight.yongshin * yongshinResult.score
-    + weight.strength * strengthScore
+    + weight.strength * strengthResult.score
     + weight.tenGod   * tenGodScore,
     0, 100,
   );
@@ -1336,6 +1383,87 @@ function computeSajuNameScoreWithDiagnostics(
   );
   const totalPenalty    = yongshinResult.gisinPenalty + yongshinResult.gusinPenalty + gyeokgukPenalty;
   const score           = clamp(adjustedScore - totalPenalty, 0, 100);
+  const filledDeficientElements = presentElements(sajuOutput?.deficientElements, rootDist);
+  const reinforcedExcessiveElements = presentElements(sajuOutput?.excessiveElements, rootDist);
+  const yongshinElements = {
+    yongshin: elementFromSajuCode(sajuOutput?.yongshin?.finalYongshin),
+    heesin: elementFromSajuCode(sajuOutput?.yongshin?.finalHeesin),
+    gisin: elementFromSajuCode(sajuOutput?.yongshin?.gisin),
+    gusin: elementFromSajuCode(sajuOutput?.yongshin?.gusin),
+  };
+  const deficiencyMatchedElements = filledDeficientElements.filter(
+    (element) => element === yongshinElements.yongshin || element === yongshinElements.heesin,
+  );
+  const supportiveTenGodElements = ELEMENT_KEYS.filter(
+    (element) => elementCount(rootDist, element) > 0 && (tenGodDiagnostics.elementWeights[element] ?? 0) > 0,
+  );
+  const limitingTenGodElements = ELEMENT_KEYS.filter(
+    (element) => elementCount(rootDist, element) > 0 && (tenGodDiagnostics.elementWeights[element] ?? 0) < 0,
+  );
+  const sourceEvidence: SajuNameSourceEvidence = {
+    policyVersion: NAMING_EVIDENCE_WEIGHT_POLICY.modelVersion,
+    appliedWeights: { ...weight },
+    componentScores: {
+      balance: balanceResult.score,
+      yongshin: yongshinResult.score,
+      strength: strengthResult.score,
+      tenGod: tenGodScore,
+    },
+    weightedContributions: {
+      balance: weight.balance * balanceResult.score,
+      yongshin: weight.yongshin * yongshinResult.score,
+      strength: weight.strength * strengthResult.score,
+      tenGod: weight.tenGod * tenGodScore,
+    },
+    decisionImpacts: {
+      balance: weight.balance * Math.abs(balanceResult.score - 50) * 2,
+      yongshin: weight.yongshin * Math.abs(yongshinResult.score - 50) * 2,
+      strength: weight.strength * Math.abs(strengthResult.score - 50) * 2,
+      tenGod: weight.tenGod * Math.abs(tenGodScore - 50) * 2,
+    },
+    balance: {
+      direction: evidenceDirection(filledDeficientElements.length, reinforcedExcessiveElements.length),
+      nameDistribution: { ...rootDist },
+      combinedDistribution: { ...balanceResult.combined },
+      filledDeficientElements,
+      reinforcedExcessiveElements,
+    },
+    yongshin: {
+      direction: evidenceDirection(
+        yongshinResult.elementMatches.yongshin + yongshinResult.elementMatches.heesin,
+        yongshinResult.elementMatches.gisin + yongshinResult.elementMatches.gusin,
+      ),
+      elements: yongshinElements,
+      matches: { ...yongshinResult.elementMatches },
+      confidence: yongshinResult.confidence,
+    },
+    strength: {
+      direction: evidenceDirection(strengthResult.alignedCount, strengthResult.opposedCount),
+      alignedCount: strengthResult.alignedCount,
+      opposedCount: strengthResult.opposedCount,
+      alignedElements: strengthResult.alignedElements,
+      opposedElements: strengthResult.opposedElements,
+    },
+    tenGod: {
+      direction: evidenceDirection(supportiveTenGodElements.length, limitingTenGodElements.length),
+      supportiveElements: supportiveTenGodElements,
+      limitingElements: limitingTenGodElements,
+    },
+    deficiency: {
+      matchedElements: deficiencyMatchedElements,
+      bonus: deficiencyBonus,
+    },
+    penalties: {
+      gisin: yongshinResult.gisinPenalty,
+      gusin: yongshinResult.gusinPenalty,
+      gyeokguk: gyeokgukPenalty,
+      total: totalPenalty,
+    },
+    gyeokgukProtection: {
+      applicable: sajuOutput?.gyeokguk?.category === PENALTY.jonggyeokCategory,
+      broken: gyeokgukPenalty > 0,
+    },
+  };
 
   // --- Pass/fail determination ---
   const isPassed =
@@ -1351,7 +1479,7 @@ function computeSajuNameScoreWithDiagnostics(
       breakdown: {
         balance:  balanceResult.score,
         yongshin: yongshinResult.score,
-        strength: strengthScore,
+        strength: strengthResult.score,
         tenGod:   tenGodScore,
         penalties: {
           gisin:    yongshinResult.gisinPenalty,
@@ -1363,6 +1491,7 @@ function computeSajuNameScoreWithDiagnostics(
         elementMatches: yongshinResult.elementMatches,
         yongshinConsensus: yongshinResult.consensus,
         safetyProfile: yongshinResult.safetyProfile,
+        sourceEvidence,
       },
     },
     tenGodDiagnostics,
@@ -1755,6 +1884,7 @@ export class SajuCalculator implements EvaluableCalculator {
         yongshinConsensusConflictLevel: breakdown?.yongshinConsensus?.conflictLevel,
         yongshinConsensusCompetingElements: breakdown?.yongshinConsensus?.competingElements,
         safetyProfile: breakdown?.safetyProfile,
+        sourceEvidence: breakdown?.sourceEvidence,
         elementStrategyEvidence: this.elementStrategyEvidence,
         tenGodPositionEvidence,
       },

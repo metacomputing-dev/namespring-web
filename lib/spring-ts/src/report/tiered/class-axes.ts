@@ -35,7 +35,7 @@ const GYEOKGUK_FAMILY: Record<string, GyeokgukFamily> = {
   hwagigyeok: 'special', jeonwanggyeok: 'special', jonggyeok: 'special',
 };
 
-function gyeokgukToFamily(gyeokguk: string | null): GyeokgukFamily | null {
+export function gyeokgukToFamily(gyeokguk: string | null): GyeokgukFamily | null {
   return gyeokguk ? (GYEOKGUK_FAMILY[gyeokguk] ?? null) : null;
 }
 

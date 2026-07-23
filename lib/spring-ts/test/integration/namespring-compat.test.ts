@@ -44,7 +44,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRING_TS_ROOT = path.resolve(__dirname, '../..');
 const NAMESPRING_DATA = path.resolve(SPRING_TS_ROOT, '../../namespring/public/data');
-const WASM_PATH = path.resolve(SPRING_TS_ROOT, 'node_modules/sql.js/dist/sql-wasm.wasm');
+const WASM_PATH = path.resolve(SPRING_TS_ROOT, '../../namespring/node_modules/sql.js/dist/sql-wasm.wasm');
 
 const originalFetch = globalThis.fetch;
 (globalThis as any).fetch = async (url: any, options?: any) => {
@@ -64,7 +64,11 @@ import { SpringEngine } from '../../src/index.js';
 
 const engine = new SpringEngine();
 const repos: any[] = [(engine as any).hanjaRepo, (engine as any).fourFrameRepo];
-for (const repo of repos) { if (repo) (repo as any).wasmUrl = WASM_PATH; }
+for (const repo of repos) {
+  if (repo) {
+    (repo as any).wasmUrl = WASM_PATH;
+  }
+}
 await engine.init();
 
 let pass = 0;
@@ -112,6 +116,13 @@ const FORTUNE_SECTIONS = [
 for (const section of FORTUNE_SECTIONS) {
   check(`FortuneReport.${section} present`, fortuneReport?.[section] != null);
 }
+const namingRecommendationReport = await engine.getNamingRecommendationReport(namespringRequest);
+check('NamingRecommendationReport preserves the fortune report surface',
+  namingRecommendationReport?.fortuneReport?.nameCompatibility != null);
+check('NamingRecommendationReport resolves a complete saju evidence plan',
+  namingRecommendationReport?.namingEvidencePlan?.sections?.[0]?.fragments?.[0]?.key
+    ?.startsWith('saju-axis/') === true,
+  namingRecommendationReport?.namingEvidencePlan?.sections?.[0]?.fragments?.[0]?.key);
 const overviewPillarElements = fortuneReport?.overviewSummary?.pillars?.map((pillar: any) =>
   String(pillar?.element ?? '')) ?? [];
 check(`FortuneReport.overviewSummary pillar elements expose stem/branch pairs`,

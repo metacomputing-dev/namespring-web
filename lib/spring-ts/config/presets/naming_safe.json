@@ -1,29 +1,4 @@
 {
   "schoolName": "Naming Safe",
-  "description": "Conservative naming preset. It favors balance and conflict avoidance over aggressive yongshin reinforcement so operators can compare safer rankings against doctrine-heavy presets.",
-  "yongshinTypeWeights": {
-    "EOKBU": 1.0,
-    "JOHU": 0.95,
-    "TONGGWAN": 0.95,
-    "GYEOKGUK": 0.82,
-    "BYEONGYAK": 0.9,
-    "JEONWANG": 0.68,
-    "HAPWHA_YONGSHIN": 0.65,
-    "ILHAENG_YONGSHIN": 0.65
-  },
-  "adaptiveWeights": {
-    "balanceBase": 0.62,
-    "balanceMin": 0.4,
-    "balanceMax": 0.62,
-    "yongshinBase": 0.2,
-    "yongshinMin": 0.2,
-    "yongshinMax": 0.42,
-    "strengthFixed": 0.13,
-    "tenGodFixed": 0.05,
-    "shiftDivisor": 80,
-    "confidenceWeight": 0.35,
-    "baseShiftRatio": 0.18,
-    "confidenceBoost": 0.05,
-    "baseConfidenceRatio": 0.65
-  }
+  "description": "Conservative naming doctrine metadata. Scoring weights are loaded from naming-evidence-weights.json."
 }

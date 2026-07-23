@@ -36,6 +36,7 @@ pnpm-debug.log*
 *.db
 *.sqlite
 *.sqlite3
+!namespring/public/data/naming-evidence.db
 # If you want to keep the seed database, use: !public/data/naming.db
 
 # --- OS Files ---
@@ -48,5 +49,6 @@ Thumbs.db
 /out/
 .vercel
 lib/spring-ts/data/generation/batches/
+lib/spring-ts/data/naming-report/evidence/generation/runs/
 lib/spring-ts/tmp/manual-bundles/
 namespring/public/generated-packed/

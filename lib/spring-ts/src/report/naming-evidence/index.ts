@@ -1,0 +1,43 @@
+export {
+  buildNamingEvidencePlan,
+  buildNamingEvidenceReport,
+  renderNamingEvidenceReport,
+} from './build-naming-evidence-report.js';
+export { EMPTY_NAMING_EVIDENCE_CATALOG } from './catalog.js';
+export { resolveNamingEvidenceSajuAxes } from './resolve-saju-axes.js';
+export {
+  NAMING_EVIDENCE_DATABASE_INTEGRITY_MISMATCH,
+  NamingEvidenceDatabaseIntegrityError,
+  NamingEvidenceRepository,
+  type NamingEvidenceRepositoryOptions,
+} from './repository.js';
+export {
+  NAMING_EVIDENCE_CATALOG_SCHEMA_VERSION,
+  NAMING_EVIDENCE_CONTRACT_INVALID,
+  NAMING_EVIDENCE_SCHEMA_VERSION,
+  NamingEvidenceContractError,
+  type NamingEvidenceAvailability,
+  type NamingEvidenceCatalog,
+  type NamingEvidenceConclusionTone,
+  type NamingEvidenceElement,
+  type NamingEvidenceFact,
+  type NamingEvidenceFragment,
+  type NamingEvidenceFragmentRef,
+  type NamingEvidenceGyeokgukFamily,
+  type NamingEvidenceMetric,
+  type NamingEvidencePlan,
+  type NamingRecommendationReportResult,
+  type NamingEvidenceRelation,
+  type NamingEvidenceReport,
+  type NamingEvidenceReportInput,
+  type NamingEvidenceRole,
+  type NamingEvidenceSajuAxes,
+  type NamingEvidenceScoreAxis,
+  type NamingEvidenceScoreFact,
+  type NamingEvidenceSectionId,
+  type NamingEvidenceSectionPlan,
+  type NamingEvidenceSlot,
+  type NamingEvidenceSourceFact,
+  type NamingEvidenceStrength,
+  type NamingEvidenceTextBlock,
+} from './types.js';

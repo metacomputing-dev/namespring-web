@@ -2,9 +2,15 @@ import React, { useState, useEffect, useMemo, useRef, useCallback, useLayoutEffe
 import { SeedTs } from "@seed/seed";
 import { HanjaRepository } from '@seed/database/hanja-repository';
 import { SpringEngine } from '@spring/spring-engine';
+import {
+  NamingEvidenceRepository,
+  renderNamingEvidenceReport,
+} from '@spring/report/naming-evidence/index';
 import DevDbViewer from './DevDbViewer';
 import DevHanjaDbViewer from './DevHanjaDbViewer';
 import DevNameStatDbViewer from './DevNameStatDbViewer';
+import DevNamingEvidenceViewer from './DevNamingEvidenceViewer';
+import DevCombinedReportPreview from './DevCombinedReportPreview';
 import SplashScreen from './SplashScreen';
 import FadeTransition from './FadeTransition';
 import AppBackground from './ui/AppBackground';
@@ -289,6 +295,8 @@ function toFortuneReportRequest(userInfo, givenName) {
       precisionConfig: {
         ...(base.options?.precisionConfig || {}),
         surfaceTieredMatrix: true,
+        surfaceNamingScoreVector: true,
+        surfacePhoneticEvidence: true,
         // 전문 인사이트 원자료(신살·공망·합충형파해 등) — 해석 파일이 채워진
         // fact만 렌더되므로 충전 전에는 화면 변화 없음 (성인 대상자 전용).
         surfaceInsightFacts: true,
@@ -331,6 +339,8 @@ function App() {
   const isDevSagyeoksuViewerMode = import.meta.env.DEV && tool === "fourframe-db-viewer";
   const isDevHanjaViewerMode = import.meta.env.DEV && tool === "hanja-db-viewer";
   const isDevNameStatViewerMode = import.meta.env.DEV && tool === "name-stat-db-viewer";
+  const isDevNamingEvidenceViewerMode = import.meta.env.DEV && tool === "naming-evidence-viewer";
+  const isDevCombinedReportPreviewMode = import.meta.env.DEV && tool === "combined-report-preview";
   const navigate = useNavigate();
   const runtimeConfig = useMemo(() => getFrontRuntimeConfig(), []);
   const initialAppState = useMemo(() => loadInitialAppState(), []);
@@ -343,6 +353,7 @@ function App() {
   const [page, setPage] = useState(initialAppState.page);
   const hanjaRepo = useMemo(() => new HanjaRepository(), []);
   const springEngine = useMemo(() => new SpringEngine(), []);
+  const namingEvidenceRepository = useMemo(() => new NamingEvidenceRepository(), []);
   const recommendResultCacheRef = useRef(new Map());
   const currentNameReportCacheRef = useRef(new Map());
 
@@ -360,8 +371,9 @@ function App() {
   useEffect(() => {
     return () => {
       springEngine.close();
+      namingEvidenceRepository.close();
     };
-  }, [springEngine]);
+  }, [namingEvidenceRepository, springEngine]);
 
   useEffect(() => {
     if (isDevSagyeoksuViewerMode || isDevHanjaViewerMode || isDevNameStatViewerMode) return;
@@ -422,7 +434,13 @@ function App() {
     if (!fortuneRequest.givenName?.length) {
       throw new Error('선택한 후보 이름 정보가 없습니다.');
     }
-    return springEngine.getFortuneReport(fortuneRequest);
+    const { fortuneReport, namingEvidencePlan } = await springEngine.getNamingRecommendationReport(fortuneRequest);
+    await namingEvidenceRepository.init();
+    const namingRecommendationEvidence = renderNamingEvidenceReport(
+      namingEvidencePlan,
+      namingEvidenceRepository.loadCatalog(),
+    );
+    return { ...fortuneReport, namingRecommendationEvidence };
   };
 
   const handleLoadCurrentNameReportAsync = useCallback(async (userInfo) => {
@@ -617,9 +635,6 @@ function App() {
               onLoadCombinedReport={handleLoadCombinedReportAsync}
               onBackHome={() => navigateToPage('home')}
               onBackCandidates={() => navigateToPage('naming-candidates')}
-              onOpenNamingReport={() => navigateToPage('report')}
-              onOpenSajuReport={() => navigateToPage('saju-report')}
-              onOpenPremium={openSupportPage}
             />
           </AppBackground>
         ),
@@ -665,6 +680,12 @@ function App() {
   }
   if (isDevNameStatViewerMode) {
     return <FadeTransition transitionKey="dev-name-stat"><AppBackground><DevNameStatDbViewer /></AppBackground></FadeTransition>;
+  }
+  if (isDevNamingEvidenceViewerMode) {
+    return <FadeTransition transitionKey="dev-naming-evidence"><AppBackground><DevNamingEvidenceViewer /></AppBackground></FadeTransition>;
+  }
+  if (isDevCombinedReportPreviewMode) {
+    return <FadeTransition transitionKey="dev-combined-report"><AppBackground><DevCombinedReportPreview /></AppBackground></FadeTransition>;
   }
 
   const view = getView();

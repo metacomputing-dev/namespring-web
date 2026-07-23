@@ -1,0 +1,243 @@
+{
+  "schemaVersion": "namespring.naming-evidence-weights/v1",
+  "modelVersion": "saju-name-score/v1",
+  "description": "사주와 이름의 조화 점수 및 근거 해설이 함께 사용하는 단일 가중치 원천",
+  "adaptiveWeights": {
+    "balanceBase": 0.6,
+    "balanceMin": 0.35,
+    "balanceMax": 0.6,
+    "yongshinBase": 0.23,
+    "yongshinMin": 0.23,
+    "yongshinMax": 0.48,
+    "strengthFixed": 0.12,
+    "tenGodFixed": 0.05,
+    "shiftDivisor": 70,
+    "confidenceWeight": 0.4,
+    "baseShiftRatio": 0.22,
+    "confidenceBoost": 0.08,
+    "baseConfidenceRatio": 0.6
+  },
+  "yongshinTypeWeights": {
+    "EOKBU": 1.0,
+    "JOHU": 0.95,
+    "TONGGWAN": 0.9,
+    "GYEOKGUK": 0.85,
+    "BYEONGYAK": 0.8,
+    "JEONWANG": 0.75,
+    "HAPWHA_YONGSHIN": 0.7,
+    "ILHAENG_YONGSHIN": 0.7
+  },
+  "presetOverrides": {
+    "korean": {
+      "yongshinTypeWeights": {},
+      "adaptiveWeights": {}
+    },
+    "chinese": {
+      "yongshinTypeWeights": {
+        "JOHU": 0.85,
+        "GYEOKGUK": 1.0,
+        "BYEONGYAK": 0.85,
+        "HAPWHA_YONGSHIN": 0.75,
+        "ILHAENG_YONGSHIN": 0.75
+      },
+      "adaptiveWeights": {
+        "balanceBase": 0.55,
+        "balanceMin": 0.3,
+        "balanceMax": 0.55,
+        "yongshinBase": 0.28,
+        "yongshinMin": 0.28,
+        "yongshinMax": 0.53
+      }
+    },
+    "modern": {
+      "yongshinTypeWeights": {
+        "EOKBU": 0.95,
+        "JOHU": 1.0,
+        "GYEOKGUK": 0.8,
+        "JEONWANG": 0.7
+      },
+      "adaptiveWeights": {
+        "balanceBase": 0.58,
+        "balanceMin": 0.33,
+        "balanceMax": 0.58,
+        "yongshinBase": 0.25,
+        "yongshinMin": 0.25,
+        "yongshinMax": 0.5
+      }
+    },
+    "korean_modern": {
+      "yongshinTypeWeights": {
+        "EOKBU": 0.94,
+        "JOHU": 1.0,
+        "TONGGWAN": 0.92,
+        "GYEOKGUK": 0.82,
+        "BYEONGYAK": 0.82,
+        "JEONWANG": 0.7,
+        "HAPWHA_YONGSHIN": 0.72,
+        "ILHAENG_YONGSHIN": 0.72
+      },
+      "adaptiveWeights": {
+        "balanceBase": 0.57,
+        "balanceMin": 0.32,
+        "balanceMax": 0.57,
+        "yongshinBase": 0.26,
+        "yongshinMin": 0.26,
+        "yongshinMax": 0.51
+      }
+    },
+    "classical_text": {
+      "yongshinTypeWeights": {
+        "EOKBU": 0.95,
+        "JOHU": 0.82,
+        "TONGGWAN": 0.95,
+        "GYEOKGUK": 1.0,
+        "BYEONGYAK": 0.9,
+        "JEONWANG": 0.82,
+        "HAPWHA_YONGSHIN": 0.78,
+        "ILHAENG_YONGSHIN": 0.78
+      },
+      "adaptiveWeights": {
+        "balanceBase": 0.52,
+        "balanceMin": 0.29,
+        "balanceMax": 0.52,
+        "yongshinBase": 0.31,
+        "yongshinMin": 0.31,
+        "yongshinMax": 0.56
+      }
+    },
+    "naming_safe": {
+      "yongshinTypeWeights": {
+        "TONGGWAN": 0.95,
+        "GYEOKGUK": 0.82,
+        "BYEONGYAK": 0.9,
+        "JEONWANG": 0.68,
+        "HAPWHA_YONGSHIN": 0.65,
+        "ILHAENG_YONGSHIN": 0.65
+      },
+      "adaptiveWeights": {
+        "balanceBase": 0.62,
+        "balanceMin": 0.4,
+        "balanceMax": 0.62,
+        "yongshinBase": 0.2,
+        "yongshinMin": 0.2,
+        "yongshinMax": 0.42,
+        "strengthFixed": 0.13,
+        "shiftDivisor": 80,
+        "confidenceWeight": 0.35,
+        "baseShiftRatio": 0.18,
+        "confidenceBoost": 0.05,
+        "baseConfidenceRatio": 0.65
+      }
+    }
+  },
+  "balanceScoring": {
+    "penaltyPerMismatch": 20,
+    "penaltyPerExtraZero": 10,
+    "penaltyPerExtraSpread": 5,
+    "minPassingScore": 70
+  },
+  "yongshinScoring": {
+    "affinityWeights": {
+      "gusin": -1.0,
+      "gisin": -0.65,
+      "yongshin": 1.0,
+      "heesin": 0.65
+    },
+    "recommendationBlend": {
+      "affinityRatio": 0.55,
+      "recommendationRatio": 0.45
+    },
+    "confidenceImpact": {
+      "baseRatio": 0.55,
+      "variableRatio": 0.45
+    },
+    "penalties": {
+      "gisinMultiplier": 7,
+      "gusinMultiplier": 14,
+      "penaltyScaleBase": 0.4,
+      "penaltyScaleVariable": 0.6
+    },
+    "recommendationScoring": {
+      "primaryWeight": 1.0,
+      "secondaryWeight": 0.6,
+      "fallbackConfidence": 0.6,
+      "minWeight": 0.1
+    }
+  },
+  "strengthScoring": {
+    "confidenceImpact": {
+      "baseRatio": 0.45,
+      "variableRatio": 0.55
+    },
+    "defaultIntensity": 0.35
+  },
+  "tenGodScoring": {
+    "maxInfluence": 45,
+    "negativeScale": 0.35
+  },
+  "bonuses": {
+    "deficiencyYongshinMatch": 5,
+    "deficiencyHeesinMatch": 3,
+    "deficiencyMaximum": 8
+  },
+  "penalties": {
+    "gyeokgukMinConfidence": 0.5,
+    "gyeokgukMaximum": 20,
+    "jonggyeokCategory": "JONGGYEOK"
+  },
+  "narrativeEvidence": {
+    "balance": {
+      "label": "이름을 더한 뒤의 오행 분포 변화",
+      "calculationKind": "weightedRatio",
+      "calculationValueRef": "adaptiveWeights.balanceBase",
+      "calculationValueRangeRef": ["adaptiveWeights.balanceMin", "adaptiveWeights.balanceMax"],
+      "maxScoreImpact": 60,
+      "maxScoreImpactRange": [35, 60],
+      "states": ["improves", "holds", "worsens"]
+    },
+    "yongshin": {
+      "label": "이름 오행과 용신·희신·기신·구신의 관계",
+      "calculationKind": "weightedRatio",
+      "calculationValueRef": "adaptiveWeights.yongshinBase",
+      "calculationValueRangeRef": ["adaptiveWeights.yongshinMin", "adaptiveWeights.yongshinMax"],
+      "maxScoreImpact": 48,
+      "maxScoreImpactRange": [23, 48],
+      "states": ["yongshin", "heesin", "neutral"]
+    },
+    "strength": {
+      "label": "이름이 신강약을 조절하는 방향",
+      "calculationKind": "weightedRatio",
+      "calculationValueRef": "adaptiveWeights.strengthFixed",
+      "maxScoreImpact": 12,
+      "states": ["supportsNeededDirection", "mixed", "opposesNeededDirection"]
+    },
+    "tenGod": {
+      "label": "이름이 부족하거나 과한 십신 계열에 미치는 영향",
+      "calculationKind": "weightedRatio",
+      "calculationValueRef": "adaptiveWeights.tenGodFixed",
+      "maxScoreImpact": 5,
+      "states": ["fillsDeficit", "neutral", "reinforcesExcess"]
+    },
+    "deficiency": {
+      "label": "부족 오행 중 용신·희신을 직접 채운 보너스",
+      "calculationKind": "bonusPointCap",
+      "calculationValueRef": "bonuses.deficiencyMaximum",
+      "maxScoreImpact": 8,
+      "states": ["yongshinDeficiencyFilled", "heesinDeficiencyFilled"]
+    },
+    "harmfulElement": {
+      "label": "기신·구신 포함에 따른 감점",
+      "calculationKind": "penaltyPointCap",
+      "calculationValueRef": "yongshinScoring.penalties.gusinMultiplier",
+      "maxScoreImpact": 14,
+      "states": ["gisinPresent", "gusinPresent"]
+    },
+    "gyeokgukProtection": {
+      "label": "종격 구조를 해치는 오행에 따른 감점",
+      "calculationKind": "penaltyPointCap",
+      "calculationValueRef": "penalties.gyeokgukMaximum",
+      "maxScoreImpact": 20,
+      "states": ["protected", "broken"]
+    }
+  }
+}

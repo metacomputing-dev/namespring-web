@@ -113,6 +113,8 @@ export type {
   SajuNameSafetyPosture,
   SajuNameSafetyStrategy,
   SajuNameSafetyProfile,
+  SajuNameEvidenceDirection,
+  SajuNameSourceEvidence,
   NameElementStrategy,
   NameElementResolutionSource,
   NameElementResolutionSafety,
@@ -227,6 +229,14 @@ export {
 } from './core/name-utils.js';
 export { buildNamingExplanation, selectNamingPhraseMode } from './naming-explanation.js';
 export {
+  NAMING_EVIDENCE_WEIGHT_POLICY,
+  namingEvidenceWeightPolicyForPrompt,
+  resolveNamingEvidenceScoringWeights,
+  type NamingEvidenceSourceId,
+  type NamingEvidenceWeightPresetName,
+  type ResolvedNamingEvidenceScoringWeights,
+} from './naming-evidence-weight-policy.js';
+export {
   SCHOOL_PRESET_ORDER,
   UnknownSpringSchoolPresetError,
   isSchoolPresetName,
@@ -306,6 +316,7 @@ export {
 //  9. FORTUNE REPORT
 // ─────────────────────────────────────────────────────────────────────────────
 export { buildFortuneReport } from './report/buildFortuneReport.js';
+export * from './report/naming-evidence/index.js';
 export * from './report/delivery/index.js';
 export * from './report/premium/index.js';
 export * from './experience/index.js';

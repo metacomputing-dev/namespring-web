@@ -1,5 +1,12 @@
 import type { EvaluationResult } from './core/evaluator.js';
 import { buildInterpretation } from './core/name-utils.js';
+import {
+  isNamingScoreCaution,
+  isNamingScoreStrength,
+  NAMING_SCORE_AXIS_ORDER,
+  NAMING_SCORE_AXIS_POLICIES,
+  type NamingScoreAxis,
+} from './naming-score-axis-policy.js';
 import type {
   CandidateStrengthProfile,
   NamingExplanation,
@@ -9,8 +16,6 @@ import type {
   SajuJudgmentStrength,
   SourceTierMetadata,
 } from './types.js';
-
-type NamingAxis = keyof NamingScoreVector;
 
 const DERIVED_SCORE_TIER: SourceTierMetadata = Object.freeze({
   tier: 'T2_REFERENCE_IMPLEMENTATION',
@@ -45,19 +50,7 @@ const OFFICIAL_DATA_TIER: SourceTierMetadata = Object.freeze({
   authorityTruthEligible: true,
 });
 
-const AXIS_LABELS: Record<NamingAxis, string> = {
-  legal: '인명용 한자 적합도',
-  sajuFit: '사주와 이름의 조화',
-  yongshinFit: '보완 기운 일치도',
-  elementBalance: '오행 균형',
-  hanjaMeaning: '한자 뜻풀이 확인도(뜻의 우열 아님)',
-  phonetic: '발음 흐름',
-  eraFit: '출생 시대 이름 흐름',
-  familyFit: '성과 이름의 발음 연결',
-  risk: '위험 신호 점검',
-};
-
-const AXIS_SOURCE_TIER: Readonly<Record<NamingAxis, SourceTierMetadata>> = Object.freeze({
+const AXIS_SOURCE_TIER: Readonly<Record<NamingScoreAxis, SourceTierMetadata>> = Object.freeze({
   legal: OFFICIAL_DATA_TIER,
   eraFit: OFFICIAL_DATA_TIER,
   phonetic: AUTHORED_RULE_TIER,
@@ -68,18 +61,6 @@ const AXIS_SOURCE_TIER: Readonly<Record<NamingAxis, SourceTierMetadata>> = Objec
   elementBalance: DERIVED_SCORE_TIER,
   risk: DERIVED_SCORE_TIER,
 });
-
-const AXIS_ORDER: readonly NamingAxis[] = [
-  'legal',
-  'sajuFit',
-  'yongshinFit',
-  'elementBalance',
-  'hanjaMeaning',
-  'phonetic',
-  'eraFit',
-  'familyFit',
-  'risk',
-];
 
 function rounded(value: number | null): number | null {
   return typeof value === 'number' && Number.isFinite(value) ? Math.round(value) : null;
@@ -136,9 +117,9 @@ function tierLead(sourceTier: SourceTierMetadata, phraseMode: NamingExplanationP
   return '규칙 근거 기준으로는';
 }
 
-function signalFor(axis: NamingAxis, vector: NamingScoreVector): NamingExplanationSignal | null {
+function signalFor(axis: NamingScoreAxis, vector: NamingScoreVector): NamingExplanationSignal | null {
   const value = rounded(vector[axis]);
-  const label = AXIS_LABELS[axis];
+  const label = NAMING_SCORE_AXIS_POLICIES[axis].label;
   const sourceTier = { ...AXIS_SOURCE_TIER[axis] };
   const phraseMode = selectNamingPhraseMode({
     sourceTier,
@@ -158,7 +139,7 @@ function signalFor(axis: NamingAxis, vector: NamingScoreVector): NamingExplanati
   }
 
   if (axis === 'risk') {
-    if (value >= 60) {
+    if (isNamingScoreCaution(axis, value)) {
       return {
         axis,
         kind: 'caution',
@@ -169,7 +150,7 @@ function signalFor(axis: NamingAxis, vector: NamingScoreVector): NamingExplanati
         phrase: `${tierLead(sourceTier, phraseMode)} 위험 신호가 높은 편이에요(${value}/100). 최종 점수만 보지 말고 더 안전한 후보와 비교하세요.`,
       };
     }
-    if (value <= 30) {
+    if (isNamingScoreStrength(axis, value)) {
       return {
         axis,
         kind: 'strength',
@@ -184,7 +165,7 @@ function signalFor(axis: NamingAxis, vector: NamingScoreVector): NamingExplanati
   }
 
   if (axis === 'hanjaMeaning') {
-    if (value >= 80) {
+    if (isNamingScoreStrength(axis, value)) {
       return {
         axis,
         kind: 'strength',
@@ -206,7 +187,7 @@ function signalFor(axis: NamingAxis, vector: NamingScoreVector): NamingExplanati
     };
   }
 
-  if (value >= 80) {
+  if (isNamingScoreStrength(axis, value)) {
     return {
       axis,
       kind: 'strength',
@@ -218,7 +199,7 @@ function signalFor(axis: NamingAxis, vector: NamingScoreVector): NamingExplanati
     };
   }
 
-  if (value <= 45) {
+  if (isNamingScoreCaution(axis, value)) {
     return {
       axis,
       kind: 'caution',
@@ -234,7 +215,7 @@ function signalFor(axis: NamingAxis, vector: NamingScoreVector): NamingExplanati
 }
 
 function orderedSignals(vector: NamingScoreVector): NamingExplanationSignal[] {
-  return AXIS_ORDER
+  return NAMING_SCORE_AXIS_ORDER
     .map(axis => signalFor(axis, vector))
     .filter((signal): signal is NamingExplanationSignal => signal !== null);
 }

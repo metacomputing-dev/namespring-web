@@ -11,6 +11,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import type { EvaluationResult, FrameInsight } from '../../src/core/evaluator.js';
+import {
+  classifyNamingScoreBand,
+  NAMING_SCORE_AXIS_POLICIES,
+} from '../../src/naming-score-axis-policy.js';
 import { buildNamingExplanation, selectNamingPhraseMode } from '../../src/naming-explanation.js';
 import type {
   CandidateStrengthProfile,
@@ -118,6 +122,21 @@ function normalizeJson(value: string): string {
 }
 
 console.log('PR-6.4 deterministic naming explanations\n');
+
+check('shared axis policy keeps sajuFit as the summary axis',
+  NAMING_SCORE_AXIS_POLICIES.sajuFit.evidenceRole === 'summary'
+    && NAMING_SCORE_AXIS_POLICIES.yongshinFit.evidenceRole === 'detail'
+    && NAMING_SCORE_AXIS_POLICIES.elementBalance.evidenceRole === 'detail');
+check('shared score bands preserve existing boundaries',
+  classifyNamingScoreBand('sajuFit', 80) === 'excellent'
+    && classifyNamingScoreBand('sajuFit', 65) === 'good'
+    && classifyNamingScoreBand('sajuFit', 46) === 'mixed'
+    && classifyNamingScoreBand('sajuFit', 45) === 'caution');
+check('risk band keeps the existing reverse-direction boundaries',
+  classifyNamingScoreBand('risk', 30) === 'excellent'
+    && classifyNamingScoreBand('risk', 31) === 'good'
+    && classifyNamingScoreBand('risk', 46) === 'mixed'
+    && classifyNamingScoreBand('risk', 60) === 'caution');
 
 check('T1 definite source is capped to displayOnly',
   selectNamingPhraseMode({ sourceTier: t1, strength: 'definite' }) === 'displayOnly');
