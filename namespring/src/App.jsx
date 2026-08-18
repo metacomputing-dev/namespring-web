@@ -550,35 +550,21 @@ function App() {
         key: 'entry',
         node: (
           <AppBackground>
-            <ReportShell size="wide" showNav={false} contentClassName="ns-entry-main">
-              <div className="ns-entry-layout">
-                <section className="ns-entry-intro" aria-label="이름봄 시작">
-                  <p className="ns-kicker">NameSpring</p>
-                  <h1 className="ns-entry-title">이름봄</h1>
-                  <p className="ns-entry-copy">
-                    이름과 태어난 시간을 차분히 정리한 뒤, 사주 흐름과 이름 분석을 이어서 확인합니다.
-                  </p>
-                  <div className="ns-entry-steps" aria-label="입력 순서">
-                    <span>이름</span>
-                    <span>생년월일</span>
-                    <span>성별</span>
-                  </div>
-                </section>
-                <EntryFunnel
-                  hanjaRepo={hanjaRepo}
-                  isDbReady={isDbReady}
-                  initialUserInfo={entryUserInfo}
-                  onEnter={(userInfo) => {
-                    const normalized = normalizeEntryUserInfo(userInfo);
-                    setEntryUserInfo(normalized);
-                    try {
-                      sessionStorage.setItem(ENTRY_STORAGE_KEY, JSON.stringify(normalized));
-                    } catch {}
-                    navigateToPage('home', { hasEntryUserInfo: Boolean(normalized) });
-                  }}
-                  submitLabel="시작하기"
-                />
-              </div>
+            <ReportShell size="narrow" showNav={false}>
+              <EntryFunnel
+                hanjaRepo={hanjaRepo}
+                isDbReady={isDbReady}
+                initialUserInfo={entryUserInfo}
+                onEnter={(userInfo) => {
+                  const normalized = normalizeEntryUserInfo(userInfo);
+                  setEntryUserInfo(normalized);
+                  try {
+                    sessionStorage.setItem(ENTRY_STORAGE_KEY, JSON.stringify(normalized));
+                  } catch {}
+                  navigateToPage('home', { hasEntryUserInfo: Boolean(normalized) });
+                }}
+                submitLabel="시작하기"
+              />
             </ReportShell>
           </AppBackground>
         ),

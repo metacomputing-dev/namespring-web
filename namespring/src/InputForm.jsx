@@ -301,10 +301,7 @@ function InputForm({
   const [draftBirthMinute, setDraftBirthMinute] = useState(0);
   const [isBirthYearStepDone, setIsBirthYearStepDone] = useState(false);
   const [isBirthDateStepDone, setIsBirthDateStepDone] = useState(false);
-  const nameStepRef = useRef(null);
-  const birthStepRef = useRef(null);
-  const genderStepRef = useRef(null);
-  const submitStepRef = useRef(null);
+  const [step, setStep] = useState(0);
   const yearWheelRef = useRef(null);
   const hourWheelRef = useRef(null);
   const minuteWheelRef = useRef(null);
@@ -314,13 +311,6 @@ function InputForm({
   const minuteWheelTimerRef = useRef(null);
   const correctionRequestIdRef = useRef(0);
   const yearWheelSyncRef = useRef(false);
-  const hasAutoScrollInitializedRef = useRef(false);
-  const prevStepVisibilityRef = useRef({
-    isNameTextValid: false,
-    isNameSelectionDone: false,
-    isBirthDateTimeValid: false,
-    isGenderDone: false,
-  });
 
   const surnameHangul = extractCompletedHangul(surnameInput);
   const givenNameHangul = extractCompletedHangul(givenNameInput);
@@ -401,53 +391,20 @@ function InputForm({
     );
   const isNameSelectionDone = isNameTextValid && isSurnameSelectionDone && isGivenNameSelectionDone;
 
-  useEffect(() => {
-    const current = {
-      isNameTextValid,
-      isNameSelectionDone,
-      isBirthDateTimeValid,
-      isGenderDone,
-    };
-
-    if (!hasAutoScrollInitializedRef.current) {
-      hasAutoScrollInitializedRef.current = true;
-      prevStepVisibilityRef.current = current;
-      return;
-    }
-
-    const previous = prevStepVisibilityRef.current;
-    prevStepVisibilityRef.current = current;
-    if (!isMobileViewport()) return;
-
-    let target = null;
-    if (current.isGenderDone && !previous.isGenderDone) {
-      target = submitStepRef.current;
-    } else if (current.isBirthDateTimeValid && !previous.isBirthDateTimeValid) {
-      target = genderStepRef.current;
-    } else if (current.isNameSelectionDone && !previous.isNameSelectionDone) {
-      target = birthStepRef.current;
-    } else if (current.isNameTextValid && !previous.isNameTextValid) {
-      target = nameStepRef.current;
-    }
-
-    if (!target) return;
-    window.setTimeout(() => {
-      target?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-        inline: 'nearest',
-      });
-    }, 140);
-  }, [isBirthDateTimeValid, isGenderDone, isNameSelectionDone, isNameTextValid]);
+  const goToStep = (nextStep) => {
+    setStep(nextStep);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   useEffect(() => {
     if (typeof onProgressChange !== 'function') return;
     onProgressChange({
+      step,
       isNameSelectionDone,
       isBirthDateTimeValid,
       isGenderDone,
     });
-  }, [onProgressChange, isNameSelectionDone, isBirthDateTimeValid, isGenderDone]);
+  }, [onProgressChange, step, isNameSelectionDone, isBirthDateTimeValid, isGenderDone]);
 
   const filteredHanjaOptions = useMemo(() => {
     const keyword = hanjaSearchKeyword.trim();
@@ -775,209 +732,248 @@ function InputForm({
 
   return (
     <>
-      <div className="ns-section-stack ns-section-stack--loose animate-in fade-in duration-500">
-        <section className="ns-report-panel ns-report-panel--sunken space-y-3 md:space-y-5">
-          <h3 className="text-base font-black text-[var(--ns-accent-text)]">당신의 이름을 알려주세요.</h3>
+      <div className="ns-section-stack animate-in fade-in duration-500">
+        {step === 0 ? (
+          <fieldset className="space-y-5">
+            <legend className="text-lg font-bold tracking-tight text-[var(--ns-text)]">누구의 이름인가요?</legend>
+            <p className="text-sm text-[var(--ns-muted)]">한글을 적으면 어울리는 한자 후보를 보여 드려요. 한자를 몰라도 괜찮아요.</p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4">
-            <div className="md:col-span-1">
-              <label className="text-[11px] font-black text-[var(--ns-muted)] mb-2 block">성</label>
+            <div>
+              <label className="mb-1.5 block text-sm font-semibold text-[var(--color-ink-2)]">성</label>
               <input
                 type="text"
                 value={surnameInput}
                 onChange={(e) => setSurnameInput(limitLength(e.target.value.replace(/\s/g, ''), 2))}
-                className="ns-field min-h-14 text-center text-2xl font-black"
+                className="ns-field"
                 maxLength={2}
-                placeholder="성"
+                placeholder="예: 김"
               />
+              {isSurnameValid ? (
+                <div className="mt-2.5 flex flex-wrap gap-2" aria-label="성 한자 선택">
+                  {surnameHangul.split('').map((char, i) => (
+                    <button
+                      key={`${char}-${i}`}
+                      type="button"
+                      onClick={() => searchHanja(char, 'last', i)}
+                      className={`ns-pick-chip ${selectedSurnameEntries[i] ? 'ns-pick-chip--filled' : 'ns-pick-chip--empty'}`}
+                    >
+                      {selectedSurnameEntries[i]
+                        ? <><span className="font-serif text-lg">{selectedSurnameEntries[i].hanja}</span>{char}</>
+                        : `${char} 한자 고르기`}
+                    </button>
+                  ))}
+                </div>
+              ) : null}
             </div>
 
-            <div className="md:col-span-2">
-              <label className="text-[11px] font-black text-[var(--ns-muted)] mb-2 block">이름</label>
+            <div>
+              <label className="mb-1.5 block text-sm font-semibold text-[var(--color-ink-2)]">
+                이름 <span className="font-normal text-[var(--ns-muted)]">(한 글자~네 글자)</span>
+              </label>
               <input
                 type="text"
                 value={givenNameInput}
                 onChange={(e) => setGivenNameInput(limitLength(e.target.value.replace(/\s/g, ''), 4))}
-                className="ns-field min-h-14 text-center text-2xl font-black tracking-widest"
+                className="ns-field"
                 maxLength={4}
-                placeholder="이름"
+                placeholder="예: 민아"
               />
-            </div>
-          </div>
-
-          {isNameTextValid && (
-            <div ref={nameStepRef} className="space-y-2 md:space-y-3">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4">
-                {surnameHangul.length >= 1 && isSurnameValid && (
-                  <div className={`animate-in fade-in duration-200 ${isNativeKoreanName ? 'md:col-span-3' : 'md:col-span-1'}`}>
-                    <p className="text-[11px] font-black text-[var(--ns-muted)] mb-2">성 한자 고르기</p>
-                    <div className="flex gap-1 md:gap-2 min-h-[64px] md:min-h-[84px]">
-                      {surnameHangul.split('').map((char, i) => (
-                        <button
-                          key={`${char}-${i}`}
-                          onClick={() => searchHanja(char, 'last', i)}
-                          className={`flex-1 rounded-[var(--radius-field)] border flex flex-col items-center justify-center transition-colors ${selectedSurnameEntries[i]
-                            ? 'border-[var(--color-accent)] bg-[var(--color-accent-quiet)]'
-                            : 'border-dashed border-[var(--ns-border)] bg-[var(--ns-surface)] hover:border-[var(--color-accent)]'}`}
-                        >
-                          {selectedSurnameEntries[i]
-                            ? <span className="text-2xl font-serif font-black text-[var(--ns-text)]">{selectedSurnameEntries[i].hanja}</span>
-                            : <span className="text-[10px] font-black text-[var(--ns-muted)]">한자 고르기</span>}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {!isNativeKoreanName && givenNameHangul.length >= 1 && isGivenNameValid && (
-                  <div className="animate-in fade-in duration-200 md:col-span-2">
-                    <p className="text-[11px] font-black text-[var(--ns-muted)] mb-2">이름 한자 고르기</p>
-                    <div className="grid grid-cols-2 gap-1 md:gap-2 min-h-[64px] md:min-h-[84px]">
-                      {givenNameHangul.split('').map((char, i) => (
-                        <button
-                          key={`${char}-${i}`}
-                          onClick={() => searchHanja(char, 'first', i)}
-                          className={`h-14 md:h-20 rounded-[var(--radius-field)] border flex items-center justify-center transition-colors ${selectedGivenNameEntries[i]
-                            ? 'border-[var(--color-accent)] bg-[var(--color-accent-quiet)]'
-                            : 'border-dashed border-[var(--ns-border)] bg-[var(--ns-surface)] hover:border-[var(--color-accent)]'}`}
-                        >
-                          {selectedGivenNameEntries[i]
-                            ? <span className="text-3xl font-serif font-black text-[var(--ns-text)]">{selectedGivenNameEntries[i].hanja}</span>
-                            : <span className="text-[10px] font-black text-[var(--ns-muted)]">한자 고르기</span>}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
+              {!isNativeKoreanName && isGivenNameValid ? (
+                <div className="mt-2.5 flex flex-wrap gap-2" aria-label="이름 한자 선택">
+                  {givenNameHangul.split('').map((char, i) => (
+                    <button
+                      key={`${char}-${i}`}
+                      type="button"
+                      onClick={() => searchHanja(char, 'first', i)}
+                      className={`ns-pick-chip ${selectedGivenNameEntries[i] ? 'ns-pick-chip--filled' : 'ns-pick-chip--empty'}`}
+                    >
+                      {selectedGivenNameEntries[i]
+                        ? <><span className="font-serif text-lg">{selectedGivenNameEntries[i].hanja}</span>{char}</>
+                        : `${char} 한자 고르기`}
+                    </button>
+                  ))}
                 </div>
-
-              <label className="flex items-center justify-center gap-2 text-xs font-black text-[var(--ns-muted)] select-none">
-                <ToggleSwitch
-                  checked={isNativeKoreanName}
-                  onChange={handleNativeKoreanNameToggle}
-                />
-                순우리말
-              </label>
+              ) : null}
             </div>
-          )}
-        </section>
 
-        {isNameSelectionDone && (
-          <section ref={birthStepRef} className="ns-report-panel ns-report-panel--sunken space-y-2 md:space-y-4 animate-in fade-in duration-300">
-            <h3 className="text-base font-black text-[var(--ns-accent-text)]">{`${surnameHangul}${givenNameHangul}`}님이 언제 태어났는지 알고싶어요.</h3>
-            <label className="text-[11px] font-black text-[var(--ns-muted)] block">생년월일시분</label>
-            <div className="space-y-2 md:space-y-3">
+            <label className="flex items-center gap-2 text-xs font-semibold text-[var(--ns-muted)] select-none">
+              <ToggleSwitch
+                checked={isNativeKoreanName}
+                onChange={handleNativeKoreanNameToggle}
+              />
+              순우리말 이름이에요
+            </label>
+
+            <p className="rounded-2xl bg-[var(--color-accent-quiet)] px-4 py-3 text-xs leading-relaxed text-[var(--color-accent)]">
+              순한글 이름도 분석할 수 있어요. 한자를 고르지 않으면 소리와 획수 중심으로 풀어 드려요.
+            </p>
+
+            <div className="flex justify-end pt-2">
+              <button
+                type="button"
+                onClick={() => goToStep(1)}
+                disabled={!isNameSelectionDone}
+                className="ns-cta-pill ns-cta-pill--ghost disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                다음, 태어난 순간
+                <span className="ns-cta-pill__puck" aria-hidden="true">→</span>
+              </button>
+            </div>
+          </fieldset>
+        ) : null}
+
+        {step === 1 ? (
+          <fieldset className="space-y-5">
+            <legend className="text-lg font-bold tracking-tight text-[var(--ns-text)]">태어난 순간을 알려 주세요</legend>
+            <p className="text-sm text-[var(--ns-muted)]">사주라는 과녁을 세우는 데 쓰여요. 시간을 몰라도 진행할 수 있어요.</p>
+
+            <div>
+              <label className="mb-1.5 block text-sm font-semibold text-[var(--color-ink-2)]">생년월일시분</label>
               <button
                 type="button"
                 onClick={openBirthPicker}
-                className="w-full min-h-12 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] px-3 py-2.5 font-bold text-left text-[var(--ns-text)] flex items-center justify-between gap-3"
+                className="ns-field flex items-center justify-between gap-3 text-left font-bold"
               >
                 <span>{formatBirthDateTimeForDisplay(birthDate, birthTime, isBirthTimeUnknown, isSolarCalendar)}</span>
                 <span className="text-xs font-black text-[var(--ns-muted)]">선택</span>
               </button>
-              <div className="flex flex-wrap items-center gap-2 md:gap-4 w-full">
-                <SegmentedControl
-                  name="calendarType"
-                  value={isSolarCalendar ? 'solar' : 'lunar'}
-                  options={[
-                    { value: 'solar', label: '양력' },
-                    { value: 'lunar', label: '음력' },
-                  ]}
-                  onChange={(value) => setIsSolarCalendar(value === 'solar')}
-                />
-                <label className="ml-auto flex items-center gap-2 text-xs font-black text-[var(--ns-muted)] select-none">
-                  <ToggleSwitch
-                    checked={isBirthTimeUnknown}
-                    onChange={handleBirthTimeUnknownToggle}
-                  />
-                  태어난 시각을 몰라요
-                </label>
-              </div>
-            </div>
-            <p className="text-[11px] font-semibold text-[var(--ns-muted)]">
-              {formatBirthDateTimeForDisplay(birthDate, birthTime, isBirthTimeUnknown, isSolarCalendar)}
-            </p>
-          </section>
-        )}
-
-        {isBirthDateTimeValid && !isBirthTimeUnknown && (
-          <section className="ns-report-panel ns-report-panel--sunken space-y-2 md:space-y-3 animate-in fade-in duration-300">
-            <h3 className="text-base font-black text-[var(--ns-accent-text)]">당신의 사주를 계산할 때 참고할게요</h3>
-            <p className="text-[11px] font-semibold text-[var(--ns-muted)]">잘 모를 때는 그대로 두셔도 좋아요.</p>
-            <div className="space-y-2 md:space-y-2.5">
-              <label className="flex items-center gap-2 text-xs font-black text-[var(--ns-muted)] select-none">
-                <ToggleSwitch
-                  checked={useYajasiAdjustment}
-                  onChange={setUseYajasiAdjustment}
-                />
-                야자시 보정
-              </label>
-
-              <label className="flex items-center gap-2 text-xs font-black text-[var(--ns-muted)] select-none">
-                <ToggleSwitch
-                  checked={useTrueSolarTimeAdjustment}
-                  onChange={setUseTrueSolarTimeAdjustment}
-                />
-                진태양시 보정
-              </label>
-
-              <div className="flex items-center gap-2 md:gap-3">
-                <label className="flex items-center gap-2 text-xs font-black text-[var(--ns-muted)] select-none">
-                  <ToggleSwitch
-                    checked={useBirthLongitudeAdjustment}
-                    onChange={(checked) => {
-                      setUseBirthLongitudeAdjustment(checked);
-                      if (checked && !birthLongitudeOption) {
-                        setBirthLongitudeOption(DEFAULT_BIRTH_REGION_LABEL);
-                      }
-                    }}
-                  />
-                  출생 위치(경도) 보정
-                </label>
-                {useBirthLongitudeAdjustment && (
-                  <select
-                    value={birthLongitudeOption}
-                    onChange={(e) => setBirthLongitudeOption(e.target.value)}
-                    className="ml-auto min-w-[92px] rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface)] p-2 text-xs font-semibold text-[var(--ns-text)]"
-                  >
-                    {BIRTH_REGION_OPTIONS.map((regionLabel) => (
-                      <option key={`birth-region-${regionLabel}`} value={regionLabel}>
-                        {regionLabel}
-                      </option>
-                    ))}
-                  </select>
-                )}
-              </div>
             </div>
 
-            <div className="pt-1">
-              <p className="text-[11px] font-black text-[var(--ns-muted)]">보정된 생년월일시분</p>
-              <p className="text-[11px] font-semibold text-[var(--ns-muted)] mt-1">
-                {isCorrectionPreviewLoading ? '보정 계산 중...' : correctedBirthDateTimeLabel}
+            <div className="flex flex-wrap items-center gap-3">
+              <SegmentedControl
+                name="calendarType"
+                value={isSolarCalendar ? 'solar' : 'lunar'}
+                options={[
+                  { value: 'solar', label: '양력' },
+                  { value: 'lunar', label: '음력' },
+                ]}
+                onChange={(value) => setIsSolarCalendar(value === 'solar')}
+              />
+              <label className="ml-auto flex items-center gap-2 text-xs font-semibold text-[var(--ns-muted)] select-none">
+                <ToggleSwitch
+                  checked={isBirthTimeUnknown}
+                  onChange={handleBirthTimeUnknownToggle}
+                />
+                시간을 몰라요
+              </label>
+            </div>
+
+            {isBirthTimeUnknown ? (
+              <p className="rounded-2xl bg-[var(--color-warn-bg)] px-4 py-3 text-xs leading-relaxed text-[var(--color-warn)]">
+                시간 없이도 보고서를 만들 수 있어요. 다만 사주 쪽 판정 몇 가지는 참고 수준으로 표시돼요.
               </p>
+            ) : null}
+
+            <div>
+              <span className="mb-1.5 block text-sm font-semibold text-[var(--color-ink-2)]">성별</span>
+              <SegmentedControl
+                name="gender"
+                className="ns-seg--stretch w-full"
+                value={gender}
+                options={[
+                  { value: 'female', label: '여성' },
+                  { value: 'male', label: '남성' },
+                ]}
+                onChange={setGender}
+              />
             </div>
-          </section>
-        )}
 
-        {isBirthDateTimeValid && (
-          <section ref={genderStepRef} className="ns-report-panel ns-report-panel--sunken animate-in fade-in duration-300">
-            <h3 className="text-base font-black text-[var(--ns-accent-text)] mb-2 md:mb-3">성별은요?</h3>
-            <SegmentedControl
-              name="gender"
-              className="ns-seg--stretch w-full"
-              value={gender}
-              options={[
-                { value: 'female', label: '여성' },
-                { value: 'male', label: '남성' },
-              ]}
-              onChange={setGender}
-            />
-          </section>
-        )}
+            {!isBirthTimeUnknown ? (
+              <details className="rounded-2xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] px-4 py-3">
+                <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-semibold text-[var(--color-ink-2)]">
+                  세밀하게 맞추기 <span className="font-normal text-[var(--ns-muted)]">(출생지·시간 보정)</span>
+                </summary>
+                <div className="mt-4 space-y-4 border-t border-[var(--ns-border)] pt-4">
+                  <div className="flex items-center gap-3">
+                    <label className="flex items-center gap-2 text-sm font-semibold text-[var(--color-ink-2)] select-none">
+                      <ToggleSwitch
+                        checked={useBirthLongitudeAdjustment}
+                        onChange={(checked) => {
+                          setUseBirthLongitudeAdjustment(checked);
+                          if (checked && !birthLongitudeOption) {
+                            setBirthLongitudeOption(DEFAULT_BIRTH_REGION_LABEL);
+                          }
+                        }}
+                      />
+                      태어난 지역으로 보정
+                    </label>
+                    {useBirthLongitudeAdjustment && (
+                      <select
+                        value={birthLongitudeOption}
+                        onChange={(e) => setBirthLongitudeOption(e.target.value)}
+                        className="ml-auto min-w-[92px] rounded-2xl border border-[var(--ns-border)] bg-[var(--ns-surface)] p-2 text-xs font-semibold text-[var(--ns-text)]"
+                      >
+                        {BIRTH_REGION_OPTIONS.map((regionLabel) => (
+                          <option key={`birth-region-${regionLabel}`} value={regionLabel}>
+                            {regionLabel}
+                          </option>
+                        ))}
+                      </select>
+                    )}
+                  </div>
 
-        {isGenderDone && (
-          <section className="ns-report-panel ns-report-panel--sunken space-y-3 animate-in fade-in duration-300">
-            <h3 className="text-base font-black text-[var(--ns-accent-text)]">이렇게 분석할게요.</h3>
+                  <label className="flex items-start justify-between gap-3 text-sm select-none">
+                    <span>
+                      <b className="font-semibold text-[var(--color-ink-2)]">진태양시 보정</b>
+                      <br />
+                      <span className="text-xs text-[var(--ns-muted)]">태어난 지역의 실제 태양 시각으로 맞춰요</span>
+                    </span>
+                    <ToggleSwitch
+                      className="mt-1"
+                      checked={useTrueSolarTimeAdjustment}
+                      onChange={setUseTrueSolarTimeAdjustment}
+                    />
+                  </label>
+
+                  <label className="flex items-start justify-between gap-3 text-sm select-none">
+                    <span>
+                      <b className="font-semibold text-[var(--color-ink-2)]">야자시로 다루기</b>
+                      <br />
+                      <span className="text-xs text-[var(--ns-muted)]">밤 11시대 출생을 다음 날 자시로 보는 방식이에요</span>
+                    </span>
+                    <ToggleSwitch
+                      className="mt-1"
+                      checked={useYajasiAdjustment}
+                      onChange={setUseYajasiAdjustment}
+                    />
+                  </label>
+
+                  <div>
+                    <p className="text-2xs font-black text-[var(--ns-muted)]">보정된 생년월일시분</p>
+                    <p className="mt-1 text-2xs font-semibold text-[var(--ns-muted)]">
+                      {isCorrectionPreviewLoading ? '보정 계산 중...' : correctedBirthDateTimeLabel}
+                    </p>
+                  </div>
+                </div>
+              </details>
+            ) : null}
+
+            <div className="flex items-center justify-between pt-2">
+              <button
+                type="button"
+                onClick={() => goToStep(0)}
+                className="inline-flex min-h-12 items-center gap-1.5 rounded-full px-4 py-3 text-sm font-semibold text-[var(--ns-muted)] transition-colors hover:text-[var(--ns-text)]"
+              >
+                ← 이전
+              </button>
+              <button
+                type="button"
+                onClick={() => goToStep(2)}
+                disabled={!isBirthDateTimeValid || !isGenderDone}
+                className="ns-cta-pill ns-cta-pill--ghost disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                마지막 확인
+                <span className="ns-cta-pill__puck" aria-hidden="true">→</span>
+              </button>
+            </div>
+          </fieldset>
+        ) : null}
+
+        {step === 2 ? (
+          <fieldset className="space-y-5">
+            <legend className="text-lg font-bold tracking-tight text-[var(--ns-text)]">이대로 만들까요?</legend>
+            <p className="text-sm text-[var(--ns-muted)]">입력한 내용을 한 번만 확인해 주세요. 언제든 돌아와 고칠 수 있어요.</p>
+
             <InfoList
               items={[
                 {
@@ -1004,20 +1000,31 @@ function InputForm({
                 },
               ]}
             />
-          </section>
-        )}
 
-        {isGenderDone && (
-          <button
-            ref={submitStepRef}
-            onClick={handleSubmit}
-            disabled={!isDbReady}
-            className="ns-cta-pill ns-cta-pill--primary w-full min-h-14 animate-in fade-in duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
-          >
-            {submitLabel}
-            <span className="ns-cta-pill__puck" aria-hidden="true">→</span>
-          </button>
-        )}
+            <p className="rounded-2xl bg-[var(--color-accent-quiet)] px-4 py-3 text-xs leading-relaxed text-[var(--color-accent)]">
+              입력한 정보는 보고서를 만드는 데만 쓰여요. 판정 근거는 보고서 맨 아래에서 전부 확인할 수 있어요.
+            </p>
+
+            <div className="flex items-center justify-between pt-2">
+              <button
+                type="button"
+                onClick={() => goToStep(1)}
+                className="inline-flex min-h-12 items-center gap-1.5 rounded-full px-4 py-3 text-sm font-semibold text-[var(--ns-muted)] transition-colors hover:text-[var(--ns-text)]"
+              >
+                ← 이전
+              </button>
+              <button
+                type="button"
+                onClick={handleSubmit}
+                disabled={!isDbReady}
+                className="ns-cta-pill ns-cta-pill--primary disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {submitLabel}
+                <span className="ns-cta-pill__puck" aria-hidden="true">→</span>
+              </button>
+            </div>
+          </fieldset>
+        ) : null}
       </div>
 
       {isBirthPickerOpen && (

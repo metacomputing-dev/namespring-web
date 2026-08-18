@@ -2,55 +2,42 @@ import React, { useCallback, useState } from 'react';
 import InputForm from '../InputForm';
 import { BezelCard } from '../components/ui/BezelCard.jsx';
 import { StepProgress } from '../components/ui/StepProgress.jsx';
-import { PageHeading } from '../components/report/ReportPrimitives';
-
-const STEP_LABELS = ['이름', '태어난 순간', '확인'];
-
-function sameProgress(a, b) {
-  return a.isNameSelectionDone === b.isNameSelectionDone
-    && a.isBirthDateTimeValid === b.isBirthDateTimeValid
-    && a.isGenderDone === b.isGenderDone;
-}
 
 export default function EntryFunnel({ hanjaRepo, isDbReady, initialUserInfo, onEnter, submitLabel }) {
-  const [progress, setProgress] = useState({
-    isNameSelectionDone: false,
-    isBirthDateTimeValid: false,
-    isGenderDone: false,
-  });
+  const [step, setStep] = useState(0);
 
   const handleProgressChange = useCallback((next) => {
-    setProgress((prev) => (sameProgress(prev, next) ? prev : next));
+    setStep((prev) => (prev === next.step ? prev : next.step));
   }, []);
 
-  const stepOneDone = progress.isNameSelectionDone;
-  const stepTwoDone = stepOneDone && progress.isBirthDateTimeValid;
-  const stepThreeDone = stepTwoDone && progress.isGenderDone;
-  const doneCount = [stepOneDone, stepTwoDone, stepThreeDone].filter(Boolean).length;
-  const currentLabel = STEP_LABELS[Math.min(doneCount, STEP_LABELS.length - 1)];
-
   return (
-    <BezelCard className="ns-rise ns-entry-card">
-      <PageHeading
-        kicker="Start"
-        title="기본 정보 입력"
-        description="분석에 필요한 최소 정보만 먼저 입력해 주세요."
-        className="mb-4 ns-page-heading--compact"
-      />
-      <div className="mb-5">
-        <StepProgress total={STEP_LABELS.length} current={doneCount} label="입력 진행 단계" />
-        <p className="ns-field-note mt-1.5">
-          {doneCount >= STEP_LABELS.length ? '모든 입력이 끝났어요.' : `다음 단계: ${currentLabel}`}
+    <div className="ns-rise">
+      <header className="mb-8">
+        <p className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-sage/10 px-3 py-1 text-2xs font-medium uppercase tracking-[0.15em] text-sage">
+          이름 통합 보고서
         </p>
-      </div>
-      <InputForm
-        hanjaRepo={hanjaRepo}
-        isDbReady={isDbReady}
-        initialUserInfo={initialUserInfo}
-        onEnter={onEnter}
-        submitLabel={submitLabel}
-        onProgressChange={handleProgressChange}
-      />
-    </BezelCard>
+        <h1 className="font-serif text-3xl font-bold leading-snug tracking-tight sm:text-4xl">
+          이 이름이 이 사람에게
+          <br />
+          맞는지, 근거로 알려 드려요
+        </h1>
+        <p className="mt-3 max-w-[46ch] text-smd leading-relaxed text-inksoft">
+          생년월일시와 이름만 있으면 돼요. 판정은 전부 계산 결과이고, 문장은 검수된 문안으로 조립돼요.
+        </p>
+      </header>
+
+      <StepProgress className="mb-6" total={3} current={step + 1} label="입력 단계" />
+
+      <BezelCard>
+        <InputForm
+          hanjaRepo={hanjaRepo}
+          isDbReady={isDbReady}
+          initialUserInfo={initialUserInfo}
+          onEnter={onEnter}
+          submitLabel={submitLabel}
+          onProgressChange={handleProgressChange}
+        />
+      </BezelCard>
+    </div>
   );
 }
