@@ -139,11 +139,6 @@ function toPickerDateValue(isoDate, time) {
   return new Date(year, month - 1, day, hour, minute, 0, 0);
 }
 
-function isMobileViewport() {
-  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return false;
-  return window.matchMedia('(max-width: 767px)').matches;
-}
-
 function toEntryHangulChar(entry) {
   return Array.from(extractCompletedHangul(String(entry?.hangul ?? '')))[0] ?? '';
 }
