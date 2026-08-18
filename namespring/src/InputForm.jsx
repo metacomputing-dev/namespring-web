@@ -2,6 +2,9 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { DayPicker } from 'react-day-picker';
 import { KOREA_REGION_PRIMARY_ALIASES } from '@spring/region-coordinates';
 import { analyzeSaju } from '@spring/saju-adapter';
+import { SegmentedControl } from './components/ui/SegmentedControl.jsx';
+import { ToggleSwitch } from './components/ui/ToggleSwitch.jsx';
+import { InfoList } from './components/report/ReportPrimitives';
 
 function limitLength(value, max) {
   return Array.from(value).slice(0, max).join('');
@@ -256,6 +259,7 @@ function InputForm({
   onEnter,
   initialUserInfo = null,
   submitLabel = '시작하기',
+  onProgressChange = null,
 }) {
   const initialFormState = useMemo(() => buildInitialFormState(initialUserInfo), [initialUserInfo]);
   const [surnameInput, setSurnameInput] = useState(initialFormState.surnameInput);
@@ -435,6 +439,15 @@ function InputForm({
       });
     }, 140);
   }, [isBirthDateTimeValid, isGenderDone, isNameSelectionDone, isNameTextValid]);
+
+  useEffect(() => {
+    if (typeof onProgressChange !== 'function') return;
+    onProgressChange({
+      isNameSelectionDone,
+      isBirthDateTimeValid,
+      isGenderDone,
+    });
+  }, [onProgressChange, isNameSelectionDone, isBirthDateTimeValid, isGenderDone]);
 
   const filteredHanjaOptions = useMemo(() => {
     const keyword = hanjaSearchKeyword.trim();
@@ -773,7 +786,7 @@ function InputForm({
                 type="text"
                 value={surnameInput}
                 onChange={(e) => setSurnameInput(limitLength(e.target.value.replace(/\s/g, ''), 2))}
-                className="ns-input min-h-14 text-center text-2xl font-black"
+                className="ns-field min-h-14 text-center text-2xl font-black"
                 maxLength={2}
                 placeholder="성"
               />
@@ -785,7 +798,7 @@ function InputForm({
                 type="text"
                 value={givenNameInput}
                 onChange={(e) => setGivenNameInput(limitLength(e.target.value.replace(/\s/g, ''), 4))}
-                className="ns-input min-h-14 text-center text-2xl font-black tracking-widest"
+                className="ns-field min-h-14 text-center text-2xl font-black tracking-widest"
                 maxLength={4}
                 placeholder="이름"
               />
@@ -803,7 +816,9 @@ function InputForm({
                         <button
                           key={`${char}-${i}`}
                           onClick={() => searchHanja(char, 'last', i)}
-                          className="flex-1 rounded-xl border border-dashed border-[var(--ns-border)] bg-[var(--ns-surface)] flex flex-col items-center justify-center transition-colors hover:border-[var(--ns-primary)]"
+                          className={`flex-1 rounded-[var(--radius-field)] border flex flex-col items-center justify-center transition-colors ${selectedSurnameEntries[i]
+                            ? 'border-[var(--color-accent)] bg-[var(--color-accent-quiet)]'
+                            : 'border-dashed border-[var(--ns-border)] bg-[var(--ns-surface)] hover:border-[var(--color-accent)]'}`}
                         >
                           {selectedSurnameEntries[i]
                             ? <span className="text-2xl font-serif font-black text-[var(--ns-text)]">{selectedSurnameEntries[i].hanja}</span>
@@ -822,7 +837,9 @@ function InputForm({
                         <button
                           key={`${char}-${i}`}
                           onClick={() => searchHanja(char, 'first', i)}
-                          className="h-14 md:h-20 rounded-xl border border-dashed border-[var(--ns-border)] bg-[var(--ns-surface)] flex items-center justify-center transition-colors hover:border-[var(--ns-primary)]"
+                          className={`h-14 md:h-20 rounded-[var(--radius-field)] border flex items-center justify-center transition-colors ${selectedGivenNameEntries[i]
+                            ? 'border-[var(--color-accent)] bg-[var(--color-accent-quiet)]'
+                            : 'border-dashed border-[var(--ns-border)] bg-[var(--ns-surface)] hover:border-[var(--color-accent)]'}`}
                         >
                           {selectedGivenNameEntries[i]
                             ? <span className="text-3xl font-serif font-black text-[var(--ns-text)]">{selectedGivenNameEntries[i].hanja}</span>
@@ -835,11 +852,9 @@ function InputForm({
                 </div>
 
               <label className="flex items-center justify-center gap-2 text-xs font-black text-[var(--ns-muted)] select-none">
-                <input
-                  type="checkbox"
+                <ToggleSwitch
                   checked={isNativeKoreanName}
-                  onChange={(e) => handleNativeKoreanNameToggle(e.target.checked)}
-                  className="h-4 w-4 rounded border-[var(--ns-border)] accent-[var(--ns-primary)]"
+                  onChange={handleNativeKoreanNameToggle}
                 />
                 순우리말
               </label>
@@ -860,35 +875,20 @@ function InputForm({
                 <span>{formatBirthDateTimeForDisplay(birthDate, birthTime, isBirthTimeUnknown, isSolarCalendar)}</span>
                 <span className="text-xs font-black text-[var(--ns-muted)]">선택</span>
               </button>
-              <div className="flex items-center gap-2 md:gap-4 w-full">
-                <fieldset className="flex items-center gap-2 md:gap-3 shrink-0">
-                  <label className="flex items-center gap-2 text-xs font-black text-[var(--ns-muted)] select-none">
-                    <input
-                      type="radio"
-                      name="calendarType"
-                      checked={isSolarCalendar}
-                      onChange={() => setIsSolarCalendar(true)}
-                      className="h-4 w-4 border-[var(--ns-border)] accent-[var(--ns-primary)]"
-                    />
-                    양력
-                  </label>
-                  <label className="flex items-center gap-2 text-xs font-black text-[var(--ns-muted)] select-none">
-                    <input
-                      type="radio"
-                      name="calendarType"
-                      checked={!isSolarCalendar}
-                      onChange={() => setIsSolarCalendar(false)}
-                      className="h-4 w-4 border-[var(--ns-border)] accent-[var(--ns-primary)]"
-                    />
-                    음력
-                  </label>
-                </fieldset>
+              <div className="flex flex-wrap items-center gap-2 md:gap-4 w-full">
+                <SegmentedControl
+                  name="calendarType"
+                  value={isSolarCalendar ? 'solar' : 'lunar'}
+                  options={[
+                    { value: 'solar', label: '양력' },
+                    { value: 'lunar', label: '음력' },
+                  ]}
+                  onChange={(value) => setIsSolarCalendar(value === 'solar')}
+                />
                 <label className="ml-auto flex items-center gap-2 text-xs font-black text-[var(--ns-muted)] select-none">
-                  <input
-                    type="checkbox"
+                  <ToggleSwitch
                     checked={isBirthTimeUnknown}
-                    onChange={(e) => handleBirthTimeUnknownToggle(e.target.checked)}
-                    className="h-4 w-4 rounded border-[var(--ns-border)] accent-[var(--ns-primary)]"
+                    onChange={handleBirthTimeUnknownToggle}
                   />
                   태어난 시각을 몰라요
                 </label>
@@ -906,38 +906,31 @@ function InputForm({
             <p className="text-[11px] font-semibold text-[var(--ns-muted)]">잘 모를 때는 그대로 두셔도 좋아요.</p>
             <div className="space-y-2 md:space-y-2.5">
               <label className="flex items-center gap-2 text-xs font-black text-[var(--ns-muted)] select-none">
-                <input
-                  type="checkbox"
+                <ToggleSwitch
                   checked={useYajasiAdjustment}
-                  onChange={(e) => setUseYajasiAdjustment(e.target.checked)}
-                  className="h-4 w-4 rounded border-[var(--ns-border)] accent-[var(--ns-primary)]"
+                  onChange={setUseYajasiAdjustment}
                 />
                 야자시 보정
               </label>
 
               <label className="flex items-center gap-2 text-xs font-black text-[var(--ns-muted)] select-none">
-                <input
-                  type="checkbox"
+                <ToggleSwitch
                   checked={useTrueSolarTimeAdjustment}
-                  onChange={(e) => setUseTrueSolarTimeAdjustment(e.target.checked)}
-                  className="h-4 w-4 rounded border-[var(--ns-border)] accent-[var(--ns-primary)]"
+                  onChange={setUseTrueSolarTimeAdjustment}
                 />
                 진태양시 보정
               </label>
 
               <div className="flex items-center gap-2 md:gap-3">
                 <label className="flex items-center gap-2 text-xs font-black text-[var(--ns-muted)] select-none">
-                  <input
-                    type="checkbox"
+                  <ToggleSwitch
                     checked={useBirthLongitudeAdjustment}
-                    onChange={(e) => {
-                      const checked = e.target.checked;
+                    onChange={(checked) => {
                       setUseBirthLongitudeAdjustment(checked);
                       if (checked && !birthLongitudeOption) {
                         setBirthLongitudeOption(DEFAULT_BIRTH_REGION_LABEL);
                       }
                     }}
-                    className="h-4 w-4 rounded border-[var(--ns-border)] accent-[var(--ns-primary)]"
                   />
                   출생 위치(경도) 보정
                 </label>
@@ -969,22 +962,48 @@ function InputForm({
         {isBirthDateTimeValid && (
           <section ref={genderStepRef} className="ns-report-panel ns-report-panel--sunken animate-in fade-in duration-300">
             <h3 className="text-base font-black text-[var(--ns-accent-text)] mb-2 md:mb-3">성별은요?</h3>
-            <div className="grid grid-cols-2 gap-2 md:gap-3">
-              <button
-                type="button"
-                onClick={() => setGender('female')}
-                className={`${gender === 'female' ? 'ns-primary-button' : 'ns-secondary-button'} w-full`}
-              >
-                여성
-              </button>
-              <button
-                type="button"
-                onClick={() => setGender('male')}
-                className={`${gender === 'male' ? 'ns-primary-button' : 'ns-secondary-button'} w-full`}
-              >
-                남성
-              </button>
-            </div>
+            <SegmentedControl
+              name="gender"
+              className="ns-seg--stretch w-full"
+              value={gender}
+              options={[
+                { value: 'female', label: '여성' },
+                { value: 'male', label: '남성' },
+              ]}
+              onChange={setGender}
+            />
+          </section>
+        )}
+
+        {isGenderDone && (
+          <section className="ns-report-panel ns-report-panel--sunken space-y-3 animate-in fade-in duration-300">
+            <h3 className="text-base font-black text-[var(--ns-accent-text)]">이렇게 분석할게요.</h3>
+            <InfoList
+              items={[
+                {
+                  label: '이름',
+                  value: `${surnameHangul}${givenNameHangul}${isNativeKoreanName
+                    ? ' (순우리말)'
+                    : ` (${[...selectedSurnameEntries, ...selectedGivenNameEntries]
+                      .map((entry) => String(entry?.hanja ?? '')).join('')})`}`,
+                },
+                {
+                  label: '태어난 순간',
+                  value: formatBirthDateTimeForDisplay(birthDate, birthTime, isBirthTimeUnknown, isSolarCalendar),
+                },
+                { label: '성별', value: gender === 'female' ? '여성' : '남성' },
+                {
+                  label: '보정 옵션',
+                  value: isBirthTimeUnknown
+                    ? '시각 미상 (시주 제외)'
+                    : [
+                      useTrueSolarTimeAdjustment ? '진태양시' : null,
+                      useBirthLongitudeAdjustment ? `경도(${birthLongitudeOption})` : null,
+                      useYajasiAdjustment ? '야자시' : null,
+                    ].filter(Boolean).join(' · ') || '없음',
+                },
+              ]}
+            />
           </section>
         )}
 
@@ -993,9 +1012,10 @@ function InputForm({
             ref={submitStepRef}
             onClick={handleSubmit}
             disabled={!isDbReady}
-            className="ns-primary-button w-full min-h-14 animate-in fade-in duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+            className="ns-cta-pill ns-cta-pill--primary w-full min-h-14 animate-in fade-in duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {submitLabel}
+            <span className="ns-cta-pill__puck" aria-hidden="true">→</span>
           </button>
         )}
       </div>

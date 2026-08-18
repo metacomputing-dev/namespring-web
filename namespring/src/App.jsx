@@ -10,12 +10,12 @@ import FadeTransition from './FadeTransition';
 import AppBackground from './ui/AppBackground';
 import HomePage from './HomePage';
 import ReportPage from './ReportPage';
-import InputForm from './InputForm';
+import EntryFunnel from './entry/EntryFunnel';
 import NamingCandidatesPage from './NamingCandidatesPage';
 import CombinedReportPage from './CombinedReportPage';
 import SajuReportPage from './SajuReportPage';
 import ReportShell from './components/report/ReportShell';
-import { PageHeading, StatusPanel } from './components/report/ReportPrimitives';
+import { StatusPanel } from './components/report/ReportPrimitives';
 import { SHARE_QUERY_KEY, parseShareEntryUserInfoToken } from './share-entry-user-info';
 import { useNavigate } from 'react-router-dom';
 import { getFrontRuntimeConfig } from './lib/runtime';
@@ -564,28 +564,20 @@ function App() {
                     <span>성별</span>
                   </div>
                 </section>
-                <div className="ns-card ns-card--large ns-card--surface ns-entry-card">
-                  <PageHeading
-                    kicker="Start"
-                    title="기본 정보 입력"
-                    description="분석에 필요한 최소 정보만 먼저 입력해 주세요."
-                    className="mb-6 ns-page-heading--compact"
-                  />
-                  <InputForm
-                    hanjaRepo={hanjaRepo}
-                    isDbReady={isDbReady}
-                    initialUserInfo={entryUserInfo}
-                    onEnter={(userInfo) => {
-                      const normalized = normalizeEntryUserInfo(userInfo);
-                      setEntryUserInfo(normalized);
-                      try {
-                        sessionStorage.setItem(ENTRY_STORAGE_KEY, JSON.stringify(normalized));
-                      } catch {}
-                      navigateToPage('home', { hasEntryUserInfo: Boolean(normalized) });
-                    }}
-                    submitLabel="시작하기"
-                  />
-                </div>
+                <EntryFunnel
+                  hanjaRepo={hanjaRepo}
+                  isDbReady={isDbReady}
+                  initialUserInfo={entryUserInfo}
+                  onEnter={(userInfo) => {
+                    const normalized = normalizeEntryUserInfo(userInfo);
+                    setEntryUserInfo(normalized);
+                    try {
+                      sessionStorage.setItem(ENTRY_STORAGE_KEY, JSON.stringify(normalized));
+                    } catch {}
+                    navigateToPage('home', { hasEntryUserInfo: Boolean(normalized) });
+                  }}
+                  submitLabel="시작하기"
+                />
               </div>
             </ReportShell>
           </AppBackground>
