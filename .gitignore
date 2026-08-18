@@ -50,3 +50,18 @@ Thumbs.db
 lib/spring-ts/data/generation/batches/
 lib/spring-ts/tmp/manual-bundles/
 namespring/public/generated-packed/
+
+# top-level working docs — never commit
+/docs/
+
+# local tooling config — never commit
+.agents/
+.claude/
+.hallmark/
+skills-lock.json
+
+# top-level planning & design materials — local only
+/UI 디자인 시안/
+/기획안/
+/마크다운 내용/
+*.pptx

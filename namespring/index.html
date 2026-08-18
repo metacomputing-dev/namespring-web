@@ -9,6 +9,18 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <title>namespring-web</title>
+    <script>
+      // NS-G: set the theme before first paint so there is no light/dark flash.
+      (function () {
+        try {
+          var mode = localStorage.getItem('namespring_theme_mode');
+          var theme = (mode === 'light' || mode === 'dark')
+            ? mode
+            : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.dataset.theme = theme;
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

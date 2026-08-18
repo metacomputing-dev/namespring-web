@@ -10,12 +10,12 @@ import FadeTransition from './FadeTransition';
 import AppBackground from './ui/AppBackground';
 import HomePage from './HomePage';
 import ReportPage from './ReportPage';
-import InputForm from './InputForm';
+import EntryFunnel from './entry/EntryFunnel';
 import NamingCandidatesPage from './NamingCandidatesPage';
 import CombinedReportPage from './CombinedReportPage';
 import SajuReportPage from './SajuReportPage';
 import ReportShell from './components/report/ReportShell';
-import { PageHeading, StatusPanel } from './components/report/ReportPrimitives';
+import { StatusPanel } from './components/report/ReportPrimitives';
 import { SHARE_QUERY_KEY, parseShareEntryUserInfoToken } from './share-entry-user-info';
 import { useNavigate } from 'react-router-dom';
 import { getFrontRuntimeConfig } from './lib/runtime';
@@ -292,18 +292,28 @@ function toFortuneReportRequest(userInfo, givenName) {
         // 전문 인사이트 원자료(신살·공망·합충형파해 등) — 해석 파일이 채워진
         // fact만 렌더되므로 충전 전에는 화면 변화 없음 (성인 대상자 전용).
         surfaceInsightFacts: true,
+        // 총평 요약에 plainText/expertText 쌍을 함께 실어 v2의
+        // 평문/전문가 티어가 실제 엔진 서사를 쓰도록 한다.
+        narrativeStyle: 'sideBySide',
       },
     },
   };
 }
 
-function toCurrentNameSpringReportRequest(userInfo) {
+function toEvaluateSpringRequest(userInfo, givenNameOverride) {
   const normalized = normalizeEntryUserInfo(userInfo);
   if (!normalized) {
     throw new Error('입력 정보가 없습니다.');
   }
 
-  const givenName = toSpringNameChars(normalized.firstName);
+  const givenName = givenNameOverride?.length
+    ? givenNameOverride
+      .map((item) => ({
+        hangul: String(item?.hangul ?? ''),
+        hanja: String(item?.hanja ?? ''),
+      }))
+      .filter((item) => item.hangul.length > 0)
+    : toSpringNameChars(normalized.firstName);
   if (!givenName.length) {
     throw new Error('이름을 찾을 수 없습니다.');
   }
@@ -313,6 +323,10 @@ function toCurrentNameSpringReportRequest(userInfo) {
     givenName,
     mode: 'evaluate',
   };
+}
+
+function toCurrentNameSpringReportRequest(userInfo) {
+  return toEvaluateSpringRequest(userInfo);
 }
 
 function toRequestCacheKey(request) {
@@ -442,6 +456,23 @@ function App() {
     return requestPromise;
   }, [springEngine]);
 
+  const handleLoadSpringReportForCandidateAsync = useCallback(async (userInfo, givenName) => {
+    const springRequest = toEvaluateSpringRequest(userInfo, givenName);
+    const cacheKey = toRequestCacheKey(springRequest);
+    const cachedPromise = currentNameReportCacheRef.current.get(cacheKey);
+    if (cachedPromise) {
+      return cachedPromise;
+    }
+
+    const requestPromise = springEngine.getSpringReport(springRequest)
+      .catch((error) => {
+        currentNameReportCacheRef.current.delete(cacheKey);
+        throw error;
+      });
+    currentNameReportCacheRef.current.set(cacheKey, requestPromise);
+    return requestPromise;
+  }, [springEngine]);
+
   const handleLoadSajuReportAsync = async (userInfo) => {
     const springRequest = toSpringRequest(userInfo);
     return springEngine.getSajuReport(springRequest);
@@ -519,43 +550,21 @@ function App() {
         key: 'entry',
         node: (
           <AppBackground>
-            <ReportShell size="wide" showNav={false} contentClassName="ns-entry-main">
-              <div className="ns-entry-layout">
-                <section className="ns-entry-intro" aria-label="이름봄 시작">
-                  <p className="ns-kicker">NameSpring</p>
-                  <h1 className="ns-entry-title">이름봄</h1>
-                  <p className="ns-entry-copy">
-                    이름과 태어난 시간을 차분히 정리한 뒤, 사주 흐름과 이름 분석을 이어서 확인합니다.
-                  </p>
-                  <div className="ns-entry-steps" aria-label="입력 순서">
-                    <span>이름</span>
-                    <span>생년월일</span>
-                    <span>성별</span>
-                  </div>
-                </section>
-                <div className="ns-card ns-card--large ns-card--surface ns-entry-card">
-                  <PageHeading
-                    kicker="Start"
-                    title="기본 정보 입력"
-                    description="분석에 필요한 최소 정보만 먼저 입력해 주세요."
-                    className="mb-6 ns-page-heading--compact"
-                  />
-                  <InputForm
-                    hanjaRepo={hanjaRepo}
-                    isDbReady={isDbReady}
-                    initialUserInfo={entryUserInfo}
-                    onEnter={(userInfo) => {
-                      const normalized = normalizeEntryUserInfo(userInfo);
-                      setEntryUserInfo(normalized);
-                      try {
-                        sessionStorage.setItem(ENTRY_STORAGE_KEY, JSON.stringify(normalized));
-                      } catch {}
-                      navigateToPage('home', { hasEntryUserInfo: Boolean(normalized) });
-                    }}
-                    submitLabel="시작하기"
-                  />
-                </div>
-              </div>
+            <ReportShell size="narrow" showNav={false}>
+              <EntryFunnel
+                hanjaRepo={hanjaRepo}
+                isDbReady={isDbReady}
+                initialUserInfo={entryUserInfo}
+                onEnter={(userInfo) => {
+                  const normalized = normalizeEntryUserInfo(userInfo);
+                  setEntryUserInfo(normalized);
+                  try {
+                    sessionStorage.setItem(ENTRY_STORAGE_KEY, JSON.stringify(normalized));
+                  } catch {}
+                  navigateToPage('home', { hasEntryUserInfo: Boolean(normalized) });
+                }}
+                submitLabel="시작하기"
+              />
             </ReportShell>
           </AppBackground>
         ),
@@ -615,6 +624,7 @@ function App() {
               entryUserInfo={entryUserInfo}
               selectedCandidate={selectedCandidateSummary}
               onLoadCombinedReport={handleLoadCombinedReportAsync}
+              onLoadSpringReport={handleLoadSpringReportForCandidateAsync}
               onBackHome={() => navigateToPage('home')}
               onBackCandidates={() => navigateToPage('naming-candidates')}
               onOpenNamingReport={() => navigateToPage('report')}

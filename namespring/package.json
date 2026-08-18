@@ -24,6 +24,7 @@
     "audit:production": "npm audit --omit=dev --audit-level=high",
     "setup:libs": "npm --prefix ../lib/saju-ts ci --omit=dev && npm --prefix ../lib/seed-ts ci --omit=dev && npm --prefix ../lib/spring-ts ci --omit=dev",
     "lint": "eslint .",
+    "test:frontend": "node --test test/frontend/combined-report-view-model.test.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
