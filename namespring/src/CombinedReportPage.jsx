@@ -1,20 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import CombiedNamingReport from './CombiedNamingReport';
+import CombinedReportV2 from './report/combined/CombinedReportV2.jsx';
 import ReportShell from './components/report/ReportShell';
 import { PageHeading } from './components/report/ReportPrimitives';
 import { REPORT_PAGE_CLASS } from './theme/report-ui-theme';
+
+function readReportV2Flag() {
+  if (typeof window === 'undefined') return false;
+  return new URLSearchParams(window.location.search).get('reportV2') === '1';
+}
 
 function CombinedReportPage({
   entryUserInfo,
   selectedCandidate,
   onLoadCombinedReport,
+  onLoadSpringReport,
   onBackHome,
   onBackCandidates,
   onOpenNamingReport,
   onOpenSajuReport,
   onOpenPremium,
 }) {
+  const useV2 = useMemo(() => readReportV2Flag(), []);
   const [report, setReport] = useState(null);
+  const [springReport, setSpringReport] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -24,6 +33,7 @@ function CombinedReportPage({
     const run = async () => {
       if (!entryUserInfo || !selectedCandidate || !onLoadCombinedReport) {
         setReport(null);
+        setSpringReport(null);
         setIsLoading(false);
         setError('선택한 추천 이름 정보가 없습니다.');
         return;
@@ -32,10 +42,16 @@ function CombinedReportPage({
       setIsLoading(true);
       setError('');
       setReport(null);
+      setSpringReport(null);
       try {
-        const nextReport = await onLoadCombinedReport(entryUserInfo, selectedCandidate);
+        const fortunePromise = onLoadCombinedReport(entryUserInfo, selectedCandidate);
+        const springPromise = useV2 && onLoadSpringReport
+          ? onLoadSpringReport(entryUserInfo, selectedCandidate?.givenName)
+          : Promise.resolve(null);
+        const [nextReport, nextSpringReport] = await Promise.all([fortunePromise, springPromise]);
         if (cancelled) return;
         setReport(nextReport || null);
+        setSpringReport(nextSpringReport || null);
         if (!nextReport) {
           setError('통합 보고서를 불러오지 못했습니다.');
         }
@@ -53,10 +69,12 @@ function CombinedReportPage({
     return () => {
       cancelled = true;
     };
-  }, [entryUserInfo, selectedCandidate, onLoadCombinedReport]);
+  }, [entryUserInfo, selectedCandidate, onLoadCombinedReport, onLoadSpringReport, useV2]);
+
+  const shellSize = useV2 ? 'reader' : 'wide';
 
   return (
-    <ReportShell activeNav="report" onHome={onBackHome} size="wide">
+    <ReportShell activeNav="report" onHome={onBackHome} size={shellSize}>
       <PageHeading
         kicker="보고서 · 통합"
         title="통합 평가 보고서"
@@ -88,13 +106,24 @@ function CombinedReportPage({
         ) : null}
 
         {!isLoading && !error && report ? (
-          <CombiedNamingReport
-            fortuneReport={report}
-            onOpenNamingReport={onOpenNamingReport}
-            onOpenSajuReport={onOpenSajuReport}
-            onOpenPremium={onOpenPremium}
-            shareUserInfo={entryUserInfo}
-          />
+          useV2 && springReport ? (
+            <CombinedReportV2
+              springReport={springReport}
+              fortuneReport={report}
+              entryUserInfo={entryUserInfo}
+              onOpenNamingReport={onOpenNamingReport}
+              onOpenSajuReport={onOpenSajuReport}
+              onOpenPremium={onOpenPremium}
+            />
+          ) : (
+            <CombiedNamingReport
+              fortuneReport={report}
+              onOpenNamingReport={onOpenNamingReport}
+              onOpenSajuReport={onOpenSajuReport}
+              onOpenPremium={onOpenPremium}
+              shareUserInfo={entryUserInfo}
+            />
+          )
         ) : null}
       </div>
     </ReportShell>

@@ -67,9 +67,11 @@ export default function ReportShell({
 }) {
   const sizeClass = size === 'narrow'
     ? 'ns-page-main--narrow'
-    : size === 'wide'
-      ? 'ns-page-main--wide'
-      : '';
+    : size === 'reader'
+      ? 'ns-page-main--reader'
+      : size === 'wide'
+        ? 'ns-page-main--wide'
+        : '';
   const resolvedActions = [
     onHome ? {
       label: homeLabel,

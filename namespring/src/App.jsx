@@ -292,18 +292,28 @@ function toFortuneReportRequest(userInfo, givenName) {
         // 전문 인사이트 원자료(신살·공망·합충형파해 등) — 해석 파일이 채워진
         // fact만 렌더되므로 충전 전에는 화면 변화 없음 (성인 대상자 전용).
         surfaceInsightFacts: true,
+        // 총평 요약에 plainText/expertText 쌍을 함께 실어 v2의
+        // 평문/전문가 티어가 실제 엔진 서사를 쓰도록 한다.
+        narrativeStyle: 'sideBySide',
       },
     },
   };
 }
 
-function toCurrentNameSpringReportRequest(userInfo) {
+function toEvaluateSpringRequest(userInfo, givenNameOverride) {
   const normalized = normalizeEntryUserInfo(userInfo);
   if (!normalized) {
     throw new Error('입력 정보가 없습니다.');
   }
 
-  const givenName = toSpringNameChars(normalized.firstName);
+  const givenName = givenNameOverride?.length
+    ? givenNameOverride
+      .map((item) => ({
+        hangul: String(item?.hangul ?? ''),
+        hanja: String(item?.hanja ?? ''),
+      }))
+      .filter((item) => item.hangul.length > 0)
+    : toSpringNameChars(normalized.firstName);
   if (!givenName.length) {
     throw new Error('이름을 찾을 수 없습니다.');
   }
@@ -313,6 +323,10 @@ function toCurrentNameSpringReportRequest(userInfo) {
     givenName,
     mode: 'evaluate',
   };
+}
+
+function toCurrentNameSpringReportRequest(userInfo) {
+  return toEvaluateSpringRequest(userInfo);
 }
 
 function toRequestCacheKey(request) {
@@ -427,6 +441,23 @@ function App() {
 
   const handleLoadCurrentNameReportAsync = useCallback(async (userInfo) => {
     const springRequest = toCurrentNameSpringReportRequest(userInfo);
+    const cacheKey = toRequestCacheKey(springRequest);
+    const cachedPromise = currentNameReportCacheRef.current.get(cacheKey);
+    if (cachedPromise) {
+      return cachedPromise;
+    }
+
+    const requestPromise = springEngine.getSpringReport(springRequest)
+      .catch((error) => {
+        currentNameReportCacheRef.current.delete(cacheKey);
+        throw error;
+      });
+    currentNameReportCacheRef.current.set(cacheKey, requestPromise);
+    return requestPromise;
+  }, [springEngine]);
+
+  const handleLoadSpringReportForCandidateAsync = useCallback(async (userInfo, givenName) => {
+    const springRequest = toEvaluateSpringRequest(userInfo, givenName);
     const cacheKey = toRequestCacheKey(springRequest);
     const cachedPromise = currentNameReportCacheRef.current.get(cacheKey);
     if (cachedPromise) {
@@ -615,6 +646,7 @@ function App() {
               entryUserInfo={entryUserInfo}
               selectedCandidate={selectedCandidateSummary}
               onLoadCombinedReport={handleLoadCombinedReportAsync}
+              onLoadSpringReport={handleLoadSpringReportForCandidateAsync}
               onBackHome={() => navigateToPage('home')}
               onBackCandidates={() => navigateToPage('naming-candidates')}
               onOpenNamingReport={() => navigateToPage('report')}

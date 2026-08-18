@@ -43,6 +43,12 @@
   border-color: color-mix(in oklch, var(--color-paper) 15%, transparent);
 }
 
+/* Reader page width for narrative report surfaces */
+
+.ns-page-main--reader {
+  width: min(100%, 48rem);
+}
+
 /* Glass capsule + anchor rail */
 
 .ns-glass {
