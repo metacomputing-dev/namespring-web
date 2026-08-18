@@ -174,6 +174,8 @@ test('frames track uses DB lucky_level text, unknown levels stay neutral', () =>
   assert.equal(mixed.state, 'mixed');
   const unknown = deriveFramesTrack({ frames: [frame('won', 3, null)] });
   assert.equal(unknown.state, 'mixed');
+  const variant = deriveFramesTrack({ frames: [frame('won', 3, '주의가 필요한 수리'), frame('hyung', 5, '상운수')] });
+  assert.equal(variant.state, 'mixed');
 });
 
 test('harmony track follows yongshin and gishin match counts', () => {

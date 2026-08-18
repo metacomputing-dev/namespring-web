@@ -114,6 +114,7 @@ function CombinedReportPage({
               onOpenNamingReport={onOpenNamingReport}
               onOpenSajuReport={onOpenSajuReport}
               onOpenPremium={onOpenPremium}
+              onRecommend={onBackCandidates}
             />
           ) : (
             <CombiedNamingReport

@@ -56,6 +56,10 @@ export function frameGrade(frame) {
   if (!level) return null;
   if (FAVORABLE_LUCKY_LEVELS.has(level)) return 'favorable';
   if (ADVERSE_LUCKY_LEVELS.has(level)) return 'adverse';
+  // The meaning DB carries label variants beyond the canonical five
+  // (e.g. "주의가 필요한 수리") — classify by cue word before giving up.
+  if (level.includes('흉') || level.includes('주의')) return 'adverse';
+  if (level.includes('상운수') || level.includes('양운수') || level.includes('길')) return 'favorable';
   return null;
 }
 
@@ -171,6 +175,28 @@ export function strengthMeterPosition(strength) {
   return Math.min(0.95, Math.max(0.05, support / (support + oppose)));
 }
 
+function buildPillarColumns(overview) {
+  const pillars = entriesOf(overview?.pillars).slice(0, 4);
+  if (!pillars.length) return null;
+  const labels = ['년주', '월주', '일주', '시주'];
+  return pillars.map((pillar, index) => {
+    // Keep the raw element labels — SajuPillarTable normalizes tolerant
+    // Korean/English forms itself, so passing them through preserves
+    // formats the strict normalizer here would drop.
+    const [stemElement, branchElement] = String(pillar.element ?? '')
+      .split('/')
+      .map((part) => part.trim());
+    return {
+      key: `pillar-${index}`,
+      label: textOf(pillar.position) || labels[index],
+      stem: textOf(pillar.stem) || '-',
+      branch: textOf(pillar.branch) || '-',
+      stemElement: stemElement || null,
+      branchElement: branchElement || null,
+    };
+  });
+}
+
 function buildSaju(springReport, fortuneReport) {
   const saju = springReport?.sajuReport;
   if (!saju || saju.sajuEnabled === false) return null;
@@ -178,6 +204,7 @@ function buildSaju(springReport, fortuneReport) {
   return {
     analysisStatus: saju.analysisStatus ?? null,
     pillars: saju.pillars || null,
+    pillarColumns: buildPillarColumns(overview),
     dayMaster: saju.dayMaster
       ? {
         stem: textOf(saju.dayMaster.stem),

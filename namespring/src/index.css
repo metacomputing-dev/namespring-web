@@ -2,6 +2,7 @@
 @import "./styles/tokens.css";
 @import "./styles/report-ui.css";
 @import "./styles/ns-ui.css";
+@import "./styles/report-v3.css";
 
 /* Utility-name bridge onto the runtime tokens in tokens.css. `inline` keeps
    the generated utilities pointing at var(--color-*) so the dark-mode block
