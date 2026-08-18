@@ -84,13 +84,17 @@ function CombinedReportV2Body({
 
   return (
     <div ref={reportRootRef} className="cr-v3" data-tier={tier} data-report-version="v2">
-      <div className="mb-4 flex justify-end" data-pdf-exclude="true">
+      <div className="mb-3 flex justify-center" data-pdf-exclude="true">
         <TierToggle />
       </div>
 
       <AnchorRail items={buildRailItems(vm)} />
 
-      <HeroSection hero={vm.hero} onSelectTrack={scrollToSection} />
+      <HeroSection
+        hero={vm.hero}
+        uncertaintyMessage={vm.saju?.uncertaintyMessage || null}
+        onSelectTrack={scrollToSection}
+      />
       <SoundFlowSection flow={vm.flow} />
       <FramesSection frames={vm.frames} />
       <SajuSummarySection saju={vm.saju} />

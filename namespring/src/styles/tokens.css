@@ -186,8 +186,9 @@
   --ns-tone-amber-area: var(--color-chart-area-b);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
+/* NS-G: dark palette is driven by data-theme (set before paint by the boot
+   script in index.html, which resolves the stored choice or the system theme). */
+:root[data-theme="dark"] {
     --color-paper: oklch(0.165 0.020 148);
     --color-paper-2: oklch(0.205 0.022 146);
     --color-paper-3: oklch(0.245 0.024 144);
@@ -258,5 +259,4 @@
     --shadow-nav: 0 10px 40px -12px oklch(0.040 0.010 148 / 0.50);
     --shadow-cta: 0 16px 40px -16px oklch(0.760 0.085 142 / 0.30);
     --shadow-inset-card: inset 0 1px 1px oklch(0.940 0.012 108 / 0.06);
-  }
 }

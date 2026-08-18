@@ -216,7 +216,10 @@ test('full view model derives hero, sections, and basis from engine data only', 
   assert.equal(vm.saju?.texts.plain, '쉽게 말해 균형이 좋은 사주입니다.');
 
   assert.equal(vm.harmony?.yongshinKo, '화');
-  assert.equal(vm.harmony?.chars[1]?.relation?.type, 'match');
+  assert.equal(vm.harmony?.chars.length, 2);
+  assert.equal(vm.harmony?.chars[0]?.relation?.type, 'match');
+  assert.equal(vm.harmony?.chars[0]?.meaning, '화할 민');
+  assert.equal(vm.harmony?.chars[1]?.relation?.type, 'generates');
   assert.equal(vm.harmony?.details.length, 1);
 
   assert.equal(vm.final.cta, 'share');

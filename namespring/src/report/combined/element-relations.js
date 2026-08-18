@@ -20,6 +20,16 @@ export const ELEMENT_HANJA = {
   wood: '木', fire: '火', earth: '土', metal: '金', water: '水',
 };
 
+/** Plain-language element nouns used by the prototype voice (쇠·물·흙…). */
+export const ELEMENT_NOUN = {
+  wood: '나무', fire: '불', earth: '흙', metal: '쇠', water: '물',
+};
+
+export const STEM_HANJA = {
+  갑: '甲', 을: '乙', 병: '丙', 정: '丁', 무: '戊',
+  기: '己', 경: '庚', 신: '辛', 임: '壬', 계: '癸',
+};
+
 const GENERATES = {
   wood: 'fire', fire: 'earth', earth: 'metal', metal: 'water', water: 'wood',
 };

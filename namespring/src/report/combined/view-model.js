@@ -4,6 +4,8 @@
 
 import {
   ELEMENT_KO,
+  ELEMENT_NOUN,
+  STEM_HANJA,
   normalizeElement,
   relationBetween,
   relationToTarget,
@@ -72,16 +74,27 @@ export function deriveHarmonyTrack(sajuCompatibility) {
   return { state: 'mixed' };
 }
 
+// Short state vocabulary in the prototype's voice — deterministic labels,
+// not narrative claims.
+const TRACK_STATE_LABELS = {
+  sound: { good: '순한 흐름', mixed: '대체로 순함', bad: '부딪히는 흐름' },
+  frames: { good: '밝은 수리', mixed: '대체로 밝음', bad: '무거운 수리' },
+  harmony: { good: '정면 보강', mixed: '간접 연결', bad: '주의 필요' },
+};
+
 function buildTracks(springReport) {
   const analysis = springReport?.namingReport?.analysis;
   const sound = deriveSoundTrack(analysis?.hangul);
   const frames = deriveFramesTrack(analysis?.fourFrame);
   const harmony = deriveHarmonyTrack(springReport?.sajuCompatibility);
   return [
-    { key: 'sound', label: '발음 흐름', state: sound.state, target: 'sec-sound' },
-    { key: 'frames', label: '획수 구조', state: frames.state, target: 'sec-frames' },
+    { key: 'sound', label: '발음', state: sound.state, target: 'sec-sound' },
+    { key: 'frames', label: '획수', state: frames.state, target: 'sec-frames' },
     { key: 'harmony', label: '사주 궁합', state: harmony.state, target: 'sec-harmony' },
-  ];
+  ].map((track) => ({
+    ...track,
+    stateLabel: TRACK_STATE_LABELS[track.key]?.[track.state] || null,
+  }));
 }
 
 function buildHero(springReport, fortuneReport, entryUserInfo) {
@@ -126,15 +139,28 @@ function buildFlow(springReport) {
   const hangul = springReport?.namingReport?.analysis?.hangul;
   const blocks = entriesOf(hangul?.blocks);
   if (!blocks.length) return null;
-  const nodes = blocks.map((block) => ({
-    hangul: textOf(block.hangul) || '',
-    element: normalizeElement(block.element),
-    elementKo: ELEMENT_KO[normalizeElement(block.element)] || null,
-    polarity: textOf(block.polarity),
-  }));
+  const surnameLength = entriesOf(springReport?.namingReport?.name?.surname).length || 1;
+  const nodes = blocks.map((block) => {
+    const element = normalizeElement(block.element);
+    return {
+      hangul: textOf(block.hangul) || '',
+      onset: textOf(block.onset),
+      element,
+      elementKo: ELEMENT_KO[element] || null,
+      elementNoun: ELEMENT_NOUN[element] || null,
+      polarity: textOf(block.polarity),
+    };
+  });
   const edges = [];
   for (let i = 0; i < blocks.length - 1; i += 1) {
-    edges.push(relationBetween(blocks[i].element, blocks[i + 1].element));
+    const relation = relationBetween(blocks[i].element, blocks[i + 1].element);
+    edges.push(relation
+      ? {
+        ...relation,
+        plainLabel: relation.favorable ? '살려 줌' : '부딪힘',
+        zone: i < surnameLength ? '성-이름 경계' : '이름 안쪽',
+      }
+      : null);
   }
   return {
     nodes,
@@ -149,7 +175,11 @@ function buildFrames(springReport) {
   const fourFrame = springReport?.namingReport?.analysis?.fourFrame;
   const frames = entriesOf(fourFrame?.frames);
   if (!frames.length) return null;
+  const charStrokes = entriesOf(springReport?.namingReport?.analysis?.hanja?.blocks)
+    .filter((block) => textOf(block.hanja) && Number.isFinite(block.strokes))
+    .map((block) => ({ hanja: block.hanja, strokes: block.strokes }));
   return {
+    charStrokes: charStrokes.length ? charStrokes : null,
     frames: frames.map((frame) => ({
       type: frame.type,
       label: FRAME_LABELS[frame.type] || frame.type,
@@ -208,7 +238,10 @@ function buildSaju(springReport, fortuneReport) {
     dayMaster: saju.dayMaster
       ? {
         stem: textOf(saju.dayMaster.stem),
+        hanja: STEM_HANJA[textOf(saju.dayMaster.stem)] || null,
         element: normalizeElement(saju.dayMaster.element),
+        elementKo: ELEMENT_KO[normalizeElement(saju.dayMaster.element)] || null,
+        elementNoun: ELEMENT_NOUN[normalizeElement(saju.dayMaster.element)] || null,
         polarity: textOf(saju.dayMaster.polarity),
       }
       : null,
@@ -241,6 +274,18 @@ function buildSaju(springReport, fortuneReport) {
       }
       : null,
     elementDistribution: saju.elementDistribution || null,
+    elementBars: (() => {
+      const distribution = saju.elementDistribution;
+      if (!distribution || typeof distribution !== 'object') return null;
+      const bars = ['wood', 'fire', 'earth', 'metal', 'water'].map((key) => {
+        const raw = Object.entries(distribution)
+          .find(([name]) => normalizeElement(name) === key);
+        return { element: key, ko: ELEMENT_KO[key], count: Number(raw?.[1]) || 0 };
+      });
+      const max = Math.max(...bars.map((bar) => bar.count));
+      if (max <= 0) return null;
+      return bars.map((bar) => ({ ...bar, ratio: bar.count / max }));
+    })(),
     yinYangBalance: saju.yinYangBalance || null,
     uncertaintyMessage: textOf(saju.inputUncertainty?.unknownHour?.message),
     texts: {
@@ -258,15 +303,35 @@ function buildHarmony(springReport, fortuneReport) {
   const compat = springReport?.sajuCompatibility;
   if (!compat) return null;
   const yongshin = compat.yongshinElement;
-  const hanjaBlocks = entriesOf(springReport?.namingReport?.analysis?.hanja?.blocks);
-  const chars = hanjaBlocks.map((block) => ({
-    hanja: textOf(block.hanja),
-    hangul: textOf(block.hangul),
-    strokes: Number.isFinite(block.strokes) ? block.strokes : null,
-    element: normalizeElement(block.resourceElement),
-    elementKo: ELEMENT_KO[normalizeElement(block.resourceElement)] || null,
-    relation: relationToTarget(block.resourceElement, yongshin),
-  }));
+  // Given-name characters only, like the prototype — the surname is fixed,
+  // the given name is what carries the choice.
+  const surnameLength = entriesOf(springReport?.namingReport?.name?.surname).length;
+  const givenDetails = entriesOf(springReport?.namingReport?.name?.givenName);
+  const hanjaBlocks = entriesOf(springReport?.namingReport?.analysis?.hanja?.blocks)
+    .slice(surnameLength);
+  const hangulBlocks = entriesOf(springReport?.namingReport?.analysis?.hangul?.blocks)
+    .slice(surnameLength);
+  const source = givenDetails.length ? givenDetails : hanjaBlocks;
+  const chars = source.map((detail, index) => {
+    const hanjaBlock = hanjaBlocks[index] || {};
+    const resourceElement = normalizeElement(hanjaBlock.resourceElement)
+      || normalizeElement(detail.element);
+    const soundElement = normalizeElement(hangulBlocks[index]?.element);
+    return {
+      hanja: textOf(detail.hanja) || textOf(hanjaBlock.hanja),
+      hangul: textOf(detail.hangul) || textOf(hanjaBlock.hangul),
+      meaning: textOf(detail.meaning),
+      strokes: Number.isFinite(detail.strokes)
+        ? detail.strokes
+        : Number.isFinite(hanjaBlock.strokes) ? hanjaBlock.strokes : null,
+      element: resourceElement,
+      elementKo: ELEMENT_KO[resourceElement] || null,
+      elementNoun: ELEMENT_NOUN[resourceElement] || null,
+      soundElement,
+      soundElementNoun: ELEMENT_NOUN[soundElement] || null,
+      relation: relationToTarget(resourceElement, yongshin),
+    };
+  });
   const details = Array.isArray(fortuneReport?.nameCompatibility?.details)
     ? fortuneReport.nameCompatibility.details.filter((line) => /용신|기신|희신/.test(String(line)))
     : [];

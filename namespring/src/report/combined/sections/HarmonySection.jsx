@@ -1,7 +1,14 @@
 import React from 'react';
-import { V3Section } from './V3Section.jsx';
-import { BezelCard } from '../../../components/ui/BezelCard.jsx';
+import { RevealOnScroll } from '../../../components/ui/RevealOnScroll.jsx';
 import { cx } from '../../../components/report/ReportPrimitives';
+
+const REL_CHIP = {
+  match: 'bg-elfire text-cream',
+  generates: 'bg-sagesoft text-sage',
+  drains: 'bg-cream text-inkfaint',
+  controls: 'bg-rosesoft text-rose2',
+  controlled: 'bg-rosesoft text-rose2',
+};
 
 const REL_NOTES = {
   match: '필요한 기운과 일치',
@@ -14,50 +21,63 @@ const REL_NOTES = {
 export function HarmonySection({ harmony }) {
   if (!harmony) return null;
   return (
-    <V3Section
-      id="sec-harmony"
-      kicker="Harmony"
-      title="이름과 사주의 궁합"
-      dek={harmony.yongshinKo
-        ? `사주가 필요로 하는 ${harmony.yongshinKo}(五行) 기운을 이름 글자가 어떻게 대하는지 봅니다.`
-        : '이름 글자의 기운이 사주와 어떻게 맞물리는지 봅니다.'}
-    >
-      <BezelCard invert>
-        {harmony.sentence ? (
-          <p className="ns-invert-muted max-w-[62ch] text-smd leading-relaxed" style={{ wordBreak: 'keep-all' }}>
-            {harmony.sentence}
-          </p>
-        ) : null}
+    <RevealOnScroll as="section" id="sec-harmony" className="scroll-mt-32 pt-14">
+      <div className="rounded-[2rem] bg-ink p-6 text-cream sm:p-10">
+        <p className="mb-1 text-2xs font-medium uppercase tracking-[0.15em] text-sagesoft/80">이름 × 사주</p>
+        <h2 className="font-serif text-xl font-bold tracking-tight sm:text-2xl">이름과 사주의 궁합</h2>
+        <p className="mt-1 text-xs text-cream/50">글자에 담긴 기운이 필요한 기운을 채우는지 봐요</p>
         {harmony.chars.length ? (
-          <div className="cr-v3-harmony-grid">
+          <div className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-2">
             {harmony.chars.map((char, index) => (
-              <div key={`${char.hanja || char.hangul}-${index}`} className="ns-invert-card cr-v3-harmony-card">
-                <p className="cr-v3-harmony-card__glyph">{char.hanja || char.hangul}</p>
-                <p className="mt-0.5 text-xs text-inkfaint">
-                  {char.hangul}
-                  {char.elementKo ? ` · ${char.elementKo}` : ''}
-                  {char.strokes ? ` · ${char.strokes}획` : ''}
-                </p>
-                {char.relation ? (
-                  <span className={cx('cr-v3-rel-chip', `cr-v3-rel-chip--${char.relation.type}`)}>
-                    {char.relation.label}
-                  </span>
-                ) : null}
-                {char.relation ? (
-                  <p className="mt-1 text-2xs text-inkfaint">{REL_NOTES[char.relation.type] || ''}</p>
-                ) : null}
+              <div key={`${char.hanja || char.hangul}-${index}`} className="cr-v3-invert-chip">
+                <div className="cr-v3-invert-chip__face">
+                  <div className="flex items-baseline gap-3">
+                    <b className="font-serif text-3xl">{char.hanja || char.hangul}</b>
+                    {char.meaning ? <span className="text-xs text-inksoft">{char.meaning}</span> : null}
+                  </div>
+                  <div className="mt-3.5 flex flex-wrap gap-1.5">
+                    {char.soundElementNoun ? (
+                      <span className={cx(
+                        'rounded-full px-2.5 py-1 text-2xs font-bold',
+                        `cr-v3-el-${char.soundElement}`,
+                        'bg-[var(--el-bg)] text-[var(--el)]',
+                      )}
+                      >
+                        발음 {char.soundElementNoun}
+                      </span>
+                    ) : null}
+                    {char.elementNoun ? (
+                      <span className={cx(
+                        'rounded-full px-2.5 py-1 text-2xs font-bold',
+                        `cr-v3-el-${char.element}`,
+                        'bg-[var(--el-bg)] text-[var(--el)]',
+                      )}
+                      >
+                        자원 {char.elementNoun}
+                      </span>
+                    ) : null}
+                    {char.relation ? (
+                      <span className={cx(
+                        'rounded-full px-2.5 py-1 text-2xs font-extrabold',
+                        REL_CHIP[char.relation.type] || REL_CHIP.drains,
+                      )}
+                      >
+                        {REL_NOTES[char.relation.type] || char.relation.label}
+                      </span>
+                    ) : null}
+                  </div>
+                </div>
               </div>
             ))}
           </div>
         ) : null}
-      </BezelCard>
-      {harmony.details.length ? (
-        <ul className="mt-4 space-y-1.5">
+        <div className="mt-7 max-w-[62ch] text-smd leading-relaxed text-cream/80">
+          {harmony.sentence ? <p>{harmony.sentence}</p> : null}
           {harmony.details.map((line) => (
-            <li key={line} className="cr-v3-prose">{line}</li>
+            <p key={line} className="mt-2">{line}</p>
           ))}
-        </ul>
-      ) : null}
-    </V3Section>
+        </div>
+      </div>
+    </RevealOnScroll>
   );
 }

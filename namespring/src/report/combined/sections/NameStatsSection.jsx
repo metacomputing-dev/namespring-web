@@ -1,29 +1,34 @@
 import React from 'react';
-import { V3Section } from './V3Section.jsx';
-import { StatTiles } from '../../../components/report/ReportV3Bits.jsx';
+import { RevealOnScroll } from '../../../components/ui/RevealOnScroll.jsx';
 
 export function NameStatsSection({ stats }) {
   if (!stats) return null;
   const items = [];
   if (stats.popularityRank !== null) {
-    items.push({ label: '인기 순위', value: `${stats.popularityRank}위`, caption: '통계 데이터 기준' });
-  }
-  if (stats.maleRatio !== null) {
-    const malePercent = Math.round(stats.maleRatio * 100);
-    items.push({ label: '남녀 비율', value: `${malePercent}:${100 - malePercent}`, caption: '남성:여성' });
+    items.push({ label: '출생신고 인기', value: `${stats.popularityRank.toLocaleString()}위` });
   }
   if (stats.nameGender) {
-    items.push({ label: '이름 성향', value: stats.nameGender === 'male' ? '남성적' : '여성적' });
+    items.push({ label: '성별 경향', value: stats.nameGender === 'male' ? '남성 쪽' : '여성 쪽' });
+  } else if (stats.maleRatio !== null) {
+    const malePercent = Math.round(stats.maleRatio * 100);
+    items.push({ label: '남녀 비율', value: `${malePercent}:${100 - malePercent}` });
   }
   if (!items.length) return null;
   return (
-    <V3Section
-      id="sec-stats"
-      kicker="Stats"
-      title="이름 통계"
-      dek="같은 이름이 실제로 얼마나, 어떻게 쓰였는지 봅니다."
-    >
-      <StatTiles items={items} />
-    </V3Section>
+    <RevealOnScroll as="section" id="sec-stats" className="scroll-mt-32 pt-14">
+      <div className="mb-4 px-1">
+        <p className="mb-1 text-2xs font-medium uppercase tracking-[0.15em] text-sage">참고 정보</p>
+        <h2 className="font-serif text-xl font-bold tracking-tight sm:text-2xl">이름 통계</h2>
+      </div>
+      <div className="flex flex-wrap items-stretch gap-3">
+        {items.map((item) => (
+          <div key={item.label} className="min-w-[8rem] flex-1 rounded-3xl border border-hairline bg-card p-5 text-center">
+            <p className="text-xs text-inkfaint">{item.label}</p>
+            <b className="mt-1 block text-xl" style={{ fontVariantNumeric: 'tabular-nums' }}>{item.value}</b>
+          </div>
+        ))}
+      </div>
+      <p className="mt-2 text-center text-2xs text-inkfaint">이름 통계는 참고 재미 요소예요.</p>
+    </RevealOnScroll>
   );
 }

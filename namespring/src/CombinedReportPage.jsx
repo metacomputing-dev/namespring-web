@@ -79,12 +79,14 @@ function CombinedReportPage({
 
   return (
     <ReportShell activeNav="report" onHome={onBackHome} size={shellSize}>
-      <PageHeading
-        kicker="보고서 · 통합"
-        title="통합 평가 보고서"
-        description="사주 평가와 성명학 평가를 함께 묶은 종합 보고서입니다."
-        className="ns-page-heading--compact"
-      />
+      {!useV2 ? (
+        <PageHeading
+          kicker="보고서 · 통합"
+          title="통합 평가 보고서"
+          description="사주 평가와 성명학 평가를 함께 묶은 종합 보고서입니다."
+          className="ns-page-heading--compact"
+        />
+      ) : null}
       <div className={REPORT_PAGE_CLASS.container}>
 
         {isLoading ? (
