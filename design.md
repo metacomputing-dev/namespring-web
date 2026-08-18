@@ -26,6 +26,11 @@ The app uses the natural report system already defined in
 - Accent: moss green.
 - Supporting tones: wood, fire, earth, metal, water, success, warning, info,
   danger, indigo, cyan, and neutral.
+- Surface extensions: `--color-card` (raised card face, brighter than paper in
+  light mode, paper-2 depth in dark mode), `--color-bezel` (bezel wash behind
+  double-bezel cards), `--color-glass` and `--color-glass-line` (translucent
+  capsule surfaces), `--color-veil` (modal backdrop). New surfaces must use
+  these tokens; pure white or black literals are not allowed.
 
 ## Typography
 
@@ -33,6 +38,9 @@ The app uses the natural report system already defined in
 - Body: `var(--font-body)`, weights 500-800.
 - Mono: `var(--font-mono)`, for technical values only.
 - Display headings use `var(--text-display-s)` or smaller inside app surfaces.
+- Text sizes snap to the named scale. `--text-2xs` (11px) serves kickers and
+  tracked labels; `--text-smd` (15px) serves report body copy. Arbitrary pixel
+  sizes are not allowed in new markup.
 
 ## Spacing
 
@@ -45,6 +53,10 @@ CSS is added.
 - Motion stance: quiet.
 - Allowed motion: opacity and transform only.
 - Reduced motion: collapse spatial motion to a near-instant transition.
+- Bands: micro state changes stay at `--dur-base` or faster; structural
+  expand/collapse uses `--dur-slow`; entrance (scroll reveal, load rise) may
+  use `--dur-entrance` at most, fires once per element, and must collapse
+  under reduced motion and in print.
 
 ## Microinteractions
 
@@ -59,13 +71,28 @@ CSS is added.
 - Primary CTA: direct verb, filled moss, no two-line labels.
 - Secondary CTA: concise noun or verb, quiet paper, no decorative animation.
 
+## Card and Chip Genres
+
+- Double-bezel card (`--color-bezel` frame around a `--color-card` face with
+  `--shadow-float` and `--shadow-inset-card`): sanctioned for report hero and
+  primary sections, and for the entry form card.
+- Inverted ink panel (ink face, paper text): at most one per page.
+- Interactive chips (filters, anchor rails, pickers, toggles) use
+  `--radius-pill`; static data chips in dense tables keep `--radius-chip`.
+- Entry-funnel fields use `--radius-field`.
+- The primary CTA may carry `--shadow-cta`, once per page, counted inside the
+  5 percent accent budget.
+
 ## Per-Page Allowances
 
 - Home may use preview and task tiles.
 - Entry may use the original centered intake surface so the long form stays
   focused.
 - Candidate pages may use dense controls.
-- Report pages may use wide document layouts.
+- Report pages may use wide document layouts, or the reader width (48rem) for
+  narrative report surfaces.
+- Long report pages may place one sticky glass anchor rail directly under the
+  masthead for in-page section navigation.
 - Payment pages must stay narrow and transactional.
 
 ## What Pages Must Share
@@ -78,7 +105,17 @@ CSS is added.
 
 ## What Pages May Differ On
 
-- Page width: narrow, default, or wide.
+- Page width: narrow, default, reader, or wide.
 - Data-card density.
 - State panel tone.
 - Section composition inside the shared shell.
+
+## Rejected
+
+Recorded so they are not relitigated:
+
+- Grain or noise overlays and floating ambient orbs.
+- Replacing the masthead with a floating pill navigation.
+- Durations above `--dur-entrance`; infinite decorative loops.
+- Pure white or pure black surfaces.
+- Prototype QA widgets (case switchers) in shipped pages.

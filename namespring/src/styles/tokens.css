@@ -68,6 +68,12 @@
   --color-disabled-bg: oklch(0.910 0.012 108);
   --color-disabled-ink: oklch(0.660 0.014 130);
 
+  --color-card: oklch(0.995 0.006 106);
+  --color-bezel: oklch(0.235 0.024 145 / 0.05);
+  --color-glass: oklch(0.995 0.006 106 / 0.72);
+  --color-glass-line: oklch(1 0 0 / 0.60);
+  --color-veil: oklch(0.235 0.024 145 / 0.45);
+
   --font-display: "Noto Serif KR", "Source Han Serif KR", "Nanum Myeongjo", "Apple SD Gothic Neo", serif;
   --font-body: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif;
   --font-mono: "SFMono-Regular", "Cascadia Mono", "Consolas", monospace;
@@ -82,6 +88,8 @@
   --space-2xl: 4.5rem;
   --space-3xl: 7rem;
 
+  --text-2xs: 0.6875rem;
+  --text-smd: 0.9375rem;
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-md: 1rem;
@@ -93,6 +101,7 @@
   --text-display: clamp(2.5rem, 7vw, 5rem);
 
   --rule-thin: 1px;
+  --radius-field: 1rem;
   --radius-input: 10px;
   --radius-chip: 6px;
   --radius-card: 18px;
@@ -105,6 +114,10 @@
   --shadow-card: 0 10px 28px oklch(0.230 0.024 145 / 0.07);
   --shadow-fab: 0 12px 32px oklch(0.230 0.024 145 / 0.18);
   --shadow-inset-soft: inset 0 1px 0 oklch(0.982 0.010 108 / 0.64);
+  --shadow-float: 0 20px 60px -30px oklch(0.230 0.024 145 / 0.25);
+  --shadow-nav: 0 10px 40px -12px oklch(0.230 0.024 145 / 0.18);
+  --shadow-cta: 0 16px 40px -16px oklch(0.430 0.082 148 / 0.45);
+  --shadow-inset-card: inset 0 1px 1px oklch(1 0 0 / 0.80);
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
@@ -112,6 +125,7 @@
   --dur-fast: 120ms;
   --dur-base: 220ms;
   --dur-slow: 360ms;
+  --dur-entrance: 560ms;
 
   --ns-primary: var(--color-accent-quiet);
   --ns-secondary: var(--color-earth-bg);
@@ -234,5 +248,15 @@
     --shadow-2: 0 4px 14px oklch(0.040 0.010 148 / 0.42);
     --shadow-card: 0 12px 30px oklch(0.040 0.010 148 / 0.44);
     --shadow-fab: 0 12px 32px oklch(0.040 0.010 148 / 0.55);
+
+    --color-card: oklch(0.205 0.022 146);
+    --color-bezel: oklch(0.940 0.012 108 / 0.07);
+    --color-glass: oklch(0.205 0.022 146 / 0.72);
+    --color-glass-line: oklch(0.940 0.012 108 / 0.12);
+    --color-veil: oklch(0.080 0.010 148 / 0.60);
+    --shadow-float: 0 20px 60px -30px oklch(0.040 0.010 148 / 0.60);
+    --shadow-nav: 0 10px 40px -12px oklch(0.040 0.010 148 / 0.50);
+    --shadow-cta: 0 16px 40px -16px oklch(0.760 0.085 142 / 0.30);
+    --shadow-inset-card: inset 0 1px 1px oklch(0.940 0.012 108 / 0.06);
   }
 }

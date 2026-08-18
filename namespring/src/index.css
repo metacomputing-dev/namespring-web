@@ -2,6 +2,43 @@
 @import "./styles/tokens.css";
 @import "./styles/report-ui.css";
 
+/* Utility-name bridge onto the runtime tokens in tokens.css. `inline` keeps
+   the generated utilities pointing at var(--color-*) so the dark-mode block
+   in tokens.css stays authoritative for every bridged name. */
+@theme inline {
+  --color-cream: var(--color-paper);
+  --color-parchment: var(--color-paper-3);
+  --color-ink: var(--ns-text);
+  --color-inksoft: var(--color-ink-2);
+  --color-inkfaint: var(--color-ink-3);
+  --color-hairline: var(--color-rule);
+  --color-sage: var(--color-accent);
+  --color-sagesoft: var(--color-accent-quiet);
+  --color-amber2: var(--color-warn);
+  --color-ambersoft: var(--color-warn-bg);
+  --color-rose2: var(--color-danger);
+  --color-rosesoft: var(--color-danger-bg);
+  --color-card: var(--color-card);
+  --color-bezel: var(--color-bezel);
+  --color-elwood: var(--color-wood);
+  --color-elwoodbg: var(--color-wood-bg);
+  --color-elfire: var(--color-fire);
+  --color-elfirebg: var(--color-fire-bg);
+  --color-elearth: var(--color-earth);
+  --color-elearthbg: var(--color-earth-bg);
+  --color-elmetal: var(--color-metal);
+  --color-elmetalbg: var(--color-metal-bg);
+  --color-elwater: var(--color-water);
+  --color-elwaterbg: var(--color-water-bg);
+  --font-serif: var(--font-display);
+  --font-sans: var(--font-body);
+  --ease-spring: var(--ease-out);
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1.45;
+  --text-smd: 0.9375rem;
+  --text-smd--line-height: 1.65;
+}
+
 html,
 body,
 #root {
