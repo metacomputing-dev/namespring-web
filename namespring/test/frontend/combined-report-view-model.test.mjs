@@ -10,7 +10,7 @@ import {
 } from '../../src/report/combined/view-model.js';
 import { normalizeElement, relationBetween, relationToTarget } from '../../src/report/combined/element-relations.js';
 
-function frame(type: string, strokeSum: number, luckyLevel: string | null) {
+function frame(type, strokeSum, luckyLevel) {
   return {
     type,
     strokeSum,
@@ -200,7 +200,7 @@ test('full view model derives hero, sections, and basis from engine data only', 
   assert.equal(vm.hero.fullHanja, '千旼娥');
   assert.equal(vm.hero.score, 84);
   assert.equal(vm.hero.verdictSentence, '이 이름은 필요한 기운을 보태 줍니다.');
-  assert.deepEqual(vm.hero.tracks.map((t: { state: string }) => t.state), ['good', 'good', 'good']);
+  assert.deepEqual(vm.hero.tracks.map((t) => t.state), ['good', 'good', 'good']);
   assert.equal(vm.hero.chars[0].element, 'metal');
 
   assert.equal(vm.flow?.edges.length, 2);
@@ -226,7 +226,7 @@ test('full view model derives hero, sections, and basis from engine data only', 
 
   assert.equal(vm.stats?.popularityRank, 120);
 
-  assert.ok(vm.basis.rows.some((row: { term: string }) => row.term === '용신'));
+  assert.ok(vm.basis.rows.some((row) => row.term === '용신'));
   assert.equal(vm.basis.engineVersion, 'spring-1.0');
 });
 

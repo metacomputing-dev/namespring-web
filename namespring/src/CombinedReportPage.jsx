@@ -5,9 +5,13 @@ import ReportShell from './components/report/ReportShell';
 import { PageHeading } from './components/report/ReportPrimitives';
 import { REPORT_PAGE_CLASS } from './theme/report-ui-theme';
 
+// v2 is the default renderer; the legacy layout stays reachable for one
+// release via ?reportLegacy=1 (and ?reportV2=0).
 function readReportV2Flag() {
-  if (typeof window === 'undefined') return false;
-  return new URLSearchParams(window.location.search).get('reportV2') === '1';
+  if (typeof window === 'undefined') return true;
+  const query = new URLSearchParams(window.location.search);
+  if (query.get('reportLegacy') === '1' || query.get('reportV2') === '0') return false;
+  return true;
 }
 
 function CombinedReportPage({
