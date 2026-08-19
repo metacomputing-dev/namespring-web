@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { withBasePath } from "../lib/paths";
 import ReportShell from "./report/ReportShell";
 import { PageHeading } from "./report/ReportPrimitives";
+import { BezelCard } from "./ui/BezelCard.jsx";
 
 interface PaymentPageLayoutProps {
   title: string;
@@ -19,7 +20,7 @@ export default function PaymentPageLayout({ title, subtitle, children }: Payment
         description={subtitle}
         className="ns-page-heading--compact"
       />
-      <div className="ns-card ns-card--large ns-card--surface">
+      <BezelCard>
         <div className="grid gap-4">
           {children}
 
@@ -29,7 +30,7 @@ export default function PaymentPageLayout({ title, subtitle, children }: Payment
             </Link>
           </div>
         </div>
-      </div>
+      </BezelCard>
     </ReportShell>
   );
 }

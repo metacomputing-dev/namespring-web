@@ -47,7 +47,9 @@ export default function PaymentSuccessPage() {
         });
         try {
           window.sessionStorage.setItem(PREMIUM_ACCESS_STORAGE_KEY, "paid");
-        } catch {}
+        } catch {
+          /* sessionStorage may be unavailable — premium unlock still succeeds server-side. */
+        }
         setState({ type: "success", data: confirmed });
       } catch (error) {
         const message = error instanceof Error ? error.message : "결제 확인에 실패했습니다.";
@@ -59,7 +61,8 @@ export default function PaymentSuccessPage() {
   if (state.type === "loading") {
     return (
       <PaymentPageLayout title="결제 확인" subtitle="서버 승인 결과를 확인하고 있습니다.">
-        <div className="ns-report-panel ns-report-panel--sunken">
+        <div className="ns-report-panel ns-report-panel--sunken flex items-center gap-3">
+          <div className="ns-report-spinner shrink-0" aria-hidden="true" style={{ width: "1.5rem" }} />
           <p className="text-sm font-semibold text-[var(--color-ink-2)]">결제를 확인하고 있습니다.</p>
         </div>
       </PaymentPageLayout>

@@ -57,7 +57,7 @@ export default function SupportPage() {
         <div className="ns-payment-summary">
           <div className="grid gap-1 sm:flex sm:items-center sm:justify-between sm:gap-3">
             <p className="font-bold text-[var(--color-accent)]">통합 리포트 완성</p>
-            <p className="text-lg font-black text-[var(--color-accent)] sm:text-right">{SUPPORT_AMOUNT.toLocaleString()} KRW</p>
+            <p className="text-lg font-black text-[var(--color-accent)] sm:text-right" style={{ fontVariantNumeric: "tabular-nums" }}>{SUPPORT_AMOUNT.toLocaleString()} KRW</p>
           </div>
           <p className="mt-2 text-xs font-semibold leading-relaxed text-[var(--color-ink-3)]">
             이메일은 선택 입력입니다. 결제 확인과 리포트 재접속 안내가 필요할 때만 사용합니다.
@@ -76,7 +76,7 @@ export default function SupportPage() {
             type="submit"
             disabled={isSubmitting || !paymentReady}
             className={[
-              "ns-primary-button w-full",
+              "ns-primary-button w-full min-h-12 rounded-full",
               isSubmitting || !paymentReady ? "ns-button-disabled" : "",
             ].join(" ")}
           >
