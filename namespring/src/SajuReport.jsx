@@ -11,6 +11,20 @@ import {
   useReportActions,
 } from './report-common-ui';
 import { SajuPillarTable } from './components/report/ReportPrimitives';
+import { AnchorRail } from './components/report/AnchorRail.jsx';
+import { BezelCard } from './components/ui/BezelCard.jsx';
+import { RevealOnScroll } from './components/ui/RevealOnScroll.jsx';
+
+const SJ_RAIL_ITEMS = [
+  { id: 'sj-sec-summary', label: '요약' },
+  { id: 'sj-sec-pillars', label: '기둥' },
+  { id: 'sj-sec-strength', label: '강약' },
+  { id: 'sj-sec-yongshin', label: '용신' },
+  { id: 'sj-sec-elements', label: '오행' },
+  { id: 'sj-sec-tengod', label: '십성' },
+  { id: 'sj-sec-relations', label: '관계' },
+  { id: 'sj-sec-shinsal', label: '신살' },
+];
 
 const ELEMENT_CODE_ORDER = ['WOOD', 'FIRE', 'EARTH', 'METAL', 'WATER'];
 const POSITION_ORDER = ['YEAR', 'MONTH', 'DAY', 'HOUR'];
@@ -304,10 +318,11 @@ function SajuReport({ report, shareUserInfo = null }) {
   return (
     <>
     <div ref={reportRootRef} data-pdf-root="true" className="ns-section-stack ns-section-stack--loose">
-      <section className="ns-report-surface p-4 md:p-5">
+      <AnchorRail className="ns-anchor-rail--page" items={SJ_RAIL_ITEMS} />
+      <BezelCard as="section" id="sj-sec-summary" className="scroll-mt-28">
         <div className="ns-split-row">
           <div>
-            <h2 className="text-2xl font-black text-[var(--ns-accent-text)]">사주 핵심 요약</h2>
+            <h2 className="font-serif text-2xl font-bold text-[var(--ns-accent-text)]">사주 핵심 요약</h2>
             <p className="text-sm text-[var(--ns-muted)] mt-1 break-keep whitespace-normal">
               엔진에서 계산된 실제 사주 값을 기준으로 정리했어요.
             </p>
@@ -338,8 +353,9 @@ function SajuReport({ report, shareUserInfo = null }) {
             isBirthTimeUnknown={shareUserInfo?.isBirthTimeUnknown}
           />
         </div>
-      </section>
+      </BezelCard>
 
+      <RevealOnScroll as="section">
       <CollapsibleCard
         title="시간 보정"
         subtitle="입력된 시간과 보정 후 시간을 비교해서 보여줘요."
@@ -372,7 +388,9 @@ function SajuReport({ report, shareUserInfo = null }) {
           <InfoCard title="균시차(분)" value={String(asNumber(report?.timeCorrection?.equationOfTimeMinutes, 0))} />
         </div>
       </CollapsibleCard>
+      </RevealOnScroll>
 
+      <RevealOnScroll as="section" id="sj-sec-pillars" className="scroll-mt-28">
       <CollapsibleCard
         title="사주 기둥"
         subtitle="년주·월주·일주·시주의 천간/지지 실제 값이에요."
@@ -398,7 +416,9 @@ function SajuReport({ report, shareUserInfo = null }) {
           }))}
         />
       </CollapsibleCard>
+      </RevealOnScroll>
 
+      <RevealOnScroll as="section" id="sj-sec-strength" className="scroll-mt-28">
       <CollapsibleCard
         title="강약 분석"
         subtitle="득령·득지·득세와 판정 상세 문장을 그대로 표시해요."
@@ -426,7 +446,9 @@ function SajuReport({ report, shareUserInfo = null }) {
           ) : null}
         </div>
       </CollapsibleCard>
+      </RevealOnScroll>
 
+      <RevealOnScroll as="section" id="sj-sec-yongshin" className="scroll-mt-28">
       <CollapsibleCard
         title="용신 · 격국"
         subtitle="용신/희신/기신/구신과 격국 해석을 실제 값 그대로 보여줘요."
@@ -473,7 +495,9 @@ function SajuReport({ report, shareUserInfo = null }) {
           </div>
         </div>
       </CollapsibleCard>
+      </RevealOnScroll>
 
+      <RevealOnScroll as="section" id="sj-sec-elements" className="scroll-mt-28">
       <CollapsibleCard
         title="오행 분포"
         subtitle="오행 분포와 부족/과다 오행을 실제 분포값으로 표시해요."
@@ -504,7 +528,9 @@ function SajuReport({ report, shareUserInfo = null }) {
           </div>
         </div>
       </CollapsibleCard>
+      </RevealOnScroll>
 
+      <RevealOnScroll as="section" id="sj-sec-tengod" className="scroll-mt-28">
       <CollapsibleCard
         title="십성 분석"
         subtitle="사주 각 주의 천간 십성과 지지 본기 십성, 지장간 정보를 보여줘요."
@@ -537,7 +563,9 @@ function SajuReport({ report, shareUserInfo = null }) {
           )) : <p className="text-sm text-[var(--ns-muted)]">십성 분석 정보가 없습니다.</p>}
         </div>
       </CollapsibleCard>
+      </RevealOnScroll>
 
+      <RevealOnScroll as="section" id="sj-sec-relations" className="scroll-mt-28">
       <CollapsibleCard
         title="천간 · 지지 관계"
         subtitle="합/충/형/파/해 등 관계 해석 값과 점수 정보를 보여줘요."
@@ -585,7 +613,9 @@ function SajuReport({ report, shareUserInfo = null }) {
           </section>
         </div>
       </CollapsibleCard>
+      </RevealOnScroll>
 
+      <RevealOnScroll as="section" id="sj-sec-shinsal" className="scroll-mt-28">
       <CollapsibleCard
         title="신살 · 공망"
         subtitle="신살 히트와 공망 값을 실제 계산 결과 그대로 확인해요."
@@ -615,6 +645,7 @@ function SajuReport({ report, shareUserInfo = null }) {
           )}
         </div>
       </CollapsibleCard>
+      </RevealOnScroll>
       <ReportActionButtons
         isPdfSaving={isPdfSaving}
         onSavePdf={handleSavePdf}
