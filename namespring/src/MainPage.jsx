@@ -3,7 +3,7 @@ import logoSvg from './assets/logo.svg';
 
 function MainPage({ onEnter }) {
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 font-sans text-[var(--ns-text)]">
+    <div className="min-h-dvh flex items-center justify-center p-4 font-sans text-[var(--ns-text)]">
       <div className="ns-card ns-card--large ns-card--surface w-full max-w-2xl overflow-hidden text-center">
         <img
           src={logoSvg}

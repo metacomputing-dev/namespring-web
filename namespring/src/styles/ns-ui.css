@@ -357,6 +357,7 @@
   background: var(--color-card);
   box-shadow: var(--shadow-float);
   padding: var(--space-md);
+  padding-block-end: max(var(--space-md), env(safe-area-inset-bottom));
   transform: translateY(0);
   transition: transform var(--dur-slow) var(--ease-out), opacity var(--dur-slow) var(--ease-out);
 }

@@ -51,6 +51,10 @@ textarea:focus-visible {
   min-height: 100dvh;
   overflow-x: clip;
   padding: clamp(var(--space-2xs), 2vw, var(--space-md));
+  /* Keep the frame clear of notches and home indicators on viewport-fit=cover. */
+  padding-inline-start: max(clamp(var(--space-2xs), 2vw, var(--space-md)), env(safe-area-inset-left));
+  padding-inline-end: max(clamp(var(--space-2xs), 2vw, var(--space-md)), env(safe-area-inset-right));
+  padding-block-end: max(clamp(var(--space-2xs), 2vw, var(--space-md)), env(safe-area-inset-bottom));
 }
 
 .ns-page-shell::before {
@@ -88,6 +92,17 @@ textarea:focus-visible {
   padding: var(--space-xs) var(--space-sm);
   border-block-end: var(--rule-thin) solid var(--color-rule);
   background: color-mix(in oklch, var(--color-paper) 92%, transparent);
+}
+
+/* Masthead controls meet the 44px touch target without changing density
+   elsewhere; the masthead has the vertical room to absorb it. */
+.ns-masthead .ns-icon-button {
+  width: 2.75rem;
+  min-height: 2.75rem;
+}
+
+.ns-masthead .ns-quiet-button {
+  min-height: 2.75rem;
 }
 
 .ns-wordmark {
