@@ -20,6 +20,8 @@ import {
   cx,
 } from './components/report/ReportPrimitives';
 import { buildRenderMetricsFromSajuReport } from './naming-result-render-metrics';
+import { BezelCard } from './components/ui/BezelCard.jsx';
+import { RevealOnScroll } from './components/ui/RevealOnScroll.jsx';
 
 const PILLAR_COLUMNS = ['년주', '월주', '일주', '시주'];
 const PILLAR_KEYS = ['year', 'month', 'day', 'hour'];
@@ -185,10 +187,6 @@ function getYinYangVisual(value) {
   };
 }
 
-function elementLabel(value) {
-  return getElementVisual(value).label;
-}
-
 function resolvePillarElement(part, type) {
   const direct = normalizeElement(
     part?.element
@@ -214,14 +212,6 @@ function getPillarPart(part, type) {
     element: elementKey,
     elementKey,
   };
-}
-
-function getTenGod(part) {
-  return part?.tenGod?.name
-    || part?.tenGod?.hangul
-    || part?.tenGod
-    || part?.tenGodName
-    || '-';
 }
 
 function buildPillarColumns(report) {
@@ -381,23 +371,64 @@ function DaymasterSummaryCard({ label, visual, variant }) {
   );
 }
 
-function HomeTile({ item, onClick }) {
+function HomeTile({ item, onClick, variant = 'tile' }) {
   const isClickable = typeof onClick === 'function';
   const Component = isClickable ? 'button' : 'div';
   const Icon = item.icon;
+  const rootProps = {
+    type: isClickable ? 'button' : undefined,
+    onClick,
+    className: cx(
+      'ns-menu-card group',
+      variant === 'featured' ? 'ns-menu-card--featured' : '',
+      variant === 'strip' ? 'ns-menu-card--strip' : '',
+      item.tone ? `ns-menu-card--${item.tone}` : '',
+      !isClickable ? 'ns-menu-card--disabled' : '',
+    ),
+    'aria-label': isClickable ? item.title : undefined,
+    'aria-disabled': !isClickable ? 'true' : undefined,
+  };
+
+  if (variant === 'strip') {
+    return (
+      <Component {...rootProps}>
+        <span className="ns-menu-card__icon" aria-hidden="true">
+          <Icon locked={!isClickable} />
+        </span>
+        <div className="ns-menu-card__content">
+          <p className="ns-menu-card__subtitle">{item.subtitle}</p>
+          <h2 className="ns-menu-card__title">{item.title}</h2>
+          <p className="ns-menu-card__description">{item.description}</p>
+        </div>
+        <span className="ns-menu-card__action">
+          {isClickable ? '열기' : '준비 중'}
+          {isClickable ? <span aria-hidden="true" className="ns-menu-card__arrow">→</span> : null}
+        </span>
+      </Component>
+    );
+  }
+
+  if (variant === 'featured') {
+    return (
+      <Component {...rootProps}>
+        <div className="ns-menu-card__content">
+          <p className="ns-menu-card__subtitle">{item.subtitle}</p>
+          <h2 className="ns-menu-card__title">{item.title}</h2>
+          <p className="ns-menu-card__description">{item.description}</p>
+        </div>
+        <span className="ns-menu-card__icon" aria-hidden="true">
+          <Icon locked={!isClickable} />
+        </span>
+        <span className="ns-menu-card__action ns-menu-card__action--cta">
+          {isClickable ? '보고서 열기' : '준비 중'}
+          <span aria-hidden="true" className="ns-menu-card__arrow">→</span>
+        </span>
+      </Component>
+    );
+  }
 
   return (
-    <Component
-      type={isClickable ? 'button' : undefined}
-      onClick={onClick}
-      className={cx(
-        'ns-menu-card group',
-        item.tone ? `ns-menu-card--${item.tone}` : '',
-        !isClickable ? 'ns-menu-card--disabled' : '',
-      )}
-      aria-label={isClickable ? item.title : undefined}
-      aria-disabled={!isClickable ? 'true' : undefined}
-    >
+    <Component {...rootProps}>
       <div className="ns-menu-card__top">
         <span className="ns-menu-card__number">{item.number}</span>
         <span className="ns-menu-card__icon" aria-hidden="true">
@@ -457,12 +488,13 @@ function SajuPreviewCard({ entryUserInfo, report, metrics, isLoading, error }) {
   const dayMasterPolarityVisual = getYinYangVisual(report?.dayMaster?.polarity);
 
   return (
-    <ReportCard
-      title={`${fullName} 사주 요약`}
-      subtitle="입력한 생년월일을 기준으로 원국의 큰 흐름을 먼저 정리했습니다."
-      className="ns-card--surface"
-      bodyClassName="grid gap-5"
-    >
+    <BezelCard faceClassName="p-0">
+      <ReportCard
+        title={`${fullName} 사주 요약`}
+        subtitle="입력한 생년월일을 기준으로 원국의 큰 흐름을 먼저 정리했습니다."
+        className="ns-card--in-bezel"
+        bodyClassName="grid gap-5"
+      >
       <div className="ns-saju-visual">
         <NamingResultRenderer
           renderMetrics={metrics}
@@ -507,7 +539,8 @@ function SajuPreviewCard({ entryUserInfo, report, metrics, isLoading, error }) {
           </div>
         </div>
       </div>
-    </ReportCard>
+      </ReportCard>
+    </BezelCard>
   );
 }
 
@@ -614,15 +647,29 @@ function HomePage({ entryUserInfo, onLoadSajuReport, onOpenCombinedReport, onOpe
           error={analyzeError}
         />
 
-        <div className="grid gap-4 md:grid-cols-2">
-          {menuItems.map((item) => (
+        <RevealOnScroll>
+          <HomeTile
+            item={menuItems[0]}
+            onClick={menuItems[0].onClick}
+            variant="featured"
+          />
+        </RevealOnScroll>
+        <RevealOnScroll className="grid gap-4 md:grid-cols-2">
+          {menuItems.slice(1, 3).map((item) => (
             <HomeTile
               key={item.number}
               item={item}
               onClick={item.onClick}
             />
           ))}
-        </div>
+        </RevealOnScroll>
+        <RevealOnScroll>
+          <HomeTile
+            item={menuItems[3]}
+            onClick={menuItems[3].onClick}
+            variant="strip"
+          />
+        </RevealOnScroll>
       </div>
     </ReportShell>
   );

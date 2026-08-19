@@ -385,6 +385,15 @@ textarea:focus-visible {
   background: color-mix(in oklch, var(--color-paper-3) 84%, var(--color-paper));
 }
 
+/* A card hosted inside a bezel face: the bezel supplies surface, border and
+   elevation, so the card itself goes transparent. */
+.ns-card--in-bezel {
+  border: none;
+  border-radius: inherit;
+  background: transparent;
+  box-shadow: none;
+}
+
 .ns-card--padded {
   padding: var(--space-md);
 }
@@ -452,6 +461,65 @@ textarea:focus-visible {
   cursor: default;
   border-color: var(--color-rule);
   background: color-mix(in oklch, var(--color-paper-2) 96%, var(--color-disabled-bg));
+}
+
+/* Featured band: the page's primary task as a full-width row with the one
+   filled-accent CTA. Breaks the uniform tile grid per section-variation rule. */
+.ns-menu-card--featured {
+  --menu-card-accent: var(--color-accent);
+  min-height: 0;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: var(--space-sm) var(--space-md);
+}
+
+.ns-menu-card--featured .ns-menu-card__content {
+  grid-column: 1;
+  align-content: start;
+}
+
+.ns-menu-card--featured .ns-menu-card__icon {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+.ns-menu-card--featured .ns-menu-card__action--cta {
+  grid-column: 1;
+  min-height: 2.75rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  padding-inline: var(--space-md);
+  box-shadow: var(--shadow-cta);
+}
+
+/* Quiet strip: a low-emphasis single-row entry (e.g. the disabled info tile). */
+.ns-menu-card--strip {
+  min-height: 0;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-rows: none;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.ns-menu-card--strip .ib-menu-icon {
+  width: 3rem;
+  height: 3rem;
+}
+
+.ns-menu-card--strip .ns-menu-card__title {
+  font-size: var(--text-md);
+}
+
+.ns-menu-card--strip .ns-menu-card__description {
+  display: none;
+}
+
+@media (min-width: 40rem) {
+  .ns-menu-card--strip .ns-menu-card__description {
+    display: block;
+  }
 }
 
 .ns-menu-card__top {
@@ -538,6 +606,10 @@ textarea:focus-visible {
 
 .ns-menu-card__arrow {
   transition: transform var(--dur-fast) var(--ease-out);
+}
+
+button.ns-menu-card:active {
+  transform: scale(0.98);
 }
 
 .ns-menu-card--disabled .ns-menu-card__number,
