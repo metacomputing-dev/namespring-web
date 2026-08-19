@@ -7,15 +7,18 @@ import { REPORT_PAGE_CLASS } from './theme/report-ui-theme';
 function SajuReportPage({
   entryUserInfo,
   onLoadSajuReport,
+  onLoadFortuneReport = null,
   onBackHome,
 }) {
   const [report, setReport] = useState(null);
+  const [fortuneReport, setFortuneReport] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
   const loadReport = async () => {
     if (!entryUserInfo || !onLoadSajuReport) {
       setReport(null);
+      setFortuneReport(null);
       setIsLoading(false);
       setError('사주 평가를 위한 입력 정보가 없습니다.');
       return;
@@ -24,9 +27,18 @@ function SajuReportPage({
     setIsLoading(true);
     setError('');
     setReport(null);
+    setFortuneReport(null);
     try {
-      const nextReport = await onLoadSajuReport(entryUserInfo);
+      // The fortune report feeds the life-flow/period sections; its failure is
+      // non-fatal so the structural saju report still renders without them.
+      const [nextReport, nextFortuneReport] = await Promise.all([
+        onLoadSajuReport(entryUserInfo),
+        onLoadFortuneReport
+          ? onLoadFortuneReport(entryUserInfo).catch(() => null)
+          : Promise.resolve(null),
+      ]);
       setReport(nextReport || null);
+      setFortuneReport(nextFortuneReport || null);
       if (!nextReport) {
         setError('사주 평가 보고서를 불러오지 못했습니다.');
       }
@@ -40,7 +52,7 @@ function SajuReportPage({
   useEffect(() => {
     void loadReport();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [entryUserInfo, onLoadSajuReport]);
+  }, [entryUserInfo, onLoadSajuReport, onLoadFortuneReport]);
 
   return (
     <ReportShell activeNav="report" onHome={onBackHome} size="wide">
@@ -74,7 +86,7 @@ function SajuReportPage({
         ) : null}
 
         {!isLoading && !error && report ? (
-          <SajuReport report={report} shareUserInfo={entryUserInfo} />
+          <SajuReport report={report} fortuneReport={fortuneReport} shareUserInfo={entryUserInfo} />
         ) : null}
       </div>
     </ReportShell>

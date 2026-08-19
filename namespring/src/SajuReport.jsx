@@ -14,6 +14,16 @@ import { SajuPillarTable } from './components/report/ReportPrimitives';
 import { AnchorRail } from './components/report/AnchorRail.jsx';
 import { BezelCard } from './components/ui/BezelCard.jsx';
 import { RevealOnScroll } from './components/ui/RevealOnScroll.jsx';
+import {
+  LifeFlowFortuneBody,
+  PeriodFortuneBody,
+} from './components/report/FortuneSections.jsx';
+import { useFortunePeriods } from './report/fortune/use-fortune-periods';
+
+const SJ_FORTUNE_RAIL_ITEMS = [
+  { id: 'sj-sec-lifeflow', label: '흐름' },
+  { id: 'sj-sec-periods', label: '기간 운세' },
+];
 
 const SJ_RAIL_ITEMS = [
   { id: 'sj-sec-summary', label: '요약' },
@@ -173,11 +183,13 @@ function RelationStatusChips({ labels, detected }) {
   );
 }
 
-function SajuReport({ report, shareUserInfo = null }) {
+function SajuReport({ report, fortuneReport = null, shareUserInfo = null }) {
   if (!report) return null;
 
   const reportRootRef = useRef(null);
   const [openCards, setOpenCards] = useState({
+    lifeFlow: true,
+    periods: true,
     time: true,
     pillars: true,
     strength: true,
@@ -187,6 +199,13 @@ function SajuReport({ report, shareUserInfo = null }) {
     relations: false,
     shinsal: false,
   });
+  const fortune = useFortunePeriods(fortuneReport);
+  const railItems = useMemo(
+    () => (fortuneReport
+      ? [SJ_RAIL_ITEMS[0], ...SJ_FORTUNE_RAIL_ITEMS, ...SJ_RAIL_ITEMS.slice(1)]
+      : SJ_RAIL_ITEMS),
+    [fortuneReport],
+  );
 
   const toggleCard = (key) => {
     setOpenCards((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -282,6 +301,8 @@ function SajuReport({ report, shareUserInfo = null }) {
   const prepareBeforePrint = useCallback(() => {
     const previousOpenCards = { ...openCards };
     setOpenCards({
+      lifeFlow: true,
+      periods: true,
       time: true,
       pillars: true,
       strength: true,
@@ -318,7 +339,7 @@ function SajuReport({ report, shareUserInfo = null }) {
   return (
     <>
     <div ref={reportRootRef} data-pdf-root="true" className="ns-section-stack ns-section-stack--loose">
-      <AnchorRail className="ns-anchor-rail--page" items={SJ_RAIL_ITEMS} />
+      <AnchorRail className="ns-anchor-rail--page" items={railItems} />
       <BezelCard as="section" id="sj-sec-summary" className="scroll-mt-28">
         <div className="ns-split-row">
           <div>
@@ -354,6 +375,32 @@ function SajuReport({ report, shareUserInfo = null }) {
           />
         </div>
       </BezelCard>
+
+      {fortuneReport ? (
+        <RevealOnScroll as="section" id="sj-sec-lifeflow" className="scroll-mt-28">
+          <CollapsibleCard
+            title="나이대별 흐름"
+            subtitle="긴 흐름을 먼저 보고, 포인트를 선택해 해당 나이대의 기운을 읽습니다."
+            open={openCards.lifeFlow}
+            onToggle={() => toggleCard('lifeFlow')}
+          >
+            <LifeFlowFortuneBody fortune={fortune} />
+          </CollapsibleCard>
+        </RevealOnScroll>
+      ) : null}
+
+      {fortuneReport ? (
+        <RevealOnScroll as="section" id="sj-sec-periods" className="scroll-mt-28">
+          <CollapsibleCard
+            title="기간별 운세"
+            subtitle="오늘부터 올해까지의 흐름을 선택해 분야별 해석으로 이어갑니다."
+            open={openCards.periods}
+            onToggle={() => toggleCard('periods')}
+          >
+            <PeriodFortuneBody fortune={fortune} />
+          </CollapsibleCard>
+        </RevealOnScroll>
+      ) : null}
 
       <RevealOnScroll as="section">
       <CollapsibleCard

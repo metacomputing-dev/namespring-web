@@ -478,6 +478,15 @@ function App() {
     return springEngine.getSajuReport(springRequest);
   };
 
+  // Fortune report for the user's own name — feeds the life-flow and period
+  // sections on the saju page (moved there from the legacy combined report).
+  const handleLoadOwnFortuneReportAsync = useCallback(async (userInfo) => {
+    const normalized = normalizeEntryUserInfo(userInfo);
+    const givenName = toSpringNameChars(normalized?.firstName);
+    if (!givenName.length) return null;
+    return springEngine.getFortuneReport(toFortuneReportRequest(normalized, givenName));
+  }, [springEngine]);
+
   const handleOpenCombinedReportFromHome = useCallback(() => {
     const normalized = normalizeEntryUserInfo(entryUserInfo);
     if (!normalized) {
@@ -644,6 +653,7 @@ function App() {
             <SajuReportPage
               entryUserInfo={entryUserInfo}
               onLoadSajuReport={handleLoadSajuReportAsync}
+              onLoadFortuneReport={handleLoadOwnFortuneReportAsync}
               onBackHome={() => navigateToPage('home')}
             />
           </AppBackground>
