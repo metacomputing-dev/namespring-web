@@ -506,9 +506,9 @@ function SajuPreviewCard({ entryUserInfo, report, metrics, isLoading, error }) {
       </div>
       <div className="grid gap-5 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.5fr)]">
         <div className="grid gap-4">
-          <div className="ns-report-panel ns-report-panel--sunken flex items-center justify-between gap-4">
+          <div className="ns-report-panel ns-report-panel--sunken flex flex-wrap items-center justify-between gap-4">
             <ScoreRing value={balanceScore} label="균형 지표" />
-            <div className="min-w-0 text-right">
+            <div className="min-w-[12rem] flex-1 text-right">
               <p className="ns-kicker">오늘의 기준</p>
               <p className="mt-2 font-[var(--font-display)] text-2xl font-bold text-[var(--color-ink)]">사주 원국</p>
               <p className="mt-2 text-sm font-semibold leading-relaxed text-[var(--color-ink-2)] break-keep">
