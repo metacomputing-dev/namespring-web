@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createPortal, flushSync } from 'react-dom';
 import { buildShareLinkFromEntryUserInfo } from './share-entry-user-info';
+import { Sheet } from './components/ui/Sheet.jsx';
 
 function waitForNextPaint() {
   return new Promise((resolve) => {
@@ -255,20 +256,9 @@ export function ReportShareDialog({
   onCopy,
   onClose,
 }) {
-  if (!isOpen) return null;
   return (
-    <div
-      data-pdf-exclude="true"
-      className="ns-report-modal-backdrop"
-      onClick={onClose}
-    >
-      <div
-        className="ns-report-modal-card"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="report-share-dialog-title"
-        onClick={(event) => event.stopPropagation()}
-      >
+    <Sheet open={isOpen} onClose={onClose} labelledBy="report-share-dialog-title">
+      <div data-pdf-exclude="true" className="ns-share-dialog">
         <h3 id="report-share-dialog-title">공유 링크</h3>
         <p>아래 주소를 복사해 다시 열어보세요.</p>
         <div className="ns-report-share-link">
@@ -291,7 +281,7 @@ export function ReportShareDialog({
           </button>
         </div>
       </div>
-    </div>
+    </Sheet>
   );
 }
 
@@ -327,7 +317,7 @@ export function ReportScrollTopFab() {
         document.getElementById('root')?.scrollTo({ top: 0, behavior: 'smooth' });
       }}
       aria-label="맨 위로 이동"
-      className="ns-scroll-top-fab w-12 h-12 rounded-full border border-[var(--ns-border)] bg-[var(--ns-surface)] text-[var(--ns-muted)] shadow-xl inline-flex items-center justify-center"
+      className="ns-scroll-top-fab w-12 h-12 rounded-full border border-[var(--ns-border)] bg-[var(--ns-surface)] text-[var(--ns-muted)] shadow-[var(--shadow-fab)] inline-flex items-center justify-center"
     >
       <svg viewBox="0 0 20 20" fill="none" className="w-5 h-5" aria-hidden="true">
         <path d="M10 4L4.5 9.5M10 4L15.5 9.5M10 4V16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />

@@ -1688,8 +1688,8 @@ textarea:focus-visible {
   align-items: center;
   justify-content: center;
   border: var(--rule-thin) solid var(--color-rule);
-  border-radius: var(--radius-input);
-  padding-inline: var(--space-sm);
+  border-radius: var(--radius-pill);
+  padding-inline: var(--space-md);
   font-size: var(--text-sm);
   font-weight: 800;
   line-height: 1;
@@ -1718,7 +1718,7 @@ textarea:focus-visible {
 }
 
 .ns-report-action:active {
-  transform: translateY(1px);
+  transform: scale(0.98);
 }
 
 .ns-report-action:disabled {
@@ -1735,7 +1735,7 @@ textarea:focus-visible {
   display: grid;
   place-items: center;
   padding: var(--space-sm);
-  background: color-mix(in oklch, var(--color-ink) 36%, transparent);
+  background: var(--color-veil);
 }
 
 .ns-report-modal-card {
@@ -1755,7 +1755,14 @@ textarea:focus-visible {
   text-align: center;
 }
 
-.ns-report-modal-card h3 {
+/* Share dialog content inside the responsive bottom sheet */
+.ns-share-dialog {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.ns-report-modal-card h3,
+.ns-share-dialog h3 {
   color: var(--color-accent);
   font-family: var(--font-display);
   font-size: var(--text-lg);
@@ -1764,6 +1771,7 @@ textarea:focus-visible {
 }
 
 .ns-report-modal-card p,
+.ns-share-dialog p,
 .ns-report-share-link {
   color: var(--color-ink-2);
   font-size: var(--text-sm);
@@ -2822,6 +2830,10 @@ textarea:focus-visible {
 
   .ns-report-action--primary:hover {
     background: color-mix(in oklch, var(--color-accent) 88%, var(--color-ink));
+  }
+
+  .ns-report-action:hover {
+    transform: scale(1.02);
   }
 
   button.ns-menu-card:hover {
