@@ -75,7 +75,7 @@
   --color-veil: oklch(0.235 0.024 145 / 0.45);
 
   --font-display: "Noto Serif KR", "Source Han Serif KR", "Nanum Myeongjo", "Apple SD Gothic Neo", serif;
-  --font-body: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif;
+  --font-body: "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", system-ui, sans-serif;
   --font-mono: "SFMono-Regular", "Cascadia Mono", "Consolas", monospace;
 
   --space-3xs: 0.25rem;
