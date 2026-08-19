@@ -88,7 +88,7 @@ function CombinedReportV2Body({
         <TierToggle />
       </div>
 
-      <AnchorRail items={buildRailItems(vm)} />
+      <AnchorRail className="cr-v3-rail" items={buildRailItems(vm)} />
 
       <HeroSection
         hero={vm.hero}

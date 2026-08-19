@@ -91,7 +91,7 @@ function CombinedReportPage({
 
         {isLoading ? (
           <div className={REPORT_PAGE_CLASS.loadingCard}>
-            <div className="h-12 w-12 rounded-full border-4 border-[var(--ns-primary)] border-t-transparent animate-spin" />
+            <div className="ns-report-spinner" aria-hidden="true" />
             <p className={REPORT_PAGE_CLASS.loadingText}>통합 보고서를 생성하고 있습니다.</p>
           </div>
         ) : null}

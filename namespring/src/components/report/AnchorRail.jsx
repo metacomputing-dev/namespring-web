@@ -30,7 +30,7 @@ export function AnchorRail({ items = [], className }) {
 
   return (
     <nav
-      className={cx('ns-anchor-rail cr-v3-rail', className)}
+      className={cx('ns-anchor-rail', className)}
       aria-label="보고서 섹션 이동"
       data-pdf-exclude="true"
     >
