@@ -17,9 +17,21 @@ import {
   ReportShareDialog,
   useReportActions,
 } from './report-common-ui';
+import { AnchorRail } from './components/report/AnchorRail.jsx';
+import { BezelCard } from './components/ui/BezelCard.jsx';
+import { RevealOnScroll } from './components/ui/RevealOnScroll.jsx';
 
 const TOTAL_NAME_STATS_COUNT = 50194;
 const ELEMENT_ORDER = ['Wood', 'Fire', 'Earth', 'Metal', 'Water'];
+
+const NR_RAIL_ITEMS = [
+  { id: 'nr-sec-summary', label: '요약' },
+  { id: 'nr-sec-popularity', label: '인기도' },
+  { id: 'nr-sec-life', label: '인생 흐름' },
+  { id: 'nr-sec-frames', label: '사격수리' },
+  { id: 'nr-sec-hanja', label: '한자' },
+  { id: 'nr-sec-hangul', label: '한글' },
+];
 
 const ELEMENT_LABEL = {
   Wood: '목',
@@ -598,10 +610,15 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
   return (
     <>
     <div ref={reportRootRef} data-pdf-root="true" className="nr-report-root mt-4 ns-section-stack ns-section-stack--loose animate-in fade-in slide-in-from-bottom-6 duration-700">
-      <section
+      <AnchorRail className="ns-anchor-rail--page" items={NR_RAIL_ITEMS} />
+      <BezelCard
+        as="section"
+        id="nr-sec-summary"
         data-pdf-force-foreign-object="true"
-        className="ns-report-surface nr-summary-card"
+        className="scroll-mt-28"
+        faceClassName="p-0"
       >
+        <div className="nr-summary-card">
         <div className="nr-summary-card__head">
           <div>
             <p className="nr-summary-card__kicker">이름 평가 요약</p>
@@ -623,8 +640,10 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
           isBirthTimeUnknown={shareUserInfo?.isBirthTimeUnknown}
         />
         </div>
-      </section>
+        </div>
+      </BezelCard>
 
+      <RevealOnScroll as="section" id="nr-sec-popularity" className="scroll-mt-28">
       <CollapsibleCard
         title="인기도"
         subtitle={popularityHeadline}
@@ -716,7 +735,9 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
           </div>
         ) : null}
       </CollapsibleCard>
+      </RevealOnScroll>
 
+      <RevealOnScroll as="section" id="nr-sec-life" className="scroll-mt-28">
       <CollapsibleCard
         title="인생의 흐름"
         subtitle="사격수리의 원·형·이·정을 기준으로 초중말년과 전체 흐름을 풀어봅니다."
@@ -829,7 +850,9 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
           })}
         </div>
       </CollapsibleCard>
+      </RevealOnScroll>
 
+      <RevealOnScroll as="section" id="nr-sec-frames" className="scroll-mt-28">
       <CollapsibleCard
         title={`사격수리 평가 (${fourFrameScore.toFixed(1)}점)`}
         subtitle="클릭해서 상세 점수와 프레임별 값을 확인하세요."
@@ -879,7 +902,9 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
           </div>
         </div>
       </CollapsibleCard>
+      </RevealOnScroll>
 
+      <RevealOnScroll as="section" id="nr-sec-hanja" className="scroll-mt-28">
       <CollapsibleCard
         title={`한자 평가 (${hanjaScore.toFixed(1)}점)`}
         subtitle="클릭해서 음양/오행 점수와 글자별 결과를 확인하세요."
@@ -922,7 +947,9 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
           </div>
         </div>
       </CollapsibleCard>
+      </RevealOnScroll>
 
+      <RevealOnScroll as="section" id="nr-sec-hangul" className="scroll-mt-28">
       <CollapsibleCard
         title={`한글 평가 (${hangulScore.toFixed(1)}점)`}
         subtitle="클릭해서 음양/오행 점수와 음절별 결과를 확인하세요."
@@ -965,6 +992,7 @@ const NamingReport = ({ result, shareUserInfo = null }) => {
           </div>
         </div>
       </CollapsibleCard>
+      </RevealOnScroll>
 
       <ReportActionButtons
         isPdfSaving={isPdfSaving}
