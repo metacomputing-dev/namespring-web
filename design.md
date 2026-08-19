@@ -16,6 +16,14 @@ Editorial app UI.
 - Content pages: Long document, with quiet section rhythm and token-driven data
   cards.
 
+## Typography Delivery
+
+Pretendard Variable (body) and Noto Serif KR 600/700 (display) are
+self-hosted: the npm packages `pretendard` and `@fontsource/noto-serif-kr`
+are imported at the top of `namespring/src/main.jsx`, and `tokens.css` only
+names the families. Never add a CDN font link; new display weights are added
+by importing another subset CSS file in `main.jsx`.
+
 ## Theme
 
 The app uses the natural report system already defined in
@@ -83,9 +91,43 @@ CSS is added.
 - The primary CTA may carry `--shadow-cta`, once per page, counted inside the
   5 percent accent budget.
 
+## Shared Primitives
+
+- Anchor rail: `AnchorRail` in `src/components/report/AnchorRail.jsx` is the
+  one in-page section navigation. Long report pages (combined, naming, saju)
+  place it directly under the masthead; pages pass their own placement class
+  (`ns-anchor-rail--page` by default, `cr-v3-rail` in the combined report).
+- Loading ring: `.ns-report-spinner` (accent head on an accent-quiet track)
+  is the only spinner. No ad-hoc `animate-spin` divs.
+- Tone cards: `.ns-tone-card--{wood,fire,earth,metal,water,neutral}` are the
+  replacement idiom for any per-card tinted surface. Raw hex card themes are
+  not allowed (the old `card-color-theme.js` was deleted for this reason).
+- Bezel promotion: a page's single hero or primary summary surface may be
+  promoted into `BezelCard`; nested cards inside a bezel face use
+  `.ns-card--in-bezel` so the bezel supplies surface and elevation.
+- Scene illustration exemption: `NamingResultRenderer.jsx` draws a pictorial
+  scene (sky, meadow, campfire); its inner colors are artwork like the SVG
+  assets, not UI surfaces, and stay hardcoded on purpose. Its frame and the
+  page around it must still be tokenized.
+
+## Cross-Device Standards
+
+- Full-height layout uses `100dvh` (`min-h-dvh`), never `min-h-screen`.
+- The page shell, masthead, bottom sheet, and FABs pad with
+  `env(safe-area-inset-*)`; the viewport meta keeps `viewport-fit=cover` and
+  must not lock pinch zoom.
+- Interactive controls give at least a 44px hit area; visually compact chips
+  (anchor rail, segmented control) extend their hit area with a pseudo
+  element instead of growing.
+- Hover transforms live behind `@media (hover: hover)`; press feedback uses
+  `scale(0.98)`; every new animation joins the existing reduced-motion and
+  print collapse blocks.
+
 ## Per-Page Allowances
 
-- Home may use preview and task tiles.
+- Home may use preview and task tiles. The primary task renders as one
+  full-width featured band carrying the page's filled-accent CTA; secondary
+  tasks as tiles; disabled or informational entries as a quiet strip.
 - Entry may use the original centered intake surface so the long form stays
   focused.
 - Candidate pages may use dense controls.
