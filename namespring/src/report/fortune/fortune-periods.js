@@ -293,6 +293,7 @@ export function buildLifeFlowPoints(periodOptions, lifeCurve) {
   if (curvePoints.length) {
     const firstIndexed = curvePoints.find((p) => Number.isFinite(p?.daeunIndex));
     const fallbackIndex = Number.isFinite(firstIndexed?.daeunIndex) ? firstIndexed.daeunIndex : 0;
+    const currentAge = Number(lifeCurve?.currentAge);
     let prevDaeun = null;
     return curvePoints.map((p) => {
       const daeunIndex = Number.isFinite(p?.daeunIndex) ? p.daeunIndex : fallbackIndex;
@@ -304,6 +305,7 @@ export function buildLifeFlowPoints(periodOptions, lifeCurve) {
         label: Number(p.age) % 10 === 0 ? String(p.age) : '',
         value: Number(p.score) || 0,
         showDot: isBoundary,
+        isCurrent: Number.isFinite(currentAge) && Number(p.age) === currentAge,
         fixedDomain: true,
         isSelected: false,
       };

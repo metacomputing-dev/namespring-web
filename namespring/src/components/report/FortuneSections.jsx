@@ -65,6 +65,28 @@ export function LifeFlowChart({ points, onSelect }) {
             {point.label}
           </text>
         ))}
+        {coords.filter((point) => point.isCurrent).map((point) => (
+          <g key={`current-${point.pointId || point.key}`} aria-hidden="true">
+            <circle
+              cx={point.x}
+              cy={point.y}
+              r={4}
+              fill="var(--color-accent)"
+              stroke="var(--color-paper)"
+              strokeWidth="1.5"
+            />
+            <text
+              x={point.x}
+              y={point.y - 12}
+              textAnchor="middle"
+              fill="var(--color-accent)"
+              fontSize="11"
+              fontWeight="800"
+            >
+              현재
+            </text>
+          </g>
+        ))}
         {dotPoints.map((point) => (
           <g
             key={`dot-${point.pointId || point.key}`}
@@ -205,6 +227,7 @@ export function LifeFlowFortuneBody({ fortune }) {
     selectedLifePeriod,
     selectedLifeCategoryItems,
     lifeFlowPoints,
+    lifeCurveWeights,
     activeDetail,
     expertTagState,
     selectLifePeriod,
@@ -224,6 +247,14 @@ export function LifeFlowFortuneBody({ fortune }) {
           <p>그래프의 포인트를 선택하면 해당 나이대 흐름으로 전환됩니다.</p>
         </div>
         <LifeFlowChart points={lifeFlowPoints} onSelect={selectLifePeriod} />
+        {lifeCurveWeights ? (
+          <p className="text-xs font-semibold leading-relaxed text-[var(--ns-muted)] break-keep">
+            곡선 높이는 대운(10년 추세) {Math.round((Number(lifeCurveWeights.daeun) || 0) * 100)}%에
+            그 해의 세운(잔물결) {Math.round((Number(lifeCurveWeights.seun) || 0) * 100)}%를 섞은
+            시각화 값이에요. 나이대의 별점은 대운 등급 기준이라 곡선 높이와 정확히
+            일치하지 않을 수 있어요.
+          </p>
+        ) : null}
       </div>
 
       {selectedLifePeriod ? (

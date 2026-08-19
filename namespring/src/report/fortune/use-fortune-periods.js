@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState } from 'react';
 import {
+  asArray,
   buildCategoryItems,
   buildLifeFlowPoints,
   buildPeriodOptions,
@@ -31,7 +32,24 @@ export function useFortunePeriods(fortuneReport) {
   const selectedPeriod = primaryPeriodOptions.find((item) => item.key === selectedPeriodKey)
     || primaryPeriodOptions[0]
     || null;
+  // Until the user picks a daeun, land on the one containing their current
+  // age (the engine ships lifeCurve.currentAge), not the first daeun.
+  const defaultLifePeriodKey = useMemo(() => {
+    const currentAge = Number(fortuneReport?.lifeCurve?.currentAge);
+    if (!Number.isFinite(currentAge)) return '';
+    const currentPoint = asArray(fortuneReport?.lifeCurve?.points)
+      .find((point) => Number(point?.age) === currentAge && Number.isFinite(point?.daeunIndex));
+    if (currentPoint) return `life-daeun-${currentPoint.daeunIndex}`;
+    const byAge = lifePeriodOptions.find((option) => (
+      Number.isFinite(option.startAge)
+      && Number.isFinite(option.endAge)
+      && currentAge >= option.startAge
+      && currentAge < option.endAge
+    ));
+    return byAge?.key || '';
+  }, [fortuneReport, lifePeriodOptions]);
   const selectedLifePeriod = lifePeriodOptions.find((item) => item.key === selectedLifePeriodKey)
+    || lifePeriodOptions.find((item) => item.key === defaultLifePeriodKey)
     || lifePeriodOptions[0]
     || null;
   const selectedCategoryItems = useMemo(
@@ -94,6 +112,7 @@ export function useFortunePeriods(fortuneReport) {
   return {
     primaryPeriodOptions,
     lifePeriodOptions,
+    lifeCurveWeights: fortuneReport?.lifeCurve?.weights || null,
     selectedPeriod,
     selectedLifePeriod,
     selectedCategoryItems,
