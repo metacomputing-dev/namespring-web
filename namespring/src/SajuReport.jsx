@@ -19,6 +19,8 @@ import {
   PeriodFortuneBody,
 } from './components/report/FortuneSections.jsx';
 import { useFortunePeriods } from './report/fortune/use-fortune-periods';
+import { InsightFactsBody } from './components/report/InsightFactsCard.jsx';
+import { hasInterpretedInsights } from './report/fortune/insight-facts';
 
 const SJ_FORTUNE_RAIL_ITEMS = [
   { id: 'sj-sec-lifeflow', label: '흐름' },
@@ -190,6 +192,7 @@ function SajuReport({ report, fortuneReport = null, shareUserInfo = null }) {
   const [openCards, setOpenCards] = useState({
     lifeFlow: true,
     periods: true,
+    insights: true,
     time: true,
     pillars: true,
     strength: true,
@@ -200,12 +203,17 @@ function SajuReport({ report, fortuneReport = null, shareUserInfo = null }) {
     shinsal: false,
   });
   const fortune = useFortunePeriods(fortuneReport);
-  const railItems = useMemo(
-    () => (fortuneReport
-      ? [SJ_RAIL_ITEMS[0], ...SJ_FORTUNE_RAIL_ITEMS, ...SJ_RAIL_ITEMS.slice(1)]
-      : SJ_RAIL_ITEMS),
+  const showInsights = useMemo(
+    () => hasInterpretedInsights(fortuneReport?.insightFacts),
     [fortuneReport],
   );
+  const railItems = useMemo(() => {
+    if (!fortuneReport) return SJ_RAIL_ITEMS;
+    const fortuneItems = showInsights
+      ? [...SJ_FORTUNE_RAIL_ITEMS, { id: 'sj-sec-insights', label: '인사이트' }]
+      : SJ_FORTUNE_RAIL_ITEMS;
+    return [SJ_RAIL_ITEMS[0], ...fortuneItems, ...SJ_RAIL_ITEMS.slice(1)];
+  }, [fortuneReport, showInsights]);
 
   const toggleCard = (key) => {
     setOpenCards((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -303,6 +311,7 @@ function SajuReport({ report, fortuneReport = null, shareUserInfo = null }) {
     setOpenCards({
       lifeFlow: true,
       periods: true,
+      insights: true,
       time: true,
       pillars: true,
       strength: true,
@@ -398,6 +407,19 @@ function SajuReport({ report, fortuneReport = null, shareUserInfo = null }) {
             onToggle={() => toggleCard('periods')}
           >
             <PeriodFortuneBody fortune={fortune} />
+          </CollapsibleCard>
+        </RevealOnScroll>
+      ) : null}
+
+      {showInsights ? (
+        <RevealOnScroll as="section" id="sj-sec-insights" className="scroll-mt-28">
+          <CollapsibleCard
+            title="전문 인사이트"
+            subtitle="원국에서 특히 눈에 띄는 배치를 골라 풀어드립니다. 전문용어는 태그로만 달아 두었어요."
+            open={openCards.insights}
+            onToggle={() => toggleCard('insights')}
+          >
+            <InsightFactsBody insightFacts={fortuneReport?.insightFacts} />
           </CollapsibleCard>
         </RevealOnScroll>
       ) : null}
