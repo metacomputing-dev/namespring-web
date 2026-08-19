@@ -1,11 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import ReportShell from './components/report/ReportShell';
-import { MetricStrip, PageHeading, SearchIcon } from './components/report/ReportPrimitives';
-import {
-  NAMING_CANDIDATES_CARD_THEME,
-  buildReportCardStyle,
-  buildTintedBoxStyle,
-} from './theme/card-color-theme';
+import { MetricStrip, PageHeading, SearchIcon, StatusPanel } from './components/report/ReportPrimitives';
+import { BezelCard } from './components/ui/BezelCard.jsx';
+import { SegmentedControl } from './components/ui/SegmentedControl.jsx';
 
 const DEFAULT_RECOMMEND_WEIGHT_A = 0.5;
 const DEFAULT_RECOMMEND_MAX_SCORE = 80;
@@ -114,11 +111,11 @@ function getRecommendationSortScore(
   return S + P;
 }
 
-function getNameCardTheme(index) {
-  const themes = NAMING_CANDIDATES_CARD_THEME.candidates || [];
-  if (!themes.length) return null;
-  return themes[index % themes.length];
-}
+const SORT_OPTIONS = [
+  { value: 'recommended', label: '추천순' },
+  { value: 'score', label: '점수순' },
+  { value: 'popularity', label: '인기도순' },
+];
 
 function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSpringReport, onBackHome, onOpenCombinedReport }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -144,7 +141,9 @@ function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSp
   useEffect(() => {
     try {
       localStorage.setItem(FAVORITE_STORAGE_KEY, JSON.stringify(Array.from(favoriteCandidateKeys)));
-    } catch {}
+    } catch {
+      /* localStorage may be unavailable (private mode, quota) — favorites stay in memory. */
+    }
   }, [favoriteCandidateKeys]);
 
   const toggleFavoriteCandidate = (candidateKey) => {
@@ -285,18 +284,18 @@ function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSp
       />
       <div className="ns-section-stack ns-section-stack--loose">
 
-        <section className="grid gap-3 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-          <div className="ns-report-surface p-4">
-            <p className="text-xs font-black text-[var(--ns-muted)]">현재 이름 비교 기준</p>
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <p className="text-sm font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">
+        <BezelCard as="section" faceClassName="grid gap-5 sm:grid-cols-2 sm:gap-6">
+          <div className="min-w-0">
+            <p className="ns-kicker">현재 이름 비교 기준</p>
+            <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
+              <p className="font-serif text-lg font-bold text-[var(--color-ink)] break-keep whitespace-normal">
                 {currentSpringReport?.namingReport?.name?.fullHangul || '-'}
                 {currentSpringReport?.namingReport?.name?.fullHanja
                   ? ` (${currentSpringReport.namingReport.name.fullHanja})`
                   : ''}
               </p>
               {isCurrentLoading ? (
-                <span className="text-xs font-semibold text-[var(--ns-muted)]">기준 정보를 계산 중...</span>
+                <span className="text-xs font-semibold text-[var(--color-ink-3)]">기준 정보를 계산 중...</span>
               ) : null}
             </div>
             <MetricStrip
@@ -308,8 +307,8 @@ function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSp
             />
           </div>
 
-          <div className="ns-report-surface p-4">
-            <p className="text-xs font-black text-[var(--ns-muted)]">추천 이름 요약</p>
+          <div className="min-w-0 sm:border-l sm:border-[var(--color-rule)] sm:pl-6">
+            <p className="ns-kicker">추천 이름 요약</p>
             <MetricStrip
               className="mt-3 ns-metric-strip--candidate-summary"
               items={[
@@ -318,44 +317,38 @@ function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSp
               ]}
             />
           </div>
-        </section>
+        </BezelCard>
 
         <section className="ns-report-surface p-3 md:p-4">
           <div className="ns-split-row">
-            <p className="text-sm font-black text-[var(--ns-muted)]">
+            <p className="text-sm font-black text-[var(--ns-muted)]" style={{ fontVariantNumeric: 'tabular-nums' }}>
               총 {sortedCandidates.length}개의 추천 이름을 찾았어요.
             </p>
             <div className="flex flex-wrap items-center gap-2">
               <button
                 type="button"
                 onClick={() => setShowFavoriteOnly((prev) => !prev)}
-                className={`${showFavoriteOnly ? 'ns-primary-button' : 'ns-secondary-button'} min-h-10 text-xs`}
+                aria-pressed={showFavoriteOnly}
+                className={`${showFavoriteOnly ? 'ns-primary-button' : 'ns-secondary-button'} min-h-11 rounded-full px-4 text-xs`}
               >
                 즐겨찾기만
               </button>
-              <div className="flex items-center gap-2">
-                <label htmlFor="candidate-sort" className="text-xs font-black text-[var(--ns-muted)]">정렬</label>
-                <select
-                  id="candidate-sort"
-                  value={sortMode}
-                  onChange={(e) => setSortMode(e.target.value)}
-                  className="ns-input min-h-10 w-auto bg-[var(--ns-surface-soft)] text-sm font-bold"
-                >
-                  <option value="recommended">추천순</option>
-                  <option value="score">점수순</option>
-                  <option value="popularity">인기도순</option>
-                </select>
-              </div>
+              <SegmentedControl
+                name="candidate-sort"
+                value={sortMode}
+                options={SORT_OPTIONS}
+                onChange={setSortMode}
+              />
             </div>
           </div>
-          <div className="mt-3 flex items-center gap-2 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] p-2">
+          <div className="mt-3 flex items-center gap-2 rounded-[var(--radius-field)] border border-[var(--color-rule)] bg-[var(--ns-surface-soft)] py-1 pl-3 pr-1">
             <SearchIcon className="h-4 w-4 shrink-0 text-[var(--ns-muted)]" />
             <input
               type="text"
               value={searchKeyword}
               onChange={(event) => setSearchKeyword(event.target.value)}
               placeholder="추천 이름 검색 (초성 검색 지원: 예) ㄱㅁㅎ"
-              className="ns-input min-h-10 w-full min-w-0 bg-[var(--ns-surface)] text-sm font-semibold"
+              className="ns-input min-h-11 w-full min-w-0 border-none bg-transparent text-sm font-semibold"
             />
           </div>
 
@@ -367,8 +360,10 @@ function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSp
           )}
 
           {!isLoading && error && (
-            <div className="mt-3 h-24 rounded-xl border border-[var(--ns-tone-warn-border)] bg-[var(--ns-tone-warn-bg)] flex items-center justify-center px-4">
-              <p className="text-sm font-bold text-[var(--ns-muted)] text-center">{error}</p>
+            <div className="mt-3">
+              <StatusPanel tone="warn" title="추천 결과를 표시할 수 없습니다.">
+                {error}
+              </StatusPanel>
             </div>
           )}
 
@@ -378,35 +373,33 @@ function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSp
                 const popularityRank = getPopularityRank(candidate);
                 const candidateKey = getCandidateKey(candidate);
                 const isFavorite = favoriteCandidateKeys.has(candidateKey);
-                const cardTheme = getNameCardTheme(index);
-                const cardStyle = buildReportCardStyle(cardTheme);
-                const scoreMiniStyle = buildTintedBoxStyle(cardTheme, { bgAlpha: 0.36 });
-                const popularityMiniStyle = buildTintedBoxStyle(cardTheme, { bgAlpha: 0.22 });
                 return (
                   <li
                     key={`${candidate?.rank ?? index}-${candidate?.fullHanja ?? candidate?.namingReport?.name?.fullHanja ?? index}`}
-                    className="rounded-xl border border-[var(--ns-border)] shadow-[var(--shadow-inset-soft)]"
-                    style={cardStyle}
+                    className="rounded-2xl border border-[var(--color-rule)] bg-[var(--color-card)] shadow-[var(--shadow-inset-soft)]"
                   >
                     <div className="flex items-start gap-2 px-2.5 py-2.5">
                       <button
                         type="button"
                         onClick={() => onOpenCombinedReport?.(candidate)}
-                        className="ns-candidate-card__button flex-1 min-w-0 text-left rounded-lg px-2 py-1 transition-colors hover:bg-[var(--ns-surface)]/20"
+                        className="ns-candidate-card__button flex-1 min-w-0 text-left rounded-lg px-2 py-1 transition-colors hover:bg-[var(--color-paper-3)]"
                       >
                         <div className="flex flex-wrap items-center justify-between gap-2">
-                          <p className="text-sm md:text-base font-black text-[var(--ns-accent-text)] break-keep whitespace-normal">
+                          <p className="text-sm md:text-base font-black text-[var(--color-ink)] break-keep whitespace-normal">
                             {getDisplayName(candidate)}
                           </p>
-                          <div className="shrink-0 rounded-lg border px-2.5 py-1 text-right text-[var(--ns-accent-text)]" style={scoreMiniStyle}>
-                            <p className="text-[10px] font-black opacity-75">최종 점수</p>
+                          <div
+                            className="shrink-0 rounded-lg border border-[var(--color-accent-quiet)] bg-[var(--color-accent-quiet)] px-2.5 py-1 text-right text-[var(--color-accent)]"
+                            style={{ fontVariantNumeric: 'tabular-nums' }}
+                          >
+                            <p className="text-2xs font-black opacity-75">최종 점수</p>
                             <p className="text-sm font-black leading-none mt-0.5">{formatScore(candidate?.finalScore)}</p>
                           </div>
                         </div>
                         <div className="mt-2 flex justify-end">
                           <span
-                            className="inline-flex items-center rounded-md border px-2.5 py-1 text-[11px] font-black text-[var(--ns-accent-text)]"
-                            style={popularityMiniStyle}
+                            className="inline-flex items-center rounded-md border border-[var(--color-rule)] bg-[var(--color-paper-3)] px-2.5 py-1 text-2xs font-black text-[var(--color-ink-2)]"
+                            style={{ fontVariantNumeric: 'tabular-nums' }}
                           >
                             인기도 {popularityRank ? `${Math.round(popularityRank).toLocaleString()}위` : '-'}
                           </span>
@@ -416,10 +409,11 @@ function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSp
                         type="button"
                         onClick={() => toggleFavoriteCandidate(candidateKey)}
                         aria-label={isFavorite ? '즐겨찾기 해제' : '즐겨찾기'}
+                        aria-pressed={isFavorite}
                         title={isFavorite ? '즐겨찾기 해제' : '즐겨찾기'}
-                        className="shrink-0 mt-1 w-9 h-9 rounded-lg border border-[var(--ns-border)] bg-[var(--ns-surface)]/80 hover:bg-[var(--ns-surface)] text-[var(--ns-muted)] inline-flex items-center justify-center"
+                        className="shrink-0 w-11 h-11 rounded-lg border border-[var(--color-rule)] bg-[var(--color-paper-2)] hover:bg-[var(--color-paper-3)] text-[var(--ns-muted)] inline-flex items-center justify-center"
                       >
-                        <svg viewBox="0 0 20 20" className={`w-5 h-5 ${isFavorite ? 'text-[var(--ns-tone-warn-text)]' : 'text-[var(--ns-muted)]/60'}`} aria-hidden="true">
+                        <svg viewBox="0 0 20 20" className={`w-5 h-5 ${isFavorite ? 'text-[var(--color-warn)]' : 'text-[var(--color-ink-3)]'}`} aria-hidden="true">
                           <path
                             d="M10 1.7L12.6 6.9L18.3 7.7L14.1 11.8L15.1 17.5L10 14.8L4.9 17.5L5.9 11.8L1.7 7.7L7.4 6.9L10 1.7Z"
                             fill={isFavorite ? 'currentColor' : 'none'}
@@ -436,8 +430,10 @@ function NamingCandidatesPage({ entryUserInfo, onRecommendAsync, onLoadCurrentSp
             </ul>
           )}
           {!isLoading && !error && !sortedCandidates.length && (
-            <div className="mt-3 h-24 rounded-xl border border-[var(--ns-border)] bg-[var(--ns-surface-soft)] flex items-center justify-center px-4">
-              <p className="text-sm font-bold text-[var(--ns-muted)] text-center">검색/즐겨찾기 조건에 맞는 후보가 없습니다.</p>
+            <div className="mt-3">
+              <StatusPanel tone="neutral" title="검색/즐겨찾기 조건에 맞는 후보가 없습니다.">
+                검색어를 지우거나 즐겨찾기 필터를 해제해 보세요.
+              </StatusPanel>
             </div>
           )}
         </section>
