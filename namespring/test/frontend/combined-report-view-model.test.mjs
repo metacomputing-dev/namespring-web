@@ -10,7 +10,7 @@ import {
 } from '../../src/report/combined/view-model.js';
 import { normalizeElement, relationBetween, relationToTarget } from '../../src/report/combined/element-relations.js';
 
-function frame(type, strokeSum, luckyLevel) {
+function frame(type, strokeSum, luckyLevel, meaningExtras) {
   return {
     type,
     strokeSum,
@@ -18,7 +18,7 @@ function frame(type, strokeSum, luckyLevel) {
     polarity: 'Positive',
     luckyLevel: 1,
     meaning: luckyLevel
-      ? { title: `${type} title`, summary: `${type} summary`, lucky_level: luckyLevel }
+      ? { title: `${type} title`, summary: `${type} summary`, lucky_level: luckyLevel, ...(meaningExtras || {}) }
       : null,
   };
 }
@@ -29,6 +29,8 @@ const springReportFixture = {
   maleRatio: 0.35,
   nameGender: 'female',
   namingReport: {
+    totalScore: 82.4,
+    scores: { hangul: 78, hanja: 74, fourFrame: 88 },
     name: {
       surname: [{ hangul: '천', hanja: '千', meaning: '일천 천', strokes: 3, element: 'Water', polarity: 'Negative' }],
       givenName: [
@@ -59,7 +61,15 @@ const springReportFixture = {
       },
       fourFrame: {
         frames: [
-          frame('won', 18, '상운수'),
+          frame('won', 18, '상운수', {
+            detailed_explanation: '[성함]님은 초년에 기반을 다집니다.',
+            positive_aspects: '추진력이 좋습니다.',
+            caution_points: '서두르면 탈이 납니다.',
+            personality_traits: ['성실함', '집중력'],
+            suitable_career: ['연구', '기획'],
+            opportunity_area: '학업',
+            challenge_period: '10대 후반',
+          }),
           frame('hyung', 11, '최상운수'),
           frame('lee', 13, '양운수'),
           frame('jung', 21, '상운수'),
@@ -136,6 +146,10 @@ const fortuneReportFixture = {
 const entryUserInfoFixture = {
   lastName: [{ hangul: '천', hanja: '千' }],
   firstName: [{ hangul: '민', hanja: '旼' }, { hangul: '아', hanja: '娥' }],
+  birthDateTime: { year: 1994, month: 4, day: 14, hour: 8, minute: 30 },
+  gender: 'female',
+  isSolarCalendar: true,
+  isBirthTimeUnknown: false,
 };
 
 test('element normalization accepts English, Korean, and hanja forms', () => {
@@ -203,12 +217,36 @@ test('full view model derives hero, sections, and basis from engine data only', 
   assert.deepEqual(vm.hero.tracks.map((t) => t.state), ['good', 'good', 'good']);
   assert.equal(vm.hero.chars[0].element, 'metal');
 
+  assert.equal(vm.hero.identity?.text, '1994.04.14 08:30 양력');
+  assert.equal(vm.hero.identity?.gender, '여');
+
+  assert.deepEqual(vm.scene?.elements, { wood: 1, fire: 1, earth: 0, metal: 0, water: 1 });
+  assert.equal(vm.scene?.positive, 1);
+  assert.equal(vm.scene?.negative, 2);
+  assert.deepEqual(vm.scene?.saju, { wood: 2, fire: 1, earth: 3, metal: 1, water: 1 });
+  assert.equal(vm.scene?.yongshin, 'fire');
+  assert.equal(vm.scene?.gishin, 'water');
+
+  assert.equal(vm.nameScores?.total, 82.4);
+  assert.equal(vm.nameScores?.grade, '안정적인 균형의 이름');
+  assert.equal(vm.nameScores?.parts.length, 3);
+  assert.equal(vm.nameScores?.parts[0].final, 78);
+  assert.equal(vm.nameScores?.parts[2].luck, 90);
+
   assert.equal(vm.flow?.edges.length, 2);
   assert.equal(vm.flow?.edges[0]?.label, '금생수');
+  assert.equal(vm.flow?.nodes[0]?.polarityKo, '음');
+  assert.equal(vm.flow?.finalScore, 78);
 
   assert.equal(vm.frames?.frames.length, 4);
   assert.equal(vm.frames?.frames[0].label, '원격');
   assert.equal(vm.frames?.frames[0].grade, 'favorable');
+  assert.equal(vm.frames?.frames[0].polarityKo, '양');
+  assert.equal(vm.frames?.frames[0].detail?.explanation, '천민아님은 초년에 기반을 다집니다.');
+  assert.deepEqual(vm.frames?.frames[0].detail?.personality, ['성실함', '집중력']);
+  assert.equal(vm.frames?.frames[1].detail, null);
+  assert.equal(vm.frames?.scores.luck, 90);
+  assert.equal(vm.frames?.scores.final, 88);
 
   assert.equal(vm.saju?.dayMaster?.element, 'earth');
   assert.equal(vm.saju?.strength?.meterPosition, 0.75);
@@ -220,6 +258,8 @@ test('full view model derives hero, sections, and basis from engine data only', 
   assert.equal(vm.harmony?.chars[0]?.relation?.type, 'match');
   assert.equal(vm.harmony?.chars[0]?.meaning, '화할 민');
   assert.equal(vm.harmony?.chars[1]?.relation?.type, 'generates');
+  assert.equal(vm.harmony?.chars[0]?.polarityKo, '음');
+  assert.equal(vm.harmony?.chars[0]?.strokes, 8);
   assert.equal(vm.harmony?.details.length, 1);
 
   assert.equal(vm.final.cta, 'share');
@@ -228,8 +268,10 @@ test('full view model derives hero, sections, and basis from engine data only', 
   assert.equal(vm.final.guide.strengths.length, 1);
 
   assert.equal(vm.stats?.popularityRank, 120);
+  assert.equal(vm.stats?.givenHangul, '민아');
 
   assert.ok(vm.basis.rows.some((row) => row.term === '용신'));
+  assert.ok(vm.basis.rows.some((row) => row.term === '이름 점수 구성'));
   assert.equal(vm.basis.engineVersion, 'spring-1.0');
 });
 
@@ -252,6 +294,8 @@ test('view model collapses absent sections to null instead of inventing data', (
   assert.equal(vm.saju, null);
   assert.equal(vm.harmony, null);
   assert.equal(vm.stats, null);
+  assert.equal(vm.scene, null);
+  assert.equal(vm.nameScores, null);
   assert.equal(vm.hero.score, null);
   assert.equal(vm.final.cta, 'recommend');
 });

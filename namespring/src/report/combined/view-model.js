@@ -26,6 +26,33 @@ function entriesOf(value) {
   return Array.isArray(value) ? value.filter((item) => item && typeof item === 'object') : [];
 }
 
+function listOf(value) {
+  return Array.isArray(value)
+    ? value.map((item) => textOf(item)).filter(Boolean)
+    : [];
+}
+
+function finiteScore(value) {
+  const num = Number(value);
+  return Number.isFinite(num) ? Math.round(num * 10) / 10 : null;
+}
+
+/** Engine polarity values arrive as Positive/Negative or 양/음. */
+export function polarityKo(value) {
+  const raw = String(value ?? '').trim().toLowerCase();
+  if (raw === 'positive' || raw === '양') return '양';
+  if (raw === 'negative' || raw === '음') return '음';
+  return null;
+}
+
+/** Same grade thresholds as the standalone naming report. */
+export function nameScoreGrade(score) {
+  if (score >= 85) return '매우 균형이 좋은 이름';
+  if (score >= 70) return '안정적인 균형의 이름';
+  if (score >= 55) return '무난한 흐름의 이름';
+  return '보완이 필요한 이름';
+}
+
 export function deriveSoundTrack(hangulAnalysis) {
   const blocks = entriesOf(hangulAnalysis?.blocks);
   if (blocks.length < 2) {
@@ -97,6 +124,20 @@ function buildTracks(springReport) {
   }));
 }
 
+function buildIdentity(entryUserInfo) {
+  const birth = entryUserInfo?.birthDateTime;
+  const year = Number(birth?.year);
+  if (!Number.isFinite(year) || year <= 0) return null;
+  const pad = (value) => String(Number(value) || 0).padStart(2, '0');
+  const date = `${year}.${pad(birth.month)}.${pad(birth.day)}`;
+  const calendar = entryUserInfo.isSolarCalendar === false ? '음력' : '양력';
+  const timeUnknown = Boolean(entryUserInfo.isBirthTimeUnknown) || !Number.isFinite(Number(birth.hour));
+  const time = timeUnknown ? '(시각 미상)' : `${pad(birth.hour)}:${pad(birth.minute)}`;
+  const gender = entryUserInfo.gender === 'female' ? '여'
+    : entryUserInfo.gender === 'male' ? '남' : null;
+  return { text: `${date} ${time} ${calendar}`, gender };
+}
+
 function buildHero(springReport, fortuneReport, entryUserInfo) {
   // namingReport.name is the authoritative evaluated name — the combined
   // report may be opened for a recommendation candidate whose given name
@@ -131,8 +172,87 @@ function buildHero(springReport, fortuneReport, entryUserInfo) {
     stars: compatibility?.overallStars ?? null,
     verdictSentence,
     subline: verdictSentence === textOf(compatibility?.summary) ? null : textOf(compatibility?.summary),
+    identity: buildIdentity(entryUserInfo),
     tracks: buildTracks(springReport),
   };
+}
+
+/**
+ * Element-landscape scene data: resource-element counts (자원오행) drive the
+ * landscape sprites, hangul polarity counts pick the sky (day/night/dusk).
+ * Same sources as the legacy naming-report illustration.
+ */
+function buildScene(springReport) {
+  const hanjaBlocks = entriesOf(springReport?.namingReport?.analysis?.hanja?.blocks);
+  const hangulBlocks = entriesOf(springReport?.namingReport?.analysis?.hangul?.blocks);
+  if (!hanjaBlocks.length && !hangulBlocks.length) return null;
+  const elements = { wood: 0, fire: 0, earth: 0, metal: 0, water: 0 };
+  for (const block of hanjaBlocks) {
+    const key = normalizeElement(block.resourceElement);
+    if (key) elements[key] += 1;
+  }
+  let positive = 0;
+  let negative = 0;
+  for (const block of hangulBlocks) {
+    const p = polarityKo(block.polarity);
+    if (p === '양') positive += 1;
+    if (p === '음') negative += 1;
+  }
+  // Saju side of the picture: the natal element distribution plus the
+  // needed/avoided elements, so the hero can show what the name fills.
+  const sajuReport = springReport?.sajuReport;
+  let saju = null;
+  if (sajuReport && sajuReport.sajuEnabled !== false && sajuReport.elementDistribution) {
+    const counts = { wood: 0, fire: 0, earth: 0, metal: 0, water: 0 };
+    for (const [name, value] of Object.entries(sajuReport.elementDistribution)) {
+      const key = normalizeElement(name);
+      if (key) counts[key] += Number(value) || 0;
+    }
+    if (Object.values(counts).some((count) => count > 0)) saju = counts;
+  }
+  const yongshin = normalizeElement(sajuReport?.yongshin?.element)
+    || normalizeElement(springReport?.sajuCompatibility?.yongshinElement);
+  const gishin = normalizeElement(sajuReport?.yongshin?.gishin)
+    || normalizeElement(springReport?.sajuCompatibility?.gishinElement);
+  return { elements, positive, negative, saju, yongshin, gishin };
+}
+
+/** Pure-naming score block (성명학 점수) — separate from the saju-blended hero score. */
+function buildNameScores(springReport) {
+  const naming = springReport?.namingReport;
+  const total = finiteScore(naming?.totalScore);
+  if (total === null) return null;
+  const analysis = naming.analysis || {};
+  const partScores = naming.scores || {};
+  const parts = [];
+  if (analysis.hangul) {
+    parts.push({
+      key: 'hangul',
+      label: '발음 (한글)',
+      polarity: finiteScore(analysis.hangul.polarityScore),
+      element: finiteScore(analysis.hangul.elementScore),
+      final: finiteScore(partScores.hangul),
+    });
+  }
+  if (analysis.hanja) {
+    parts.push({
+      key: 'hanja',
+      label: '자원 (한자)',
+      polarity: finiteScore(analysis.hanja.polarityScore),
+      element: finiteScore(analysis.hanja.elementScore),
+      final: finiteScore(partScores.hanja),
+    });
+  }
+  if (analysis.fourFrame) {
+    parts.push({
+      key: 'frames',
+      label: '수리 (사격)',
+      element: finiteScore(analysis.fourFrame.elementScore),
+      luck: finiteScore(analysis.fourFrame.luckScore),
+      final: finiteScore(partScores.fourFrame),
+    });
+  }
+  return { total, grade: nameScoreGrade(total), parts };
 }
 
 function buildFlow(springReport) {
@@ -149,6 +269,7 @@ function buildFlow(springReport) {
       elementKo: ELEMENT_KO[element] || null,
       elementNoun: ELEMENT_NOUN[element] || null,
       polarity: textOf(block.polarity),
+      polarityKo: polarityKo(block.polarity),
     };
   });
   const edges = [];
@@ -167,6 +288,7 @@ function buildFlow(springReport) {
     edges,
     polarityScore: Number.isFinite(hangul?.polarityScore) ? hangul.polarityScore : null,
     elementScore: Number.isFinite(hangul?.elementScore) ? hangul.elementScore : null,
+    finalScore: finiteScore(springReport?.namingReport?.scores?.hangul),
     state: deriveSoundTrack(hangul).state,
   };
 }
@@ -178,20 +300,60 @@ function buildFrames(springReport) {
   const charStrokes = entriesOf(springReport?.namingReport?.analysis?.hanja?.blocks)
     .filter((block) => textOf(block.hanja) && Number.isFinite(block.strokes))
     .map((block) => ({ hanja: block.hanja, strokes: block.strokes }));
+  // Meaning DB texts carry a [성함] placeholder — substitute the evaluated name.
+  const name = springReport?.namingReport?.name;
+  const fullHangul = textOf(name?.fullHangul)
+    || [...entriesOf(name?.surname), ...entriesOf(name?.givenName)]
+      .map((char) => textOf(char.hangul) || '')
+      .join('');
+  const withName = (value) => {
+    const text = textOf(value);
+    if (!text) return null;
+    return fullHangul ? text.replace(/\[성함\]/g, fullHangul) : text;
+  };
   return {
     charStrokes: charStrokes.length ? charStrokes : null,
-    frames: frames.map((frame) => ({
-      type: frame.type,
-      label: FRAME_LABELS[frame.type] || frame.type,
-      period: FRAME_PERIODS[frame.type] || null,
-      strokeSum: Number.isFinite(frame.strokeSum) ? frame.strokeSum : null,
-      grade: frameGrade(frame),
-      luckyLevelText: textOf(frame.meaning?.lucky_level),
-      title: textOf(frame.meaning?.title),
-      summary: textOf(frame.meaning?.summary),
-      lifePeriodInfluence: textOf(frame.meaning?.life_period_influence),
-      cautionPoints: textOf(frame.meaning?.caution_points),
-    })),
+    frames: frames.map((frame) => {
+      const element = normalizeElement(frame.element);
+      const detail = frame.meaning
+        ? {
+          explanation: withName(frame.meaning.detailed_explanation),
+          positives: withName(frame.meaning.positive_aspects),
+          cautions: withName(frame.meaning.caution_points),
+          personality: listOf(frame.meaning.personality_traits),
+          careers: listOf(frame.meaning.suitable_career),
+          opportunity: withName(frame.meaning.opportunity_area),
+          challenge: withName(frame.meaning.challenge_period),
+          special: withName(frame.meaning.special_characteristics),
+        }
+        : null;
+      const hasDetail = Boolean(detail && (
+        detail.explanation || detail.positives || detail.cautions
+        || detail.personality.length || detail.careers.length
+        || detail.opportunity || detail.challenge || detail.special
+      ));
+      return {
+        type: frame.type,
+        label: FRAME_LABELS[frame.type] || frame.type,
+        period: FRAME_PERIODS[frame.type] || null,
+        strokeSum: Number.isFinite(frame.strokeSum) ? frame.strokeSum : null,
+        element,
+        elementKo: ELEMENT_KO[element] || null,
+        polarityKo: polarityKo(frame.polarity),
+        grade: frameGrade(frame),
+        luckyLevelText: textOf(frame.meaning?.lucky_level),
+        title: withName(frame.meaning?.title),
+        summary: withName(frame.meaning?.summary),
+        lifePeriodInfluence: withName(frame.meaning?.life_period_influence),
+        cautionPoints: withName(frame.meaning?.caution_points),
+        detail: hasDetail ? detail : null,
+      };
+    }),
+    scores: {
+      element: finiteScore(fourFrame.elementScore),
+      luck: finiteScore(fourFrame.luckScore),
+      final: finiteScore(springReport?.namingReport?.scores?.fourFrame),
+    },
     state: deriveFramesTrack(fourFrame).state,
   };
 }
@@ -329,6 +491,7 @@ function buildHarmony(springReport, fortuneReport) {
       elementNoun: ELEMENT_NOUN[resourceElement] || null,
       soundElement,
       soundElementNoun: ELEMENT_NOUN[soundElement] || null,
+      polarityKo: polarityKo(hanjaBlock.polarity),
       relation: relationToTarget(resourceElement, yongshin),
     };
   });
@@ -399,8 +562,14 @@ function buildStats(springReport) {
     ? springReport.nameGender
     : null;
   const nameTrend = springReport?.nameTrend || null;
-  if (popularityRank === null && maleRatio === null && !nameGender && !nameTrend) return null;
-  return { popularityRank, maleRatio, nameGender, nameTrend };
+  // The section queries the name-stat DB itself for the deep series
+  // (yearly births/ranks, similar names, gender split) — it needs the
+  // evaluated given name as the lookup key.
+  const givenHangul = entriesOf(springReport?.namingReport?.name?.givenName)
+    .map((char) => textOf(char.hangul) || '')
+    .join('') || null;
+  if (popularityRank === null && maleRatio === null && !nameGender && !nameTrend && !givenHangul) return null;
+  return { popularityRank, maleRatio, nameGender, nameTrend, givenHangul };
 }
 
 function buildBasis(springReport, fortuneReport, vm) {
@@ -415,6 +584,14 @@ function buildBasis(springReport, fortuneReport, vm) {
       value: vm.frames.frames
         .map((frame) => `${frame.label} ${frame.strokeSum ?? '—'}${frame.luckyLevelText ? ` (${frame.luckyLevelText})` : ''}`)
         .join(' · '),
+    });
+  }
+  if (vm.nameScores) {
+    rows.push({
+      term: '이름 점수 구성',
+      value: `${vm.nameScores.parts
+        .map((part) => `${part.label} ${part.final ?? '—'}`)
+        .join(' · ')} — 종합 ${vm.nameScores.total}점`,
     });
   }
   if (vm.saju?.dayMaster) {
@@ -447,6 +624,8 @@ export function buildCombinedViewModel({ springReport, fortuneReport, entryUserI
   const hero = buildHero(springReport, fortuneReport, entryUserInfo);
   const vm = {
     hero,
+    scene: buildScene(springReport),
+    nameScores: buildNameScores(springReport),
     flow: buildFlow(springReport),
     frames: buildFrames(springReport),
     saju: buildSaju(springReport, fortuneReport),
