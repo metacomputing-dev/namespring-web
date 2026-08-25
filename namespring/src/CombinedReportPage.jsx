@@ -117,7 +117,6 @@ function CombinedReportPage({
               springReport={springReport}
               fortuneReport={report}
               entryUserInfo={entryUserInfo}
-              onOpenNamingReport={onOpenNamingReport}
               onOpenSajuReport={onOpenSajuReport}
               onOpenPremium={onOpenPremium}
               onRecommend={onBackCandidates}

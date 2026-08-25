@@ -19,7 +19,14 @@ export function SoundFlowSection({ flow }) {
     flow.edges.map((edge) => edge?.label).filter(Boolean).join(' · '),
     flow.elementScore !== null ? `오행 조화 ${flow.elementScore}/100` : null,
     flow.polarityScore !== null ? `음양 균형 ${flow.polarityScore}/100` : null,
+    flow.finalScore !== null ? `한글 종합 ${flow.finalScore}/100` : null,
   ].filter(Boolean).join(' — ');
+  const polarityCounts = flow.nodes.reduce((acc, node) => {
+    if (node.polarityKo === '양') acc.positive += 1;
+    if (node.polarityKo === '음') acc.negative += 1;
+    return acc;
+  }, { positive: 0, negative: 0 });
+  const hasPolarity = polarityCounts.positive + polarityCounts.negative > 0;
   return (
     <RevealOnScroll as="section" id="sec-sound" className="scroll-mt-32 pt-14">
       <div className="rounded-[2rem] bg-bezel p-1.5 shadow-[var(--shadow-float)]">
@@ -35,7 +42,10 @@ export function SoundFlowSection({ flow }) {
                     {node.hangul}
                   </span>
                   <span className="rounded-full bg-[var(--el-bg)] px-2.5 py-0.5 text-2xs font-bold text-[var(--el)]">
-                    {node.onset ? `${node.onset} · ` : ''}{node.elementNoun || '—'}
+                    <TierText
+                      plain={`${node.onset ? `${node.onset} · ` : ''}${node.elementNoun || '—'}`}
+                      expert={`${node.onset ? `${node.onset} · ` : ''}${node.elementNoun || '—'}${node.polarityKo ? ` · ${node.polarityKo}` : ''}`}
+                    />
                   </span>
                 </div>
                 {index < flow.nodes.length - 1 && flow.edges[index] ? (
@@ -66,6 +76,11 @@ export function SoundFlowSection({ flow }) {
               plain={STATE_NOTES[flow.state] || STATE_NOTES.mixed}
               expert={expertSummary || STATE_NOTES[flow.state]}
             />
+            {hasPolarity ? (
+              <p className="tier-plain mt-2 text-sm text-inkfaint">
+                소리의 음양은 양 {polarityCounts.positive} · 음 {polarityCounts.negative}으로 이루어져 있어요.
+              </p>
+            ) : null}
           </div>
         </div>
       </div>

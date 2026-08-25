@@ -33,7 +33,14 @@ export function HarmonySection({ harmony }) {
                 <div className="cr-v3-invert-chip__face">
                   <div className="flex items-baseline gap-3">
                     <b className="font-serif text-3xl">{char.hanja || char.hangul}</b>
-                    {char.meaning ? <span className="text-xs text-inksoft">{char.meaning}</span> : null}
+                    <span className="flex items-baseline gap-2 text-xs text-inksoft">
+                      {char.meaning ? <span>{char.meaning}</span> : null}
+                      {char.strokes !== null ? (
+                        <span className="text-inkfaint" style={{ fontVariantNumeric: 'tabular-nums' }}>
+                          {char.strokes}획
+                        </span>
+                      ) : null}
+                    </span>
                   </div>
                   <div className="mt-3.5 flex flex-wrap gap-1.5">
                     {char.soundElementNoun ? (
@@ -54,6 +61,11 @@ export function HarmonySection({ harmony }) {
                       )}
                       >
                         자원 {char.elementNoun}
+                      </span>
+                    ) : null}
+                    {char.polarityKo ? (
+                      <span className="rounded-full bg-cream px-2.5 py-1 text-2xs font-bold text-inksoft">
+                        획수 {char.polarityKo}
                       </span>
                     ) : null}
                     {char.relation ? (

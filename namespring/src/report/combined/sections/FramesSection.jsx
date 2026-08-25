@@ -8,14 +8,90 @@ const GRADE_CHIP = {
   adverse: 'bg-rosesoft text-rose2',
 };
 
+function DetailMetaRow({ term, value }) {
+  if (!value) return null;
+  return (
+    <div className="flex gap-3 text-sm leading-relaxed">
+      <dt className="w-16 flex-none font-bold text-inkfaint">{term}</dt>
+      <dd className="text-inksoft">{value}</dd>
+    </div>
+  );
+}
+
+function FrameDetail({ frame }) {
+  if (!frame.detail) return null;
+  const detail = frame.detail;
+  const metaRows = [
+    { term: '성향', value: detail.personality.length ? detail.personality.join(', ') : null },
+    { term: '적성 분야', value: detail.careers.length ? detail.careers.join(', ') : null },
+    { term: '기회 영역', value: detail.opportunity },
+    { term: '도전 구간', value: detail.challenge },
+    { term: '특징', value: detail.special },
+  ].filter((row) => row.value);
+  return (
+    <details className="cr-v3-disclosure mt-3 rounded-2xl border border-hairline bg-card/70 px-4 py-3">
+      <summary>
+        <span className="text-xs font-bold text-inksoft">자세한 풀이 보기</span>
+      </summary>
+      <div className="mt-3 space-y-3 border-t border-hairline pt-3">
+        {detail.explanation ? (
+          <p className="text-sm leading-relaxed text-inksoft">{detail.explanation}</p>
+        ) : null}
+        {detail.positives ? (
+          <div className="rounded-2xl bg-sagesoft px-4 py-3">
+            <b className="block text-2xs font-bold uppercase tracking-[0.1em] text-sage">강점</b>
+            <p className="mt-1 text-sm leading-relaxed text-inksoft">{detail.positives}</p>
+          </div>
+        ) : null}
+        {detail.cautions ? (
+          <div className="rounded-2xl bg-rosesoft px-4 py-3">
+            <b className="block text-2xs font-bold uppercase tracking-[0.1em] text-rose2">유의점</b>
+            <p className="mt-1 text-sm leading-relaxed text-inksoft">{detail.cautions}</p>
+          </div>
+        ) : null}
+        {metaRows.length ? (
+          <dl className="space-y-1.5">
+            {metaRows.map((row) => (
+              <DetailMetaRow key={row.term} term={row.term} value={row.value} />
+            ))}
+          </dl>
+        ) : null}
+      </div>
+    </details>
+  );
+}
+
 export function FramesSection({ frames }) {
   if (!frames) return null;
+  const scoreChips = [
+    frames.scores?.luck !== null && frames.scores?.luck !== undefined
+      ? `길흉 ${frames.scores.luck}/100` : null,
+    frames.scores?.element !== null && frames.scores?.element !== undefined
+      ? `오행 ${frames.scores.element}/100` : null,
+    frames.scores?.final !== null && frames.scores?.final !== undefined
+      ? `수리 종합 ${frames.scores.final}/100` : null,
+  ].filter(Boolean);
   return (
     <RevealOnScroll as="section" id="sec-frames" className="scroll-mt-32 pt-14">
       <div className="rounded-[2rem] border border-hairline bg-parchment/60 p-6 sm:p-8">
         <p className="mb-1 text-2xs font-medium uppercase tracking-[0.15em] text-sage">이름 분석 02</p>
         <h2 className="font-serif text-xl font-bold tracking-tight sm:text-2xl">획수(수리) 분석</h2>
         <p className="mt-1 text-xs text-inkfaint">획수 조합으로 인생 네 시기의 흐름을 보는 수리사격이에요</p>
+        {scoreChips.length ? (
+          <ExpertOnly>
+            <div className="mt-4 flex flex-wrap gap-1.5">
+              {scoreChips.map((chip) => (
+                <span
+                  key={chip}
+                  className="rounded-full border border-hairline bg-card px-3 py-1 text-2xs font-bold text-inksoft"
+                  style={{ fontVariantNumeric: 'tabular-nums' }}
+                >
+                  {chip}
+                </span>
+              ))}
+            </div>
+          </ExpertOnly>
+        ) : null}
         {frames.charStrokes ? (
           <p className="mt-5 rounded-2xl bg-card/70 px-4 py-2.5 text-center text-xs text-inksoft">
             원획 기준{' '}
@@ -33,15 +109,34 @@ export function FramesSection({ frames }) {
                 </span>
               </div>
               {frame.period ? <p className="mt-0.5 text-xs text-inkfaint">{frame.period}의 흐름</p> : null}
-              {frame.luckyLevelText ? (
-                <span className={cx(
-                  'mt-3 inline-block rounded-full px-3 py-1 text-xs font-bold',
-                  GRADE_CHIP[frame.grade] || 'bg-[var(--color-neutral-bg)] text-[var(--color-neutral)]',
-                )}
-                >
-                  {frame.luckyLevelText}
-                </span>
-              ) : null}
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {frame.luckyLevelText ? (
+                  <span className={cx(
+                    'inline-block rounded-full px-3 py-1 text-xs font-bold',
+                    GRADE_CHIP[frame.grade] || 'bg-[var(--color-neutral-bg)] text-[var(--color-neutral)]',
+                  )}
+                  >
+                    {frame.luckyLevelText}
+                  </span>
+                ) : null}
+                <ExpertOnly>
+                  {frame.elementKo ? (
+                    <span className={cx(
+                      'inline-block rounded-full px-2.5 py-1 text-xs font-bold',
+                      `cr-v3-el-${frame.element || 'neutral'}`,
+                      'bg-[var(--el-bg)] text-[var(--el)]',
+                    )}
+                    >
+                      {frame.elementKo}
+                    </span>
+                  ) : null}
+                  {frame.polarityKo ? (
+                    <span className="inline-block rounded-full bg-parchment px-2.5 py-1 text-xs font-bold text-inksoft">
+                      {frame.polarityKo}
+                    </span>
+                  ) : null}
+                </ExpertOnly>
+              </div>
             </div>
           ))}
         </div>
@@ -61,6 +156,7 @@ export function FramesSection({ frames }) {
                     <p className="mt-1 text-sm text-inkfaint">{frame.cautionPoints}</p>
                   ) : null}
                 </ExpertOnly>
+                <FrameDetail frame={frame} />
               </div>
             ) : null
           ))}

@@ -44,7 +44,6 @@ function buildRailItems(vm) {
 function CombinedReportV2Body({
   vm,
   entryUserInfo,
-  onOpenNamingReport,
   onOpenSajuReport,
   onOpenPremium,
   onRecommend,
@@ -66,15 +65,19 @@ function CombinedReportV2Body({
   } = useReportActions({
     reportRootRef,
     shareUserInfo: entryUserInfo,
+    // The PDF must include every collapsed disclosure (frame detail
+    // readings, the basis section), so open them all and restore after.
     prepareBeforePrint: () => {
-      const details = basisDetailsRef.current;
-      const wasOpen = Boolean(details?.open);
-      if (details) details.open = true;
-      return { wasOpen };
+      const nodes = Array.from(reportRootRef.current?.querySelectorAll('details') || []);
+      const openStates = nodes.map((node) => node.open);
+      nodes.forEach((node) => { node.open = true; });
+      return { openStates };
     },
     restoreAfterPrint: (payload) => {
-      const details = basisDetailsRef.current;
-      if (details) details.open = Boolean(payload?.wasOpen);
+      const nodes = Array.from(reportRootRef.current?.querySelectorAll('details') || []);
+      nodes.forEach((node, index) => {
+        node.open = Boolean(payload?.openStates?.[index]);
+      });
     },
   });
 
@@ -92,6 +95,7 @@ function CombinedReportV2Body({
 
       <HeroSection
         hero={vm.hero}
+        scene={vm.scene}
         uncertaintyMessage={vm.saju?.uncertaintyMessage || null}
         onSelectTrack={scrollToSection}
       />
@@ -101,6 +105,7 @@ function CombinedReportV2Body({
       <HarmonySection harmony={vm.harmony} />
       <FinalSection
         final={vm.final}
+        nameScores={vm.nameScores}
         isPremiumUnlocked={isPremiumUnlocked}
         onShare={handleOpenShareDialog}
         onRecommend={onRecommend}
@@ -109,21 +114,16 @@ function CombinedReportV2Body({
       <NameStatsSection stats={vm.stats} />
       <BasisSection ref={basisDetailsRef} basis={vm.basis} />
 
-      <div className="cr-v3-section" data-pdf-exclude="true">
-        <p className="cr-v3-kicker">More</p>
-        <div className="mt-2 flex flex-wrap gap-3">
-          {typeof onOpenNamingReport === 'function' ? (
-            <button type="button" className="ns-secondary-button" onClick={onOpenNamingReport}>
-              이름 평가 보고서 보기
-            </button>
-          ) : null}
-          {typeof onOpenSajuReport === 'function' ? (
+      {typeof onOpenSajuReport === 'function' ? (
+        <div className="cr-v3-section" data-pdf-exclude="true">
+          <p className="cr-v3-kicker">More</p>
+          <div className="mt-2 flex flex-wrap gap-3">
             <button type="button" className="ns-secondary-button" onClick={onOpenSajuReport}>
               사주 평가 보고서 보기
             </button>
-          ) : null}
+          </div>
         </div>
-      </div>
+      ) : null}
 
       <ReportActionButtons
         isPdfSaving={isPdfSaving}
