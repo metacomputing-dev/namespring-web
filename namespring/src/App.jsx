@@ -93,8 +93,24 @@ function loadSharedEntryUserInfo() {
 }
 
 function loadInitialAppState() {
+  // Share links land on the combined report — it carries the full naming
+  // evaluation now, so the standalone naming report is no longer the target.
   const sharedEntryUserInfo = loadSharedEntryUserInfo();
   if (sharedEntryUserInfo) {
+    const givenName = toSpringNameChars(sharedEntryUserInfo.firstName);
+    if (givenName.length) {
+      return {
+        entryUserInfo: sharedEntryUserInfo,
+        page: 'combined-report',
+        selectedCandidateSummary: {
+          givenName,
+          fullHangul: `${sharedEntryUserInfo.lastNameText}${sharedEntryUserInfo.firstNameText}`,
+          fullHanja: [...sharedEntryUserInfo.lastName, ...sharedEntryUserInfo.firstName]
+            .map((entry) => String(entry?.hanja ?? ''))
+            .join(''),
+        },
+      };
+    }
     return {
       entryUserInfo: sharedEntryUserInfo,
       page: 'report',
@@ -353,7 +369,9 @@ function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [minSplashElapsed, setMinSplashElapsed] = useState(false);
   const [entryUserInfo, setEntryUserInfo] = useState(initialAppState.entryUserInfo);
-  const [selectedCandidateSummary, setSelectedCandidateSummary] = useState(null);
+  const [selectedCandidateSummary, setSelectedCandidateSummary] = useState(
+    initialAppState.selectedCandidateSummary ?? null,
+  );
   const [page, setPage] = useState(initialAppState.page);
   const hanjaRepo = useMemo(() => new HanjaRepository(), []);
   const springEngine = useMemo(() => new SpringEngine(), []);
