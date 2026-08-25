@@ -20,8 +20,13 @@ import {
 import { AnchorRail } from './components/report/AnchorRail.jsx';
 import { BezelCard } from './components/ui/BezelCard.jsx';
 import { RevealOnScroll } from './components/ui/RevealOnScroll.jsx';
+import {
+  TOTAL_NAME_STATS_COUNT,
+  getPopularityTrendLabel,
+  mergeYearlyBirthBuckets,
+  mergeYearlyRankBuckets,
+} from './report/name-stat-utils.js';
 
-const TOTAL_NAME_STATS_COUNT = 50194;
 const ELEMENT_ORDER = ['Wood', 'Fire', 'Earth', 'Metal', 'Water'];
 
 const NR_RAIL_ITEMS = [
@@ -125,85 +130,6 @@ function getScoreGrade(score) {
   if (score >= 70) return '안정적인 균형의 이름';
   if (score >= 55) return '무난한 흐름의 이름';
   return '보완이 필요한 이름';
-}
-
-function mergeYearlyBirthBuckets(yearlyBirth) {
-  const source = yearlyBirth || {};
-  const totalBucket = source?.전체;
-  if (totalBucket && typeof totalBucket === 'object' && !Array.isArray(totalBucket)) {
-    return Object.entries(totalBucket)
-      .map(([year, value]) => ({ year: Number(year), value: Number(value) }))
-      .filter((item) => !Number.isNaN(item.year) && !Number.isNaN(item.value))
-      .sort((a, b) => a.year - b.year);
-  }
-
-  const byYear = {};
-  for (const [key, bucket] of Object.entries(source)) {
-    const flatYear = Number(key);
-    const flatValue = Number(bucket);
-    if (!Number.isNaN(flatYear) && !Number.isNaN(flatValue)) {
-      byYear[flatYear] = (byYear[flatYear] || 0) + flatValue;
-      continue;
-    }
-    if (!bucket || typeof bucket !== 'object') continue;
-    for (const [year, value] of Object.entries(bucket)) {
-      const y = Number(year);
-      const v = Number(value);
-      if (Number.isNaN(y) || Number.isNaN(v)) continue;
-      byYear[y] = (byYear[y] || 0) + v;
-    }
-  }
-  return Object.entries(byYear)
-    .map(([year, value]) => ({ year: Number(year), value: Number(value) }))
-    .sort((a, b) => a.year - b.year);
-}
-
-function mergeYearlyRankBuckets(yearlyRank) {
-  const source = yearlyRank || {};
-  const totalBucket = source?.전체;
-  if (totalBucket && typeof totalBucket === 'object' && !Array.isArray(totalBucket)) {
-    return Object.entries(totalBucket)
-      .map(([year, rank]) => ({ year: Number(year), rank: Number(rank) }))
-      .filter((item) => !Number.isNaN(item.year) && !Number.isNaN(item.rank))
-      .sort((a, b) => a.year - b.year);
-  }
-
-  const byYear = {};
-  for (const [key, bucket] of Object.entries(source)) {
-    const flatYear = Number(key);
-    const flatValue = Number(bucket);
-    if (!Number.isNaN(flatYear) && !Number.isNaN(flatValue)) {
-      byYear[flatYear] = byYear[flatYear] || [];
-      byYear[flatYear].push(flatValue);
-      continue;
-    }
-    if (!bucket || typeof bucket !== 'object') continue;
-    for (const [year, value] of Object.entries(bucket)) {
-      const y = Number(year);
-      const v = Number(value);
-      if (Number.isNaN(y) || Number.isNaN(v)) continue;
-      byYear[y] = byYear[y] || [];
-      byYear[y].push(v);
-    }
-  }
-  return Object.entries(byYear)
-    .map(([year, arr]) => {
-      const values = Array.isArray(arr) ? arr : [];
-      const avg = values.length ? values.reduce((s, v) => s + v, 0) / values.length : 0;
-      return { year: Number(year), rank: avg };
-    })
-    .sort((a, b) => a.year - b.year);
-}
-
-function getPopularityTrendLabel(rankSeries) {
-  if (!rankSeries.length) return '';
-  const recent = rankSeries.slice(-10);
-  if (recent.length < 2) return '';
-  const first = recent[0].rank;
-  const last = recent[recent.length - 1].rank;
-  if (last < first) return '상승중';
-  if (last > first) return '하락중';
-  return '유지';
 }
 
 function YearlySeriesChart({
