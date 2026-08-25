@@ -1,9 +1,11 @@
 import React from 'react';
 import { RevealOnScroll } from '../../../components/ui/RevealOnScroll.jsx';
 import { HeroName } from '../../../components/report/HeroName.jsx';
+import { ElementScene } from '../../../components/report/ElementScene.jsx';
+import { ElementFillChart } from '../../../components/report/ElementFillChart.jsx';
 import { StateDot } from '../../../components/report/ReportV3Bits.jsx';
 
-export function HeroSection({ hero, uncertaintyMessage, onSelectTrack }) {
+export function HeroSection({ hero, scene, uncertaintyMessage, onSelectTrack }) {
   return (
     <RevealOnScroll as="header" id="sec-hero" className="mb-6 text-center">
       {uncertaintyMessage ? (
@@ -20,6 +22,25 @@ export function HeroSection({ hero, uncertaintyMessage, onSelectTrack }) {
         ? hero.chars.map((char) => char.hanja).join(' ')
         : null}
       />
+      {hero.identity ? (
+        <p className="mt-3 text-xs text-inkfaint" style={{ fontVariantNumeric: 'tabular-nums' }}>
+          {hero.identity.gender ? (
+            <span className="mr-2 rounded-full border border-hairline px-2 py-0.5 font-bold">
+              {hero.identity.gender}
+            </span>
+          ) : null}
+          {hero.identity.text}
+        </p>
+      ) : null}
+      {scene?.saju ? (
+        <ElementFillChart scene={scene} className="mx-auto mt-6 max-w-md" />
+      ) : scene ? (
+        <ElementScene
+          scene={scene}
+          caption="이름에 담긴 기운 풍경이에요 — 오행은 한자(자원), 음양은 소리(한글) 기준이에요."
+          className="mx-auto mt-6 max-w-md"
+        />
+      ) : null}
       {hero.verdictSentence ? (
         <p className="mx-auto mt-7 max-w-[26ch] font-serif text-xl font-semibold leading-snug sm:text-2xl">
           {hero.verdictSentence}

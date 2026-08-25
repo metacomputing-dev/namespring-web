@@ -116,6 +116,22 @@
   background: var(--el, var(--color-accent));
 }
 
+/* Element landscape scene (hero) — sky tint follows the polarity balance
+   and stays token-driven so light/dark themes both hold. */
+
+.cr-v3-scene__canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-card-lg);
+  border: var(--rule-thin) solid var(--color-rule);
+  background: var(--scene-sky, var(--color-paper-3));
+}
+
+.cr-v3-scene--day { --scene-sky: color-mix(in oklch, var(--color-warn) 20%, var(--color-paper)); }
+.cr-v3-scene--night { --scene-sky: color-mix(in oklch, var(--color-water) 40%, color-mix(in oklch, var(--color-ink) 14%, var(--color-paper))); }
+.cr-v3-scene--dusk { --scene-sky: color-mix(in oklch, var(--color-neutral) 14%, var(--color-paper)); }
+
 /* Hero */
 
 .cr-v3-hero__name {
