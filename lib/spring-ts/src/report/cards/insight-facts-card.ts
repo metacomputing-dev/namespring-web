@@ -16,7 +16,7 @@
 import type { SajuSummary } from '../../types.js';
 import { getInsightInterpretation, type InsightInterpretation } from '../tiered/insight-registry.js';
 import { SHINSAL_ENCYCLOPEDIA } from '../knowledge/shinsalEncyclopedia.js';
-import { STEM_BY_CODE, BRANCH_BY_CODE } from '../common/elementMaps.js';
+import { STEM_BY_CODE, BRANCH_BY_CODE, TEN_GOD_BY_CODE } from '../common/elementMaps.js';
 import {
   daeunDisplayOffset,
   resolveDaeunDisplayInterval,
@@ -256,9 +256,14 @@ export function buildInsightFactsCard(saju: SajuSummary): InsightFactsCard | nul
   // ── 격국 성패 (PR-6: verdict + 순용/역용 + 상신 원값) ──
   const seongpae = saju.gyeokguk?.seongpae;
   if (seongpae?.verdict && seongpae?.usage) {
+    // sangshin arrives as a ten-god enum (e.g. PYEON_GWAN) — show the
+    // Korean name; fall back to the raw value for unknown codes.
+    const sangshinKorean = seongpae.sangshin
+      ? TEN_GOD_BY_CODE[seongpae.sangshin]?.korean ?? seongpae.sangshin
+      : null;
     const detail = [
       usageLabel(seongpae.usage),
-      seongpae.sangshin ? `상신 ${seongpae.sangshin}` : null,
+      sangshinKorean ? `상신 ${sangshinKorean}` : null,
     ].filter(Boolean).join(' · ');
     facts.push(withInterpretation({
       factId: `gyeokgukSeongpae.${seongpae.verdict}.${seongpae.usage}`,
