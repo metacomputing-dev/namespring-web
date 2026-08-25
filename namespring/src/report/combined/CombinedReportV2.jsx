@@ -16,6 +16,7 @@ import { FramesSection } from './sections/FramesSection.jsx';
 import { SajuSummarySection } from './sections/SajuSummarySection.jsx';
 import { HarmonySection } from './sections/HarmonySection.jsx';
 import { FinalSection } from './sections/FinalSection.jsx';
+import { PremiumSection } from './sections/PremiumSection.jsx';
 import { NameStatsSection } from './sections/NameStatsSection.jsx';
 import { BasisSection } from './sections/BasisSection.jsx';
 
@@ -43,6 +44,7 @@ function buildRailItems(vm) {
 
 function CombinedReportV2Body({
   vm,
+  fortuneReport,
   entryUserInfo,
   onOpenSajuReport,
   onOpenPremium,
@@ -106,9 +108,12 @@ function CombinedReportV2Body({
       <FinalSection
         final={vm.final}
         nameScores={vm.nameScores}
-        isPremiumUnlocked={isPremiumUnlocked}
         onShare={handleOpenShareDialog}
         onRecommend={onRecommend}
+      />
+      <PremiumSection
+        fortuneReport={fortuneReport}
+        isUnlocked={isPremiumUnlocked}
         onOpenPremium={onOpenPremium}
       />
       <NameStatsSection stats={vm.stats} />

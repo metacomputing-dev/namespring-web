@@ -72,7 +72,7 @@ function NameScorePanel({ nameScores }) {
   );
 }
 
-export function FinalSection({ final, nameScores, isPremiumUnlocked, onShare, onRecommend, onOpenPremium }) {
+export function FinalSection({ final, nameScores, onShare, onRecommend }) {
   const closing = final.closing;
   return (
     <RevealOnScroll as="section" id="sec-final" className="scroll-mt-32 pt-14">
@@ -135,11 +135,6 @@ export function FinalSection({ final, nameScores, isPremiumUnlocked, onShare, on
             <span className="ns-cta-pill__puck" aria-hidden="true">→</span>
           </button>
         )}
-        {!isPremiumUnlocked && typeof onOpenPremium === 'function' ? (
-          <button type="button" className="ns-cta-pill ns-cta-pill--ghost" onClick={onOpenPremium}>
-            통합 리포트 완성하기
-          </button>
-        ) : null}
       </div>
     </RevealOnScroll>
   );
