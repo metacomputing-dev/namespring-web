@@ -148,16 +148,16 @@ function NameStatsBody({ stats }) {
   const tiles = [];
   if (currentRank) {
     tiles.push({
-      label: '출생신고 인기',
+      label: '인기 순위',
       value: `${Math.round(currentRank).toLocaleString()}위`,
       caption: `전체 ${TOTAL_NAME_STATS_COUNT.toLocaleString()}개 이름 중`,
     });
   }
   if (db.found && db.bestRank > 0 && db.bestYear > 0) {
     tiles.push({
-      label: '가장 높았던 해',
+      label: '역대 최고 순위',
       value: `${Math.round(db.bestRank).toLocaleString()}위`,
-      caption: `${db.bestYear}년`,
+      caption: `${db.bestYear}년 기록`,
     });
   }
   if (stats.nameGender) {

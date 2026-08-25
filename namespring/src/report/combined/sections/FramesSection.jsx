@@ -75,7 +75,7 @@ export function FramesSection({ frames }) {
     <RevealOnScroll as="section" id="sec-frames" className="scroll-mt-32 pt-14">
       <div className="rounded-[2rem] border border-hairline bg-parchment/60 p-6 sm:p-8">
         <p className="mb-1 text-2xs font-medium uppercase tracking-[0.15em] text-sage">이름 분석 02</p>
-        <h2 className="font-serif text-xl font-bold tracking-tight sm:text-2xl">획수(수리) 분석</h2>
+        <h2 className="font-serif text-xl font-bold tracking-tight sm:text-2xl">획수 분석</h2>
         <p className="mt-1 text-xs text-inkfaint">획수 조합으로 인생 네 시기의 흐름을 보는 수리사격이에요</p>
         {scoreChips.length ? (
           <ExpertOnly>
@@ -145,7 +145,7 @@ export function FramesSection({ frames }) {
             frame.summary ? (
               <div key={`${frame.type}-text`}>
                 <h3 className="text-xs font-bold tracking-[0.04em] text-inkfaint">
-                  {frame.label}{frame.title ? ` · ${frame.title}` : ''}
+                  {frame.label}{frame.period ? ` (${frame.period})` : ''}{frame.title ? ` · ${frame.title}` : ''}
                 </h3>
                 <p className="mt-1">{frame.summary}</p>
                 <ExpertOnly>
